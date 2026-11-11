@@ -1,0 +1,3 @@
+APROBADO: CppTrigJetPack
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpptrigjetpack\20261111-124244-498080

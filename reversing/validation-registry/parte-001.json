@@ -65096,7 +65096,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexKillPedOnFootStealth::Clone"
@@ -65107,16 +65107,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65149,7 +65149,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexKillPedOnFootStealth::Constructor"
@@ -65160,16 +65160,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65202,7 +65202,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexKillPedOnFootStealth::ControlSubTask"
@@ -65213,16 +65213,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65255,7 +65255,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexKillPedOnFootStealth::CreateFirstSubTask"
@@ -65266,16 +65266,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65308,7 +65308,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexKillPedOnFootStealth::CreateNextSubTask"
@@ -65319,16 +65319,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65361,7 +65361,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexKillPedOnFootStealth::Destructor"
@@ -65372,16 +65372,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65414,7 +65414,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexKillPedOnFootStealth::GetTaskType"
@@ -65425,16 +65425,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65467,7 +65467,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveAnyCar::Clone"
@@ -65478,16 +65478,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65520,7 +65520,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveAnyCar::Constructor"
@@ -65531,16 +65531,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65573,7 +65573,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveAnyCar::ControlSubTask"
@@ -65584,16 +65584,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65626,7 +65626,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveAnyCar::CreateFirstSubTask"
@@ -65637,16 +65637,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65679,7 +65679,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveAnyCar::CreateNextSubTask"
@@ -65690,16 +65690,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65732,7 +65732,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveAnyCar::Destructor"
@@ -65743,16 +65743,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65785,7 +65785,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveAnyCar::GetTaskType"
@@ -65796,16 +65796,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65838,7 +65838,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPartnerGreet::Clone"
@@ -65849,16 +65849,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65891,7 +65891,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPartnerGreet::Constructor"
@@ -65902,16 +65902,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65944,7 +65944,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPartnerGreet::CreateFirstSubTask"
@@ -65955,16 +65955,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -65997,7 +65997,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPartnerGreet::Destructor"
@@ -66008,16 +66008,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66050,7 +66050,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPartnerGreet::GetPartnerSequence"
@@ -66061,16 +66061,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66103,7 +66103,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPartnerGreet::GetTaskType"
@@ -66114,16 +66114,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66156,7 +66156,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPartnerGreet::StreamRequiredAnims"
@@ -66167,16 +66167,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66209,7 +66209,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityAiming::Clone"
@@ -66220,16 +66220,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66262,7 +66262,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityAiming::Constructor"
@@ -66273,16 +66273,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66315,7 +66315,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityAiming::ControlSubTask"
@@ -66326,16 +66326,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66368,7 +66368,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityAiming::CreateFirstSubTask"
@@ -66379,16 +66379,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66421,7 +66421,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityAiming::CreateNextSubTask"
@@ -66432,16 +66432,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66474,7 +66474,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityAiming::Destructor"
@@ -66485,16 +66485,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66527,7 +66527,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityAiming::GetTaskType"
@@ -66538,16 +66538,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66580,7 +66580,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSmartFleeEntity::Clone"
@@ -66591,16 +66591,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66633,7 +66633,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSmartFleeEntity::Constructor"
@@ -66644,16 +66644,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66686,7 +66686,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSmartFleeEntity::ControlSubTask"
@@ -66697,16 +66697,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66739,7 +66739,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSmartFleeEntity::CreateFirstSubTask"
@@ -66750,16 +66750,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66792,7 +66792,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSmartFleeEntity::CreateNextSubTask"
@@ -66803,16 +66803,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66845,7 +66845,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSmartFleeEntity::Destructor"
@@ -66856,16 +66856,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -66898,7 +66898,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks7b/validation-summary-reval-20261019.json",
-        "sha256": "c7dbd97e096ba5fcb72713db9205913e73b0971bb17494ccd89846d15016dd80",
+        "sha256": "f03f741f38cd3ab3dbf92d5ca77428c0ab5e54ed2bccb91505d4d5dac8b14597",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSmartFleeEntity::GetTaskType"
@@ -66909,16 +66909,16 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "6a09bc29c3400160c7a6798929e56937e363511002419812d9e1138d679658db",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "d798e1853ec2653284cd15b26b5fefccd89a322be9145ae5d7a9363b8dc7099e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "f82afa8a011bf401d1c76f6be550fcc4daf799110e2002cc45bd10c658dd3e55",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "211063287684fe7b27898cc395cbd30194f777d5c6ef4958562dcdc9890d0578",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -119374,7 +119374,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::Constructor"
@@ -119403,7 +119403,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::Destructor"
@@ -119432,7 +119432,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::GetActiveTask"
@@ -119461,7 +119461,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::FindActiveTaskByType"
@@ -119490,7 +119490,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::FindTaskByType"
@@ -119519,7 +119519,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::HasTaskSecondary"
@@ -119548,7 +119548,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::Flush"
@@ -119577,7 +119577,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::FlushImmediately"
@@ -119606,7 +119606,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::SetNextSubTask"
@@ -119635,7 +119635,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::StopTimers"
@@ -119664,7 +119664,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::GetSimplestActiveTask"
@@ -119693,7 +119693,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::AddSubTasks"
@@ -119722,7 +119722,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::ParentsControlChildren"
@@ -119751,7 +119751,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::SetTask"
@@ -119780,7 +119780,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::SetTaskSecondary"
@@ -119809,7 +119809,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::ClearTaskEventResponse"
@@ -119838,7 +119838,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "23103b87b413dc41314362d916ba5645613aed4e913774063811bfe91121c5bf",
+        "sha256": "d5e07797a836955b8248290b5b057cc5cd8e943373e205d5e8f3dc8aab0c463e",
         "passed_path": [
           "covered_functions",
           "CTaskManager::ManageTasks"
@@ -181250,7 +181250,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61b/validation-summary.json",
-        "sha256": "da8531c7bd9d6c5f5655898f138cd254c5b1cd56368c3551ecc41c68429f7d26",
+        "sha256": "c328f5344f0f3b47f7c686f0cd754af57f05ab32d2d1121e9dd9cf933418f753",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCriminal::Clone"
@@ -181259,21 +181259,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "e11375c29aaac1ee4af90720146269837e3d9c2de9597acb608f18e7863cdae6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "9cd9cc14b9bc66892ab306cd11afa8329cf1bf3d9c6d3dade7ad55d4f3e88247",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.h": "f38146f1df86caf78a07b7acd7bcb4b6aed23a3c5be186b1caab79a741e22ae0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp": "fb8dd2aaca7e2edde69463dbde8aad6ea54e94f96b6b44f4bc00919ec62f2279",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.h": "0a8e75e2cbceab0429b8c23525a249be3930d8b9e5af465cdedd4df47915a25a",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "f556580f037263a1d0a3e597cebd87179c377b628bc957e21bf3ce1792db1364",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "5aecac4330d4383baccea4e3370367bc67cc251f59235bb03197e990e484f14e",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "5549b2480dc3dc2821cb71ed9d9e1e004cd1fb31b6094b85a9bcde35c388b6cc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "5afda88100e6f795e35b1cd911c09f173e118c3e3287ac9e00b1da73c29f6ec1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "fdeac7ecf80b8be0e3e4060fa6ad3386599a737110b735ebd6cc7c97b5626a5e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "498e51aae630fd779f983ce2cdee4fb196cef512ed1b163bcffac0b612584afe",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h": "82bbd730ecb4a26b7207b12330163c4779fa98c542b8a60812245329189c7a2d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "c45dec7025a48f49e2c183684d86dfe96a596a61c2793bd4e585aa95cdfd5b27",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "7c00e0066d8c57aaf9c871234d92d91a1b9baa5c02769c84601943ea9a87d87b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h": "2b11017c74fa8320ad5b41895c9ccf8f54765693fe859164ae42738ae026c6cc",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "844c50f4168a6612fc302d5289f0792b7657a934705da99d7f7ed607eee3431a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "5e396a5b9ad2194f0e4d02255d3847cd188b25f4d83d44be6caad75424563d82",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h": "8003882353696c8da5abc6696d0a354b6fdfb5f6638c73ec68bb4ab8e336aaf9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "86b2fe3dc893df70948b45d71d1f2e0eabbf89d5139a90b04f52d73820dc56da",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "ca9a8c3e5f96bd56e03ef8d7db7d7b41cfc9e4b5792c1479cab8cc8bef854ea6",
         "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h": "46f871e6205cd64012a94fa1a253f9619803196705075cb5a8f739e19a7f04ef",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "7cc73625640ada03fea36c8283ae0a9c2266574a255824b9f24048e14deef960",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "2e2eab2e5b93910aaf4d39af2bcfa1e7ac869404db1521f3370438d840b44018",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h": "7be4c19913cbee1270d11f00c453ea684d3e3be2d23e20be0a732ce9e66be520",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp": "e9fbfa255cceec21fbc2e0582a7156d6bf40ff5edf895474461e763d16e86f13",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h": "d42e928aa41d040a093f37849ce18f4d4984cde1f26490519e1a9ca8af378b27"
@@ -181292,7 +181292,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61b/validation-summary.json",
-        "sha256": "da8531c7bd9d6c5f5655898f138cd254c5b1cd56368c3551ecc41c68429f7d26",
+        "sha256": "c328f5344f0f3b47f7c686f0cd754af57f05ab32d2d1121e9dd9cf933418f753",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCriminal::Constructor"
@@ -181301,21 +181301,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "e11375c29aaac1ee4af90720146269837e3d9c2de9597acb608f18e7863cdae6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "9cd9cc14b9bc66892ab306cd11afa8329cf1bf3d9c6d3dade7ad55d4f3e88247",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.h": "f38146f1df86caf78a07b7acd7bcb4b6aed23a3c5be186b1caab79a741e22ae0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp": "fb8dd2aaca7e2edde69463dbde8aad6ea54e94f96b6b44f4bc00919ec62f2279",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.h": "0a8e75e2cbceab0429b8c23525a249be3930d8b9e5af465cdedd4df47915a25a",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "f556580f037263a1d0a3e597cebd87179c377b628bc957e21bf3ce1792db1364",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "5aecac4330d4383baccea4e3370367bc67cc251f59235bb03197e990e484f14e",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "5549b2480dc3dc2821cb71ed9d9e1e004cd1fb31b6094b85a9bcde35c388b6cc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "5afda88100e6f795e35b1cd911c09f173e118c3e3287ac9e00b1da73c29f6ec1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "fdeac7ecf80b8be0e3e4060fa6ad3386599a737110b735ebd6cc7c97b5626a5e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "498e51aae630fd779f983ce2cdee4fb196cef512ed1b163bcffac0b612584afe",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h": "82bbd730ecb4a26b7207b12330163c4779fa98c542b8a60812245329189c7a2d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "c45dec7025a48f49e2c183684d86dfe96a596a61c2793bd4e585aa95cdfd5b27",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "7c00e0066d8c57aaf9c871234d92d91a1b9baa5c02769c84601943ea9a87d87b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h": "2b11017c74fa8320ad5b41895c9ccf8f54765693fe859164ae42738ae026c6cc",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "844c50f4168a6612fc302d5289f0792b7657a934705da99d7f7ed607eee3431a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "5e396a5b9ad2194f0e4d02255d3847cd188b25f4d83d44be6caad75424563d82",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h": "8003882353696c8da5abc6696d0a354b6fdfb5f6638c73ec68bb4ab8e336aaf9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "86b2fe3dc893df70948b45d71d1f2e0eabbf89d5139a90b04f52d73820dc56da",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "ca9a8c3e5f96bd56e03ef8d7db7d7b41cfc9e4b5792c1479cab8cc8bef854ea6",
         "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h": "46f871e6205cd64012a94fa1a253f9619803196705075cb5a8f739e19a7f04ef",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "7cc73625640ada03fea36c8283ae0a9c2266574a255824b9f24048e14deef960",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "2e2eab2e5b93910aaf4d39af2bcfa1e7ac869404db1521f3370438d840b44018",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h": "7be4c19913cbee1270d11f00c453ea684d3e3be2d23e20be0a732ce9e66be520",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp": "e9fbfa255cceec21fbc2e0582a7156d6bf40ff5edf895474461e763d16e86f13",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h": "d42e928aa41d040a093f37849ce18f4d4984cde1f26490519e1a9ca8af378b27"
@@ -181334,7 +181334,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61b/validation-summary.json",
-        "sha256": "da8531c7bd9d6c5f5655898f138cd254c5b1cd56368c3551ecc41c68429f7d26",
+        "sha256": "c328f5344f0f3b47f7c686f0cd754af57f05ab32d2d1121e9dd9cf933418f753",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCriminal::Destructor"
@@ -181343,21 +181343,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "e11375c29aaac1ee4af90720146269837e3d9c2de9597acb608f18e7863cdae6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "9cd9cc14b9bc66892ab306cd11afa8329cf1bf3d9c6d3dade7ad55d4f3e88247",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.h": "f38146f1df86caf78a07b7acd7bcb4b6aed23a3c5be186b1caab79a741e22ae0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp": "fb8dd2aaca7e2edde69463dbde8aad6ea54e94f96b6b44f4bc00919ec62f2279",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.h": "0a8e75e2cbceab0429b8c23525a249be3930d8b9e5af465cdedd4df47915a25a",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "f556580f037263a1d0a3e597cebd87179c377b628bc957e21bf3ce1792db1364",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "5aecac4330d4383baccea4e3370367bc67cc251f59235bb03197e990e484f14e",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "5549b2480dc3dc2821cb71ed9d9e1e004cd1fb31b6094b85a9bcde35c388b6cc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "5afda88100e6f795e35b1cd911c09f173e118c3e3287ac9e00b1da73c29f6ec1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "fdeac7ecf80b8be0e3e4060fa6ad3386599a737110b735ebd6cc7c97b5626a5e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "498e51aae630fd779f983ce2cdee4fb196cef512ed1b163bcffac0b612584afe",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h": "82bbd730ecb4a26b7207b12330163c4779fa98c542b8a60812245329189c7a2d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "c45dec7025a48f49e2c183684d86dfe96a596a61c2793bd4e585aa95cdfd5b27",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "7c00e0066d8c57aaf9c871234d92d91a1b9baa5c02769c84601943ea9a87d87b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h": "2b11017c74fa8320ad5b41895c9ccf8f54765693fe859164ae42738ae026c6cc",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "844c50f4168a6612fc302d5289f0792b7657a934705da99d7f7ed607eee3431a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "5e396a5b9ad2194f0e4d02255d3847cd188b25f4d83d44be6caad75424563d82",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h": "8003882353696c8da5abc6696d0a354b6fdfb5f6638c73ec68bb4ab8e336aaf9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "86b2fe3dc893df70948b45d71d1f2e0eabbf89d5139a90b04f52d73820dc56da",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "ca9a8c3e5f96bd56e03ef8d7db7d7b41cfc9e4b5792c1479cab8cc8bef854ea6",
         "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h": "46f871e6205cd64012a94fa1a253f9619803196705075cb5a8f739e19a7f04ef",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "7cc73625640ada03fea36c8283ae0a9c2266574a255824b9f24048e14deef960",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "2e2eab2e5b93910aaf4d39af2bcfa1e7ac869404db1521f3370438d840b44018",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h": "7be4c19913cbee1270d11f00c453ea684d3e3be2d23e20be0a732ce9e66be520",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp": "e9fbfa255cceec21fbc2e0582a7156d6bf40ff5edf895474461e763d16e86f13",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h": "d42e928aa41d040a093f37849ce18f4d4984cde1f26490519e1a9ca8af378b27"
@@ -181376,7 +181376,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61b/validation-summary.json",
-        "sha256": "da8531c7bd9d6c5f5655898f138cd254c5b1cd56368c3551ecc41c68429f7d26",
+        "sha256": "c328f5344f0f3b47f7c686f0cd754af57f05ab32d2d1121e9dd9cf933418f753",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCriminal::GetWanderType"
@@ -181385,21 +181385,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "e11375c29aaac1ee4af90720146269837e3d9c2de9597acb608f18e7863cdae6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "9cd9cc14b9bc66892ab306cd11afa8329cf1bf3d9c6d3dade7ad55d4f3e88247",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.h": "f38146f1df86caf78a07b7acd7bcb4b6aed23a3c5be186b1caab79a741e22ae0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp": "fb8dd2aaca7e2edde69463dbde8aad6ea54e94f96b6b44f4bc00919ec62f2279",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.h": "0a8e75e2cbceab0429b8c23525a249be3930d8b9e5af465cdedd4df47915a25a",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "f556580f037263a1d0a3e597cebd87179c377b628bc957e21bf3ce1792db1364",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "5aecac4330d4383baccea4e3370367bc67cc251f59235bb03197e990e484f14e",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "5549b2480dc3dc2821cb71ed9d9e1e004cd1fb31b6094b85a9bcde35c388b6cc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "5afda88100e6f795e35b1cd911c09f173e118c3e3287ac9e00b1da73c29f6ec1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "fdeac7ecf80b8be0e3e4060fa6ad3386599a737110b735ebd6cc7c97b5626a5e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "498e51aae630fd779f983ce2cdee4fb196cef512ed1b163bcffac0b612584afe",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h": "82bbd730ecb4a26b7207b12330163c4779fa98c542b8a60812245329189c7a2d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "c45dec7025a48f49e2c183684d86dfe96a596a61c2793bd4e585aa95cdfd5b27",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "7c00e0066d8c57aaf9c871234d92d91a1b9baa5c02769c84601943ea9a87d87b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h": "2b11017c74fa8320ad5b41895c9ccf8f54765693fe859164ae42738ae026c6cc",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "844c50f4168a6612fc302d5289f0792b7657a934705da99d7f7ed607eee3431a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "5e396a5b9ad2194f0e4d02255d3847cd188b25f4d83d44be6caad75424563d82",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h": "8003882353696c8da5abc6696d0a354b6fdfb5f6638c73ec68bb4ab8e336aaf9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "86b2fe3dc893df70948b45d71d1f2e0eabbf89d5139a90b04f52d73820dc56da",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "ca9a8c3e5f96bd56e03ef8d7db7d7b41cfc9e4b5792c1479cab8cc8bef854ea6",
         "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h": "46f871e6205cd64012a94fa1a253f9619803196705075cb5a8f739e19a7f04ef",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "7cc73625640ada03fea36c8283ae0a9c2266574a255824b9f24048e14deef960",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "2e2eab2e5b93910aaf4d39af2bcfa1e7ac869404db1521f3370438d840b44018",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h": "7be4c19913cbee1270d11f00c453ea684d3e3be2d23e20be0a732ce9e66be520",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp": "e9fbfa255cceec21fbc2e0582a7156d6bf40ff5edf895474461e763d16e86f13",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h": "d42e928aa41d040a093f37849ce18f4d4984cde1f26490519e1a9ca8af378b27"
@@ -181418,7 +181418,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61b/validation-summary.json",
-        "sha256": "da8531c7bd9d6c5f5655898f138cd254c5b1cd56368c3551ecc41c68429f7d26",
+        "sha256": "c328f5344f0f3b47f7c686f0cd754af57f05ab32d2d1121e9dd9cf933418f753",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCriminal::LookForCarsToSteal"
@@ -181427,21 +181427,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "e11375c29aaac1ee4af90720146269837e3d9c2de9597acb608f18e7863cdae6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "9cd9cc14b9bc66892ab306cd11afa8329cf1bf3d9c6d3dade7ad55d4f3e88247",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.h": "f38146f1df86caf78a07b7acd7bcb4b6aed23a3c5be186b1caab79a741e22ae0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp": "fb8dd2aaca7e2edde69463dbde8aad6ea54e94f96b6b44f4bc00919ec62f2279",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.h": "0a8e75e2cbceab0429b8c23525a249be3930d8b9e5af465cdedd4df47915a25a",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "f556580f037263a1d0a3e597cebd87179c377b628bc957e21bf3ce1792db1364",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "5aecac4330d4383baccea4e3370367bc67cc251f59235bb03197e990e484f14e",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "5549b2480dc3dc2821cb71ed9d9e1e004cd1fb31b6094b85a9bcde35c388b6cc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "5afda88100e6f795e35b1cd911c09f173e118c3e3287ac9e00b1da73c29f6ec1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "fdeac7ecf80b8be0e3e4060fa6ad3386599a737110b735ebd6cc7c97b5626a5e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "498e51aae630fd779f983ce2cdee4fb196cef512ed1b163bcffac0b612584afe",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h": "82bbd730ecb4a26b7207b12330163c4779fa98c542b8a60812245329189c7a2d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "c45dec7025a48f49e2c183684d86dfe96a596a61c2793bd4e585aa95cdfd5b27",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "7c00e0066d8c57aaf9c871234d92d91a1b9baa5c02769c84601943ea9a87d87b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h": "2b11017c74fa8320ad5b41895c9ccf8f54765693fe859164ae42738ae026c6cc",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "844c50f4168a6612fc302d5289f0792b7657a934705da99d7f7ed607eee3431a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "5e396a5b9ad2194f0e4d02255d3847cd188b25f4d83d44be6caad75424563d82",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h": "8003882353696c8da5abc6696d0a354b6fdfb5f6638c73ec68bb4ab8e336aaf9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "86b2fe3dc893df70948b45d71d1f2e0eabbf89d5139a90b04f52d73820dc56da",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "ca9a8c3e5f96bd56e03ef8d7db7d7b41cfc9e4b5792c1479cab8cc8bef854ea6",
         "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h": "46f871e6205cd64012a94fa1a253f9619803196705075cb5a8f739e19a7f04ef",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "7cc73625640ada03fea36c8283ae0a9c2266574a255824b9f24048e14deef960",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "2e2eab2e5b93910aaf4d39af2bcfa1e7ac869404db1521f3370438d840b44018",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h": "7be4c19913cbee1270d11f00c453ea684d3e3be2d23e20be0a732ce9e66be520",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp": "e9fbfa255cceec21fbc2e0582a7156d6bf40ff5edf895474461e763d16e86f13",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h": "d42e928aa41d040a093f37849ce18f4d4984cde1f26490519e1a9ca8af378b27"

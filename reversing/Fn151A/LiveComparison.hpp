@@ -451,7 +451,7 @@ inline void Update() {
     env.stubs[12] = {F(0x61ABE0, &FkRunTimedCtor)};
     env.stubs[15] = {F(0x61A5A0, &FkNew<0x61A5A0>), F(0x6919C0, &FkPickCtor)};
     MakeCollab(env, 0x4AC010, hooksFound);   // 0x5FF860 es `jmp 0x4AC010` y ese cuerpo de ~CEvent tiene hook ajeno: se apaga (ruta de colaborador) para que el salto lleve al codigo del EXE
-    env.stubs[16] = {U(0x5FF860, Lote151ABody_CEventEscalator(), K[16]), U(0x4B5630, Lote151ABody_CEventOperatorDelete(), &FkDelete<0x4B5630>)};
+    env.stubs[16] = {U(0x5FF860, Lote151ABody_CEventEscalator(), K[16]), H(0x4B5630, Lote151ABody_CEventOperatorDelete(), &FkDelete<0x4B5630>)};
     env.stubs[17] = {F(0x4B5620, &FkNew<0x4B5620>), F(0x4ABFC0, &FkEventCtor)};
     env.stubs[20] = {E(0x82119A, &FkNew<0x82119A>)};
     env.stubs[21] = {H(0x61A6F0, Lote150ABody_CTaskSimpleAnim(), K[21])};
