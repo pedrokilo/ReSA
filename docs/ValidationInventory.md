@@ -1,14 +1,18 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 11/11/2026 (Ciudad de México):** 884 grupos / 10050 funciones reconstruidas; 10050 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Inventario de validación de funciones reconstruidas
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **10,038 entradas reversed=1**, de 10,038 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **10,050 entradas reversed=1**, de 10,050 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 10038 |
+| `validated=1` · evidencia aprobada vinculada | 10050 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 10038 |
+| Evidencia histórica vinculada; revisión pendiente | 10050 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -957,7 +961,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAnimatedBuilding | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn140A/validation-summary.json) |
 | CAtomicModelInfo | `AsAtomicModelInfoPtr` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CAtomicModelInfo | `ConstructorBody` | [Resumen](../reversing/Fn143A/validation-summary.json) |
+| CAtomicModelInfo | `CreateInstance-rwmat` | [Resumen](../reversing/Fn161A/validation-summary.json) |
+| CAtomicModelInfo | `CreateInstance-void` | [Resumen](../reversing/Fn161A/validation-summary.json) |
 | CAtomicModelInfo | `DeleteRwObject` | [Resumen](../reversing/Models9/validation-summary.json) |
+| CAtomicModelInfo | `DestructorBody` | [Resumen](../reversing/Fn161A/validation-summary.json) |
 | CAtomicModelInfo | `GetAtomicFromDistance` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CAtomicModelInfo | `GetModelType` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CAtomicModelInfo | `GetRwModelType` | [Resumen](../reversing/Models9/validation-summary.json) |
@@ -2298,6 +2305,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCutsceneObject | `SetupCarPipeAtomicsForClump` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CCutsceneObject | `SetupLighting` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CDamageAtomicModelInfo | `AsDamageAtomicModelInfoPtr` | [Resumen](../reversing/Data23/validation-summary.json) |
+| CDamageAtomicModelInfo | `ConstructorBody` | [Resumen](../reversing/Fn161A/validation-summary.json) |
 | CDamageAtomicModelInfo | `DeleteRwObject` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CDamageAtomicModelInfo | `Init` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CDamageAtomicModelInfo | `SetDamagedAtomic` | [Resumen](../reversing/Data23/validation-summary.json) |
@@ -2403,7 +2411,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CDummy | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn130A/validation-summary.json) |
 | CDummy | `operator delete` | [Resumen](../reversing/Fn146A/validation-summary.json) |
 | CDummy | `operator new` | [Resumen](../reversing/Fn146A/validation-summary.json) |
+| CDummyObject | `Constructor` | [Resumen](../reversing/Fn161A/validation-summary.json) |
+| CDummyObject | `ConstructorFromObject` | [Resumen](../reversing/Fn161A/validation-summary.json) |
 | CDummyObject | `CreateObject` | [Resumen](../reversing/Core70/validation-summary.json) |
+| CDummyObject | `DestructorBody` | [Resumen](../reversing/Fn161A/validation-summary.json) |
 | CDummyObject | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn125A/validation-summary.json) |
 | CDummyObject | `UpdateFromObject` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CDummyPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
@@ -3525,6 +3536,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CInterestingEvents | `InvalidateEvent` | [Resumen](../reversing/RequestedRemainingLeafPair/validation-summary-event720.json) |
 | CInterestingEvents | `InvalidateNonVisibleEvents` | [Resumen](../reversing/RequestedMenuBatch/runs/visibility/20261008-112224-200531/enriched-summary.json) |
 | CInterestingEvents | `ScanForNearbyEntities` | [Resumen](../reversing/InterestingScan355/validation-summary.json) |
+| CIplDefPool | `Constructor` | [Resumen](../reversing/Fn161A/validation-summary.json) |
+| CIplDefPool | `DestructorBody` | [Resumen](../reversing/Fn161A/validation-summary.json) |
 | CIplDefPool | `New` | [Resumen](../reversing/AppBatch/validation-summary.json) |
 | CIplDefPool | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn130A/validation-summary.json) |
 | CIplStore | `AddIplSlot` | [Resumen](../reversing/IplStore/validation-summary.json) |
@@ -3694,6 +3707,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMatrixLink | `Remove` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `AddToList1` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `AddToList2` | [Resumen](../reversing/Small2/validation-summary.json) |
+| CMatrixLinkList | `Destructor` | [Resumen](../reversing/Fn161A/validation-summary.json) |
 | CMatrixLinkList | `GetNumFree` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `GetNumUsed1` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `GetNumUsed2` | [Resumen](../reversing/Small2/validation-summary.json) |
@@ -4738,6 +4752,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlaceName | `Process` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CPlaceable | `AllocateMatrix` | [Resumen](../reversing/World16/validation-summary.json) |
 | CPlaceable | `AllocateStaticMatrix` | [Resumen](../reversing/World16/validation-summary.json) |
+| CPlaceable | `Constructor` | [Resumen](../reversing/Fn161A/validation-summary.json) |
 | CPlaceable | `FreeStaticMatrix` | [Resumen](../reversing/World16/validation-summary.json) |
 | CPlaceable | `GetForwardVector` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CPlaceable | `GetHeading` | [Resumen](../reversing/World16/validation-summary.json) |
@@ -9299,6 +9314,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CdStream | `CdStreamShutdown` | [Resumen](../reversing/Core9/validation-summary.json) |
 | CdStream | `CdStreamSync` | [Resumen](../reversing/Core9/validation-summary.json) |
 | CdStream | `CdStreamThread` | [Resumen](../reversing/Core9/validation-summary.json) |
+| CdStream | `GetGTA3ImgSize` | [Resumen](../reversing/Fn161A/validation-summary.json) |
 | Common | `AsciiToGxtChar` | [Resumen](../reversing/Core9/validation-summary.json) |
 | Common | `CalcScreenCoors-VV` | [Resumen](../reversing/Core9/validation-summary.json) |
 | Common | `CalcScreenCoors-VVff` | [Resumen](../reversing/Core9/validation-summary.json) |
@@ -10130,7 +10146,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAnimBlendStaticAssociation` | 6 | 0 | 6 | 0 |
 | `CAnimManager` | 32 | 0 | 32 | 0 |
 | `CAnimatedBuilding` | 6 | 0 | 6 | 0 |
-| `CAtomicModelInfo` | 10 | 0 | 10 | 0 |
+| `CAtomicModelInfo` | 13 | 0 | 13 | 0 |
 | `CAttractorScanner` | 2 | 0 | 2 | 0 |
 | `CAudioEngine` | 83 | 0 | 83 | 0 |
 | `CAudioZones` | 5 | 0 | 5 | 0 |
@@ -10207,7 +10223,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCustomRoadsignMgr` | 10 | 0 | 10 | 0 |
 | `CCutsceneMgr` | 37 | 0 | 37 | 0 |
 | `CCutsceneObject` | 7 | 0 | 7 | 0 |
-| `CDamageAtomicModelInfo` | 4 | 0 | 4 | 0 |
+| `CDamageAtomicModelInfo` | 5 | 0 | 5 | 0 |
 | `CDamageManager` | 27 | 0 | 27 | 0 |
 | `CDarkel` | 19 | 0 | 19 | 0 |
 | `CData` | 3 | 0 | 3 | 0 |
@@ -10220,7 +10236,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CDoor` | 6 | 0 | 6 | 0 |
 | `CDraw` | 2 | 0 | 2 | 0 |
 | `CDummy` | 6 | 0 | 6 | 0 |
-| `CDummyObject` | 3 | 0 | 3 | 0 |
+| `CDummyObject` | 6 | 0 | 6 | 0 |
 | `CDummyPool` | 1 | 0 | 1 | 0 |
 | `CEntity` | 72 | 0 | 72 | 0 |
 | `CEntityScanner` | 4 | 0 | 4 | 0 |
@@ -10345,7 +10361,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CInformGroupEventQueue` | 4 | 0 | 4 | 0 |
 | `CIniFile` | 1 | 0 | 1 | 0 |
 | `CInterestingEvents` | 7 | 0 | 7 | 0 |
-| `CIplDefPool` | 2 | 0 | 2 | 0 |
+| `CIplDefPool` | 4 | 0 | 4 | 0 |
 | `CIplStore` | 34 | 0 | 34 | 0 |
 | `CKeyArray` | 5 | 0 | 5 | 0 |
 | `CKeyGen` | 4 | 0 | 4 | 0 |
@@ -10362,7 +10378,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CMaths` | 6 | 0 | 6 | 0 |
 | `CMatrix` | 44 | 0 | 44 | 0 |
 | `CMatrixLink` | 2 | 0 | 2 | 0 |
-| `CMatrixLinkList` | 10 | 0 | 10 | 0 |
+| `CMatrixLinkList` | 11 | 0 | 11 | 0 |
 | `CMemoryHeap` | 1 | 0 | 1 | 0 |
 | `CMemoryMgr` | 10 | 0 | 10 | 0 |
 | `CMentalState` | 1 | 0 | 1 | 0 |
@@ -10438,7 +10454,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPickup` | 12 | 0 | 12 | 0 |
 | `CPickups` | 38 | 0 | 38 | 0 |
 | `CPlaceName` | 2 | 0 | 2 | 0 |
-| `CPlaceable` | 20 | 0 | 20 | 0 |
+| `CPlaceable` | 21 | 0 | 21 | 0 |
 | `CPlane` | 24 | 0 | 24 | 0 |
 | `CPlaneBanners` | 1 | 0 | 1 | 0 |
 | `CPlaneTrail` | 3 | 0 | 3 | 0 |
@@ -10878,7 +10894,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CZone` | 1 | 0 | 1 | 0 |
 | `CZoneDef` | 1 | 0 | 1 | 0 |
 | `C_PcSave` | 6 | 0 | 6 | 0 |
-| `CdStream` | 10 | 0 | 10 | 0 |
+| `CdStream` | 11 | 0 | 11 | 0 |
 | `Common` | 23 | 0 | 23 | 0 |
 | `CompressedVector` | 2 | 0 | 2 | 0 |
 | `D3DIndexDataBuffer` | 3 | 0 | 3 | 0 |

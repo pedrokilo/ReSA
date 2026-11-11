@@ -73,7 +73,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00404AC0,88,reemplazada,CIplStore,exacta,CIplStore::FindIplSlot,4,1,,
 0x00404B20,326,reemplazada,CIplStore,exacta,CIplStore::RemoveIpl,3,3,,
 0x00404C70,30,reemplazada,CIplStore,exacta,CIplStore::GetBoundingBox,0,0,,
-0x00404C90,160,reemplazada,CIplStore,exacta,CIplStore::IncludeEntity,5,4,,
+0x00404C90,160,reemplazada,CIplStore,exacta,CIplStore::IncludeEntity,5,5,,
 0x00404D30,54,reemplazada,CIplStore,exacta,CIplStore::EnableDynamicStreaming,0,0,,
 0x00404DE0,799,reemplazada,CIplStore,exacta,CIplStore::SetupRelatedIpls,1,1,,
 0x00405110,85,reemplazada,CIplStore,exacta,CIplStore::RemoveRelatedIpls,1,1,,
@@ -86,8 +86,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00405850,59,reemplazada,CIplStore,exacta,CIplStore::RequestIplAndIgnore,2,1,,
 0x00405890,57,reemplazada,CIplStore,exacta,CIplStore::RemoveIplAndIgnore,2,1,,
 0x004058D0,45,reemplazada,CIplStore,exacta,CIplStore::RemoveIplWhenFarAway,1,0,,
-0x00405900,91,A,CIplStore,baja,,1,1,,
-0x00405960,54,D,CIplStore,baja,,0,0,,
+0x00405900,91,reemplazada,CIplStore,baja,,1,1,,
+0x00405960,54,reemplazada,CIplStore,baja,,0,0,,
 0x004059B0,103,reemplazada,CIplDefPool,exacta,CIplDefPool::New,1,1,,
 0x00405A60,71,reemplazada,CIplDefPool,baja,,0,0,,
 0x00405AC0,144,reemplazada,CIplStore,exacta,CIplStore::AddIplSlot,2,2,,
@@ -96,7 +96,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00405EC0,217,reemplazada,CIplStore,exacta,CIplStore::Initialise,1,1,,
 0x00405FA0,185,reemplazada,CIplStore,exacta,CIplStore::Shutdown,1,1,,
 0x00406080,725,reemplazada,CIplStore,exacta,CIplStore::LoadIpl,1,1,,
-0x00406360,15,A,CIplStore,baja,,1,1,,
+0x00406360,15,reemplazada,CIplStore,baja,,1,1,,
 0x00406370,103,reemplazada,CdStream,exacta,CdStream::CdStreamShutdown,1,1,,
 0x004063E0,110,reemplazada,CdStream,exacta,CdStream::CdStreamGetStatus,6,6,,
 0x00406450,6,reemplazada,CdStream,alta,,1,1,,
@@ -2472,8 +2472,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004C4430,5,reemplazada,CAtomicModelInfo,exacta,CAtomicModelInfo::Init,0,0,sí,sí
 0x004C4440,104,reemplazada,CAtomicModelInfo,exacta,CAtomicModelInfo::DeleteRwObject,1,1,,sí
 0x004C44B0,31,reemplazada,CAtomicModelInfo,exacta,CAtomicModelInfo::GetAtomicFromDistance,0,0,,
-0x004C44D0,82,B,CAtomicModelInfo,alta,,1,0,,sí
-0x004C4530,60,B,CAtomicModelInfo,alta,,0,0,,sí
+0x004C44D0,82,reemplazada,CAtomicModelInfo,alta,,1,0,,sí
+0x004C4530,60,reemplazada,CAtomicModelInfo,alta,,0,0,,sí
 0x004C4570,621,reemplazada,CAtomicModelInfo,exacta,CAtomicModelInfo::SetupVehicleUpgradeFlags,6,6,,
 0x004C47E0,189,reemplazada,CTimeInfo,exacta,CTimeInfo::FindOtherTimeModel,1,1,,
 0x004C48B0,17,reemplazada,CDamageAtomicModelInfo,exacta,CDamageAtomicModelInfo::Init,0,0,,sí
@@ -2486,7 +2486,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004C4A10,22,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::SetIsLod,0,0,,
 0x004C4A30,5,reemplazada,CTimeInfo,exacta,CTimeInfo::GetOtherTimeModel,0,0,,
 0x004C4A40,25,reemplazada,C2dEffect,exacta,C2dEffect::RpGeometryGet2dFxAtIndex,0,0,,
-0x004C4A60,21,reemplazada,C2dEffect,baja,,9,4,,
+0x004C4A60,21,reemplazada,C2dEffect,baja,,9,5,,
 0x004C4A80,3,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AsAtomicModelInfoPtr,0,0,,sí
 0x004C4A90,3,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AsDamageAtomicModelInfoPtr,0,0,,sí
 0x004C4AA0,3,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AsLodAtomicModelInfoPtr,0,0,,sí
@@ -2500,8 +2500,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004C4B70,7,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::ClearTexDictionary,1,1,,
 0x004C4B80,12,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AddTexDictionaryRef,3,3,,
 0x004C4B90,12,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::RemoveTexDictionaryRef,3,3,,
-0x004C4BA0,16,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AddRef,23,20,,
-0x004C4BB0,16,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::RemoveRef,22,18,,
+0x004C4BA0,16,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AddRef,23,22,,
+0x004C4BB0,16,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::RemoveRef,22,20,,
 0x004C4BC0,64,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::SetColModel,19,18,,
 0x004C4C00,30,reemplazada,CBaseModelInfo,alta,,0,0,,
 0x004C4C20,11,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::Init2dEffects,1,1,,
@@ -2536,8 +2536,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004C5560,3,reemplazada,CAtomicModelInfo,exacta,CAtomicModelInfo::AsAtomicModelInfoPtr,0,0,,sí
 0x004C5570,3,reemplazada,CAtomicModelInfo,exacta,CAtomicModelInfo::GetModelType,0,0,,sí
 0x004C5580,6,reemplazada,CAtomicModelInfo,exacta,CAtomicModelInfo::GetRwModelType,0,0,,sí
-0x004C5590,7,C,CAtomicModelInfo,baja,,1,0,,
-0x004C55A0,18,D,CAtomicModelInfo,baja,,0,0,,
+0x004C5590,7,reemplazada,CAtomicModelInfo,baja,,1,0,,
+0x004C55A0,18,reemplazada,CAtomicModelInfo,baja,,0,0,,
 0x004C55C0,3,reemplazada,CDamageAtomicModelInfo,exacta,CDamageAtomicModelInfo::AsDamageAtomicModelInfoPtr,0,0,,sí
 0x004C55D0,7,C,CDamageAtomicModelInfo,baja,,1,0,,
 0x004C55E0,28,D,CDamageAtomicModelInfo,baja,,0,0,,
@@ -4049,8 +4049,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00532450,77,reemplazada,CDirectory,exacta,CDirectory::FindItem-,1,1,,
 0x005324A0,42,reemplazada,CDirectory,exacta,CDirectory::FindItem-ByName,4,4,,
 0x005324D0,96,reemplazada,CDirectory,exacta,CDirectory::FindItem-ByHash,3,3,,
-0x00532540,28,reemplazada,CDirectory,baja,,3,0,,
-0x00532560,11,reemplazada,CDirectory,baja,,4,1,,
+0x00532540,28,reemplazada,CDirectory,baja,,3,2,,
+0x00532560,11,reemplazada,CDirectory,baja,,4,2,,
 0x00532630,103,reemplazada,CDummyPool,exacta,CDummyPool::New,1,1,,
 0x005326E0,11,reemplazada,CDummyPool,baja,,1,1,,
 0x005326F0,51,reemplazada,CDummyPool,baja,,3,1,,
@@ -4088,12 +4088,12 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00533610,81,A,CEntity,alta,,3,3,,
 0x00533670,54,A,CEntity,alta,,1,1,,
 0x005336B0,79,A,CEntity,alta,,2,2,,
-0x00533700,135,reemplazada,CEntity,exacta,CEntity::SetModelIndexNoCreate,5,3,,sí
+0x00533700,135,reemplazada,CEntity,exacta,CEntity::SetModelIndexNoCreate,5,4,,sí
 0x00533790,1064,reemplazada,CEntity,exacta,CEntity::CreateEffects,2,2,,
 0x00533BF0,317,reemplazada,CEntity,exacta,CEntity::DestroyEffects,2,2,,
 0x00533D30,414,reemplazada,CEntity,exacta,CEntity::CreateRwObject,0,0,,sí
-0x00533ED0,217,reemplazada,CEntity,exacta,CEntity::AttachToRwObject,5,3,,
-0x00533FB0,113,reemplazada,CEntity,exacta,CEntity::DetachFromRwObject,3,1,,
+0x00533ED0,217,reemplazada,CEntity,exacta,CEntity::AttachToRwObject,5,4,,
+0x00533FB0,113,reemplazada,CEntity,exacta,CEntity::DetachFromRwObject,3,2,,
 0x00534030,230,reemplazada,CEntity,exacta,CEntity::DeleteRwObject,2,2,,sí
 0x00534120,298,reemplazada,CEntity,exacta,CEntity::GetBoundRect,0,0,,sí
 0x00534250,63,reemplazada,CEntity,exacta,CEntity::GetBoundCentre-vec,22,20,,
@@ -4421,7 +4421,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0054EB10,27,reemplazada,CMatrixLinkList,exacta,CMatrixLinkList::GetNumFree,0,0,,
 0x0054EB30,25,reemplazada,CMatrixLinkList,exacta,CMatrixLinkList::GetNumUsed1,0,0,,
 0x0054EB50,27,reemplazada,CMatrixLinkList,exacta,CMatrixLinkList::GetNumUsed2,0,0,,
-0x0054EB70,140,C,CMatrixLinkList,baja,,1,0,,
+0x0054EB70,140,reemplazada,CMatrixLinkList,baja,,1,0,,
 0x0054ECE0,64,reemplazada,Common,exacta,Common::TransformPoint,2,2,,
 0x0054ED20,105,D,Common,alta,,0,0,,
 0x0054EE30,97,reemplazada,Common,alta,,1,1,,
@@ -4433,7 +4433,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0054F010,52,reemplazada,CPlaceable,exacta,CPlaceable::FreeStaticMatrix,0,0,,
 0x0054F0D0,213,reemplazada,CMatrixLinkList,exacta,CMatrixLinkList::Init,1,1,,
 0x0054F1B0,42,reemplazada,CMatrixLinkList,baja,,353,348,,
-0x0054F1E0,26,A,CMatrixLinkList,baja,,2,2,,
+0x0054F1E0,26,reemplazada,CMatrixLinkList,baja,,2,2,,
 0x0054F200,176,reemplazada,CPlaceable,exacta,CPlaceable::IsWithinArea-xy,6,0,,
 0x0054F2B0,237,reemplazada,CPlaceable,exacta,CPlaceable::IsWithinArea-xyz,3,0,,
 0x0054F3A0,16,reemplazada,CPlaceable,exacta,CPlaceable::InitMatrixArray,1,1,,
@@ -5310,7 +5310,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0059A840,510,A,Interior_c,baja,,2,2,,
 0x0059AA40,591,A,Interior_c,baja,,2,2,,
 0x0059AC90,42,reemplazada,CMaths,exacta,CMaths::InitMathsTables,1,1,,
-0x0059ACD0,22,reemplazada,CMaths,baja,,469,220,,
+0x0059ACD0,22,reemplazada,CMaths,baja,,469,226,,
 0x0059ACF0,35,reemplazada,CMaths,baja,,2,2,,
 0x0059AD20,77,reemplazada,CMaths,baja,,9,9,,
 0x0059AD70,84,reemplazada,CMaths,baja,,57,55,,
@@ -5388,9 +5388,9 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0059E720,39,reemplazada,BreakManager_c,exacta,BreakManager_c::ResetAll,1,1,,
 0x0059E750,595,reemplazada,BreakObject_c,exacta,BreakObject_c::Init,1,1,,
 0x0059E9B0,69,reemplazada,BreakManager_c,exacta,BreakManager_c::Add,3,2,,
-0x0059EA00,18,A,BreakManager_c,baja,,1,1,,
-0x0059EA20,135,D,BreakManager_c,baja,,0,0,,
-0x0059EAB0,11,A,BreakManager_c,baja,,1,1,,
+0x0059EA00,18,reemplazada,BreakManager_c,baja,,1,1,,
+0x0059EA20,135,reemplazada,BreakManager_c,baja,,0,0,,
+0x0059EAB0,11,reemplazada,BreakManager_c,baja,,1,1,,
 0x0059EAC0,85,reemplazada,CDummyObject,exacta,CDummyObject::CreateObject,1,1,,
 0x0059EB50,30,reemplazada,CDummyObject,alta,,0,0,,sí
 0x0059EB70,201,reemplazada,CDummyObject,exacta,CDummyObject::UpdateFromObject,1,1,,
@@ -11728,7 +11728,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00749D20,32,D,Win,baja,,0,0,,
 0x00749D40,124,A,Win,baja,,5,2,,
 0x00749DC0,127,A,Win,baja,,26,19,,
-0x00749E60,258,A,Win,baja,,17,8,,
+0x00749E60,258,A,Win,baja,,17,10,,
 0x00749F70,592,A,Win,baja,,1,1,,
 0x0074A1C0,52,A,Win,baja,,1,0,,
 0x0074A290,113,A,Win,baja,,8,5,,
@@ -11747,7 +11747,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0074BE50,24,reemplazada,Win,baja,,1,0,,
 0x0074BE70,34,A,Win,baja,,1,1,,
 0x0074BEC0,19,reemplazada,Win,baja,,1,0,,
-0x0074BF20,31,reemplazada,Win,baja,,31,22,,
+0x0074BF20,31,reemplazada,Win,baja,,31,24,,
 0x0074C200,269,A,Win,baja,,2,2,,
 0x0074C310,443,envoltura,Win,baja,,2,0,,
 0x0074C690,35,A,Win,baja,,3,3,,

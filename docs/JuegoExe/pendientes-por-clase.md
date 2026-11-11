@@ -1,6 +1,10 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 11/11/2026 (Ciudad de México):** 884 grupos / 10050 funciones reconstruidas; 10050 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (11/11/2026). Total: **1,874** funciones en 192 clases/módulos (rango 0x401000–0x74FFFF): 1,851 sin reemplazar (A–D) + 23 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (11/11/2026). Total: **1,862** funciones en 188 clases/módulos (rango 0x401000–0x74FFFF): 1,839 sin reemplazar (A–D) + 23 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -13,10 +17,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CClumpModelInfo | 2 | 25 |
 | CAEDataStream | 2 | 77 |
 | VideoPlayer | 1 | 110 |
-| CIplStore | 3 | 160 |
-| BreakManager_c | 3 | 164 |
-| CMatrixLinkList | 2 | 166 |
-| CAtomicModelInfo | 4 | 167 |
 | CBike | 22 | 168 |
 | CTaskSimpleStealthKill | 3 | 169 |
 | CAETwinLoopSoundEntity | 2 | 174 |
@@ -202,7 +202,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (192 clases / módulos)** | **1,874** | **242,246** |
+| **TOTAL (188 clases / módulos)** | **1,862** | **241,589** |
 
 ## CClumpModelInfo (2)
 
@@ -223,38 +223,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00746800 | 110 | D |  | 0 | 0 |  | baja |
-
-## CIplStore (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00406360 | 15 | A |  | 1 | 1 |  | baja |
-| 0x00405960 | 54 | D |  | 0 | 0 |  | baja |
-| 0x00405900 | 91 | A |  | 1 | 1 |  | baja |
-
-## BreakManager_c (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0059EAB0 | 11 | A |  | 1 | 1 |  | baja |
-| 0x0059EA00 | 18 | A |  | 1 | 1 |  | baja |
-| 0x0059EA20 | 135 | D |  | 0 | 0 |  | baja |
-
-## CMatrixLinkList (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0054F1E0 | 26 | A |  | 2 | 2 |  | baja |
-| 0x0054EB70 | 140 | C |  | 1 | 0 |  | baja |
-
-## CAtomicModelInfo (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004C5590 | 7 | C |  | 1 | 0 |  | baja |
-| 0x004C55A0 | 18 | D |  | 0 | 0 |  | baja |
-| 0x004C4530 | 60 | B |  | 0 | 0 | sí | alta |
-| 0x004C44D0 | 82 | B |  | 1 | 0 | sí | alta |
 
 ## CBike (22)
 
@@ -2871,7 +2839,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x007460A0 | 205 | A |  | 1 | 1 |  | baja |
 | 0x0074FDA0 | 237 | A |  | 1 | 1 |  | baja |
 | 0x00747DB0 | 255 | D |  | 0 | 0 |  | baja |
-| 0x00749E60 | 258 | A |  | 17 | 8 |  | baja |
+| 0x00749E60 | 258 | A |  | 17 | 10 |  | baja |
 | 0x0074C200 | 269 | A |  | 2 | 2 |  | baja |
 | 0x0074F610 | 288 | A |  | 1 | 1 |  | baja |
 | 0x007491F0 | 318 | A |  | 12 | 5 |  | baja |
