@@ -84,6 +84,24 @@ bool CTaskSimpleCarForcePedOut::ProcessPed(CPed* ped) {
 eTaskType CTaskSimpleCarForcePedOut::GetTaskType() const {
     return Type;
 }
+namespace {
+// 0x647790 (lote 159A, banco Fn159A): cuerpo del destructor de CTaskSimpleCarForcePedOut del EXE (con hook (Destructor); vtable 0x86EE94). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el
+// `call 0x647790` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleCarForcePedOutDestructorBody(CTaskSimpleCarForcePedOut* self, void* /*edx*/) { self->CTaskSimpleCarForcePedOut::~CTaskSimpleCarForcePedOut(); }
+
+// 0x64BF50 (lote 159A, banco Fn159A): destructor con borrado de CTaskSimpleCarForcePedOut del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x647790; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
+// del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleCarForcePedOut* __fastcall CTaskSimpleCarForcePedOutScalarDeletingDestructor(CTaskSimpleCarForcePedOut* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleCarForcePedOutDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote159ABody_CTaskSimpleCarForcePedOut() { return reinterpret_cast<uintptr_t>(&CTaskSimpleCarForcePedOutDestructorBody); } // para el banco Fn159A
 
 void CTaskSimpleCarForcePedOut::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCarForcePedOut, 0x86EE94, 9); // vtable verificado en gta_sa.exe (GetTaskType en [4]); N por confirmar
@@ -92,6 +110,7 @@ void CTaskSimpleCarForcePedOut::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x647710);
     RH_ScopedInstall(Destructor, 0x647790);
     RH_ScopedVMTInstall(GetTaskType, 0x647770); // lote 158A (banco Fn158A): retorno de constante, ranura 4 de la vtable 0x86EE94
+    RH_ScopedNamedGlobalInstall(CTaskSimpleCarForcePedOutScalarDeletingDestructor, "ScalarDeletingDestructor", 0x64BF50); // lote 159A (banco Fn159A)
     RH_ScopedVMTInstall(Clone, 0x649EE0);
     RH_ScopedVMTInstall(MakeAbortable, 0x647780);
     RH_ScopedVMTInstall(ProcessPed, 0x6477F0);

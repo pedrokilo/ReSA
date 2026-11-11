@@ -37,12 +37,26 @@ void __fastcall FallToDeathDestructorBody(CTaskComplexFallToDeath* self, void* /
 }
 } // namespace
 
+namespace {
+// 0x67D550 (lote 159A, banco Fn159A): destructor con borrado de CTaskComplexFallToDeath del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6790B0; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
+// del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexFallToDeath* __fastcall CTaskComplexFallToDeathScalarDeletingDestructor(CTaskComplexFallToDeath* self, void* /*edx*/, uint8 flags) {
+    FallToDeathDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskComplexFallToDeath::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexFallToDeath, 0x870520, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x679040);
     RH_ScopedNamedGlobalInstall(FallToDeathDestructorBody, "Destructor", 0x6790B0);
+    RH_ScopedNamedGlobalInstall(CTaskComplexFallToDeathScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67D550); // lote 159A (banco Fn159A)
     RH_ScopedVMTInstall(GetTaskType, 0x6790A0);   // lote 138A (banco Fn138A): retorno de constante
     RH_ScopedVMTInstall(MakeAbortable, 0x6790C0);
     RH_ScopedVMTInstall(ControlSubTask, 0x679510);

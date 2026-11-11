@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "a74158a8c1bb85dfa4e2373f3287df3e30c1072add8623e09674f1e76f1ed9d6",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CTaskSimpleCarJumpOut::ScalarDeletingDestructor: 884/2048; CTaskSimpleCarForcePedOut::ScalarDeletingDestructor: 613/2048; CTaskSimpleCarSetPedOut::ScalarDeletingDestructor: 892/2048; CTaskSimpleCarSlowDragPedOut::ScalarDeletingDestructor: 607/2048; CTaskComplexGoToCarDoorAndStandStill::ScalarDeletingDestructor: 906/2048; CTaskSimpleDieInCar::ScalarDeletingDestructor: 554/2048; CTaskComplexDieInCar::ScalarDeletingDestructor: 574/2048; CTaskComplexGetUpAndStandStill::ScalarDeletingDestructor: 573/2048; CTaskSimpleFall::ScalarDeletingDestructor: 920/2048; CTaskComplexFallToDeath::ScalarDeletingDestructor: 905/2048; CTaskSimpleJump::ScalarDeletingDestructor: 906/2048; CTaskSimpleDie::GetTaskType: 289/2048; CTaskSimpleGetUp::GetTaskType: 271/2048; CTaskSimpleLand::GetTaskType: 329/2048; CTaskSimpleDie::DestructorBody: 909/2048; CTaskSimpleGetUp::DestructorBody: 890/2048; CTaskSimpleLand::DestructorBody: 882/2048; CBoundingBox::ConstructorAlias537550: 889/2048; CBoundingBox::ConstructorAlias537560: 908/2048; CBoundingBox::ConstructorAlias537570: 908/2048; CAnimatedBuilding::Constructor: 492/2048; CloneAtomicToClumpCB: 876/2048; CCollisionData::GetNoOfShdwVerts: 95/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

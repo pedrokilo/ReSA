@@ -20,25 +20,25 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-2 (HEAD de main + TaskSimpleCarForcePedOut.h/.cpp, InjectHooksMain.cpp y una linea de TaskComplexLeaveCar.cpp, source.patch). Virtuales de CTaskSimpleCarForcePedOut (vtable 0x86EE94): cuerpo del destructor 0x647790 (limpia la referencia al vehiculo con CleanUpOldReference 0x571A00; hook S), Clone 0x649EE0 (CTask::operator new, comprobacion de nulo, constructor 0x647710), MakeAbortable 0x647780 (devuelve false) y ProcessPed 0x6477F0 (conductor/pasajeros con IsDriver 0x6D1C40, ComputeOppositeDoorFlag 0x64E610, ComputePassengerIndexFromCarDoor 0x64F1E0 y PositionPedOutOfCollision 0x5E0820); hooks V llamados por la ranura de la vtable del EXE. Colaboradores con hook sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTask::~CTask 0x61A3A0 (en linea en la DLL) solo en el EXE con el mismo efecto. Se compara el objeto completo, AL/EAX, la traza de colaboradores y las compuertas de ABI/SEH/restauracion. El banco incluye ademas la ruta viva del destructor con borrado (0x64BF50 del EXE contra el del compilador en la DLL, con banderas 0/1 y bits altos): sin hook, sin registro. Los bits 1 y 2 de las banderas del destructor con borrado de la DLL (array y ::operator delete global) quedan fuera: ningun llamador los pasa. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/ForcePedOutVt71-20261110-211219-602286",
-  "summary_sha256": "aa40236cbad3641e8f6efb6e5efc471ca9788f12c79b5c84f7084b908aee4a08",
-  "result_txt_sha256": "a2555bba2f025d4bf6903e07b592870ae2f86b96f0656c613d11b8e5fb78ba6c",
-  "log_sha256": "18ce9a8fe21730e5cf287255270d0a39e9c898e28ae3ec10a7abec849f060a96",
+  "run": "reversing/CppTwelveLevel6Final/runs/ForcePedOutVt71-20261110-215928-581009",
+  "summary_sha256": "a96fa998c32c95c7721c042d5c4484ae51c246f54e1de326368a34f985178ee4",
+  "result_txt_sha256": "a208e913c148f135696c5549c79ebc654db7b4b587662755d5e82785b38715e2",
+  "log_sha256": "fd3f1246515ce76da092d1d49a13591b38f7bfd9a957dc34f5bcfeef0c76d3e5",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "25fbf77cbeeaa8fcf742e59267c46c9ece8849a4cb8b112cef88ccb36167f6bf",
+  "executed_probe_sha256": "583e8b1ca2ae73a1e61957f352690cc70d26c822cc31320da08d788f9865d650",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
       "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "136dcdd47040551c38da3f542f99ded043ede862ae67c3feab7e200f9906f85a",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "5c3b66772e2aab7ae26675a309b4280fd5b5fe1143596cd2d26a2452fdc5beaf",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "9ff5f2530107d3f18f7491a8e7cba8d8e56861e8bca6f84f7e3f503e86dd462c",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "f22da1781866f3aac7bf3c1309f7de6845a3227569e104e96c125c3e81109371",
       "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "546c0d4fefa422b88495cc578989d66dc711b80039293998939c537897643e97",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/ForcePedOutVt71/LiveComparison.hpp": "146e67721d38d5ba578afcd9d9623ee616f57e91ee793d08de389d0b54b283bf",
+      "reversing/ForcePedOutVt71/LiveComparison.hpp": "8f69450fb9c131bb9ac707c9bc85df7c1fcbc1856d0e11032a7b25d5f8bedb73",
       "reversing/ForcePedOutVt71/Core.hpp": "cee5f4c31959a628e9540e10d4a8c499b94c3d4648c3e1d5968772da8a0ea223",
       "reversing/ForcePedOutVt71/Fixtures.hpp": "4f7415558cde248845b5aa6ea8538551a2efdbe0a85c815acf8bfed13095c7ef",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -46,10 +46,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/ForcePedOutVt71-20261110-211219-602286/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/ForcePedOutVt71-20261110-215928-581009/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "b7b061ae3ed7942129fe771440ea6012d049e83e54e8f76e70d3cbbc3445405d",
-    "uncompressed_sha256": "18ce9a8fe21730e5cf287255270d0a39e9c898e28ae3ec10a7abec849f060a96"
+    "compressed_sha256": "730903b877317919283679d5053d9992d7a9f0adf4788f98361ecb2da09903e2",
+    "uncompressed_sha256": "fd3f1246515ce76da092d1d49a13591b38f7bfd9a957dc34f5bcfeef0c76d3e5"
   }
 }

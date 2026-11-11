@@ -41,11 +41,25 @@ eTaskType CTaskSimpleFall::GetTaskType() const {
     return Type;
 }
 
+namespace {
+// 0x67CA20 (lote 159A, banco Fn159A): destructor con borrado de CTaskSimpleFall del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x678310; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
+// del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleFall* __fastcall CTaskSimpleFallScalarDeletingDestructor(CTaskSimpleFall* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleFallDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskSimpleFall::InjectHooks()
 {
     RH_ScopedVirtualClass(CTaskSimpleFall, 0x870430, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskSimpleFallDestructorBodyExe, "DestructorBody", 0x678310); // lote 154A (banco Fn154A)
+    RH_ScopedNamedGlobalInstall(CTaskSimpleFallScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67CA20); // lote 159A (banco Fn159A)
     RH_ScopedVMTInstall(GetTaskType, 0x678300); // lote 154A (banco Fn154A): retorno de constante
     RH_ScopedInstall(Constructor, 0x6782C0);
     RH_ScopedInstall(StartAnim, 0x67CA40);

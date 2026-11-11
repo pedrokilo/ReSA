@@ -95,7 +95,8 @@ inline void CaseFn(Env& env,Totals& t,unsigned fn,unsigned n) {
         const u32 veh=c.vehKind==0?0u:c.vehKind==1?u32(vehA.Obj()+c.vehOff*4):c.vehRaw;
         const u32 ped=c.pedKind==0?0u:c.pedKind==1?u32(pedA.Obj()):c.pedRaw;
         const u32 evt=c.evtKind==0?0u:c.evtKind==1?u32(pedA.Obj()+8):c.evtRaw;
-        taskA.Put32(0,(fn==4&&candidate)?dllVptr:0x86EE94u);taskA.Put32(8,veh);taskA.Put32(0xC,c.door);
+        // el destructor con borrado se llama por la entrada del EXE (hook S desde el lote 159A, ruta F4): objeto con la vtable del EXE en ambos lados
+        taskA.Put32(0,0x86EE94u);taskA.Put32(8,veh);taskA.Put32(0xC,c.door);
         if(fn==3&&c.vehKind==1) {
             // campos del vehiculo que lee ProcessPed (relativos al puntero del vehiculo)
             const size_t o=c.vehOff*4;
@@ -244,7 +245,10 @@ inline void Update() {
             ready&=env.route[1+i]->Registered()&&env.route[1+i]->Body()&&ModuleOf(env.route[1+i]->Body())==env.asi;
             env.vtSlot[1+i]=0x86EE94+4*slots[i];
         }
-        registered[kFn[4]]=true;bodies[kFn[4]]=env.liveTarget!=0;   // sin hook: la ruta viva es la ranura 0 de la vtable de la DLL
+        // F4: el destructor con borrado 0x64BF50 tiene hook S desde el lote 159A (banco Fn159A): original = EXE con el hook apagado, candidato = el hook encendido (ruta como F0)
+        env.route[4].reset(new HookRoute("CTaskSimpleCarForcePedOut","ScalarDeletingDestructor",0x64BF50,HookRoute::RegisteredTarget{}));
+        registered[kFn[4]]=env.route[4]->Registered();bodies[kFn[4]]=env.route[4]->Body()!=0;
+        ready&=env.route[4]->Registered()&&env.route[4]->Body()&&ModuleOf(env.route[4]->Body())==env.asi;
         ready&=env.liveTarget&&ModuleOf(env.liveTarget)==env.asi;
     }
     ready&=newBody&&deleteBody&&forceBody&&dtorBody&&cleanBody&&isDriverBody&&posBody&&oppBody&&seatBody;

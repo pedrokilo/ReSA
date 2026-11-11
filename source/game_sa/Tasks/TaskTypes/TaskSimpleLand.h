@@ -3,6 +3,7 @@
 #include "TaskSimple.h"
 
 class NOTSA_EXPORT_VTABLE CTaskSimpleLand : public CTaskSimple {
+public:
     CAnimBlendAssociation* m_pAnim;
     AnimationId            m_nAnimId;
     union {
@@ -21,7 +22,7 @@ public:
     explicit CTaskSimpleLand(AnimationId nAnimId);
     ~CTaskSimpleLand() override;
 
-    eTaskType GetTaskType() const override { return Type; }
+    eTaskType GetTaskType() const override; // 0x678ED0 (lote 159A, banco Fn159A)
     CTask* Clone() const override { return new CTaskSimpleLand(m_nAnimId); }
     bool ProcessPed(CPed* ped) override;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;

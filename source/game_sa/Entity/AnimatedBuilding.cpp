@@ -42,6 +42,19 @@ CAnimatedBuilding* __fastcall AnimatedBuildingScalarDeletingDestructor(CAnimated
     }
     return self;
 }
+
+// 0x537A10 (lote 159A, banco Fn159A): constructor de CAnimatedBuilding del EXE (thiscall, sin argumentos de pila, `ret`, 18 bytes: `push esi; mov esi,ecx; call 0x403E00; mov [esi],0x8639B0; mov eax,esi; pop esi;
+// ret`; lo llama 0x538174; el listado lo atribuia a CFileLoader). 0x403E00 (constructor de CBuilding, sin hook y sin expansion aqui) llama al de CEntity (0x532A90, con hook; envoltura Constructor),
+// pone el tipo del byte +0x36 en edificio (bit 0 a uno, bits 1 y 2 a cero, resto intacto), enciende el bit 0 de las banderas (+0x1C: usa colision) y deja la vtable de CBuilding (0x8585C8); este constructor la
+// cambia a la de CAnimatedBuilding del EXE (0x8639B0; la de la DLL no vale para los llamadores del EXE) y devuelve `this`. Aqui el efecto de 0x403E00 se hace en linea (la vtable intermedia no es observable).
+__declspec(noinline) CAnimatedBuilding* __fastcall AnimatedBuildingConstructorBody(CAnimatedBuilding* self, void* /*edx*/) {
+    static_cast<CEntity*>(self)->Constructor();
+    uint8* const typeByte = reinterpret_cast<uint8*>(self) + 0x36;
+    *typeByte = uint8((*typeByte & 0xF9u) | 1u);
+    *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(self) + 0x1C) |= 1u;
+    *reinterpret_cast<uint32*>(self) = 0x8639B0;
+    return self;
+}
 } // namespace
 
 uintptr_t Lote140AAnimatedBuildingEntityDestructor() { return reinterpret_cast<uintptr_t>(&AnimatedBuildingEntityDestructor); } // para el banco Fn140A
@@ -51,6 +64,7 @@ void CAnimatedBuilding::InjectHooks()
     RH_ScopedVirtualClass(CAnimatedBuilding, 0x8639B0, 22);
     RH_ScopedCategory("Entity");
 
+    RH_ScopedNamedGlobalInstall(AnimatedBuildingConstructorBody, "Constructor", 0x537A10);                          // lote 159A (banco Fn159A)
     RH_ScopedNamedGlobalInstall(AnimatedBuildingDestructorBody, "DestructorBody", 0x537A70);                       // lote 140A (banco Fn140A)
     RH_ScopedNamedGlobalInstall(AnimatedBuildingScalarDeletingDestructor, "ScalarDeletingDestructor", 0x537A50);   // lote 140A (banco Fn140A)
 

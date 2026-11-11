@@ -223,14 +223,7 @@ struct Header : V2::Header {
     // Basically just find the highest shadow vertex index, 0x537510
     uint32 GetNoOfShdwVerts(CCollisionData* cd) const {
         assert(cd->m_nNumShadowTriangles == nShdwFaces);
-        if (!nShdwFaces) {
-            return 0;
-        }
-        uint32 maxVert{0};
-        for (auto& tri : cd->GetShdwTris()) {
-            maxVert = std::max<uint32>(maxVert, rng::max(tri.m_vertIndices));
-        }
-        return maxVert + 1;
+        return cd->GetNoOfShdwVerts();
     }
 
     [[nodiscard]] bool HasShadowMesh() const { return flags & 16; }

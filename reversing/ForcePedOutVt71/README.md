@@ -45,3 +45,6 @@ bash reversing/_handoff/bench_here.sh ForcePedOutVt71
 python -B reversing/ForcePedOutVt71/run_local.py --analyze <carpeta>/comparisons.jsonl
 python -B reversing/ForcePedOutVt71/register_hook.py <carpeta-de-evidencia>      # SOLO el coordinador
 ```
+
+## Repeticion del lote 159A (10/11/2026)
+El destructor con borrado 0x64BF50 tiene hook S desde el lote 159A (banco `Fn159A`): la quinta funcion del banco deja de ser "ruta viva sin hook" y pasa a una ruta normal (`HookRoute` de `CTaskSimpleCarForcePedOut::ScalarDeletingDestructor`: original = EXE con el hook apagado, candidato = hook encendido; objeto con la vtable del EXE en ambos lados). Repetido: **aprobado**, 81920 pares, evidencia `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-forcepedoutvt71/20261110-215928-581009` (archivada en `reversing/CppTwelveLevel6Final/runs/ForcePedOutVt71-20261110-215928-581009`).

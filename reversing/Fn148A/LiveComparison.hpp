@@ -411,7 +411,7 @@ inline void Update() {
     env.stubs[kIdxLinkShutdown] = {ByExeAddress(0x8213AE, &FkDeleteArray)};
     env.stubs[kIdxInAirLandDtor] = {F(0x61A3D0, &FkBody<0x61A3D0>)};
     env.stubs[kIdxSimpleInAirSdd] = {F(0x678D50, &FkBody<0x678D50>), ctaskDelete};
-    env.stubs[kIdxSimpleLandSdd] = {U(0x678EE0, Lote148ABody_CTaskSimpleLand(), &FkBody<0x678EE0>), ctaskDelete};
+    env.stubs[kIdxSimpleLandSdd] = {F(0x678EE0, &FkBody<0x678EE0>), ctaskDelete};
     const char* dllReal[kFunctions];
     for (unsigned f = 0; f < kFunctions; ++f) dllReal[f] = "toda la funcion (sin colaboradores)";
     dllReal[kIdxAudioDtor] = "toda la funcion salvo CAESound::Destructor (0x4EF660, con hook, falso identico en la direccion del EXE y en el cuerpo de la DLL)";
@@ -424,7 +424,7 @@ inline void Update() {
     const char* const sddHooked = "toda la funcion salvo el cuerpo del destructor (con hook, falso identico en la direccion del EXE y en el cuerpo de la DLL) y CTask::operator delete (0x61A5B0, con hook, falso identico)";
     const char* const sddPlain = "toda la funcion salvo el cuerpo del destructor (sin hook: falso en la direccion del EXE y en la funcion propia de la DLL) y CTask::operator delete (0x61A5B0, con hook, falso identico)";
     for (const unsigned f : {kIdxMissionSdd, kIdxDriveToPointSdd, kIdxChatSdd}) dllReal[f] = sddHooked;
-    for (const unsigned f : {kIdxSimpleInAirSdd, kIdxSimpleLandSdd}) dllReal[f] = sddPlain;
+    for (const unsigned f : {kIdxSimpleInAirSdd, kIdxSimpleLandSdd}) dllReal[f] = sddHooked;   // 0x678D50 (lote 152A) y 0x678EE0 (lote 159A, banco Fn159A) tienen hook: falso en el cuerpo del hook
     for (unsigned f = 0; f < kFunctions; ++f) {
         json stubbed = json::array(), real = json::array();
         env.watches.emplace_back(kEntries[f], 16);

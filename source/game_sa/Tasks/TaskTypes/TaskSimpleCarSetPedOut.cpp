@@ -63,10 +63,24 @@ void __fastcall CarSetPedOutDestructorBody(CTaskSimpleCarSetPedOut* self, void* 
 }
 } // namespace
 
+namespace {
+// 0x64BF70 (lote 159A, banco Fn159A): destructor con borrado de CTaskSimpleCarSetPedOut del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x647950; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
+// del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleCarSetPedOut* __fastcall CTaskSimpleCarSetPedOutScalarDeletingDestructor(CTaskSimpleCarSetPedOut* self, void* /*edx*/, uint8 flags) {
+    CarSetPedOutDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskSimpleCarSetPedOut::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCarSetPedOut, 0x86EEB8, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CarSetPedOutDestructorBody, "Destructor", 0x647950);
+    RH_ScopedNamedGlobalInstall(CTaskSimpleCarSetPedOutScalarDeletingDestructor, "ScalarDeletingDestructor", 0x64BF70); // lote 159A (banco Fn159A)
 
     RH_ScopedNamedGlobalInstall(CarSetPedOutConstructorBody, "Constructor", 0x6478B0);
     RH_ScopedInstall(PositionPedOutOfCollision, 0x6479B0);

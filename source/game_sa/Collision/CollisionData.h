@@ -118,6 +118,7 @@ public:
     auto GetTriPlanes()      const { return std::span{ m_pTrianglePlanes, m_nNumTriangles }; }
                              
     auto GetShdwTris()       const { return std::span{ m_pShadowTriangles, m_nNumShadowTriangles }; }
+    uint32 GetNoOfShdwVerts() const; // 0x537510 (lote 159A, banco Fn159A): indice de vertice mas alto de los triangulos de sombra + 1
     auto GetShdwTriVerts()   const { return std::span{ m_pShadowVertices, m_nNumShadowVertices }; }
                              
     auto GetLines()          const { return std::span{ m_pLines, m_nNumLines }; }

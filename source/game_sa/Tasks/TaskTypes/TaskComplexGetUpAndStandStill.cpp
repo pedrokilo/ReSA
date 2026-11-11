@@ -36,11 +36,25 @@ void __fastcall GetUpAndStandStillDestructorBody(CTaskComplexGetUpAndStandStill*
 }
 } // namespace
 
+namespace {
+// 0x67CA00 (lote 159A, banco Fn159A): destructor con borrado de CTaskComplexGetUpAndStandStill del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x678160; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
+// del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexGetUpAndStandStill* __fastcall CTaskComplexGetUpAndStandStillScalarDeletingDestructor(CTaskComplexGetUpAndStandStill* self, void* /*edx*/, uint8 flags) {
+    GetUpAndStandStillDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskComplexGetUpAndStandStill::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGetUpAndStandStill, 0x870404, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x678130);
     RH_ScopedNamedGlobalInstall(GetUpAndStandStillDestructorBody, "Destructor", 0x678160);
+    RH_ScopedNamedGlobalInstall(CTaskComplexGetUpAndStandStillScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67CA00); // lote 159A (banco Fn159A)
     RH_ScopedInstall(CreateSubTask, 0x678170);
     // VTABLE
     RH_ScopedVMTInstall(GetTaskType, 0x678150);   // lote 138A (banco Fn138A): retorno de constante

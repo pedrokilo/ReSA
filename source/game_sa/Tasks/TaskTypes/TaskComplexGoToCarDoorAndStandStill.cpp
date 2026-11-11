@@ -36,12 +36,32 @@ uint32 __fastcall GoToCarDoorIsVehicleInRange(CTaskComplexGoToCarDoorAndStandSti
 }
 #pragma runtime_checks("", restore)
 
+namespace {
+// 0x64A580 (lote 159A, banco Fn159A): cuerpo del destructor de CTaskComplexGoToCarDoorAndStandStill del EXE (con hook (Destructor); vtable 0x86EC4C). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el
+// `call 0x64A580` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexGoToCarDoorAndStandStillDestructorBody(CTaskComplexGoToCarDoorAndStandStill* self, void* /*edx*/) { self->CTaskComplexGoToCarDoorAndStandStill::~CTaskComplexGoToCarDoorAndStandStill(); }
+
+// 0x64D290 (lote 159A, banco Fn159A): destructor con borrado de CTaskComplexGoToCarDoorAndStandStill del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x64A580; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
+// del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexGoToCarDoorAndStandStill* __fastcall CTaskComplexGoToCarDoorAndStandStillScalarDeletingDestructor(CTaskComplexGoToCarDoorAndStandStill* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexGoToCarDoorAndStandStillDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote159ABody_CTaskComplexGoToCarDoorAndStandStill() { return reinterpret_cast<uintptr_t>(&CTaskComplexGoToCarDoorAndStandStillDestructorBody); } // para el banco Fn159A
+
 void CTaskComplexGoToCarDoorAndStandStill::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGoToCarDoorAndStandStill, 0x86ec4c, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x645780);
     RH_ScopedInstall(Destructor, 0x64A580);
+    RH_ScopedNamedGlobalInstall(CTaskComplexGoToCarDoorAndStandStillScalarDeletingDestructor, "ScalarDeletingDestructor", 0x64D290); // lote 159A (banco Fn159A)
 
     RH_ScopedNamedGlobalInstall(GoToCarDoorIsVehicleInRange, "IsVehicleInRange", 0x6458A0);
     RH_ScopedInstall(ComputeRouteToDoor, 0x645910);

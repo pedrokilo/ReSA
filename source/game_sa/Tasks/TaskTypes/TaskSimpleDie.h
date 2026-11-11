@@ -36,7 +36,7 @@ public:
     CTaskSimpleDie(CAnimBlendHierarchy* animHierarchy, eAnimationFlags animFlags, float blendDelta, float animSpeed);
     ~CTaskSimpleDie() override;
 
-    eTaskType GetTaskType() const override { return Type; } // 0x62FA50
+    eTaskType GetTaskType() const override; // 0x62FA50 (lote 159A, banco Fn159A)
     CTask*    Clone() const override;
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;

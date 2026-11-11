@@ -25,9 +25,29 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleDieInCar.h"
 #include "CarCtrl.h"
 
+namespace {
+// 0x62FCF0 (lote 159A, banco Fn159A): cuerpo del destructor de CTaskComplexDieInCar del EXE (sin hook propio: `mov [ecx],0x86DE04; jmp 0x61A3D0`; vtable 0x86DE04). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el
+// `call 0x62FCF0` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexDieInCarDestructorBody(CTaskComplexDieInCar* self, void* /*edx*/) { self->CTaskComplexDieInCar::~CTaskComplexDieInCar(); }
+
+// 0x6375D0 (lote 159A, banco Fn159A): destructor con borrado de CTaskComplexDieInCar del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x62FCF0; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
+// del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexDieInCar* __fastcall CTaskComplexDieInCarScalarDeletingDestructor(CTaskComplexDieInCar* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexDieInCarDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote159ABody_CTaskComplexDieInCar() { return reinterpret_cast<uintptr_t>(&CTaskComplexDieInCarDestructorBody); } // para el banco Fn159A
+
 void CTaskComplexDieInCar::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexDieInCar, 0x86DE04, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexDieInCarScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6375D0); // lote 159A (banco Fn159A)
 
     RH_ScopedVMTInstall(ControlSubTask, 0x6377B0);
     RH_ScopedInstall(CreateSubTask, 0x62FD50);

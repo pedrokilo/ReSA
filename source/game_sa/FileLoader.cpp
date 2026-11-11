@@ -106,6 +106,7 @@ void CFileLoader::InjectHooks() {
 
     RH_ScopedGlobalInstall(LinkLods, 0x5B51E0); 
     RH_ScopedGlobalInstall(LoadingScreenLoadingFile, 0x5B3680); // lote 130A (banco Fn130A)
+    RH_ScopedGlobalInstall(CloneAtomicToClumpCB, 0x537290); // lote 159A (banco Fn159A)
 }
 
 // copy textures from dictionary to baseDictionary

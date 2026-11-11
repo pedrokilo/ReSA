@@ -20,12 +20,32 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleCarSlowDragPedOut.h"
 #include "TaskUtilityLineUpPedWithCar.h"
 
+namespace {
+// 0x648070 (lote 159A, banco Fn159A): cuerpo del destructor de CTaskSimpleCarSlowDragPedOut del EXE (con hook (Destructor); vtable 0x86EEE8). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el
+// `call 0x648070` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleCarSlowDragPedOutDestructorBody(CTaskSimpleCarSlowDragPedOut* self, void* /*edx*/) { self->CTaskSimpleCarSlowDragPedOut::~CTaskSimpleCarSlowDragPedOut(); }
+
+// 0x64BF90 (lote 159A, banco Fn159A): destructor con borrado de CTaskSimpleCarSlowDragPedOut del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x648070; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
+// del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleCarSlowDragPedOut* __fastcall CTaskSimpleCarSlowDragPedOutScalarDeletingDestructor(CTaskSimpleCarSlowDragPedOut* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleCarSlowDragPedOutDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote159ABody_CTaskSimpleCarSlowDragPedOut() { return reinterpret_cast<uintptr_t>(&CTaskSimpleCarSlowDragPedOutDestructorBody); } // para el banco Fn159A
+
 void CTaskSimpleCarSlowDragPedOut::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCarSlowDragPedOut, 0x86EEE8, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x647FE0);
     RH_ScopedInstall(Destructor, 0x648070);
+    RH_ScopedNamedGlobalInstall(CTaskSimpleCarSlowDragPedOutScalarDeletingDestructor, "ScalarDeletingDestructor", 0x64BF90); // lote 159A (banco Fn159A)
 
     RH_ScopedGlobalInstall(FinishAnimCarSlowDragPedOutCB, 0x648180);
     RH_ScopedInstall(ComputeAnimID_Wrapper, 0x648100);

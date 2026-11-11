@@ -170560,7 +170560,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadLine-File"
@@ -170569,7 +170569,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -170601,7 +170601,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadLine-Bufer"
@@ -170610,7 +170610,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -170642,7 +170642,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadObject"
@@ -170651,7 +170651,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -170683,7 +170683,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadTimeObject"
@@ -170692,7 +170692,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -170724,7 +170724,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadWeaponObject"
@@ -170733,7 +170733,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -170765,7 +170765,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadClumpObject"
@@ -170774,7 +170774,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -170806,7 +170806,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadAnimatedClumpObject"
@@ -170815,7 +170815,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -170847,7 +170847,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadVehicleObject"
@@ -170856,7 +170856,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -170888,7 +170888,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadPedObject"
@@ -170897,7 +170897,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -170929,7 +170929,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadTXDParent"
@@ -170938,7 +170938,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -170970,7 +170970,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadPathHeader"
@@ -170979,7 +170979,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171011,7 +171011,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadPedPathNode"
@@ -171020,7 +171020,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171052,7 +171052,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCarPathNode"
@@ -171061,7 +171061,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171093,7 +171093,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadGarage"
@@ -171102,7 +171102,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171134,7 +171134,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadStuntJump"
@@ -171143,7 +171143,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171175,7 +171175,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCarGenerator-1"
@@ -171184,7 +171184,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171216,7 +171216,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCarGenerator-0"
@@ -171225,7 +171225,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171257,7 +171257,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadPickup"
@@ -171266,7 +171266,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171311,7 +171311,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadZone"
@@ -171320,7 +171320,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171352,7 +171352,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCullZone"
@@ -171361,7 +171361,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171393,7 +171393,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadOcclusionVolume"
@@ -171402,7 +171402,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171434,7 +171434,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadAudioZone"
@@ -171443,7 +171443,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171475,7 +171475,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadEntryExit"
@@ -171484,7 +171484,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171516,7 +171516,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadTimeCyclesModifier"
@@ -171525,7 +171525,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171557,7 +171557,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadObjectInstance-file"
@@ -171566,7 +171566,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171598,7 +171598,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadObjectInstance-inst"
@@ -171607,7 +171607,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171639,7 +171639,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::FindRelatedModelInfoCB"
@@ -171648,7 +171648,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171680,7 +171680,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::SetRelatedModelInfoCB"
@@ -171689,7 +171689,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171721,7 +171721,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadAtomicFile-stream"
@@ -171730,7 +171730,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171762,7 +171762,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadAtomicFile-"
@@ -171771,7 +171771,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171803,7 +171803,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadClumpFile-1"
@@ -171812,7 +171812,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171844,7 +171844,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadClumpFile-"
@@ -171853,7 +171853,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171885,7 +171885,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::StartLoadClumpFile"
@@ -171894,7 +171894,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171926,7 +171926,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::FinishLoadClumpFile"
@@ -171935,7 +171935,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -171967,7 +171967,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadTexDictionary"
@@ -171976,7 +171976,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -172008,7 +172008,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::AddTexDictionaries"
@@ -172017,7 +172017,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -172049,7 +172049,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionModel"
@@ -172058,7 +172058,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -172090,7 +172090,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionModelVer2"
@@ -172099,7 +172099,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -172131,7 +172131,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionModelVer3"
@@ -172140,7 +172140,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -172172,7 +172172,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionModelVer4"
@@ -172181,7 +172181,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -172213,7 +172213,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionFile-Buffer"
@@ -172222,7 +172222,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -172254,7 +172254,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionFileFirstTime"
@@ -172263,7 +172263,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -172295,7 +172295,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionFile-File"
@@ -172304,7 +172304,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -172336,7 +172336,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LinkLods"
@@ -172345,7 +172345,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -172377,7 +172377,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadObjectTypes"
@@ -172386,7 +172386,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -172418,7 +172418,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadScene"
@@ -172427,7 +172427,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
@@ -172459,7 +172459,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "3d9eba8794aab390ed77557d4e40d4f17e791a81aa0e9053ebc3cdfeb59fcdb7",
+        "sha256": "70b6dce95c6f28cebc6422be50183816483a45f8fba042b856be702b4aa5483e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadLevel"
@@ -172468,7 +172468,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.cpp": "eebc2170cc53050533ef3193d95c82921dd8b5f75248b6062a07e83233012981",
         "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
         "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
         "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"

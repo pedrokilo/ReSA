@@ -21,9 +21,17 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleLand.h"
 
 namespace {
-// 0x678EE0 (lote 148A, banco Fn148A): cuerpo del destructor de CTaskSimpleLand del EXE (sin hook propio; vtable 0x8704FC). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// 0x678EE0 (lote 148A, banco Fn148A; con hook desde el lote 159A, banco Fn159A): cuerpo del destructor de CTaskSimpleLand del EXE (thiscall, sin argumentos de pila, `ret`, 93 bytes con marco SEH que solo desenrolla;
+// vtable 0x8704FC): deja la vtable de la clase del EXE (la de la DLL no vale para los llamadores del EXE); si hay animacion (+8) le pone la funcion de fin por defecto (CAnimBlendAssociation::SetFinishCallback
+// 0x4CEBE0, con hook, con CDefaultAnimCallback::DefaultAnimCB 0x4D1390 y datos nulos); y sigue con el cuerpo de ~CTask (0x61A3A0, con hook). El marco SEH se omite. Funcion propia sin expansion en linea; la llama
 // el destructor con borrado como el `call 0x678EE0` del EXE.
-__declspec(noinline) void __fastcall CTaskSimpleLandDestructorBody(CTaskSimpleLand* self, void* /*edx*/) { self->CTaskSimpleLand::~CTaskSimpleLand(); }
+__declspec(noinline) void __fastcall CTaskSimpleLandDestructorBody(CTaskSimpleLand* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x8704FC;
+    if (self->m_pAnim) {
+        self->m_pAnim->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+    }
+    self->CTask::Destructor();
+}
 
 // 0x67D360 (lote 148A, banco Fn148A): destructor con borrado de CTaskSimpleLand del EXE (ranura 0 de su vtable 0x8704FC; thiscall, un argumento de pila, `ret 4`, 30 bytes:
 // `push esi; mov esi,ecx; call 0x678EE0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`; el listado lo atribuia a CTaskComplexInAirAndLand). Como el original: destruye con
@@ -38,12 +46,19 @@ CTaskSimpleLand* __fastcall CTaskSimpleLandScalarDeletingDestructor(CTaskSimpleL
 }
 } // namespace
 
+// 0x678ED0 (lote 159A, banco Fn159A; thiscall, `ret`, 6 bytes: `mov eax,0F2h`): TASK_SIMPLE_LAND (242); no lee el objeto (ranura 4 de la vtable 0x8704FC).
+eTaskType CTaskSimpleLand::GetTaskType() const {
+    return Type;
+}
+
 uintptr_t Lote148ABody_CTaskSimpleLand() { return reinterpret_cast<uintptr_t>(&CTaskSimpleLandDestructorBody); } // para el banco Fn148A
 
 void CTaskSimpleLand::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleLand, 0x8704FC, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x678E90);
+    RH_ScopedNamedGlobalInstall(CTaskSimpleLandDestructorBody, "DestructorBody", 0x678EE0); // lote 159A (banco Fn159A)
+    RH_ScopedVMTInstall(GetTaskType, 0x678ED0); // lote 159A (banco Fn159A): retorno de constante
     RH_ScopedNamedGlobalInstall(CTaskSimpleLandScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67D360); // lote 148A (banco Fn148A)
     RH_ScopedInstall(LeftFootLanded, 0x679010);
     RH_ScopedInstall(RightFootLanded, 0x678FE0);

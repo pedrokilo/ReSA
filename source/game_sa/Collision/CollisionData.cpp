@@ -46,6 +46,24 @@ void CCollisionData::InjectHooks() {
     RH_ScopedInstall(CalculateTrianglePlanes, 0x40F590);
     RH_ScopedInstall(SetLinkPtr, 0x40F6C0);
     RH_ScopedInstall(GetLinkPtr, 0x40F6E0);
+    RH_ScopedInstall(GetNoOfShdwVerts, 0x537510); // lote 159A (banco Fn159A)
+}
+
+// 0x537510 (lote 159A, banco Fn159A): thiscall, sin argumentos de pila, `ret`, 55 bytes (el listado lo atribuia a CFileLoader; lo llaman 0x537CBB y 0x537EBB, dentro de LoadCollisionModelVer3 y Ver2). Como el
+// original: el contador de triangulos de sombra (+0x20) se lee con signo: 0 devuelve 0 y un valor negativo devuelve 1 sin leer nada; si es positivo recorre los triangulos de sombra (+0x2C; 8 bytes cada uno,
+// tres indices de vertice de 16 bits sin signo), toma el mayor indice (empezando en 0) y devuelve ese valor + 1.
+uint32 CCollisionData::GetNoOfShdwVerts() const {
+    const int32 numTris = static_cast<int32>(m_nNumShadowTriangles);
+    if (numTris == 0) {
+        return 0;
+    }
+    uint32 maxVert = 0;
+    if (numTris > 0) {
+        for (const CColTriangle& tri : std::span{ m_pShadowTriangles, m_nNumShadowTriangles }) {
+            maxVert = std::max<uint32>(maxVert, rng::max(tri.m_vertIndices));
+        }
+    }
+    return maxVert + 1;
 }
 
 // 0x40F030

@@ -71,3 +71,6 @@ Una corrida de los 327680 pares: unos 14 min (616 MB crudos, 40,7 MB comprimidos
 
 ## Adaptacion del lote 152A (10/11/2026)
 El cuerpo 0x678D50 (colaborador del destructor con borrado 0x67D340) paso a tener hook propio en el lote 152A (banco Fn152A). El destructor con borrado llama ahora a `CTaskSimpleInAirDestructorBodyExe` (el cuerpo con hook) y el banco lo falsea como colaborador con hook (`F`) en lugar de la funcion propia de la DLL (`U`). Repetido y aprobado: `reversing/CppTwelveLevel6Final/runs/Fn148A-20261110-035550-418461`.
+
+## Repeticion del lote 159A (10/11/2026)
+El cuerpo 0x678EE0 de `CTaskSimpleLand` tiene hook desde el lote 159A (banco `Fn159A`): el banco se adapto (su falso va ahora en el cuerpo del hook, `F`, en lugar de la funcion propia sin hook) y se repitio: **aprobado**, 327680 pares, evidencia `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn148a/20261110-203923-377519` (archivada en `reversing/CppTwelveLevel6Final/runs/Fn148A-20261110-203923-377519`).

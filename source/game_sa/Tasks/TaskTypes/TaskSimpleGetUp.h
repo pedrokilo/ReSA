@@ -14,7 +14,7 @@ public:
     CTaskSimpleGetUp();
     ~CTaskSimpleGetUp() override;
 
-    eTaskType GetTaskType() const override { return Type; }
+    eTaskType GetTaskType() const override; // 0x677F70 (lote 159A, banco Fn159A)
     CTask* Clone() const override { return new CTaskSimpleGetUp(); }
     bool ProcessPed(class CPed* ped) override;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;

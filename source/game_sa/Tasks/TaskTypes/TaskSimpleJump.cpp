@@ -38,10 +38,24 @@ __declspec(noinline) void __fastcall SimpleJumpDestructorBodyExe(CTaskSimpleJump
 }
 } // namespace
 
+namespace {
+// 0x67D570 (lote 159A, banco Fn159A): destructor con borrado de CTaskSimpleJump del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x679AF0; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
+// del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleJump* __fastcall CTaskSimpleJumpScalarDeletingDestructor(CTaskSimpleJump* self, void* /*edx*/, uint8 flags) {
+    SimpleJumpDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskSimpleJump::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleJump, 0x87054C, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(SimpleJumpDestructorBodyExe, "DestructorBody", 0x679AF0); // lote 156A (banco Fn156A)
+    RH_ScopedNamedGlobalInstall(CTaskSimpleJumpScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67D570); // lote 159A (banco Fn159A)
     RH_ScopedInstall(Constructor, 0x679AA0);
     RH_ScopedInstall(CheckIfJumpBlocked, 0x67D590);
     RH_ScopedInstall(Launch, 0x679B80);

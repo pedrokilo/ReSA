@@ -21,10 +21,30 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleGetUp.h"
 #include "PedPlacement.h"
 
+namespace {
+// 0x677F80 (lote 159A, banco Fn159A): cuerpo del destructor de CTaskSimpleGetUp del EXE (thiscall, sin argumentos de pila, `ret`, 93 bytes con marco SEH que solo desenrolla): deja la vtable de la clase del EXE
+// (0x8703E0); si hay animacion (+0xC) le pone la funcion de fin por defecto (CAnimBlendAssociation::SetFinishCallback 0x4CEBE0, con hook, con CDefaultAnimCallback::DefaultAnimCB 0x4D1390 y datos nulos);
+// y sigue con el cuerpo de ~CTask (0x61A3A0, con hook). El marco SEH se omite. Funcion propia sin expansion en linea.
+__declspec(noinline) void __fastcall SimpleGetUpDestructorBodyExe(CTaskSimpleGetUp* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x8703E0;
+    if (self->m_Anim) {
+        self->m_Anim->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+    }
+    self->CTask::Destructor();
+}
+} // namespace
+
+// 0x677F70 (lote 159A, banco Fn159A; thiscall, `ret`, 6 bytes: `mov eax,0CDh`): TASK_SIMPLE_GET_UP (205); no lee el objeto (ranura 4 de la vtable 0x8703E0).
+eTaskType CTaskSimpleGetUp::GetTaskType() const {
+    return Type;
+}
+
 void CTaskSimpleGetUp::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleGetUp, 0x8703E0, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x677F50);
+    RH_ScopedNamedGlobalInstall(SimpleGetUpDestructorBodyExe, "DestructorBody", 0x677F80); // lote 159A (banco Fn159A)
+    RH_ScopedVMTInstall(GetTaskType, 0x677F70); // lote 159A (banco Fn159A): retorno de constante
     RH_ScopedInstall(StartAnim, 0x67C770);
     RH_ScopedInstall(FinishGetUpAnimCB, 0x678110);
     RH_ScopedVMTInstall(ProcessPed, 0x67FA80);
