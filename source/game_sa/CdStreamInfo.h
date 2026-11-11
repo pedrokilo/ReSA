@@ -86,6 +86,7 @@ extern uint32& gLastCdStreamPosn;
 
 
 uint32 CdStreamHandleToFileID(CdStreamHandle h);
+uint32 GetGTA3ImgSize(); // 0x406360
 void InjectCdStreamHooks();
 CdStreamHandle CdStreamOpen(const char* lpFileName);
 eCdStreamStatus CdStreamSync(int32 streamId);

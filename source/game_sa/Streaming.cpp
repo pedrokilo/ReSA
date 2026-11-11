@@ -1250,7 +1250,7 @@ void CStreaming::LoadCdDirectory()
     ms_imageOffsets[4] = -1;
     ms_imageOffsets[5] = -1;
     // Como el original (0x5B82E6): GetGTA3ImgSize (0x406360) = GetFileSize(gStreamFileHandles[0], 0)
-    ms_imageSize = GetFileSize(gStreamFileHandles[0], nullptr);
+    ms_imageSize = GetGTA3ImgSize();
     ///////////////////////////////////
 
     // Como el original (0x5B82F0..0x5B831F): se recorre hasta la primera ranura sin nombre (o el final); solo se carga la que es imagen "no jugador"

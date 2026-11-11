@@ -43952,6 +43952,548 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
       "review_reference": "reversing/Fn160A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CIplDefPool",
+        "fn_name": "Constructor",
+        "address": "0x00405900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn161A/validation-summary.json",
+        "sha256": "519f7660014bebbbea3c2a06f23649084c900dba7972edfba608b4ddc34e2007",
+        "passed_path": [
+          "covered_functions",
+          "CIplDefPool::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+        "source/game_sa/Pools/IplDefPool.h": "e6d7e74d8bbb1aeb645c8635694878777995a77ff4e96c30f152008405f3578c",
+        "source/game_sa/CdStreamInfo.cpp": "fe5e77c5f5b3282e4dd135539818d37e691c5f238c2e9e458b2a449939350550",
+        "source/game_sa/CdStreamInfo.h": "394a88c6417a2d3c94ca7c67b99be2176d6cb24f38517120709d05a91114b6cb",
+        "source/game_sa/Streaming.cpp": "cd32b37bde302a4848b3725237fb17c9e31b0ab292c0fe642179099ba1ea97f2",
+        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
+        "source/game_sa/Entity/Dummy/Dummy.h": "6809e1521d9aaa324533be56570992ad71de43d5bcef4e8c348aabbf31200636",
+        "source/game_sa/Entity/Dummy/DummyObject.cpp": "12726ec7329422b00842e7c1ceadd7335cc2716ffe2821013784c7b702b129f6",
+        "source/game_sa/Core/MatrixLinkList.cpp": "063d98fae2852f77f87551d9a32ac31ca2b9cad49b6b3a5bf89ed36f426ca02a",
+        "source/game_sa/Entity/Placeable.cpp": "1a9c4981eb24c02c244d1de10b7e0bdadb325135f665a937acfb3689053ef13a",
+        "source/game_sa/Models/AtomicModelInfo.cpp": "74677181005ab34d5e60f28ad8be44de5cf92fd7faebc3a2b06ee43879d57122",
+        "source/game_sa/Models/DamageAtomicModelInfo.cpp": "9d2953195236485184888b1ecdf2aea1ff1e1ece3aa537e6453b1decbd9b4fb8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn161A/LiveComparison.hpp": "cc410ecfa569968c45d08043486f2092f491ad8fc5a3ed6f47f52ef426062297",
+        "reversing/Fn161A/Core.hpp": "f452dc1c664081121c3b79dea4d04c3c8c9728781d9329d1347911d141ca800f",
+        "reversing/Fn161A/Fixtures.hpp": "3a6949d5f0fb2bf4f4fc1917b5be5e50c8cf66ad29e7765e1800771029781b3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+      "review_reference": "reversing/Fn161A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CIplDefPool",
+        "fn_name": "DestructorBody",
+        "address": "0x00405960",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn161A/validation-summary.json",
+        "sha256": "519f7660014bebbbea3c2a06f23649084c900dba7972edfba608b4ddc34e2007",
+        "passed_path": [
+          "covered_functions",
+          "CIplDefPool::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+        "source/game_sa/Pools/IplDefPool.h": "e6d7e74d8bbb1aeb645c8635694878777995a77ff4e96c30f152008405f3578c",
+        "source/game_sa/CdStreamInfo.cpp": "fe5e77c5f5b3282e4dd135539818d37e691c5f238c2e9e458b2a449939350550",
+        "source/game_sa/CdStreamInfo.h": "394a88c6417a2d3c94ca7c67b99be2176d6cb24f38517120709d05a91114b6cb",
+        "source/game_sa/Streaming.cpp": "cd32b37bde302a4848b3725237fb17c9e31b0ab292c0fe642179099ba1ea97f2",
+        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
+        "source/game_sa/Entity/Dummy/Dummy.h": "6809e1521d9aaa324533be56570992ad71de43d5bcef4e8c348aabbf31200636",
+        "source/game_sa/Entity/Dummy/DummyObject.cpp": "12726ec7329422b00842e7c1ceadd7335cc2716ffe2821013784c7b702b129f6",
+        "source/game_sa/Core/MatrixLinkList.cpp": "063d98fae2852f77f87551d9a32ac31ca2b9cad49b6b3a5bf89ed36f426ca02a",
+        "source/game_sa/Entity/Placeable.cpp": "1a9c4981eb24c02c244d1de10b7e0bdadb325135f665a937acfb3689053ef13a",
+        "source/game_sa/Models/AtomicModelInfo.cpp": "74677181005ab34d5e60f28ad8be44de5cf92fd7faebc3a2b06ee43879d57122",
+        "source/game_sa/Models/DamageAtomicModelInfo.cpp": "9d2953195236485184888b1ecdf2aea1ff1e1ece3aa537e6453b1decbd9b4fb8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn161A/LiveComparison.hpp": "cc410ecfa569968c45d08043486f2092f491ad8fc5a3ed6f47f52ef426062297",
+        "reversing/Fn161A/Core.hpp": "f452dc1c664081121c3b79dea4d04c3c8c9728781d9329d1347911d141ca800f",
+        "reversing/Fn161A/Fixtures.hpp": "3a6949d5f0fb2bf4f4fc1917b5be5e50c8cf66ad29e7765e1800771029781b3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+      "review_reference": "reversing/Fn161A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CdStream",
+        "fn_name": "GetGTA3ImgSize",
+        "address": "0x00406360",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn161A/validation-summary.json",
+        "sha256": "519f7660014bebbbea3c2a06f23649084c900dba7972edfba608b4ddc34e2007",
+        "passed_path": [
+          "covered_functions",
+          "GetGTA3ImgSize"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+        "source/game_sa/Pools/IplDefPool.h": "e6d7e74d8bbb1aeb645c8635694878777995a77ff4e96c30f152008405f3578c",
+        "source/game_sa/CdStreamInfo.cpp": "fe5e77c5f5b3282e4dd135539818d37e691c5f238c2e9e458b2a449939350550",
+        "source/game_sa/CdStreamInfo.h": "394a88c6417a2d3c94ca7c67b99be2176d6cb24f38517120709d05a91114b6cb",
+        "source/game_sa/Streaming.cpp": "cd32b37bde302a4848b3725237fb17c9e31b0ab292c0fe642179099ba1ea97f2",
+        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
+        "source/game_sa/Entity/Dummy/Dummy.h": "6809e1521d9aaa324533be56570992ad71de43d5bcef4e8c348aabbf31200636",
+        "source/game_sa/Entity/Dummy/DummyObject.cpp": "12726ec7329422b00842e7c1ceadd7335cc2716ffe2821013784c7b702b129f6",
+        "source/game_sa/Core/MatrixLinkList.cpp": "063d98fae2852f77f87551d9a32ac31ca2b9cad49b6b3a5bf89ed36f426ca02a",
+        "source/game_sa/Entity/Placeable.cpp": "1a9c4981eb24c02c244d1de10b7e0bdadb325135f665a937acfb3689053ef13a",
+        "source/game_sa/Models/AtomicModelInfo.cpp": "74677181005ab34d5e60f28ad8be44de5cf92fd7faebc3a2b06ee43879d57122",
+        "source/game_sa/Models/DamageAtomicModelInfo.cpp": "9d2953195236485184888b1ecdf2aea1ff1e1ece3aa537e6453b1decbd9b4fb8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn161A/LiveComparison.hpp": "cc410ecfa569968c45d08043486f2092f491ad8fc5a3ed6f47f52ef426062297",
+        "reversing/Fn161A/Core.hpp": "f452dc1c664081121c3b79dea4d04c3c8c9728781d9329d1347911d141ca800f",
+        "reversing/Fn161A/Fixtures.hpp": "3a6949d5f0fb2bf4f4fc1917b5be5e50c8cf66ad29e7765e1800771029781b3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+      "review_reference": "reversing/Fn161A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDummyObject",
+        "fn_name": "Constructor",
+        "address": "0x0059EA00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn161A/validation-summary.json",
+        "sha256": "519f7660014bebbbea3c2a06f23649084c900dba7972edfba608b4ddc34e2007",
+        "passed_path": [
+          "covered_functions",
+          "CDummyObject::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+        "source/game_sa/Pools/IplDefPool.h": "e6d7e74d8bbb1aeb645c8635694878777995a77ff4e96c30f152008405f3578c",
+        "source/game_sa/CdStreamInfo.cpp": "fe5e77c5f5b3282e4dd135539818d37e691c5f238c2e9e458b2a449939350550",
+        "source/game_sa/CdStreamInfo.h": "394a88c6417a2d3c94ca7c67b99be2176d6cb24f38517120709d05a91114b6cb",
+        "source/game_sa/Streaming.cpp": "cd32b37bde302a4848b3725237fb17c9e31b0ab292c0fe642179099ba1ea97f2",
+        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
+        "source/game_sa/Entity/Dummy/Dummy.h": "6809e1521d9aaa324533be56570992ad71de43d5bcef4e8c348aabbf31200636",
+        "source/game_sa/Entity/Dummy/DummyObject.cpp": "12726ec7329422b00842e7c1ceadd7335cc2716ffe2821013784c7b702b129f6",
+        "source/game_sa/Core/MatrixLinkList.cpp": "063d98fae2852f77f87551d9a32ac31ca2b9cad49b6b3a5bf89ed36f426ca02a",
+        "source/game_sa/Entity/Placeable.cpp": "1a9c4981eb24c02c244d1de10b7e0bdadb325135f665a937acfb3689053ef13a",
+        "source/game_sa/Models/AtomicModelInfo.cpp": "74677181005ab34d5e60f28ad8be44de5cf92fd7faebc3a2b06ee43879d57122",
+        "source/game_sa/Models/DamageAtomicModelInfo.cpp": "9d2953195236485184888b1ecdf2aea1ff1e1ece3aa537e6453b1decbd9b4fb8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn161A/LiveComparison.hpp": "cc410ecfa569968c45d08043486f2092f491ad8fc5a3ed6f47f52ef426062297",
+        "reversing/Fn161A/Core.hpp": "f452dc1c664081121c3b79dea4d04c3c8c9728781d9329d1347911d141ca800f",
+        "reversing/Fn161A/Fixtures.hpp": "3a6949d5f0fb2bf4f4fc1917b5be5e50c8cf66ad29e7765e1800771029781b3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+      "review_reference": "reversing/Fn161A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDummyObject",
+        "fn_name": "ConstructorFromObject",
+        "address": "0x0059EA20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn161A/validation-summary.json",
+        "sha256": "519f7660014bebbbea3c2a06f23649084c900dba7972edfba608b4ddc34e2007",
+        "passed_path": [
+          "covered_functions",
+          "CDummyObject::ConstructorFromObject"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+        "source/game_sa/Pools/IplDefPool.h": "e6d7e74d8bbb1aeb645c8635694878777995a77ff4e96c30f152008405f3578c",
+        "source/game_sa/CdStreamInfo.cpp": "fe5e77c5f5b3282e4dd135539818d37e691c5f238c2e9e458b2a449939350550",
+        "source/game_sa/CdStreamInfo.h": "394a88c6417a2d3c94ca7c67b99be2176d6cb24f38517120709d05a91114b6cb",
+        "source/game_sa/Streaming.cpp": "cd32b37bde302a4848b3725237fb17c9e31b0ab292c0fe642179099ba1ea97f2",
+        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
+        "source/game_sa/Entity/Dummy/Dummy.h": "6809e1521d9aaa324533be56570992ad71de43d5bcef4e8c348aabbf31200636",
+        "source/game_sa/Entity/Dummy/DummyObject.cpp": "12726ec7329422b00842e7c1ceadd7335cc2716ffe2821013784c7b702b129f6",
+        "source/game_sa/Core/MatrixLinkList.cpp": "063d98fae2852f77f87551d9a32ac31ca2b9cad49b6b3a5bf89ed36f426ca02a",
+        "source/game_sa/Entity/Placeable.cpp": "1a9c4981eb24c02c244d1de10b7e0bdadb325135f665a937acfb3689053ef13a",
+        "source/game_sa/Models/AtomicModelInfo.cpp": "74677181005ab34d5e60f28ad8be44de5cf92fd7faebc3a2b06ee43879d57122",
+        "source/game_sa/Models/DamageAtomicModelInfo.cpp": "9d2953195236485184888b1ecdf2aea1ff1e1ece3aa537e6453b1decbd9b4fb8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn161A/LiveComparison.hpp": "cc410ecfa569968c45d08043486f2092f491ad8fc5a3ed6f47f52ef426062297",
+        "reversing/Fn161A/Core.hpp": "f452dc1c664081121c3b79dea4d04c3c8c9728781d9329d1347911d141ca800f",
+        "reversing/Fn161A/Fixtures.hpp": "3a6949d5f0fb2bf4f4fc1917b5be5e50c8cf66ad29e7765e1800771029781b3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+      "review_reference": "reversing/Fn161A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDummyObject",
+        "fn_name": "DestructorBody",
+        "address": "0x0059EAB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn161A/validation-summary.json",
+        "sha256": "519f7660014bebbbea3c2a06f23649084c900dba7972edfba608b4ddc34e2007",
+        "passed_path": [
+          "covered_functions",
+          "CDummyObject::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+        "source/game_sa/Pools/IplDefPool.h": "e6d7e74d8bbb1aeb645c8635694878777995a77ff4e96c30f152008405f3578c",
+        "source/game_sa/CdStreamInfo.cpp": "fe5e77c5f5b3282e4dd135539818d37e691c5f238c2e9e458b2a449939350550",
+        "source/game_sa/CdStreamInfo.h": "394a88c6417a2d3c94ca7c67b99be2176d6cb24f38517120709d05a91114b6cb",
+        "source/game_sa/Streaming.cpp": "cd32b37bde302a4848b3725237fb17c9e31b0ab292c0fe642179099ba1ea97f2",
+        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
+        "source/game_sa/Entity/Dummy/Dummy.h": "6809e1521d9aaa324533be56570992ad71de43d5bcef4e8c348aabbf31200636",
+        "source/game_sa/Entity/Dummy/DummyObject.cpp": "12726ec7329422b00842e7c1ceadd7335cc2716ffe2821013784c7b702b129f6",
+        "source/game_sa/Core/MatrixLinkList.cpp": "063d98fae2852f77f87551d9a32ac31ca2b9cad49b6b3a5bf89ed36f426ca02a",
+        "source/game_sa/Entity/Placeable.cpp": "1a9c4981eb24c02c244d1de10b7e0bdadb325135f665a937acfb3689053ef13a",
+        "source/game_sa/Models/AtomicModelInfo.cpp": "74677181005ab34d5e60f28ad8be44de5cf92fd7faebc3a2b06ee43879d57122",
+        "source/game_sa/Models/DamageAtomicModelInfo.cpp": "9d2953195236485184888b1ecdf2aea1ff1e1ece3aa537e6453b1decbd9b4fb8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn161A/LiveComparison.hpp": "cc410ecfa569968c45d08043486f2092f491ad8fc5a3ed6f47f52ef426062297",
+        "reversing/Fn161A/Core.hpp": "f452dc1c664081121c3b79dea4d04c3c8c9728781d9329d1347911d141ca800f",
+        "reversing/Fn161A/Fixtures.hpp": "3a6949d5f0fb2bf4f4fc1917b5be5e50c8cf66ad29e7765e1800771029781b3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+      "review_reference": "reversing/Fn161A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrixLinkList",
+        "fn_name": "Destructor",
+        "address": "0x0054EB70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn161A/validation-summary.json",
+        "sha256": "519f7660014bebbbea3c2a06f23649084c900dba7972edfba608b4ddc34e2007",
+        "passed_path": [
+          "covered_functions",
+          "CMatrixLinkList::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+        "source/game_sa/Pools/IplDefPool.h": "e6d7e74d8bbb1aeb645c8635694878777995a77ff4e96c30f152008405f3578c",
+        "source/game_sa/CdStreamInfo.cpp": "fe5e77c5f5b3282e4dd135539818d37e691c5f238c2e9e458b2a449939350550",
+        "source/game_sa/CdStreamInfo.h": "394a88c6417a2d3c94ca7c67b99be2176d6cb24f38517120709d05a91114b6cb",
+        "source/game_sa/Streaming.cpp": "cd32b37bde302a4848b3725237fb17c9e31b0ab292c0fe642179099ba1ea97f2",
+        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
+        "source/game_sa/Entity/Dummy/Dummy.h": "6809e1521d9aaa324533be56570992ad71de43d5bcef4e8c348aabbf31200636",
+        "source/game_sa/Entity/Dummy/DummyObject.cpp": "12726ec7329422b00842e7c1ceadd7335cc2716ffe2821013784c7b702b129f6",
+        "source/game_sa/Core/MatrixLinkList.cpp": "063d98fae2852f77f87551d9a32ac31ca2b9cad49b6b3a5bf89ed36f426ca02a",
+        "source/game_sa/Entity/Placeable.cpp": "1a9c4981eb24c02c244d1de10b7e0bdadb325135f665a937acfb3689053ef13a",
+        "source/game_sa/Models/AtomicModelInfo.cpp": "74677181005ab34d5e60f28ad8be44de5cf92fd7faebc3a2b06ee43879d57122",
+        "source/game_sa/Models/DamageAtomicModelInfo.cpp": "9d2953195236485184888b1ecdf2aea1ff1e1ece3aa537e6453b1decbd9b4fb8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn161A/LiveComparison.hpp": "cc410ecfa569968c45d08043486f2092f491ad8fc5a3ed6f47f52ef426062297",
+        "reversing/Fn161A/Core.hpp": "f452dc1c664081121c3b79dea4d04c3c8c9728781d9329d1347911d141ca800f",
+        "reversing/Fn161A/Fixtures.hpp": "3a6949d5f0fb2bf4f4fc1917b5be5e50c8cf66ad29e7765e1800771029781b3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+      "review_reference": "reversing/Fn161A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlaceable",
+        "fn_name": "Constructor",
+        "address": "0x0054F1E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn161A/validation-summary.json",
+        "sha256": "519f7660014bebbbea3c2a06f23649084c900dba7972edfba608b4ddc34e2007",
+        "passed_path": [
+          "covered_functions",
+          "CPlaceable::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+        "source/game_sa/Pools/IplDefPool.h": "e6d7e74d8bbb1aeb645c8635694878777995a77ff4e96c30f152008405f3578c",
+        "source/game_sa/CdStreamInfo.cpp": "fe5e77c5f5b3282e4dd135539818d37e691c5f238c2e9e458b2a449939350550",
+        "source/game_sa/CdStreamInfo.h": "394a88c6417a2d3c94ca7c67b99be2176d6cb24f38517120709d05a91114b6cb",
+        "source/game_sa/Streaming.cpp": "cd32b37bde302a4848b3725237fb17c9e31b0ab292c0fe642179099ba1ea97f2",
+        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
+        "source/game_sa/Entity/Dummy/Dummy.h": "6809e1521d9aaa324533be56570992ad71de43d5bcef4e8c348aabbf31200636",
+        "source/game_sa/Entity/Dummy/DummyObject.cpp": "12726ec7329422b00842e7c1ceadd7335cc2716ffe2821013784c7b702b129f6",
+        "source/game_sa/Core/MatrixLinkList.cpp": "063d98fae2852f77f87551d9a32ac31ca2b9cad49b6b3a5bf89ed36f426ca02a",
+        "source/game_sa/Entity/Placeable.cpp": "1a9c4981eb24c02c244d1de10b7e0bdadb325135f665a937acfb3689053ef13a",
+        "source/game_sa/Models/AtomicModelInfo.cpp": "74677181005ab34d5e60f28ad8be44de5cf92fd7faebc3a2b06ee43879d57122",
+        "source/game_sa/Models/DamageAtomicModelInfo.cpp": "9d2953195236485184888b1ecdf2aea1ff1e1ece3aa537e6453b1decbd9b4fb8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn161A/LiveComparison.hpp": "cc410ecfa569968c45d08043486f2092f491ad8fc5a3ed6f47f52ef426062297",
+        "reversing/Fn161A/Core.hpp": "f452dc1c664081121c3b79dea4d04c3c8c9728781d9329d1347911d141ca800f",
+        "reversing/Fn161A/Fixtures.hpp": "3a6949d5f0fb2bf4f4fc1917b5be5e50c8cf66ad29e7765e1800771029781b3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+      "review_reference": "reversing/Fn161A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAtomicModelInfo",
+        "fn_name": "CreateInstance-rwmat",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn161A/validation-summary.json",
+        "sha256": "519f7660014bebbbea3c2a06f23649084c900dba7972edfba608b4ddc34e2007",
+        "passed_path": [
+          "covered_functions",
+          "CAtomicModelInfo::CreateInstance-rwmat"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004C44D0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+        "source/game_sa/Pools/IplDefPool.h": "e6d7e74d8bbb1aeb645c8635694878777995a77ff4e96c30f152008405f3578c",
+        "source/game_sa/CdStreamInfo.cpp": "fe5e77c5f5b3282e4dd135539818d37e691c5f238c2e9e458b2a449939350550",
+        "source/game_sa/CdStreamInfo.h": "394a88c6417a2d3c94ca7c67b99be2176d6cb24f38517120709d05a91114b6cb",
+        "source/game_sa/Streaming.cpp": "cd32b37bde302a4848b3725237fb17c9e31b0ab292c0fe642179099ba1ea97f2",
+        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
+        "source/game_sa/Entity/Dummy/Dummy.h": "6809e1521d9aaa324533be56570992ad71de43d5bcef4e8c348aabbf31200636",
+        "source/game_sa/Entity/Dummy/DummyObject.cpp": "12726ec7329422b00842e7c1ceadd7335cc2716ffe2821013784c7b702b129f6",
+        "source/game_sa/Core/MatrixLinkList.cpp": "063d98fae2852f77f87551d9a32ac31ca2b9cad49b6b3a5bf89ed36f426ca02a",
+        "source/game_sa/Entity/Placeable.cpp": "1a9c4981eb24c02c244d1de10b7e0bdadb325135f665a937acfb3689053ef13a",
+        "source/game_sa/Models/AtomicModelInfo.cpp": "74677181005ab34d5e60f28ad8be44de5cf92fd7faebc3a2b06ee43879d57122",
+        "source/game_sa/Models/DamageAtomicModelInfo.cpp": "9d2953195236485184888b1ecdf2aea1ff1e1ece3aa537e6453b1decbd9b4fb8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn161A/LiveComparison.hpp": "cc410ecfa569968c45d08043486f2092f491ad8fc5a3ed6f47f52ef426062297",
+        "reversing/Fn161A/Core.hpp": "f452dc1c664081121c3b79dea4d04c3c8c9728781d9329d1347911d141ca800f",
+        "reversing/Fn161A/Fixtures.hpp": "3a6949d5f0fb2bf4f4fc1917b5be5e50c8cf66ad29e7765e1800771029781b3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+      "review_reference": "reversing/Fn161A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAtomicModelInfo",
+        "fn_name": "CreateInstance-void",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn161A/validation-summary.json",
+        "sha256": "519f7660014bebbbea3c2a06f23649084c900dba7972edfba608b4ddc34e2007",
+        "passed_path": [
+          "covered_functions",
+          "CAtomicModelInfo::CreateInstance-void"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004C4530"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+        "source/game_sa/Pools/IplDefPool.h": "e6d7e74d8bbb1aeb645c8635694878777995a77ff4e96c30f152008405f3578c",
+        "source/game_sa/CdStreamInfo.cpp": "fe5e77c5f5b3282e4dd135539818d37e691c5f238c2e9e458b2a449939350550",
+        "source/game_sa/CdStreamInfo.h": "394a88c6417a2d3c94ca7c67b99be2176d6cb24f38517120709d05a91114b6cb",
+        "source/game_sa/Streaming.cpp": "cd32b37bde302a4848b3725237fb17c9e31b0ab292c0fe642179099ba1ea97f2",
+        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
+        "source/game_sa/Entity/Dummy/Dummy.h": "6809e1521d9aaa324533be56570992ad71de43d5bcef4e8c348aabbf31200636",
+        "source/game_sa/Entity/Dummy/DummyObject.cpp": "12726ec7329422b00842e7c1ceadd7335cc2716ffe2821013784c7b702b129f6",
+        "source/game_sa/Core/MatrixLinkList.cpp": "063d98fae2852f77f87551d9a32ac31ca2b9cad49b6b3a5bf89ed36f426ca02a",
+        "source/game_sa/Entity/Placeable.cpp": "1a9c4981eb24c02c244d1de10b7e0bdadb325135f665a937acfb3689053ef13a",
+        "source/game_sa/Models/AtomicModelInfo.cpp": "74677181005ab34d5e60f28ad8be44de5cf92fd7faebc3a2b06ee43879d57122",
+        "source/game_sa/Models/DamageAtomicModelInfo.cpp": "9d2953195236485184888b1ecdf2aea1ff1e1ece3aa537e6453b1decbd9b4fb8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn161A/LiveComparison.hpp": "cc410ecfa569968c45d08043486f2092f491ad8fc5a3ed6f47f52ef426062297",
+        "reversing/Fn161A/Core.hpp": "f452dc1c664081121c3b79dea4d04c3c8c9728781d9329d1347911d141ca800f",
+        "reversing/Fn161A/Fixtures.hpp": "3a6949d5f0fb2bf4f4fc1917b5be5e50c8cf66ad29e7765e1800771029781b3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+      "review_reference": "reversing/Fn161A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAtomicModelInfo",
+        "fn_name": "DestructorBody",
+        "address": "0x004C5590",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn161A/validation-summary.json",
+        "sha256": "519f7660014bebbbea3c2a06f23649084c900dba7972edfba608b4ddc34e2007",
+        "passed_path": [
+          "covered_functions",
+          "CAtomicModelInfo::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+        "source/game_sa/Pools/IplDefPool.h": "e6d7e74d8bbb1aeb645c8635694878777995a77ff4e96c30f152008405f3578c",
+        "source/game_sa/CdStreamInfo.cpp": "fe5e77c5f5b3282e4dd135539818d37e691c5f238c2e9e458b2a449939350550",
+        "source/game_sa/CdStreamInfo.h": "394a88c6417a2d3c94ca7c67b99be2176d6cb24f38517120709d05a91114b6cb",
+        "source/game_sa/Streaming.cpp": "cd32b37bde302a4848b3725237fb17c9e31b0ab292c0fe642179099ba1ea97f2",
+        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
+        "source/game_sa/Entity/Dummy/Dummy.h": "6809e1521d9aaa324533be56570992ad71de43d5bcef4e8c348aabbf31200636",
+        "source/game_sa/Entity/Dummy/DummyObject.cpp": "12726ec7329422b00842e7c1ceadd7335cc2716ffe2821013784c7b702b129f6",
+        "source/game_sa/Core/MatrixLinkList.cpp": "063d98fae2852f77f87551d9a32ac31ca2b9cad49b6b3a5bf89ed36f426ca02a",
+        "source/game_sa/Entity/Placeable.cpp": "1a9c4981eb24c02c244d1de10b7e0bdadb325135f665a937acfb3689053ef13a",
+        "source/game_sa/Models/AtomicModelInfo.cpp": "74677181005ab34d5e60f28ad8be44de5cf92fd7faebc3a2b06ee43879d57122",
+        "source/game_sa/Models/DamageAtomicModelInfo.cpp": "9d2953195236485184888b1ecdf2aea1ff1e1ece3aa537e6453b1decbd9b4fb8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn161A/LiveComparison.hpp": "cc410ecfa569968c45d08043486f2092f491ad8fc5a3ed6f47f52ef426062297",
+        "reversing/Fn161A/Core.hpp": "f452dc1c664081121c3b79dea4d04c3c8c9728781d9329d1347911d141ca800f",
+        "reversing/Fn161A/Fixtures.hpp": "3a6949d5f0fb2bf4f4fc1917b5be5e50c8cf66ad29e7765e1800771029781b3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+      "review_reference": "reversing/Fn161A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDamageAtomicModelInfo",
+        "fn_name": "ConstructorBody",
+        "address": "0x004C55A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn161A/validation-summary.json",
+        "sha256": "519f7660014bebbbea3c2a06f23649084c900dba7972edfba608b4ddc34e2007",
+        "passed_path": [
+          "covered_functions",
+          "CDamageAtomicModelInfo::ConstructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+        "source/game_sa/Pools/IplDefPool.h": "e6d7e74d8bbb1aeb645c8635694878777995a77ff4e96c30f152008405f3578c",
+        "source/game_sa/CdStreamInfo.cpp": "fe5e77c5f5b3282e4dd135539818d37e691c5f238c2e9e458b2a449939350550",
+        "source/game_sa/CdStreamInfo.h": "394a88c6417a2d3c94ca7c67b99be2176d6cb24f38517120709d05a91114b6cb",
+        "source/game_sa/Streaming.cpp": "cd32b37bde302a4848b3725237fb17c9e31b0ab292c0fe642179099ba1ea97f2",
+        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
+        "source/game_sa/Entity/Dummy/Dummy.h": "6809e1521d9aaa324533be56570992ad71de43d5bcef4e8c348aabbf31200636",
+        "source/game_sa/Entity/Dummy/DummyObject.cpp": "12726ec7329422b00842e7c1ceadd7335cc2716ffe2821013784c7b702b129f6",
+        "source/game_sa/Core/MatrixLinkList.cpp": "063d98fae2852f77f87551d9a32ac31ca2b9cad49b6b3a5bf89ed36f426ca02a",
+        "source/game_sa/Entity/Placeable.cpp": "1a9c4981eb24c02c244d1de10b7e0bdadb325135f665a937acfb3689053ef13a",
+        "source/game_sa/Models/AtomicModelInfo.cpp": "74677181005ab34d5e60f28ad8be44de5cf92fd7faebc3a2b06ee43879d57122",
+        "source/game_sa/Models/DamageAtomicModelInfo.cpp": "9d2953195236485184888b1ecdf2aea1ff1e1ece3aa537e6453b1decbd9b4fb8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn161A/LiveComparison.hpp": "cc410ecfa569968c45d08043486f2092f491ad8fc5a3ed6f47f52ef426062297",
+        "reversing/Fn161A/Core.hpp": "f452dc1c664081121c3b79dea4d04c3c8c9728781d9329d1347911d141ca800f",
+        "reversing/Fn161A/Fixtures.hpp": "3a6949d5f0fb2bf4f4fc1917b5be5e50c8cf66ad29e7765e1800771029781b3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+      "review_reference": "reversing/Fn161A/README.md"
     }
   ]
 }

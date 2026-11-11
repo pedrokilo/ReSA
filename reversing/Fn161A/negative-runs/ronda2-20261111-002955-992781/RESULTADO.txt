@@ -1,0 +1,3 @@
+FALLO: Fn161A
+Funciones con diferencias: CIplDefPool::Constructor: 528/2048; CIplDefPool::DestructorBody: 253/2048; GetGTA3ImgSize: 200/2048; CDummyObject::Constructor: 603/2048; CDummyObject::ConstructorFromObject: 555/2048; CDummyObject::DestructorBody: 598/2048; CMatrixLinkList::Destructor: 608/2048; CPlaceable::Constructor: 591/2048; CAtomicModelInfo::CreateInstance-rwmat: 395/2048; CAtomicModelInfo::CreateInstance-void: 402/2048; CAtomicModelInfo::DestructorBody: 620/2048; CDamageAtomicModelInfo::ConstructorBody: 612/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn161a\20261111-002955-992781

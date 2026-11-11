@@ -48,6 +48,13 @@ void InjectCdStreamHooks() {
     RH_ScopedGlobalInstall(CdStreamRemoveImages, 0x406690);
     RH_ScopedGlobalInstall(CdStreamShutdown, 0x406370);
     RH_ScopedGlobalInstall(CdStreamGetLastPosn, 0x406450); // lote 137A (banco Fn137A)
+    RH_ScopedGlobalInstall(GetGTA3ImgSize, 0x406360); // lote 161A (banco Fn161A)
+}
+
+// 0x406360 (lote 161A; cdecl, sin argumentos, `ret`, 15 bytes): `mov eax,[0x8E4010]; push 0; push eax; call [GetFileSize]; ret`. Tamano en bytes (palabra baja) del primer archivo de streaming (GTA3.IMG, la ranura 0 de
+// gStreamFileHandles) con GetFileSize de kernel32 (la IAT del EXE, 0x858074) y sin recoger la palabra alta. Lo llama CStreaming::LoadCdDirectory (0x5B82E6).
+uint32 GetGTA3ImgSize() {
+    return GetFileSize(gStreamFileHandles[0], nullptr);
 }
 
 // 0x406450 (lote 137A; cdecl, sin argumentos, `ret`): devuelve la ultima posicion leida (dword en 0x8E4898, la que guarda CdStreamRead con el FileID en el byte alto): `mov eax, [0x8E4898]; ret`.

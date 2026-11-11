@@ -10037,3 +10037,15 @@ CEventPlayerCollisionWithPed,DestructorBody,0x005FEE80,1,0,1,S
 CEventPlayerCollisionWithPed,GetEventType,0x00000000,1,0,1,V
 CEventPlayerCollisionWithPed,Clone,0x00000000,1,0,1,V
 CEventPlayerCollisionWithPed,ScalarDeletingDestructor,0x005FEF20,1,0,1,S
+CIplDefPool,Constructor,0x00405900,1,0,1,S
+CIplDefPool,DestructorBody,0x00405960,1,0,1,S
+CdStream,GetGTA3ImgSize,0x00406360,1,0,1,S
+CDummyObject,Constructor,0x0059EA00,1,0,1,S
+CDummyObject,ConstructorFromObject,0x0059EA20,1,0,1,S
+CDummyObject,DestructorBody,0x0059EAB0,1,0,1,S
+CMatrixLinkList,Destructor,0x0054EB70,1,0,1,S
+CPlaceable,Constructor,0x0054F1E0,1,0,1,S
+CAtomicModelInfo,CreateInstance-rwmat,0x00000000,1,0,1,V
+CAtomicModelInfo,CreateInstance-void,0x00000000,1,0,1,V
+CAtomicModelInfo,DestructorBody,0x004C5590,1,0,1,S
+CDamageAtomicModelInfo,ConstructorBody,0x004C55A0,1,0,1,S

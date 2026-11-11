@@ -33,6 +33,20 @@ END GENERATED HOOK STATUS */
 // comprobar nada (los vehiculos lo llaman en CAutomobile::ProcessCarWheelPair y similares).
 static CMatrixLink* __fastcall PlaceableGetMatrixCopy(CPlaceable* self, void* /*edx*/) { return self->m_matrix; }
 
+// 0x54F1E0 (lote 161A, banco Fn161A): constructor de CPlaceable del EXE (thiscall, sin argumentos, `ret`, 26 bytes: `mov eax,ecx; xor ecx,ecx; mov [eax],0x863C40; mov [eax+4],ecx; ... mov [eax+0x14],ecx; ret`):
+// vtable de CPlaceable del EXE (0x863C40; la de la DLL no vale: las subclases del EXE la sobrescriben) y a cero los cinco dwords siguientes (posicion, rumbo y puntero de matriz), en ese orden; devuelve this.
+// Lo expanden en linea CEntity (0x532A94) y CCamera (0x51A46F).
+__declspec(noinline) static CPlaceable* __fastcall PlaceableConstructorBody(CPlaceable* self, void* /*edx*/) {
+    auto* const dwords = reinterpret_cast<uint32*>(self);
+    dwords[0] = 0x863C40;
+    dwords[1] = 0;
+    dwords[2] = 0;
+    dwords[3] = 0;
+    dwords[4] = 0;
+    dwords[5] = 0;
+    return self;
+}
+
 /**
  * Registra las operaciones de transformación y gestión del pool global de matrices.
  */
@@ -40,6 +54,7 @@ void CPlaceable::InjectHooks() {
     RH_ScopedVirtualClass(CPlaceable, 0x863C40, 1);
     RH_ScopedCategory("Entity");
 
+    RH_ScopedNamedGlobalInstall(PlaceableConstructorBody, "Constructor", 0x54F1E0); // lote 161A (banco Fn161A)
     RH_ScopedOverloadedInstall(SetPosn, "xyz", 0x420B80, void(CPlaceable::*)(float, float, float));
     RH_ScopedOverloadedInstall(SetPosn, "vector", 0x4241C0, void(CPlaceable::*)(const CVector&));
     RH_ScopedOverloadedInstall(SetOrientation, "xyz", 0x439A80, void(CPlaceable::*)(float, float, float));

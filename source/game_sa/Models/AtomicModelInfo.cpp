@@ -43,6 +43,12 @@ __declspec(noinline) static CAtomicModelInfo* __fastcall AtomicModelInfoConstruc
     return self;
 }
 
+// 0x4C5590 (lote 161A, banco Fn161A): cuerpo del destructor de CAtomicModelInfo del EXE (thiscall, sin argumentos, `ret`, 7 bytes: `mov dword [ecx],0x85BB9C`): solo deja la vtable de la clase base y no
+// llama a nada (como 0x4C5620, el de CBaseModelInfo). Lo llaman el iterador de destructores de vectores del EXE (`push 0x4C5590`) y 0x4C6213. Funcion propia sin expansion en linea.
+__declspec(noinline) static void __fastcall AtomicModelInfoDestructorBody(CAtomicModelInfo* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85BB9C;
+}
+
 /**
  * Registra las operaciones específicas de model infos basados en un único RpAtomic.
  */
@@ -52,13 +58,14 @@ void CAtomicModelInfo::InjectHooks()
     RH_ScopedCategory("Models");
 
     RH_ScopedNamedGlobalInstall(AtomicModelInfoConstructorBody, "ConstructorBody", 0x4C5540); // lote 143A (banco Fn143A)
+    RH_ScopedNamedGlobalInstall(AtomicModelInfoDestructorBody, "DestructorBody", 0x4C5590); // lote 161A (banco Fn161A)
     RH_ScopedVMTInstall(AsAtomicModelInfoPtr, 0x4C5560);
     RH_ScopedVMTInstall(GetModelType, 0x4C5570);
     RH_ScopedVMTInstall(Init, 0x4C4430);
     RH_ScopedVMTInstall(DeleteRwObject, 0x4C4440);
     RH_ScopedVMTInstall(GetRwModelType, 0x4C5580);
-    // clang moment: RH_ScopedVirtualOverloadedInstall(CreateInstance, "void", 0x4C4530, RwObject * (CAtomicModelInfo::*)());
-    // clang moment: RH_ScopedVirtualOverloadedInstall(CreateInstance, "rwmat", 0x4C44D0, RwObject * (CAtomicModelInfo::*)(RwMatrix*));
+    RH_ScopedVMTOverloadedInstall(CreateInstance, "void", 0x4C4530, RwObject * (CAtomicModelInfo::*)()); // lote 161A (banco Fn161A)
+    RH_ScopedVMTOverloadedInstall(CreateInstance, "rwmat", 0x4C44D0, RwObject * (CAtomicModelInfo::*)(RwMatrix*)); // lote 161A (banco Fn161A)
     RH_ScopedVMTInstall(SetAtomic, 0x4C4360);
 
     RH_ScopedInstall(GetAtomicFromDistance, 0x4C44B0);
@@ -116,13 +123,15 @@ void CAtomicModelInfo::DeleteRwObject()
  * AddRef()/RemoveRef() protegen temporalmente los recursos compartidos del model info
  * mientras RenderWare realiza la clonación.
  */
+// 0x4C4530 (lote 161A, banco Fn161A; ranura 11 de la vtable 0x85BBF0; thiscall, sin argumentos, `ret`, 60 bytes): lee m_pRwObject (+0x1C) en crudo, dos veces (antes y despues de AddRef), sin comprobar su tipo como
+// hace GetRpAtomic() (el EXE no lo comprueba); nulo devuelve nulo.
 RwObject* CAtomicModelInfo::CreateInstance()
 {
-    if (!GetRpAtomic())
+    if (!reinterpret_cast<RpAtomic*>(m_pRwObject))
         return nullptr;
 
     CBaseModelInfo::AddRef();
-    auto clonedAtomic = RpAtomicClone(GetRpAtomic());
+    auto clonedAtomic = RpAtomicClone(reinterpret_cast<RpAtomic*>(m_pRwObject));
     auto frame = RwFrameCreate();
     RpAtomicSetFrame(clonedAtomic, frame);
     CBaseModelInfo::RemoveRef();
@@ -130,15 +139,17 @@ RwObject* CAtomicModelInfo::CreateInstance()
     return reinterpret_cast<RwObject*>(clonedAtomic);
 }
 
+// 0x4C44D0 (lote 161A, banco Fn161A; ranura 10 de la vtable 0x85BBF0; thiscall, un argumento de pila, `ret 4`, 82 bytes): igual que CreateInstance() (0x4C4530) pero copia la matriz recibida (64 bytes, con
+// `rep movsd` hacia delante: si origen y destino solapan, se ven las escrituras anteriores) sobre la matriz de modelado del frame nuevo (+0x10) antes de asignarlo al atomic. Sin atomic plantilla devuelve nulo.
 RwObject* CAtomicModelInfo::CreateInstance(RwMatrix* matrix)
 {
-    if (!GetRpAtomic())
+    if (!reinterpret_cast<RpAtomic*>(m_pRwObject))
         return nullptr;
 
     CBaseModelInfo::AddRef();
-    auto clonedAtomic = RpAtomicClone(GetRpAtomic());
+    auto clonedAtomic = RpAtomicClone(reinterpret_cast<RpAtomic*>(m_pRwObject));
     auto frame = RwFrameCreate();
-    memcpy(RwFrameGetMatrix(frame), matrix, sizeof(RwMatrix));
+    __movsd(reinterpret_cast<unsigned long*>(RwFrameGetMatrix(frame)), reinterpret_cast<const unsigned long*>(matrix), sizeof(RwMatrix) / sizeof(unsigned long));
     RpAtomicSetFrame(clonedAtomic, frame);
     CBaseModelInfo::RemoveRef();
 

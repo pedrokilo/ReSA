@@ -29,4 +29,10 @@ public:
 };
 VALIDATE_SIZE(CDummy, 0x38);
 
+// Cuerpos de constructor y destructor de CDummy del EXE (0x532540 / 0x532560, con hook): los llaman los de CDummyObject (DummyObject.cpp)
+namespace CDummyBody {
+CDummy* __fastcall Constructor(CDummy* self, void* edx);
+void __fastcall Destructor(CDummy* self, void* edx);
+} // namespace CDummyBody
+
 bool IsDummyPointerValid(CDummy* dummy);

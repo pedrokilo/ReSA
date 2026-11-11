@@ -22,6 +22,19 @@ END GENERATED HOOK STATUS */
 #include "CustomBuildingRenderer.h"
 #include "CarFXRenderer.h"
 
+namespace CBaseModelInfoBody {
+CBaseModelInfo* __fastcall Constructor(CBaseModelInfo* self, void* edx); // BaseModelInfo.cpp: 0x4C4A60
+}
+
+// 0x4C55A0 (lote 161A, banco Fn161A): constructor de CDamageAtomicModelInfo del EXE (thiscall, sin argumentos, `ret`, 18 bytes: `push esi; mov esi,ecx; call 0x4C4A60; mov [esi],0x85BC30; mov eax,esi; pop esi; ret`):
+// llama al cuerpo del constructor de CBaseModelInfo (0x4C4A60, con hook) y deja la vtable de CDamageAtomicModelInfo del EXE (0x85BC30); devuelve `this`. Lo pasan a los iteradores de vectores de los almacenes
+// de modelos (CStore). Funcion propia sin expansion en linea: el banco sustituye el cuerpo base.
+__declspec(noinline) static CDamageAtomicModelInfo* __fastcall DamageAtomicModelInfoConstructorBody(CDamageAtomicModelInfo* self, void* /*edx*/) {
+    CBaseModelInfoBody::Constructor(self, nullptr);
+    *reinterpret_cast<uint32*>(self) = 0x85BC30;
+    return self;
+}
+
 /**
  * Registra las operaciones del model info con variante dañada de RpAtomic.
  */
@@ -30,6 +43,7 @@ void CDamageAtomicModelInfo::InjectHooks()
     RH_ScopedVirtualClass(CDamageAtomicModelInfo, 0x85BC30, 16);
     RH_ScopedCategory("Models");
 
+    RH_ScopedNamedGlobalInstall(DamageAtomicModelInfoConstructorBody, "ConstructorBody", 0x4C55A0); // lote 161A (banco Fn161A)
     RH_ScopedVMTInstall(Init, 0x4C48B0);
     RH_ScopedVMTInstall(AsDamageAtomicModelInfoPtr, 0x4C55C0);
     RH_ScopedVMTInstall(DeleteRwObject, 0x4C49D0);

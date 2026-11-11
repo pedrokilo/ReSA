@@ -1,0 +1,3 @@
+{"CIplDefPool::Constructor": 528, "CIplDefPool::DestructorBody": 253, "GetGTA3ImgSize": 200, "CDummyObject::Constructor": 603, "CDummyObject::ConstructorFromObject": 555, "CDummyObject::DestructorBody": 598, "CMatrixLinkList::Destructor": 608, "CPlaceable::Constructor": 591, "CAtomicModelInfo::CreateInstance-rwmat": 395, "CAtomicModelInfo::CreateInstance-void": 402, "CAtomicModelInfo::DestructorBody": 620, "CDamageAtomicModelInfo::ConstructorBody": 612}
+pares 24576 con diferencias 5965 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

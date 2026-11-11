@@ -23,6 +23,10 @@ END GENERATED HOOK STATUS */
 // Gestor global de matrices enlazadas situado en la misma dirección usada por el juego.
 auto& gMatrixList = StaticRef<CMatrixLinkList>(0xB74288);
 
+namespace {
+void __fastcall CMatrixLinkListDestructorBody(CMatrixLinkList* self, void* edx);
+}
+
 /**
  * Registra las operaciones del pool global de CMatrixLink.
  */
@@ -31,6 +35,7 @@ void CMatrixLinkList::InjectHooks()
     RH_ScopedClass(CMatrixLinkList);
     RH_ScopedCategory("Core");
 
+    RH_ScopedNamedGlobalInstall(CMatrixLinkListDestructorBody, "Destructor", 0x54EB70); // lote 161A (banco Fn161A)
     RH_ScopedInstall(Init, 0x54F0D0);
     RH_ScopedInstall(Shutdown, 0x54E990);
     RH_ScopedInstall(AddToList1, 0x54E9D0);
@@ -42,6 +47,23 @@ void CMatrixLinkList::InjectHooks()
     RH_ScopedInstall(GetNumUsed1, 0x54EB30);
     RH_ScopedInstall(GetNumUsed2, 0x54EB50);
 }
+
+namespace {
+static_assert(offsetof(CMatrixLinkList, m_head) == 0x00 && offsetof(CMatrixLinkList, m_tail) == 0x54 && offsetof(CMatrixLinkList, m_allocatedListHead) == 0xA8
+           && offsetof(CMatrixLinkList, m_allocatedListTail) == 0xFC && offsetof(CMatrixLinkList, m_freeListHead) == 0x150 && offsetof(CMatrixLinkList, m_freeListTail) == 0x1A4);
+
+// 0x54EB70 (lote 161A, banco Fn161A; thiscall, sin argumentos, `ret`, 140 bytes, marco SEH que solo desenrolla): destructor de CMatrixLinkList del EXE (lo llama el destructor estatico de gMatrixList, 0x856495).
+// Destruye los seis centinelas en orden inverso (+0x1A4, +0x150, +0xFC, +0xA8, +0x54 y +0) con el cuerpo del destructor de CMatrix del EXE (0x59ACD0, con hook: CMatrix::Destructor); no toca el bloque m_pObjects.
+// El destructor generado por el compilador usaria ~CMatrix de la DLL (Detach), que no hace lo mismo.
+__declspec(noinline) void __fastcall CMatrixLinkListDestructorBody(CMatrixLinkList* self, void* /*edx*/) {
+    self->m_freeListTail.Destructor();
+    self->m_freeListHead.Destructor();
+    self->m_allocatedListTail.Destructor();
+    self->m_allocatedListHead.Destructor();
+    self->m_tail.Destructor();
+    self->m_head.Destructor();
+}
+} // namespace
 
 /**
  * Inicializa los nodos centinela y deja el almacenamiento del pool sin asignar.

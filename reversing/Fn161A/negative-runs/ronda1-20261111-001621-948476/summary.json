@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "83bc50e968d8e3473bb48c6187a09565aa0cb4d2757ebaaf6155fdf23f1097d4",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CIplDefPool::Constructor: 774/2048; CIplDefPool::DestructorBody: 561/2048; GetGTA3ImgSize: 242/2048; CDummyObject::Constructor: 909/2048; CDummyObject::ConstructorFromObject: 855/2048; CDummyObject::DestructorBody: 919/2048; CMatrixLinkList::Destructor: 899/2048; CPlaceable::Constructor: 889/2048; CAtomicModelInfo::CreateInstance-rwmat: 125/2048; CAtomicModelInfo::CreateInstance-void: 590/2048; CAtomicModelInfo::DestructorBody: 906/2048; CDamageAtomicModelInfo::ConstructorBody: 901/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
