@@ -25,7 +25,7 @@
   "log_sha256": "b8c5d58700dedb293e31b3a7f2a3b9619df5c4e3d6fb50c11c27a072c17135d1",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-app\\20261108-210744-695971",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-app\\20261111-011144-263169",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "App::AppEventHandler": true,
@@ -40,15 +40,15 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "9fdd8963338555d86a0fbf67cc9290070e18e4a2731b59bb4a43a3b6359d6084",
-      "pdb": "6553186ab57f0bf2cf935b1c00d34f10f5d5d83ec89968387fb12f99265218f5"
+      "asi": "2d696b17c1cc93afe389581536fa61197e5d8a95d3e9a87124e6e6ea9005a6c7",
+      "pdb": "3eb8ffa9b491be34caa00c6b5ed2a194d3e9135f09c78fd3eba82c44928b78e6"
     },
     "sources": {
-      "source/app/app.cpp": "36b61f9b8a926e4820f2757d7540db27a7536dd097569b9fd82bfe15094290d6",
+      "source/app/app.cpp": "28c731cb15f470c6e28c0ead652b6d52c745293eaa0e9d5d0729169b155e46da",
       "source/app/app.h": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd",
       "source/game_sa/IniFile.cpp": "30459558263580b4b34c806c81ec169940ec1ef34840d3a3de5c0d9ba0f6e8d9",
       "source/game_sa/IniFile.h": "96af401307617cea831ee9d6459400d1a9b07edb9b107593b44057947ec0d004",
-      "source/game_sa/Pools/IplDefPool.h": "00f0d98d50a21cde4fdba31dcbd044de0da8769336f91233898b4f0b7e79c599"
+      "source/game_sa/Pools/IplDefPool.h": "cd5620173430ce719c0a9d15a28f763994145ed467160a0c0596454441f387f9"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
