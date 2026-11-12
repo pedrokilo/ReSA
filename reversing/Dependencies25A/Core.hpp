@@ -189,7 +189,8 @@ struct Env {
     unsigned cases{kCases};
     std::array<std::unique_ptr<HookRoute>,kFunctions> routes{};
     std::array<uintptr_t,kFunctions> entry{};
-    uintptr_t directDll{};      // F7: funcion de la DLL (sin hook)
+    uintptr_t directDll{};      // F7: funcion de la DLL (hoy con hook RH: se apaga con offRoute)
+    std::unique_ptr<HookRoute> offRoute;   // pase final 157A-162A: 0x734A70 tiene hook RH; durante el banco queda apagado (EXE original) y el candidato es la funcion de la DLL directa
     uintptr_t dllRemoveAll{},dllSetDefault{},dllFindSafehouse{},dllAtomicId{},dllModelIndex{},dllHierarchy{},dllChildren{};
     std::vector<Watch> watches;
     bool WatchesIntact()const{return std::ranges::all_of(watches,[](const auto& w){return w.Intact();});}
@@ -437,7 +438,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies) {
     bool collaboratorsOK=true;
     for(const uintptr_t body:{env.directDll,env.dllRemoveAll,env.dllSetDefault,env.dllFindSafehouse,env.dllAtomicId,env.dllModelIndex,env.dllHierarchy,env.dllChildren})collaboratorsOK&=body&&ModuleOf(body)==env.asi;
     // La 0x734A70 (funcion bajo prueba sin hook) debe ser hoy codigo del EXE sin salto a la DLL; los colaboradores pueden estar enganchados (el EntryPatch pisa el salto y se restaura).
-    collaboratorsOK&=!ReversingProbe::JumpsToDll(0x734A70)&&ModuleOf(Resolve(0x734A70))==env.game;
+    collaboratorsOK&=env.offRoute&&env.offRoute->Registered()&&!ReversingProbe::JumpsToDll(0x734A70)&&ModuleOf(Resolve(0x734A70))==env.game;
     ready&=collaboratorsOK;
     for(const uintptr_t at:{uintptr_t(0x61A3A0),uintptr_t(0x41CC10),uintptr_t(0x41B950),uintptr_t(0x5FB8A0),uintptr_t(0x604490),uintptr_t(0x44A210),uintptr_t(0x6D3490),uintptr_t(0x734A70),uintptr_t(0x4F2860),
                             uintptr_t(0x5FB7D0),uintptr_t(0x600530),uintptr_t(0x4489F0),uintptr_t(0x732370),uintptr_t(0x732250),uintptr_t(0x7C5160),uintptr_t(0x7F0DC0),uintptr_t(0x8214BD),
@@ -480,6 +481,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies) {
     const bool entriesIntact=env.WatchesIntact();
     bool stateRestored=entriesIntact&&memcmp(reinterpret_cast<void*>(kGroupRegion),savedActive.data(),kGroupRegionBytes)==0&&memcmp(reinterpret_cast<void*>(kSafehouses),savedTable.data(),savedTable.size())==0;
     for(auto& r:env.routes)if(r)stateRestored&=r->Restore();
+    if(env.offRoute)stateRestored&=env.offRoute->Restore();
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     Write({{"event","global_state_final"},{"floating_state",HexBytes(savedFP.data(),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntact},
         {"active_groups",HexBytes(reinterpret_cast<void*>(kGroupRegion),kGroupRegionBytes)},{"safehouse_hash",Fnv64(reinterpret_cast<const u8*>(kSafehouses),kSafehouseBytes)}});

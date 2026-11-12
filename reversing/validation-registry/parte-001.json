@@ -116240,7 +116240,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::Constructor"
@@ -116249,10 +116249,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116268,7 +116268,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetBankSlotBuffer"
@@ -116277,10 +116277,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116296,7 +116296,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetSoundBankLoadingStatus"
@@ -116305,10 +116305,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116324,7 +116324,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetSoundBuffer"
@@ -116333,10 +116333,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116352,7 +116352,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetSoundHeadroom"
@@ -116361,10 +116361,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116380,7 +116380,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetSoundLoadingStatus"
@@ -116389,10 +116389,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116408,7 +116408,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::Initialise"
@@ -116417,10 +116417,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116436,7 +116436,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::IsSoundBankLoaded"
@@ -116445,10 +116445,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116464,7 +116464,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::IsSoundLoaded"
@@ -116473,10 +116473,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116492,7 +116492,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::LoadSound"
@@ -116501,10 +116501,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116520,7 +116520,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::LoadSoundBank"
@@ -116529,10 +116529,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116548,7 +116548,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::Service"
@@ -116557,10 +116557,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116576,7 +116576,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::UpdateVirtualChannels"
@@ -116585,10 +116585,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116604,7 +116604,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::CloseCallback"
@@ -116613,10 +116613,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116632,7 +116632,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::Constructor"
@@ -116641,10 +116641,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116660,7 +116660,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::Destructor"
@@ -116669,10 +116669,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116688,7 +116688,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::FillBuffer"
@@ -116697,10 +116697,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116716,7 +116716,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::GetSampleRate"
@@ -116725,10 +116725,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116744,7 +116744,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::GetStreamID"
@@ -116753,10 +116753,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116772,7 +116772,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::GetStreamLengthMs"
@@ -116781,10 +116781,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116800,7 +116800,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::GetStreamPlayTimeMs"
@@ -116809,10 +116809,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116828,7 +116828,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::Initialise"
@@ -116837,10 +116837,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116856,7 +116856,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::ReadCallback"
@@ -116865,10 +116865,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116884,7 +116884,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::SeekCallback"
@@ -116893,10 +116893,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116912,7 +116912,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::SetCursor"
@@ -116921,10 +116921,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -116940,7 +116940,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
+        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::TellCallback"
@@ -116949,10 +116949,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
         "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "9b33b248f6803cb7b20f58fa1b1730c6499eabf04cd6d5b3a65634c82eddcabe",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "428d6367a66f2d32ed1b514b9cc2035d36408cfc74fa8d86ddde358ba1bc7191",
-        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
+        "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175324-042589).",
       "dependency_review": null,
@@ -124841,7 +124841,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEDataStream::Constructor"
@@ -124850,14 +124850,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -124873,7 +124873,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEDataStream::Destructor"
@@ -124882,14 +124882,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -124905,7 +124905,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEDataStream::FillBuffer"
@@ -124914,14 +124914,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -124937,7 +124937,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEDataStream::GetCurrentPosition"
@@ -124946,14 +124946,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -124969,7 +124969,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEDataStream::Initialise"
@@ -124978,14 +124978,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125001,7 +125001,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEDataStream::Seek-OG"
@@ -125010,14 +125010,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125033,7 +125033,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::Initialise"
@@ -125042,14 +125042,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125065,7 +125065,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::Terminate"
@@ -125074,14 +125074,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125097,7 +125097,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::Reset"
@@ -125106,14 +125106,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125129,7 +125129,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::StopFlameThrowerIdleGasLoop"
@@ -125138,14 +125138,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125161,7 +125161,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::PlayGoggleSound"
@@ -125170,14 +125170,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125193,7 +125193,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::WeaponReload"
@@ -125202,14 +125202,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125225,7 +125225,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::PlayFlameThrowerIdleGasLoop"
@@ -125234,14 +125234,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125257,7 +125257,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::ReportChainsawEvent"
@@ -125266,14 +125266,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125289,7 +125289,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::ReportStealthKill"
@@ -125298,14 +125298,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125321,7 +125321,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::PlayGunSounds"
@@ -125330,14 +125330,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125353,7 +125353,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::PlayFlameThrowerSounds"
@@ -125362,14 +125362,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125385,7 +125385,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::PlayWeaponLoopSound"
@@ -125394,14 +125394,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125417,7 +125417,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::PlayCameraSound"
@@ -125426,14 +125426,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125449,7 +125449,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::PlayMiniGunFireSounds"
@@ -125458,14 +125458,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125481,7 +125481,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::PlayMiniGunStopSound"
@@ -125490,14 +125490,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125513,7 +125513,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::PlayChainsawStopSound"
@@ -125522,14 +125522,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125545,7 +125545,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::UpdateParameters"
@@ -125554,14 +125554,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
@@ -125577,7 +125577,7 @@
       },
       "evidence": {
         "path": "reversing/Audio20/validation-summary.json",
-        "sha256": "8322a2af567a85d0e8474168c7c82d58908c7df6809e2f25743026ff5ea89bfa",
+        "sha256": "5ec8c8646398d37ef78eca19b6cac9ddd38edcc10ac897efdd05e8ed9f535258",
         "passed_path": [
           "covered_functions",
           "CAEWeaponAudioEntity::WeaponFire"
@@ -125586,14 +125586,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
-        "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
-        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
-        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
-        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-        "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
-        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+        "source/game_sa/Audio/Loaders/AEDataStream.cpp": "891f501d8252767e08258d95e94d5f999104cf027579552e2ee68cd7d42b33cc",
+        "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "2c3cf3747b264da8af94999bc725c1828930efa66ca175674fafb28cbc7f2ed2",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-215247-052956).",
       "dependency_review": null,
