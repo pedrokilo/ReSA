@@ -48927,6 +48927,1078 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 4448db91ca con los cambios del lote (ver artifacts/build-manifest.json). 7 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia tres a clases equivocadas): cuerpo del destructor de CClumpModelInfo, cuerpo del constructor de CWeaponModelInfo, Close y destructor con borrado de CAEDataStream, GetTaskType de CTaskSimpleSwim y de CTaskSimpleArrestPed y cuerpo del destructor de CTaskSimpleArrestPed. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (constructor base de CBaseModelInfo, SetFinishCallback, CleanUpOldReference, CPed::IsPlayer, CPed::SetPedState y ~CTask); operator delete del CRT 0x8214BD falso en la direccion del EXE; CloseHandle falso en la casilla de la IAT del EXE y en la del ASI. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds y animaciones reales, HANDLE reales y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn167A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventLeanOnVehicle",
+        "fn_name": "GetEventType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventLeanOnVehicle::GetEventType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0065DB50"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventLeanOnVehicle",
+        "fn_name": "GetLifeTime",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventLeanOnVehicle::GetLifeTime"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0065DB60"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventLeanOnVehicle",
+        "fn_name": "Clone",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventLeanOnVehicle::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0065DB70"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventLeanOnVehicle",
+        "fn_name": "AffectsPed",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventLeanOnVehicle::AffectsPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0065DBE0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventLeanOnVehicle",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x0065DBF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventLeanOnVehicle::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventLeanOnVehicle",
+        "fn_name": "DestructorBody",
+        "address": "0x0065DC10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventLeanOnVehicle::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventLeanOnVehicle",
+        "fn_name": "GetEventPriority",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventLeanOnVehicle::GetEventPriority"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0065DE10"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventPassObject",
+        "fn_name": "GetEventType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventPassObject::GetEventType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0065DD50"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventPassObject",
+        "fn_name": "GetLifeTime",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventPassObject::GetLifeTime"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0065DD60"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventPassObject",
+        "fn_name": "Clone",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventPassObject::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0065DD70"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventPassObject",
+        "fn_name": "AffectsPed",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventPassObject::AffectsPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0065DDE0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventPassObject",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x0065DDF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventPassObject::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventPassObject",
+        "fn_name": "GetEventPriority",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventPassObject::GetEventPriority"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0065DE20"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventNewGangMember",
+        "fn_name": "GetEventType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventNewGangMember::GetEventType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00608FD0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventNewGangMember",
+        "fn_name": "GetLifeTime",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventNewGangMember::GetLifeTime"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00608FE0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventNewGangMember",
+        "fn_name": "Clone",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventNewGangMember::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00608FF0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventNewGangMember",
+        "fn_name": "AffectsPed",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventNewGangMember::AffectsPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00609050"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventNewGangMember",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x00609060",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventNewGangMember::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventNewGangMember",
+        "fn_name": "DestructorBody",
+        "address": "0x00609080",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventNewGangMember::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntitySeekPosCalculatorXYOffset",
+        "fn_name": "Constructor",
+        "address": "0x0065DE60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEntitySeekPosCalculatorXYOffset::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntitySeekPosCalculator",
+        "fn_name": "DestructorCopy2",
+        "address": "0x0065DE90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEntitySeekPosCalculator::DestructorCopy2"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventScanner",
+        "fn_name": "Constructor",
+        "address": "0x00605300",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CEventScanner::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDecisionMakerTypes",
+        "fn_name": "CopyDecisionMaker",
+        "address": "0x006070F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn168A/validation-summary.json",
+        "sha256": "77960879c052be1015e388651ea4068a5ee51a69484a5a870d2e66a95e0f020d",
+        "passed_path": [
+          "covered_functions",
+          "CDecisionMakerTypes::CopyDecisionMaker"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Events/EventLeanOnVehicle.cpp": "854b059983d8afc59f05002df8ddd68ed3e6b9ed778c3812ca85502c16e4c90d",
+        "source/game_sa/Events/EventLeanOnVehicle.h": "4e314c17ce538c33cbf016671a38420742c748132155f470a7c3d5ae424f6abb",
+        "source/game_sa/Events/EventPassObject.cpp": "f5d616d38b722b8c8160c410faa89e6519d110997e16d0a637d5cc36fd9a8fcb",
+        "source/game_sa/Events/EventPassObject.h": "0f32c10f5de8c8b34221b58134011c308a998f19e8a6d104d9f11a1bf82fc5d1",
+        "source/game_sa/Events/EventNewGangMember.cpp": "41b7c50f2f25e2afc8f0773ecc9ed71877fd49344a7d55b38c9688d57025b302",
+        "source/game_sa/Events/EventNewGangMember.h": "c540df90739fe6882b0de15f4428a7df4ed47b9897e024f1c324cf7f5e0821d1",
+        "source/game_sa/Events/EventScanner.cpp": "61552ebc4365b312697e2caf924bb97fc5768ec3317f3c7623daefcbe8a0bccd",
+        "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "b9ae9200043bc4c5c136f5a6d5cce963f93cd9bb6560d34ec0494f7b58447b29",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a0a43a29c5eb4e117193e456215070880d0168844f5bf93948f7a0942f7a9844",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "2ee2f18de5e8be81153bb2318efdaf6c7db0ff9baa05ac0efe534f3b1d21a94c",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "e717d91d5c7fe5c19ad7726e65deae22b8c2db8e2e95526d1c3c00b629be97fc",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn168A/LiveComparison.hpp": "0f0e9bd492615bac2b6196de312f122adbfbda28b5d86165242141a6f0ff7d8e",
+        "reversing/Fn168A/Core.hpp": "344bda856cd8b4bc17aac8441b20af6df774e8b492e7527b5ab0f3a9035da48a",
+        "reversing/Fn168A/Fixtures.hpp": "f267cd983b6c59eca3227da26a9915a1de0100f60f46d14bc4639305d448ccce",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn168A/README.md"
     }
   ]
 }

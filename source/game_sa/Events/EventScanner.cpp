@@ -134,6 +134,13 @@ void CEventScanner::InjectHooks() {
 
     RH_ScopedInstall(ScanForEvents, 0x607E30);
     RH_ScopedInstall(ScanForEventsNow, 0x6053D0);
+    RH_ScopedInstall(Constructor, 0x605300); // lote 168A (banco Fn168A)
+}
+
+// 0x605300 (lote 168A, banco Fn168A): hook del constructor (el listado lo atribuia a CDecisionMakerTypes; lo llama 0x607287, el constructor de CPedIntelligence, con ECX = this + 0x18C, y ignora lo que devuelve)
+CEventScanner* CEventScanner::Constructor() {
+    this->CEventScanner::CEventScanner();
+    return this;
 }
 
 // 0x605300

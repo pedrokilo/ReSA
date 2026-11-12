@@ -14,11 +14,11 @@ public:
     CEventLeanOnVehicle(CVehicle* vehicle, int32 leanAnimDurationInMs);
     ~CEventLeanOnVehicle() override;
 
-    eEventType GetEventType() const override { return EVENT_LEAN_ON_VEHICLE; }
-    int32 GetEventPriority() const override { return 12; }
-    int32 GetLifeTime() override { return 0; }
-    CEventLeanOnVehicle* Clone() const noexcept override { return new CEventLeanOnVehicle(m_vehicle, m_leanAnimDurationInMs); }
-    bool AffectsPed(CPed* ped) override { return true; }
+    eEventType GetEventType() const override;                  // 0x65DB50 (lote 168A, banco Fn168A)
+    int32 GetEventPriority() const override;                   // 0x65DE10 (lote 168A, banco Fn168A)
+    int32 GetLifeTime() override;                              // 0x65DB60 (lote 168A, banco Fn168A)
+    CEventLeanOnVehicle* Clone() const noexcept override;      // 0x65DB70 (lote 168A, banco Fn168A)
+    bool AffectsPed(CPed* ped) override;                       // 0x65DBE0 (lote 168A, banco Fn168A)
     bool IsValid(CPed* ped) override;
 
 private:

@@ -33,4 +33,5 @@ void CEntitySeekPosCalculator::InjectHooks() {
 
     RH_ScopedNamedGlobalInstall(EntitySeekPosCalculatorDestructorBody, "Destructor", 0x46A610);
     RH_ScopedNamedGlobalInstall(EntitySeekPosCalculatorDestructorBody, "DestructorCopy", 0x492F60); // lote 147A (banco Fn147A): segunda copia identica del cuerpo (`mov [ecx],0x859DC4; ret`, 7 bytes)
+    RH_ScopedNamedGlobalInstall(EntitySeekPosCalculatorDestructorBody, "DestructorCopy2", 0x65DE90); // lote 168A (banco Fn168A): tercera copia identica del cuerpo (`mov [ecx],0x859DC4; ret`, 7 bytes; el listado la atribuia a CEventPassObject)
 }

@@ -93,6 +93,7 @@ public:
 
     CEventScanner();
     ~CEventScanner() = default;
+    CEventScanner* Constructor(); // 0x605300 (lote 168A, banco Fn168A)
 
     void Clear();
     void ScanForEvents(CPed& ped);

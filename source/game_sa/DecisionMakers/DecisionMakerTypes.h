@@ -53,6 +53,7 @@ public:
     static CDecisionMakerTypes* GetInstance();
 
     int32 AddDecisionMaker(CDecisionMaker* decisionMaker, eDecisionTypes decisionMakerType, bool bDecisionMakerForMission);
+    int32 CopyDecisionMaker(int32 index, int32 type, bool bDecisionMakerForMission); // 0x6070F0 (lote 168A, banco Fn168A)
     void MakeDecision(CPed* ped, eEventType eventType, int32 eventSourceType, bool bIsPedInVehicle, eTaskType taskTypeToAvoid1, eTaskType taskTypeToAvoid2, eTaskType taskTypeToAvoid3, eTaskType taskTypeToSeek, bool bUseInGroupDecisionMaker, int16& taskType, int16& facialTaskType);
     void RemoveDecisionMaker(eDecisionTypes dm);
     eTaskType MakeDecision(CPedGroup* pedGroup, eEventType eventType, int32 eventSourceType, bool bIsPedInVehicle, eTaskType taskId1, eTaskType taskId2, eTaskType taskId3, eTaskType taskId4);

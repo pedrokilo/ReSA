@@ -37,6 +37,7 @@ void CDecisionMakerTypes::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x4650F0);
     RH_ScopedInstall(GetInstance, 0x4684F0);
     RH_ScopedInstall(AddDecisionMaker, 0x607050);
+    RH_ScopedInstall(CopyDecisionMaker, 0x6070F0); // lote 168A (banco Fn168A)
     RH_ScopedInstall(RemoveDecisionMaker, 0x6043A0);
     RH_ScopedInstall(LoadEventIndices, 0x600840);
     RH_ScopedInstall(ReadEventIndices, 0x5BB9F0);
@@ -152,6 +153,21 @@ __declspec(safebuffers) int32 CDecisionMakerTypes::AddDecisionMaker(CDecisionMak
     }
     ++m_NoOfDecisionMakers;
     return static_cast<int32>(ResidueRegsCpp(self, edx, slot));
+}
+
+// 0x6070F0 (lote 168A, banco Fn168A; el listado lo atribuia a CDecisionMakerTypes y es suyo): thiscall, tres dwords de pila, `ret 0Ch`, 74 bytes que acaban en `jmp 0x607050` (AddDecisionMaker, con hook). Elige el origen de
+// la copia y deja el resto de los argumentos como estan: indice == -1 (comparacion de 32 bits): tipo == 0 -> el decision maker aleatorio por defecto (this + 0xCB50), tipo distinto de cero -> el de grupos (this + 0xE824);
+// cualquier otro indice -> this + 4 + indice * 0x99C (producto de 32 bits). Devuelve lo que devuelve AddDecisionMaker (indice de la ranura o -1). Lo llaman 0x4729EC, 0x472A7A y 0x4787B6 (leen solo EAX). En C++ el salto es una
+// llamada; el tercer argumento llega al EXE como dword (AddDecisionMaker solo lee su byte bajo).
+int32 CDecisionMakerTypes::CopyDecisionMaker(int32 index, int32 type, bool bDecisionMakerForMission) {
+    uint8* const base = reinterpret_cast<uint8*>(this);
+    CDecisionMaker* source;
+    if (index == -1) {
+        source = reinterpret_cast<CDecisionMaker*>(base + (type == 0 ? 0xCB50u : 0xE824u));
+    } else {
+        source = reinterpret_cast<CDecisionMaker*>(base + 4u + static_cast<uint32>(index) * 0x99Cu);
+    }
+    return AddDecisionMaker(source, static_cast<eDecisionTypes>(type), bDecisionMakerForMission);
 }
 
 // 0x4684F0: singleton. Con instancia: EAX = instancia, ECX = cabeza anterior de la cadena de excepciones (fs:[0]), EDX = EDX de entrada. Sin instancia reserva

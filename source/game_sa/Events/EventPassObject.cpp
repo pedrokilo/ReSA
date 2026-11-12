@@ -27,11 +27,22 @@ void __fastcall EventDestructorBody(CEvent* self, void* edx); // Event.cpp: 0x4A
 namespace {
 // 0x65DCF0 (lote 115A, banco Fn115A): cuerpo no virtual de ~CEventPassObject del EXE (thiscall, sin argumentos de pila, `ret`)
 // Deja la vtable de CEventPassObject del EXE (0x86F8B8), libera con CEntity::CleanUpOldReference (0x571A00) la referencia no nula en +0xC y llama al cuerpo de ~CEvent (0x4AC010), que deja la vtable de CEvent (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla.
-void __fastcall PassObjectDestructorBody(CEventPassObject* self, void* /*edx*/) {
+__declspec(noinline) void __fastcall PassObjectDestructorBody(CEventPassObject* self, void* /*edx*/) {
     uint8* const bytes = reinterpret_cast<uint8*>(self);
     *reinterpret_cast<uint32*>(bytes) = 0x86F8B8;
     CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(bytes + 0xC));
     CEventBody::EventDestructorBody(self, nullptr);
+}
+
+// 0x65DDF0 (lote 168A, banco Fn168A): destructor con borrado de CEventPassObject del EXE (ranura 0 de su vtable 0x86F8B8; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x65DCF0;
+// test byte [esp+8],1; je ..; push esi; call 0x4B5630; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x65DCF0, con hook), libera `this` con CEvent::operator delete
+// (0x4B5630, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CEventPassObject* __fastcall PassObjectScalarDeletingDestructor(CEventPassObject* self, void* /*edx*/, uint8 flags) {
+    PassObjectDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
 }
 } // namespace
 
@@ -39,8 +50,14 @@ void CEventPassObject::InjectHooks() {
     RH_ScopedVirtualClass(CEventPassObject, 0x86F8B8, 16);
     RH_ScopedCategory("Events");
     RH_ScopedNamedGlobalInstall(PassObjectDestructorBody, "Destructor", 0x65DCF0);
+    RH_ScopedNamedGlobalInstall(PassObjectScalarDeletingDestructor, "ScalarDeletingDestructor", 0x65DDF0); // lote 168A (banco Fn168A)
 
     RH_ScopedInstall(Constructor, 0x65DC70);
+    RH_ScopedVMTInstall(GetEventType, 0x65DD50);      // lote 168A (banco Fn168A): retorno de constante
+    RH_ScopedVMTInstall(GetLifeTime, 0x65DD60);       // lote 168A (banco Fn168A): retorno de constante
+    RH_ScopedVMTInstall(Clone, 0x65DD70);             // lote 168A (banco Fn168A)
+    RH_ScopedVMTInstall(AffectsPed, 0x65DDE0);        // lote 168A (banco Fn168A): retorno de constante
+    RH_ScopedVMTInstall(GetEventPriority, 0x65DE20);  // lote 168A (banco Fn168A): retorno de constante
     RH_ScopedVMTInstall(IsValid, 0x4B1700);
 }
 
@@ -57,6 +74,37 @@ CEventPassObject::CEventPassObject(CPed* giver, bool dontPassObject) :
 
 CEventPassObject::~CEventPassObject() {
     CEntity::SafeCleanUpRef(m_giver);
+}
+
+// 0x65DD50 (lote 168A, banco Fn168A; thiscall, `ret`, 6 bytes: `mov eax,59h`): EVENT_PASS_OBJECT (89); no lee el objeto (ranura 1 de la vtable 0x86F8B8).
+eEventType CEventPassObject::GetEventType() const {
+    return EVENT_PASS_OBJECT;
+}
+
+// 0x65DE20 (lote 168A, banco Fn168A; thiscall, `ret`, 6 bytes: `mov eax,0Bh`): prioridad 11; no lee el objeto (ranura 2). (0x65DE10, `mov eax,0Ch`, es el de CEventLeanOnVehicle.)
+int32 CEventPassObject::GetEventPriority() const {
+    return 11;
+}
+
+// 0x65DD60 (lote 168A, banco Fn168A; thiscall, `ret`, 3 bytes: `xor eax,eax`): vida util 0; no lee el objeto (ranura 3).
+int32 CEventPassObject::GetLifeTime() {
+    return 0;
+}
+
+// 0x65DD70 (lote 168A, banco Fn168A; thiscall, sin argumentos, `ret`, 102 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 4 de la vtable 0x86F8B8).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x14 bytes; sin memoria devuelve nulo; si no, llama al constructor (0x65DC70, con hook; ECX = memoria) con el dador (+0xC, dword completo) y el BYTE de
+// +0x10 extendido a cero, y devuelve lo que el constructor deja en EAX.
+CEventPassObject* CEventPassObject::Clone() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventPassObject));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CEventPassObject*>(memory)->Constructor(m_giver, m_dontPassObject);
+}
+
+// 0x65DDE0 (lote 168A, banco Fn168A; thiscall, un puntero de pila, `ret 4`, 5 bytes: `mov al,1`): siempre verdadero; no lee ni el objeto ni el peaton (ranura 5).
+bool CEventPassObject::AffectsPed(CPed* ped) {
+    return true;
 }
 
 // 0x4B1700
