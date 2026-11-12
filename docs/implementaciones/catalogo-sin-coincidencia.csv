@@ -1,4 +1,5 @@
 class,fn_name,address,reversed,locked,validated,type,catalog
+CTaskComplexWalkAlongsidePed,MakeAbortable,0x00000000,1,0,1,V,hooks.csv
 CTaskComplexPartnerGreet,CreateFirstSubTask,0x00000000,1,0,1,V,hooks.csv
 CTaskComplex,Destructor,0x0061A3D0,1,0,1,S,hooks.csv
 CTaskSimple,Constructor,0x0061A390,1,0,1,S,hooks.csv
@@ -13,3 +14,7 @@ CLinkList<CCollisionData*>,Insert-Data,0x004161F0,1,0,1,S,hooks.csv
 CAnimBlendAssociation,ScalarDeletingDestructor,0x004CEFA0,1,0,1,S,hooks.csv
 CAEAudioEntity,Destructor-3,0x00506CC0,1,0,1,S,hooks.csv
 CEventSoundQuiet,ScalarDeletingDestructor,0x005DEAB0,1,0,1,S,hooks.csv
+CEntitySeekPosCalculator,DestructorCopy2,0x0065DE90,1,0,1,S,hooks.csv
+CTaskComplexWanderProstitute,DestructorCopy,0x006726F0,1,0,1,S,hooks.csv
+CEntitySeekPosCalculator,DestructorCopy-2,0x00667980,1,0,1,S,hooks.csv
+CInformFriendsEvent,Process,0x004AC160,1,0,1,S,hooks.csv

@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 885 grupos / 10136 funciones reconstruidas; 10136 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 11/11/2026 (Ciudad de México):** 888 grupos / 10227 funciones reconstruidas; 10227 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo B: Falta: método virtual
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-453 funciones, 24,195 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+394 funciones, 22,506 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -55,13 +55,11 @@
 | `0x00678AA0` | 118 | CTaskComplexFallAndGetUp | baja | 0 (0) | sí |
 | `0x0063D9E0` | 116 | CTaskComplexStealCar | baja | 0 (0) | sí |
 | `0x00674BB0` | 114 | CTaskComplexInvestigateDisturbance | baja | 0 (0) | sí |
-| `0x00636B40` | 113 | CTaskSimpleWaitForBus | baja | 0 (0) | sí |
 | `0x00623300` | 112 | CTaskSimpleBeHit | baja | 0 (0) | sí |
 | `0x004B7AC0` | 111 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x00623120` | 111 | CTaskSimpleThrowControl | baja | 0 (0) | sí |
 | `0x006557A0` | 111 | CTaskComplexWalkRoundFire | baja | 0 (0) | sí |
 | `0x0067C0C0` | 110 | CTaskComplexStuckInAir | baja | 0 (0) | sí |
-| `0x00623750` | 106 | CTaskSimpleGangDriveBy | baja | 0 (0) | sí |
 | `0x00659D70` | 106 | CTaskComplexUseWaterCannon | baja | 0 (0) | sí |
 | `0x0067C200` | 106 | CTaskComplexStuckInAir | baja | 0 (0) | sí |
 | `0x004B7090` | 105 | CEventVehicleCollision | baja | 0 (0) | sí |
@@ -72,14 +70,11 @@
 | `0x004C4960` | 103 | CDamageAtomicModelInfo | alta | 0 (0) | sí |
 | `0x006F5930` | 103 | CTrain | alta | 0 (0) | sí |
 | `0x00460CE0` | 102 | CTaskComplexWanderCop | baja | 0 (0) | sí |
-| `0x0065DD70` | 102 | CEventPassObject | baja | 0 (0) | sí |
 | `0x004B6FB0` | 101 | CEventVehicleCollision | baja | 0 (0) | sí |
 | `0x004B7020` | 101 | CEventVehicleCollision | baja | 0 (0) | sí |
 | `0x004B78B0` | 101 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x004B7C10` | 101 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x00643950` | 100 | CTaskComplexOpenPassengerDoor | baja | 0 (0) | sí |
-| `0x0065DB70` | 100 | CEventLeanOnVehicle | baja | 0 (0) | sí |
-| `0x0062F520` | 99 | CTaskSimpleStandStill | baja | 0 (0) | sí |
 | `0x00692D60` | 99 | CTaskSimpleDuck | baja | 0 (0) | sí |
 | `0x0067C270` | 98 | CTaskComplexStuckInAir | baja | 0 (0) | sí |
 | `0x004B74B0` | 97 | CEventAttractor | baja | 0 (0) | sí |
@@ -88,17 +83,12 @@
 | `0x004B7B30` | 97 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x004B7BA0` | 97 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x0065AFE0` | 97 | CTaskComplexMedicTreatInjuredPed | baja | 0 (0) | sí |
-| `0x0048E2A0` | 96 | CEventLeaderEnteredCarAsDriver | baja | 0 (0) | sí |
-| `0x00608FF0` | 96 | CEventNewGangMember | baja | 0 (0) | sí |
 | `0x00637970` | 96 | CTaskComplexDieInCar | baja | 0 (0) | sí |
 | `0x00659B60` | 96 | CTaskComplexMedicTreatInjuredPed | baja | 0 (0) | sí |
-| `0x0068CD10` | 96 | CTaskComplexCopInCar | baja | 0 (0) | sí |
-| `0x0068CD70` | 96 | CTaskComplexCopInCar | baja | 0 (0) | sí |
 | `0x00695890` | 96 | CTaskComplexSeekEntityAiming | alta | 0 (0) | sí |
 | `0x004C7670` | 95 | CVehicleModelInfo | alta | 0 (0) | sí |
 | `0x005FEF90` | 93 | CEventScriptedAttractor | baja | 0 (0) | sí |
 | `0x00609280` | 90 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
-| `0x004B86C0` | 89 | CTaskSimpleStandStill | baja | 0 (0) | sí |
 | `0x00420F50` | 88 | CEventEditableResponse | baja | 0 (0) | sí |
 | `0x005FF3C0` | 88 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x004B77B0` | 84 | CEventVehicleOnFire | baja | 0 (0) | sí |
@@ -145,7 +135,6 @@
 | `0x00634620` | 76 | CTaskSimpleIKPointArm | baja | 0 (0) | sí |
 | `0x006E38A0` | 76 | CVehicle | alta | 0 (0) | sí |
 | `0x006F5570` | 75 | cHandlingDataMgr | baja | 0 (0) | sí |
-| `0x00632B80` | 72 | CTaskSimpleWaitForBus | baja | 0 (0) | sí |
 | `0x00625C20` | 68 | CTaskSimpleThrowProjectile | baja | 0 (0) | sí |
 | `0x00694640` | 68 | CTaskSimpleDuck | baja | 0 (0) | sí |
 | `0x00620BF0` | 64 | CTaskSimpleBeHit | baja | 0 (0) | sí |
@@ -154,7 +143,6 @@
 | `0x0069DA40` | 59 | CTaskAllocatorPool | baja | 0 (0) | sí |
 | `0x0069DA80` | 59 | CTaskAllocatorPool | baja | 0 (0) | sí |
 | `0x0069DB00` | 59 | CTaskAllocatorPool | baja | 0 (0) | sí |
-| `0x0061A660` | 56 | CTask | baja | 0 (0) | sí |
 | `0x0069DAC0` | 56 | CTaskAllocatorPool | baja | 0 (0) | sí |
 | `0x0054F5D0` | 53 | CPlaceable | alta | 0 (0) | sí |
 | `0x006A6590` | 49 | CAutomobile | alta | 0 (0) | sí |
@@ -165,7 +153,6 @@
 | `0x004B7A40` | 43 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x00620E00` | 41 | CTaskSimpleBeHit | baja | 0 (0) | sí |
 | `0x004C76D0` | 37 | CVehicleModelInfo | alta | 0 (0) | sí |
-| `0x004AC020` | 35 | CEvent | alta | 0 (0) | sí |
 | `0x006A3030` | 35 | CAutomobile | alta | 0 (0) | sí |
 | `0x0061FE00` | 34 | CTaskSimpleThrowControl | baja | 0 (0) | sí |
 | `0x00620290` | 34 | CTaskSimpleThrowControl | baja | 0 (0) | sí |
@@ -174,21 +161,16 @@
 | `0x00420FB0` | 30 | CEventEditableResponse | baja | 0 (0) | sí |
 | `0x00460D60` | 30 | CTaskComplexWanderCop | baja | 0 (0) | sí |
 | `0x004748D0` | 30 | CTheScripts | baja | 0 (0) | sí |
-| `0x0048E320` | 30 | CEventLeaderEnteredCarAsDriver | baja | 0 (0) | sí |
 | `0x00493870` | 30 | CTaskComplexSeekEntityRadiusAngleOffset | alta | 0 (0) | sí |
-| `0x004B8730` | 30 | CTaskSimpleStandStill | baja | 0 (0) | sí |
 | `0x0059EFE0` | 30 | CHandObject | baja | 0 (0) | sí |
 | `0x005DE2C0` | 30 | CCopPed | baja | 0 (0) | sí |
 | `0x005FEFF0` | 30 | CEventScriptedAttractor | baja | 0 (0) | sí |
 | `0x005FF360` | 30 | CEventAcquaintancePedHateBadlyLit | baja | 0 (0) | sí |
 | `0x005FF420` | 30 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x005FF7F0` | 30 | CEventSeenCop | baja | 0 (0) | sí |
-| `0x00609060` | 30 | CEventNewGangMember | baja | 0 (0) | sí |
 | `0x006092E0` | 30 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
 | `0x0060A9A0` | 30 | CPlayerPed | alta | 0 (0) | sí |
 | `0x0061BD80` | 30 | CTaskSimpleRunTimedAnim | baja | 0 (0) | sí |
-| `0x0061C0D0` | 30 | CTaskSimpleRunNamedAnim | baja | 0 (0) | sí |
-| `0x00624DA0` | 30 | CTaskSimpleFightingControl | baja | 0 (0) | sí |
 | `0x00625B60` | 30 | CTaskSimpleThrowProjectile | baja | 0 (0) | sí |
 | `0x00625B80` | 30 | CTaskSimpleThrowProjectile | baja | 0 (0) | sí |
 | `0x00625BA0` | 30 | CTaskSimpleThrowProjectile | baja | 0 (0) | sí |
@@ -232,7 +214,6 @@
 | `0x0064CD60` | 30 | CTaskSimpleCarFallOut | baja | 0 (0) | sí |
 | `0x0064CD80` | 30 | CTaskSimpleCarFallOut | baja | 0 (0) | sí |
 | `0x0064CE80` | 30 | CTaskSimpleCarFallOut | baja | 0 (0) | sí |
-| `0x0064E480` | 30 | CTaskComplexGoToBoatSteeringWheel | baja | 0 (0) | sí |
 | `0x00655DB0` | 30 | CTaskComplexWalkRoundFire | baja | 0 (0) | sí |
 | `0x00655DE0` | 30 | CTaskComplexWalkRoundFire | baja | 0 (0) | sí |
 | `0x00655E30` | 30 | CTaskComplexWalkRoundFire | baja | 0 (0) | sí |
@@ -245,10 +226,7 @@
 | `0x00659E70` | 30 | CTaskComplexUseWaterCannon | baja | 0 (0) | sí |
 | `0x0065A0F0` | 30 | CTaskComplexMedicTreatInjuredPed | baja | 0 (0) | sí |
 | `0x0065A220` | 30 | CTaskComplexMedicTreatInjuredPed | baja | 0 (0) | sí |
-| `0x0065A3C0` | 30 | CTaskComplexDriveFireTruck | baja | 0 (0) | sí |
 | `0x0065A700` | 30 | CTaskComplexUseWaterCannon | baja | 0 (0) | sí |
-| `0x0065DBF0` | 30 | CEventLeanOnVehicle | baja | 0 (0) | sí |
-| `0x0065DDF0` | 30 | CEventPassObject | baja | 0 (0) | sí |
 | `0x006634E0` | 30 | CTaskComplexGangFollower | baja | 0 (0) | sí |
 | `0x006648A0` | 30 | CTaskGoToVehicleAndLean | baja | 0 (0) | sí |
 | `0x0066D6D0` | 30 | CTaskComplexInvestigateDisturbance | baja | 0 (0) | sí |
@@ -261,7 +239,6 @@
 | `0x00670830` | 30 | CTaskComplexGoToPointAnyMeans | baja | 0 (0) | sí |
 | `0x006711F0` | 30 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) | sí |
 | `0x006712E0` | 30 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) | sí |
-| `0x006726D0` | 30 | CTaskComplexWanderProstitute | alta | 0 (0) | sí |
 | `0x00672BB0` | 30 | CTaskComplexGoToPointAnyMeans | baja | 0 (0) | sí |
 | `0x006772C0` | 30 | CTaskInteriorUseInfo | baja | 0 (0) | sí |
 | `0x0067C750` | 30 | CTaskComplexStuckInAir | baja | 0 (0) | sí |
@@ -272,8 +249,6 @@
 | `0x00684FA0` | 30 | CTaskComplexPartnerGreet | baja | 0 (0) | sí |
 | `0x00684FC0` | 30 | CTaskComplexPartnerGreet | baja | 0 (0) | sí |
 | `0x00684FE0` | 30 | CTaskComplexPartnerGreet | baja | 0 (0) | sí |
-| `0x0068CF40` | 30 | CTaskComplexCopInCar | baja | 0 (0) | sí |
-| `0x0068CF60` | 30 | CTaskComplexCopInCar | baja | 0 (0) | sí |
 | `0x00692DD0` | 30 | CTaskSimpleDuck | baja | 0 (0) | sí |
 | `0x00693590` | 30 | CTaskSimpleHoldEntity | baja | 0 (0) | sí |
 | `0x006935C0` | 30 | CTaskSimpleHoldEntity | baja | 0 (0) | sí |
@@ -312,7 +287,6 @@
 | `0x004AEA20` | 12 | CEventVehicleHitAndRun | baja | 0 (0) | sí |
 | `0x006D3D50` | 9 | CVehicle | alta | 0 (0) | sí |
 | `0x006D56B0` | 9 | CVehicle | alta | 0 (0) | sí |
-| `0x004211B0` | 8 | CTask | baja | 0 (0) | sí |
 | `0x004A2570` | 8 | FxEmitterBP_c | alta | 0 (0) | sí |
 | `0x006C4550` | 8 | CHeli | alta | 0 (0) | sí |
 | `0x004AEA30` | 7 | CEventVehicleHitAndRun | baja | 0 (0) | sí |
@@ -324,8 +298,6 @@
 | `0x00420FD0` | 6 | CEventEditableResponse | baja | 0 (0) | sí |
 | `0x00460CD0` | 6 | CTaskComplexWanderCop | baja | 0 (0) | sí |
 | `0x00460D50` | 6 | CTaskComplexWanderCop | baja | 0 (0) | sí |
-| `0x0048E280` | 6 | CEventLeaderEnteredCarAsDriver | baja | 0 (0) | sí |
-| `0x0048E340` | 6 | CEventLeaderEnteredCarAsDriver | baja | 0 (0) | sí |
 | `0x004AC8F0` | 6 | CEventVehicleCollision | baja | 0 (0) | sí |
 | `0x004AC910` | 6 | CEventVehicleCollision | baja | 0 (0) | sí |
 | `0x004AEA00` | 6 | CEventVehicleHitAndRun | baja | 0 (0) | sí |
@@ -337,7 +309,6 @@
 | `0x004B1160` | 6 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x004B1ED0` | 6 | CEventPotentialWalkIntoFire | baja | 0 (0) | sí |
 | `0x004B1EF0` | 6 | CEventPotentialWalkIntoFire | baja | 0 (0) | sí |
-| `0x004B8720` | 6 | CTaskSimpleStandStill | baja | 0 (0) | sí |
 | `0x005EE820` | 6 | CPedAttractorManager | baja | 0 (0) | sí |
 | `0x005FEF80` | 6 | CEventScriptedAttractor | baja | 0 (0) | sí |
 | `0x005FF2D0` | 6 | CEventAcquaintancePedHateBadlyLit | baja | 0 (0) | sí |
@@ -348,40 +319,28 @@
 | `0x005FF880` | 6 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x005FF890` | 6 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x005FF8A0` | 6 | CEventSeenCop | baja | 0 (0) | sí |
-| `0x00608FD0` | 6 | CEventNewGangMember | baja | 0 (0) | sí |
 | `0x00609270` | 6 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
 | `0x00609310` | 6 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
 | `0x00609320` | 6 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
 | `0x00609330` | 6 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
 | `0x0061AEA0` | 6 | CTaskSimpleRunTimedAnim | baja | 0 (0) | sí |
-| `0x0061C520` | 6 | CTaskSimpleFight | alta | 0 (0) | sí |
 | `0x0061FC40` | 6 | CTaskSimpleThrowControl | baja | 0 (0) | sí |
 | `0x0061FE60` | 6 | CTaskSimpleThrowControl | baja | 0 (0) | sí |
 | `0x00620B80` | 6 | CTaskSimpleBeHit | baja | 0 (0) | sí |
 | `0x006221B0` | 6 | CTaskComplexRoadRage | baja | 0 (0) | sí |
 | `0x00622230` | 6 | CTaskComplexRoadRage | baja | 0 (0) | sí |
-| `0x0062F350` | 6 | CTaskSimpleStandStill | alta | 0 (0) | sí |
 | `0x0062FCB0` | 6 | CTaskSimpleDieInCar | baja | 0 (0) | sí |
 | `0x0062FF00` | 6 | CTaskComplexDieInCar | baja | 0 (0) | sí |
 | `0x0062FF40` | 6 | CTaskComplexDieInCar | baja | 0 (0) | sí |
-| `0x00632B50` | 6 | CTaskSimpleWaitForBus | baja | 0 (0) | sí |
 | `0x006344F0` | 6 | CTaskSimpleIKPointArm | baja | 0 (0) | sí |
 | `0x006348D0` | 6 | CTaskComplexUseClosestFreeScriptedAttractor | baja | 0 (0) | sí |
 | `0x0063B960` | 6 | CTaskComplexStealCar | baja | 0 (0) | sí |
 | `0x006404C0` | 6 | CTaskComplexOpenPassengerDoor | baja | 0 (0) | sí |
-| `0x006490F0` | 6 | CTaskComplexGoToBoatSteeringWheel | alta | 0 (0) | sí |
-| `0x006550C0` | 6 | CTaskComplexWalkRoundObject | baja | 0 (0) | sí |
 | `0x00658C20` | 6 | CTaskComplexMedicTreatInjuredPed | alta | 0 (0) | sí |
 | `0x00659230` | 6 | CTaskComplexMedicTreatInjuredPed | baja | 0 (0) | sí |
-| `0x00659390` | 6 | CTaskComplexDriveFireTruck | baja | 0 (0) | sí |
-| `0x00659440` | 6 | CTaskComplexDriveFireTruck | baja | 0 (0) | sí |
 | `0x006597A0` | 6 | CTaskComplexUseWaterCannon | alta | 0 (0) | sí |
 | `0x006598A0` | 6 | CTaskComplexUseWaterCannon | baja | 0 (0) | sí |
 | `0x00659980` | 6 | CTaskComplexUseWaterCannon | baja | 0 (0) | sí |
-| `0x0065DB50` | 6 | CEventLeanOnVehicle | baja | 0 (0) | sí |
-| `0x0065DD50` | 6 | CEventPassObject | baja | 0 (0) | sí |
-| `0x0065DE10` | 6 | CEventPassObject | baja | 0 (0) | sí |
-| `0x0065DE20` | 6 | CEventPassObject | baja | 0 (0) | sí |
 | `0x0065EBA0` | 6 | CTaskComplexGangFollower | alta | 0 (0) | sí |
 | `0x00660ED0` | 6 | CTaskGoToVehicleAndLean | alta | 0 (0) | sí |
 | `0x0066AAD0` | 6 | CTaskComplexAvoidOtherPedWhileWandering | baja | 0 (0) | sí |
@@ -396,22 +355,12 @@
 | `0x00691460` | 6 | CTaskSimpleHoldEntity | alta | 0 (0) | sí |
 | `0x006926E0` | 6 | CTaskSimpleDuck | baja | 0 (0) | sí |
 | `0x006D63D0` | 6 | CVehicle | alta | 0 (0) | sí |
-| `0x0048E300` | 5 | CEventLeaderEnteredCarAsDriver | baja | 0 (0) | sí |
-| `0x004ABFE0` | 5 | CEvent | alta | 0 (0) | sí |
-| `0x004ABFF0` | 5 | CEvent | alta | 0 (0) | sí |
 | `0x004AC980` | 5 | CEventVehicleCollision | baja | 0 (0) | sí |
 | `0x004AFB40` | 5 | CEventAcquaintancePedHateBadlyLit | baja | 0 (0) | sí |
-| `0x004B0F70` | 5 | CEventLeaderEnteredCarAsDriver | baja | 0 (0) | sí |
 | `0x005E9680` | 5 | CPedAttractor | baja | 0 (0) | sí |
-| `0x00609050` | 5 | CEventNewGangMember | baja | 0 (0) | sí |
 | `0x0061AF50` | 5 | CTaskSimpleRunTimedAnim | baja | 0 (0) | sí |
 | `0x0062FF50` | 5 | CTaskComplexDieInCar | baja | 0 (0) | sí |
-| `0x00632B60` | 5 | CTaskSimpleWaitForBus | baja | 0 (0) | sí |
 | `0x00634610` | 5 | CTaskSimpleIKPointArm | baja | 0 (0) | sí |
-| `0x00659450` | 5 | CTaskComplexDriveFireTruck | baja | 0 (0) | sí |
-| `0x00659460` | 5 | CTaskComplexDriveFireTruck | baja | 0 (0) | sí |
-| `0x0065DBE0` | 5 | CEventLeanOnVehicle | baja | 0 (0) | sí |
-| `0x0065DDE0` | 5 | CEventPassObject | baja | 0 (0) | sí |
 | `0x006D62A0` | 5 | CVehicle | alta | 0 (0) | sí |
 | `0x006D62B0` | 5 | CVehicle | alta | 0 (0) | sí |
 | `0x006D62C0` | 5 | CVehicle | alta | 0 (0) | sí |
@@ -427,13 +376,8 @@
 | `0x006F55C0` | 5 | cHandlingDataMgr | baja | 0 (0) | sí |
 | `0x006F5EE0` | 5 | CTrain | alta | 0 (0) | sí |
 | `0x00420F10` | 4 | CEventEditableResponse | baja | 0 (0) | sí |
-| `0x00421190` | 4 | CTask | baja | 0 (0) | sí |
 | `0x00420F00` | 3 | CEventEditableResponse | baja | 0 (0) | sí |
 | `0x00420F20` | 3 | CEventEditableResponse | baja | 0 (0) | sí |
-| `0x004211A0` | 3 | CTask | baja | 0 (0) | sí |
-| `0x0048E290` | 3 | CEventLeaderEnteredCarAsDriver | baja | 0 (0) | sí |
-| `0x0048E310` | 3 | CEventLeaderEnteredCarAsDriver | baja | 0 (0) | sí |
-| `0x004AC000` | 3 | CEvent | alta | 0 (0) | sí |
 | `0x004AC900` | 3 | CEventVehicleCollision | baja | 0 (0) | sí |
 | `0x004AEA10` | 3 | CEventVehicleHitAndRun | baja | 0 (0) | sí |
 | `0x004AF3E0` | 3 | CEventAttractor | alta | 0 (0) | sí |
@@ -447,9 +391,6 @@
 | `0x005FF350` | 3 | CEventAcquaintancePedHateBadlyLit | baja | 0 (0) | sí |
 | `0x005FF780` | 3 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x005FF850` | 3 | CEventSeenCop | baja | 0 (0) | sí |
-| `0x00608FE0` | 3 | CEventNewGangMember | baja | 0 (0) | sí |
-| `0x0065DB60` | 3 | CEventLeanOnVehicle | baja | 0 (0) | sí |
-| `0x0065DD60` | 3 | CEventPassObject | baja | 0 (0) | sí |
 | `0x006A6280` | 3 | CAutomobile | alta | 0 (0) | sí |
 | `0x006D6270` | 3 | CVehicle | alta | 0 (0) | sí |
 | `0x006D6280` | 3 | CVehicle | alta | 0 (0) | sí |

@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 885 grupos / 10136 funciones reconstruidas; 10136 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 11/11/2026 (Ciudad de México):** 888 grupos / 10227 funciones reconstruidas; 10227 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,36 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-801"></a>
+
+## CTaskSimpleDuck
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskSimpleDuck::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:24](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::CTaskSimpleDuck(eDuckControlType duckControlType, uint16 lengthOfDuck, int16 shotWhizzingCounter) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:49](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::Constructor 0x00691FC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::CTaskSimpleDuck(const CTaskSimpleDuck& o) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:59](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::~CTaskSimpleDuck() | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:65](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::Destructor 0x00692030 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::DeleteDuckAnimCB(CAnimBlendAssociation* assoc, void* data) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:82](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::DeleteDuckAnimCB 0x00692550 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::CanPedDuck(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:116](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L116) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::CanPedDuck 0x00692610 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::IsTaskInUseByOtherTasks() const | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:144](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L144) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::IsTaskInUseByOtherTasks 0x0061C3D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::AbortBecauseOfOtherDuck(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:156](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L156) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleDuck::AbortBecauseOfOtherDuck 0x00692340 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::RestartTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:173](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L173) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::RestartTask 0x00692390 | 0 / 0 | Posible dato fijo m_StartTime: source/game_sa/Conversations/PedToPlayerConversations.h:29 (0x009691B8) |
+| CTaskSimpleDuck::ControlDuckMove(CVector2D moveDir) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:190](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L190) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::ControlDuckMove 0x006923F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::SetMoveAnim(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:217](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L217) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::SetMoveAnim 0x006939F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::ForceStopMove() | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:272](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L272) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::ForceStopMove 0x006924B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::StopFireGun() const | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:279](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L279) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleDuck::StopFireGun 0x0061C420 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::SetDuckTimer(uint16 time) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:284](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L284) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::SetDuckTimer 0x00692530 | 0 / 0 | Posible dato fijo m_StartTime: source/game_sa/Conversations/PedToPlayerConversations.h:29 (0x009691B8) |
+| CTaskSimpleDuck::SetControlType(eDuckControlType controlType) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:292](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L292) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::SetControlType 0x006924F0 | 0 / 0 | Posible dato fijo m_StartTime: source/game_sa/Conversations/PedToPlayerConversations.h:29 (0x009691B8) |
+| CTaskSimpleDuck::MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const* event) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:306](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L306) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::MakeAbortable 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleDuck::ProcessPed(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:399](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L399) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::ProcessPed 0x00000000 | 0 / 0 | Posible dato fijo m_StartTime: source/game_sa/Conversations/PedToPlayerConversations.h:29 (0x009691B8) |
+| CTaskSimpleDuck::SetPedIsDucking(CPed* ped, bool value) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp:499](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp#L499) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetControlType() const | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h:56](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h:59](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::Clone 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h:60](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::GetTaskType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor(eDuckControlType duckControlType, int16 lengthOfDuck, int16 showWhizzingCounter) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h:68](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuck::Constructor 0x00691FC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h:74](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h#L74) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskSimpleDuck::Destructor 0x00692030 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-802"></a>
 
 ## CTaskSimpleDuckToggle
 
@@ -21,7 +51,7 @@
 | * Constructor(eMode a) | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuckToggle.h:32](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuckToggle.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleDuckToggle::Constructor 0x0062F690 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuckToggle.h:38](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuckToggle.h#L38) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskSimpleDuckToggle::Destructor 0x0062F6D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-802"></a>
+<a id="grupo-803"></a>
 
 ## CTaskSimpleDuckWhileShotsWhizzing
 
@@ -30,7 +60,7 @@
 | CTaskSimpleDuckWhileShotsWhizzing::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuckWhileShotsWhizzing.cpp:5](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuckWhileShotsWhizzing.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleDuckWhileShotsWhizzing.h:18](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDuckWhileShotsWhizzing.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-803"></a>
+<a id="grupo-804"></a>
 
 ## CTaskSimpleEvasiveDive
 
@@ -49,7 +79,7 @@
 | * Constructor(CVehicle* vehicle) | [source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveDive.h:25](../../source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveDive.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleEvasiveDive::Constructor 0x00653560 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveDive.h:30](../../source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveDive.h#L30) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskSimpleEvasiveDive::Destructor 0x006535D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-804"></a>
+<a id="grupo-805"></a>
 
 ## CTaskSimpleEvasiveStep
 
@@ -67,7 +97,7 @@
 | * Constructor(CEntity* entity) | [source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.h:30](../../source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleEvasiveStep::Constructor 0x00653160 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.h:35](../../source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.h#L35) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskSimpleEvasiveStep::Destructor 0x006531D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-805"></a>
+<a id="grupo-806"></a>
 
 ## CTaskSimpleFacial
 
@@ -84,7 +114,7 @@
 | GetFacialType() const | [source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h:46](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | StartTimer(int32 dur) | [source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h:47](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-806"></a>
+<a id="grupo-807"></a>
 
 ## CTaskSimpleFall
 
@@ -104,7 +134,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h:24](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsFinished() const | [source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h:33](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-807"></a>
+<a id="grupo-808"></a>
 
 ## CTaskSimpleFight
 
@@ -134,14 +164,14 @@
 | CTaskSimpleFight::TargetInReach(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1467](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1467) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleFight::TargetInReach 0x0061D6F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CTaskSimpleFight::FightHitPed(CPed* creator, CPed* victim, CVector& posn1, CVector& /*posn2*/, int16 component) | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1606](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1606) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleFight::FightHitPed 0x0061CBA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00) |
 | CTaskSimpleFight::FightStrike(CPed* ped, CVector& posn) | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1730](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1730) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleFight::FightStrike 0x006240B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_aTempColPts: source/game_sa/World.h:84 (0x00B9ACD0); Posible dato fijo ms_modelInfoPtrs: source/game_sa/Models/ModelInfo.h:30 (0x00A9B0C8) |
-| CTaskSimpleFight::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1870](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1870) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskSimpleFight::Clone() const | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1908](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1908) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleFight::Clone 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskSimpleFight::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1919](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1919) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleFight::ScalarDeletingDestructor 0x006239D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskSimpleFight::Constructor(CEntity* entity, int32 nCommand, uint32 nIdlePeriod) | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1934](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1934) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleFight::Constructor 0x0061C470 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskSimpleFight::Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1973](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1973) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleFight::Destructor 0x0061C530 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h:68](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleFight::GetTaskType() const | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1871](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1871) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleFight::GetTaskType 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleFight::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1875](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1875) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskSimpleFight::Clone() const | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1914](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1914) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleFight::Clone 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskSimpleFight::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1925](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1925) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleFight::ScalarDeletingDestructor 0x006239D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskSimpleFight::Constructor(CEntity* entity, int32 nCommand, uint32 nIdlePeriod) | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1940](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1940) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleFight::Constructor 0x0061C470 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskSimpleFight::Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:1979](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp#L1979) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleFight::Destructor 0x0061C530 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-808"></a>
+<a id="grupo-809"></a>
 
 ## CTaskSimpleFightingControl
 
@@ -160,7 +190,7 @@
 | * Constructor(CEntity* entityToFight, float angleRad, float dist) | [source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h:38](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleFightingControl::Constructor 0x0061DC10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h:41](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h#L41) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskSimpleFightingControl::Destructor 0x0061DCA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-809"></a>
+<a id="grupo-810"></a>
 
 ## CTaskSimpleFinishBrain
 
@@ -173,29 +203,30 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.h:15](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleFinishBrain::Clone 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.h:16](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleFinishBrain::GetTaskType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-810"></a>
+<a id="grupo-811"></a>
 
 ## CTaskSimpleGangDriveBy
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| * __fastcall CTaskSimpleGangDriveByScalarDeletingDestructor(CTaskSimpleGangDriveBy* self, void* /*edx*/, uint8 flags) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:33](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::ScalarDeletingDestructor 0x006275E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskSimpleGangDriveBy::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:44](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskSimpleGangDriveBy::CTaskSimpleGangDriveBy(CEntity* target, const CVector* targetPos, float abortRange, int8 frequencyPercentage, eDrivebyStyle drivebyStyle, bool seatRHS) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:63](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskSimpleGangDriveBy::Constructor(CEntity* target, const CVector* targetPos, float abortRange, int8 frequencyPercentage, eDrivebyStyle drivebyStyle, bool seatRHS) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:93](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::Constructor 0x006217D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskSimpleGangDriveBy::~CTaskSimpleGangDriveBy() | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:98](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L98) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskSimpleGangDriveBy::Clone() const | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:109](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGangDriveBy::Clone 0x006236D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskSimpleGangDriveBy::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:115](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGangDriveBy::MakeAbortable 0x0062D290 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskSimpleGangDriveBy::ProcessPed(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:150](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L150) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGangDriveBy::ProcessPed 0x0062D3B0 | 0 / 0 | Posible dato fijo m_State: source/game_sa/Conversations/PedToPlayerConversations.h:25 (0x00969A20) |
-| CTaskSimpleGangDriveBy::SetupAnim(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:342](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L342) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::SetupAnim 0x00627B20 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskSimpleGangDriveBy::PlayerTarget(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:407](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L407) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::PlayerTarget 0x00621960 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
-| CTaskSimpleGangDriveBy::HasClearLineOfSight(CPed* ped, const CVector* aimPoint) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:448](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L448) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::HasClearLineOfSight 0x00621B10 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84); Posible dato fijo pIgnoreEntity: source/game_sa/World.h:67 (0x00B7CD68) |
-| CTaskSimpleGangDriveBy::AITarget(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:479](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L479) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::AITarget 0x00627600 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Colaborador por dirección 0x0059C890: CMatrix::operator*-Vec; ruta efectiva sin resolver |
-| CTaskSimpleGangDriveBy::AimGun(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:619](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L619) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::AimGun 0x00628350 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Colaborador por dirección 0x0059C890: CMatrix::operator*-Vec; ruta efectiva sin resolver; Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
-| CTaskSimpleGangDriveBy::FireGun(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:704](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L704) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::FireGun 0x00627CC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo ms_modelInfoPtrs: source/game_sa/Models/ModelInfo.h:30 (0x00A9B0C8) |
+| CTaskSimpleGangDriveByDestructorBody(CTaskSimpleGangDriveBy* self, void* /*edx*/) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:32](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::DestructorBody 0x006218C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall CTaskSimpleGangDriveByScalarDeletingDestructor(CTaskSimpleGangDriveBy* self, void* /*edx*/, uint8 flags) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:49](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::ScalarDeletingDestructor 0x006275E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleGangDriveBy::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:60](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleGangDriveBy::CTaskSimpleGangDriveBy(CEntity* target, const CVector* targetPos, float abortRange, int8 frequencyPercentage, eDrivebyStyle drivebyStyle, bool seatRHS) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:80](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskSimpleGangDriveBy::Constructor(CEntity* target, const CVector* targetPos, float abortRange, int8 frequencyPercentage, eDrivebyStyle drivebyStyle, bool seatRHS) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:110](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::Constructor 0x006217D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleGangDriveBy::~CTaskSimpleGangDriveBy() | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:115](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskSimpleGangDriveBy::Clone() const | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:126](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGangDriveBy::Clone 0x006236D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleGangDriveBy::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:132](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGangDriveBy::MakeAbortable 0x0062D290 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleGangDriveBy::ProcessPed(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:167](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L167) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGangDriveBy::ProcessPed 0x0062D3B0 | 0 / 0 | Posible dato fijo m_State: source/game_sa/Conversations/PedToPlayerConversations.h:25 (0x00969A20) |
+| CTaskSimpleGangDriveBy::SetupAnim(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:359](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L359) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::SetupAnim 0x00627B20 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleGangDriveBy::PlayerTarget(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:424](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L424) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::PlayerTarget 0x00621960 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CTaskSimpleGangDriveBy::HasClearLineOfSight(CPed* ped, const CVector* aimPoint) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:465](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L465) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::HasClearLineOfSight 0x00621B10 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84); Posible dato fijo pIgnoreEntity: source/game_sa/World.h:67 (0x00B7CD68) |
+| CTaskSimpleGangDriveBy::AITarget(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:496](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L496) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::AITarget 0x00627600 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Colaborador por dirección 0x0059C890: CMatrix::operator*-Vec; ruta efectiva sin resolver |
+| CTaskSimpleGangDriveBy::AimGun(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:636](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L636) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::AimGun 0x00628350 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Colaborador por dirección 0x0059C890: CMatrix::operator*-Vec; ruta efectiva sin resolver; Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CTaskSimpleGangDriveBy::FireGun(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:721](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp#L721) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGangDriveBy::FireGun 0x00627CC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo ms_modelInfoPtrs: source/game_sa/Models/ModelInfo.h:30 (0x00A9B0C8) |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h:68](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGangDriveBy::GetTaskType 0x006218B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-811"></a>
+<a id="grupo-812"></a>
 
 ## CTaskSimpleGetUp
 
@@ -213,7 +244,7 @@
 | CTaskSimpleGetUp::FinishGetUpAnimCB(CAnimBlendAssociation* blendAssoc, void* data) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.cpp:214](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.cpp#L214) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGetUp::FinishGetUpAnimCB 0x00678110 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.h:18](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-812"></a>
+<a id="grupo-813"></a>
 
 ## CTaskSimpleGiveCPR
 
@@ -231,7 +262,7 @@
 | CTaskSimpleGiveCPR::ReviveDeadPed(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp:143](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp#L143) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGiveCPR::ReviveDeadPed 0x00658900 | 0 / 0 | Posible dato fijo g_InterestingEvents: source/game_sa/InterestingEvents.cpp:24 (0x00C0B058); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | CTaskSimpleGiveCPR::FinishGiveCPRAnimCB(CAnimBlendAssociation* anim, void* ptask) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp:157](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp#L157) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGiveCPR::FinishGiveCPRAnimCB 0x00658990 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-813"></a>
+<a id="grupo-814"></a>
 
 ## CTaskSimpleGoTo
 
@@ -248,7 +279,7 @@
 | SetTargetPtRadius(float r) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h:36](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Constructor(eMoveState moveState, const CVector& targetPoint, float fRadius) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h:44](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGoTo::Constructor 0x006679C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-814"></a>
+<a id="grupo-815"></a>
 
 ## CTaskSimpleGoToBody
 
@@ -256,7 +287,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GoToDestructorBody(CTaskSimpleGoTo* self, void* /*edx*/) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp:28](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleGoTo::Destructor 0x00667D50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-815"></a>
+<a id="grupo-816"></a>
 
 ## CTaskSimpleGoToPoint
 
@@ -272,7 +303,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h:26](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGoToPoint::Clone 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Constructor(eMoveState moveState, const CVector& targetPoint, float fRadius, bool bMoveTowardsTargetPoint, bool a6) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h:36](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGoToPoint::Constructor 0x00667CD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-816"></a>
+<a id="grupo-817"></a>
 
 ## CTaskSimpleGoToPointFine
 
@@ -292,7 +323,7 @@
 | CTaskSimpleGoToPointFine::SetTargetPos_Reversed(CTaskSimpleGoToPointFine* self, uint32 /*edx*/, CVector posn) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp:235](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp#L235) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CTaskSimpleGoToPointFine::BaseRatio(eMoveState moveState) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp:242](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp#L242) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGoToPointFine::BaseRatio 0x0065EF30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-817"></a>
+<a id="grupo-818"></a>
 
 ## CTaskSimpleGunControl
 
@@ -312,7 +343,7 @@
 | * Constructor(CEntity* targetEntity, CVector const* target, CVector const* moveTarget, eGunCommand firingTask, int16 burstLength, int32 durationMs) | [source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.h:66](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.h#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleGunControl::Constructor 0x0061F3F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.h:71](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.h#L71) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskSimpleGunControl::Destructor 0x0061F4D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-818"></a>
+<a id="grupo-819"></a>
 
 ## CTaskSimpleHailTaxi
 
@@ -320,25 +351,10 @@
 | --- | --- | --- | --- | --- | --- |
 | CTaskSimpleHailTaxi::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskSimpleHailTaxi.cpp:5](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHailTaxi.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-819"></a>
+<a id="grupo-820"></a>
 
 ## CTaskSimpleHailTaxiAndPause
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | CTaskSimpleHailTaxiAndPause::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskSimpleHailTaxiAndPause.cpp:5](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHailTaxiAndPause.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-820"></a>
-
-## CTaskSimpleHandsUp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * __fastcall HandsUpScalarDeletingDestructor(CTaskSimpleHandsUp* self, void* /*edx*/, uint8 flags) | [source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.cpp:30](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskSimpleHandsUp::ScalarDeletingDestructor 0x0048EA40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskSimpleHandsUp::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.cpp:41](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskSimpleHandsUp(uint32 duration) | [source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.h:15](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskSimpleHandsUp(const CTaskSimpleHandsUp& o) | [source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.h:16](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.h:19](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleHandsUp::Clone 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsInterruptable(CPed const* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.h:20](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleHandsUp::IsInterruptable 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor(int32 nTime) | [source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.h:24](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleHandsUp::Constructor 0x0048E970 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.h:29](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.h#L29) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskSimpleHandsUp::Destructor 0x0048EA60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

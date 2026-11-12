@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 885 grupos / 10136 funciones reconstruidas; 10136 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 11/11/2026 (Ciudad de México):** 888 grupos / 10227 funciones reconstruidas; 10227 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,24 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1201"></a>
+
+## Globales y helpers: source/game_sa/FileLoader.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ExeCIacos(float x) | [source/game_sa/FileLoader.cpp:1244](../../source/game_sa/FileLoader.cpp#L1244) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * AddTextureCB(RwTexture* texture, void* dict) | [source/game_sa/FileLoader.cpp:2630](../../source/game_sa/FileLoader.cpp#L2630) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetFilename(const char* filepath) | [source/game_sa/FileLoader.cpp:2652](../../source/game_sa/FileLoader.cpp#L2652) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1202"></a>
+
+## Globales y helpers: source/game_sa/FileMgr.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| createDirectory(const wchar_t* path) | [source/game_sa/FileMgr.cpp:39](../../source/game_sa/FileMgr.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1203"></a>
 
 ## Globales y helpers: source/game_sa/Fire.cpp
 
@@ -16,7 +34,7 @@
 | FireMatrixTimesPoint(const CMatrix& m, const CVector& v) | [source/game_sa/Fire.cpp:292](../../source/game_sa/Fire.cpp#L292) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMatrix::operator*-Vec 0x0059C890 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FireDistanceZYX(const CVector& a, const CVector& b) | [source/game_sa/Fire.cpp:301](../../source/game_sa/Fire.cpp#L301) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1202"></a>
+<a id="grupo-1204"></a>
 
 ## Globales y helpers: source/game_sa/FireManager.cpp
 
@@ -26,7 +44,7 @@
 | ClampFireGenerations(int8 nGenerations) | [source/game_sa/FireManager.cpp:301](../../source/game_sa/FireManager.cpp#L301) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gFireManager: source/game_sa/FireManager.h:81 (0x00B71F80) |
 | FireRegisterCorona(uint32 id, uint8 red, uint8 green, uint8 blue, const CVector& pos, float coronaSize, eCoronaFlareType flare) | [source/game_sa/FireManager.cpp:395](../../source/game_sa/FireManager.cpp#L395) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1203"></a>
+<a id="grupo-1205"></a>
 
 ## Globales y helpers: source/game_sa/Frontend/MenuManager_Draw.cpp
 
@@ -37,7 +55,7 @@
 | InlineScaleX(float at640, uint32 factorBits) | [source/game_sa/Frontend/MenuManager_Draw.cpp:83](../../source/game_sa/Frontend/MenuManager_Draw.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040) |
 | InlineScaleY(float at448, uint32 factorBits) | [source/game_sa/Frontend/MenuManager_Draw.cpp:86](../../source/game_sa/Frontend/MenuManager_Draw.cpp#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040) |
 
-<a id="grupo-1204"></a>
+<a id="grupo-1206"></a>
 
 ## Globales y helpers: source/game_sa/Frontend/MenuManager_Internal.h
 
@@ -45,7 +63,7 @@
 | --- | --- | --- | --- | --- | --- |
 | IsSaveSlot(eMenuEntryType slot) | [source/game_sa/Frontend/MenuManager_Internal.h:242](../../source/game_sa/Frontend/MenuManager_Internal.h#L242) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1205"></a>
+<a id="grupo-1207"></a>
 
 ## Globales y helpers: source/game_sa/Frontend/MenuManager_Pages.cpp
 
@@ -54,7 +72,7 @@
 | StretchXK(float x, uint32 kBits) | [source/game_sa/Frontend/MenuManager_Pages.cpp:19](../../source/game_sa/Frontend/MenuManager_Pages.cpp#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040) |
 | StretchYK(float y, uint32 kBits) | [source/game_sa/Frontend/MenuManager_Pages.cpp:23](../../source/game_sa/Frontend/MenuManager_Pages.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040) |
 
-<a id="grupo-1206"></a>
+<a id="grupo-1208"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp
 
@@ -62,7 +80,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FindClosestPtOnLine(CVector& out, CVector& lineA, CVector& lineB, CVector& point) | [source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp:17](../../source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x004A4880: fuera del catálogo consultado; ruta efectiva sin resolver |
 
-<a id="grupo-1207"></a>
+<a id="grupo-1209"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Fx.cpp
 
@@ -78,7 +96,7 @@
 | FxDebrisVelocity() | [source/game_sa/Fx/Fx.cpp:294](../../source/game_sa/Fx/Fx.cpp#L294) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RenderAddTri(CVector pos1, CVector pos2, CVector pos3, RwTexCoords coord1, RwTexCoords coord2, RwTexCoords coord3, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3) | [source/game_sa/Fx/Fx.cpp:880](../../source/game_sa/Fx/Fx.cpp#L880) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00) |
 
-<a id="grupo-1208"></a>
+<a id="grupo-1210"></a>
 
 ## Globales y helpers: source/game_sa/Fx/FxEmitter.cpp
 
@@ -86,7 +104,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxEmitterExeRemainder() | [source/game_sa/Fx/FxEmitter.cpp:183](../../source/game_sa/Fx/FxEmitter.cpp#L183) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1209"></a>
+<a id="grupo-1211"></a>
 
 ## Globales y helpers: source/game_sa/Fx/FxEmitterBP.cpp
 
@@ -94,7 +112,7 @@
 | --- | --- | --- | --- | --- | --- |
 | RenderEmitterParticles355(FxEmitterBP_c& emitter, RwCamera* camera, float& brightness, bool heat) | [source/game_sa/Fx/FxEmitterBP.cpp:58](../../source/game_sa/Fx/FxEmitterBP.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x00B6FA14; Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00); Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80); Posible dato fijo m_Color: source/game_sa/Font.h:99 (0x00C71A60); Posible dato fijo ms_fTimeStep: source/game_sa/Timer.h:33 (0x00B7CB5C) |
 
-<a id="grupo-1210"></a>
+<a id="grupo-1212"></a>
 
 ## Globales y helpers: source/game_sa/Fx/FxInfoManager.cpp
 
@@ -102,7 +120,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * NewFxInfoInPool() | [source/game_sa/Fx/FxInfoManager.cpp:83](../../source/game_sa/Fx/FxInfoManager.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
 
-<a id="grupo-1211"></a>
+<a id="grupo-1213"></a>
 
 ## Globales y helpers: source/game_sa/Fx/FxManager.cpp
 
@@ -110,7 +128,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * NewFxEmitterArray() | [source/game_sa/Fx/FxManager.cpp:92](../../source/game_sa/Fx/FxManager.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1212"></a>
+<a id="grupo-1214"></a>
 
 ## Globales y helpers: source/game_sa/Fx/FxPrimBP.cpp
 
@@ -119,7 +137,7 @@
 | * __fastcall FxPrimBPConstructorBody(FxPrimBP_c* self, void* /*edx*/) | [source/game_sa/Fx/FxPrimBP.cpp:28](../../source/game_sa/Fx/FxPrimBP.cpp#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxPrimBPDestructorBody(FxPrimBP_c* self, void* /*edx*/) | [source/game_sa/Fx/FxPrimBP.cpp:45](../../source/game_sa/Fx/FxPrimBP.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1213"></a>
+<a id="grupo-1215"></a>
 
 ## Globales y helpers: source/game_sa/Fx/FxSystem.cpp
 
@@ -128,7 +146,7 @@
 | FxOpenFileThunk(const char* path, const char* mode) | [source/game_sa/Fx/FxSystem.cpp:33](../../source/game_sa/Fx/FxSystem.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxSystem_c::OpenFileThunk 0x004AB240 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CanAddParticle() | [source/game_sa/Fx/FxSystem.cpp:226](../../source/game_sa/Fx/FxSystem.cpp#L226) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00) |
 
-<a id="grupo-1214"></a>
+<a id="grupo-1216"></a>
 
 ## Globales y helpers: source/game_sa/Fx/FxTools.cpp
 
@@ -136,7 +154,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ReadLine(FILESTREAM file, char* buffer, int32 bufferSize) | [source/game_sa/Fx/FxTools.cpp:13](../../source/game_sa/Fx/FxTools.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1215"></a>
+<a id="grupo-1217"></a>
 
 ## Globales y helpers: source/game_sa/Fx/FxTools.h
 
@@ -149,7 +167,7 @@
 | ReadField&lt;uint8&gt;(FILESTREAM file, const char* fieldName) | [source/game_sa/Fx/FxTools.h:79](../../source/game_sa/Fx/FxTools.h#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ReadField&lt;bool&gt;(FILESTREAM file, const char* fieldName) | [source/game_sa/Fx/FxTools.h:84](../../source/game_sa/Fx/FxTools.h#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1216"></a>
+<a id="grupo-1218"></a>
 
 ## Globales y helpers: source/game_sa/GameLogic.cpp
 
@@ -161,7 +179,7 @@
 | UseTwoPlayerRestartPoint(CVector& restartPoint, float& restartAngle) | [source/game_sa/GameLogic.cpp:679](../../source/game_sa/GameLogic.cpp#L679) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo f2PlayerStartHeading: source/game_sa/GameLogic.h:50 (0x0096A840); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0); Posible dato fijo vec2PlayerStartLocation: source/game_sa/GameLogic.h:51 (0x0096A9AC) |
 | FinishResurrection() | [source/game_sa/GameLogic.cpp:688](../../source/game_sa/GameLogic.cpp#L688) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo CountDownToCarsAtStart: source/game_sa/CarCtrl.h:39 (0x009690C0); Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo m_CountDownToPedsAtStart: source/game_sa/Population.h:45 (0x00C0EC23); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 
-<a id="grupo-1217"></a>
+<a id="grupo-1219"></a>
 
 ## Globales y helpers: source/game_sa/GangWars.cpp
 
@@ -175,7 +193,7 @@
 | GangPickupOffset(int32 random, float base) | [source/game_sa/GangWars.cpp:427](../../source/game_sa/GangWars.cpp#L427) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GangWarTimeDelta(bool negative) | [source/game_sa/GangWars.cpp:1003](../../source/game_sa/GangWars.cpp#L1003) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1218"></a>
+<a id="grupo-1220"></a>
 
 ## Globales y helpers: source/game_sa/Garage.cpp
 
@@ -198,22 +216,3 @@
 | GaWantedBit(bool set) | [source/game_sa/Garage.cpp:490](../../source/game_sa/Garage.cpp#L490) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GaX87QuietFloatBits(uint32 bits) | [source/game_sa/Garage.cpp:1874](../../source/game_sa/Garage.cpp#L1874) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * GaConstructStored(uint32 model) | [source/game_sa/Garage.cpp:1878](../../source/game_sa/Garage.cpp#L1878) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x006E2D50: CVehicle::operator new-anon; ruta efectiva sin resolver |
-
-<a id="grupo-1219"></a>
-
-## Globales y helpers: source/game_sa/Garages.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| GarageQuietNan(float value) | [source/game_sa/Garages.cpp:184](../../source/game_sa/Garages.cpp#L184) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1220"></a>
-
-## Globales y helpers: source/game_sa/GenericGameStorage.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| make_hex_string(TInputIter first, TInputIter last, bool use_uppercase = true, bool insert_spaces = false) | [source/game_sa/GenericGameStorage.cpp:40](../../source/game_sa/GenericGameStorage.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| LOG_HEX_SPAN(uint8* start, size_t size) | [source/game_sa/GenericGameStorage.cpp:56](../../source/game_sa/GenericGameStorage.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| LOG_HEX_SPAN(uint8* start, size_t size) | [source/game_sa/GenericGameStorage.cpp:65](../../source/game_sa/GenericGameStorage.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SaveVersionName(uint32 version) | [source/game_sa/GenericGameStorage.cpp:245](../../source/game_sa/GenericGameStorage.cpp#L245) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
