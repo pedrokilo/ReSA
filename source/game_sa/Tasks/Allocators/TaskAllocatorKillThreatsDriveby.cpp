@@ -113,9 +113,23 @@ void CTaskAllocatorKillThreatsDriveby::AllocateTasks(CPedGroupIntelligence* inte
     }
 }
 
+namespace {
+// 0x69DA80 (lote 179A, sin validar): destructor con borrado de CTaskAllocatorKillThreatsDriveby del EXE (ranura 0 de su vtable 0x870EA8; thiscall, un argumento de pila, `ret 4`, 59 bytes: `call 0x69CB60; test byte [esp+8],1; ..`
+// con la liberacion en linea del pool de asignadores si el bit 0 esta puesto; devuelve `this`). Cuerpo de la clase 0x69CB60 (con hook) y CTaskAllocator::operator delete.
+__declspec(noinline) CTaskAllocatorKillThreatsDriveby* __fastcall KillThreatsDrivebyScalarDeletingDestructor(CTaskAllocatorKillThreatsDriveby* self, void* /*edx*/, uint8 flags) {
+    self->Destructor();
+    if (flags & 1) {
+        CTaskAllocator::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskAllocatorKillThreatsDriveby::InjectHooks() {
     RH_ScopedVirtualClass(CTaskAllocatorKillThreatsDriveby, 0x870ea8, 6);
     RH_ScopedCategory("Tasks/Allocators");
+
+    RH_ScopedNamedGlobalInstall(KillThreatsDrivebyScalarDeletingDestructor, "ScalarDeletingDestructor", 0x69DA80); // lote 179A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x69CAF0);
     RH_ScopedInstall(Destructor, 0x69CB60);

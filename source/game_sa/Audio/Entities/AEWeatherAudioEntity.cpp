@@ -61,6 +61,19 @@ void FadeWeatherSoundOut(CAESound* sound) {
 }
 } // namespace
 
+namespace {
+// 0x72A620 (lote 179A, sin validar; el listado decia CWeather): constructor de CAEWeatherAudioEntity del EXE (thiscall, sin argumentos, `ret`, 17 bytes: `mov eax,ecx; xor ecx,ecx; mov [eax+10h],ecx; mov [eax],872A74h;
+// mov [eax+7Ch],cl; ret`). NO llama al constructor de CAEAudioEntity: solo escribe el dword +0x10 (puntero a la entidad) a cero, la vtable de la clase del EXE (0x872A74) y el byte +0x7C
+// (m_nThunderFrequencyVariationCounter) a cero. Devuelve `this`; ECX sale a cero.
+__declspec(noinline) CAEWeatherAudioEntity* __fastcall WeatherAudioEntityConstructorBody(CAEWeatherAudioEntity* self, void* /*edx*/) {
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes + 0x10) = 0;
+    *reinterpret_cast<uint32*>(bytes) = 0x872A74;
+    bytes[0x7C] = 0;
+    return self;
+}
+} // namespace
+
 // 0x72A620
 CAEWeatherAudioEntity::CAEWeatherAudioEntity() : CAEAudioEntity() {
     m_nThunderFrequencyVariationCounter = 0;
@@ -389,6 +402,7 @@ void CAEWeatherAudioEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAEWeatherAudioEntity, 0x872A74, 1);
     RH_ScopedCategory("Audio/Entities");
 
+    RH_ScopedNamedGlobalInstall(WeatherAudioEntityConstructorBody, "Constructor", 0x72A620); // lote 179A (sin validar)
     RH_ScopedInstall(StaticInitialise, 0x5B9A70);
     RH_ScopedInstall(StaticReset, 0x5052B0);
     RH_ScopedInstall(AddAudioEvent, 0x506800);

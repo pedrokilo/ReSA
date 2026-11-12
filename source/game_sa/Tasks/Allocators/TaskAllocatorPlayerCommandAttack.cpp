@@ -103,11 +103,30 @@ CTaskAllocatorPlayerCommandAttack* __fastcall PlayerCommandAttackConstructorBody
     *reinterpret_cast<uint32*>(bytes + 0x1C) = value;
     return self;
 }
+
+// 0x69DB40 (lote 179A, sin validar): cuerpo no virtual de ~CTaskAllocatorPlayerCommandAttack del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],870E78h ; jmp 0x69C2D0`). Deja la vtable de la clase del
+// EXE (0x870E78) y salta al cuerpo de ~CTaskAllocatorAttack (0x69C2D0, con hook). Funcion propia sin expansion en linea; la llama el destructor con borrado como el `call 0x69DB40` del EXE.
+__declspec(noinline) void __fastcall PlayerCommandAttackDestructorBody(CTaskAllocatorPlayerCommandAttack* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870E78;
+    static_cast<CTaskAllocatorAttack*>(self)->Destructor();
+}
+
+// 0x69DB00 (lote 179A, sin validar): destructor con borrado de CTaskAllocatorPlayerCommandAttack del EXE (ranura 0 de su vtable 0x870E78; thiscall, un argumento de pila, `ret 4`, 59 bytes: `call 0x69DB40; test byte [esp+8],1; ..`
+// con la liberacion en linea del pool de asignadores (la de CTaskAllocator::operator delete 0x69D990) si el bit 0 esta puesto; devuelve `this`).
+__declspec(noinline) CTaskAllocatorPlayerCommandAttack* __fastcall PlayerCommandAttackScalarDeletingDestructor(CTaskAllocatorPlayerCommandAttack* self, void* /*edx*/, uint8 flags) {
+    PlayerCommandAttackDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTaskAllocator::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskAllocatorPlayerCommandAttack::InjectHooks() {
     RH_ScopedVirtualClass(CTaskAllocatorPlayerCommandAttack, 0x870e78, 6);
     RH_ScopedCategory("Tasks/Allocators");
+    RH_ScopedNamedGlobalInstall(PlayerCommandAttackDestructorBody, "DestructorBody", 0x69DB40);                     // lote 179A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlayerCommandAttackScalarDeletingDestructor, "ScalarDeletingDestructor", 0x69DB00); // lote 179A (sin validar)
     RH_ScopedNamedGlobalInstall(PlayerCommandAttackConstructorBody, "Constructor", 0x69C480);
 
     RH_ScopedVMTInstall(AllocateTasks, 0x69C4D0);

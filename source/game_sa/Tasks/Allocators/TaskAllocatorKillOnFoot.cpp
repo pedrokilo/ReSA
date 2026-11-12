@@ -105,9 +105,24 @@ void CTaskAllocatorKillOnFoot::AllocateTasks(CPedGroupIntelligence* intel) {
     ProcessList(members, false);
 }
 
+namespace {
+// 0x69D9C0 (lote 179A, sin validar): destructor con borrado de CTaskAllocatorKillOnFoot del EXE (ranura 0 de su vtable 0x870E48; thiscall, un argumento de pila, `ret 4`, 59 bytes: `call 0x69BBF0; test byte [esp+8],1;
+// ..` y, con el bit 0, la liberacion en linea del pool de asignadores (0xB744BC; la misma de CTaskAllocator::operator delete 0x69D990); devuelve `this`). Destruye con el cuerpo de la clase (0x69BBF0, con hook), libera con
+// CTaskAllocator::operator delete solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+__declspec(noinline) CTaskAllocatorKillOnFoot* __fastcall KillOnFootScalarDeletingDestructor(CTaskAllocatorKillOnFoot* self, void* /*edx*/, uint8 flags) {
+    self->Destructor();
+    if (flags & 1) {
+        CTaskAllocator::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskAllocatorKillOnFoot::InjectHooks() {
     RH_ScopedVirtualClass(CTaskAllocatorKillOnFoot, 0x870e48, 6);
     RH_ScopedCategory("Tasks/Allocators");
+
+    RH_ScopedNamedGlobalInstall(KillOnFootScalarDeletingDestructor, "ScalarDeletingDestructor", 0x69D9C0); // lote 179A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x69BB80);
     RH_ScopedInstall(Destructor, 0x69BBF0);

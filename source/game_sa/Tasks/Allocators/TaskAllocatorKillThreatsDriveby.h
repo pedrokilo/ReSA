@@ -28,6 +28,7 @@ private: // Wrappers for hooks
         return this;
     }
 
+public: // lo llama el destructor con borrado (0x69DA80; lote 179A, sin validar)
     // 0x69CB60
     CTaskAllocatorKillThreatsDriveby* Destructor() {
         this->CTaskAllocatorKillThreatsDriveby::~CTaskAllocatorKillThreatsDriveby();

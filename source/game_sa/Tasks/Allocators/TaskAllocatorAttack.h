@@ -29,7 +29,7 @@ public: // Constructor: lo llama el constructor reconstruido de CTaskAllocatorPl
         return this;
     }
 
-private: // Wrappers for hooks
+public: // Envoltura del cuerpo 0x69C2D0 (con hook): la llaman el destructor con borrado (0x69DA00) y el cuerpo de ~CTaskAllocatorPlayerCommandAttack (0x69DB40; lote 179A, sin validar)
     // 0x69C2D0
     CTaskAllocatorAttack* Destructor() {
         this->CTaskAllocatorAttack::~CTaskAllocatorAttack();

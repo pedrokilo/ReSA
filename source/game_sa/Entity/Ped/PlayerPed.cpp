@@ -88,10 +88,37 @@ static float __declspec(safebuffers) __fastcall GetButtonSprintResultsKeepEdx(CP
 
 namespace { bool JoinGroupFlags(); }
 
+namespace {
+// 0x6093B0 (lote 179A, sin validar; el listado decia CEventPlayerCommandToGroupGather): cuerpo no virtual de ~CPlayerPed del EXE (thiscall, sin argumentos de pila, `ret`, 217 bytes con marco SEH que solo desenrolla y aqui se omite;
+// lo llama el destructor con borrado 0x60A9A0, ranura 0 de la vtable 0x86D168). Deja la vtable de la clase del EXE (0x86D168); si los datos del jugador (+0x480) tienen un grupo de animacion de combate referenciado (+0x48) y
+// luego el segundo (+0x4C), quita la referencia del bloque (indice = (puntero de bloque del grupo - 0xB5D4A0) >> 5, CAnimManager::RemoveAnimBlockRef 0x4D3FD0) y pone el campo a cero, releyendo +0x480 tras cada llamada; si la bandera
+// 0x200000 de la palabra +0x478 (bUsedForReplay) NO esta puesta, quita el grupo del jugador (+0x38) con CPedGroups::RemoveGroup (0x5FB870); y termina con el cuerpo de ~CPed (0x5E8620, con hook).
+__declspec(noinline) void __fastcall PlayerPedDestructorBody(CPlayerPed* self, void* /*edx*/) {
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x86D168;
+    const auto releaseBlock = [bytes](size_t fieldOffset) {
+        const int32 group = *reinterpret_cast<int32*>(*reinterpret_cast<uint8**>(bytes + 0x480) + fieldOffset);
+        if (group != 0) {
+            CAnimBlendAssocGroup* const groups = StaticRef<CAnimBlendAssocGroup*>(0xB4EA34); // CAnimManager::ms_aAnimAssocGroups, releido
+            const CAnimBlock* const block = groups[group].m_AnimBlock;
+            CAnimManager::RemoveAnimBlockRef(static_cast<int32>(reinterpret_cast<uintptr_t>(block) - uintptr_t(0xB5D4A0)) >> 5);
+            *reinterpret_cast<int32*>(*reinterpret_cast<uint8**>(bytes + 0x480) + fieldOffset) = 0;
+        }
+    };
+    releaseBlock(0x48);
+    releaseBlock(0x4C);
+    if (!(*reinterpret_cast<uint32*>(bytes + 0x478) & 0x200000)) {
+        CPedGroups::RemoveGroup(*reinterpret_cast<int32*>(*reinterpret_cast<uint8**>(bytes + 0x480) + 0x38));
+    }
+    self->CPed::Destructor();
+}
+} // namespace
+
 void CPlayerPed::InjectHooks() {
     RH_ScopedVirtualClass(CPlayerPed, 0x86D168, 26);
     RH_ScopedCategory("Entity/Ped");
 
+    RH_ScopedNamedGlobalInstall(PlayerPedDestructorBody, "DestructorBody", 0x6093B0); // lote 179A (sin validar)
     RH_ScopedInstall(ResetSprintEnergy, 0x60A530);
     RH_ScopedInstall(ResetPlayerBreath, 0x60A8A0);
     RH_ScopedInstall(RemovePlayerPed, 0x6094A0);

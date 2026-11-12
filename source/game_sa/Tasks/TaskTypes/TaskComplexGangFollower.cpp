@@ -36,6 +36,11 @@ END GENERATED HOOK STATUS */
 #include "EventPassObject.h"
 #include "SeekEntity/TaskComplexSeekEntity.h"
 #include "Ragdoll/IKChainManager.h"
+#include "X87Math.h"
+
+namespace { void __fastcall GangFollowerCalculateOffsetPosition(CTaskComplexGangFollower* self, void* edx, CVector* out); }
+
+static_assert(CTaskComplexGangFollower::Type == 0x4B7); // 0x65EBA0: `mov eax,4B7h`
 
 void CTaskComplexGangFollower::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGangFollower, 0x86F938, 11);
@@ -44,13 +49,19 @@ void CTaskComplexGangFollower::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x65EAA0);
     RH_ScopedInstall(Destructor, 0x65EBB0);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x6629F0);
-    //RH_ScopedInstall(CalculateOffsetPosition, 0x65ED40, { .reversed = false }); // not hooked because i want to keep CVector return, but original function took a CVector&
+    RH_ScopedNamedGlobalInstall(GangFollowerCalculateOffsetPosition, "CalculateOffsetPosition", 0x65ED40); // lote 179A (sin validar): el EXE recibe el destino por puntero oculto
+    RH_ScopedVMTInstall(GetTaskType, 0x65EBA0);                                                         // lote 179A (sin validar): ranura 4, retorno de constante
     RH_ScopedInstall(SetCanEnterLeadersCar, 0x65EE90);
     RH_ScopedVMTInstall(Clone, 0x65ECB0);
     RH_ScopedVMTInstall(MakeAbortable, 0x65EC30);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x665E00);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x666160);
     RH_ScopedVMTInstall(ControlSubTask, 0x662A10);
+}
+
+// 0x65EBA0 (lote 179A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,4B7h`): TASK_COMPLEX_GANG_FOLLOWER (1207); no lee el objeto (ranura 4 de la vtable 0x86F938).
+eTaskType CTaskComplexGangFollower::GetTaskType() const {
+    return Type;
 }
 
 // 0x65EAA0
@@ -75,23 +86,47 @@ CTaskComplexGangFollower::~CTaskComplexGangFollower() {
     if (m_Flags & 1) { CAnimManager::RemoveAnimBlockRef(CAnimManager::GetAnimationBlockIndex("gangs")); m_Flags &= 0xFE; }
 }
 
-// 0x65ED40
-CVector CTaskComplexGangFollower::CalculateOffsetPosition() {
-    const auto state = m_Leader->m_nMoveState;
-    if (state == PEDMOVE_WALK || state == PEDMOVE_RUN || state == PEDMOVE_SPRINT) {
-        const auto offset = CTaskComplexFollowLeaderInFormation::ms_offsets.MovingOffsets[byte3C];
-        dword20.FromMultiply3x3(*m_Leader->m_matrix, CVector{offset.x, offset.y, 0.f});
-        m_Flags &= 0xEF;
-    } else {
-        const auto delta = m_Leader->GetPosition() - m_PedPosn;
-        if (!(delta.SquaredMagnitude() <= 9.f && (m_Flags & 0x10))) {
-            m_PedPosn = m_Leader->GetPosition();
-            const auto offset = CTaskComplexFollowLeaderInFormation::ms_offsets.Offsets[byte3C];
-            dword20 = CVector{offset.x, offset.y, 0.f};
-            m_Flags |= 0x10;
-        }
+namespace {
+// 0x65ED40 (lote 179A, sin validar): CTaskComplexGangFollower::CalculateOffsetPosition del EXE (thiscall con un puntero de retorno oculto en la pila, `ret 4`, 329 bytes). La posicion del lider es la de su matriz (+0x30) si
+// la tiene o la propia (+4). Si el lider anda, corre o hace sprint (estado de movimiento +0x534 = 4, 6 o 7) el desplazamiento es MovingOffsets[byte3C] (0xC19728 + 8*i) con z = 0 rotado con la matriz del lider (+0x14, SIN comprobar
+// nulo) con CVector::FromMultiply3x3 (0x59C6D0) sobre dword20 (+0x20) y se quita la bandera 0x10 de +0x3D. Si no, la distancia al cuadrado entre la posicion del lider y m_PedPosn (+0x14) se calcula en la x87 como
+// ((dz*dz) + (dy*dy)) + (dx*dx) y SOLO si es mayor que 9.0f (con NaN no lo es) o la bandera 0x10 no esta puesta se copia la posicion del lider (como dwords) a m_PedPosn, dword20 = (Offsets[byte3C].x, .y, 0) y se pone la bandera 0x10.
+// Al final copia dword20 (+0x20..+0x28, como dwords) al destino oculto.
+__declspec(noinline) void __fastcall GangFollowerCalculateOffsetPosition(CTaskComplexGangFollower* self, void* /*edx*/, CVector* out) {
+    CPed* const leader = self->m_Leader;
+    const auto state = leader->m_nMoveState;
+    const bool moving = state == PEDMOVE_WALK || state == PEDMOVE_RUN || state == PEDMOVE_SPRINT;
+    const uint32* const leaderPos = reinterpret_cast<const uint32*>(&leader->GetPosition()); // matriz (+0x30) si la tiene, si no la propia (+4)
+    const bool farEnough = Hp179AFollowerFarFromLastCpp(reinterpret_cast<const float*>(leaderPos), &self->m_PedPosn.x);
+    if (moving) {
+        const auto offset = CTaskComplexFollowLeaderInFormation::ms_offsets.MovingOffsets[self->byte3C];
+        self->dword20.FromMultiply3x3(*leader->m_matrix, CVector{offset.x, offset.y, 0.f});
+        self->m_Flags &= 0xEF;
+    } else if (farEnough || !(self->m_Flags & 0x10)) {
+        uint32* const last = reinterpret_cast<uint32*>(&self->m_PedPosn);
+        last[0] = leaderPos[0];
+        last[1] = leaderPos[1];
+        last[2] = leaderPos[2];
+        const auto offset = CTaskComplexFollowLeaderInFormation::ms_offsets.Offsets[self->byte3C];
+        uint32* const target = reinterpret_cast<uint32*>(&self->dword20);
+        target[0] = std::bit_cast<uint32>(offset.x);
+        target[1] = std::bit_cast<uint32>(offset.y);
+        target[2] = 0;
+        self->m_Flags |= 0x10;
     }
-    return dword20;
+    const uint32* const source = reinterpret_cast<const uint32*>(&self->dword20);
+    uint32* const destination = reinterpret_cast<uint32*>(out);
+    destination[0] = source[0];
+    destination[1] = source[1];
+    destination[2] = source[2];
+}
+} // namespace
+
+// Envoltura con retorno por valor (la usan los llamadores reconstruidos); el EXE recibe el destino por puntero oculto (0x65ED40, con hook).
+CVector CTaskComplexGangFollower::CalculateOffsetPosition() {
+    CVector result;
+    GangFollowerCalculateOffsetPosition(this, nullptr, &result);
+    return result;
 }
 
 // 0x65ECB0

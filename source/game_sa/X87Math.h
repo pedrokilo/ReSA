@@ -2346,3 +2346,8 @@ bool __cdecl CommonLineCrossesSegmentCpp(float ax, float ay, float bx, float by,
 bool __cdecl Hp177ALeanSideAheadMatrixCpp(const float* right, const float* ped, const float* veh);
 // Lo mismo sin matriz: el derecha es (cos(rumbo), sin(rumbo), 0.0f) con fcos / fsin sin redondear a float.
 bool __cdecl Hp177ALeanSideAheadHeadingCpp(float heading, const float* ped, const float* veh);
+
+// Lote 179A (sin validar).
+// CTaskComplexGangFollower::CalculateOffsetPosition (0x65ED40), rama del lider quieto: distancia al cuadrado entre la posicion del lider (3 floats) y la ultima guardada (3 floats) calculada como
+// ((dz*dz) + (dy*dy)) + (dx*dx) con la x87 sin redondeos intermedios a float, comparada con 9.0f (`fcomp; test ah,41h; je`): devuelve verdadero solo si es MAYOR (ordenado; con NaN es falso).
+bool __cdecl Hp179AFollowerFarFromLastCpp(const float* leader, const float* last);

@@ -157,9 +157,23 @@ void CTaskAllocatorKillThreatsBasic::ComputeClosestPeds(CPedGroup& group1, CPedG
     }
 }
 
+namespace {
+// 0x69DA40 (lote 179A, sin validar): destructor con borrado de CTaskAllocatorKillThreatsBasic del EXE (ranura 0 de su vtable 0x870E90; thiscall, un argumento de pila, `ret 4`, 59 bytes: `call 0x69C780; test byte [esp+8],1; ..`
+// con la liberacion en linea del pool de asignadores si el bit 0 esta puesto; devuelve `this`). Cuerpo de la clase 0x69C780 (con hook) y CTaskAllocator::operator delete.
+__declspec(noinline) CTaskAllocatorKillThreatsBasic* __fastcall KillThreatsBasicScalarDeletingDestructor(CTaskAllocatorKillThreatsBasic* self, void* /*edx*/, uint8 flags) {
+    self->Destructor();
+    if (flags & 1) {
+        CTaskAllocator::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskAllocatorKillThreatsBasic::InjectHooks() {
     RH_ScopedVirtualClass(CTaskAllocatorKillThreatsBasic, 0x870e90, 6);
     RH_ScopedCategory("Tasks/Allocators");
+
+    RH_ScopedNamedGlobalInstall(KillThreatsBasicScalarDeletingDestructor, "ScalarDeletingDestructor", 0x69DA40); // lote 179A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x69C710);
     RH_ScopedInstall(Destructor, 0x69C780);

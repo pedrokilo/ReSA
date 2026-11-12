@@ -28,7 +28,7 @@ public:
     CTaskComplexGangFollower(CPedGroup* pedGroup, CPed* ped, uint8 a4, CVector pos, float a6);
     ~CTaskComplexGangFollower() override;
 
-    eTaskType GetTaskType() const  override{ return Type; }
+    eTaskType GetTaskType() const override; // 0x65EBA0 (lote 179A, sin validar)
     CTask* Clone() const override;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;

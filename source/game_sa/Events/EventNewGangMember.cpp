@@ -54,6 +54,7 @@ void CEventNewGangMember::InjectHooks()
     RH_ScopedNamedGlobalInstall(NewGangMemberScalarDeletingDestructor, "ScalarDeletingDestructor", 0x609060); // lote 168A (banco Fn168A)
     RH_ScopedInstall(Constructor, 0x608F70);
     RH_ScopedVMTInstall(GetEventType, 0x608FD0);      // lote 168A (banco Fn168A): retorno de constante
+    RH_ScopedVMTInstall(GetEventPriority, 0x609310);  // lote 179A (sin validar): ranura 2
     RH_ScopedVMTInstall(GetLifeTime, 0x608FE0);       // lote 168A (banco Fn168A): retorno de constante
     RH_ScopedVMTInstall(Clone, 0x608FF0);             // lote 168A (banco Fn168A)
     RH_ScopedVMTInstall(AffectsPed, 0x609050);        // lote 168A (banco Fn168A): retorno de constante
@@ -62,6 +63,11 @@ void CEventNewGangMember::InjectHooks()
 // 0x608FD0 (lote 168A, banco Fn168A; thiscall, `ret`, 6 bytes: `mov eax,5Ah`): EVENT_NEW_GANG_MEMBER (90); no lee el objeto (ranura 1 de la vtable 0x86D0A0).
 eEventType CEventNewGangMember::GetEventType() const {
     return EVENT_NEW_GANG_MEMBER;
+}
+
+// 0x609310 (lote 179A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,2Ah`): prioridad 42; no lee el objeto (ranura 2 de la vtable 0x86D0A0).
+int32 CEventNewGangMember::GetEventPriority() const {
+    return 42;
 }
 
 // 0x608FE0 (lote 168A, banco Fn168A; thiscall, `ret`, 3 bytes: `xor eax,eax`): vida util 0; no lee el objeto (ranura 3).

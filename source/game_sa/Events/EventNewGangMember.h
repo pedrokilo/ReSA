@@ -15,7 +15,7 @@ public:
     ~CEventNewGangMember() override;
 
     eEventType GetEventType() const override;                  // 0x608FD0 (lote 168A, banco Fn168A)
-    int32 GetEventPriority() const override { return 42; }
+    int32 GetEventPriority() const override;                   // 0x609310 (lote 179A, sin validar)
     int32 GetLifeTime() override;                              // 0x608FE0 (lote 168A, banco Fn168A)
     CEventNewGangMember* Clone() const noexcept override;      // 0x608FF0 (lote 168A, banco Fn168A)
     bool AffectsPed(CPed* ped) override;                       // 0x609050 (lote 168A, banco Fn168A)

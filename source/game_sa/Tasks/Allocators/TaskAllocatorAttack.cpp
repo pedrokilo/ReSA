@@ -51,9 +51,23 @@ CTaskAllocator* CTaskAllocatorAttack::ProcessGroup(CPedGroupIntelligence* intel)
     return this;
 }
 
+namespace {
+// 0x69DA00 (lote 179A, sin validar): destructor con borrado de CTaskAllocatorAttack del EXE (ranura 0 de su vtable 0x870E60; thiscall, un argumento de pila, `ret 4`, 59 bytes: `call 0x69C2D0; test byte [esp+8],1; ..`
+// con la liberacion en linea del pool de asignadores si el bit 0 esta puesto; devuelve `this`). Cuerpo de la clase 0x69C2D0 (con hook) y CTaskAllocator::operator delete.
+__declspec(noinline) CTaskAllocatorAttack* __fastcall AttackScalarDeletingDestructor(CTaskAllocatorAttack* self, void* /*edx*/, uint8 flags) {
+    self->Destructor();
+    if (flags & 1) {
+        CTaskAllocator::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskAllocatorAttack::InjectHooks() {
     RH_ScopedVirtualClass(CTaskAllocatorAttack, 0x870e60, 6);
     RH_ScopedCategory("Tasks/Allocators");
+
+    RH_ScopedNamedGlobalInstall(AttackScalarDeletingDestructor, "ScalarDeletingDestructor", 0x69DA00); // lote 179A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x69C240);
     RH_ScopedInstall(Destructor, 0x69C2D0);

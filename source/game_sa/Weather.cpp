@@ -135,7 +135,7 @@ void CWeather::InjectHooks() {
     RH_ScopedInstall(SetWeatherToAppropriateTypeNow, 0x72A790);
     RH_ScopedInstall(Update, 0x72B850);
     RH_ScopedInstall(UpdateInTunnelness, 0x72B630);
-    //RH_ScopedInstall(UpdateWeatherRegion, 0x72A640, true, { .reversed = false }); // bad
+    RH_ScopedInstall(UpdateWeatherRegion, 0x72A640); // lote 179A (sin validar)
     RH_ScopedInstall(IsRainy, 0x4ABF50);
 }
 
@@ -1004,7 +1004,9 @@ eWeatherRegion CWeather::FindWeatherRegion(CVector2D pos) {
     return WEATHER_REGION_DEFAULT;
 }
 
-// 0x72A640
+// 0x72A640 (lote 179A, sin validar; cdecl con un puntero (puede ser nulo) en la pila, `ret`, 335 bytes): copia la posicion indicada o, si es nula, la de la camara (matriz +0x30 si la tiene, si no +4 de TheCamera) y escribe
+// en la palabra WeatherRegion (0xC81314) la region: 3 (LV) si x > 1000 y y > 910; si no 4 (desierto) si x > -850, x < 1000 e y > 1280; si no 2 (SF) si x < -1430, y > -580 e y < 1430; si no 1 (LA) si x > 250, x < 3000,
+// y > -3000 e y < -850; si no 0. Las comparaciones x87 (`fcomp` + `test ah,41h` para ">" y `test ah,5` para "<") dan falso con NaN, igual que las de FindWeatherRegion.
 void CWeather::UpdateWeatherRegion(CVector* posn) {
     WeatherRegion = FindWeatherRegion(posn ? *posn : TheCamera.GetPosition());
 }

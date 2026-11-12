@@ -33,13 +33,25 @@ __declspec(noinline) void __fastcall GoToPointFineDestructorBody(CTaskSimpleGoTo
     *reinterpret_cast<uint32*>(self) = 0x86F964;
     CTaskSimpleGoToBody::GoToDestructorBody(self, nullptr);
 }
+
+// 0x6634E0 (lote 179A, sin validar; el listado decia CTaskComplexGangFollower): destructor con borrado de CTaskSimpleGoToPointFine del EXE (ranura 0 de su vtable 0x86F964; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x65EEF0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Destruye con el cuerpo de la clase (0x65EEF0), libera con CTask::operator delete
+// (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+__declspec(noinline) CTaskSimpleGoToPointFine* __fastcall GoToPointFineScalarDeletingDestructor(CTaskSimpleGoToPointFine* self, void* /*edx*/, uint8 flags) {
+    GoToPointFineDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskSimpleGoToPointFine::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleGoToPointFine, 0x86F964, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(GoToPointFineDestructorBody, "DestructorBody", 0x65EEF0); // lote 158A (banco Fn158A)
-    RH_ScopedVMTInstall(GetTaskType, 0x65EEE0);                                           // lote 158A: ranura 4 de la vtable 0x86F964, retorno de constante
+    RH_ScopedNamedGlobalInstall(GoToPointFineScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6634E0); // lote 179A (sin validar)
+    RH_ScopedVMTInstall(GetTaskType, 0x65EEE0);                                         // lote 158A: ranura 4 de la vtable 0x86F964, retorno de constante
     RH_ScopedInstall(Constructor, 0x65EEB0);
     RH_ScopedVMTInstall(Clone, 0x662040);
     RH_ScopedVMTInstall(MakeAbortable, 0x663500);

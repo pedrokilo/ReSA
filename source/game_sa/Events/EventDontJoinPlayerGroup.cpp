@@ -58,6 +58,7 @@ void CEventDontJoinPlayerGroup::InjectHooks()
 
     RH_ScopedInstall(Constructor, 0x6090E0);
     RH_ScopedVMTInstall(GetEventType, 0x6091A0);  // lote 155A (banco Fn155A): ranura 1 de la vtable 0x86D0E0
+    RH_ScopedVMTInstall(GetEventPriority, 0x609320); // lote 179A (sin validar): ranura 2
     RH_ScopedVMTInstall(GetLifeTime, 0x6091B0);   // lote 155A: ranura 3
     RH_ScopedVMTInstall(Clone, 0x6091C0);         // lote 155A: ranura 4
     RH_ScopedVMTInstall(AffectsPed, 0x609220);    // lote 155A: ranura 5
@@ -66,6 +67,11 @@ void CEventDontJoinPlayerGroup::InjectHooks()
 // 0x6091A0 (lote 155A, banco Fn155A; thiscall, `ret`, 6 bytes: `mov eax,5Eh`): EVENT_DONT_JOIN_GROUP (94); no lee el objeto.
 eEventType CEventDontJoinPlayerGroup::GetEventType() const {
     return EVENT_DONT_JOIN_GROUP;
+}
+
+// 0x609320 (lote 179A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,2Bh`): prioridad 43; no lee el objeto (ranura 2 de la vtable 0x86D0E0).
+int32 CEventDontJoinPlayerGroup::GetEventPriority() const {
+    return 43;
 }
 
 // 0x6091B0 (lote 155A, banco Fn155A; thiscall, `ret`, 3 bytes: `xor eax,eax`): vida util 0; no lee el objeto.

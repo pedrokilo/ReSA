@@ -495,10 +495,105 @@ CColPool* CColStore::GetPool() {
     return ms_pColPool;
 }
 
+namespace {
+// Lote 179A (sin validar): instanciacion CPool<ColDef> del EXE (0x14 bytes: almacenamiento +0, mapa de estado +4, capacidad +8, primer libre +0xC, BYTE de memoria propia +0x10). Se opera sobre los bytes crudos como el EXE.
+struct ColPoolRaw {
+    uint8* storage;
+    uint8* flags;
+    int32  capacity;
+    int32  lastFree;
+    uint8  ownsAllocations;
+};
+static_assert(offsetof(ColPoolRaw, flags) == 4 && offsetof(ColPoolRaw, capacity) == 8 && offsetof(ColPoolRaw, lastFree) == 0xC && offsetof(ColPoolRaw, ownsAllocations) == 0x10);
+
+// Cuerpo comun de CPool<ColDef>::Flush: si la capacidad (con signo, +8) es positiva y el pool posee la memoria (+0x10) libera con operator delete[] (0x8213AE) el almacenamiento y despues el mapa; despues, y solo si la
+// capacidad era positiva, pone a cero almacenamiento, mapa, capacidad y primer libre.
+__forceinline void ColPoolFlushBody(ColPoolRaw* pool) {
+    if (pool->capacity > 0) {
+        if (pool->ownsAllocations) {
+            delete[] pool->storage;
+            delete[] pool->flags;
+        }
+        pool->storage  = nullptr;
+        pool->flags    = nullptr;
+        pool->capacity = 0;
+        pool->lastFree = 0;
+    }
+}
+
+// 0x410610 (lote 179A, sin validar): CPool<ColDef>::Flush del EXE (thiscall, sin argumentos, `ret`, 54 bytes).
+__declspec(noinline) void __fastcall ColPoolFlush(ColPoolRaw* pool, void* /*edx*/) {
+    ColPoolFlushBody(pool);
+}
+
+// 0x410FE0 (lote 179A, sin validar): segunda copia identica de CPool<ColDef>::Flush del EXE (54 bytes, `ret`).
+__declspec(noinline) void __fastcall ColPoolFlushSecondCopy(ColPoolRaw* pool, void* /*edx*/) {
+    ColPoolFlushBody(pool);
+}
+
+// 0x4110E0 (lote 179A, sin validar): destructor con borrado de CPool<ColDef> del EXE (thiscall, un argumento de pila, `ret 4`, 71 bytes): el mismo cuerpo de Flush en linea y, con el bit 0 del BYTE de banderas,
+// operator delete (0x8214BD) de `this`; devuelve `this`.
+__declspec(noinline) ColPoolRaw* __fastcall ColPoolScalarDeletingDestructor(ColPoolRaw* pool, void* /*edx*/, uint8 flags) {
+    ColPoolFlushBody(pool);
+    if (flags & 1) {
+        ::operator delete(pool);
+    }
+    return pool;
+}
+
+// 0x410F80 (lote 179A, sin validar): constructor CPool<ColDef>(capacidad, nombre) del EXE (thiscall, dos argumentos de pila, `ret 8`, 91 bytes; el nombre no se usa). Reserva con operator new[] (0x821195) capacidad*0x2C bytes
+// (producto de 32 bits) para el almacenamiento y despues `capacidad` bytes para el mapa, pone el BYTE +0x10 a 1, la capacidad (+8) y el primer libre (+0xC) a -1 y, si la capacidad es positiva, deja cada byte del mapa en 0x80
+// (el EXE hace `or 80h` y despues `and 80h` sobre cada uno). El almacenamiento no se rellena. Devuelve `this`.
+__declspec(noinline) ColPoolRaw* __fastcall ColPoolConstructor(ColPoolRaw* pool, void* /*edx*/, int32 capacity, const char* /*name*/) {
+    pool->storage = static_cast<uint8*>(::operator new[](static_cast<size_t>(static_cast<uint32>(capacity) * 0x2Cu)));
+    pool->flags   = static_cast<uint8*>(::operator new[](static_cast<size_t>(static_cast<uint32>(capacity))));
+    pool->ownsAllocations = 1;
+    pool->capacity        = capacity;
+    pool->lastFree        = -1;
+    for (int32 i = 0; i < capacity; i++) {
+        pool->flags[i] |= 0x80;
+        pool->flags[i] &= 0x80;
+    }
+    return pool;
+}
+
+// 0x411030 (lote 179A, sin validar): CPool<ColDef>::New del EXE (thiscall, sin argumentos, `ret`, 103 bytes). Busca desde primer libre + 1 (una sola vuelta: al llegar a la capacidad pone el primer libre a 0 y, si ya habia
+// dado la vuelta, devuelve nulo); un slot esta libre si su byte del mapa tiene el bit 0x80. Lo ocupa (quita el bit 0x80 e incrementa el contador de 7 bits conservando el bit alto) y devuelve almacenamiento + indice * 0x2C. No toca
+// el almacenamiento.
+__declspec(noinline) ColDef* __fastcall ColPoolNew(ColPoolRaw* pool, void* /*edx*/) {
+    const int32 capacity = pool->capacity;
+    bool wrapped = false;
+    for (;;) {
+        const int32 next = pool->lastFree + 1;
+        pool->lastFree = next;
+        if (next == capacity) {
+            pool->lastFree = 0;
+            if (wrapped) {
+                return nullptr;
+            }
+            wrapped = true;
+        }
+        uint8* const flag = &pool->flags[pool->lastFree];
+        if (*flag & 0x80) {
+            const uint8 cleared = *flag & 0x7F;
+            *flag = cleared;
+            *flag = static_cast<uint8>((cleared + 1) & 0x7F); // contador de 7 bits + 1; el bit alto ya es 0 (el EXE lo calcula con xor/and sobre el byte releido)
+            return reinterpret_cast<ColDef*>(pool->storage + pool->lastFree * 0x2C);
+        }
+    }
+}
+} // namespace
+
 void CColStore::InjectHooks()
 {
     RH_ScopedClass(CColStore);
     RH_ScopedCategory("Collision");
+
+    RH_ScopedNamedGlobalInstall(ColPoolFlush, "PoolFlush", 0x410610);                                    // lote 179A (sin validar)
+    RH_ScopedNamedGlobalInstall(ColPoolConstructor, "PoolConstructor", 0x410F80);                       // lote 179A (sin validar)
+    RH_ScopedNamedGlobalInstall(ColPoolFlushSecondCopy, "PoolFlushSecondCopy", 0x410FE0);               // lote 179A (sin validar)
+    RH_ScopedNamedGlobalInstall(ColPoolNew, "PoolNew", 0x411030);                                        // lote 179A (sin validar)
+    RH_ScopedNamedGlobalInstall(ColPoolScalarDeletingDestructor, "PoolScalarDeletingDestructor", 0x4110E0); // lote 179A (sin validar)
 
     RH_ScopedOverloadedInstall(FindColSlot, "", 0x410390, int32(*)()); // lote 153A (banco Fn153A)
     RH_ScopedInstall(Initialise, 0x4113F0);

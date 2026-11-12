@@ -26,6 +26,7 @@ private:
         return this;
     }
 
+public: // lo llama el destructor con borrado (0x69D9C0; lote 179A, sin validar)
     // 0x69BBF0
     CTaskAllocatorKillOnFoot* Destructor() {
         this->CTaskAllocatorKillOnFoot::~CTaskAllocatorKillOnFoot();

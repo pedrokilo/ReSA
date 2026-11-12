@@ -11,9 +11,9 @@ public:
     CEventPlayerCommandToGroupGather(CPed* target) : CEventPlayerCommandToGroup(PLAYER_GROUP_COMMAND_GATHER, target) {}
     ~CEventPlayerCommandToGroupGather() override = default;
 
-    eEventType GetEventType() const override { return EVENT_PLAYER_COMMAND_TO_GROUP_GATHER; }
-    int32 GetEventPriority() const override { return 45; }
-    CEventPlayerCommandToGroupGather* CloneEditable() const noexcept override { return new CEventPlayerCommandToGroupGather(m_target); }
+    eEventType GetEventType() const override;                                    // 0x609270 (lote 179A, sin validar)
+    int32 GetEventPriority() const override;                                     // 0x609330 (lote 179A, sin validar)
+    CEventPlayerCommandToGroupGather* CloneEditable() const noexcept override;   // 0x609280 (lote 179A, sin validar)
 
     CEventPlayerCommandToGroupGather* Constructor(CPed* target);
 };

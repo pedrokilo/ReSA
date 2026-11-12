@@ -18962,3 +18962,16 @@ __declspec(noinline) bool __cdecl Hp177ALeanSideAheadHeadingCpp(float heading, c
     const double dot = (double(zero) * dz + sine * dy) + cosine * dx;
     return dot > 0.0;
 }
+
+// --- Lote 179A (sin validar) ---
+// 0x65ED40 (CTaskComplexGangFollower::CalculateOffsetPosition): `fld [lider]; fsub [ultima]; fld [lider+4]; fsub [ultima+4]; fld [lider+8]; fsub [ultima+8]` deja dx, dy y dz en la pila (24 bits de mantisa, exponente
+// ampliado); despues `fld st0; fmul st,st(1)` (dz*dz), `fld st2; fmul st,st(3)` (dy*dy), `faddp`, `fld st3; fmul st,st(4)` (dx*dx), `faddp` y `fcomp [9.0f]; fnstsw ax; test ah,41h; je` (verdadero solo si mayor, ordenado).
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl Hp179AFollowerFarFromLastCpp(const float* leader, const float* last) {
+    const double dx = double(leader[0]) - double(last[0]);
+    const double dy = double(leader[1]) - double(last[1]);
+    const double dz = double(leader[2]) - double(last[2]);
+    const double squared = (dz * dz + dy * dy) + dx * dx;
+    return squared > 9.0;
+}
+#pragma float_control(pop)
