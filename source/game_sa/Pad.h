@@ -266,7 +266,7 @@ public:
 
     static bool IsMenuKeyJustPressed() noexcept                             { return KEY_IS_PRESSED(lalt); }                                                                 // 0x744D50
     static bool IsTabJustPressed() noexcept                                 { return KEY_IS_PRESSED(tab); }                                                                  // 0x744D90
-    static bool IsEscJustPressed() noexcept                                 { return KEY_IS_PRESSED(esc); }                                                                  // 0x572DB0
+    static bool IsEscJustPressed() noexcept;                                                                                                                                 // 0x572DB0 (lote 182A, sin validar: definida en Pad.cpp)
     static bool IsBackspacePressed() noexcept                               { return KEY_IS_PRESSED(back); }                                                                 // 0x57C360
 
     // KEYBOARD END
@@ -338,7 +338,7 @@ public:
     // MOUSE
     static bool f0x57C3C0() noexcept               { return !NewMouseControllerState.isMouseLeftButtonPressed && OldMouseControllerState.isMouseLeftButtonPressed; }         // 0x57C3C0
     static bool IsMouseLButtonPressed() noexcept   { return MOUSE_IS_PRESSED(isMouseLeftButtonPressed); }                                                                    // 0x4D5A00
-    static bool IsMouseRButtonPressed() noexcept   { return MOUSE_IS_PRESSED(isMouseRightButtonPressed); }                                                                   // 0x572E70
+    static bool IsMouseRButtonPressed() noexcept;      // 0x572E70 (lote 182A, sin validar: definida en Pad.cpp)
     static bool IsMouseMButtonPressed() noexcept   { return MOUSE_IS_PRESSED(isMouseMiddleButtonPressed); }                                                                  // 0x57C3E0
     static bool IsMouseWheelUpPressed() noexcept;      // 0x57C400 (lote 174A, banco Fn174A: definida en Pad.cpp)
     static bool IsMouseWheelDownPressed() noexcept;    // 0x57C420 (lote 174A, banco Fn174A: definida en Pad.cpp)

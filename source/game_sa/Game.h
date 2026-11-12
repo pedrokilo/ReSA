@@ -49,6 +49,7 @@ public:
     static void ShutdownRenderWare();
     static void DrasticTidyUpMemory(bool a1);
     static void FinalShutdown();
+    static void ActivateMenuOnSetFocus(); // 0x53BC60 (lote 182A, sin validar)
     static void TidyUpMemory(bool a1, bool clearD3Dmem);
     static eAreaCodes GetCurrentAreaCode() { return currArea; }
     static eAreaCodes GetPlayerOrCurrentAreaCode();

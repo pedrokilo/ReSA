@@ -34,7 +34,20 @@ public:
                              bool bUseTorso = true,
                              float speed = 0.25f,
                              int32 blendTime = 1000,
-                             int32 priority = 3);
+                             int32 priority = 3); // 0x634440 (lote 182A, sin validar)
+    ~CTaskSimpleTriggerLookAt() override;        // cuerpo del EXE: 0x634500 (DestructorBody, lote 163A); el de la DLL solo libera la referencia
+
+    CTask*    Clone() const override;                                                           // 0x634560 (lote 182A, sin validar)
+    eTaskType GetTaskType() const override { return Type; }                                     // 0x6344F0 (lote 182A, sin validar)
+    bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return true; } // 0x634610 (lote 182A, sin validar)
+    bool      ProcessPed(CPed* ped) override;                                                   // 0x634620 (lote 182A, sin validar)
+
+private:
+    // Envoltura para el hook del constructor (0x634440; thiscall, 10 dwords en la pila, `ret 0x28`, devuelve this)
+    CTaskSimpleTriggerLookAt* Constructor(CEntity* entity, int32 time, int32 offsetBoneTag, RwV3d offsetPos, bool bUseTorso, float speed, int32 blendTime, int32 priority) {
+        this->CTaskSimpleTriggerLookAt::CTaskSimpleTriggerLookAt(entity, time, offsetBoneTag, offsetPos, bUseTorso, speed, blendTime, priority);
+        return this;
+    }
 };
 
 VALIDATE_SIZE(CTaskSimpleTriggerLookAt, 0x30);

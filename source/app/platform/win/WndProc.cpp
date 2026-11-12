@@ -109,10 +109,7 @@ LRESULT CALLBACK __MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
         break; // El EXE sigue hasta DefWindowProc
     }
     case WM_SETFOCUS: { // 0x748063
-        // 0x53BC60 (OnSetFocus del menú), en línea
-        if (!FrontEndMenuManager.m_bMainMenuSwitch && !FrontEndMenuManager.m_bMenuActive) {
-            FrontEndMenuManager.m_bActivateMenuNextFrame = true;
-        }
+        CGame::ActivateMenuOnSetFocus(); // 0x53BC60 (lote 182A, sin validar: antes en línea aquí)
         ForegroundAppDword = 1;
         break;
     }

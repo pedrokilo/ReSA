@@ -78,6 +78,37 @@ END GENERATED HOOK STATUS */
 #include "WindModifiers.h"
 #include "GrassRenderer.h"
 
+namespace {
+// Lote 182A (sin validar): 0x53C860 y 0x53C890 (thiscall, sin argumentos, `ret`, 39 bytes cada una, sin llamadores ni referencias en el EXE: codigo muerto; el listado las atribuia a CGame por cercania de direcciones).
+// Dos funciones identicas de otro tipo cada una: liberan con free (0x8214BD) el puntero de +4 si no es nulo y ponen a cero +4, +8 y +0xC (en ese orden, siempre, aunque el puntero fuera nulo).
+void __fastcall ReleaseBlockA(void* self, void* /*edx*/) {
+    auto* const raw = static_cast<uint8*>(self);
+    if (void* const block = *reinterpret_cast<void**>(raw + 4)) {
+        plugin::Call<0x8214BD, void*>(block);
+    }
+    *reinterpret_cast<uint32*>(raw + 4)   = 0;
+    *reinterpret_cast<uint32*>(raw + 8)   = 0;
+    *reinterpret_cast<uint32*>(raw + 0xC) = 0;
+}
+void __fastcall ReleaseBlockB(void* self, void* /*edx*/) {
+    auto* const raw = static_cast<uint8*>(self);
+    if (void* const block = *reinterpret_cast<void**>(raw + 4)) {
+        plugin::Call<0x8214BD, void*>(block);
+    }
+    *reinterpret_cast<uint32*>(raw + 4)   = 0;
+    *reinterpret_cast<uint32*>(raw + 8)   = 0;
+    *reinterpret_cast<uint32*>(raw + 0xC) = 0;
+}
+} // namespace
+
+// 0x53BC60 (lote 182A, sin validar; cdecl, sin argumentos, `ret`, 26 bytes; antes en linea en el caso WM_SETFOCUS de WndProc, que la llama desde 0x748063): si el interruptor del menu principal (0xBA6831) y el menu activo (0xBA67A4)
+// valen cero (bytes), pone a uno la activacion del menu en el siguiente fotograma (0xBA677B). No toca ningun registro de entrada.
+void CGame::ActivateMenuOnSetFocus() {
+    if (!FrontEndMenuManager.m_bMainMenuSwitch && !FrontEndMenuManager.m_bMenuActive) {
+        FrontEndMenuManager.m_bActivateMenuNextFrame = true;
+    }
+}
+
 void CGame::InjectHooks() {
     RH_ScopedClass(CGame);
     RH_ScopedCategoryGlobal();
@@ -102,6 +133,9 @@ void CGame::InjectHooks() {
     RH_ScopedInstall(DrasticTidyUpMemory, 0x53C810);
     RH_ScopedInstall(FinalShutdown, 0x53BC30);
     RH_ScopedInstall(TidyUpMemory, 0x53C500);
+    RH_ScopedInstall(ActivateMenuOnSetFocus, 0x53BC60); // lote 182A (sin validar)
+    RH_ScopedNamedGlobalInstall(ReleaseBlockA, "ReleaseBlockA", 0x53C860); // lote 182A (sin validar)
+    RH_ScopedNamedGlobalInstall(ReleaseBlockB, "ReleaseBlockB", 0x53C890); // lote 182A (sin validar)
 
     RH_ScopedGlobalInstall(CameraDestroy, 0x72FD90);
     RH_ScopedGlobalInstall(ValidateVersion, 0x5BA060); // Antes 0x5BA0BC: caía dentro de un salto de esta función

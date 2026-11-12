@@ -203,6 +203,8 @@ struct CSaveGarage {
     char             m_anName[8];
     eGarageType      m_nOriginalType;
 
+    static void InjectHooks();
+
     void CopyGarageIntoSaveGarage(Const CGarage& garage);
     void CopyGarageOutOfSaveGarage(CGarage& garage) const;
 };

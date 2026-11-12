@@ -68,6 +68,12 @@ bool CPad::IsMouseWheelDownPressed() noexcept { return MOUSE_IS_PRESSED(isMouseW
 bool CPad::IsMouseBmx1Pressed() noexcept      { return MOUSE_IS_PRESSED(isMouseFirstXPressed); }
 bool CPad::IsMouseBmx2Pressed() noexcept      { return MOUSE_IS_PRESSED(isMouseSecondXPressed); }
 
+// Lote 182A (sin validar): IsEscJustPressed (0x572DB0) e IsMouseRButtonPressed (0x572E70), antes inline en la cabecera. cdecl sin argumentos, `ret`, resultado en AL (1 o 0).
+// 0x572DB0: WORD esc de NewKeyState (0xB733A8) distinto de cero y el de OldKeyState (0xB73138) igual a cero. 0x572E70: BYTE del boton derecho de NewMouseControllerState
+// (0xB73419) distinto de cero y el de OldMouseControllerState (0xB7342D) igual a cero.
+bool CPad::IsEscJustPressed() noexcept      { return KEY_IS_PRESSED(esc); }
+bool CPad::IsMouseRButtonPressed() noexcept { return MOUSE_IS_PRESSED(isMouseRightButtonPressed); }
+
 void CPad::InjectHooks() {
     RH_ScopedClass(CPad);
     RH_ScopedCategoryGlobal();
@@ -77,6 +83,8 @@ void CPad::InjectHooks() {
     RH_ScopedInstall(IsMouseWheelDownPressed, 0x57C420); // lote 174A (banco Fn174A)
     RH_ScopedInstall(IsMouseBmx1Pressed, 0x57C440);      // lote 174A (banco Fn174A)
     RH_ScopedInstall(IsMouseBmx2Pressed, 0x57C460);      // lote 174A (banco Fn174A)
+    RH_ScopedInstall(IsEscJustPressed, 0x572DB0);        // lote 182A (sin validar): antes inline en la cabecera
+    RH_ScopedInstall(IsMouseRButtonPressed, 0x572E70);   // lote 182A (sin validar): antes inline en la cabecera
     RH_ScopedNamedGlobalInstall(PadLeftShoulder1PressedExe, "IsLeftShoulder1Pressed", 0x53EDC0); // lote 152A (banco Fn152A)
     RH_ScopedNamedGlobalInstall(PadRightShoulder1PressedExe, "IsRightShoulder1Pressed", 0x53EE20); // lote 152A (banco Fn152A)
     RH_ScopedNamedGlobalInstall(PadDPadUpPressedExe, "IsDPadUpPressed", 0x53EE60); // lote 152A (banco Fn152A)

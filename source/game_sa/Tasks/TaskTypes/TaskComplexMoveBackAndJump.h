@@ -36,4 +36,6 @@ private: // Wrappers for hooks
         this->CTaskComplexMoveBackAndJump::~CTaskComplexMoveBackAndJump();
         return this;
     }
+
+    CTaskComplexMoveBackAndJump* ScalarDeletingDestructor(uint8 flags); // 0x657750 (lote 182A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86F390), `ret 4`
 };

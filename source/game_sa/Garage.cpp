@@ -1861,6 +1861,16 @@ void CSaveGarage::CopyGarageOutOfSaveGarage(CGarage& g) const {
     strcpy(g.m_anName, m_anName); // Como el original: strcpy (sin relleno 0xFE de depuración)
 }
 
+// Lote 182A (sin validar): CopyGarageIntoSaveGarage (0x5D3020) y CopyGarageOutOfSaveGarage (0x5D30C0), ya en C++, ahora enganchadas. Ambas thiscall con un puntero en la pila (`ret 4`). La copia es campo a campo en el orden
+// del EXE (byte de tipo, estado y banderas; dwords 0x00..0x3C de CGarage a 0x04..0x40 de CSaveGarage; nombre con strcpy; tipo original) y 0x5D30C0 pone a cero el coche objetivo (+0x40 de CGarage) antes del nombre.
+void CSaveGarage::InjectHooks() {
+    RH_ScopedClass(CSaveGarage);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(CopyGarageIntoSaveGarage, 0x5D3020);
+    RH_ScopedInstall(CopyGarageOutOfSaveGarage, 0x5D30C0);
+}
+
 void CStoredCar::InjectHooks() {
     RH_ScopedClass(CStoredCar);
     RH_ScopedCategoryGlobal();

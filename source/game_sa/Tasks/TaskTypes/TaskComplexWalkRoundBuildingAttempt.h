@@ -59,6 +59,11 @@ private: // Wrappers for hooks
         this->CTaskComplexWalkRoundBuildingAttempt::CTaskComplexWalkRoundBuildingAttempt(moveState, targetPos, pos, normal, flag_0x1);
         return this;
     }
+    // 0x654840 (lote 182A, sin validar): constructor con entidad y desplazamiento (6 argumentos de pila, `ret 0x18`)
+    CTaskComplexWalkRoundBuildingAttempt* ConstructorEntity(eMoveState moveState, CEntity* target, CVector const& offset, CVector const& pos, CVector const& normal, bool bIsHeadOnCollision) {
+        this->CTaskComplexWalkRoundBuildingAttempt::CTaskComplexWalkRoundBuildingAttempt(moveState, target, offset, pos, normal, bIsHeadOnCollision);
+        return this;
+    }
     // 0x654950
     __declspec(noinline) CTaskComplexWalkRoundBuildingAttempt* Destructor() {
         this->CTaskComplexWalkRoundBuildingAttempt::~CTaskComplexWalkRoundBuildingAttempt();

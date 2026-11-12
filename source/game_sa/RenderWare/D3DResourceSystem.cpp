@@ -45,6 +45,8 @@ uint32&              D3DResourceSystem::FreeIndexBufferIndex    = *reinterpret_c
 
 void __fastcall GrowableArrayPushBack(void* self, void* edx, uint32 value); // 0x730B30 (lote 166A)
 bool ScratchDirectoryInit();                                                  // 0x7315A0 (lote 166A)
+void __fastcall GrowableArrayFree(void* self, void* edx);                     // 0x730450 (lote 182A)
+void __fastcall GrowableArrayResize(void* self, void* edx, uint32 newCapacity); // 0x7304B0 (lote 182A)
 
 void D3DResourceSystem::InjectHooks() {
     RH_ScopedClass(D3DResourceSystem);
@@ -63,6 +65,8 @@ void D3DResourceSystem::InjectHooks() {
     RH_ScopedInstall(GetTotalPixelsSize, 0x730660);
     RH_ScopedNamedGlobalInstall(GrowableArrayPushBack, "GrowableArrayPushBack", 0x730B30);       // lote 166A (banco Fn166A)
     RH_ScopedNamedGlobalInstall(ScratchDirectoryInit, "ScratchDirectoryInit", 0x7315A0);         // lote 166A
+    RH_ScopedNamedGlobalInstall(GrowableArrayFree, "GrowableArrayFree", 0x730450);                // lote 182A (sin validar)
+    RH_ScopedNamedGlobalInstall(GrowableArrayResize, "GrowableArrayResize", 0x7304B0);            // lote 182A (sin validar)
 }
 
 namespace {
@@ -102,6 +106,38 @@ __declspec(noinline) void __fastcall GrowableArrayPushBack(void* self, void* /*e
     const uint32 data = *reinterpret_cast<volatile uint32*>(raw + 8);
     *reinterpret_cast<volatile uint32*>(static_cast<uintptr_t>(data + static_cast<uint32>(*count) * 4u)) = value;
     *count = *count + 1;
+}
+
+// Lote 182A (sin validar): las otras dos funciones del mismo vector que crece (`[this]` = capacidad, `[this+4]` = numero de elementos, `[this+8]` = datos). Sin llamadores directos salvo 0x730B47 (GrowableArrayPushBack).
+// 0x730450 (thiscall, sin argumentos, `ret`, 34 bytes): libera los datos con free (0x8214BD) y los deja a nulo SOLO si no eran nulos, y pone a cero el numero de elementos (siempre); la capacidad no se toca.
+__declspec(noinline) void __fastcall GrowableArrayFree(void* self, void* /*edx*/) {
+    auto* const raw = static_cast<uint8*>(self);
+    if (void* const data = *reinterpret_cast<void**>(raw + 8)) {
+        ExeFree(data);
+        *reinterpret_cast<void**>(raw + 8) = nullptr;
+    }
+    *reinterpret_cast<int32*>(raw + 4) = 0;
+}
+
+// 0x7304B0 (thiscall, un dword en la pila, `ret 4`, 82 bytes): cambia la capacidad. Sin cambios si es igual a la actual. Si no: reserva `newCapacity * 4` bytes (32 bits) con operator new (0x82119A), copia datos[i] a
+// la reserva nueva mientras i (con signo) sea menor que la capacidad nueva Y menor que el numero de elementos (con signo; releido de memoria en cada vuelta, y los datos tambien), libera los datos viejos con free
+// (0x8214BD, tambien si son nulos), y guarda el puntero nuevo y despues la capacidad. El numero de elementos NO cambia (con una capacidad menor queda mayor que ella).
+__declspec(noinline) void __fastcall GrowableArrayResize(void* self, void* /*edx*/, uint32 newCapacity) {
+    auto* const raw = static_cast<uint8*>(self);
+    volatile int32* const capacity = reinterpret_cast<volatile int32*>(raw);
+    volatile int32* const count    = reinterpret_cast<volatile int32*>(raw + 4);
+    volatile uint32* const data    = reinterpret_cast<volatile uint32*>(raw + 8);
+    if (static_cast<int32>(newCapacity) == *capacity) {
+        return;
+    }
+    using NewFn = void*(__cdecl*)(uint32);
+    auto* const fresh = static_cast<uint32*>(reinterpret_cast<NewFn>(0x82119A)(newCapacity << 2));
+    for (int32 i = 0; *count > i && i < static_cast<int32>(newCapacity); ++i) {
+        fresh[i] = reinterpret_cast<volatile uint32*>(static_cast<uintptr_t>(*data))[i];
+    }
+    ExeFree(reinterpret_cast<void*>(static_cast<uintptr_t>(*data)));
+    *data     = static_cast<uint32>(reinterpret_cast<uintptr_t>(fresh));
+    *capacity = static_cast<int32>(newCapacity);
 }
 
 // 0x7315A0 (thiscall sin argumentos, `ret`, 87 bytes con marco SEH que solo desenrolla): reserva 0x800 bytes con operator new (0x82119A, sin hook; el resultado se descarta, no se libera ni se guarda), reserva otros

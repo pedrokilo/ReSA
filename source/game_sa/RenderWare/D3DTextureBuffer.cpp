@@ -61,6 +61,34 @@ void D3DTextureBuffer::InjectHooks() {
     RH_ScopedInstall(Resize, 0x730020);
     RH_ScopedInstall(GetTotalDataSize, 0x7300A0);
     RH_ScopedInstall(PushWithoutIncreasingCounter, 0x730AD0);
+    RH_ScopedInstall(Clear, 0x72FEC0);   // lote 182A (sin validar)
+    RH_ScopedInstall(Destroy, 0x72FEF0); // lote 182A (sin validar)
+}
+
+// 0x72FEC0 (lote 182A, sin validar; thiscall, sin argumentos, `ret`, 46 bytes, sin llamadores en el EXE)
+// Libera (Release, ranura 2 de la vtable COM) las texturas guardadas de la primera a la ultima y deja a cero el numero de texturas guardadas (+0x14) y despues el contador (+0x10). La pila (+0x18) se conserva.
+// El numero de texturas (con signo) y el puntero de la pila se vuelven a leer de memoria en cada vuelta (Release puede reentrar), como el EXE.
+void D3DTextureBuffer::Clear() {
+    for (int32 i = 0; i < static_cast<int32>(m_nSize); ++i) {
+        D3DResourceCom::Release(m_apTextures[i]);
+    }
+    m_nSize = 0;
+    m_nNumTexturesInBuffer = 0;
+}
+
+// 0x72FEF0 (lote 182A, sin validar; thiscall, sin argumentos, `ret`, 66 bytes, sin llamadores en el EXE)
+// Como Clear, pero ademas libera la pila con free (0x8214BD, el operator delete de la DLL) si no es nula y la deja a nulo (solo en ese caso). El puntero se lee tras el bucle y antes de poner a cero los dos contadores.
+void D3DTextureBuffer::Destroy() {
+    for (int32 i = 0; i < static_cast<int32>(m_nSize); ++i) {
+        D3DResourceCom::Release(m_apTextures[i]);
+    }
+    Texture** const stack = m_apTextures;
+    m_nSize = 0;
+    m_nNumTexturesInBuffer = 0;
+    if (stack) {
+        ::operator delete(stack);
+        m_apTextures = nullptr;
+    }
 }
 
 // 0x72FE80

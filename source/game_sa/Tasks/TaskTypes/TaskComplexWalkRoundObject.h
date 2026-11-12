@@ -27,7 +27,7 @@ public:
     ~CTaskComplexWalkRoundObject() override;
 
     eTaskType GetTaskType() const override; // 0x6550C0 (lote 171A, banco Fn171A)
-    CTask* Clone() const override { return new CTaskComplexWalkRoundObject(m_moveState, m_targetPoint, m_object); }
+    CTask* Clone() const override; // 0x655C10 (lote 182A, sin validar)
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;
     CTask* ControlSubTask(CPed* ped) override;

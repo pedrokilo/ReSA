@@ -887,6 +887,7 @@ void InjectHooksMain() {
     CActiveOccluder::InjectHooks();
     CGarage::InjectHooks();
     CStoredCar::InjectHooks();
+    CSaveGarage::InjectHooks();
     CGarages::InjectHooks();
     CMissionCleanup::InjectHooks();
     CRemote::InjectHooks();

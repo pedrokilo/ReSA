@@ -60,6 +60,7 @@ void CTheZones::InjectHooks() {
     RH_ScopedGlobalInstall(FindSmallestZoneForPosition, 0x572360);
     RH_ScopedGlobalInstall(GetLevelFromPosition, 0x572300);
     RH_ScopedGlobalInstall(ZoneIsEntirelyContainedWithinOtherZone, 0x572220);
+    RH_ScopedGlobalInstall(GetCurrentZoneLockedOrUnlocked, 0x572130); // lote 182A (sin validar)
 
 }
 
@@ -99,10 +100,6 @@ bool CTheZones::SetZoneWasVisited(CVector2D pos, bool visited) {
     }
     wasVisited = visited;
     return true;
-}
-
-bool CTheZones::GetCurrentZoneLockedOrUnlocked(CVector2D pos) {
-    return GetZoneWasVisited(pos);
 }
 
 // Direccion de la funcion propia de la DLL (sin hook) para el banco Fn130A (el EXE la tiene en 0x572130): el cuerpo de CRadar::HasThisBlipBeenRevealed la llama.
@@ -393,6 +390,16 @@ void Zones13LevelResidue(const CVector& pos, uint32 exePos, uint32& ecx, uint32&
     }
 }
 } // namespace
+
+// 0x572130 (lote 182A, sin validar; cdecl, dos floats en la pila, `ret`, 69 bytes, resultado en AL): "esta celda del mapa ya fue visitada". Para x e y, en este orden: (coord + 3000.0f) * 0x865060 (fld; fadd; fmul,
+// float de 24 bits por operacion como Zones13CellValue) y _ftol2 (0x821B40) quedandose con el byte bajo (movzx); indice = 10 * celdaX - celdaY en 32 bits sobre ZonesVisited + 9 (0xBA3739), sin acotar. Devuelve
+// que ese byte sea distinto de cero. Antes esta funcion dividia por 600.0f y no truncaba a un byte (ver GetZoneWasVisited, NOTSA). La usan CRadar::HasThisBlipBeenRevealed (0x583AF0) y el mapa del menu.
+bool CTheZones::GetCurrentZoneLockedOrUnlocked(CVector2D pos) {
+    const uint32 cx = Ftol2RegsCpp(Zones13CellValue(pos.x), 0).eax & 0xFFu;
+    const uint32 cy = Ftol2RegsCpp(Zones13CellValue(pos.y), 0).eax & 0xFFu;
+    const int32  index = 10 * (int32)cx - (int32)cy;
+    return reinterpret_cast<const uint8*>(&ZonesVisited)[index + 9] != 0;
+}
 
 #pragma runtime_checks("", off)
 __declspec(safebuffers) void CTheZones::SetCurrentZoneAsUnlocked() {

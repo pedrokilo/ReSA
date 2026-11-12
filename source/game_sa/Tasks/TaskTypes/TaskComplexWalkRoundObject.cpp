@@ -50,6 +50,17 @@ __declspec(noinline) void __fastcall WalkRoundObjectDestructorBody(CTaskComplexW
     }
     CTaskComplexBody::Destructor(self, nullptr);
 }
+
+// 0x657200 (lote 182A, sin validar; el listado decia CTaskComplexWalkRoundBuildingAttempt): destructor con borrado de CTaskComplexWalkRoundObject del EXE (ranura 0 de su vtable 0x86F364; thiscall, un argumento de pila, `ret 4`,
+// 30 bytes: `push esi; mov esi,ecx; call 0x6550D0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6550D0, con hook),
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexWalkRoundObject* __fastcall WalkRoundObjectScalarDeletingDestructor(CTaskComplexWalkRoundObject* self, void* /*edx*/, uint8 flags) {
+    WalkRoundObjectDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexWalkRoundObject::InjectHooks() {
@@ -58,6 +69,8 @@ void CTaskComplexWalkRoundObject::InjectHooks() {
 
     RH_ScopedNamedGlobalInstall(WalkRoundObjectDestructorBody, "DestructorBody", 0x6550D0); // lote 171A (banco Fn171A)
     RH_ScopedVMTInstall(GetTaskType, 0x6550C0);                                             // lote 171A
+    RH_ScopedNamedGlobalInstall(WalkRoundObjectScalarDeletingDestructor, "ScalarDeletingDestructor", 0x657200); // lote 182A (sin validar)
+    RH_ScopedVMTInstall(Clone, 0x655C10);                                                   // lote 182A (sin validar)
     RH_ScopedInstall(CreateSubTask, 0x655290);                                              // lote 171A
     RH_ScopedInstall(Constructor, 0x655020);
     RH_ScopedInstall(CreateRouteTask, 0x655140);
@@ -100,6 +113,16 @@ CTaskComplexWalkRoundObject::~CTaskComplexWalkRoundObject() {
 CTaskComplexWalkRoundObject* CTaskComplexWalkRoundObject::Constructor(int32 moveState, const CVector& targetPoint, CEntity* object) {
     this->CTaskComplexWalkRoundObject::CTaskComplexWalkRoundObject(moveState, targetPoint, object);
     return this;
+}
+
+// 0x655C10 (lote 182A, sin validar; el listado decia CTaskComplexWalkRoundBuildingAttempt; ranura 1 de la vtable 0x86F364; thiscall, sin argumentos, `ret`, 104 bytes con marco SEH que solo desenrolla): copia de la tarea.
+// Reserva 0x54 bytes con CTask::operator new (0x61A5A0; nulo -> devuelve nulo sin construir) y llama al constructor (0x655020, con hook) con (estado de movimiento +0xC, &punto destino +0x10, objeto +0x1C); devuelve su resultado.
+CTask* CTaskComplexWalkRoundObject::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskComplexWalkRoundObject));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CTaskComplexWalkRoundObject*>(memory)->Constructor(m_moveState, m_targetPoint, m_object);
 }
 
 // 0x6550C0 (lote 171A, banco Fn171A; thiscall, `ret`, 6 bytes: `mov eax,1FEh`): TASK_COMPLEX_WALK_ROUND_OBJECT (510); no lee el objeto (ranura 4 de la vtable 0x86F364).

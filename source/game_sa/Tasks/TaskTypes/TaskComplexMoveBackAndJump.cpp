@@ -27,6 +27,7 @@ void CTaskComplexMoveBackAndJump::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x655340);
     RH_ScopedInstall(Destructor, 0x655370);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x657750); // lote 182A (sin validar)
 
     RH_ScopedInstall(CreateSubTask, 0x655390);
 
@@ -35,6 +36,17 @@ void CTaskComplexMoveBackAndJump::InjectHooks() {
     RH_ScopedVMTInstall(CreateNextSubTask, 0x657770);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x6577C0);
     RH_ScopedVMTInstall(ControlSubTask, 0x655380);
+}
+
+// 0x657750 (lote 182A, sin validar; el listado decia CTaskComplexWalkRoundBuildingAttempt): destructor con borrado de CTaskComplexMoveBackAndJump del EXE (ranura 0 de su vtable 0x86F390; thiscall, un argumento de pila, `ret 4`,
+// 30 bytes: `push esi; mov esi,ecx; call 0x655370; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x655370, con hook), libera
+// `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexMoveBackAndJump* CTaskComplexMoveBackAndJump::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x655390

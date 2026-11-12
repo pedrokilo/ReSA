@@ -41,6 +41,34 @@ void D3DIndexDataBuffer::InjectHooks() {
     RH_ScopedOverloadedInstall(Pop, "Size", 0x730270, IndexData * (D3DIndexDataBuffer::*)(uint32));
     RH_ScopedInstall(Resize, 0x730330);
     RH_ScopedInstall(GetTotalDataSize, 0x7303B0);
+    RH_ScopedInstall(Clear, 0x7301D0);   // lote 182A (sin validar)
+    RH_ScopedInstall(Destroy, 0x730200); // lote 182A (sin validar)
+}
+
+// 0x7301D0 (lote 182A, sin validar; thiscall, sin argumentos, `ret`, 46 bytes, sin llamadores en el EXE)
+// Libera (Release, ranura 2 de la vtable COM) los index buffers guardados del primero al ultimo y deja a cero el numero guardado (+0x10) y despues el contador (+0x0C). La pila (+0x14) se conserva.
+// El numero (con signo) y el puntero de la pila se vuelven a leer de memoria en cada vuelta (Release puede reentrar), como el EXE.
+void D3DIndexDataBuffer::Clear() {
+    for (int32 i = 0; i < static_cast<int32>(m_nSize); ++i) {
+        D3DResourceCom::Release(m_apIndexData[i]);
+    }
+    m_nSize = 0;
+    m_nNumDatasInBuffer = 0;
+}
+
+// 0x730200 (lote 182A, sin validar; thiscall, sin argumentos, `ret`, 66 bytes, sin llamadores en el EXE)
+// Como Clear, pero ademas libera la pila con free (0x8214BD, el operator delete de la DLL) si no es nula y la deja a nulo (solo en ese caso). El puntero se lee tras el bucle y antes de poner a cero los dos contadores.
+void D3DIndexDataBuffer::Destroy() {
+    for (int32 i = 0; i < static_cast<int32>(m_nSize); ++i) {
+        D3DResourceCom::Release(m_apIndexData[i]);
+    }
+    IndexData** const stack = m_apIndexData;
+    m_nSize = 0;
+    m_nNumDatasInBuffer = 0;
+    if (stack) {
+        ::operator delete(stack);
+        m_apIndexData = nullptr;
+    }
 }
 
 // 0x730270

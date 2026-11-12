@@ -33,6 +33,7 @@ void CTaskComplexWalkRoundBuildingAttempt::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x654740);
+    RH_ScopedInstall(ConstructorEntity, 0x654840); // lote 182A (sin validar)
     RH_ScopedInstall(Destructor, 0x654950);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x656E50);
 
