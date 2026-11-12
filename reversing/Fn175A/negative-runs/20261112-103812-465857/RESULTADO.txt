@@ -1,0 +1,3 @@
+FALLO: Fn175A
+Funciones con diferencias: CQuadTreeNode::DestructorBody: 1098/2048; CPatrolRoute::Constructor: 663/2048; CPatrolRoute::Assign: 786/2048; CTaskComplexFollowPatrolRoute::ConstructorExe: 874/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn175a\20261112-103812-465857

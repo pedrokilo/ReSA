@@ -401,6 +401,7 @@
 #include "TaskComplexDiveFromAttachedEntityAndGetUp.h"
 #include "TaskComplexKillCriminal.h"
 #include "TaskComplexKillAllThreats.h"
+#include "TaskComplexFollowPatrolRoute.h"
 #include "SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h"
 #include "SeekEntity/TaskComplexSeekEntityXYOffset.h"
 #include "SeekEntity/TaskComplexSeekEntityStandard.h"
@@ -1182,7 +1183,7 @@ void InjectHooksMain() {
         CTaskComplexFleeShooting::InjectHooks();
         CTaskComplexFollowLeaderAnyMeans::InjectHooks();
         // CTaskComplexFollowNodeRouteShooting::InjectHooks();
-        // CTaskComplexFollowPatrolRoute::InjectHooks();
+        CTaskComplexFollowPatrolRoute::InjectHooks(); // lote 175A: solo el constructor 0x674930 (clase aun sin reconstruir)
         CTaskComplexFollowPointRoute::InjectHooks();
         CTaskComplexGangFollower::InjectHooks();
         CTaskComplexGangJoinRespond::InjectHooks();

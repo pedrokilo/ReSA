@@ -27,6 +27,7 @@ END GENERATED HOOK STATUS */
 #include "Rect.h"
 #include "PtrListSingleLink.h"
 #include "Pool.h"
+#include "Pools/PoolRawDelete.h"
 
 /*
 node level 2
@@ -80,6 +81,7 @@ public:
 
         RH_ScopedInstall(InitPool, 0x552C00);
         RH_ScopedNamedInstall(ScalarDeletingDestructorExe, "ScalarDeletingDestructor", 0x404590); // lote 150A (banco Fn150A)
+        RH_ScopedNamedInstall(DestructorBodyExe, "DestructorBody", 0x552520); // lote 175A (banco Fn175A)
         RH_ScopedOverloadedInstall(FindSector, "rect", 0x5525A0, int32(CQuadTreeNode<T>::*)(const CRect&));
         RH_ScopedOverloadedInstall(FindSector, "vec", 0x552640, int32(CQuadTreeNode<T>::*)(const CVector2D&));
         RH_ScopedInstall(InSector, 0x5526A0);
@@ -138,10 +140,27 @@ public:
         m_ItemList.Flush();
     }
 
-    // 0x552520 (lote 150A, banco Fn150A): cuerpo del destructor de CQuadTreeNode del EXE (thiscall, sin argumentos de pila, `ret`; sin hook: es el destructor de la clase). Funcion propia sin expansion en linea para
-    // que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x552520` del EXE.
+    // 0x552BC0 (lote 175A, banco Fn175A): liberacion de un nodo en el pool de nodos (thiscall, ECX = pool, un argumento de pila, `ret 4`, 46 bytes; sin hook: es el CPool<CQuadTreeNode>::Delete del EXE, instanciacion
+    // propia con division por 0x28). Como el original: indice = (nodo - almacenamiento) / 0x28 (con signo, truncado hacia cero, sin comprobar que el nodo sea del pool), estados[indice] |= 0x80 y, si indice < cursor
+    // (con signo), cursor = indice. Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el cuerpo del destructor como el `call 0x552BC0` del EXE.
+    __declspec(noinline) static void __fastcall PoolFreeNodeExe(void* pool, void* /*edx*/, void* node) {
+        PoolFreeSlotRaw(pool, node, sizeof(CQuadTreeNode<void*>));
+    }
+
+    // 0x552520 (lote 150A, banco Fn150A; hook S desde el lote 175A, banco Fn175A): cuerpo del destructor de CQuadTreeNode del EXE (thiscall, sin argumentos de pila, `ret`, 114 bytes, marco SEH que solo desenrolla; el
+    // listado decia CPtrNodeDoubleLinkPool). Como el original: para cada uno de los cuatro hijos (+0x14..+0x20, leidos de uno en uno) no nulo, destruye el hijo con este mismo cuerpo (0x552520) y libera su nodo
+    // en el pool de nodos ([0xB745BC], leido tras la destruccion) con 0x552BC0; al final vacia la lista simple de elementos (+0x10) con el Flush del EXE (0x552400, con hook). No escribe nada mas ni lee el nivel.
+    // Funcion propia sin expansion en linea (el banco la sustituye); la llama el destructor con borrado como el `call 0x552520` del EXE. Un solo cuerpo para todas las instanciaciones: es codigo de plantilla que el
+    // EXE comparte, y el enganche se instala solo para T = void*.
     __declspec(noinline) static void __fastcall DestructorBodyExe(CQuadTreeNode* self, void* /*edx*/) {
-        self->~CQuadTreeNode();
+        for (int32 i = 0; i < 4; i++) {
+            CQuadTreeNode* const child = self->m_apChildren[i];
+            if (child) {
+                DestructorBodyExe(child, nullptr);
+                PoolFreeNodeExe(ms_pQuadTreeNodePool, nullptr, child);
+            }
+        }
+        details::CPtrListSingleLink__FlushExe(&self->m_ItemList, nullptr);
     }
 
     // 0x552C90 (lote 150A, banco Fn150A): liberacion del nodo en el pool (cdecl, un argumento; sin hook: es CQuadTreeNode::operator delete). Funcion propia sin expansion en linea para que el banco pueda

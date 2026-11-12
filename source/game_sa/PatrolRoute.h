@@ -9,6 +9,8 @@ public:
     static void InjectHooks();
 
     void Destructor(); // 0x6677A0 (lote 170A, banco Fn170A)
+    CPatrolRoute* Constructor();                    // 0x66D440 (lote 175A, banco Fn175A)
+    void          Assign(const CPatrolRoute* src);  // 0x66D4B0 (lote 175A, banco Fn175A)
 
     static void* operator new(size_t size);
     static void  operator delete(void* ptr);

@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "pairs": 65536,
+  "differences": 0,
+  "registered_pairs": 65536,
+  "registered_functions": 4,
+  "functions": {
+    "CQuadTreeNode::DestructorBody": 16384,
+    "CPatrolRoute::Constructor": 16384,
+    "CPatrolRoute::Assign": 16384,
+    "CTaskComplexFollowPatrolRoute::ConstructorExe": 16384
+  },
+  "covered_functions": {
+    "CQuadTreeNode::DestructorBody": true,
+    "CPatrolRoute::Constructor": true,
+    "CPatrolRoute::Assign": true,
+    "CTaskComplexFollowPatrolRoute::ConstructorExe": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 40696b81d3 con los cambios del lote (ver artifacts/build-manifest.json). 4 funciones del EXE sin hook (clases por desensamblado y llamadores; el listado atribuia las cuatro a clases equivocadas): cuerpo del destructor de CQuadTreeNode<void*> (0x552520, recursivo sobre los cuatro hijos), constructor (0x66D440) y copia (0x66D4B0) de CPatrolRoute y constructor de CTaskComplexFollowPatrolRoute (0x674930, vtable 0x870114). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL: Flush de listas simples 0x552400, liberacion en el pool de nodos 0x552BC0 (sin hook: funcion propia PoolFreeNodeExe), constructor base de CTaskComplex 0x61A3B0, CPatrolRoute::operator new 0x41B810 y las funciones probadas 0x66D440 y 0x66D4B0 (en el banco del constructor 0x674930); el constructor de CPatrolRoute llama en el EXE al vector constructor de la CRT 0x821D30 y al constructor de entrada 0x46AE30 (comprobados como codigo del EXE sin hook; la DLL los sustituye por escrituras directas de igual efecto). Se observan bytes cambiados de las tres arenas (con sus direcciones reales y el valor de [0xB745BC], anotados en cada caso), eventos de los falsos, valor devuelto (this como etiqueta de arena en los constructores), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: this nulo o crudo, hijos de nodos con punteros fuera de las arenas, ciclos en el arbol, contadores de la ruta de patrulla por encima de 12 o con nombres sin terminador (el EXE recorre memoria ajena), el pool de rutas de patrulla lleno (el EXE llama a 0x66D4B0 con this nulo y se cae), y la exactitud de los colaboradores falseados (el pool de nodos y las listas tienen sus bancos propios).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn175A-20261112-100639-486310",
+  "summary_sha256": "45f9bd37bfc9d1ed9c5038e6102b46427ba0114c375a56a50e244b158ea043ac",
+  "result_txt_sha256": "f466535c97335f51ad4b50d363a44d8348cc9eb5ee784a0eae071bcef71791b1",
+  "log_sha256": "b0d9b7d8db44fe4da7501776e067fe739f3276e46d09389a8f2fcc279394e896",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "91168faff4d8c4144e12a6804c6ae4077884f9cbadb8b94dcaa324847cd8c0ee",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+      "source/InjectHooksMain.cpp": "07ec4285b42c9d5366e69fbeee7e71628829c48be5fa13b3c0a3143c48fae9be",
+      "source/game_sa/Core/QuadTreeNode.h": "bb268e407220d4cfc7125d5518f909343cfe12891fdfb053a40704d6dac2b1f6",
+      "source/game_sa/Core/PtrNodeSingleLink.cpp": "b8f8da44bc17daa8a46cdb17725f8ebe81c5d4b54a8b1b56385b1ecb6745994b",
+      "source/game_sa/PatrolRoute.cpp": "389e482936e63f15a5ae2db78fefa95aec9c68f9fe5830fbafdd86af5a00c2db",
+      "source/game_sa/PatrolRoute.h": "c96f16b08209ec2375df6a48741b871b9765c9ad430a875d3d35e722313ec524",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f34b0b529248f0142f4be7bd0a8cbddbee44aa93443d0d0cb2e054a91a28b8d4",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1f14fc4f4f1448b6b4671b0195e0f47e14aa2f2a3f9fd5f3b8743d4ce4b7c013",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn175A/LiveComparison.hpp": "aa00200e3f4bbe76f09f68880eb97cd308cc67977f246c16d4fa7da2748aa204",
+      "reversing/Fn175A/Core.hpp": "6df473eb1e125d7c219ef095dde34c14fee90a306499c093f7f3aaa235b096c1",
+      "reversing/Fn175A/Fixtures.hpp": "6483295536699b257c112969cf2edc08acddf3111ad5fc5868cfe27d1ed537aa",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

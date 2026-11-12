@@ -1,0 +1,3 @@
+{"CQuadTreeNode::DestructorBody": 1098, "CPatrolRoute::Constructor": 663, "CPatrolRoute::Assign": 786, "CTaskComplexFollowPatrolRoute::ConstructorExe": 874}
+pares 8192 con diferencias 3421 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

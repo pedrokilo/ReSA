@@ -10290,3 +10290,7 @@ CTrainNode,GetPosn,0x006F5440,1,0,1,S
 CTrain,DestructorBody,0x006F54D0,1,0,1,S
 CTrain,SetModelIndex,0x00000000,1,0,1,V
 CTrain,PreRender,0x00000000,1,0,1,V
+CQuadTreeNode<T>,DestructorBody,0x00552520,1,0,1,S
+CPatrolRoute,Constructor,0x0066D440,1,0,1,S
+CPatrolRoute,Assign,0x0066D4B0,1,0,1,S
+CTaskComplexFollowPatrolRoute,ConstructorExe,0x00674930,1,0,1,S
