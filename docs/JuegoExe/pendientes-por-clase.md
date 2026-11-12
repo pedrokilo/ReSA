@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (12/11/2026). Total: **1,620** funciones en 139 clases/módulos (rango 0x401000–0x74FFFF): 1,598 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (12/11/2026). Total: **1,618** funciones en 137 clases/módulos (rango 0x401000–0x74FFFF): 1,596 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -11,7 +11,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Clase | Funciones | Bytes |
 |---|---:|---:|
 | cHandlingDataMgr | 1 | 5 |
-| CDamageAtomicModelInfo | 1 | 48 |
 | CPtrNodeDoubleLinkPool | 1 | 114 |
 | CAudioZones | 1 | 139 |
 | CTaskComplexWanderProstitute | 1 | 182 |
@@ -93,7 +92,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskComplexWaitForPed | 6 | 772 |
 | CTaskComplexWander | 4 | 797 |
 | CModelInfo | 22 | 814 |
-| CShadows | 1 | 837 |
 | CVehicle | 33 | 861 |
 | CVehicleSaveStructure | 4 | 874 |
 | Ps | 6 | 876 |
@@ -149,19 +147,13 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (139 clases / módulos)** | **1,620** | **230,234** |
+| **TOTAL (137 clases / módulos)** | **1,618** | **229,349** |
 
 ## cHandlingDataMgr (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x006F55C0 | 5 | B |  | 0 | 0 | sí | baja |
-
-## CDamageAtomicModelInfo (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004C4923 | 48 | D |  | 0 | 0 |  | alta |
 
 ## CPtrNodeDoubleLinkPool (1)
 
@@ -1073,12 +1065,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004C6BD0 | 61 | D |  | 0 | 0 |  | baja |
 | 0x004C62F0 | 90 | C |  | 1 | 0 |  | alta |
 | 0x004C6B70 | 92 | D |  | 0 | 0 |  | baja |
-
-## CShadows (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00709CF0 | 837 | A | CShadows::ShadowRenderTriangleCB | 1 | 1 |  | alta |
 
 ## CVehicle (33)
 

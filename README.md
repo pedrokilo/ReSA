@@ -22,14 +22,14 @@ La [hoja de ruta de ReSA](docs/ProjectRoadmap.md) define el objetivo **ReSA — 
 ### Objetivo actual: reemplazar solo las funciones del juego
 
 <!-- RESA-OBJETIVO-JUEGO:BEGIN -->
-El EXE original tiene **17.764 funciones detectadas** (3,72 MB de código), pero **el objetivo del proyecto es reemplazar por C++ únicamente las 11.803 funciones del juego** (región 0x401000–0x74FFFF, 3,01 MB). Las otras dos regiones son bibliotecas enlazadas dentro del EXE y quedan fuera de la meta. Además se excluye del objetivo una función del juego no viable en C++ puro (0x746800, `__usercall` anti-manipulación de VideoPlayer; ver [excluidas](docs/JuegoExe/excluidas.csv)).
+El EXE original tiene **17.764 funciones detectadas (17.762 tras las exclusiones)** (3,72 MB de código), pero **el objetivo del proyecto es reemplazar por C++ únicamente las 11.801 funciones del juego** (región 0x401000–0x74FFFF, 3,01 MB). Las otras dos regiones son bibliotecas enlazadas dentro del EXE y quedan fuera de la meta. Además se excluyen del objetivo tres entradas del mapa: dos funciones no viables en C++ puro (0x746800, `__usercall` anti-manipulación de VideoPlayer, y 0x709CF0, `ShadowRenderTriangleCB`, que recibe los argumentos en registros) y 0x4C4923, que no es una función sino un fragmento de 0x4C4910; ver [excluidas](docs/JuegoExe/excluidas.csv)).
 
 | Región del EXE | Funciones | Bytes de código | ¿Entra en el objetivo? | Reemplazadas hoy |
 | --- | ---: | ---: | --- | --- |
-| **Juego y plataforma** (0x401000–0x74FFFF) | 11.803 | 3.007.767 (81%) | **Sí: es el trabajo propio del proyecto** | 10.183 · 86,3% de funciones · 92,3% de bytes |
+| **Juego y plataforma** (0x401000–0x74FFFF) | 11.801 | 3.006.882 (81%) | **Sí: es el trabajo propio del proyecto** | 10.183 · 86,3% de funciones · 92,4% de bytes |
 | RenderWare y D3D (0x750000–0x81FFFF) | 1.889 | 600.971 | No: biblioteca enlazada | 61 · 3,2% |
 | CRT/MSVC y runtime (0x820000 en adelante) | 4.072 | 115.711 | No: biblioteca enlazada | 9 · 0,2% |
-| **Total del EXE** | **17.764** | **3.724.449** | | 10.253 · 57,7% de funciones · 74,6% de bytes |
+| **Total del EXE** | **17.762** | **3.723.564** | | 10.253 · 57,7% de funciones · 74,6% de bytes |
 
 **Por qué solo las funciones del juego:**
 
@@ -39,7 +39,7 @@ El EXE original tiene **17.764 funciones detectadas** (3,72 MB de código), pero
 - **Medir contra el EXE completo daría un avance engañoso.** Contar bibliotecas haría parecer lejano un trabajo que en el código del juego ya va al 92% de los bytes; el porcentaje correcto es el de la región del juego.
 - **Los recursos del juego y las bibliotecas externas son dependencias separadas:** este hito no promete eliminarlas ([hoja de ruta](docs/ProjectRoadmap.md)).
 
-Lo que falta dentro del objetivo: **1.620 funciones del juego (13,7% de las funciones, 225 KB, 7,7% de los bytes)**, según el mapa [JuegoExe](docs/JuegoExe/README.md) y la [lista por clase](docs/JuegoExe/pendientes-por-clase.md). Origen de las cifras: [cobertura real del EXE](docs/ReversedClasses.md#cobertura-exe).
+Lo que falta dentro del objetivo: **1.618 funciones del juego (13,7% de las funciones, 224 KB, 7,6% de los bytes)**, según el mapa [JuegoExe](docs/JuegoExe/README.md) y la [lista por clase](docs/JuegoExe/pendientes-por-clase.md). Origen de las cifras: [cobertura real del EXE](docs/ReversedClasses.md#cobertura-exe).
 <!-- RESA-OBJETIVO-JUEGO:END -->
 
 ### Dónde estamos hoy (10/11/2026)
@@ -54,7 +54,7 @@ Lo que falta dentro del objetivo: **1.620 funciones del juego (13,7% de las func
 
 **Lo que sabemos que falta**
 
-- **1.620 funciones del rango del juego (0x401000–0x74FFFF) siguen sin reemplazar o son envolturas:** 1.598 sin reemplazar y 22 que ya tienen hook pero llaman al EXE. La lista, de menor a mayor por clase, está en [pendientes por clase](docs/JuegoExe/pendientes-por-clase.md); el mapa completo, en [docs/JuegoExe](docs/JuegoExe/README.md).
+- **1.618 funciones del rango del juego (0x401000–0x74FFFF) siguen sin reemplazar o son envolturas:** 1.596 sin reemplazar y 22 que ya tienen hook pero llaman al EXE. La lista, de menor a mayor por clase, está en [pendientes por clase](docs/JuegoExe/pendientes-por-clase.md); el mapa completo, en [docs/JuegoExe](docs/JuegoExe/README.md).
 - **El 100% del catálogo no es el 100% del EXE.** Hay funciones del juego fuera del catálogo y bibliotecas enlazadas (RenderWare, CRT, DirectX) que no cuentan como código del juego. Ver la [auditoría de cobertura](docs/BinaryCoverageAudit.md).
 - **Todavía no es un ejecutable independiente.** El proyecto sigue dependiendo de `gta_sa.exe` y de los recursos del juego. La meta de fondo es un EXE propio que corra sin el original: [ruta hacia el EXE independiente](docs/RutaExeIndependiente.md).
 - **Límites de la validación:** la evidencia vale para los fixtures de cada banco y para el árbol en que se probó; la vigencia acreditada contra el árbol actual sigue en 0 y no se afirma estabilidad general del juego. Las diferencias y huecos conocidos están en [Desviaciones conocidas](docs/DesviacionesConocidas.md).

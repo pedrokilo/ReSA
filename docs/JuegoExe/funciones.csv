@@ -2479,7 +2479,6 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004C48B0,17,reemplazada,CDamageAtomicModelInfo,exacta,CDamageAtomicModelInfo::Init,0,0,,sí
 0x004C48D0,61,reemplazada,CDamageAtomicModelInfo,exacta,CDamageAtomicModelInfo::SetDamagedAtomic,2,2,,
 0x004C4910,24,reemplazada,CDamageAtomicModelInfo,alta,,0,0,,sí
-0x004C4923,48,D,CDamageAtomicModelInfo,alta,,0,0,,
 0x004C4960,103,reemplazada,CDamageAtomicModelInfo,alta,,0,0,,sí
 0x004C49D0,45,reemplazada,CDamageAtomicModelInfo,exacta,CDamageAtomicModelInfo::DeleteRwObject,0,0,,sí
 0x004C4A00,11,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::IsLod,0,0,,
@@ -10934,7 +10933,6 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00708290,105,reemplazada,RenderBuffer,exacta,RenderBuffer::StartStoring,1,0,,
 0x00708300,914,reemplazada,CShadows,exacta,CShadows::RenderStaticShadows,1,1,,
 0x007086B0,5665,reemplazada,CShadows,exacta,CShadows::CastShadowEntityXY,2,2,,
-0x00709CF0,837,A,CShadows,alta,CShadows::ShadowRenderTriangleCB,1,1,,
 0x0070A040,1059,reemplazada,CShadows,exacta,CShadows::CastShadowEntityXYZ,1,1,,
 0x0070A470,433,reemplazada,CShadows,exacta,CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>,2,2,,
 0x0070A630,423,reemplazada,CShadows,exacta,CShadows::CastShadowSectorList<CPtrListSingleLink<CPhysical*>>,1,1,,

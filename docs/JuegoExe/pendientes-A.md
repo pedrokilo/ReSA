@@ -6,7 +6,7 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-522 funciones, 85,957 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+521 funciones, 85,120 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -171,7 +171,6 @@
 | `0x004D1A50` | 850 | RpAnimBlend | alta | 1 (1) |  |
 | `0x004D2100` | 845 | RpAnimBlend | alta | 1 (1) |  |
 | `0x004D1DB0` | 843 | RpAnimBlend | alta | 1 (1) |  |
-| `0x00709CF0` | 837 | CShadows | alta | 1 (1) |  |
 | `0x005DA790` | 804 | CCustomCarEnvMapPipeline | baja | 1 (1) |  |
 | `0x00606580` | 776 | CPedIntelligencePool | baja | 1 (1) |  |
 | `0x005D8590` | 723 | CCustomCarEnvMapPipeline | alta | 1 (1) |  |

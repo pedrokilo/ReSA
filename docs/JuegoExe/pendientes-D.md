@@ -6,7 +6,7 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-331 funciones, 55,855 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+330 funciones, 55,807 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -201,7 +201,6 @@
 | `0x00731B30` | 54 | CTxdStore | alta | 0 (0) |  |
 | `0x004B6E30` | 53 | CEventVehicleCollision | baja | 0 (0) |  |
 | `0x00653AA0` | 51 | CTaskComplexHitPedWithCar | alta | 0 (0) |  |
-| `0x004C4923` | 48 | CDamageAtomicModelInfo | alta | 0 (0) |  |
 | `0x004D6240` | 47 | RpAnimBlend | alta | 0 (0) |  |
 | `0x004AD800` | 46 | CPedDamageResponseCalculator | baja | 0 (0) |  |
 | `0x004D6310` | 46 | RpAnimBlend | alta | 0 (0) |  |
