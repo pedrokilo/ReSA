@@ -24,27 +24,27 @@
     "CBike::ProcessEntityCollision": "Corpus 1024 (virtual, vtable 0x871360 slot 22 = 0x6BDEA0); source corrected (EXE): driver matrix = vehicle matrix copy + driver seat dummy rotated with Multiply3x3 (0x59C790, no translation; dummy 0 for boats else 4) (0x6BDFF8..0x6BE08C); static 32-element ped colpoint array; only with result > 0 (0x6BE0D9); loop exits at numColPts >= 31, skips piece type 0, copies with the EXE CColPoint operator= (0x40FC80, 0x6BE110..0x6BE144); wheel ratio test with NaN semantics (0x6BE190..0x6BE1B6); SetEntityReference without clearing the old reference (0x6BE1DC..0x6BE1E1)."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/BikeWave4-20261106-020737-129002",
-  "summary_sha256": "39c025514cdf3fefed29eb6699676895e992f46d6932752531d125bf3c59c59d",
-  "result_txt_sha256": "f4298186247e3bd7cb10dfddf7318f0e3d4c43a1038c939f15c9caa802a0295c",
-  "log_sha256": "96cda4df10f00e9213fde9ab22ac2b54d281553078ea32ec88a7c459fb2b2920",
+  "run": "reversing/CppTwelveLevel6Final/runs/BikeWave4-20261111-221659-215147",
+  "summary_sha256": "31317efcd80ef38309686bf3899b71e9979d9a45102d03279c1033398b0b5eaa",
+  "result_txt_sha256": "f59abdd13ad47478841b3ca50747a44ce088f2b9861edd17816dada50ac98156",
+  "log_sha256": "b15161a7c12acd1b1471b0a097ce2a7c8181e01157b1065fc5e186eb30855fe4",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/BikeWave4-20261106-020737-129002/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/BikeWave4-20261111-221659-215147/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "df2ac92dadec4d768dad5351d716e136be22d033b1e0223b561410eaa591b40d",
-    "uncompressed_sha256": "96cda4df10f00e9213fde9ab22ac2b54d281553078ea32ec88a7c459fb2b2920"
+    "compressed_sha256": "11e56503f7b60d8c98a6c1aed710f7ee8195d985ec412c85af97bb0a0b2124c5",
+    "uncompressed_sha256": "b15161a7c12acd1b1471b0a097ce2a7c8181e01157b1065fc5e186eb30855fe4"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "752ba0436d6c606312511fd264bd494a2fe91f18880c33cb27b3b65013edd8ec",
+  "executed_probe_sha256": "836bc4d6dd4e8f625160763c146256c24a9453796fe618425c5cb9e78299bcc0",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
-      "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
+      "source/game_sa/Entity/Vehicle/Bike.cpp": "a2c67ce7f693f7806e99d8cc3003722adbada75b9aeea37146d65fb92f4eed79",
+      "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb"
     }
   },
   "source_corrections": {

@@ -100205,7 +100205,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekCoverUntilTargetDead::Clone"
@@ -100214,14 +100214,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100237,7 +100237,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekCoverUntilTargetDead::Constructor_Grp"
@@ -100246,14 +100246,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100269,7 +100269,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekCoverUntilTargetDead::Constructor_Ped"
@@ -100278,14 +100278,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100301,7 +100301,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekCoverUntilTargetDead::ControlSubTask"
@@ -100310,14 +100310,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100333,7 +100333,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekCoverUntilTargetDead::CreateFirstSubTask"
@@ -100342,14 +100342,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100365,7 +100365,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekCoverUntilTargetDead::CreateNextSubTask"
@@ -100374,14 +100374,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100397,7 +100397,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekCoverUntilTargetDead::Destructor"
@@ -100406,14 +100406,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100429,7 +100429,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekCoverUntilTargetDead::GetCoverPed"
@@ -100438,14 +100438,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100461,7 +100461,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekCoverUntilTargetDead::GetTargetPed"
@@ -100470,14 +100470,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100493,7 +100493,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekCoverUntilTargetDead::GetTaskType"
@@ -100502,14 +100502,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100525,7 +100525,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexShuffleSeats::Clone"
@@ -100534,14 +100534,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100557,7 +100557,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexShuffleSeats::Constructor"
@@ -100566,14 +100566,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100589,7 +100589,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexShuffleSeats::ControlSubTask"
@@ -100598,14 +100598,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100621,7 +100621,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexShuffleSeats::CreateFirstSubTask"
@@ -100630,14 +100630,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100653,7 +100653,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexShuffleSeats::CreateNextSubTask"
@@ -100662,14 +100662,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100685,7 +100685,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexShuffleSeats::CreateSubTask"
@@ -100694,14 +100694,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100717,7 +100717,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexShuffleSeats::CreateTaskUtilityLineUpPedWithCar"
@@ -100726,14 +100726,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100749,7 +100749,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexShuffleSeats::Destructor"
@@ -100758,14 +100758,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100781,7 +100781,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexShuffleSeats::GetTaskType"
@@ -100790,14 +100790,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100813,7 +100813,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskComplexShuffleSeats::MakeAbortable"
@@ -100822,14 +100822,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100845,7 +100845,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarAlign::Clone"
@@ -100854,14 +100854,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100877,7 +100877,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarAlign::Constructor"
@@ -100886,14 +100886,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100909,7 +100909,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarAlign::Destructor"
@@ -100918,14 +100918,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100941,7 +100941,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarAlign::FinishAnimCarAlignCB"
@@ -100950,14 +100950,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -100973,7 +100973,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarAlign::FixHeading"
@@ -100982,14 +100982,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101005,7 +101005,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarAlign::GetTaskType"
@@ -101014,14 +101014,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101037,7 +101037,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarAlign::MakeAbortable"
@@ -101046,14 +101046,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101069,7 +101069,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarAlign::ProcessPed"
@@ -101078,14 +101078,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101101,7 +101101,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarAlign::SetPedPosition"
@@ -101110,14 +101110,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101133,7 +101133,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarAlign::StartAnim"
@@ -101142,14 +101142,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101165,7 +101165,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarCloseDoorFromInside::Clone"
@@ -101174,14 +101174,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101197,7 +101197,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarCloseDoorFromInside::ComputeAnimID"
@@ -101206,14 +101206,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101229,7 +101229,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarCloseDoorFromInside::Constructor"
@@ -101238,14 +101238,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101261,7 +101261,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarCloseDoorFromInside::Destructor"
@@ -101270,14 +101270,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101293,7 +101293,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarCloseDoorFromInside::FinishAnimCarCloseDoorFromInsideCB"
@@ -101302,14 +101302,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101325,7 +101325,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarCloseDoorFromInside::GetTaskType"
@@ -101334,14 +101334,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101357,7 +101357,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarCloseDoorFromInside::MakeAbortable"
@@ -101366,14 +101366,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101389,7 +101389,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarCloseDoorFromInside::ProcessPed"
@@ -101398,14 +101398,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101421,7 +101421,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarCloseDoorFromInside::SetPedPosition"
@@ -101430,14 +101430,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,
@@ -101453,7 +101453,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks10b/validation-summary.json",
-        "sha256": "a388819d00a6b205e342a0bbcbd0c3b0ddd3000c70bf3d4b7db939b585904e38",
+        "sha256": "bbfe4127ac74dfd22ed60b1aec9cb410b4c19777cf1bc75d95adbd25e17f4367",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarCloseDoorFromInside::StartAnim"
@@ -101462,14 +101462,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "d1ca2577cd294f2d6079947c0e2b7fff0e2ebd0d8c9123bce7199522c73780e0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "b4d83f34c4f4a4e9b57d5cb839f5e3b80849086618d67db55c399f7af5604057",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "57c73a40c901e168aab13568da5160f4e52f0eb3c1df3796699c10875d821067",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "7d401012b037d776b30c4840cb23bcfa541fc11745d91dc02de2d97a4b0a23fb",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "dcf40808b854976db5780d6cc0e9229032f735455e3f22e8a79ba2ec566f45a8",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "c73e04f1dd7f0bafe621b0790b826b82bdf6e3e27c598e38c40fd4c86eef14b1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "ef1a0b032bf40ac420555b69e203fd67984e110972b0ae673deb915fb3a06f6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "603b6018c6692aa930e82bc2cb9f439b501148010f800c74764b217160b01b7a"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp": "c379562dfa73d14b6f2c756afb6c05038df6e769e17a584bc93a9292d3976122",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.h": "81ed19056e191e55951343f3aa4eb279452ba78d4bde20592c4c165abe14a0bd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-050602-529944).",
       "dependency_review": null,

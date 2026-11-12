@@ -41022,7 +41022,7 @@
       },
       "evidence": {
         "path": "reversing/BikeWave4/validation-summary.json",
-        "sha256": "26388ce11de6ead412754f31fe94f3e8ec6ec8e43b6897c6e17473f83d3cd455",
+        "sha256": "8ab9d1ad37749b8667979ad3fb6519597aa52eca13c80b254fd8bde59be42a4f",
         "passed_path": [
           "covered_functions",
           "CBike::Constructor"
@@ -41031,8 +41031,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
-        "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "a2c67ce7f693f7806e99d8cc3003722adbada75b9aeea37146d65fb92f4eed79",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb"
       },
       "source_provenance": "Exact compiled BikeWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2816-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -41048,7 +41048,7 @@
       },
       "evidence": {
         "path": "reversing/BikeWave4/validation-summary.json",
-        "sha256": "26388ce11de6ead412754f31fe94f3e8ec6ec8e43b6897c6e17473f83d3cd455",
+        "sha256": "8ab9d1ad37749b8667979ad3fb6519597aa52eca13c80b254fd8bde59be42a4f",
         "passed_path": [
           "covered_functions",
           "CBike::Destructor"
@@ -41057,8 +41057,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
-        "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "a2c67ce7f693f7806e99d8cc3003722adbada75b9aeea37146d65fb92f4eed79",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb"
       },
       "source_provenance": "Exact compiled BikeWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2816-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -41074,7 +41074,7 @@
       },
       "evidence": {
         "path": "reversing/BikeWave4/validation-summary.json",
-        "sha256": "26388ce11de6ead412754f31fe94f3e8ec6ec8e43b6897c6e17473f83d3cd455",
+        "sha256": "8ab9d1ad37749b8667979ad3fb6519597aa52eca13c80b254fd8bde59be42a4f",
         "passed_path": [
           "covered_functions",
           "CBike::DamageKnockOffRider"
@@ -41083,8 +41083,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
-        "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "a2c67ce7f693f7806e99d8cc3003722adbada75b9aeea37146d65fb92f4eed79",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb"
       },
       "source_provenance": "Exact compiled BikeWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2816-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -41100,7 +41100,7 @@
       },
       "evidence": {
         "path": "reversing/BikeWave4/validation-summary.json",
-        "sha256": "26388ce11de6ead412754f31fe94f3e8ec6ec8e43b6897c6e17473f83d3cd455",
+        "sha256": "8ab9d1ad37749b8667979ad3fb6519597aa52eca13c80b254fd8bde59be42a4f",
         "passed_path": [
           "covered_functions",
           "CBike::ProcessEntityCollision"
@@ -41109,8 +41109,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
-        "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "a2c67ce7f693f7806e99d8cc3003722adbada75b9aeea37146d65fb92f4eed79",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb"
       },
       "source_provenance": "Exact compiled BikeWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2816-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
