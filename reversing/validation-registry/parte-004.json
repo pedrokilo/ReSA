@@ -24125,7 +24125,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedFxEmitterTwo/validation-summary-Constructor.json",
-        "sha256": "0f2e13d4fc788252bbeead1f1dfa011ec93456c472e83aaf85179f0f0e34ef12",
+        "sha256": "27d5f8c554e47695d950bfcb86da19442e0558d1c63286ed6496fb0a1ada4789",
         "passed_path": [
           "passed"
         ],
@@ -24135,7 +24135,7 @@
       "tested_sources": {
         "source/game_sa/Fx/FxEmitterBP.cpp": "1a8661dc93fb50d1e66ded53c81c621496a1df41b8bdc377cbe45b1ca9106755",
         "source/game_sa/Fx/FxEmitterBP.h": "56a2a609dd12fc61d2218966cc0cbbd306e68a0a6e6a00068b81df6438c2875a",
-        "source/game_sa/Fx/FxPrimBP.cpp": "a50405dd75d0be3083d46acb0d40613a1950f6a1f1a31165c9dc087f64dd8159",
+        "source/game_sa/Fx/FxPrimBP.cpp": "f7a020a088f616cd41b8025c35d3fce9672de00b13464b59d7bee4ef15607331",
         "source/game_sa/Fx/FxPrimBP.h": "9ea02baa23d54ffeb2610ac5e8af04ac4af6d8a17034c66514ebbf9fba05a8c4",
         "source/game_sa/Fx/FxInfoManager.h": "732c9394986e6f778c7d8a0d62a39609352af65d423c0aced391dbf960fce09c",
         "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9",
@@ -24351,7 +24351,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedFxEmitterTwo/validation-summary-LoadTextures.json",
-        "sha256": "27d5ebbe3b3cbb6056f973474b3d47580aa1555c84fc927c8cc5e9964cc7dec1",
+        "sha256": "5e44a6c121259730830ae60ee658c0bbe0899837643bfa06aa1ab097af17f932",
         "passed_path": [
           "passed"
         ],
@@ -24361,7 +24361,7 @@
       "tested_sources": {
         "source/game_sa/Fx/FxEmitterBP.cpp": "1a8661dc93fb50d1e66ded53c81c621496a1df41b8bdc377cbe45b1ca9106755",
         "source/game_sa/Fx/FxEmitterBP.h": "56a2a609dd12fc61d2218966cc0cbbd306e68a0a6e6a00068b81df6438c2875a",
-        "source/game_sa/Fx/FxPrimBP.cpp": "a50405dd75d0be3083d46acb0d40613a1950f6a1f1a31165c9dc087f64dd8159",
+        "source/game_sa/Fx/FxPrimBP.cpp": "f7a020a088f616cd41b8025c35d3fce9672de00b13464b59d7bee4ef15607331",
         "source/game_sa/Fx/FxPrimBP.h": "9ea02baa23d54ffeb2610ac5e8af04ac4af6d8a17034c66514ebbf9fba05a8c4",
         "source/game_sa/Fx/FxInfoManager.h": "732c9394986e6f778c7d8a0d62a39609352af65d423c0aced391dbf960fce09c",
         "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9",
@@ -105245,7 +105245,7 @@
       },
       "evidence": {
         "path": "reversing/CollisionScan61/validation-summary.json",
-        "sha256": "db493c125da970b8092741106a9e92b48f28aae389afb3da46c1f788f7311b88",
+        "sha256": "c0427ba05b62a3bc0649a863cd0e63c82035aec421133490c1cfbc59521861e0",
         "passed_path": [
           "covered_functions",
           "CCollisionEventScanner::ScanForCollisionEvents"
@@ -105254,8 +105254,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "da5d442de30d6c4888dc60e15a1766a7462cababedda4392600df9739760e955",
-        "source/InjectHooksMain.cpp": "6bc97dfd1834167939c395f743a93ffc37e39187a3216a55901f4f22ae5e9e18",
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Collision/CollisionEventScanner.cpp": "724cfa3f6cbc20668a7388f2d88a7243c739a49ec2c517e1ee663d85041513ed",
         "source/game_sa/Collision/CollisionEventScanner.h": "faf1be848806f18188a173620ed9d50aa9ab6a84bee8395bcd8dcfad8cc4fc37",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
