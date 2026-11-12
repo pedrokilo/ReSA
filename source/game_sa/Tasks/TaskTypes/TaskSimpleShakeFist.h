@@ -42,4 +42,7 @@ private: // Wrappers for hooks
         this->CTaskSimpleShakeFist::~CTaskSimpleShakeFist();
         return this;
     }
+
+    // 0x692DD0 (lote 187A, sin validar): destructor con borrado (ranura 0 de la vtable 0x870A94), `ret 4`
+    CTaskSimpleShakeFist* ScalarDeletingDestructor(uint8 flags);
 };

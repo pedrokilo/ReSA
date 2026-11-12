@@ -26,6 +26,7 @@ void CTaskSimpleShakeFist::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x690B80);
 
     RH_ScopedInstall(Destructor, 0x690BB0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x692DD0); // lote 187A (sin validar)
 
     RH_ScopedGlobalInstall(FinishAnimShakeFistCB, 0x690C60);
 
@@ -53,6 +54,17 @@ CTaskSimpleShakeFist::~CTaskSimpleShakeFist() {
     if (m_anim) {
         m_anim->SetDefaultFinishCallback();
     }
+}
+
+// 0x692DD0 (lote 187A, sin validar; el listado la atribuia a CTaskSimpleDuck; destructor con borrado de CTaskSimpleShakeFist del EXE (ranura 0 de su vtable 0x870A94; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx;
+// call 0x690BB0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x690BB0, con hook), libera `this` con CTask::operator delete
+// (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleShakeFist* CTaskSimpleShakeFist::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x690C60

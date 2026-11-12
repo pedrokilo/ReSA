@@ -1,22 +1,28 @@
 #pragma once
 
-#include "TaskSimple.h"
+#include "TaskSimpleDuck.h"
 
 class CPed;
 class CEvent;
 
-// Plantilla: clase todavía no reconstruida. Sin constructor, campos ni
-// VALIDATE_SIZE; no se registra en InjectHooksMain ni figura en hooks.csv.
-class NOTSA_EXPORT_VTABLE CTaskSimpleDuckWhileShotsWhizzing : public CTaskSimple {
+// Lote 187A (sin validar). Tarea de agacharse mientras pasan balas cerca: en el EXE es una clase derivada de CTaskSimpleDuck (vtable 0x870BEC, mismo tamano 0x28) cuyo constructor (0x692680) lleva en linea el de
+// CTaskSimpleDuck con tipo de control 0 (DUCK_STANDALONE), la duracion recibida y contador -1, y despues deja su propia vtable. Sin campos propios.
+class NOTSA_EXPORT_VTABLE CTaskSimpleDuckWhileShotsWhizzing : public CTaskSimpleDuck {
 public:
     static constexpr auto Type = eTaskType::TASK_SIMPLE_DUCK_WHILE_SHOTS_WHIZZING;
 
     static void InjectHooks();
 
-    // TODO: constructor, destructor y campos.
+    explicit CTaskSimpleDuckWhileShotsWhizzing(uint16 lengthOfDuck);
 
-    eTaskType GetTaskType() const override { return Type; } // 0x6926E0
-    // CTask* Clone() const override;
-    // bool MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) override;
-    // bool ProcessPed(CPed* ped) override;
+    CTask* Clone() const override;                                                                                           // 0x692D60 (lote 187A, sin validar)
+    eTaskType GetTaskType() const override;                                                                                  // 0x6926E0 (lote 187A, sin validar)
+    bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override; // 0x692700 (lote 187A, sin validar)
+    bool ProcessPed(CPed* ped) override;                                                                                     // 0x694640 (lote 187A, sin validar)
+
+private:
+    friend void InjectHooksMain();
+
+    CTaskSimpleDuckWhileShotsWhizzing* Constructor(uint16 lengthOfDuck); // 0x692680 (lote 187A, sin validar)
 };
+VALIDATE_SIZE(CTaskSimpleDuckWhileShotsWhizzing, 0x28);

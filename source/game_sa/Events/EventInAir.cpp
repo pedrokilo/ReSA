@@ -38,6 +38,18 @@ void CEventInAir::InjectHooks()
     RH_ScopedVMTInstall(GetLifeTime, 0x4B0CE0);      // lote 137A
     RH_ScopedVMTInstall(GetEventPriority, 0x4B0CF0); // lote 137A
     RH_ScopedVMTInstall(AffectsPed, 0x4B0C00);
+    RH_ScopedVMTInstall(Clone, 0x4B76A0);            // lote 187A (sin validar): ranura 4
+}
+
+// 0x4B76A0 (lote 187A, sin validar; el listado decia CEventAttractor; thiscall, sin argumentos, `ret`, 33 bytes sin marco SEH; ranura 4 de la vtable 0x85B3C0). Como el original: CEvent::operator new (0x4B5620; el EXE
+// lleva en linea el CEventPool::New 0x4B5570); sin memoria devuelve nulo; si no, construye en linea: m_nTimeActive (+4) = 0, m_bValid (BYTE +8) = 0 y la vtable (0x85B3C0), y devuelve la memoria. El constructor (0x4B0CB0,
+// con hook) hace lo mismo, asi que se usa.
+CEvent* CEventInAir::Clone() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventInAir));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CEventInAir*>(memory)->Constructor();
 }
 
 // 0x4B0CB0

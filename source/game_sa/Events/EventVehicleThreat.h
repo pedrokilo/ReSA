@@ -15,7 +15,7 @@ public:
     int32 GetEventPriority() const override { return 19; }
     int32 GetLifeTime() override { return 0; }
     bool AffectsPed(CPed* ped) override;
-    CEventEditableResponse* CloneEditable() const noexcept override { return new CEventVehicleThreat(m_Vehicle); }
+    CEventEditableResponse* CloneEditable() const noexcept override; // 0x4B7520 (lote 187A, sin validar)
 
 public:
     friend void InjectHooksMain();

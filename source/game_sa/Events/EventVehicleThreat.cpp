@@ -32,11 +32,23 @@ __declspec(noinline) void __fastcall VehicleThreatDestructorBody(CEventVehicleTh
 } // namespace
 
 void CEventVehicleThreat::InjectHooks() {
-    RH_ScopedClass(CEventVehicleThreat);
+    RH_ScopedVirtualClass(CEventVehicleThreat, 0x85B298, 17); // lote 187A (sin validar): vtable del EXE, CloneEditable en la ranura 16
     RH_ScopedCategory("Events");
 
     RH_ScopedNamedGlobalInstall(VehicleThreatDestructorBody, "DestructorBody", 0x4AFBF0); // lote 178A (sin validar)
     RH_ScopedInstall(Constructor, 0x4AFB50);                                              // lote 178A (sin validar)
+    RH_ScopedVMTInstall(CloneEditable, 0x4B7520);                                         // lote 187A (sin validar): ranura 16
+}
+
+// 0x4B7520 (lote 187A, sin validar; el listado decia CEventAttractor; thiscall, sin argumentos, `ret`, 97 bytes con marco SEH que solo desenrolla la reserva; ranura 16 de la vtable 0x85B298). Como el original:
+// CEvent::operator new (0x4B5620; el EXE lleva en linea el CEventPool::New 0x4B5570); sin memoria devuelve nulo; si no, llama al constructor (0x4AFB50, con hook; ECX = memoria) con el vehiculo (+0x14) y devuelve
+// lo que deja en EAX (la memoria).
+CEventEditableResponse* CEventVehicleThreat::CloneEditable() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventVehicleThreat));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CEventVehicleThreat*>(memory)->Constructor(m_Vehicle);
 }
 
 // 0x4AFB50 (lote 178A, sin validar; thiscall, un argumento de pila, `ret 4`, 102 bytes con marco SEH que solo desenrolla): constructor del EXE con el de CEvent y el de CEventEditableResponse expandidos en linea.

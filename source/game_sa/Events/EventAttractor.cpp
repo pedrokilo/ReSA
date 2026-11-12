@@ -42,6 +42,24 @@ void CEventAttractor::InjectHooks()
     RH_ScopedVMTInstall(AffectsPed, 0x4AF4B0);
     RH_ScopedVMTInstall(CloneEditable, 0x4B7440);
     RH_ScopedInstall(IsEffectActive, 0x4AF460);
+    RH_ScopedVMTInstall(GetEventType, 0x4AF3D0);     // lote 187A (sin validar): ranura 1
+    RH_ScopedVMTInstall(GetEventPriority, 0x4AF3F0); // lote 187A (sin validar): ranura 2
+    RH_ScopedVMTInstall(GetLifeTime, 0x4AF3E0);      // lote 187A (sin validar): ranura 3
+}
+
+// 0x4AF3D0 (lote 187A, sin validar; thiscall, sin argumentos, `ret`, 6 bytes: `mov eax,1Bh`): EVENT_ATTRACTOR (27); no lee el objeto (ranura 1 de la vtable 0x85B1B8).
+eEventType CEventAttractor::GetEventType() const {
+    return EVENT_ATTRACTOR;
+}
+
+// 0x4AF3F0 (lote 187A, sin validar; thiscall, `ret`, 3 bytes: `xor eax,eax`): prioridad 0 (ranura 2). El EXE comparte esta direccion con CEventScriptedAttractor (vtable 0x86C9F0, ranura 2): el valor devuelto es el mismo.
+int32 CEventAttractor::GetEventPriority() const {
+    return 0;
+}
+
+// 0x4AF3E0 (lote 187A, sin validar; thiscall, `ret`, 3 bytes: `xor eax,eax`): tiempo de vida 0 (ranura 3). El EXE comparte esta direccion con CEventScriptedAttractor (vtable 0x86C9F0, ranura 3): el valor devuelto es el mismo.
+int32 CEventAttractor::GetLifeTime() {
+    return 0;
 }
 
 CEventAttractor::CEventAttractor(C2dEffectPedAttractor* effect, CEntity* entity, bool bAvoidLookingAtAttractor, eTaskType taskType) :

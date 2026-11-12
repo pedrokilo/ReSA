@@ -41,6 +41,7 @@ void CEventGunAimedAt::InjectHooks() {
 
     RH_ScopedVMTInstall(AffectsPed, 0x4B4EE0);          // lote 181A (sin validar): ranura 5 (el listado decia CEventKnockOffBike)
     RH_ScopedVMTInstall(TakesPriorityOver, 0x4B0810);   // lote 181A (sin validar): ranura 11 (el listado decia CEventKnockOffBike)
+    RH_ScopedVMTInstall(CloneEditable, 0x4B7630);       // lote 187A (sin validar): ranura 16 (el listado decia CEventAttractor)
 }
 
 // 0x4B0700
@@ -125,7 +126,13 @@ bool CEventGunAimedAt::TakesPriorityOver(const CEvent& refEvent) {
     return ownPriority >= refPriority;
 }
 
-// 0x4B7630
+// 0x4B7630 (lote 187A, sin validar; el listado decia CEventAttractor; thiscall, sin argumentos, `ret`, 97 bytes con marco SEH que solo desenrolla la reserva; ranura 16 de la vtable 0x85B330). Como el original:
+// CEvent::operator new (0x4B5620; el EXE lleva en linea el CEventPool::New 0x4B5570); sin memoria devuelve nulo; si no, llama al constructor (0x4B0700, con hook; ECX = memoria) con quien apunta (+0x14) y devuelve
+// lo que deja en EAX (la memoria).
 CEventEditableResponse* CEventGunAimedAt::CloneEditable() const noexcept {
-    return new CEventGunAimedAt(m_AimedBy);
+    void* const memory = CEvent::operator new(sizeof(CEventGunAimedAt));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CEventGunAimedAt*>(memory)->Constructor(m_AimedBy);
 }

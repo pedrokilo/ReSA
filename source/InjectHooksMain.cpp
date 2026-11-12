@@ -511,6 +511,7 @@
 #include "TaskComplexFallToDeath.h"
 #include "TaskSimpleDrownInCar.h"
 #include "TaskSimpleDuckToggle.h"
+#include "TaskSimpleDuckWhileShotsWhizzing.h"
 #include "TaskSimpleThrowControl.h"
 #include "TaskSimpleDieInCar.h"
 #include "TaskComplexTurnToFaceEntityOrCoord.h"
@@ -1307,7 +1308,7 @@ void InjectHooksMain() {
         CTaskSimpleDrown::InjectHooks();
         CTaskSimpleDrownInCar::InjectHooks();
         CTaskSimpleDuckToggle::InjectHooks();
-        // CTaskSimpleDuckWhileShotsWhizzing::InjectHooks();
+        CTaskSimpleDuckWhileShotsWhizzing::InjectHooks(); // lote 187A (sin validar)
         CTaskSimpleEvasiveDive::InjectHooks();
         CTaskSimpleEvasiveStep::InjectHooks();
         CTaskSimpleFightingControl::InjectHooks();

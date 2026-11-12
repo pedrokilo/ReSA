@@ -112,6 +112,22 @@ __declspec(noinline) void __fastcall PlayerPedDestructorBody(CPlayerPed* self, v
     }
     self->CPed::Destructor();
 }
+
+// 0x60A9A0 (lote 187A, sin validar; el listado decia CPlayerPed y es esa clase): destructor con borrado de CPlayerPed del EXE (ranura 0 de su vtable 0x86D168; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6093B0; test byte [esp+8],1; je ..; push esi; call 0x5E4760; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6093B0, con hook), libera `this`
+// con CPed::operator delete (0x5E4760, con hook; cdecl, un argumento) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+__declspec(noinline) CPlayerPed* __fastcall PlayerPedScalarDeletingDestructor(CPlayerPed* self, void* /*edx*/, uint8 flags) {
+    PlayerPedDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CPed::operator delete(self);
+    }
+    return self;
+}
+
+// 0x60F8C0 (lote 187A, sin validar; el listado decia CPlayerPed; la clase real es desconocida: `ret` de 1 byte sin llamadores salvo el EXE, 0x53E293 en la funcion de dibujado 2D, entre CReplay::Display 0x45C210 y
+// CPickups::RenderPickUpText 0x455000): funcion vacia, sin argumentos ni lectura de registros; la version en C++ de ese dibujado (app_game.cpp) ya no la llama.
+void EmptyStub60F8C0() {
+}
 } // namespace
 
 void CPlayerPed::InjectHooks() {
@@ -119,6 +135,9 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedCategory("Entity/Ped");
 
     RH_ScopedNamedGlobalInstall(PlayerPedDestructorBody, "DestructorBody", 0x6093B0); // lote 179A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlayerPedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x60A9A0); // lote 187A (sin validar)
+    RH_ScopedNamedGlobalInstall(EmptyStub60F8C0, "EmptyStub60F8C0", 0x60F8C0); // lote 187A (sin validar)
+    RH_ScopedInstall(Constructor, 0x60D5B0); // lote 187A (sin validar)
     RH_ScopedInstall(ResetSprintEnergy, 0x60A530);
     RH_ScopedInstall(ResetPlayerBreath, 0x60A8A0);
     RH_ScopedInstall(RemovePlayerPed, 0x6094A0);
@@ -278,6 +297,17 @@ CPlayerPed::CPlayerPed(int32 playerId, bool bGroupCreated) : CPed(PED_TYPE_PLAYE
     GetIntelligence()->m_nDmNumPedsToScan = 2;
 
     bUsedForReplay = bGroupCreated;
+}
+
+// 0x60D5B0 (lote 187A, sin validar; thiscall, dos argumentos de pila (indice de jugador, grupo ya creado), `ret 8`, 465 bytes con marco SEH que solo desenrolla): constructor del EXE. Orden del EXE: CPed::CPed (0x5E8030, con hook)
+// con tipo 0 (PED_TYPE_PLAYER1); vtable; +0x480 = &CWorld::Players[id].m_PlayerData (0xB7CD9C + id*0x190); CPlayerPedData::AllocateData (0x571880); CPed::SetModelIndex (0x5E4880, llamada directa) con 0; SetInitialState (0x60CD20)
+// con la bandera; limpia la referencia de +0x71C (0x571A00 solo si no es nula) y la deja a cero; CPed::SetPedState (0x5E4500) con 1; indice del bloque "playidles" (0x4D3990) en 0xC0BC10; sin grupo previo: AddGroup (0x5FB800) en
+// +0x38 de los datos, tipo de asignador 5 (RANDOM, 0x5FBB70), bandera de grupo de mision (+0x2D0 del grupo), SetLeader (0x5FB9C0), Process (0x5FC7E0) y borra los bits 8, 9 y 10 de +0x34 de los datos; despues la salud maxima
+// (CStats::GetFatAndMuscleModifier 0x559AF0 con 9; se guarda en +0x544 y luego en +0x540), estilo de pelea 15 (+0x72D), movimientos permitidos 15 (+0x72E), +0x79C = +0x7A0 = 0, CAEPedSpeechAudioEntity::Initialise (0x4E68D0),
+// inteligencia (+0x47C): +0xC8 = 30.0f, +0xC4 = 2; y el bit 21 de +0x478 (bUsedForReplay) = bandera. Devuelve this.
+CPlayerPed* CPlayerPed::Constructor(int32 playerId, bool bGroupCreated) {
+    this->CPlayerPed::CPlayerPed(playerId, bGroupCreated);
+    return this;
 }
 
 // 0x6094A0

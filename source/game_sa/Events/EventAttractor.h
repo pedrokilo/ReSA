@@ -17,9 +17,9 @@ public:
     CEventAttractor(C2dEffectPedAttractor* effect, CEntity* entity, bool bAvoidLookingAtAttractor, /* notsa => */eTaskType taskType = TASK_NONE);
     ~CEventAttractor() override;
 
-    eEventType GetEventType() const override { return EVENT_ATTRACTOR; }
-    int32 GetEventPriority() const override { return 0; }
-    int32 GetLifeTime() override { return 0; }
+    eEventType GetEventType() const override;     // 0x4AF3D0 (lote 187A, sin validar)
+    int32 GetEventPriority() const override;      // 0x4AF3F0 (lote 187A, sin validar)
+    int32 GetLifeTime() override;                 // 0x4AF3E0 (lote 187A, sin validar)
     bool AffectsPed(CPed* ped) override;
     CEventEditableResponse* CloneEditable() const noexcept override;
 

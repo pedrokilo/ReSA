@@ -34,6 +34,7 @@ public:
     static void InjectHooks();
 
     CPlayerPed(int32 playerId, bool bGroupCreated);
+    CPlayerPed* Constructor(int32 playerId, bool bGroupCreated); // 0x60D5B0 (lote 187A, sin validar)
 
 
     void ProcessControl() override;

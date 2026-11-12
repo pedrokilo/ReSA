@@ -38,7 +38,7 @@ public:
     float GetLocalSoundLevel() override;                       // 0x4AFCD0 (lote 181A, sin validar)
     int32 GetEventPriority() const override;                   // 0x4AFCE0 (lote 181A, sin validar)
     int32 GetLifeTime() override;                              // 0x4AFCC0 (lote 181A, sin validar)
-    CEventKnockOffBike* Clone() const noexcept override { return new CEventKnockOffBike(m_vehicle, m_moveSpeed, m_collisionImpactVelocity, m_damageIntensity, field_28, m_knockOffType, m_knockOffDirection, m_time, m_ped, m_isVictimDriver, m_forceKnockOff); }
+    CEvent* Clone() const noexcept override;                   // 0x4B7590 (lote 187A, sin validar)
     bool AffectsPed(CPed* ped) override;
     bool IsCriminalEvent() override;                           // 0x4B06F0 (lote 181A, sin validar)
     void ReportCriminalEvent(CPed* ped) override;

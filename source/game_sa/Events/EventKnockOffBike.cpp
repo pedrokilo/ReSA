@@ -71,10 +71,34 @@ void CEventKnockOffBike::InjectHooks()
     RH_ScopedVMTInstall(GetLocalSoundLevel, 0x4AFCD0);  // lote 181A (sin validar): ranura 12
     RH_ScopedVMTInstall(AffectsPed, 0x4AFEE0);
     RH_ScopedVMTInstall(ReportCriminalEvent, 0x4B4E80);
+    RH_ScopedVMTInstall(Clone, 0x4B7590);               // lote 187A (sin validar): ranura 4
     RH_ScopedInstall(From, 0x4AFDD0);
     RH_ScopedInstall(SetPedOutCar, 0x4AFF60);
     RH_ScopedInstall(CalcForcesAndAnims, 0x4B0020);
     RH_ScopedInstall(SetPedSafePosition, 0x4B4AC0);
+}
+
+// 0x4B7590 (lote 187A, sin validar; el listado decia CEventAttractor; thiscall, sin argumentos, `ret`, 154 bytes con marco SEH que solo desenrolla la reserva; ranura 4 de la vtable 0x85B2E0). Como el original:
+// CEvent::operator new (0x4B5620; el EXE lleva en linea el CEventPool::New 0x4B5570); sin memoria devuelve nulo; si no, llama al constructor de 11 argumentos (0x4AFCF0, con hook; ECX = memoria) con, en este orden:
+// vehiculo (+0x38), &m_moveSpeed (+0xC), &m_collisionImpactVelocity (+0x18), m_damageIntensity (+0x24), field_28 (+0x28), tipo de golpe (+0x36, BYTE con signo extendido), direccion (+0x34, BYTE sin signo), m_time (+0x2C),
+// m_ped (+0x30), bit 0 de +0x35 (m_isVictimDriver) y bit 1 de +0x35 (m_forceKnockOff), y devuelve lo que deja en EAX (la memoria).
+CEvent* CEventKnockOffBike::Clone() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventKnockOffBike));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CEventKnockOffBike*>(memory)->Constructor(
+        m_vehicle,
+        const_cast<CVector*>(&m_moveSpeed),
+        const_cast<CVector*>(&m_collisionImpactVelocity),
+        m_damageIntensity,
+        field_28,
+        m_knockOffType,
+        m_knockOffDirection,
+        static_cast<int32>(m_time),
+        m_ped,
+        m_isVictimDriver,
+        m_forceKnockOff);
 }
 
 CEventKnockOffBike::CEventKnockOffBike(CVehicle* vehicle, const CVector& moveSpeed, const CVector& collisionImpactVelocity, float damageIntensity, float a6, uint8 knockOffType, uint8 knockOffDirection, int32 time, CPed* ped, bool isVictimDriver, bool forceKnockOff)

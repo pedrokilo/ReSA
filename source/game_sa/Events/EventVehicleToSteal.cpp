@@ -39,6 +39,18 @@ void CEventVehicleToSteal::InjectHooks() {
     RH_ScopedVMTInstall(GetLifeTime, 0x4AF6E0);      // lote 137A
     RH_ScopedVMTInstall(GetEventPriority, 0x4AF6F0); // lote 137A
     RH_ScopedVMTInstall(AffectsPed, 0x4AF760);
+    RH_ScopedVMTInstall(Clone, 0x4B74B0);            // lote 187A (sin validar): ranura 4
+}
+
+// 0x4B74B0 (lote 187A, sin validar; el listado decia CEventAttractor; thiscall, sin argumentos, `ret`, 97 bytes con marco SEH que solo desenrolla la reserva; ranura 4 de la vtable 0x85B210). Como el original:
+// CEvent::operator new (0x4B5620; el EXE lleva en linea el CEventPool::New 0x4B5570 sobre el pool 0xB744AC); sin memoria devuelve nulo; si no, llama al constructor (0x4AF670, con hook; ECX = memoria) con el vehiculo (+0xC)
+// y devuelve lo que deja en EAX (la memoria).
+CEvent* CEventVehicleToSteal::Clone() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventVehicleToSteal));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CEventVehicleToSteal*>(memory)->Constructor(m_vehicle);
 }
 
 // 0x4AF670
