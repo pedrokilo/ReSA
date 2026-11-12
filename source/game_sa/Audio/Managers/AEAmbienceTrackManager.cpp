@@ -37,6 +37,9 @@ void CAEAmbienceTrackManager::InjectHooks() {
     RH_ScopedInstall(StopSpecialMissionAmbienceTrack, 0x4D6D60);
     RH_ScopedInstall(UpdateAmbienceTrackAndVolume, 0x4D6E60);
     RH_ScopedInstall(Service, 0x4D76C0);
+    RH_ScopedInstall(StopAmbienceTrack, 0x4D6CC0); // lote 180A (sin validar)
+    RH_ScopedInstall(StartTrackPlayback, 0x4D6DA0); // lote 180A (sin validar)
+    RH_ScopedInstall(CheckForPause, 0x4D6DF0); // lote 180A (sin validar)
 }
 
 // 0x5B9660
@@ -465,7 +468,7 @@ void CAEAmbienceTrackManager::StopSpecialMissionAmbienceTrack() {
     Reset();
 }
 
-// 0x4D6CC0
+// 0x4D6CC0 (lote 180A, sin validar; thiscall, `ret`, 40 bytes): estado (+8) 0..3 (STARTING, WAITING_TO_PLAY, READY_TO_PLAY, PLAYING) pasa a STOPPING (4) y los tres bytes +0, +1 y +2 quedan a cero.
 void CAEAmbienceTrackManager::StopAmbienceTrack() {
     ChangeStatusToStopped();
     m_OverrideRadio             = false;
@@ -473,7 +476,8 @@ void CAEAmbienceTrackManager::StopAmbienceTrack() {
     m_StartAmbienceAtBeginning  = false;
 }
 
-// 0x4D6DA0
+// 0x4D6DA0 (lote 180A, sin validar; thiscall, `jmp` final, 70 bytes): DisableBassEq (0x4D94D0), SetChannelVolume (0x4D8870, canal en 16 bits, 0, volumen +0x18, 0), SetChannelFlags (0x4D9500, canal, 0, 0x21) y salto a
+// StartTrackPlayback (0x4D8F30), todo sobre el objeto de hardware 0xB5F8B8. El volumen viaja como el dword crudo de la pila.
 void CAEAmbienceTrackManager::StartTrackPlayback() const {
     AEAudioHardware.DisableBassEq();
     AEAudioHardware.SetChannelVolume(m_HwClientHandle, 0, m_Volume, 0);
@@ -481,7 +485,8 @@ void CAEAmbienceTrackManager::StartTrackPlayback() const {
     AEAudioHardware.StartTrackPlayback();
 }
 
-//  0x4D6DF0
+// 0x4D6DF0 (lote 180A, sin validar; thiscall, `ret`, 97 bytes): el factor es 0 si hay pausa de usuario (0xB7CB49), de codigo (0xB7CB48) o el interruptor del menu principal (0xBA6831); si no, el de +0x1C. Llama dos veces a
+// SetChannelFrequencyScalingFactor (0x4D8960) con (canal en 16 bits, 0, factor), releyendo nada entre ambas (el factor se guarda una vez en la pila).
 void CAEAmbienceTrackManager::CheckForPause() const {
     float freqFactor = CTimer::GetIsPaused() || FrontEndMenuManager.m_bMainMenuSwitch ? 0.0f : m_FreqFactor;
     AEAudioHardware.SetChannelFrequencyScalingFactor(m_HwClientHandle, 0, freqFactor);

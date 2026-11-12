@@ -158,6 +158,7 @@ public:
     static void DeleteAllTempObjects();
     static void DeleteAllMissionObjects();
     static void DeleteAllTempObjectsInArea(CVector point, float radius);
+    static bool IsCraneMovingPartModel(int32 modelIndex); // 0x59F050 (lote 180A, sin validar)
 
     // Helpers
     [[nodiscard]] bool IsTemporary() const     { return m_nObjectType == OBJECT_TEMPORARY; }

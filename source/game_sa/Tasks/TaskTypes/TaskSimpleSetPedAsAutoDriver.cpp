@@ -25,6 +25,7 @@ void CTaskSimpleSetPedAsAutoDriver::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x648F40);
     RH_ScopedInstall(Destructor, 0x648FC0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x64CD60); // lote 180A (sin validar)
 
     RH_ScopedVMTInstall(Clone, 0x64A2F0);
     RH_ScopedVMTInstall(GetTaskType, 0x648FA0);
@@ -47,6 +48,17 @@ CTaskSimpleSetPedAsAutoDriver::CTaskSimpleSetPedAsAutoDriver(const CTaskSimpleSe
 // 0x648FC0
 CTaskSimpleSetPedAsAutoDriver::~CTaskSimpleSetPedAsAutoDriver() {
     CEntity::SafeCleanUpRef(m_veh);
+}
+
+// 0x64CD60 (lote 180A, sin validar; el listado decia CTaskSimpleCarFallOut): destructor con borrado de CTaskSimpleSetPedAsAutoDriver del EXE (ranura 0 de su vtable 0x86EFF4; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x648FC0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x648FC0, con hook), libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleSetPedAsAutoDriver* CTaskSimpleSetPedAsAutoDriver::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x649020

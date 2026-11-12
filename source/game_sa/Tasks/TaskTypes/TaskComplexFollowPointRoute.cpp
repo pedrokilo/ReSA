@@ -27,10 +27,20 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexLeaveCar.h"
 #include "TaskComplexWalkRoundCar.h"
 
+namespace CTaskComplexBody { void __fastcall Destructor(CTask* self, void* edx); } // 0x61A3D0, Task.cpp
+
 namespace {
-// 0x66E050 (lote 145A, banco Fn145A): cuerpo del destructor de CTaskComplexFollowPointRoute del EXE (sin hook propio; vtable 0x870078). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
-// el destructor con borrado como el `call 0x66E050` del EXE.
-__declspec(noinline) void __fastcall CTaskComplexFollowPointRouteDestructorBody(CTaskComplexFollowPointRoute* self, void* /*edx*/) { self->CTaskComplexFollowPointRoute::~CTaskComplexFollowPointRoute(); }
+// 0x66E050 (lote 145A, banco Fn145A; lote 180A: con hook y cuerpo del EXE, sin validar; thiscall, sin argumentos de pila, `ret`, 90 bytes con marco SEH que solo desenrolla y aqui se omite): cuerpo del destructor de
+// CTaskComplexFollowPointRoute del EXE (vtable 0x870078). Como el original: deja la vtable de la clase del EXE (0x870078); si la ruta (+0x20) no es nula la libera con CPointRoute::operator delete (0x41B7D0, con hook: marca el hueco
+// del pool 0xB744B0; no pone el puntero a cero ni llama a destructores) y termina con el cuerpo de ~CTaskComplex (0x61A3D0, con hook, que deja la vtable de CTask). El destructor generado por el compilador dejaria la vtable de la DLL.
+// Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x66E050` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexFollowPointRouteDestructorBody(CTaskComplexFollowPointRoute* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870078;
+    if (self->m_route) {
+        delete self->m_route;
+    }
+    CTaskComplexBody::Destructor(self, nullptr);
+}
 
 // 0x671610 (lote 145A, banco Fn145A): destructor con borrado de CTaskComplexFollowPointRoute del EXE (ranura 0 de su vtable 0x870078; thiscall, un argumento de pila, `ret 4`, 30 bytes:
 // `push esi; mov esi,ecx; call 0x66E050; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
@@ -50,6 +60,7 @@ void CTaskComplexFollowPointRoute::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexFollowPointRoute, 0x870078, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskComplexFollowPointRouteScalarDeletingDestructor, "ScalarDeletingDestructor", 0x671610); // lote 145A (banco Fn145A)
+    RH_ScopedNamedGlobalInstall(CTaskComplexFollowPointRouteDestructorBody, "DestructorBody", 0x66E050); // lote 180A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x671510);
 

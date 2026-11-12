@@ -29,13 +29,49 @@ void CHandObject::InjectHooks()
     RH_ScopedVMTInstall(ProcessControl, 0x59EC40);
     RH_ScopedVMTInstall(PreRender, 0x59ECD0);
     RH_ScopedVMTInstall(Render, 0x59EE80);
+
+    RH_ScopedInstall(Constructor, 0x59EEB0);              // lote 180A (sin validar)
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x59EFE0); // lote 180A (sin validar)
 }
+
+namespace CObjectBody { void __fastcall Destructor(CObject* self, void* edx); } // 0x59F660, Object.cpp (sin hook)
 
 /**
  * Configura el objeto decorativo, selecciona antebrazo izquierdo/derecho y reutiliza
  * una textura del TXD del ped para el material del hand object.
  */
 CHandObject::CHandObject(int32 handModelIndex, CPed* ped, bool bLeftHand) : CObject()
+{
+    InitFromPed(handModelIndex, ped, bLeftHand);
+}
+
+// 0x59EEB0 (lote 180A, sin validar; thiscall, tres dwords de pila, `ret 0xC`, 297 bytes con marco SEH que solo desenrolla y aqui se omite): constructor del EXE. Como el original: constructor por defecto de CObject del EXE (0x5A1D10,
+// sin hook: el de la DLL escribe vtables propias), vtable de la clase del EXE (0x866EE0) y el resto del cuerpo en el orden del EXE (ver InitFromPed). Devuelve `this`. Lo llaman los constructores de las tareas de senal con la mano
+// (0x61B044 y siguientes).
+CHandObject* CHandObject::Constructor(int32 handModelIndex, CPed* ped, bool bLeftHand)
+{
+    plugin::CallMethod<0x5A1D10, CObject*>(static_cast<CObject*>(this));
+    *reinterpret_cast<uint32*>(this) = 0x866EE0;
+    InitFromPed(handModelIndex, ped, bLeftHand);
+    return this;
+}
+
+// 0x59EFE0 (lote 180A, sin validar; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x59F000; test byte [esp+8],1; je ..; push esi; call 0x5A1F20; add esp,4; mov eax,esi; pop esi; ret 4`):
+// destructor con borrado de CHandObject del EXE (ranura 0 de su vtable 0x866EE0). 0x59F000 es solo `jmp 0x59F660` (cuerpo del destructor de CObject, aqui CObjectBody::Destructor): la clase no escribe vtable ni libera nada mas. Libera
+// `this` con CObject::operator delete (0x5A1F20, pool de objetos) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CHandObject* CHandObject::ScalarDeletingDestructor(uint8 flags)
+{
+    CObjectBody::Destructor(static_cast<CObject*>(this), nullptr);
+    if (flags & 1) {
+        CObject::operator delete(this);
+    }
+    return this;
+}
+
+// Cuerpo del constructor posterior al constructor de CObject, en el orden del EXE (0x59EECF..0x59EFC1): anim hierarchy del clump del ped, m_pPed, UpdateRpHAnim del ped, hueso del antebrazo (23 derecho, 33 izquierdo), SetModelIndex
+// directo (0x532AE0), RpAnimBlendClumpInit (0x4D6720), textura del TXD del ped (por hash de nombre; si no, la primera), estado SIMPLE, sin colision, objeto ligero y sin borrado por streaming, tipo 5, SetIsStatic(false) (0x5A0760, llamada
+// directa a la clase CObject), alfa 255 del modelo de la mano y m_bUpdatedMatricesArray.
+void CHandObject::InitFromPed(int32 handModelIndex, CPed* ped, bool bLeftHand)
 {
     auto* animHierarchy = GetAnimHierarchyFromSkinClump(ped->GetRpClump());
     m_pPed = ped;

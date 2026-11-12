@@ -19,6 +19,7 @@ public:
     ~CTaskSimpleCarFallOut() override;
 
     auto ComputeAnimID();
+    void ComputeAnimIDExe(AssocGroupId* outGroup, AnimationId* outAnimId) const; // 0x648E90 (lote 180A, sin validar): la forma del EXE de ComputeAnimID (dos salidas por puntero)
     void StartAnim(const CPed* pPed);
 
     CTask*    Clone() const override { return new CTaskSimpleCarFallOut{ *this }; }

@@ -85,6 +85,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    CAEAudioChannel* Constructor(IDirectSound* directSound, uint16 channelId, uint32 samplesPerSec, uint16 bitsPerSample); // 0x4D7890 (lote 180A, sin validar)
+    void DestructorBody();                                                                                             // 0x4D7910 (lote 180A, sin validar)
+
 };
 #pragma pack(pop)
 VALIDATE_SIZE(CAEAudioChannel, 0x60);

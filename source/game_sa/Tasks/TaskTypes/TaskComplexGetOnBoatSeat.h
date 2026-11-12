@@ -26,4 +26,5 @@ private:
     static void InjectHooks();
     CTaskComplexGetOnBoatSeat* Constructor(CVehicle* veh) { this->CTaskComplexGetOnBoatSeat::CTaskComplexGetOnBoatSeat(veh); return this; }
     CTaskComplexGetOnBoatSeat* Destructor() { this->CTaskComplexGetOnBoatSeat::~CTaskComplexGetOnBoatSeat(); return this; }
+    CTaskComplexGetOnBoatSeat* ScalarDeletingDestructor(uint8 flags); // 0x64CE80 (lote 180A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86F044), `ret 4`
 };

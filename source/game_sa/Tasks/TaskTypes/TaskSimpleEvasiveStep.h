@@ -36,5 +36,6 @@ private: // Wrappers for hooks
         this->CTaskSimpleEvasiveStep::~CTaskSimpleEvasiveStep();
         return this;
     }
+    CTaskSimpleEvasiveStep* ScalarDeletingDestructor(uint8 flags); // 0x655E80 (lote 180A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86F1F4), `ret 4`
 };
 VALIDATE_SIZE(CTaskSimpleEvasiveStep, 0x14);

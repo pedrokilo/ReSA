@@ -33,6 +33,9 @@ public:
     void Render() override;
 
 private:
+    void InitFromPed(int32 handModelIndex, CPed* ped, bool bLeftHand); // cuerpo del constructor posterior al de CObject (compartido por el constructor de C++ y por el hook 0x59EEB0)
+    CHandObject* Constructor(int32 handModelIndex, CPed* ped, bool bLeftHand);   // 0x59EEB0 (lote 180A, sin validar)
+    CHandObject* ScalarDeletingDestructor(uint8 flags);                          // 0x59EFE0 (lote 180A, sin validar)
 };
 
 VALIDATE_SIZE(CHandObject, 0x18C);

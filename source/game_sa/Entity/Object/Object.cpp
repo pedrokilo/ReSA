@@ -145,6 +145,7 @@ void CObject::InjectHooks()
     RH_ScopedInstall(DeleteAllTempObjects, 0x5A18B0);
     RH_ScopedInstall(DeleteAllMissionObjects, 0x5A1910);
     RH_ScopedInstall(DeleteAllTempObjectsInArea, 0x5A1980);
+    RH_ScopedInstall(IsCraneMovingPartModel, 0x59F050); // lote 180A (sin validar)
     RH_ScopedGlobalInstall(IsObjectPointerValid_NotInWorld, 0x5A2B90);
     RH_ScopedGlobalInstall(IsObjectPointerValid, 0x5A2C20);
 
@@ -1406,12 +1407,18 @@ void CObject::DeleteAllTempObjectsInArea(CVector point, float radius) {
 }
 
 bool CObject::IsCraneMovingPart() const {
-    return notsa::contains<eModelID>({
-        ModelIndices::MI_CRANE_MAGNET,
-        ModelIndices::MI_CRANE_HARNESS,
-        ModelIndices::MI_MINI_MAGNET,
-        ModelIndices::MI_WRECKING_BALL,
-    }, GetModelId());
+    // Como el llamador del EXE (0x5A219C: movsx con signo del indice de modelo, que se empuja)
+    return IsCraneMovingPartModel(static_cast<int16>(m_nModelIndex));
+}
+
+// 0x59F050 (lote 180A, sin validar; cdecl, un argumento de pila, `ret` sin limpiarla, 54 bytes): true si el indice de modelo (dword con signo) coincide con alguno de los cuatro indices de las piezas moviles de la grua: iman de
+// grua (0x8CD700), arnes (0x8CD6FC), mini iman (0x8CD740) y bola de demolicion (0x8CD71C). Cada indice se lee como WORD ampliado a cero (movzx) y se compara con el argumento de 32 bits: -1 no coincide con un indice sin asignar (0xFFFF).
+bool CObject::IsCraneMovingPartModel(int32 modelIndex) {
+    const auto magnet  = int32(ModelIndices::MI_CRANE_MAGNET.get_underlying());
+    const auto harness = int32(ModelIndices::MI_CRANE_HARNESS.get_underlying());
+    const auto mini    = int32(ModelIndices::MI_MINI_MAGNET.get_underlying());
+    const auto ball    = int32(ModelIndices::MI_WRECKING_BALL.get_underlying());
+    return modelIndex == magnet || modelIndex == harness || modelIndex == mini || modelIndex == ball;
 }
 
 // 0x5A1AB0

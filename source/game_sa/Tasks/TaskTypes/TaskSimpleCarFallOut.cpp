@@ -65,6 +65,17 @@ auto CTaskSimpleCarFallOut::ComputeAnimID() {
     return std::make_pair(m_Vehicle->GetAnimGroup().GetGroup(animId), animId);
 }
 
+// 0x648E90 (lote 180A, sin validar; thiscall, dos punteros de pila, `ret 8`, 80 bytes; la reconstruida ComputeAnimID devuelve un par y no se puede enganchar): la funcion del EXE. Como el original: puerta del conductor (10) o trasera
+// izquierda (11) -> ANIM_ID_CAR_FALLOUT_LHS (0x183); cualquier otra -> RHS (0x184), escrito PRIMERO por el segundo puntero (indice); luego relee ese indice, toma el grupo de animacion del vehiculo (manejo +0x384, byte +0xDE,
+// `CVehicleAnimGroup` de 0x94 bytes en 0xC1CDC0) con GetGroup (0x6E3B00, con hook) y lo escribe por el primer puntero (grupo). Los llamadores del EXE son 0x64CCE0 (StartAnim) y los cuerpos de 0x64CC60 y 0x64E2C0 (DoOpenCarDoor en linea).
+void CTaskSimpleCarFallOut::ComputeAnimIDExe(AssocGroupId* outGroup, AnimationId* outAnimId) const {
+    *outAnimId = (m_Door == TARGET_DOOR_DRIVER || m_Door == TARGET_DOOR_REAR_LEFT)
+        ? ANIM_ID_CAR_FALLOUT_LHS
+        : ANIM_ID_CAR_FALLOUT_RHS;
+    const auto id = *outAnimId;
+    *outGroup = m_Vehicle->GetAnimGroup().GetGroup(id);
+}
+
 // 0x64CCE0
 void CTaskSimpleCarFallOut::StartAnim(const CPed* ped) {
     CCarEnterExit::RemoveCarSitAnim(ped);
@@ -135,6 +146,7 @@ void CTaskSimpleCarFallOut::InjectHooks() {
     RH_ScopedGlobalInstall(FinishAnimFallOutCB, 0x648EE0);
 
     //RH_ScopedInstall(ComputeAnimID, 0x648E90); // cant hook, changed signature
+    RH_ScopedInstall(ComputeAnimIDExe, 0x648E90); // lote 180A (sin validar): la forma del EXE
     RH_ScopedInstall(StartAnim, 0x64CCE0);
 
     RH_ScopedVMTInstall(Clone, 0x64A280);

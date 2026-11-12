@@ -81,6 +81,8 @@ void CAEAudioChannel::InjectHooks() {
     RH_ScopedCategory("Audio/Hardware");
     RH_ScopedNamedGlobalInstall(AEAudioChannelScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4D7C00); // lote 149A (banco Fn149A)
     RH_ScopedInstall(IsBufferPlaying, 0x4D7990);                                                               // lote 149A (banco Fn149A)
+    RH_ScopedInstall(Constructor, 0x4D7890);                                                                   // lote 180A (sin validar)
+    RH_ScopedInstall(DestructorBody, 0x4D7910);                                                                // lote 180A (sin validar)
 
     RH_ScopedInstall(SetPosition, 0x4D7950);
     RH_ScopedInstall(UpdateStatus, 0x4D7BD0);
@@ -118,6 +120,37 @@ CAEAudioChannel::CAEAudioChannel(IDirectSound* directSound, uint16 channelId, ui
     m_WaveFormat.nBlockAlign     = 2;
     m_WaveFormat.wBitsPerSample  = bitsPerSample;
     m_WaveFormat.cbSize          = 0;
+}
+
+// 0x4D7890 (lote 180A, sin validar; thiscall, cuatro dwords de pila, `ret 0x10`, 115 bytes): constructor de la base del EXE. Como el original: el constructor de C++ (mismos campos de formato PCM, estado logico, +0x28 y +0x5C a cero,
+// volumen -100.0 = 0xC2C80000, buffers DirectSound nulos) y despues la vtable de CAEAudioChannel del EXE (0x85F03C) en lugar de la de la DLL; no escribe +0x46 (m_bShouldPlay) ni la zona de relleno. nAvgBytesPerSec = frecuencia *
+// (bits >> 3) en 32 bits. Devuelve `this` (lo llaman los constructores de los canales del EXE, por ejemplo 0x4F0B10).
+CAEAudioChannel* CAEAudioChannel::Constructor(IDirectSound* directSound, uint16 channelId, uint32 samplesPerSec, uint16 bitsPerSample) {
+    this->CAEAudioChannel::CAEAudioChannel(directSound, channelId, samplesPerSec, bitsPerSample);
+    *reinterpret_cast<uint32*>(this) = 0x85F03C;
+    return this;
+}
+
+// 0x4D7910 (lote 180A, sin validar; thiscall, sin argumentos de pila, `ret`, 64 bytes): cuerpo del destructor de la base del EXE (los cuerpos de los canales derivados terminan llamandolo). Como el original, con lecturas frescas de la
+// memoria: vtable de CAEAudioChannel del EXE (0x85F03C) al principio; si hay buffer DirectSound (+8) decrementa el contador de canales usados (0xB5F898); relee +8 y, si no es nulo, lo libera (Release, ranura 2, stdcall); lee +0xC
+// DESPUES de ese Release, pone +8 a cero y libera el buffer 3D si no es nulo; pone +0xC a cero. Es la misma secuencia que AEAudioChannelScalarDeletingDestructor (0x4D7C00) y ChannelReleaseSequence (AEStaticChannel.cpp).
+void CAEAudioChannel::DestructorBody() {
+    volatile uint32* const vt       = reinterpret_cast<volatile uint32*>(this);
+    volatile uint32* const buffer   = reinterpret_cast<volatile uint32*>(reinterpret_cast<uint8*>(this) + 8);
+    volatile uint32* const buffer3D = reinterpret_cast<volatile uint32*>(reinterpret_cast<uint8*>(this) + 0xC);
+    *vt = 0x85F03C;
+    if (*buffer != 0) {
+        --g_numSoundChannelsUsed;
+    }
+    if (const uint32 p = *buffer; p != 0) {
+        reinterpret_cast<IUnknown*>(uintptr_t(p))->Release();
+    }
+    const uint32 q = *buffer3D;
+    *buffer = 0;
+    if (q != 0) {
+        reinterpret_cast<IUnknown*>(uintptr_t(q))->Release();
+    }
+    *buffer3D = 0;
 }
 
 // 0x4D7910

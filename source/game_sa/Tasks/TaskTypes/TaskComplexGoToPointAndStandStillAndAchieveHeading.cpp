@@ -49,6 +49,7 @@ void CTaskComplexGoToPointAndStandStillAndAchieveHeading::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x668CD0);
     RH_ScopedInstall(Destructor, 0x668D40);
+    RH_ScopedInstall(CreateSubTask, 0x668D50); // lote 180A (sin validar)
 
     RH_ScopedVMTInstall(Clone, 0x66CFD0);
     RH_ScopedVMTInstall(GetTaskType, 0x668D30);
@@ -84,7 +85,10 @@ CTask* CTaskComplexGoToPointAndStandStillAndAchieveHeading::CreateNextSubTask(CP
     }
 }
 
-// 0x668D50
+// 0x668D50 (lote 180A, sin validar; thiscall, un argumento de pila, `ret 4`, 292 bytes con marco SEH que solo desenrolla y aqui se omite): crea la subtarea segun el tipo; en todos los casos reserva en el pool de tareas (0x61A5A0) y, si la
+// reserva es nula, devuelve nulo sin llamar al constructor. TASK_SIMPLE_GO_TO_POINT (0x384): 0x30 bytes, CTaskSimpleGoToPoint (0x667CD0) con (m_MoveState +0xC, &m_TargetPos +0x10, m_Radius +0x1C, false, false). TASK_SIMPLE_STAND_STILL (0xCB):
+// 0x20 bytes, CTaskSimpleStandStill (0x62F310) con (0, false, false, 8.0f). TASK_SIMPLE_ACHIEVE_HEADING (0x386): 0x18 bytes, CTaskSimpleAchieveHeading (0x667E20) con (m_Angle +0x20, m_ChangeRateMult +0x24, m_MaxHeading +0x28). Cualquier otro
+// tipo (TASK_FINISHED 0x516 incluido) devuelve nulo.
 CTask* CTaskComplexGoToPointAndStandStillAndAchieveHeading::CreateSubTask(eTaskType taskType) {
     switch (taskType) {
     case TASK_SIMPLE_ACHIEVE_HEADING:

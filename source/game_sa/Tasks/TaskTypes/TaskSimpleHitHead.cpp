@@ -36,6 +36,17 @@ void __fastcall CTaskSimpleHitHeadDestructorBodyExe(CTaskSimpleHitHead* self, vo
     }
     self->CTask::Destructor();
 }
+
+// 0x655E30 (lote 180A, sin validar; el listado decia CTaskComplexWalkRoundFire): destructor con borrado de CTaskSimpleHitHead del EXE (ranura 0 de su vtable 0x86F1D0; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x653090; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x653090, con hook), libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleHitHead* __fastcall CTaskSimpleHitHeadScalarDeletingDestructor(CTaskSimpleHitHead* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleHitHeadDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 // 0x653080 (lote 150A, banco Fn150A; thiscall, `ret`, 6 bytes: `mov eax,0x1F4`): TASK_SIMPLE_HIT_HEAD (500); no lee el objeto.
@@ -47,6 +58,8 @@ void CTaskSimpleHitHead::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleHitHead, 0x86F1D0, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskSimpleHitHeadDestructorBodyExe, "DestructorBody", 0x653090); // lote 150A (banco Fn150A)
+    RH_ScopedNamedGlobalInstall(CTaskSimpleHitHeadScalarDeletingDestructor, "ScalarDeletingDestructor", 0x655E30); // lote 180A (sin validar)
+    RH_ScopedVMTInstall(Clone, 0x6557A0); // lote 180A (sin validar): reserva 0x10 bytes en el pool de tareas; si no es nula, CTaskSimple (0x61A390), vtable del EXE (0x86F1D0), +8 (byte) = 0 y +0xC = 0; nula -> nulo
     RH_ScopedVMTInstall(GetTaskType, 0x653080); // lote 150A (banco Fn150A): retorno de constante
 
     RH_ScopedInstall(Constructor, 0x653060);

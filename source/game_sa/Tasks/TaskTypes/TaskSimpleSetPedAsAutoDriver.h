@@ -37,4 +37,5 @@ private: // Wrappers for hooks
         this->CTaskSimpleSetPedAsAutoDriver::~CTaskSimpleSetPedAsAutoDriver();
         return this;
     }
+    CTaskSimpleSetPedAsAutoDriver* ScalarDeletingDestructor(uint8 flags); // 0x64CD60 (lote 180A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86EFF4), `ret 4`
 };

@@ -36,6 +36,8 @@ void CTaskComplexGoToBoatSteeringWheel::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x649090);
     RH_ScopedInstall(Destructor, 0x649100);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x64CD80); // lote 180A (sin validar)
+    RH_ScopedInstall(CreateSubTask, 0x64CDA0);            // lote 180A (sin validar)
     RH_ScopedInstall(ComputeTargetPos, 0x649160); // lote 171A (banco Fn171A)
 
     RH_ScopedVMTInstall(Clone, 0x64A350);
@@ -55,6 +57,17 @@ CTaskComplexGoToBoatSteeringWheel::CTaskComplexGoToBoatSteeringWheel(CVehicle* v
 // 0x649100
 CTaskComplexGoToBoatSteeringWheel::~CTaskComplexGoToBoatSteeringWheel() {
     CEntity::SafeCleanUpRef(m_Vehicle);
+}
+
+// 0x64CD80 (lote 180A, sin validar; el listado decia CTaskSimpleCarFallOut): destructor con borrado de CTaskComplexGoToBoatSteeringWheel del EXE (ranura 0 de su vtable 0x86F018; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x649100; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x649100, con hook), libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexGoToBoatSteeringWheel* CTaskComplexGoToBoatSteeringWheel::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x64E350
@@ -90,7 +103,10 @@ eTaskType CTaskComplexGoToBoatSteeringWheel::GetTaskType() const {
     return Type;
 }
 
-// 0x64CDA0
+// 0x64CDA0 (lote 180A, sin validar; el listado decia CTaskSimpleCarFallOut; thiscall, un argumento de pila, `ret 4`, 218 bytes con marco SEH que solo desenrolla y aqui se omite): crea la subtarea segun el tipo. TASK_SIMPLE_STAND_STILL (0xCB):
+// reserva 0x20 bytes en el pool de tareas (0x61A5A0) y, si no es nulo, construye CTaskSimpleStandStill (0x62F310) con (-1, false, false, 8.0f). TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL (0x387): llama primero a ComputeTargetPos (0x649160)
+// y despues reserva 0x28 bytes y construye CTaskComplexGoToPointAndStandStill (0x668120) con (PEDMOVE_WALK = 4, &m_TargetPos (+0xC), [0x86FC84] = 0.5, [0x86FC88] = 2.0, false, false); la reserva va DESPUES de ComputeTargetPos. Cualquier otro tipo
+// (TASK_FINISHED 0x516 incluido) devuelve nulo. Una reserva nula devuelve nulo sin llamar al constructor.
 CTask* CTaskComplexGoToBoatSteeringWheel::CreateSubTask(eTaskType taskType) {
     switch (taskType) {
     case TASK_SIMPLE_STAND_STILL:
