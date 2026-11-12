@@ -40,7 +40,18 @@ void CEventCreatePartnerTask::InjectHooks() {
 // 0x5F6190 (lote 177A, sin validar): constructor del EXE (thiscall, cuatro argumentos de pila, `ret 10h`, 108 bytes con marco SEH que solo desenrolla). Llama al constructor de CEvent (0x4ABFC0), guarda el tipo (+0xC), el BYTE
 // bajo del tercer argumento (+0x10 es el companero, +0x14 el BYTE) y la distancia como dword (+0x18), deja la vtable de la clase del EXE (0x86C6D0) y registra la referencia del companero (+0x10) con
 // CEntity::RegisterReference (0x571B70) si no es nulo. Devuelve `this`.
-CEventCreatePartnerTask* CEventCreatePartnerTask::Constructor(int32 type, CPed* partner, bool isLeadSpeaker, float meetDist) { this->CEventCreatePartnerTask::CEventCreatePartnerTask(type, partner, isLeadSpeaker, meetDist); return this; }
+// Como el original: CEvent::CEvent (0x4ABFC0, con hook; el constructor generado de CEvent no pasaria por el cuerpo enganchado y dejaria la vtable de la DLL), tipo, BYTE bajo del tercer argumento, vtable de la clase del EXE,
+// companero, distancia (dword) y RegisterReference del companero si no es nulo. Funcion sin expansion en linea: la llama Clone (y el EXE) como `call 0x5F6190`.
+__declspec(noinline) CEventCreatePartnerTask* CEventCreatePartnerTask::Constructor(int32 type, CPed* partner, bool isLeadSpeaker, float meetDist) {
+    CEvent::Constructor();
+    m_partnerType = type;
+    m_isLeadSpeaker = isLeadSpeaker;
+    *reinterpret_cast<uint32*>(this) = 0x86C6D0;
+    m_partner = partner;
+    m_meetDist = meetDist;
+    CEntity::SafeRegisterRef(m_partner);
+    return this;
+}
 
 // 0x5F6190
 CEventCreatePartnerTask::CEventCreatePartnerTask(int32 type, CPed* partner, bool isLeadSpeaker, float meetDist) :

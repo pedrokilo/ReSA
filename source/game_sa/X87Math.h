@@ -2341,5 +2341,8 @@ void __cdecl CommonTransformPointsSimpleCpp(float* out, int numPoints, float cos
 // DoesInfiniteLineCrossFiniteLine (0x71DB30): producto de las distancias con signo de los dos extremos A y B a la recta (origen o, direccion d) menor que cero, con la x87 sin redondeos intermedios a float.
 bool __cdecl CommonLineCrossesSegmentCpp(float ax, float ay, float bx, float by, float ox, float oy, float dx, float dy);
 // Lote 177A (sin validar).
-// CTaskGoToVehicleAndLean::CalcTargetPos (0x664770), rama del vehiculo sin matriz: (0 * dz + sin(rumbo) * dy) + cos(rumbo) * dx > 0 con fcos/fsin sin redondear a float y la x87 sin redondeos intermedios (comparacion ordenada: NaN da false).
-bool __cdecl Hp177ALeanSideAheadCpp(float heading, float dx, float dy, float dz);
+// CTaskGoToVehicleAndLean::CalcTargetPos (0x664770): signo del producto escalar (rz * dz + ry * dy) + rx * dx de (posicion del peaton - posicion del vehiculo) con el derecha (primera fila de la matriz del vehiculo) y
+// comparacion "mayor que" cero, con las restas, los productos y las sumas en la x87 (24 bits, exponente ampliado, sin guardar parciales); un NaN da falso. Posiciones: tres floats cada una.
+bool __cdecl Hp177ALeanSideAheadMatrixCpp(const float* right, const float* ped, const float* veh);
+// Lo mismo sin matriz: el derecha es (cos(rumbo), sin(rumbo), 0.0f) con fcos / fsin sin redondear a float.
+bool __cdecl Hp177ALeanSideAheadHeadingCpp(float heading, const float* ped, const float* veh);

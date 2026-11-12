@@ -74,8 +74,9 @@ public:
     }
 
 private:
-    // 0x63A220
-    CTaskComplexEnterCar* Constructor(CVehicle* vehicle, bool bAsDriver, bool bQuitAfterOpeningDoor, bool bQuitAfterDraggingPedOut, bool bCarryOnAfterFallingOff) {
+    friend class CTaskComplexDragPedFromCar; // lote 177A: su constructor del EXE (0x640430) llama al cuerpo enganchado Constructor (0x63A220)
+    // 0x63A220 (sin expansion en linea desde el lote 177A: lo llama el constructor del EXE de CTaskComplexDragPedFromCar y el banco lo sustituye)
+    __declspec(noinline) CTaskComplexEnterCar* Constructor(CVehicle* vehicle, bool bAsDriver, bool bQuitAfterOpeningDoor, bool bQuitAfterDraggingPedOut, bool bCarryOnAfterFallingOff) {
         this->CTaskComplexEnterCar::CTaskComplexEnterCar(vehicle, bAsDriver, bQuitAfterOpeningDoor, bQuitAfterDraggingPedOut, bCarryOnAfterFallingOff);
         return this;
     }

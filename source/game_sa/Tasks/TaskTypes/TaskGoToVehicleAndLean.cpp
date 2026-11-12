@@ -136,7 +136,7 @@ CTask* CTaskGoToVehicleAndLean::ControlSubTask(CPed* ped) {
 }
 
 // 0x664770 (lote 177A, sin validar; thiscall, dos argumentos de pila (puntero de retorno oculto y el peaton), `ret 8`, 295 bytes; devuelve el puntero de retorno en EAX).
-// Como el original: lee la caja de colision del modelo del vehiculo (minimo +0, maximo +0xC); delta = posicion del peaton - posicion del vehiculo (cada una de la matriz si existe, o de m_placement); el vector derecha es
+// Como el original: lee la caja de colision del modelo del vehiculo (minimo +0, maximo +0xC); delta = posicion del peaton - posicion del vehiculo (cada una de la matriz si existe, o de m_placement; las restas, los productos y la suma van en la x87 sin guardar parciales: ayudantes de X87Math.cpp); el vector derecha es
 // la primera fila de la matriz o, sin matriz, (cos(rumbo), sin(rumbo), 0) con fcos/fsin sin redondear; producto escalar (rz * dz + ry * dy) + rx * dx comparado con 0.0f (ordenado: NaN da falso). Si es mayor que cero guarda
 // field_15 = 1 y el punto local es (maximo.x + 0.5f, 0, 0); si no, field_15 = 0 y (minimo.x - 0.5f, 0, 0). El resultado es CMatrix * CVector (0x59C890) con la matriz del vehiculo SIN comprobar si es nula (como el EXE).
 CVector CTaskGoToVehicleAndLean::CalcTargetPos(CPed* ped) {
@@ -144,15 +144,14 @@ CVector CTaskGoToVehicleAndLean::CalcTargetPos(CPed* ped) {
     const CBoundingBox& box = CModelInfo::GetModelInfo(vehicle->m_nModelIndex)->GetColModel()->m_boundBox;
     const float minX = box.m_vecMin.x;
     const float maxX = box.m_vecMax.x;
-    const CVector delta = ped->GetPosition() - vehicle->GetPosition();
+    const CVector& pedPos = ped->GetPosition();
+    const CVector& vehPos = vehicle->GetPosition();
 
     bool ahead;
     if (vehicle->m_matrix) {
-        const CVector& right = vehicle->m_matrix->GetRight();
-        const float dot = (right.z * delta.z + right.y * delta.y) + right.x * delta.x;
-        ahead = dot > 0.0f;
+        ahead = Hp177ALeanSideAheadMatrixCpp(&vehicle->m_matrix->GetRight().x, &pedPos.x, &vehPos.x);
     } else {
-        ahead = Hp177ALeanSideAheadCpp(vehicle->m_placement.m_fHeading, delta.x, delta.y, delta.z);
+        ahead = Hp177ALeanSideAheadHeadingCpp(vehicle->m_placement.m_fHeading, &pedPos.x, &vehPos.x);
     }
     field_15 = ahead;
 

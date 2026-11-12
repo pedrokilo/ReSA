@@ -21,14 +21,6 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexDragPedFromCar.h"
 
 namespace {
-// 0x640430 (lote 177A, sin validar): constructor de CTaskComplexDragPedFromCar del EXE (thiscall, dos argumentos de pila (peaton, tiempo), `ret 8`, 131 bytes con marco SEH que solo desenrolla). Llama al constructor de
-// CTaskComplexEnterCar (0x63A220, con hook) con (nulo, falso, falso, verdadero, falso), deja la vtable de la clase del EXE (0x86EB6C), guarda el peaton en +0x50 y lo registra con CEntity::RegisterReference (0x571B70) si no es
-// nulo, y guarda el tiempo (+0x20) al final. Devuelve `this`. Funcion propia sin expansion en linea (la clase no tiene envoltura Constructor: el hook se instala por esta funcion global).
-__declspec(noinline) CTaskComplexDragPedFromCar* __fastcall DragPedFromCarConstructor(CTaskComplexDragPedFromCar* self, void* /*edx*/, CPed* ped, int32 draggedPedDownTime) {
-    self->CTaskComplexDragPedFromCar::CTaskComplexDragPedFromCar(ped, draggedPedDownTime);
-    return self;
-}
-
 // 0x6404D0 (lote 165A, banco Fn165A; hook propio desde el lote 177A, sin validar): cuerpo no virtual de ~CTaskComplexDragPedFromCar del EXE (thiscall, sin argumentos de pila, `ret`, 90 bytes con marco SEH que solo desenrolla y aqui se omite). Deja la vtable de la
 // clase del EXE (0x86EB6C), libera con CEntity::CleanUpOldReference (0x571A00) la referencia no nula en +0x50 (m_Ped) y llama a CTaskComplexEnterCar::Destructor (0x63DFA0, con hook). Es la funcion que llama
 // el destructor con borrado; el destructor generado por el compilador dejaria la vtable de la DLL.
@@ -56,7 +48,7 @@ void CTaskComplexDragPedFromCar__InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexDragPedFromCar, 0x86EB6C, 12); // 12 huecos, como CTaskComplexEnterCar
     RH_ScopedCategory("Tasks/TaskTypes");
 
-    RH_ScopedNamedGlobalInstall(DragPedFromCarConstructor, "Constructor", 0x640430);                          // lote 177A (sin validar)
+    RH_ScopedInstall(Constructor, 0x640430);                                                                  // lote 177A (sin validar)
     RH_ScopedNamedGlobalInstall(DragPedFromCarDestructorBodyExe, "DestructorBody", 0x6404D0);                 // lote 177A (sin validar)
     RH_ScopedNamedGlobalInstall(DragPedFromCarScalarDeletingDestructor, "ScalarDeletingDestructor", 0x643CE0); // lote 165A (banco Fn165A)
     RH_ScopedVMTInstall(GetTaskType, 0x6404C0);                                                               // lote 177A (sin validar): retorno de constante
@@ -78,7 +70,20 @@ CTask* CTaskComplexDragPedFromCar::Clone() const {
     if (!memory) {
         return nullptr;
     }
-    return DragPedFromCarConstructor(static_cast<CTaskComplexDragPedFromCar*>(memory), nullptr, m_Ped, m_DraggedPedDownTime);
+    return static_cast<CTaskComplexDragPedFromCar*>(memory)->Constructor(m_Ped, m_DraggedPedDownTime);
+}
+
+// 0x640430 (lote 177A, sin validar): constructor de CTaskComplexDragPedFromCar del EXE (thiscall, dos argumentos de pila (peaton, tiempo), `ret 8`, 131 bytes con marco SEH que solo desenrolla). Llama al constructor de
+// CTaskComplexEnterCar (0x63A220, con hook) con (nulo, falso, falso, verdadero, falso), deja la vtable de la clase del EXE (0x86EB6C), guarda el peaton en +0x50 y lo registra con CEntity::RegisterReference (0x571B70) si no es
+// nulo, y guarda el tiempo (+0x20) al final. Devuelve `this`. Funcion sin expansion en linea (la llaman Clone y el EXE; el constructor generado de la clase no pasaria por el cuerpo enganchado de CTaskComplexEnterCar ni dejaria
+// la vtable del EXE).
+__declspec(noinline) CTaskComplexDragPedFromCar* CTaskComplexDragPedFromCar::Constructor(CPed* ped, int32 draggedPedDownTime) {
+    CTaskComplexEnterCar::Constructor(nullptr, false, false, true, false);
+    *reinterpret_cast<uint32*>(this) = 0x86EB6C;
+    m_Ped = ped;
+    CEntity::SafeRegisterRef(m_Ped);
+    m_DraggedPedDownTime = draggedPedDownTime;
+    return this;
 }
 
 // 0x640430

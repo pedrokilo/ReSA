@@ -19,6 +19,9 @@ public:
     CTask* ControlSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;
 
+private:
+    friend void CTaskComplexDragPedFromCar__InjectHooks();
+    CTaskComplexDragPedFromCar* Constructor(CPed* ped, int32 draggedPedDownTime); // 0x640430 (lote 177A, sin validar)
 };
 VALIDATE_SIZE(CTaskComplexDragPedFromCar, 0x54);
 extern void CTaskComplexDragPedFromCar__InjectHooks();

@@ -18940,13 +18940,25 @@ __declspec(noinline) bool __cdecl CommonLineCrossesSegmentCpp(float ax, float ay
 }
 
 // --- Lote 177A (sin validar) ---
-// CTaskGoToVehicleAndLean::CalcTargetPos (0x664770), vehiculo sin matriz (`fld [heading]; fcos; fld [heading]; fsin; fld 0.0f; fmul st,st(3); fxch; fmul st,st(4); faddp; fxch; fmul st,st(4); faddp; fcomp 0.0f; fnstsw ax; test ah,41h`):
-// con el derecha = (cos, sin, 0) los productos son 0 * dz, sin * dy y cos * dx y la suma ((0 * dz) + (sin * dy)) + (cos * dx); el coseno y el seno quedan en la x87 sin redondear a float. Se compara con "mayor que" cero (con NaN, falso).
-// El cero se lee de memoria volatil para que /fp:fast no elimine el producto 0 * dz (con dz infinito o NaN cambia el resultado).
-__declspec(noinline) bool __cdecl Hp177ALeanSideAheadCpp(float heading, float dx, float dy, float dz) {
+// CTaskGoToVehicleAndLean::CalcTargetPos (0x664770): el signo del producto escalar de (posicion del peaton - posicion del vehiculo) con el vector derecha, todo en la x87 a 24 bits con exponente ampliado y SIN guardar los
+// parciales en float: `fld [ped.x]; fsub [veh.x]; ...` (tres restas que quedan en la pila), producto escalar (rz * dz + ry * dy) + rx * dx (`fmul st,st(3); fxch; fmul st,st(4); faddp; fxch; fmul st,st(4); faddp`) y
+// `fcomp 0.0f; fnstsw ax; test ah,41h` (el resultado es verdadero solo si es mayor que cero: un NaN da falso). Con matriz, el derecha son los tres floats de la primera fila (se leen con fld de 32 bits).
+__declspec(noinline) bool __cdecl Hp177ALeanSideAheadMatrixCpp(const float* right, const float* ped, const float* veh) {
+    const double dx = double(ped[0]) - double(veh[0]);
+    const double dy = double(ped[1]) - double(veh[1]);
+    const double dz = double(ped[2]) - double(veh[2]);
+    const double dot = (double(right[2]) * dz + double(right[1]) * dy) + double(right[0]) * dx;
+    return dot > 0.0;
+}
+// Lo mismo sin matriz: el derecha es (cos(rumbo), sin(rumbo), 0.0f) (`fld [heading]; fcos; fld [heading]; fsin; fld 0.0f`): los productos son 0 * dz, sin * dy y cos * dx y la suma ((0 * dz) + (sin * dy)) + (cos * dx); el
+// coseno y el seno quedan en la x87 sin redondear a float. El cero se lee de memoria volatil para que /fp:fast no elimine el producto 0 * dz (con dz infinito o NaN cambia el resultado).
+__declspec(noinline) bool __cdecl Hp177ALeanSideAheadHeadingCpp(float heading, const float* ped, const float* veh) {
     const volatile float zero = 0.0f;
+    const double dx = double(ped[0]) - double(veh[0]);
+    const double dy = double(ped[1]) - double(veh[1]);
+    const double dz = double(ped[2]) - double(veh[2]);
     const double cosine = cos(double(heading));
     const double sine = sin(double(heading));
-    const double dot = (double(zero) * double(dz) + sine * double(dy)) + cosine * double(dx);
+    const double dot = (double(zero) * dz + sine * dy) + cosine * dx;
     return dot > 0.0;
 }

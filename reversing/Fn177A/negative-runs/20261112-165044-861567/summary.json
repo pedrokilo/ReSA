@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "d7b7582070de7df173ab658cbccbf6db1953142ccc6af0c48c3ab353833d7ab8",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CStats::GetFullFavoriteRadioStationList: 2048/2048; SurfaceInfos_c::LoadAdhesiveLimits: 285/2048; CEventCreatePartnerTask::Constructor: 313/2048; CEventCreatePartnerTask::DestructorBody: 289/2048; CEventCreatePartnerTask::Clone: 309/2048; CEventCreatePartnerTask::ScalarDeletingDestructor: 321/2048; CTaskSimpleDrown::GetTaskType: 291/2048; CTaskSimpleDrown::DestructorBody: 298/2048; CTaskSimpleDrownInCar::Constructor: 285/2048; CTaskSimpleDrownInCar::GetTaskType: 290/2048; CTaskSimpleDrownInCar::MakeAbortable: 286/2048; CTaskSimpleDrownInCar::DestructorBody: 289/2048; CTaskSimpleDrown::ScalarDeletingDestructor: 271/2048; CTaskSimpleDrownInCar::ScalarDeletingDestructor: 329/2048; CTaskComplexDie::ScalarDeletingDestructor: 313/2048; CTaskSimpleDead::ScalarDeletingDestructor: 295/2048; CTaskSimpleTired::ScalarDeletingDestructor: 278/2048; CTaskSimpleTired::ProcessPed: 189/2048; CTaskSimpleSitDown::ScalarDeletingDestructor: 309/2048; CTaskComplexDragPedFromCar::Constructor: 271/2048; CTaskComplexDragPedFromCar::GetTaskType: 291/2048; CTaskComplexDragPedFromCar::DestructorBody: 280/2048; CTaskComplexDragPedFromCar::Clone: 312/2048; CTaskGoToVehicleAndLean::GetTaskType: 322/2048; CTaskGoToVehicleAndLean::CalcTargetPos: 106/2048; CTaskLeanOnVehicle::ScalarDeletingDestructor: 312/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
