@@ -114,6 +114,12 @@ def write(root):
           '## Por bloque de direcciones (64 KB)', '',
           'Ordenados de mayor a menor porcentaje reemplazado.', '',
           'El código se enlaza por unidad de compilación, así que cada bloque suele corresponder a pocos módulos. Útil para ver dónde queda trabajo.', '']
+    ex = out.get('game_excluded') or {}
+    if ex:
+        L += ['## Excluidas del objetivo', '',
+              f'{len(ex)} función(es) del rango del juego no se cuentan en las cifras de arriba porque no son viables en C++ puro (lista en [excluidas.csv](excluidas.csv)):', '']
+        L += _tbl(['Dirección', 'Bytes', 'Módulo estimado', 'Motivo'], [[f'0x{va:08X}', f'{v["size"]:,}', v['module'], v['reason']] for va, v in sorted(ex.items())])
+        L += ['']
     blocks = defaultdict(list)
     for r in rows:
         blocks[r['va'] // BLOCK].append(r)

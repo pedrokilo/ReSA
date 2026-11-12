@@ -6,7 +6,7 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-349 funciones, 56,641 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+348 funciones, 56,531 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -53,7 +53,6 @@
 | `0x005C90D0` | 120 | FxEmitterBP_c | baja | 0 (0) |  |
 | `0x005F6280` | 110 | CPedGeometryAnalyser | baja | 0 (0) |  |
 | `0x00678A10` | 110 | CTaskComplexFallAndGetUp | baja | 0 (0) |  |
-| `0x00746800` | 110 | VideoPlayer | baja | 0 (0) |  |
 | `0x005DE400` | 108 | CCopPed | baja | 0 (0) |  |
 | `0x004B6DC0` | 107 | CEventVehicleCollision | baja | 0 (0) |  |
 | `0x004B6E70` | 107 | CEventVehicleCollision | baja | 0 (0) |  |

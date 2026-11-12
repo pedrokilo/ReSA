@@ -1,0 +1,2 @@
+va,bytes,modulo,motivo
+0x00746800,110,VideoPlayer,"__usercall anti-manipulacion: lee registros que C++ no puede leer; sin llamadores directos ni vtable; excluida del objetivo el 11/11/2026 (lote 161A, evidencia en reversing/Fn161A)"

@@ -2,17 +2,17 @@
 > **Estado al 11/11/2026 (Ciudad de México):** 885 grupos / 10129 funciones reconstruidas; 10129 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
-# Código del juego en el EXE: mapa de las 11,804 funciones
+# Código del juego en el EXE: mapa de las 11,803 funciones
 
 [Progreso del reversing](../ReversedClasses.md#cobertura-exe) · [Lista completa (CSV)](funciones.csv)
 
-Región **0x401000–0x74FFFF**: 11,804 funciones, 3,007,877 bytes. Es el código propio del juego y la capa de plataforma; RenderWare, D3D y el CRT quedan fuera (se sustituyen enlazando bibliotecas equivalentes). Generado por `contrib/game_function_map.py`; cotas y método en `contrib/exe_coverage.py`.
+Región **0x401000–0x74FFFF**: 11,803 funciones, 3,007,767 bytes. Es el código propio del juego y la capa de plataforma; RenderWare, D3D y el CRT quedan fuera (se sustituyen enlazando bibliotecas equivalentes). Generado por `contrib/game_function_map.py`; cotas y método en `contrib/exe_coverage.py`.
 
 ## Estado
 
 | Estado | Funciones | % func. | Bytes | % bytes |
 | --- | ---: | ---: | ---: | ---: |
-| D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 349 | 3.0% | 56,641 | 1.9% |
+| D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 348 | 2.9% | 56,531 | 1.9% |
 | C · Falta: solo la llaman funciones aún no reemplazadas | 380 | 3.2% | 60,369 | 2.0% |
 | B · Falta: método virtual | 455 | 3.9% | 24,207 | 0.8% |
 | A · Falta: llamada desde código ya reemplazado | 577 | 4.9% | 90,447 | 3.0% |
@@ -26,6 +26,14 @@ Las funciones de A–D son **lo que falta**. El grupo A es el piso para la indep
 Ordenados de mayor a menor porcentaje reemplazado.
 
 El código se enlaza por unidad de compilación, así que cada bloque suele corresponder a pocos módulos. Útil para ver dónde queda trabajo.
+
+## Excluidas del objetivo
+
+1 función(es) del rango del juego no se cuentan en las cifras de arriba porque no son viables en C++ puro (lista en [excluidas.csv](excluidas.csv)):
+
+| Dirección | Bytes | Módulo estimado | Motivo |
+| --- | ---: | ---: | ---: |
+| 0x00746800 | 110 | VideoPlayer | __usercall anti-manipulacion: lee registros que C++ no puede leer; sin llamadores directos ni vtable; excluida del objetivo el 11/11/2026 (lote 161A, evidencia en reversing/Fn161A) |
 
 | Bloque | Funciones | Reemplazadas | Faltan | Bytes que faltan | Módulos con más faltantes (estimado) |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -80,7 +88,7 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x550000 | 257 | 72% | 71 | 7,172 | CPools (51), CQuadTreeNode<T> (6), SurfaceInfos_c (2) |
 | 0x4A0000 | 470 | 65% | 166 | 8,178 | FxInfoManager_c (96), FxEmitterBP_c (9), CEvent (4) |
 | 0x5E0000 | 254 | 54% | 117 | 11,447 | CPedAttractor (13), CPed (4) |
-| 0x740000 | 195 | 49% | 80 | 16,380 | Ps (4), Input (2) |
+| 0x740000 | 194 | 49% | 79 | 16,270 | Ps (4), Input (2) |
 | 0x5C0000 | 139 | 9% | 127 | 27,874 | — |
 
 ## Por módulo (estimado)
@@ -91,7 +99,6 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | --- | ---: | ---: | ---: | ---: | ---: |
 | CClumpModelInfo | 26 | 24 | 2 | 25 | 0 |
 | CAEDataStream | 23 | 21 | 2 | 77 | 2 |
-| VideoPlayer | 9 | 8 | 1 | 110 | 0 |
 | CTaskSimpleSwim | 16 | 13 | 3 | 174 | 1 |
 | CEventPassObject | 12 | 3 | 9 | 201 | 0 |
 | CTaskComplexDriveFireTruck | 13 | 6 | 7 | 202 | 0 |
@@ -264,7 +271,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | Win | 109 | 24 | 65 | 14,050 | 0 |
 | FxEmitterBP_c | 155 | 14 | 141 | 28,395 | 9 |
 
-174 de 782 módulos tienen algo pendiente.
+173 de 782 módulos tienen algo pendiente.
 
 ## Cómo usarlo
 

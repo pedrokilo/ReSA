@@ -143,7 +143,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| Furniture_c::InjectHooks() | [source/game_sa/Interior/Furniture_c.cpp:4](../../source/game_sa/Interior/Furniture_c.cpp#L4) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Furniture_c::InjectHooks() | [source/game_sa/Interior/Furniture_c.cpp:22](../../source/game_sa/Interior/Furniture_c.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/Interior/Furniture_c.h:25](../../source/game_sa/Interior/Furniture_c.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Furniture_c::Constructor 0x00590EC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-968"></a>

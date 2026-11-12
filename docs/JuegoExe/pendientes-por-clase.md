@@ -4,7 +4,7 @@
 
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (11/11/2026). Total: **1,783** funciones en 174 clases/módulos (rango 0x401000–0x74FFFF): 1,761 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (12/11/2026). Total: **1,782** funciones en 173 clases/módulos (rango 0x401000–0x74FFFF): 1,760 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -16,7 +16,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---:|
 | CClumpModelInfo | 2 | 25 |
 | CAEDataStream | 2 | 77 |
-| VideoPlayer | 1 | 110 |
 | CTaskSimpleSwim | 3 | 174 |
 | CEventPassObject | 9 | 201 |
 | CTaskComplexDriveFireTruck | 7 | 202 |
@@ -188,7 +187,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (174 clases / módulos)** | **1,783** | **238,776** |
+| **TOTAL (173 clases / módulos)** | **1,782** | **238,666** |
 
 ## CClumpModelInfo (2)
 
@@ -203,12 +202,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x004DC2A0 | 15 | A |  | 1 | 1 |  | alta |
 | 0x004DC550 | 62 | D |  | 0 | 0 |  | alta |
-
-## VideoPlayer (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00746800 | 110 | D |  | 0 | 0 |  | baja |
 
 ## CTaskSimpleSwim (3)
 

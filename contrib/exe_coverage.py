@@ -106,6 +106,16 @@ def compute(root, internals=False):
                          names=[n for n in r['catalogue_names'].split(';') if n],
                          incoming=int(r['direct_call_sites_to_entry'] or 0))
 
+    # Funciones excluidas del objetivo por no ser viables en C++ puro (docs/JuegoExe/excluidas.csv): salen del recuento del juego.
+    excluded = {}
+    excl_path = root / 'docs/JuegoExe/excluidas.csv'
+    if excl_path.exists():
+        for r in _rows(excl_path):
+            va = _hex(r['va'])
+            if va in funcs:
+                excluded[va] = dict(size=funcs[va]['size'], module=r['modulo'], reason=r['motivo'])
+                del funcs[va]
+
     hooks = list(_rows(root / 'docs/hooks.csv'))
     reversed_rows = [r for r in hooks if r['reversed'] == '1']
     addresses = {_hex(r['address']) for r in reversed_rows} - {0}
@@ -147,7 +157,7 @@ def compute(root, internals=False):
 
     out = {'ghidra_entries': len(funcs), 'body_bytes': sum(f['size'] for f in funcs.values()), 'indirect_call_sites': indirect,
            'catalogue_rows_reversed': len(reversed_rows), 'distinct_exe_functions_replaced': len(covered),
-           'pending_wrapper_addresses': len(pending), 'regions': {}}
+           'pending_wrapper_addresses': len(pending), 'regions': {}, 'game_excluded': excluded}
     for key, _ in REGIONS:
         vas = [va for va in funcs if region(va) == key]
         out['regions'][key] = dict(functions=len(vas), bytes=sum(funcs[v]['size'] for v in vas),

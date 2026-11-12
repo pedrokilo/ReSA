@@ -11684,7 +11684,6 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00746740,110,reemplazada,VideoPlayer,exacta,VideoPlayer::Release,3,1,,
 0x007467B0,20,reemplazada,VideoPlayer,exacta,VideoPlayer::Shutdown,0,0,,
 0x007467D0,35,reemplazada,VideoPlayer,baja,,1,0,,
-0x00746800,110,D,VideoPlayer,baja,,0,0,,
 0x00746870,104,reemplazada,Win,exacta,Win::MessageLoop,3,2,,
 0x007468E0,91,reemplazada,Win,exacta,Win::IsAlreadyRunning,1,0,,
 0x007469A0,109,A,Win,baja,,6,5,,
