@@ -27,12 +27,31 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleDoHandSignal.h"
 #include "TaskSimpleChat.h"
 
+namespace CTaskComplexPartnerBody {
+void __fastcall Destructor(CTaskComplexPartner* self, void* edx); // TaskComplexPartner.cpp: 0x683A40
+}
+
+namespace {
+// 0x684FA0 (lote 185A, sin validar; el listado decia CTaskComplexPartnerGreet): destructor con borrado de CTaskComplexPartnerGreet del EXE (ranura 0 de la vtable 0x87078C; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x684280;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). 0x684280 es `mov [ecx], 0x87078C; jmp 0x683A40`: deja la vtable de la clase del EXE y sigue con ~CTaskComplexPartner (0x683A40, con hook); aqui el cuerpo en linea (el hook de 0x684280 usa el destructor de la DLL). Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas
+// esta puesto y devuelve `this`. Se engancha como S.
+CTaskComplexPartnerGreet* __fastcall PartnerGreetScalarDeletingDestructor(CTaskComplexPartnerGreet* self, void* /*edx*/, uint8 flags) {
+    *reinterpret_cast<uint32*>(self) = 0x87078C;
+    CTaskComplexPartnerBody::Destructor(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskComplexPartnerGreet::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexPartnerGreet, 0x87078c, 14);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x684210);
     RH_ScopedInstall(Destructor, 0x684280);
+    RH_ScopedNamedGlobalInstall(PartnerGreetScalarDeletingDestructor, "ScalarDeletingDestructor", 0x684FA0); // lote 185A (sin validar)
 
     RH_ScopedVMTInstall(Clone, 0x684DA0);
     RH_ScopedVMTInstall(GetTaskType, 0x681E00);

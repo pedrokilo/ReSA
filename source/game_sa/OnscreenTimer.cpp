@@ -33,6 +33,13 @@ void COnscreenTimer::InjectHooks() {
     RH_ScopedInstall(AddCounter, 0x44CDA0);
     RH_ScopedInstall(ClearCounter, 0x44CE80);
     RH_ScopedInstall(SetCounterFlashWhenFirstDisplayed, 0x44CEB0);
+    RH_ScopedInstall(Process, 0x44CD30);           // lote 185A (sin validar)
+    RH_ScopedInstall(ProcessForDisplay, 0x44CC20); // lote 185A (sin validar)
+
+    {
+        RH_ScopedClass(COnscreenTimerEntry);
+        RH_ScopedInstall(Process, 0x44CB10); // lote 185A (sin validar)
+    }
 }
 
 // 0x44CBC0
@@ -162,7 +169,8 @@ void COnscreenTimer::SetCounterFlashWhenFirstDisplayed(uint32 varId, bool bFlash
     }
 }
 
-// 0x44CD30
+// 0x44CD30 (lote 185A, sin validar; el listado decia COnscreenCounterEntry; thiscall, `ret`, 25 bytes): no hace nada si la reproduccion de replay esta activa (CReplay::Mode == 1, 0xA43088) o el temporizador esta en pausa
+// (+0x151); si no, salta (`jmp`) al avance del reloj (0x44CB10, COnscreenTimerEntry::Process, con hook): aqui una llamada.
 void COnscreenTimer::Process() {
     if (CReplay::Mode == MODE_PLAYBACK || m_bPaused)
         return;
@@ -170,7 +178,9 @@ void COnscreenTimer::Process() {
     m_Clock.Process();
 }
 
-// 0x44CC20
+// 0x44CC20 (lote 185A, sin validar; el listado decia COnscreenCounterEntry; thiscall, `ret`, 258 bytes): sin HUD (CHud::m_Wants_To_Draw_Hud, 0xBAA45D) no hace nada. Pone el indicador de pantalla (+0x150) y el habilitado del
+// reloj (+0x38) a cero; con variable en el reloj formatea "%02d:%02d" (minutos % 100, segundos % 60; sprintf sin limite) y marca ambos. Despues, para los 4 contadores (+0x40, de 0x44 bytes): habilitado (+0x3E) a cero y, con
+// variable, el texto (el EXE lo lleva en linea: max(valor, 0) con "%d" para tipos 0 y 1; "%d / %d" con la segunda variable sin recortar para el tipo 2; otros tipos no escriben texto), habilitado y pantalla a uno.
 void COnscreenTimer::ProcessForDisplay() {
     if (!CHud::m_Wants_To_Draw_Hud)
         return;

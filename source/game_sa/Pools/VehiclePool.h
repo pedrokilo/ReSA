@@ -38,6 +38,10 @@ public:
 
         RH_ScopedInstall(GetAt, 0x0041CC10); // CPool<CVehicle, CHeli>::GetAt: 0 si el bit 7 del estado de la ranura esta puesto, si no almacenamiento + indice * 0xA18
         RH_ScopedInstall(New, 0x006E2A50);
+        // Lote 185A (sin validar; el listado decia CObjectPool): CPool<CVehicle, CHeli>::GetAtRef (thiscall, un argumento de pila, `ret 4`, 41 bytes; 297 llamadores). Mismo cuerpo que CPedPool::GetAtRef (0x404910):
+        // ranura = ref >> 8 (con signo); si el BYTE de estado de esa ranura es igual al byte bajo de la referencia (incluye el bit 0x80 de libre) devuelve almacenamiento + ranura * 0xA18, si no nulo.
+        // El EXE no comprueba el limite de la ranura; la plantilla si (referencias fuera de rango dan nulo).
+        RH_ScopedInstall(GetAtRef, 0x004048E0);
     }
 
 public:

@@ -2355,3 +2355,7 @@ bool __cdecl Hp179AFollowerFarFromLastCpp(const float* leader, const float* last
 // Lote 181A (sin validar).
 // 0x45AF40 (CMatrix::ScaleAll): multiplica por `factor` las tres primeras componentes de las cuatro filas de 16 bytes de `matrix` (12 floats utiles) con fld/fmul/fstp por componente en la x87 (24 bits, conserva denormales).
 void __cdecl MatrixScaleAllCpp(float* matrix, float factor);
+
+// Lote 185A (sin validar).
+// 0x44CB10 (COnscreenTimerEntry::Process): _ftol2((paso * 0.02f) * 1000.0f) con la x87 (24 bits, sin guardado intermedio); devuelve los 32 bits bajos del truncamiento a 64 bits. Ver X87Math.cpp.
+int __cdecl TimerStepMsCpp(float step);

@@ -40,6 +40,16 @@ void __fastcall CTaskComplexPartnerChatDestructorBodyExe(CTaskComplexPartnerChat
     }
     CTaskComplexPartnerBody::Destructor(self, nullptr);
 }
+// 0x684FC0 (lote 185A, sin validar; el listado decia CTaskComplexPartnerGreet): destructor con borrado de CTaskComplexPartnerChat del EXE (ranura 0 de la vtable 0x8707C4; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x684320;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). 0x684320 es el cuerpo del destructor de la clase (CTaskComplexPartnerChatDestructorBodyExe, con hook). Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas
+// esta puesto y devuelve `this`. Se engancha como S.
+CTaskComplexPartnerChat* __fastcall PartnerChatScalarDeletingDestructor(CTaskComplexPartnerChat* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexPartnerChatDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexPartnerChat::InjectHooks() {
@@ -47,6 +57,9 @@ void CTaskComplexPartnerChat::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskComplexPartnerChatDestructorBodyExe, "DestructorBody", 0x684320); // lote 153A (banco Fn153A)
     RH_ScopedInstall(Constructor, 0x684290);
+    RH_ScopedNamedGlobalInstall(PartnerChatScalarDeletingDestructor, "ScalarDeletingDestructor", 0x684FC0); // lote 185A (sin validar)
+    RH_ScopedVMTInstall(GetTaskType, 0x681E10); // lote 185A (sin validar): ranura 4
+    RH_ScopedVMTInstall(Clone, 0x684E30);       // lote 185A (sin validar): ranura 1
     RH_ScopedVMTInstall(MakeAbortable, 0x682C60);
     RH_ScopedVMTInstall(GetPartnerSequence, 0x684380);
 }
@@ -71,6 +84,17 @@ CTaskComplexPartnerChat::~CTaskComplexPartnerChat() {
     if (m_conversationEnabled && m_pedConversationLoaded) {
         CAEPedSpeechAudioEntity::ReleasePedConversation();
     }
+}
+
+// 0x684E30 (lote 185A, sin validar; el listado decia CTaskComplexPartnerGreet; thiscall, sin argumentos, `ret`, 154 bytes con marco SEH que solo libera la memoria si el constructor lanza y se omite): Clone del EXE. Reserva 0x78 bytes con
+// CTask::operator new (0x61A5A0); si devuelve nulo, devuelve nulo. Si no, llama al constructor (0x684290) sobre la memoria con (nombre de comando +0x14, companero +0x38, lider +0x58 sin signo, multiplicador +0x3C, cuenta de
+// direcciones +0x5B con signo, conversacion +0x74 sin signo, byte +0x75 sin signo y el punto +0x40 por valor) y devuelve lo que el constructor deja en EAX.
+CTask* CTaskComplexPartnerChat::Clone() const {
+    auto* const memory = static_cast<CTaskComplexPartnerChat*>(CTask::operator new(sizeof(CTaskComplexPartnerChat)));
+    if (!memory) {
+        return nullptr;
+    }
+    return memory->Constructor(m_commandName, m_partner, m_leadSpeaker, m_distanceMultiplier, m_updateDirectionCount, m_conversationEnabled, field_75, m_point);
 }
 
 CTaskComplexPartnerChat* CTaskComplexPartnerChat::Constructor(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, int8 updateDirectionCount, bool conversationEnabled, bool a8, CVector point)

@@ -32,6 +32,16 @@ void __fastcall PartnerDealDestructorBody(CTaskComplexPartnerDeal* self, void* /
     *reinterpret_cast<uint32*>(self) = 0x870754;
     CTaskComplexPartnerBody::Destructor(self, nullptr);
 }
+// 0x684F80 (lote 185A, sin validar; el listado decia CTaskComplexPartnerGreet): destructor con borrado de CTaskComplexPartnerDeal del EXE (ranura 0 de la vtable 0x870754; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x684200;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). 0x684200 es el cuerpo del destructor de la clase (PartnerDealDestructorBody, con hook). Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas
+// esta puesto y devuelve `this`. Se engancha como S.
+CTaskComplexPartnerDeal* __fastcall PartnerDealScalarDeletingDestructor(CTaskComplexPartnerDeal* self, void* /*edx*/, uint8 flags) {
+    PartnerDealDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexPartnerDeal::InjectHooks()
@@ -39,6 +49,7 @@ void CTaskComplexPartnerDeal::InjectHooks()
     RH_ScopedVirtualClass(CTaskComplexPartnerDeal, 0x870754, 14);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(PartnerDealDestructorBody, "Destructor", 0x684200);
+    RH_ScopedNamedGlobalInstall(PartnerDealScalarDeletingDestructor, "ScalarDeletingDestructor", 0x684F80); // lote 185A (sin validar)
     RH_ScopedInstall(Constructor, 0x684190);
     RH_ScopedVMTInstall(GetTaskType, 0x681DF0);
     RH_ScopedVMTInstall(Clone, 0x684D10); // lote 132A (banco Fn132A)

@@ -28,6 +28,7 @@ public:
     static inline auto& ms_offsets = StaticRef<Offsets>(0xC196E8);
 
     CTaskComplexFollowLeaderInFormation(CPedGroup* pedGroup, CPed* ped, const CVector& posn, float dist = -1.f);
+    CTaskComplexFollowLeaderInFormation(CPedGroup* pedGroup, CPed* ped, int32 dx, int32 dy, float dist); // 0x695B20 (lote 185A, sin validar)
     CTaskComplexFollowLeaderInFormation(const CTaskComplexFollowLeaderInFormation&);
     ~CTaskComplexFollowLeaderInFormation() override;
 
@@ -43,6 +44,7 @@ private:
     static void InjectHooks();
 
     CTaskComplexFollowLeaderInFormation* Constructor(CPedGroup* pedGroup, CPed* ped, CVector const& posn, float a5) { this->CTaskComplexFollowLeaderInFormation::CTaskComplexFollowLeaderInFormation(pedGroup, ped, posn, a5); return this; }
+    CTaskComplexFollowLeaderInFormation* ConstructorFormation(CPedGroup* pedGroup, CPed* ped, int32 dx, int32 dy, float dist) { this->CTaskComplexFollowLeaderInFormation::CTaskComplexFollowLeaderInFormation(pedGroup, ped, dx, dy, dist); return this; }
     CTaskComplexFollowLeaderInFormation* Destructor() { this->CTaskComplexFollowLeaderInFormation::~CTaskComplexFollowLeaderInFormation(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexFollowLeaderInFormation, 0x28);

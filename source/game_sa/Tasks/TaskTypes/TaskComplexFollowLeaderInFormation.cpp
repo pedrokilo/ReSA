@@ -27,12 +27,27 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleCarDrive.h"
 #include "SeekEntity/TaskComplexSeekEntity.h"
 
+namespace {
+// 0x695BC0 (lote 185A, sin validar; el listado decia CTaskComplexSeekEntityAiming): destructor con borrado de CTaskComplexFollowLeaderInFormation del EXE (ranura 0 de la vtable 0x870C3C; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x694A40;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). 0x694A40 es el cuerpo del destructor de la clase (vtable 0x870C3C en +0, limpia la referencia de m_Leader (+0x10) y termina en CTaskComplex::Destructor 0x61A3D0);
+// aqui es la llamada no virtual al destructor de la clase. Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+CTaskComplexFollowLeaderInFormation* __fastcall FollowLeaderInFormationScalarDeletingDestructor(CTaskComplexFollowLeaderInFormation* self, void* /*edx*/, uint8 flags) {
+    self->CTaskComplexFollowLeaderInFormation::~CTaskComplexFollowLeaderInFormation();
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskComplexFollowLeaderInFormation::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexFollowLeaderInFormation, 0x870c3c, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x6949A0);
     RH_ScopedInstall(Destructor, 0x694A40);
+    RH_ScopedNamedGlobalInstall(FollowLeaderInFormationScalarDeletingDestructor, "ScalarDeletingDestructor", 0x695BC0); // lote 185A (sin validar)
+    RH_ScopedInstall(ConstructorFormation, 0x695B20); // lote 185A (sin validar)
     RH_ScopedInstall(Offsets::Constructor, 0x694850);
     RH_ScopedNamedInstall(Offsets::GetFormationOffset, "GetFormationOffset", 0x611F20); // lote 132A (banco Fn132A)
 
@@ -93,6 +108,21 @@ CTaskComplexFollowLeaderInFormation::CTaskComplexFollowLeaderInFormation(CPedGro
     m_Pos = posn;
     m_Int = 4;
     m_Dist = a5;
+    CEntity::SafeRegisterRef(m_Leader);
+}
+
+// 0x695B20 (lote 185A, sin validar; el listado decia CTaskComplexSeekEntityAiming; thiscall, cinco argumentos de pila, `ret 0x14`, 152 bytes con marco SEH que solo desenrolla y se omite): segundo constructor de la clase del EXE
+// (vtable 0x870C3C). Orden del EXE: CTaskComplex::CTaskComplex (0x61A3B0), grupo (+0xC), distancia (+0x24), vtable, lider (+0x10), m_Int (+0x20) = 4, la entrada de la tabla de formaciones ms_offsets (0xC196E8) para el par de
+// enteros (dx, dy) (GetFormationOffset 0x611F20, con hook) copiada como dos palabras a +0x14 y +0x18, Z (+0x1C) = 0 y, si hay lider, CEntity::RegisterReference (0x571B70) sobre +0x10. Devuelve this.
+CTaskComplexFollowLeaderInFormation::CTaskComplexFollowLeaderInFormation(CPedGroup* pedGroup, CPed* ped, int32 dx, int32 dy, float dist) : CTaskComplex() {
+    m_Group  = pedGroup;
+    m_Dist   = dist;
+    m_Leader = ped;
+    m_Int    = 4;
+    const CVector2D* const offset = ms_offsets.GetFormationOffset(dx, dy);
+    m_Pos.x = offset->x;
+    m_Pos.y = offset->y;
+    m_Pos.z = 0.0f;
     CEntity::SafeRegisterRef(m_Leader);
 }
 

@@ -18988,3 +18988,13 @@ __declspec(noinline) void __cdecl MatrixScaleAllCpp(float* matrix, float factor)
         ProcSurfaceScaleElementCpp(&factor, &r[2]);
     }
 }
+
+// --- Lote 185A (sin validar) ---
+// 0x44CB10 (COnscreenTimerEntry::Process): paso del temporizador en milisegundos = _ftol2(((paso * 0.02f) * 1000.0f)): `fld [0xB7CB5C]; fmul [0x858B38]; fmul [0x858C4C]; call 0x821B40`. Los dos productos se redondean a 24 bits
+// (palabra de control del juego) sin guardado intermedio; _ftol2 trunca a 64 bits y se usan los 32 bits bajos (NaN o fuera de rango dan 0).
+#pragma float_control(precise, on, push)
+__declspec(noinline) int __cdecl TimerStepMsCpp(float step) {
+    const double scaled = (double(step) * double(0.02f)) * double(1000.0f);
+    return static_cast<int>(static_cast<long long>(scaled));
+}
+#pragma float_control(pop)

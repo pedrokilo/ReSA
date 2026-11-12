@@ -19,9 +19,7 @@ public:
     explicit CTaskComplexFollowPedFootsteps(CPed* ped);
     ~CTaskComplexFollowPedFootsteps() override;
 
-    CTask* Clone() const override {
-        return new CTaskComplexFollowPedFootsteps(m_targetPed);
-    }
+    CTask* Clone() const override; // 0x695890 (lote 185A, sin validar)
     eTaskType GetTaskType() const override; // 0x694EC0 (lote 166A, banco Fn166A)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;

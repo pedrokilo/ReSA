@@ -16,7 +16,7 @@ public:
     ~CTaskComplexPartnerChat() override;
 
     eTaskType GetTaskType() const override { return Type; }
-    CTask* Clone() const override { return new CTaskComplexPartnerChat(m_commandName, m_partner, m_leadSpeaker,  m_distanceMultiplier, m_updateDirectionCount, m_conversationEnabled, field_75, m_point); }
+    CTask* Clone() const override; // 0x684E30 (lote 185A, sin validar)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     virtual CTaskComplexSequence* GetPartnerSequence();
 

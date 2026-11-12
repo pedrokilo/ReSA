@@ -39,11 +39,32 @@ eTaskType CTaskComplexFollowPedFootsteps::GetTaskType() const {
     return Type;
 }
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
+namespace {
+// 0x695DC0 (lote 185A, sin validar; el listado decia CTaskComplexSeekEntityAiming; thiscall, sin argumentos de pila, `ret`, 113 bytes con marco SEH que solo desenrolla y se omite): cuerpo no virtual de ~CTaskComplexFollowPedFootsteps del
+// EXE. Lo llama el destructor con borrado de la clase. Orden del EXE: vtable de la clase (0x870CC0), si el ped objetivo (+0xC) no es nulo CEntity::CleanUpOldReference (0x571A00) sobre +0xC, si la ruta de puntos (+0x18) no es
+// nula la libera con CPointRoute::operator delete (0x41B7D0) y la pone a nulo, y termina en CTaskComplex::Destructor (0x61A3D0, con hook). El destructor generado por el compilador dejaria la vtable de la DLL.
+__declspec(noinline) void __fastcall FollowPedFootstepsDestructorBodyExe(CTaskComplexFollowPedFootsteps* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870CC0;
+    CEntity::SafeCleanUpRef(self->m_targetPed);
+    if (self->m_pointRoute) {
+        delete self->m_pointRoute;
+        self->m_pointRoute = nullptr;
+    }
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexFollowPedFootsteps::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexFollowPedFootsteps, 0x870CC0, 12);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x694E20);
+    RH_ScopedNamedGlobalInstall(FollowPedFootstepsDestructorBodyExe, "DestructorBody", 0x695DC0); // lote 185A (sin validar)
+    RH_ScopedVMTInstall(Clone, 0x695890);                                                          // lote 185A (sin validar): ranura 1
     // 0x6955D0 (lote 166A, banco Fn166A; el listado decia CTaskComplexFollowPedFootsteps): misma forma que 0x4BC470 (SetMaxEntityDist2D de la plantilla de CTaskComplexSeekEntity): si la distancia (float de la pila)
     // no es igual a la de +0x18 (un NaN la cambia), la guarda y reinicia el temporizador de +0x28 (inicio = hora, intervalo 0, arrancado). Se reutiliza el mismo cuerpo.
     RH_ScopedNamedGlobalInstall(SetMaxEntityDist2DRegs, "SetMaxEntityDist2D", 0x6955D0);
@@ -76,6 +97,16 @@ CTaskComplexFollowPedFootsteps::CTaskComplexFollowPedFootsteps(CPed* ped) : CTas
     if (m_pointRoute) {
         m_pointRoute->m_NumEntries = 0;
     }
+}
+
+// 0x695890 (lote 185A, sin validar; el listado decia CTaskComplexSeekEntityAiming; thiscall, sin argumentos, `ret`, 96 bytes con marco SEH que solo libera la memoria si el constructor lanza y se omite): Clone del EXE. Reserva 0x20
+// bytes con CTask::operator new (0x61A5A0); si devuelve nulo, devuelve nulo. Si no, llama al constructor (0x694E20) sobre la memoria con el ped objetivo (+0xC) y devuelve lo que deja en EAX.
+CTask* CTaskComplexFollowPedFootsteps::Clone() const {
+    auto* const memory = static_cast<CTaskComplexFollowPedFootsteps*>(CTask::operator new(sizeof(CTaskComplexFollowPedFootsteps)));
+    if (!memory) {
+        return nullptr;
+    }
+    return memory->Constructor(m_targetPed);
 }
 
 CTaskComplexFollowPedFootsteps* CTaskComplexFollowPedFootsteps::Constructor(CPed* ped) {

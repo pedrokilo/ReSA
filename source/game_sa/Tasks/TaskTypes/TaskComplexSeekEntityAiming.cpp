@@ -23,12 +23,26 @@ END GENERATED HOOK STATUS */
 #include "SeekEntity/TaskComplexSeekEntity.h"
 #include "TaskSimpleUseGun.h"
 
+namespace {
+// 0x695C00 (lote 185A, sin validar; el listado decia CTaskComplexSeekEntityAiming): destructor con borrado de CTaskComplexSeekEntityAiming del EXE (ranura 0 de la vtable 0x870C94; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x694C10;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). 0x694C10 es el cuerpo del destructor de la clase (vtable 0x870C94 en +0, limpia la referencia de m_ToSeek (+0xC) y termina en CTaskComplex::Destructor 0x61A3D0);
+// aqui es la llamada no virtual al destructor de la clase. Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+CTaskComplexSeekEntityAiming* __fastcall SeekEntityAimingScalarDeletingDestructor(CTaskComplexSeekEntityAiming* self, void* /*edx*/, uint8 flags) {
+    self->CTaskComplexSeekEntityAiming::~CTaskComplexSeekEntityAiming();
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskComplexSeekEntityAiming::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexSeekEntityAiming, 0x870c94, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x694B90);
     RH_ScopedInstall(Destructor, 0x694C10);
+    RH_ScopedNamedGlobalInstall(SeekEntityAimingScalarDeletingDestructor, "ScalarDeletingDestructor", 0x695C00); // lote 185A (sin validar)
 
     RH_ScopedVMTInstall(Clone, 0x695820);
     RH_ScopedVMTInstall(GetTaskType, 0x694C00);

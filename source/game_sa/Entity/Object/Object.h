@@ -174,6 +174,9 @@ private:
 
     // Envoltura del hook del constructor CObject(int32, bool) (0x5A1D70, thiscall, ret 8): devuelve this en EAX como el EXE.
     auto Constructor(int32 modelId, bool bCreate) { this->CObject::CObject(modelId, bCreate); return this; }
+    // Lote 185A (sin validar): envolturas de los constructores CObject() (0x5A1D10, thiscall, `ret`) y CObject(CDummyObject*) (0x5A1DF0, thiscall, un argumento de pila, `ret 4`).
+    CObject* ConstructorDefault();
+    CObject* ConstructorFromDummy(CDummyObject* dummyObj);
 };
 VALIDATE_SIZE(CObject, 0x17C);
 

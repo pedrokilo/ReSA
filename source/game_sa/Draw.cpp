@@ -29,6 +29,7 @@ void CDraw::InjectHooks() {
 
     RH_ScopedInstall(SetFOV, 0x6FF410);
     RH_ScopedInstall(CalculateAspectRatio, 0x6FF420);
+    RH_ScopedGlobalInstall(DoFade, 0x53E600); // lote 185A (sin validar)
 }
 
 // 0x6FF410
@@ -49,7 +50,10 @@ float CDraw::CalculateAspectRatio() {
     return ms_fAspectRatio;
 }
 
-// 0x53E600
+// 0x53E600 (lote 185A, sin validar; el listado decia Game; cdecl, sin argumentos, `ret`, 353 bytes): fundido de pantalla. Sin pausa (B7CB49 y B7CB48 a cero): si JustLoadedDontFadeInYet (0xC16EDC) es 1 toma la hora como inicio
+// (0xC16EE0) y lo apaga; si StillToFadeOut (0xC16EDD) es 1: pasado FadeOutTime (0x8D2BD4, comparacion sin signo "mayor") apaga el indicador y hace Fade(3.0f, FADE_OUT) + ProcessFade + ProcessMusicFade; si no, color 0,0,0 +
+// Fade(0.0f, FADE_IN) + ProcessFade. Con FadeValue (0xC3EFAB) distinto de cero dibuja un rectangulo (-5, -5, ancho + 5, alto + 5) en memoria (x1, y1, x2, y2) con el color (R*v/v, G*v/v, B*v/v, v), o 0,0,0,0 si
+// el destino del fundido es la pantalla de carga. Como el original no hay variante FIX_BUGS: el EXE pasa top = -5 y bottom = alto + 5.
 void DoFade() {
     ZoneScoped;
 
@@ -87,10 +91,6 @@ void DoFade() {
             );
         }
 
-        #if FIX_BUGS
-        CSprite2d::DrawRect({-5.0f, -5.0f, SCREEN_WIDTH + 5.0f, SCREEN_HEIGHT + 5.0f}, color);
-        #else
         CSprite2d::DrawRect({-5.0f, SCREEN_HEIGHT + 5.0f, SCREEN_WIDTH + 5.0f, -5.0f}, color);
-        #endif
     }
 }

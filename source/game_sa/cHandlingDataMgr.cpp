@@ -43,6 +43,7 @@ void cHandlingDataMgr::InjectHooks() {
     RH_ScopedNamedGlobalInstall(HandlingDataConstructorExe, "tHandlingDataConstructor", 0x6F4FA0); // lote 174A (banco Fn174A)
 
     RH_ScopedInstall(LoadHandlingData, 0x5BD830);
+    RH_ScopedInstall(Initialise, 0x5BF3D0); // lote 185A (sin validar)
     RH_ScopedInstall(GetFlyingPointer, 0x6F52D0);
     RH_ScopedInstall(GetBoatPointer, 0x6F5300);
     RH_ScopedInstall(HasFrontWheelDrive, 0x6A0480);
@@ -364,7 +365,8 @@ void cHandlingDataMgr::LoadHandlingData() {
     CFileMgr::CloseFile(file);
 }
 
-// 0x005BF3D0
+// 0x5BF3D0 (lote 185A, sin validar; el listado decia Game; thiscall, sin argumentos, `ret`, 44 bytes): carga handling.cfg (LoadHandlingData, 0x5BD830, con hook) y deja los cinco floats iniciales (+0, +4, +8, +0xC, +0x10) en
+// 0.1f (0x3DCCCCCD), 0.9f (0x3F666666), 1.0f (0x3F800000), 0.8f (0x3F4CCCCD) y 0.98f (0x3F7AE148), por ese orden y despues de la llamada. Sin x87 (constantes inmediatas).
 void cHandlingDataMgr::Initialise() {
     LoadHandlingData();
 

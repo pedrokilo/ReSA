@@ -99,6 +99,10 @@ void CObject::InjectHooks()
     RH_ScopedCategory("Entity/Object");
 
     RH_ScopedOverloadedInstall(operator new, "anon", 0x5A1EE0, void* (*)(size_t));
+    RH_ScopedOverloadedInstall(operator new, "poolRef", 0x5A1EF0, void* (*)(size_t, int32)); // lote 185A (sin validar)
+    RH_ScopedOverloadedInstall(operator delete, "anon", 0x5A1F20, void (*)(void*));          // lote 185A (sin validar)
+    RH_ScopedInstall(ConstructorDefault, 0x5A1D10);                                          // lote 185A (sin validar)
+    RH_ScopedInstall(ConstructorFromDummy, 0x5A1DF0);                                        // lote 185A (sin validar)
     RH_ScopedInstall(Constructor, 0x5A1D70);
     RH_ScopedVMTInstall(SetIsStatic, 0x5A0760);
     RH_ScopedVMTInstall(CreateRwObject, 0x59F110);
@@ -160,6 +164,15 @@ CObject::CObject() : CPhysical() {
     m_nObjectType = eObjectType::OBJECT_UNKNOWN;
 }
 
+// 0x5A1D10 (lote 185A, sin validar; thiscall, sin argumentos de pila, `ret`, 90 bytes con marco SEH que solo desenrolla y aqui se omite): constructor por defecto de CObject del EXE (CPhysical::CPhysical 0x542260, vtable 0x866F60,
+// m_pDummyObject (+0x170) = 0, Init 0x59F840 y m_nObjectType (+0x13C) = 0). Devuelve this. El hook corre el constructor de la DLL (CObject(), que escribe la vtable de la DLL) y despues deja la vtable de la clase del EXE (0x866F60), que es la que
+// dejaria el constructor del EXE (los constructores derivados del EXE la sobrescriben con la suya). Lo llaman CAutomobile::SpawnFlyingComponent, CBoat::BlowUpCar, 0x5A4030 (CProjectile), CHandObject y CCutsceneObject.
+CObject* CObject::ConstructorDefault() {
+    this->CObject::CObject();
+    *reinterpret_cast<uint32*>(this) = 0x866F60;
+    return this;
+}
+
 // 0x5A1D70
 CObject::CObject(int32 modelId, bool bCreate) : CPhysical() {
     m_pDummyObject = nullptr;
@@ -191,6 +204,14 @@ CObject::CObject(CDummyObject* dummyObj) : CPhysical() {
             m_bLightObject = true;
         }
     }
+}
+
+// 0x5A1DF0 (lote 185A, sin validar; thiscall, un argumento de pila, `ret 4`, 230 bytes con marco SEH que solo desenrolla y aqui se omite): constructor de CObject a partir de un CDummyObject del EXE; lo llama CObject::Create(dummy)
+// (0x5A2070). Cuerpo en CObject::CObject(CDummyObject*) (ver arriba); tras el constructor de la DLL deja la vtable de la clase del EXE (0x866F60). Devuelve this.
+CObject* CObject::ConstructorFromDummy(CDummyObject* dummyObj) {
+    this->CObject::CObject(dummyObj);
+    *reinterpret_cast<uint32*>(this) = 0x866F60;
+    return this;
 }
 
 // Lote 142A (banco Fn142A): 0x59F660 sin hook; funcion propia sin expansion en linea para que el cuerpo de ~CProjectile (0x5A40E0, `mov [ecx],0x867030; jmp 0x59F660`) la llame como el `jmp` del EXE y el
@@ -244,12 +265,14 @@ void* CObject::operator new(size_t size) {
     return GetObjectPool()->New();
 }
 
-// 0x5A1EF0
+// 0x5A1EF0 (lote 185A, sin validar; cdecl, dos argumentos de pila (tamano y referencia), `ret`, 36 bytes; el listado decia CObjectPool): reserva el objeto en la ranura de la referencia (CPool<CObject>::NewAt: ranura = ref >> 8
+// con signo, 0x59F610 pone el bit 0x80 del estado a cero, el contador de 7 bits a ref & 0x7F y el cursor libre a la primera ranura libre desde 0) y devuelve almacenamiento + ranura * 0x19C, sin rellenar el objeto.
 void* CObject::operator new(size_t size, int32 poolRef) {
     return GetObjectPool()->NewAt(poolRef);
 }
 
-// 0x5A1F20
+// 0x5A1F20 (lote 185A, sin validar; cdecl, un argumento de pila, `ret`, 49 bytes; el listado decia CObjectPool): libera la ranura de `obj` en el pool de objetos (0xB7449C): ranura = (obj - almacenamiento) / 0x19C (division con signo),
+// estado |= 0x80 y cursor libre = min(cursor, ranura). No comprueba nulo ni rellena el almacenamiento.
 void CObject::operator delete(void* obj) {
     GetObjectPool()->Delete(static_cast<CObject*>(obj));
 }

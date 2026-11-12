@@ -154,6 +154,11 @@ void CVisibilityPlugins::InjectHooks() {
         using PedLinkList = CLinkList<CPed*>;
         RH_ScopedNamedClass(PedLinkList, "CLinkList<CPed*>");
         RH_ScopedInstall(Shutdown, 0x732D80);
+        // 0x53E8D0 (lote 185A, sin validar; el listado decia Game; thiscall, sin argumentos, `ret`, 63 bytes): CLinkList<CPed*>::Clear (instancia de enlaces de 0xC bytes; ResetWeaponPedsForPC en linea en Game::Idle 0x53EACE,
+        // CMirrors::BeforeMainRender 0x70532C y CPostEffects::Render 0x7271ED, sobre ms_weaponPedsForPC 0xC88224). Mientras la lista usada no este vacia (siguiente de la cabeza != cola): desengancha el primer enlace
+        // (siguiente->anterior = anterior; anterior->siguiente = siguiente) y lo pone el primero de la lista libre (enlace->siguiente = libre.siguiente; libre.siguiente->anterior = enlace; enlace->anterior = &libre;
+        // libre.siguiente = enlace). Sin x87. Mismo cuerpo que la instancia de 0x733F40 con otro tamano de enlace.
+        RH_ScopedInstall(Clear, 0x53E8D0);
     }
 }
 
