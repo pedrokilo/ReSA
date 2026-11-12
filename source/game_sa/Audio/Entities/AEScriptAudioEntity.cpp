@@ -984,11 +984,28 @@ void CAEScriptAudioEntity::Service() {
     PlayResidentSoundEvent(SND_BANK_SLOT_PLAYER_ENGINE_P, SND_BANK_GENRL_CRANE_P, 0, AE_SCRIPT_CRANE_ENTER, posn, m_Physical, 0.0f, 1.0f, 0, 2.5f);
 }
 
+// 0x506BA0 (lote 172A, banco Fn172A; thiscall, sin argumentos de pila, `ret`, 128 bytes con marco SEH que solo desenrolla y aqui se omite): cuerpo del destructor del EXE que el destructor del motor de audio
+// (0x506CD0) llama con ECX = motor + 0x2A0. Como el original, con el orden exacto de escrituras y llamadas: vtable propia (0x862E58); vtable base 0x859988 de m_ExplosionAudio (+0x19C) y destructor de
+// CAESound (0x4EF660) sobre su m_tempSound (+0x1A4); lo mismo con m_GarageAudio (+0x114, m_tempSound en +0x11C) y por ultimo con la propia entidad (+8). Los destructores generados por el compilador
+// dejarian vtables propias de la DLL y limpiarian campos que el EXE no toca.
+void CAEScriptAudioEntity::DestructorBody() {
+    static_assert(offsetof(CAEScriptAudioEntity, m_GarageAudio) == 0x114 && offsetof(CAEScriptAudioEntity, m_ExplosionAudio) == 0x19C);
+    uint8* const b = reinterpret_cast<uint8*>(this);
+    *reinterpret_cast<uint32*>(b) = 0x862E58;
+    *reinterpret_cast<uint32*>(b + 0x19C) = 0x859988;
+    reinterpret_cast<CAESound*>(b + 0x1A4)->Destructor();
+    *reinterpret_cast<uint32*>(b + 0x114) = 0x859988;
+    reinterpret_cast<CAESound*>(b + 0x11C)->Destructor();
+    *reinterpret_cast<uint32*>(b) = 0x859988;
+    reinterpret_cast<CAESound*>(b + 8)->Destructor();
+}
+
 void CAEScriptAudioEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAEScriptAudioEntity, 0x862E58, 1);
     RH_ScopedCategory("Audio/Entities");
 
     RH_ScopedInstall(Constructor, 0x5074D0);
+    RH_ScopedInstall(DestructorBody, 0x506BA0); // lote 172A (banco Fn172A)
     RH_ScopedInstall(Initialise, 0x5B9B60);
     RH_ScopedInstall(Service, 0x4EC900);
     RH_ScopedInstall(Reset, 0x4EC150);

@@ -66,6 +66,9 @@ public:
     void PlayTwinLoopSound(CVector pos, float volume, float speed, float rollOffFactor, float doppler = 1.f, eSoundEnvironment flags = SOUND_DEFAULT);
 
     bool IsActive() const noexcept { return m_IsInUse; }
+
+    // 0x4F2B80 (cuerpo del destructor del EXE, enganchado como TwinLoopSoundEntityDestructorExe): lo llaman los cuerpos de destructor de CAEFrontendAudioEntity (0x506B20) y de CAEScriptAudioEntity (0x506BA0)
+    void DestructorBodyExe();
 private:
     void ReCalculateSwapTime();
 

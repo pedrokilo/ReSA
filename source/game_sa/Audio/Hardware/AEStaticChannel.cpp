@@ -23,10 +23,36 @@ END GENERATED HOOK STATUS */
 #include "AESmoothFadeThread.h"
 
 namespace {
-// 0x4F0B50 (lote 142A, banco Fn142A): cuerpo del destructor de CAEStaticChannel del EXE (marco SEH; deja la vtable de la clase, libera los buffers de DirectSound y sigue con el cuerpo de la base; sin hook:
-// el destructor de la clase es el generado por el compilador). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x4F0B50` del EXE.
+// Parte comun de los cuerpos de destructor de CAEStaticChannel (0x4F0B50, vtable 0x85F3CC) y de CAEAudioChannel (0x4D7910, vtable 0x85F03C), que en el EXE son la misma secuencia (el primero termina llamando al
+// segundo): deja la vtable dada; si el puntero del buffer de DirectSound (+8) no es nulo, decrementa el contador global de canales (0xB5F898) y lo libera (ranura 2 de su vtable); lee el buffer 3D (+0xC),
+// pone +8 a cero, lo libera y pone +0xC a cero. Todo con lecturas frescas de la memoria (las llamadas a Release pueden tocarla).
+inline void ChannelReleaseSequence(uint8* b, uint32 vtable) {
+    volatile uint32* const vt = reinterpret_cast<volatile uint32*>(b);
+    volatile uint32* const buffer = reinterpret_cast<volatile uint32*>(b + 8);
+    volatile uint32* const buffer3D = reinterpret_cast<volatile uint32*>(b + 0xC);
+    *vt = vtable;
+    if (*buffer != 0) {
+        --g_numSoundChannelsUsed;
+    }
+    if (const uint32 p = *buffer; p != 0) {
+        reinterpret_cast<IUnknown*>(uintptr_t(p))->Release();
+    }
+    const uint32 q = *buffer3D;
+    *buffer = 0;
+    if (q != 0) {
+        reinterpret_cast<IUnknown*>(uintptr_t(q))->Release();
+    }
+    *buffer3D = 0;
+}
+
+// 0x4F0B50 (lote 142A, banco Fn142A; lote 172A: con hook, banco Fn172A; thiscall, sin argumentos de pila, `ret`, 127 bytes con marco SEH que solo desenrolla y aqui se omite): cuerpo del destructor de
+// CAEStaticChannel del EXE. Como el original: la secuencia de liberacion con la vtable de la clase (0x85F3CC) y a continuacion el cuerpo del destructor de la base (0x4D7910), que repite la secuencia con la
+// vtable de CAEAudioChannel (0x85F03C). El destructor generado por el compilador dejaria vtables propias de la DLL. Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// ScalarDeletingDestructor como el `call 0x4F0B50` del EXE.
 __declspec(noinline) void __fastcall StaticChannelDestructorBody(CAEStaticChannel* self, void* /*edx*/) {
-    self->CAEStaticChannel::~CAEStaticChannel();
+    uint8* const b = reinterpret_cast<uint8*>(self);
+    ChannelReleaseSequence(b, 0x85F3CC);
+    ChannelReleaseSequence(b, 0x85F03C);
 }
 } // namespace
 
@@ -36,6 +62,8 @@ void CAEStaticChannel::InjectHooks() {
     RH_ScopedVirtualClass(CAEStaticChannel, 0x85F3CC, 9);
     RH_ScopedCategory("Audio/Hardware");
     RH_ScopedInstall(ScalarDeletingDestructor, 0x4F1020);
+    RH_ScopedNamedGlobalInstall(StaticChannelDestructorBody, "DestructorBody", 0x4F0B50); // lote 172A (banco Fn172A)
+    RH_ScopedInstall(Constructor, 0x4F0B10); // lote 172A (banco Fn172A)
 
     RH_ScopedVMTInstall(Service, 0x4F10D0);
     RH_ScopedVMTInstall(IsSoundPlaying, 0x4F0F40);
@@ -54,6 +82,15 @@ CAEStaticChannel::CAEStaticChannel(IDirectSound* pDirectSound, uint16 channelId,
     m_bNeedsSynch(false),
     m_IsHardwareMixAvailable(hardwareMixAvailable)
 {
+}
+
+// 0x4F0B10 (lote 172A, banco Fn172A; thiscall, cinco dwords de pila, `ret 0x14`, 60 bytes): constructor del EXE. Como el original: el constructor de la base (0x4D7890, cuatro argumentos: el DirectSound, el id del canal,
+// la frecuencia y los bits por muestra; escribe la vtable de CAEAudioChannel y los campos de formato PCM), +0x60 y +0x62 a cero (bytes), la vtable de la clase del EXE (0x85F3CC) y el BYTE +0x8A con el tercer argumento
+// (solo su byte bajo). El constructor de la DLL escribe la vtable de la DLL: aqui se sustituye por la del EXE. Devuelve `this`.
+CAEStaticChannel* CAEStaticChannel::Constructor(IDirectSound* pDirectSound, uint16 channelId, bool hardwareMixAvailable, uint32 samplesPerSec, uint16 bitsPerSample) {
+    this->CAEStaticChannel::CAEStaticChannel(pDirectSound, channelId, hardwareMixAvailable, samplesPerSec, bitsPerSample);
+    *reinterpret_cast<uint32*>(this) = 0x85F3CC;
+    return this;
 }
 
 // 0x4F1020 (lote 142A, banco Fn142A) : destructor con borrado de CAEStaticChannel del EXE (ranura 0 de su vtable 0x85F3CC; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx;

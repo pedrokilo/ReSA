@@ -44,6 +44,10 @@ __declspec(noinline) void __fastcall TwinLoopSoundEntityDestructorExe(CAETwinLoo
 }
 } // namespace
 
+void CAETwinLoopSoundEntity::DestructorBodyExe() {
+    TwinLoopSoundEntityDestructorExe(this, nullptr);
+}
+
 // 0x4F2AE0
 CAETwinLoopSoundEntity::CAETwinLoopSoundEntity(
     eSoundBankSlot  bankSlot,

@@ -500,25 +500,37 @@ void CCheat::HandleSpecialCheats(eCheats cheat) {
     }
 }
 
-// 0x438D60
+// 0x438D60 (lote 172A, banco Fn172A; cdecl sin argumentos, `jmp` final a una ranura virtual, 223 bytes)
+// Como el original (0x438D60..0x438E3E), con sus llamadas repetidas: la vida del peaton del jugador pasa a ser la vida maxima del jugador 0 (byte global 0xB7CEE7, no la del ped) convertida a float; sin
+// vehiculo (FindPlayerVehicle, que el EXE vuelve a llamar antes de CADA acceso) termina. Con vehiculo: vida 1000.0f; si su tipo (+0x590) no es 0 (automovil) y tampoco 9 (moto) termina; despues, segun el
+// tipo releido, temporizador de explosion de la moto (+0x7BC) o de incendio del automovil (+0x8E4) a cero y Fix (ranura 0x32 de la vtable del vehiculo, salto final del EXE).
 void CCheat::HealthCheat() {
-    // Como el original (0x438D60..0x438D83): usa la vida maxima del jugador 0 (byte global 0xB7CEE7), no la del ped
-    CPlayerPed* player = FindPlayerPed();
-    player->m_fHealth = static_cast<float>(CWorld::Players[0].m_nMaxHealth);
+    const float maxHealth = static_cast<float>(int32(StaticRef<uint8>(0xB7CEE7)));
+    *reinterpret_cast<float*>(reinterpret_cast<uint8*>(FindPlayerPed(-1)) + 0x540) = maxHealth;
 
-    CVehicle* vehicle = FindPlayerVehicle();
-    if (!vehicle) {
+    const auto Vehicle = [] { return reinterpret_cast<uint8*>(FindPlayerVehicle(-1, false)); };
+    if (!Vehicle()) {
         return;
     }
-
-    vehicle->m_fHealth = 1000.0f;
-    if (vehicle->IsBike()) {
-        vehicle->AsBike()->m_BlowUpTimer = 0.0f;
-        vehicle->AsBike()->Fix();
-    } else if (vehicle->IsAutomobile()) {
-        vehicle->AsAutomobile()->m_fBurnTimer = 0.0f;
-        vehicle->AsAutomobile()->Fix();
+    *reinterpret_cast<float*>(Vehicle() + 0x4C0) = 1000.0f;
+    if (*reinterpret_cast<int32*>(Vehicle() + 0x590) != VEHICLE_TYPE_AUTOMOBILE) {
+        if (*reinterpret_cast<int32*>(Vehicle() + 0x590) != VEHICLE_TYPE_BIKE) {
+            return;
+        }
     }
+    if (*reinterpret_cast<int32*>(Vehicle() + 0x590) == VEHICLE_TYPE_AUTOMOBILE) {
+        *reinterpret_cast<float*>(Vehicle() + 0x8E4) = 0.0f;
+        reinterpret_cast<CVehicle*>(Vehicle())->Fix();
+    } else {
+        *reinterpret_cast<float*>(Vehicle() + 0x7BC) = 0.0f;
+        reinterpret_cast<CVehicle*>(Vehicle())->Fix();
+    }
+}
+
+// 0x43A6A0 (lote 172A, banco Fn172A; cdecl, un dword de pila que limpia el llamador, `ret`, 23 bytes): verdadero para el tipo de peaton 5 (PED_TYPE_CIVFEMALE) y el 22 (PED_TYPE_PROSTITUTE). El listado
+// lo atribuia a CCheat; lo llaman 0x43BE26, 0x43BEA4, 0x43BF28 y 0x48467C.
+bool CCheat::IsFemalePedType(int32 pedType) {
+    return pedType == PED_TYPE_PROSTITUTE || pedType == PED_TYPE_CIVFEMALE;
 }
 
 // 0x439600
@@ -1270,6 +1282,8 @@ void CCheat::InjectHooks() {
     RH_ScopedInstall(IsZoneStreamingAllowed, 0x407410);
     RH_ScopedInstall(ApplyCheat, 0x438370);
     RH_ScopedInstall(VehicleCheat, 0x43A0B0);
+    RH_ScopedInstall(HealthCheat, 0x438D60); // lote 172A (banco Fn172A)
+    RH_ScopedInstall(IsFemalePedType, 0x43A6A0); // lote 172A (banco Fn172A)
 
     for (auto& cheat: cheats) {
         if (cheat.installAddress == 0x0) {

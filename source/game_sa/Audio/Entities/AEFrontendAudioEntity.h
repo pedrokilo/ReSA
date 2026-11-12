@@ -33,6 +33,7 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    void DestructorBody(); // 0x506B20 (lote 172A, banco Fn172A): cuerpo del destructor del EXE (vtable 0x862E54; el listado decia CAEWeatherAudioEntity)
 
 };
 

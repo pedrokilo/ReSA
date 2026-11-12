@@ -20,6 +20,51 @@ END GENERATED HOOK STATUS */
 
 #include "AudioZones.h"
 
+#include <intrin.h>
+
+namespace {
+// Cadena de texto del volcado de depuracion de las zonas de audio (0x5089B0..0x509600 del EXE): puntero a un bloque del CRT y longitud. Sin nombre en el EXE: el listado de pendientes atribuye estas funciones
+// a CAudioZones por cercania.
+struct TextBufferRaw {
+    char*  data;
+    uint32 length;
+};
+
+// 0x508930 (lote 172A, banco Fn172A; thiscall, dos dwords de pila, `ret 8`, 124 bytes): agrega `count` bytes de `source` al final de la cadena. Como el original: reserva length + count bytes con operator new
+// (0x82119A), los pone a cero (dwords y luego bytes sueltos: rep stosd / rep stosb), copia la cadena actual y despues `source` (rep movsd / rep movsb; se usan los intrinsecos para conservar el orden y la
+// granularidad aunque los rangos se solapen), libera el bloque anterior con operator delete (0x8214BD) y deja bloque y longitud (la longitud se relee de la cadena y suma `count`).
+__declspec(noinline) void __fastcall AudioZonesTextBufferAppend(TextBufferRaw* self, void* /*edx*/, const void* source, uint32 count) {
+    const uint32 total = self->length + count;
+    uint8* const block = static_cast<uint8*>(::operator new(total));
+    __stosd(reinterpret_cast<unsigned long*>(block), 0, total >> 2);
+    __stosb(block + (total >> 2) * 4, 0, total & 3);
+    {
+        const uint32 length = self->length;
+        __movsd(reinterpret_cast<unsigned long*>(block), reinterpret_cast<const unsigned long*>(self->data), length >> 2);
+        __movsb(block + (length >> 2) * 4, reinterpret_cast<const unsigned char*>(self->data) + (length >> 2) * 4, length & 3);
+    }
+    {
+        uint8* const tail = block + self->length;
+        __movsd(reinterpret_cast<unsigned long*>(tail), static_cast<const unsigned long*>(source), count >> 2);
+        __movsb(tail + (count >> 2) * 4, static_cast<const unsigned char*>(source) + (count >> 2) * 4, count & 3);
+    }
+    ::operator delete(self->data);
+    const uint32 length = self->length;
+    self->data = reinterpret_cast<char*>(block);
+    self->length = length + count;
+}
+
+// 0x508A10 y, copia identica, 0x509140 (lote 172A, banco Fn172A; thiscall, sin argumentos de pila, `ret`, 17 bytes cada una): vacia la cadena. Como el original: solo si el puntero no es nulo, libera el bloque
+// con operator delete (0x8214BD) y pone puntero y longitud a cero (con puntero nulo no toca la longitud).
+__declspec(noinline) void __fastcall AudioZonesTextBufferClear(TextBufferRaw* self, void* /*edx*/) {
+    if (self->data) {
+        ::operator delete(self->data);
+        self->data = nullptr;
+        self->length = 0;
+    }
+}
+} // namespace
+
 /**
  * Registra el catálogo y actualización espacial de AudioZones.
  */
@@ -32,6 +77,9 @@ void CAudioZones::InjectHooks() {
     RH_ScopedInstall(RegisterAudioBox, 0x508240);
     RH_ScopedInstall(SwitchAudioZone, 0x508320);
     RH_ScopedInstall(Update, 0x5083C0);
+    RH_ScopedNamedGlobalInstall(AudioZonesTextBufferAppend, "TextBufferAppend", 0x508930); // lote 172A (banco Fn172A)
+    RH_ScopedNamedGlobalInstall(AudioZonesTextBufferClear, "TextBufferClear", 0x508A10);   // lote 172A (banco Fn172A)
+    RH_ScopedNamedGlobalInstall(AudioZonesTextBufferClear, "TextBufferClear-2", 0x509140); // lote 172A (banco Fn172A): copia identica
 }
 
 // 0x5081A0

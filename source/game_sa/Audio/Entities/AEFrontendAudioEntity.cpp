@@ -247,10 +247,23 @@ void CAEFrontendAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos)
     }
 }
 
+// 0x506B20 (lote 172A, banco Fn172A; thiscall, sin argumentos de pila, `ret`, 108 bytes con marco SEH que solo desenrolla y aqui se omite): cuerpo del destructor del EXE que el destructor del motor
+// de audio (0x506CD0) llama con ECX = motor + 0xB4. Como el original, con el orden exacto de escrituras y llamadas: vtable propia (0x862E54); cuerpo del destructor de m_objRetunePaused (+0x144) y de
+// m_objRetune (+0x9C) (0x4F2B80, con hook); vtable base 0x859988 y destructor de CAESound (0x4EF660) sobre m_tempSound (+8). El destructor generado por el compilador dejaria vtables propias de la DLL.
+void CAEFrontendAudioEntity::DestructorBody() {
+    static_assert(offsetof(CAEFrontendAudioEntity, m_objRetunePaused) == 0x144 && offsetof(CAEFrontendAudioEntity, m_objRetune) == 0x9C);
+    *reinterpret_cast<uint32*>(this) = 0x862E54;
+    m_objRetunePaused.DestructorBodyExe();
+    m_objRetune.DestructorBodyExe();
+    *reinterpret_cast<uint32*>(this) = 0x859988;
+    reinterpret_cast<CAESound*>(reinterpret_cast<uint8*>(this) + 8)->Destructor();
+}
+
 void CAEFrontendAudioEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAEFrontendAudioEntity, 0x862E54, 1);
     RH_ScopedCategory("Audio/Entities");
 
+    RH_ScopedInstall(DestructorBody, 0x506B20); // lote 172A (banco Fn172A)
     RH_ScopedInstall(Initialise, 0x5B9AB0);
     RH_ScopedInstall(Reset, 0x4DD440);
     RH_ScopedInstall(AddAudioEvent, 0x4DD4A0);

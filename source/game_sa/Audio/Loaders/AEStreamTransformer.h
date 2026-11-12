@@ -11,6 +11,7 @@
 class CAEStreamTransformer {
 public:
     void Initialise();
+    CAEStreamTransformer* Constructor(); // 0x4DC190 (lote 172A, banco Fn172A): `push esi; mov esi,ecx; call 0x4F1750; mov eax,esi; pop esi; ret` (el listado lo atribuia a CAECutsceneTrackManager; nadie lo llama por direccion en el EXE)
     void TransformBuffer(void* buffer, size_t size, uint32 position);
 
 private:

@@ -26,9 +26,15 @@ auto& AEStreamTransformer = StaticRef<CAEStreamTransformer>(0xb612d8);
 
 // 0x4f1750
 // Carga la clave fija de 16 bytes utilizada por los streams cifrados del juego.
-void CAEStreamTransformer::Initialise() {
+__declspec(noinline) void CAEStreamTransformer::Initialise() { // sin expansion en linea: el banco sustituye su cuerpo (lote 172A)
     static uint8 t[] = {0xEA, 0x3A, 0xC4, 0xA1, 0x9A, 0xA8, 0x14, 0xF3, 0x48, 0xB0, 0xD7, 0x23, 0x9D, 0xE8, 0xFF, 0xF1};
     memcpy(table, t, sizeof(t));
+}
+
+// 0x4DC190 (lote 172A, banco Fn172A; thiscall, sin argumentos de pila, `ret`, 12 bytes): el constructor del EXE solo llama a Initialise (0x4F1750) y devuelve `this`.
+CAEStreamTransformer* CAEStreamTransformer::Constructor() {
+    Initialise();
+    return this;
 }
 
 // 0x4f17d0
@@ -48,5 +54,6 @@ void CAEStreamTransformer::InjectHooks() {
     RH_ScopedCategory("Audio/Loaders");
 
     RH_ScopedInstall(Initialise, 0x4f1750);
+    RH_ScopedInstall(Constructor, 0x4DC190); // lote 172A (banco Fn172A)
     RH_ScopedInstall(TransformBuffer, 0x4f17d0);
 }

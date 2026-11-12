@@ -53,6 +53,7 @@ public:
     static void GangsCheat();
     static void HandleSpecialCheats(eCheats cheat);
     static void HealthCheat();
+    static bool IsFemalePedType(int32 pedType); // 0x43A6A0 (lote 172A, banco Fn172A)
     static void JetpackCheat();
     static void LoveConquersAllCheat();
     static void MayhemCheat();

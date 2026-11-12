@@ -77,6 +77,7 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    void DestructorBody(); // 0x506BA0 (lote 172A, banco Fn172A): cuerpo del destructor del EXE (vtable 0x862E58; el listado decia CAEWeatherAudioEntity)
 
     CAEScriptAudioEntity* Constructor();
 };

@@ -49,6 +49,19 @@ void CAESoundManager::InjectHooks() {
     RH_ScopedInstall(CancelSoundsOwnedByAudioEntity, 0x4EFCD0);
     RH_ScopedInstall(CancelSoundsOfThisEventPlayingForThisEntity, 0x4EFB90);
     RH_ScopedInstall(CancelSoundsOfThisEventPlayingForThisEntityAndPhysical, 0x4EFBF0);
+    RH_ScopedInstall(Constructor, 0x4EFD30); // lote 172A (banco Fn172A)
+}
+
+// 0x4EFD30 (lote 172A, banco Fn172A; thiscall, sin argumentos de pila, `ret`, 33 bytes con marco de vector constructor del CRT 0x821D30): construye las 300 voces de +4 (0x74 bytes cada una) con el constructor
+// por defecto de CAESound del EXE (0x446FE0: `mov eax,ecx; mov [eax+8],0; ret`), en orden ascendente, y devuelve `this`. El constructor por defecto de la DLL pondria a cero todos los miembros; el del EXE solo
+// escribe el dword +8 de cada voz (el resto del objeto queda sin inicializar), por eso se escribe a mano. El desenrollado por excepcion del vector constructor del EXE (destructor 0x4EF660) no tiene efecto aqui.
+CAESoundManager* CAESoundManager::Constructor() {
+    static_assert(sizeof(CAESound) == 0x74 && MAX_NUM_SOUNDS == 300);
+    uint8* const voices = reinterpret_cast<uint8*>(this) + 4;
+    for (int32 i = 0; i < MAX_NUM_SOUNDS; ++i) {
+        *reinterpret_cast<uint32*>(voices + size_t(i) * sizeof(CAESound) + 8) = 0;
+    }
+    return this;
 }
 
 // 0x5B9690

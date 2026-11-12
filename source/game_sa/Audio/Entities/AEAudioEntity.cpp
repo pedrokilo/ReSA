@@ -41,6 +41,8 @@ void CAEAudioEntity::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x5DE9E0);
     RH_ScopedNamedInstall(Destructor, "Destructor-2", 0x4A9F60); // lote 148A (banco Fn148A): copia byte a byte del cuerpo de 0x5DE9E0
     RH_ScopedNamedInstall(Destructor, "Destructor-3", 0x506CC0); // lote 154A (banco Fn154A): copia del cuerpo de 0x5DE9E0 (`mov [ecx],0x859988; add ecx,8; jmp 0x4EF660`; vtable de CAEAudioEntity y destruccion de m_tempSound); la alcanza el funclet de 0x83C5EA
+    RH_ScopedNamedInstall(Destructor, "Destructor-4", 0x506C30); // lote 172A (banco Fn172A): copia del cuerpo de 0x5DE9E0 (`mov [ecx],0x859988; add ecx,8; jmp 0x4EF660`); la alcanza el funclet de 0x83C5E5
+    RH_ScopedNamedInstall(Destructor, "Destructor-5", 0x506C40); // lote 172A (banco Fn172A): copia del cuerpo de 0x5DE9E0; la alcanzan los funclets de 0x83C5A3 y 0x83C613
     RH_ScopedVMTInstall(UpdateParameters, 0x4D7E30);
 
     // StaticInitialise y Shutdown están inlineadas en el original (NOTSA) y

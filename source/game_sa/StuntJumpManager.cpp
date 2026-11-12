@@ -23,19 +23,6 @@ END GENERATED HOOK STATUS */
 
 static constexpr uint16 STUNT_JUMP_COUNT = 256;
 
-void CStuntJumpManager::InjectHooks() {
-    RH_ScopedClass(CStuntJumpManager);
-    RH_ScopedCategoryGlobal();
-
-    RH_ScopedInstall(Init, 0x49CA50);
-    RH_ScopedInstall(Shutdown, 0x49CBC0);
-    RH_ScopedInstall(ShutdownForRestart, 0x49CB10);
-    RH_ScopedInstall(Save, 0x5D5570);
-    RH_ScopedInstall(Load, 0x5D5920);
-    RH_ScopedInstall(AddOne, 0x49CB40);
-    RH_ScopedInstall(Update, 0x49C490);
-}
-
 namespace {
 // Como el original: el EXE manipula el pool de saltos con su propia instancia de CPool<CStuntJump>
 // (ctor 0x49C8F0, Flush inline, Clear 0x49C9A0, New 0x49C9E0, GetAt 0x49C3B0), sin rellenos de depuración.
@@ -53,26 +40,93 @@ StuntJumpPoolRaw* RawPool() {
     return reinterpret_cast<StuntJumpPoolRaw*>(CStuntJumpManager::mp_poolStuntJumps);
 }
 
-// 0x49C9E0
-CStuntJump* StuntJumpPoolNew(StuntJumpPoolRaw* pool) {
+// 0x49C8F0 (lote 172A, banco Fn172A; thiscall, dos dwords de pila, `ret 8`, 91 bytes): constructor del pool de saltos (la instancia de CPool<CStuntJump> del EXE; el segundo argumento no se usa). Como el original:
+// operator new[] (0x821195) de count * 0x44 bytes (producto de 32 bits) para los objetos y de count bytes para los estados, el BYTE +0x10 a 1, +8 = count, +0xC = -1 y, si count > 0, cada estado con el bit
+// 0x80 puesto y despues solo ese bit (relee el puntero de estados en cada paso). Devuelve el pool.
+__declspec(noinline) StuntJumpPoolRaw* __fastcall StuntJumpPoolConstructor(StuntJumpPoolRaw* pool, void* /*edx*/, int32 count, uint32 /*unused*/) {
+    pool->storage = static_cast<CStuntJump*>(::operator new[](size_t(uint32(count) * 0x44u)));
+    pool->states = static_cast<uint8*>(::operator new[](size_t(uint32(count))));
+    pool->owns = true;
+    pool->size = count;
+    pool->lastFree = -1;
+    for (int32 i = 0; i < count; ++i) {
+        volatile uint8* state = pool->states;
+        state[i] |= 0x80;
+        state = pool->states;
+        state[i] &= 0x80;
+    }
+    return pool;
+}
+
+// 0x49C950 (lote 172A, banco Fn172A; thiscall, sin argumentos de pila, `ret`, 54 bytes): vacia el pool. Como el original: con size > 0, si el BYTE +0x10 no es cero libera los objetos y los estados con
+// operator delete[] (0x8213AE; el puntero de estados se relee tras la primera liberacion) y pone puntero de objetos, de estados, tamano y ultimo libre a cero.
+__declspec(noinline) void __fastcall StuntJumpPoolFlush(StuntJumpPoolRaw* pool, void* /*edx*/) {
+    if (pool->size > 0) {
+        if (pool->owns) {
+            ::operator delete[](pool->storage);
+            ::operator delete[](pool->states);
+        }
+        pool->storage = nullptr;
+        pool->states = nullptr;
+        pool->size = 0;
+        pool->lastFree = 0;
+    }
+}
+
+// 0x49C9A0 (lote 172A, banco Fn172A; thiscall, sin argumentos de pila, `ret`, 48 bytes): marca todos los slots como libres y a cero su contador. Como el original: el tamano se lee antes del bucle y se relee en
+// cada vuelta (igual que el puntero de estados, antes de cada escritura), asi que un puntero de estados que apunte al propio pool se comporta como en el EXE.
+__declspec(noinline) void __fastcall StuntJumpPoolClear(StuntJumpPoolRaw* pool, void* /*edx*/) {
+    int32 size = pool->size;
+    if (size <= 0) {
+        return;
+    }
+    for (int32 i = 0;;) {
+        volatile uint8* state = pool->states;
+        state[i] |= 0x80;
+        state = pool->states;
+        state[i] &= 0x80;
+        size = pool->size;
+        ++i;
+        if (i >= size) {
+            break;
+        }
+    }
+}
+
+// 0x49C9E0 (lote 172A, banco Fn172A; thiscall, sin argumentos de pila, `ret`, 103 bytes): reserva el siguiente slot libre. Como el original: el tamano se lee una sola vez; en cada paso lastFree se
+// incrementa y se guarda (al llegar al tamano pasa a 0 y, si ya habia dado la vuelta, devuelve nulo); un estado con el bit 0x80 puesto es libre: se le quita el bit y se le suma uno a su contador de 7 bits
+// (el bit 7 queda a cero) y se devuelve storage + lastFree * 0x44 (producto de 32 bits, con lecturas frescas del pool).
+__declspec(noinline) CStuntJump* __fastcall StuntJumpPoolNew(StuntJumpPoolRaw* pool, void* /*edx*/) {
+    const int32 size = pool->size;
     bool wrapped = false;
     for (;;) {
-        pool->lastFree++;
-        if (pool->lastFree == pool->size) {
+        const int32 next = pool->lastFree + 1;
+        pool->lastFree = next;
+        if (next == size) {
             pool->lastFree = 0;
             if (wrapped) {
                 return nullptr;
             }
             wrapped = true;
         }
-        if (pool->states[pool->lastFree] & 0x80) {
+        volatile uint8* state = pool->states;
+        if (state[pool->lastFree] & 0x80) {
             break;
         }
     }
-    auto& state = pool->states[pool->lastFree];
-    state &= 0x7F;
-    state = (uint8)((state & 0x80) | ((state + 1) & 0x7F));
-    return &pool->storage[pool->lastFree];
+    {
+        volatile uint8* state = pool->states;
+        const int32 index = pool->lastFree;
+        state[index] = uint8(state[index] & 0x7F);
+    }
+    {
+        const int32 index = pool->lastFree;
+        volatile uint8* state = pool->states;
+        const uint8 current = state[index];
+        const uint8 incremented = uint8(state[index] + 1);
+        state[index] = uint8(current ^ ((incremented ^ current) & 0x7F));
+    }
+    return reinterpret_cast<CStuntJump*>(uintptr_t(uint32(pool->lastFree) * 0x44u) + uintptr_t(pool->storage));
 }
 
 // Como el original: tiempo de paso en ms = ftol(ms_fTimeStep * 0.02f * 1000.0f)
@@ -87,6 +141,23 @@ void SetJumpState(eJumpState state) {
 }
 } // namespace
 
+void CStuntJumpManager::InjectHooks() {
+    RH_ScopedClass(CStuntJumpManager);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(Init, 0x49CA50);
+    RH_ScopedInstall(Shutdown, 0x49CBC0);
+    RH_ScopedInstall(ShutdownForRestart, 0x49CB10);
+    RH_ScopedInstall(Save, 0x5D5570);
+    RH_ScopedInstall(Load, 0x5D5920);
+    RH_ScopedInstall(AddOne, 0x49CB40);
+    RH_ScopedInstall(Update, 0x49C490);
+    RH_ScopedNamedGlobalInstall(StuntJumpPoolConstructor, "PoolConstructor", 0x49C8F0); // lote 172A (banco Fn172A)
+    RH_ScopedNamedGlobalInstall(StuntJumpPoolFlush, "PoolFlush", 0x49C950);             // lote 172A (banco Fn172A)
+    RH_ScopedNamedGlobalInstall(StuntJumpPoolClear, "PoolClear", 0x49C9A0);             // lote 172A (banco Fn172A)
+    RH_ScopedNamedGlobalInstall(StuntJumpPoolNew, "PoolNew", 0x49C9E0);                 // lote 172A (banco Fn172A)
+}
+
 // 0x49CA50
 void CStuntJumpManager::Init() {
     ZoneScoped;
@@ -94,15 +165,7 @@ void CStuntJumpManager::Init() {
     // Como el original: operator new(0x14) + ctor del pool 0x49C8F0 (sin rellenar el almacenamiento ni tocar el byte +0x11)
     auto* pool = static_cast<StuntJumpPoolRaw*>(::operator new(sizeof(StuntJumpPoolRaw)));
     if (pool) {
-        pool->storage  = static_cast<CStuntJump*>(::operator new[](STUNT_JUMP_COUNT * sizeof(CStuntJump)));
-        pool->states   = static_cast<uint8*>(::operator new[](STUNT_JUMP_COUNT));
-        pool->owns     = true;
-        pool->size     = STUNT_JUMP_COUNT;
-        pool->lastFree = -1;
-        for (auto i = 0; i < STUNT_JUMP_COUNT; i++) {
-            pool->states[i] |= 0x80;
-            pool->states[i] &= 0x80;
-        }
+        StuntJumpPoolConstructor(pool, nullptr, STUNT_JUMP_COUNT, 0);
     }
     mp_poolStuntJumps = reinterpret_cast<CStuntJumpsPool*>(pool);
     m_bActive         = true;
@@ -110,18 +173,9 @@ void CStuntJumpManager::Init() {
 
 // 0x49CBC0
 void CStuntJumpManager::Shutdown() {
-    // Como el original: Flush inline del pool y operator delete del propio pool
+    // Como el original: Flush inline del pool (0x49C950) y operator delete del propio pool
     if (auto* pool = RawPool()) {
-        if (pool->size > 0) {
-            if (pool->owns) {
-                ::operator delete[](pool->storage);
-                ::operator delete[](pool->states);
-            }
-            pool->storage  = nullptr;
-            pool->states   = nullptr;
-            pool->size     = 0;
-            pool->lastFree = 0;
-        }
+        StuntJumpPoolFlush(pool, nullptr);
         ::operator delete(pool);
     }
     mp_poolStuntJumps = nullptr;
@@ -130,11 +184,7 @@ void CStuntJumpManager::Shutdown() {
 // 0x49CB10
 void CStuntJumpManager::ShutdownForRestart() {
     // Como el original: Clear 0x49C9A0 marca todos los slots libres y pone a cero su contador de referencia
-    auto* pool = RawPool();
-    for (auto i = 0; i < pool->size; i++) {
-        pool->states[i] |= 0x80;
-        pool->states[i] &= 0x80;
-    }
+    StuntJumpPoolClear(RawPool(), nullptr);
     mp_Active       = nullptr;
     m_bHitReward    = false;
     m_iTimer        = 0;
@@ -160,7 +210,7 @@ bool CStuntJumpManager::Load() {
     int32 numJumps;
     CGenericGameStorage::LoadDataFromWorkBuffer(&numJumps, sizeof(int32));
     for (auto i = 0; i < numJumps; i++) {
-        CGenericGameStorage::LoadDataFromWorkBuffer(StuntJumpPoolNew(RawPool()), sizeof(CStuntJump));
+        CGenericGameStorage::LoadDataFromWorkBuffer(StuntJumpPoolNew(RawPool(), nullptr), sizeof(CStuntJump));
     }
     m_iNumJumps = numJumps;
     return true;
@@ -171,7 +221,7 @@ int32 CStuntJumpManager::AddOne(const CBoundingBox& start, const CBoundingBox& e
     if (!RawPool()) {
         return -1;
     }
-    auto* const jump = StuntJumpPoolNew(RawPool());
+    auto* const jump = StuntJumpPoolNew(RawPool(), nullptr);
     if (!jump) {
         return -1;
     }

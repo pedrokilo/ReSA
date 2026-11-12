@@ -43,7 +43,8 @@ public:
 public:
     static void InjectHooks();
 
-    CAESoundManager() = default;  // 0x4EFD30
+    CAESoundManager() = default;
+    CAESoundManager* Constructor(); // 0x4EFD30 (lote 172A, banco Fn172A): constructor del EXE (bucle de CAESound por defecto sobre las 300 voces)
     ~CAESoundManager() = default; // 0x4EFD60
 
     bool      Initialise();

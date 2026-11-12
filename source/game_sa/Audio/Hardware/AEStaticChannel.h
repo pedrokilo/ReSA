@@ -25,6 +25,7 @@ public:
 
 public:
     CAEStaticChannel(IDirectSound* pDirectSound, uint16 channelId, bool arg3, uint32 samplesPerSec, uint16 bitsPerSample);
+    CAEStaticChannel* Constructor(IDirectSound* pDirectSound, uint16 channelId, bool hardwareMixAvailable, uint32 samplesPerSec, uint16 bitsPerSample); // 0x4F0B10 (lote 172A, banco Fn172A)
 
     void   Service() override;
     bool   IsSoundPlaying() override;

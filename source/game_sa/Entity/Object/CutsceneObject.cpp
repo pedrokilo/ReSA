@@ -25,6 +25,9 @@ END GENERATED HOOK STATUS */
 #include "CarFXRenderer.h"
 #include "CustomBuildingDNPipeline.h"
 
+namespace CObjectBody { void __fastcall Destructor(CObject* self, void* edx); } // 0x59F660, Object.cpp (sin hook)
+namespace { void __fastcall CutsceneObjectDestructorBody(CCutsceneObject* self, void* edx); } // 0x5B1A80, mas abajo
+
 void CCutsceneObject::InjectHooks() {
     RH_ScopedVirtualClass(CCutsceneObject, 0x868A60, 23);
     RH_ScopedCategory("Entity/Object");
@@ -36,6 +39,35 @@ void CCutsceneObject::InjectHooks() {
     RH_ScopedVMTInstall(ProcessControl, 0x5B1B90);
     RH_ScopedVMTInstall(PreRender, 0x5B1E00);
     RH_ScopedInstall(SetupCarPipeAtomicsForClump, 0x5B1AB0);
+    RH_ScopedInstall(Constructor, 0x5B19D0); // lote 172A (banco Fn172A)
+    RH_ScopedNamedGlobalInstall(CutsceneObjectDestructorBody, "DestructorBody", 0x5B1A80); // lote 172A (banco Fn172A)
+    RH_ScopedInstall(SetupCarPipeAtomicCB, 0x5B1A90); // lote 172A (banco Fn172A)
+}
+
+// 0x5B19D0 (lote 172A, banco Fn172A; thiscall, sin argumentos de pila, `ret`, 175 bytes con marco SEH que solo desenrolla y aqui se omite): constructor del EXE. Como el original, con el orden exacto de
+// escrituras (todas crudas: los campos que el constructor de la base deja se modifican con AND/OR sobre lo que hay): constructor por defecto de CObject del EXE (0x5A1D10, sin hook: el de la DLL escribe vtables
+// propias), vtable de la clase del EXE (0x868A60), los seis dwords de +0x184..+0x198 a cero, el BYTE +0x36 = (byte & 7) | 0x10, el dword +0x1C = (dword & ~1) | 0x10000400 (se lee ANTES de la llamada y se escribe
+// despues de +0x13C = 4, +0x17C y +0x180 = 0), SetIsStatic(false) (0x5A0760, con hook; se invoca como llamada directa a la clase CObject), +0x1C con el bit 0x08000000 a cero (relectura tras la llamada) y
+// +0x12C = 0.5f. Devuelve `this`.
+CCutsceneObject* CCutsceneObject::Constructor() {
+    uint8* const b = reinterpret_cast<uint8*>(this);
+    plugin::CallMethod<0x5A1D10, CObject*>(static_cast<CObject*>(this));
+    *reinterpret_cast<uint32*>(b) = 0x868A60;
+    for (const size_t off : { size_t(0x184), size_t(0x188), size_t(0x18C), size_t(0x190), size_t(0x194), size_t(0x198) }) {
+        *reinterpret_cast<uint32*>(b + off) = 0;
+    }
+    const uint8  byte36 = b[0x36];
+    uint32       flags = *reinterpret_cast<uint32*>(b + 0x1C);
+    b[0x36] = uint8((byte36 & 7) | 0x10);
+    flags = (flags & ~1u) | 0x10000400u;
+    b[0x13C] = 4;
+    *reinterpret_cast<uint32*>(b + 0x17C) = 0;
+    *reinterpret_cast<uint32*>(b + 0x180) = 0;
+    *reinterpret_cast<uint32*>(b + 0x1C) = flags;
+    this->CObject::SetIsStatic(false);
+    *reinterpret_cast<volatile uint32*>(b + 0x1C) = *reinterpret_cast<volatile uint32*>(b + 0x1C) & 0xF7FFFFFFu;
+    *reinterpret_cast<uint32*>(b + 0x12C) = 0x3F000000u;
+    return this;
 }
 
 // 0x5B19D0
@@ -215,10 +247,12 @@ RpAtomic* CCutsceneObject::SetupCarPipeAtomicCB(RpAtomic* atomic, void* data) {
 }
 
 namespace {
-// 0x5B1A80 (lote 125A, banco Fn125A): cuerpo del destructor de CCutsceneObject del EXE (vtable 0x868A60 y salto al destructor de la base; sin hook propio: el destructor de la clase es el generado por el compilador).
+// 0x5B1A80 (lote 125A, banco Fn125A; lote 172A: con hook, banco Fn172A; thiscall, sin argumentos de pila, `jmp`, 11 bytes): cuerpo del destructor de CCutsceneObject del EXE. Como el original: vtable de la clase
+// (0x868A60) y salto al cuerpo del destructor de CObject (0x59F660; aqui su funcion propia sin hook CObjectBody::Destructor). El destructor generado por el compilador dejaria la vtable de la DLL.
 // Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x5B1A80` del EXE.
 __declspec(noinline) void __fastcall CutsceneObjectDestructorBody(CCutsceneObject* self, void* /*edx*/) {
-    self->CCutsceneObject::~CCutsceneObject();
+    *reinterpret_cast<uint32*>(self) = 0x868A60;
+    CObjectBody::Destructor(static_cast<CObject*>(self), nullptr);
 }
 } // namespace
 

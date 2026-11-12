@@ -28,6 +28,7 @@ public:
     static void InjectHooks();
 
     CCutsceneObject();
+    CCutsceneObject* Constructor(); // 0x5B19D0 (lote 172A, banco Fn172A): forma del EXE del constructor (vtable del EXE; escrituras crudas)
 
     void SetModelIndex(uint32 index) override;
     void ProcessControl() override;

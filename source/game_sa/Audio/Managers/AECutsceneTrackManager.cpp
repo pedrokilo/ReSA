@@ -39,6 +39,9 @@ void CAECutsceneTrackManager::InjectHooks() {
     RH_ScopedInstall(PauseTrack, 0x4DBF00);
     RH_ScopedInstall(PreloadBeatTrack, 0x4DC130);
     RH_ScopedInstall(Service, 0x4DBFB0);
+    RH_ScopedInstall(StartTrackPlayback, 0x4DBF10); // lote 172A (banco Fn172A)
+    RH_ScopedInstall(CheckForPause, 0x4DBF60);      // lote 172A (banco Fn172A)
+    RH_ScopedInstall(PreloadCutsceneTrack, 0x4DC0E0); // lote 172A (banco Fn172A)
 }
 
 // 0x5B9630
@@ -160,16 +163,19 @@ void CAECutsceneTrackManager::Service(int32 trackPlayTime) {
     }
 }
 
-// 0x4DBF10
+// 0x4DBF10 (lote 172A, banco Fn172A; thiscall, sin argumentos de pila, `ret`, 71 bytes con salto final a 0x4D8F30)
 // Configura canal/fader para el track ya preparado y ordena al hardware iniciar reproducción.
+// Como el original: el canal se lee como WORD y se empuja EXTENDIDO A CERO (xor eax,eax; mov ax,[this+4]) en SetChannelFlags (0x4D9500) y SetChannelVolume (0x4D8870); la envoltura de la DLL
+// (int16) lo empujaria extendido con signo, por eso estas dos llamadas llevan el dword exacto por la direccion del EXE (el cuerpo con hook recorta a int16). El salto final del EXE es la llamada de StartTrackPlayback.
 void CAECutsceneTrackManager::StartTrackPlayback() const {
     AEAudioHardware.DisableBassEq();
-    AEAudioHardware.SetChannelFlags(m_nAudioChannel, 0, 39);
-    AEAudioHardware.SetChannelVolume(m_nAudioChannel, 0, -3.0f, 0);
+    const uint32 channel = *reinterpret_cast<const uint16*>(reinterpret_cast<const uint8*>(this) + 4);
+    plugin::CallMethod<0x4D9500, CAEAudioHardware*, uint32, uint32, uint32>(&AEAudioHardware, channel, 0, 39);
+    plugin::CallMethod<0x4D8870, CAEAudioHardware*, uint32, uint32, float, uint32>(&AEAudioHardware, channel, 0, -3.0f, 0);
     AEAudioHardware.StartTrackPlayback();
 }
 
-// 0x4DC0E0
+// 0x4DC0E0 (lote 172A, banco Fn172A; thiscall, dos dwords de pila, `ret 8`: el track se usa como WORD con signo y la espera como BYTE)
 /**
  * Publica un nuevo track y opcionalmente bloquea sirviendo hardware hasta llegar
  * al estado preparado S2.
@@ -193,11 +199,11 @@ void CAECutsceneTrackManager::PreloadBeatTrack(int16 trackId, bool wait) {
     PreloadCutsceneTrack(gBeatTrackLookup[trackId], wait);
 }
 
-// 0x4DBF60
+// 0x4DBF60 (lote 172A, banco Fn172A; thiscall, sin argumentos de pila, `ret`)
 void CAECutsceneTrackManager::CheckForPause() const {
-    if (CTimer::GetIsPaused() || m_bPaused) {
-        AEAudioHardware.SetChannelFrequencyScalingFactor(m_nAudioChannel, 0, 0.0f);
-    } else {
-        AEAudioHardware.SetChannelFrequencyScalingFactor(m_nAudioChannel, 0, 1.0f);
-    }
+    // Como el original: el canal se lee como WORD y se empuja EXTENDIDO CON SIGNO (movsx) y la frecuencia como float (1.0f o 0.0f); la envoltura de la DLL empujaria el canal extendido a cero, por eso la
+    // llamada lleva el dword exacto por la direccion del EXE (el cuerpo con hook recorta a int16).
+    const int32 channel = int16(*reinterpret_cast<const uint16*>(reinterpret_cast<const uint8*>(this) + 4));
+    const float factor = (CTimer::GetIsPaused() || m_bPaused) ? 0.0f : 1.0f;
+    plugin::CallMethod<0x4D8960, CAEAudioHardware*, int32, uint32, float>(&AEAudioHardware, channel, 0, factor);
 }
