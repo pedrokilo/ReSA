@@ -16,20 +16,20 @@ La [hoja de ruta de ReSA](docs/ProjectRoadmap.md) define el objetivo **ReSA — 
 ## Estado actual
 
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 891 grupos / 10291 funciones reconstruidas; 10291 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 892 grupos / 10295 funciones reconstruidas; 10295 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 ### Objetivo actual: reemplazar solo las funciones del juego
 
 <!-- RESA-OBJETIVO-JUEGO:BEGIN -->
-El EXE original tiene **17.764 funciones detectadas (17.761 tras las exclusiones)** (3,72 MB de código), pero **el objetivo del proyecto es reemplazar por C++ únicamente las 11.800 funciones del juego** (región 0x401000–0x74FFFF, 3,01 MB). Las otras dos regiones son bibliotecas enlazadas dentro del EXE y quedan fuera de la meta. Además se excluyen del objetivo cuatro entradas del mapa: dos funciones no viables en C++ puro (0x746800, `__usercall` anti-manipulación de VideoPlayer, y 0x709CF0, `ShadowRenderTriangleCB`, que recibe los argumentos en registros) más dos artefactos del mapa: 0x4C4923, un fragmento de 0x4C4910, y 0x6F55C0, un `jmp` puro a `CVehicle::Render`; ver [excluidas](docs/JuegoExe/excluidas.csv)).
+El EXE original tiene **17.764 funciones detectadas (17.760 tras las exclusiones)** (3,72 MB de código), pero **el objetivo del proyecto es reemplazar por C++ únicamente las 11.799 funciones del juego** (región 0x401000–0x74FFFF, 3,01 MB). Las otras dos regiones son bibliotecas enlazadas dentro del EXE y quedan fuera de la meta. Además se excluyen del objetivo cinco entradas del mapa: dos funciones no viables en C++ puro (0x746800, `__usercall` anti-manipulación de VideoPlayer, y 0x709CF0, `ShadowRenderTriangleCB`, que recibe los argumentos en registros) más dos artefactos del mapa: 0x4C4923, un fragmento de 0x4C4910, 0x6F55C0 y 0x4AFB40, dos `jmp` puros a otra función; ver [excluidas](docs/JuegoExe/excluidas.csv)).
 
 | Región del EXE | Funciones | Bytes de código | ¿Entra en el objetivo? | Reemplazadas hoy |
 | --- | ---: | ---: | --- | --- |
-| **Juego y plataforma** (0x401000–0x74FFFF) | 11.800 | 3.006.877 (81%) | **Sí: es el trabajo propio del proyecto** | 10.183 · 86,3% de funciones · 92,4% de bytes |
+| **Juego y plataforma** (0x401000–0x74FFFF) | 11.799 | 3.006.872 (81%) | **Sí: es el trabajo propio del proyecto** | 10.187 · 86,3% de funciones · 92,4% de bytes |
 | RenderWare y D3D (0x750000–0x81FFFF) | 1.889 | 600.971 | No: biblioteca enlazada | 61 · 3,2% |
 | CRT/MSVC y runtime (0x820000 en adelante) | 4.072 | 115.711 | No: biblioteca enlazada | 9 · 0,2% |
-| **Total del EXE** | **17.761** | **3.723.559** | | 10.253 · 57,7% de funciones · 74,6% de bytes |
+| **Total del EXE** | **17.760** | **3.723.554** | | 10.257 · 57,8% de funciones · 74,7% de bytes |
 
 **Por qué solo las funciones del juego:**
 
@@ -39,7 +39,7 @@ El EXE original tiene **17.764 funciones detectadas (17.761 tras las exclusiones
 - **Medir contra el EXE completo daría un avance engañoso.** Contar bibliotecas haría parecer lejano un trabajo que en el código del juego ya va al 92% de los bytes; el porcentaje correcto es el de la región del juego.
 - **Los recursos del juego y las bibliotecas externas son dependencias separadas:** este hito no promete eliminarlas ([hoja de ruta](docs/ProjectRoadmap.md)).
 
-Lo que falta dentro del objetivo: **1.617 funciones del juego (13,7% de las funciones, 224 KB, 7,6% de los bytes)**, según el mapa [JuegoExe](docs/JuegoExe/README.md) y la [lista por clase](docs/JuegoExe/pendientes-por-clase.md). Origen de las cifras: [cobertura real del EXE](docs/ReversedClasses.md#cobertura-exe).
+Lo que falta dentro del objetivo: **1.612 funciones del juego (13,7% de las funciones, 223 KB, 7,6% de los bytes)**, según el mapa [JuegoExe](docs/JuegoExe/README.md) y la [lista por clase](docs/JuegoExe/pendientes-por-clase.md). Origen de las cifras: [cobertura real del EXE](docs/ReversedClasses.md#cobertura-exe).
 <!-- RESA-OBJETIVO-JUEGO:END -->
 
 ### Dónde estamos hoy (10/11/2026)
@@ -47,14 +47,14 @@ Lo que falta dentro del objetivo: **1.617 funciones del juego (13,7% de las func
 <!-- RESA-ESTADO-NOV:BEGIN -->
 **Lo que ya tenemos**
 
-- **10.291 funciones del juego reconstruidas en C++, enganchadas y validadas** (8.340 hooks de tipo S sobre la dirección del EXE y 1.951 de tipo V sobre ranuras de vtable): 0 locks, 0 pendientes de validación dentro del catálogo y registro de validaciones coherente (10.291 entradas documentadas, 0 con evidencia rota). La auditoría estricta del catálogo de hooks pasa.
+- **10.295 funciones del juego reconstruidas en C++, enganchadas y validadas** (8.344 hooks de tipo S sobre la dirección del EXE y 1.951 de tipo V sobre ranuras de vtable): 0 locks, 0 pendientes de validación dentro del catálogo y registro de validaciones coherente (10.295 entradas documentadas, 0 con evidencia rota). La auditoría estricta del catálogo de hooks pasa.
 - **0 apariciones de `__asm` y 0 de `naked` en `source/game_sa`.** Todo lo nuevo va en C++ puro, dos archivos por clase y sin duplicados. La aritmética x87 que el EXE hace a 24 bits vive en helpers de `source/game_sa/X87Math.cpp/.h`.
 - **Cada función se valida par a par dentro del juego real:** el mismo EXE con el hook apagado contra la DLL con el hook encendido, mínimo 16.384 pares por función y 0 diferencias, un oráculo Python independiente del código bajo prueba y una prueba negativa con mutaciones (dos rondas, y todas las funciones deben fallar con la mutación). Cuando una función pasa a tener hook, se repiten los bancos antiguos que la usan como colaborador.
-- **Trabajo por lotes de ~25 funciones diminutas** (destructores con borrado, cuerpos de destructor, getters, `operator new/delete` de pools, `GetTaskType` y similares), cada lote con su banco `FnNNNA`, evidencia archivada en `reversing/CppTwelveLevel6Final/runs` e integración a `main` solo cuando todo está validado. Los últimos integrados son los lotes 132A–174A, más las revalidaciones conjuntas 134R, 141R y 140R.
+- **Trabajo por lotes de ~25 funciones diminutas** (destructores con borrado, cuerpos de destructor, getters, `operator new/delete` de pools, `GetTaskType` y similares), cada lote con su banco `FnNNNA`, evidencia archivada en `reversing/CppTwelveLevel6Final/runs` e integración a `main` solo cuando todo está validado. Los últimos integrados son los lotes 132A–175A, más las revalidaciones conjuntas 134R, 141R y 140R.
 
 **Lo que sabemos que falta**
 
-- **1.617 funciones del rango del juego (0x401000–0x74FFFF) siguen sin reemplazar o son envolturas:** 1.595 sin reemplazar y 22 que ya tienen hook pero llaman al EXE. La lista, de menor a mayor por clase, está en [pendientes por clase](docs/JuegoExe/pendientes-por-clase.md); el mapa completo, en [docs/JuegoExe](docs/JuegoExe/README.md).
+- **1.612 funciones del rango del juego (0x401000–0x74FFFF) siguen sin reemplazar o son envolturas:** 1.590 sin reemplazar y 22 que ya tienen hook pero llaman al EXE. La lista, de menor a mayor por clase, está en [pendientes por clase](docs/JuegoExe/pendientes-por-clase.md); el mapa completo, en [docs/JuegoExe](docs/JuegoExe/README.md).
 - **El 100% del catálogo no es el 100% del EXE.** Hay funciones del juego fuera del catálogo y bibliotecas enlazadas (RenderWare, CRT, DirectX) que no cuentan como código del juego. Ver la [auditoría de cobertura](docs/BinaryCoverageAudit.md).
 - **Todavía no es un ejecutable independiente.** El proyecto sigue dependiendo de `gta_sa.exe` y de los recursos del juego. La meta de fondo es un EXE propio que corra sin el original: [ruta hacia el EXE independiente](docs/RutaExeIndependiente.md).
 - **Límites de la validación:** la evidencia vale para los fixtures de cada banco y para el árbol en que se probó; la vigencia acreditada contra el árbol actual sigue en 0 y no se afirma estabilidad general del juego. Las diferencias y huecos conocidos están en [Desviaciones conocidas](docs/DesviacionesConocidas.md).
@@ -185,10 +185,10 @@ La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado
 
 | Dimensión | Estado |
 | --- | --- |
-| Clases completas | 891/891 · 100,00% |
-| Clases validadas (de las completas) | 891/891 · 100,00% |
-| Funciones reconstruidas | 10.291/10.291 · 100,00% |
-| Funciones validadas (de las reconstruidas) | **10.291/10.291 · 100,00%** · evidencia aprobada vinculada |
+| Clases completas | 892/892 · 100,00% |
+| Clases validadas (de las completas) | 892/892 · 100,00% |
+| Funciones reconstruidas | 10.295/10.295 · 100,00% |
+| Funciones validadas (de las reconstruidas) | **10.295/10.295 · 100,00%** · evidencia aprobada vinculada |
 
 La validación se mide sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. Las 4 extensiones o adaptaciones NOTSA ([hooks_notsa.csv](docs/hooks_notsa.csv)) quedan fuera de la cuenta.
 
@@ -198,7 +198,7 @@ Todavía no tienen un porcentaje útil; la tabla explica qué falta hacer para p
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validaciones vigentes para el árbol actual | 0/10.291 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |
+| Validaciones vigentes para el árbol actual | 0/10.295 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |
 | Dependencias de funciones originales eliminadas | No medido | Auditar, por cada función reconstruida, las llamadas directas y transitivas que aún saltan al EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |
 
 Quedan 0 entradas pendientes, 0 clases incompletas y 0 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 8.440 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.

@@ -393,7 +393,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0041B710,104,reemplazada,CNodeRoutePool,exacta,CNodeRoutePool::New,1,1,,
 0x0041B7C0,11,reemplazada,CNodeRoutePool,baja,,11,9,,
 0x0041B7D0,49,reemplazada,CNodeRoutePool,baja,,9,7,,
-0x0041B810,11,reemplazada,CNodeRoutePool,baja,,1,0,,
+0x0041B810,11,reemplazada,CNodeRoutePool,baja,,1,1,,
 0x0041B820,51,reemplazada,CNodeRoutePool,baja,,3,0,,
 0x0041B860,11,reemplazada,CNodeRoute,exacta,CNodeRoute::operator new,1,1,,
 0x0041B870,49,reemplazada,CNodeRoute,exacta,CNodeRoute::operator delete,1,1,,
@@ -2074,7 +2074,6 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004AF970,185,reemplazada,CEventAcquaintancePed,exacta,CEventAcquaintancePed::AffectsPedGroup,0,0,,sí
 0x004AFA30,85,reemplazada,CEventAcquaintancePed,exacta,CEventAcquaintancePed::AffectsPed,1,1,,sí
 0x004AFA90,165,reemplazada,CEventAcquaintancePedHateBadlyLit,exacta,CEventAcquaintancePedHateBadlyLit::AffectsPed,0,0,,sí
-0x004AFB40,5,B,CEventAcquaintancePedHateBadlyLit,baja,,0,0,sí,sí
 0x004AFB50,102,C,CEventAcquaintancePedHateBadlyLit,baja,,1,0,,
 0x004AFBF0,81,C,CEventAcquaintancePedHateBadlyLit,baja,,1,0,,
 0x004AFC70,50,reemplazada,CEventKnockOffBike,exacta,CEventKnockOffBike::Constructor-second,1,1,,
@@ -4529,9 +4528,9 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00552390,41,reemplazada,CPtrNodeDoubleLinkPool,baja,,3,1,,
 0x005523C0,11,reemplazada,CPtrNodeDoubleLinkPool,baja,,8,7,,
 0x005523D0,48,reemplazada,CPtrNodeDoubleLinkPool,baja,,7,6,,
-0x00552400,99,reemplazada,CPtrNodeDoubleLinkPool,baja,,9,8,,
+0x00552400,99,reemplazada,CPtrNodeDoubleLinkPool,baja,,9,9,,
 0x00552470,112,reemplazada,CPtrNodeDoubleLinkPool,baja,,15,11,,
-0x00552520,114,A,CPtrNodeDoubleLinkPool,baja,,5,4,,
+0x00552520,114,reemplazada,CPtrNodeDoubleLinkPool,baja,,5,5,,
 0x005525A0,149,reemplazada,CQuadTreeNode<T>,exacta,CQuadTreeNode<T>::FindSector-rect,0,0,,
 0x00552640,95,reemplazada,CQuadTreeNode<T>,exacta,CQuadTreeNode<T>::FindSector-vec,2,2,,
 0x005526A0,246,reemplazada,CQuadTreeNode<T>,exacta,CQuadTreeNode<T>::InSector,4,4,,
@@ -4545,7 +4544,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00552A90,90,reemplazada,CQuadTreeNode<T>,exacta,CQuadTreeNode<T>::DeleteItem-rect,1,1,,
 0x00552AF0,92,A,CQuadTreeNode<T>,alta,,1,1,,
 0x00552B50,104,A,CQuadTreeNode<T>,alta,,2,1,,
-0x00552BC0,49,A,CQuadTreeNode<T>,alta,,1,0,,
+0x00552BC0,49,A,CQuadTreeNode<T>,alta,,1,1,,
 0x00552C00,116,reemplazada,CQuadTreeNode<T>,exacta,CQuadTreeNode<T>::InitPool,1,1,,
 0x00552C80,11,A,CQuadTreeNode<T>,alta,,3,3,,
 0x00552C90,49,A,CQuadTreeNode<T>,alta,,7,4,,
@@ -7159,7 +7158,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061A360,41,reemplazada,CPlayerRelationshipRecorder,baja,,29,27,,
 0x0061A390,16,reemplazada,CPlayerRelationshipRecorder,baja,,234,212,,
 0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,127,,
-0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,210,,
+0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,211,,
 0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,130,,
 0x0061A430,40,reemplazada,CPlayerRelationshipRecorder,baja,,0,0,,sí
 0x0061A4B0,73,reemplazada,CTask,exacta,CTask::IsTaskPtr,2,2,,
@@ -9215,8 +9214,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0066D250,170,reemplazada,CTaskComplexTurnToFaceEntityOrCoord,exacta,CTaskComplexTurnToFaceEntityOrCoord::Clone,0,0,,sí
 0x0066D300,204,D,CTaskComplexTurnToFaceEntityOrCoord,baja,,0,0,,
 0x0066D3D0,100,reemplazada,CTaskComplexInvestigateDisturbance,exacta,CTaskComplexInvestigateDisturbance::Clone,0,0,,sí
-0x0066D440,112,C,CTaskComplexInvestigateDisturbance,baja,,2,0,,
-0x0066D4B0,155,C,CTaskComplexInvestigateDisturbance,baja,,1,0,,
+0x0066D440,112,reemplazada,CTaskComplexInvestigateDisturbance,baja,,2,1,,
+0x0066D4B0,155,reemplazada,CTaskComplexInvestigateDisturbance,baja,,1,1,,
 0x0066D550,348,C,CTaskComplexInvestigateDisturbance,baja,,1,0,,
 0x0066D6D0,30,B,CTaskComplexInvestigateDisturbance,baja,,0,0,,sí
 0x0066D6F0,30,B,CTaskComplexInvestigateDisturbance,baja,,0,0,,sí
@@ -9324,7 +9323,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00674750,261,reemplazada,CTaskComplexWanderCop,exacta,CTaskComplexWanderCop::CreateFirstSubTask,0,0,,sí
 0x00674860,181,reemplazada,CTaskComplexWanderCop,exacta,CTaskComplexWanderCop::CreateNextSubTask,0,0,,sí
 0x00674920,5,reemplazada,CTaskComplexWanderProstitute,exacta,CTaskComplexWanderProstitute::CreateFirstSubTask,0,0,sí,sí
-0x00674930,182,C,CTaskComplexWanderProstitute,baja,,2,0,,
+0x00674930,182,reemplazada,CTaskComplexWanderProstitute,baja,,2,0,,
 0x006749F0,447,reemplazada,CTaskComplexInvestigateDisturbance,exacta,CTaskComplexInvestigateDisturbance::CreateNextSubTask,0,0,,sí
 0x00674BB0,114,B,CTaskComplexInvestigateDisturbance,baja,,0,0,,sí
 0x00674C30,335,reemplazada,CTaskComplexWander,exacta,CTaskComplexWander::ControlSubTask,1,1,,sí

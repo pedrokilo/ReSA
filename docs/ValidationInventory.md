@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **10,291 entradas reversed=1**, de 10,291 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **10,295 entradas reversed=1**, de 10,295 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 10291 |
+| `validated=1` · evidencia aprobada vinculada | 10295 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 10291 |
+| Evidencia histórica vinculada; revisión pendiente | 10295 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -4281,6 +4281,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPathFind | `UpdateStreaming` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathNode | `GetNodeCoors` | [Resumen](../reversing/Fn160A/validation-summary.json) |
 | CPathNode | `GetPosition` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| CPatrolRoute | `Assign` | [Resumen](../reversing/Fn175A/validation-summary.json) |
+| CPatrolRoute | `Constructor` | [Resumen](../reversing/Fn175A/validation-summary.json) |
 | CPatrolRoute | `Destructor` | [Resumen](../reversing/Fn170A/validation-summary.json) |
 | CPatrolRoute | `operator delete` | [Resumen](../reversing/Fn146A/validation-summary.json) |
 | CPatrolRoute | `operator new` | [Resumen](../reversing/Fn146A/validation-summary.json) |
@@ -5272,6 +5274,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CQuadTreeNode<T> | `AddItem` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CQuadTreeNode<T> | `DeleteItem-` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CQuadTreeNode<T> | `DeleteItem-rect` | [Resumen](../reversing/Sys12/validation-summary.json) |
+| CQuadTreeNode<T> | `DestructorBody` | [Resumen](../reversing/Fn175A/validation-summary.json) |
 | CQuadTreeNode<T> | `FindSector-rect` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CQuadTreeNode<T> | `FindSector-vec` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CQuadTreeNode<T> | `ForAllMatching-rect` | [Resumen](../reversing/Sys12/validation-summary.json) |
@@ -6503,6 +6506,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexFollowNodeRoute | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn145A/validation-summary.json) |
 | CTaskComplexFollowNodeRoute | `SetTarget` | [Resumen](../reversing/Route19/validation-summary.json) |
 | CTaskComplexFollowNodeRoute | `StopTimer` | [Resumen](../reversing/Route19/validation-summary.json) |
+| CTaskComplexFollowPatrolRoute | `ConstructorExe` | [Resumen](../reversing/Fn175A/validation-summary.json) |
 | CTaskComplexFollowPedFootsteps | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CTaskComplexFollowPedFootsteps | `ControlSubTask` | [Resumen](../reversing/FollowFootsteps62/validation-summary.json) |
 | CTaskComplexFollowPedFootsteps | `CreateFirstSubTask` | [Resumen](../reversing/FollowFootsteps62/validation-summary.json) |
@@ -10651,7 +10655,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPad` | 92 | 0 | 92 | 0 |
 | `CPathFind` | 71 | 0 | 71 | 0 |
 | `CPathNode` | 2 | 0 | 2 | 0 |
-| `CPatrolRoute` | 3 | 0 | 3 | 0 |
+| `CPatrolRoute` | 5 | 0 | 5 | 0 |
 | `CPatrolRoutePool` | 1 | 0 | 1 | 0 |
 | `CPed` | 152 | 0 | 152 | 0 |
 | `CPedAcquaintanceScanner` | 4 | 0 | 4 | 0 |
@@ -10722,7 +10726,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPtrNodeDoubleLinkPool` | 5 | 0 | 5 | 0 |
 | `CPtrNodeSingleLinkPool` | 4 | 0 | 4 | 0 |
 | `CQuadBike` | 13 | 0 | 13 | 0 |
-| `CQuadTreeNode<T>` | 13 | 0 | 13 | 0 |
+| `CQuadTreeNode<T>` | 14 | 0 | 14 | 0 |
 | `CQuaternion` | 10 | 0 | 10 | 0 |
 | `CRGBA` | 2 | 0 | 2 | 0 |
 | `CRT` | 6 | 0 | 6 | 0 |
@@ -10838,6 +10842,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexFollowLeaderAnyMeans` | 8 | 0 | 8 | 0 |
 | `CTaskComplexFollowLeaderInFormation` | 9 | 0 | 9 | 0 |
 | `CTaskComplexFollowNodeRoute` | 20 | 0 | 20 | 0 |
+| `CTaskComplexFollowPatrolRoute` | 1 | 0 | 1 | 0 |
 | `CTaskComplexFollowPedFootsteps` | 8 | 0 | 8 | 0 |
 | `CTaskComplexFollowPointRoute` | 14 | 0 | 14 | 0 |
 | `CTaskComplexGangFollower` | 9 | 0 | 9 | 0 |

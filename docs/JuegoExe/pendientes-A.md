@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 891 grupos / 10291 funciones reconstruidas; 10291 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 892 grupos / 10295 funciones reconstruidas; 10295 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-521 funciones, 85,120 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+520 funciones, 85,006 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -62,7 +62,6 @@
 | `0x004654B0` | 226 | CTheScripts | baja | 22 (4) |  |
 | `0x00502F80` | 223 | CAEWaterCannonAudioEntity | alta | 4 (4) |  |
 | `0x00640430` | 131 | CTaskComplexOpenPassengerDoor | baja | 5 (4) |  |
-| `0x00552520` | 114 | CPtrNodeDoubleLinkPool | baja | 5 (4) |  |
 | `0x00541DD0` | 113 | CPad | baja | 5 (4) |  |
 | `0x005F6190` | 108 | CPedGeometryAnalyser | baja | 5 (4) |  |
 | `0x005D9110` | 104 | CCustomCarEnvMapPipeline | baja | 4 (4) |  |
@@ -334,6 +333,7 @@
 | `0x00533670` | 54 | CEntity | alta | 1 (1) |  |
 | `0x0059F050` | 54 | CHandObject | baja | 1 (1) |  |
 | `0x00669FB0` | 54 | CTaskComplexWander | baja | 1 (1) |  |
+| `0x00552BC0` | 49 | CQuadTreeNode<T> | alta | 1 (1) |  |
 | `0x005EC220` | 49 | CPedAttractorManager | baja | 1 (1) |  |
 | `0x00606010` | 49 | CPedIntelligencePool | baja | 1 (1) |  |
 | `0x005D9180` | 48 | CCustomCarEnvMapPipeline | baja | 1 (1) |  |
@@ -488,7 +488,6 @@
 | `0x005EB170` | 50 | CPedAttractor | alta | 1 (0) |  |
 | `0x005EB1E0` | 50 | CPedAttractor | alta | 1 (0) |  |
 | `0x005EB220` | 50 | CPedAttractor | alta | 1 (0) |  |
-| `0x00552BC0` | 49 | CQuadTreeNode<T> | alta | 1 (0) |  |
 | `0x005CCCC0` | 48 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005EAE40` | 48 | CPedAttractorPool | baja | 3 (0) |  |
 | `0x005EB2E0` | 46 | CPedAttractor | alta | 3 (0) |  |

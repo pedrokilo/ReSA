@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 19893,
+    "source_definition_count": 19897,
     "groups": 1734,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,12 +20,12 @@
     "body_parse_errors": 413,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 543,
-    "historical_catalog_rows": 10295,
+    "historical_catalog_rows": 10299,
     "catalog_rows_without_unambiguous_source_match_in_scope": 26,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
-    "catalog_rows_linked_by_hook_address": 471,
-    "validated_reconstructed_own_cpp_definitions": 12123,
+    "catalog_rows_linked_by_hook_address": 473,
+    "validated_reconstructed_own_cpp_definitions": 12127,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 15
   },
@@ -380,7 +380,7 @@
     "source/game_sa/Core/PtrNodeDoubleLink.h": "b0f4d0abe278bf25add15fa0777d599235f4fcd1c388847d59e87d09db23d7d4",
     "source/game_sa/Core/PtrNodeSingleLink.cpp": "b8f8da44bc17daa8a46cdb17725f8ebe81c5d4b54a8b1b56385b1ecb6745994b",
     "source/game_sa/Core/PtrNodeSingleLink.h": "3a88d9fb6c44f072ed7f1df04c33d675ccf35087e5e3c54897b4da07ba53515e",
-    "source/game_sa/Core/QuadTreeNode.h": "1e0112c671ff6099178a108eb86c43416dce1a227cae32a732576a4e2a92a7c5",
+    "source/game_sa/Core/QuadTreeNode.h": "bb268e407220d4cfc7125d5518f909343cfe12891fdfb053a40704d6dac2b1f6",
     "source/game_sa/Core/Quaternion.cpp": "99c2886fc9d518a412ee2b25368308ad77966e7439ac0e8a0f800423c47a4c8d",
     "source/game_sa/Core/Quaternion.h": "48db9873122fa6bfad1c9a50ba0ac91c3a7c4d5a80e984984ec10f5f4bf38dec",
     "source/game_sa/Core/Rect.cpp": "397fc8e6d5abe0febd99afba1b4f4b444f0ad222b5cd9cc06f6e7c2e4448cdbc",
@@ -1071,8 +1071,8 @@
     "source/game_sa/Pad_SDL.cpp": "9ff55549305865ba8086e64a120009c432418882eb85ccc58fe9984e16f4a1e6",
     "source/game_sa/PathFind.cpp": "7f3b132c064f77e3ac5a70da04a9452693684b181cc1c71e579f6db540bcba79",
     "source/game_sa/PathFind.h": "ce0f8f7a45450c2276b805fdc3bc7157f8aab0e6bbe0e3b530bb130c78a80fe5",
-    "source/game_sa/PatrolRoute.cpp": "b4923036137bf8f97a6440973f53b363161670a61b415ce5883270ccdff1f41b",
-    "source/game_sa/PatrolRoute.h": "573ab64b7190912ad0eea61c3de0faaee09e501545d59c516b4a0e32a9c64106",
+    "source/game_sa/PatrolRoute.cpp": "389e482936e63f15a5ae2db78fefa95aec9c68f9fe5830fbafdd86af5a00c2db",
+    "source/game_sa/PatrolRoute.h": "c96f16b08209ec2375df6a48741b871b9765c9ad430a875d3d35e722313ec524",
     "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
     "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
     "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
@@ -1671,8 +1671,8 @@
     "source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.h": "cb0c881bca00b0414ee0cfeb9b261fc5bad1db3290e5664f6cd811aa50efa1b0",
     "source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRouteShooting.cpp": "910b86de67d6ddb9e4c366142a67b42a9f3c676d47347269dc9907be264f1237",
     "source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRouteShooting.h": "8d7075fed63779ec9fdba7fe7171c4eca660267a86e3ac6218358a86ac62a24d",
-    "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "74b0895d7fd8fbde3d02c3d14f49f933afbe1b46c9eac48168138d3d838a6c58",
-    "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "c1d8c0361f5055ac2675662811037aaaf78fe789f205d776ba860c286f3b2ae4",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f34b0b529248f0142f4be7bd0a8cbddbee44aa93443d0d0cb2e054a91a28b8d4",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1f14fc4f4f1448b6b4671b0195e0f47e14aa2f2a3f9fd5f3b8743d4ce4b7c013",
     "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp": "2d10c689bd6382059ad631bca12785b78b560e0672244a730db0101fa4569d6d",
     "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.h": "fea8a557ed1ff76919c54a687b9c80316881d74355aac263870fb1a499bb446d",
     "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.cpp": "41bd6dd2aa54863a0d9de9e303c0b3348c3958c9f461aed2214baf53197c1246",
@@ -2252,10 +2252,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "61ee44029a7a5f93fb48deedf9cc7b6623a62928ab7b98766e766a868878b995",
+    "hooks.csv": "c7372d82a68b2477a8f780aea931526138eff890063052b251d0ef7ffaecb383",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "9921e05a42a3143cd45d0c5845da64454bfeb06fdef246edcaa9a56a62bff1aa",
+  "migration_registry_sha256": "7e81de0ecf53d2712158d5b55e0f05ceec84f30c237f2924af8a5219e6388b01",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

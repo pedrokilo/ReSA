@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 891 grupos / 10291 funciones reconstruidas; 10291 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 892 grupos / 10295 funciones reconstruidas; 10295 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-357 funciones, 59,093 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+354 funciones, 58,644 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -90,7 +90,6 @@
 | `0x005984C0` | 189 | InteriorManager_c | alta | 1 (0) |  |
 | `0x005CED10` | 188 | FxEmitterBP_c | baja | 2 (0) |  |
 | `0x00493360` | 185 | CTheScripts | alta | 1 (0) |  |
-| `0x00674930` | 182 | CTaskComplexWanderProstitute | baja | 2 (0) |  |
 | `0x0072E080` | 180 | CCullZones | baja | 1 (0) |  |
 | `0x005CA630` | 170 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CBE50` | 169 | FxEmitterBP_c | baja | 1 (0) |  |
@@ -103,7 +102,6 @@
 | `0x0066AA20` | 161 | CTaskComplexAvoidOtherPedWhileWandering | baja | 1 (0) |  |
 | `0x005CAB70` | 157 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CC050` | 157 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x0066D4B0` | 155 | CTaskComplexInvestigateDisturbance | baja | 1 (0) |  |
 | `0x005CC1F0` | 153 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x00403B7D` | 151 | CEntity | baja | 7 (0) |  |
 | `0x00598580` | 151 | InteriorManager_c | alta | 1 (0) |  |
@@ -137,7 +135,6 @@
 | `0x00695DC0` | 113 | CTaskComplexSeekEntityAiming | baja | 1 (0) |  |
 | `0x0043EF20` | 112 | CEntryExitManager | alta | 2 (0) |  |
 | `0x0061AC90` | 112 | CTaskSimpleRunTimedAnim | baja | 1 (0) |  |
-| `0x0066D440` | 112 | CTaskComplexInvestigateDisturbance | baja | 2 (0) |  |
 | `0x0046A9C0` | 110 | CScriptsForBrains | alta | 2 (0) |  |
 | `0x006709F0` | 110 | CTaskComplexTurnToFaceEntityOrCoord | baja | 1 (0) |  |
 | `0x0074EAD0` | 110 | Win | baja | 1 (0) |  |
