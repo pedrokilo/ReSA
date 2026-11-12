@@ -4589,7 +4589,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CBoat::ScalarDeletingDestructor"
@@ -4599,7 +4599,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -4651,7 +4651,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CCutsceneObject::ScalarDeletingDestructor"
@@ -4661,7 +4661,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -4713,7 +4713,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CDummyObject::ScalarDeletingDestructor"
@@ -4723,7 +4723,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -4775,7 +4775,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CMonsterTruck::ScalarDeletingDestructor"
@@ -4785,7 +4785,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -4837,7 +4837,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CTaskComplexBeCop::ScalarDeletingDestructor"
@@ -4847,7 +4847,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -4899,7 +4899,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUsePairedAttractor::ScalarDeletingDestructor"
@@ -4909,7 +4909,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -4961,7 +4961,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CTaskComplexBeStill::ScalarDeletingDestructor"
@@ -4971,7 +4971,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -5023,7 +5023,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CTaskComplexCarDriveMissionFleeScene::ScalarDeletingDestructor"
@@ -5033,7 +5033,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -5085,7 +5085,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CTaskComplexCarDriveMissionKillPed::ScalarDeletingDestructor"
@@ -5095,7 +5095,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -5147,7 +5147,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CTaskComplexClimb::ScalarDeletingDestructor"
@@ -5157,7 +5157,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -5209,7 +5209,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDestroyCarMelee::ScalarDeletingDestructor"
@@ -5219,7 +5219,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -5271,7 +5271,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDestroyCarArmed::ScalarDeletingDestructor"
@@ -5281,7 +5281,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -5333,7 +5333,7 @@
       },
       "evidence": {
         "path": "reversing/Fn125A/validation-summary.json",
-        "sha256": "0c47c915b68be060ddc39572a817bf285273027318452df2d3a34f5c3aff039e",
+        "sha256": "83db1d7091145fb66c4ffc7296e2c5490d82fa7cefc0cad3ad5d894538388ee4",
         "passed_path": [
           "covered_functions",
           "CTaskComplexRoadRage::ScalarDeletingDestructor"
@@ -5343,7 +5343,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
         "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005",
         "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
@@ -10927,7 +10927,7 @@
       },
       "evidence": {
         "path": "reversing/Fn131A/validation-summary.json",
-        "sha256": "d33effed5c48f7b2ae8f2241b3eb32c5db0267dca71015ba84e7c067dc617153",
+        "sha256": "b21ff263e72e73214970b5fd575dd7824536526cf955cedf415e85071a433fa6",
         "passed_path": [
           "covered_functions",
           "CAEPedAudioEntity::Destructor"
@@ -10936,16 +10936,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
-        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Sector.cpp": "5d53f109c77182c3b22ae768ab1956f20e88892c6e58769d46d3f196c4a7cbb5",
         "source/game_sa/Sector.h": "804a04d622f043e8facddaa716c17891677a46d4d6b97f6997a5d2fb51b935f2",
         "source/game_sa/Core/PtrNodeSingleLink.cpp": "9208af90b53248f69daf6dd4d8583b5dfda36749afbe19c24f04ac6944e22f63",
         "source/game_sa/Core/PtrNodeSingleLink.h": "99a5b3f0abce7fe45d1c6bb84d7c111932e60592968dbfc2480ad8494f399498",
-        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "6e8fef80593789e26eb67fbcd2691dc3a8deeab826d57a480bf8e9d47571d690",
-        "source/game_sa/Core/PtrNodeDoubleLink.h": "4cace5a91fb5bbb1b01f3695caa7ae522c14c5fb22f4ae7909eba70a2471b99b",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "d04007841360ae43f17f4eab48d62c2b52fa86398a9f848cd40edfa7194301a3",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "e8bfed914eaa0098980eacc6c97d89ff57721da2d85ac252e10044cb6153d2b2",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "cdfd704c4c839c91acc2919cf72e35a26be09d5694e4bbbf552178e19b91c9ba",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "a5a06c16f76ab517d14e02386aca08cd488eb68d72ead40b9da68a3a688760b8",
         "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "54d55f704b8d14d8bc27738e47a125e917fd983f25ca021cdad14c5cc10be98b",
         "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "3506a471e5d8ff590303533c3be824d9bbbaa7f3c43a7506dfaf14fdeecc6847",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -10971,7 +10971,7 @@
       },
       "evidence": {
         "path": "reversing/Fn131A/validation-summary.json",
-        "sha256": "d33effed5c48f7b2ae8f2241b3eb32c5db0267dca71015ba84e7c067dc617153",
+        "sha256": "b21ff263e72e73214970b5fd575dd7824536526cf955cedf415e85071a433fa6",
         "passed_path": [
           "covered_functions",
           "CSector::Destructor"
@@ -10980,16 +10980,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
-        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Sector.cpp": "5d53f109c77182c3b22ae768ab1956f20e88892c6e58769d46d3f196c4a7cbb5",
         "source/game_sa/Sector.h": "804a04d622f043e8facddaa716c17891677a46d4d6b97f6997a5d2fb51b935f2",
         "source/game_sa/Core/PtrNodeSingleLink.cpp": "9208af90b53248f69daf6dd4d8583b5dfda36749afbe19c24f04ac6944e22f63",
         "source/game_sa/Core/PtrNodeSingleLink.h": "99a5b3f0abce7fe45d1c6bb84d7c111932e60592968dbfc2480ad8494f399498",
-        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "6e8fef80593789e26eb67fbcd2691dc3a8deeab826d57a480bf8e9d47571d690",
-        "source/game_sa/Core/PtrNodeDoubleLink.h": "4cace5a91fb5bbb1b01f3695caa7ae522c14c5fb22f4ae7909eba70a2471b99b",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "d04007841360ae43f17f4eab48d62c2b52fa86398a9f848cd40edfa7194301a3",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "e8bfed914eaa0098980eacc6c97d89ff57721da2d85ac252e10044cb6153d2b2",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "cdfd704c4c839c91acc2919cf72e35a26be09d5694e4bbbf552178e19b91c9ba",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "a5a06c16f76ab517d14e02386aca08cd488eb68d72ead40b9da68a3a688760b8",
         "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "54d55f704b8d14d8bc27738e47a125e917fd983f25ca021cdad14c5cc10be98b",
         "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "3506a471e5d8ff590303533c3be824d9bbbaa7f3c43a7506dfaf14fdeecc6847",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -11015,7 +11015,7 @@
       },
       "evidence": {
         "path": "reversing/Fn131A/validation-summary.json",
-        "sha256": "d33effed5c48f7b2ae8f2241b3eb32c5db0267dca71015ba84e7c067dc617153",
+        "sha256": "b21ff263e72e73214970b5fd575dd7824536526cf955cedf415e85071a433fa6",
         "passed_path": [
           "covered_functions",
           "CPtrNodeSingleLinkPool::Flush"
@@ -11024,16 +11024,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
-        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Sector.cpp": "5d53f109c77182c3b22ae768ab1956f20e88892c6e58769d46d3f196c4a7cbb5",
         "source/game_sa/Sector.h": "804a04d622f043e8facddaa716c17891677a46d4d6b97f6997a5d2fb51b935f2",
         "source/game_sa/Core/PtrNodeSingleLink.cpp": "9208af90b53248f69daf6dd4d8583b5dfda36749afbe19c24f04ac6944e22f63",
         "source/game_sa/Core/PtrNodeSingleLink.h": "99a5b3f0abce7fe45d1c6bb84d7c111932e60592968dbfc2480ad8494f399498",
-        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "6e8fef80593789e26eb67fbcd2691dc3a8deeab826d57a480bf8e9d47571d690",
-        "source/game_sa/Core/PtrNodeDoubleLink.h": "4cace5a91fb5bbb1b01f3695caa7ae522c14c5fb22f4ae7909eba70a2471b99b",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "d04007841360ae43f17f4eab48d62c2b52fa86398a9f848cd40edfa7194301a3",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "e8bfed914eaa0098980eacc6c97d89ff57721da2d85ac252e10044cb6153d2b2",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "cdfd704c4c839c91acc2919cf72e35a26be09d5694e4bbbf552178e19b91c9ba",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "a5a06c16f76ab517d14e02386aca08cd488eb68d72ead40b9da68a3a688760b8",
         "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "54d55f704b8d14d8bc27738e47a125e917fd983f25ca021cdad14c5cc10be98b",
         "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "3506a471e5d8ff590303533c3be824d9bbbaa7f3c43a7506dfaf14fdeecc6847",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -11059,7 +11059,7 @@
       },
       "evidence": {
         "path": "reversing/Fn131A/validation-summary.json",
-        "sha256": "d33effed5c48f7b2ae8f2241b3eb32c5db0267dca71015ba84e7c067dc617153",
+        "sha256": "b21ff263e72e73214970b5fd575dd7824536526cf955cedf415e85071a433fa6",
         "passed_path": [
           "covered_functions",
           "CPtrNodeDoubleLinkPool::Flush"
@@ -11068,16 +11068,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
-        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Sector.cpp": "5d53f109c77182c3b22ae768ab1956f20e88892c6e58769d46d3f196c4a7cbb5",
         "source/game_sa/Sector.h": "804a04d622f043e8facddaa716c17891677a46d4d6b97f6997a5d2fb51b935f2",
         "source/game_sa/Core/PtrNodeSingleLink.cpp": "9208af90b53248f69daf6dd4d8583b5dfda36749afbe19c24f04ac6944e22f63",
         "source/game_sa/Core/PtrNodeSingleLink.h": "99a5b3f0abce7fe45d1c6bb84d7c111932e60592968dbfc2480ad8494f399498",
-        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "6e8fef80593789e26eb67fbcd2691dc3a8deeab826d57a480bf8e9d47571d690",
-        "source/game_sa/Core/PtrNodeDoubleLink.h": "4cace5a91fb5bbb1b01f3695caa7ae522c14c5fb22f4ae7909eba70a2471b99b",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "d04007841360ae43f17f4eab48d62c2b52fa86398a9f848cd40edfa7194301a3",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "e8bfed914eaa0098980eacc6c97d89ff57721da2d85ac252e10044cb6153d2b2",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "cdfd704c4c839c91acc2919cf72e35a26be09d5694e4bbbf552178e19b91c9ba",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "a5a06c16f76ab517d14e02386aca08cd488eb68d72ead40b9da68a3a688760b8",
         "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "54d55f704b8d14d8bc27738e47a125e917fd983f25ca021cdad14c5cc10be98b",
         "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "3506a471e5d8ff590303533c3be824d9bbbaa7f3c43a7506dfaf14fdeecc6847",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -15533,7 +15533,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CBaseModelInfo::DestructorBody"
@@ -15543,7 +15543,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15551,7 +15551,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -15590,7 +15590,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CTimeModelInfo::ConstructorBody"
@@ -15600,7 +15600,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15608,7 +15608,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -15647,7 +15647,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CPhysical::ScalarDeletingDestructor"
@@ -15657,7 +15657,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15665,7 +15665,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -15704,7 +15704,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CMatrix::DestructorThunk"
@@ -15714,7 +15714,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15722,7 +15722,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -15761,7 +15761,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CTrailer::ScalarDeletingDestructor"
@@ -15771,7 +15771,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15779,7 +15779,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -15818,7 +15818,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "cTransmission::ConstructorBody"
@@ -15828,7 +15828,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15836,7 +15836,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -15875,7 +15875,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CAnimatedBuilding::ScalarDeletingDestructor"
@@ -15885,7 +15885,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15893,7 +15893,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -15932,7 +15932,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CAnimatedBuilding::DestructorBody"
@@ -15942,7 +15942,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15950,7 +15950,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -15989,7 +15989,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CBridge::ThisIsABridgeObjectMovingUp"
@@ -15999,7 +15999,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16007,7 +16007,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -16046,7 +16046,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "SinFloat"
@@ -16056,7 +16056,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16064,7 +16064,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -16103,7 +16103,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CosFloat"
@@ -16113,7 +16113,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16121,7 +16121,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -16160,7 +16160,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CMatrix::GetRightCopy"
@@ -16170,7 +16170,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16178,7 +16178,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -16217,7 +16217,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CMatrix::GetForwardCopy"
@@ -16227,7 +16227,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16235,7 +16235,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -16274,7 +16274,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CTimer::GetTimeStepCopy"
@@ -16284,7 +16284,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16292,7 +16292,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -16331,7 +16331,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CPlaceable::GetMatrixCopy"
@@ -16341,7 +16341,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16349,7 +16349,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -16388,7 +16388,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexArrestPed::GetTaskType"
@@ -16399,7 +16399,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16407,7 +16407,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -16446,7 +16446,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPolicePursuit::ScalarDeletingDestructor"
@@ -16456,7 +16456,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16464,7 +16464,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -16503,7 +16503,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexCarDrive::GetTaskType"
@@ -16514,7 +16514,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16522,7 +16522,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -16561,7 +16561,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexCarDriveWander::ScalarDeletingDestructor"
@@ -16571,7 +16571,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16579,7 +16579,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -16618,7 +16618,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CTaskGangHassleVehicle::GetTaskType"
@@ -16629,7 +16629,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16637,7 +16637,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -16676,7 +16676,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
+        "sha256": "95fc190795ab8e65e814890dee3ee0b34959db34e7dcd6304ab6370070d1c72f",
         "passed_path": [
           "covered_functions",
           "CTaskGangHasslePed::ScalarDeletingDestructor"
@@ -16686,7 +16686,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16694,7 +16694,7 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
         "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
         "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -18163,7 +18163,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::AdvanceWorkingIndex"
@@ -18173,7 +18173,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18194,7 +18194,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -18230,7 +18230,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::GetExtraNightColors"
@@ -18240,7 +18240,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18261,7 +18261,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -18297,7 +18297,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CDummy::Constructor"
@@ -18307,7 +18307,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18328,7 +18328,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -18364,7 +18364,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CDummy::Destructor"
@@ -18374,7 +18374,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18395,7 +18395,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -18431,7 +18431,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CWeaponInfo::GetAnimLoopStart"
@@ -18441,7 +18441,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18462,7 +18462,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -18498,7 +18498,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CWeaponInfo::GetAnimLoopEnd"
@@ -18508,7 +18508,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18529,7 +18529,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -18565,7 +18565,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexObserveTrafficLightsAndAchieveHeading::Constructor"
@@ -18575,7 +18575,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18596,7 +18596,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -18632,7 +18632,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexObserveTrafficLightsAndAchieveHeading::GetTaskType"
@@ -18643,7 +18643,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18664,7 +18664,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -18700,7 +18700,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ScalarDeletingDestructor"
@@ -18710,7 +18710,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18731,7 +18731,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -18767,7 +18767,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTrailer::Destructor"
@@ -18777,7 +18777,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18798,7 +18798,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -18834,7 +18834,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskAllocatorKillThreatsBasicRandomGroup::ScalarDeletingDestructor"
@@ -18844,7 +18844,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18865,7 +18865,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -18901,7 +18901,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskAllocatorKillThreatsBasicRandomGroup::Destructor"
@@ -18911,7 +18911,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18932,7 +18932,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -18968,7 +18968,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexAttractorPartnerWait::Destructor"
@@ -18978,7 +18978,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -18999,7 +18999,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -19035,7 +19035,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseAttractorPartner::ScalarDeletingDestructor"
@@ -19045,7 +19045,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -19066,7 +19066,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -19102,7 +19102,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDriveToPoint::Destructor"
@@ -19112,7 +19112,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -19133,7 +19133,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -19169,7 +19169,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDrivePointRoute::ScalarDeletingDestructor"
@@ -19179,7 +19179,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -19200,7 +19200,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -19236,7 +19236,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexEnterAnyCarAsDriver::Destructor"
@@ -19246,7 +19246,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -19267,7 +19267,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -19303,7 +19303,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexShuffleSeats::ScalarDeletingDestructor"
@@ -19313,7 +19313,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -19334,7 +19334,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -19370,7 +19370,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToPointAndStandStill::Destructor"
@@ -19380,7 +19380,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -19401,7 +19401,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -19437,7 +19437,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToPointAiming::ScalarDeletingDestructor"
@@ -19447,7 +19447,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -19468,7 +19468,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -19504,7 +19504,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseEffectRunning::ScalarDeletingDestructor"
@@ -19514,7 +19514,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -19535,7 +19535,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -19571,7 +19571,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseEffectRunning::Destructor"
@@ -19581,7 +19581,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -19602,7 +19602,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -19638,7 +19638,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseEffectSprinting::ScalarDeletingDestructor"
@@ -19648,7 +19648,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -19669,7 +19669,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -19705,7 +19705,7 @@
       },
       "evidence": {
         "path": "reversing/Fn141A/validation-summary.json",
-        "sha256": "b48de94bf8df31271330a81313bc1f96f5a1a6107544b3cfeaa025ed06f38017",
+        "sha256": "8f98d8f7af07b1957ae0e0b6bc3548c6bbc49aff92b54ccc281e78ba8288cde9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseEffectSprinting::Destructor"
@@ -19715,7 +19715,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
         "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
         "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -19736,7 +19736,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
         "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",

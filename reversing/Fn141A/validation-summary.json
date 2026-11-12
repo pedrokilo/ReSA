@@ -58,20 +58,20 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn141A-20261111-014202-440210",
-  "summary_sha256": "af48bd0b972c294ac0cb3f1890e2c15e21d4fb1409cbc62297b7ad9350263789",
-  "result_txt_sha256": "23fe9b0da5f57d50ea7da3f96a0661e5adc88fae216b6b010f040ae413450e5b",
-  "log_sha256": "4750cf72c476439ddc612631a15db05b2fe2f2751e55442c641f8a742bbbcdea",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn141A-20261111-185831-843422",
+  "summary_sha256": "251527338065bbed1bfb1c99b01d29e2bf893c431d703f980f37100fdb952f6d",
+  "result_txt_sha256": "dd0117700b18d76ad6187b2308736c6f70f5065254c1b87f2524444a8cf27e7c",
+  "log_sha256": "761f9f3f0df0de286cb66dc80bab2d1bed1a5879ce4239e2c69a0077b2a6fdf4",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "142f7b9464450b77156b8563212fecedbc1937ff2685ad18f690e851055f5575",
+  "executed_probe_sha256": "eca6fa74927c1485933532566e785ce8f3ce04a67caf8f04791edb55cbe30546",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-      "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+      "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
       "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
       "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
       "source/game_sa/Entity/Vehicle/Automobile.h": "56d9ac2336d611a5fcf670e208cca596def252da853351e842e27818a5e2f213",
@@ -92,7 +92,7 @@
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "bc0128d8bf87f3f04df9d5ac6f156f05ee4be2f4f120b6e3543899470e667e63",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
       "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
       "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp": "cfc512c4572f56a4f65b5bfe8291e8380ecc1b56fea30f9858eb5a620e644f6f",
       "source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h": "40d62914433b2a5a364fddd1d64b940efcb516a460b1d70ad7ad546977d6c101",
@@ -116,10 +116,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn141A-20261111-014202-440210/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn141A-20261111-185831-843422/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "16a8eeee86eb7f2c59703693a625401a6fdb179900ea31d898e5881489f52383",
-    "uncompressed_sha256": "4750cf72c476439ddc612631a15db05b2fe2f2751e55442c641f8a742bbbcdea"
+    "compressed_sha256": "013950ed9e87be535758ab87aa866db13aa284bbb33a92d6922f15b82d584411",
+    "uncompressed_sha256": "761f9f3f0df0de286cb66dc80bab2d1bed1a5879ce4239e2c69a0077b2a6fdf4"
   }
 }

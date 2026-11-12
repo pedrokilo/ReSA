@@ -18,28 +18,28 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main f5051e64fb con los cambios del lote (ver artifacts/build-manifest.json). Cuatro funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CAEPedAudioEntity::Destructor 0x5DE920 (decia CGangs; cuerpo con marco SEH que la DLL no replica: solo desenrolla; el destructor de la entidad gemela 0x4F2B80 y el destructor base van expandidos en linea), CSector::Destructor 0x563130 (decia CWanted; destructor de los 14400 sectores de ms_aSectors, marco SEH omitido) y los dos Flush de listas de punteros que este llama, codigo de plantilla del EXE compartido por todas las listas: Flush de lista simple 0x552400 (CPtrNodeSingleLinkPool) y de lista doble 0x552470 (CPtrNodeDoubleLinkPool), ambos con el borrado de nodos del pool en linea. Todos hook S (RH_ScopedInstall / RH_ScopedNamedGlobalInstall). Colaboradores de CAEPedAudioEntity::Destructor sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CAESound::StopSoundAndForget 0x4EF850 y CAESound::Destructor 0x4EF660 (ambos con hook, apagados durante el banco). CSector::Destructor ejecuta REALES los dos Flush (el EXE los suyos y la DLL sus funciones propias, con hook apagado). Los dos punteros de pool del juego (0xB74484 y 0xB74488) apuntan durante cada lado a pools falsos de la arena C (se guardan y se restauran). Se observan bytes cambiados de las arenas, eventos de los falsos (con el estado del objeto en cada llamada), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos: ningun llamador del EXE los lee). Fuera de los fixtures: listas con ciclos, nodos solapados entre si o con la cabeza, el aliasing de la cabeza con los estados del pool (alcanzaria las ramas de busqueda del Flush simple), punteros \"anterior\" fuera de las arenas, la exactitud de CAESound::Destructor / StopSoundAndForget (se heredan de sus bancos), pools reales y objetos reales construidos por el EXE. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn131A-20261109-190841-749599",
-  "summary_sha256": "0fd02863abb99a2e375b12080403d6c02b0324e18f15178a0456b376a778afb8",
-  "result_txt_sha256": "f04ce49d6c14d1bba9ac5e89780e019d17b17fe6b6a2028d668866262463f09d",
-  "log_sha256": "2b5e602860b1c242a2e001f1d4360578d9483ee8a73caf8baeaa31b87b3d698b",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn131A-20261111-180528-628814",
+  "summary_sha256": "5e256d39b3f326f454b3dc1ef244d732a07388f166de6a69ca8d290eb8152539",
+  "result_txt_sha256": "690eee2ba16c0b247964bc14e01dc1cc13588f16c852bb6eb158ad05359e4734",
+  "log_sha256": "f1a40f150a7d6542606177961c905a1f1ac383ddda85341222c6ab14565d0dca",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "cae24db0ad5a46cf5188e1234d5297ee046b1f1e94054b5e84fa6e93d8c0e084",
+  "executed_probe_sha256": "cf0d919524363e38b5711d51219ba74ea19322497c357f7b6afca5a33f3d3261",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
-      "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+      "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+      "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
       "source/game_sa/Sector.cpp": "5d53f109c77182c3b22ae768ab1956f20e88892c6e58769d46d3f196c4a7cbb5",
       "source/game_sa/Sector.h": "804a04d622f043e8facddaa716c17891677a46d4d6b97f6997a5d2fb51b935f2",
       "source/game_sa/Core/PtrNodeSingleLink.cpp": "9208af90b53248f69daf6dd4d8583b5dfda36749afbe19c24f04ac6944e22f63",
       "source/game_sa/Core/PtrNodeSingleLink.h": "99a5b3f0abce7fe45d1c6bb84d7c111932e60592968dbfc2480ad8494f399498",
-      "source/game_sa/Core/PtrNodeDoubleLink.cpp": "6e8fef80593789e26eb67fbcd2691dc3a8deeab826d57a480bf8e9d47571d690",
-      "source/game_sa/Core/PtrNodeDoubleLink.h": "4cace5a91fb5bbb1b01f3695caa7ae522c14c5fb22f4ae7909eba70a2471b99b",
+      "source/game_sa/Core/PtrNodeDoubleLink.cpp": "d04007841360ae43f17f4eab48d62c2b52fa86398a9f848cd40edfa7194301a3",
+      "source/game_sa/Core/PtrNodeDoubleLink.h": "e8bfed914eaa0098980eacc6c97d89ff57721da2d85ac252e10044cb6153d2b2",
       "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-      "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "cdfd704c4c839c91acc2919cf72e35a26be09d5694e4bbbf552178e19b91c9ba",
+      "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "a5a06c16f76ab517d14e02386aca08cd488eb68d72ead40b9da68a3a688760b8",
       "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "54d55f704b8d14d8bc27738e47a125e917fd983f25ca021cdad14c5cc10be98b",
       "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "3506a471e5d8ff590303533c3be824d9bbbaa7f3c43a7506dfaf14fdeecc6847",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -53,10 +53,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn131A-20261109-190841-749599/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn131A-20261111-180528-628814/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "06d9057a0b4b835a9435dc60c74fa520ebabbf6c5cd4448d07e7af7e6ce3235e",
-    "uncompressed_sha256": "2b5e602860b1c242a2e001f1d4360578d9483ee8a73caf8baeaa31b87b3d698b"
+    "compressed_sha256": "19a0a74ab42cd519fa599fd90f40657bc94f671658320cbeb8b7e62a981a8105",
+    "uncompressed_sha256": "f1a40f150a7d6542606177961c905a1f1ac383ddda85341222c6ab14565d0dca"
   }
 }

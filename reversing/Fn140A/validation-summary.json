@@ -52,20 +52,20 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn140A-20261111-162147-765815",
-  "summary_sha256": "133e9d7150b014669f5932820326146aa904db54d4343849b8acc2ac93678ee9",
-  "result_txt_sha256": "23abbb1700fc048d9e9abe370850917f5eb095add184490b7d096558fd4c016e",
-  "log_sha256": "bfdd53f1bb5c815314afc830107cf10478022890ce14a3f20c90bebfec2dd223",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn140A-20261111-184302-940486",
+  "summary_sha256": "b01869b321dc0eb2c248b9668373e986a376064718b775c2ddcbc1ef424b842b",
+  "result_txt_sha256": "54b48b5c101d10e5510ebafffb06946417f4d6da9fc5d57f52f8fd2dc7f84774",
+  "log_sha256": "8d2bd1610a72fc38a949a61d517bdf7006baec2dd595bd928c55046edbcb4b94",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "98deda62ac311ae2545b5a32e22c89d4d1d80a6c8231516edd282c6f39148a63",
+  "executed_probe_sha256": "cba1fcbb3974e3583fafbac443c4c4ef75e78c54f3fbde682ea487cf27c379bf",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-      "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+      "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
       "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
       "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
       "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -73,7 +73,7 @@
       "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
       "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
       "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-      "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+      "source/game_sa/Core/Matrix.cpp": "69e688022bfe6dd08f4d7a08f5de37f6e0e6ec465a360bc8b90b4a19ea527a82",
       "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
       "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
       "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
@@ -100,10 +100,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn140A-20261111-162147-765815/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn140A-20261111-184302-940486/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "a522bdf8854aecd3622c6b238f00035260b908caa670941facc47d13a70eb5a2",
-    "uncompressed_sha256": "bfdd53f1bb5c815314afc830107cf10478022890ce14a3f20c90bebfec2dd223"
+    "compressed_sha256": "bb8799feba3bad4fef61f1144b4e53905d92e93a87f5b1a802e6a74e87db8665",
+    "uncompressed_sha256": "8d2bd1610a72fc38a949a61d517bdf7006baec2dd595bd928c55046edbcb4b94"
   }
 }
