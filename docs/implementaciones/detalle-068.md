@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 892 grupos / 10295 funciones reconstruidas; 10295 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 893 grupos / 10321 funciones reconstruidas; 10321 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,14 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1341"></a>
+
+## Globales y helpers: source/game_sa/Scripts/Commands/SequenceCommands.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| SetSequenceToRepeat(int32 index, bool repeat) | [source/game_sa/Scripts/Commands/SequenceCommands.cpp:11](../../source/game_sa/Scripts/Commands/SequenceCommands.cpp#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1342"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/StatCommands.cpp
 
@@ -18,7 +26,7 @@
 | SetStat(eStats stat, T value) | [source/game_sa/Scripts/Commands/StatCommands.cpp:35](../../source/game_sa/Scripts/Commands/StatCommands.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetStat(eStats stat) | [source/game_sa/Scripts/Commands/StatCommands.cpp:43](../../source/game_sa/Scripts/Commands/StatCommands.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1342"></a>
+<a id="grupo-1343"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/TextCommands.cpp
 
@@ -63,7 +71,7 @@
 | AddNextMessageToPreviousBriefs(bool state) | [source/game_sa/Scripts/Commands/TextCommands.cpp:298](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L298) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bAddNextMessageToPreviousBriefs: source/game_sa/Scripts/TheScripts.h:428 (0x00A4448B) |
 | DisplayNonMiniGameHelpMessages(bool state) | [source/game_sa/Scripts/Commands/TextCommands.cpp:303](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L303) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bDisplayNonMiniGameHelpMessages: source/game_sa/Scripts/TheScripts.h:443 (0x00A444A7) |
 
-<a id="grupo-1343"></a>
+<a id="grupo-1344"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/UnusedCommands.cpp
 
@@ -71,7 +79,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GetLatestConsoleCommand() | [source/game_sa/Scripts/Commands/UnusedCommands.cpp:15](../../source/game_sa/Scripts/Commands/UnusedCommands.cpp#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1344"></a>
+<a id="grupo-1345"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/VehicleCommands.cpp
 
@@ -100,7 +108,7 @@
 | SetCarAlwaysCreateSkids(CVehicle& vehicle, bool enable) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:125](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetCarAsMissionCar(CRunningScript& S, CVehicle& vehicle) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:130](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo MissionCleanUp: source/game_sa/Scripts/TheScripts.h:466 (0x00A90850) |
 
-<a id="grupo-1345"></a>
+<a id="grupo-1346"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/ZoneCommands.cpp
 
@@ -122,7 +130,7 @@
 | SetZoneNoCops(const char* label, bool isNoCops) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:108](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DisplayZoneNames(bool enabled) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:115](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bScriptDontDisplayAreaName: source/game_sa/Hud.h:22 (0x00BAA3F8) |
 
-<a id="grupo-1346"></a>
+<a id="grupo-1347"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/RunningScript.cpp
 
@@ -137,7 +145,7 @@
 | ScriptInsideAngled(ScriptAngledBox& box,const CVector& pos,bool flame) | [source/game_sa/Scripts/RunningScript.cpp:529](../../source/game_sa/Scripts/RunningScript.cpp#L529) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ScriptDrawAngled(CRunningScript* script,const ScriptAngledBox& box) | [source/game_sa/Scripts/RunningScript.cpp:538](../../source/game_sa/Scripts/RunningScript.cpp#L538) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1347"></a>
+<a id="grupo-1348"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/TheScripts.cpp
 
@@ -152,7 +160,7 @@
 | ExeMultiply3x3MV(const CMatrix& m, const CVector& v) | [source/game_sa/Scripts/TheScripts.cpp:2277](../../source/game_sa/Scripts/TheScripts.cpp#L2277) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SearchLightNormaliseAndMag(float* vector, void*) | [source/game_sa/Scripts/TheScripts.cpp:2353](../../source/game_sa/Scripts/TheScripts.cpp#L2353) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVector::NormaliseAndMag 0x0059C970 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1348"></a>
+<a id="grupo-1349"></a>
 
 ## Globales y helpers: source/game_sa/Shadows.cpp
 
@@ -169,7 +177,7 @@
 | ShadowVehiclePosition(CVector& position,float extentLength,float maximumY,float shift,float forwardX,float forwardY) | [source/game_sa/Shadows.cpp:1448](../../source/game_sa/Shadows.cpp#L1448) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CShadows::StoreShadowForVehicle 0x0070BDA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ShadowRenderTriangleCB(CVector* normal, CVector* trianglePos, _ProjectionParam* param) | [source/game_sa/Shadows.cpp:1667](../../source/game_sa/Shadows.cpp#L1667) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1349"></a>
+<a id="grupo-1350"></a>
 
 ## Globales y helpers: source/game_sa/Shopping.cpp
 
@@ -177,7 +185,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GetChangingStatIndex(const char* stat) | [source/game_sa/Shopping.cpp:70](../../source/game_sa/Shopping.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1350"></a>
+<a id="grupo-1351"></a>
 
 ## Globales y helpers: source/game_sa/SimpleTransform.cpp
 
@@ -185,7 +193,7 @@
 | --- | --- | --- | --- | --- | --- |
 | NegateLikeX87(float value) | [source/game_sa/SimpleTransform.cpp:59](../../source/game_sa/SimpleTransform.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1351"></a>
+<a id="grupo-1352"></a>
 
 ## Globales y helpers: source/game_sa/SpecialFX.cpp
 
@@ -193,7 +201,7 @@
 | --- | --- | --- | --- | --- | --- |
 | MultiplyPointLikeExe(const CMatrix& m, const CVector& v) | [source/game_sa/SpecialFX.cpp:100](../../source/game_sa/SpecialFX.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1352"></a>
+<a id="grupo-1353"></a>
 
 ## Globales y helpers: source/game_sa/Sprite.cpp
 
@@ -211,7 +219,7 @@
 | SetSpriteVertices(RwIm2DVertex* vertices, const CornerCoords1D& xs, const CornerCoords1D& ys, float z, float rhw, uint32 color) | [source/game_sa/Sprite.cpp:168](../../source/game_sa/Sprite.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PushSpriteQuad() | [source/game_sa/Sprite.cpp:174](../../source/game_sa/Sprite.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aTempBufferIndices: source/game_sa/common.h:288 (0x00C4B958); Posible dato fijo nSpriteBufferIndex: source/game_sa/Sprite.cpp:23 (0x00C6A158) |
 
-<a id="grupo-1353"></a>
+<a id="grupo-1354"></a>
 
 ## Globales y helpers: source/game_sa/Stats.cpp
 
@@ -229,51 +237,52 @@
 | StatsIncrementRegs(eStats stat, float value) | [source/game_sa/Stats.cpp:141](../../source/game_sa/Stats.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ExeByte(uintptr_t address) | [source/game_sa/Stats.cpp:152](../../source/game_sa/Stats.cpp#L152) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ExeFloat(uintptr_t address) | [source/game_sa/Stats.cpp:153](../../source/game_sa/Stats.cpp#L153) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FindMostFavoriteIndex(int32& maxOut) | [source/game_sa/Stats.cpp:315](../../source/game_sa/Stats.cpp#L315) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FavoriteRadioStationList: source/game_sa/Stats.h:48 (0x00B78E58) |
-| StatsFindMostFavoriteExe() | [source/game_sa/Stats.cpp:340](../../source/game_sa/Stats.cpp#L340) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatsExeSprintf(char* dst, const char* format, Args... args) | [source/game_sa/Stats.cpp:398](../../source/game_sa/Stats.cpp#L398) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x00821BB5 |
-| * StatsGxtToAscii(const GxtChar* text) | [source/game_sa/Stats.cpp:401](../../source/game_sa/Stats.cpp#L401) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatsStripTags(GxtChar* text) | [source/game_sa/Stats.cpp:404](../../source/game_sa/Stats.cpp#L404) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatsLineTail(const char* key) | [source/game_sa/Stats.cpp:409](../../source/game_sa/Stats.cpp#L409) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo gGxtString: source/game_sa/common.h:66 (0x00C1B100); Posible dato fijo gGxtString2: source/game_sa/common.h:67 (0x00C1AED8); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510) |
-| StatsLineTailKey(const char* key) | [source/game_sa/Stats.cpp:416](../../source/game_sa/Stats.cpp#L416) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo gGxtString2: source/game_sa/common.h:67 (0x00C1AED8) |
-| StatsCheckForStatsMessageBody(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:612](../../source/game_sa/Stats.cpp#L612) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatMessage: source/game_sa/Stats.h:44 (0x00B78200); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo TotalNumStatMessages: source/game_sa/Stats.h:45 (0x00B794D0); Posible dato fijo bStatUpdateMessageDisplayed: source/game_sa/Stats.h:54 (0x00B794D4) |
-| StatsCheckForStatsMessageExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:714](../../source/game_sa/Stats.cpp#L714) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatsLoadConditionsRead(uint32* outCount) | [source/game_sa/Stats.cpp:731](../../source/game_sa/Stats.cpp#L731) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x008220AD; Posible dato fijo StatMessage: source/game_sa/Stats.h:44 (0x00B78200); Posible dato fijo TotalNumStatMessages: source/game_sa/Stats.h:45 (0x00B794D0) |
-| StatsLoadStatUpdateConditionsExe() | [source/game_sa/Stats.cpp:779](../../source/game_sa/Stats.cpp#L779) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TotalNumStatMessages: source/game_sa/Stats.h:45 (0x00B794D0) |
-| StatsGetFatAndMuscleModifierExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:856](../../source/game_sa/Stats.cpp#L856) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RatingKey(int32 rating) | [source/game_sa/Stats.cpp:981](../../source/game_sa/Stats.cpp#L981) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98) |
-| StatLineSpecialHandler(uint32 id) | [source/game_sa/Stats.cpp:1031](../../source/game_sa/Stats.cpp#L1031) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatLineRawInt(uint16 id) | [source/game_sa/Stats.cpp:1051](../../source/game_sa/Stats.cpp#L1051) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatLineValue(uint16 id) | [source/game_sa/Stats.cpp:1056](../../source/game_sa/Stats.cpp#L1056) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatLineFtol(double value) | [source/game_sa/Stats.cpp:1061](../../source/game_sa/Stats.cpp#L1061) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatLineArrayFtol(uint16 id) | [source/game_sa/Stats.cpp:1065](../../source/game_sa/Stats.cpp#L1065) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
-| StatLineOutOf(int32 value1, int32 value2) | [source/game_sa/Stats.cpp:1072](../../source/game_sa/Stats.cpp#L1072) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510) |
-| StatLineHeader() | [source/game_sa/Stats.cpp:1080](../../source/game_sa/Stats.cpp#L1080) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510) |
-| StatLineInt(const char* format, int32 value) | [source/game_sa/Stats.cpp:1086](../../source/game_sa/Stats.cpp#L1086) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510) |
-| StatLineDouble(const char* format, double value) | [source/game_sa/Stats.cpp:1092](../../source/game_sa/Stats.cpp#L1092) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510) |
-| StatLineKey(const char* key) | [source/game_sa/Stats.cpp:1099](../../source/game_sa/Stats.cpp#L1099) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gGxtString: source/game_sa/common.h:66 (0x00C1B100) |
-| StatLineClock(int32 hours, int32 minutes) | [source/game_sa/Stats.cpp:1105](../../source/game_sa/Stats.cpp#L1105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670) |
-| StatLineEntry(const uint8* entry, int32& count, const int32 wanted) | [source/game_sa/Stats.cpp:1113](../../source/game_sa/Stats.cpp#L1113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo PedsKilledOfThisType: source/game_sa/Stats.h:49 (0x00B78E90); Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo gGxtString: source/game_sa/common.h:66 (0x00C1B100); Posible dato fijo gGxtString2: source/game_sa/common.h:67 (0x00C1AED8); Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510); Posible dato fijo m_ThisStatIsABarChart: source/game_sa/Stats.h:53 (0x00B794CC) |
-| StatsSexAppealBody() | [source/game_sa/Stats.cpp:1787](../../source/game_sa/Stats.cpp#L1787) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x00A9B0C8, 0x00B79530; Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
-| StatsUpdateSexAppealStatExe() | [source/game_sa/Stats.cpp:1842](../../source/game_sa/Stats.cpp#L1842) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatsFatAndMuscleBody(uint32 entryEcx, uint32 entryEdx, uint32 value) | [source/game_sa/Stats.cpp:1933](../../source/game_sa/Stats.cpp#L1933) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x00B79534; Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo m_FatCounter: source/game_sa/Stats.h:64 (0x00B794FC); Posible dato fijo m_MaxHealthCounter: source/game_sa/Stats.h:68 (0x00B7950C) |
-| StatsUpdateFatAndMuscleStatsExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:1985](../../source/game_sa/Stats.cpp#L1985) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatsCyclingBody(uint32 entryEcx, uint32 entryEdx, uint32 sprintArgument, volatile uint32* bmxSlot) | [source/game_sa/Stats.cpp:2034](../../source/game_sa/Stats.cpp#L2034) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_CycleSkillCounter: source/game_sa/Stats.h:57 (0x00B794E0); Posible dato fijo m_CycleStaminaCounter: source/game_sa/Stats.h:56 (0x00B794DC) |
-| StatsUpdateStatsWhenCyclingExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2130](../../source/game_sa/Stats.cpp#L2130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatsSwimmingBody(uint32 entryEcx, uint32 entryEdx, uint32 underwaterArgument, uint32 sprintArgument) | [source/game_sa/Stats.cpp:2148](../../source/game_sa/Stats.cpp#L2148) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_SwimStaminaCounter: source/game_sa/Stats.h:58 (0x00B794E4); Posible dato fijo m_SwimUnderWaterCounter: source/game_sa/Stats.h:59 (0x00B794E8) |
-| StatsUpdateStatsWhenSwimmingExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2189](../../source/game_sa/Stats.cpp#L2189) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatsDrivingBody(uint32 entryEcx, uint32 entryEdx, volatile uint32* vehicleSlot) | [source/game_sa/Stats.cpp:2210](../../source/game_sa/Stats.cpp#L2210) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_DrivingCounter: source/game_sa/Stats.h:60 (0x00B794EC) |
-| StatsUpdateStatsWhenDrivingExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2257](../../source/game_sa/Stats.cpp#L2257) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatsFlyingBody(uint32 entryEcx, uint32 entryEdx, volatile uint32* vehicleSlot) | [source/game_sa/Stats.cpp:2280](../../source/game_sa/Stats.cpp#L2280) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_FlyingCounter: source/game_sa/Stats.h:61 (0x00B794F0) |
-| StatsUpdateStatsWhenFlyingExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2338](../../source/game_sa/Stats.cpp#L2338) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatsWeaponHitBody(uint32 entryEcx, uint32 entryEdx, uint32 weaponType) | [source/game_sa/Stats.cpp:2381](../../source/game_sa/Stats.cpp#L2381) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x00B78E20; Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo m_LastWeaponTypeFired: source/game_sa/Stats.h:70 (0x00B79514); Posible dato fijo m_WeaponCounter: source/game_sa/Stats.h:66 (0x00B79504) |
-| StatsUpdateStatsWhenWeaponHitExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2435](../../source/game_sa/Stats.cpp#L2435) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatsRespawnBody(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2460](../../source/game_sa/Stats.cpp#L2460) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo m_DeathCounter: source/game_sa/Stats.h:67 (0x00B79508) |
-| StatsUpdateStatsOnRespawnExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2484](../../source/game_sa/Stats.cpp#L2484) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StatsAddToHealthBody(uint32 entryEcx, uint32 entryEdx, volatile uint32* argument) | [source/game_sa/Stats.cpp:2501](../../source/game_sa/Stats.cpp#L2501) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_AddToHealthCounter: source/game_sa/Stats.h:69 (0x00B79510) |
-| StatsUpdateStatsAddToHealthExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2523](../../source/game_sa/Stats.cpp#L2523) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __cdecl StatsGetFullFavoriteRadioStationListExe() | [source/game_sa/Stats.cpp:179](../../source/game_sa/Stats.cpp#L179) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::GetFullFavoriteRadioStationList 0x00558F90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo FavoriteRadioStationList: source/game_sa/Stats.h:48 (0x00B78E58) |
+| FindMostFavoriteIndex(int32& maxOut) | [source/game_sa/Stats.cpp:323](../../source/game_sa/Stats.cpp#L323) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FavoriteRadioStationList: source/game_sa/Stats.h:48 (0x00B78E58) |
+| StatsFindMostFavoriteExe() | [source/game_sa/Stats.cpp:348](../../source/game_sa/Stats.cpp#L348) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatsExeSprintf(char* dst, const char* format, Args... args) | [source/game_sa/Stats.cpp:406](../../source/game_sa/Stats.cpp#L406) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x00821BB5 |
+| * StatsGxtToAscii(const GxtChar* text) | [source/game_sa/Stats.cpp:409](../../source/game_sa/Stats.cpp#L409) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatsStripTags(GxtChar* text) | [source/game_sa/Stats.cpp:412](../../source/game_sa/Stats.cpp#L412) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatsLineTail(const char* key) | [source/game_sa/Stats.cpp:417](../../source/game_sa/Stats.cpp#L417) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo gGxtString: source/game_sa/common.h:66 (0x00C1B100); Posible dato fijo gGxtString2: source/game_sa/common.h:67 (0x00C1AED8); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510) |
+| StatsLineTailKey(const char* key) | [source/game_sa/Stats.cpp:424](../../source/game_sa/Stats.cpp#L424) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo gGxtString2: source/game_sa/common.h:67 (0x00C1AED8) |
+| StatsCheckForStatsMessageBody(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:620](../../source/game_sa/Stats.cpp#L620) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatMessage: source/game_sa/Stats.h:44 (0x00B78200); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo TotalNumStatMessages: source/game_sa/Stats.h:45 (0x00B794D0); Posible dato fijo bStatUpdateMessageDisplayed: source/game_sa/Stats.h:54 (0x00B794D4) |
+| StatsCheckForStatsMessageExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:722](../../source/game_sa/Stats.cpp#L722) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatsLoadConditionsRead(uint32* outCount) | [source/game_sa/Stats.cpp:739](../../source/game_sa/Stats.cpp#L739) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x008220AD; Posible dato fijo StatMessage: source/game_sa/Stats.h:44 (0x00B78200); Posible dato fijo TotalNumStatMessages: source/game_sa/Stats.h:45 (0x00B794D0) |
+| StatsLoadStatUpdateConditionsExe() | [source/game_sa/Stats.cpp:787](../../source/game_sa/Stats.cpp#L787) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TotalNumStatMessages: source/game_sa/Stats.h:45 (0x00B794D0) |
+| StatsGetFatAndMuscleModifierExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:864](../../source/game_sa/Stats.cpp#L864) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RatingKey(int32 rating) | [source/game_sa/Stats.cpp:989](../../source/game_sa/Stats.cpp#L989) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98) |
+| StatLineSpecialHandler(uint32 id) | [source/game_sa/Stats.cpp:1039](../../source/game_sa/Stats.cpp#L1039) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatLineRawInt(uint16 id) | [source/game_sa/Stats.cpp:1059](../../source/game_sa/Stats.cpp#L1059) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatLineValue(uint16 id) | [source/game_sa/Stats.cpp:1064](../../source/game_sa/Stats.cpp#L1064) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatLineFtol(double value) | [source/game_sa/Stats.cpp:1069](../../source/game_sa/Stats.cpp#L1069) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatLineArrayFtol(uint16 id) | [source/game_sa/Stats.cpp:1073](../../source/game_sa/Stats.cpp#L1073) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
+| StatLineOutOf(int32 value1, int32 value2) | [source/game_sa/Stats.cpp:1080](../../source/game_sa/Stats.cpp#L1080) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510) |
+| StatLineHeader() | [source/game_sa/Stats.cpp:1088](../../source/game_sa/Stats.cpp#L1088) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510) |
+| StatLineInt(const char* format, int32 value) | [source/game_sa/Stats.cpp:1094](../../source/game_sa/Stats.cpp#L1094) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510) |
+| StatLineDouble(const char* format, double value) | [source/game_sa/Stats.cpp:1100](../../source/game_sa/Stats.cpp#L1100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510) |
+| StatLineKey(const char* key) | [source/game_sa/Stats.cpp:1107](../../source/game_sa/Stats.cpp#L1107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gGxtString: source/game_sa/common.h:66 (0x00C1B100) |
+| StatLineClock(int32 hours, int32 minutes) | [source/game_sa/Stats.cpp:1113](../../source/game_sa/Stats.cpp#L1113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670) |
+| StatLineEntry(const uint8* entry, int32& count, const int32 wanted) | [source/game_sa/Stats.cpp:1121](../../source/game_sa/Stats.cpp#L1121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo PedsKilledOfThisType: source/game_sa/Stats.h:49 (0x00B78E90); Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo gGxtString: source/game_sa/common.h:66 (0x00C1B100); Posible dato fijo gGxtString2: source/game_sa/common.h:67 (0x00C1AED8); Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510); Posible dato fijo m_ThisStatIsABarChart: source/game_sa/Stats.h:53 (0x00B794CC) |
+| StatsSexAppealBody() | [source/game_sa/Stats.cpp:1795](../../source/game_sa/Stats.cpp#L1795) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x00A9B0C8, 0x00B79530; Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
+| StatsUpdateSexAppealStatExe() | [source/game_sa/Stats.cpp:1850](../../source/game_sa/Stats.cpp#L1850) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatsFatAndMuscleBody(uint32 entryEcx, uint32 entryEdx, uint32 value) | [source/game_sa/Stats.cpp:1941](../../source/game_sa/Stats.cpp#L1941) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x00B79534; Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo m_FatCounter: source/game_sa/Stats.h:64 (0x00B794FC); Posible dato fijo m_MaxHealthCounter: source/game_sa/Stats.h:68 (0x00B7950C) |
+| StatsUpdateFatAndMuscleStatsExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:1993](../../source/game_sa/Stats.cpp#L1993) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatsCyclingBody(uint32 entryEcx, uint32 entryEdx, uint32 sprintArgument, volatile uint32* bmxSlot) | [source/game_sa/Stats.cpp:2042](../../source/game_sa/Stats.cpp#L2042) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_CycleSkillCounter: source/game_sa/Stats.h:57 (0x00B794E0); Posible dato fijo m_CycleStaminaCounter: source/game_sa/Stats.h:56 (0x00B794DC) |
+| StatsUpdateStatsWhenCyclingExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2138](../../source/game_sa/Stats.cpp#L2138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatsSwimmingBody(uint32 entryEcx, uint32 entryEdx, uint32 underwaterArgument, uint32 sprintArgument) | [source/game_sa/Stats.cpp:2156](../../source/game_sa/Stats.cpp#L2156) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_SwimStaminaCounter: source/game_sa/Stats.h:58 (0x00B794E4); Posible dato fijo m_SwimUnderWaterCounter: source/game_sa/Stats.h:59 (0x00B794E8) |
+| StatsUpdateStatsWhenSwimmingExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2197](../../source/game_sa/Stats.cpp#L2197) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatsDrivingBody(uint32 entryEcx, uint32 entryEdx, volatile uint32* vehicleSlot) | [source/game_sa/Stats.cpp:2218](../../source/game_sa/Stats.cpp#L2218) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_DrivingCounter: source/game_sa/Stats.h:60 (0x00B794EC) |
+| StatsUpdateStatsWhenDrivingExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2265](../../source/game_sa/Stats.cpp#L2265) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatsFlyingBody(uint32 entryEcx, uint32 entryEdx, volatile uint32* vehicleSlot) | [source/game_sa/Stats.cpp:2288](../../source/game_sa/Stats.cpp#L2288) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_FlyingCounter: source/game_sa/Stats.h:61 (0x00B794F0) |
+| StatsUpdateStatsWhenFlyingExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2346](../../source/game_sa/Stats.cpp#L2346) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatsWeaponHitBody(uint32 entryEcx, uint32 entryEdx, uint32 weaponType) | [source/game_sa/Stats.cpp:2389](../../source/game_sa/Stats.cpp#L2389) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x00B78E20; Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo m_LastWeaponTypeFired: source/game_sa/Stats.h:70 (0x00B79514); Posible dato fijo m_WeaponCounter: source/game_sa/Stats.h:66 (0x00B79504) |
+| StatsUpdateStatsWhenWeaponHitExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2443](../../source/game_sa/Stats.cpp#L2443) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatsRespawnBody(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2468](../../source/game_sa/Stats.cpp#L2468) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo m_DeathCounter: source/game_sa/Stats.h:67 (0x00B79508) |
+| StatsUpdateStatsOnRespawnExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2492](../../source/game_sa/Stats.cpp#L2492) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StatsAddToHealthBody(uint32 entryEcx, uint32 entryEdx, volatile uint32* argument) | [source/game_sa/Stats.cpp:2509](../../source/game_sa/Stats.cpp#L2509) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_AddToHealthCounter: source/game_sa/Stats.h:69 (0x00B79510) |
+| StatsUpdateStatsAddToHealthExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2531](../../source/game_sa/Stats.cpp#L2531) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1354"></a>
+<a id="grupo-1355"></a>
 
 ## Globales y helpers: source/game_sa/StencilShadows.cpp
 
@@ -287,7 +296,7 @@
 | StencilToggleEdge(RxVertexIndex* edges, uint16& count, uint16 i0, uint16 i1) | [source/game_sa/StencilShadows.cpp:101](../../source/game_sa/StencilShadows.cpp#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | BuildShadowVolume(CStencilShadowObject* obj, bool forVehicle) | [source/game_sa/StencilShadows.cpp:123](../../source/game_sa/StencilShadows.cpp#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo s_ShadowTrianglePoints: source/game_sa/StencilShadows.cpp:28 (0x00C6A174); Posible dato fijo s_ShadowTrianglePointsUnk: source/game_sa/StencilShadows.cpp:27 (0x00C6A170); Posible dato fijo s_SunPosNrm: source/game_sa/StencilShadows.cpp:30 (0x008D5244); Posible dato fijo s_TransformedShadowTrianglePoints: source/game_sa/StencilShadows.cpp:29 (0x00C6A178) |
 
-<a id="grupo-1355"></a>
+<a id="grupo-1356"></a>
 
 ## Globales y helpers: source/game_sa/Streaming.cpp
 
@@ -297,7 +306,7 @@
 | ExeLodSector(float v) | [source/game_sa/Streaming.cpp:41](../../source/game_sa/Streaming.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | MemoryUsedBelow(size_t goal) | [source/game_sa/Streaming.cpp:43](../../source/game_sa/Streaming.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_memoryUsedBytes: source/game_sa/Streaming.h:245 (0x008E4CB4) |
 
-<a id="grupo-1356"></a>
+<a id="grupo-1357"></a>
 
 ## Globales y helpers: source/game_sa/Streaming.h
 
@@ -329,7 +338,7 @@
 | ModelIdToRRR(int32 absId) | [source/game_sa/Streaming.h:138](../../source/game_sa/Streaming.h#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ModelIdToSCM(int32 absId) | [source/game_sa/Streaming.h:139](../../source/game_sa/Streaming.h#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1357"></a>
+<a id="grupo-1358"></a>
 
 ## Globales y helpers: source/game_sa/StuckCarCheck.cpp
 
@@ -337,7 +346,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * GetVehicleNoBoundsCheck(int32 handle) | [source/game_sa/StuckCarCheck.cpp:25](../../source/game_sa/StuckCarCheck.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1358"></a>
+<a id="grupo-1359"></a>
 
 ## Globales y helpers: source/game_sa/StuntJumpManager.cpp
 
@@ -351,18 +360,10 @@
 | ResetAllJumps() | [source/game_sa/StuntJumpManager.cpp:401](../../source/game_sa/StuntJumpManager.cpp#L401) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | StuntJumpTestCode() | [source/game_sa/StuntJumpManager.cpp:409](../../source/game_sa/StuntJumpManager.cpp#L409) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1359"></a>
+<a id="grupo-1360"></a>
 
 ## Globales y helpers: source/game_sa/TagManager.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | IsTagInArea(const CRect& area, const tTagDesc& tag) | [source/game_sa/TagManager.cpp:122](../../source/game_sa/TagManager.cpp#L122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1360"></a>
-
-## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * __fastcall PedGroupDefaultTaskAllocatorFollowAnyMeansConstructorExe(CPedGroupDefaultTaskAllocatorFollowAnyMeans* self, void* /*edx*/) | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.cpp:7](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.cpp#L7) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedGroupDefaultTaskAllocatorFollowAnyMeans::Constructor 0x005F6450 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

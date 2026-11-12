@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (12/11/2026). Total: **1,592** funciones en 132 clases/módulos (rango 0x401000–0x74FFFF): 1,570 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (12/11/2026). Total: **1,566** funciones en 127 clases/módulos (rango 0x401000–0x74FFFF): 1,544 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -22,13 +22,8 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | FurnitureManager_c | 3 | 306 |
 | CAEWaterCannonAudioEntity | 2 | 309 |
 | CTaskComplexHitPedWithCar | 4 | 319 |
-| CStats | 2 | 320 |
-| CTaskComplexOpenPassengerDoor | 4 | 327 |
-| CTaskGoToVehicleAndLean | 3 | 331 |
-| CTaskComplexDieInCar | 13 | 333 |
 | CCopPed | 8 | 335 |
 | CEventAcquaintancePedHateBadlyLit | 7 | 337 |
-| CPedGeometryAnalyser | 4 | 338 |
 | InteriorManager_c | 2 | 340 |
 | CQuaternion | 3 | 341 |
 | CPlane | 3 | 346 |
@@ -142,7 +137,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (132 clases / módulos)** | **1,592** | **227,643** |
+| **TOTAL (127 clases / módulos)** | **1,566** | **225,994** |
 
 ## CPedDamageResponseCalculator (2)
 
@@ -236,48 +231,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00653AA0 | 51 | D |  | 0 | 0 |  | alta |
 | 0x006563D0 | 208 | A |  | 1 | 1 |  | baja |
 
-## CStats (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00558F90 | 6 | A |  | 2 | 2 |  | alta |
-| 0x0055D0E0 | 314 | A |  | 1 | 1 |  | baja |
-
-## CTaskComplexOpenPassengerDoor (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006404C0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x006404D0 | 90 | A |  | 1 | 1 |  | baja |
-| 0x00643950 | 100 | B |  | 0 | 0 | sí | baja |
-| 0x00640430 | 131 | A |  | 5 | 4 |  | baja |
-
-## CTaskGoToVehicleAndLean (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00660ED0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x006648A0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00664770 | 295 | A |  | 2 | 2 |  | baja |
-
-## CTaskComplexDieInCar (13)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0062FF50 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x0062FF00 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0062FF40 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0062FF10 | 11 | C |  | 1 | 0 |  | baja |
-| 0x0062FF60 | 11 | C |  | 1 | 0 |  | baja |
-| 0x0062FF20 | 18 | D |  | 0 | 0 |  | baja |
-| 0x006378D0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006378F0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637910 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637930 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637950 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006379D0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637970 | 96 | B |  | 0 | 0 | sí | baja |
-
 ## CCopPed (8)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -302,15 +255,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004AFBF0 | 81 | C |  | 1 | 0 |  | baja |
 | 0x004AFB50 | 102 | C |  | 1 | 0 |  | baja |
 | 0x005FF2E0 | 104 | B |  | 0 | 0 | sí | baja |
-
-## CPedGeometryAnalyser (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F6300 | 30 | D |  | 0 | 0 |  | baja |
-| 0x005F6200 | 90 | A |  | 9 | 4 |  | baja |
-| 0x005F6190 | 108 | A |  | 5 | 4 |  | baja |
-| 0x005F6280 | 110 | D |  | 0 | 0 |  | baja |
 
 ## InteriorManager_c (2)
 

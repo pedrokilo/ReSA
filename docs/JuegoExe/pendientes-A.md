@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 892 grupos / 10295 funciones reconstruidas; 10295 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 893 grupos / 10321 funciones reconstruidas; 10321 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-516 funciones, 84,517 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+509 funciones, 83,483 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -61,13 +61,10 @@
 | `0x00654840` | 257 | CTaskComplexWalkRoundBuildingAttempt | alta | 4 (4) |  |
 | `0x004654B0` | 226 | CTheScripts | baja | 22 (4) |  |
 | `0x00502F80` | 223 | CAEWaterCannonAudioEntity | alta | 4 (4) |  |
-| `0x00640430` | 131 | CTaskComplexOpenPassengerDoor | baja | 5 (4) |  |
 | `0x00541DD0` | 113 | CPad | baja | 5 (4) |  |
-| `0x005F6190` | 108 | CPedGeometryAnalyser | baja | 5 (4) |  |
 | `0x005D9110` | 104 | CCustomCarEnvMapPipeline | baja | 4 (4) |  |
 | `0x004D1610` | 101 | RpAnimBlend | alta | 10 (4) |  |
 | `0x005A1D10` | 90 | CObjectPool | baja | 5 (4) |  |
-| `0x005F6200` | 90 | CPedGeometryAnalyser | baja | 9 (4) |  |
 | `0x004993D0` | 82 | CTaskComplexSeekEntityRadiusAngleOffset | baja | 4 (4) |  |
 | `0x0074C6C0` | 82 | Win | baja | 4 (4) |  |
 | `0x00441130` | 54 | CEntryExitManager | baja | 8 (4) |  |
@@ -117,7 +114,6 @@
 | `0x0053E600` | 353 | Game | alta | 2 (2) |  |
 | `0x0065ED40` | 329 | CTaskComplexGangFollower | alta | 2 (2) |  |
 | `0x00746D80` | 322 | CPad | baja | 2 (2) |  |
-| `0x00664770` | 295 | CTaskGoToVehicleAndLean | baja | 2 (2) |  |
 | `0x0074C200` | 269 | Win | baja | 2 (2) |  |
 | `0x005DA6A0` | 236 | CCustomCarEnvMapPipeline | baja | 3 (2) |  |
 | `0x005A1DF0` | 230 | CObjectPool | baja | 2 (2) |  |
@@ -156,7 +152,6 @@
 | `0x004D59E0` | 23 | CAnimManager | baja | 2 (2) |  |
 | `0x00411BF0` | 10 | CPlaceable | baja | 2 (2) |  |
 | `0x0049E650` | 10 | CTrafficLights | baja | 2 (2) |  |
-| `0x00558F90` | 6 | CStats | alta | 2 (2) |  |
 | `0x00745A70` | 5 | Ps | baja | 2 (2) |  |
 | `0x00407AC0` | 1 | CStreaming | alta | 2 (2) |  |
 | `0x00407F20` | 1 | CStreaming | alta | 2 (2) |  |
@@ -183,7 +178,6 @@
 | `0x005E3630` | 400 | CPed | alta | 1 (1) |  |
 | `0x00600180` | 364 | CAttractorScanner | baja | 1 (1) |  |
 | `0x0055F2B0` | 360 | SurfaceInfos_c | alta | 1 (1) |  |
-| `0x0055D0E0` | 314 | CStats | baja | 1 (1) |  |
 | `0x0074F610` | 288 | Win | baja | 1 (1) |  |
 | `0x005D2620` | 282 | CVehicleSaveStructure | baja | 1 (1) |  |
 | `0x00669FF0` | 265 | CTaskComplexWander | baja | 1 (1) |  |
@@ -301,7 +295,6 @@
 | `0x00550960` | 91 | CPools | alta | 1 (1) |  |
 | `0x00550A30` | 91 | CPools | alta | 1 (1) |  |
 | `0x00550CA0` | 91 | CPools | alta | 1 (1) |  |
-| `0x006404D0` | 90 | CTaskComplexOpenPassengerDoor | baja | 1 (1) |  |
 | `0x0066E050` | 90 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | baja | 1 (1) |  |
 | `0x006833D0` | 90 | CTaskComplexWaitForPed | baja | 1 (1) |  |
 | `0x00460D80` | 87 | CTaskComplexWanderCop | baja | 2 (1) |  |
