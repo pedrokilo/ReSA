@@ -2116,7 +2116,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStareAtPed::Constructor"
@@ -2125,15 +2125,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2150,7 +2150,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStareAtPed::Destructor"
@@ -2159,15 +2159,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2184,7 +2184,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStareAtPed::Clone"
@@ -2193,15 +2193,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2218,7 +2218,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStareAtPed::GetTaskType"
@@ -2227,15 +2227,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2252,7 +2252,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStareAtPed::CreateNextSubTask"
@@ -2261,15 +2261,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2286,7 +2286,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStareAtPed::CreateFirstSubTask"
@@ -2295,15 +2295,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2320,7 +2320,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStareAtPed::ControlSubTask"
@@ -2329,15 +2329,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2354,7 +2354,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStealCar::Constructor"
@@ -2363,15 +2363,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2388,7 +2388,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStealCar::Destructor"
@@ -2397,15 +2397,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2422,7 +2422,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStealCar::CreateSubTask"
@@ -2431,15 +2431,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2456,7 +2456,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStealCar::Clone"
@@ -2465,15 +2465,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2490,7 +2490,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStealCar::GetTaskType"
@@ -2499,15 +2499,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2524,7 +2524,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStealCar::CreateNextSubTask"
@@ -2533,15 +2533,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2558,7 +2558,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStealCar::CreateFirstSubTask"
@@ -2567,15 +2567,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2592,7 +2592,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStealCar::ControlSubTask"
@@ -2601,15 +2601,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2626,7 +2626,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStuckInAir::Clone"
@@ -2635,15 +2635,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2660,7 +2660,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStuckInAir::ControlSubTask"
@@ -2669,15 +2669,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2694,7 +2694,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStuckInAir::CreateFirstSubTask"
@@ -2703,15 +2703,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2728,7 +2728,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStuckInAir::CreateNextSubTask"
@@ -2737,15 +2737,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2762,7 +2762,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStuckInAir::CreateSubTask"
@@ -2771,15 +2771,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2796,7 +2796,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStuckInAir::GetTaskType"
@@ -2805,15 +2805,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2830,7 +2830,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTrackEntity::CalcMoveRatio"
@@ -2839,15 +2839,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2864,7 +2864,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTrackEntity::CalcTargetPos"
@@ -2873,15 +2873,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2898,7 +2898,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTrackEntity::Clone"
@@ -2907,15 +2907,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2932,7 +2932,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTrackEntity::Constructor"
@@ -2941,15 +2941,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -2966,7 +2966,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTrackEntity::ControlSubTask"
@@ -2975,15 +2975,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3000,7 +3000,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTrackEntity::CreateFirstSubTask"
@@ -3009,15 +3009,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3034,7 +3034,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTrackEntity::CreateNextSubTask"
@@ -3043,15 +3043,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3068,7 +3068,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTrackEntity::Destructor"
@@ -3077,15 +3077,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3102,7 +3102,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTrackEntity::GetTaskType"
@@ -3111,15 +3111,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3136,7 +3136,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTrackEntity::MakeAbortable"
@@ -3145,15 +3145,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3170,7 +3170,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTrackEntity::SetOffsetPos"
@@ -3179,15 +3179,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3204,7 +3204,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTreatAccident::Clone"
@@ -3213,15 +3213,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3238,7 +3238,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTreatAccident::ComputeHeading"
@@ -3247,15 +3247,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3272,7 +3272,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTreatAccident::Constructor"
@@ -3281,15 +3281,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3306,7 +3306,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTreatAccident::ControlSubTask"
@@ -3315,15 +3315,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3340,7 +3340,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTreatAccident::CreateFirstSubTask"
@@ -3349,15 +3349,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3374,7 +3374,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTreatAccident::CreateNextSubTask"
@@ -3383,15 +3383,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",
@@ -3408,7 +3408,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch/validation-summary.json",
-        "sha256": "39739cfe75d8143ee7d00bcf26874ce9289870d3c9988547797c76db9c8637de",
+        "sha256": "ca0de8e72c86cd04ed5215c589d12d014dceead6d65f64c6e018f027b31b580f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexTreatAccident::CreateSubTask"
@@ -3417,15 +3417,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-021843-813270).",

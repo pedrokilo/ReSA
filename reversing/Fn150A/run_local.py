@@ -28,7 +28,7 @@ SLOTS = ()
 # envoltura de la DLL; ~CTask 0x61A3A0, SetFinishCallback, CTask::operator delete 0x61A5B0, CColModel (0x40F700 y 0x40FC40), FindPlayerPed, GetWeaponInfo y GiveWeapon en su cuerpo).
 # Sin hook (hooked False) y con funcion propia de la DLL (DLL_BODY_WITHOUT_HOOK: ~CTaskSimpleAnim 0x61A6F0, ~CTaskSimpleRunAnim 0x48DE60, ~CQuadTreeNode 0x552520 y su liberacion 0x552C90): el falso va tambien en esa funcion;
 # operator delete del CRT (0x8214BD): sin hook, la DLL lo llama por la direccion del EXE (un solo parche).
-DLL_BODY_WITHOUT_HOOK = {0x61A6F0, 0x48DE60, 0x552520, 0x552C90}
+DLL_BODY_WITHOUT_HOOK = {0x48DE60, 0x552520, 0x552C90}
 DL, CD = (0x61A5B0, True), (0x8214BD, False)
 STUBBED = {n: [] for n in NAMES}
 STUBBED.update({NAMES[0]: [(0x4F2200, True), CD], NAMES[1]: [CD], NAMES[2]: [(0x40F700, True), (0x40FC40, True)], NAMES[7]: [(0x552520, False), (0x552C90, False)],

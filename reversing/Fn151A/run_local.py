@@ -28,7 +28,7 @@ SLOTS = ()
 # envoltura de la DLL; ~CTask 0x61A3A0, CTask::operator delete 0x61A5B0, CEntity::CleanUpOldReference/RegisterReference, el constructor de RunTimedAnim, CTask::operator new y el constructor de GoPickUpEntity,
 # CEvent::operator new y su constructor en su cuerpo). Sin hook (hooked False) y con funcion propia de la DLL (DLL_BODY_WITHOUT_HOOK: cuerpos 0x6833D0, 0x691630, 0x5FF860, 0x61A6F0 y CEvent::operator delete
 # 0x4B5630): el falso va tambien en esa funcion; operator new del CRT (0x82119A): sin hook, la DLL lo llama por la direccion del EXE (un solo parche).
-DLL_BODY_WITHOUT_HOOK = {0x6833D0, 0x691630, 0x5FF860, 0x61A6F0}   # pase final 157A-162A: CEvent::operator delete (0x4B5630) tiene hook desde el lote 153A: colaborador con hook (H)
+DLL_BODY_WITHOUT_HOOK = {0x6833D0, 0x691630, 0x5FF860}   # pase final 157A-162A: CEvent::operator delete (0x4B5630) tiene hook desde el lote 153A: colaborador con hook (H)
 DL = (0x61A5B0, True)
 STUBBED = {n: [] for n in NAMES}
 STUBBED.update({NAMES[0]: [(0x661F30, True), DL], NAMES[2]: [(0x571A00, True)], NAMES[3]: [(0x571B70, True)], NAMES[4]: [(0x683A40, True)],

@@ -28,7 +28,7 @@ SLOTS = ()
 # envoltura de la DLL; Flush, CTask::operator delete 0x61A5B0, constructor base 0x61A390 y CFileMgr en su cuerpo; los cuerpos 0x66DFA0 y 0x48E930 son funciones probadas del propio lote: se reutiliza su ruta).
 # Sin hook (hooked False) y con funcion propia de la DLL (DLL_BODY_WITHOUT_HOOK: ~CTaskSimpleAnim 0x61A6F0): el falso va tambien en esa funcion; operator delete del CRT (0x8214BD): sin hook, la DLL lo llama
 # por la direccion del EXE (un solo parche).
-DLL_BODY_WITHOUT_HOOK = {0x61A6F0}
+DLL_BODY_WITHOUT_HOOK = set()
 FL, DL, CD = (0x4AB370, True), (0x61A5B0, True), (0x8214BD, False)
 STUBBED = {n: [] for n in NAMES}
 STUBBED.update({NAMES[0]: [FL], NAMES[1]: [FL], NAMES[2]: [FL, CD],

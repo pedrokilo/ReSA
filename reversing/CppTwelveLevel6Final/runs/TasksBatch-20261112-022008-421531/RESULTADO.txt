@@ -1,0 +1,3 @@
+APROBADO: Tareas (StareAtPed, StealCar, StuckInAir, TrackEntity, TreatAccident)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-tasks\20261112-022008-421531
