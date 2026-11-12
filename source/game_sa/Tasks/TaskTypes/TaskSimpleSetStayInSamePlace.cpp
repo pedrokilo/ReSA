@@ -27,11 +27,23 @@ void __fastcall SetStayInSamePlaceDestructorBody(CTaskSimpleSetStayInSamePlace* 
     *reinterpret_cast<uint32*>(self) = 0x86DD50;
     self->CTask::Destructor();
 }
+
+// 0x6374A0 (lote 183A, sin validar; el listado decia CTaskSimpleHitFromFront): destructor con borrado de CTaskSimpleSetStayInSamePlace del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x62F5D0;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). El cuerpo es el de ~CTaskSimpleSetStayInSamePlace (0x62F5D0, con hook: vtable 0x86DD50 y CTask::Destructor). Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+// Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskSimpleSetStayInSamePlace* __fastcall SetStayInSamePlaceScalarDeletingDestructor(CTaskSimpleSetStayInSamePlace* self, void* /*edx*/, uint8 flags) {
+    SetStayInSamePlaceDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskSimpleSetStayInSamePlace::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleSetStayInSamePlace, 0x86DD50, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(SetStayInSamePlaceScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6374A0); // lote 183A (sin validar)
 
     RH_ScopedNamedGlobalInstall(SetStayInSamePlaceDestructorBody, "Destructor", 0x62F5D0);
     RH_ScopedInstall(Constructor, 0x62F590);

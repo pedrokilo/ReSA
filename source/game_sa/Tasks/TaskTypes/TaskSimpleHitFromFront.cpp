@@ -19,9 +19,23 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "TaskSimpleHitFromFront.h"
 
+namespace {
+// 0x637300 (lote 183A, sin validar; el listado decia CTaskSimpleHitFromFront): destructor con borrado de CTaskSimpleHitFromFront del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x637320;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). 0x637320 es solo `jmp 0x61A6F0` (cuerpo de ~CTaskSimpleAnim, con hook, que deja la vtable 0x86D504 y termina en CTask::Destructor):
+// la clase no escribe vtable propia. Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+CTaskSimpleHitFromFront* __fastcall HitFromFrontScalarDeletingDestructor(CTaskSimpleHitFromFront* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleAnim::DestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskSimpleHitFromFront::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleHitFromFront, 0x86e5ec, 10);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(HitFromFrontScalarDeletingDestructor, "ScalarDeletingDestructor", 0x637300); // lote 183A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x637250);
 

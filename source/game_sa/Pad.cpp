@@ -59,10 +59,22 @@ int32 __fastcall PadDPadUpPressedExe(const CPad* self, void* /*edx*/) { return (
 int32 __fastcall PadTrianglePressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.ButtonTriangle != 0 && self->OldState.ButtonTriangle == 0) ? 1 : 0; }
 // 0x53EF60: ButtonCircle (palabras +0x22 y +0x52)
 int32 __fastcall PadCirclePressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.ButtonCircle != 0 && self->OldState.ButtonCircle == 0) ? 1 : 0; }
+// Lote 183A (sin validar): otras dos funciones propias del EXE con EAX completo (thiscall).
+// 0x4D59E0 (el listado decia CAnimManager): ButtonCross (palabras +0x20 y +0x50), thiscall, sin pila, `ret`.
+int32 __fastcall PadCrossPressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.ButtonCross != 0 && self->OldState.ButtonCross == 0) ? 1 : 0; }
+// 0x4D59B0 (el listado decia CAnimManager): tecla estandar pulsada en este fotograma y no en el anterior. thiscall, un argumento de pila (BYTE ampliado a cero), `ret 4`; NO lee `this`: indexa los arrays
+// estaticos NewKeyState (0xB73190) y OldKeyState (0xB72F20), palabras de standardKeys (+0x18) en la posicion key * 2: primero NewKeyState (si es cero -> 0) y despues OldKeyState (si no es cero -> 0).
+int32 __fastcall PadStandardKeyJustPressedExe(const CPad* /*self*/, void* /*edx*/, uint8 key) { return (CPad::NewKeyState.standardKeys[key] != 0 && CPad::OldKeyState.standardKeys[key] == 0) ? 1 : 0; }
 } // namespace
 
 // Lote 174A (banco Fn174A): "boton del raton pulsado en este fotograma y no en el anterior" de la rueda hacia arriba (0x57C400), la rueda hacia abajo (0x57C420) y los botones X1 (0x57C440) y X2 (0x57C460), funciones
 // propias del EXE (cdecl, sin argumentos, `ret`, 24 bytes cada una): el byte del boton en NewMouseControllerState (0xB73418) es distinto de cero y el de OldMouseControllerState (0xB7342C) es cero; devuelve 1 o 0 (AL).
+// Lote 183A (sin validar): 0x4D5980 (el listado decia CAnimManager), funcion propia del EXE (cdecl, sin argumentos, `ret`, 46 bytes; devuelve 1 o 0 en AL): Enter normal (palabra de NewKeyState en 0xB733CC distinta de cero y la de
+// OldKeyState en 0xB7315C igual a cero) o, si no, Enter del teclado numerico (NewKeyState 0xB733EA distinta de cero y OldKeyState 0xB7317A cero). Antes inline en la cabecera.
+bool CPad::IsEnterJustPressed() noexcept {
+    return IsPadEnterJustPressed() || IsReturnJustPressed();
+}
+
 bool CPad::IsMouseWheelUpPressed() noexcept   { return MOUSE_IS_PRESSED(isMouseWheelMovedUp); }
 bool CPad::IsMouseWheelDownPressed() noexcept { return MOUSE_IS_PRESSED(isMouseWheelMovedDown); }
 bool CPad::IsMouseBmx1Pressed() noexcept      { return MOUSE_IS_PRESSED(isMouseFirstXPressed); }
@@ -79,6 +91,9 @@ void CPad::InjectHooks() {
     RH_ScopedCategoryGlobal();
     RH_ScopedInstall(GetPad, 0x53FB70);
     RH_ScopedInstall(IsRadioTrackSkipPressed, 0x4E7F20); // lote 146A (banco Fn146A): cuerpo inline en la cabecera
+    RH_ScopedInstall(IsEnterJustPressed, 0x4D5980);       // lote 183A (sin validar): antes inline en la cabecera
+    RH_ScopedNamedGlobalInstall(PadCrossPressedExe, "IsCrossPressed", 0x4D59E0); // lote 183A (sin validar)
+    RH_ScopedNamedGlobalInstall(PadStandardKeyJustPressedExe, "IsStandardKeyJustPressed", 0x4D59B0); // lote 183A (sin validar)
     RH_ScopedInstall(IsMouseWheelUpPressed, 0x57C400);   // lote 174A (banco Fn174A): antes inline en la cabecera
     RH_ScopedInstall(IsMouseWheelDownPressed, 0x57C420); // lote 174A (banco Fn174A)
     RH_ScopedInstall(IsMouseBmx1Pressed, 0x57C440);      // lote 174A (banco Fn174A)

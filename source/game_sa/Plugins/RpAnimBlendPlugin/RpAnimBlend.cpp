@@ -282,9 +282,10 @@ eBoneTag32 ConvertPedNode2BoneTag(ePedNode pedNode) {
     }
 }
 
-// 0x4D56F0
+// 0x4D56F0 (lote 183A, sin validar; el listado decia CAnimManager): cdecl, un dword de pila, `ret`; devuelve en EAX un puntero a una cadena del EXE (0x85ED68..0x85EE9C) o nulo. El EXE compara el dword COMPLETO (con signo
+// contra 0xC9, sin signo contra 0x36, 0x12D y 0x12E), por eso se conmuta sobre el valor de 32 bits y no sobre eBoneTag (que lo truncaria a 16 bits). Aqui los resultados son literales de la DLL con el mismo texto.
 const char* ConvertBoneTag2BoneName(eBoneTag32 boneTag) {
-    switch (boneTag) {
+    switch (boneTag.get_underlying()) {
     case BONE_R_BREAST:    return "R Breast";
     case BONE_L_BREAST:    return "L Breast";
     case BONE_BELLY:       return "Belly";
@@ -1298,12 +1299,20 @@ static int32 __cdecl ConvertPedNode2BoneTagExe(int32 pedNode) {
     return static_cast<int32>(ConvertPedNode2BoneTag(static_cast<ePedNode>(pedNode)));
 }
 
+// 0x4D56F0 (lote 183A, sin validar): el EXE recibe el tag como dword de pila (cdecl); eBoneTag32 es una clase (WEnum), asi que el enganche usa esta envoltura con la ABI del EXE y el valor de 32 bits sin truncar
+static const char* __cdecl ConvertBoneTag2BoneNameExe(int32 boneTag) {
+    eBoneTag32 tag;
+    tag.m_Value = boneTag; // sin pasar por eBoneTag (int16)
+    return ConvertBoneTag2BoneName(tag);
+}
+
 void RpAnimBlendPlugin::InjectHooks() {
     RH_ScopedNamespaceName("RpAnimBlend");
     RH_ScopedCategory("Plugins");
 
     RH_ScopedGlobalInstall(RpAnimBlendPluginAttach, 0x4D6150);
     RH_ScopedNamedGlobalInstall(ConvertPedNode2BoneTagExe, "ConvertPedNode2BoneTag", 0x4D58A0); // Lote 116A, banco Fn116A
+    RH_ScopedNamedGlobalInstall(ConvertBoneTag2BoneNameExe, "ConvertBoneTag2BoneName", 0x4D56F0); // lote 183A (sin validar)
     RH_ScopedGlobalInstall(RpAnimBlendClumpInit, 0x4D6720);
     RH_ScopedGlobalInstall(ClumpAnimConstruct, 0x4D5F40);
     RH_ScopedGlobalInstall(ClumpAnimDestruct, 0x4D6110);

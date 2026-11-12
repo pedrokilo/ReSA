@@ -261,7 +261,7 @@ public:
     [[nodiscard]] static bool IsRightPressed() noexcept                     { return KEY_IS_PRESSED(right); }                                                                //
     static bool IsPadEnterJustPressed() noexcept                            { return KEY_IS_PRESSED(enter); }                                                                //
     static bool IsReturnJustPressed() noexcept                              { return KEY_IS_PRESSED(extenter); }                                                             //
-    static bool IsEnterJustPressed() noexcept                               { return IsPadEnterJustPressed() || IsReturnJustPressed(); }                                     // 0x4D5980
+    static bool IsEnterJustPressed() noexcept;                              // 0x4D5980 (lote 183A, sin validar: definida en Pad.cpp)
     static bool f0x57C330() { return !NewKeyState.enter && OldKeyState.enter || !NewKeyState.extenter && OldKeyState.extenter; }                                             // 0x57C330
 
     static bool IsMenuKeyJustPressed() noexcept                             { return KEY_IS_PRESSED(lalt); }                                                                 // 0x744D50

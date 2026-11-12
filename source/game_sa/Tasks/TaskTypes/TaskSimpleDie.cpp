@@ -35,6 +35,19 @@ __declspec(noinline) void __fastcall SimpleDieDestructorBodyExe(CTaskSimpleDie* 
 }
 } // namespace
 
+namespace {
+// 0x637500 (lote 183A, sin validar; el listado decia CTaskSimpleHitFromFront): destructor con borrado de CTaskSimpleDie del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x62FB40;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). El cuerpo es el de ~CTaskSimpleDie (0x62FB40, con hook: vtable 0x86DDBC, callback de fin por defecto y CTask::Destructor). Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+// Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CTaskSimpleDie* __fastcall SimpleDieScalarDeletingDestructor(CTaskSimpleDie* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleDieBody::SimpleDieDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 // 0x62FA50 (lote 159A, banco Fn159A; thiscall, `ret`, 6 bytes: `mov eax,0D4h`): TASK_SIMPLE_DIE (212); no lee el objeto (ranura 4 de la vtable 0x86DDBC).
 eTaskType CTaskSimpleDie::GetTaskType() const {
     return Type;
@@ -177,6 +190,7 @@ void CTaskSimpleDie__InjectHooks() {
     RH_ScopedOverloadedInstall(Constructor, "2", 0x62FA60, CTaskSimpleDie*(CTaskSimpleDie::*)(const char*, const char*, eAnimationFlags, float, float));
     RH_ScopedOverloadedInstall(Constructor, "3", 0x62FAF0, CTaskSimpleDie*(CTaskSimpleDie::*)(CAnimBlendHierarchy *, eAnimationFlags, float, float));
     RH_ScopedNamedGlobalInstall(CTaskSimpleDieBody::SimpleDieDestructorBodyExe, "DestructorBody", 0x62FB40); // lote 159A (banco Fn159A)
+    RH_ScopedNamedGlobalInstall(SimpleDieScalarDeletingDestructor, "ScalarDeletingDestructor", 0x637500); // lote 183A (sin validar)
     RH_ScopedVMTInstall(GetTaskType, 0x62FA50); // lote 159A (banco Fn159A): retorno de constante
     RH_ScopedInstall(FinishAnimDieCB, 0x62FC10);
     RH_ScopedInstall(StartAnim, 0x637520);

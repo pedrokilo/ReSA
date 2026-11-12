@@ -33,9 +33,23 @@ void __fastcall StandStillDestructorBody(CTaskSimpleStandStill* self, void* /*ed
 
 using CTaskSimpleStandStillBody::StandStillDestructorBody;
 
+namespace {
+// 0x637480 (lote 183A, sin validar; el listado decia CTaskSimpleHitFromFront): destructor con borrado de CTaskSimpleStandStill del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x62F360;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). El cuerpo es el de ~CTaskSimpleStandStill (0x62F360, con hook: vtable 0x86DD2C y CTask::Destructor). Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+// Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskSimpleStandStill* __fastcall StandStillScalarDeletingDestructor(CTaskSimpleStandStill* self, void* /*edx*/, uint8 flags) {
+    StandStillDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskSimpleStandStill::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleStandStill, 0x86DD2C, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(StandStillScalarDeletingDestructor, "ScalarDeletingDestructor", 0x637480); // lote 183A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x62F310);
     RH_ScopedNamedGlobalInstall(StandStillDestructorBody, "Destructor", 0x62F360);

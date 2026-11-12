@@ -69,6 +69,15 @@ void CAnimManager::InjectHooks() {
     RH_ScopedOverloadedInstall(BlendAnimation, "hier", 0x4D4410, CAnimBlendAssociation*(*)(RpClump*, CAnimBlendHierarchy*, int32, float));
     RH_ScopedInstall(LoadAnimFiles, 0x4D5620);
     RH_ScopedInstall(LoadAnimFile, 0x4D47F0);
+
+    // Instancias de la plantilla CLinkList<CAnimBlendHierarchy*> (cache de animaciones descomprimidas, 0xB5EB20) que el EXE tiene fuera de linea (lote 183A, sin validar; el listado decia CAnimManager). Son byte a byte las
+    // mismas instrucciones que las de CLinkList<CCollisionData*> (0x4161D0 y 0x4161F0, lote 148A) salvo que Shutdown llama a operator delete (0x8214BD) en vez de a operator delete[] (0x8213AE, que es un `jmp` a 0x8214BD).
+    {
+        RH_ScopedClass(CLinkList<CAnimBlendHierarchy*>);
+        RH_ScopedCategory("Animation");
+        RH_ScopedInstall(Shutdown, 0x4D40A0);
+        RH_ScopedOverloadedInstall(Insert, "Data", 0x4D40C0, CLink<CAnimBlendHierarchy*>* (CLinkList<CAnimBlendHierarchy*>::*)(CAnimBlendHierarchy* const&));
+    }
 }
 
 // 0x5BF6B0
