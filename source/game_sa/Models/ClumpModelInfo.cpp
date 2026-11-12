@@ -55,6 +55,12 @@ CClumpModelInfo* __fastcall ClumpModelInfoConstructorBody(CClumpModelInfo* self,
     *reinterpret_cast<uint32*>(self) = 0x85BD30;
     return self;
 }
+
+// 0x4C5750 (lote 167A, banco Fn167A; thiscall, sin argumentos de pila, `ret`, 7 bytes: `mov dword [ecx],0x85BB9C`): cuerpo del destructor de CClumpModelInfo del EXE. Solo deja la vtable de la clase
+// base y no llama a nada (como 0x4C5590 y 0x4C5620). Lo pasan a los iteradores de vectores de los almacenes (`push 0x4C5750` en 0x4C5900 y 0x4C5EF1) y lo llama 0x4C62B3.
+__declspec(noinline) void __fastcall ClumpModelInfoDestructorBody(CClumpModelInfo* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85BB9C;
+}
 } // namespace
 
 void CClumpModelInfo::InjectHooks()
@@ -62,6 +68,7 @@ void CClumpModelInfo::InjectHooks()
     RH_ScopedVirtualClass(CClumpModelInfo, 0x85BD30, 17);
     RH_ScopedCategory("Models");
     RH_ScopedNamedGlobalInstall(ClumpModelInfoConstructorBody, "Constructor", 0x4C56F0);
+    RH_ScopedNamedGlobalInstall(ClumpModelInfoDestructorBody, "DestructorBody", 0x4C5750); // lote 167A (banco Fn167A)
 
     RH_ScopedVMTInstall(GetModelType, 0x4C5720);
     RH_ScopedVMTInstall(Init, 0x4C4E40);

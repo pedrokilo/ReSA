@@ -38,12 +38,32 @@ CTaskSimpleArrestPed* __fastcall ArrestPedConstructorBody(CTaskSimpleArrestPed* 
     }
     return self;
 }
+
+// 0x68B690 (lote 167A, banco Fn167A; thiscall, sin argumentos de pila, `ret`, 162 bytes con marco SEH que solo desenrolla): cuerpo del destructor de CTaskSimpleArrestPed del EXE. Deja la vtable de la clase del EXE
+// (0x870984); si hay animacion (+0x10) le pone el DefaultAnimCB del EXE (0x4D1390) como callback de fin con dato nulo (CAnimBlendAssociation::SetFinishCallback 0x4CEBE0); libera con CleanUpOldReference (0x571A00)
+// la referencia al ped (+8) si no es nula; con la animacion y el ped (releidos) no nulos, si el ped no es jugador (0x5DF8F0 devuelve 0), esta en vehiculo (bit 8 de +0x46C) y su estado (+0x530) es 0x3F
+// (PEDSTATE_ARRESTED), llama a SetPedState (0x5E4500) con 0x32 (PEDSTATE_DRIVING); y termina con CTask::Destructor (0x61A3A0). El marco SEH se omite.
+__declspec(noinline) void __fastcall ArrestPedDestructorBody(CTaskSimpleArrestPed* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870984;
+    if (self->m_Assoc) {
+        self->m_Assoc->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+    }
+    CEntity::SafeCleanUpRef(self->m_Ped);
+    if (self->m_Assoc && self->m_Ped && !self->m_Ped->IsPlayer()) {
+        if (self->m_Ped->bInVehicle && self->m_Ped->m_nPedState == PEDSTATE_ARRESTED) {
+            self->m_Ped->SetPedState(PEDSTATE_DRIVING);
+        }
+    }
+    self->CTask::Destructor();
+}
 } // namespace
 
 void CTaskSimpleArrestPed__InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleArrestPed, 0x870984, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(ArrestPedConstructorBody, "Constructor", 0x68B620);
+    RH_ScopedNamedGlobalInstall(ArrestPedDestructorBody, "DestructorBody", 0x68B690); // lote 167A (banco Fn167A)
+    RH_ScopedVMTInstall(GetTaskType, 0x68B680); // lote 167A (banco Fn167A): retorno de constante
 
     RH_ScopedVMTInstall(MakeAbortable, 0x68B740);
     RH_ScopedVMTInstall(ProcessPed, 0x68B8A0);
@@ -56,6 +76,11 @@ CTaskSimpleArrestPed::CTaskSimpleArrestPed(CPed* ped) {
     m_bFinished = false;
     m_Assoc = nullptr;
     CEntity::SafeRegisterRef(m_Ped);
+}
+
+// 0x68B680 (lote 167A, banco Fn167A; thiscall, `ret`, 6 bytes: `mov eax,44Ch`): TASK_SIMPLE_ARREST_PED (1100); no lee el objeto (ranura 4 de la vtable 0x870984; el listado lo atribuia a CTaskSimpleSwim).
+eTaskType CTaskSimpleArrestPed::GetTaskType() const {
+    return Type;
 }
 
 // 0x68B690

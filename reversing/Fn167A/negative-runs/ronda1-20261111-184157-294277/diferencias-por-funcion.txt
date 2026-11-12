@@ -1,0 +1,3 @@
+{"CClumpModelInfo::DestructorBody": 884, "CWeaponModelInfo::ConstructorBody": 884, "CAEDataStream::Close": 892, "CAEDataStream::ScalarDeletingDestructor": 909, "CTaskSimpleSwim::GetTaskType": 906, "CTaskSimpleArrestPed::GetTaskType": 919, "CTaskSimpleArrestPed::DestructorBody": 899}
+pares 14336 con diferencias 6293 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

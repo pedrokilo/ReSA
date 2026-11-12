@@ -45,7 +45,7 @@ public:
     size_t FillBuffer(void* dest, size_t size);
     uint32 GetCurrentPosition();
     uint32 Seek(long offset, int32 whence);
-    bool   Close();
+    BOOL   Close();
 
 private:
     friend void InjectHooksMain();

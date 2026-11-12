@@ -20,6 +20,19 @@ END GENERATED HOOK STATUS */
 
 #include "WeaponModelInfo.h"
 
+namespace CBaseModelInfoBody {
+CBaseModelInfo* __fastcall Constructor(CBaseModelInfo* self, void* edx); // BaseModelInfo.cpp: 0x4C4A60
+}
+
+// 0x4C5760 (lote 167A, banco Fn167A): constructor de CWeaponModelInfo del EXE (thiscall, sin argumentos, `ret`, 18 bytes: `push esi; mov esi,ecx; call 0x4C4A60; mov [esi],0x85BD78; mov eax,esi; pop esi; ret`; el listado
+// lo atribuia a CClumpModelInfo): llama al cuerpo del constructor de CBaseModelInfo (0x4C4A60, con hook) y deja la vtable de CWeaponModelInfo del EXE (0x85BD78); devuelve `this`. Lo pasan a los
+// iteradores de vectores del almacen de armas. Funcion propia sin expansion en linea: el banco sustituye el cuerpo base.
+__declspec(noinline) static CWeaponModelInfo* __fastcall WeaponModelInfoConstructorBody(CWeaponModelInfo* self, void* /*edx*/) {
+    CBaseModelInfoBody::Constructor(self, nullptr);
+    *reinterpret_cast<uint32*>(self) = 0x85BD78;
+    return self;
+}
+
 /**
  * Registra la inicialización y configuración RenderWare de modelos de armas.
  */
@@ -28,6 +41,7 @@ void CWeaponModelInfo::InjectHooks()
     RH_ScopedVirtualClass(CWeaponModelInfo, 0x85BD78, 17);
     RH_ScopedCategory("Models");
 
+    RH_ScopedNamedGlobalInstall(WeaponModelInfoConstructorBody, "ConstructorBody", 0x4C5760); // lote 167A (banco Fn167A)
     RH_ScopedVMTInstall(GetModelType, 0x4C5780);
     RH_ScopedVMTInstall(Init, 0x4C98F0);
     RH_ScopedVMTInstall(SetClump, 0x4C9910);

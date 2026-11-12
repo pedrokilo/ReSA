@@ -10128,3 +10128,10 @@ CBike,ScalarDeletingDestructor,0x006B8950,1,0,1,S
 CTaskSimpleStealthKill,DestructorBody,0x00622680,1,0,1,S
 CTaskComplexKillPedFromBoat,ScalarDeletingDestructor,0x006298E0,1,0,1,S
 CTaskComplexSeekCoverUntilTargetDead,ScalarDeletingDestructor,0x00629900,1,0,1,S
+CClumpModelInfo,DestructorBody,0x004C5750,1,0,1,S
+CWeaponModelInfo,ConstructorBody,0x004C5760,1,0,1,S
+CAEDataStream,Close,0x004DC2A0,1,0,1,S
+CAEDataStream,ScalarDeletingDestructor,0x004DC550,1,0,1,S
+CTaskSimpleSwim,GetTaskType,0x00000000,1,0,1,V
+CTaskSimpleArrestPed,GetTaskType,0x00000000,1,0,1,V
+CTaskSimpleArrestPed,DestructorBody,0x0068B690,1,0,1,S

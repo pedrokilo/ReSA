@@ -212,9 +212,30 @@ uint32 CAEDataStream::Seek(long offset, int32 whence) {
     return m_nCurrentPosition - m_nStartPosition;
 }
 
-bool CAEDataStream::Close() {
+// 0x4dc2a0 (lote 167A, banco Fn167A; thiscall, sin argumentos de pila, `ret`, 15 bytes: `mov eax,[ecx+4]; push eax; mov byte [ecx+0Ch],0; call [CloseHandle]`): lee el HANDLE, pone m_bIsOpen a falso y
+// devuelve el BOOL de CloseHandle tal cual, en EAX completo (el vorbis CloseCallback salta aqui: `jmp 0x4DC2A0` en 0x5025DC).
+BOOL CAEDataStream::Close() {
+    const HANDLE handle = m_pFileHandle;
     m_bIsOpen = false;
-    return CloseHandle(m_pFileHandle) != FALSE;
+    return CloseHandle(handle);
+}
+
+// 0x4dc550 (lote 167A, banco Fn167A): destructor con borrado del EXE (thiscall, un argumento de pila, `ret 4`; sin referencias estaticas): deja la vtable IStream del EXE (0x85F0BC), cierra el HANDLE si
+// m_bIsOpen, libera el nombre con operator delete (0x8214BD) y lo pone a nulo, libera `this` con operator delete solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+static CAEDataStream* __fastcall AEDataStreamScalarDeletingDestructor(CAEDataStream* self, void* /*edx*/, uint8 flags) {
+    *reinterpret_cast<uint32*>(self) = 0x85F0BC;
+    if (self->m_bIsOpen) {
+        self->m_bIsOpen = false;
+        CloseHandle(self->m_pFileHandle);
+    }
+    if (self->m_pszFilename) {
+        ::operator delete(self->m_pszFilename);
+        self->m_pszFilename = nullptr;
+    }
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
 }
 
 // 0x4dc2b0
@@ -252,6 +273,8 @@ void CAEDataStream::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x4dc620);
     RH_ScopedInstall(Destructor, 0x4dc490);
     RH_ScopedInstall(Initialise, 0x4dc2b0);
+    RH_ScopedInstall(Close, 0x4dc2a0); // lote 167A (banco Fn167A)
+    RH_ScopedNamedGlobalInstall(AEDataStreamScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4dc550); // lote 167A (banco Fn167A)
     RH_ScopedInstall(FillBuffer, 0x4dc1c0);
     RH_ScopedInstall(GetCurrentPosition, 0x4dc230);
     RH_ScopedOverloadedInstall(Seek, "OG", 0x4dc250, uint32(CAEDataStream::*)(long offset, int32 whence));

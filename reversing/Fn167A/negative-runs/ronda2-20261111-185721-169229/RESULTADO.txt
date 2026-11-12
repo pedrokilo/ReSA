@@ -1,0 +1,3 @@
+FALLO: Fn167A
+Funciones con diferencias: CClumpModelInfo::DestructorBody: 296/2048; CWeaponModelInfo::ConstructorBody: 884/2048; CAEDataStream::Close: 283/2048; CAEDataStream::ScalarDeletingDestructor: 609/2048; CTaskSimpleSwim::GetTaskType: 309/2048; CTaskSimpleArrestPed::GetTaskType: 321/2048; CTaskSimpleArrestPed::DestructorBody: 899/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn167a\20261111-185721-169229

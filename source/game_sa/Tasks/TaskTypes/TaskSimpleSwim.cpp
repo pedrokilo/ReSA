@@ -52,11 +52,17 @@ CTaskSimpleSwim* __fastcall CTaskSimpleSwimScalarDeletingDestructor(CTaskSimpleS
 
 uintptr_t Lote160ABody_CTaskSimpleSwim() { return reinterpret_cast<uintptr_t>(&CTaskSimpleSwimDestructorBody); } // para el banco Fn160A
 
+// 0x6889F0 (lote 167A, banco Fn167A; thiscall, `ret`, 6 bytes: `mov eax,518h`): TASK_SIMPLE_SWIM (1304); no lee el objeto (ranura 4 de la vtable 0x870920).
+eTaskType CTaskSimpleSwim::GetTaskType() const {
+    return Type;
+}
+
 void CTaskSimpleSwim::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleSwim, 0x870920, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskSimpleSwimDestructorBody, "DestructorBody", 0x688A00); // lote 163A (banco Fn163A)
     RH_ScopedNamedGlobalInstall(CTaskSimpleSwimScalarDeletingDestructor, "ScalarDeletingDestructor", 0x68B0E0); // lote 160A (banco Fn160A)
+    RH_ScopedVMTInstall(GetTaskType, 0x6889F0); // lote 167A (banco Fn167A): retorno de constante
     RH_ScopedVMTInstall(Clone, 0x68B050); // lote 160A: ranura 1 de la vtable 0x870920
 
     RH_ScopedInstall(Constructor, 0x688930);

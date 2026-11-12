@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "pairs": 114688,
+  "differences": 0,
+  "registered_pairs": 114688,
+  "registered_functions": 7,
+  "functions": {
+    "CClumpModelInfo::DestructorBody": 16384,
+    "CWeaponModelInfo::ConstructorBody": 16384,
+    "CAEDataStream::Close": 16384,
+    "CAEDataStream::ScalarDeletingDestructor": 16384,
+    "CTaskSimpleSwim::GetTaskType": 16384,
+    "CTaskSimpleArrestPed::GetTaskType": 16384,
+    "CTaskSimpleArrestPed::DestructorBody": 16384
+  },
+  "covered_functions": {
+    "CClumpModelInfo::DestructorBody": true,
+    "CWeaponModelInfo::ConstructorBody": true,
+    "CAEDataStream::Close": true,
+    "CAEDataStream::ScalarDeletingDestructor": true,
+    "CTaskSimpleSwim::GetTaskType": true,
+    "CTaskSimpleArrestPed::GetTaskType": true,
+    "CTaskSimpleArrestPed::DestructorBody": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 4448db91ca con los cambios del lote (ver artifacts/build-manifest.json). 7 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia tres a clases equivocadas): cuerpo del destructor de CClumpModelInfo, cuerpo del constructor de CWeaponModelInfo, Close y destructor con borrado de CAEDataStream, GetTaskType de CTaskSimpleSwim y de CTaskSimpleArrestPed y cuerpo del destructor de CTaskSimpleArrestPed. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (constructor base de CBaseModelInfo, SetFinishCallback, CleanUpOldReference, CPed::IsPlayer, CPed::SetPedState y ~CTask); operator delete del CRT 0x8214BD falso en la direccion del EXE; CloseHandle falso en la casilla de la IAT del EXE y en la del ASI. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds y animaciones reales, HANDLE reales y la exactitud de los colaboradores falseados.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn167A-20261111-182723-943822",
+  "summary_sha256": "e22bae018717c5b22807765455a63b5881377a903a0b27690da9b6676fb18a11",
+  "result_txt_sha256": "3bc21a3c105ffc7acce3032ee607be662052e627d325a0b0c4683a1b42ac69db",
+  "log_sha256": "28b47ff029e0c9bf835be29bb1b2829919e5effe398a9df285d14144b951c236",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "3022c5beb73c9200c730143b5fee0e5e6cd538eb61f41b0c1fd379bcc1084f0b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+      "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+      "source/game_sa/Models/ClumpModelInfo.cpp": "b4679e295a054f6513ac0a7b436e83611485d1619ac503283ee42225ad60c63e",
+      "source/game_sa/Models/WeaponModelInfo.cpp": "22c935cd6b57c792af381262241a2e9bb14cf8862df4059693761b8ae24c0bb5",
+      "source/game_sa/Audio/Loaders/AEDataStream.cpp": "1961f4dbeee81297b8fb6d985be9653b865a20ca9544dbafdf3b06fe88d3555f",
+      "source/game_sa/Audio/Loaders/AEDataStream.h": "32c839bb39811462a26f09fccb4ac21acfc6d2ea6d0a996c6998e95ea98cd2a2",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "83dac22a0a60311317aef6d8807f340d03bd07c9d22740c3506813c82f48541f",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "e33816268f2f2826d11c4c28a285ce7f037c7f8c28b3166055f70ccf5b9c836c",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "f0a4e3963d51c690cab85c8bf8c1c3836d266013e3124116a6eaf27cb5c38ad5",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "e67ac353488c4ce49c070f592ff240ef84ab181598423a59a5efa86380e0a6c8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn167A/LiveComparison.hpp": "d46e8523b01315f59eac8cd56c2356af3fb9d61045c30630b04742943b779deb",
+      "reversing/Fn167A/Core.hpp": "07a9d05c2cb6a0313ee73fc335c5454d6ad701ec260869b63b9a9ad53c6def85",
+      "reversing/Fn167A/Fixtures.hpp": "b8888c4061abe5726b51a9b8c17cce365c81199019fe6db51d06aeeea60e1572",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

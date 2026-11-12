@@ -57,7 +57,7 @@ public:
     ~CTaskSimpleSwim() override;
 
     CTask* Clone() const override; // 0x68B050 (lote 160A, banco Fn160A)
-    eTaskType GetTaskType() const override { return Type; }; // 0x6889F0
+    eTaskType GetTaskType() const override; // 0x6889F0 (lote 167A, banco Fn167A)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;
 
