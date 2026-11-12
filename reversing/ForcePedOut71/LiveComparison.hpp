@@ -176,14 +176,16 @@ inline void Update() {
     bool ready=true;json registered=json::object();json bodies=json::object();json collaborators=json::object();
     // Cuerpo de la DLL de CEntity::RegisterReference: se resuelve ANTES de crear la ruta y de escribir ningun parche
     const uintptr_t refBody=DllBodyOf("CEntity","RegisterReference-");
+    // Pase final 157A-162A: CTaskSimple::CTaskSimple (0x61A390) tiene hook desde el lote 158A: colaborador con hook (falso identico en la direccion del EXE y en el cuerpo de la DLL)
+    const uintptr_t baseCtorBody=DllBodyOf("CTaskSimple","Constructor");
     {
         env.route[0].reset(new HookRoute("CTaskSimpleCarForcePedOut","Constructor",0x647710,HookRoute::RegisteredTarget{}));
         registered[kFn[0]]=env.route[0]->Registered();bodies[kFn[0]]=env.route[0]->Body()!=0;
         ready&=env.route[0]->Registered()&&env.route[0]->Body()&&ModuleOf(env.route[0]->Body())==env.asi;
     }
-    ready&=refBody!=0;
+    ready&=refBody!=0&&baseCtorBody!=0;
     auto fk=[](auto* f){return reinterpret_cast<void*>(f);};
-    env.stubs[0]={{Pair{0x61A390,0,false},fk(&FakeBaseCtor)},
+    env.stubs[0]={{Pair{0x61A390,baseCtorBody,true},fk(&FakeBaseCtor)},
                   {Pair{0x571B70,refBody,true},fk(&FakeRegRef)}};
     for(unsigned f=0;f<kFunctions;++f) {
         json stubbed=json::array();
@@ -191,7 +193,7 @@ inline void Update() {
             env.watches.emplace_back(s.pair.exe,16);
             stubbed.push_back({{"exe",s.pair.exe},{"dll",s.pair.dll},{"hooked",s.pair.hooked}});
         }
-        collaborators[kFn[f]]={{"dll_real",json::array({"CTaskSimple::CTaskSimple 0x61A390: sin hook ni cuerpo propio en la DLL (integrado en linea en el constructor); falso solo en el EXE con el mismo efecto"})},{"stubbed",stubbed}};
+        collaborators[kFn[f]]={{"dll_real",json::array({"CTaskSimple::CTaskSimple 0x61A390: con hook RH desde el lote 158A; falso identico en la direccion del EXE y en el cuerpo de la DLL"})},{"stubbed",stubbed}};
     }
     env.watches.emplace_back(0x647710,16);
     SaveRegions();

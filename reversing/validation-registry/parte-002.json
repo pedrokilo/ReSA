@@ -26733,7 +26733,7 @@
       },
       "evidence": {
         "path": "reversing/GangHasslePending/validation-summary.json",
-        "sha256": "f9bfcb3b47e0a5ab07d4b93894cac18e92dbf5e0578418a2fdd40b5aaa33404e",
+        "sha256": "f6b002a3a02f4d66dfc7d2aefbb342aa9d373a0306c73726b83ae88542fc86c5",
         "passed_path": [
           "covered_functions",
           "CTaskGangHasslePed::CreateFirstSubTask"
@@ -26742,17 +26742,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "d4e24513d36330e89aa843b2827b6fb827083463f743b68bca5d974b7bf99a26",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "dd711db4f5c3ce2bf1d3036a571262fa2a3713aeb833a810fba9fffe1ce2297e",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "655c8a35cfa159f7004d66ceb4914ad21c2734c39d73a916496e4cd05a01e643",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "d29004fc9b9c11cda9076c309fcb7177703df8df9db9ff648f980da66266bce0",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp": "b4f9a9afa80c1f715e62e161e05bfcb6cba13495ab5a9663853b450177991213",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "4041c65038644cf2aaaf3683bb5c8cf02b46271cbb183e6b0ca4ffc562262c82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "5ac95bd24920d2e84a977ce9b0cbed032c6ce8a8ac21e654e59b04a972e82ec9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "604aed03ea7a5a04ebfda98d03ea8eaa28535e00e64d39cf5f73e733c7fdf48e"
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f23559f73987e311ba1e69298a82385738471fd70cd4103e65f7577ed193eaf1",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "39afe861db74df32435b08b6b529df265cb0c6287e32a7cf7c01a31414a2baf8",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "35e31965547533b1d0061b89392a47c9fd70d6ae98e328451b5a16d4fbe6cb42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "f7920d71b80d7c508a1f7c23488484aa025a9e46bc20386be64814413461a4cc",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp": "c9fb4dca51ddd4cd353eb0b58b86088e8fcd52901156e7224a8afffb76cb83f5",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "0a791ddb110d3a9190ee35db8059b3dcb2d2cdea978907b64324432bc9e6b4fd",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-195743-015057).",
       "dependency_review": null,
@@ -26768,7 +26768,7 @@
       },
       "evidence": {
         "path": "reversing/GangHasslePending/validation-summary.json",
-        "sha256": "f9bfcb3b47e0a5ab07d4b93894cac18e92dbf5e0578418a2fdd40b5aaa33404e",
+        "sha256": "f6b002a3a02f4d66dfc7d2aefbb342aa9d373a0306c73726b83ae88542fc86c5",
         "passed_path": [
           "covered_functions",
           "CTaskGangHasslePed::CreateNextSubTask"
@@ -26777,17 +26777,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "d4e24513d36330e89aa843b2827b6fb827083463f743b68bca5d974b7bf99a26",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "dd711db4f5c3ce2bf1d3036a571262fa2a3713aeb833a810fba9fffe1ce2297e",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "655c8a35cfa159f7004d66ceb4914ad21c2734c39d73a916496e4cd05a01e643",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "d29004fc9b9c11cda9076c309fcb7177703df8df9db9ff648f980da66266bce0",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp": "b4f9a9afa80c1f715e62e161e05bfcb6cba13495ab5a9663853b450177991213",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "4041c65038644cf2aaaf3683bb5c8cf02b46271cbb183e6b0ca4ffc562262c82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "5ac95bd24920d2e84a977ce9b0cbed032c6ce8a8ac21e654e59b04a972e82ec9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "604aed03ea7a5a04ebfda98d03ea8eaa28535e00e64d39cf5f73e733c7fdf48e"
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f23559f73987e311ba1e69298a82385738471fd70cd4103e65f7577ed193eaf1",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "39afe861db74df32435b08b6b529df265cb0c6287e32a7cf7c01a31414a2baf8",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "35e31965547533b1d0061b89392a47c9fd70d6ae98e328451b5a16d4fbe6cb42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "f7920d71b80d7c508a1f7c23488484aa025a9e46bc20386be64814413461a4cc",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp": "c9fb4dca51ddd4cd353eb0b58b86088e8fcd52901156e7224a8afffb76cb83f5",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "0a791ddb110d3a9190ee35db8059b3dcb2d2cdea978907b64324432bc9e6b4fd",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-195743-015057).",
       "dependency_review": null,
@@ -26803,7 +26803,7 @@
       },
       "evidence": {
         "path": "reversing/GangHasslePending/validation-summary.json",
-        "sha256": "f9bfcb3b47e0a5ab07d4b93894cac18e92dbf5e0578418a2fdd40b5aaa33404e",
+        "sha256": "f6b002a3a02f4d66dfc7d2aefbb342aa9d373a0306c73726b83ae88542fc86c5",
         "passed_path": [
           "covered_functions",
           "CTaskGangHasslePed::ControlSubTask"
@@ -26812,17 +26812,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "d4e24513d36330e89aa843b2827b6fb827083463f743b68bca5d974b7bf99a26",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "dd711db4f5c3ce2bf1d3036a571262fa2a3713aeb833a810fba9fffe1ce2297e",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "655c8a35cfa159f7004d66ceb4914ad21c2734c39d73a916496e4cd05a01e643",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "d29004fc9b9c11cda9076c309fcb7177703df8df9db9ff648f980da66266bce0",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp": "b4f9a9afa80c1f715e62e161e05bfcb6cba13495ab5a9663853b450177991213",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "4041c65038644cf2aaaf3683bb5c8cf02b46271cbb183e6b0ca4ffc562262c82",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "5ac95bd24920d2e84a977ce9b0cbed032c6ce8a8ac21e654e59b04a972e82ec9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "604aed03ea7a5a04ebfda98d03ea8eaa28535e00e64d39cf5f73e733c7fdf48e"
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f23559f73987e311ba1e69298a82385738471fd70cd4103e65f7577ed193eaf1",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "39afe861db74df32435b08b6b529df265cb0c6287e32a7cf7c01a31414a2baf8",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "35e31965547533b1d0061b89392a47c9fd70d6ae98e328451b5a16d4fbe6cb42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "f7920d71b80d7c508a1f7c23488484aa025a9e46bc20386be64814413461a4cc",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp": "c9fb4dca51ddd4cd353eb0b58b86088e8fcd52901156e7224a8afffb76cb83f5",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "0a791ddb110d3a9190ee35db8059b3dcb2d2cdea978907b64324432bc9e6b4fd",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-195743-015057).",
       "dependency_review": null,

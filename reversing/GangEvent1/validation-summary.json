@@ -198,22 +198,22 @@
     "CGroupEventHandler::IsKillTaskAppropriate": "Corpus 256; source reviewed against the EXE and corrected before the run where needed (see git diff); fake peds, intelligences, groups and vehicles in own buffers, pools swapped only during the call."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/GangEvent1-20261106-190439-736392",
-  "summary_sha256": "1101bdf3d69ae631496dde964f32b8ab0c8575126946581f6dfa56adae62183c",
-  "result_txt_sha256": "bbbc1d03505ef2d0087e44bcec00bd3ee703601939e7787e40748e8e71bc1e4d",
-  "log_sha256": "df8d38b0a05f14d98ec2858f0921d87d22550c125b710eb141a1e59450222985",
+  "run": "reversing/CppTwelveLevel6Final/runs/GangEvent1-20261112-022534-892726",
+  "summary_sha256": "6341f28e68bb3e1f4a3532b4f3db0657a427605a3aac8747fd2b85e9b027c330",
+  "result_txt_sha256": "ac42d641eba1cafd6be15db8f7dca4a4cc7d2640f8e2ce803db30c4507da56fb",
+  "log_sha256": "74b174a7fc865aefc1f21ce832b12a32204ea0addf34529c6544916955c64fb5",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/GangEvent1-20261106-190439-736392/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/GangEvent1-20261112-022534-892726/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "b2f3a1604058ca8e19d6c15873aaac293ad6dfc8c044d2e720452794de28adbe",
-    "uncompressed_sha256": "df8d38b0a05f14d98ec2858f0921d87d22550c125b710eb141a1e59450222985"
+    "compressed_sha256": "fc00c43476e3e6a2cd247a7fa7423d8410f94dae09d85d471dd3ffdc12d6cf2b",
+    "uncompressed_sha256": "74b174a7fc865aefc1f21ce832b12a32204ea0addf34529c6544916955c64fb5"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "e2e48557c842500c30069ac3ea7e777e1bd170522eb290bedd187f23e73200dc",
+  "executed_probe_sha256": "5563c3de46149ac9c9a849368b9a86be51b4251c8cc8fd002a125a66322e8baa",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {

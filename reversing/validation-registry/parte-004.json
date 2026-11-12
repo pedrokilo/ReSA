@@ -25213,7 +25213,7 @@
       },
       "evidence": {
         "path": "reversing/TaskFinal1/validation-summary.json",
-        "sha256": "b090e69dc75abff48ef15988f1a1a0ddb371c939f9174700f72de3d55c453f11",
+        "sha256": "922a7ab8f4413a786741b1831f7008473aff3fad45341b98aa2fed7fa6e6455d",
         "passed_path": [
           "covered_functions",
           "CTaskUtilityLineUpPedWithCar::Constructor"
@@ -25222,15 +25222,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f96997f958df2178f546ef33a72ff97920569f37e14875ca2ff1998f86be5aea",
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
-        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "31a923f93b12dafca5d53aee9040cfe257d5c81130dc9b6a2eb3af97f408c42e",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "90beb5b9f5a4b230a36ff33fa2581bc32552a64e4921ab9c8015ab8f2101a967",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "deeb200c8f398c980cab2b138dfe03fdcdef4df579687adbf3b661335859a172",
+        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "f1b191cb4462c6b3e511b76c2a7eff8bae4c46bb4ad7e6ed881fb110ccaaeaac",
         "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h": "a0b22fc604e1b96e82a3c4db5e4becee560c598102b51ab11023fde840684136",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "9d38258ae36abcb201f6f8348ca64bca1cd05acef02307c589237aefde4fb8dc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "833452e952be24fb8b408a94350abb8f06a4660261c5f756eda7eae591b03cdc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "f05e60aabbeca7acd320cfd0236f1243aa20e9f8570e4183e71e067cbf98cfd6",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "0716e10d27099887cfd53966ee721b5968b59cff4e94bc494905047b5b08a5e2",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Exact compiled TaskFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 3200-row log reaudited offline and preserved gzipped with the original hash. The task sources were corrected to the EXE before the run (uncommitted at the time).",
@@ -25247,7 +25247,7 @@
       },
       "evidence": {
         "path": "reversing/TaskFinal1/validation-summary.json",
-        "sha256": "b090e69dc75abff48ef15988f1a1a0ddb371c939f9174700f72de3d55c453f11",
+        "sha256": "922a7ab8f4413a786741b1831f7008473aff3fad45341b98aa2fed7fa6e6455d",
         "passed_path": [
           "covered_functions",
           "CTaskUtilityLineUpPedWithCar::Destructor"
@@ -25256,15 +25256,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f96997f958df2178f546ef33a72ff97920569f37e14875ca2ff1998f86be5aea",
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
-        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "31a923f93b12dafca5d53aee9040cfe257d5c81130dc9b6a2eb3af97f408c42e",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "90beb5b9f5a4b230a36ff33fa2581bc32552a64e4921ab9c8015ab8f2101a967",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "deeb200c8f398c980cab2b138dfe03fdcdef4df579687adbf3b661335859a172",
+        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "f1b191cb4462c6b3e511b76c2a7eff8bae4c46bb4ad7e6ed881fb110ccaaeaac",
         "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h": "a0b22fc604e1b96e82a3c4db5e4becee560c598102b51ab11023fde840684136",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "9d38258ae36abcb201f6f8348ca64bca1cd05acef02307c589237aefde4fb8dc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "833452e952be24fb8b408a94350abb8f06a4660261c5f756eda7eae591b03cdc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "f05e60aabbeca7acd320cfd0236f1243aa20e9f8570e4183e71e067cbf98cfd6",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "0716e10d27099887cfd53966ee721b5968b59cff4e94bc494905047b5b08a5e2",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Exact compiled TaskFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 3200-row log reaudited offline and preserved gzipped with the original hash. The task sources were corrected to the EXE before the run (uncommitted at the time).",
@@ -25281,7 +25281,7 @@
       },
       "evidence": {
         "path": "reversing/TaskFinal1/validation-summary.json",
-        "sha256": "b090e69dc75abff48ef15988f1a1a0ddb371c939f9174700f72de3d55c453f11",
+        "sha256": "922a7ab8f4413a786741b1831f7008473aff3fad45341b98aa2fed7fa6e6455d",
         "passed_path": [
           "covered_functions",
           "CTaskGoToVehicleAndLean::Constructor"
@@ -25290,15 +25290,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f96997f958df2178f546ef33a72ff97920569f37e14875ca2ff1998f86be5aea",
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
-        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "31a923f93b12dafca5d53aee9040cfe257d5c81130dc9b6a2eb3af97f408c42e",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "90beb5b9f5a4b230a36ff33fa2581bc32552a64e4921ab9c8015ab8f2101a967",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "deeb200c8f398c980cab2b138dfe03fdcdef4df579687adbf3b661335859a172",
+        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "f1b191cb4462c6b3e511b76c2a7eff8bae4c46bb4ad7e6ed881fb110ccaaeaac",
         "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h": "a0b22fc604e1b96e82a3c4db5e4becee560c598102b51ab11023fde840684136",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "9d38258ae36abcb201f6f8348ca64bca1cd05acef02307c589237aefde4fb8dc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "833452e952be24fb8b408a94350abb8f06a4660261c5f756eda7eae591b03cdc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "f05e60aabbeca7acd320cfd0236f1243aa20e9f8570e4183e71e067cbf98cfd6",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "0716e10d27099887cfd53966ee721b5968b59cff4e94bc494905047b5b08a5e2",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Exact compiled TaskFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 3200-row log reaudited offline and preserved gzipped with the original hash. The task sources were corrected to the EXE before the run (uncommitted at the time).",
@@ -25315,7 +25315,7 @@
       },
       "evidence": {
         "path": "reversing/TaskFinal1/validation-summary.json",
-        "sha256": "b090e69dc75abff48ef15988f1a1a0ddb371c939f9174700f72de3d55c453f11",
+        "sha256": "922a7ab8f4413a786741b1831f7008473aff3fad45341b98aa2fed7fa6e6455d",
         "passed_path": [
           "covered_functions",
           "CTaskGoToVehicleAndLean::Destructor"
@@ -25324,15 +25324,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f96997f958df2178f546ef33a72ff97920569f37e14875ca2ff1998f86be5aea",
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
-        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "31a923f93b12dafca5d53aee9040cfe257d5c81130dc9b6a2eb3af97f408c42e",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "90beb5b9f5a4b230a36ff33fa2581bc32552a64e4921ab9c8015ab8f2101a967",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "deeb200c8f398c980cab2b138dfe03fdcdef4df579687adbf3b661335859a172",
+        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "f1b191cb4462c6b3e511b76c2a7eff8bae4c46bb4ad7e6ed881fb110ccaaeaac",
         "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h": "a0b22fc604e1b96e82a3c4db5e4becee560c598102b51ab11023fde840684136",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "9d38258ae36abcb201f6f8348ca64bca1cd05acef02307c589237aefde4fb8dc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "833452e952be24fb8b408a94350abb8f06a4660261c5f756eda7eae591b03cdc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "f05e60aabbeca7acd320cfd0236f1243aa20e9f8570e4183e71e067cbf98cfd6",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "0716e10d27099887cfd53966ee721b5968b59cff4e94bc494905047b5b08a5e2",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Exact compiled TaskFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 3200-row log reaudited offline and preserved gzipped with the original hash. The task sources were corrected to the EXE before the run (uncommitted at the time).",
@@ -25349,7 +25349,7 @@
       },
       "evidence": {
         "path": "reversing/TaskFinal1/validation-summary.json",
-        "sha256": "b090e69dc75abff48ef15988f1a1a0ddb371c939f9174700f72de3d55c453f11",
+        "sha256": "922a7ab8f4413a786741b1831f7008473aff3fad45341b98aa2fed7fa6e6455d",
         "passed_path": [
           "covered_functions",
           "CTaskGangHassleVehicle::Constructor"
@@ -25358,15 +25358,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f96997f958df2178f546ef33a72ff97920569f37e14875ca2ff1998f86be5aea",
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
-        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "31a923f93b12dafca5d53aee9040cfe257d5c81130dc9b6a2eb3af97f408c42e",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "90beb5b9f5a4b230a36ff33fa2581bc32552a64e4921ab9c8015ab8f2101a967",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "deeb200c8f398c980cab2b138dfe03fdcdef4df579687adbf3b661335859a172",
+        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "f1b191cb4462c6b3e511b76c2a7eff8bae4c46bb4ad7e6ed881fb110ccaaeaac",
         "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h": "a0b22fc604e1b96e82a3c4db5e4becee560c598102b51ab11023fde840684136",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "9d38258ae36abcb201f6f8348ca64bca1cd05acef02307c589237aefde4fb8dc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "833452e952be24fb8b408a94350abb8f06a4660261c5f756eda7eae591b03cdc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "f05e60aabbeca7acd320cfd0236f1243aa20e9f8570e4183e71e067cbf98cfd6",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "0716e10d27099887cfd53966ee721b5968b59cff4e94bc494905047b5b08a5e2",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Exact compiled TaskFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 3200-row log reaudited offline and preserved gzipped with the original hash. The task sources were corrected to the EXE before the run (uncommitted at the time).",
@@ -25383,7 +25383,7 @@
       },
       "evidence": {
         "path": "reversing/TaskFinal1/validation-summary.json",
-        "sha256": "b090e69dc75abff48ef15988f1a1a0ddb371c939f9174700f72de3d55c453f11",
+        "sha256": "922a7ab8f4413a786741b1831f7008473aff3fad45341b98aa2fed7fa6e6455d",
         "passed_path": [
           "covered_functions",
           "CTaskGangHassleVehicle::Destructor"
@@ -25392,15 +25392,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f96997f958df2178f546ef33a72ff97920569f37e14875ca2ff1998f86be5aea",
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
-        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "31a923f93b12dafca5d53aee9040cfe257d5c81130dc9b6a2eb3af97f408c42e",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "90beb5b9f5a4b230a36ff33fa2581bc32552a64e4921ab9c8015ab8f2101a967",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "deeb200c8f398c980cab2b138dfe03fdcdef4df579687adbf3b661335859a172",
+        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "f1b191cb4462c6b3e511b76c2a7eff8bae4c46bb4ad7e6ed881fb110ccaaeaac",
         "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h": "a0b22fc604e1b96e82a3c4db5e4becee560c598102b51ab11023fde840684136",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "9d38258ae36abcb201f6f8348ca64bca1cd05acef02307c589237aefde4fb8dc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "833452e952be24fb8b408a94350abb8f06a4660261c5f756eda7eae591b03cdc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "f05e60aabbeca7acd320cfd0236f1243aa20e9f8570e4183e71e067cbf98cfd6",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "0716e10d27099887cfd53966ee721b5968b59cff4e94bc494905047b5b08a5e2",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Exact compiled TaskFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 3200-row log reaudited offline and preserved gzipped with the original hash. The task sources were corrected to the EXE before the run (uncommitted at the time).",
@@ -25417,7 +25417,7 @@
       },
       "evidence": {
         "path": "reversing/TaskFinal1/validation-summary.json",
-        "sha256": "b090e69dc75abff48ef15988f1a1a0ddb371c939f9174700f72de3d55c453f11",
+        "sha256": "922a7ab8f4413a786741b1831f7008473aff3fad45341b98aa2fed7fa6e6455d",
         "passed_path": [
           "covered_functions",
           "CTaskGangHasslePed::Constructor"
@@ -25426,15 +25426,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f96997f958df2178f546ef33a72ff97920569f37e14875ca2ff1998f86be5aea",
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
-        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "31a923f93b12dafca5d53aee9040cfe257d5c81130dc9b6a2eb3af97f408c42e",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "90beb5b9f5a4b230a36ff33fa2581bc32552a64e4921ab9c8015ab8f2101a967",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "deeb200c8f398c980cab2b138dfe03fdcdef4df579687adbf3b661335859a172",
+        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "f1b191cb4462c6b3e511b76c2a7eff8bae4c46bb4ad7e6ed881fb110ccaaeaac",
         "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h": "a0b22fc604e1b96e82a3c4db5e4becee560c598102b51ab11023fde840684136",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "9d38258ae36abcb201f6f8348ca64bca1cd05acef02307c589237aefde4fb8dc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "833452e952be24fb8b408a94350abb8f06a4660261c5f756eda7eae591b03cdc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "f05e60aabbeca7acd320cfd0236f1243aa20e9f8570e4183e71e067cbf98cfd6",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "0716e10d27099887cfd53966ee721b5968b59cff4e94bc494905047b5b08a5e2",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Exact compiled TaskFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 3200-row log reaudited offline and preserved gzipped with the original hash. The task sources were corrected to the EXE before the run (uncommitted at the time).",
@@ -25451,7 +25451,7 @@
       },
       "evidence": {
         "path": "reversing/TaskFinal1/validation-summary.json",
-        "sha256": "b090e69dc75abff48ef15988f1a1a0ddb371c939f9174700f72de3d55c453f11",
+        "sha256": "922a7ab8f4413a786741b1831f7008473aff3fad45341b98aa2fed7fa6e6455d",
         "passed_path": [
           "covered_functions",
           "CTaskGangHasslePed::Destructor"
@@ -25460,15 +25460,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f96997f958df2178f546ef33a72ff97920569f37e14875ca2ff1998f86be5aea",
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
-        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "31a923f93b12dafca5d53aee9040cfe257d5c81130dc9b6a2eb3af97f408c42e",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "90beb5b9f5a4b230a36ff33fa2581bc32552a64e4921ab9c8015ab8f2101a967",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "deeb200c8f398c980cab2b138dfe03fdcdef4df579687adbf3b661335859a172",
+        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "f1b191cb4462c6b3e511b76c2a7eff8bae4c46bb4ad7e6ed881fb110ccaaeaac",
         "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h": "a0b22fc604e1b96e82a3c4db5e4becee560c598102b51ab11023fde840684136",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "9d38258ae36abcb201f6f8348ca64bca1cd05acef02307c589237aefde4fb8dc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "833452e952be24fb8b408a94350abb8f06a4660261c5f756eda7eae591b03cdc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "f05e60aabbeca7acd320cfd0236f1243aa20e9f8570e4183e71e067cbf98cfd6",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "0716e10d27099887cfd53966ee721b5968b59cff4e94bc494905047b5b08a5e2",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Exact compiled TaskFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 3200-row log reaudited offline and preserved gzipped with the original hash. The task sources were corrected to the EXE before the run (uncommitted at the time).",
@@ -25485,7 +25485,7 @@
       },
       "evidence": {
         "path": "reversing/TaskFinal1/validation-summary.json",
-        "sha256": "b090e69dc75abff48ef15988f1a1a0ddb371c939f9174700f72de3d55c453f11",
+        "sha256": "922a7ab8f4413a786741b1831f7008473aff3fad45341b98aa2fed7fa6e6455d",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPlayHandSignalAnim::Constructor"
@@ -25494,15 +25494,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f96997f958df2178f546ef33a72ff97920569f37e14875ca2ff1998f86be5aea",
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
-        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "31a923f93b12dafca5d53aee9040cfe257d5c81130dc9b6a2eb3af97f408c42e",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "90beb5b9f5a4b230a36ff33fa2581bc32552a64e4921ab9c8015ab8f2101a967",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "deeb200c8f398c980cab2b138dfe03fdcdef4df579687adbf3b661335859a172",
+        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "f1b191cb4462c6b3e511b76c2a7eff8bae4c46bb4ad7e6ed881fb110ccaaeaac",
         "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h": "a0b22fc604e1b96e82a3c4db5e4becee560c598102b51ab11023fde840684136",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "9d38258ae36abcb201f6f8348ca64bca1cd05acef02307c589237aefde4fb8dc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "833452e952be24fb8b408a94350abb8f06a4660261c5f756eda7eae591b03cdc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "f05e60aabbeca7acd320cfd0236f1243aa20e9f8570e4183e71e067cbf98cfd6",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "0716e10d27099887cfd53966ee721b5968b59cff4e94bc494905047b5b08a5e2",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Exact compiled TaskFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 3200-row log reaudited offline and preserved gzipped with the original hash. The task sources were corrected to the EXE before the run (uncommitted at the time).",
@@ -25519,7 +25519,7 @@
       },
       "evidence": {
         "path": "reversing/TaskFinal1/validation-summary.json",
-        "sha256": "b090e69dc75abff48ef15988f1a1a0ddb371c939f9174700f72de3d55c453f11",
+        "sha256": "922a7ab8f4413a786741b1831f7008473aff3fad45341b98aa2fed7fa6e6455d",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPlayHandSignalAnim::Destructor"
@@ -25528,15 +25528,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f96997f958df2178f546ef33a72ff97920569f37e14875ca2ff1998f86be5aea",
-        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
-        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "31a923f93b12dafca5d53aee9040cfe257d5c81130dc9b6a2eb3af97f408c42e",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "90beb5b9f5a4b230a36ff33fa2581bc32552a64e4921ab9c8015ab8f2101a967",
+        "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "deeb200c8f398c980cab2b138dfe03fdcdef4df579687adbf3b661335859a172",
+        "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "f1b191cb4462c6b3e511b76c2a7eff8bae4c46bb4ad7e6ed881fb110ccaaeaac",
         "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h": "a0b22fc604e1b96e82a3c4db5e4becee560c598102b51ab11023fde840684136",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "9d38258ae36abcb201f6f8348ca64bca1cd05acef02307c589237aefde4fb8dc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "833452e952be24fb8b408a94350abb8f06a4660261c5f756eda7eae591b03cdc",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "f05e60aabbeca7acd320cfd0236f1243aa20e9f8570e4183e71e067cbf98cfd6",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "0716e10d27099887cfd53966ee721b5968b59cff4e94bc494905047b5b08a5e2",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
       },
       "source_provenance": "Exact compiled TaskFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 3200-row log reaudited offline and preserved gzipped with the original hash. The task sources were corrected to the EXE before the run (uncommitted at the time).",
@@ -86530,7 +86530,7 @@
       },
       "evidence": {
         "path": "reversing/LeaveCarSub70/validation-summary.json",
-        "sha256": "553df80db38bf9a6423a5b05f0db6515b9e05b6818301dd53469567439886465",
+        "sha256": "98e517e510eff0e90b92096b5d7003ec64d39cdae2274d54409f2f95458fc2e1",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveCar::CreateSubTask"
@@ -86540,12 +86540,12 @@
         "original_address": "0x00641530"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "08ab7a3a2c9c650dc4ce1fa4cdd424ac912b635fe19f7041b0ca9ba410ce1d7f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "b59c2f42c4d4550ecfb7c5e6cbfc45f7a3756446f670d6022850b09d6277d25d",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "2dce4fb1605c3a244f1b2a59c9514a2339d6265dfd6de78d5b5cc788360b316b",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "f22da1781866f3aac7bf3c1309f7de6845a3227569e104e96c125c3e81109371",
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "546c0d4fefa422b88495cc578989d66dc711b80039293998939c537897643e97",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "048f20bde645f158139eb659a67acf9e3b8c077629370cffc9fb2c58677ee6f5",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "3e801c56a90bdf0972816595c94068786ff065edbbfff686074bc4a51f24833a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "5c3b66772e2aab7ae26675a309b4280fd5b5fe1143596cd2d26a2452fdc5beaf",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/LeaveCarSub70/LiveComparison.hpp": "441872d74d397c8cdd65c3b0287bcaf9ffbddb21d059dcbeeffa5e8151be3a83",
         "reversing/LeaveCarSub70/Core.hpp": "449f5b48cd91278e94031e836b70afe528b21fce853d5106d383d5cd424d925f",
