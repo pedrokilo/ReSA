@@ -34,7 +34,25 @@ void CEventPotentialWalkIntoFire::InjectHooks()
     RH_ScopedNamedGlobalInstall(PotentialWalkIntoFireDestructorBody, "Destructor", 0x4B1F00);
 
     RH_ScopedInstall(Constructor, 0x4B1E20);
+    RH_ScopedVMTInstall(GetEventType, 0x4B1ED0);     // lote 184A (sin validar): ranura 1
+    RH_ScopedVMTInstall(GetEventPriority, 0x4B1EF0); // lote 184A (sin validar): ranura 2
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B1EE0);      // lote 184A (sin validar): ranura 3
     RH_ScopedVMTInstall(AffectsPed, 0x4B6890);
+}
+
+// 0x4B1ED0 (lote 184A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,2Eh`): EVENT_POTENTIAL_WALK_INTO_FIRE (46); no lee el objeto.
+eEventType CEventPotentialWalkIntoFire::GetEventType() const {
+    return EVENT_POTENTIAL_WALK_INTO_FIRE;
+}
+
+// 0x4B1EF0 (lote 184A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,1Fh`): prioridad 31; no lee el objeto.
+int32 CEventPotentialWalkIntoFire::GetEventPriority() const {
+    return 31;
+}
+
+// 0x4B1EE0 (lote 184A, sin validar; thiscall, `ret`, 3 bytes: `xor eax,eax`): tiempo de vida 0; no lee el objeto.
+int32 CEventPotentialWalkIntoFire::GetLifeTime() {
+    return 0;
 }
 
 // 0x4B1E20

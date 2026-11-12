@@ -32,6 +32,7 @@ void CEventFireNearby::InjectHooks() {
     RH_ScopedNamedGlobalInstall(FireNearbyDestructorBody, "Destructor", 0x4B1F80);
 
     RH_ScopedInstall(Constructor, 0x4B1F10);
+    RH_ScopedVMTInstall(AffectsPed, 0x4B1F90); // lote 184A (sin validar): ranura 5
 }
 
 
@@ -40,8 +41,14 @@ CEventFireNearby::CEventFireNearby(const CVector& position) : CEventEditableResp
     m_position = position;
 }
 
+// 0x4B1F90 (lote 184A, sin validar; el listado decia CEventPotentialWalkIntoFire; ranura 5 de la vtable 0x85B6E8; thiscall, un puntero en la pila, `ret 4`, 45 bytes): si el gestor de tareas del peaton (inteligencia +0x47C, +4)
+// tiene una tarea activa de tipo 0x25C (TASK_COMPLEX_EXTINGUISH_FIRES) con CTaskManager::FindActiveTaskByType (0x681740, con hook) devuelve falso; si no, devuelve CPed::IsAlive (0x5E0170, con hook; ECX = peaton).
+static_assert(TASK_COMPLEX_EXTINGUISH_FIRES == 0x25C, "el EXE empuja 0x25C a FindActiveTaskByType");
 bool CEventFireNearby::AffectsPed(CPed* ped) {
-    return !ped->GetTaskManager().Has<TASK_COMPLEX_EXTINGUISH_FIRES>() && ped->IsAlive();
+    if (ped->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_EXTINGUISH_FIRES)) {
+        return false;
+    }
+    return ped->IsAlive();
 }
 
 // 0x4B1F10

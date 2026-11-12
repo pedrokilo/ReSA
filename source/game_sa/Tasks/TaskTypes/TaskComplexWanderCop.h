@@ -20,12 +20,8 @@ public:
     CTaskComplexWanderCop(eMoveState moveState, uint8 dir);
     ~CTaskComplexWanderCop() override;
 
-    eWanderType GetWanderType() override { return WANDER_TYPE_COP; } // 0x460D50
-
-// 0x0
-CTask* Clone() const override { return new CTaskComplexWanderCop(m_nMoveState, m_nDir); }
-
- // 0x460CE0
+    eWanderType GetWanderType() override; // 0x460D50 (lote 184A, sin validar)
+    CTask* Clone() const override;        // 0x460CE0 (lote 184A, sin validar)
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;
     CTask* ControlSubTask(CPed* ped) override;

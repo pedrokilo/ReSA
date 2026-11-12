@@ -28,9 +28,9 @@ public:
     CEventPotentialWalkIntoFire(const CVector& firePos, float fireSize, eMoveState moveState);
     ~CEventPotentialWalkIntoFire() override = default;
 
-    eEventType GetEventType() const override { return EVENT_POTENTIAL_WALK_INTO_FIRE; }
-    int32 GetEventPriority() const override { return 31; }
-    int32 GetLifeTime() override { return 0; }
+    eEventType GetEventType() const override;   // 0x4B1ED0 (lote 184A, sin validar)
+    int32 GetEventPriority() const override;     // 0x4B1EF0 (lote 184A, sin validar)
+    int32 GetLifeTime() override;                // 0x4B1EE0 (lote 184A, sin validar)
     bool AffectsPed(CPed* ped) override;
     CEventPotentialWalkIntoFire* CloneEditable() const noexcept override { return new CEventPotentialWalkIntoFire(m_firePos, m_fireSize, m_moveState); }
 

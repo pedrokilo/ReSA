@@ -54,6 +54,7 @@ void CTaskComplexWander::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexWander, 0x86FE84, 15);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskComplexWanderBody::Destructor, "Destructor", 0x669D20);
+    RH_ScopedVMTInstall(GetTaskType, 0x460CD0); // lote 184A (sin validar): ranura 4; la comparten las vtables de todas las tareas de paseo del EXE
 
     RH_ScopedInstall(Constructor, 0x66F450);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x674140);
@@ -71,6 +72,12 @@ void CTaskComplexWander::InjectHooks() {
     RH_ScopedInstall(GetWanderTaskByPedType, 0x673D00);
     RH_ScopedInstall(RequestDir, 0x669D30);
     RH_ScopedInstall(RequestNodesFrom, 0x669D50);
+}
+
+// 0x460CD0 (lote 184A, sin validar; el listado decia CTaskComplexWanderCop; thiscall, `ret`, 6 bytes: `mov eax,390h`): TASK_COMPLEX_WANDER (912); no lee el objeto. Ranura 4 de la vtable 0x86FE84 de CTaskComplexWander; las
+// vtables de CTaskComplexWanderCop (0x859C80), Standard, Medic, Criminal, etc. comparten esta misma direccion.
+eTaskType CTaskComplexWander::GetTaskType() const {
+    return Type;
 }
 
 // 0x669D30 (sin simbolo en el EXE): si la direccion pedida (dword contra el byte actual) es distinta, la guarda y marca m_bNewDir

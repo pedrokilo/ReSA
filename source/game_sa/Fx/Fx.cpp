@@ -37,6 +37,27 @@ static auto& TempVertexBuffer = StaticRef<std::array<RxObjSpace3DVertex, 4>>(0xC
 
 auto& g_fx = StaticRef<Fx_c>(0xA9AE00);
 
+namespace {
+// 0x49EA80 (lote 184A, sin validar; el listado decia Fx_c): constructor de FxEntitySystem del EXE (thiscall, sin argumentos de pila, `ret`, 12 bytes: `push esi; mov esi,ecx; call 0x4A8DB0; mov eax,esi; pop esi; ret`).
+// Como el original: ListItem_c (0x4A8DB0) deja a cero SOLO los enlaces +0 y +4; m_System (+8) y m_Entity (+0xC) quedan sin tocar. Devuelve `this`. CreateEntityFx (0x4A11E0) lo lleva en linea (aqui usa la
+// construccion por valor de la clase, que deja los dos campos a cero antes de asignarlos).
+__declspec(noinline) FxEntitySystem* __fastcall FxEntitySystemConstructor(FxEntitySystem* self, void* /*edx*/) {
+    self->m_pPrev = nullptr;
+    self->m_pNext = nullptr;
+    return self;
+}
+
+// 0x4A11C0 (lote 184A, sin validar; el listado decia Fx_c): destructor con borrado de FxEntitySystem del EXE (thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x49EA70; test byte [esp+8],1;
+// je ..; push esi; call 0x8214BD (operator delete); add esp,4; mov eax,esi; pop esi; ret 4`). El destructor del nodo (0x49EA70) es `jmp 0x4A8DC0` (`ret`): no hace nada. Libera `this` con operator delete solo si el bit 0 del
+// BYTE de banderas esta puesto y devuelve `this`. Sin ranura de vtable (clase sin virtuales) ni llamadores directos.
+__declspec(noinline) FxEntitySystem* __fastcall FxEntitySystemScalarDeletingDestructor(FxEntitySystem* self, void* /*edx*/, uint8 flags) {
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 /**
  * Registra las funciones reconstruidas del facade global de efectos.
  *
@@ -52,12 +73,14 @@ void Fx_c::InjectHooks() {
     // + RH_ScopedInstall(InitStaticSystems, 0x49E660);
     // + RH_ScopedInstall(ExitStaticSystems, 0x49E850);
     // + RH_ScopedInstall(InitEntitySystems, 0x49EA60);
-    // + RH_ScopedInstall(ExitEntitySystems, 0x4A12D0);
-    // + RH_ScopedInstall(Init, 0x49EA90);
-    // + RH_ScopedInstall(Exit, 0x4A1320);
-    // + RH_ScopedInstall(Reset, 0x49EAE0);
-    // + RH_ScopedInstall(CreateEntityFx, 0x4A11E0);
-    // + RH_ScopedInstall(DestroyEntityFx, 0x4A1280);
+    RH_ScopedInstall(ExitEntitySystems, 0x4A12D0); // lote 184A (sin validar)
+    RH_ScopedInstall(Init, 0x49EA90);              // lote 184A (sin validar)
+    RH_ScopedInstall(Exit, 0x4A1320);              // lote 184A (sin validar)
+    RH_ScopedInstall(Reset, 0x49EAE0);             // lote 184A (sin validar)
+    RH_ScopedInstall(CreateEntityFx, 0x4A11E0);    // lote 184A (sin validar)
+    RH_ScopedInstall(DestroyEntityFx, 0x4A1280);   // lote 184A (sin validar)
+    RH_ScopedNamedGlobalInstall(FxEntitySystemConstructor, "FxEntitySystemConstructor", 0x49EA80); // lote 184A (sin validar)
+    RH_ScopedNamedGlobalInstall(FxEntitySystemScalarDeletingDestructor, "FxEntitySystemScalarDeletingDestructor", 0x4A11C0); // lote 184A (sin validar)
     // + RH_ScopedInstall(Update, 0x49E640);
     // + RH_ScopedInstall(Render, 0x49E650);
     RH_ScopedInstall(CreateMatFromVec, 0x49E950);
@@ -303,13 +326,16 @@ static CVector FxDebrisVelocity() {
     return vel;
 }
 
-// 0x4A12D0
-// Destruye sistemas ligados a entidades y libera sus nodos de seguimiento.
+// 0x4A12D0 (lote 184A, sin validar)
+// Destruye sistemas ligados a entidades y libera sus nodos de seguimiento. Como el original: el siguiente nodo se lee ANTES de quitar y liberar el actual; el nodo se saca de la lista (0x4A8E30), se destruye su
+// sistema (FxManager_c::DestroyFxSystem 0x4A9810) y se libera con operator delete (el destructor del nodo, 0x49EA70, es un `ret`).
 void Fx_c::ExitEntitySystems() {
-    for (auto it = m_FxEntities.GetHead(); it; it = m_FxEntities.GetNext(it)) {
+    for (auto it = m_FxEntities.GetHead(); it;) {
+        auto* const next = it->m_pNext;
         m_FxEntities.RemoveItem(it);
         g_fxMan.DestroyFxSystem(it->m_System);
         delete it;
+        it = next;
     }
 }
 
@@ -356,16 +382,17 @@ void Fx_c::CreateEntityFx(CEntity* entity, const char* fxName, const CVector& po
     }
 }
 
-// 0x4A1280
+// 0x4A1280 (lote 184A, sin validar)
+// Como el original: el siguiente nodo se lee antes de comparar la entidad (+0xC) y de liberar el actual; los nodos de la entidad se sacan de la lista, su sistema se mata (FxSystem_c::Kill 0x4AA3F0) y se liberan.
 void Fx_c::DestroyEntityFx(CEntity* entity) {
-    // ((void(__thiscall*)(Fx_c*, CEntity*))0x4A1280)(this, entity);
-
-    for (auto it = m_FxEntities.GetHead(); it; it = m_FxEntities.GetNext(it)) {
+    for (auto it = m_FxEntities.GetHead(); it;) {
+        auto* const next = it->m_pNext;
         if (it->m_Entity == entity) {
             m_FxEntities.RemoveItem(it);
             it->m_System->Kill();
             operator delete(it);
         }
+        it = next;
     }
 }
 

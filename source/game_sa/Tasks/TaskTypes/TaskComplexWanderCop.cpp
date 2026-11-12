@@ -23,10 +23,40 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleStandStill.h"
 #include "TaskComplexPolicePursuit.h"
 
+namespace CTaskComplexWanderBody {
+void __fastcall Destructor(CTaskComplexWander* self, void* edx); // TaskComplexWander.cpp: 0x669D20
+}
+
+namespace {
+// 0x460D80 (lote 184A, sin validar; el listado decia CTaskComplexWanderCop): cuerpo no virtual de ~CTaskComplexWanderCop del EXE (thiscall, sin argumentos de pila, `ret`, 87 bytes con marco SEH que solo desenrolla).
+// Deja la vtable de la clase del EXE (0x859C80), borra con el destructor virtual (ranura 0, bandera 1) la tarea guardada de ir a un punto (+0x28) si no es nula y sigue con el cuerpo de ~CTaskComplexWander (0x669D20, con hook).
+// Funcion propia sin expansion en linea; la llama el destructor con borrado como el `call 0x460D80` del EXE. El marco SEH se omite.
+__declspec(noinline) void __fastcall CTaskComplexWanderCopDestructorBody(CTaskComplexWanderCop* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x859C80;
+    delete self->m_pGoToPointAndStandStillTask;
+    CTaskComplexWanderBody::Destructor(self, nullptr);
+}
+
+// 0x460D60 (lote 184A, sin validar): destructor con borrado de CTaskComplexWanderCop del EXE (ranura 0 de su vtable 0x859C80; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x460D80;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x460D80), libera `this` con CTask::operator delete (0x61A5B0, con hook)
+// solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+__declspec(noinline) CTaskComplexWanderCop* __fastcall CTaskComplexWanderCopScalarDeletingDestructor(CTaskComplexWanderCop* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexWanderCopDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskComplexWanderCop::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexWanderCop, 0x859C80, 15);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedGlobalInstall(CTaskComplexWanderCopDestructorBody, "DestructorBody", 0x460D80); // lote 184A (sin validar)
+    RH_ScopedNamedGlobalInstall(CTaskComplexWanderCopScalarDeletingDestructor, "ScalarDeletingDestructor", 0x460D60); // lote 184A (sin validar)
+    RH_ScopedVMTInstall(Clone, 0x460CE0);          // lote 184A (sin validar): ranura 1
+    RH_ScopedVMTInstall(GetWanderType, 0x460D50);  // lote 184A (sin validar): ranura 11
     RH_ScopedInstall(Constructor, 0x460C80);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x674860);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x674750);
@@ -47,9 +77,24 @@ CTaskComplexWanderCop::CTaskComplexWanderCop(eMoveState moveState, uint8 dir) : 
     m_pLastCriminalPedLookedFor = nullptr;
 }
 
-// 0x460D60
+// 0x460D80 (cuerpo) y 0x460D60 (con borrado)
 CTaskComplexWanderCop::~CTaskComplexWanderCop() {
     delete m_pGoToPointAndStandStillTask;
+}
+
+// 0x460D50 (lote 184A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,1`): WANDER_TYPE_COP (1); no lee el objeto (ranura 11 de la vtable 0x859C80; el EXE comparte esta direccion con otra vtable (0x85A454) que tambien devuelve 1).
+eWanderType CTaskComplexWanderCop::GetWanderType() {
+    return WANDER_TYPE_COP;
+}
+
+// 0x460CE0 (lote 184A, sin validar; thiscall, `ret`, 102 bytes con marco SEH que solo desenrolla la reserva; ranura 1 de la vtable 0x859C80): reserva 0x50 bytes con CTask::operator new (0x61A5A0, pool de tareas); sin memoria devuelve
+// nulo; si no, llama al constructor (0x460C80, con hook; ECX = memoria) con el estado de movimiento (+0xC) y la direccion (+0x10, BYTE extendido a cero) y devuelve lo que deja en EAX.
+CTask* CTaskComplexWanderCop::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskComplexWanderCop));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CTaskComplexWanderCop*>(memory)->Constructor(m_nMoveState, m_nDir);
 }
 
 // 0x674860
