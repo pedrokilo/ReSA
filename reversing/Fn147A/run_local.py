@@ -36,7 +36,7 @@ STUBBED.update({NAMES[0]: [FL], NAMES[1]: [FL], NAMES[2]: [FL, CD],
                 NAMES[11]: [(0x632EA0, True), DL], NAMES[13]: [(0x6355E0, True), DL], NAMES[14]: [(0x635900, True), DL],
                 NAMES[15]: [(0x538900, True)], NAMES[16]: [(0x5389B0, True)], NAMES[17]: [(0x5389D0, True)],
                 NAMES[19]: [(0x492F10, True), DL], NAMES[21]: [(0x655780, True), DL],
-                NAMES[23]: [(0x61A6F0, False)], NAMES[24]: [(0x48E930, True), DL], NAMES[25]: [(0x48E960, True), DL]})
+                NAMES[23]: [(0x61A6F0, True)], NAMES[24]: [(0x48E930, True), DL], NAMES[25]: [(0x48E960, True), DL]})
 REAL = {}
 WATCHED = set(HOOKS.values()) | set(SLOTS) | {a for lst in STUBBED.values() for a, _ in lst} | {a for lst in REAL.values() for a, _ in lst}
 COVER_FLOOR = 50

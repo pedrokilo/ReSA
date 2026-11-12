@@ -454,7 +454,7 @@ inline void Update() {
     env.stubs[16] = {U(0x5FF860, Lote151ABody_CEventEscalator(), K[16]), U(0x4B5630, Lote151ABody_CEventOperatorDelete(), &FkDelete<0x4B5630>)};
     env.stubs[17] = {F(0x4B5620, &FkNew<0x4B5620>), F(0x4ABFC0, &FkEventCtor)};
     env.stubs[20] = {E(0x82119A, &FkNew<0x82119A>)};
-    env.stubs[21] = {U(0x61A6F0, Lote150ABody_CTaskSimpleAnim(), K[21])};
+    env.stubs[21] = {H(0x61A6F0, Lote150ABody_CTaskSimpleAnim(), K[21])};
     env.stubs[22] = {H(0x48EA60, Lote151ABody_CTaskSimpleHandsUp(), K[22]), Del()};
     env.stubs[23] = {F(0x48EA90, K[23]), Del()};
     const char* dllReal[kFunctions];

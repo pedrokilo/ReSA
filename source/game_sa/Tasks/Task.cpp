@@ -46,6 +46,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(pop)
 
 #include "Task.h"
+#include "Pools/PoolRawDelete.h"
 
 // Keep the base destruction step explicit: the executable installs CTask's
 // vtable after a complex task has released its owned subtask.
@@ -74,6 +75,19 @@ void __fastcall DestructorCopy(CTask* self, void* /*edx*/) {
 #pragma optimize("", on)
 #pragma runtime_checks("", restore)
 } // namespace CTaskBody
+
+namespace {
+// 0x61A660 (lote 169A, banco Fn169A): destructor con borrado de CTask del EXE (ranura 0 de su vtable 0x86D48C; thiscall, un argumento de pila, `ret 4`, 56 bytes). Como el original: deja la vtable de CTask del EXE
+// (0x86D48C), y solo si el bit 0 del BYTE de banderas esta puesto libera la ranura de `this` en el pool de tareas (0xB744A8) EN LINEA (indice = desplazamiento aritmetico de 7 bits, estados[indice] |= 0x80,
+// cursor = min(cursor, indice) con signo, igual que CTask::operator delete 0x61A5B0 pero sin pasar por el); devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTask* __fastcall CTaskScalarDeletingDestructor(CTask* self, void* /*edx*/, uint8 flags) {
+    *reinterpret_cast<uint32*>(self) = 0x86D48C;
+    if (flags & 1) {
+        PoolFreeSlotRawShift(GetTaskPool(), self, 7);
+    }
+    return self;
+}
+} // namespace
 
 class CTaskComplex;
 
@@ -203,6 +217,7 @@ void CTask::InjectHooks() {
     RH_ScopedInstall(IsTaskPtr, 0x61A4B0);
     RH_ScopedInstall(Destructor, 0x61A3A0);
     RH_ScopedNamedGlobalInstall(CTaskBody::DestructorCopy, "Destructor-2", 0x61A350); // lote 151A (banco Fn151A): copia byte a byte de 0x61A3A0
+    RH_ScopedNamedGlobalInstall(CTaskScalarDeletingDestructor, "ScalarDeletingDestructor", 0x61A660); // lote 169A (banco Fn169A)
     RH_ScopedInstall(operator new, 0x61A5A0);
     RH_ScopedInstall(operator delete, 0x61A5B0);
     RH_ScopedVMTInstall(StopTimer, 0x421180);
@@ -210,4 +225,5 @@ void CTask::InjectHooks() {
     CTaskSimpleBody::InjectHooks();
     CTaskSimple::InjectHooks();
     CTaskComplexBody::InjectHooks();
+    CTaskComplex::InjectHooks();
 }

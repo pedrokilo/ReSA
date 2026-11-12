@@ -25,8 +25,8 @@ public:
     virtual int32 GetEventPriority() const = 0;
     virtual int32 GetLifeTime() = 0;
     virtual CEvent* Clone() const noexcept = 0;
-    virtual bool AffectsPed(CPed* ped) { return true; };
-    virtual bool AffectsPedGroup(CPedGroup* pedGroup) { return true; };
+    virtual bool AffectsPed(CPed* ped);              // 0x4ABFE0 (lote 169A): `mov al,1; ret 4`; las vtables del EXE de todos los eventos que no la redefinen apuntan a esta direccion
+    virtual bool AffectsPedGroup(CPedGroup* pedGroup); // 0x4ABFF0 (lote 169A): `mov al,1; ret 4`
     virtual bool IsCriminalEvent();                  // 0x420E90 (lote 137A): `xor al, al; ret`; las vtables del EXE de todos los eventos que no la redefinen apuntan a esta direccion
     virtual void ReportCriminalEvent(CPed* ped);     // 0x420EA0 (lote 137A): `ret 4` (vacia)
     virtual bool HasEditableResponse() const { return false; }
@@ -35,8 +35,8 @@ public:
     bool TakesPriorityOverBase(const CEvent& other); // 0x4ABC30: cuerpo de la implementacion por defecto (las vtables del EXE apuntan a esta direccion)
     virtual float GetLocalSoundLevel();              // 0x420EB0 (lote 137A): `fld dword [0x858B50]` (0.0f); `ret`
     virtual bool DoInformVehicleOccupants(CPed* ped); // 0x420EC0 (lote 137A): `xor al, al; ret 4`
-    virtual bool IsValid(CPed* ped) { return m_bValid || m_nTimeActive <= GetLifeTime(); }
-    virtual bool CanBeInterruptedBySameEvent() { return false; };
+    virtual bool IsValid(CPed* ped);                 // 0x4AC020 (lote 169A): m_bValid o `m_nTimeActive <= GetLifeTime()` (llamada virtual de la ranura 3, con signo)
+    virtual bool CanBeInterruptedBySameEvent();      // 0x4AC000 (lote 169A): `xor al,al; ret`
 
     float GetSoundLevel(const CEntity* entity, CVector& position);
     static float CalcSoundLevelIncrement(float level1, float level2);

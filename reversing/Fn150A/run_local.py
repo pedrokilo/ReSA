@@ -32,7 +32,7 @@ DLL_BODY_WITHOUT_HOOK = {0x61A6F0, 0x48DE60, 0x552520, 0x552C90}
 DL, CD = (0x61A5B0, True), (0x8214BD, False)
 STUBBED = {n: [] for n in NAMES}
 STUBBED.update({NAMES[0]: [(0x4F2200, True), CD], NAMES[1]: [CD], NAMES[2]: [(0x40F700, True), (0x40FC40, True)], NAMES[7]: [(0x552520, False), (0x552C90, False)],
-                NAMES[9]: [(0x61A6F0, False), DL], NAMES[10]: [(0x48DE60, False), DL], NAMES[11]: [(0x61BF10, True), DL], NAMES[12]: [(0x646A00, True), DL],
+                NAMES[9]: [(0x61A6F0, True), DL], NAMES[10]: [(0x48DE60, False), DL], NAMES[11]: [(0x61BF10, True), DL], NAMES[12]: [(0x646A00, True), DL],
                 NAMES[13]: [(0x646C00, True), DL], NAMES[14]: [(0x646E50, True), DL],
                 NAMES[16]: [(0x56E210, True), (0x743C60, True), (0x5E6080, True)],
                 NAMES[18]: [(0x4CEBE0, True), (0x61A3A0, True)], NAMES[20]: [(0x4CEBE0, True), (0x61A3A0, True)]})

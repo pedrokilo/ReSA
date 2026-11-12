@@ -11,3 +11,14 @@ inline void PoolFreeSlotRaw(void* pool, const void* obj, int32 elementSize) {
         *reinterpret_cast<int32*>(raw + 0xC) = index;
     }
 }
+
+// Lote 169A: igual que PoolFreeSlotRaw para elementos cuyo tamano es una potencia de dos (CTask: 0x80 = 1 << 7), como lo hacen las liberaciones EN LINEA del EXE (0x61A620, 0x61A660, 0x61A5B0): el indice es el
+// desplazamiento aritmetico (`sar`, division hacia menos infinito, no truncada hacia cero) de la diferencia de 32 bits entre el objeto y el almacenamiento del pool.
+inline void PoolFreeSlotRawShift(void* pool, const void* obj, int32 shift) {
+    auto* const raw     = static_cast<uint8*>(pool);
+    const int32 index   = int32(reinterpret_cast<uintptr_t>(obj) - reinterpret_cast<uintptr_t>(*reinterpret_cast<uint8**>(raw + 0x0))) >> shift;
+    *(*reinterpret_cast<uint8**>(raw + 0x4) + index) |= 0x80;
+    if (index < *reinterpret_cast<int32*>(raw + 0xC)) {
+        *reinterpret_cast<int32*>(raw + 0xC) = index;
+    }
+}

@@ -18,7 +18,7 @@ public:
     int32 GetLifeTime() override; // 0x4B8330 (lote 155A, banco Fn155A)
     bool AffectsPed(CPed* ped) override; // 0x4B8390 (lote 155A, banco Fn155A)
     bool AffectsPedGroup(CPedGroup* pedGroup) override;
-    bool TakesPriorityOver(const CEvent& refEvent) override { return true; }
+    bool TakesPriorityOver(const CEvent& refEvent) override; // 0x4B0F70 (lote 169A, banco Fn169A): ranura 11 de la vtable 0x85B898
     CEventLeaderExitedCarAsDriver* CloneEditable() const noexcept override; // 0x4B8340 (lote 156A, banco Fn156A): ranura 16 de la vtable 0x85B898
 
 private:

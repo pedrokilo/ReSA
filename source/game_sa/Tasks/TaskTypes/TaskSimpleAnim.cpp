@@ -37,9 +37,24 @@ CTaskSimpleAnim* __fastcall SimpleAnimConstructorBody(CTaskSimpleAnim* self, voi
 } // namespace
 
 namespace {
-// 0x61A6F0 (lote 150A, banco Fn150A): cuerpo del destructor de CTaskSimpleAnim del EXE (sin hook: es el destructor de la clase; vtable 0x86D504). Funcion propia sin expansion en linea para que el banco pueda sustituirla;
-// la llama el destructor con borrado como el `call 0x61A6F0` del EXE.
-__declspec(noinline) void __fastcall CTaskSimpleAnimDestructorBody(CTaskSimpleAnim* self, void* /*edx*/) { self->CTaskSimpleAnim::~CTaskSimpleAnim(); }
+// 0x61A6F0 (lotes 150A y 169A, bancos Fn150A y Fn169A): cuerpo del destructor de CTaskSimpleAnim del EXE (thiscall, sin argumentos de pila, `ret`, 159 bytes con marco SEH que solo desenrolla; vtable 0x86D504).
+// Como el original: deja la vtable de la clase del EXE (0x86D504); si hay animacion (+8) le pone el callback de fin por defecto (CAnimBlendAssociation::SetFinishCallback 0x4CEBE0, con hook, con el DefaultAnimCB
+// del EXE 0x4D1390 y dato nulo), activa su bit 0x4 (palabra +0x2E), y si la tarea no mantiene el ultimo fotograma (bit 2 del byte +0xC) y el peso (+0x18) es mayor que cero y la velocidad de mezcla (+0x1C) mayor
+// o igual que cero (comparaciones ordenadas: con NaN no entra) deja la velocidad en -4.0 (0xC0800000); despues pone la animacion a nulo y termina con CTask::Destructor (0x61A3A0, con hook). El destructor
+// generado por el compilador dejaria la vtable de la DLL. Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x61A6F0` del EXE. El marco SEH
+// se omite.
+__declspec(noinline) void __fastcall CTaskSimpleAnimDestructorBody(CTaskSimpleAnim* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86D504;
+    if (self->m_pAnim) {
+        self->m_pAnim->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+        self->m_pAnim->m_Flags |= ANIMATION_IS_BLEND_AUTO_REMOVE;
+        if (!self->m_bHoldLastFrame && self->m_pAnim->m_BlendAmount > 0.0f && self->m_pAnim->m_BlendDelta >= 0.0f) {
+            self->m_pAnim->m_BlendDelta = -4.0f;
+        }
+        self->m_pAnim = nullptr;
+    }
+    self->CTask::Destructor();
+}
 
 // 0x61BA80 (lote 150A, banco Fn150A): destructor con borrado de CTaskSimpleAnim del EXE (ranura 0 de su vtable 0x86D504; thiscall, un argumento de pila, `ret 4`, 30 bytes:
 // `push esi; mov esi,ecx; call 0x61A6F0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
@@ -62,6 +77,7 @@ void CTaskSimpleAnim::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleAnim, 0x86D504, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskSimpleAnimScalarDeletingDestructor, "ScalarDeletingDestructor", 0x61BA80); // lote 150A (banco Fn150A)
+    RH_ScopedNamedGlobalInstall(CTaskSimpleAnimDestructorBody, "DestructorBody", 0x61A6F0);                     // lote 169A (banco Fn169A)
     RH_ScopedNamedGlobalInstall(SimpleAnimConstructorBody, "Constructor", 0x61A6C0);
     RH_ScopedVMTInstall(MakeAbortable, 0x61A790);
 }

@@ -66,6 +66,10 @@ void CEvent::InjectHooks() {
     RH_ScopedVMTInstall(ReportCriminalEvent, 0x420EA0);        // lote 137A
     RH_ScopedVMTInstall(GetLocalSoundLevel, 0x420EB0);         // lote 137A
     RH_ScopedVMTInstall(DoInformVehicleOccupants, 0x420EC0);   // lote 137A
+    RH_ScopedVMTInstall(AffectsPed, 0x4ABFE0);                 // lote 169A (banco Fn169A): ranura 5
+    RH_ScopedVMTInstall(AffectsPedGroup, 0x4ABFF0);            // lote 169A: ranura 6
+    RH_ScopedVMTInstall(IsValid, 0x4AC020);                    // lote 169A: ranura 14
+    RH_ScopedVMTInstall(CanBeInterruptedBySameEvent, 0x4AC000); // lote 169A: ranura 15
 }
 
 // Lote 137A (banco Fn137A): las cuatro implementaciones por defecto de CEvent que las vtables del EXE comparten (ranuras 7, 8, 12 y 13 de CEvent 0x85AB38 y de todos los eventos que no las redefinen).
@@ -89,6 +93,27 @@ float CEvent::GetLocalSoundLevel() {
 // 0x420EC0 (thiscall, un argumento de pila, `ret 4`, bool en AL): `xor al, al`.
 bool CEvent::DoInformVehicleOccupants(CPed* /*ped*/) {
     return false;
+}
+
+// 0x4ABFE0 (lote 169A, banco Fn169A; thiscall, un argumento de pila, `ret 4`, 5 bytes: `mov al,1`): siempre verdadero; no lee el objeto ni el ped (ranura 5 de CEvent y de todos los eventos que no la redefinen).
+bool CEvent::AffectsPed(CPed* /*ped*/) {
+    return true;
+}
+
+// 0x4ABFF0 (lote 169A, banco Fn169A; thiscall, un argumento de pila, `ret 4`, 5 bytes: `mov al,1`): siempre verdadero; no lee el objeto ni el grupo (ranura 6).
+bool CEvent::AffectsPedGroup(CPedGroup* /*pedGroup*/) {
+    return true;
+}
+
+// 0x4AC000 (lote 169A, banco Fn169A; thiscall, `ret`, 3 bytes: `xor al,al`): siempre falso; no lee el objeto (ranura 15).
+bool CEvent::CanBeInterruptedBySameEvent() {
+    return false;
+}
+
+// 0x4AC020 (lote 169A, banco Fn169A; thiscall, un argumento de pila, `ret 4`, 35 bytes; ranura 14): verdadero si el byte m_bValid (+8) no es cero; si no, `m_nTimeActive (+4) <= GetLifeTime()` (llamada virtual de la
+// ranura 3 con ECX = this; comparacion con signo `jle`). El ped no se lee.
+bool CEvent::IsValid(CPed* /*ped*/) {
+    return m_bValid || m_nTimeActive <= GetLifeTime();
 }
 #pragma optimize("", on)
 #pragma runtime_checks("", restore)

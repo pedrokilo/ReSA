@@ -58,6 +58,7 @@ void CEventLeaderExitedCarAsDriver::InjectHooks()
     RH_ScopedVMTInstall(GetLifeTime, 0x4B8330);       // lote 155A: ranura 3
     RH_ScopedVMTInstall(AffectsPed, 0x4B8390);        // lote 155A: ranura 5
     RH_ScopedVMTInstall(AffectsPedGroup, 0x4B0F80);
+    RH_ScopedVMTInstall(TakesPriorityOver, 0x4B0F70); // lote 169A (banco Fn169A): ranura 11
 }
 
 // 0x4B8340 (lote 156A, banco Fn156A; thiscall, sin argumentos, `ret`, 80 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); no lee `this`; ranura 16 de la vtable 0x85B898).
@@ -91,6 +92,12 @@ int32 CEventLeaderExitedCarAsDriver::GetLifeTime() {
 // 0x4B8390 (lote 155A, banco Fn155A; thiscall, un argumento de pila, `ret 4`, 5 bytes: `xor al,al`): siempre falso; no lee el objeto ni el ped.
 bool CEventLeaderExitedCarAsDriver::AffectsPed(CPed* /*ped*/) {
     return false;
+}
+
+// 0x4B0F70 (lote 169A, banco Fn169A; thiscall, un argumento de pila, `ret 4`, 5 bytes: `mov al,1`): siempre verdadero; no lee el objeto ni el otro evento. El listado la atribuia a CEventLeaderEnteredCarAsDriver;
+// la vtable 0x85B898 (CEventLeaderExitedCarAsDriver) la tiene en la ranura 11.
+bool CEventLeaderExitedCarAsDriver::TakesPriorityOver(const CEvent& /*refEvent*/) {
+    return true;
 }
 
 // 0x4B8300

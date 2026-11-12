@@ -359,7 +359,7 @@ inline void Update() {
     env.stubs[1] = {E(0x8214BD, &FkDelete<0x8214BD>)};
     env.stubs[2] = {F(0x40F700, K[2]), F(0x40FC40, &FkDelete<0x40FC40>)};
     env.stubs[7] = {U(0x552520, reinterpret_cast<uintptr_t>(&QuadNode::DestructorBodyExe), K[7]), U(0x552C90, reinterpret_cast<uintptr_t>(&QuadNode::DeleteStorageExe), &FkDelete<0x552C90>)};
-    env.stubs[9] = {U(0x61A6F0, Lote150ABody_CTaskSimpleAnim(), K[9]), Del()};
+    env.stubs[9] = {H(0x61A6F0, Lote150ABody_CTaskSimpleAnim(), K[9]), Del()};
     env.stubs[10] = {U(0x48DE60, Lote150ABody_CTaskSimpleRunAnim(), K[10]), Del()};
     env.stubs[11] = {H(0x61BF10, Lote150ABody_CTaskSimpleRunNamedAnim(), K[11]), Del()};
     env.stubs[12] = {H(0x646A00, Lote150ABody_CTaskSimpleCarWaitToSlowDown(), K[12]), Del()};

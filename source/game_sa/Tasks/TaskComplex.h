@@ -12,18 +12,18 @@ class CPed;
 
 class NOTSA_EXPORT_VTABLE CTaskComplex : public CTask {
 public:
+    static void InjectHooks();
+
     CTaskComplex() = default;
     ~CTaskComplex() override {
         delete m_pSubTask;
         m_pSubTask = nullptr;
     }
 
-    CTask* GetSubTask() const final override { return m_pSubTask; }
-    bool IsSimple() const final override { return false; }
+    CTask* GetSubTask() const final override; // 0x421190 (lote 169A, banco Fn169A): ranura 2 de la vtable 0x86D4CC
+    bool IsSimple() const final override;     // 0x4211A0 (lote 169A): ranura 3
 
-    bool MakeAbortable(class CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override {
-        return m_pSubTask->MakeAbortable(ped, priority, event);
-    }
+    bool MakeAbortable(class CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override; // 0x4211B0 (lote 169A): ranura 6
 
     virtual void SetSubTask(CTask* subTask) final { // TODO: Make this non-virtual
         if (m_pSubTask == subTask) { // Same task set already, do nothing

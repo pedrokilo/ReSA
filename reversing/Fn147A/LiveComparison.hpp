@@ -350,7 +350,7 @@ inline void Update() {
     env.stubs[17] = {F(0x5389D0, &FkClose)};
     env.stubs[19] = {H(0x492F10, Lote147ABody_CTaskComplexDiveFromAttachedEntityAndGetUp(), K[19]), Del()};
     env.stubs[21] = {H(0x655780, Lote147ABody_CTaskComplexWalkRoundFire(), K[21]), Del()};
-    env.stubs[23] = {U(0x61A6F0, Lote147AScratchHeadBaseDestructorCall(), K[23])};
+    env.stubs[23] = {H(0x61A6F0, Lote147AScratchHeadBaseDestructorCall(), K[23])};
     env.stubs[24] = {Rt(23, K[24]), Del()};
     env.stubs[25] = {H(0x48E960, Lote147ABody_CTaskSimpleUseAtm(), K[25]), Del()};
     const char* dllReal[kFunctions];

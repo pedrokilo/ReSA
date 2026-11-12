@@ -18,14 +18,14 @@ public:
     CEventLeaderEnteredCarAsDriver(CVehicle* vehicle);
     ~CEventLeaderEnteredCarAsDriver() override;
 
-    eEventType GetEventType() const override { return EVENT_LEADER_ENTERED_CAR_AS_DRIVER; }
-    int32 GetEventPriority() const override  { return 46; }
-    int32 GetLifeTime() override  { return 0; }
-    bool AffectsPed(CPed* ped) override  { return false; }
+    eEventType GetEventType() const override;                  // 0x48E280 (lote 169A, banco Fn169A)
+    int32 GetEventPriority() const override;                   // 0x48E340 (lote 169A)
+    int32 GetLifeTime() override;                              // 0x48E290 (lote 169A)
+    bool AffectsPed(CPed* ped) override;                       // 0x48E300 (lote 169A)
     bool AffectsPedGroup(CPedGroup* pedGroup) override;
-    bool TakesPriorityOver(const CEvent& refEvent) override  { return true; }
-    bool CanBeInterruptedBySameEvent() override  { return true; }
-    CEventLeaderEnteredCarAsDriver* CloneEditable() const noexcept override  { return new CEventLeaderEnteredCarAsDriver(m_vehicle); }
+    bool TakesPriorityOver(const CEvent& refEvent) override { return true; }
+    bool CanBeInterruptedBySameEvent() override;               // 0x48E310 (lote 169A)
+    CEventLeaderEnteredCarAsDriver* CloneEditable() const noexcept override; // 0x48E2A0 (lote 169A): ranura 16 de la vtable 0x85A198
 
 private:
     CEventLeaderEnteredCarAsDriver* Constructor(CVehicle* vehicle);
