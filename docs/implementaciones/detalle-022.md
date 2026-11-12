@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 893 grupos / 10321 funciones reconstruidas; 10321 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 897 grupos / 10344 funciones reconstruidas; 10344 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,25 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-421"></a>
+
+## CPedParkAttractor
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CPedParkAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedParkAttractor.h:10](../../source/game_sa/Attractors/PedParkAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetType() const override | [source/game_sa/Attractors/PedParkAttractor.h:28](../../source/game_sa/Attractors/PedParkAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-422"></a>
+
+## CPedPizzaAttractor
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CPedPizzaAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedPizzaAttractor.h:10](../../source/game_sa/Attractors/PedPizzaAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetType() const override | [source/game_sa/Attractors/PedPizzaAttractor.h:28](../../source/game_sa/Attractors/PedPizzaAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetHeadOfQueueWaitTime() const | [source/game_sa/Attractors/PedPizzaAttractor.h:31](../../source/game_sa/Attractors/PedPizzaAttractor.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-423"></a>
 
 ## CPedPlacement
 
@@ -20,7 +39,7 @@
 | * CPedPlacement::IsPositionClearOfCars(const CVector* pos) | [source/game_sa/PedPlacement.cpp:121](../../source/game_sa/PedPlacement.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedPlacement::IsPositionClearOfCars-Pos 0x006168E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CPedPlacement::IsPositionClearOfCars(const CPed* ped) | [source/game_sa/PedPlacement.cpp:126](../../source/game_sa/PedPlacement.cpp#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedPlacement::IsPositionClearOfCars-Ped 0x00616A40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-422"></a>
+<a id="grupo-424"></a>
 
 ## CPedPool
 
@@ -30,7 +49,7 @@
 | InjectHooks() | [source/game_sa/Pools/PedPool.h:37](../../source/game_sa/Pools/PedPool.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * New() | [source/game_sa/Pools/PedPool.h:53](../../source/game_sa/Pools/PedPool.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedPool::New 0x005E45E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-423"></a>
+<a id="grupo-425"></a>
 
 ## CPedSaveStructure
 
@@ -40,7 +59,7 @@
 | CPedSaveStructure::Construct(CPed* ped) | [source/game_sa/Entity/Ped/PedSaveStructure.cpp:75](../../source/game_sa/Entity/Ped/PedSaveStructure.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedSaveStructure::Construct 0x005D43D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPedSaveStructure::InjectHooks() | [source/game_sa/Entity/Ped/PedSaveStructure.cpp:114](../../source/game_sa/Entity/Ped/PedSaveStructure.cpp#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-424"></a>
+<a id="grupo-426"></a>
 
 ## CPedScanner
 
@@ -49,7 +68,7 @@
 | CPedScanner::ScanForPedsInRange(const CPed& ped) | [source/game_sa/PedScanner.cpp:31](../../source/game_sa/PedScanner.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CPedScanner::GetClosestPedInRange() const | [source/game_sa/PedScanner.cpp:37](../../source/game_sa/PedScanner.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedScanner::GetClosestPedInRange 0x005FFF20 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-425"></a>
+<a id="grupo-427"></a>
 
 ## CPedScriptedAttractor
 
@@ -58,7 +77,7 @@
 | CPedScriptedAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedScriptedAttractor.h:10](../../source/game_sa/Attractors/PedScriptedAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Attractors/PedScriptedAttractor.h:28](../../source/game_sa/Attractors/PedScriptedAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-426"></a>
+<a id="grupo-428"></a>
 
 ## CPedScriptedTaskRecord
 
@@ -71,7 +90,7 @@
 | CPedScriptedTaskRecord::GetVacantSlot() | [source/game_sa/Tasks/PedScriptedTaskRecord.cpp:178](../../source/game_sa/Tasks/PedScriptedTaskRecord.cpp#L178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedScriptedTaskRecord::GetVacantSlot 0x00608540 | 0 / 0 | Posible dato fijo ms_scriptedTasks: source/game_sa/Tasks/PedScriptedTaskRecord.h:49 (0x00C0B1E8) |
 | CPedScriptedTaskRecord::Process() | [source/game_sa/Tasks/PedScriptedTaskRecord.cpp:189](../../source/game_sa/Tasks/PedScriptedTaskRecord.cpp#L189) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedScriptedTaskRecord::Process 0x006085E0 | 0 / 0 | Posible dato fijo ms_scriptedTasks: source/game_sa/Tasks/PedScriptedTaskRecord.h:49 (0x00C0B1E8) |
 
-<a id="grupo-427"></a>
+<a id="grupo-429"></a>
 
 ## CPedScriptedTaskRecordData
 
@@ -88,7 +107,7 @@
 | CPedScriptedTaskRecordData::SetAsAttractorScriptTask(CPed* ped, int32 opcode, CTask* task) | [source/game_sa/Tasks/PedScriptedTaskRecord.cpp:125](../../source/game_sa/Tasks/PedScriptedTaskRecord.cpp#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedScriptedTaskRecordData::SetAsAttractorScriptTask 0x00608440 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPedScriptedTaskRecordData::Flush() | [source/game_sa/Tasks/PedScriptedTaskRecord.cpp:137](../../source/game_sa/Tasks/PedScriptedTaskRecord.cpp#L137) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedScriptedTaskRecordData::Flush 0x00608350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-428"></a>
+<a id="grupo-430"></a>
 
 ## CPedSeatAttractor
 
@@ -97,7 +116,7 @@
 | CPedSeatAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedSeatAttractor.h:10](../../source/game_sa/Attractors/PedSeatAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Attractors/PedSeatAttractor.h:28](../../source/game_sa/Attractors/PedSeatAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-429"></a>
+<a id="grupo-431"></a>
 
 ## CPedShelterAttractor
 
@@ -114,7 +133,7 @@
 | GetType() const override | [source/game_sa/Attractors/PedShelterAttractor.h:31](../../source/game_sa/Attractors/PedShelterAttractor.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsAtHeadOfQueue(CPed* ped) override | [source/game_sa/Attractors/PedShelterAttractor.h:34](../../source/game_sa/Attractors/PedShelterAttractor.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-430"></a>
+<a id="grupo-432"></a>
 
 ## CPedStats
 
@@ -129,7 +148,7 @@
 | * CPedStats::GetPedStatByArrayIndex(uint32 statIndex) | [source/game_sa/PedStats.cpp:141](../../source/game_sa/PedStats.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_apPedStats: source/game_sa/PedStats.h:25 (0x00C0BBEC) |
 | CPedStats::FindIndexWithPedStat(void* a1) | [source/game_sa/PedStats.cpp:147](../../source/game_sa/PedStats.cpp#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedStats::FindIndexWithPedStat 0x00608940 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo ms_apPedStats: source/game_sa/PedStats.h:25 (0x00C0BBEC) |
 
-<a id="grupo-431"></a>
+<a id="grupo-433"></a>
 
 ## CPedStepAttractor
 
@@ -138,7 +157,7 @@
 | CPedStepAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedStepAttractor.h:10](../../source/game_sa/Attractors/PedStepAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Attractors/PedStepAttractor.h:28](../../source/game_sa/Attractors/PedStepAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-432"></a>
+<a id="grupo-434"></a>
 
 ## CPedStopAttractor
 
@@ -147,7 +166,7 @@
 | CPedStopAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedStopAttractor.h:10](../../source/game_sa/Attractors/PedStopAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Attractors/PedStopAttractor.h:28](../../source/game_sa/Attractors/PedStopAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-433"></a>
+<a id="grupo-435"></a>
 
 ## CPedStuckChecker
 
@@ -158,7 +177,7 @@
 | CPedStuckChecker() | [source/game_sa/PedStuckChecker.h:23](../../source/game_sa/PedStuckChecker.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetState() const | [source/game_sa/PedStuckChecker.h:30](../../source/game_sa/PedStuckChecker.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-434"></a>
+<a id="grupo-436"></a>
 
 ## CPedTaskPair
 
@@ -167,7 +186,7 @@
 | CPedTaskPair::InjectHooks() | [source/game_sa/PedTaskPair.cpp:23](../../source/game_sa/PedTaskPair.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPedTaskPair::Flush() | [source/game_sa/PedTaskPair.cpp:31](../../source/game_sa/PedTaskPair.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedTaskPair::Flush 0x005E95B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-435"></a>
+<a id="grupo-437"></a>
 
 ## CPedToPlayerConversations
 
@@ -178,7 +197,7 @@
 | CPedToPlayerConversations::Update() | [source/game_sa/Conversations/PedToPlayerConversations.cpp:71](../../source/game_sa/Conversations/PedToPlayerConversations.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedToPlayerConversations::Update 0x0043B0F0 | 0 / 0 | Posible dato fijo Wind: source/game_sa/Weather.h:44 (0x00C812F0); Posible dato fijo g_ikChainMan: source/game_sa/Ragdoll/IKChainManager.cpp:29 (0x00C15448); Posible dato fijo m_LastPlayerVehicle: source/game_sa/Conversations/PedToPlayerConversations.h:33 (0x00969A40); Posible dato fijo m_PedPoolIndex: source/game_sa/Conversations/PedToPlayerConversations.h:32 (0x00969A3C); Posible dato fijo m_StartTime: source/game_sa/Conversations/PedToPlayerConversations.h:29 (0x009691B8); Posible dato fijo m_State: source/game_sa/Conversations/PedToPlayerConversations.h:25 (0x00969A20); Posible dato fijo m_TimeOfLastPlayerConversation: source/game_sa/Conversations/PedToPlayerConversations.h:28 (0x009691B4); Posible dato fijo m_Topic: source/game_sa/Conversations/PedToPlayerConversations.h:27 (0x009691BC); Posible dato fijo m_bPositiveOpening: source/game_sa/Conversations/PedToPlayerConversations.h:31 (0x009691B1); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | CPedToPlayerConversations::EndConversation() | [source/game_sa/Conversations/PedToPlayerConversations.cpp:328](../../source/game_sa/Conversations/PedToPlayerConversations.cpp#L328) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedToPlayerConversations::EndConversation 0x0043AB10 | 0 / 0 | Posible dato fijo g_ikChainMan: source/game_sa/Ragdoll/IKChainManager.cpp:29 (0x00C15448); Posible dato fijo m_State: source/game_sa/Conversations/PedToPlayerConversations.h:25 (0x00969A20); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 
-<a id="grupo-436"></a>
+<a id="grupo-438"></a>
 
 ## CPedTriggerScriptAttractor
 
@@ -187,7 +206,7 @@
 | CPedTriggerScriptAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedTriggerScriptAttractor.h:10](../../source/game_sa/Attractors/PedTriggerScriptAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Attractors/PedTriggerScriptAttractor.h:28](../../source/game_sa/Attractors/PedTriggerScriptAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-437"></a>
+<a id="grupo-439"></a>
 
 ## CPedType
 
@@ -208,122 +227,10 @@
 | CPedType::ClearPedTypeAsAcquaintance(AcquaintanceId id, ePedType pedType, int32 pedTypeBitNum) | [source/game_sa/PedType.cpp:213](../../source/game_sa/PedType.cpp#L213) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedType::ClearPedTypeAsAcquaintance 0x006089F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPedType::PoliceDontCareAboutCrimesAgainstPedType(ePedType pedType) | [source/game_sa/PedType.cpp:218](../../source/game_sa/PedType.cpp#L218) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedType::PoliceDontCareAboutCrimesAgainstPedType 0x00608A40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-438"></a>
+<a id="grupo-440"></a>
 
 ## CPermanentShadow
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | Init() | [source/game_sa/Shadows.h:112](../../source/game_sa/Shadows.h#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-439"></a>
-
-## CPhysical
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * __fastcall PhysicalScalarDeletingDestructor(CPhysical* self, void* /*edx*/, uint8 flags) | [source/game_sa/Entity/Physical.cpp:41](../../source/game_sa/Entity/Physical.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPhysical::ScalarDeletingDestructor 0x00544990 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::InjectHooks() | [source/game_sa/Entity/Physical.cpp:55](../../source/game_sa/Entity/Physical.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::CPhysical() | [source/game_sa/Entity/Physical.cpp:127](../../source/game_sa/Entity/Physical.cpp#L127) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::~CPhysical() | [source/game_sa/Entity/Physical.cpp:182](../../source/game_sa/Entity/Physical.cpp#L182) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::Destructor 0x00542450 | 0 / 0 | Posible dato fijo g_realTimeShadowMan: source/game_sa/RealTimeShadowManager.cpp:24 (0x00C40350) |
-| CPhysical::Add() | [source/game_sa/Entity/Physical.cpp:211](../../source/game_sa/Entity/Physical.cpp#L211) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::Add 0x00000000 | 0 / 0 | Posible dato fijo ms_aRepeatSectors: source/game_sa/World.h:77 (0x00B992B8) |
-| CPhysical::Remove() | [source/game_sa/Entity/Physical.cpp:235](../../source/game_sa/Entity/Physical.cpp#L235) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::Remove 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::GetBoundRect() const | [source/game_sa/Entity/Physical.cpp:253](../../source/game_sa/Entity/Physical.cpp#L253) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::GetBoundRect 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ProcessControl() | [source/game_sa/Entity/Physical.cpp:269](../../source/game_sa/Entity/Physical.cpp#L269) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ProcessControl 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ProcessCollision() | [source/game_sa/Entity/Physical.cpp:308](../../source/game_sa/Entity/Physical.cpp#L308) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ProcessCollision 0x00000000 | 0 / 0 | Posible dato fijo HIGHSPEED_ELASTICITY_MULT_COPCAR: source/game_sa/Entity/Physical.h:158 (0x008CD784) |
-| CPhysical::ProcessShift() | [source/game_sa/Entity/Physical.cpp:528](../../source/game_sa/Entity/Physical.cpp#L528) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPhysical::ProcessShift 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo PHYSICAL_SHIFT_SPEED_DAMP: source/game_sa/Entity/Physical.h:151 (0x008CD788); Posible dato fijo bSecondShift: source/game_sa/World.h:61 (0x00B7CD6C) |
-| CPhysical::TestCollision(bool bApplySpeed) | [source/game_sa/Entity/Physical.cpp:630](../../source/game_sa/Entity/Physical.cpp#L630) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::TestCollision 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ProcessEntityCollision(CEntity* entity, CColPoint* colPoint) | [source/game_sa/Entity/Physical.cpp:659](../../source/game_sa/Entity/Physical.cpp#L659) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ProcessEntityCollision 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::RemoveAndAdd() | [source/game_sa/Entity/Physical.cpp:674](../../source/game_sa/Entity/Physical.cpp#L674) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::RemoveAndAdd 0x00542560 | 0 / 0 | Posible dato fijo ms_aRepeatSectors: source/game_sa/World.h:77 (0x00B992B8) |
-| CPhysical::AddToMovingList() | [source/game_sa/Entity/Physical.cpp:715](../../source/game_sa/Entity/Physical.cpp#L715) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::AddToMovingList 0x00542800 | 0 / 0 | Posible dato fijo ms_listMovingEntityPtrs: source/game_sa/World.h:80 (0x00B9ACC8) |
-| CPhysical::RemoveFromMovingList() | [source/game_sa/Entity/Physical.cpp:725](../../source/game_sa/Entity/Physical.cpp#L725) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::RemoveFromMovingList 0x00542860 | 0 / 0 | Posible dato fijo ms_listMovingEntityPtrs: source/game_sa/World.h:80 (0x00B9ACC8) |
-| CPhysical::SetDamagedPieceRecord(float fDamageIntensity, CEntity* entity, const CColPoint& colPoint, float fDistanceMult) | [source/game_sa/Entity/Physical.cpp:734](../../source/game_sa/Entity/Physical.cpp#L734) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::SetDamagedPieceRecord 0x005428C0 | 0 / 0 | Posible dato fijo MI_POOL_CUE_BALL: source/game_sa/ModelIndices.cpp:185 (0x008CD778) |
-| CPhysical::ApplyMoveForce(float x, float y, float z) | [source/game_sa/Entity/Physical.cpp:763](../../source/game_sa/Entity/Physical.cpp#L763) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPhysical::ApplyMoveForce-xyz 0x004ABBA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyMoveForce(CVector force) | [source/game_sa/Entity/Physical.cpp:769](../../source/game_sa/Entity/Physical.cpp#L769) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPhysical::ApplyMoveForce-vec 0x005429F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyTurnForceComponents(float fx, float fy, float fz, float px, float py, float pz) | [source/game_sa/Entity/Physical.cpp:781](../../source/game_sa/Entity/Physical.cpp#L781) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyTurnForceComponents 0x0065DA70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyTurnForce(CVector force, CVector point) | [source/game_sa/Entity/Physical.cpp:786](../../source/game_sa/Entity/Physical.cpp#L786) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyTurnForce 0x00542A50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyForce(CVector vecForce, CVector point, bool bUpdateTurnSpeed) | [source/game_sa/Entity/Physical.cpp:811](../../source/game_sa/Entity/Physical.cpp#L811) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyForce 0x00542B50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::GetSpeed(CVector point) | [source/game_sa/Entity/Physical.cpp:844](../../source/game_sa/Entity/Physical.cpp#L844) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::GetSpeed 0x00542CE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyMoveSpeed() | [source/game_sa/Entity/Physical.cpp:861](../../source/game_sa/Entity/Physical.cpp#L861) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyMoveSpeed 0x00542DD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyTurnSpeed() | [source/game_sa/Entity/Physical.cpp:870](../../source/game_sa/Entity/Physical.cpp#L870) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyTurnSpeed 0x00542E20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyGravity() | [source/game_sa/Entity/Physical.cpp:896](../../source/game_sa/Entity/Physical.cpp#L896) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyGravity 0x00542FE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyFrictionMoveForce(CVector moveForce) | [source/game_sa/Entity/Physical.cpp:913](../../source/game_sa/Entity/Physical.cpp#L913) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyFrictionMoveForce 0x005430A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyFrictionTurnForce(CVector posn, CVector velocity) | [source/game_sa/Entity/Physical.cpp:929](../../source/game_sa/Entity/Physical.cpp#L929) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyFrictionForce(CVector vecMoveForce, CVector point) | [source/game_sa/Entity/Physical.cpp:935](../../source/game_sa/Entity/Physical.cpp#L935) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyFrictionForce 0x00543220 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::SkipPhysics() | [source/game_sa/Entity/Physical.cpp:976](../../source/game_sa/Entity/Physical.cpp#L976) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::SkipPhysics 0x005433B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::AddCollisionRecord(CEntity* collidedEntity) | [source/game_sa/Entity/Physical.cpp:999](../../source/game_sa/Entity/Physical.cpp#L999) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::AddCollisionRecord 0x00543490 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::GetHasCollidedWith(CEntity* entity) | [source/game_sa/Entity/Physical.cpp:1033](../../source/game_sa/Entity/Physical.cpp#L1033) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::GetHasCollidedWith 0x00543540 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::GetHasCollidedWithAnyObject() | [source/game_sa/Entity/Physical.cpp:1047](../../source/game_sa/Entity/Physical.cpp#L1047) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::GetHasCollidedWithAnyObject 0x00543580 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyCollision(CEntity* entity, const CColPoint& colPoint, float& damageIntensity) | [source/game_sa/Entity/Physical.cpp:1091](../../source/game_sa/Entity/Physical.cpp#L1091) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyCollision-1 0x005435C0 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo bNoMoreCollisionTorque: source/game_sa/World.h:58 (0x00B7CD72) |
-| CPhysical::ApplySoftCollision(CEntity* entity, const CColPoint& colPoint, float& outDamageIntensity) | [source/game_sa/Entity/Physical.cpp:1143](../../source/game_sa/Entity/Physical.cpp#L1143) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplySoftCollision-1 0x00543890 | 0 / 0 | Posible dato fijo SOFTCOL_CARLINE_SPEED_MULT: source/game_sa/Entity/Physical.h:156 (0x008CD79C); Posible dato fijo SOFTCOL_DEPTH_MIN: source/game_sa/Entity/Physical.h:154 (0x008CD78C); Posible dato fijo SOFTCOL_DEPTH_MULT: source/game_sa/Entity/Physical.h:155 (0x008CD790); Posible dato fijo SOFTCOL_SPEED_MULT: source/game_sa/Entity/Physical.h:152 (0x008CD794); Posible dato fijo SOFTCOL_SPEED_MULT2: source/game_sa/Entity/Physical.h:153 (0x008CD798) |
-| CPhysical::ApplySpringCollision(float fSuspensionForceLevel, CVector& direction, CVector& collisionPoint, float fSpringLength, float fSuspensionBias, float& fSpringForceDampingLimit) | [source/game_sa/Entity/Physical.cpp:1231](../../source/game_sa/Entity/Physical.cpp#L1231) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplySpringCollision 0x00543C90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplySpringCollisionAlt(float fSuspensionForceLevel, CVector& direction, CVector& collisionPoint, float fSpringLength, float fSuspensionBias, CVector& normal, float& fSpringForceDampingLimit) | [source/game_sa/Entity/Physical.cpp:1246](../../source/game_sa/Entity/Physical.cpp#L1246) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplySpringCollisionAlt 0x00543D60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplySpringDampening(float fDampingForce, float fSpringForceDampingLimit, CVector& direction, CVector& collisionPoint, CVector& collisionPos) | [source/game_sa/Entity/Physical.cpp:1266](../../source/game_sa/Entity/Physical.cpp#L1266) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplySpringDampening 0x00543E90 | 0 / 0 | Posible dato fijo DAMPING_LIMIT_IN_FRAME: source/game_sa/Entity/Physical.h:149 (0x008CD7A0); Posible dato fijo DAMPING_LIMIT_OF_SPRING_FORCE: source/game_sa/Entity/Physical.h:150 (0x008CD7A4) |
-| CPhysical::ApplySpringDampeningOld(float arg0, float arg1, CVector& arg2, CVector& arg3, CVector& arg4) | [source/game_sa/Entity/Physical.cpp:1303](../../source/game_sa/Entity/Physical.cpp#L1303) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::RemoveRefsToEntity(CEntity* entity) | [source/game_sa/Entity/Physical.cpp:1309](../../source/game_sa/Entity/Physical.cpp#L1309) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::RemoveRefsToEntity 0x00544280 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::DettachEntityFromEntity(float x, float y, float z, bool bApplyTurnForce) | [source/game_sa/Entity/Physical.cpp:1330](../../source/game_sa/Entity/Physical.cpp#L1330) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::DettachEntityFromEntity 0x005442F0 | 0 / 0 | Posible dato fijo m_aTempColPts: source/game_sa/World.h:84 (0x00B9ACD0) |
-| CPhysical::DettachAutoAttachedEntity() | [source/game_sa/Entity/Physical.cpp:1402](../../source/game_sa/Entity/Physical.cpp#L1402) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::DettachAutoAttachedEntity 0x005446A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::GetLightingFromCol(bool bInteriorLighting) | [source/game_sa/Entity/Physical.cpp:1429](../../source/game_sa/Entity/Physical.cpp#L1429) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::GetLightingFromCol 0x005447B0 | 0 / 0 | Posible dato fijo TEST_ADD_AMBIENT_LIGHT_FRAC: source/game_sa/Entity/Physical.h:157 (0x008CD7B8) |
-| CPhysical::GetLightingTotal() | [source/game_sa/Entity/Physical.cpp:1445](../../source/game_sa/Entity/Physical.cpp#L1445) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::GetLightingTotal 0x00544850 | 0 / 0 | Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914) |
-| CPhysical::CanPhysicalBeDamaged(eWeaponType weapon, bool* bDamagedDueToFireOrExplosionOrBullet) | [source/game_sa/Entity/Physical.cpp:1460](../../source/game_sa/Entity/Physical.cpp#L1460) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::CanPhysicalBeDamaged 0x005448B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyAirResistance() | [source/game_sa/Entity/Physical.cpp:1554](../../source/game_sa/Entity/Physical.cpp#L1554) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPhysical::ApplyAirResistance 0x00544C40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_fAirResistanceMult: source/game_sa/Entity/Vehicle/Vehicle.h:423 (0x008D34A8) |
-| CPhysical::ApplyCollisionAlt(CPhysical* entity, CColPoint& colPoint, float& damageIntensity, CVector& outVecMoveSpeed, CVector& outVecTurnSpeed) | [source/game_sa/Entity/Physical.cpp:1584](../../source/game_sa/Entity/Physical.cpp#L1584) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyCollisionAlt 0x00544D50 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90) |
-| CPhysical::ApplyFriction(float fFriction, CColPoint& colPoint) | [source/game_sa/Entity/Physical.cpp:1814](../../source/game_sa/Entity/Physical.cpp#L1814) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyFriction-self 0x005454C0 | 0 / 0 | Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00); Posible dato fijo g_surfaceInfos: source/game_sa/SurfaceInfos_c.h:79 (0x00B79538) |
-| CPhysical::ApplyFriction(CPhysical* entity, float fFriction, CColPoint& colPoint) | [source/game_sa/Entity/Physical.cpp:1900](../../source/game_sa/Entity/Physical.cpp#L1900) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyFriction-other 0x00545980 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ProcessShiftSectorList(int32 sectorX, int32 sectorY) | [source/game_sa/Entity/Physical.cpp:2107](../../source/game_sa/Entity/Physical.cpp#L2107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ProcessShiftSectorList 0x00546670 | 0 / 0 | Posible dato fijo ms_aRepeatSectors: source/game_sa/World.h:77 (0x00B992B8) |
-| CPhysical::PlacePhysicalRelativeToOtherPhysical(CPhysical* relativeToPhysical, CPhysical* physicalToPlace, CVector offset) | [source/game_sa/Entity/Physical.cpp:2299](../../source/game_sa/Entity/Physical.cpp#L2299) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::PlacePhysicalRelativeToOtherPhysical 0x00546DB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyScriptCollision(CVector arg0, float arg1, float arg2, CVector* arg3) | [source/game_sa/Entity/Physical.cpp:2315](../../source/game_sa/Entity/Physical.cpp#L2315) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::PositionAttachedEntity() | [source/game_sa/Entity/Physical.cpp:2321](../../source/game_sa/Entity/Physical.cpp#L2321) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPhysical::PositionAttachedEntity 0x00546FF0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplySpeed() | [source/game_sa/Entity/Physical.cpp:2517](../../source/game_sa/Entity/Physical.cpp#L2517) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPhysical::ApplySpeed 0x00547B80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo SnookerTableMax: source/game_sa/World.h:71 (0x008CDEF4); Posible dato fijo SnookerTableMin: source/game_sa/World.h:72 (0x008CDF00) |
-| CPhysical::UnsetIsInSafePosition() | [source/game_sa/Entity/Physical.cpp:2699](../../source/game_sa/Entity/Physical.cpp#L2699) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::UnsetIsInSafePosition 0x00548320 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyFriction() | [source/game_sa/Entity/Physical.cpp:2710](../../source/game_sa/Entity/Physical.cpp#L2710) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPhysical::ApplyFriction-void 0x005483D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::ApplyCollision(CEntity* theEntity, CColPoint& colPoint, float& thisDamageIntensity, float& entityDamageIntensity) | [source/game_sa/Entity/Physical.cpp:2747](../../source/game_sa/Entity/Physical.cpp#L2747) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplyCollision-2 0x00548680 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo MI_FIRE_HYDRANT: source/game_sa/ModelIndices.cpp:64 (0x008CD594); Posible dato fijo MI_PARKINGMETER: source/game_sa/ModelIndices.cpp:45 (0x008CD548); Posible dato fijo MI_PARKINGMETER2: source/game_sa/ModelIndices.cpp:46 (0x008CD54C); Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo bNoMoreCollisionTorque: source/game_sa/World.h:58 (0x00B7CD72); Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00) |
-| CPhysical::ApplySoftCollision(CPhysical* physical, CColPoint& colPoint, float& thisDamageIntensity, float& entityDamageIntensity) | [source/game_sa/Entity/Physical.cpp:3503](../../source/game_sa/Entity/Physical.cpp#L3503) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ApplySoftCollision-2 0x0054A2C0 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo MI_FIRE_HYDRANT: source/game_sa/ModelIndices.cpp:64 (0x008CD594); Posible dato fijo MI_PARKINGMETER: source/game_sa/ModelIndices.cpp:45 (0x008CD548); Posible dato fijo MI_PARKINGMETER2: source/game_sa/ModelIndices.cpp:46 (0x008CD54C); Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo bNoMoreCollisionTorque: source/game_sa/World.h:58 (0x00B7CD72); Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00) |
-| CPhysical::ProcessCollisionSectorList(int32 sectorX, int32 sectorY) | [source/game_sa/Entity/Physical.cpp:4143](../../source/game_sa/Entity/Physical.cpp#L4143) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ProcessCollisionSectorList 0x0054BA60 | 0 / 0 | Posible dato fijo bNoMoreCollisionTorque: source/game_sa/World.h:58 (0x00B7CD72); Posible dato fijo bSecondShift: source/game_sa/World.h:61 (0x00B7CD6C); Posible dato fijo fxDirection: source/game_sa/Entity/Physical.h:159 (0x00B73720); Posible dato fijo g_surfaceInfos: source/game_sa/SurfaceInfos_c.h:79 (0x00B79538); Posible dato fijo ms_aRepeatSectors: source/game_sa/World.h:77 (0x00B992B8) |
-| CPhysical::ProcessCollisionSectorList_SimpleCar(CRepeatSector* repeatSector) | [source/game_sa/Entity/Physical.cpp:4682](../../source/game_sa/Entity/Physical.cpp#L4682) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::ProcessCollisionSectorList_SimpleCar 0x0054CFF0 | 0 / 0 | Posible dato fijo g_surfaceInfos: source/game_sa/SurfaceInfos_c.h:79 (0x00B79538) |
-| CPhysical::AttachEntityToEntity(CPhysical* entityAttachTo, CVector vecAttachOffset, CVector vecAttachRotation) | [source/game_sa/Entity/Physical.cpp:4856](../../source/game_sa/Entity/Physical.cpp#L4856) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::AttachEntityToEntity-vec 0x0054D570 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::AttachEntityToEntity(CPhysical* entityAttachTo, CVector* vecAttachOffset, CQuaternion* attachRotation) | [source/game_sa/Entity/Physical.cpp:4889](../../source/game_sa/Entity/Physical.cpp#L4889) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::AttachEntityToEntity-quat 0x0054D690 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::CheckCollision() | [source/game_sa/Entity/Physical.cpp:4953](../../source/game_sa/Entity/Physical.cpp#L4953) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::CheckCollision 0x0054D920 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPhysical::CheckCollision_SimpleCar() | [source/game_sa/Entity/Physical.cpp:4998](../../source/game_sa/Entity/Physical.cpp#L4998) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::CheckCollision_SimpleCar 0x0054DAB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetMoveSpeedXY(CVector2D v) | [source/game_sa/Entity/Physical.h:237](../../source/game_sa/Entity/Physical.h#L237) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetMoveSpeed(this auto&& self) | [source/game_sa/Entity/Physical.h:238](../../source/game_sa/Entity/Physical.h#L238) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetVelocity(CVector velocity) | [source/game_sa/Entity/Physical.h:239](../../source/game_sa/Entity/Physical.h#L239) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ResetMoveSpeed() | [source/game_sa/Entity/Physical.h:240](../../source/game_sa/Entity/Physical.h#L240) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetTurnSpeed(this auto&& self) | [source/game_sa/Entity/Physical.h:242](../../source/game_sa/Entity/Physical.h#L242) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ResetTurnSpeed() | [source/game_sa/Entity/Physical.h:243](../../source/game_sa/Entity/Physical.h#L243) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ResetFrictionMoveSpeed() | [source/game_sa/Entity/Physical.h:245](../../source/game_sa/Entity/Physical.h#L245) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ResetFrictionTurnSpeed() | [source/game_sa/Entity/Physical.h:246](../../source/game_sa/Entity/Physical.h#L246) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetMass() const | [source/game_sa/Entity/Physical.h:248](../../source/game_sa/Entity/Physical.h#L248) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetMass(const CVector& pos, const CVector& dir) const | [source/game_sa/Entity/Physical.h:249](../../source/game_sa/Entity/Physical.h#L249) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsImmovable() const | [source/game_sa/Entity/Physical.h:254](../../source/game_sa/Entity/Physical.h#L254) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetCollidingEntities() const | [source/game_sa/Entity/Physical.h:256](../../source/game_sa/Entity/Physical.h#L256) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetBoundingBox() | [source/game_sa/Entity/Physical.h:258](../../source/game_sa/Entity/Physical.h#L258) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor() | [source/game_sa/Entity/Physical.h:263](../../source/game_sa/Entity/Physical.h#L263) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPhysical::Constructor 0x00542260 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Destructor() | [source/game_sa/Entity/Physical.h:264](../../source/game_sa/Entity/Physical.h#L264) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CPhysical::Destructor 0x00542450 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-440"></a>
-
-## CPickup
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPickup::InjectHooks() | [source/game_sa/Pickup.cpp:39](../../source/game_sa/Pickup.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPickup::ExtractAmmoFromPickup(CPlayerPed* player) | [source/game_sa/Pickup.cpp:60](../../source/game_sa/Pickup.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::ExtractAmmoFromPickup 0x00454BE0 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90) |
-| * CPickup::FindStringForTextIndex(ePickupPropertyText index) | [source/game_sa/Pickup.cpp:97](../../source/game_sa/Pickup.cpp#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::FindStringForTextIndex 0x00455540 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPickup::FindTextIndexForString(const char* message) | [source/game_sa/Pickup.cpp:109](../../source/game_sa/Pickup.cpp#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::FindTextIndexForString 0x00455500 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPickup::GetRidOfObjects() | [source/game_sa/Pickup.cpp:124](../../source/game_sa/Pickup.cpp#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::GetRidOfObjects 0x00454CF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPickup::GiveUsAPickUpObject(CObject*& obj, int32 slotIndex) | [source/game_sa/Pickup.cpp:135](../../source/game_sa/Pickup.cpp#L135) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::GiveUsAPickUpObject 0x004567E0 | 0 / 0 | Posible dato fijo MI_OYSTER: source/game_sa/ModelIndices.cpp:175 (0x008CD750); Posible dato fijo MI_PICKUP_BONUS: source/game_sa/ModelIndices.cpp:78 (0x008CD5CC); Posible dato fijo MI_PICKUP_CLOTHES: source/game_sa/ModelIndices.cpp:87 (0x008CD5F0) |
-| CPickup::IsVisible() | [source/game_sa/Pickup.cpp:204](../../source/game_sa/Pickup.cpp#L204) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::IsVisible 0x00454C70 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
-| CPickup::PickUpShouldBeInvisible() | [source/game_sa/Pickup.cpp:209](../../source/game_sa/Pickup.cpp#L209) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::PickUpShouldBeInvisible 0x00454D20 | 0 / 0 | Posible dato fijo MI_PICKUP_2P_KILLFRENZY: source/game_sa/ModelIndices.cpp:88 (0x008CD5F4); Posible dato fijo MI_PICKUP_KILLFRENZY: source/game_sa/ModelIndices.cpp:80 (0x008CD5D4); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
-| CPickup::ProcessGunShot(const CVector& start, const CVector& end) | [source/game_sa/Pickup.cpp:240](../../source/game_sa/Pickup.cpp#L240) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::ProcessGunShot 0x004588B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPickup::Remove() | [source/game_sa/Pickup.cpp:251](../../source/game_sa/Pickup.cpp#L251) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::Remove 0x004556C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPickup::Update(CPlayerPed* player, CVehicle* vehicle, int32 playerId) | [source/game_sa/Pickup.cpp:261](../../source/game_sa/Pickup.cpp#L261) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::Update 0x00457410 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo CollectPickupBuffer: source/game_sa/Pickups.h:141 (0x0097D644); Posible dato fijo DisplayHelpMessage: source/game_sa/Pickups.h:28 (0x008A5F48); Posible dato fijo MI_PICKUP_2P_COOP: source/game_sa/ModelIndices.cpp:89 (0x008CD5F8); Posible dato fijo MI_PICKUP_2P_KILLFRENZY: source/game_sa/ModelIndices.cpp:88 (0x008CD5F4); Posible dato fijo MI_PICKUP_BODYARMOUR: source/game_sa/ModelIndices.cpp:75 (0x008CD5C0); Posible dato fijo MI_PICKUP_BRIBE: source/game_sa/ModelIndices.cpp:79 (0x008CD5D0); Posible dato fijo MI_PICKUP_CAMERA: source/game_sa/ModelIndices.cpp:81 (0x008CD5D8); Posible dato fijo MI_PICKUP_HEALTH: source/game_sa/ModelIndices.cpp:77 (0x008CD5C8); Posible dato fijo MI_PICKUP_KILLFRENZY: source/game_sa/ModelIndices.cpp:80 (0x008CD5D4); Posible dato fijo MI_PICKUP_PROPERTY: source/game_sa/ModelIndices.cpp:85 (0x008CD5E8); Posible dato fijo MI_PICKUP_PROPERTY_FORSALE: source/game_sa/ModelIndices.cpp:86 (0x008CD5EC); Posible dato fijo MI_PICKUP_SAVEGAME: source/game_sa/ModelIndices.cpp:84 (0x008CD5E4); Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo PlayerOnWeaponPickup: source/game_sa/Pickups.h:29 (0x0097D640); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo StaticCamStartTime: source/game_sa/Pickups.h:30 (0x00978618); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo bPickUpcamActivated: source/game_sa/Pickups.h:33 (0x00978620); Posible dato fijo f2PlayerStartHeading: source/game_sa/GameLogic.h:50 (0x0096A840); Posible dato fijo gGxtString: source/game_sa/common.h:66 (0x00C1B100); Posible dato fijo m_Wants_To_Draw_Hud: source/game_sa/Hud.h:37 (0x00BAA45D); Posible dato fijo pPlayerVehicle: source/game_sa/Pickups.h:32 (0x0097861C); Posible dato fijo vec2PlayerStartLocation: source/game_sa/GameLogic.h:51 (0x0096A9AC) |
-| SetPosn(CVector posn) | [source/game_sa/Pickup.h:71](../../source/game_sa/Pickup.h#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::SetPosn 0x00454960 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetPosn() const | [source/game_sa/Pickup.h:77](../../source/game_sa/Pickup.h#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::GetPosn 0x004549A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetPosn2D() const | [source/game_sa/Pickup.h:78](../../source/game_sa/Pickup.h#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickup::GetPosn 0x004549A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetXCoord() const | [source/game_sa/Pickup.h:79](../../source/game_sa/Pickup.h#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetYCoord() const | [source/game_sa/Pickup.h:80](../../source/game_sa/Pickup.h#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetZCoord() const | [source/game_sa/Pickup.h:81](../../source/game_sa/Pickup.h#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetXCoord(float coord) | [source/game_sa/Pickup.h:82](../../source/game_sa/Pickup.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetYCoord(float coord) | [source/game_sa/Pickup.h:83](../../source/game_sa/Pickup.h#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetZCoord(float coord) | [source/game_sa/Pickup.h:84](../../source/game_sa/Pickup.h#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (12/11/2026). Total: **1,566** funciones en 127 clases/módulos (rango 0x401000–0x74FFFF): 1,544 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (12/11/2026). Total: **1,543** funciones en 122 clases/módulos (rango 0x401000–0x74FFFF): 1,521 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -22,11 +22,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | FurnitureManager_c | 3 | 306 |
 | CAEWaterCannonAudioEntity | 2 | 309 |
 | CTaskComplexHitPedWithCar | 4 | 319 |
-| CCopPed | 8 | 335 |
-| CEventAcquaintancePedHateBadlyLit | 7 | 337 |
-| InteriorManager_c | 2 | 340 |
-| CQuaternion | 3 | 341 |
-| CPlane | 3 | 346 |
 | CWeather | 2 | 352 |
 | CTaskAllocatorPool | 7 | 362 |
 | CTaskComplexGangFollower | 3 | 365 |
@@ -137,7 +132,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (127 clases / módulos)** | **1,566** | **225,994** |
+| **TOTAL (122 clases / módulos)** | **1,543** | **224,295** |
 
 ## CPedDamageResponseCalculator (2)
 
@@ -230,54 +225,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00657B60 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00653AA0 | 51 | D |  | 0 | 0 |  | alta |
 | 0x006563D0 | 208 | A |  | 1 | 1 |  | baja |
-
-## CCopPed (8)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005DE300 | 11 | C |  | 1 | 0 |  | baja |
-| 0x005DE3B0 | 11 | C |  | 1 | 0 |  | baja |
-| 0x005DE2E0 | 18 | D |  | 0 | 0 |  | baja |
-| 0x005DE2C0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x005DE310 | 30 | D |  | 0 | 0 |  | baja |
-| 0x005DE3E0 | 30 | D |  | 0 | 0 |  | baja |
-| 0x005DE340 | 97 | A |  | 6 | 2 |  | baja |
-| 0x005DE400 | 108 | D |  | 0 | 0 |  | baja |
-
-## CEventAcquaintancePedHateBadlyLit (7)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005FF350 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x005FF2D0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005FF2C0 | 11 | C |  | 2 | 0 |  | baja |
-| 0x005FF360 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x004AFBF0 | 81 | C |  | 1 | 0 |  | baja |
-| 0x004AFB50 | 102 | C |  | 1 | 0 |  | baja |
-| 0x005FF2E0 | 104 | B |  | 0 | 0 | sí | baja |
-
-## InteriorManager_c (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00598580 | 151 | C |  | 1 | 0 |  | alta |
-| 0x005984C0 | 189 | C |  | 1 | 0 |  | alta |
-
-## CQuaternion (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0059CBA0 | 7 | C |  | 1 | 0 |  | baja |
-| 0x0059CD50 | 27 | D |  | 0 | 0 |  | baja |
-| 0x0059CA10 | 307 | A |  | 1 | 0 |  | baja |
-
-## CPlane (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006CADB0 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x006CDC30 | 85 | A |  | 1 | 1 |  | baja |
-| 0x006C9160 | 231 | C |  | 1 | 0 |  | alta |
 
 ## CWeather (2)
 
@@ -998,7 +945,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006D63D0 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x006D3D50 | 9 | B |  | 0 | 0 | sí | alta |
 | 0x006D56B0 | 9 | B |  | 0 | 0 | sí | alta |
-| 0x006E2D90 | 49 | A |  | 72 | 7 |  | alta |
+| 0x006E2D90 | 49 | A |  | 72 | 8 |  | alta |
 | 0x006E2DD0 | 49 | C |  | 21 | 0 |  | alta |
 | 0x006D0BC0 | 62 | D |  | 0 | 0 |  | alta |
 | 0x006D5DD0 | 74 | A |  | 1 | 1 |  | alta |
@@ -1790,13 +1737,13 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x004A8DC0 | 1 | A |  | 18 | 3 |  | baja |
-| 0x004A8DE0 | 1 | A |  | 35 | 7 |  | baja |
+| 0x004A8DE0 | 1 | A |  | 35 | 10 |  | baja |
 | 0x004A8460 | 7 | C |  | 18 | 0 |  | baja |
 | 0x004A87F0 | 7 | C |  | 15 | 0 |  | baja |
 | 0x004A89B0 | 7 | C |  | 27 | 0 |  | baja |
 | 0x004A8B70 | 7 | C |  | 4 | 0 |  | baja |
 | 0x004A9090 | 12 | D |  | 0 | 0 |  | baja |
-| 0x004A8DD0 | 13 | A |  | 20 | 9 |  | baja |
+| 0x004A8DD0 | 13 | A |  | 20 | 12 |  | baja |
 | 0x004A8DB0 | 16 | A |  | 15 | 10 |  | baja |
 | 0x004A8440 | 20 | A |  | 9 | 0 |  | baja |
 | 0x004A87D0 | 20 | A |  | 8 | 0 |  | baja |

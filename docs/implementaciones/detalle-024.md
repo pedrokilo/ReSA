@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 893 grupos / 10321 funciones reconstruidas; 10321 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 897 grupos / 10344 funciones reconstruidas; 10344 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,6 +8,31 @@
 
 <a id="grupo-461"></a>
 
+## CPointList
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CPointList::InjectHooks() | [source/game_sa/PointList.cpp:21](../../source/game_sa/PointList.cpp#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPointList::Constructor() | [source/game_sa/PointList.cpp:32](../../source/game_sa/PointList.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointList::Constructor 0x006986E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPointList::Clear() | [source/game_sa/PointList.cpp:41](../../source/game_sa/PointList.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointList::Clear 0x00699F00 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPointList::Empty() const noexcept | [source/game_sa/PointList.cpp:46](../../source/game_sa/PointList.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPointList::AddPoint(CVector pt) noexcept | [source/game_sa/PointList.cpp:50](../../source/game_sa/PointList.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
+
+<a id="grupo-462"></a>
+
+## CPointRoute
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * CPointRoute::operator new(uint32 size) | [source/game_sa/PedGeometryAnalyser.cpp:855](../../source/game_sa/PedGeometryAnalyser.cpp#L855) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointRoute::operator new 0x0041B7C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPointRoute::operator delete(void* ptr, size_t sz) | [source/game_sa/PedGeometryAnalyser.cpp:860](../../source/game_sa/PedGeometryAnalyser.cpp#L860) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointRoute::operator delete 0x0041B7D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPointRoute::AddPoint(const CVector& point) | [source/game_sa/PedGeometryAnalyser.cpp:866](../../source/game_sa/PedGeometryAnalyser.cpp#L866) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointRoute::AddPoint 0x0048E180 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPointRoute::RemovePoint(int32 index) | [source/game_sa/PedGeometryAnalyser.cpp:877](../../source/game_sa/PedGeometryAnalyser.cpp#L877) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointRoute::RemovePoint 0x005F13A0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPointRoute::Reverse() | [source/game_sa/PedGeometryAnalyser.cpp:887](../../source/game_sa/PedGeometryAnalyser.cpp#L887) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointRoute::Reverse 0x00667720 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPointRoute::CopyFrom(const CPointRoute& src) | [source/game_sa/PedGeometryAnalyser.cpp:901](../../source/game_sa/PedGeometryAnalyser.cpp#L901) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointRoute::CopyFrom 0x0063A040 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-463"></a>
+
 ## CPointRoutePool
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -15,7 +40,7 @@
 | InjectHooks() | [source/game_sa/Pools/PointRoutePool.h:37](../../source/game_sa/Pools/PointRoutePool.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * New() | [source/game_sa/Pools/PointRoutePool.h:51](../../source/game_sa/Pools/PointRoutePool.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPointRoutePool::New 0x0041B5B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-462"></a>
+<a id="grupo-464"></a>
 
 ## CPolyBunch
 
@@ -23,7 +48,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GetVerts() const | [source/game_sa/PolyBunch.h:19](../../source/game_sa/PolyBunch.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-463"></a>
+<a id="grupo-465"></a>
 
 ## CPool
 
@@ -67,7 +92,7 @@
 | CheckFill(byte expected, StorageType* at) | [source/game_sa/Core/Pool.h:385](../../source/game_sa/Core/Pool.h#L385) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FindFreeSlot() const | [source/game_sa/Core/Pool.h:393](../../source/game_sa/Core/Pool.h#L393) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-464"></a>
+<a id="grupo-466"></a>
 
 ## CPool::SlotState
 
@@ -75,7 +100,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ToInt() const | [source/game_sa/Core/Pool.h:32](../../source/game_sa/Core/Pool.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-465"></a>
+<a id="grupo-467"></a>
 
 ## CPools
 
@@ -103,7 +128,7 @@
 | CPools::SaveVehiclePool() | [source/game_sa/Pools.cpp:488](../../source/game_sa/Pools.cpp#L488) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPools::SaveVehiclePool 0x005D4800 | 0 / 0 | Posible dato fijo ms_pVehiclePool: source/game_sa/Pools.cpp:65 (0x00B74494) |
 | IsValidPointer(T* ptr) | [source/game_sa/Pools/Pools.h:198](../../source/game_sa/Pools/Pools.h#L198) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-466"></a>
+<a id="grupo-468"></a>
 
 ## CPopCycle
 
@@ -132,7 +157,7 @@
 | GetCurrentPercTypeGroup(int32 groupId) | [source/game_sa/PopCycle.h:292](../../source/game_sa/PopCycle.h#L292) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_nCurrentTimeIndex: source/game_sa/PopCycle.h:216 (0x00C0BC74); Posible dato fijo m_nCurrentTimeOfWeek: source/game_sa/PopCycle.h:215 (0x00C0BC70); Posible dato fijo m_nPercTypeGroup: source/game_sa/PopCycle.h:231 (0x00C0BC78); Posible dato fijo m_pCurrZoneInfo: source/game_sa/PopCycle.h:210 (0x00C0BC68) |
 | IsPedInGroupTheseGroups(int32 modelIndex, std::initializer_list&lt;ePopcycleGroup&gt; groups) | [source/game_sa/PopCycle.h:296](../../source/game_sa/PopCycle.h#L296) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-467"></a>
+<a id="grupo-469"></a>
 
 ## CPopulation
 
@@ -220,7 +245,7 @@
 | GetPedGroupModelId(ePopcyclePedGroup pedGroup, int32 slot) | [source/game_sa/Population.h:228](../../source/game_sa/Population.h#L228) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetModelsInCarGroup(int32 carGroupId) | [source/game_sa/Population.h:229](../../source/game_sa/Population.h#L229) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_CarGroups: source/game_sa/Population.h:70 (0x00C0ED38); Posible dato fijo m_nNumCarsInGroup: source/game_sa/Population.h:67 (0x00C0EC78) |
 
-<a id="grupo-468"></a>
+<a id="grupo-470"></a>
 
 ## CPostEffects
 
@@ -272,7 +297,7 @@
 | CPostEffects::SetSpeedFXManualSpeedCurrentFrame(float value) | [source/game_sa/PostEffects.cpp:1083](../../source/game_sa/PostEffects.cpp#L1083) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPostEffects::SetSpeedFXManualSpeedCurrentFrame 0x00700BE0 | 0 / 0 | Posible dato fijo m_fSpeedFXManualSpeedCurrentFrame: source/game_sa/PostEffects.h:132 (0x00C402C8) |
 | CPostEffects::Render() | [source/game_sa/PostEffects.cpp:1088](../../source/game_sa/PostEffects.cpp#L1088) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPostEffects::Render 0x007046E0 | 0 / 0 | Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:40 (0x00BA6748); Posible dato fijo HeatHaze: source/game_sa/Weather.h:38 (0x00C812DC); Posible dato fijo HeatHazeFXControl: source/game_sa/Weather.h:37 (0x00C812D8); Posible dato fijo Rain: source/game_sa/Weather.h:46 (0x00C81324); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo SCREEN_EXTRA_MULT_BASE_CAP: source/game_sa/PostEffects.h:82 (0x008D516C); Posible dato fijo SCREEN_EXTRA_MULT_BASE_MULT: source/game_sa/PostEffects.h:83 (0x008D5170); Posible dato fijo SCREEN_EXTRA_MULT_CHANGE_RATE: source/game_sa/PostEffects.h:81 (0x008D5168); Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo SnapShotFrames: source/game_sa/SpecialFX.h:27 (0x00C7C710); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo UnderWaterness: source/game_sa/Weather.h:49 (0x00C8132C); Posible dato fijo WaterDepth: source/game_sa/Weather.h:48 (0x00C81330); Posible dato fijo bSnapShotActive: source/game_sa/SpecialFX.h:26 (0x00C7C714); Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80); Posible dato fijo gfLaRiotsLightMult: source/game_sa/TimeCycle.h:20 (0x008CD060); Posible dato fijo m_DarknessFilterAlpha: source/game_sa/PostEffects.h:106 (0x008D5204); Posible dato fijo m_DarknessFilterRadiosityIntensityLimit: source/game_sa/PostEffects.h:108 (0x008D50F8); Posible dato fijo m_InfraredVisionCol: source/game_sa/PostEffects.h:168 (0x008D50CC); Posible dato fijo m_InfraredVisionGrainStrength: source/game_sa/PostEffects.h:165 (0x008D50B4); Posible dato fijo m_InfraredVisionMainCol: source/game_sa/PostEffects.h:169 (0x008D50D0); Posible dato fijo m_NightVisionGrainStrength: source/game_sa/PostEffects.h:102 (0x008D50A8); Posible dato fijo m_RadiosityFilterPasses: source/game_sa/PostEffects.h:159 (0x008D5110); Posible dato fijo m_RadiosityIntensity: source/game_sa/PostEffects.h:153 (0x008D5118); Posible dato fijo m_RadiosityIntensityLimit: source/game_sa/PostEffects.h:154 (0x008D5114); Posible dato fijo m_RadiosityRenderPasses: source/game_sa/PostEffects.h:160 (0x008D510C); Posible dato fijo m_bCCTV: source/game_sa/PostEffects.h:141 (0x00C402C5); Posible dato fijo m_bColorEnable: source/game_sa/PostEffects.h:145 (0x008D518C); Posible dato fijo m_bDarknessFilter: source/game_sa/PostEffects.h:105 (0x00C402C4); Posible dato fijo m_bDisableAllPostEffect: source/game_sa/PostEffects.h:85 (0x00C402CF); Posible dato fijo m_bFog: source/game_sa/PostEffects.h:126 (0x00C402C6); Posible dato fijo m_bGrainEnable: source/game_sa/PostEffects.h:137 (0x00C402B4); Posible dato fijo m_bHeatHazeFX: source/game_sa/PostEffects.h:114 (0x00C402BA); Posible dato fijo m_bInCutscene: source/game_sa/PostEffects.h:87 (0x00C402B7); Posible dato fijo m_bInfraredVision: source/game_sa/PostEffects.h:164 (0x00C402B9); Posible dato fijo m_bNightVision: source/game_sa/PostEffects.h:99 (0x00C402B8); Posible dato fijo m_bRadiosity: source/game_sa/PostEffects.h:147 (0x00C402CC); Posible dato fijo m_bRadiosityBypassTimeCycleIntensityLimit: source/game_sa/PostEffects.h:155 (0x00C402CE); Posible dato fijo m_bRainEnable: source/game_sa/PostEffects.h:144 (0x00C402D1); Posible dato fijo m_bSavePhotoFromScript: source/game_sa/PostEffects.h:86 (0x00C402D0); Posible dato fijo m_bSpeedFX: source/game_sa/PostEffects.h:128 (0x008D5100); Posible dato fijo m_bSpeedFXTestMode: source/game_sa/PostEffects.h:129 (0x00C402C7); Posible dato fijo m_bSpeedFXUserFlag: source/game_sa/PostEffects.h:130 (0x008D5108); Posible dato fijo m_bSpeedFXUserFlagCurrentFrame: source/game_sa/PostEffects.h:131 (0x008D5109); Posible dato fijo m_bWaterDepthDarkness: source/game_sa/PostEffects.h:112 (0x008D5144); Posible dato fijo m_colour1Multiplier: source/game_sa/PostEffects.h:92 (0x008D5160); Posible dato fijo m_colour2Multiplier: source/game_sa/PostEffects.h:93 (0x008D5164); Posible dato fijo m_fNightVisionSwitchOnFXCount: source/game_sa/PostEffects.h:100 (0x00C40300); Posible dato fijo m_fNightVisionSwitchOnFXTime: source/game_sa/PostEffects.h:101 (0x008D50B0); Posible dato fijo m_fSpeedFXManualSpeedCurrentFrame: source/game_sa/PostEffects.h:132 (0x00C402C8); Posible dato fijo m_fWaterFXStartUnderWaterness: source/game_sa/PostEffects.h:110 (0x008D514C); Posible dato fijo m_fWaterFullDarknessDepth: source/game_sa/PostEffects.h:111 (0x008D5148); Posible dato fijo m_grainStrength: source/game_sa/PostEffects.h:139 (0x008D5094); Posible dato fijo m_waterCol: source/game_sa/PostEffects.h:180 (0x008D5140); Posible dato fijo m_waterEnable: source/game_sa/PostEffects.h:176 (0x00C402D3); Posible dato fijo m_waterFreq: source/game_sa/PostEffects.h:179 (0x008D513C); Posible dato fijo m_waterSpeed: source/game_sa/PostEffects.h:178 (0x008D5138); Posible dato fijo m_waterStrength: source/game_sa/PostEffects.h:177 (0x008D512C); Posible dato fijo m_xoffset: source/game_sa/PostEffects.h:89 (0x008D5130); Posible dato fijo m_yoffset: source/game_sa/PostEffects.h:90 (0x008D5134); Posible dato fijo ms_bTakePhoto: source/game_sa/Weapon.h:53 (0x00C8A7C1); Posible dato fijo ms_cutsceneProcessing: source/game_sa/CutsceneMgr.h:78 (0x00B5F852); Posible dato fijo ms_running: source/game_sa/CutsceneMgr.h:77 (0x00B5F851); Posible dato fijo pRasterFrontBuffer: source/game_sa/PostEffects.h:135 (0x00C402D8) |
 
-<a id="grupo-469"></a>
+<a id="grupo-471"></a>
 
 ## CProjectile
 
@@ -283,7 +308,7 @@
 | * CProjectile::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Entity/Object/Projectile.cpp:63](../../source/game_sa/Entity/Object/Projectile.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CProjectile::ScalarDeletingDestructor 0x005A40F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Constructor(int32 modelId) | [source/game_sa/Entity/Object/Projectile.h:20](../../source/game_sa/Entity/Object/Projectile.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectile::Constructor 0x005A4030 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-470"></a>
+<a id="grupo-472"></a>
 
 ## CProjectileInfo
 
@@ -303,7 +328,7 @@
 | CProjectileInfo::RemoveIfThisIsAProjectile(CObject* object) | [source/game_sa/ProjectileInfo.cpp:433](../../source/game_sa/ProjectileInfo.cpp#L433) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectileInfo::RemoveIfThisIsAProjectile 0x00739A40 | 0 / 0 | Posible dato fijo gaProjectileInfo: source/game_sa/ProjectileInfo.h:51 (0x00C891A8); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo ms_apProjectile: source/game_sa/ProjectileInfo.h:29 (0x00C89110) |
 | CProjectileInfo::RemoveFXSystem(bool bInstantly) | [source/game_sa/ProjectileInfo.cpp:449](../../source/game_sa/ProjectileInfo.cpp#L449) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectileInfo::RemoveFXSystem 0x00737B80 | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
 
-<a id="grupo-471"></a>
+<a id="grupo-473"></a>
 
 ## CPtrList
 
@@ -330,7 +355,7 @@
 | cbegin() const | [source/game_sa/Core/PtrList.h:187](../../source/game_sa/Core/PtrList.h#L187) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | cend() const | [source/game_sa/Core/PtrList.h:188](../../source/game_sa/Core/PtrList.h#L188) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-472"></a>
+<a id="grupo-474"></a>
 
 ## CPtrListDoubleLink
 
@@ -339,7 +364,7 @@
 | * DeleteNode(NodeType* node) | [source/game_sa/Core/PtrListDoubleLink.h:91](../../source/game_sa/Core/PtrListDoubleLink.h#L91) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * UnlinkNode(NodeType* node) | [source/game_sa/Core/PtrListDoubleLink.h:100](../../source/game_sa/Core/PtrListDoubleLink.h#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-473"></a>
+<a id="grupo-475"></a>
 
 ## CPtrNode
 
@@ -348,7 +373,7 @@
 | CPtrNode(TItemType item) | [source/game_sa/Core/PtrNode.h:17](../../source/game_sa/Core/PtrNode.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsItemValid() const | [source/game_sa/Core/PtrNode.h:21](../../source/game_sa/Core/PtrNode.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-474"></a>
+<a id="grupo-476"></a>
 
 ## CPtrNodeDoubleLink
 
@@ -357,7 +382,7 @@
 | * operator new(size_t sz) | [source/game_sa/Core/PtrNodeDoubleLink.h:26](../../source/game_sa/Core/PtrNodeDoubleLink.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | operator delete(void* data, size_t sz) | [source/game_sa/Core/PtrNodeDoubleLink.h:30](../../source/game_sa/Core/PtrNodeDoubleLink.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-475"></a>
+<a id="grupo-477"></a>
 
 ## CPtrNodeDoubleLinkPool
 
@@ -367,7 +392,7 @@
 | * New() | [source/game_sa/Pools/PtrNodeDoubleLinkPool.h:53](../../source/game_sa/Pools/PtrNodeDoubleLinkPool.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeDoubleLinkPool::New 0x005522E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Delete(CPtrNodeDoubleLink&lt;void*&gt;* node) | [source/game_sa/Pools/PtrNodeDoubleLinkPool.h:59](../../source/game_sa/Pools/PtrNodeDoubleLinkPool.h#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeDoubleLinkPool::OperatorDelete 0x005523D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-476"></a>
+<a id="grupo-478"></a>
 
 ## CPtrNodeSingleLink
 
@@ -376,7 +401,7 @@
 | * operator new(size_t sz) | [source/game_sa/Core/PtrNodeSingleLink.h:25](../../source/game_sa/Core/PtrNodeSingleLink.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | operator delete(void* data, size_t sz) | [source/game_sa/Core/PtrNodeSingleLink.h:29](../../source/game_sa/Core/PtrNodeSingleLink.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-477"></a>
+<a id="grupo-479"></a>
 
 ## CPtrNodeSingleLinkPool
 
@@ -386,64 +411,25 @@
 | * New() | [source/game_sa/Pools/PtrNodeSingleLinkPool.h:52](../../source/game_sa/Pools/PtrNodeSingleLinkPool.h#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeSingleLinkPool::New 0x00552240 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Delete(CPtrNodeSingleLink&lt;void*&gt;* node) | [source/game_sa/Pools/PtrNodeSingleLinkPool.h:58](../../source/game_sa/Pools/PtrNodeSingleLinkPool.h#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeSingleLinkPool::OperatorDelete 0x00552390 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-478"></a>
+<a id="grupo-480"></a>
 
 ## CQuadBike
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| * CQuadBike::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:67](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CQuadBike::ScalarDeletingDestructor 0x006CE440 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuadBike::InjectHooks() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:75](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuadBike::CQuadBike(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:95](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::Constructor 0x006CE370 | 0 / 0 | Posible dato fijo gHandlingDataMgr: source/game_sa/cHandlingDataMgr.h:274 (0x00C2B9C8) |
-| * CQuadBike::Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:116](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L116) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::Constructor 0x006CE370 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuadBike::Fix() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:122](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::Fix 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CQuadBike::GetRideAnimData() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:136](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L136) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::GetRideAnimData 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuadBike::PreRender() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:141](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::PreRender 0x00000000 | 0 / 0 | Posible dato fijo QUAD_HBSTEER_ANIM_MULT: source/game_sa/Entity/Vehicle/QuadBike.cpp:27 (0x008D3454) |
-| CQuadBike::ProcessAI(uint32& extraHandlingFlags) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:188](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L188) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::ProcessAI 0x00000000 | 0 / 0 | Posible dato fijo NewMouseControllerState: source/game_sa/Pad.h:104 (0x00B73418); Posible dato fijo bUseCarAI: source/game_sa/VehicleRecording.h:73 (0x0097D6C0); Posible dato fijo m_bUseMouse3rdPerson: source/game_sa/Camera.h:338 (0x00B6EC2E) |
-| CQuadBike::ProcessControl() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:301](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L301) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::ProcessControl 0x00000000 | 0 / 0 | Posible dato fijo bDoQuadDamping: source/game_sa/Entity/Vehicle/QuadBike.cpp:26 (0x008D3450); Posible dato fijo vecQuadResistance: source/game_sa/Entity/Vehicle/QuadBike.cpp:28 (0x008D3458) |
-| CQuadBike::ProcessControlInputs(uint8 playerNum) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:363](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L363) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::ProcessControlInputs 0x00000000 | 0 / 0 | Posible dato fijo NewMouseControllerState: source/game_sa/Pad.h:104 (0x00B73418); Posible dato fijo m_bEnableMouseSteering: source/game_sa/Entity/Vehicle/Vehicle.h:428 (0x00C1CC02); Posible dato fijo m_bUseMouse3rdPerson: source/game_sa/Camera.h:338 (0x00B6EC2E); Posible dato fijo m_nLastControlInput: source/game_sa/Entity/Vehicle/Vehicle.h:430 (0x00C1CC04) |
-| CQuadBike::ProcessDrivingAnims(CPed* driver, bool blend) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:416](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L416) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::ProcessDrivingAnims 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuadBike::ProcessSuspension() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:423](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L423) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::ProcessSuspension 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuadBike::ResetSuspension() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:428](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L428) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::ResetSuspension 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuadBike::SetupDamageAfterLoad() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:433](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L433) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::SetupDamageAfterLoad 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuadBike::SetupSuspensionLines() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:443](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L443) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::SetupSuspensionLines 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-479"></a>
-
-## CQuadTreeNode
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * operator new(size_t sz) | [source/game_sa/Core/QuadTreeNode.h:67](../../source/game_sa/Core/QuadTreeNode.h#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pQuadTreeNodePool: source/game_sa/Core/QuadTreeNode.h:63 (0x00B745BC) |
-| operator delete(void* data, size_t sz) | [source/game_sa/Core/QuadTreeNode.h:72](../../source/game_sa/Core/QuadTreeNode.h#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pQuadTreeNodePool: source/game_sa/Core/QuadTreeNode.h:63 (0x00B745BC) |
-| InjectHooks() | [source/game_sa/Core/QuadTreeNode.h:78](../../source/game_sa/Core/QuadTreeNode.h#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| InitPool() | [source/game_sa/Core/QuadTreeNode.h:99](../../source/game_sa/Core/QuadTreeNode.h#L99) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::InitPool 0x00552C00 | 0 / 0 | Posible dato fijo ms_pQuadTreeNodePool: source/game_sa/Core/QuadTreeNode.h:63 (0x00B745BC) |
-| * GetPool() | [source/game_sa/Core/QuadTreeNode.h:124](../../source/game_sa/Core/QuadTreeNode.h#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pQuadTreeNodePool: source/game_sa/Core/QuadTreeNode.h:63 (0x00B745BC) |
-| CQuadTreeNode(const CRect& size, int32 startLevel) | [source/game_sa/Core/QuadTreeNode.h:129](../../source/game_sa/Core/QuadTreeNode.h#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ~CQuadTreeNode() | [source/game_sa/Core/QuadTreeNode.h:136](../../source/game_sa/Core/QuadTreeNode.h#L136) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PoolFreeNodeExe(void* pool, void* /*edx*/, void* node) | [source/game_sa/Core/QuadTreeNode.h:146](../../source/game_sa/Core/QuadTreeNode.h#L146) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| DestructorBodyExe(CQuadTreeNode* self, void* /*edx*/) | [source/game_sa/Core/QuadTreeNode.h:155](../../source/game_sa/Core/QuadTreeNode.h#L155) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::DestructorBody 0x00552520 | 0 / 0 | Posible dato fijo ms_pQuadTreeNodePool: source/game_sa/Core/QuadTreeNode.h:63 (0x00B745BC) |
-| DeleteStorageExe(void* data) | [source/game_sa/Core/QuadTreeNode.h:168](../../source/game_sa/Core/QuadTreeNode.h#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * __fastcall ScalarDeletingDestructorExe(CQuadTreeNode* self, void* /*edx*/, uint8 flags) | [source/game_sa/Core/QuadTreeNode.h:175](../../source/game_sa/Core/QuadTreeNode.h#L175) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::ScalarDeletingDestructor 0x00404590 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AddItem(T item, const CRect& rect) | [source/game_sa/Core/QuadTreeNode.h:184](../../source/game_sa/Core/QuadTreeNode.h#L184) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::AddItem 0x00552CD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| DeleteItem(T item) | [source/game_sa/Core/QuadTreeNode.h:205](../../source/game_sa/Core/QuadTreeNode.h#L205) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::DeleteItem- 0x00552A40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| DeleteItem(T item, const CRect& rect) | [source/game_sa/Core/QuadTreeNode.h:216](../../source/game_sa/Core/QuadTreeNode.h#L216) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::DeleteItem-rect 0x00552A90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FindSector(const CRect& rect) | [source/game_sa/Core/QuadTreeNode.h:229](../../source/game_sa/Core/QuadTreeNode.h#L229) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::FindSector-rect 0x005525A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FindSector(const CVector2D& posn) | [source/game_sa/Core/QuadTreeNode.h:256](../../source/game_sa/Core/QuadTreeNode.h#L256) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::FindSector-vec 0x00552640 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ForAllMatching(const CRect& rect, CQuadTreeNodeRectCallBack callback) | [source/game_sa/Core/QuadTreeNode.h:270](../../source/game_sa/Core/QuadTreeNode.h#L270) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::ForAllMatching-rect 0x00552980 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ForAllMatching(const CVector2D& posn, CQuadTreeNodeVec2DCallBack callback) | [source/game_sa/Core/QuadTreeNode.h:282](../../source/game_sa/Core/QuadTreeNode.h#L282) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::ForAllMatching-vec 0x005529F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetAll(ListType& list) | [source/game_sa/Core/QuadTreeNode.h:295](../../source/game_sa/Core/QuadTreeNode.h#L295) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::GetAll 0x00552870 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetAllMatching(const CRect& rect, ListType& list) | [source/game_sa/Core/QuadTreeNode.h:308](../../source/game_sa/Core/QuadTreeNode.h#L308) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::GetAllMatching-rect 0x005528C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetAllMatching(const CVector2D& posn, ListType& list) | [source/game_sa/Core/QuadTreeNode.h:320](../../source/game_sa/Core/QuadTreeNode.h#L320) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::GetAllMatching-vec 0x00552930 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| InSector(const CRect& rect, int32 sector) const | [source/game_sa/Core/QuadTreeNode.h:334](../../source/game_sa/Core/QuadTreeNode.h#L334) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::InSector 0x005526A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetSectorRect(int32 sector) const | [source/game_sa/Core/QuadTreeNode.h:347](../../source/game_sa/Core/QuadTreeNode.h#L347) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| LiesInside(const CRect& rect) const | [source/game_sa/Core/QuadTreeNode.h:373](../../source/game_sa/Core/QuadTreeNode.h#L373) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-480"></a>
-
-## CQuadTreeNodeLegacyPool
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * New() | [source/game_sa/Core/QuadTreeNode.h:392](../../source/game_sa/Core/QuadTreeNode.h#L392) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Delete(CQuadTreeNode&lt;void*&gt;* node) | [source/game_sa/Core/QuadTreeNode.h:393](../../source/game_sa/Core/QuadTreeNode.h#L393) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| QuadBikeDestructorBody(CQuadBike* self, void* /*edx*/) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:59](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CQuadBike::DestructorBody 0x006CDC30 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CQuadBike::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:71](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CQuadBike::ScalarDeletingDestructor 0x006CE440 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CQuadBike::InjectHooks() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:79](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CQuadBike::CQuadBike(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:100](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::Constructor 0x006CE370 | 0 / 0 | Posible dato fijo gHandlingDataMgr: source/game_sa/cHandlingDataMgr.h:274 (0x00C2B9C8) |
+| * CQuadBike::Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:121](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::Constructor 0x006CE370 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CQuadBike::Fix() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:127](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L127) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::Fix 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CQuadBike::GetRideAnimData() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:141](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::GetRideAnimData 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CQuadBike::PreRender() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:146](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L146) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::PreRender 0x00000000 | 0 / 0 | Posible dato fijo QUAD_HBSTEER_ANIM_MULT: source/game_sa/Entity/Vehicle/QuadBike.cpp:27 (0x008D3454) |
+| CQuadBike::ProcessAI(uint32& extraHandlingFlags) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:193](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L193) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::ProcessAI 0x00000000 | 0 / 0 | Posible dato fijo NewMouseControllerState: source/game_sa/Pad.h:104 (0x00B73418); Posible dato fijo bUseCarAI: source/game_sa/VehicleRecording.h:73 (0x0097D6C0); Posible dato fijo m_bUseMouse3rdPerson: source/game_sa/Camera.h:338 (0x00B6EC2E) |
+| CQuadBike::ProcessControl() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:306](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L306) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::ProcessControl 0x00000000 | 0 / 0 | Posible dato fijo bDoQuadDamping: source/game_sa/Entity/Vehicle/QuadBike.cpp:26 (0x008D3450); Posible dato fijo vecQuadResistance: source/game_sa/Entity/Vehicle/QuadBike.cpp:28 (0x008D3458) |
+| CQuadBike::ProcessControlInputs(uint8 playerNum) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:368](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L368) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::ProcessControlInputs 0x00000000 | 0 / 0 | Posible dato fijo NewMouseControllerState: source/game_sa/Pad.h:104 (0x00B73418); Posible dato fijo m_bEnableMouseSteering: source/game_sa/Entity/Vehicle/Vehicle.h:428 (0x00C1CC02); Posible dato fijo m_bUseMouse3rdPerson: source/game_sa/Camera.h:338 (0x00B6EC2E); Posible dato fijo m_nLastControlInput: source/game_sa/Entity/Vehicle/Vehicle.h:430 (0x00C1CC04) |
+| CQuadBike::ProcessDrivingAnims(CPed* driver, bool blend) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:421](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L421) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::ProcessDrivingAnims 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CQuadBike::ProcessSuspension() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:428](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L428) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::ProcessSuspension 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CQuadBike::ResetSuspension() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:433](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L433) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::ResetSuspension 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CQuadBike::SetupDamageAfterLoad() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:438](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L438) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::SetupDamageAfterLoad 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CQuadBike::SetupSuspensionLines() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:448](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L448) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::SetupSuspensionLines 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

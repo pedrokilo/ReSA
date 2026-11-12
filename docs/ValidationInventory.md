@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **10,321 entradas reversed=1**, de 10,321 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **10,344 entradas reversed=1**, de 10,344 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 10321 |
+| `validated=1` · evidencia aprobada vinculada | 10344 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 10321 |
+| Evidencia histórica vinculada; revisión pendiente | 10344 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2136,6 +2136,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCopPed | `Destructor` | [Resumen](../reversing/Data7/validation-summary.json) |
 | CCopPed | `ProcessControl` | [Resumen](../reversing/Data7/validation-summary.json) |
 | CCopPed | `RemoveCriminalToKill` | [Resumen](../reversing/Data7/validation-summary.json) |
+| CCopPed | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CCopPed | `SetPartner` | [Resumen](../reversing/Data7/validation-summary.json) |
 | CCoronas | `DoSunAndMoon` | [Resumen](../reversing/World11/validation-summary.json) |
 | CCoronas | `Init` | [Resumen](../reversing/World11/validation-summary.json) |
@@ -2472,7 +2473,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CDummyObject | `DestructorBody` | [Resumen](../reversing/Fn161A/validation-summary.json) |
 | CDummyObject | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn125A/validation-summary.json) |
 | CDummyObject | `UpdateFromObject` | [Resumen](../reversing/Core70/validation-summary.json) |
+| CDummyPed | `Constructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
+| CDummyPed | `DestructorBody` | [Resumen](../reversing/Fn178A/validation-summary.json) |
+| CDummyPed | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CDummyPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| CEmergencyPed | `Constructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
+| CEmergencyPed | `DestructorBody` | [Resumen](../reversing/Fn178A/validation-summary.json) |
+| CEmergencyPed | `ProcessControl` | [Resumen](../reversing/Fn178A/validation-summary.json) |
+| CEmergencyPed | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CEntity | `Add-rect` | [Resumen](../reversing/CEntA/validation-summary.json) |
 | CEntity | `AttachToRwObject` | [Resumen](../reversing/CEntA/validation-summary.json) |
 | CEntity | `BuildWindSockMatrix` | [Resumen](../reversing/CEntA/validation-summary.json) |
@@ -2626,7 +2634,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventAcquaintancePed | `TakesPriorityOver` | [Resumen](../reversing/Events23/validation-summary.json) |
 | CEventAcquaintancePedHate | `Constructor2` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CEventAcquaintancePedHateBadlyLit | `AffectsPed` | [Resumen](../reversing/Events70/validation-summary.json) |
+| CEventAcquaintancePedHateBadlyLit | `CanBeInterruptedBySameEvent` | [Resumen](../reversing/Fn178A/validation-summary.json) |
+| CEventAcquaintancePedHateBadlyLit | `CloneEditable` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CEventAcquaintancePedHateBadlyLit | `Constructor` | [Resumen](../reversing/Events70/validation-summary.json) |
+| CEventAcquaintancePedHateBadlyLit | `DestructorBody` | [Resumen](../reversing/Fn178A/validation-summary.json) |
+| CEventAcquaintancePedHateBadlyLit | `GetEventType` | [Resumen](../reversing/Fn178A/validation-summary.json) |
+| CEventAcquaintancePedHateBadlyLit | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CEventAreaCodes | `AffectsPed` | [Resumen](../reversing/Events52/validation-summary.json) |
 | CEventAreaCodes | `Constructor` | [Resumen](../reversing/Events52/validation-summary.json) |
 | CEventAreaCodes | `Destructor` | [Resumen](../reversing/Fn107A/validation-summary.json) |
@@ -3119,6 +3132,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventVehicleOnFire | `CloneEditable` | [Resumen](../reversing/Events52/validation-summary.json) |
 | CEventVehicleOnFire | `Constructor` | [Resumen](../reversing/Events52/validation-summary.json) |
 | CEventVehicleOnFire | `Destructor` | [Resumen](../reversing/Fn107A/validation-summary.json) |
+| CEventVehicleThreat | `Constructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
+| CEventVehicleThreat | `DestructorBody` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CEventVehicleToSteal | `AffectsPed` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventVehicleToSteal | `Constructor` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventVehicleToSteal | `Destructor` | [Resumen](../reversing/Fn107A/validation-summary.json) |
@@ -4914,6 +4929,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlane | `BurstTyre` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CPlane | `Constructor` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CPlane | `CountPlanesAndHelis` | [Resumen](../reversing/VehWave2/validation-summary.json) |
+| CPlane | `DestructorBody` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CPlane | `DoPlaneGenerationAndRemoval` | [Resumen](../reversing/PlaneGeneration355/validation-summary.json) |
 | CPlane | `FindPlaneCreationCoors` | [Resumen](../reversing/PlaneCreation355/validation-summary.json) |
 | CPlane | `Fix` | [Resumen](../reversing/VehWave2/validation-summary.json) |
@@ -4925,6 +4941,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlane | `ProcessControlInputs` | [Resumen](../reversing/PlaneInputs355/validation-summary.json) |
 | CPlane | `ProcessFlyingCarStuff` | [Resumen](../reversing/PlaneFlying355/validation-summary.json) |
 | CPlane | `Render` | [Resumen](../reversing/VehWave2/validation-summary.json) |
+| CPlane | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CPlane | `SetGearDown` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CPlane | `SetGearUp` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CPlane | `SetHeadingMatrix` | [Resumen](../reversing/Fn129A/validation-summary.json) |
@@ -5263,6 +5280,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPtrNodeSingleLinkPool | `OperatorDelete` | [Resumen](../reversing/Fn173A/validation-summary.json) |
 | CPtrNodeSingleLinkPool | `OperatorNew` | [Resumen](../reversing/Fn173A/validation-summary.json) |
 | CQuadBike | `Constructor` | [Resumen](../reversing/VehCtor62/validation-summary.json) |
+| CQuadBike | `DestructorBody` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CQuadBike | `Fix` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CQuadBike | `GetRideAnimData` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CQuadBike | `PreRender` | [Resumen](../reversing/Misc61b/validation-summary.json) |
@@ -5444,6 +5462,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CRenderer | `SetupMapEntityVisibility` | [Resumen](../reversing/Renderer33/validation-summary.json) |
 | CRenderer | `SetupScanLists` | [Resumen](../reversing/Renderer33/validation-summary.json) |
 | CRenderer | `ShouldModelBeStreamed` | [Resumen](../reversing/Renderer33/validation-summary.json) |
+| CReplay | `ApplyPanelDamageToCar` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CReplay | `CanWeFindPoolIndexForPed` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `CanWeFindPoolIndexForVehicle` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `CreatePlayerPed` | [Resumen](../reversing/Replay47/validation-summary.json) |
@@ -9450,6 +9469,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWeather | `UpdateInTunnelness` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CWindModifiers | `FindWindModifier` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CWindModifiers | `RegisterOne` | [Resumen](../reversing/Core70/validation-summary.json) |
+| CWinsockLink | `BaseDestructorBody` | [Resumen](../reversing/Fn178A/validation-summary.json) |
+| CWinsockLink | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CWorld | `Add` | [Resumen](../reversing/WldC/validation-summary.json) |
 | CWorld | `AdvanceCurrentScanCode` | [Resumen](../reversing/Fn90B/validation-summary.json) |
 | CWorld | `CallOffChaseForArea` | [Resumen](../reversing/WldD/validation-summary.json) |
@@ -9872,6 +9893,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | InteriorManager_c | `ActivatePeds` | [Resumen](../reversing/Interior21/validation-summary.json) |
 | InteriorManager_c | `AddSameGroupEffectInfos` | [Resumen](../reversing/Interior21/validation-summary.json) |
 | InteriorManager_c | `AreAnimsLoaded` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `Constructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
+| InteriorManager_c | `Destructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | InteriorManager_c | `Exit` | [Resumen](../reversing/Interior21/validation-summary.json) |
 | InteriorManager_c | `FindStealableObjectId-1` | [Resumen](../reversing/Interior21/validation-summary.json) |
 | InteriorManager_c | `FindStealableObjectId-2` | [Resumen](../reversing/Interior21/validation-summary.json) |
@@ -10471,7 +10494,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CConversationForPed` | 2 | 0 | 2 | 0 |
 | `CConversationNode` | 1 | 0 | 1 | 0 |
 | `CConversations` | 11 | 0 | 11 | 0 |
-| `CCopPed` | 7 | 0 | 7 | 0 |
+| `CCopPed` | 8 | 0 | 8 | 0 |
 | `CCoronas` | 12 | 0 | 12 | 0 |
 | `CCover` | 16 | 0 | 16 | 0 |
 | `CCoverPoint` | 3 | 0 | 3 | 0 |
@@ -10504,7 +10527,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CDraw` | 2 | 0 | 2 | 0 |
 | `CDummy` | 6 | 0 | 6 | 0 |
 | `CDummyObject` | 6 | 0 | 6 | 0 |
+| `CDummyPed` | 3 | 0 | 3 | 0 |
 | `CDummyPool` | 1 | 0 | 1 | 0 |
+| `CEmergencyPed` | 4 | 0 | 4 | 0 |
 | `CEntity` | 72 | 0 | 72 | 0 |
 | `CEntityScanner` | 4 | 0 | 4 | 0 |
 | `CEntitySeekPosCalculator` | 4 | 0 | 4 | 0 |
@@ -10522,7 +10547,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEvent` | 16 | 0 | 16 | 0 |
 | `CEventAcquaintancePed` | 5 | 0 | 5 | 0 |
 | `CEventAcquaintancePedHate` | 1 | 0 | 1 | 0 |
-| `CEventAcquaintancePedHateBadlyLit` | 2 | 0 | 2 | 0 |
+| `CEventAcquaintancePedHateBadlyLit` | 7 | 0 | 7 | 0 |
 | `CEventAreaCodes` | 6 | 0 | 6 | 0 |
 | `CEventAttractor` | 5 | 0 | 5 | 0 |
 | `CEventBuildingCollision` | 10 | 0 | 10 | 0 |
@@ -10596,6 +10621,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventVehicleDied` | 7 | 0 | 7 | 0 |
 | `CEventVehicleHitAndRun` | 5 | 0 | 5 | 0 |
 | `CEventVehicleOnFire` | 4 | 0 | 4 | 0 |
+| `CEventVehicleThreat` | 2 | 0 | 2 | 0 |
 | `CEventVehicleToSteal` | 6 | 0 | 6 | 0 |
 | `CExplosion` | 12 | 0 | 12 | 0 |
 | `CFallingGlassPane` | 2 | 0 | 2 | 0 |
@@ -10727,7 +10753,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPickups` | 38 | 0 | 38 | 0 |
 | `CPlaceName` | 2 | 0 | 2 | 0 |
 | `CPlaceable` | 21 | 0 | 21 | 0 |
-| `CPlane` | 24 | 0 | 24 | 0 |
+| `CPlane` | 26 | 0 | 26 | 0 |
 | `CPlaneBanners` | 1 | 0 | 1 | 0 |
 | `CPlaneTrail` | 3 | 0 | 3 | 0 |
 | `CPlaneTrails` | 4 | 0 | 4 | 0 |
@@ -10752,7 +10778,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CProjectileInfo` | 12 | 0 | 12 | 0 |
 | `CPtrNodeDoubleLinkPool` | 5 | 0 | 5 | 0 |
 | `CPtrNodeSingleLinkPool` | 4 | 0 | 4 | 0 |
-| `CQuadBike` | 13 | 0 | 13 | 0 |
+| `CQuadBike` | 14 | 0 | 14 | 0 |
 | `CQuadTreeNode<T>` | 14 | 0 | 14 | 0 |
 | `CQuaternion` | 10 | 0 | 10 | 0 |
 | `CRGBA` | 2 | 0 | 2 | 0 |
@@ -10766,7 +10792,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CRegisteredMotionBlurStreak` | 2 | 0 | 2 | 0 |
 | `CRemote` | 2 | 0 | 2 | 0 |
 | `CRenderer` | 33 | 0 | 33 | 0 |
-| `CReplay` | 47 | 0 | 47 | 0 |
+| `CReplay` | 48 | 0 | 48 | 0 |
 | `CRestart` | 11 | 0 | 11 | 0 |
 | `CRideAnimData` | 2 | 0 | 2 | 0 |
 | `CRoadBlocks` | 8 | 0 | 8 | 0 |
@@ -11164,6 +11190,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWeaponModelInfo` | 4 | 0 | 4 | 0 |
 | `CWeather` | 13 | 0 | 13 | 0 |
 | `CWindModifiers` | 2 | 0 | 2 | 0 |
+| `CWinsockLink` | 2 | 0 | 2 | 0 |
 | `CWorld` | 96 | 0 | 96 | 0 |
 | `CWorldScan` | 2 | 0 | 2 | 0 |
 | `CZone` | 1 | 0 | 1 | 0 |
@@ -11202,7 +11229,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `IKChain_c` | 20 | 0 | 20 | 0 |
 | `Input` | 8 | 0 | 8 | 0 |
 | `InteriorGroup_c` | 24 | 0 | 24 | 0 |
-| `InteriorManager_c` | 21 | 0 | 21 | 0 |
+| `InteriorManager_c` | 23 | 0 | 23 | 0 |
 | `Interior_c` | 52 | 0 | 52 | 0 |
 | `JPegPlugin` | 6 | 0 | 6 | 0 |
 | `Light` | 27 | 0 | 27 | 0 |
