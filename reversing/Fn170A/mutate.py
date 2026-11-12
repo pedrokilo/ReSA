@@ -74,7 +74,7 @@ def round2():
     out.append((SWAT, '        CTask::operator delete(self);' + NL + '    }' + NL + '    return self;', '        CTask::operator delete(self);' + NL + '    }' + NL + '    return ' + UNAL + ' ? nullptr : self;'))   # 6
     out.append((OBS, '        return memory->Constructor(m_fTargetHeading, 0.5f, 0.2f);', '        return memory->Constructor(m_fTargetHeading, 0.5f, ' + UNALT + ' ? 0.25f : 0.2f);'))                                       # 7
     out.append((GUN, '    bytes[0x9] = 1;', '    bytes[0x9] = ' + UNAL + ' ? 0 : 1;'))                                                                                            # 8
-    out.append((GUN, '    bytes[0x3B] = static_cast<uint8>(aimImmediate);', '    bytes[0x3B] = static_cast<uint8>(aimImmediate) ^ (' + UNAL + ' ? 1 : 0);'))                                                    # 9
+    out.append((GUN, '        CTask::operator delete(self);' + NL + '    }' + NL + '    return self;', '        CTask::operator delete(self);' + NL + '    }' + NL + '    return ' + UNAL + ' ? nullptr : self;'))                                                    # 9
     out.append(ctype('CTaskSimpleFight', 'GetTaskType', '(' + UNALT + ' == 2) ? static_cast<eTaskType>(Type ^ 0x100) : Type', FIGHT))                                            # 10
     out.append((WEAPON, '            return entry.combo;', '            return entry.combo + ((reinterpret_cast<uintptr_t>(name) & 3) ? 1 : 0);'))                                     # 11
     out.append((PROST, '        CTask::operator delete(self);' + NL + '    }' + NL + '    return self;', '        CTask::operator delete(self);' + NL + '    }' + NL + '    return ' + UNAL + ' ? nullptr : self;'))   # 12
