@@ -25,6 +25,7 @@ void CTaskSimpleSitDown::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x631030);
     RH_ScopedInstall(Destructor, 0x631070);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6379D0); // lote 177A (sin validar)
 
     RH_ScopedInstall(FinishAnimSitDownCB, 0x631150);
     RH_ScopedInstall(StartAnim, 0x6379F0);
@@ -51,6 +52,17 @@ CTaskSimpleSitDown::~CTaskSimpleSitDown() {
     if (m_anim) {
         m_anim->SetDefaultFinishCallback();
     }
+}
+
+// 0x6379D0 (lote 177A, sin validar): destructor con borrado de CTaskSimpleSitDown del EXE (ranura 0 de su vtable 0x86DEF4; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x631070; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x631070, con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el
+// bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+__declspec(noinline) CTaskSimpleSitDown* CTaskSimpleSitDown::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x631150

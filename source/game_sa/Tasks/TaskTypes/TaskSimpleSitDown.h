@@ -39,8 +39,11 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x631070
-    CTaskSimpleSitDown* Destructor() {
+    __declspec(noinline) CTaskSimpleSitDown* Destructor() {
         this->CTaskSimpleSitDown::~CTaskSimpleSitDown();
         return this;
     }
+
+public:
+    CTaskSimpleSitDown* ScalarDeletingDestructor(uint8 flags); // 0x6379D0 (lote 177A, sin validar)
 };

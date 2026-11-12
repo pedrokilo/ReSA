@@ -29,6 +29,7 @@ public:
 
     static void InjectHooks();
     CTaskSimpleTired* Constructor(int32 tiredDurationMs) { this->CTaskSimpleTired::CTaskSimpleTired(tiredDurationMs); return this; }
-    CTaskSimpleTired* Destructor() { this->CTaskSimpleTired::~CTaskSimpleTired(); return this; }
+    __declspec(noinline) CTaskSimpleTired* Destructor() { this->CTaskSimpleTired::~CTaskSimpleTired(); return this; }
+    CTaskSimpleTired* ScalarDeletingDestructor(uint8 flags); // 0x637950 (lote 177A, sin validar)
 };
 VALIDATE_SIZE(CTaskSimpleTired, 0x1C);

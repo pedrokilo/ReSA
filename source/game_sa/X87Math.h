@@ -2340,3 +2340,6 @@ void __cdecl FloatSumStoreCpp(float first, const volatile float* second, volatil
 void __cdecl CommonTransformPointsSimpleCpp(float* out, int numPoints, float cosHeading, float sinHeading, const float* pos, const float* in);
 // DoesInfiniteLineCrossFiniteLine (0x71DB30): producto de las distancias con signo de los dos extremos A y B a la recta (origen o, direccion d) menor que cero, con la x87 sin redondeos intermedios a float.
 bool __cdecl CommonLineCrossesSegmentCpp(float ax, float ay, float bx, float by, float ox, float oy, float dx, float dy);
+// Lote 177A (sin validar).
+// CTaskGoToVehicleAndLean::CalcTargetPos (0x664770), rama del vehiculo sin matriz: (0 * dz + sin(rumbo) * dy) + cos(rumbo) * dx > 0 con fcos/fsin sin redondear a float y la x87 sin redondeos intermedios (comparacion ordenada: NaN da false).
+bool __cdecl Hp177ALeanSideAheadCpp(float heading, float dx, float dy, float dz);

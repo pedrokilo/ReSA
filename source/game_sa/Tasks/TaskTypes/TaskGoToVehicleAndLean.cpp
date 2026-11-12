@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleStandStill.h"
 #include "TaskLeanOnVehicle.h"
 #include "TaskComplexGangLeader.h"
+#include "X87Math.h"
 
 namespace {
 // 0x660EE0 (lote 154A, banco Fn154A): cuerpo del destructor de CTaskGoToVehicleAndLean del EXE (con hook (Destructor); vtable 0x86FAC8). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor
@@ -51,11 +52,18 @@ void CTaskGoToVehicleAndLean::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x660E60);
     RH_ScopedInstall(Destructor, 0x660EE0);
     RH_ScopedInstall(DoTidyUp, 0x660F60);
+    RH_ScopedInstall(CalcTargetPos, 0x664770);    // lote 177A (sin validar)
+    RH_ScopedVMTInstall(GetTaskType, 0x660ED0);   // lote 177A (sin validar): retorno de constante
     RH_ScopedVMTInstall(Clone, 0x6621B0);
     RH_ScopedVMTInstall(MakeAbortable, 0x664500);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x664590);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x664D40);
     RH_ScopedVMTInstall(ControlSubTask, 0x664E60);
+}
+
+// 0x660ED0 (lote 177A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,4C0h`): TASK_COMPLEX_GOTO_VEHICLE_AND_LEAN (1216); no lee el objeto (ranura 4 de la vtable 0x86FAC8).
+eTaskType CTaskGoToVehicleAndLean::GetTaskType() const {
+    return Type;
 }
 
 // 0x660E60
@@ -127,14 +135,32 @@ CTask* CTaskGoToVehicleAndLean::ControlSubTask(CPed* ped) {
     return m_pSubTask;
 }
 
+// 0x664770 (lote 177A, sin validar; thiscall, dos argumentos de pila (puntero de retorno oculto y el peaton), `ret 8`, 295 bytes; devuelve el puntero de retorno en EAX).
+// Como el original: lee la caja de colision del modelo del vehiculo (minimo +0, maximo +0xC); delta = posicion del peaton - posicion del vehiculo (cada una de la matriz si existe, o de m_placement); el vector derecha es
+// la primera fila de la matriz o, sin matriz, (cos(rumbo), sin(rumbo), 0) con fcos/fsin sin redondear; producto escalar (rz * dz + ry * dy) + rx * dx comparado con 0.0f (ordenado: NaN da falso). Si es mayor que cero guarda
+// field_15 = 1 y el punto local es (maximo.x + 0.5f, 0, 0); si no, field_15 = 0 y (minimo.x - 0.5f, 0, 0). El resultado es CMatrix * CVector (0x59C890) con la matriz del vehiculo SIN comprobar si es nula (como el EXE).
 CVector CTaskGoToVehicleAndLean::CalcTargetPos(CPed* ped) {
-    const auto& box = CModelInfo::GetModelInfo(m_Vehicle->m_nModelIndex)->GetColModel()->m_boundBox;
-    const auto delta = ped->GetPosition() - m_Vehicle->GetPosition();
-    const auto right = m_Vehicle->GetRight();
-    const float dot = (delta.x*right.x + delta.y*right.y) + delta.z*right.z;
-    field_15 = dot > 0.f;
-    const CVector local{field_15 ? box.m_vecMax.x + .5f : box.m_vecMin.x - .5f, 0.f, 0.f};
-    return m_Vehicle->GetMatrix().TransformPoint(local);
+    CVehicle* const vehicle = m_Vehicle;
+    const CBoundingBox& box = CModelInfo::GetModelInfo(vehicle->m_nModelIndex)->GetColModel()->m_boundBox;
+    const float minX = box.m_vecMin.x;
+    const float maxX = box.m_vecMax.x;
+    const CVector delta = ped->GetPosition() - vehicle->GetPosition();
+
+    bool ahead;
+    if (vehicle->m_matrix) {
+        const CVector& right = vehicle->m_matrix->GetRight();
+        const float dot = (right.z * delta.z + right.y * delta.y) + right.x * delta.x;
+        ahead = dot > 0.0f;
+    } else {
+        ahead = Hp177ALeanSideAheadCpp(vehicle->m_placement.m_fHeading, delta.x, delta.y, delta.z);
+    }
+    field_15 = ahead;
+
+    const float localX = ahead ? maxX + 0.5f : minX - 0.5f;
+    const CVector local{localX, 0.0f, 0.0f};
+    CVector result;
+    Hp65MatrixTimesPointCpp(reinterpret_cast<const float*>(vehicle->m_matrix), &local.x, &result.x);
+    return result;
 }
 
 // 0x660F60

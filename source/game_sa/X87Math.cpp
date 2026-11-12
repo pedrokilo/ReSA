@@ -18938,3 +18938,15 @@ __declspec(noinline) bool __cdecl CommonLineCrossesSegmentCpp(float ax, float ay
     const double b = (double(bx) - double(ox)) * double(dy) - (double(by) - double(oy)) * double(dx);
     return a * b < 0.0;
 }
+
+// --- Lote 177A (sin validar) ---
+// CTaskGoToVehicleAndLean::CalcTargetPos (0x664770), vehiculo sin matriz (`fld [heading]; fcos; fld [heading]; fsin; fld 0.0f; fmul st,st(3); fxch; fmul st,st(4); faddp; fxch; fmul st,st(4); faddp; fcomp 0.0f; fnstsw ax; test ah,41h`):
+// con el derecha = (cos, sin, 0) los productos son 0 * dz, sin * dy y cos * dx y la suma ((0 * dz) + (sin * dy)) + (cos * dx); el coseno y el seno quedan en la x87 sin redondear a float. Se compara con "mayor que" cero (con NaN, falso).
+// El cero se lee de memoria volatil para que /fp:fast no elimine el producto 0 * dz (con dz infinito o NaN cambia el resultado).
+__declspec(noinline) bool __cdecl Hp177ALeanSideAheadCpp(float heading, float dx, float dy, float dz) {
+    const volatile float zero = 0.0f;
+    const double cosine = cos(double(heading));
+    const double sine = sin(double(heading));
+    const double dot = (double(zero) * double(dz) + sine * double(dy)) + cosine * double(dx);
+    return dot > 0.0;
+}

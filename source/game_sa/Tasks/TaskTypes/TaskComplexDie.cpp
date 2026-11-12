@@ -38,6 +38,17 @@ void __fastcall DieDestructorBody(CTaskComplexDie* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x86DE78;
     CTaskComplexBody::Destructor(self, nullptr);
 }
+
+// 0x637910 (lote 177A, sin validar): destructor con borrado de CTaskComplexDie del EXE (ranura 0 de su vtable 0x86DE78; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6300C0; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6300C0, con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
+// del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CTaskComplexDie* __fastcall DieScalarDeletingDestructor(CTaskComplexDie* self, void* /*edx*/, uint8 flags) {
+    DieDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexDie::InjectHooks() {
@@ -46,6 +57,7 @@ void CTaskComplexDie::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x630040);
     RH_ScopedNamedGlobalInstall(DieDestructorBody, "Destructor", 0x6300C0);
+    RH_ScopedNamedGlobalInstall(DieScalarDeletingDestructor, "ScalarDeletingDestructor", 0x637910); // lote 177A (sin validar)
     RH_ScopedVMTInstall(GetTaskType, 0x6300B0);      // lote 139A (banco Fn139A): retorno de constante (217)
     RH_ScopedVMTInstall(ControlSubTask, 0x630580);   // lote 139A: devuelve m_pSubTask (`mov eax,[ecx+8]; ret 4`)
     RH_ScopedVMTInstall(MakeAbortable, 0x6300D0);

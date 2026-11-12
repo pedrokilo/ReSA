@@ -31,9 +31,12 @@ private: // Wrappers para los hooks
     }
 
     // 0x6305F0
-    CTaskSimpleDead* Destructor() {
+    __declspec(noinline) CTaskSimpleDead* Destructor() {
         this->CTaskSimpleDead::~CTaskSimpleDead();
         return this;
     }
+
+public:
+    CTaskSimpleDead* ScalarDeletingDestructor(uint8 flags); // 0x637930 (lote 177A, sin validar)
 };
 VALIDATE_SIZE(CTaskSimpleDead, 0x10);

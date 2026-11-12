@@ -21,9 +21,17 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexDragPedFromCar.h"
 
 namespace {
-// 0x6404D0 (lote 165A, banco Fn165A): cuerpo no virtual de ~CTaskComplexDragPedFromCar del EXE (thiscall, sin argumentos de pila, `ret`, 90 bytes con marco SEH que solo desenrolla y aqui se omite). Deja la vtable de la
-// clase del EXE (0x86EB6C), libera con CEntity::CleanUpOldReference (0x571A00) la referencia no nula en +0x50 (m_Ped) y llama a CTaskComplexEnterCar::Destructor (0x63DFA0, con hook). Sin hook propio (no es
-// de este lote): es la funcion que llama el destructor con borrado; el destructor generado por el compilador dejaria la vtable de la DLL.
+// 0x640430 (lote 177A, sin validar): constructor de CTaskComplexDragPedFromCar del EXE (thiscall, dos argumentos de pila (peaton, tiempo), `ret 8`, 131 bytes con marco SEH que solo desenrolla). Llama al constructor de
+// CTaskComplexEnterCar (0x63A220, con hook) con (nulo, falso, falso, verdadero, falso), deja la vtable de la clase del EXE (0x86EB6C), guarda el peaton en +0x50 y lo registra con CEntity::RegisterReference (0x571B70) si no es
+// nulo, y guarda el tiempo (+0x20) al final. Devuelve `this`. Funcion propia sin expansion en linea (la clase no tiene envoltura Constructor: el hook se instala por esta funcion global).
+__declspec(noinline) CTaskComplexDragPedFromCar* __fastcall DragPedFromCarConstructor(CTaskComplexDragPedFromCar* self, void* /*edx*/, CPed* ped, int32 draggedPedDownTime) {
+    self->CTaskComplexDragPedFromCar::CTaskComplexDragPedFromCar(ped, draggedPedDownTime);
+    return self;
+}
+
+// 0x6404D0 (lote 165A, banco Fn165A; hook propio desde el lote 177A, sin validar): cuerpo no virtual de ~CTaskComplexDragPedFromCar del EXE (thiscall, sin argumentos de pila, `ret`, 90 bytes con marco SEH que solo desenrolla y aqui se omite). Deja la vtable de la
+// clase del EXE (0x86EB6C), libera con CEntity::CleanUpOldReference (0x571A00) la referencia no nula en +0x50 (m_Ped) y llama a CTaskComplexEnterCar::Destructor (0x63DFA0, con hook). Es la funcion que llama
+// el destructor con borrado; el destructor generado por el compilador dejaria la vtable de la DLL.
 __declspec(noinline) void __fastcall DragPedFromCarDestructorBodyExe(CTaskComplexDragPedFromCar* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x86EB6C;
     CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(reinterpret_cast<uint8*>(self) + 0x50));
@@ -48,9 +56,29 @@ void CTaskComplexDragPedFromCar__InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexDragPedFromCar, 0x86EB6C, 12); // 12 huecos, como CTaskComplexEnterCar
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedGlobalInstall(DragPedFromCarConstructor, "Constructor", 0x640430);                          // lote 177A (sin validar)
+    RH_ScopedNamedGlobalInstall(DragPedFromCarDestructorBodyExe, "DestructorBody", 0x6404D0);                 // lote 177A (sin validar)
     RH_ScopedNamedGlobalInstall(DragPedFromCarScalarDeletingDestructor, "ScalarDeletingDestructor", 0x643CE0); // lote 165A (banco Fn165A)
+    RH_ScopedVMTInstall(GetTaskType, 0x6404C0);                                                               // lote 177A (sin validar): retorno de constante
+    RH_ScopedVMTInstall(Clone, 0x643950);                                                                     // lote 177A (sin validar)
     RH_ScopedVMTInstall(ControlSubTask, 0x640530);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x643D00);
+}
+
+// 0x6404C0 (lote 177A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,2BFh`): TASK_COMPLEX_DRAG_PED_FROM_CAR (703); no lee el objeto (ranura 4 de la vtable 0x86EB6C).
+eTaskType CTaskComplexDragPedFromCar::GetTaskType() const {
+    return Type;
+}
+
+// 0x643950 (lote 177A, sin validar; thiscall, sin argumentos, `ret`, 100 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 1 de la vtable 0x86EB6C).
+// Como el original: CTask::operator new (0x61A5A0, con hook) con 0x54 bytes; sin memoria devuelve nulo; si no, llama al constructor (0x640430, con hook; ECX = memoria) con el peaton (+0x50) y el tiempo (+0x20,
+// miembro de CTaskComplexEnterCar) y devuelve lo que el constructor deja en EAX.
+CTask* CTaskComplexDragPedFromCar::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskComplexDragPedFromCar));
+    if (!memory) {
+        return nullptr;
+    }
+    return DragPedFromCarConstructor(static_cast<CTaskComplexDragPedFromCar*>(memory), nullptr, m_Ped, m_DraggedPedDownTime);
 }
 
 // 0x640430

@@ -555,6 +555,7 @@
 #include "EventCarUpsideDown.h"
 #include "EventPassObject.h"
 #include "EventLeanOnVehicle.h"
+#include "EventCreatePartnerTask.h"
 #include "EventOnFire.h"
 #include "EventEscalator.h"
 #include "EventCopCarBeingStolen.h"
@@ -1530,7 +1531,7 @@ void InjectHooksMain() {
         CEventVehicleDamageCollision::InjectHooks();
         CEventHitByWaterCannon::InjectHooks();
         CEventInWater::InjectHooks();
-        // + CEventCreatePartnerTask::InjectHooks();
+        CEventCreatePartnerTask::InjectHooks();
         CEventInAir::InjectHooks();
         CEventStuckInAir::InjectHooks();
         CEventAcquaintancePed::InjectHooks();

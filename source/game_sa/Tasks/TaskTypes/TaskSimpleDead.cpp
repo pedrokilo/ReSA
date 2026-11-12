@@ -38,10 +38,22 @@ void CTaskSimpleDead::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x630590);
     RH_ScopedInstall(Destructor, 0x6305F0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x637930); // lote 177A (sin validar)
     RH_ScopedVMTInstall(Clone, 0x636100);
     RH_ScopedVMTInstall(GetTaskType, 0x6305D0);
     RH_ScopedVMTInstall(MakeAbortable, 0x6305E0);
     RH_ScopedVMTInstall(ProcessPed, 0x630600);
+}
+
+// 0x637930 (lote 177A, sin validar): destructor con borrado de CTaskSimpleDead del EXE (ranura 0 de su vtable 0x86DEA4; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6305F0; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6305F0, con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el
+// bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+__declspec(noinline) CTaskSimpleDead* CTaskSimpleDead::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // NOTSA: *deathTime* originally int32

@@ -35,7 +35,20 @@ void CTaskSimpleTired::InjectHooks() {
     RH_ScopedVMTInstall(MakeAbortable, 0x630FF0); // lote 144A: ranura 6, `ret 0Ch`
     RH_ScopedInstall(Constructor, 0x630F20);
     RH_ScopedInstall(Destructor, 0x630F60);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x637950); // lote 177A (sin validar)
     RH_ScopedInstall(StartAnim, 0x630F70);
+    RH_ScopedVMTInstall(ProcessPed, 0x637970);            // lote 177A (sin validar): ranura 7
+}
+
+// 0x637950 (lote 177A, sin validar): destructor con borrado de CTaskSimpleTired del EXE (ranura 0 de su vtable 0x86DED0; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x630F60; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x630F60, con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el
+// bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+__declspec(noinline) CTaskSimpleTired* CTaskSimpleTired::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x630F20
@@ -93,7 +106,9 @@ bool CTaskSimpleTired::MakeAbortable(CPed* ped, eAbortPriority priority, const C
     return true;
 }
 
-// 0x637970
+// 0x637970 (lote 177A, sin validar; thiscall, un puntero de pila, `ret 4`, 96 bytes; ranura 7 de la vtable 0x86DED0): sin animacion (+0x18 nulo) la arranca con StartAnim (0x630F70, con hook); sin
+// arrancar (+0x14 = 0) devuelve falso; con +0x15 puesto reinicia el inicio con CTimer::m_snTimeInMilliseconds (0xB7CB84) y lo limpia; si el tiempo (sin signo) es menor que inicio (+0xC) + duracion copiada (+0x10) devuelve falso;
+// si no, llama a la ranura 6 de la vtable (MakeAbortable) con (ped, 0, 0) y devuelve verdadero.
 bool CTaskSimpleTired::ProcessPed(CPed* ped) {
     if (!m_TiredAnim) {
         StartAnim(ped);

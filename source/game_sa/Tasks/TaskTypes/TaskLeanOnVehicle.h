@@ -32,6 +32,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
     CTaskLeanOnVehicle* Constructor(CEntity* vehicle, int32 leanAnimDurationInMs, uint8 a4) { this->CTaskLeanOnVehicle::CTaskLeanOnVehicle(vehicle, leanAnimDurationInMs, a4); return this; }
-    CTaskLeanOnVehicle* Destructor() { this->CTaskLeanOnVehicle::~CTaskLeanOnVehicle(); return this; }
+    __declspec(noinline) CTaskLeanOnVehicle* Destructor() { this->CTaskLeanOnVehicle::~CTaskLeanOnVehicle(); return this; }
+    CTaskLeanOnVehicle* ScalarDeletingDestructor(uint8 flags); // 0x6648A0 (lote 177A, sin validar)
 };
 VALIDATE_SIZE(CTaskLeanOnVehicle, 0x2C);

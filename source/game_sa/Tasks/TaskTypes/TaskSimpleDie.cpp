@@ -20,7 +20,8 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleDie.h"
 
-namespace {
+// Espacio de nombres con enlace externo: CTaskSimpleDrown (0x62FF10) salta a este cuerpo como el `jmp 0x62FB40` del EXE (lote 177A, sin validar).
+namespace CTaskSimpleDieBody {
 // 0x62FB40 (lote 159A, banco Fn159A): cuerpo del destructor de CTaskSimpleDie del EXE (thiscall, sin argumentos de pila, `ret`, 93 bytes con marco SEH que solo desenrolla; lo llaman 0x62FC70, el cuerpo
 // de CTaskSimpleDieInCar, por salto y el destructor con borrado de la clase): deja la vtable de la clase del EXE (0x86DDBC; la de la DLL no vale para los llamadores del EXE); si hay animacion (+0x24) le pone la
 // funcion de fin por defecto (CAnimBlendAssociation::SetFinishCallback 0x4CEBE0, con hook, con CDefaultAnimCallback::DefaultAnimCB 0x4D1390 y datos nulos); y sigue con el cuerpo de ~CTask (0x61A3A0, con
@@ -175,7 +176,7 @@ void CTaskSimpleDie__InjectHooks() {
     RH_ScopedOverloadedInstall(Constructor, "1", 0x62FA00, CTaskSimpleDie*(CTaskSimpleDie::*)(AssocGroupId, AnimationId, float, float));
     RH_ScopedOverloadedInstall(Constructor, "2", 0x62FA60, CTaskSimpleDie*(CTaskSimpleDie::*)(const char*, const char*, eAnimationFlags, float, float));
     RH_ScopedOverloadedInstall(Constructor, "3", 0x62FAF0, CTaskSimpleDie*(CTaskSimpleDie::*)(CAnimBlendHierarchy *, eAnimationFlags, float, float));
-    RH_ScopedNamedGlobalInstall(SimpleDieDestructorBodyExe, "DestructorBody", 0x62FB40); // lote 159A (banco Fn159A)
+    RH_ScopedNamedGlobalInstall(CTaskSimpleDieBody::SimpleDieDestructorBodyExe, "DestructorBody", 0x62FB40); // lote 159A (banco Fn159A)
     RH_ScopedVMTInstall(GetTaskType, 0x62FA50); // lote 159A (banco Fn159A): retorno de constante
     RH_ScopedInstall(FinishAnimDieCB, 0x62FC10);
     RH_ScopedInstall(StartAnim, 0x637520);

@@ -27,6 +27,7 @@ void SurfaceInfos_c::InjectHooks()
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(GetSurfaceIdFromName, 0x55D220);
+    RH_ScopedInstall(LoadAdhesiveLimits, 0x55D0E0); // lote 177A (sin validar): el listado lo atribuia a CStats; es SurfaceInfos_c::LoadAdhesiveLimits (lee data\surface.dat)
     RH_ScopedInstall(Init, 0x55F420);
 
     RH_ScopedInstall(GetAdhesionGroup, 0x55E5C0);
@@ -267,7 +268,7 @@ SurfaceId SurfaceInfos_c::GetSurfaceIdFromName(Const char* cName)
     return SURFACE_DEFAULT;
 }
 
-// 0x55D0E0
+// 0x55D0E0 (lote 177A, sin validar; thiscall, sin argumentos, `ret`, 314 bytes; ECX = this = la tabla 6x6, primer miembro): carga data\surface.dat
 void SurfaceInfos_c::LoadAdhesiveLimits()
 {
     CFileMgr::SetDir("");

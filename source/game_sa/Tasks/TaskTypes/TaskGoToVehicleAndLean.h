@@ -18,7 +18,7 @@ public:
     CTaskGoToVehicleAndLean(CVehicle* vehicle, int32 leanAnimDurationInMs);
     ~CTaskGoToVehicleAndLean() override;
 
-    eTaskType GetTaskType() const override { return Type; } // 0x660ED0
+    eTaskType GetTaskType() const override; // 0x660ED0 (lote 177A, sin validar)
     CTask* Clone() const override { return new CTaskGoToVehicleAndLean(m_Vehicle, m_LeanAnimDurationInMs); } // 0x6621B0
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;
@@ -26,7 +26,7 @@ public:
     CTask* ControlSubTask(CPed* ped) override;
 
     void DoTidyUp(CPed* ped);
-    CVector CalcTargetPos(CPed* ped); // 0x664770
+    CVector CalcTargetPos(CPed* ped); // 0x664770 (lote 177A, sin validar)
 
 private:
     friend void InjectHooksMain();

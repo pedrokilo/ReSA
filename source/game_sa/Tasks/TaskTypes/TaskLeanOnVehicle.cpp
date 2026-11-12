@@ -26,6 +26,7 @@ void CTaskLeanOnVehicle::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x660F90);
     RH_ScopedInstall(Destructor, 0x661030);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6648A0); // lote 177A (sin validar): el listado lo atribuia a CTaskGoToVehicleAndLean; es de CTaskLeanOnVehicle (vtable 0x86FAF4)
 
     RH_ScopedInstall(FinishAnimCB, 0x661160);
 
@@ -70,6 +71,17 @@ CTaskLeanOnVehicle::~CTaskLeanOnVehicle() {
     if (m_LeanAnim) {
         m_LeanAnim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
     }
+}
+
+// 0x6648A0 (lote 177A, sin validar): destructor con borrado de CTaskLeanOnVehicle del EXE (ranura 0 de su vtable 0x86FAF4; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x661030; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x661030, con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el
+// bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+__declspec(noinline) CTaskLeanOnVehicle* CTaskLeanOnVehicle::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x661160

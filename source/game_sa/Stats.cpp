@@ -173,6 +173,14 @@ uint32 __fastcall StatsUpdateStatsAddToHealthExe(uint32 entryEcx, uint32 entryEd
 uint32 __cdecl StatsUpdateSexAppealStatExe();                                                // 0x55BF20
 }
 
+namespace {
+// 0x558F90 (lote 177A, sin validar; thiscall/cdecl sin argumentos, `ret`, 6 bytes: `mov eax,0B78E58h`): devuelve la direccion de la lista de emisoras favoritas (CStats::FavoriteRadioStationList); no lee ni escribe
+// nada mas (ECX y EDX intactos). El metodo de la clase devuelve una referencia (misma direccion en EAX), pero el hook necesita un tipo de retorno puntero.
+__declspec(noinline) const std::array<int32, 14>* __cdecl StatsGetFullFavoriteRadioStationListExe() {
+    return &CStats::FavoriteRadioStationList;
+}
+} // namespace
+
 void CStats::InjectHooks() {
     RH_ScopedClass(CStats);
     RH_ScopedCategoryGlobal();
@@ -196,7 +204,7 @@ void CStats::InjectHooks() {
     RH_ScopedOverloadedInstall(GetStatValue, "-OG", 0x558E40, float(*)(eStats));
     RH_ScopedInstall(SetStatValue, 0x55A070);
     RH_ScopedInstall(IsStatFloat, 0x558E30);
-    /*RH_ScopedInstall(GetFullFavoriteRadioStationList, 0x558F90); - different return type*/
+    RH_ScopedNamedGlobalInstall(StatsGetFullFavoriteRadioStationListExe, "GetFullFavoriteRadioStationList", 0x558F90); // lote 177A (sin validar): EAX = direccion de la lista
     RH_ScopedInstall(FindCriminalRatingNumber, 0x559080);
     RH_ScopedInstall(FindLeastFavoriteRadioStation, 0x559010);
     RH_ScopedInstall(BuildStatLine, 0x559230);
