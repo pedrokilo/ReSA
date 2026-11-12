@@ -54,6 +54,8 @@ void CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::InjectHooks() {
     RH_ScopedVMTInstall(GetTaskType, 0x646E30);
     RH_ScopedVMTInstall(MakeAbortable, 0x646E40);
     RH_ScopedVMTInstall(ProcessPed, 0x64B4A0);
+
+    RH_ScopedInstall(ComputeTarget, 0x646F40); // lote 176A (sin validar)
 }
 
 // 0x646D70
@@ -96,9 +98,16 @@ bool CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::ProcessPed(CPed* ped) {
     return true;
 }
 
-// 0x646F40
+// 0x646F40 (lote 176A, sin validar; thiscall con retorno de CVector por puntero oculto, un argumento de pila, `ret 4`, 158 bytes): objetivo del peaton = posicion del coche + (posicion de la puerta - posicion del coche) * 2.
+// Como el original, en este orden: GetPositionToOpenCarDoor (0x64E740) con el coche (+8 de la subtarea de espera) y la puerta (+0xC); DESPUES se lee la posicion del coche (matriz +0x14 si existe; si no, la
+// posicion propia +4) y se copia a locales; x87 a 24 bits: cada diferencia (puerta - coche) se calcula sin guardar, se duplica (fadd st,st: exacto) y se suma a la posicion del coche, guardando cada componente como float.
 CVector CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::ComputeTarget() const {
-    const auto    veh    = m_TaskWaitForDoor->m_veh;
-    const CVector vehPos = veh->GetPosition();
-    return vehPos + (CCarEnterExit::GetPositionToOpenCarDoor(veh, m_TaskWaitForDoor->m_doorsToWaitFor[0]) - vehPos) * 2.f;
+    const auto    veh     = m_TaskWaitForDoor->m_veh;
+    const CVector doorPos = CCarEnterExit::GetPositionToOpenCarDoor(veh, m_TaskWaitForDoor->m_doorsToWaitFor[0]);
+    const CVector vehPos  = m_TaskWaitForDoor->m_veh->GetPosition();
+    return CVector{
+        (doorPos.x - vehPos.x) * 2.f + vehPos.x,
+        (doorPos.y - vehPos.y) * 2.f + vehPos.y,
+        (doorPos.z - vehPos.z) * 2.f + vehPos.z
+    };
 }

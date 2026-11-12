@@ -23,6 +23,9 @@ private:
     static void InjectHooks();
 
 private: // Wrappers for hooks
+    // 0x693590 (lote 176A, sin validar): destructor con borrado (ranura 0 de la vtable 0x870B50), `ret 4`
+    CTaskSimplePickUpEntity* ScalarDeletingDestructor(uint8 flags);
+
     // 0x691870
     CTaskSimplePickUpEntity* Constructor(CEntity* entityToHold, CVector* posn, uint8 boneFrameId, uint8 boneFlags, CAnimBlock* pAnimBlock, CAnimBlendHierarchy* animHierarchy, eAnimationFlags animFlags, float fMovePedUntilAnimProgress) {
         this->CTaskSimplePickUpEntity::CTaskSimplePickUpEntity(entityToHold, posn, boneFrameId, boneFlags, pAnimBlock, animHierarchy, animFlags, fMovePedUntilAnimProgress);

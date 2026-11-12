@@ -43,6 +43,8 @@ private: // Wrappers for hooks
         return this;
     }
 
+    CTaskComplexWalkRoundCar* ScalarDeletingDestructor(uint8 flags); // 0x657B60 (lote 176A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86F308), `ret 4`
+
 public:
     // Como el original (0x6541B0): el constructor solo escribe los campos que escribe el EXE; sin inicializadores por defecto
     uint8        m_MoveState; // eMoveState

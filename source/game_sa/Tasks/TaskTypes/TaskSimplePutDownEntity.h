@@ -24,6 +24,9 @@ private:
     static void InjectHooks();
 
 private: // Wrappers for hooks
+    // 0x6935C0 (lote 176A, sin validar): destructor con borrado (ranura 0 de la vtable 0x870B74), `ret 4`
+    CTaskSimplePutDownEntity* ScalarDeletingDestructor(uint8 flags);
+
     // 0x691990
     CTaskSimplePutDownEntity* Constructor() {
         this->CTaskSimplePutDownEntity::CTaskSimplePutDownEntity();

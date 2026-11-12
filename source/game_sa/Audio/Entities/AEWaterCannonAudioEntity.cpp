@@ -27,9 +27,19 @@ CAEWaterCannonAudioEntity::CAEWaterCannonAudioEntity() : CAEAudioEntity() {
     m_bInitialized = false;
 }
 
-// 0x728AB0
 CAEWaterCannonAudioEntity::~CAEWaterCannonAudioEntity() {
     Terminate();
+}
+
+// 0x728AB0 (lote 176A, sin validar; el listado decia CAEWaterCannonAudioEntity y es correcto; thiscall, sin argumentos de pila, `ret`, 86 bytes con marco SEH que solo desenrolla y aqui se omite): cuerpo del destructor
+// del EXE. Como el original, con el orden exacto de escrituras y llamadas: vtable propia (0x872A60); Terminate (0x5030A0, con hook); vtable base 0x859988 y destructor de CAESound (0x4EF660, con hook) sobre
+// m_tempSound (+8). No llama a ningun otro destructor de la base. El destructor generado por el compilador dejaria las vtables de la DLL.
+void CAEWaterCannonAudioEntity::DestructorBody() {
+    static_assert(offsetof(CAEWaterCannonAudioEntity, m_tempSound) == 0x8);
+    *reinterpret_cast<uint32*>(this) = 0x872A60;
+    Terminate();
+    *reinterpret_cast<uint32*>(this) = 0x859988;
+    m_tempSound.Destructor();
 }
 
 // 0x503060
@@ -85,7 +95,7 @@ void CAEWaterCannonAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayP
     }
 }
 
-// 0x502F80
+// 0x502F80 (lote 176A, sin validar: hook; thiscall, diez argumentos de pila, `ret 0x28`, 223 bytes)
 /**
  * Mantiene una de las cuatro capas: actualiza una CAESound existente, la crea si
  * pasa a estar activa o solicita su parada cuando la condición desaparece.
@@ -160,6 +170,8 @@ void CAEWaterCannonAudioEntity::InjectHooks() {
     RH_ScopedInstall(Initialise, 0x503060);
     RH_ScopedInstall(Terminate, 0x5030A0);
     RH_ScopedInstall(Service, 0x5030D0);
+    RH_ScopedInstall(UpdateGenericWaterCannonSound, 0x502F80); // lote 176A (sin validar)
+    RH_ScopedInstall(DestructorBody, 0x728AB0);                // lote 176A (sin validar)
     RH_ScopedInstall(SetSplashInfo, 0x502F50);
     RH_ScopedInstall(ClearSplashInfo, 0x502F20);
     RH_ScopedVMTInstall(UpdateParameters, 0x502EF0);

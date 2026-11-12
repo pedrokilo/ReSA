@@ -33,6 +33,7 @@ void CEventDamage::InjectHooks() {
     RH_ScopedOverloadedInstall(Constructor, "", 0x4B33B0, CEventDamage*(CEventDamage::*)(const CEventDamage&));
     RH_ScopedOverloadedInstall(Constructor, "1", 0x4AD830, CEventDamage * (CEventDamage::*)(CEntity*, uint32, eWeaponType, ePedPieceTypes, uint8, bool, bool));
     RH_ScopedInstall(Destructor, 0x4AD960);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4B5CF0); // lote 176A (sin validar)
     RH_ScopedVMTInstall(GetEventType, 0x4AD910);
     RH_ScopedVMTInstall(GetEventPriority, 0x4AD950);
     RH_ScopedVMTInstall(GetLifeTime, 0x4AD920);
@@ -84,6 +85,17 @@ CEventDamage::CEventDamage(CEntity* source, uint32 startTime, eWeaponType weapon
 
 CEventDamage::~CEventDamage() {
     CEntity::SafeCleanUpRef(m_pSourceEntity);
+}
+
+// 0x4B5CF0 (lote 176A, sin validar; el listado la atribuia a CPedDamageResponseCalculator: la clase sale de la vtable 0x85AD78): destructor con borrado de CEventDamage del EXE (ranura 0; thiscall, un argumento de pila,
+// `ret 4`, 76 bytes: `call 0x4AD960` (cuerpo del destructor, con hook propio (Destructor)); con el bit 0 del BYTE de banderas libera la ranura en el pool de eventos (0xB744AC) EN LINEA, igual que CEvent::operator delete
+// (indice = (this - almacenamiento) / 0x44 con signo, estados[indice] |= 0x80, cursor = min con signo); devuelve `this`). Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CEventDamage* CEventDamage::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CEvent::operator delete(this);
+    }
+    return this;
 }
 
 CEventDamage* CEventDamage::Constructor(const CEventDamage& event) {

@@ -26,6 +26,9 @@ public:
     FurnitureManager_c() = default;  // 0x591260
     ~FurnitureManager_c() = default; // 0x5912E0
 
+    FurnitureManager_c* Constructor(); // 0x591260 (lote 176A, sin validar): envoltura con las escrituras exactas del EXE
+    void Destructor();                 // 0x5912E0 (lote 176A, sin validar): el EXE solo destruye elementos cuyos destructores son un `ret`
+
     int32 GetGroupId(const char* name);    // Como el original: __thiscall (ret 4)
     int32 GetSubGroupId(const char* name); // Como el original: __thiscall (ret 4)
     static FurnitureSubGroup_c* NewSubGroup();

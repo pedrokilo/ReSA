@@ -27,6 +27,7 @@ void CTaskSimpleDuck::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x691FC0);
     RH_ScopedInstall(Destructor, 0x692030);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6939D0); // lote 176A (sin validar)
 
     RH_ScopedInstall(DeleteDuckAnimCB, 0x692550);
     RH_ScopedInstall(CanPedDuck, 0x692610);
@@ -499,4 +500,15 @@ bool CTaskSimpleDuck::ProcessPed(CPed* ped) {
 void CTaskSimpleDuck::SetPedIsDucking(CPed* ped, bool value) {
     ped->bIsDucking      = value;
     m_bNeedToSetDuckFlag = !value;
+}
+
+// 0x6939D0 (lote 176A, sin validar; el listado la atribuia a CTaskSimpleHoldEntity; destructor con borrado de CTaskSimpleDuck del EXE (ranura 0 de su vtable 0x870BC4; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x692030; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x692030, con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el
+// bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleDuck* CTaskSimpleDuck::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

@@ -28,6 +28,8 @@ void CTaskSimplePutDownEntity::InjectHooks() {
 
     RH_ScopedVMTInstall(Clone, 0x692B70);
     RH_ScopedVMTInstall(GetTaskType, 0x691900);
+
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6935C0); // lote 176A (sin validar)
 }
 
 CTaskSimplePutDownEntity::CTaskSimplePutDownEntity() : CTaskSimpleHoldEntity(nullptr, nullptr, PED_NODE_RIGHT_HAND, HOLD_ENTITY_FLAG_1, ANIM_ID_NO_ANIMATION_SET, ANIM_GROUP_DEFAULT, false) {
@@ -75,4 +77,15 @@ CTask* CTaskSimplePutDownEntity::Clone() const {
             false,
             m_fPutDownHeightZ
         );
+}
+
+// 0x6935C0 (lote 176A, sin validar; el listado la atribuia a CTaskSimpleHoldEntity; destructor con borrado de CTaskSimplePutDownEntity del EXE (ranura 0 de su vtable 0x870B74; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6935E0; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6935E0; `jmp 0x691630`: es el de CTaskSimpleHoldEntity), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el
+// bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimplePutDownEntity* CTaskSimplePutDownEntity::ScalarDeletingDestructor(uint8 flags) {
+    this->CTaskSimplePutDownEntity::~CTaskSimplePutDownEntity();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

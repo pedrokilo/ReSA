@@ -38,6 +38,8 @@ private:
 
     CTaskComplexGoPickUpEntity* Constructor(CEntity* entity, int32 animGroupId) { this->CTaskComplexGoPickUpEntity::CTaskComplexGoPickUpEntity(entity, animGroupId); return this; }
     CTaskComplexGoPickUpEntity* Destructor() { this->CTaskComplexGoPickUpEntity::~CTaskComplexGoPickUpEntity(); return this; }
+    // 0x6935F0 (lote 176A, sin validar): destructor con borrado (ranura 0 de la vtable 0x870B98), `ret 4`
+    CTaskComplexGoPickUpEntity* ScalarDeletingDestructor(uint8 flags);
 };
 
 VALIDATE_SIZE(CTaskComplexGoPickUpEntity, 0x34);

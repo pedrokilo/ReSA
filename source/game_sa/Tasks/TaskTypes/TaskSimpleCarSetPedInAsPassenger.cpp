@@ -29,8 +29,10 @@ void CTaskSimpleCarSetPedInAsPassenger::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCarSetPedInAsPassenger, 0x86EE04, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
-    // El constructor original (0x646FE0) no se instala: la firma actual añade un argumento NOTSA.
+    // Lote 176A (sin validar): el constructor original (0x646FE0) recibe (vehiculo, puerta, utilidad); la firma de la DLL añade el argumento NOTSA `warpingInToCar`, que la envoltura deja a falso.
+    RH_ScopedInstall(Constructor, 0x646FE0);
     RH_ScopedInstall(Destructor, 0x647080);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x64B5B0);
 
     RH_ScopedVMTInstall(Clone, 0x649D90);
     RH_ScopedVMTInstall(GetTaskType, 0x647060);
@@ -38,7 +40,9 @@ void CTaskSimpleCarSetPedInAsPassenger::InjectHooks() {
     RH_ScopedVMTInstall(ProcessPed, 0x64B5D0);
 }
 
-// OG constructor was at 0x646FE0
+// 0x646FE0 (lote 176A, sin validar; el listado la atribuia a CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse: la clase sale de la vtable 0x86EE04): el constructor del EXE llama a CTaskSimple::CTaskSimple (0x61A390), deja
+// vtable propia, m_bIsFinished (+8) y m_pAnim (+0xC) a cero, m_pTargetVehicle (+0x10), m_nTargetDoor (+0x14), m_pUtility (+0x18) y a cero m_bWarpingInToCar (+0x1C), m_nDoorFlagsToClear (+0x1D) y m_nNumGettingInToClear (+0x1E);
+// por ultimo registra la referencia al vehiculo (CEntity::RegisterReference 0x571B70) solo si no es nulo. thiscall, tres argumentos de pila, `ret 0xC`; devuelve `this`.
 CTaskSimpleCarSetPedInAsPassenger::CTaskSimpleCarSetPedInAsPassenger(CVehicle* targetVehicle, eTargetDoor nTargetDoor, bool warpingInToCar, CTaskUtilityLineUpPedWithCar* utility) :
     m_nTargetDoor{ nTargetDoor },
     m_pTargetVehicle{ targetVehicle },
@@ -154,4 +158,15 @@ bool CTaskSimpleCarSetPedInAsPassenger::ProcessPed(CPed* ped) {
 
     ped->GetIntelligence()->m_TaskMgr.SetTask(new CTaskSimpleCarDrive(m_pTargetVehicle, m_pUtility, false), TASK_PRIMARY_DEFAULT, false);
     return true;
+}
+
+// 0x64B5B0 (lote 176A, sin validar; el listado la atribuia a CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse): destructor con borrado de CTaskSimpleCarSetPedInAsPassenger del EXE (ranura 0 de su vtable 0x86EE04; thiscall,
+// un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x647080; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la
+// clase (0x647080, con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleCarSetPedInAsPassenger* CTaskSimpleCarSetPedInAsPassenger::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

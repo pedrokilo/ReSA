@@ -17,6 +17,7 @@ public:
 
     static CVector ComputeEvasiveStepMoveDir(const CPed* ped, CVehicle* veh);
 
+    bool HitKillsPed(CPed* ped) const; // 0x653AA0 (lote 176A, sin validar)
     bool HitHurtsPed(CPed* ped);
     CTask* CreateSubTask(eTaskType);
 

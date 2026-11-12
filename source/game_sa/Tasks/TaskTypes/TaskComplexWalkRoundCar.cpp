@@ -31,6 +31,7 @@ void CTaskComplexWalkRoundCar::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x6541B0);
     RH_ScopedInstall(Destructor, 0x656B00);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x657B60); // lote 176A (sin validar)
 
     RH_ScopedInstall(SetNewVehicle, 0x654290);
     RH_ScopedInstall(CreateRouteTask, 0x6542E0);
@@ -80,6 +81,17 @@ CTaskComplexWalkRoundCar::CTaskComplexWalkRoundCar(const CTaskComplexWalkRoundCa
 CTaskComplexWalkRoundCar::~CTaskComplexWalkRoundCar() {
     CEntity::SafeCleanUpRef(m_Veh);
     delete m_Route;
+}
+
+// 0x657B60 (lote 176A, sin validar; el listado la atribuia a CTaskComplexHitPedWithCar: la clase sale de la vtable 0x86F308): destructor con borrado de CTaskComplexWalkRoundCar del EXE (ranura 0; thiscall, un argumento de pila,
+// `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x656B00; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x656B00, con hook),
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexWalkRoundCar* CTaskComplexWalkRoundCar::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 

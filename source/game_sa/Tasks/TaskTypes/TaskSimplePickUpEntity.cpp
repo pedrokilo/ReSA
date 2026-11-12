@@ -29,6 +29,8 @@ void CTaskSimplePickUpEntity::InjectHooks() {
 
     RH_ScopedVMTInstall(Clone, 0x692A90);
     RH_ScopedVMTInstall(GetTaskType, 0x691810);
+
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x693590); // lote 176A (sin validar)
 }
 
 // 0x691870
@@ -86,4 +88,15 @@ CTask* CTaskSimplePickUpEntity::Clone() const {
             m_nAnimGroupId,
             m_fMovePedUntilAnimProgress
         );
+}
+
+// 0x693590 (lote 176A, sin validar; el listado la atribuia a CTaskSimpleHoldEntity; destructor con borrado de CTaskSimplePickUpEntity del EXE (ranura 0 de su vtable 0x870B50; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6935B0; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6935B0; `jmp 0x691630`: es el de CTaskSimpleHoldEntity), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el
+// bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimplePickUpEntity* CTaskSimplePickUpEntity::ScalarDeletingDestructor(uint8 flags) {
+    this->CTaskSimplePickUpEntity::~CTaskSimplePickUpEntity();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

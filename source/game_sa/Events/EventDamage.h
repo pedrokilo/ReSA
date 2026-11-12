@@ -83,6 +83,7 @@ private:
     CEventDamage* Constructor(const CEventDamage& event);
     CEventDamage* Constructor(CEntity * source, uint32 startTime, eWeaponType weaponType, ePedPieceTypes pieceHit, uint8 direction, bool a7, bool bPedInVehicle);
     CEventDamage* Destructor() { this->CEventDamage::~CEventDamage(); return this; }
+    CEventDamage* ScalarDeletingDestructor(uint8 flags); // 0x4B5CF0 (lote 176A, sin validar): destructor con borrado (ranura 0 de la vtable 0x85AD78), `ret 4`
 
     //! @addr 0x4ADD60 - Lote 116A: la funcion original (`ComputeHeadShot`, thiscall, `ret 4`) escribe el resultado por referencia
     void ComputeHeadShot(bool& isHeadShot) const;

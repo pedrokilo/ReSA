@@ -44,6 +44,7 @@ void CTaskComplexGoPickUpEntity::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x6919C0);
     RH_ScopedInstall(Destructor, 0x691A50);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6935F0); // lote 176A (sin validar)
     RH_ScopedVMTInstall(Clone, 0x692C80);       // lote 151A (banco Fn151A): ranura 1
     RH_ScopedVMTInstall(GetTaskType, 0x691A40); // lote 151A (banco Fn151A): retorno de constante (0x136), ranura 4
     RH_ScopedVMTInstall(CreateNextSubTask, 0x691AE0);
@@ -320,4 +321,15 @@ CTask* CTaskComplexGoPickUpEntity::ControlSubTask(CPed* ped) {
     }
     m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr);
     return nullptr;
+}
+
+// 0x6935F0 (lote 176A, sin validar; el listado la atribuia a CTaskSimpleHoldEntity; destructor con borrado de CTaskComplexGoPickUpEntity del EXE (ranura 0 de su vtable 0x870B98; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x691A50; test byte [esp+8],1;
+// je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x691A50, con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el
+// bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexGoPickUpEntity* CTaskComplexGoPickUpEntity::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

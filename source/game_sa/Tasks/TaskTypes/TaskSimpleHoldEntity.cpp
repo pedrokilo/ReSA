@@ -25,6 +25,8 @@ END GENERATED HOOK STATUS */
 
 #include "X87Math.h"
 
+static_assert(TASK_SIMPLE_HOLD_ENTITY == 0x133); // GetTaskType del EXE (0x691460)
+
 namespace {
 // Como el original: constantes exactas del EXE
 constexpr float HOLD_RAND_RECIP      = std::bit_cast<float>(0x38000100u); // 0x858C7C (1/32767)
@@ -50,8 +52,11 @@ CVector HoldMultiply3x3_59C790(const CMatrix& m, const CVector& v) {
     };
 }
 
-// 0x691630 (lote 151A, banco Fn151A): cuerpo del destructor de CTaskSimpleHoldEntity del EXE (sin hook: es el destructor de la clase; vtable 0x870B2C; marco SEH que solo desenrolla). Funcion propia sin expansion en linea
-// para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x691630` del EXE.
+// 0x691630 (lote 151A, banco Fn151A; enganchada en el lote 176A, sin validar, como "Destructor"): cuerpo del destructor de CTaskSimpleHoldEntity del EXE (thiscall, sin argumentos de pila, `ret`, 166 bytes con marco SEH
+// que solo desenrolla; vtable 0x870B2C). El destructor de la clase (~CTaskSimpleHoldEntity) sigue el mismo orden: si no requiere proceso (+0x35) y hay entidad (+8): quita la bandera 0x400 de la entidad (m_bStreamingDontDelete),
+// CleanUpOldReference (0x571A00) con la direccion del campo, pone la bandera 0x800 (m_bRemoveFromWorld) y deja el campo a nulo; si hay animacion (+0x38), SetFinishCallback (0x4CEBE0) con el callback por defecto y datos nulos;
+// si hay bloque de animaciones (+0x2C), CAnimManager::RemoveAnimBlockRef con su indice ((puntero - 0xB5D4A0) >> 5, 0x4D3FD0); y por ultimo el cuerpo de ~CTask (0x61A3A0). Funcion propia sin expansion en linea para que el
+// banco pueda sustituirla; la llaman el destructor con borrado (0x692FD0) y los de las clases derivadas como el `call`/`jmp 0x691630` del EXE.
 __declspec(noinline) void __fastcall HoldEntityDestructorBody(CTaskSimpleHoldEntity* self, void* /*edx*/) { self->CTaskSimpleHoldEntity::~CTaskSimpleHoldEntity(); }
 
 // 0x692FD0 (lote 151A, banco Fn151A; el listado decia CTaskSimpleFacial): destructor con borrado de CTaskSimpleHoldEntity del EXE (ranura 0 de su vtable 0x870B2C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
@@ -72,6 +77,8 @@ void CTaskSimpleHoldEntity::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleHoldEntity, 0x870B2C, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(HoldEntityScalarDeletingDestructor, "ScalarDeletingDestructor", 0x692FD0); // lote 151A (banco Fn151A)
+    RH_ScopedNamedGlobalInstall(HoldEntityDestructorBody, "Destructor", 0x691630); // lote 176A (sin validar)
+    RH_ScopedVMTInstall(GetTaskType, 0x691460); // lote 176A (sin validar): `mov eax, 0x133; ret`
     RH_ScopedOverloadedInstall(Constructor, "1", 0x6913A0, CTaskSimpleHoldEntity*(CTaskSimpleHoldEntity::*)(CEntity*, CVector*, uint8, uint8, AnimationId, AssocGroupId, bool));
     RH_ScopedOverloadedInstall(Constructor, "2", 0x691470, CTaskSimpleHoldEntity * (CTaskSimpleHoldEntity::*)(CEntity*, CVector*, uint8, uint8, const char*, const char*, eAnimationFlags));
     RH_ScopedOverloadedInstall(Constructor, "3", 0x691550, CTaskSimpleHoldEntity * (CTaskSimpleHoldEntity::*)(CEntity*, CVector*, uint8, uint8, CAnimBlock*, CAnimBlendHierarchy*, eAnimationFlags));

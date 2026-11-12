@@ -40,6 +40,14 @@ public:
     bool ProcessPed(CPed* ped) override;
 
 private: // Wrappers for hooks
+    // 0x646FE0 (lote 176A, sin validar): el constructor del EXE no recibe el argumento NOTSA `warpingInToCar` (queda a falso)
+    CTaskSimpleCarSetPedInAsPassenger* Constructor(CVehicle* targetVehicle, eTargetDoor nTargetDoor, CTaskUtilityLineUpPedWithCar* utility) {
+        this->CTaskSimpleCarSetPedInAsPassenger::CTaskSimpleCarSetPedInAsPassenger(targetVehicle, nTargetDoor, false, utility);
+        return this;
+    }
+
+    CTaskSimpleCarSetPedInAsPassenger* ScalarDeletingDestructor(uint8 flags); // 0x64B5B0 (lote 176A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86EE04), `ret 4`
+
     // 0x647080
     CTaskSimpleCarSetPedInAsPassenger* Destructor() {
         this->CTaskSimpleCarSetPedInAsPassenger::~CTaskSimpleCarSetPedInAsPassenger();

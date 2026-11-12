@@ -75,5 +75,8 @@ private: // Wrappers for hooks
         this->CTaskSimpleDuck::~CTaskSimpleDuck();
         return this;
     }
+
+    // 0x6939D0 (lote 176A, sin validar): destructor con borrado (ranura 0 de la vtable 0x870BC4), `ret 4`
+    CTaskSimpleDuck* ScalarDeletingDestructor(uint8 flags);
 }; 
 VALIDATE_SIZE(CTaskSimpleDuck, 0x28);

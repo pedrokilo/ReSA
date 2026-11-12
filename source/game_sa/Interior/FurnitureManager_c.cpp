@@ -27,6 +27,8 @@ void FurnitureManager_c::InjectHooks() {
     RH_ScopedClass(FurnitureManager_c);
     RH_ScopedCategory("Interior");
 
+    RH_ScopedInstall(Constructor, 0x591260); // lote 176A (sin validar)
+    RH_ScopedInstall(Destructor, 0x5912E0);  // lote 176A (sin validar)
     RH_ScopedInstall(GetGroupId, 0x5BFB40);
     RH_ScopedInstall(GetSubGroupId, 0x5BFBF0);
     RH_ScopedInstall(Exit, 0x5911A0);
@@ -34,6 +36,36 @@ void FurnitureManager_c::InjectHooks() {
     RH_ScopedInstall(GetRandomId, 0x591220);
     RH_ScopedInstall(LoadFurniture, 0x5C0280);
     RH_ScopedInstall(Init, 0x5C04A0);
+}
+
+// 0x591260 (lote 176A, sin validar; thiscall, sin argumentos de pila, `ret`, 117 bytes con marco SEH que solo desenrolla y aqui se omite): constructor de FurnitureManager_c del EXE. Como el original, en este orden:
+// `eh vector constructor iterator` (0x821D30) de los 9 FurnitureGroup_c (0xC bytes, constructor 0x590DE0, que deja a cero los tres dwords de su lista, 0x4A8DD0), el de los 512 FurnitureItem (0x10 bytes, constructor 0x590E00,
+// que deja a cero solo los dwords +0 y +4 (0x4A8DB0); m_item y los dos words siguientes quedan sin tocar) y el constructor de la lista m_FurnitureList (+0x206C, 0x4A8DD0: tres dwords a cero). Devuelve `this`.
+// El constructor por defecto de la DLL pondria a cero todos los miembros; por eso se escribe a mano. El desenrollado por excepcion no tiene efecto aqui.
+FurnitureManager_c* FurnitureManager_c::Constructor() {
+    static_assert(sizeof(FurnitureGroup_c) == 0xC && sizeof(FurnitureItem) == 0x10 && sizeof(TList_c<FurnitureItem>) == 0xC);
+    static_assert(offsetof(FurnitureManager_c, m_FurnitureItem) == 0x6C && offsetof(FurnitureManager_c, m_FurnitureList) == 0x206C);
+    for (auto& group : m_Groups) {
+        auto* const dwords = reinterpret_cast<uint32*>(&group);
+        dwords[0] = 0;
+        dwords[1] = 0;
+        dwords[2] = 0;
+    }
+    for (auto& item : m_FurnitureItem) {
+        auto* const dwords = reinterpret_cast<uint32*>(&item);
+        dwords[0] = 0;
+        dwords[1] = 0;
+    }
+    auto* const list = reinterpret_cast<uint32*>(&m_FurnitureList);
+    list[0] = 0;
+    list[1] = 0;
+    list[2] = 0;
+    return this;
+}
+
+// 0x5912E0 (lote 176A, sin validar; thiscall, sin argumentos de pila, `ret`, 113 bytes con marco SEH): destructor de FurnitureManager_c del EXE. Destruye la lista (0x4A8DE0: `ret`), los 512 FurnitureItem con
+// `eh vector destructor iterator` (0x821E02; destructor 0x590E10 = `jmp 0x4A8DC0`: `ret`) y los 9 FurnitureGroup_c (destructor 0x590DF0 = `jmp 0x4A8DE0`: `ret`). Ningun destructor escribe memoria: la funcion no hace nada observable.
+void FurnitureManager_c::Destructor() {
 }
 
 // 0x5C04A0

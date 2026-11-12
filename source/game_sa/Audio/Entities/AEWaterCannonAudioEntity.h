@@ -33,6 +33,7 @@ public:
     void UpdateParameters(CAESound* sound, int16 curPlayPos) override;
     void UpdateGenericWaterCannonSound(bool splashInfoEnabled, int16 id, eSoundBankSlot bankSlotId, int16 sfxId, float speed, float volume, CVector posn, float soundDistance);
     void Service();
+    void DestructorBody(); // 0x728AB0 (lote 176A, sin validar): cuerpo del destructor del EXE (vtable 0x872A60)
 
 private:
     friend void InjectHooksMain();

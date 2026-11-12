@@ -34,8 +34,8 @@ void CPedDamageResponseCalculator::InjectHooks() {
     RH_ScopedInstall(AccountForPedArmour, 0x4AD550);
     RH_ScopedInstall(ComputeWillForceDeath, 0x4AD610);
     RH_ScopedInstall(ComputeWillKillPed, 0x4B3210);
-    // 0x4B5C2A es un bloque interno de ComputeDamageResponse, sin ABI de función.
-    // IsBleedingWeapon es el auxiliar nativo de ese bloque; no instalar un hook aquí.
+    // 0x4B5C2A es un bloque interno de ComputeDamageResponse, sin ABI de función (ver reversing/PendienteValidar/176A.md).
+    RH_ScopedInstall(IsBleedingWeapon, 0x4AD800); // lote 176A (sin validar): la función real del EXE; ComputeDamageResponse la lleva en línea (0x4B5C2A)
     RH_ScopedInstall(ComputeDamageResponse, 0x4B5AC0);
 }
 
@@ -266,7 +266,8 @@ void CPedDamageResponseCalculator::ComputeWillKillPed(CPed* ped, CPedDamageRespo
  *
  * @param ped
  * @return
- * @addr 0x4B5C2A inlined
+ * @addr 0x4AD800 (lote 176A: thiscall, un argumento de pila, `ret 4`, 46 bytes: `CPed::IsPlayer` (0x5DF8F0) sobre el peaton; si no es el jugador, verdadero con el tipo
+ *       de arma (+0xC) 4 (cuchillo), 8 (katana) o 9 (motosierra); si no, falso). ComputeDamageResponse repite la misma comprobación en línea (0x4B5C2A).
  */
 bool CPedDamageResponseCalculator::IsBleedingWeapon(CPed* ped) const {
     if (ped->IsPlayer())

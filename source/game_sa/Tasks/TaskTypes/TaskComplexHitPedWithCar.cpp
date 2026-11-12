@@ -36,6 +36,7 @@ void CTaskComplexHitPedWithCar::InjectHooks() {
 
     RH_ScopedGlobalInstall(ComputeEvasiveStepMoveDir, 0x653B40);
 
+    RH_ScopedInstall(HitKillsPed, 0x653AA0); // lote 176A (sin validar)
     RH_ScopedInstall(HitHurtsPed, 0x653AE0);
     RH_ScopedInstall(CreateSubTask, 0x6560E0);
 
@@ -68,6 +69,13 @@ CTaskComplexHitPedWithCar::~CTaskComplexHitPedWithCar() {
 // 0x653B40
 CVector CTaskComplexHitPedWithCar::ComputeEvasiveStepMoveDir(const CPed* ped, CVehicle* veh) {
     return CPedGeometryAnalyser::ComputeEntityDir(*veh, (eDirection)CPedGeometryAnalyser::ComputeEntityHitSide(*ped, *veh)); // Same shit, difference packaging
+}
+
+// 0x653AA0 (lote 176A, sin validar; sin llamadores directos en el EXE: CreateFirstSubTask (0x656300) repite la comprobacion en linea): thiscall, un argumento de pila, `ret 4`, 51 bytes. Verdadero si la magnitud del impacto
+// (+0x10) es MAYOR que el umbral: 20.0 (0x86F128) si el peaton es el jugador (CPed::IsPlayer, 0x5DF8F0) o 12.0 (0x86F120) si no. `fcomp` ordenado: con NaN da falso.
+bool CTaskComplexHitPedWithCar::HitKillsPed(CPed* ped) const {
+    const float threshold = ped->IsPlayer() ? 20.0f : 12.0f;
+    return m_ImpulseMag > threshold;
 }
 
 // 0x653AE0

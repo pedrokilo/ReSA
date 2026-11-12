@@ -110,7 +110,7 @@ void Interior_c::InjectHooks() {
     RH_ScopedCategory("Interior");
 
     //RH_ScopedInstall(Constructor, 0x5921D0, { .reversed = false });
-    //RH_ScopedInstall(Destructor, 0x591360, { .reversed = false });
+    RH_ScopedInstall(Destructor, 0x591360); // lote 176A (sin validar): el EXE solo llama a dos destructores que son un `ret` (0x4A8DE0 sobre +0x5C y 0x4A8DC0)
 
     RH_ScopedInstall(Bedroom_AddTableItem, 0x593F10, { .reversed = true });
     RH_ScopedInstall(FurnishBedroom, 0x593FC0, { .reversed = true });
@@ -3015,6 +3015,8 @@ Interior_c* Interior_c::Constructor() {
     return this;
 }
 
+// 0x591360 (lote 176A, sin validar; thiscall, sin argumentos de pila, `ret`, 76 bytes con marco SEH): destructor de Interior_c del EXE. Destruye m_list (+0x5C, 0x4A8DE0: `ret`) y la base ListItem_c (0x4A8DC0: `ret`):
+// no escribe memoria, la funcion no hace nada observable.
 void Interior_c::Destructor() {}
 
 // --- Funciones reconstruidas con el cuerpo exacto del EXE (antes en InteriorCpp.cpp e InteriorShelfCpp.cpp) ---

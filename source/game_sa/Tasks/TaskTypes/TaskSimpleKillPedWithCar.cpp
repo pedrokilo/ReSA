@@ -26,6 +26,8 @@ void CTaskSimpleKillPedWithCar::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x653C10);
     RH_ScopedInstall(Destructor, 0x653C90);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6563B0); // lote 176A (sin validar)
+    RH_ScopedInstall(ShakePadIfPlayerVehicle, 0x6563D0);  // lote 176A (sin validar)
 
     RH_ScopedInstall(DamageCarBonnet, 0x653CF0);
     RH_ScopedVMTInstall(Clone, 0x655A20);
@@ -74,14 +76,31 @@ void CTaskSimpleKillPedWithCar::DamageCarBonnet(CPed const* ped) {
     flyingObj->ApplyTurnForce(mat.GetUp() * 10.f, mat.GetForward());
 }
 
-// 0x6563D0 (en linea en la DLL)
-static void ShakePadIfPlayerVehicle(CVehicle* car) {
+// 0x6563B0 (lote 176A, sin validar; destructor con borrado de CTaskSimpleKillPedWithCar del EXE, ranura 0 de su vtable 0x86F2C0; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x653C90; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x653C90, con hook),
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleKillPedWithCar* CTaskSimpleKillPedWithCar::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
+}
+
+// 0x6563D0 (lote 176A, sin validar; antes en linea en la DLL; thiscall, sin argumentos de pila, `ret`, 208 bytes; la llama ProcessPed (0x6569B5) con ECX = this): con el coche de la tarea (+8) igual al vehiculo del jugador
+// (FindPlayerVehicle(-1, false), 0x56E0D0), sacude el mando 0: valor = |velocidad| * (1 / masa) * 200000.0 (0x86C688) + 80.0 (0x858A14), limitado a 250.0 (0x859F80), truncado a entero con _ftol (0x821B40) y reducido
+// al byte bajo (frecuencia); CPad::GetPad(0)->StartShake(40000 / frecuencia, frecuencia, 0) (0x53F920). x87 a 24 bits: 1/masa se guarda como float (fstp) y el modulo (suma de cuadrados en el orden x, y, z; fsqrt)
+// se multiplica sin guardar; el EXE recalcula la expresion completa si no supera 250.0 (mismo valor). La frecuencia es >= 80, asi que la division no falla.
+void CTaskSimpleKillPedWithCar::ShakePadIfPlayerVehicle() {
+    CVehicle* const car = m_Car;
     if (FindPlayerVehicle(-1, false) != car) {
         return;
     }
-    // Como el original: velocidad * (1 / masa) * 200000 + 80, limitado a 250 y truncado a byte
-    const auto invMass = 1.f / car->m_fMass;
-    auto value = car->GetMoveSpeed().Magnitude() * invMass * 200'000.f + 80.f;
+    const float invMass = 1.f / car->m_fMass;
+    const float speedX  = car->m_vecMoveSpeed.x;
+    const float speedY  = car->m_vecMoveSpeed.y;
+    const float speedZ  = car->m_vecMoveSpeed.z;
+    float       value   = std::sqrt((speedX * speedX + speedY * speedY) + speedZ * speedZ) * invMass * 200'000.f + 80.f;
     if (value > 250.f) {
         value = 250.f;
     }
@@ -177,7 +196,7 @@ bool CTaskSimpleKillPedWithCar::ProcessPed(CPed* ped) {
     }
     ped->GetEventGroup().Add(&eventDmg, false);
 
-    ShakePadIfPlayerVehicle(car);
+    ShakePadIfPlayerVehicle();
 
     ped->bIsStanding       = false;
     ped->bKnockedUpIntoAir = carDir == FROM_BACK;

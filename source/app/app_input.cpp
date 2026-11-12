@@ -21,6 +21,20 @@ END GENERATED HOOK STATUS */
 #include "app_input.h"
 #include "platform.h"
 #include "ControllerConfigManager.h"
+#include "X87Math.h"
+
+// Lote 176A (sin validar). 0x7448B0 y 0x744930 reciben `RsPadButtonStatus*` en EAX (usercall; sin llamadores directos salvo los `jmp` de PadHandler, 0x744A0F y 0x744A06) y salen con EAX = 1 (rsEVENTPROCESSED) tras
+// preservar EBX, ESI y EDI; ningun llamador lee ECX ni EDX. EntryEaxCpp tiene que ser lo primero que se ejecuta (lo vigila contrib/audit_register_residue.py, objeto `app_input`). Mismo mecanismo que rsCommandLine_Eax
+// (platform.cpp). Las versiones normales (HandlePadButtonDown/Up, mas abajo) las usa el PadHandler de la DLL.
+#pragma runtime_checks("", off)
+__declspec(safebuffers) static RsEventStatus HandlePadButtonDown_Eax() {
+    return HandlePadButtonDown(reinterpret_cast<RsPadButtonStatus*>(EntryEaxCpp()));
+}
+
+__declspec(safebuffers) static RsEventStatus HandlePadButtonUp_Eax() {
+    return HandlePadButtonUp(reinterpret_cast<RsPadButtonStatus*>(EntryEaxCpp()));
+}
+#pragma runtime_checks("", restore)
 
 void AppInputInjectHooks() {
     RH_ScopedCategory("App");
@@ -32,9 +46,9 @@ void AppInputInjectHooks() {
     RH_ScopedGlobalInstall(HandleKeyUp, 0x7443C0);
     RH_ScopedGlobalInstall(KeyboardHandler, 0x744880);
 
-    // Can't hook these, because argument is passed in eax (And I don't feel like dealing with that)
-    //RH_ScopedGlobalInstall(HandlePadButtonDown, 0x7448B0);
-    //RH_ScopedGlobalInstall(HandlePadButtonUp, 0x744930);
+    // Lote 176A (sin validar): el argumento llega en EAX; se engancha con EntryEaxCpp (ver mas arriba)
+    RH_ScopedNamedGlobalInstall(HandlePadButtonDown_Eax, "HandlePadButtonDown", 0x7448B0);
+    RH_ScopedNamedGlobalInstall(HandlePadButtonUp_Eax, "HandlePadButtonUp", 0x744930);
 
     RH_ScopedGlobalInstall(PadHandler, 0x7449F0);
 }
@@ -189,7 +203,8 @@ RsEventStatus KeyboardHandler(RsEvent event, void* param) {
     }
 }
 
-// 0x7448B0
+// 0x7448B0 (lote 176A, sin validar; usercall con el argumento en EAX, `ret`, 123 bytes; enganchada por HandlePadButtonDown_Eax)
+static_assert(offsetof(CControllerConfigManager, m_ButtonStates) == 0xB5C); // el EXE lee los botones en 0xB70CF4 (ControlsManager = 0xB70198)
 RsEventStatus HandlePadButtonDown(RsPadButtonStatus* padButtonStatus) {
     (void)CPad::GetPad(padButtonStatus->padID); // Como el original: se pide el pad pero no se usa
 
@@ -212,7 +227,8 @@ RsEventStatus HandlePadButtonDown(RsPadButtonStatus* padButtonStatus) {
     return rsEVENTPROCESSED;
 }
 
-// 0x744930
+// 0x744930 (lote 176A, sin validar; usercall con el argumento en EAX, `ret`, 179 bytes; enganchada por HandlePadButtonUp_Eax). El modo de la camara activa se lee ANTES de UpdateJoyButtonState.
+static_assert(offsetof(CCamera, m_nActiveCam) == 0x59 && sizeof(CCam) == 0x238 && offsetof(CCamera, m_aCams) + offsetof(CCam, m_nMode) == 0x180); // el EXE lee la camara en 0xB6F081 y 0xB6F1A8 (TheCamera = 0xB6F028)
 RsEventStatus HandlePadButtonUp(RsPadButtonStatus* padButtonStatus) {
     (void)CPad::GetPad(padButtonStatus->padID); // Como el original: se pide el pad pero no se usa
 
