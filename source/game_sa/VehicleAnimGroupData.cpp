@@ -286,6 +286,7 @@ void CVehicleAnimGroupData::InjectHooks()
     RH_ScopedInstall(GetInOutTimings, 0x645630);
     RH_ScopedInstall(GetGroupForAnim, 0x639FC0);
     RH_ScopedInstall(GetAnimDoorOffset, 0x645600);
+    RH_ScopedInstall(ComputeCriticalBlendTime, 0x64E4B0); // lote 171A (banco Fn171A)
     RH_ScopedInstall(UsesTruckDrivingAnims, 0x639FE0);
     RH_ScopedInstall(UsesKartDrivingAnims, 0x6D09E0);
 }
@@ -307,9 +308,12 @@ CVector CVehicleAnimGroupData::GetAnimDoorOffset(AssocGroupId groupId, eVehAnimD
     return CVehicleAnimGroupData::GetVehicleAnimGroup(groupId).ComputeAnimDoorOffsets(doorId);
 }
 
+// 0x64E4B0 (lote 171A, banco Fn171A; cdecl, dos argumentos (grupo, animacion), 41 bytes; devuelve float en ST0): como el original, llama a GetGroup (0x6E3B00, con hook; resultado ignorado) y despues
+// a ComputeCriticalBlendTime (0x6E3C80, con hook) sobre la misma entrada del array de grupos (0xC1CDC0 + grupo * 0x94, sin comprobar el indice) y devuelve su resultado.
 float CVehicleAnimGroupData::ComputeCriticalBlendTime(AssocGroupId groupId, AnimationId animId) {
-    // CVehicleAnimGroupData::GetVehicleAnimGroup(iGroup).GetGroup(animId)
-    return CVehicleAnimGroupData::GetVehicleAnimGroup(groupId).ComputeCriticalBlendTime(animId);
+    auto& group = CVehicleAnimGroupData::GetVehicleAnimGroup(groupId);
+    group.GetGroup(animId);
+    return group.ComputeCriticalBlendTime(animId);
 }
 
 // 0x639FE0

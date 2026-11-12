@@ -24,9 +24,30 @@ END GENERATED HOOK STATUS */
 #include "CarCtrl.h"
 #include "TaskSimpleCarSetPedInAsDriver.h"
 
+namespace {
+// 0x64CEA0 (con hook propio (Destructor)): cuerpo del destructor de CTaskSimpleCreateCarAndGetIn del EXE. Funcion propia sin expansion en linea para que el banco Fn171A pueda sustituirla; la llama el
+// destructor con borrado como el `call 0x64CEA0` del EXE.
+__declspec(noinline) void __fastcall CreateCarAndGetInDestructorBody(CTaskSimpleCreateCarAndGetIn* self, void* /*edx*/) { self->CTaskSimpleCreateCarAndGetIn::~CTaskSimpleCreateCarAndGetIn(); }
+
+// 0x64E480 (lote 171A, banco Fn171A): destructor con borrado de CTaskSimpleCreateCarAndGetIn del EXE (ranura 0 de su vtable 0x86F070; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x64CEA0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this`
+// con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleCreateCarAndGetIn* __fastcall CreateCarAndGetInScalarDeletingDestructor(CTaskSimpleCreateCarAndGetIn* self, void* /*edx*/, uint8 flags) {
+    CreateCarAndGetInDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote171ABody_CTaskSimpleCreateCarAndGetIn() { return reinterpret_cast<uintptr_t>(&CreateCarAndGetInDestructorBody); } // para el banco Fn171A
+
 void CTaskSimpleCreateCarAndGetIn::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCreateCarAndGetIn, 0x86F070, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedNamedGlobalInstall(CreateCarAndGetInScalarDeletingDestructor, "ScalarDeletingDestructor", 0x64E480); // lote 171A (banco Fn171A)
 
     RH_ScopedInstall(Constructor, 0x6493E0);
     RH_ScopedInstall(Destructor, 0x64CEA0);

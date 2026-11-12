@@ -19,7 +19,7 @@ public:
     explicit CTaskComplexArrestPed(CPed* ped);
     ~CTaskComplexArrestPed() override;
 
-    CTask* Clone() const override { return new CTaskComplexArrestPed(m_PedToArrest); }
+    CTask* Clone() const override; // 0x68CD70 (lote 171A, banco Fn171A)
     eTaskType GetTaskType() const override { return Type; }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;
@@ -31,7 +31,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
-    CTaskComplexArrestPed* Constructor(CPed* ped) { this->CTaskComplexArrestPed::CTaskComplexArrestPed(ped); return this; }
+    __declspec(noinline) CTaskComplexArrestPed* Constructor(CPed* ped) { this->CTaskComplexArrestPed::CTaskComplexArrestPed(ped); return this; }
     CTaskComplexArrestPed* Destructor() { this->CTaskComplexArrestPed::~CTaskComplexArrestPed(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexArrestPed, 0x24);

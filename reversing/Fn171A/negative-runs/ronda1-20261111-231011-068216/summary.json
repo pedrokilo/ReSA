@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "2a92942d263cad91a816408365c8248177a23d7fc16c53beb87cbb7343298f09",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CTaskSimpleWaitForPizza::Constructor: 884/2048; CTaskSimpleWaitForPizza::GetTaskType: 884/2048; CTaskSimpleWaitForPizza::MakeAbortable: 892/2048; CTaskSimpleWaitForPizza::DestructorBody: 909/2048; CTaskSimpleWaitForPizza::ProcessPed: 220/2048; CTaskSimpleWaitForPizza::Clone: 738/2048; CTaskSimpleOnEscalator::Clone: 702/2048; CTaskSimpleOnEscalator::GetTaskType: 889/2048; CTaskSimpleOnEscalator::ScalarDeletingDestructor: 470/2048; CTaskSimpleOnEscalator::DestructorBody: 905/2048; CTaskSimpleOnEscalator::ProcessPed: 294/2048; CTaskSimpleStandStill::GetTaskType: 901/2048; CTaskComplexGoToBoatSteeringWheel::GetTaskType: 899/2048; CTaskComplexGoToBoatSteeringWheel::ComputeTargetPos: 403/2048; CTaskSimpleCreateCarAndGetIn::ScalarDeletingDestructor: 433/2048; CVehicleAnimGroupData::ComputeCriticalBlendTime: 458/2048; CTaskSimpleArrestPed::Clone: 674/2048; CTaskComplexArrestPed::Clone: 648/2048; CTaskSimpleArrestPed::ScalarDeletingDestructor: 428/2048; CTaskComplexArrestPed::ScalarDeletingDestructor: 410/2048; CTaskComplexWalkRoundObject::GetTaskType: 894/2048; CTaskComplexWalkRoundObject::DestructorBody: 876/2048; CTaskComplexWalkRoundObject::CreateSubTask: 191/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

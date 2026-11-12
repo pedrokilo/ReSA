@@ -219,6 +219,13 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # Lote 171A: CTaskComplexGoToBoatSteeringWheel::ComputeTargetPos (0x649160): sumas float de la x87 del EXE (un SSE con DAZ/FTZ del juego aplana los denormales que la x87 conserva); el archivo de la clase se compila asi.
+    set_source_files_properties(game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Ob0;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=Disabled;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # CTask::Destructor (0x61A3A0) es `mov [ecx], 0x86D48C; ret`: sus 259 llamadores del EXE (148 con `jmp` final) conservan EAX, ECX y EDX, asi que el cuerpo
     # no puede llevar marco ni comprobaciones. Se optimiza por pragma, que solo actua con /Zi y sin comprobaciones de ejecucion.
     set_source_files_properties(game_sa/Tasks/Task.cpp PROPERTIES

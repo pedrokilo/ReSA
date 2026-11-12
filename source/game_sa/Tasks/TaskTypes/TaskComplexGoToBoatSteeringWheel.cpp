@@ -16,11 +16,19 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
+// Este archivo se compila completo con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt):
+// ComputeTargetPos (0x649160) suma con la x87 del EXE (sin el aplanado de denormales del SSE del juego).
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include "StdInc.h"
 
 #include "TaskComplexGoToBoatSteeringWheel.h"
 #include "TaskSimpleStandStill.h"
 #include "TaskComplexGoToPointAndStandStill.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 void CTaskComplexGoToBoatSteeringWheel::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGoToBoatSteeringWheel, 0x86f018, 11);
@@ -28,8 +36,10 @@ void CTaskComplexGoToBoatSteeringWheel::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x649090);
     RH_ScopedInstall(Destructor, 0x649100);
+    RH_ScopedInstall(ComputeTargetPos, 0x649160); // lote 171A (banco Fn171A)
 
     RH_ScopedVMTInstall(Clone, 0x64A350);
+    RH_ScopedVMTInstall(GetTaskType, 0x6490F0); // lote 171A (banco Fn171A): retorno de constante
     RH_ScopedVMTInstall(CreateNextSubTask, 0x64E350);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x64E390);
     RH_ScopedVMTInstall(ControlSubTask, 0x64E3B0);
@@ -60,20 +70,24 @@ CTask* CTaskComplexGoToBoatSteeringWheel::CreateNextSubTask(CPed* ped) {
     }
 }
 
-// 0x649160
+// 0x649160 (lote 171A, banco Fn171A; thiscall, sin argumentos de pila, `ret`, 172 bytes): punto de la rueda del timon en el mundo. Toma el model info del vehiculo (indice de modelo con signo), su dummy 0
+// (DUMMY_LIGHT_FRONT_MAIN) si es un barco o el 4 (DUMMY_SEAT_FRONT) si no, lo copia, lo multiplica por la matriz 3x3 del vehiculo con Multiply3x3 (0x59C790, con hook; recibe el puntero de la matriz tal cual,
+// aunque sea nulo) y le suma la posicion del vehiculo (la de la matriz si la tiene, si no la de su placement) componente a componente con redondeo a float tras cada suma.
+static_assert(offsetof(CVehicleModelInfo, m_nVehicleType) == 0x3C && offsetof(CVehicleModelInfo, m_pVehicleStruct) == 0x5C); // los desplazamientos que lee 0x649160
+
 void CTaskComplexGoToBoatSteeringWheel::ComputeTargetPos() {
-    // Como el original: tipo de vehiculo del model info, Multiply3x3 (0x59C790) con la matriz del vehiculo y el orden
-    // de sumas del EXE, y despues la posicion
-    const auto* const mi = CModelInfo::GetModelInfo(m_Vehicle->m_nModelIndex)->AsVehicleModelInfoPtr();
+    const auto* const mi = static_cast<const CVehicleModelInfo*>(CModelInfo::GetModelInfo(static_cast<int16>(m_Vehicle->m_nModelIndex))); // sin la comprobacion virtual de AsVehicleModelInfoPtr, como el EXE
     const CVector d = mi->m_pVehicleStruct->m_avDummyPos[mi->m_nVehicleType == VEHICLE_TYPE_BOAT ? DUMMY_LIGHT_FRONT_MAIN : DUMMY_SEAT_FRONT];
-    const CMatrix& m = *m_Vehicle->m_matrix;
-    const CVector r{
-        m.GetUp().x * d.z + m.GetForward().x * d.y + m.GetRight().x * d.x,
-        m.GetUp().y * d.z + m.GetRight().y * d.x + m.GetForward().y * d.y,
-        m.GetUp().z * d.z + m.GetRight().z * d.x + m.GetForward().z * d.y,
-    };
+    CVector r;
+    Multiply3x3Exe(&r, m_Vehicle->m_matrix, &d);
     const CVector& pos = m_Vehicle->GetPosition();
     m_TargetPos = CVector{ r.x + pos.x, r.y + pos.y, r.z + pos.z };
+}
+
+// 0x6490F0 (lote 171A, banco Fn171A; thiscall, `ret`, 6 bytes: `mov eax,33Eh`): TASK_COMPLEX_GO_TO_BOAT_STEERING_WHEEL (830); no lee el objeto (ranura 4 de la vtable 0x86F018).
+eTaskType CTaskComplexGoToBoatSteeringWheel::GetTaskType() const {
+    static_assert(Type == 0x33E);
+    return Type;
 }
 
 // 0x64CDA0

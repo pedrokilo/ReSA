@@ -15,7 +15,7 @@ public:
     ~CTaskSimpleArrestPed() override;
 
     eTaskType GetTaskType() const override; // 0x68B680 (lote 167A, banco Fn167A)
-    CTask* Clone() const override { return new CTaskSimpleArrestPed(m_Ped); } // 0x68CD10
+    CTask* Clone() const override; // 0x68CD10 (lote 171A, banco Fn171A)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed*) override;
     void StartAnim(CPed* ped);

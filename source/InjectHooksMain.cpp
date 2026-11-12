@@ -386,6 +386,7 @@
 #include "TaskComplexWanderProstitute.h"
 #include "TaskComplexWalkRoundBuildingAttempt.h"
 #include "TaskSimpleLookAbout.h"
+#include "TaskSimpleOnEscalator.h"
 #include "TaskComplexEvasiveDiveAndGetUp.h"
 #include "TaskComplexPartnerGreet.h"
 #include "Interior/TaskInteriorShopKeeper.h"
@@ -1320,7 +1321,7 @@ void InjectHooksMain() {
         CTaskSimpleKillPedWithCar::InjectHooks();
         CTaskSimpleHurtPedWithCar::InjectHooks();
         CTaskSimpleLookAbout::InjectHooks();
-        // CTaskSimpleOnEscalator::InjectHooks();
+        CTaskSimpleOnEscalator::InjectHooks(); // lote 171A (banco Fn171A)
         CTaskSimplePickUpBike::InjectHooks();
         CTaskSimplePlayerOnFire::InjectHooks();
         // CTaskSimpleRunAnimLoopedMiddle::InjectHooks();

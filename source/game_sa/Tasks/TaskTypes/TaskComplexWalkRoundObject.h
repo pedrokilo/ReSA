@@ -26,13 +26,14 @@ public:
     CTaskComplexWalkRoundObject(int32 moveState, const CVector& targetPoint, CEntity* object);
     ~CTaskComplexWalkRoundObject() override;
 
-    eTaskType GetTaskType() const override { return Type; }
+    eTaskType GetTaskType() const override; // 0x6550C0 (lote 171A, banco Fn171A)
     CTask* Clone() const override { return new CTaskComplexWalkRoundObject(m_moveState, m_targetPoint, m_object); }
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;
     CTask* ControlSubTask(CPed* ped) override;
 
     CTask* CreateRouteTask(CPed* ped);
+    CTask* CreateSubTask(eTaskType taskType, CPed* ped); // 0x655290 (lote 171A, banco Fn171A)
 
     // 0x6551D0: calcula la ruta alrededor del objeto (con margen 0.7) y devuelve la distancia con signo del peaton al plano del lado que toca
     // Devuelve double a proposito: el original deja el resultado en ST0 sin guardarlo como float (24 bits de mantisa, exponente ampliado)

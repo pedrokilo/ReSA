@@ -49999,6 +49999,1168 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia cinco a clases equivocadas): GetEventType, GetLifeTime, GetEventPriority, AffectsPed, Clone, destructor con borrado y cuerpo del destructor de CEventLeanOnVehicle, CEventPassObject y CEventNewGangMember (menos el cuerpo de CEventPassObject, que ya tenia hook), constructor desde desplazamiento de CEntitySeekPosCalculatorXYOffset, tercera copia del cuerpo del destructor de CEntitySeekPosCalculator, constructor de CEventScanner y CDecisionMakerTypes::CopyDecisionMaker. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (CEvent::operator new y delete, constructores de los tres eventos, cuerpo del destructor de CEventPassObject, ~CEvent, CleanUpOldReference, CAttractorScanner::Clear, AddDecisionMaker y rand/CGeneral::GetRandomNumber); _ftol del CRT corre real. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (peds, vehiculos, escaneres reales), memoria de operator new real, el tiempo del juego en marcha y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn168A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleWaitForPizza",
+        "fn_name": "Constructor",
+        "address": "0x00632B30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleWaitForPizza::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleWaitForPizza",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleWaitForPizza::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00632B50"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleWaitForPizza",
+        "fn_name": "MakeAbortable",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleWaitForPizza::MakeAbortable"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00632B60"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleWaitForPizza",
+        "fn_name": "DestructorBody",
+        "address": "0x00632B70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleWaitForPizza::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleWaitForPizza",
+        "fn_name": "ProcessPed",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleWaitForPizza::ProcessPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00632B80"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleWaitForPizza",
+        "fn_name": "Clone",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleWaitForPizza::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00636B40"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleOnEscalator",
+        "fn_name": "Clone",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleOnEscalator::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B86C0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleOnEscalator",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleOnEscalator::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B8720"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleOnEscalator",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x004B8730",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleOnEscalator::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleOnEscalator",
+        "fn_name": "DestructorBody",
+        "address": "0x004B8750",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleOnEscalator::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleOnEscalator",
+        "fn_name": "ProcessPed",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleOnEscalator::ProcessPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0062F520"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleStandStill",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleStandStill::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0062F350"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGoToBoatSteeringWheel",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexGoToBoatSteeringWheel::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006490F0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGoToBoatSteeringWheel",
+        "fn_name": "ComputeTargetPos",
+        "address": "0x00649160",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexGoToBoatSteeringWheel::ComputeTargetPos"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleCreateCarAndGetIn",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x0064E480",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleCreateCarAndGetIn::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicleAnimGroupData",
+        "fn_name": "ComputeCriticalBlendTime",
+        "address": "0x0064E4B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CVehicleAnimGroupData::ComputeCriticalBlendTime"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleArrestPed",
+        "fn_name": "Clone",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleArrestPed::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0068CD10"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexArrestPed",
+        "fn_name": "Clone",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexArrestPed::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0068CD70"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleArrestPed",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x0068CF40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleArrestPed::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexArrestPed",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x0068CF60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexArrestPed::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWalkRoundObject",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexWalkRoundObject::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006550C0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWalkRoundObject",
+        "fn_name": "DestructorBody",
+        "address": "0x006550D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexWalkRoundObject::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWalkRoundObject",
+        "fn_name": "CreateSubTask",
+        "address": "0x00655290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn171A/validation-summary.json",
+        "sha256": "744316c357f8f6ab258c1bd410a4a7075400dd2995a4b3e0e66448ebbe43f406",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexWalkRoundObject::CreateSubTask"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "268f205abced6067af070eb41bd46a3b144ce482f2e5969d908ba4ed71f663b8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp": "327a0450270f62619bd8252a56919082099c1674bb6a186541b75694c74bc942",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h": "077203e1f0f9d18a7d331b633fac7d9798c458732b8702fb5238285adc0ab014",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "dea501ae0fd6ad6c88845bb9e523bf81295f7667f421b29362566f5443961731",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "c0c4dd1f4dff8c054d1b90aac0f5b0e5ae5eaff87819220865dcc6ccdf7da0fe",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2a8ccda16078366c3eac682a3be1255cac9134f06de993c53ba1bd4bddf462a8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "952ab1344bc8cdb3e858b2e149df5dbc8fa3c47841223cff8dfb0882df58e17a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp": "62950477ba5f8ae3de4c359d77b40f6601d5928e0b9ae48f1448c6e88fcb28c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h": "3ca6dc0a078bd426348a5e00ddab620f1c91dfe73d0f03cf291c6eaf63b7b505",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "e297ca0adc05471b78eb7e478ad8bb13234f0c3a3eaa9c7fe3e3636f91382cfc",
+        "source/game_sa/VehicleAnimGroupData.cpp": "afd045b83ed971e0a84926c737973d3468f202e8974b1fd8e8e60702a757f261",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "78121902de7bd06e9daf59f9386934ee59bb448ba7986734c348b91f44be6fec",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "5b5837a3e0006eed45665fafa9f8dce31191abd0d4617d0d825ccc7c08b8e689",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "906ce731ba3a4bd527b8b90118c2e9f326497ccd52b6cc67995a9f5412d69f95",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "4cd62295c27e3776bdbb7efb8f0f59d7f679a14ee6672bf6b4a7d8de4c8a64fc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "61c42f20235a27b25857a400dd9aaa185a4708de1152d79ab8730e445f93fbc2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "ff2d3f5531868dadaec7a4e049043337cc117b240aa5d260d41de8399176cbaf",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn171A/LiveComparison.hpp": "531a9be36af3f91fe065a3a4f412bf6b698ab850bfa8d8828ecb380a584b9dd6",
+        "reversing/Fn171A/Core.hpp": "6197c2351f1f34f59d8fc3aaa9a5221746352ebd5b5d05d7c7e3f4a3d86c3c12",
+        "reversing/Fn171A/Fixtures.hpp": "a471e00b30a5c079934bacc0b5a49323142a6d0d3cf20d496acb96973681fd39",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 19c9abfe5e con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook de nueve clases de tareas y CVehicleAnimGroupData (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, peds, vehiculos y model infos reales, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn171A/README.md"
     }
   ]
 }

@@ -26,7 +26,7 @@ void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
 
 namespace {
 // 0x68B620 (lote 115A, banco Fn115A): cuerpo del constructor de CTaskSimpleArrestPed del EXE (thiscall, un puntero a entidad en la pila, `ret 4`, devuelve this). Base CTaskSimple (0x61A390), vtable 0x870984, el peaton en +8, byte +0xC y dword +0x10 a cero y, si el peaton no es nulo, CEntity::RegisterReference (0x571B70) sobre +8.
-CTaskSimpleArrestPed* __fastcall ArrestPedConstructorBody(CTaskSimpleArrestPed* self, void* /*edx*/, CEntity* ped) {
+__declspec(noinline) CTaskSimpleArrestPed* __fastcall ArrestPedConstructorBody(CTaskSimpleArrestPed* self, void* /*edx*/, CEntity* ped) {
     CTaskSimpleBody::Constructor(self, nullptr);
     uint8* const bytes = reinterpret_cast<uint8*>(self);
     *reinterpret_cast<uint32*>(bytes) = 0x870984;
@@ -56,6 +56,17 @@ __declspec(noinline) void __fastcall ArrestPedDestructorBody(CTaskSimpleArrestPe
     }
     self->CTask::Destructor();
 }
+
+// 0x68CF40 (lote 171A, banco Fn171A): destructor con borrado de CTaskSimpleArrestPed del EXE (ranura 0 de su vtable 0x870984; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x68B690; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x68B690, con hook),
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleArrestPed* __fastcall ArrestPedScalarDeletingDestructor(CTaskSimpleArrestPed* self, void* /*edx*/, uint8 flags) {
+    ArrestPedDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskSimpleArrestPed__InjectHooks() {
@@ -63,6 +74,8 @@ void CTaskSimpleArrestPed__InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(ArrestPedConstructorBody, "Constructor", 0x68B620);
     RH_ScopedNamedGlobalInstall(ArrestPedDestructorBody, "DestructorBody", 0x68B690); // lote 167A (banco Fn167A)
+    RH_ScopedNamedGlobalInstall(ArrestPedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x68CF40); // lote 171A (banco Fn171A)
+    RH_ScopedVMTInstall(Clone, 0x68CD10); // lote 171A (banco Fn171A)
     RH_ScopedVMTInstall(GetTaskType, 0x68B680); // lote 167A (banco Fn167A): retorno de constante
 
     RH_ScopedVMTInstall(MakeAbortable, 0x68B740);
@@ -81,6 +94,16 @@ CTaskSimpleArrestPed::CTaskSimpleArrestPed(CPed* ped) {
 // 0x68B680 (lote 167A, banco Fn167A; thiscall, `ret`, 6 bytes: `mov eax,44Ch`): TASK_SIMPLE_ARREST_PED (1100); no lee el objeto (ranura 4 de la vtable 0x870984; el listado lo atribuia a CTaskSimpleSwim).
 eTaskType CTaskSimpleArrestPed::GetTaskType() const {
     return Type;
+}
+
+// 0x68CD10 (lote 171A, banco Fn171A; 96 bytes con marco SEH que solo desenrolla): CTask::operator new(0x14) (0x61A5A0); si no es nulo, el cuerpo del constructor (0x68B620, con hook) con el ped
+// (+8) y devuelve su EAX (this); si no hubo memoria devuelve nulo.
+CTask* CTaskSimpleArrestPed::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleArrestPed));
+    if (!memory) {
+        return nullptr;
+    }
+    return ArrestPedConstructorBody(static_cast<CTaskSimpleArrestPed*>(memory), nullptr, m_Ped);
 }
 
 // 0x68B690

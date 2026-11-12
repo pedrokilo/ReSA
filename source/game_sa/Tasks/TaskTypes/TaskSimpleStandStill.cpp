@@ -21,7 +21,7 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleStandStill.h"
 #include "TaskSimpleDuck.h"
 
-namespace {
+namespace CTaskSimpleStandStillBody {
 // 0x62F360 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CTaskSimpleStandStill que usan los destructores del EXE y de sus subclases. Deja la vtable de
 // CTaskSimpleStandStill del EXE (0x86DD2C) y salta a CTask::Destructor (0x61A3A0), que la cambia a la de CTask (0x86D48C). No toca mas memoria; los llamadores solo conservan los
 // registros no volatiles. __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos de pila (lote 106A, banco Fn106A).
@@ -29,7 +29,9 @@ void __fastcall StandStillDestructorBody(CTaskSimpleStandStill* self, void* /*ed
     *reinterpret_cast<uint32*>(self) = 0x86DD2C;
     self->CTask::Destructor();
 }
-} // namespace
+} // namespace CTaskSimpleStandStillBody
+
+using CTaskSimpleStandStillBody::StandStillDestructorBody;
 
 void CTaskSimpleStandStill::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleStandStill, 0x86DD2C, 9);
@@ -37,6 +39,7 @@ void CTaskSimpleStandStill::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x62F310);
     RH_ScopedNamedGlobalInstall(StandStillDestructorBody, "Destructor", 0x62F360);
+    RH_ScopedVMTInstall(GetTaskType, 0x62F350); // lote 171A (banco Fn171A): retorno de constante
     RH_ScopedVMTInstall(MakeAbortable, 0x4B8690);
     RH_ScopedVMTInstall(ProcessPed, 0x62F370);
 }
@@ -47,6 +50,12 @@ CTaskSimpleStandStill::CTaskSimpleStandStill(int32 nTime, bool Looped, bool bUse
     m_fBlendData = fBlendData;
     m_bLooped = Looped;
     m_bUseAnimIdleStance = bUseAnimIdleStance;
+}
+
+// 0x62F350 (lote 171A, banco Fn171A; thiscall, `ret`, 6 bytes: `mov eax,0CBh`): TASK_SIMPLE_STAND_STILL (203); no lee el objeto (ranura 4 de la vtable 0x86DD2C).
+eTaskType CTaskSimpleStandStill::GetTaskType() const {
+    static_assert(Type == 0xCB);
+    return Type;
 }
 
 // 0x4B8690

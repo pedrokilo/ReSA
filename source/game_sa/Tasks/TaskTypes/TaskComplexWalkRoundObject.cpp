@@ -34,10 +34,31 @@ END GENERATED HOOK STATUS */
 #pragma warning(pop)
 #endif
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
+namespace {
+// 0x6550D0 (lote 171A, banco Fn171A; thiscall, sin argumentos de pila, `ret`, 106 bytes con marco SEH que solo desenrolla): cuerpo del destructor de CTaskComplexWalkRoundObject del EXE. Deja la vtable de la clase
+// del EXE (0x86F364); si hay objeto (+1Ch) llama a CEntity::CleanUpOldReference (0x571A00, con hook) con la direccion del campo; si hay ruta (+20h) la libera con CPointRoute::operator delete (0x41B7D0, con hook);
+// y termina con el cuerpo de ~CTaskComplex (0x61A3D0, con hook). No pone a nulo ningun campo. Funcion propia sin expansion en linea para que el banco pueda sustituirla.
+__declspec(noinline) void __fastcall WalkRoundObjectDestructorBody(CTaskComplexWalkRoundObject* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86F364;
+    CEntity::SafeCleanUpRef(self->m_object);
+    if (self->m_pointRoute) {
+        delete self->m_pointRoute; // CPointRoute::operator delete (0x41B7D0)
+    }
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexWalkRoundObject::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexWalkRoundObject, 0x86F364, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedGlobalInstall(WalkRoundObjectDestructorBody, "DestructorBody", 0x6550D0); // lote 171A (banco Fn171A)
+    RH_ScopedVMTInstall(GetTaskType, 0x6550C0);                                             // lote 171A
+    RH_ScopedInstall(CreateSubTask, 0x655290);                                              // lote 171A
     RH_ScopedInstall(Constructor, 0x655020);
     RH_ScopedInstall(CreateRouteTask, 0x655140);
     RH_ScopedInstall(ComputeRouteRoundObject, 0x6551D0);
@@ -79,6 +100,31 @@ CTaskComplexWalkRoundObject::~CTaskComplexWalkRoundObject() {
 CTaskComplexWalkRoundObject* CTaskComplexWalkRoundObject::Constructor(int32 moveState, const CVector& targetPoint, CEntity* object) {
     this->CTaskComplexWalkRoundObject::CTaskComplexWalkRoundObject(moveState, targetPoint, object);
     return this;
+}
+
+// 0x6550C0 (lote 171A, banco Fn171A; thiscall, `ret`, 6 bytes: `mov eax,1FEh`): TASK_COMPLEX_WALK_ROUND_OBJECT (510); no lee el objeto (ranura 4 de la vtable 0x86F364).
+eTaskType CTaskComplexWalkRoundObject::GetTaskType() const {
+    static_assert(Type == 0x1FE);
+    return Type;
+}
+
+// 0x655290 (lote 171A, banco Fn171A; thiscall, tipo y ped en la pila, `ret 8`, 161 bytes con marco SEH que solo desenrolla): subtarea por tipo. TASK_SIMPLE_STAND_STILL (0xCB): CTask::operator new(0x20)
+// (0x61A5A0) y, si hay memoria, CTaskSimpleStandStill (0x62F310, con hook) con (500, false, false, 8.0f); sin memoria devuelve nulo. TASK_COMPLEX_FOLLOW_POINT_ROUTE (0x389): CreateRouteTask (0x655140, con hook)
+// con el ped y devuelve su resultado. TASK_FINISHED (0x516) y cualquier otro tipo: nulo.
+CTask* CTaskComplexWalkRoundObject::CreateSubTask(eTaskType taskType, CPed* ped) {
+    switch (taskType) {
+    case TASK_SIMPLE_STAND_STILL: {
+        void* const memory = CTask::operator new(sizeof(CTaskSimpleStandStill));
+        if (!memory) {
+            return nullptr;
+        }
+        return static_cast<CTaskSimpleStandStill*>(memory)->Constructor(500, false, false, 8.0f); // el EXE devuelve el EAX del constructor
+    }
+    case TASK_COMPLEX_FOLLOW_POINT_ROUTE:
+        return CreateRouteTask(ped);
+    default: // TASK_FINISHED y cualquier otro tipo
+        return nullptr;
+    }
 }
 
 // 0x6575F0

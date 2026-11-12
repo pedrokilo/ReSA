@@ -20,7 +20,7 @@ public:
     void ComputeTargetPos();
     bool HasAchievedPoint() const { return m_bAchievedPoint; }
 
-    eTaskType GetTaskType() const override { return Type; }
+    eTaskType GetTaskType() const override; // 0x6490F0 (lote 171A, banco Fn171A)
     CTask* Clone() const override { return new CTaskComplexGoToBoatSteeringWheel(m_Vehicle); } // 0x64A350
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;
