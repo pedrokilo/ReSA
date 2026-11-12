@@ -58,9 +58,20 @@ void CTaskSimpleDrownInCar::InjectHooks() {
     RH_ScopedNamedGlobalInstall(DrownInCarConstructorBody, "Constructor", 0x62FF20);                       // lote 177A (sin validar)
     RH_ScopedNamedGlobalInstall(DrownInCarDestructorBody, "DestructorBody", 0x62FF60);                     // lote 177A (sin validar)
     RH_ScopedNamedGlobalInstall(DrownInCarScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6378F0); // lote 177A (sin validar)
+    RH_ScopedVMTInstall(Clone, 0x636010);                                                                  // lote 181A (sin validar): ranura 1
     RH_ScopedVMTInstall(GetTaskType, 0x62FF40);                                                            // lote 177A (sin validar): retorno de constante
     RH_ScopedVMTInstall(MakeAbortable, 0x62FF50);                                                          // lote 177A (sin validar): siempre falso
     RH_ScopedVMTInstall(ProcessPed, 0x62FF70);
+}
+
+// 0x636010 (lote 181A, sin validar; el listado decia CTaskSimpleDieInCar; ranura 1 de la vtable 0x86DE54; thiscall, `ret`, 80 bytes con marco SEH que solo desenrolla la reserva): reserva 8 bytes con CTask::operator new
+// (0x61A5A0) y, si no es nulo, construye con el constructor del EXE (0x61A390 de CTaskSimple y la vtable 0x86DE54, expandido en linea; aqui DrownInCarConstructorBody); devuelve la tarea o nulo. No lee el objeto.
+CTask* CTaskSimpleDrownInCar::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleDrownInCar));
+    if (!memory) {
+        return nullptr;
+    }
+    return DrownInCarConstructorBody(static_cast<CTaskSimpleDrownInCar*>(memory), nullptr);
 }
 
 // 0x62FF40 (lote 177A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,0D8h`): TASK_SIMPLE_DROWN_IN_CAR (216); no lee el objeto (ranura 4 de la vtable 0x86DE54).

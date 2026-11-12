@@ -58,12 +58,27 @@ void CTaskComplexDie::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x630040);
     RH_ScopedNamedGlobalInstall(DieDestructorBody, "Destructor", 0x6300C0);
     RH_ScopedNamedGlobalInstall(DieScalarDeletingDestructor, "ScalarDeletingDestructor", 0x637910); // lote 177A (sin validar)
+    RH_ScopedVMTInstall(Clone, 0x636060);            // lote 181A (sin validar): ranura 1
     RH_ScopedVMTInstall(GetTaskType, 0x6300B0);      // lote 139A (banco Fn139A): retorno de constante (217)
     RH_ScopedVMTInstall(ControlSubTask, 0x630580);   // lote 139A: devuelve m_pSubTask (`mov eax,[ecx+8]; ret 4`)
     RH_ScopedVMTInstall(MakeAbortable, 0x6300D0);
     RH_ScopedInstall(SayDeathSample, 0x630100);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x6301E0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x6302D0);
+}
+
+// 0x636060 (lote 181A, sin validar; el listado decia CTaskSimpleDieInCar; ranura 1 de la vtable 0x86DE78; thiscall, `ret`, 152 bytes con marco SEH que solo desenrolla la reserva): reserva 0x28 bytes con CTask::operator new
+// (0x61A5A0) y, si no es nulo, llama al constructor del EXE (0x630040, aqui con hook: Constructor) con los nueve argumentos de pila: arma (+0xC), grupo de animacion (+0x10), animacion (+0x14), velocidad de mezcla
+// (+0x18), velocidad de animacion (+0x1C), bits 0, 1 y 2 de las banderas (+0x20: matar con sigilo, caer a la muerte y caer sobre la barandilla; el EXE los empuja como dword con mascara 0xFFFFFF01 y el constructor solo lee
+// el byte bajo) y la direccion (+0x24, dword entero); devuelve la tarea o nulo. El orden de los argumentos del constructor C++ no es el de la pila: el hook recibe (sigilo, caida, direccion, barandilla).
+CTask* CTaskComplexDie::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskComplexDie));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CTaskComplexDie*>(memory)->Constructor(
+        m_nWeaponType, m_nAnimGroup, m_nAnimID, m_fBlendDelta, m_fAnimSpeed,
+        m_bBeingKilledByStealth, m_bFallingToDeath, m_nFallToDeathDir.m_Value, m_bFallToDeathOverRailing);
 }
 
 // Como el original: el hook recibe la dirección como dword completo y la guarda entera en +0x24

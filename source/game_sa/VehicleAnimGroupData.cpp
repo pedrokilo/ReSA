@@ -29,10 +29,21 @@ END GENERATED HOOK STATUS */
 
 #include "VehicleAnimGroupData.h"
 
+namespace {
+// 0x5BD420 (lote 181A, sin validar; el listado decia CPopulation): constructor de CVehicleAnimGroup del EXE (thiscall, sin argumentos de pila, `ret`, 113 bytes; lo llama 0x5BE149). Pone a cero los dos bytes +0, +1 (el relleno +2..+3
+// no se toca), las banderas (+4, +8), los cinco floats de tiempos generales (+0xC), los ocho de entrada/salida (+0x20) y SOLO los cinco primeros de los siete desplazamientos de puerta (+0x40, 0xC cada uno; los dos ultimos
+// quedan sin inicializar); devuelve this. El constructor C++ de la clase hace exactamente eso, asi que se construye en el sitio con el.
+__declspec(noinline) CVehicleAnimGroup* __fastcall VehicleAnimGroupConstructorExe(CVehicleAnimGroup* self, void* /*edx*/) {
+    new (self) CVehicleAnimGroup();
+    return self;
+}
+} // namespace
+
 void CVehicleAnimGroup::InjectHooks() {
     RH_ScopedClass(CVehicleAnimGroup);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedNamedGlobalInstall(VehicleAnimGroupConstructorExe, "Constructor", 0x5BD420); // lote 181A (sin validar)
     RH_ScopedInstall(InitAnimGroup, 0x5B9EB0);
     RH_ScopedInstall(CopyAnimGroup, 0x5B9E40);
     RH_ScopedInstall(GetGroup, 0x6E3B00);

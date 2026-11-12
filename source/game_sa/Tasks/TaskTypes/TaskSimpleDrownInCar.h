@@ -11,7 +11,7 @@ public:
 
     eTaskType GetTaskType() const override; // 0x62FF40 (lote 177A, sin validar)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override; // 0x62FF50 (lote 177A, sin validar)
-    CTask* Clone() const override { return new CTaskSimpleDrownInCar(); } // 0x636010
+    CTask* Clone() const override; // 0x636010 (lote 181A, sin validar)
     bool ProcessPed(CPed* ped) override;
 
 private:

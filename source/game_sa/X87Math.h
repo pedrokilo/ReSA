@@ -2351,3 +2351,7 @@ bool __cdecl Hp177ALeanSideAheadHeadingCpp(float heading, const float* ped, cons
 // CTaskComplexGangFollower::CalculateOffsetPosition (0x65ED40), rama del lider quieto: distancia al cuadrado entre la posicion del lider (3 floats) y la ultima guardada (3 floats) calculada como
 // ((dz*dz) + (dy*dy)) + (dx*dx) con la x87 sin redondeos intermedios a float, comparada con 9.0f (`fcomp; test ah,41h; je`): devuelve verdadero solo si es MAYOR (ordenado; con NaN es falso).
 bool __cdecl Hp179AFollowerFarFromLastCpp(const float* leader, const float* last);
+
+// Lote 181A (sin validar).
+// 0x45AF40 (CMatrix::ScaleAll): multiplica por `factor` las tres primeras componentes de las cuatro filas de 16 bytes de `matrix` (12 floats utiles) con fld/fmul/fstp por componente en la x87 (24 bits, conserva denormales).
+void __cdecl MatrixScaleAllCpp(float* matrix, float factor);

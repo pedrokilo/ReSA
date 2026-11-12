@@ -27,9 +27,25 @@ END GENERATED HOOK STATUS */
 
 namespace CTaskComplexBody {
 void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
 }
 
 namespace {
+// 0x62FC80 (lote 181A, sin validar; el listado decia CTaskSimpleDieInCar): cuerpo del constructor de CTaskComplexDieInCar del EXE (thiscall, un argumento de pila, `ret 4`, 41 bytes: `push esi; mov esi,ecx; call 0x61A3B0;
+// mov eax,[esp+8]; mov [esi+0Ch],eax; xor eax,eax; mov [esi],86DE04h; mov [esi+10h],eax; mov [esi+14h],eax; mov [esi+18h],al; mov [esi+19h],al; mov eax,esi; pop esi; ret 4`). Base CTaskComplex (0x61A3B0, con hook), arma (+0xC),
+// vtable de la clase del EXE (0x86DE04), tiempo (+0x10) y desplazamiento (+0x14) a cero y los dos bytes +0x18 y +0x19 a cero; devuelve this. Clone (0x635F90) lo lleva expandido en linea; lo llaman ademas otros
+// constructores del EXE (sin llamadores directos de call en este lote). Funcion propia (la clase usa el constructor generado por el compilador).
+__declspec(noinline) CTaskComplexDieInCar* __fastcall CTaskComplexDieInCarConstructorBody(CTaskComplexDieInCar* self, void* /*edx*/, eWeaponType weaponType) {
+    CTaskComplexBody::Constructor(self, nullptr);
+    self->m_nWeaponType = weaponType;
+    *reinterpret_cast<uint32*>(self) = 0x86DE04;
+    self->m_nTimeMS           = 0;
+    self->m_nOffset           = 0;
+    self->m_bPreparedForDeath = false;
+    self->m_bUpdateTime       = false;
+    return self;
+}
+
 // 0x62FCF0 (lote 163A, banco Fn163A; thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],86DE04h; jmp 0x61A3D0`): cuerpo del destructor de CTaskComplexDieInCar del EXE. Deja la vtable de la clase
 // del EXE (0x86DE04) y sigue con el cuerpo de ~CTaskComplex (0x61A3D0, con hook). Antes la DLL usaba el destructor generado de la clase (que deja la vtable de la DLL). Funcion propia sin expansion en linea
 // para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x62FCF0` del EXE.
@@ -55,7 +71,10 @@ uintptr_t Lote159ABody_CTaskComplexDieInCar() { return reinterpret_cast<uintptr_
 void CTaskComplexDieInCar::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexDieInCar, 0x86DE04, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexDieInCarConstructorBody, "Constructor", 0x62FC80); // lote 181A (sin validar)
     RH_ScopedNamedGlobalInstall(CTaskComplexDieInCarDestructorBody, "DestructorBody", 0x62FCF0); // lote 163A (banco Fn163A)
+    RH_ScopedVMTInstall(GetTaskType, 0x62FCB0); // lote 181A (sin validar): ranura 4
+    RH_ScopedVMTInstall(Clone, 0x635F90);       // lote 181A (sin validar): ranura 1
     RH_ScopedNamedGlobalInstall(CTaskComplexDieInCarScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6375D0); // lote 159A (banco Fn159A)
 
     RH_ScopedVMTInstall(ControlSubTask, 0x6377B0);
@@ -73,6 +92,21 @@ CTaskComplexDieInCar::CTaskComplexDieInCar(eWeaponType weaponType) : CTaskComple
     m_nOffset           = 0;
     m_bPreparedForDeath = false;
     m_bUpdateTime       = false;
+}
+
+// 0x62FCB0 (lote 181A, sin validar; el listado decia CTaskSimpleDieInCar; thiscall, `ret`, 6 bytes: `mov eax,0D7h`): TASK_COMPLEX_DIE_IN_CAR (215); no lee el objeto (ranura 4 de la vtable 0x86DE04).
+eTaskType CTaskComplexDieInCar::GetTaskType() const {
+    return Type;
+}
+
+// 0x635F90 (lote 181A, sin validar; el listado decia CTaskSimpleDieInCar; ranura 1 de la vtable 0x86DE04; thiscall, `ret`, 124 bytes con marco SEH que solo desenrolla la reserva): reserva 0x1C bytes con CTask::operator new
+// (0x61A5A0, pool de tareas) y, si no es nulo, construye con el constructor del EXE (0x62FC80, que el EXE lleva en linea) copiando el arma (+0xC, leida despues de la reserva); devuelve la tarea o nulo. Deja la vtable del EXE (0x86DE04).
+CTask* CTaskComplexDieInCar::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskComplexDieInCar));
+    if (!memory) {
+        return nullptr;
+    }
+    return CTaskComplexDieInCarConstructorBody(static_cast<CTaskComplexDieInCar*>(memory), nullptr, m_nWeaponType);
 }
 
 // 0x6377B0

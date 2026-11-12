@@ -64,6 +64,11 @@ void CEventKnockOffBike::InjectHooks()
     RH_ScopedNamedGlobalInstall(KnockOffBikeDestructorBody, "Destructor", 0x4AFE70);
     RH_ScopedNamedGlobalInstall(KnockOffBikeAssignExe, "operator=", 0x4B4AA0); // lote 152A (banco Fn152A)
     RH_ScopedNamedGlobalInstall(KnockOffBikeCopyConstructorExe, "CopyConstructor", 0x4B4A50); // lote 152A (banco Fn152A)
+    RH_ScopedVMTInstall(GetEventType, 0x4AFCB0);        // lote 181A (sin validar): ranura 1
+    RH_ScopedVMTInstall(GetEventPriority, 0x4AFCE0);    // lote 181A (sin validar): ranura 2
+    RH_ScopedVMTInstall(GetLifeTime, 0x4AFCC0);         // lote 181A (sin validar): ranura 3
+    RH_ScopedVMTInstall(IsCriminalEvent, 0x4B06F0);     // lote 181A (sin validar): ranura 7
+    RH_ScopedVMTInstall(GetLocalSoundLevel, 0x4AFCD0);  // lote 181A (sin validar): ranura 12
     RH_ScopedVMTInstall(AffectsPed, 0x4AFEE0);
     RH_ScopedVMTInstall(ReportCriminalEvent, 0x4B4E80);
     RH_ScopedInstall(From, 0x4AFDD0);
@@ -119,6 +124,31 @@ CEventKnockOffBike* CEventKnockOffBike::Constructor()
 {
     this->CEventKnockOffBike::CEventKnockOffBike();
     return this;
+}
+
+// 0x4AFCB0 (lote 181A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,8`): EVENT_KNOCK_OFF_BIKE (8); no lee el objeto (ranura 1 de la vtable 0x85B2E0).
+eEventType CEventKnockOffBike::GetEventType() const {
+    return EVENT_KNOCK_OFF_BIKE;
+}
+
+// 0x4AFCE0 (lote 181A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,46h`): prioridad 70; no lee el objeto (ranura 2).
+int32 CEventKnockOffBike::GetEventPriority() const {
+    return 70;
+}
+
+// 0x4AFCC0 (lote 181A, sin validar; thiscall, `ret`, 3 bytes: `xor eax,eax`): tiempo de vida 0; no lee el objeto (ranura 3).
+int32 CEventKnockOffBike::GetLifeTime() {
+    return 0;
+}
+
+// 0x4B06F0 (lote 181A, sin validar; thiscall, `ret`, 3 bytes: `mov al,1`): siempre verdadero (ranura 7; sustituye a CEvent::IsCriminalEvent 0x420E90).
+bool CEventKnockOffBike::IsCriminalEvent() {
+    return true;
+}
+
+// 0x4AFCD0 (lote 181A, sin validar; thiscall, `ret`, 7 bytes: `fld dword [0x858B34]`): 60.0f (0x42700000) devuelto en ST0; no lee el objeto (ranura 12).
+float CEventKnockOffBike::GetLocalSoundLevel() {
+    return 60.0f;
 }
 
 // 0x4AFEE0

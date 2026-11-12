@@ -34,13 +34,13 @@ public:
     CEventKnockOffBike();
     ~CEventKnockOffBike() override;
 
-    eEventType GetEventType() const override { return EVENT_KNOCK_OFF_BIKE; }
-    float GetLocalSoundLevel() override { return 60.0f; }
-    int32 GetEventPriority() const override { return 70; }
-    int32 GetLifeTime() override { return 0; }
+    eEventType GetEventType() const override;                  // 0x4AFCB0 (lote 181A, sin validar)
+    float GetLocalSoundLevel() override;                       // 0x4AFCD0 (lote 181A, sin validar)
+    int32 GetEventPriority() const override;                   // 0x4AFCE0 (lote 181A, sin validar)
+    int32 GetLifeTime() override;                              // 0x4AFCC0 (lote 181A, sin validar)
     CEventKnockOffBike* Clone() const noexcept override { return new CEventKnockOffBike(m_vehicle, m_moveSpeed, m_collisionImpactVelocity, m_damageIntensity, field_28, m_knockOffType, m_knockOffDirection, m_time, m_ped, m_isVictimDriver, m_forceKnockOff); }
     bool AffectsPed(CPed* ped) override;
-    bool IsCriminalEvent() override { return true; }
+    bool IsCriminalEvent() override;                           // 0x4B06F0 (lote 181A, sin validar)
     void ReportCriminalEvent(CPed* ped) override;
 
 public:

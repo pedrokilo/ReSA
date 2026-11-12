@@ -20,12 +20,23 @@ END GENERATED HOOK STATUS */
 
 #include "DecisionMaker.h"
 
+namespace {
+// 0x5BD4E0 (lote 181A, sin validar; el listado decia CPopulation): operator= de CDecisionMaker del EXE (thiscall, un puntero de origen en la pila, `ret 4`, 45 bytes: `push ebx; push ebp; push esi; push edi; ..; para 41
+// decisiones (0x3C bytes, en orden creciente) CDecision::From (0x6006B0, con hook) con ECX = decision de destino y la de origen en la pila; mov eax,ebp (this); ret 4`). Igual que From (0x5BA020) pero devuelve `this` en EAX.
+// Sin llamadores directos en el EXE (los compiladores lo llevan en linea).
+__declspec(noinline) CDecisionMaker* __fastcall DecisionMakerAssignExe(CDecisionMaker* self, void* /*edx*/, const CDecisionMaker* source) {
+    self->From(*source);
+    return self;
+}
+} // namespace
+
 void CDecisionMaker::InjectHooks() {
     RH_ScopedClass(CDecisionMaker);
     RH_ScopedCategory("DecisionMakers");
 
     RH_ScopedInstall(MakeDecision, 0x606060);
     RH_ScopedInstall(From, 0x5BA020); // lote 144A (banco Fn144A)
+    RH_ScopedNamedGlobalInstall(DecisionMakerAssignExe, "operator=", 0x5BD4E0); // lote 181A (sin validar)
 }
 
 // 0x4650A0

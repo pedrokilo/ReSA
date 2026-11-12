@@ -199,6 +199,13 @@ __declspec(noinline) void __fastcall MatrixAddTranslationExe(CMatrix* self, void
     FloatSumStoreCpp(offsetY, &pos.y, &pos.y);
     FloatSumStoreCpp(offsetZ, &pos.z, &pos.z);
 }
+// 0x45AF40 (lote 181A, sin validar; el listado decia CVehicleRecording): CMatrix::ScaleAll del EXE (thiscall, un float en la pila, `ret 4`, 47 bytes). Bucle de cuatro filas de 16 bytes (derecha, avance, arriba y
+// posicion) que multiplica las tres primeras componentes de cada una por el argumento con `fld [arg]; fmul [elemento]; fstp [elemento]` (x87 a 24 bits, exponente ampliado; un resultado diminuto conserva el denormal).
+// El relleno de cada fila (+0xC, +0x1C, +0x2C, +0x3C) no se toca y no se lee la matriz enlazada. El producto lo hace MatrixScaleAllCpp (X87Math). La version de la cabecera (Scale + posicion) sigue siendo la de los
+// llamadores en C++; sus cuatro llamadores del EXE (0x45BB07, 0x45BB18, 0x45CB21, 0x45CB32) pasan por este hook.
+__declspec(noinline) void __fastcall MatrixScaleAllExe(CMatrix* self, void* /*edx*/, float factor) {
+    MatrixScaleAllCpp(&self->GetRight().x, factor);
+}
 } // namespace
 
 // Lote 166A (banco Fn166A): 0x46AE00. Funcion libre para no tocar Matrix.h; se llama desde InjectHooksMain.cpp junto a las demas listas activas.
@@ -208,6 +215,7 @@ void CMatrixInjectHooksLote166A()
     RH_ScopedCategory("Core");
 
     RH_ScopedNamedGlobalInstall(MatrixAddTranslationExe, "AddTranslation", 0x46AE00);
+    RH_ScopedNamedGlobalInstall(MatrixScaleAllExe, "ScaleAll", 0x45AF40); // lote 181A (sin validar)
 }
 
 CMatrix::CMatrix(const CMatrix& matrix) {

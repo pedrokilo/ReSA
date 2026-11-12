@@ -16,8 +16,8 @@ public:
     explicit CTaskComplexDieInCar(eWeaponType weaponType);
     ~CTaskComplexDieInCar() override = default; // 0x62FCF0, 0x6375D0
 
-    eTaskType GetTaskType() const override { return Type; }; // 0x62FCB0
-    CTask* Clone() const override { return new CTaskComplexDieInCar(m_nWeaponType); } // 0x635F90
+    eTaskType GetTaskType() const override; // 0x62FCB0 (lote 181A, sin validar)
+    CTask* Clone() const override; // 0x635F90 (lote 181A, sin validar)
     CTask* ControlSubTask(CPed* ped) override;
     CTask* CreateSubTask(eTaskType taskType, CPed* ped);
     CTask* CreateFirstSubTask(CPed* ped) override;

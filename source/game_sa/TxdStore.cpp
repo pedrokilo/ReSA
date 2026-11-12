@@ -26,6 +26,102 @@ END GENERATED HOOK STATUS */
 
 #include "TxdStore.h"
 
+namespace {
+// Lote 181A (sin validar): instanciacion CPool<TxdDef> del EXE (0x14 bytes: almacenamiento +0, mapa de estado +4, capacidad +8, primer libre +0xC, BYTE de memoria propia +0x10). Se opera sobre los bytes crudos como el EXE
+// (los miembros de CPool son privados). Elementos de 0xC bytes (TxdDef). Reserva y liberacion con operator new / operator delete escalares (0x82119A / 0x8214BD), no los de arreglo de CPool<ColDef>.
+struct TxdPoolRaw {
+    uint8* storage;
+    uint8* flags;
+    int32  capacity;
+    int32  lastFree;
+    uint8  ownsAllocations;
+};
+static_assert(offsetof(TxdPoolRaw, flags) == 4 && offsetof(TxdPoolRaw, capacity) == 8 && offsetof(TxdPoolRaw, lastFree) == 0xC && offsetof(TxdPoolRaw, ownsAllocations) == 0x10);
+
+// Cuerpo comun de CPool<TxdDef>::Flush: si la capacidad (con signo, +8) es positiva y el pool posee la memoria (+0x10) libera con operator delete (0x8214BD) el almacenamiento y despues el mapa; despues, y solo si la
+// capacidad era positiva, pone a cero almacenamiento, mapa, capacidad y primer libre.
+__forceinline void TxdPoolFlushBody(TxdPoolRaw* pool) {
+    if (pool->capacity > 0) {
+        if (pool->ownsAllocations) {
+            ::operator delete(pool->storage);
+            ::operator delete(pool->flags);
+        }
+        pool->storage  = nullptr;
+        pool->flags    = nullptr;
+        pool->capacity = 0;
+        pool->lastFree = 0;
+    }
+}
+
+// 0x731800 (lote 181A, sin validar): CPool<TxdDef>::Flush del EXE (thiscall, sin argumentos, `ret`, 66 bytes con el relleno hasta 0x731850).
+__declspec(noinline) void __fastcall TxdPoolFlush(TxdPoolRaw* pool, void* /*edx*/) {
+    TxdPoolFlushBody(pool);
+}
+
+// 0x731B30 (lote 181A, sin validar): segunda copia identica de CPool<TxdDef>::Flush del EXE (thiscall, sin argumentos, `ret`).
+__declspec(noinline) void __fastcall TxdPoolFlushSecondCopy(TxdPoolRaw* pool, void* /*edx*/) {
+    TxdPoolFlushBody(pool);
+}
+
+// 0x731C20 (lote 181A, sin validar): destructor con borrado de CPool<TxdDef> del EXE (thiscall, un argumento de pila, `ret 4`, 84 bytes): el mismo cuerpo de Flush en linea y, con el bit 0 del BYTE de banderas,
+// operator delete (0x8214BD) de `this`; devuelve `this`.
+__declspec(noinline) TxdPoolRaw* __fastcall TxdPoolScalarDeletingDestructor(TxdPoolRaw* pool, void* /*edx*/, uint8 flags) {
+    TxdPoolFlushBody(pool);
+    if (flags & 1) {
+        ::operator delete(pool);
+    }
+    return pool;
+}
+
+// 0x731AD0 (lote 181A, sin validar): constructor CPool<TxdDef>(capacidad, nombre) del EXE (thiscall, dos argumentos de pila, `ret 8`, 92 bytes; el nombre no se usa; lo llama CTxdStore::Initialise 0x731F66, aqui en linea).
+// Reserva con operator new (0x82119A) capacidad*0xC bytes (producto de 32 bits) para el almacenamiento y despues `capacidad` bytes para el mapa, pone el BYTE +0x10 a 1, la capacidad (+8) y el primer libre (+0xC) a -1
+// y, si la capacidad es positiva, deja cada byte del mapa en 0x80 (el EXE hace `or 80h` y despues `and 80h` sobre cada uno). El almacenamiento no se rellena. Devuelve `this`.
+__declspec(noinline) TxdPoolRaw* __fastcall TxdPoolConstructor(TxdPoolRaw* pool, void* /*edx*/, int32 capacity, const char* /*name*/) {
+    pool->storage = static_cast<uint8*>(::operator new(static_cast<size_t>(static_cast<uint32>(capacity) * 12u)));
+    pool->flags   = static_cast<uint8*>(::operator new(static_cast<size_t>(static_cast<uint32>(capacity))));
+    pool->ownsAllocations = 1;
+    pool->capacity        = capacity;
+    pool->lastFree        = -1;
+    for (int32 i = 0; i < capacity; i++) {
+        pool->flags[i] |= 0x80;
+        pool->flags[i] &= 0x80;
+    }
+    return pool;
+}
+
+// 0x731B80 (lote 181A, sin validar): CPool<TxdDef>::New del EXE (thiscall, sin argumentos, `ret`, 104 bytes; lo llaman CTxdStore::AddTxdSlot 0x731C87 e Initialise 0x731F86). Busca desde primer libre + 1 (una sola vuelta:
+// al llegar a la capacidad pone el primer libre a 0 y, si ya habia dado la vuelta, devuelve nulo); un slot esta libre si su byte del mapa tiene el bit 0x80. Lo ocupa (quita el bit 0x80 e incrementa el contador de 7 bits
+// conservando el bit alto, que ya es 0) y devuelve almacenamiento + indice * 0xC. No toca el almacenamiento.
+__declspec(noinline) TxdDef* __fastcall TxdPoolNew(TxdPoolRaw* pool, void* /*edx*/) {
+    const int32 capacity = pool->capacity;
+    bool wrapped = false;
+    for (;;) {
+        const int32 next = pool->lastFree + 1;
+        pool->lastFree = next;
+        if (next == capacity) {
+            pool->lastFree = 0;
+            if (wrapped) {
+                return nullptr;
+            }
+            wrapped = true;
+        }
+        uint8* const flag = &pool->flags[pool->lastFree];
+        if (*flag & 0x80) {
+            const uint8 cleared = *flag & 0x7F;
+            *flag = cleared;
+            *flag = static_cast<uint8>((cleared + 1) & 0x7F); // contador de 7 bits + 1 (el EXE lo calcula con xor/and sobre el byte releido)
+            return reinterpret_cast<TxdDef*>(pool->storage + pool->lastFree * 12);
+        }
+    }
+}
+
+// 0x7316D0 (lote 181A, sin validar): lectura de los slots de TXD por defecto del EXE (cdecl, un argumento de pila, `ret`, 13 bytes: `mov eax,[esp+4]; movsx eax,word [eax*2+0xC88004]; ret`). Devuelve la palabra con signo de
+// 0xC88004 + indice * 2 sin comprobar el indice. Lo llama ClothesBuilder (0x5A422A).
+__declspec(noinline) int32 __cdecl TxdStoreDefaultSlotExe(int32 index) {
+    return *(reinterpret_cast<const int16*>(CTxdStore::defaultTxds.data()) + index);
+}
+} // namespace
+
 void CTxdStore::InjectHooks() {
     RH_ScopedClass(CTxdStore);
     RH_ScopedCategoryGlobal();
@@ -56,6 +152,13 @@ void CTxdStore::InjectHooks() {
     RH_ScopedInstall(TxdStoreLoadCB, 0x731710);
     RH_ScopedInstall(SetupTxdParent, 0x731D50);
     RH_ScopedInstall(PluginAttach, 0x731650); // lote 166A (banco Fn166A)
+
+    RH_ScopedNamedGlobalInstall(TxdStoreDefaultSlotExe, "GetDefaultTxdSlot", 0x7316D0);            // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(TxdPoolFlush, "PoolFlush", 0x731800);                              // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(TxdPoolConstructor, "PoolConstructor", 0x731AD0);                  // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(TxdPoolFlushSecondCopy, "PoolFlushSecondCopy", 0x731B30);          // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(TxdPoolNew, "PoolNew", 0x731B80);                                  // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(TxdPoolScalarDeletingDestructor, "PoolScalarDeletingDestructor", 0x731C20); // lote 181A (sin validar)
 
     // global
     RH_ScopedGlobalInstall(RemoveIfRefCountIsGreaterThanOne, 0x731680);

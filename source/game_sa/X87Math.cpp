@@ -18975,3 +18975,16 @@ __declspec(noinline) bool __cdecl Hp179AFollowerFarFromLastCpp(const float* lead
     return squared > 9.0;
 }
 #pragma float_control(pop)
+
+// --- Lote 181A (sin validar) ---
+// 0x45AF40 (CMatrix::ScaleAll; thiscall, un float en la pila, `ret 4`): cuatro filas de 16 bytes (derecha, avance, arriba, posicion); en cada una `fld dword [arg]; fmul dword [elemento]; fstp dword [elemento]` para
+// las tres primeras componentes en orden (x, y, z), con el argumento releido de la pila cada vez y el elemento como operando de memoria. Reutiliza el producto de ProcSurfaceScaleMatrixCpp (ProcSurfaceScaleElementCpp:
+// lectura volatil del argumento, x87 a la precision vigente, guardado como float; conserva los denormales). El relleno de cada fila no se toca.
+__declspec(noinline) void __cdecl MatrixScaleAllCpp(float* matrix, float factor) {
+    for (int row = 0; row < 4; ++row) {
+        float* const r = matrix + 4 * row;
+        ProcSurfaceScaleElementCpp(&factor, &r[0]);
+        ProcSurfaceScaleElementCpp(&factor, &r[1]);
+        ProcSurfaceScaleElementCpp(&factor, &r[2]);
+    }
+}

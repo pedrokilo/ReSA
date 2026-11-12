@@ -27,6 +27,7 @@ void CRemote::InjectHooks() {
 
     RH_ScopedInstall(GivePlayerRemoteControlledCar, 0x45AB10);
     RH_ScopedInstall(TakeRemoteControlledCarFromPlayer, 0x45AE80);
+    RH_ScopedInstall(SetPlayerRemoteControlledCar, 0x45AD40); // lote 181A (sin validar)
 }
 
 // Campos del vehiculo y del jugador sin nombre en las cabeceras, por desplazamiento (como el desensamblado).
@@ -133,4 +134,55 @@ void CRemote::GivePlayerRemoteControlledCar(CVector pos, float rotation, int16 m
     vehicle->RegisterReference(reinterpret_cast<CEntity**>(&player.m_pRemoteVehicle)); // 0x571B70
     TheCamera.TakeControl(vehicle, MODE_CAM_ON_A_STRING, eSwitchType::INTERPOLATION, 1); // 0x50C7C0(camara, vehiculo, 0x12, 1, 1)
     TheCamera.SetZoomValueCamStringScript(1);                                            // 0x50C1B0
+}
+
+// 0x45AD40 (lote 181A, sin validar; el listado decia CVehicleRecording; la clase sale del solape con 0x45AB10/0x45AE80 y de su unico llamador, 0x46D560, el comando de script que entrega a CRemote un vehiculo ya existente)
+// Como el original: cdecl, void, un argumento (el vehiculo), `ret`, 316 bytes. Cada acceso al jugador en foco es una lectura nueva de 0xB7CD74 (el EXE la repite en cada tramo).
+// 1) Si el jugador ya tiene vehiculo remoto (+0xB0 del jugador en foco): su estado pasa a 3 (byte +0x36 = (&7)|0x18) y, si no es el mismo vehiculo (se relee el campo), se recuerda con una bandera local.
+// 2) El vehiculo nuevo: estado 8 (STATUS_REMOTE_CONTROLLED, tipo intacto), +0x428 |= 8, a cero +0x3BA, +0x3BB, +0x3B9, +0x3C8 = 9.0f, +0x3D0 = 9, +0x3B7 y +0x3B8 a cero; el bit 0x10 de +0x428 se pone o quita
+//    segun el bit 2 de +0x42D (leido ANTES de las escrituras): bit puesto -> se quita, no puesto -> se pone. No llama a JoinCarWithRoadSystem ni a CWorld::Add.
+// 3) Si FindPlayerVehicle(-1, false) (0x56E0D0) no es nulo, se vuelve a llamar (sin comprobar el nulo) y su estado pasa a 9 ((&7)|0x48).
+// 4) Si el jugador tenia vehiculo remoto, CEntity::CleanUpOldReference (0x571A00, this = el anterior, argumento = la direccion del campo); despues el campo se asigna y se registra con RegisterReference (0x571B70, this = el nuevo).
+// 5) TheCamera.TakeControl(vehiculo, 0x12, bandera ? JUMPCUT(2) : INTERPOLATION(1), 1) (0x50C7C0) y SetZoomValueCamStringScript(1) (0x50C1B0).
+void CRemote::SetPlayerRemoteControlledCar(CVehicle* vehicle) {
+    bool hadOtherRemoteVehicle = false; // byte local [esp+0xB]
+    if (CVehicle* const current = CWorld::Players[CWorld::PlayerInFocus].m_pRemoteVehicle) { // 0x45AD41..0x45AD57
+        RemoteField<uint8>(current, 0x36) = (RemoteField<uint8>(current, 0x36) & 7) | 0x18;  // 0x45AD64..0x45AD6D
+        if (CWorld::Players[CWorld::PlayerInFocus].m_pRemoteVehicle != vehicle) {            // 0x45AD70..0x45AD83
+            hadOtherRemoteVehicle = true;
+        }
+    }
+
+    // 0x45AD8A..0x45ADE8: se leen +0x36, +0x428 y +0x42D (en ese orden) tras el tramo anterior (el vehiculo puede ser el mismo).
+    const uint8 statusByte = RemoteField<uint8>(vehicle, 0x36);
+    const uint8 flags428   = RemoteField<uint8>(vehicle, 0x428);
+    const uint8 flags42D   = RemoteField<uint8>(vehicle, 0x42D);
+    RemoteField<uint8>(vehicle, 0x36)  = (statusByte & 7) | 0x40;                       // estado 8, tipo intacto
+    const uint8 newFlags428 = flags428 | 8;
+    RemoteField<uint8>(vehicle, 0x428) = newFlags428;
+    RemoteField<uint8>(vehicle, 0x3BA) = 0;
+    RemoteField<uint8>(vehicle, 0x3BB) = 0;
+    RemoteField<uint8>(vehicle, 0x3B9) = 0;
+    RemoteField<uint32>(vehicle, 0x3C8) = 0x41100000u; // 9.0f
+    RemoteField<uint8>(vehicle, 0x3D0) = 9;
+    RemoteField<uint8>(vehicle, 0x3B7) = 0;
+    RemoteField<uint8>(vehicle, 0x3B8) = 0;
+    RemoteField<uint8>(vehicle, 0x428) = (flags42D & 2) ? (newFlags428 & 0xEF) : (newFlags428 | 0x10);
+
+    if (FindPlayerVehicle(-1, false)) { // 0x56E0D0 dos veces: el EXE vuelve a llamarla y no comprueba el nulo la segunda vez
+        CVehicle* const playerVehicle = FindPlayerVehicle(-1, false);
+        RemoteField<uint8>(playerVehicle, 0x36) = (RemoteField<uint8>(playerVehicle, 0x36) & 7) | 0x48; // estado 9
+    }
+
+    // 0x45AE11..0x45AE4C: el campo se vuelve a leer y su direccion se recalcula con el jugador en foco.
+    CVehicle* const previous = CWorld::Players[CWorld::PlayerInFocus].m_pRemoteVehicle;
+    if (previous) {
+        previous->CleanUpOldReference(reinterpret_cast<CEntity**>(&CWorld::Players[CWorld::PlayerInFocus].m_pRemoteVehicle)); // 0x571A00
+    }
+    CPlayerInfo& player = CWorld::Players[CWorld::PlayerInFocus];
+    player.m_pRemoteVehicle = vehicle;
+    vehicle->RegisterReference(reinterpret_cast<CEntity**>(&player.m_pRemoteVehicle)); // 0x571B70
+
+    TheCamera.TakeControl(vehicle, MODE_CAM_ON_A_STRING, hadOtherRemoteVehicle ? eSwitchType::JUMPCUT : eSwitchType::INTERPOLATION, 1); // 0x50C7C0(camara, vehiculo, 0x12, 2 o 1, 1)
+    TheCamera.SetZoomValueCamStringScript(1);                                                                                             // 0x50C1B0
 }

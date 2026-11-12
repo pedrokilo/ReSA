@@ -28,11 +28,26 @@ END GENERATED HOOK STATUS */
 #include "PedGroupIntelligence.h"
 #include "X87Math.h"
 
+namespace {
+// Lote 181A (sin validar): definiciones mas abajo (copias de decision makers por defecto 0x5BD510..0x5BD5D0).
+void __fastcall DefaultRandomPedAssignExe(CDecisionMakerTypes* self, void* edx, const CDecisionMaker* source);
+void __fastcall DefaultMissionPedAssignExe(CDecisionMakerTypes* self, void* edx, const CDecisionMaker* source);
+void __fastcall DefaultPlayerPedAssignExe(CDecisionMakerTypes* self, void* edx, const CDecisionMaker* source);
+void __fastcall DefaultRandomGroupAssignExe(CDecisionMakerTypes* self, void* edx, const CDecisionMaker* source);
+void __fastcall DefaultMissionGroupAssignExe(CDecisionMakerTypes* self, void* edx, const CDecisionMaker* source);
+} // namespace
+
 void CDecisionMakerTypes::InjectHooks() {
     RH_ScopedClass(CDecisionMakerTypes);
     RH_ScopedCategory("DecisionMakers");
     RH_ScopedOverloadedInstall(MakeDecision, "Ped", 0x606E70, void(CDecisionMakerTypes::*)(CPed*, eEventType, int32, bool, eTaskType, eTaskType, eTaskType, eTaskType, bool, int16&, int16&));
     RH_ScopedOverloadedInstall(MakeDecision, "Group", 0x606F80, eTaskType(CDecisionMakerTypes::*)(CPedGroup*, eEventType, int32, bool, eTaskType, eTaskType, eTaskType, eTaskType));
+
+    RH_ScopedNamedGlobalInstall(DefaultRandomPedAssignExe, "AssignDefaultRandomPed", 0x5BD510);       // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(DefaultMissionPedAssignExe, "AssignDefaultMissionPed", 0x5BD540);     // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(DefaultPlayerPedAssignExe, "AssignDefaultPlayerPed", 0x5BD570);       // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(DefaultRandomGroupAssignExe, "AssignDefaultRandomGroup", 0x5BD5A0);   // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(DefaultMissionGroupAssignExe, "AssignDefaultMissionGroup", 0x5BD5D0); // lote 181A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x4650F0);
     RH_ScopedInstall(GetInstance, 0x4684F0);
@@ -98,6 +113,31 @@ constexpr uint32    kMissionGroup   = 0xE824;
 static_assert(kDecisionStride == 0x3C && kMakerStride == 0x99C);
 
 inline uint32 AsU32(const void* p) { return static_cast<uint32>(reinterpret_cast<uintptr_t>(p)); }
+
+// Lote 181A (sin validar; el listado decia CPopulation): cinco copias fuera de linea de un decision maker por defecto de CDecisionMakerTypes, todas con la misma forma (thiscall, ECX = el CDecisionMakerTypes, un puntero a
+// CDecisionMaker de origen en la pila, `ret 4`, 43 bytes, sin llamadores directos en el EXE; el constructor 0x4650F0 y los demas las llevan en linea): `esi = this + desplazamiento; para 41 decisiones consecutivas (0x3C bytes,
+// en orden creciente) CDecision::From (0x6006B0, con hook) con ECX = decision de destino y la de origen (origen + i * 0x3C) en la pila`. No tocan nada mas y no devuelven nada (EAX es el de la ultima From).
+// 0x5BD510: aleatorio de peatones (+0xC1B4); 0x5BD540: de mision (+0xCB50); 0x5BD570: del jugador (+0xD4EC); 0x5BD5A0: aleatorio de grupos (+0xDE88); 0x5BD5D0: de mision de grupos (+0xE824).
+__declspec(noinline) void __fastcall DefaultRandomPedAssignExe(CDecisionMakerTypes* self, void* /*edx*/, const CDecisionMaker* source) {
+    static_assert(offsetof(CDecisionMakerTypes, m_DefaultRandomPedDecisionMaker) == kRandomPed);
+    self->m_DefaultRandomPedDecisionMaker.From(*source);
+}
+__declspec(noinline) void __fastcall DefaultMissionPedAssignExe(CDecisionMakerTypes* self, void* /*edx*/, const CDecisionMaker* source) {
+    static_assert(offsetof(CDecisionMakerTypes, m_DefaultMissionPedDecisionMaker) == kMissionPed);
+    self->m_DefaultMissionPedDecisionMaker.From(*source);
+}
+__declspec(noinline) void __fastcall DefaultPlayerPedAssignExe(CDecisionMakerTypes* self, void* /*edx*/, const CDecisionMaker* source) {
+    static_assert(offsetof(CDecisionMakerTypes, m_DefaultPlayerPedDecisionMaker) == kPlayerPed);
+    self->m_DefaultPlayerPedDecisionMaker.From(*source);
+}
+__declspec(noinline) void __fastcall DefaultRandomGroupAssignExe(CDecisionMakerTypes* self, void* /*edx*/, const CDecisionMaker* source) {
+    static_assert(offsetof(CDecisionMakerTypes, m_DefaultRandomPedGroupDecisionMaker) == kRandomGroup);
+    self->m_DefaultRandomPedGroupDecisionMaker.From(*source);
+}
+__declspec(noinline) void __fastcall DefaultMissionGroupAssignExe(CDecisionMakerTypes* self, void* /*edx*/, const CDecisionMaker* source) {
+    static_assert(offsetof(CDecisionMakerTypes, m_DefaultMissionPedGroupDecisionMaker) == kMissionGroup);
+    self->m_DefaultMissionPedGroupDecisionMaker.From(*source);
+}
 } // namespace
 
 // 0x4650F0: constructor (thiscall, ECX = this, sin argumentos en pila, `ret`). El EXE lo escribe asi: [this] = 0; `eh vector constructor iterator` (0x821D30) de 20 CDecisionMaker

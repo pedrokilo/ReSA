@@ -54,6 +54,14 @@ static int32 __fastcall EntityGetModelIndexExe(const CEntity* self, void* /*edx*
     return int32(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(self) + 0x22));
 }
 
+// 0x407000 (lote 181A, sin validar; el listado decia CPopulation): CEntity::IsInCurrentArea del EXE (thiscall, sin argumentos de pila, `ret`, 26 bytes: `mov al,[ecx+2Fh]; mov edx,[0xB72914]; movzx ecx,al; cmp ecx,edx; je ..;
+// cmp al,0Dh; je ..; xor al,al; ret; ..: mov al,1; ret`). El codigo de area (+0x2F) se extiende a cero (no con signo, como hace la version de la cabecera con eAreaCodesS8) y se compara como dword con CGame::currArea (+0xB72914)
+// o con 13. Llamador directo del EXE: 0x5543AE.
+static bool __fastcall EntityIsInCurrentAreaExe(const CEntity* self, void* /*edx*/) {
+    const uint32 area = reinterpret_cast<const uint8*>(self)[0x2F];
+    return area == static_cast<uint32>(CGame::GetCurrentAreaCode()) || area == 0x0Du;
+}
+
 /**
  * Registra el ciclo de vida, streaming, referencias, render y efectos comunes de CEntity.
  */
@@ -64,6 +72,7 @@ void CEntity::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x532A90);
     RH_ScopedInstall(Destructor, 0x535E90);
     RH_ScopedNamedGlobalInstall(EntityGetStatusExe, "GetStatus", 0x4043E0); // lote 150A (banco Fn150A)
+    RH_ScopedNamedGlobalInstall(EntityIsInCurrentAreaExe, "IsInCurrentArea", 0x407000); // lote 181A (sin validar)
     RH_ScopedNamedGlobalInstall(EntityGetModelIndexExe, "GetModelIndex", 0x404420); // lote 150A (banco Fn150A)
 
     //RH_ScopedOverloadedInstall(Add, "void", 0x533020, void(CEntity::*)());
