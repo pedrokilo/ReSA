@@ -234,6 +234,17 @@ inline void Update() {
         if (!it->second.hooked || !it->second.dll) ready = false;   // se esperaba hook RH con cuerpo en el ASI
         return S(it->second, reinterpret_cast<void*>(fake));
     };
+    // Colaborador CON hook RH cuya llamada, en la funcion probada, va a una funcion propia de la DLL distinta de la envoltura del hook (direccion dada): el hook se apaga (ruta) y el falso va en la
+    // direccion del EXE y en esa funcion. (Pase final 157A-162A: 0x622680 tiene hook desde el lote 163A.)
+    auto H = [&](uintptr_t exe, uintptr_t dllAddress, auto* fake) {
+        auto it = collabCache.find(exe);
+        if (it == collabCache.end()) it = collabCache.emplace(exe, MakeCollab(env, exe, hooksFound)).first;
+        if (!it->second.hooked) ready = false;
+        Pair p = it->second;
+        p.dll = Body(dllAddress); p.hooked = true;
+        if (!p.dll || ModuleOf(p.dll) != env.asi) ready = false;
+        return S(p, reinterpret_cast<void*>(fake));
+    };
     // Colaborador SIN hook RH: la DLL tiene su propia funcion (direccion dada); el falso va en la direccion del EXE y en esa funcion. Se exige que de verdad no tenga hook.
     auto U = [&](uintptr_t exe, uintptr_t dllAddress, auto* fake) {
         std::string cat, name;
@@ -253,7 +264,7 @@ inline void Update() {
     env.stubs[8] = {F(0x645BE0, &FkBody<0x645BE0>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[9] = {F(0x697230, &FkBody<0x697230>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[10] = {F(0x68C8C0, &FkBody<0x68C8C0>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
-    env.stubs[11] = {U(0x622680, Lote126AStealthKillDestructorBody(), &FkBody<0x622680>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
+    env.stubs[11] = {H(0x622680, Lote126AStealthKillDestructorBody(), &FkBody<0x622680>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[12] = {F(0x621250, &FkBody<0x621250>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     const char* dllReal[kFunctions] = {
         "toda la funcion salvo ~CTaskComplexEnterCarAsDriverTimed (0x63AE00, envoltura Destructor() con falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)",
@@ -267,7 +278,7 @@ inline void Update() {
         "toda la funcion salvo ~CTaskSimpleCarAlign (0x645BE0, envoltura Destructor() con falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)",
         "toda la funcion salvo ~CTaskComplexReactToGunAimedAt (0x697230, envoltura Destructor() con falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)",
         "toda la funcion salvo ~CTaskComplexCopInCar (0x68C8C0, envoltura Destructor() con falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)",
-        "toda la funcion salvo ~CTaskSimpleStealthKill (0x622680, funcion propia sin hook, falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)",
+        "toda la funcion salvo ~CTaskSimpleStealthKill (0x622680, con hook desde el lote 163A y cuerpo propio, falso identico en la direccion del EXE y en el cuerpo) y CTask::operator delete (0x61A5B0, con hook, falso identico)",
         "toda la funcion salvo ~CTaskComplexKillPedOnFootArmed (0x621250, envoltura Destructor() con falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)"};
     for (unsigned f = 0; f < kFunctions; ++f) {
         json stubbed = json::array(), real = json::array();

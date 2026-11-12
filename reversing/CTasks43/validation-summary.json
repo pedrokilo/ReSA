@@ -56,7 +56,7 @@
   "log_sha256": "a6f3a706227844b4d000129fd0225759f013d18358256a57e268cb6d9bfe631e",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks43\\20261110-004110-733056",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks43\\20261111-174126-098313",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexAttractorPartnerWait::Clone": true,
@@ -102,27 +102,27 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "791a1ae291997f47c2e2025083284095e23191f3a87c5fa05b7ff8e68c6149cc",
-      "pdb": "5690e6f0b97ab59bf3e24d80b7f4ad289b81607310a2ced2ced0a0dc4cd1a0ad"
+      "asi": "83d19071fb1be74edcba8ace86a5353d4a66730499d2df2021237a5e4db26fad",
+      "pdb": "965bdb20b3583daad50262b77e936f995d7e583e990734fc4309f9a6248ddc6c"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
       "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.h": "9374a1113af3f614fbbc7e400d5939539bc4bb6c7e0fe1c81fc345ea87faa93b",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp": "271cc6b21a6dc62fa674b925f4edd122e9e0f7ca73f0fb02c9a609f3c630e145",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp": "ed4123bb72fbb79d3282347d2e63baf8f418c644aefc013d5ee797b9b15d2808",
       "source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h": "de56b5cb45ce96055357d9d6f7bf453f04367cce6ad1601907970f6482f8fcc4",
       "source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.cpp": "60d110f0442f9b311af50c123e2d891c4557973c9c3b694809fa5a1a745b0c03",
       "source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.h": "836cce680885d9111506da1ef220395e297aca1c84d0543bb3c9c95e6d9912ad",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "6d5d984041ced852474e43a164c02f5d6b117f713ac6bec0ac1f5050b1de3e24",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
       "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
       "source/game_sa/Tasks/TaskTypes/TaskComplexDie.cpp": "6944076a369ff9e0f7877cf49310b13cdd44269be112cf5812200c24788b2eae",
       "source/game_sa/Tasks/TaskTypes/TaskComplexDie.h": "8289fca2ec777d8ea5d45eb24e1c36812c07984baa66da8f533fbc340e5cb44f",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterAnyCarAsDriver.cpp": "94f3dbe016663dd037e2688375129b2f042b08c2527c7118c7189c125aa097d9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterAnyCarAsDriver.cpp": "b3ccd89c419f737c686387f276ea9f04f39b8bcf62d8871cd8d48477e605460f",
       "source/game_sa/Tasks/TaskTypes/TaskComplexEnterAnyCarAsDriver.h": "cdca52bd24ad7a7d87cec367a23b46ba52407c02a364f78fa267b6368346faf3",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "af960dc4ecda5eb864d7d6d6ad28b569d33dae4c7e22db648452ad78f593e988",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "26f6e5e2c965c1dc4172bd1242027d46b7095e1b02c889aa23a52d8e9ee1cbb5",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "2196d3b9b10a8a21ccd0e606d3caf96756fe183a9b3ec9856c6d2cef3b3c3f53",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "e3c4c18a95c1f27b3fb149a3244c3f2aed33d40a05917b71abe9fcf07c3ad4ca",
       "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
-      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.cpp": "e99ec948ddeafd0333881bc3a7bbf2540d446aedf16302922522f2d22de2fc19",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.cpp": "690a10c1bfe342ba31cb99651361aa32e1022f66b409c38d797659cd052d03e8",
       "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.h": "fd6153917cca67e13c540bb46ac6759cffac8a51ec90543c9d5f5c21f4706649",
       "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeans.h": "3b6fe09950f6686cfca23d5c156257aefa9e071118a2a3b295a3b84a619287ed"
     },

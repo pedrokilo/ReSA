@@ -20,13 +20,15 @@
     "reversing/RequestedFxEmitterTwo/Preflight.hpp": "aed2c1e68824541556dc615bbc67c3a2e3e3f64a05f9103e7b4fd34920270c0a",
     "reversing/RequestedFxEmitterTwo/preparation-plan.json": "57be090e5f146d157e6ce181631704d5a0b8043e466e54fb2333afd6add3ef75",
     "reversing/RequestedFxEmitterTwo/run_local.py": "1cf2fd9966dcaea5ede17b7393e7629d22fe7d15ef495ed848290f0852cf8870",
-    "reversing/RequestedFxEmitterTwo/VTableRanges.hpp": "59a71643a14ecf5676b0d4fae5f4236d70d10348eef40dc77689e0078b7366e6"
+    "reversing/RequestedFxEmitterTwo/VTableRanges.hpp": "8fd908bfd215512a6572f9e526d2a5d99e7e70180fa5dd532cb3f2c406ef0ac4"
   },
   "revision": 2,
   "revision_reason": "Record actual constructor ABI return and normalize only after equality with the real private object address; wrong return remains model mismatch. Revision1 prepared-only header/freeze archived exact.",
   "previous_freeze_sha256": "142703b83ccf44792ef66f786e2d1ebcb1048c57f759db966eaa899760459846",
   "refrozen": {
     "date": "2026-11-10",
-    "reason": "REPARAR-REQUESTED: hashes recalculados sobre LF y versiones actuales de ProbeRuntime.hpp/runtime_runner.py/VTableRanges.hpp"
+    "reason": "REPARAR-REQUESTED: hashes recalculados sobre LF y versiones actuales de ProbeRuntime.hpp/runtime_runner.py/VTableRanges.hpp",
+    "date_pase_final": "2026-11-11",
+    "reason_pase_final": "Pase final 157A-162A: VTableRanges.hpp anade la categoria virtual CTaskSimple (0x86D4A8, 9 ranuras, hooks V del lote 158A); solo cambia ese hash"
   }
 }

@@ -76,7 +76,7 @@
   "log_sha256": "329316af6b7a87839f802bab348b3b1b4b16af41809bdd2e500722646d00cb1e",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks61c\\20261110-212050-274141",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks61c\\20261111-174401-069328",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexGoToPointAndStandStillAndAchieveHeading::Clone": true,
@@ -142,21 +142,21 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "747b0119cde89fe253c25503b29cf7aba73ecefbeea8d522a95fea12d45a0084",
-      "pdb": "0cf46acd276e7bf30570a31d32e915266aaf6c0579c3a1cf0282f22649f5bd04"
+      "asi": "c5d0f6a34d40cd47cd4119a0c873c533c758de9ad38fdc92a8abaff2d749ab0f",
+      "pdb": "08407159514b5cb8bda81116aa6b400160b931ca7df648685fc4b276a1bfb0dc"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.cpp": "c0fd49efa2592920602c6a96fc8c3e76006a7520872d3a2aa9fbf3f068e9e026",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.h": "c1cadae418dd6e4ee2b560ac2d49532c91d6a2887d3a8af7d17d5ab6f64fe2ef",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.cpp": "7ad93492187e3417e5d06d28a1ff6a20663a83cc13b54aceef6ecbe78a421033",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.h": "31be0924cd56767db59ef9fec43b4c3d77ea0f5fcfab489f5d706fe78c3df8d9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.cpp": "5dd9977e1cb1a8fc01ac94c371cf07e12563c058a5a5d512ac1a3da4a829d5d1",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.h": "9cfd8a389c972e6d4d7049d724a0bdb6a12b5a0e77a50c0407516e32fb0c2e41",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.cpp": "2328d417561235522e96a62693d700dc9b1895ff8ac677b8601c6a38b8f82c8b",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.h": "0958fa5fd3727b32c809b747f8c00941447ab90a99297b6c1afefde6ffcbb7c6",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp": "a86e3c3b4c2d8dececab4a6657655c14476c3d0af25faa253591f2f574881338",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp": "8b29d9dc1204d97705f3e70f463afb3927beb61886a1a1d26bfbc124346d0b4a",
       "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.h": "7305260bc5bad0af32602683cfc029a68bfd9d9f1248428f5bc01bcc134424be",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp": "4b74504b460b1cabcacc2ba1f9c69371e080c99f9732a3d07af255959e32b3e6",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp": "a4694ce4866b637ea267595d98addf5853544a25f70fa8635e33b21f49b2ba0b",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.h": "c9f3b62b2547a53e5b44af1dd0b24f3a8062a2341b4e2e3742b69fdc71fc46da",
       "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp": "b568fbdc8387f734a2c2efc8fb28c10780a9472333dd60874fec35d01ab5f111",
       "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.h": "b437b61301f20f887c02d704b57fc504e1bdd4287c848f27afd3684bfbcc9a8f",

@@ -25,7 +25,7 @@
   "log_sha256": "b8c5d58700dedb293e31b3a7f2a3b9619df5c4e3d6fb50c11c27a072c17135d1",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-app\\20261111-011144-263169",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-app\\20261111-174254-057913",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "App::AppEventHandler": true,
@@ -40,8 +40,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "2d696b17c1cc93afe389581536fa61197e5d8a95d3e9a87124e6e6ea9005a6c7",
-      "pdb": "3eb8ffa9b491be34caa00c6b5ed2a194d3e9135f09c78fd3eba82c44928b78e6"
+      "asi": "477ee14719db76fbc3e197f6bd4919ef3748e0dead72cc7a47c7bba9579d86ad",
+      "pdb": "a4cad685bc6be8bdd2f172475dbe117f834f2e5b49b89dd4eb5c591b7e9c8b05"
     },
     "sources": {
       "source/app/app.cpp": "28c731cb15f470c6e28c0ead652b6d52c745293eaa0e9d5d0729169b155e46da",
