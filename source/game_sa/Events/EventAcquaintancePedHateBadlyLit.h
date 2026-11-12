@@ -16,11 +16,11 @@ public:
     CEventAcquaintancePedHateBadlyLit(CPed* ped, int32 startTimeInMs, const CVector& point);
     ~CEventAcquaintancePedHateBadlyLit() override = default;
 
-    eEventType GetEventType() const override { return EVENT_ACQUAINTANCE_PED_HATE_BADLY_LIT; }
+    eEventType GetEventType() const override; // 0x5FF2D0 (lote 178A, sin validar)
     int32 GetEventPriority() const override { return 25; }
     bool AffectsPed(CPed* ped) override;
-    bool CanBeInterruptedBySameEvent() override { return true; }
-    CEventEditableResponse* CloneEditable() const noexcept override { return new CEventAcquaintancePedHateBadlyLit(m_AcquaintancePed, m_startTimeInMs, m_point); }
+    bool CanBeInterruptedBySameEvent() override; // 0x5FF350 (lote 178A, sin validar)
+    CEventEditableResponse* CloneEditable() const noexcept override; // 0x5FF2E0 (lote 178A, sin validar)
 
 public:
     friend void InjectHooksMain();

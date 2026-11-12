@@ -109,21 +109,7 @@ void tReplayVehicleBlock::ExtractVehicleUpdateData(CVehicle& veh, float interpol
     veh.m_fHealth = (float)(health * 4);
     veh.m_GasPedal = (float)gasPedal / 100.0f;
     if (veh.IsAutomobile()) {
-        // inlined ApplyPanelDamageToCar() @ 0x59CA10
-        auto automobile = veh.AsAutomobile();
-        const auto& damageManager = automobile->m_damageManager;
-
-        for (auto i = 0; i < MAX_PANELS; i++) {
-            const auto bitIdx = 0xF << (0x4 * i);
-            const auto panel = (ePanels)i;
-            const auto provided = (ePanelDamageState)(panels & bitIdx);
-            const auto current = (ePanelDamageState)(damageManager.m_nPanelsStatus & bitIdx);
-
-            if (provided != current) {
-                automobile->m_damageManager.SetPanelStatus(panel, provided);
-                automobile->SetPanelDamage(panel, true);
-            }
-        }
+        CReplay::ApplyPanelDamageToCar(panels, veh.AsAutomobile(), true); // 0x59CA10 (lote 178A, sin validar)
     }
 
     veh.GetMoveSpeed().x = (float)vecMoveSpeed.x / 8000.0f;

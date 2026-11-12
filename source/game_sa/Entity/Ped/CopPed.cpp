@@ -29,6 +29,7 @@ void CCopPed::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x5DDC60);
     RH_ScopedInstall(Destructor, 0x5DE0D0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x5DE2C0); // lote 178A (sin validar)
     RH_ScopedInstall(SetPartner, 0x5DDE80);
     RH_ScopedInstall(AddCriminalToKill, 0x5DDEB0);
     RH_ScopedInstall(RemoveCriminalToKill, 0x5DE040);
@@ -161,6 +162,17 @@ CCopPed::~CCopPed() {
 // 0x5DE0D0
 CCopPed* CCopPed::Destructor() {
     this->CCopPed::~CCopPed();
+    return this;
+}
+
+// 0x5DE2C0 (lote 178A, sin validar; el listado de entrada decia CCopPed y lo es): destructor con borrado de CCopPed del EXE (ranura 0 de su vtable 0x86C120; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x5DE0D0; test byte [esp+8],1; je ..; push esi; call 0x5E4760; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x5DE0D0, con hook:
+// Destructor()), libera `this` con CPed::operator delete (0x5E4760, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CCopPed* CCopPed::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CPed::operator delete(this);
+    }
     return this;
 }
 

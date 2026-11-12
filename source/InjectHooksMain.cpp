@@ -719,6 +719,7 @@ void InjectHooksMain() {
     CSetPieces::InjectHooks();
     CCopPed::InjectHooks();
     CCivilianPed::InjectHooks();
+    CEmergencyPed::InjectHooks();
     CDamageManager::InjectHooks();
     CCreepingFire::InjectHooks();
     BreakManager_c::InjectHooks();
@@ -805,6 +806,7 @@ void InjectHooksMain() {
     CWorldScan::InjectHooks();
     CDummy::InjectHooks();
     CDummyObject::InjectHooks();
+    CDummyPed::InjectHooks();
     CObject::InjectHooks();
     CProjectile::InjectHooks();
     CObjectData::InjectHooks();
@@ -931,6 +933,7 @@ void InjectHooksMain() {
     CGangs::InjectHooks();
     CPlayerInfo::InjectHooks();
     CReplay::InjectHooks();
+    CWinsockLink::InjectHooks();
     CDarkel::InjectHooks();
     CGeneral::InjectHooks();
     CMaths::InjectHooks();
@@ -1525,6 +1528,7 @@ void InjectHooksMain() {
         CEventVehicleDamage::InjectHooks();
         CEventVehicleDamageWeapon::InjectHooks();
         CEventVehicleDied::InjectHooks();
+        CEventVehicleThreat::InjectHooks();
         CEventVehicleOnFire::InjectHooks();
         CEventVehicleHitAndRun::InjectHooks();
         CEventVehicleCollision::InjectHooks();

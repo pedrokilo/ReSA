@@ -58,6 +58,7 @@ private:
 
     CCopPed* Constructor(uint32_t copTypeOrModelID);
     CCopPed* Destructor();
+    CCopPed* ScalarDeletingDestructor(uint8 flags); // 0x5DE2C0 (lote 178A, sin validar)
 
 };
 

@@ -10,6 +10,7 @@
 
 class NOTSA_EXPORT_VTABLE CDummyPed : public CDummy {
 public:
+    static void InjectHooks();
 };
 
 VALIDATE_SIZE(CDummyPed, 0x38);

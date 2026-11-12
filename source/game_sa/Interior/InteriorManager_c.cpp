@@ -51,6 +51,33 @@ void InteriorManager_c::InjectHooks() {
     RH_ScopedInstall(ActivatePeds, 0x598080);
     RH_ScopedInstall(Update, 0x598F50);
     RH_ScopedInstall(Init, 0x5C0500);
+    RH_ScopedInstall(Constructor, 0x5984C0); // lote 178A (sin validar)
+    RH_ScopedInstall(Destructor, 0x598580);  // lote 178A (sin validar)
+}
+
+// 0x5984C0 (lote 178A, sin validar; thiscall, sin argumentos, `ret`, 189 bytes con marco SEH que solo desenrolla): constructor del EXE de la instancia global (g_interiorMan, 0xBAF670). Como el original construye, en este
+// orden: los 8 Interior_c de +0x0 (iterador de constructores 0x821D30 con el constructor 0x5921D0, envuelto por Interior_c::Constructor, y el destructor de desenrollado 0x591360), la lista libre de +0x3CA0 (0x4A8DD0: tres
+// dwords a cero), los 8 InteriorGroup_c de +0x3CAC (tamano 0xBC; constructor 0x597FE0 = CListItem_c 0x4A8DB0: +0 y +4 a cero), las listas de +0x428C y +0x4298 (0x4A8DD0) y el rectangulo de +0x4740 con el estado
+// por defecto de CRect (1e6, -1e6, -1e6, 1e6). NO toca ningun otro campo (el EXE deja a cero el resto por ser memoria estatica; el constructor por defecto de C++ pondria a cero todo). Devuelve this.
+InteriorManager_c* InteriorManager_c::Constructor() {
+    for (auto& interior : m_Interiors) {
+        interior.Constructor();
+    }
+    m_InteriorPool = TList_c<Interior_c>{};
+    for (auto& group : m_InteriorGroups) {
+        group.m_pPrev = nullptr;
+        group.m_pNext = nullptr;
+    }
+    m_InteriorGroupList = TList_c<InteriorGroup_c>{};
+    m_InteriorGroupPool = TList_c<InteriorGroup_c>{};
+    m_EnExRect = CRect{};
+    return this;
+}
+
+// 0x598580 (lote 178A, sin validar; thiscall, sin argumentos, `ret`, 151 bytes con marco SEH que solo desenrolla): destructor del EXE (lo llama el `jmp` de 0x856655 del atexit). Solo llama a destructores vacios, en este
+// orden: lista +0x4298 (0x4A8DE0), lista +0x428C (0x4A8DE0), iterador de destructores (0x821E02) de los 8 InteriorGroup_c con 0x597FF0 (`jmp 0x4A8DC0`, vacio), lista +0x3CA0 (0x4A8DE0) e iterador con 0x591360
+// (0x4A8DE0 y 0x4A8DC0, vacios) de los 8 Interior_c. Ninguno escribe memoria: el cuerpo en C++ es vacio.
+void InteriorManager_c::Destructor() {
 }
 
 namespace {

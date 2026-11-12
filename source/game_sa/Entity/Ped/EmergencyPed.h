@@ -17,6 +17,12 @@ public:
     void FiremanAI();
     void ProcessControl() override;
     bool InRange(CPed* ped);
+
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    CEmergencyPed* Constructor(ePedType pedType, uint32 modelIndex); // 0x5DE340 (lote 178A, sin validar)
 };
 
 VALIDATE_SIZE(CEmergencyPed, 0x79C);

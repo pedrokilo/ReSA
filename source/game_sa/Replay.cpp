@@ -34,6 +34,7 @@ void CReplay::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Init, 0x45E220);
+    RH_ScopedInstall(ApplyPanelDamageToCar, 0x59CA10); // lote 178A (sin validar)
     RH_ScopedInstall(Update, 0x460500);
     RH_ScopedInstall(DisableReplays, 0x45B150);
     RH_ScopedInstall(EnableReplays, 0x45B160);
@@ -231,6 +232,65 @@ void ReplayStoreTrainUpdate(uint8* p, CVehicle* veh, int32 poolIdx) {
 } // namespace
 
 // 0x460625 thunk
+// 0x59CA10 (lote 178A, sin validar; el listado de entrada decia CQuaternion): cdecl, tres argumentos de pila (los paneles empaquetados, el CAutomobile y una bandera de 32 bits), `ret` sin limpiar la pila, 307 bytes.
+// Lo llama ExtractVehicleUpdateData del EXE (0x45BB8F, con `push 1`). Estado de paneles de CDamageManager = DWORD en +0x5B4 del coche, un nibble por panel. Como el original, por orden de panel: si el nibble
+// empaquetado difiere del actual lo sustituye (el DWORD se reescribe entero: (actual ^ ((actual ^ paneles) & mascara)), y para el panel 0 (actual & ~0xF) | nuevo) y, solo en estos casos, llama justo despues:
+// panel 0 y 1 (mascaras 0xF y 0xF0) y panel 4 (0xF0000): CAutomobile::SetPanelDamage (0x6B1480, con hook) con (panel, bandera); paneles 5 y 6 (0xF00000, 0xF000000): CAutomobile::SetBumperDamage (0x6B1350,
+// con hook) con (panel, bandera); paneles 2 y 3 (0xF00 y 0xF000): solo cambian el estado, sin llamada. Cada comparacion relee el DWORD tras la llamada anterior, como el EXE. Se ha sustituido el bucle en linea
+// que tenia ExtractVehicleUpdateData (llamaba SetPanelDamage para todos los paneles, tambien 2, 3, 5 y 6).
+void CReplay::ApplyPanelDamageToCar(uint32 panels, CAutomobile* automobile, bool createWindowGlass) {
+    uint32& status = automobile->m_damageManager.m_nPanelsStatus;
+
+    {
+        const uint32 current = status;
+        const uint32 wanted  = panels & 0xFu;
+        if ((current & 0xFu) != wanted) {
+            status = (current & 0xFFFFFFF0u) | wanted;
+            automobile->SetPanelDamage(static_cast<ePanels>(0), createWindowGlass);
+        }
+    }
+    {
+        const uint32 current = status;
+        if ((current ^ panels) & 0xF0u) {
+            status = (((current ^ panels) & 0xF0u) ^ current);
+            automobile->SetPanelDamage(static_cast<ePanels>(1), createWindowGlass);
+        }
+    }
+    {
+        const uint32 current = status;
+        if ((current ^ panels) & 0xF00u) {
+            status = (((current ^ panels) & 0xF00u) ^ current);
+        }
+    }
+    {
+        const uint32 current = status;
+        if ((current ^ panels) & 0xF000u) {
+            status = (((current ^ panels) & 0xF000u) ^ current);
+        }
+    }
+    {
+        const uint32 current = status;
+        if ((current ^ panels) & 0xF0000u) {
+            status = (((current ^ panels) & 0xF0000u) ^ current);
+            automobile->SetPanelDamage(static_cast<ePanels>(4), createWindowGlass);
+        }
+    }
+    {
+        const uint32 current = status;
+        if ((current ^ panels) & 0xF00000u) {
+            status = (((current ^ panels) & 0xF00000u) ^ current);
+            automobile->SetBumperDamage(static_cast<ePanels>(5), createWindowGlass);
+        }
+    }
+    {
+        const uint32 current = status;
+        if ((current ^ panels) & 0xF000000u) {
+            status = (((current ^ panels) & 0xF000000u) ^ current);
+            automobile->SetBumperDamage(static_cast<ePanels>(6), createWindowGlass);
+        }
+    }
+}
+
 // 0x45E220
 void CReplay::Init() {
     // Como el original: EmptyReplayBuffer en línea (sin mirar Mode) y MarkEverythingAsNew al final.

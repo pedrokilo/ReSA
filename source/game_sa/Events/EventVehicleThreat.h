@@ -16,5 +16,11 @@ public:
     int32 GetLifeTime() override { return 0; }
     bool AffectsPed(CPed* ped) override;
     CEventEditableResponse* CloneEditable() const noexcept override { return new CEventVehicleThreat(m_Vehicle); }
+
+public:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    CEventVehicleThreat* Constructor(CVehicle* vehicle); // 0x4AFB50 (lote 178A, sin validar)
 };
 VALIDATE_SIZE(CEventVehicleThreat, 0x18);

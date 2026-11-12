@@ -21,6 +21,9 @@ public:
     InteriorManager_c() = default;  // 0x5984C0
     ~InteriorManager_c() = default; // 0x598580
 
+    InteriorManager_c* Constructor(); // 0x5984C0 (lote 178A, sin validar): constructor del EXE sin tocar mas campos que los que construye
+    void Destructor();                // 0x598580 (lote 178A, sin validar): destructor del EXE (solo llama a destructores vacios)
+
     bool Init(); // Como el original: devuelve true (al = 1)
     bool Update();
     void Exit();

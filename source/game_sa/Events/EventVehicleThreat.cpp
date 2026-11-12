@@ -1,6 +1,33 @@
 #include "StdInc.h"
 #include "EventVehicleThreat.h"
 
+namespace {
+// 0x4AFBF0 (lote 178A, sin validar): cuerpo del destructor de CEventVehicleThreat del EXE (thiscall, sin argumentos de pila, `ret`, 81 bytes con marco SEH que solo desenrolla). Como el original: deja la vtable de la
+// clase del EXE (0x85B298), libera con CEntity::CleanUpOldReference (0x571A00) la referencia no nula del vehiculo (+0x14, ECX = vehiculo, un argumento de pila = &m_Vehicle) y deja la vtable de CEvent del EXE
+// (0x85AB38; no llama a 0x4AC010, el EXE lo expande en linea). Funcion propia sin expansion en linea; la llama el destructor con borrado del EXE (0x4B6350) como `call 0x4AFBF0`. Mismo cuerpo que
+// AcquaintancePedDestructorBody (0x4AF890) con otra vtable.
+__declspec(noinline) void __fastcall VehicleThreatDestructorBody(CEventVehicleThreat* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85B298;
+    CEntity::SafeCleanUpRef(self->m_Vehicle);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
+void CEventVehicleThreat::InjectHooks() {
+    RH_ScopedClass(CEventVehicleThreat);
+    RH_ScopedCategory("Events");
+
+    RH_ScopedNamedGlobalInstall(VehicleThreatDestructorBody, "DestructorBody", 0x4AFBF0); // lote 178A (sin validar)
+    RH_ScopedInstall(Constructor, 0x4AFB50);                                              // lote 178A (sin validar)
+}
+
+// 0x4AFB50 (lote 178A, sin validar; thiscall, un argumento de pila, `ret 4`, 102 bytes con marco SEH que solo desenrolla): constructor del EXE con el de CEvent y el de CEventEditableResponse expandidos en linea.
+// Deja +4 = 0 (dword, m_nTimeActive), +8 = 0 (byte, m_bValid), +0xC = 1 (byte, m_bAddToEventGroup), +0xE = 200 (word, TASK_NONE), +0x10 = 0xFFFF (word), la vtable del EXE (0x85B298), guarda el vehiculo en +0x14
+// y lo registra con CEntity::RegisterReference (0x571B70, un argumento de pila = &m_Vehicle) solo si no es nulo. Devuelve this.
+CEventVehicleThreat* CEventVehicleThreat::Constructor(CVehicle* vehicle) {
+    this->CEventVehicleThreat::CEventVehicleThreat(vehicle);
+    return this;
+}
 
 CEventVehicleThreat::CEventVehicleThreat(CVehicle* vehicle) : CEventEditableResponse() {
     m_Vehicle = vehicle;
@@ -14,4 +41,3 @@ CEventVehicleThreat::~CEventVehicleThreat() {
 bool CEventVehicleThreat::AffectsPed(CPed* ped) {
     return ped->IsAlive();
 }
-

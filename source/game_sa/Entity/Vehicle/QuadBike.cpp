@@ -52,10 +52,14 @@ float QuadMin(float a, float b) { return a < b ? a : b; }
 } // namespace
 
 namespace {
-// 0x6CDC30 (lote 141A, banco Fn141A): cuerpo del destructor de CQuadBike del EXE (vtable 0x871AE8, destruccion de miembros y salto al destructor de la base; sin hook propio: el destructor de la clase es
-// el generado por el compilador). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x6CDC30` del EXE.
+// 0x6CDC30 (lote 141A, banco Fn141A; hook propio desde el lote 178A, sin validar): cuerpo del destructor de CQuadBike del EXE (thiscall, sin argumentos de pila, `ret`, 85 bytes con marco SEH que solo desenrolla).
+// Como el original: deja la vtable de CQuadBike del EXE (0x871AE8), llama al destructor de CRideAnimData (0x6D0B30, con hook; ECX = +0x98C, m_sRideAnimData; no hace nada) y sigue con el cuerpo de ~CAutomobile
+// (0x6A61E0, con hook, envoltura Destructor()). El destructor generado ~CQuadBike deja la vtable de la DLL. Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// ScalarDeletingDestructor como el `call 0x6CDC30` del EXE.
 __declspec(noinline) void __fastcall QuadBikeDestructorBody(CQuadBike* self, void* /*edx*/) {
-    self->CQuadBike::~CQuadBike();
+    *reinterpret_cast<uint32*>(self) = 0x871AE8;
+    reinterpret_cast<void(__thiscall*)(CRideAnimData*)>(0x6D0B30)(&self->m_sRideAnimData);
+    static_cast<CAutomobile*>(self)->Destructor();
 }
 } // namespace
 
@@ -77,6 +81,7 @@ void CQuadBike::InjectHooks() {
     RH_ScopedCategory("Vehicle");
 
     RH_ScopedInstall(Constructor, 0x6CE370);
+    RH_ScopedNamedGlobalInstall(QuadBikeDestructorBody, "DestructorBody", 0x6CDC30); // lote 178A (sin validar)
     RH_ScopedInstall(ScalarDeletingDestructor, 0x6CE440); // lote 141A (banco Fn141A)
     RH_ScopedVMTInstall(Fix, 0x6CE2B0);
     RH_ScopedVMTInstall(GetRideAnimData, 0x6CDC90);

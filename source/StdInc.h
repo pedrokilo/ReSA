@@ -225,6 +225,7 @@
 #include "SurfaceInfo_c.h"
 #include "SurfaceInfos_c.h"
 #include "Replay.h"
+#include "WinsockLink.h"
 #include "VehicleAnimGroupData.h"
 #include "Collision/ColStore.h"
 #include "Collision/ColAccel.h"

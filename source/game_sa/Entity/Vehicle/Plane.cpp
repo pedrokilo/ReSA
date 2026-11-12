@@ -51,11 +51,54 @@ static void __fastcall PlaneHeadingMatrixExe(CVehicle* self, void* /*edx*/, floa
     PlaneGenerationHeading355(self, heading);
 }
 
+namespace {
+// 0x6C9160 (lote 178A, sin validar): cuerpo del destructor de CPlane del EXE (thiscall, sin argumentos de pila, `ret`, 231 bytes con marco SEH que solo desenrolla). Como el original: deja la vtable de CPlane del EXE
+// (0x871948); con la tabla de fogonazos (+0x9D4, m_pGunParticles) no nula, y por cada una de las CVehicle::GetPlaneNumGuns() ranuras (0x6D3F30, relida en cada pasada) no nulas, FxSystem_c::Kill (0x4AA3F0) y
+// g_fxMan.DestroyFxSystem (0x4A9810) con la ranura releida; despues libera la tabla (delete[], 0x8213AE, por direccion: la tabla la reserva el EXE) y deja el puntero a cero; por cada uno de los cuatro
+// particulas de chorro (+0x9E8) no nulas, Kill y puntero a cero; con la particula de humo (+0x9F8) no nula, Kill y puntero a cero; termina el audio del vehiculo (m_vehicleAudio, +0x138:
+// CAEVehicleAudioEntity::Terminate, 0x4FB8C0, con hook) y sigue con el cuerpo de ~CAutomobile (0x6A61E0, con hook, envoltura Destructor()). El destructor generado ~CPlane deja la vtable de la DLL.
+// Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x6C9160` del EXE.
+__declspec(noinline) void __fastcall PlaneDestructorBodyExe(CPlane* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x871948;
+    if (self->m_pGunParticles) {
+        for (auto i = 0; i < self->GetPlaneNumGuns(); i++) {
+            if (auto* const fx = self->m_pGunParticles[i]) {
+                fx->Kill();
+                g_fxMan.DestroyFxSystem(self->m_pGunParticles[i]); // la ranura se relee tras Kill, como en el EXE
+            }
+        }
+        reinterpret_cast<void(__cdecl*)(void*)>(0x8213AE)(self->m_pGunParticles); // operator delete[] del CRT del EXE: la tabla la reserva el EXE
+        self->m_pGunParticles = nullptr;
+    }
+    for (auto& particle : self->m_apJettrusParticles) {
+        if (particle) {
+            FxSystem_c::KillAndClear(particle);
+        }
+    }
+    FxSystem_c::SafeKillAndClear(self->m_pSmokeParticle);
+    self->m_vehicleAudio.Terminate();
+    static_cast<CAutomobile*>(self)->Destructor();
+}
+
+// 0x6CADB0 (lote 178A, sin validar): destructor con borrado de CPlane del EXE (ranura 0 de su vtable 0x871948; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6C9160; test byte [esp+8],1;
+// je ..; push esi; call 0x6E2D90; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6C9160), libera `this` con CVehicle::operator delete (0x6E2D90, sin hook: pool de
+// vehiculos) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CPlane* __fastcall PlaneScalarDeletingDestructor(CPlane* self, void* /*edx*/, uint8 flags) {
+    PlaneDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CVehicle::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CPlane::InjectHooks() {
     RH_ScopedVirtualClass(CPlane, 0x871948, 71);
     RH_ScopedCategory("Vehicle");
 
     RH_ScopedNamedGlobalInstall(PlaneHeadingMatrixExe, "SetHeadingMatrix", 0x6C4130);
+    RH_ScopedNamedGlobalInstall(PlaneDestructorBodyExe, "DestructorBody", 0x6C9160);                     // lote 178A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaneScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6CADB0);    // lote 178A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x6C8E20);
     RH_ScopedInstall(InitPlaneGenerationAndRemoval, 0x6CAD90);

@@ -245,6 +245,7 @@ public:
     static void InjectHooks();
 
     static void Init();
+    static void ApplyPanelDamageToCar(uint32 panels, CAutomobile* automobile, bool createWindowGlass); // 0x59CA10 (lote 178A, sin validar)
     static void Update();
     static void DisableReplays();
     static void EnableReplays();
