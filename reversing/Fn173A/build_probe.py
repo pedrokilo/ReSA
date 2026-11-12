@@ -1,0 +1,40 @@
+"""Construye unicamente el banco Fn173A (ASI de sonda); no acredita aprobacion. Ver README.md."""
+import json, sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import runtime_runner
+runtime_runner.GAME = Path('E:/JUEGOS/GTA San Andreas - CVehicle Test')
+from probe_build import build
+SOURCES = [
+    'source/CMakeLists.txt',
+    'source/InjectHooksMain.cpp',
+    'source/app/app.cpp',
+    'source/game_sa/PedList.cpp',
+    'source/game_sa/PedList.h',
+    'source/game_sa/PointList.cpp',
+    'source/game_sa/PointList.h',
+    'source/game_sa/Core/LinkList.h',
+    'source/game_sa/VisibilityPlugins.cpp',
+    'source/game_sa/X87Math.cpp',
+    'source/game_sa/X87Math.h',
+    'source/game_sa/Models/DamageAtomicModelInfo.cpp',
+    'source/game_sa/Models/LodAtomicModelInfo.cpp',
+    'source/game_sa/WaterLevel.cpp',
+    'source/game_sa/Core/PtrNodeSingleLink.cpp',
+    'source/game_sa/Core/PtrNodeSingleLink.h',
+    'source/game_sa/Core/PtrNodeDoubleLink.cpp',
+    'source/game_sa/Core/PtrNodeDoubleLink.h',
+    'source/game_sa/Pools/PtrNodeSingleLinkPool.h',
+    'source/game_sa/Pools/PtrNodeDoubleLinkPool.h',
+    'source/game_sa/Animation/AnimBlendSequence.cpp',
+    'source/game_sa/Animation/AnimBlendSequence.h',
+    'reversing/OriginalDependencies499/HookRoute.hpp',
+    'reversing/Fn173A/LiveComparison.hpp',
+    'reversing/Fn173A/Core.hpp',
+    'reversing/Fn173A/Fixtures.hpp',
+    'source/reversiblehooks/ReversibleHook/Simple.h',
+    'source/reversiblehooks/ReversibleHook/Simple.cpp',
+    'source/reversiblehooks/ReversibleHook/Virtual.h',
+    'source/reversiblehooks/ReversibleHook/Virtual.cpp']
+if __name__ == '__main__':
+    print(json.dumps(build(Path(__file__).parent, 'fn173a', 'F173ALive', SOURCES)))

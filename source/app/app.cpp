@@ -48,6 +48,10 @@ void AppInjectHooks() {
     RH_ScopedGlobalInstall(AppEventHandler, 0x53EC10);
     RH_ScopedGlobalInstall(CameraSize, 0x72FC70);
 
+    RH_ScopedGlobalInstall(CreateDebugFont, 0x734610);    // lote 173A (banco Fn173A): `ret` (FINAL 0: sin cuerpo)
+    RH_ScopedGlobalInstall(DestroyDebugFont, 0x734620);   // lote 173A (banco Fn173A): `ret`
+    RH_ScopedGlobalInstall(FlushObrsPrintfs, 0x734640);   // lote 173A (banco Fn173A): `ret`
+
     RH_ScopedGlobalInstall(DefinedState, 0x734650);
     RH_ScopedGlobalInstall(DefinedState2d, 0x734750);
 

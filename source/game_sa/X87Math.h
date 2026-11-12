@@ -2326,6 +2326,11 @@ void __cdecl AcquaintanceDeltaCpp(const float* other, const float* self, float* 
 // 0x607A90: ((z*fz) + (y*fy)) + (x*fx) con la x87 (sin guardar) mayor (ordenado) que `threshold`; `v` y `fwd` son 3 floats.
 bool __cdecl AcquaintanceInViewCpp(const float* v, const float* fwd, float threshold);
 
+// Lote 173A (Fn173A).
+// 0x733910 (CLinkList<AlphaObjectInfo>::InsertSorted): verdadero si el enlace existente debe saltarse (`fld [existente]; fcomp [nuevo]; fnstsw ax; test ah,1; jne`: la distancia existente es MENOR que la nueva o
+// no ordenada, es decir !(existente >= nuevo)), comparado con la x87 (un denormal no se aplana a cero como en el SSE del juego).
+bool __cdecl SortedDistanceStepsPastCpp(float existing, float inserted);
+
 // Lote 153A (Fn153A).
 // 0x4F56D0 (CAEVehicleAudioEntity): *destination = first + *second con la x87 (fld first; fadd [second]; fstp [destination]). Ver X87Math.cpp.
 void __cdecl FloatSumStoreCpp(float first, const volatile float* second, volatile float* destination);

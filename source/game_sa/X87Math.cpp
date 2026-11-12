@@ -18891,6 +18891,13 @@ __declspec(noinline) bool __cdecl AcquaintanceInViewCpp(const float* v, const fl
     return dot > double(threshold);
 }
 #pragma float_control(pop)
+// Lote 173A (Fn173A).
+// 0x733910 (CLinkList<AlphaObjectInfo>::InsertSorted): `!(existente >= nuevo)` con la comparacion x87 del EXE (C0 puesto con menor o no ordenado). La semantica precisa evita que /fp:fast lo cambie por `<`.
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl SortedDistanceStepsPastCpp(float existing, float inserted) {
+    return !(existing >= inserted);
+}
+#pragma float_control(pop)
 // Lote 153A (Fn153A).
 #pragma float_control(precise, on, push)
 // 0x4F56D0 (CAEVehicleAudioEntity::UpdateVehicleEngineSoundExe): `fld dword [volumen]; fadd dword [m_EventVolume]; fstp dword [sonido+14h]`. El primer operando va al registro (fld) y el segundo se suma desde memoria (fadd); la

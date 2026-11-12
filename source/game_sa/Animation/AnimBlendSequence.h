@@ -26,6 +26,11 @@ public:
     ~CAnimBlendSequence();
 
     void CompressKeyframes(uint8* frameData);
+
+    // Conversiones de keyframes comprimidos (lote 173A, banco Fn173A): funciones del EXE sin `this`, cdecl, sin valor devuelto.
+    static void CompressQuaternion(int16* out, const float* in);    // 0x4CFA30
+    static void DecompressQuaternion(float* out, const int16* in);  // 0x4CFA90
+    static void DecompressTranslation(float* out, const int16* in); // 0x4CFB10
     [[nodiscard]] size_t GetDataSize(bool compressed) const;
     bool MoveMemory();
     void Print();

@@ -1,13 +1,16 @@
 #include "StdInc.h"
 
 namespace details {
+// 0x5523C0 (lote 173A, banco Fn173A; cdecl, el EXE ignora el tamano de la pila, `ret`, 11 bytes: `mov ecx,[0xB74488]; jmp 0x5522E0`; el listado decia CPtrNodeDoubleLinkPool): operator new de los nodos
+// de las listas dobles de punteros: reserva un nodo en el pool doble (CPools 0xB74488) con New (0x5522E0; devuelve nulo con el pool lleno).
 void* CPtrNodeDoubleLink__operator_new(size_t sz) {
     assert(sz == sizeof(CPtrNodeDoubleLink<void*>));
     return GetPtrNodeDoubleLinkPool()->New();
 }
 
-void CPtrNodeDoubleLink__operator_delete(void* data, size_t sz) {
-    assert(sz == sizeof(CPtrNodeDoubleLink<void*>));
+// 0x5523D0 (lote 173A, banco Fn173A; cdecl, UN argumento (el EXE no recibe el tamano), `ret`, 48 bytes; el listado decia CPtrNodeDoubleLinkPool): operator delete de los nodos de las listas dobles:
+// libera el nodo en el pool doble (0xB74488) sin comprobar nada: indice = (nodo - almacenamiento) / 12 (con signo), estados[indice] |= 0x80 y, si indice < +0xC (con signo), +0xC = indice.
+void CPtrNodeDoubleLink__operator_delete(void* data) {
     GetPtrNodeDoubleLinkPool()->Delete(reinterpret_cast<CPtrNodeDoubleLink<void*>*>(data));
 }
 };

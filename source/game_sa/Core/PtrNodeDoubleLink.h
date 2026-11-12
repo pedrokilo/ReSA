@@ -11,7 +11,7 @@
 // Doing it like this because including `Pools.h` here is a suicide
 namespace details {
 void* CPtrNodeDoubleLink__operator_new(size_t sz);
-void  CPtrNodeDoubleLink__operator_delete(void* data, size_t sz);
+void  CPtrNodeDoubleLink__operator_delete(void* data); // 0x5523D0 (lote 173A, banco Fn173A)
 void __fastcall CPtrListDoubleLink__FlushExe(void* list, void* edx); // 0x552470 (lote 131A, banco Fn131A)
 void __fastcall CPtrNodeDoubleLink__AddToListExe(void* node, void* edx, void** head); // 0x5329A0 (lote 150A, banco Fn150A)
 };
@@ -28,7 +28,8 @@ public:
     }
 
     static void operator delete(void* data, size_t sz) {
-        return details::CPtrNodeDoubleLink__operator_delete(data, sz);
+        assert(sz == sizeof(CPtrNodeDoubleLink<void*>));
+        return details::CPtrNodeDoubleLink__operator_delete(data);
     }
 
 public:

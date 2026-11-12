@@ -251,6 +251,10 @@ public:
     static bool ShouldCullVehicleAtomic(float distFromCam, float cullDist, float dotProduct, uint32 atomicId, bool bUseComplexHeuristic);
 };
 
+// 0x733910 (lote 173A, banco Fn173A): instancia de InsertSorted para las listas de objetos con alfa, definida en VisibilityPlugins.cpp (comparacion de la distancia con la x87 del EXE)
+template<>
+CLink<CVisibilityPlugins::AlphaObjectInfo>* CLinkList<CVisibilityPlugins::AlphaObjectInfo>::InsertSorted(const CVisibilityPlugins::AlphaObjectInfo& data);
+
 RpAtomic*   clearClumpForAllAtomicsFlagCB(RpAtomic* atomic, void* data);
 RpMaterial* SetAlphaCB(RpMaterial* material, void* data);
 RpMaterial* SetTextureCB(RpMaterial* material, void* texture);

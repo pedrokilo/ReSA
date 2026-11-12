@@ -35,6 +35,12 @@ __declspec(noinline) static CDamageAtomicModelInfo* __fastcall DamageAtomicModel
     return self;
 }
 
+// 0x4C55D0 (lote 173A, banco Fn173A): cuerpo del destructor de CDamageAtomicModelInfo del EXE (thiscall, sin argumentos, `ret`, 7 bytes: `mov dword [ecx],0x85BB9C`): solo deja la vtable de la clase base y no llama
+// a nada (como 0x4C5590 y 0x4C5620, los de CAtomicModelInfo y CBaseModelInfo). Funcion propia sin expansion en linea.
+__declspec(noinline) static void __fastcall DamageAtomicModelInfoDestructorBody(CDamageAtomicModelInfo* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85BB9C;
+}
+
 /**
  * Registra las operaciones del model info con variante dañada de RpAtomic.
  */
@@ -44,11 +50,12 @@ void CDamageAtomicModelInfo::InjectHooks()
     RH_ScopedCategory("Models");
 
     RH_ScopedNamedGlobalInstall(DamageAtomicModelInfoConstructorBody, "ConstructorBody", 0x4C55A0); // lote 161A (banco Fn161A)
+    RH_ScopedNamedGlobalInstall(DamageAtomicModelInfoDestructorBody, "DestructorBody", 0x4C55D0); // lote 173A (banco Fn173A)
     RH_ScopedVMTInstall(Init, 0x4C48B0);
     RH_ScopedVMTInstall(AsDamageAtomicModelInfoPtr, 0x4C55C0);
     RH_ScopedVMTInstall(DeleteRwObject, 0x4C49D0);
-    // clang moment: RH_ScopedVirtualOverloadedInstall(CreateInstance, "void", 0x4C4960, RwObject * (CDamageAtomicModelInfo::*)());
-    // clang moment: RH_ScopedVirtualOverloadedInstall(CreateInstance, "rwmat", 0x4C4910, RwObject * (CDamageAtomicModelInfo::*)(RwMatrix*));
+    RH_ScopedVMTOverloadedInstall(CreateInstance, "void", 0x4C4960, RwObject * (CDamageAtomicModelInfo::*)()); // lote 173A (banco Fn173A)
+    RH_ScopedVMTOverloadedInstall(CreateInstance, "rwmat", 0x4C4910, RwObject * (CDamageAtomicModelInfo::*)(RwMatrix*)); // lote 173A (banco Fn173A)
 
     RH_ScopedInstall(SetDamagedAtomic, 0x4C48D0);
 }
@@ -84,6 +91,9 @@ void CDamageAtomicModelInfo::DeleteRwObject()
  * Crea la versión normal o dañada según el selector global ms_bCreateDamagedVersion.
  * La variante dañada se clona con un frame propio igual que una instancia atomic normal.
  */
+// 0x4C4960 (lote 173A, banco Fn173A; ranura 11 de la vtable 0x85BC30; thiscall, sin argumentos, `ret`, 103 bytes; el listado decia CDamageAtomicModelInfo): con el selector 0xA9B0B0 puesto, sin plantilla danada
+// (+0x20) devuelve nulo; si no, clona esa plantilla (0x749E60), crea un frame (0x7F0410) y se lo asigna (0x74BF20). Sin el selector hace lo mismo con la plantilla normal (+0x1C) entre AddRef (0x4C4BA0) y
+// RemoveRef (0x4C4BB0), en linea en el EXE y aqui con CAtomicModelInfo::CreateInstance (0x4C4530, que lee +0x1C dos veces igual que el EXE).
 RwObject* CDamageAtomicModelInfo::CreateInstance()
 {
     if (!CDamageAtomicModelInfo::ms_bCreateDamagedVersion)
@@ -98,6 +108,9 @@ RwObject* CDamageAtomicModelInfo::CreateInstance()
     return reinterpret_cast<RwObject*>(atomic);
 }
 
+// 0x4C4910 (lote 173A, banco Fn173A; ranura 10 de la vtable 0x85BC30; thiscall, un argumento de pila, `ret 4`; la funcion del EXE son los fragmentos 0x4C4910 (24 bytes), 0x4C4923 (48) y 0x4C4953 (`jmp 0x4C44D0`);
+// el listado los atribuia a CDamageAtomicModelInfo): como CreateInstance() pero copia la matriz (64 bytes con `rep movsd` hacia delante) sobre la matriz de modelado del frame (+0x10) antes de asignarlo. Sin el selector
+// salta a CAtomicModelInfo::CreateInstance(RwMatrix*) (0x4C44D0).
 RwObject* CDamageAtomicModelInfo::CreateInstance(RwMatrix* matrix)
 {
     if (!CDamageAtomicModelInfo::ms_bCreateDamagedVersion)
@@ -108,7 +121,7 @@ RwObject* CDamageAtomicModelInfo::CreateInstance(RwMatrix* matrix)
 
     auto atomic = RpAtomicClone(m_pDamagedAtomic);
     auto frame = RwFrameCreate();
-    memcpy(RwFrameGetMatrix(frame), matrix, sizeof(*RwFrameGetMatrix(frame)));
+    __movsd(reinterpret_cast<unsigned long*>(RwFrameGetMatrix(frame)), reinterpret_cast<const unsigned long*>(matrix), sizeof(RwMatrix) / sizeof(unsigned long));
     RpAtomicSetFrame(atomic, frame);
     return reinterpret_cast<RwObject*>(atomic);
 }

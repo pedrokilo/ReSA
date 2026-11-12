@@ -68,6 +68,7 @@ void CWaterLevel::InjectHooks() {
     RH_ScopedCategoryGlobal();
     RH_ScopedGlobalInstall(LerpRenPar, 0x6E5280);
     RH_ScopedGlobalInstall(FlushWaterRenderBuffer, 0x6E7680);
+    RH_ScopedInstall(SyncWater, 0x6E76E0); // lote 173A (banco Fn173A)
     RH_ScopedInstall(CalculateWavesOnlyForCoordinate2Native, 0x6E7210);
     RH_ScopedInstall(CalculateWavesOnlyForCoordinate2, 0x6E8550);
 
@@ -1475,6 +1476,8 @@ void CWaterLevel::RenderWater() {
     plugin::Call<0x734650>();
 }
 
+// 0x6E76E0 (lote 173A, banco Fn173A; cdecl, sin argumentos, `ret`, 11 bytes: `mov eax,[0xB7CB84]; mov [0xC228A4],eax; ret`; el listado decia CWaterLevel): copia el reloj del juego
+// (CTimer::m_snTimeInMilliseconds) al desfase del oleaje (m_nWaterTimeOffset, 0xC228A4).
 void CWaterLevel::SyncWater() {
     m_nWaterTimeOffset = CTimer::GetTimeInMS();
 }

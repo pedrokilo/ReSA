@@ -25,6 +25,7 @@ void CPedList::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Empty, 0x699DB0);
+    RH_ScopedInstall(FillUpHoles, 0x699E20); // lote 173A (banco Fn173A)
     RH_ScopedInstall(Constructor, 0x5F68A0);
     RH_ScopedInstall(BuildListFromGroup_NoLeader, 0x699DD0);
     RH_ScopedInstall(ExtractPedsWithGuns, 0x69A4C0);
@@ -67,8 +68,9 @@ void CPedList::ExtractPedsWithGuns(CPedList& from) {
 }
 
 
-// After nulling out a field in the
-// array there might be a hole, so it has to be filled
+// 0x699E20 (lote 173A, banco Fn173A; thiscall, sin argumentos, `ret`, 179 bytes; el listado decia CPedList): despues de anular un hueco en la lista hay que
+// rellenarlo. Como el original: recorre los 30 punteros en orden y copia los no nulos, sin cambiar su orden, al principio del array; los que quedan al final se ponen a cero. NO toca
+// `m_count` (lo mantienen RemoveMemberNoFill y AddMember).
 void CPedList::FillUpHoles() {
     rng::fill(rng::remove(m_peds, nullptr), nullptr);
 }

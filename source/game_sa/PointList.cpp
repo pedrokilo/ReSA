@@ -23,6 +23,7 @@ void CPointList::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Constructor, 0x6986E0);
+    RH_ScopedInstall(Clear, 0x699F00); // lote 173A (banco Fn173A)
 }
 
 // 0x6986E0 (lote 142A, banco Fn142A; thiscall, sin argumentos de pila, `ret`, 12 bytes: `push esi; mov esi,ecx; call 0x699F00; mov eax,esi; pop esi; ret`; el listado lo atribuia a
@@ -32,6 +33,14 @@ CPointList* CPointList::Constructor() {
     m_Count = 0;
     std::fill(std::begin(m_PointHasBeenClaimed), std::end(m_PointHasBeenClaimed), false);
     return this;
+}
+
+// 0x699F00 (lote 173A, banco Fn173A; thiscall, sin argumentos, `ret`, 24 bytes: `push edi; mov [ecx],0; lea edi,[ecx+124h]; mov ecx,6; xor eax,eax; rep stosd; pop edi; ret`; el listado
+// decia CPointList): pone m_Count a cero y los 24 bytes de m_PointHasBeenClaimed (+0x124, 6 dwords) a cero. Los puntos (m_Points) no se tocan. Es la funcion que llama el
+// constructor 0x6986E0 del EXE (que aqui las escribe en linea).
+void CPointList::Clear() {
+    m_Count = 0;
+    std::fill(std::begin(m_PointHasBeenClaimed), std::end(m_PointHasBeenClaimed), false);
 }
 
 bool CPointList::Empty() const noexcept {

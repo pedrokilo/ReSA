@@ -37,6 +37,9 @@ void CAnimBlendSequence::InjectHooks() {
     RH_ScopedInstall(SetNumFrames, 0x4D0CD0);
     RH_ScopedInstall(Uncompress, 0x4D0D40);
     RH_ScopedInstall(CompressKeyframes, 0x4D0F40);
+    RH_ScopedInstall(CompressQuaternion, 0x4CFA30);
+    RH_ScopedInstall(DecompressQuaternion, 0x4CFA90);
+    RH_ScopedInstall(DecompressTranslation, 0x4CFB10);
     RH_ScopedInstall(MoveMemory, 0x4D1150);
     RH_ScopedInstall(Print, 0x4D1180);
     RH_ScopedInstall(RemoveQuaternionFlips, 0x4D1190);
@@ -62,6 +65,32 @@ CAnimBlendSequence::~CAnimBlendSequence() {
     if (!m_bUsingExternalMemory && m_Frames) {
         CMemoryMgr::Free(m_Frames);
     }
+}
+
+// 0x4CFA30 (lote 173A, banco Fn173A; cdecl, (salida int16[4], entrada float[4]), `ret`, 83 bytes; el listado decia CAnimBlendHierarchy): comprime un quaternion: cada componente x, y, z, w (en ese orden) se
+// multiplica por 4096 y se trunca a entero de 64 bits con _ftol2 (el EXE llama al _ftol del CRT 0x821B40) y se guarda como int16 (los 16 bits bajos). Fuera de rango o NaN queda el entero indefinido (0 en 16 bits).
+void CAnimBlendSequence::CompressQuaternion(int16* out, const float* in) {
+    const auto ToFixed = [](float v) { return static_cast<int16>(static_cast<int64>(v)); };
+    out[0] = ToFixed(in[0] * 4096.0f);
+    out[1] = ToFixed(in[1] * 4096.0f);
+    out[2] = ToFixed(in[2] * 4096.0f);
+    out[3] = ToFixed(in[3] * 4096.0f);
+}
+
+// 0x4CFA90 (lote 173A, banco Fn173A; cdecl, (salida float[4], entrada int16[4]), `ret`, 91 bytes; el listado decia CAnimBlendHierarchy): descomprime un quaternion: cada int16 con signo x, y, z, w (en ese orden)
+// por 1/4096 (0x858BFC) a float.
+void CAnimBlendSequence::DecompressQuaternion(float* out, const int16* in) {
+    out[0] = static_cast<float>(in[0]) * (1.0f / 4096.0f);
+    out[1] = static_cast<float>(in[1]) * (1.0f / 4096.0f);
+    out[2] = static_cast<float>(in[2]) * (1.0f / 4096.0f);
+    out[3] = static_cast<float>(in[3]) * (1.0f / 4096.0f);
+}
+
+// 0x4CFB10 (lote 173A, banco Fn173A; cdecl, (salida float[3], entrada int16[3]), `ret`, 70 bytes; el listado decia CAnimBlendHierarchy): descomprime una traslacion: cada int16 con signo x, y, z por 1/1024 (0x85C6D4) a float.
+void CAnimBlendSequence::DecompressTranslation(float* out, const int16* in) {
+    out[0] = static_cast<float>(in[0]) * (1.0f / 1024.0f);
+    out[1] = static_cast<float>(in[1]) * (1.0f / 1024.0f);
+    out[2] = static_cast<float>(in[2]) * (1.0f / 1024.0f);
 }
 
 // 0x4D0F40

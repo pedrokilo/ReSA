@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "8a65b3ae014d9ec08f95811abb7178e4f2b19cbfc68afc38d8ad3c71ded3c00c",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CPedList::FillUpHoles: 776/2048; CPointList::Clear: 884/2048; CLinkList<AlphaObjectInfo>::Shutdown: 892/2048; CLinkList<CPed*>::Shutdown: 909/2048; CLinkList<AlphaObjectInfo>::InsertSorted: 727/2048; CLinkList<AlphaObjectInfo>::Clear: 804/2048; App::CreateDebugFont: 2048/2048; App::DestroyDebugFont: 2048/2048; App::FlushObrsPrintfs: 2048/2048; CDamageAtomicModelInfo::CreateInstance-rwmat: 108/2048; CDamageAtomicModelInfo::CreateInstance-void: 447/2048; CDamageAtomicModelInfo::DestructorBody: 901/2048; CLodAtomicModelInfo::ConstructorBody: 899/2048; CWaterLevel::SyncWater: 1051/2048; CPtrNodeSingleLinkPool::OperatorNew: 2048/2048; CPtrNodeSingleLinkPool::OperatorDelete: 843/2048; CPtrNodeDoubleLinkPool::OperatorNew: 2048/2048; CPtrNodeDoubleLinkPool::OperatorDelete: 830/2048; CAnimBlendSequence::CompressQuaternion: 599/2048; CAnimBlendSequence::DecompressQuaternion: 610/2048; CAnimBlendSequence::DecompressTranslation: 603/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

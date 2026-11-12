@@ -23,5 +23,6 @@ public:
 
 private:
     CPointList* Constructor(); // 0x6986E0 (lote 142A, banco Fn142A)
+    void Clear();              // 0x699F00 (lote 173A, banco Fn173A)
 };
 VALIDATE_SIZE(CPointList, 0x13C);

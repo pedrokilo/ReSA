@@ -37,6 +37,8 @@ public:
         RH_ScopedCategory("Pools");
 
         RH_ScopedInstall(New, 0x05522E0);
+        RH_ScopedNamedGlobalInstall(details::CPtrNodeDoubleLink__operator_new, "OperatorNew", 0x005523C0); // lote 173A (banco Fn173A): operator new de los nodos dobles (salta a New)
+        RH_ScopedNamedGlobalInstall(details::CPtrNodeDoubleLink__operator_delete, "OperatorDelete", 0x005523D0); // lote 173A (banco Fn173A): operator delete de los nodos dobles
         RH_ScopedNamedGlobalInstall(details::CPtrListDoubleLink__FlushExe, "Flush", 0x00552470); // lote 131A (banco Fn131A): Flush de listas dobles (codigo de plantilla del EXE)
         RH_ScopedNamedGlobalInstall(details::CPtrNodeDoubleLink__AddToListExe, "AddToList", 0x005329A0); // lote 150A (banco Fn150A): insercion de un nodo al principio de una lista doble (codigo de plantilla del EXE)
     }
@@ -50,5 +52,11 @@ public:
     // toca el almacenamiento del objeto (sin el relleno 0xCD de CPool::New).
     CPtrNodeDoubleLink<void*>* New() {
         return NewLegacy();
+    }
+
+    // 0x5523D0 (lote 173A, banco Fn173A)
+    // Como el original: marca el slot libre y baja m_nFirstFree si procede, sin rellenar el nodo y sin comprobar que el slot estuviera ocupado.
+    void Delete(CPtrNodeDoubleLink<void*>* node) {
+        DeleteLegacy(node);
     }
 };

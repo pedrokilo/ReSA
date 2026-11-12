@@ -123,6 +123,39 @@ void CVisibilityPlugins::InjectHooks() {
     RH_ScopedGlobalInstall(setClumpForAllAtomicsFlagCB, 0x7322D0);
     RH_ScopedGlobalInstall(SetTextureCB, 0x732850);
     RH_ScopedGlobalInstall(SetAlphaCB, 0x7323B0);
+
+    // Instancias de la plantilla CLinkList que el EXE tiene fuera de linea (lote 173A, banco Fn173A): listas de objetos con alfa (enlaces de 0x14 bytes, `links` en +0x50) y de peds con arma (enlaces de 0xC, +0x30)
+    {
+        using AlphaLinkList = CLinkList<AlphaObjectInfo>;
+        RH_ScopedNamedClass(AlphaLinkList, "CLinkList<AlphaObjectInfo>");
+        RH_ScopedInstall(Shutdown, 0x732D60);
+        RH_ScopedInstall(InsertSorted, 0x733910);
+        RH_ScopedInstall(Clear, 0x733F40);
+    }
+    {
+        using PedLinkList = CLinkList<CPed*>;
+        RH_ScopedNamedClass(PedLinkList, "CLinkList<CPed*>");
+        RH_ScopedInstall(Shutdown, 0x732D80);
+    }
+}
+
+// 0x733910 (lote 173A, banco Fn173A; thiscall, un puntero de pila al dato, `ret 4`, 115 bytes; el listado decia CVisibilityPlugins): inserta una copia del dato en la lista usada, ordenada por distancia: avanza mientras
+// la distancia del enlace (+8) NO sea mayor o igual que la nueva (con la x87: `fld [enlace+8]; fcomp [dato+8]; test ah,1`; un NaN o un denormal se comparan como el EXE, no como el SSE del juego); toma el primer enlace
+// libre (nulo si no hay), copia el dato, lo desengancha de la lista libre y lo pone justo antes del encontrado. Devuelve el enlace.
+template<>
+CLink<CVisibilityPlugins::AlphaObjectInfo>* CLinkList<CVisibilityPlugins::AlphaObjectInfo>::InsertSorted(const CVisibilityPlugins::AlphaObjectInfo& data) {
+    CLink<CVisibilityPlugins::AlphaObjectInfo>* i = nullptr;
+    for (i = usedListHead.next; i != &usedListTail; i = i->next) {
+        if (!SortedDistanceStepsPastCpp(i->data.m_distance, data.m_distance))
+            break;
+    }
+    CLink<CVisibilityPlugins::AlphaObjectInfo>* link = freeListHead.next;
+    if (link == &freeListTail)
+        return nullptr;
+    link->data = data;
+    link->Remove();
+    link->Insert(i->prev);
+    return link;
 }
 
 // 0x733A20

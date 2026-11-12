@@ -11,7 +11,7 @@
 // Can't include <Pool.h> here, because it would cause circular dependency
 namespace details {
 void* CPtrNodeSingleLink__operator_new(size_t sz);
-void  CPtrNodeSingleLink__operator_delete(void* data, size_t sz);
+void  CPtrNodeSingleLink__operator_delete(void* data); // 0x552390 (lote 173A, banco Fn173A)
 void __fastcall CPtrListSingleLink__FlushExe(void* list, void* edx); // 0x552400 (lote 131A, banco Fn131A)
 };
 
@@ -27,7 +27,8 @@ public:
     }
 
     static void operator delete(void* data, size_t sz) {
-        return details::CPtrNodeSingleLink__operator_delete(data, sz);
+        assert(sz == sizeof(CPtrNodeSingleLink<void*>));
+        return details::CPtrNodeSingleLink__operator_delete(data);
     }
 
 public:
