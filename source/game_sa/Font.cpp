@@ -79,6 +79,79 @@ void CFont::InjectHooks() {
     RH_ScopedGlobalInstall(GetScriptLetterSize, 0x719670);
     RH_ScopedInstall(FindSubFontCharacter, 0x7192C0);
     RH_ScopedGlobalInstall(GetLetterIdPropValue, 0x718770);
+    RH_ScopedInstall(StripTildeTags, 0x719240);  // lote 174A (banco Fn174A)
+    RH_ScopedInstall(MapExtendedChar, 0x719360); // lote 174A (banco Fn174A)
+    {
+        RH_ScopedNamedClass(CFontChar, "CFontChar");
+        RH_ScopedInstall(Set, 0x718E50); // lote 174A (banco Fn174A): cuerpo antes inline en la cabecera
+    }
+}
+
+// 0x718E50 (lote 174A, banco Fn174A; ver Font.h)
+CFontChar& CFontChar::Set(const CFontChar& setup) {
+    const auto* const from = reinterpret_cast<const uint8*>(&setup);
+    auto* const to = reinterpret_cast<uint8*>(this);
+    const auto copy32 = [&](size_t offset) { uint32 value; std::memcpy(&value, from + offset, 4); std::memcpy(to + offset, &value, 4); };
+    const auto copy8 = [&](size_t offset) { to[offset] = from[offset]; };
+    for (const size_t offset : {0x00u, 0x04u, 0x08u, 0x0Cu, 0x10u}) {
+        copy32(offset);
+    }
+    for (const size_t offset : {0x14u, 0x15u, 0x16u, 0x17u}) {
+        copy8(offset);
+    }
+    for (const size_t offset : {0x18u, 0x1Cu, 0x20u, 0x24u}) {
+        copy32(offset);
+    }
+    for (const size_t offset : {0x28u, 0x29u, 0x2Au}) {
+        copy8(offset);
+    }
+    uint16 word;
+    std::memcpy(&word, from + 0x2C, 2);
+    std::memcpy(to + 0x2C, &word, 2);
+    copy8(0x2E);
+    return *this;
+}
+
+// 0x719240 (lote 174A, banco Fn174A; cdecl, un puntero, `ret`, 115 bytes): como el original, copia el texto completo (sin limite) a un buffer local de 0x100 bytes y lo reescribe en el sitio sin lo que hay entre pares
+// de '~' (la etiqueta incluidas sus dos marcas). Una '~' sin pareja recorre la memoria hasta encontrar otra (como el EXE: el texto del juego siempre trae las marcas por pares). No devuelve nada.
+void CFont::StripTildeTags(GxtChar* text) {
+    GxtChar buffer[256];
+    GxtChar* end = buffer;
+    for (const GxtChar* in = text; *in; ++in) {
+        *end++ = *in;
+    }
+    *end = 0;
+
+    const GxtChar* cursor = buffer;
+    GxtChar ch = *cursor;
+    uint32 written = 0;
+    if (ch) {
+        do {
+            if (ch != '~') {
+                text[written++] = ch;
+            } else {
+                ch = cursor[1];
+                ++cursor;
+                if (ch != '~') {
+                    do {
+                        ch = cursor[1];
+                        ++cursor;
+                    } while (ch != '~');
+                }
+            }
+            ch = cursor[1];
+            ++cursor;
+        } while (ch);
+    }
+    text[written] = 0;
+}
+
+// 0x719360 (lote 174A, banco Fn174A; cdecl, un byte de pila, `ret`, 19 bytes): los caracteres menores que 0x80 pasan tal cual; el resto, el byte de la tabla de entradas de 2 bytes en 0x8D5AD8 + 2 * caracter.
+GxtChar CFont::MapExtendedChar(uint8 ch) {
+    if (ch < 0x80) {
+        return ch;
+    }
+    return *reinterpret_cast<const uint8*>(0x8D5AD8 + ch * 2);
 }
 
 // 0x7187C0

@@ -55,6 +55,9 @@ void InjectCommonHooks() {
     RH_ScopedGlobalInstall(TransformPoint, 0x54ECE0);
     RH_ScopedGlobalInstall(TransformPoints, 0x54EEF0);
     RH_ScopedGlobalOverloadedInstall(TransformVectors, "Simple", 0x54EE30, void(*)(RwV3d*, int32, const CSimpleTransform&, const RwV3d*)); // Lote 116A, banco Fn116A
+    RH_ScopedGlobalOverloadedInstall(TransformVectors, "Matrix", 0x54EEA0, void(*)(RwV3d*, int32, const CMatrix&, const RwV3d*)); // Lote 174A, banco Fn174A
+    RH_ScopedGlobalInstall(TransformPointsSimple, 0x54ED20); // Lote 174A, banco Fn174A
+    RH_ScopedGlobalInstall(DoesInfiniteLineCrossFiniteLine, 0x71DB30); // Lote 174A, banco Fn174A
     RH_ScopedNamedGlobalInstall(ApproxEqualCpp, "approxEqual", 0x4EEA80); // Lote 116A, banco Fn116A
 
     RH_ScopedGlobalOverloadedInstall(MakeUpperCase, "", 0x7186E0, char* (*)(char*, const char*));
@@ -85,14 +88,25 @@ void TransformPoint(RwV3d& point, const CSimpleTransform& placement, const RwV3d
     CommonTransformPointCpp(&point.x, &placement.m_vPosn.x, &vecPos.x);
 }
 
-// 0x54EEA0
+// 0x54EEA0 (lote 174A, banco Fn174A; cdecl, salida, cuenta, matriz y entrada, `ret`, 79 bytes): como el original, CMatrix::CopyToRwMatrix (0x59B8B0) a la matriz de trabajo (puntero en 0xB72920) y RwMatrixUpdate
+// (0x7F18A0); despues, por vector, RwV3dTransformVector (0x7EDDC0) con la matriz de trabajo (relida de la global en cada pasada). Sin vectores no hace nada y si no el contador (sin signo) decrece hasta cero
+// como dec/jne (dominio valido numVectors >= 0).
 void TransformVectors(RwV3d* vecsOut, int32 numVectors, const CMatrix& matrix, const RwV3d* vecsIn) {
     matrix.CopyToRwMatrix(CGame::m_pWorkingMatrix1);
     RwMatrixUpdate(CGame::m_pWorkingMatrix1);
 
-    for (auto i = 0; i < numVectors; i++) {
+    for (auto remaining = std::bit_cast<uint32>(numVectors); remaining != 0; --remaining) {
         RwV3dTransformVector(vecsOut++, vecsIn++, CGame::m_pWorkingMatrix1);
     }
+}
+
+// 0x54ED20 (lote 174A, banco Fn174A; cdecl, salida, cuenta, transformacion y entrada, `ret`, 105 bytes): rota cada punto por el rumbo de la transformacion y le suma su posicion (lo que TransformVectors Simple
+// no hace). Como el original: coseno y seno se redondean a float antes de usarlos; por punto x = ((cos*x) - (sin*y)) + pos.x se escribe antes de releer in.x para y (la salida puede ser la entrada) y z = in.z + pos.z.
+// El bucle va en X87Math (x87 como el EXE): sin puntos no hace nada y si no el contador (sin signo) decrece hasta cero (dominio valido numPoints >= 0).
+void TransformPointsSimple(RwV3d* pointsOut, int32 numPoints, const CSimpleTransform& transform, const RwV3d* pointsIn) {
+    const float cosHeading = TrigSimpleCosCpp(transform.m_fHeading);
+    const float sinHeading = TrigSimpleSinCpp(transform.m_fHeading);
+    CommonTransformPointsSimpleCpp(&pointsOut->x, numPoints, cosHeading, sinHeading, &transform.m_vPosn.x, &pointsIn->x);
 }
 
 // 0x54EE30
@@ -244,15 +258,15 @@ float DistAlongPerpRightLine2D(CVector2D origin, CVector2D dir, CVector2D pt) {
 }
 
 // @unk
+// 0x71DB30 (lote 174A, banco Fn174A; cdecl, ocho floats en la pila: A, B, origen y direccion, `ret`, 76 bytes): como el original, el producto de las distancias con signo de A y B a la recta es menor que cero,
+// con la aritmetica en la x87 sin redondeos intermedios a float (X87Math); un NaN da falso. Devuelve 1 o 0 en EAX completo.
 bool DoesInfiniteLineCrossFiniteLine(
     CVector2D finiteA,
     CVector2D finiteB,
     CVector2D origin,
     CVector2D dir
 ) {
-    //return (((finiteA.x - origin.x) * dir.y) - ((finiteA.y - origin.y) * dir.x))
-    //    * (((finiteB.x - origin.x) * dir.y) - ((finiteB.y - origin.y) * dir.x)) < 0.0;
-    return DistAlongPerpRightLine2D(origin, dir, finiteA) * DistAlongPerpRightLine2D(origin, dir, finiteB) < 0.f;
+    return CommonLineCrossesSegmentCpp(finiteA.x, finiteA.y, finiteB.x, finiteB.y, origin.x, origin.y, dir.x, dir.y);
 }
 
 // used only in COccluder::ProcessLineSegment

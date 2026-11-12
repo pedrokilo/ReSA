@@ -31,6 +31,7 @@ void CTrainNode::InjectHooks() {
     RH_ScopedCategory("Vehicle");
 
     RH_ScopedNamedInstall(GetLightingFromCollisionExeAbi, "GetLightingFromCollision", 0x6F5F80);
+    RH_ScopedInstall(GetPosn, 0x6F5440); // lote 174A (banco Fn174A)
 }
 
 // 0x6F5370
@@ -68,7 +69,7 @@ float CTrainNode::GetZ() const {
     return (float)z * 0.125f;
 }
 
-// 0x6F5440
+// 0x6F5440 (lote 174A, banco Fn174A; thiscall con puntero oculto de salida, `ret 4`, 70 bytes): x, y y z (words con signo en +0, +2 y +4) por 0.125f (0x858C48), como floats; devuelve el puntero de salida
 CVector CTrainNode::GetPosn() const {
     return { GetX(), GetY(), GetZ() };
 }

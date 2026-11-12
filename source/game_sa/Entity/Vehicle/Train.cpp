@@ -37,10 +37,29 @@ auto& NumTrackNodes = StaticRef<std::array<int32, 4>>(0xC38014);
 auto& arrTotalTrackLength = StaticRef<std::array<float, 4>>(0xC37FEC);
 auto& StationDist = StaticRef<std::array<float, 6>>(0xC38034);
 
+namespace {
+// 0x6E2B40 (con hook, CVehicle::Destructor): llamada no virtual al cuerpo de ~CVehicle desde el cuerpo del destructor de CTrain, en una funcion propia sin expansion en linea para que el banco Fn174A pueda sustituirla.
+__declspec(noinline) void __fastcall CTrainBaseDestructorCall(CTrain* self, void* /*edx*/) { self->CVehicle::~CVehicle(); }
+
+// 0x6F54D0 (lote 174A, banco Fn174A; thiscall, sin argumentos de pila, `ret`, 85 bytes con marco SEH que solo desenrolla): cuerpo del destructor de CTrain del EXE (el listado lo atribuia a cHandlingDataMgr: la clase sale de la
+// vtable 0x872370). Como el original: deja la vtable de CTrain del EXE (0x872370), termina el audio del vehiculo (m_vehicleAudio, +0x138: CAEVehicleAudioEntity::Terminate, 0x4FB8C0, con hook) y sigue con el cuerpo
+// de ~CVehicle (0x6E2B40, con hook propio). El destructor generado ~CTrain deja la vtable de la DLL.
+__declspec(noinline) void __fastcall CTrainDestructorBodyExe(CTrain* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x872370;
+    self->m_vehicleAudio.Terminate();
+    CTrainBaseDestructorCall(self, nullptr);
+}
+} // namespace
+
+uintptr_t Lote174ABody_CTrainBaseDestructor() { return reinterpret_cast<uintptr_t>(&CTrainBaseDestructorCall); } // para el banco Fn174A
+
 void CTrain::InjectHooks() {
     RH_ScopedVirtualClass(CTrain, 0x872370, 66);
     RH_ScopedCategory("Vehicle");
 
+    RH_ScopedNamedGlobalInstall(CTrainDestructorBodyExe, "DestructorBody", 0x6F54D0); // lote 174A (banco Fn174A)
+    RH_ScopedVMTInstall(SetModelIndex, 0x6F5530); // lote 174A (banco Fn174A)
+    RH_ScopedVMTInstall(PreRender, 0x6F5570);     // lote 174A (banco Fn174A)
     RH_ScopedInstall(Constructor, 0x6F6030);
     RH_ScopedInstall(InitTrains, 0x6F7440);
     RH_ScopedInstall(ReadAndInterpretTrackFile, 0x6F55D0);
@@ -139,6 +158,26 @@ CTrain::CTrain(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(created
 void CTrain::SetupModelNodes() {
     std::ranges::fill(m_aTrainNodes, nullptr);
     CClumpModelInfo::FillFrameArray(GetRpClump(), m_aTrainNodes.data());
+}
+
+// 0x6F5530 (lote 174A, banco Fn174A; ranura virtual de la vtable 0x872370, thiscall, un argumento de pila, `ret 4`, 49 bytes): como el original, CVehicle::SetModelIndex (0x6D6A40, con hook) con el indice y despues
+// SetupModelNodes: pone a cero los 17 dwords de m_aTrainNodes (+0x668) y los rellena con CClumpModelInfo::FillFrameArray (0x4C5440) sobre el clump (+0x18).
+void CTrain::SetModelIndex(uint32 index) {
+    CVehicle::SetModelIndex(index);
+    SetupModelNodes();
+}
+
+// 0x6F5570 (lote 174A, banco Fn174A; ranura virtual de la vtable 0x872370, thiscall, sin argumentos de pila, `ret`, 75 bytes): como el original, CVehicle::PreRender (0x6D6480, con hook) y despues, segun las banderas
+// de tren (word +0x5B8): con bit 3 (vagon delantero) DoVehicleLights (0x6E1A60, con hook) sobre la matriz (+0x14) con 5 si el modelo es el 449 (tranvia) o con 0x25 si no; si no, con bit 4 (ultimo vagon) con 0x15.
+void CTrain::PreRender() {
+    CVehicle::PreRender();
+    if (trainFlags.bIsFrontCarriage) {
+        DoVehicleLights(*m_matrix, m_nModelIndex == MODEL_TRAM
+            ? static_cast<eVehicleLightsFlags>(VEHICLE_LIGHTS_TWIN | VEHICLE_LIGHTS_IGNORE_DAMAGE)
+            : static_cast<eVehicleLightsFlags>(VEHICLE_LIGHTS_TWIN | VEHICLE_LIGHTS_IGNORE_DAMAGE | VEHICLE_LIGHTS_DISABLE_REAR));
+    } else if (trainFlags.bIsLastCarriage) {
+        DoVehicleLights(*m_matrix, static_cast<eVehicleLightsFlags>(VEHICLE_LIGHTS_TWIN | VEHICLE_LIGHTS_IGNORE_DAMAGE | VEHICLE_LIGHTS_DISABLE_FRONT));
+    }
 }
 
 // 0x6F7440

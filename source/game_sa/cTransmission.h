@@ -47,3 +47,6 @@ public:
 };
 
 VALIDATE_SIZE(cTransmission, 0x68);
+
+// 0x6D0450 (lote 140A): cuerpo del constructor del EXE (no escribe nada y devuelve this); lo llama el constructor de tHandlingData (0x6F4FA0, lote 174A)
+cTransmission* __fastcall TransmissionConstructorBody(cTransmission* self, void* edx);

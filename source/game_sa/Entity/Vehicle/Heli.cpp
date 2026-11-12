@@ -73,10 +73,52 @@ static uint32 __declspec(safebuffers) __fastcall FindSwatPositionRelativeToHeliE
 }
 #pragma runtime_checks("", restore)
 
+namespace {
+// Parte propia de la destruccion de CHeli, comun al destructor generado por el compilador y al cuerpo del EXE (0x6C4340): con la tabla de fogonazos (+0xA0C) no nula, y por cada una de las
+// CVehicle::GetPlaneNumGuns() ranuras (0x6D3F30, relida en cada pasada) no nulas, FxSystem_c::Kill (0x4AA3F0) y g_fxMan.DestroyFxSystem (0x4A9810) con la ranura releida; despues libera la tabla (delete[],
+// 0x8213AE, por direccion: la tabla la reserva el EXE) y deja el puntero a cero.
+void HeliReleaseGunflashFx(CHeli* heli) {
+    if (heli->m_ppGunflashFx) {
+        for (auto i = 0; i < heli->GetPlaneNumGuns(); i++) {
+            if (auto* const fx = heli->m_ppGunflashFx[i]) {
+                fx->Kill();
+                g_fxMan.DestroyFxSystem(heli->m_ppGunflashFx[i]); // la ranura se relee tras Kill, como en el EXE
+            }
+        }
+        reinterpret_cast<void(__cdecl*)(void*)>(0x8213AE)(heli->m_ppGunflashFx); // operator delete[] del CRT del EXE: la tabla la reserva el EXE
+        heli->m_ppGunflashFx = nullptr;
+    }
+}
+
+// 0x6C4340 (lote 174A, banco Fn174A; thiscall, sin argumentos de pila, `ret`, 169 bytes con marco SEH que solo desenrolla): cuerpo del destructor de CHeli del EXE. Como el original: deja la vtable de CHeli del EXE
+// (0x871680), libera los fogonazos, termina el audio del vehiculo (m_vehicleAudio, +0x138: CAEVehicleAudioEntity::Terminate, 0x4FB8C0, con hook) y sigue con el cuerpo de ~CAutomobile (0x6A61E0, con hook,
+// envoltura Destructor()). El destructor generado ~CHeli deja la vtable de la DLL. Funcion propia sin expansion en linea para que el banco pueda sustituirla.
+__declspec(noinline) void __fastcall CHeliDestructorBodyExe(CHeli* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x871680;
+    HeliReleaseGunflashFx(self);
+    self->m_vehicleAudio.Terminate();
+    static_cast<CAutomobile*>(self)->Destructor();
+}
+
+// 0x6C4810 (lote 174A, banco Fn174A): destructor con borrado de CHeli del EXE (ranura 0 de su vtable 0x871680; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6C4340; test byte [esp+8],1;
+// je ..; push esi; call 0x6E2D90; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6C4340), libera `this` con CVehicle::operator delete (0x6E2D90, sin hook: pool de vehiculos)
+// solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CHeli* __fastcall CHeliScalarDeletingDestructor(CHeli* self, void* /*edx*/, uint8 flags) {
+    CHeliDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CVehicle::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CHeli::InjectHooks() {
     RH_ScopedVirtualClass(CHeli, 0x871680, 71);
     RH_ScopedCategory("Vehicle");
 
+    RH_ScopedNamedGlobalInstall(CHeliDestructorBodyExe, "DestructorBody", 0x6C4340); // lote 174A (banco Fn174A)
+    RH_ScopedNamedGlobalInstall(CHeliScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6C4810); // lote 174A (banco Fn174A)
+    RH_ScopedVMTInstall(SetupDamageAfterLoad, 0x6C4550); // lote 174A (banco Fn174A)
     RH_ScopedInstall(Constructor, 0x6C4190);
     RH_ScopedInstall(InitHelis, 0x6C4560);
     RH_ScopedInstall(AddHeliSearchLight, 0x6C45B0);
@@ -161,17 +203,7 @@ CHeli::CHeli(int32 modelIndex, eVehicleCreatedBy createdBy) : CAutomobile(modelI
 
 // 0x6C4340
 CHeli::~CHeli() {
-    if (m_ppGunflashFx) {
-        for (auto i = 0; i < CVehicle::GetPlaneNumGuns(); i++) {
-            if (auto& fx = m_ppGunflashFx[i]) {
-                fx->Kill();
-                g_fxMan.DestroyFxSystem(fx);
-            }
-        }
-        delete[] m_ppGunflashFx;
-        m_ppGunflashFx = nullptr;
-    }
-
+    HeliReleaseGunflashFx(this);
     m_vehicleAudio.Terminate();
 }
 

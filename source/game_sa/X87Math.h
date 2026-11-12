@@ -2334,3 +2334,9 @@ bool __cdecl SortedDistanceStepsPastCpp(float existing, float inserted);
 // Lote 153A (Fn153A).
 // 0x4F56D0 (CAEVehicleAudioEntity): *destination = first + *second con la x87 (fld first; fadd [second]; fstp [destination]). Ver X87Math.cpp.
 void __cdecl FloatSumStoreCpp(float first, const volatile float* second, volatile float* destination);
+
+// Lote 174A (banco Fn174A).
+// Common::TransformPoints con CSimpleTransform (0x54ED20), bucle: out[i] = rotacion de in[i] por (cosHeading, sinHeading) mas pos[0..2]; la salida puede ser la entrada; 0 puntos no hace nada.
+void __cdecl CommonTransformPointsSimpleCpp(float* out, int numPoints, float cosHeading, float sinHeading, const float* pos, const float* in);
+// DoesInfiniteLineCrossFiniteLine (0x71DB30): producto de las distancias con signo de los dos extremos A y B a la recta (origen o, direccion d) menor que cero, con la x87 sin redondeos intermedios a float.
+bool __cdecl CommonLineCrossesSegmentCpp(float ax, float ay, float bx, float by, float ox, float oy, float dx, float dy);

@@ -22,10 +22,15 @@ END GENERATED HOOK STATUS */
 
 auto& fWheelExtensionRate = StaticRef<float>(0x8D33AC);
 
+namespace {
+__declspec(noinline) void __fastcall MonsterTruckDestructorBody(CMonsterTruck* self, void* edx); // 0x6C7D10 (lote 174A), definida mas abajo
+}
+
 void CMonsterTruck::InjectHooks() {
     RH_ScopedVirtualClass(CMonsterTruck, 0x8717d8, 71);
     RH_ScopedCategory("Vehicle");
 
+    RH_ScopedNamedGlobalInstall(MonsterTruckDestructorBody, "DestructorBody", 0x6C7D10); // lote 174A (banco Fn174A)
     RH_ScopedInstall(ScalarDeletingDestructor, 0x6C7F90);
     RH_ScopedInstall(Constructor, 0x6C8D60);
 
@@ -322,10 +327,12 @@ bool CMonsterTruck::SetUpWheelColModel(CColModel* colModel) {
 }
 
 namespace {
-// 0x6C7D10 (lote 125A, banco Fn125A): cuerpo del destructor de CMonsterTruck del EXE (vtable 0x8717D8 y salto al destructor de la base; sin hook propio: el destructor de la clase es el generado por el compilador).
-// Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x6C7D10` del EXE.
+// 0x6C7D10 (lote 125A, banco Fn125A; enganchada en el lote 174A, banco Fn174A): cuerpo del destructor de CMonsterTruck del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],0x8717D8; jmp 0x6A61E0`;
+// el listado de pendientes decia CHeli: la clase sale de la vtable 0x8717D8 y de su ranura 0 0x6C7F90, que lo llama). Deja la vtable de CMonsterTruck del EXE (0x8717D8) y sigue con el cuerpo de ~CAutomobile (0x6A61E0, con hook,
+// envoltura Destructor()). El destructor generado por el compilador dejaria la vtable de la DLL. Funcion propia sin expansion en linea; la llama ScalarDeletingDestructor como el `call 0x6C7D10` del EXE.
 __declspec(noinline) void __fastcall MonsterTruckDestructorBody(CMonsterTruck* self, void* /*edx*/) {
-    self->CMonsterTruck::~CMonsterTruck();
+    *reinterpret_cast<uint32*>(self) = 0x8717D8;
+    static_cast<CAutomobile*>(self)->Destructor();
 }
 } // namespace
 

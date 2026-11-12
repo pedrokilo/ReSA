@@ -23,7 +23,7 @@ END GENERATED HOOK STATUS */
 
 // 0x6D0450 (lote 140A, banco Fn140A): constructor de cTransmission del EXE (thiscall, sin argumentos, `ret`, 3 bytes: `mov eax,ecx`): no escribe nada y devuelve this. Lo llaman el constructor de
 // tHandlingData (0x6F4FA0, para el miembro +0x2C) y el de cHandlingDataMgr (0x6F5330, para los 210 elementos).
-static cTransmission* __fastcall TransmissionConstructorBody(cTransmission* self, void* /*edx*/) { return self; }
+__declspec(noinline) cTransmission* __fastcall TransmissionConstructorBody(cTransmission* self, void* /*edx*/) { return self; }
 
 void cTransmission::InjectHooks()
 {

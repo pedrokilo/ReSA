@@ -31,23 +31,9 @@ struct CFontChar {
     uint8     m_nOutline;
 
 public:
-    // 0x718E50
-    void Set(const CFontChar& setup) {
-        m_cLetter        = setup.m_cLetter;
-        m_dLetter        = setup.m_dLetter;
-        m_vPosn          = setup.m_vPosn;
-        m_fWidth         = setup.m_fWidth;
-        m_fHeight        = setup.m_fHeight;
-        m_color          = setup.m_color;
-        m_fWrap          = setup.m_fWrap;
-        m_fSlant         = setup.m_fSlant;
-        m_vSlanRefPoint  = setup.m_vSlanRefPoint;
-        m_bContainImages = setup.m_bContainImages;
-        m_nFontStyle     = setup.m_nFontStyle;
-        m_bPropOn        = setup.m_bPropOn;
-        m_wFontTexture   = setup.m_wFontTexture;
-        m_nOutline       = setup.m_nOutline;
-    }
+    // 0x718E50 (lote 174A, banco Fn174A): copia de un registro de caracter del EXE (thiscall, un puntero de pila, `ret 4`, 117 bytes): 47 bytes (+0x00..+0x2E) en el orden del EXE (dword +0x00 con los dos bytes
+    // de relleno +2 y +3, dwords +0x04..+0x10, bytes +0x14..+0x17 del color, dwords +0x18..+0x24, bytes +0x28..+0x2A, word +0x2C y byte +0x2E; el byte +0x2F no se toca); devuelve this.
+    CFontChar& Set(const CFontChar& setup);
 };
 VALIDATE_SIZE(CFontChar, 0x30);
 
@@ -163,6 +149,10 @@ public:
     static void PrintStringFromBottom(float x, float y, const GxtChar* text);
     static float GetCharacterSize(uint8 ch);
     static uint8 FindSubFontCharacter(uint8 letterId, uint8 fontStyle);
+    // Quita del texto (en el sitio) las etiquetas entre '~' (lote 174A, banco Fn174A)
+    static void StripTildeTags(GxtChar* text); // 0x719240
+    // Caracter de teclado a caracter GXT: los >= 0x80 pasan por la tabla de 0x8D5AD8 (lote 174A, banco Fn174A)
+    static GxtChar MapExtendedChar(uint8 ch); // 0x719360
 };
 
 static void ReadFontsDat();

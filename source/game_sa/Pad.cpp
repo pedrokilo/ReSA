@@ -61,11 +61,22 @@ int32 __fastcall PadTrianglePressedExe(const CPad* self, void* /*edx*/) { return
 int32 __fastcall PadCirclePressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.ButtonCircle != 0 && self->OldState.ButtonCircle == 0) ? 1 : 0; }
 } // namespace
 
+// Lote 174A (banco Fn174A): "boton del raton pulsado en este fotograma y no en el anterior" de la rueda hacia arriba (0x57C400), la rueda hacia abajo (0x57C420) y los botones X1 (0x57C440) y X2 (0x57C460), funciones
+// propias del EXE (cdecl, sin argumentos, `ret`, 24 bytes cada una): el byte del boton en NewMouseControllerState (0xB73418) es distinto de cero y el de OldMouseControllerState (0xB7342C) es cero; devuelve 1 o 0 (AL).
+bool CPad::IsMouseWheelUpPressed() noexcept   { return MOUSE_IS_PRESSED(isMouseWheelMovedUp); }
+bool CPad::IsMouseWheelDownPressed() noexcept { return MOUSE_IS_PRESSED(isMouseWheelMovedDown); }
+bool CPad::IsMouseBmx1Pressed() noexcept      { return MOUSE_IS_PRESSED(isMouseFirstXPressed); }
+bool CPad::IsMouseBmx2Pressed() noexcept      { return MOUSE_IS_PRESSED(isMouseSecondXPressed); }
+
 void CPad::InjectHooks() {
     RH_ScopedClass(CPad);
     RH_ScopedCategoryGlobal();
     RH_ScopedInstall(GetPad, 0x53FB70);
     RH_ScopedInstall(IsRadioTrackSkipPressed, 0x4E7F20); // lote 146A (banco Fn146A): cuerpo inline en la cabecera
+    RH_ScopedInstall(IsMouseWheelUpPressed, 0x57C400);   // lote 174A (banco Fn174A): antes inline en la cabecera
+    RH_ScopedInstall(IsMouseWheelDownPressed, 0x57C420); // lote 174A (banco Fn174A)
+    RH_ScopedInstall(IsMouseBmx1Pressed, 0x57C440);      // lote 174A (banco Fn174A)
+    RH_ScopedInstall(IsMouseBmx2Pressed, 0x57C460);      // lote 174A (banco Fn174A)
     RH_ScopedNamedGlobalInstall(PadLeftShoulder1PressedExe, "IsLeftShoulder1Pressed", 0x53EDC0); // lote 152A (banco Fn152A)
     RH_ScopedNamedGlobalInstall(PadRightShoulder1PressedExe, "IsRightShoulder1Pressed", 0x53EE20); // lote 152A (banco Fn152A)
     RH_ScopedNamedGlobalInstall(PadDPadUpPressedExe, "IsDPadUpPressed", 0x53EE60); // lote 152A (banco Fn152A)

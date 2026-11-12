@@ -1213,13 +1213,9 @@ void CControllerConfigManager::DeleteMatchingActionInitiators(eControllerAction 
     }
 }
 
-// 0x719360
-// Como el original: los caracteres >= 0x80 pasan por la tabla de 0x8D5AD8 (entradas de 2 bytes)
+// 0x719360: CFont::MapExtendedChar (lote 174A)
 static GxtChar KeyCharToGxtChar(uint8 ch) {
-    if (ch < 0x80) {
-        return (GxtChar)ch;
-    }
-    return (GxtChar)*reinterpret_cast<const uint8*>(0x8D5AD8 + ch * 2);
+    return CFont::MapExtendedChar(ch);
 }
 
 // 0x52FE10

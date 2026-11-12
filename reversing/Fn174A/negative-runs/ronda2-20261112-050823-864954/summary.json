@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "08b9c1485c8dae0b239ba04b1fcceb65938e257df54ca1d3e5fd4e77dae1d8e3",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CPad::IsMouseWheelUpPressed: 1067/2048; CPad::IsMouseWheelDownPressed: 188/2048; CPad::IsMouseBmx1Pressed: 25/2048; CPad::IsMouseBmx2Pressed: 516/2048; CMenuManager::NoDiskInDriveMessage: 152/2048; CHeli::DestructorBody: 2048/2048; CHeli::SetupDamageAfterLoad: 917/2048; CHeli::ScalarDeletingDestructor: 573/2048; CMonsterTruck::DestructorBody: 2048/2048; CFontChar::Set: 1750/2048; CFont::StripTildeTags: 801/2048; CFont::MapExtendedChar: 388/2048; Common::TransformPointsSimple: 1311/2048; Common::TransformVectors: 1312/2048; Common::DoesInfiniteLineCrossFiniteLine: 666/2048; tHandlingData::Constructor: 2048/2048; CTrainNode::GetPosn: 1628/2048; CTrain::DestructorBody: 2048/2048; CTrain::SetModelIndex: 2048/2048; CTrain::PreRender: 480/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

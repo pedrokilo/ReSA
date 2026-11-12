@@ -29,9 +29,18 @@ constexpr auto ACCEL_CONST = 1.f / sq(50.f); // This number 50 seems to be comin
 // 0xC2B9BC - Used for velocity conversion from file to game units
 constexpr auto VELOCITY_CONST = 0.277778f / 50.f;
 
+// 0x6F4FA0 (lote 174A, banco Fn174A; thiscall, sin argumentos de pila, `ret`, 15 bytes): constructor de tHandlingData del EXE (el listado lo atribuia a cHandlingDataMgr): construye el miembro cTransmission (+0x2C)
+// con el cuerpo del constructor de cTransmission (0x6D0450, con hook) y devuelve this; no escribe nada mas.
+static tHandlingData* __fastcall HandlingDataConstructorExe(tHandlingData* self, void* /*edx*/) {
+    TransmissionConstructorBody(&self->m_transmissionData, nullptr);
+    return self;
+}
+
 void cHandlingDataMgr::InjectHooks() {
     RH_ScopedClass(cHandlingDataMgr);
     RH_ScopedCategoryGlobal();
+
+    RH_ScopedNamedGlobalInstall(HandlingDataConstructorExe, "tHandlingDataConstructor", 0x6F4FA0); // lote 174A (banco Fn174A)
 
     RH_ScopedInstall(LoadHandlingData, 0x5BD830);
     RH_ScopedInstall(GetFlyingPointer, 0x6F52D0);

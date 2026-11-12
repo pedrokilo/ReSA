@@ -131,6 +131,7 @@ void TransformPoint(RwV3d& point, const CSimpleTransform& placement, const RwV3d
 void TransformVectors(RwV3d* vecsOut, int32 numVectors, const CMatrix& matrix, const RwV3d* vecsin);
 void TransformVectors(RwV3d* vecsOut, int32 numVectors, const CSimpleTransform& transform, const RwV3d* vecsin);
 void TransformPoints(RwV3d* pointOut, int count, const CMatrix& transformMatrix, RwV3d* pointIn);
+void TransformPointsSimple(RwV3d* pointsOut, int32 numPoints, const CSimpleTransform& transform, const RwV3d* pointsIn); // 0x54ED20 (lote 174A)
 
 // Check point is within 2D rectangle
 static bool IsPointInRect2D(const CVector2D& point, const CVector2D& min, const CVector2D& max) {
@@ -253,6 +254,7 @@ bool GraphicsHighQuality();
 void WriteRaster(RwRaster* raster, const char* filename);
 bool CalcScreenCoors(const CVector& in, CVector& out, float& screenX, float& screenY);
 bool CalcScreenCoors(const CVector& in, CVector& out);
+bool DoesInfiniteLineCrossFiniteLine(CVector2D finiteA, CVector2D finiteB, CVector2D origin, CVector2D dir); // 0x71DB30 (lote 174A)
 bool DoesInfiniteLineTouchScreen(CVector2D origin, CVector2D dir);
 bool IsPointInsideLine(
     CVector2D origin,

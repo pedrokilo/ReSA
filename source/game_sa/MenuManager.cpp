@@ -96,6 +96,7 @@ void CMenuManager::InjectHooks() {
     RH_ScopedInstall(SetHelperText, 0x57CD10);
     RH_ScopedInstall(ResetHelperText, 0x57CD30);
     RH_ScopedInstall(MessageScreen, 0x579330);
+    RH_ScopedInstall(NoDiskInDriveMessage, 0x57C5E0); // lote 174A (banco Fn174A)
     RH_ScopedInstall(SmallMessageScreen, 0x574010);
 
     RH_ScopedInstall(PrintMap, 0x575130);
@@ -1085,7 +1086,9 @@ void CMenuManager::ResetHelperText() {
     m_nHelperTextFadingAlpha = 300;
 }
 
-// 0x57C5E0
+// 0x57C5E0 (lote 174A, banco Fn174A; thiscall, sin argumentos de pila, `ret`, 118 bytes): como el original, DoRWStuffStartOfFrame con siete ceros (0x53D690) y, si RsGlobal.quit (dword en 0xC17050) es cero,
+// MessageLoop (0x746870), CPad::UpdatePads (0x541DD0), MessageScreen("NO_PCCD", true, false) con `this` (0x579330), CFont::DrawFonts (0x71A210), DoRWStuffEndOfFrame (0x53D840) y CPad::GetPad(0) (0x53FB70, sin usar);
+// con Esc recien pulsado (palabra NewKeyState.esc != 0 y OldKeyState.esc == 0) marca m_bQuitGameNoDVD (+0x58) y llama a RsEventHandler(rsQUITAPP, nullptr) (0x619B60).
 void CMenuManager::NoDiskInDriveMessage() {
     DoRWStuffStartOfFrame(0, 0, 0, 0, 0, 0, 0);
     if (RsGlobal.quit) {
@@ -1096,6 +1099,7 @@ void CMenuManager::NoDiskInDriveMessage() {
     MessageScreen("NO_PCCD", true, false);
     CFont::DrawFonts();
     DoRWStuffEndOfFrame();
+    (void)CPad::GetPad(0); // Como el original (0x57C628): push 0; call 0x53FB70, con el resultado sin usar
     if (CPad::IsEscJustPressed()) {
         m_bQuitGameNoDVD = true;
         RsEventHandler(rsQUITAPP, NULL);

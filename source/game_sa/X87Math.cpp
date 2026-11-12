@@ -18906,3 +18906,35 @@ __declspec(noinline) void __cdecl FloatSumStoreCpp(float first, const volatile f
     *destination = float(double(first) + *second);
 }
 #pragma float_control(pop)
+
+// --- Lote 174A (banco Fn174A) ---
+// Common::TransformPoints con CSimpleTransform (0x54ED20), bucle: coseno y seno ya redondeados a float (el EXE los guarda con fstp); por punto x = ((cos*in.x) - (sin*in.y)) + pos.x guardado y luego
+// y = ((sin*in.x) + (cos*in.y)) + pos.y con in.x RELEIDO tras escribir x (la salida puede ser la entrada) y z = in.z + pos.z. La posicion se lee de memoria en cada pasada. Sin puntos no hace nada (test/je) y si no el contador
+// (sin signo) decrece hasta cero como dec/jne. Con la x87 los NaN se propagan como en el EXE.
+// Sin optimizar (pragma): con /O2 el compilador carga los operandos de memoria en registros (fld; fmul st,st(n)), y con ello un NaN senalizante de la entrada deja de ceder ante el NaN silencioso del coseno o el seno;
+// sin optimizar emite la secuencia del EXE (fld cos; fmul dword [in]; ...; fsubp; fadd dword [pos]; fstp).
+#pragma optimize("", off)
+__declspec(noinline) void __cdecl CommonTransformPointsSimpleCpp(float* out, int numPoints, float cosHeading, float sinHeading, const float* pos, const float* in) {
+    if (numPoints == 0) {
+        return;
+    }
+    unsigned int remaining = static_cast<unsigned int>(numPoints);
+    do {
+        // aritmetica en float con operandos de memoria: fld cos; fmul [in]; fld sin; fmul [in]; fsubp; fadd [pos]; fstp (como el EXE: un NaN senalizante de memoria cede ante un NaN silencioso del registro);
+        // con la x87 a 24 bits y sin guardados intermedios el resultado es el de la secuencia del EXE
+        out[0] = cosHeading * in[0] - sinHeading * in[1] + pos[0];
+        out[1] = sinHeading * in[0] + cosHeading * in[1] + pos[1];
+        out[2] = in[2] + pos[2];
+        out += 3;
+        in += 3;
+    } while (--remaining != 0);
+}
+#pragma optimize("", on)
+
+// DoesInfiniteLineCrossFiniteLine (0x71DB30): ((Ax - ox)*dy - (Ay - oy)*dx) * ((Bx - ox)*dy - (By - oy)*dx) < 0 con todos los resultados parciales en la x87 (24 bits de mantisa, exponente ampliado, sin guardar) y
+// la comparacion fcomp con 0.0f (0x858B50): un NaN da falso.
+__declspec(noinline) bool __cdecl CommonLineCrossesSegmentCpp(float ax, float ay, float bx, float by, float ox, float oy, float dx, float dy) {
+    const double a = (double(ax) - double(ox)) * double(dy) - (double(ay) - double(oy)) * double(dx);
+    const double b = (double(bx) - double(ox)) * double(dy) - (double(by) - double(oy)) * double(dx);
+    return a * b < 0.0;
+}

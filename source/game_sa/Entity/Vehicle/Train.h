@@ -92,6 +92,8 @@ public:
     CTrain(int32 modelIndex, eVehicleCreatedBy createdBy);
 
     void ProcessControl() override;
+    void SetModelIndex(uint32 index) override; // 0x6F5530 (lote 174A, banco Fn174A)
+    void PreRender() override;                 // 0x6F5570 (lote 174A, banco Fn174A)
     void SetupModelNodes();
 
     bool FindMaximumSpeedToStopAtStations(float* speed);
