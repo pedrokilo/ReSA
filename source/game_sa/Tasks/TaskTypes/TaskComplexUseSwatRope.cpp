@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 
 namespace CTaskComplexBody {
 void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
 }
 
 namespace {
@@ -42,12 +43,43 @@ void __fastcall CTaskComplexUseSwatRopeDestructorBodyExe(CTaskComplexUseSwatRope
     }
     CTaskComplexBody::Destructor(self, nullptr);
 }
+
+// 0x65A3C0 (lote 170A, banco Fn170A): destructor con borrado de CTaskComplexUseSwatRope del EXE (ranura 0 de su vtable 0x86F59C; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6594D0;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo del EXE (0x6594D0, con hook), libera `this` con CTask::operator delete (0x61A5B0,
+// con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexUseSwatRope* __fastcall CTaskComplexUseSwatRopeScalarDeletingDestructor(CTaskComplexUseSwatRope* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexUseSwatRopeDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+
+// 0x659410 (lote 170A, banco Fn170A; el listado lo atribuia a CTaskComplexDriveFireTruck): constructor de CTaskComplexUseSwatRope sin helicoptero del EXE (thiscall, un argumento de pila, `ret 4`, 44 bytes). Como el original:
+// base CTaskComplex (0x61A3B0, con hook), lee el byte +0x14 (m_bIsOnHeli es su bit 0) tras ella, +0xC = identificador de la cuerda, +0x10 (distancia recorrida) = +0x18 (helicoptero) = 0, vtable de la clase del EXE
+// (0x86F59C) y el byte +0x14 con el bit 0 a cero (el resto no se toca); devuelve `this`. El constructor de la clase (explicit CTaskComplexUseSwatRope(uint32)) deja la vtable de la DLL.
+__declspec(noinline) CTaskComplexUseSwatRope* __fastcall CTaskComplexUseSwatRopeConstructorNoHeliExe(CTaskComplexUseSwatRope* self, void* /*edx*/, uint32 ropeId) {
+    CTaskComplexBody::Constructor(self, nullptr);
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    const uint8 flags = bytes[0x14];
+    *reinterpret_cast<uint32*>(bytes + 0xC) = ropeId;
+    *reinterpret_cast<uint32*>(bytes + 0x10) = 0;
+    *reinterpret_cast<uint32*>(bytes + 0x18) = 0;
+    *reinterpret_cast<uint32*>(bytes) = 0x86F59C;
+    bytes[0x14] = static_cast<uint8>(flags & 0xFE);
+    return self;
+}
 } // namespace
 
 void CTaskComplexUseSwatRope::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexUseSwatRope, 0x86F59C, 13);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskComplexUseSwatRopeDestructorBodyExe, "DestructorBody", 0x6594D0); // lote 153A (banco Fn153A)
+    RH_ScopedNamedGlobalInstall(CTaskComplexUseSwatRopeScalarDeletingDestructor, "ScalarDeletingDestructor", 0x65A3C0); // lote 170A (banco Fn170A)
+    RH_ScopedNamedGlobalInstall(CTaskComplexUseSwatRopeConstructorNoHeliExe, "ConstructorNoHeli", 0x659410); // lote 170A (banco Fn170A)
+    RH_ScopedVMTInstall(GetTaskType, 0x659440); // lote 170A (banco Fn170A): retorno de constante
+    RH_ScopedVMTInstall(IsInterruptable, 0x659450); // lote 170A (banco Fn170A): ranura 11
+    RH_ScopedVMTInstall(AbortUrgently, 0x659460); // lote 170A (banco Fn170A): ranura 12
     RH_ScopedInstall(Constructor, 0x659470);
     RH_ScopedInstall(CreateSubTask, 0x659620);
     RH_ScopedVMTInstall(Clone, 0x659C30);
@@ -80,11 +112,26 @@ CTaskComplexUseSwatRope::CTaskComplexUseSwatRope(uint32 ropeId) : CTaskComplex()
     m_bIsOnHeli      = false;
 }
 
-// 0x65A3C0
+// El destructor generado de la clase (el destructor con borrado del EXE 0x65A3C0 esta arriba, con hook).
 CTaskComplexUseSwatRope::~CTaskComplexUseSwatRope() {
     if (m_bIsOnHeli) {
         CEntity::SafeCleanUpRef(m_pHeli);
     }
+}
+
+// 0x659440 (lote 170A, banco Fn170A; thiscall, `ret`, 6 bytes: `mov eax,6Ch`): TASK_COMPLEX_USE_SWAT_ROPE (108); no lee el objeto (ranura 4 de la vtable 0x86F59C).
+eTaskType CTaskComplexUseSwatRope::GetTaskType() const {
+    return Type;
+}
+
+// 0x659450 (lote 170A, banco Fn170A; thiscall, un argumento de pila que no se lee, `ret 4`, 5 bytes: `xor al,al`): ranura 11 de la vtable 0x86F59C; devuelve falso.
+bool CTaskComplexUseSwatRope::IsInterruptable(CPed* /*ped*/) {
+    return false;
+}
+
+// 0x659460 (lote 170A, banco Fn170A): como IsInterruptable (ranura 12).
+bool CTaskComplexUseSwatRope::AbortUrgently(CPed* /*ped*/) {
+    return false;
 }
 
 // 0x659C30

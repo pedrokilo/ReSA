@@ -24,9 +24,31 @@ END GENERATED HOOK STATUS */
 #include "PedIntelligence.h"
 #include "PlayerPedData.h"
 
+namespace CTaskComplexWanderBody {
+void __fastcall Destructor(CTaskComplexWander* self, void* edx); // TaskComplexWander.cpp: 0x669D20
+}
+
+namespace {
+// 0x6726D0 (lote 170A, banco Fn170A): destructor con borrado de CTaskComplexWanderProstitute del EXE (ranura 0 de su vtable 0x870148; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6726F0;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo 0x6726F0 (copia identica del de CTaskComplexWander, con hook), libera `this`
+// con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexWanderProstitute* __fastcall CTaskComplexWanderProstituteScalarDeletingDestructor(CTaskComplexWanderProstitute* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexWanderBody::Destructor(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskComplexWanderProstitute::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexWanderProstitute, 0x870148, 15);
     RH_ScopedCategory("Tasks/TaskTypes");
+
+    // 0x6726F0 (lote 170A, banco Fn170A; el listado lo atribuia a esta clase y lo es): cuerpo del destructor de esta clase en el EXE, copia identica de la de CTaskComplexWander (`mov [ecx],86FE84h; jmp 0x61A3D0`, 11 bytes):
+    // se engancha la misma funcion de la DLL (CTaskComplexWanderBody::Destructor, 0x669D20) en esta segunda direccion.
+    RH_ScopedNamedGlobalInstall(CTaskComplexWanderBody::Destructor, "DestructorCopy", 0x6726F0);
+    RH_ScopedNamedGlobalInstall(CTaskComplexWanderProstituteScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6726D0);
 
     RH_ScopedInstall(Constructor, 0x672690);
 

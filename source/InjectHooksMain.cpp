@@ -400,6 +400,7 @@
 #include "TaskComplexMedicTreatInjuredPed.h"
 #include "TaskComplexDiveFromAttachedEntityAndGetUp.h"
 #include "TaskComplexKillCriminal.h"
+#include "TaskComplexKillAllThreats.h"
 #include "SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h"
 #include "SeekEntity/TaskComplexSeekEntityXYOffset.h"
 #include "SeekEntity/TaskComplexSeekEntityStandard.h"
@@ -1201,7 +1202,7 @@ void InjectHooksMain() {
         CTaskComplexInWater::InjectHooks();
         CTaskComplexInvestigateDeadPed::InjectHooks();
         CTaskComplexInvestigateDisturbance::InjectHooks();
-        // CTaskComplexKillAllThreats::InjectHooks();
+        CTaskComplexKillAllThreats::InjectHooks(); // lote 170A: solo Clone 0x623750 (clase aun sin reconstruir)
         CTaskComplexKillCriminal::InjectHooks();
 
         CTaskComplexKillPedOnFootArmed::InjectHooks();

@@ -23,9 +23,25 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 
 namespace {
-// 0x6218C0 (lote 145A, banco Fn145A): cuerpo del destructor de CTaskSimpleGangDriveBy del EXE (sin hook propio; vtable 0x86D944). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
-// el destructor con borrado como el `call 0x6218C0` del EXE.
-__declspec(noinline) void __fastcall CTaskSimpleGangDriveByDestructorBody(CTaskSimpleGangDriveBy* self, void* /*edx*/) { self->CTaskSimpleGangDriveBy::~CTaskSimpleGangDriveBy(); }
+// 0x6218C0 (lote 145A, banco Fn145A; con hook desde el lote 170A, banco Fn170A): cuerpo del destructor de CTaskSimpleGangDriveBy del EXE (thiscall, sin argumentos de pila, `ret`, 148 bytes con marco SEH que solo
+// desenrolla; vtable 0x86D944). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x6218C0` del EXE (y tres destructores de objetos de pila:
+// 0x51A428, 0x69CDC3 y 0x69CF35, que no leen registros tras ella). Como el original: deja la vtable de la clase del EXE; si el byte +9 (m_bAnimsReferenced) no es cero libera la referencia al bloque de animaciones del
+// grupo (+0x28): indice = ((bloque del grupo en la tabla de 0xB4EA34, 20 bytes por grupo) - 0xB5D4A0) >> 5 con signo, sin comprobar nulo, y llama a CAnimManager::RemoveAnimBlockRef (0x4D3FD0, con hook); NO limpia el
+// byte; si hay animacion (+0x2C) le pone el callback de borrado por defecto (SetDeleteCallback 0x4CEBC0, con el DefaultAnimCB del EXE 0x4D1390 y dato nulo); libera con CleanUpOldReference (0x571A00) la referencia no nula
+// al objetivo (+0x34); y termina con CTask::Destructor (0x61A3A0). El destructor generado por el compilador dejaria la vtable de la DLL. El marco SEH se omite.
+__declspec(noinline) void __fastcall CTaskSimpleGangDriveByDestructorBody(CTaskSimpleGangDriveBy* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86D944;
+    if (self->m_bAnimsReferenced) {
+        const auto* const block = (CAnimManager::GetAssocGroups().data() + self->m_nRequiredAnimGroup)->m_AnimBlock;
+        const uint32 blockAddress = static_cast<uint32>(reinterpret_cast<uintptr_t>(block));
+        CAnimManager::RemoveAnimBlockRef(static_cast<int32>(blockAddress - 0xB5D4A0u) >> 5);
+    }
+    if (self->m_pAnimAssoc) {
+        self->m_pAnimAssoc->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+    }
+    CEntity::SafeCleanUpRef(self->m_pTargetEntity);
+    self->CTask::Destructor();
+}
 
 // 0x6275E0 (lote 145A, banco Fn145A): destructor con borrado de CTaskSimpleGangDriveBy del EXE (ranura 0 de su vtable 0x86D944; thiscall, un argumento de pila, `ret 4`, 30 bytes:
 // `push esi; mov esi,ecx; call 0x6218C0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
@@ -45,6 +61,7 @@ void CTaskSimpleGangDriveBy::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleGangDriveBy, 0x86D944, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskSimpleGangDriveByScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6275E0); // lote 145A (banco Fn145A)
+    RH_ScopedNamedGlobalInstall(CTaskSimpleGangDriveByDestructorBody, "DestructorBody", 0x6218C0); // lote 170A (banco Fn170A)
 
     RH_ScopedInstall(Constructor, 0x6217D0);
     RH_ScopedInstall(HasClearLineOfSight, 0x621B10);

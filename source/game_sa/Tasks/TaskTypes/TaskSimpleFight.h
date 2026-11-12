@@ -65,7 +65,7 @@ public:
     CTaskSimpleFight(CEntity* entity, int32 nCommand, uint32 nIdlePeriod = 10000);
     ~CTaskSimpleFight() override;
 
-    eTaskType GetTaskType() const override { return Type; }
+    eTaskType GetTaskType() const override; // 0x61C520 (lote 170A, banco Fn170A)
     CTask* Clone() const override; // 0x622E40 (lote 166A, banco Fn166A)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;

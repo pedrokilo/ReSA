@@ -49,10 +49,13 @@ private:
     }
 
     // 0x61BDF0
-    CTaskComplexPlayHandSignalAnim* Destructor() {
+    __declspec(noinline) CTaskComplexPlayHandSignalAnim* Destructor() {
         this->CTaskComplexPlayHandSignalAnim::~CTaskComplexPlayHandSignalAnim();
         return this;
     }
+
+    // 0x61C0D0 (lote 170A, banco Fn170A): destructor con borrado (ranura 0 de la vtable 0x86D5DC), thiscall, un argumento de pila, `ret 4`
+    CTaskComplexPlayHandSignalAnim* ScalarDeletingDestructor(uint8 flags);
 };
 
 VALIDATE_SIZE(CTaskComplexPlayHandSignalAnim, 0x18);

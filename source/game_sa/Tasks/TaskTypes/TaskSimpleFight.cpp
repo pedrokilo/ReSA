@@ -1867,6 +1867,11 @@ void CTaskSimpleFight::FightStrike(CPed* ped, CVector& posn) {
     std::memcpy(&ped->field_720, &posn, sizeof(CVector)); // 0x720..0x72B: ultimo punto de golpe (posn ya desplazada)
 }
 
+// 0x61C520 (lote 170A, banco Fn170A; thiscall, `ret`, 6 bytes: `mov eax,3F8h`): TASK_SIMPLE_FIGHT (1016); no lee el objeto (ranura 4 de la vtable 0x86D684).
+eTaskType CTaskSimpleFight::GetTaskType() const {
+    return Type;
+}
+
 void CTaskSimpleFight::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleFight, 0x86D684, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
@@ -1875,6 +1880,7 @@ void CTaskSimpleFight::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x61C530);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x6239D0); // lote 166A (banco Fn166A)
     RH_ScopedVMTInstall(Clone, 0x622E40);                 // lote 166A
+    RH_ScopedVMTInstall(GetTaskType, 0x61C520);           // lote 170A (banco Fn170A): retorno de constante
     // Como el original: EAX/ECX/EDX de salida (y el EDX de entrada) que comparan los bancos; los miembros de C++ no los reproducen
     RH_ScopedNamedGlobalInstall(FightControlFightExe, "ControlFight", 0x61C5E0);
     RH_ScopedNamedGlobalInstall(FightGetComboAnimGroupIDExe, "GetComboAnimGroupID", 0x4ABDA0);

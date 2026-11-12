@@ -73,6 +73,7 @@ void CTaskComplexObserveTrafficLightsAndAchieveHeading::InjectHooks() {
     RH_ScopedNamedGlobalInstall(CTaskComplexObserveTrafficLightsAndAchieveHeadingScalarDeletingDestructor, "ScalarDeletingDestructor", 0x637F80); // lote 157A (banco Fn157A)
 
     RH_ScopedNamedGlobalInstall(ObserveTrafficLightsAndAchieveHeadingConstructorBody, "Constructor", 0x631910); // lote 141A (banco Fn141A)
+    RH_ScopedInstall(CreateSubTask, 0x631990); // lote 170A (banco Fn170A)
 
     RH_ScopedVMTInstall(GetTaskType, 0x631940); // lote 141A (banco Fn141A): mov eax,0E1h
     RH_ScopedVMTInstall(Clone, 0x636490);
@@ -120,16 +121,31 @@ CTask* CTaskComplexObserveTrafficLightsAndAchieveHeading::CreateNextSubTask(CPed
     }
 }
 
-// 0x631990
+// 0x631990 (lote 170A, banco Fn170A; thiscall, un argumento de pila, `ret 4`, 218 bytes con marco SEH que solo desenrolla): como el original, con el tipo 0xE0 reserva 0x18 bytes con CTask::operator new (0x61A5A0, con
+// hook) y, si no es nulo, construye en linea una CTaskComplexObserveTrafficLights (base CTaskComplex 0x61A3B0, con hook; vtable del EXE 0x86DF98; +0xC = +0x10 = 0; bytes +0x14 y +0x15 = 0; sin escribir el relleno +0x16..+0x17) y
+// devuelve el objeto; con el tipo 0x386 reserva 0x18 bytes y, si no es nulo, llama al constructor de CTaskSimpleAchieveHeading (0x667E20, con hook) con (rumbo = +0x10 de esta tarea, 0.5f, 0.2f) y devuelve SU EAX (no el
+// puntero reservado); cualquier otro tipo (0x516 incluido) o sin memoria devuelve nulo. Los objetos nuevos llevan la vtable del EXE, no la de la DLL.
 CTask* CTaskComplexObserveTrafficLightsAndAchieveHeading::CreateSubTask(eTaskType taskType) const {
-    switch (taskType) {
-    case TASK_COMPLEX_OBSERVE_TRAFFIC_LIGHTS:
-        return new CTaskComplexObserveTrafficLights; // Como el original: sin value-init, no escribe el relleno +0x16..+0x17
-    case TASK_SIMPLE_ACHIEVE_HEADING:
-        return new CTaskSimpleAchieveHeading(m_fTargetHeading, 0.5f, 0.2f);
-    case TASK_FINISHED:
-        return nullptr;
-    default:
-        return nullptr;
+    if (taskType == TASK_COMPLEX_OBSERVE_TRAFFIC_LIGHTS) {
+        void* const memory = CTask::operator new(sizeof(CTaskComplexObserveTrafficLights));
+        if (!memory) {
+            return nullptr;
+        }
+        CTaskComplexBody::Constructor(memory, nullptr);
+        uint8* const bytes = static_cast<uint8*>(memory);
+        *reinterpret_cast<uint32*>(bytes) = 0x86DF98;
+        *reinterpret_cast<uint32*>(bytes + 0xC) = 0;
+        *reinterpret_cast<uint32*>(bytes + 0x10) = 0;
+        bytes[0x14] = 0;
+        bytes[0x15] = 0;
+        return static_cast<CTask*>(memory);
     }
+    if (taskType == TASK_SIMPLE_ACHIEVE_HEADING) {
+        auto* const memory = static_cast<CTaskSimpleAchieveHeading*>(CTask::operator new(sizeof(CTaskSimpleAchieveHeading)));
+        if (!memory) {
+            return nullptr;
+        }
+        return memory->Constructor(m_fTargetHeading, 0.5f, 0.2f);
+    }
+    return nullptr;
 }

@@ -8,6 +8,8 @@ class CPatrolRoute {
 public:
     static void InjectHooks();
 
+    void Destructor(); // 0x6677A0 (lote 170A, banco Fn170A)
+
     static void* operator new(size_t size);
     static void  operator delete(void* ptr);
 

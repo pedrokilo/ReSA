@@ -18,13 +18,13 @@ public:
     ~CTaskComplexUseSwatRope() override;
 
     CTask* Clone() const override;
-    eTaskType GetTaskType() const override { return Type; }
+    eTaskType GetTaskType() const override; // 0x659440 (lote 170A, banco Fn170A)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;
     CTask* ControlSubTask(CPed* ped) override;
-    virtual bool IsInterruptable(CPed* ped) { return false; }
-    virtual bool AbortUrgently(CPed* ped) { return false; }
+    virtual bool IsInterruptable(CPed* ped); // 0x659450 (lote 170A, banco Fn170A): ranura 11, `xor al,al; ret 4`
+    virtual bool AbortUrgently(CPed* ped);   // 0x659460 (lote 170A, banco Fn170A): ranura 12, `xor al,al; ret 4`
 
     CTask* CreateSubTask(eTaskType taskType, CPed* ped);
 

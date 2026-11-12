@@ -848,6 +848,7 @@ void CPointRouteInjectHooksLote109A() {
     RH_ScopedInstall(AddPoint, 0x48E180);   // lote 114A (banco Fn114A)
     RH_ScopedInstall(RemovePoint, 0x5F13A0); // lote 114A (banco Fn114A)
     RH_ScopedInstall(CopyFrom, 0x63A040);    // lote 130A (banco Fn130A)
+    RH_ScopedInstall(Reverse, 0x667720);     // lote 170A (banco Fn170A)
 }
 
 // 0x41B7C0
@@ -879,6 +880,20 @@ void CPointRoute::RemovePoint(int32 index) {
         std::memcpy(&m_Entries.data()[i], &m_Entries.data()[i + 1], sizeof(CVector));
     }
     m_NumEntries--;
+}
+
+// 0x667720 (lote 170A, banco Fn170A; el listado lo atribuia a CTaskSimpleRunNamedAnim): thiscall, sin argumentos de pila, `ret`, 116 bytes. Como el original: ultimo = contador - 1 (con signo); si es > 0 intercambia las entradas
+// (tres dwords copiados en crudo, sin pasar por el x87) i y ultimo mientras i < ultimo, subiendo i y bajando ultimo en cada vuelta. Con un contador mayor que las 8 entradas de la ruta recorre la memoria contigua, como el EXE.
+void CPointRoute::Reverse() {
+    uint32* const entries = reinterpret_cast<uint32*>(m_Entries.data());
+    int32 last = int32(m_NumEntries) - 1;
+    for (int32 i = 0; i < last; i++, last--) {
+        uint32* const a = entries + 3 * i;
+        uint32* const b = entries + 3 * last;
+        uint32 tmp[3]{ a[0], a[1], a[2] };
+        a[0] = b[0]; a[1] = b[1]; a[2] = b[2];
+        b[0] = tmp[0]; b[1] = tmp[1]; b[2] = tmp[2];
+    }
 }
 
 // 0x63A040: thiscall (`ret 4`), void. Como el original: lee el contador del origen (UNA vez, con signo), lo guarda en this y, si es > 0, copia las entradas una a una: cada entrada son tres

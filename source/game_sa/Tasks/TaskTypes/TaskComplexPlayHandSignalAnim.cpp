@@ -29,6 +29,7 @@ void CTaskComplexPlayHandSignalAnim::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x61B2B0);
     RH_ScopedInstall(Destructor, 0x61BDF0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x61C0D0); // lote 170A (banco Fn170A)
 
     RH_ScopedInstall(GetAnimIdForPed, 0x61B460);
     RH_ScopedInstall(CreateSubTask, 0x61B2F0);
@@ -38,6 +39,17 @@ void CTaskComplexPlayHandSignalAnim::InjectHooks() {
     RH_ScopedVMTInstall(CreateNextSubTask, 0x61B570);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x61B4F0);
     RH_ScopedVMTInstall(ControlSubTask, 0x61B580);
+}
+
+// 0x61C0D0 (lote 170A, banco Fn170A; el listado lo atribuia a CTaskSimpleRunNamedAnim): destructor con borrado de CTaskComplexPlayHandSignalAnim del EXE (ranura 0 de su vtable 0x86D5DC; thiscall, un argumento de pila,
+// `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x61BDF0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x61BDF0, con hook),
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexPlayHandSignalAnim* CTaskComplexPlayHandSignalAnim::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x61B2B0

@@ -42,6 +42,8 @@ private:
     float m_HeadingToleranceRad{};
     bool  m_IsDoingIK : 1{};
 
+    friend class CTaskComplexObserveTrafficLightsAndAchieveHeading; // CreateSubTask (lote 170A) llama a este constructor del EXE (hook 0x667E20) sobre la memoria reservada
+
     // Wrapper para el hook
     // 0x667E20
     CTaskSimpleAchieveHeading* Constructor(float desiredHeading, float changeRate, float tolerance) {

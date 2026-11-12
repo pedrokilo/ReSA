@@ -25,6 +25,19 @@ void CNodeRoute::InjectHooks() {
 
     RH_ScopedInstall(operator new, 0x41B860);
     RH_ScopedInstall(operator delete, 0x41B870);
+    RH_ScopedInstall(Reverse, 0x667900); // lote 170A (banco Fn170A)
+}
+
+// 0x667900 (lote 170A, banco Fn170A; el listado lo atribuia a CTaskSimpleRunNamedAnim): thiscall, sin argumentos de pila, `ret`, 43 bytes. Como el original: ultimo = contador - 1 (con signo); si es > 0 intercambia las
+// entradas (un dword cada una, copiado en crudo) i y ultimo mientras i < ultimo, subiendo i y bajando ultimo en cada vuelta. Con un contador mayor que las 8 entradas de la ruta recorre la memoria contigua, como el EXE.
+void CNodeRoute::Reverse() {
+    uint32* const entries = reinterpret_cast<uint32*>(m_Entries.data());
+    int32 last = int32(m_NumEntries) - 1;
+    for (int32 i = 0; i < last; i++, last--) {
+        const uint32 tmp = entries[i];
+        entries[i] = entries[last];
+        entries[last] = tmp;
+    }
 }
 
 void* CNodeRoute::operator new(uint32 size) {

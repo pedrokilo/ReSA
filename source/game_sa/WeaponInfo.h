@@ -127,6 +127,7 @@ public:
     auto GetWeaponReloadTime() const -> uint32;
     float GetAnimLoopStart(bool isSet2 = false) const; // 0x608F00 (lote 141A, banco Fn141A): fld dword [ecx+0x4C o +0x40]
     float GetAnimLoopEnd(bool isSet2 = false) const;   // 0x608F20 (lote 141A, banco Fn141A): fld dword [ecx+0x50 o +0x44]
+    float GetAnimLoopFire(bool isSet2 = false) const;  // 0x61C150 (lote 170A, banco Fn170A): fld dword [ecx+0x54 o +0x48]
 
     auto GetFireType() const { return m_nWeaponFire; }
 

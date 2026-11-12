@@ -27,6 +27,8 @@ END GENERATED HOOK STATUS */
 
 #include "WeaponInfo.h"
 
+uint32 GetBaseComboByName(const char* name); // abajo (0x61DB30)
+
 void CWeaponInfo::InjectHooks() {
     RH_ScopedClass(CWeaponInfo);
     RH_ScopedCategoryGlobal();
@@ -45,6 +47,8 @@ void CWeaponInfo::InjectHooks() {
     RH_ScopedInstall(GetWeaponReloadTime, 0x743D70);
     RH_ScopedInstall(GetAnimLoopStart, 0x608F00);
     RH_ScopedInstall(GetAnimLoopEnd, 0x608F20);
+    RH_ScopedInstall(GetAnimLoopFire, 0x61C150); // lote 170A (banco Fn170A)
+    RH_ScopedGlobalInstall(GetBaseComboByName, 0x61DB30); // lote 170A (banco Fn170A)
 }
 
 // 0x608F00 (lote 141A, banco Fn141A): thiscall, un argumento de pila (solo se lee el byte bajo), `ret 4`; devuelve en ST0 el float de la tabla 1 (+0x40) o de la 2 (+0x4C).
@@ -55,6 +59,12 @@ float CWeaponInfo::GetAnimLoopStart(bool isSet2) const {
 // 0x608F20 (lote 141A, banco Fn141A): como GetAnimLoopStart con +0x44 / +0x50.
 float CWeaponInfo::GetAnimLoopEnd(bool isSet2) const {
     return isSet2 ? m_fAnimLoop2End : m_fAnimLoopEnd;
+}
+
+// 0x61C150 (lote 170A, banco Fn170A; el listado lo atribuia a CTaskSimpleRunNamedAnim): como GetAnimLoopStart con +0x48 / +0x54 (instante de disparo de cada tabla de animaciones).
+// thiscall, un argumento de pila (solo se lee el byte bajo), `ret 4`; devuelve el float en ST0. Lo llama CTaskSimpleUseGun::ProcessPed.
+float CWeaponInfo::GetAnimLoopFire(bool isSet2) const {
+    return isSet2 ? m_fAnimLoop2Fire : m_fAnimLoopFire;
 }
 
 // 0x5BF750
@@ -170,9 +180,11 @@ void CWeaponInfo::StreamModelsForWeapon(eStreamingFlags streamingFlags) {
     CStreaming::LoadAllRequestedModels(true);
 }
 
-// NOTSA
-auto GetBaseComboByName(const char* name) {
-    static constexpr std::pair<std::string_view, eMeleeCombo> mapping[]{
+// 0x61DB30 (lote 170A, banco Fn170A; el listado lo atribuia a CTaskSimpleFight): funcion libre cdecl con un argumento (la cadena), `ret`, 217 bytes. Como el original compara la cadena con
+// "UNARMED", "BBALLBAT", "KNIFE", "GOLFCLUB", "SWORD", "CHAINSAW" y "DILDO" en ese orden (cada comparacion es un `repe cmpsb` sobre el nombre y su terminador, como strcmp: no lee mas alla de la primera diferencia)
+// y devuelve su combo (4, 8, 9, 0xA, 0xB, 0xC y 0xD); a la octava, "FLOWERS", devuelve 0xE si coincide y 4 (MELEE_COMBO_UNARMED_1) si no. Devuelve EAX completo (no solo AL).
+uint32 GetBaseComboByName(const char* name) {
+    static constexpr struct { const char* name; eMeleeCombo combo; } mapping[]{
         { "UNARMED",     MELEE_COMBO_UNARMED_1 },
         { "BBALLBAT",    MELEE_COMBO_BBALLBAT  },
         { "KNIFE",       MELEE_COMBO_KNIFE     },
@@ -182,10 +194,12 @@ auto GetBaseComboByName(const char* name) {
         { "DILDO",       MELEE_COMBO_DILDO     },
         { "FLOWERS",     MELEE_COMBO_FLOWERS   },
     };
-    if (const auto it = rng::find(mapping, name, [](const auto& e) { return e.first; }); it != std::end(mapping))
-        return it->second;
-
-    return eMeleeCombo::MELEE_COMBO_UNARMED_1;
+    for (const auto& entry : mapping) {
+        if (std::strcmp(name, entry.name) == 0) {
+            return entry.combo;
+        }
+    }
+    return MELEE_COMBO_UNARMED_1;
 }
 
 // Como el original: busqueda en linea de un grupo de animacion por nombre (strcmp, distingue mayusculas)
@@ -253,7 +267,7 @@ void CWeaponInfo::LoadWeaponData() {
             wi.m_nModelId2 = modelId2;
             wi.m_nSlot = slot;
             wi.m_nNumCombos = (uint8)numCombos;
-            wi.m_nBaseCombo = GetBaseComboByName(baseComboName);
+            wi.m_nBaseCombo = static_cast<uint8>(GetBaseComboByName(baseComboName));
             wi.m_nFlags = flags;
 
             // Como el original: el grupo solo se asigna si no empieza por "null" y aparece en la tabla

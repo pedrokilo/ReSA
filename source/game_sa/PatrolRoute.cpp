@@ -26,6 +26,13 @@ void CPatrolRoute::InjectHooks() {
 
     RH_ScopedInstall(operator new, 0x41B810);    // lote 146A (banco Fn146A)
     RH_ScopedInstall(operator delete, 0x41B820); // lote 146A (banco Fn146A)
+    RH_ScopedInstall(Destructor, 0x6677A0);      // lote 170A (banco Fn170A)
+}
+
+// 0x6677A0 (lote 170A, banco Fn170A; el listado lo atribuia a CTaskSimpleRunNamedAnim): cuerpo del destructor de CPatrolRoute del EXE (thiscall, sin argumentos de pila, `ret`, 19 bytes: `push 0x46A380; push 8; push 0x28;
+// add ecx,4; push ecx; call 0x821E02`, `eh vector destructor iterator` sobre las 8 entradas de 0x28 bytes a partir de this+4 con el destructor de cada una, 0x46A380, que es un solo `ret`). Lo llama el destructor con borrado
+// de la ruta (0x66BA70). Como los destructores de las entradas no hacen nada, destruir las ocho no escribe memoria: la funcion no hace nada observable.
+void CPatrolRoute::Destructor() {
 }
 
 // 0x41B810 (lote 146A, banco Fn146A): `mov ecx,[0xB744B4]; jmp 0x41B660` (cdecl con un argumento de pila que no se lee; `ret`). Toma una ranura del pool de rutas de patrulla con CPatrolRoutePool::New

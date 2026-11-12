@@ -24,9 +24,13 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleDuck.h"
 #include "TaskSimpleFight.h"
 
+namespace CTaskSimpleBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
+}
+
 namespace {
 // 0x61DF30 (lote 155A, banco Fn155A): cuerpo del destructor de CTaskSimpleUseGun del EXE (thiscall, sin argumentos de pila, `ret`, 109 bytes con marco SEH que solo desenrolla; lo llama el destructor con borrado
-// 0x624D80). Deja la vtable de CTaskSimpleUseGun del EXE (0x86D724); libera con CEntity::CleanUpOldReference (0x571A00, con hook) la referencia no nula de la entidad objetivo (+0x1C); si hay animacion (+0x2C) le
+// 0x624DA0). Deja la vtable de CTaskSimpleUseGun del EXE (0x86D724); libera con CEntity::CleanUpOldReference (0x571A00, con hook) la referencia no nula de la entidad objetivo (+0x1C); si hay animacion (+0x2C) le
 // pone el callback de borrado por defecto (CAnimBlendAssociation::SetDeleteCallback 0x4CEBC0, con hook, con el DefaultAnimCB del EXE 0x4D1390 y dato nulo); y llama a CTask::Destructor (0x61A3A0, con hook).
 // El destructor generado por el compilador dejaria la vtable de la DLL. El marco SEH se omite.
 __declspec(noinline) void __fastcall CTaskSimpleUseGunDestructorBodyExe(CTaskSimpleUseGun* self, void* /*edx*/) {
@@ -38,13 +42,62 @@ __declspec(noinline) void __fastcall CTaskSimpleUseGunDestructorBodyExe(CTaskSim
     }
     self->CTask::Destructor();
 }
+
+// 0x624DA0 (lote 170A, banco Fn170A; el listado lo atribuia a CTaskSimpleFightingControl): destructor con borrado de CTaskSimpleUseGun del EXE (ranura 0 de su vtable 0x86D724; thiscall, un argumento de pila, `ret 4`,
+// 30 bytes: `push esi; mov esi,ecx; call 0x61DF30; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo del EXE (0x61DF30, con hook),
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleUseGun* __fastcall CTaskSimpleUseGunScalarDeletingDestructor(CTaskSimpleUseGun* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleUseGunDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+
+// 0x61DE60 (lote 170A, banco Fn170A; el listado lo atribuia a CTaskSimpleFightingControl): constructor de CTaskSimpleUseGun del EXE (thiscall, siete dwords de pila, `ret 1Ch`, 185 bytes con marco SEH que solo desenrolla).
+// Como el original: base CTaskSimple (0x61A390, con hook); orden (byte bajo) en +0xF; vtable de la clase del EXE (0x86D724); bytes +8 = 0, +9 = 1, +0xA..+0xE = 0 y +0x10 = 0xFF; +0x14 = +0x18 = 0; entidad en +0x1C
+// y, si no es nula, CEntity::RegisterReference (0x571B70, con hook) sobre esa casilla; vector (tres dwords copiados tal cual, sin pasar por el x87) en +0x20; +0x2C = +0x30 = 0; rafaga (word bajo) en +0x34; +0x36 = 0;
+// +0x38 = 0xFF; +0x39 = +0x3A = 0; apuntado inmediato (byte bajo) en +0x3B; devuelve `this`. No toca los bytes +0x11..+0x13 ni +0x3C... El constructor de la clase deja la vtable de la DLL.
+__declspec(noinline) CTaskSimpleUseGun* __fastcall CTaskSimpleUseGunConstructorExe(CTaskSimpleUseGun* self, void* /*edx*/, CEntity* targetEntity, uint32 posX, uint32 posY, uint32 posZ, uint32 command, uint32 burstLength, uint32 aimImmediate) {
+    CTaskSimpleBody::Constructor(self, nullptr);
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    bytes[0xF] = static_cast<uint8>(command);
+    *reinterpret_cast<uint32*>(bytes) = 0x86D724;
+    bytes[0x8] = 0;
+    bytes[0x9] = 1;
+    bytes[0xA] = 0;
+    bytes[0xB] = 0;
+    bytes[0xC] = 0;
+    bytes[0xD] = 0;
+    bytes[0xE] = 0;
+    bytes[0x10] = 0xFF;
+    *reinterpret_cast<uint32*>(bytes + 0x14) = 0;
+    *reinterpret_cast<uint32*>(bytes + 0x18) = 0;
+    *reinterpret_cast<CEntity**>(bytes + 0x1C) = targetEntity;
+    if (targetEntity) {
+        targetEntity->RegisterReference(reinterpret_cast<CEntity**>(bytes + 0x1C));
+    }
+    *reinterpret_cast<uint32*>(bytes + 0x20) = posX;
+    *reinterpret_cast<uint32*>(bytes + 0x24) = posY;
+    *reinterpret_cast<uint32*>(bytes + 0x28) = posZ;
+    *reinterpret_cast<uint16*>(bytes + 0x34) = static_cast<uint16>(burstLength);
+    *reinterpret_cast<uint32*>(bytes + 0x2C) = 0;
+    *reinterpret_cast<uint32*>(bytes + 0x30) = 0;
+    *reinterpret_cast<uint16*>(bytes + 0x36) = 0;
+    bytes[0x39] = 0;
+    bytes[0x3A] = 0;
+    bytes[0x3B] = static_cast<uint8>(aimImmediate);
+    bytes[0x38] = 0xFF;
+    return self;
+}
 } // namespace
 
 void CTaskSimpleUseGun::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleUseGun, 0x86D724, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
-    //RH_ScopedInstall(Constructor, 0x61DE60);
+    RH_ScopedNamedGlobalInstall(CTaskSimpleUseGunConstructorExe, "Constructor", 0x61DE60); // lote 170A (banco Fn170A)
+    RH_ScopedNamedGlobalInstall(CTaskSimpleUseGunScalarDeletingDestructor, "ScalarDeletingDestructor", 0x624DA0); // lote 170A (banco Fn170A)
     RH_ScopedNamedGlobalInstall(CTaskSimpleUseGunDestructorBodyExe, "DestructorBody", 0x61DF30); // lote 155A (banco Fn155A)
 
     RH_ScopedGlobalInstall(FinishGunAnimCB, 0x61F3A0);

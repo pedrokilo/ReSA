@@ -26,9 +26,33 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleCarDrive.h"
 #include "FireManager.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
+namespace {
+// 0x6593A0 (lote 170A, banco Fn170A; thiscall, sin argumentos de pila, `ret`, 106 bytes con marco SEH que solo desenrolla; el listado lo atribuia a esta clase y lo es): cuerpo del destructor de CTaskComplexDriveFireTruck
+// del EXE (vtable 0x86F570). Deja la vtable de la clase del EXE; libera con CEntity::CleanUpOldReference (0x571A00, con hook) la referencia no nula al vehiculo (+0xC) y la no nula al companero (+0x14), en ese orden;
+// y llama al cuerpo de ~CTaskComplex (0x61A3D0, con hook). El destructor generado por el compilador dejaria la vtable de la DLL. El marco SEH se omite. Funcion propia sin expansion en linea para que el banco
+// pueda sustituirla.
+__declspec(noinline) void __fastcall CTaskComplexDriveFireTruckDestructorBodyExe(CTaskComplexDriveFireTruck* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86F570;
+    CEntity::SafeCleanUpRef(self->m_pVehicle);
+    CEntity::SafeCleanUpRef(self->m_pPartnerFireman);
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
+// 0x659390 (lote 170A, banco Fn170A; thiscall, `ret`, 6 bytes: `mov eax,6Bh`): TASK_COMPLEX_DRIVE_FIRE_TRUCK (107); no lee el objeto (ranura 4 de la vtable 0x86F570).
+eTaskType CTaskComplexDriveFireTruck::GetTaskType() const {
+    return Type;
+}
+
 void CTaskComplexDriveFireTruck::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexDriveFireTruck, 0x86F570, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexDriveFireTruckDestructorBodyExe, "DestructorBody", 0x6593A0); // lote 170A (banco Fn170A)
+    RH_ScopedVMTInstall(GetTaskType, 0x659390); // lote 170A (banco Fn170A): retorno de constante
     RH_ScopedInstall(Constructor, 0x659310);
     RH_ScopedInstall(CreateSubTask, 0x65A240);
     RH_ScopedVMTInstall(Clone, 0x659BC0);
