@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 888 grupos / 10227 funciones reconstruidas; 10227 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 891 grupos / 10291 funciones reconstruidas; 10291 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-366 funciones, 59,545 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+357 funciones, 59,093 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -94,7 +94,6 @@
 | `0x0072E080` | 180 | CCullZones | baja | 1 (0) |  |
 | `0x005CA630` | 170 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CBE50` | 169 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x006C4340` | 169 | CHeli | alta | 1 (0) |  |
 | `0x005CEDD0` | 167 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CEE80` | 167 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x00678BD0` | 167 | CTaskComplexFallAndGetUp | baja | 1 (0) |  |
@@ -155,7 +154,6 @@
 | `0x0061FC50` | 103 | CTaskSimpleThrowControl | baja | 1 (0) |  |
 | `0x0061FE70` | 103 | CTaskSimpleThrowControl | baja | 1 (0) |  |
 | `0x004AFB50` | 102 | CEventAcquaintancePedHateBadlyLit | baja | 1 (0) |  |
-| `0x00508930` | 102 | CAudioZones | baja | 1 (0) |  |
 | `0x005C5560` | 102 | FxEmitterBP_c | baja | 18 (0) |  |
 | `0x00617FC0` | 102 | IKChain_c | baja | 1 (0) |  |
 | `0x006592A0` | 99 | CTaskComplexMedicTreatInjuredPed | baja | 1 (0) |  |
@@ -177,7 +175,6 @@
 | `0x00728AB0` | 86 | CAEWaterCannonAudioEntity | baja | 1 (0) |  |
 | `0x004C7410` | 85 | CVehicleModelInfo | alta | 2 (0) |  |
 | `0x00692680` | 85 | CTaskSimpleDuck | baja | 1 (0) |  |
-| `0x006F54D0` | 85 | cHandlingDataMgr | baja | 1 (0) |  |
 | `0x005A7490` | 83 | CClothesBuilder | baja | 1 (0) |  |
 | `0x006591D0` | 83 | CTaskComplexMedicTreatInjuredPed | baja | 1 (0) |  |
 | `0x004CB5E0` | 82 | CWeaponModelInfo | baja | 1 (0) |  |
@@ -268,7 +265,6 @@
 | `0x004C5EF0` | 36 | CModelInfo | alta | 1 (0) |  |
 | `0x004F3BA0` | 35 | CAEUserRadioTrackManager | alta | 8 (0) |  |
 | `0x0046A7E0` | 33 | CTheScripts | alta | 1 (0) |  |
-| `0x004EFD30` | 33 | CAESoundManager | baja | 1 (0) |  |
 | `0x00470070` | 32 | CTaskComplexGoToPointAndStandStill | baja | 2 (0) |  |
 | `0x005C6B90` | 31 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x0043EF00` | 30 | CEntryExitManager | alta | 3 (0) |  |
@@ -290,14 +286,11 @@
 | `0x0046A2F0` | 18 | CEntity | baja | 2 (0) |  |
 | `0x004700E0` | 18 | CTaskComplexGoToPointAndStandStill | baja | 1 (0) |  |
 | `0x0048B570` | 18 | CRunningScript | baja | 1 (0) |  |
-| `0x00509140` | 17 | CAudioZones | baja | 1 (0) |  |
 | `0x0072A620` | 17 | CWeather | alta | 1 (0) |  |
 | `0x005CF820` | 16 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x0049E620` | 15 | CTrafficLights | baja | 1 (0) |  |
 | `0x00447000` | 14 | CEntity | baja | 7 (0) |  |
 | `0x00447050` | 14 | CEntity | baja | 1 (0) |  |
-| `0x00506C30` | 14 | CAEWeatherAudioEntity | baja | 2 (0) |  |
-| `0x00506C40` | 14 | CAEWeatherAudioEntity | baja | 2 (0) |  |
 | `0x0046B260` | 12 | CTheScripts | baja | 1 (0) |  |
 | `0x004033B2` | 11 | CEntity | baja | 18 (0) |  |
 | `0x00420F30` | 11 | CEventEditableResponse | baja | 14 (0) |  |
@@ -340,7 +333,6 @@
 | `0x00678A90` | 11 | CTaskComplexFallAndGetUp | baja | 1 (0) |  |
 | `0x006926F0` | 11 | CTaskSimpleDuck | baja | 1 (0) |  |
 | `0x0069DB40` | 11 | CTaskAllocatorPool | baja | 1 (0) |  |
-| `0x006E76E0` | 11 | CWaterLevel | alta | 1 (0) |  |
 | `0x005CF810` | 10 | FxEmitterBP_c | baja | 2 (0) |  |
 | `0x005CF830` | 10 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x00402DC5` | 9 | CEntity | baja | 4 (0) |  |
@@ -349,7 +341,6 @@
 | `0x004A87F0` | 7 | FxInfoManager_c | baja | 15 (0) |  |
 | `0x004A89B0` | 7 | FxInfoManager_c | baja | 27 (0) |  |
 | `0x004A8B70` | 7 | FxInfoManager_c | baja | 4 (0) |  |
-| `0x004C55D0` | 7 | CDamageAtomicModelInfo | baja | 1 (0) |  |
 | `0x004C5790` | 7 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x0059CBA0` | 7 | CQuaternion | baja | 1 (0) |  |
 | `0x0074EAB0` | 6 | Win | baja | 1 (0) |  |

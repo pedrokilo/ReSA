@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 888 grupos / 10227 funciones reconstruidas; 10227 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 891 grupos / 10291 funciones reconstruidas; 10291 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,15 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-501"></a>
+
+## CRideAnimData
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CRideAnimData::InjectHooks() | [source/game_sa/RideAnimData.cpp:37](../../source/game_sa/RideAnimData.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CRideAnimData(AssocGroupId animGroup) | [source/game_sa/RideAnimData.h:31](../../source/game_sa/RideAnimData.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRideAnimData::DefaultConstructor 0x006D0B10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-502"></a>
 
 ## CRoadBlocks
 
@@ -22,7 +31,7 @@
 | CRoadBlocks::GetRoadBlockNodeInfo(CNodeAddress nodeAddress, float& outWidth, CVector& outDir) | [source/game_sa/RoadBlocks.cpp:579](../../source/game_sa/RoadBlocks.cpp#L579) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRoadBlocks::GetRoadBlockNodeInfo 0x00460EE0 | 0 / 0 | Posible dato fijo ThePaths: source/game_sa/PathFind.h:636 (0x0096F050) |
 | CRoadBlocks::RegisterScriptRoadBlock(CVector cornerA, CVector cornerB, bool isGangRoadBlock) | [source/game_sa/RoadBlocks.cpp:605](../../source/game_sa/RoadBlocks.cpp#L605) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRoadBlocks::RegisterScriptRoadBlock 0x00460DF0 | 0 / 0 | Posible dato fijo aScriptRoadBlocks: source/game_sa/RoadBlocks.h:40 (0x00A43AB8) |
 
-<a id="grupo-502"></a>
+<a id="grupo-503"></a>
 
 ## CRope
 
@@ -34,11 +43,11 @@
 | CRope::CreateHookObjectForRope() | [source/game_sa/Rope.cpp:62](../../source/game_sa/Rope.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRope::CreateHookObjectForRope 0x00556070 | 0 / 0 | Posible dato fijo MI_CRANE_HARNESS: source/game_sa/ModelIndices.cpp:154 (0x008CD6FC); Posible dato fijo MI_CRANE_MAGNET: source/game_sa/ModelIndices.cpp:155 (0x008CD700); Posible dato fijo MI_MINI_MAGNET: source/game_sa/ModelIndices.cpp:171 (0x008CD740); Posible dato fijo MI_WRECKING_BALL: source/game_sa/ModelIndices.cpp:162 (0x008CD71C) |
 | CRope::UpdateWeightInRope(float a2, float a3, float a4, int32 a5, float* a6) | [source/game_sa/Rope.cpp:108](../../source/game_sa/Rope.cpp#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRope::UpdateWeightInRope 0x005561B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CRope::Remove() | [source/game_sa/Rope.cpp:136](../../source/game_sa/Rope.cpp#L136) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRope::Remove 0x00556780 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CRope::Render() | [source/game_sa/Rope.cpp:149](../../source/game_sa/Rope.cpp#L149) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRope::Render 0x00556800 | 0 / 0 | Conversión de dirección fija: 0x008CD818; Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CRope::Render() | [source/game_sa/Rope.cpp:149](../../source/game_sa/Rope.cpp#L149) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRope::Render 0x00556800 | 0 / 0 | Conversión de dirección fija: 0x008CD818; Posible dato fijo TempBufferVertices: source/game_sa/common.h:289 (0x00C4D958); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 | CRope::PickUpObject(CEntity* obj) | [source/game_sa/Rope.cpp:198](../../source/game_sa/Rope.cpp#L198) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRope::PickUpObject 0x005569C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CRope::Update() | [source/game_sa/Rope.cpp:236](../../source/game_sa/Rope.cpp#L236) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRope::Update 0x00557530 | 0 / 0 | Conversión de dirección fija: 0x00A9B0C8; Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 
-<a id="grupo-503"></a>
+<a id="grupo-504"></a>
 
 ## CRopes
 
@@ -58,7 +67,7 @@
 | CRopes::SetSpeedOfTopNode(uint32 ropeId, CVector dirSpeed) | [source/game_sa/Ropes.cpp:258](../../source/game_sa/Ropes.cpp#L258) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRopes::SetSpeedOfTopNode 0x00555DF0 | 0 / 0 | Posible dato fijo aRopes: source/game_sa/Ropes.h:24 (0x00B768B8) |
 | & GetRope(int32 index) | [source/game_sa/Ropes.h:47](../../source/game_sa/Ropes.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aRopes: source/game_sa/Ropes.h:24 (0x00B768B8) |
 
-<a id="grupo-504"></a>
+<a id="grupo-505"></a>
 
 ## CRubbish
 
@@ -67,7 +76,7 @@
 | CRubbish::InjectHooks() | [source/game_sa/Rubbish.cpp:22](../../source/game_sa/Rubbish.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CRubbish::SetVisibility(bool unk) | [source/game_sa/Rubbish.cpp:30](../../source/game_sa/Rubbish.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CRubbish::SetVisibility 0x007204C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-505"></a>
+<a id="grupo-506"></a>
 
 ## CRunningScript
 
@@ -134,7 +143,7 @@
 | & GetArrayGlobal(scm::VarLoc base, size_t idx, size_t elemSizeInDWords = std::max&lt;size_t&gt;(1, sizeof(T) / sizeof(int32))) | [source/game_sa/Scripts/RunningScript.h:376](../../source/game_sa/Scripts/RunningScript.h#L376) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & GetAtIPFromArray(bool isGlobalArray) | [source/game_sa/Scripts/RunningScript.h:382](../../source/game_sa/Scripts/RunningScript.h#L382) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-506"></a>
+<a id="grupo-507"></a>
 
 ## CSaveGarage
 
@@ -143,7 +152,7 @@
 | CSaveGarage::CopyGarageIntoSaveGarage(Const CGarage& g) | [source/game_sa/Garage.cpp:1822](../../source/game_sa/Garage.cpp#L1822) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CSaveGarage::CopyGarageOutOfSaveGarage(CGarage& g) const | [source/game_sa/Garage.cpp:1843](../../source/game_sa/Garage.cpp#L1843) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-507"></a>
+<a id="grupo-508"></a>
 
 ## CScriptResourceManager
 
@@ -157,7 +166,7 @@
 | CScriptResourceManager::Load() | [source/game_sa/ScriptResourceManager.cpp:91](../../source/game_sa/ScriptResourceManager.cpp#L91) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CScriptResourceManager::Save() | [source/game_sa/ScriptResourceManager.cpp:97](../../source/game_sa/ScriptResourceManager.cpp#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-508"></a>
+<a id="grupo-509"></a>
 
 ## CScripted2dEffects
 
@@ -175,7 +184,7 @@
 | Load() | [source/game_sa/Scripts/Scripted2dEffects.h:87](../../source/game_sa/Scripts/Scripted2dEffects.h#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Save() | [source/game_sa/Scripts/Scripted2dEffects.h:88](../../source/game_sa/Scripts/Scripted2dEffects.h#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-509"></a>
+<a id="grupo-510"></a>
 
 ## CScriptedBrainTaskEntry
 
@@ -185,7 +194,7 @@
 | CScriptedBrainTaskEntry::CScriptedBrainTaskEntry() | [source/game_sa/Tasks/ScriptedBrainTaskStore.cpp:51](../../source/game_sa/Tasks/ScriptedBrainTaskStore.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CScriptedBrainTaskEntry::Constructor 0x0062EC40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CScriptedBrainTaskEntry::Constructor() | [source/game_sa/Tasks/ScriptedBrainTaskStore.cpp:57](../../source/game_sa/Tasks/ScriptedBrainTaskStore.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CScriptedBrainTaskEntry::Constructor 0x0062EC40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-510"></a>
+<a id="grupo-511"></a>
 
 ## CScriptedBrainTaskStore
 
@@ -198,7 +207,7 @@
 | CScriptedBrainTaskStore::Clear(CTask* task) | [source/game_sa/Tasks/ScriptedBrainTaskStore.cpp:119](../../source/game_sa/Tasks/ScriptedBrainTaskStore.cpp#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CScriptedBrainTaskStore::Clear-task 0x006357F0 | 0 / 0 | Posible dato fijo ms_entries: source/game_sa/Tasks/ScriptedBrainTaskStore.h:29 (0x00C188F0) |
 | CScriptedBrainTaskStore::GetOf(CPed* ped) -&gt; CScriptedBrainTaskEntry* | [source/game_sa/Tasks/ScriptedBrainTaskStore.cpp:132](../../source/game_sa/Tasks/ScriptedBrainTaskStore.cpp#L132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_entries: source/game_sa/Tasks/ScriptedBrainTaskStore.h:29 (0x00C188F0) |
 
-<a id="grupo-511"></a>
+<a id="grupo-512"></a>
 
 ## CScriptedEffectPairs
 
@@ -206,7 +215,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CScriptedEffectPairs::Reset() | [source/game_sa/Scripts/Scripted2dEffects.cpp:85](../../source/game_sa/Scripts/Scripted2dEffects.cpp#L85) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CScripted2dEffects::ResetEffectPairs 0x006F9EB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-512"></a>
+<a id="grupo-513"></a>
 
 ## CScriptsForBrains
 
@@ -225,7 +234,7 @@
 | CScriptsForBrains::GetIndexOfScriptBrainWithThisName(const char* name, int8 type) | [source/game_sa/ScriptsForBrains.cpp:239](../../source/game_sa/ScriptsForBrains.cpp#L239) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CScriptsForBrains::GetIndexOfScriptBrainWithThisName 0x0046AA30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CScriptsForBrains::StartAttractorScriptBrainWithThisName(const char* name, CPed* ped, bool bHasAScriptBrain) | [source/game_sa/ScriptsForBrains.cpp:248](../../source/game_sa/ScriptsForBrains.cpp#L248) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CScriptsForBrains::StartAttractorScriptBrainWithThisName 0x0046B390 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-513"></a>
+<a id="grupo-514"></a>
 
 ## CSearchLight
 
@@ -239,7 +248,7 @@
 | CSearchLight::GetOnEntity() | [source/game_sa/SearchLight.cpp:45](../../source/game_sa/SearchLight.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CSearchLight::IsSpottedEntity(uint32 index, const CEntity& entity) | [source/game_sa/SearchLight.cpp:50](../../source/game_sa/SearchLight.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CSearchLight::IsSpottedEntity 0x00493900 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-514"></a>
+<a id="grupo-515"></a>
 
 ## CSector
 
@@ -248,7 +257,7 @@
 | SectorDestructorExe(CSector* self, void* /*edx*/) | [source/game_sa/Sector.cpp:27](../../source/game_sa/Sector.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CSector::Destructor 0x00563130 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CSector::InjectHooks() | [source/game_sa/Sector.cpp:32](../../source/game_sa/Sector.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-515"></a>
+<a id="grupo-516"></a>
 
 ## CSetPiece
 
@@ -281,7 +290,7 @@
 | GetTargetCoord2X() const | [source/game_sa/SetPiece.h:61](../../source/game_sa/SetPiece.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTargetCoord2Y() const | [source/game_sa/SetPiece.h:62](../../source/game_sa/SetPiece.h#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-516"></a>
+<a id="grupo-517"></a>
 
 ## CSetPieces
 
@@ -294,7 +303,7 @@
 | CSetPieces::Save() | [source/game_sa/SetPieces.cpp:81](../../source/game_sa/SetPieces.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSetPieces::Save 0x005D3C70 | 0 / 0 | Posible dato fijo NumSetPieces: source/game_sa/SetPieces.h:10 (0x00A957FC); Posible dato fijo aSetPieces: source/game_sa/SetPieces.h:9 (0x00A95818) |
 | CSetPieces::Update() | [source/game_sa/SetPieces.cpp:88](../../source/game_sa/SetPieces.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSetPieces::Update 0x0049AA00 | 0 / 0 | Posible dato fijo NumSetPieces: source/game_sa/SetPieces.h:10 (0x00A957FC); Posible dato fijo aSetPieces: source/game_sa/SetPieces.h:9 (0x00A95818) |
 
-<a id="grupo-517"></a>
+<a id="grupo-518"></a>
 
 ## CSexyPedScanner
 
@@ -303,7 +312,7 @@
 | CSexyPedScanner::InjectHooks() | [source/game_sa/Events/EventScanner.cpp:117](../../source/game_sa/Events/EventScanner.cpp#L117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CSexyPedScanner::ScanForSexyPeds(CPed& ped, CEntity** entities, int32 count) | [source/game_sa/Events/EventScanner.cpp:748](../../source/game_sa/Events/EventScanner.cpp#L748) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CSexyPedScanner::ScanForSexyPeds 0x00603BF0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo g_InterestingEvents: source/game_sa/InterestingEvents.cpp:24 (0x00C0B058) |
 
-<a id="grupo-518"></a>
+<a id="grupo-519"></a>
 
 ## CShadowCamera
 
@@ -333,7 +342,7 @@
 | * Constructor() | [source/game_sa/ShadowCamera.h:133](../../source/game_sa/ShadowCamera.h#L133) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadowCamera::Constructor 0x007053F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/ShadowCamera.h:138](../../source/game_sa/ShadowCamera.h#L138) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CShadowCamera::Destructor 0x00705B50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-519"></a>
+<a id="grupo-520"></a>
 
 ## CShadows
 
@@ -371,16 +380,3 @@
 | CShadows::StoreCarLightShadow(CVehicle* vehicle, int32 id, RwTexture* texture, const CVector& posn, float frontX, float frontY, float sideX, float sideY, uint8 red, uint8 green, uint8 blue, float maxViewAngleCosine) | [source/game_sa/Shadows.cpp:1531](../../source/game_sa/Shadows.cpp#L1531) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::StoreCarLightShadow 0x0070C500 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00) |
 | CShadows::StoreShadowForPole(CEntity* entity, float offsetX, float offsetY, float offsetZ, float poleHeight, float poleWidth, uint32 localId) | [source/game_sa/Shadows.cpp:1608](../../source/game_sa/Shadows.cpp#L1608) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::StoreShadowForPole 0x0070C750 | 0 / 0 | Posible dato fijo gpPostShadowTex: source/game_sa/Shadows.h:260 (0x00C4040C); Posible dato fijo m_CurrentColours: source/game_sa/TimeCycle.h:105 (0x00B7C4A0); Posible dato fijo m_nPoleShadowStrength: source/game_sa/TimeCycle.h:71 (0x00B7B340) |
 | CShadows::RenderIndicatorShadow( uint32 id, eShadowType, RwTexture*, const CVector& posn, float frontX, float frontY, float sideX, float sideY, int16 /*intensity*/ ) | [source/game_sa/Shadows.cpp:1648](../../source/game_sa/Shadows.cpp#L1648) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::RenderIndicatorShadow 0x0070CCB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-520"></a>
-
-## CShinyTexts
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CShinyTexts::InjectHooks() | [source/game_sa/ShinyTexts.cpp:30](../../source/game_sa/ShinyTexts.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CShinyTexts::Init() | [source/game_sa/ShinyTexts.cpp:41](../../source/game_sa/ShinyTexts.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShinyTexts::Init 0x007221B0 | 0 / 0 | Posible dato fijo NumShinyTexts: source/game_sa/ShinyTexts.h:36 (0x00C7C6F8) |
-| CShinyTexts::RenderOutGeometryBuffer() | [source/game_sa/ShinyTexts.cpp:46](../../source/game_sa/ShinyTexts.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShinyTexts::RenderOutGeometryBuffer 0x007221C0 | 0 / 0 | Posible dato fijo ShinyTempIndicesStored: source/game_sa/ShinyTexts.cpp:27 (0x00C4B954); Posible dato fijo ShinyTempVerticesStored: source/game_sa/ShinyTexts.cpp:26 (0x00C4B950); Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958) |
-| CShinyTexts::Render() | [source/game_sa/ShinyTexts.cpp:60](../../source/game_sa/ShinyTexts.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShinyTexts::Render 0x00724890 | 0 / 0 | Posible dato fijo NumShinyTexts: source/game_sa/ShinyTexts.h:36 (0x00C7C6F8); Posible dato fijo ShinyTempIndicesStored: source/game_sa/ShinyTexts.cpp:27 (0x00C4B954); Posible dato fijo ShinyTempVerticesStored: source/game_sa/ShinyTexts.cpp:26 (0x00C4B950); Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo aShinyTexts: source/game_sa/ShinyTexts.h:37 (0x00C7D258); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo gpHandManTex: source/game_sa/Shadows.h:258 (0x00C40404) |
-| CShinyTexts::RegisterOne(CVector cornerAA, CVector cornerAB, CVector cornerBA, CVector cornerBB, float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4, bool alwaysTrue, uint8 red, uint8 green, uint8 blue, float maxDistance ) | [source/game_sa/ShinyTexts.cpp:133](../../source/game_sa/ShinyTexts.cpp#L133) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShinyTexts::RegisterOne 0x00724B60 | 0 / 0 | Posible dato fijo NumShinyTexts: source/game_sa/ShinyTexts.h:36 (0x00C7C6F8); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo aShinyTexts: source/game_sa/ShinyTexts.h:37 (0x00C7D258) |
-| GetShinyTexts() | [source/game_sa/ShinyTexts.h:54](../../source/game_sa/ShinyTexts.h#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo NumShinyTexts: source/game_sa/ShinyTexts.h:36 (0x00C7C6F8); Posible dato fijo aShinyTexts: source/game_sa/ShinyTexts.h:37 (0x00C7D258) |

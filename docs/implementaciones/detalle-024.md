@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 888 grupos / 10227 funciones reconstruidas; 10227 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 891 grupos / 10291 funciones reconstruidas; 10291 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,13 +8,22 @@
 
 <a id="grupo-461"></a>
 
+## CPointRoutePool
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| InjectHooks() | [source/game_sa/Pools/PointRoutePool.h:37](../../source/game_sa/Pools/PointRoutePool.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * New() | [source/game_sa/Pools/PointRoutePool.h:51](../../source/game_sa/Pools/PointRoutePool.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPointRoutePool::New 0x0041B5B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-462"></a>
+
 ## CPolyBunch
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | GetVerts() const | [source/game_sa/PolyBunch.h:19](../../source/game_sa/PolyBunch.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-462"></a>
+<a id="grupo-463"></a>
 
 ## CPool
 
@@ -58,7 +67,7 @@
 | CheckFill(byte expected, StorageType* at) | [source/game_sa/Core/Pool.h:385](../../source/game_sa/Core/Pool.h#L385) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FindFreeSlot() const | [source/game_sa/Core/Pool.h:393](../../source/game_sa/Core/Pool.h#L393) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-463"></a>
+<a id="grupo-464"></a>
 
 ## CPool::SlotState
 
@@ -66,7 +75,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ToInt() const | [source/game_sa/Core/Pool.h:32](../../source/game_sa/Core/Pool.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-464"></a>
+<a id="grupo-465"></a>
 
 ## CPools
 
@@ -94,7 +103,7 @@
 | CPools::SaveVehiclePool() | [source/game_sa/Pools.cpp:488](../../source/game_sa/Pools.cpp#L488) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPools::SaveVehiclePool 0x005D4800 | 0 / 0 | Posible dato fijo ms_pVehiclePool: source/game_sa/Pools.cpp:65 (0x00B74494) |
 | IsValidPointer(T* ptr) | [source/game_sa/Pools/Pools.h:198](../../source/game_sa/Pools/Pools.h#L198) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-465"></a>
+<a id="grupo-466"></a>
 
 ## CPopCycle
 
@@ -123,7 +132,7 @@
 | GetCurrentPercTypeGroup(int32 groupId) | [source/game_sa/PopCycle.h:292](../../source/game_sa/PopCycle.h#L292) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_nCurrentTimeIndex: source/game_sa/PopCycle.h:216 (0x00C0BC74); Posible dato fijo m_nCurrentTimeOfWeek: source/game_sa/PopCycle.h:215 (0x00C0BC70); Posible dato fijo m_nPercTypeGroup: source/game_sa/PopCycle.h:231 (0x00C0BC78); Posible dato fijo m_pCurrZoneInfo: source/game_sa/PopCycle.h:210 (0x00C0BC68) |
 | IsPedInGroupTheseGroups(int32 modelIndex, std::initializer_list&lt;ePopcycleGroup&gt; groups) | [source/game_sa/PopCycle.h:296](../../source/game_sa/PopCycle.h#L296) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-466"></a>
+<a id="grupo-467"></a>
 
 ## CPopulation
 
@@ -211,7 +220,7 @@
 | GetPedGroupModelId(ePopcyclePedGroup pedGroup, int32 slot) | [source/game_sa/Population.h:228](../../source/game_sa/Population.h#L228) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetModelsInCarGroup(int32 carGroupId) | [source/game_sa/Population.h:229](../../source/game_sa/Population.h#L229) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_CarGroups: source/game_sa/Population.h:70 (0x00C0ED38); Posible dato fijo m_nNumCarsInGroup: source/game_sa/Population.h:67 (0x00C0EC78) |
 
-<a id="grupo-467"></a>
+<a id="grupo-468"></a>
 
 ## CPostEffects
 
@@ -240,7 +249,7 @@
 | CPostEffects::ScriptInfraredVisionSwitch(bool enable) | [source/game_sa/PostEffects.cpp:448](../../source/game_sa/PostEffects.cpp#L448) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPostEffects::ScriptInfraredVisionSwitch 0x00701140 | 0 / 0 | Posible dato fijo m_bInfraredVision: source/game_sa/PostEffects.h:164 (0x00C402B9); Posible dato fijo m_bNightVision: source/game_sa/PostEffects.h:99 (0x00C402B8) |
 | CPostEffects::ScriptNightVisionSwitch(bool enable) | [source/game_sa/PostEffects.cpp:458](../../source/game_sa/PostEffects.cpp#L458) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPostEffects::ScriptNightVisionSwitch 0x00701120 | 0 / 0 | Posible dato fijo m_bInfraredVision: source/game_sa/PostEffects.h:164 (0x00C402B9); Posible dato fijo m_bNightVision: source/game_sa/PostEffects.h:99 (0x00C402B8) |
 | CPostEffects::ScriptResetForEffects() | [source/game_sa/PostEffects.cpp:468](../../source/game_sa/PostEffects.cpp#L468) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPostEffects::ScriptResetForEffects 0x007010F0 | 0 / 0 | Posible dato fijo m_bCCTV: source/game_sa/PostEffects.h:141 (0x00C402C5); Posible dato fijo m_bDarknessFilter: source/game_sa/PostEffects.h:105 (0x00C402C4); Posible dato fijo m_bHeatHazeFX: source/game_sa/PostEffects.h:114 (0x00C402BA); Posible dato fijo m_bInfraredVision: source/game_sa/PostEffects.h:164 (0x00C402B9); Posible dato fijo m_bNightVision: source/game_sa/PostEffects.h:99 (0x00C402B8); Posible dato fijo m_bWaterFogScript: source/game_sa/WaterLevel.h:75 (0x008D37D5) |
-| CPostEffects::UnderWaterRipple(CRGBA color, float xoffset, float yoffset, float strength, float speed, float freq) | [source/game_sa/PostEffects.cpp:478](../../source/game_sa/PostEffects.cpp#L478) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPostEffects::UnderWaterRipple 0x007039C0 | 0 / 0 | Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo pRasterFrontBuffer: source/game_sa/PostEffects.h:135 (0x00C402D8); Posible dato fijo uiTempBufferIndicesStored: source/game_sa/common.h:284 (0x00C4B954); Posible dato fijo uiTempBufferVerticesStored: source/game_sa/common.h:285 (0x00C4B950) |
+| CPostEffects::UnderWaterRipple(CRGBA color, float xoffset, float yoffset, float strength, float speed, float freq) | [source/game_sa/PostEffects.cpp:478](../../source/game_sa/PostEffects.cpp#L478) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPostEffects::UnderWaterRipple 0x007039C0 | 0 / 0 | Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo TempBufferVertices: source/game_sa/common.h:289 (0x00C4D958); Posible dato fijo pRasterFrontBuffer: source/game_sa/PostEffects.h:135 (0x00C402D8); Posible dato fijo uiTempBufferIndicesStored: source/game_sa/common.h:286 (0x00C4B954); Posible dato fijo uiTempBufferVerticesStored: source/game_sa/common.h:287 (0x00C4B950) |
 | CPostEffects::UnderWaterRippleFadeToFX() | [source/game_sa/PostEffects.cpp:543](../../source/game_sa/PostEffects.cpp#L543) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPostEffects::HeatHazeFXInit() | [source/game_sa/PostEffects.cpp:548](../../source/game_sa/PostEffects.cpp#L548) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPostEffects::HeatHazeFXInit 0x00701450 | 0 / 0 | Posible dato fijo hpS: source/game_sa/PostEffects.cpp:31 (0x00C3F868); Posible dato fijo hpX: source/game_sa/PostEffects.cpp:29 (0x00C3FE08); Posible dato fijo hpY: source/game_sa/PostEffects.cpp:30 (0x00C3FB38); Posible dato fijo m_HeatHazeFXIntensity: source/game_sa/PostEffects.h:117 (0x008D50E8); Posible dato fijo m_HeatHazeFXRandomShift: source/game_sa/PostEffects.h:120 (0x00C402C0); Posible dato fijo m_HeatHazeFXRenderSizeX: source/game_sa/PostEffects.h:123 (0x00C4030C); Posible dato fijo m_HeatHazeFXRenderSizeY: source/game_sa/PostEffects.h:124 (0x00C40310); Posible dato fijo m_HeatHazeFXScanSizeX: source/game_sa/PostEffects.h:121 (0x00C40304); Posible dato fijo m_HeatHazeFXScanSizeY: source/game_sa/PostEffects.h:122 (0x00C40308); Posible dato fijo m_HeatHazeFXSpeedMax: source/game_sa/PostEffects.h:116 (0x008D50F0); Posible dato fijo m_HeatHazeFXSpeedMin: source/game_sa/PostEffects.h:115 (0x008D50EC); Posible dato fijo m_HeatHazeFXType: source/game_sa/PostEffects.h:118 (0x00C402BC); Posible dato fijo m_HeatHazeFXTypeLast: source/game_sa/PostEffects.h:119 (0x008D50E4); Posible dato fijo pRasterFrontBuffer: source/game_sa/PostEffects.h:135 (0x00C402D8) |
 | CPostEffects::HeatHazeFX(float fIntensity, bool bAlphaMaskMode) | [source/game_sa/PostEffects.cpp:615](../../source/game_sa/PostEffects.cpp#L615) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPostEffects::HeatHazeFX 0x00701780 | 0 / 0 | Conversión de dirección fija: 0x00C4B958, 0x00C5F958; Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00); Posible dato fijo hpS: source/game_sa/PostEffects.cpp:31 (0x00C3F868); Posible dato fijo hpX: source/game_sa/PostEffects.cpp:29 (0x00C3FE08); Posible dato fijo hpY: source/game_sa/PostEffects.cpp:30 (0x00C3FB38); Posible dato fijo pRasterFrontBuffer: source/game_sa/PostEffects.h:135 (0x00C402D8) |
@@ -263,7 +272,7 @@
 | CPostEffects::SetSpeedFXManualSpeedCurrentFrame(float value) | [source/game_sa/PostEffects.cpp:1083](../../source/game_sa/PostEffects.cpp#L1083) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPostEffects::SetSpeedFXManualSpeedCurrentFrame 0x00700BE0 | 0 / 0 | Posible dato fijo m_fSpeedFXManualSpeedCurrentFrame: source/game_sa/PostEffects.h:132 (0x00C402C8) |
 | CPostEffects::Render() | [source/game_sa/PostEffects.cpp:1088](../../source/game_sa/PostEffects.cpp#L1088) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPostEffects::Render 0x007046E0 | 0 / 0 | Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:40 (0x00BA6748); Posible dato fijo HeatHaze: source/game_sa/Weather.h:38 (0x00C812DC); Posible dato fijo HeatHazeFXControl: source/game_sa/Weather.h:37 (0x00C812D8); Posible dato fijo Rain: source/game_sa/Weather.h:46 (0x00C81324); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo SCREEN_EXTRA_MULT_BASE_CAP: source/game_sa/PostEffects.h:82 (0x008D516C); Posible dato fijo SCREEN_EXTRA_MULT_BASE_MULT: source/game_sa/PostEffects.h:83 (0x008D5170); Posible dato fijo SCREEN_EXTRA_MULT_CHANGE_RATE: source/game_sa/PostEffects.h:81 (0x008D5168); Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo SnapShotFrames: source/game_sa/SpecialFX.h:27 (0x00C7C710); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo UnderWaterness: source/game_sa/Weather.h:49 (0x00C8132C); Posible dato fijo WaterDepth: source/game_sa/Weather.h:48 (0x00C81330); Posible dato fijo bSnapShotActive: source/game_sa/SpecialFX.h:26 (0x00C7C714); Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80); Posible dato fijo gfLaRiotsLightMult: source/game_sa/TimeCycle.h:20 (0x008CD060); Posible dato fijo m_DarknessFilterAlpha: source/game_sa/PostEffects.h:106 (0x008D5204); Posible dato fijo m_DarknessFilterRadiosityIntensityLimit: source/game_sa/PostEffects.h:108 (0x008D50F8); Posible dato fijo m_InfraredVisionCol: source/game_sa/PostEffects.h:168 (0x008D50CC); Posible dato fijo m_InfraredVisionGrainStrength: source/game_sa/PostEffects.h:165 (0x008D50B4); Posible dato fijo m_InfraredVisionMainCol: source/game_sa/PostEffects.h:169 (0x008D50D0); Posible dato fijo m_NightVisionGrainStrength: source/game_sa/PostEffects.h:102 (0x008D50A8); Posible dato fijo m_RadiosityFilterPasses: source/game_sa/PostEffects.h:159 (0x008D5110); Posible dato fijo m_RadiosityIntensity: source/game_sa/PostEffects.h:153 (0x008D5118); Posible dato fijo m_RadiosityIntensityLimit: source/game_sa/PostEffects.h:154 (0x008D5114); Posible dato fijo m_RadiosityRenderPasses: source/game_sa/PostEffects.h:160 (0x008D510C); Posible dato fijo m_bCCTV: source/game_sa/PostEffects.h:141 (0x00C402C5); Posible dato fijo m_bColorEnable: source/game_sa/PostEffects.h:145 (0x008D518C); Posible dato fijo m_bDarknessFilter: source/game_sa/PostEffects.h:105 (0x00C402C4); Posible dato fijo m_bDisableAllPostEffect: source/game_sa/PostEffects.h:85 (0x00C402CF); Posible dato fijo m_bFog: source/game_sa/PostEffects.h:126 (0x00C402C6); Posible dato fijo m_bGrainEnable: source/game_sa/PostEffects.h:137 (0x00C402B4); Posible dato fijo m_bHeatHazeFX: source/game_sa/PostEffects.h:114 (0x00C402BA); Posible dato fijo m_bInCutscene: source/game_sa/PostEffects.h:87 (0x00C402B7); Posible dato fijo m_bInfraredVision: source/game_sa/PostEffects.h:164 (0x00C402B9); Posible dato fijo m_bNightVision: source/game_sa/PostEffects.h:99 (0x00C402B8); Posible dato fijo m_bRadiosity: source/game_sa/PostEffects.h:147 (0x00C402CC); Posible dato fijo m_bRadiosityBypassTimeCycleIntensityLimit: source/game_sa/PostEffects.h:155 (0x00C402CE); Posible dato fijo m_bRainEnable: source/game_sa/PostEffects.h:144 (0x00C402D1); Posible dato fijo m_bSavePhotoFromScript: source/game_sa/PostEffects.h:86 (0x00C402D0); Posible dato fijo m_bSpeedFX: source/game_sa/PostEffects.h:128 (0x008D5100); Posible dato fijo m_bSpeedFXTestMode: source/game_sa/PostEffects.h:129 (0x00C402C7); Posible dato fijo m_bSpeedFXUserFlag: source/game_sa/PostEffects.h:130 (0x008D5108); Posible dato fijo m_bSpeedFXUserFlagCurrentFrame: source/game_sa/PostEffects.h:131 (0x008D5109); Posible dato fijo m_bWaterDepthDarkness: source/game_sa/PostEffects.h:112 (0x008D5144); Posible dato fijo m_colour1Multiplier: source/game_sa/PostEffects.h:92 (0x008D5160); Posible dato fijo m_colour2Multiplier: source/game_sa/PostEffects.h:93 (0x008D5164); Posible dato fijo m_fNightVisionSwitchOnFXCount: source/game_sa/PostEffects.h:100 (0x00C40300); Posible dato fijo m_fNightVisionSwitchOnFXTime: source/game_sa/PostEffects.h:101 (0x008D50B0); Posible dato fijo m_fSpeedFXManualSpeedCurrentFrame: source/game_sa/PostEffects.h:132 (0x00C402C8); Posible dato fijo m_fWaterFXStartUnderWaterness: source/game_sa/PostEffects.h:110 (0x008D514C); Posible dato fijo m_fWaterFullDarknessDepth: source/game_sa/PostEffects.h:111 (0x008D5148); Posible dato fijo m_grainStrength: source/game_sa/PostEffects.h:139 (0x008D5094); Posible dato fijo m_waterCol: source/game_sa/PostEffects.h:180 (0x008D5140); Posible dato fijo m_waterEnable: source/game_sa/PostEffects.h:176 (0x00C402D3); Posible dato fijo m_waterFreq: source/game_sa/PostEffects.h:179 (0x008D513C); Posible dato fijo m_waterSpeed: source/game_sa/PostEffects.h:178 (0x008D5138); Posible dato fijo m_waterStrength: source/game_sa/PostEffects.h:177 (0x008D512C); Posible dato fijo m_xoffset: source/game_sa/PostEffects.h:89 (0x008D5130); Posible dato fijo m_yoffset: source/game_sa/PostEffects.h:90 (0x008D5134); Posible dato fijo ms_bTakePhoto: source/game_sa/Weapon.h:53 (0x00C8A7C1); Posible dato fijo ms_cutsceneProcessing: source/game_sa/CutsceneMgr.h:78 (0x00B5F852); Posible dato fijo ms_running: source/game_sa/CutsceneMgr.h:77 (0x00B5F851); Posible dato fijo pRasterFrontBuffer: source/game_sa/PostEffects.h:135 (0x00C402D8) |
 
-<a id="grupo-468"></a>
+<a id="grupo-469"></a>
 
 ## CProjectile
 
@@ -274,7 +283,7 @@
 | * CProjectile::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Entity/Object/Projectile.cpp:63](../../source/game_sa/Entity/Object/Projectile.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CProjectile::ScalarDeletingDestructor 0x005A40F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Constructor(int32 modelId) | [source/game_sa/Entity/Object/Projectile.h:20](../../source/game_sa/Entity/Object/Projectile.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectile::Constructor 0x005A4030 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-469"></a>
+<a id="grupo-470"></a>
 
 ## CProjectileInfo
 
@@ -288,13 +297,13 @@
 | CProjectileInfo::AddProjectile(CEntity* creator, eWeaponType projectileType, CVector origin, float force, const CVector* dir, CEntity* target) | [source/game_sa/ProjectileInfo.cpp:111](../../source/game_sa/ProjectileInfo.cpp#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectileInfo::AddProjectile 0x00737C80 | 0 / 0 | Conversión de dirección fija: 0x00BB4BD0; Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80); Posible dato fijo gaProjectileInfo: source/game_sa/ProjectileInfo.h:51 (0x00C891A8); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo ms_apProjectile: source/game_sa/ProjectileInfo.h:29 (0x00C89110) |
 | CProjectileInfo::RemoveDetonatorProjectiles() | [source/game_sa/ProjectileInfo.cpp:203](../../source/game_sa/ProjectileInfo.cpp#L203) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectileInfo::RemoveDetonatorProjectiles 0x00738860 | 0 / 0 | Posible dato fijo gaProjectileInfo: source/game_sa/ProjectileInfo.h:51 (0x00C891A8); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo ms_apProjectile: source/game_sa/ProjectileInfo.h:29 (0x00C89110) |
 | CProjectileInfo::RemoveProjectile(CProjectileInfo* info, CProjectile* object) | [source/game_sa/ProjectileInfo.cpp:218](../../source/game_sa/ProjectileInfo.cpp#L218) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectileInfo::RemoveProjectile 0x007388F0 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890) |
-| CProjectileInfo::Update() | [source/game_sa/ProjectileInfo.cpp:267](../../source/game_sa/ProjectileInfo.cpp#L267) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectileInfo::Update 0x00738B20 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo gaProjectileInfo: source/game_sa/ProjectileInfo.h:51 (0x00C891A8); Posible dato fijo m_Color: source/game_sa/Font.h:99 (0x00C71A60); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo ms_apProjectile: source/game_sa/ProjectileInfo.h:29 (0x00C89110); Posible dato fijo pIgnoreEntity: source/game_sa/World.h:67 (0x00B7CD68) |
+| CProjectileInfo::Update() | [source/game_sa/ProjectileInfo.cpp:267](../../source/game_sa/ProjectileInfo.cpp#L267) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectileInfo::Update 0x00738B20 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo gaProjectileInfo: source/game_sa/ProjectileInfo.h:51 (0x00C891A8); Posible dato fijo m_Color: source/game_sa/Font.h:85 (0x00C71A60); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo ms_apProjectile: source/game_sa/ProjectileInfo.h:29 (0x00C89110); Posible dato fijo pIgnoreEntity: source/game_sa/World.h:67 (0x00B7CD68) |
 | CProjectileInfo::IsProjectileInRange(float x1, float x2, float y1, float y2, float z1, float z2, bool bDestroy) | [source/game_sa/ProjectileInfo.cpp:386](../../source/game_sa/ProjectileInfo.cpp#L386) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectileInfo::IsProjectileInRange 0x00739860 | 0 / 0 | Posible dato fijo gaProjectileInfo: source/game_sa/ProjectileInfo.h:51 (0x00C891A8); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo ms_apProjectile: source/game_sa/ProjectileInfo.h:29 (0x00C89110) |
 | CProjectileInfo::RemoveAllProjectiles() | [source/game_sa/ProjectileInfo.cpp:418](../../source/game_sa/ProjectileInfo.cpp#L418) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectileInfo::RemoveAllProjectiles 0x007399B0 | 0 / 0 | Posible dato fijo gaProjectileInfo: source/game_sa/ProjectileInfo.h:51 (0x00C891A8); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo ms_apProjectile: source/game_sa/ProjectileInfo.h:29 (0x00C89110) |
 | CProjectileInfo::RemoveIfThisIsAProjectile(CObject* object) | [source/game_sa/ProjectileInfo.cpp:433](../../source/game_sa/ProjectileInfo.cpp#L433) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectileInfo::RemoveIfThisIsAProjectile 0x00739A40 | 0 / 0 | Posible dato fijo gaProjectileInfo: source/game_sa/ProjectileInfo.h:51 (0x00C891A8); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo ms_apProjectile: source/game_sa/ProjectileInfo.h:29 (0x00C89110) |
 | CProjectileInfo::RemoveFXSystem(bool bInstantly) | [source/game_sa/ProjectileInfo.cpp:449](../../source/game_sa/ProjectileInfo.cpp#L449) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectileInfo::RemoveFXSystem 0x00737B80 | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
 
-<a id="grupo-470"></a>
+<a id="grupo-471"></a>
 
 ## CPtrList
 
@@ -321,7 +330,7 @@
 | cbegin() const | [source/game_sa/Core/PtrList.h:187](../../source/game_sa/Core/PtrList.h#L187) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | cend() const | [source/game_sa/Core/PtrList.h:188](../../source/game_sa/Core/PtrList.h#L188) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-471"></a>
+<a id="grupo-472"></a>
 
 ## CPtrListDoubleLink
 
@@ -330,7 +339,7 @@
 | * DeleteNode(NodeType* node) | [source/game_sa/Core/PtrListDoubleLink.h:91](../../source/game_sa/Core/PtrListDoubleLink.h#L91) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * UnlinkNode(NodeType* node) | [source/game_sa/Core/PtrListDoubleLink.h:100](../../source/game_sa/Core/PtrListDoubleLink.h#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-472"></a>
+<a id="grupo-473"></a>
 
 ## CPtrNode
 
@@ -339,7 +348,7 @@
 | CPtrNode(TItemType item) | [source/game_sa/Core/PtrNode.h:17](../../source/game_sa/Core/PtrNode.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsItemValid() const | [source/game_sa/Core/PtrNode.h:21](../../source/game_sa/Core/PtrNode.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-473"></a>
+<a id="grupo-474"></a>
 
 ## CPtrNodeDoubleLink
 
@@ -348,16 +357,17 @@
 | * operator new(size_t sz) | [source/game_sa/Core/PtrNodeDoubleLink.h:26](../../source/game_sa/Core/PtrNodeDoubleLink.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | operator delete(void* data, size_t sz) | [source/game_sa/Core/PtrNodeDoubleLink.h:30](../../source/game_sa/Core/PtrNodeDoubleLink.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-474"></a>
+<a id="grupo-475"></a>
 
 ## CPtrNodeDoubleLinkPool
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | InjectHooks() | [source/game_sa/Pools/PtrNodeDoubleLinkPool.h:35](../../source/game_sa/Pools/PtrNodeDoubleLinkPool.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * New() | [source/game_sa/Pools/PtrNodeDoubleLinkPool.h:51](../../source/game_sa/Pools/PtrNodeDoubleLinkPool.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeDoubleLinkPool::New 0x005522E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * New() | [source/game_sa/Pools/PtrNodeDoubleLinkPool.h:53](../../source/game_sa/Pools/PtrNodeDoubleLinkPool.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeDoubleLinkPool::New 0x005522E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Delete(CPtrNodeDoubleLink&lt;void*&gt;* node) | [source/game_sa/Pools/PtrNodeDoubleLinkPool.h:59](../../source/game_sa/Pools/PtrNodeDoubleLinkPool.h#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeDoubleLinkPool::OperatorDelete 0x005523D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-475"></a>
+<a id="grupo-476"></a>
 
 ## CPtrNodeSingleLink
 
@@ -366,17 +376,17 @@
 | * operator new(size_t sz) | [source/game_sa/Core/PtrNodeSingleLink.h:25](../../source/game_sa/Core/PtrNodeSingleLink.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | operator delete(void* data, size_t sz) | [source/game_sa/Core/PtrNodeSingleLink.h:29](../../source/game_sa/Core/PtrNodeSingleLink.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-476"></a>
+<a id="grupo-477"></a>
 
 ## CPtrNodeSingleLinkPool
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | InjectHooks() | [source/game_sa/Pools/PtrNodeSingleLinkPool.h:35](../../source/game_sa/Pools/PtrNodeSingleLinkPool.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * New() | [source/game_sa/Pools/PtrNodeSingleLinkPool.h:50](../../source/game_sa/Pools/PtrNodeSingleLinkPool.h#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeSingleLinkPool::New 0x00552240 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Delete(CPtrNodeSingleLink&lt;void*&gt;* node) | [source/game_sa/Pools/PtrNodeSingleLinkPool.h:56](../../source/game_sa/Pools/PtrNodeSingleLinkPool.h#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * New() | [source/game_sa/Pools/PtrNodeSingleLinkPool.h:52](../../source/game_sa/Pools/PtrNodeSingleLinkPool.h#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeSingleLinkPool::New 0x00552240 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Delete(CPtrNodeSingleLink&lt;void*&gt;* node) | [source/game_sa/Pools/PtrNodeSingleLinkPool.h:58](../../source/game_sa/Pools/PtrNodeSingleLinkPool.h#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeSingleLinkPool::OperatorDelete 0x00552390 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-477"></a>
+<a id="grupo-478"></a>
 
 ## CQuadBike
 
@@ -398,7 +408,7 @@
 | CQuadBike::SetupDamageAfterLoad() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:433](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L433) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::SetupDamageAfterLoad 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CQuadBike::SetupSuspensionLines() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:443](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L443) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::SetupSuspensionLines 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-478"></a>
+<a id="grupo-479"></a>
 
 ## CQuadTreeNode
 
@@ -428,7 +438,7 @@
 | GetSectorRect(int32 sector) const | [source/game_sa/Core/QuadTreeNode.h:328](../../source/game_sa/Core/QuadTreeNode.h#L328) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | LiesInside(const CRect& rect) const | [source/game_sa/Core/QuadTreeNode.h:354](../../source/game_sa/Core/QuadTreeNode.h#L354) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-479"></a>
+<a id="grupo-480"></a>
 
 ## CQuadTreeNodeLegacyPool
 
@@ -436,36 +446,3 @@
 | --- | --- | --- | --- | --- | --- |
 | * New() | [source/game_sa/Core/QuadTreeNode.h:373](../../source/game_sa/Core/QuadTreeNode.h#L373) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Delete(CQuadTreeNode&lt;void*&gt;* node) | [source/game_sa/Core/QuadTreeNode.h:374](../../source/game_sa/Core/QuadTreeNode.h#L374) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-480"></a>
-
-## CQuaternion
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CQuaternion::InjectHooks() | [source/game_sa/Core/Quaternion.cpp:31](../../source/game_sa/Core/Quaternion.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Get(RwMatrix* out) const | [source/game_sa/Core/Quaternion.cpp:49](../../source/game_sa/Core/Quaternion.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuaternion::Get-matrix 0x0059C080 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Get(float* x, float* y, float* z) | [source/game_sa/Core/Quaternion.cpp:54](../../source/game_sa/Core/Quaternion.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuaternion::Get-euler 0x0059C160 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Get(RwV3d* axis, float* angle) | [source/game_sa/Core/Quaternion.cpp:62](../../source/game_sa/Core/Quaternion.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuaternion::Get-axis-angle 0x0059C230 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Multiply(const CQuaternion& a, const CQuaternion& b) | [source/game_sa/Core/Quaternion.cpp:67](../../source/game_sa/Core/Quaternion.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CQuaternion::Multiply 0x0059C270 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Slerp(const CQuaternion& from, const CQuaternion& to, float halftheta, float sintheta_inv, float t) | [source/game_sa/Core/Quaternion.cpp:74](../../source/game_sa/Core/Quaternion.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CQuaternion::Slerp-halftheta 0x0059C300 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Set(const RwMatrix& m) | [source/game_sa/Core/Quaternion.cpp:81](../../source/game_sa/Core/Quaternion.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuaternion::Set-matrix 0x0059C3E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Set(float x, float y, float z) | [source/game_sa/Core/Quaternion.cpp:127](../../source/game_sa/Core/Quaternion.cpp#L127) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuaternion::Set-euler 0x0059C530 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Set(RwV3d* axis, float angle) | [source/game_sa/Core/Quaternion.cpp:132](../../source/game_sa/Core/Quaternion.cpp#L132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuaternion::Set-axis-angle 0x0059C600 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Slerp(const CQuaternion& from, const CQuaternion& to, float t) | [source/game_sa/Core/Quaternion.cpp:138](../../source/game_sa/Core/Quaternion.cpp#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Conjugate() | [source/game_sa/Core/Quaternion.cpp:144](../../source/game_sa/Core/Quaternion.cpp#L144) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuaternion::Conjugate 0x004D37D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::GetLengthSquared() const | [source/game_sa/Core/Quaternion.cpp:158](../../source/game_sa/Core/Quaternion.cpp#L158) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Scale(float multiplier) | [source/game_sa/Core/Quaternion.cpp:164](../../source/game_sa/Core/Quaternion.cpp#L164) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Copy(const CQuaternion& from) | [source/game_sa/Core/Quaternion.cpp:169](../../source/game_sa/Core/Quaternion.cpp#L169) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Dot(const CQuaternion& rhs) | [source/game_sa/Core/Quaternion.cpp:174](../../source/game_sa/Core/Quaternion.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion::Normalise() | [source/game_sa/Core/Quaternion.cpp:179](../../source/game_sa/Core/Quaternion.cpp#L179) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion(const RtQuat& q) | [source/game_sa/Core/Quaternion.h:27](../../source/game_sa/Core/Quaternion.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion() | [source/game_sa/Core/Quaternion.h:28](../../source/game_sa/Core/Quaternion.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CQuaternion(float x, float y, float z, float w) | [source/game_sa/Core/Quaternion.h:29](../../source/game_sa/Core/Quaternion.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Conjugated() const | [source/game_sa/Core/Quaternion.h:60](../../source/game_sa/Core/Quaternion.h#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator+=(const CQuaternion& right) | [source/game_sa/Core/Quaternion.h:78](../../source/game_sa/Core/Quaternion.h#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator-=(const CQuaternion& right) | [source/game_sa/Core/Quaternion.h:86](../../source/game_sa/Core/Quaternion.h#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & operator=(const CQuaternion& right) | [source/game_sa/Core/Quaternion.h:94](../../source/game_sa/Core/Quaternion.h#L94) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator*=(float multiplier) | [source/game_sa/Core/Quaternion.h:103](../../source/game_sa/Core/Quaternion.h#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator-() const | [source/game_sa/Core/Quaternion.h:110](../../source/game_sa/Core/Quaternion.h#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * AsRtQuat() | [source/game_sa/Core/Quaternion.h:115](../../source/game_sa/Core/Quaternion.h#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

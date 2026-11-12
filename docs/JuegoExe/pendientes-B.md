@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 888 grupos / 10227 funciones reconstruidas; 10227 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 891 grupos / 10291 funciones reconstruidas; 10291 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo B: Falta: método virtual
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-394 funciones, 22,506 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+388 funciones, 22,217 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -67,7 +67,6 @@
 | `0x00655C10` | 104 | CTaskComplexWalkRoundBuildingAttempt | baja | 0 (0) | sí |
 | `0x0066BA90` | 104 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) | sí |
 | `0x0066D0C0` | 104 | CTaskComplexAvoidOtherPedWhileWandering | baja | 0 (0) | sí |
-| `0x004C4960` | 103 | CDamageAtomicModelInfo | alta | 0 (0) | sí |
 | `0x006F5930` | 103 | CTrain | alta | 0 (0) | sí |
 | `0x00460CE0` | 102 | CTaskComplexWanderCop | baja | 0 (0) | sí |
 | `0x004B6FB0` | 101 | CEventVehicleCollision | baja | 0 (0) | sí |
@@ -134,7 +133,6 @@
 | `0x0061FEE0` | 76 | CTaskSimpleThrowControl | baja | 0 (0) | sí |
 | `0x00634620` | 76 | CTaskSimpleIKPointArm | baja | 0 (0) | sí |
 | `0x006E38A0` | 76 | CVehicle | alta | 0 (0) | sí |
-| `0x006F5570` | 75 | cHandlingDataMgr | baja | 0 (0) | sí |
 | `0x00625C20` | 68 | CTaskSimpleThrowProjectile | baja | 0 (0) | sí |
 | `0x00694640` | 68 | CTaskSimpleDuck | baja | 0 (0) | sí |
 | `0x00620BF0` | 64 | CTaskSimpleBeHit | baja | 0 (0) | sí |
@@ -146,7 +144,6 @@
 | `0x0069DAC0` | 56 | CTaskAllocatorPool | baja | 0 (0) | sí |
 | `0x0054F5D0` | 53 | CPlaceable | alta | 0 (0) | sí |
 | `0x006A6590` | 49 | CAutomobile | alta | 0 (0) | sí |
-| `0x006F5530` | 49 | cHandlingDataMgr | baja | 0 (0) | sí |
 | `0x0066AD40` | 48 | CTaskComplexAvoidOtherPedWhileWandering | baja | 0 (0) | sí |
 | `0x0066AD70` | 48 | CTaskComplexAvoidOtherPedWhileWandering | baja | 0 (0) | sí |
 | `0x0067CBE0` | 45 | CTaskComplexFallAndGetUp | baja | 0 (0) | sí |
@@ -261,7 +258,6 @@
 | `0x00695C00` | 30 | CTaskComplexSeekEntityAiming | alta | 0 (0) | sí |
 | `0x00696260` | 30 | CTaskComplexSeekEntityAnyMeansXYOffset | baja | 0 (0) | sí |
 | `0x006B1330` | 30 | CAutomobile | alta | 0 (0) | sí |
-| `0x006C4810` | 30 | CHeli | alta | 0 (0) | sí |
 | `0x006CADB0` | 30 | CPlane | alta | 0 (0) | sí |
 | `0x006F6300` | 30 | CTrain | alta | 0 (0) | sí |
 | `0x0066BC80` | 28 | CTaskComplexGotoDoorAndOpen | alta | 0 (0) | sí |
@@ -280,7 +276,6 @@
 | `0x00536C20` | 27 | CEntity | baja | 0 (0) | sí |
 | `0x004A2550` | 26 | FxEmitterBP_c | alta | 0 (0) | sí |
 | `0x004A4460` | 24 | FxEmitterBP_c | baja | 0 (0) | sí |
-| `0x004C4910` | 24 | CDamageAtomicModelInfo | alta | 0 (0) | sí |
 | `0x0066BB00` | 23 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) | sí |
 | `0x006F59C0` | 22 | CTrain | alta | 0 (0) | sí |
 | `0x0065B050` | 18 | CTaskComplexMedicTreatInjuredPed | baja | 0 (0) | sí |
@@ -288,7 +283,6 @@
 | `0x006D3D50` | 9 | CVehicle | alta | 0 (0) | sí |
 | `0x006D56B0` | 9 | CVehicle | alta | 0 (0) | sí |
 | `0x004A2570` | 8 | FxEmitterBP_c | alta | 0 (0) | sí |
-| `0x006C4550` | 8 | CHeli | alta | 0 (0) | sí |
 | `0x004AEA30` | 7 | CEventVehicleHitAndRun | baja | 0 (0) | sí |
 | `0x004AFCD0` | 7 | CEventKnockOffBike | alta | 0 (0) | sí |
 | `0x004B1150` | 7 | CEventVehicleOnFire | baja | 0 (0) | sí |

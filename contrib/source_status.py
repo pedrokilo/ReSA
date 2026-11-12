@@ -11,6 +11,9 @@ SCOPE = re.compile(
     r'^\s*RH_Scoped(?:VirtualClass|Class|Namespace|NamespaceName)'
     r'\(\s*"?([^",)\n]+)"?\s*[,)]', re.MULTILINE
 )
+SCOPE_NAMED = re.compile(
+    r'^\s*RH_ScopedNamedClass\(\s*[^,]+,\s*"([^"\n]+)"\s*\)', re.MULTILINE
+)
 BLOCK = re.compile(
     rb'/\* BEGIN GENERATED HOOK STATUS\r?\n.*?'
     rb'END GENERATED HOOK STATUS \*/\r?\n(?:\r?\n)?', re.DOTALL
@@ -43,6 +46,7 @@ def source_index(root, classes):
         # Ignore commented-out registrations while retaining line boundaries.
         data = re.sub(r'/\*.*?\*/|//[^\n]*', '', data, flags=re.DOTALL)
         owners = {m[1].strip() for m in SCOPE.finditer(data)}
+        owners |= {m[1].strip() for m in SCOPE_NAMED.finditer(data)}
         for name in owners & classes.keys():
             result[name].append(path)
     missing = sorted(classes.keys() - result.keys())

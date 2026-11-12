@@ -18,3 +18,10 @@ CEntitySeekPosCalculator,DestructorCopy2,0x0065DE90,1,0,1,S,hooks.csv
 CTaskComplexWanderProstitute,DestructorCopy,0x006726F0,1,0,1,S,hooks.csv
 CEntitySeekPosCalculator,DestructorCopy-2,0x00667980,1,0,1,S,hooks.csv
 CInformFriendsEvent,Process,0x004AC160,1,0,1,S,hooks.csv
+CLinkList<AlphaObjectInfo>,Shutdown,0x00732D60,1,0,1,S,hooks.csv
+CLinkList<CPed*>,Shutdown,0x00732D80,1,0,1,S,hooks.csv
+CLinkList<AlphaObjectInfo>,InsertSorted,0x00733910,1,0,1,S,hooks.csv
+CLinkList<AlphaObjectInfo>,Clear,0x00733F40,1,0,1,S,hooks.csv
+CAEAudioEntity,Destructor-4,0x00506C30,1,0,1,S,hooks.csv
+CAEAudioEntity,Destructor-5,0x00506C40,1,0,1,S,hooks.csv
+CAudioZones,TextBufferClear-2,0x00509140,1,0,1,S,hooks.csv

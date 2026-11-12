@@ -1,12 +1,8 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 888 grupos / 10227 funciones reconstruidas; 10227 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Progreso del reversing
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-12 05:56 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-12 11:57 UTC
 
 **Índice:** [1. Objetivo y dimensiones](#objetivo) · [2. Siguientes mediciones](#mediciones) · [3. Siguiente fase](#siguiente-fase) · [4. Vista general](#vista-general) · [5. Cobertura real del EXE](#cobertura-exe) · [6. Lo que falta del código del juego](#que-falta) · [7. Funciones del juego aún no en C++](#no-en-cpp) · [8. Completas](#completas) · [9. Cohorte 17/10/2026](#cohorte-nuevo) · [10. Dependencias directas (grupo A)](#grupo-a) · [11. Parciales](#parciales) · [12. Sin revertir](#sin-revertir) · [13. Cómo leer y actualizar](#metodo)
 
@@ -20,20 +16,20 @@ Cifras medidas el 12/11/2026. **Cada porcentaje de este informe lleva escrita la
 
 | Tipo | Dimensión | Qué cuenta | Numerador | Denominador | Porcentaje (de qué) | Progreso |
 | --- | --- | --- | ---: | ---: | --- | --- |
-| **Funciones** | Funciones del juego reemplazadas por C++ en el EXE (**meta del proyecto**) | Funciones del EXE en 0x401000–0x74FFFF que ya tienen su hook reconstruido (análisis estático del EXE) | 10,119 | 11,803 | 85.73% de las funciones del juego | `█████████████████░░░` |
-| **Funciones** | Funciones del juego que faltan | Complemento de la fila anterior: grupos A–D de [lo que falta](#que-falta) | 1,684 | 11,803 | 14.27% de las funciones del juego | `███░░░░░░░░░░░░░░░░░` |
-| **Bytes** | Bytes de código del juego reemplazados | Suma de los cuerpos de esas mismas funciones, en bytes de código | 2,773,775 | 3,007,767 | 92.22% de los bytes de código del juego | `██████████████████░░` |
-| **Clases** | Clases del juego completas | Clases o grupos del catálogo con todas sus entradas reconstruidas y sin envolturas del juego abiertas | 879 | 879 | 100.00% de las clases del juego | `████████████████████` |
-| **Validación** | Clases del juego validadas | Clases completas cuyas entradas tienen todas `validated=1` | 879 | 879 | 100.00% de las clases completas | `████████████████████` |
-| **Entradas del catálogo** | Entradas del juego reconstruidas | Filas de `hooks.csv` con `reversed=1` más las envolturas del juego abiertas, que cuentan como no reconstruidas | 10,144 | 10,144 | 100.00% de las entradas del juego del catálogo | `████████████████████` |
-| **Validación** | Entradas del juego validadas | Entradas reconstruidas con evidencia aprobada vinculada (`validated=1`) | 10,144 | 10,144 | 100.00% de las entradas reconstruidas | `████████████████████` |
-| **Entradas del catálogo** | Entradas reconstruidas escritas solo en C++ | Entradas reconstruidas cuyo cuerpo fuente no tiene `__asm` ni `naked` (las de fuente no identificada de forma inequívoca no cuentan) | 10,125 | 10,144 | 99.81% de las entradas reconstruidas | `████████████████████` |
+| **Funciones** | Funciones del juego reemplazadas por C++ en el EXE (**meta del proyecto**) | Funciones del EXE en 0x401000–0x74FFFF que ya tienen su hook reconstruido (análisis estático del EXE) | 10,183 | 11,803 | 86.27% de las funciones del juego | `█████████████████░░░` |
+| **Funciones** | Funciones del juego que faltan | Complemento de la fila anterior: grupos A–D de [lo que falta](#que-falta) | 1,620 | 11,803 | 13.73% de las funciones del juego | `███░░░░░░░░░░░░░░░░░` |
+| **Bytes** | Bytes de código del juego reemplazados | Suma de los cuerpos de esas mismas funciones, en bytes de código | 2,777,533 | 3,007,767 | 92.35% de los bytes de código del juego | `██████████████████░░` |
+| **Clases** | Clases del juego completas | Clases o grupos del catálogo con todas sus entradas reconstruidas y sin envolturas del juego abiertas | 882 | 882 | 100.00% de las clases del juego | `████████████████████` |
+| **Validación** | Clases del juego validadas | Clases completas cuyas entradas tienen todas `validated=1` | 882 | 882 | 100.00% de las clases completas | `████████████████████` |
+| **Entradas del catálogo** | Entradas del juego reconstruidas | Filas de `hooks.csv` con `reversed=1` más las envolturas del juego abiertas, que cuentan como no reconstruidas | 10,208 | 10,208 | 100.00% de las entradas del juego del catálogo | `████████████████████` |
+| **Validación** | Entradas del juego validadas | Entradas reconstruidas con evidencia aprobada vinculada (`validated=1`) | 10,208 | 10,208 | 100.00% de las entradas reconstruidas | `████████████████████` |
+| **Entradas del catálogo** | Entradas reconstruidas escritas solo en C++ | Entradas reconstruidas cuyo cuerpo fuente no tiene `__asm` ni `naked` (las de fuente no identificada de forma inequívoca no cuentan) | 10,182 | 10,208 | 99.75% de las entradas reconstruidas | `████████████████████` |
 
-**Por qué hay un 86% y un 92%.** No se contradicen: miden cosas distintas. El 85.73% cuenta *funciones* y el 92.22% cuenta *bytes* de código; las funciones que faltan son más pequeñas que las ya reemplazadas, así que quedan muchas funciones pero pocos bytes. Las filas «Funciones» y «Bytes» miden el propio EXE (análisis estático, ver [cobertura real del EXE](#cobertura-exe)) y son la medida del avance hacia la meta; las filas de «Entradas del catálogo», «Clases» y «Validación» miden las filas registradas de `hooks.csv`, que solo conocen una parte del código del juego, por eso su porcentaje es mayor. Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última fila cuenta, de las entradas reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
+**Por qué hay un 86% y un 92%.** No se contradicen: miden cosas distintas. El 86.27% cuenta *funciones* y el 92.35% cuenta *bytes* de código; las funciones que faltan son más pequeñas que las ya reemplazadas, así que quedan muchas funciones pero pocos bytes. Las filas «Funciones» y «Bytes» miden el propio EXE (análisis estático, ver [cobertura real del EXE](#cobertura-exe)) y son la medida del avance hacia la meta; las filas de «Entradas del catálogo», «Clases» y «Validación» miden las filas registradas de `hooks.csv`, que solo conocen una parte del código del juego, por eso su porcentaje es mayor. Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última fila cuenta, de las entradas reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
 
 **Migración de ensamblador a C++:** en `source/game_sa` ya no queda ningún `__asm` ni función `naked`: todo lo reconstruido está escrito en C++, con resultados validados contra el EXE dentro del juego. Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Historial y excepciones documentadas: [estado de la migración](../reversing/CppOnlyMigration/README.md) · [FILES.md](../reversing/CppOnlyMigration/FILES.md).
 
-Hay 10,144 entradas catalogadas del juego, 0 bloqueadas y 10,144 sin bloqueo. No constituyen un inventario exhaustivo del código del juego; las filas de RenderWare y del CRT del catálogo (83) quedan fuera de este informe. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
+Hay 10,208 entradas catalogadas del juego, 0 bloqueadas y 10,208 sin bloqueo. No constituyen un inventario exhaustivo del código del juego; las filas de RenderWare y del CRT del catálogo (83) quedan fuera de este informe. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
 
 <a id="mediciones"></a>
 
@@ -43,9 +39,9 @@ Estado al 12/11/2026. Lo que ya se midió y lo que todavía no tiene un porcenta
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validación vigente para el árbol actual (validación) | 0/10,144 entradas validadas confirmadas como vigentes (0.00% de las entradas validadas) | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). El 04/11/2026 se repitieron 20 bancos desfasados sin regresión de producción (todos eran bancos desfasados o artefactos del entorno): falta consolidarlos en el registro. |
-| Dependencias de funciones originales eliminadas (funciones) | Medido (cota inferior): 423 funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; cierre transitivo: 575 funciones / 94,869 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan: lista viva en la [sección 10](#grupo-a). |
-| Trabajo real que falta (funciones y bytes) | 1,684 funciones y 233,992 bytes del juego sin reemplazar (14.27% de las funciones y 7.78% de los bytes del juego); grupo A 575 funciones y 94,869 bytes | Reconstruir y validar de menor a mayor coste, empezando por el grupo A ([sección 6](#que-falta)). |
+| Validación vigente para el árbol actual (validación) | 0/10,208 entradas validadas confirmadas como vigentes (0.00% de las entradas validadas) | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). El 04/11/2026 se repitieron 20 bancos desfasados sin regresión de producción (todos eran bancos desfasados o artefactos del entorno): falta consolidarlos en el registro. |
+| Dependencias de funciones originales eliminadas (funciones) | Medido (cota inferior): 383 funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; cierre transitivo: 535 funciones / 92,125 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan: lista viva en la [sección 10](#grupo-a). |
+| Trabajo real que falta (funciones y bytes) | 1,620 funciones y 230,234 bytes del juego sin reemplazar (13.73% de las funciones y 7.65% de los bytes del juego); grupo A 535 funciones y 92,125 bytes | Reconstruir y validar de menor a mayor coste, empezando por el grupo A ([sección 6](#que-falta)). |
 | Coste por categoría de lote (tiempo de reconstrucción y validación) | Medido para las categorías 1, 2, 3 y 5 en los lotes 90A, 90B, 92A, 92B y 92C (tabla de abajo); sin medir la categoría 4 (funciones con FPU) | Cronometrar un lote piloto con FPU (método x87 a 24 bits) y los siguientes lotes de lógica para convertir la estimación en un coste por función. |
 
 Costes medidos en los lotes cerrados (datos al 12/11/2026, [lotes.csv](JuegoExe/lotes.csv)). Cada lote reconstruye en C++ puro funciones que antes se llamaban al EXE por dirección y las valida dentro del juego (pares EXE/DLL con cero diferencias).
@@ -69,14 +65,14 @@ Las envolturas de biblioteca no cuentan: 211 funciones con envoltura al EXE (Ren
 
 **Lotes en curso:** ninguno registrado para las envolturas del juego.
 
-Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D, 1,684 funciones al 12/11/2026; [sección 6](#que-falta)). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv), y la lista viva está en la [sección 10](#grupo-a):
+Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D, 1,620 funciones al 12/11/2026; [sección 6](#que-falta)). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv), y la lista viva está en la [sección 10](#grupo-a):
 
 1. **Grupo A, por categorías y de menor a mayor coste:** helpers triviales y thunks muy llamados (hecho en el lote 90A: `CPad::GetPad` 0x53FB70, `CRGBA::Constructor` 0x7170C0...), pequeñas sin FPU (lote 90B), lógica sin FPU (empezando por las más llamadas y por clases enteras), funciones con FPU con el método x87 a 24 bits, y por último las de 0x300 bytes o más, una por lote (92B, 92C).
 2. **Lote piloto de cada categoría** para medir el coste real: ya medidos los de las categorías 1, 2, 3 y 5 (tabla de la sección 2); falta la 4, con FPU.
 3. **Revalidación vigente:** repetir los bancos sobre el árbol actual, priorizando los de fuentes cambiadas por lotes posteriores. Motivo: el banco `CVehD` llevaba roto desde el lote 83C (se cambió `m_fSteerAngle` por `m_GasPedal` en `ProcessDrivingAnims`) y no se vio hasta repetirlo.
 4. **Después del código del juego:** `librw`, pipelines de SA y puentes `RwD3D9*`, QuickTime, DDraw y CRT, según la [hoja de ruta](RutaExeIndependiente.md); el cambio de método de validación sin el exe como oráculo.
 
-**Validación consolidada parcialmente:** 10144 funciones del juego con evidencia aprobada vinculada, 1150 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias (cifras al 12/11/2026). Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
+**Validación consolidada parcialmente:** 10208 funciones del juego con evidencia aprobada vinculada, 862 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias (cifras al 12/11/2026). Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
 <a id="vista-general"></a>
 
@@ -86,10 +82,10 @@ Al 12/11/2026. Cada columna indica la dimensión y el denominador de su porcenta
 
 | Clases validadas (validación) | Clases completas por validar (validación) | Entradas validadas (validación) | Entradas reconstruidas por validar (validación) | Entradas por reconstruir (entradas del catálogo) |
 | :---: | :---: | :---: | :---: | :---: |
-| **879 / 879 clases** | **0 / 879 clases** | **10,144 / 10,144 entradas** | **0 / 10,144 entradas** | **0 / 10,144 entradas** |
+| **882 / 882 clases** | **0 / 882 clases** | **10,208 / 10,208 entradas** | **0 / 10,208 entradas** | **0 / 10,208 entradas** |
 | 100.00% de las clases completas | 0.00% de las clases completas | 100.00% de las entradas reconstruidas | 0.00% de las entradas reconstruidas | 0.00% de las entradas del juego del catálogo |
 
-Reconstrucción por clases: 879 completas, 0 parciales y 0 sin revertir de 879 clases o grupos.
+Reconstrucción por clases: 882 completas, 0 parciales y 0 sin revertir de 882 clases o grupos.
 
 > [!NOTE]
 > Los porcentajes de reconstrucción miden entradas registradas como `reversed`; los de validación, entradas con evidencia aprobada (`validated=1`). Ninguno mide estabilidad del juego ni el avance sobre todo el EXE (para eso, las filas «Funciones» y «Bytes» de la sección 1). Una clase completa puede conservar hooks bloqueados o funciones todavía no registradas.
@@ -98,31 +94,31 @@ Reconstrucción por clases: 879 completas, 0 parciales y 0 sin revertir de 879 c
 
 ## 5. Cobertura real del EXE (estimación)
 
-Esta tabla es la única parte del informe que habla de lo que no es código del juego: sirve para aclarar qué queda fuera de la meta. Las dos primeras filas de la tabla de dimensiones salen de aquí (región del juego); las demás miden filas del catálogo (`hooks.csv`). Se mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,764 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 10,227 filas reconstruidas del catálogo equivalen a **10,189 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo). En esta tabla, «% de funciones» es la parte de las funciones de esa región que ya está en C++ y «% de bytes» la parte de los bytes de código de esa región.
+Esta tabla es la única parte del informe que habla de lo que no es código del juego: sirve para aclarar qué queda fuera de la meta. Las dos primeras filas de la tabla de dimensiones salen de aquí (región del juego); las demás miden filas del catálogo (`hooks.csv`). Se mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,764 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 10,291 filas reconstruidas del catálogo equivalen a **10,253 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo). En esta tabla, «% de funciones» es la parte de las funciones de esa región que ya está en C++ y «% de bytes» la parte de los bytes de código de esa región.
 
 | Región del EXE | Funciones (total de la región) | Bytes de código (total de la región) | Reemplazadas por C++: funciones y % de funciones | Reemplazadas: % de bytes | Funciones de la región llamadas directamente desde código ya reemplazado |
 | --- | ---: | ---: | --- | --- | ---: |
-| Juego y plataforma (0x401000–0x74FFFF) | 11,803 | 3,007,767 | `█████████████████░░░` 10,119 · 85.7% de funciones | `██████████████████░░` 92.2% de bytes | 423 |
+| Juego y plataforma (0x401000–0x74FFFF) | 11,803 | 3,007,767 | `█████████████████░░░` 10,183 · 86.3% de funciones | `██████████████████░░` 92.3% de bytes | 383 |
 | RenderWare y D3D (0x750000–0x81FFFF) | 1,889 | 600,971 | `█░░░░░░░░░░░░░░░░░░░` 61 · 3.2% de funciones | `░░░░░░░░░░░░░░░░░░░░` 0.3% de bytes | 229 |
 | CRT/MSVC y runtime (0x820000 en adelante) | 4,072 | 115,711 | `░░░░░░░░░░░░░░░░░░░░` 9 · 0.2% de funciones | `░░░░░░░░░░░░░░░░░░░░` 0.2% de bytes | 61 |
-| **Total** | **17,764** | **3,724,449** | `███████████░░░░░░░░░` 10,189 · 57.4% de funciones | `███████████████░░░░░` 74.5% de bytes | **713** |
+| **Total** | **17,764** | **3,724,449** | `████████████░░░░░░░░` 10,253 · 57.7% de funciones | `███████████████░░░░░` 74.6% de bytes | **673** |
 
 **Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,764 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes del EXE) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,803 funciones, 81% de los bytes del EXE), y de él ya está reemplazado el **92% de los bytes del juego** y el 86% de las funciones del juego: no se contradicen, las funciones que quedan son más pequeñas que la media. Entre las 11,803 funciones del juego hay 1,835 de 16 bytes o menos (stubs, thunks y helpers).
 
 <a id="que-falta"></a>
 
-## 6. Lo que falta del código del juego: 1,684 funciones, 234 KB
+## 6. Lo que falta del código del juego: 1,620 funciones, 230 KB
 
-Al 12/11/2026: 1,684 funciones (14.27% de las funciones del juego) y 233,992 bytes (7.78% de los bytes del juego) siguen sin reemplazar. Este es el trabajo real que falta del código del juego, lo mida o no el catálogo. Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
+Al 12/11/2026: 1,620 funciones (13.73% de las funciones del juego) y 230,234 bytes (7.65% de los bytes del juego) siguen sin reemplazar. Este es el trabajo real que falta del código del juego, lo mida o no el catálogo. Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
 
 | Grupo (de mayor a menor tamaño) | Funciones | Bytes | Lectura |
 | --- | ---: | ---: | --- |
-| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 575 | 94,869 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. Lista viva: [dependencias directas (grupo A)](#grupo-a). |
-| C. Llamadas directas solo desde código aún no reemplazado | 372 | 60,264 | Dependen de reconstruir antes A y B; parte puede ser código muerto. |
-| D. Sin llamadas directas ni vtable | 343 | 56,353 | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |
-| B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | 394 | 22,506 | Probablemente necesarios: se ejecutan por despacho virtual. |
+| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 535 | 92,125 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. Lista viva: [dependencias directas (grupo A)](#grupo-a). |
+| C. Llamadas directas solo desde código aún no reemplazado | 363 | 59,812 | Dependen de reconstruir antes A y B; parte puede ser código muerto. |
+| D. Sin llamadas directas ni vtable | 334 | 56,080 | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |
+| B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | 388 | 22,217 | Probablemente necesarios: se ejecutan por despacho virtual. |
 
-Del código del juego ya reemplazado, **423 funciones del juego siguen llamándose directamente desde el EXE**. Esa es la lista corta de dependencias reales que hay que eliminar. Las que caen en RenderWare/D3D o el CRT se muestran solo en la última columna de la tabla de cobertura. No hay envolturas del juego abiertas (sección siguiente).
+Del código del juego ya reemplazado, **383 funciones del juego siguen llamándose directamente desde el EXE**. Esa es la lista corta de dependencias reales que hay que eliminar. Las que caen en RenderWare/D3D o el CRT se muestran solo en la última columna de la tabla de cobertura. No hay envolturas del juego abiertas (sección siguiente).
 
 > [!NOTE]
 > **Cotas y límites.** Es un análisis estático: hay 6,004 llamadas indirectas sin resolver que no están en el grafo, así que A es una **cota inferior** del trabajo. La partición por regiones usa la dirección, no una clasificación función a función. «Reemplazada» significa que el hook existe y pasó su banco; no acredita independencia del EXE ni que la validación siga vigente para el árbol actual. Se regenera con `contrib/exe_coverage.py` al sincronizar la documentación.
@@ -163,308 +159,309 @@ Estas envolturas llaman al EXE, pero su destino es una biblioteca enlazada dentr
 </details>
 
 <a id="completas"></a>
-## 8. 🟢 Completas · 879 clases
+## 8. 🟢 Completas · 882 clases
 
-Al 12/11/2026: 879 de 879 clases o grupos están completas (todas sus entradas reconstruidas y ninguna envoltura del juego abierta). Orden alfabético. El número entre paréntesis indica funciones registradas; ✅ indica entradas con validated=1 y 🔒 indica hooks cuya conmutación sigue bloqueada. Los bloqueos no son pendientes de validación.
+Al 12/11/2026: 882 de 882 clases o grupos están completas (todas sus entradas reconstruidas y ninguna envoltura del juego abierta). Orden alfabético. El número entre paréntesis indica funciones registradas; ✅ indica entradas con validated=1 y 🔒 indica hooks cuya conmutación sigue bloqueada. Los bloqueos no son pendientes de validación.
 
 <details>
 <summary>Mostrar catálogo de clases completas</summary>
 
 | Clase (funciones) | Clase (funciones) | Clase (funciones) |
 | --- | --- | --- |
-| [App](../source/app/app.cpp) (8) ✅ 8 | [CLoadingScreen](../source/game_sa/LoadingScreen.cpp) (20) ✅ 20 | [CTaskComplexSeekEntityRadiusAngleOffset](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp) (9) ✅ 9 |
-| [BoneNode_c](../source/game_sa/Ragdoll/BoneNode.cpp) (18) ✅ 18 | [CLoadMonitor](../source/game_sa/LoadMonitor.cpp) (7) ✅ 7 | [CTaskComplexSeekEntityStandard](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp) (10) ✅ 10 |
-| [BoneNodeManager_c](../source/game_sa/Ragdoll/BoneNodeManager.cpp) (8) ✅ 8 | [CLocalisation](../source/game_sa/Localisation.cpp) (18) ✅ 18 | [CTaskComplexSequence](../source/game_sa/Tasks/TaskComplexSequence.cpp) (15) ✅ 15 |
-| [BreakablePlugin](../source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.cpp) (6) ✅ 6 | [CLodAtomicModelInfo](../source/game_sa/Models/LodAtomicModelInfo.cpp) (3) ✅ 3 | [CTaskComplexShuffleSeats](../source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp) (11) ✅ 11 |
-| [BreakManager_c](../source/game_sa/BreakManager_c.cpp) (7) ✅ 7 | [CLodTimeModelInfo](../source/game_sa/Models/LodTimeModelInfo.cpp) (4) ✅ 4 | [CTaskComplexSignalAtPed](../source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp) (8) ✅ 8 |
-| [BreakObject_c](../source/game_sa/BreakObject_c.cpp) (9) ✅ 9 | [CMaths](../source/game_sa/Maths.cpp) (6) ✅ 6 | [CTaskComplexSitDownThenIdleThenStandUp](../source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp) (10) ✅ 10 |
-| [C2dEffect](../source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.cpp) (14) ✅ 14 | [CMatrix](../source/game_sa/Core/Matrix.cpp) (45) ✅ 45 | [CTaskComplexSmartFleeEntity](../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp) (9) ✅ 9 |
-| [C3dMarker](../source/game_sa/3dMarker.cpp) (6) ✅ 6 | [CMatrixLink](../source/game_sa/Core/MatrixLink.cpp) (2) ✅ 2 | [CTaskComplexSmartFleePoint](../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp) (13) ✅ 13 |
-| [C3dMarkers](../source/game_sa/3dMarkers.cpp) (20) ✅ 20 | [CMatrixLinkList](../source/game_sa/Core/MatrixLinkList.cpp) (11) ✅ 11 | [CTaskComplexStareAtPed](../source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp) (8) ✅ 8 |
-| [C_PcSave](../source/game_sa/C_PcSave.cpp) (6) ✅ 6 | [CMBlur](../source/game_sa/MBlur.cpp) (5) ✅ 5 | [CTaskComplexStealCar](../source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp) (9) ✅ 9 |
-| [CAccidentManager](../source/game_sa/AccidentManager.cpp) (6) ✅ 6 | [CMemoryHeap](../source/game_sa/Memory/MemoryHeap.cpp) (1) ✅ 1 | [CTaskComplexStuckInAir](../source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp) (8) ✅ 8 |
-| [CAcquaintance](../source/game_sa/Acquaintance.cpp) (5) ✅ 5 | [CMemoryMgr](../source/game_sa/MemoryMgr.cpp) (10) ✅ 10 | [CTaskComplexSunbathe](../source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp) (11) ✅ 11 |
-| [CActiveOccluder](../source/game_sa/ActiveOccluder.cpp) (2) ✅ 2 | [CMentalState](../source/game_sa/MentalHealth.cpp) (1) ✅ 1 | [CTaskComplexTrackEntity](../source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp) (12) ✅ 12 |
-| [CAEAmbienceTrackManager](../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp) (7) ✅ 7 | [CMenuManager](../source/game_sa/MenuManager.cpp) (61) ✅ 61 | [CTaskComplexTreatAccident](../source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp) (9) ✅ 9 |
-| [CAEAudioChannel](../source/game_sa/Audio/Hardware/AEAudioChannel.cpp) (14) ✅ 14 | [CMenuSystem](../source/game_sa/MenuSystem.cpp) (21) ✅ 21 | [CTaskComplexTurnToFaceEntityOrCoord](../source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.cpp) (9) ✅ 9 |
-| [CAEAudioEntity](../source/game_sa/Audio/Entities/AEAudioEntity.cpp) (4) ✅ 4 | [CMessages](../source/game_sa/Messages.cpp) (28) ✅ 28 | [CTaskComplexUseAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUseAttractor.cpp) (7) ✅ 7 |
-| [CAEAudioEnvironment](../source/game_sa/Audio/AEAudioEnvironment.cpp) (6) ✅ 6 | [CMirrors](../source/game_sa/Mirrors.cpp) (8) ✅ 8 | [CTaskComplexUseAttractorPartner](../source/game_sa/Tasks/TaskTypes/TaskComplexUseAttractorPartner.cpp) (8) ✅ 8 |
-| [CAEAudioHardware](../source/game_sa/Audio/Hardware/AEAudioHardware.cpp) (55) ✅ 55 | [CMissionCleanup](../source/game_sa/MissionCleanup.cpp) (3) ✅ 3 | [CTaskComplexUseClosestFreeScriptedAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp) (9) ✅ 9 |
-| [CAEAudioUtility](../source/game_sa/Audio/AEAudioUtility.cpp) (11) ✅ 11 | [CMissionTextOffsets](../source/game_sa/Text/Text.cpp) (1) ✅ 1 | [CTaskComplexUseClosestFreeScriptedAttractorRun](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorRun.cpp) (5) ✅ 5 |
-| [CAEBankLoader](../source/game_sa/Audio/Loaders/AEBankLoader.cpp) (8) ✅ 8 | [CModelInfo](../source/game_sa/Models/ModelInfo.cpp) (29) ✅ 29 | [CTaskComplexUseClosestFreeScriptedAttractorSprint](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorSprint.cpp) (5) ✅ 5 |
-| [CAECollisionAudioEntity](../source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp) (18) ✅ 18 | [CMonsterTruck](../source/game_sa/Entity/Vehicle/MonsterTruck.cpp) (12) ✅ 12 | [CTaskComplexUseEffect](../source/game_sa/Tasks/TaskTypes/TaskComplexUseEffect.cpp) (8) ✅ 8 |
-| [CAECutsceneTrackManager](../source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp) (8) ✅ 8 | [CMotionBlurStreaks](../source/game_sa/MotionBlurStreaks.cpp) (4) ✅ 4 | [CTaskComplexUseEffectRunning](../source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp) (5) ✅ 5 |
-| [CAEDataStream](../source/game_sa/Audio/Loaders/AEDataStream.cpp) (22) ✅ 22 | [CMouseControllerState](../source/game_sa/MouseControllerState.cpp) (3) ✅ 3 | [CTaskComplexUseEffectSprinting](../source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp) (5) ✅ 5 |
-| [CAEDoorAudioEntity](../source/game_sa/Audio/Entities/AEDoorAudioEntity.cpp) (6) ✅ 6 | [CMovingThings](../source/game_sa/MovingThings.cpp) (5) ✅ 5 | [CTaskComplexUseGoggles](../source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp) (8) ✅ 8 |
-| [CAEExplosionAudioEntity](../source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp) (4) ✅ 4 | [CNearbyFireScanner](../source/game_sa/Events/EventScanner.cpp) (1) ✅ 1 | [CTaskComplexUseMobilePhone](../source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp) (1) ✅ 1 |
-| [CAEFireAudioEntity](../source/game_sa/Audio/Entities/AEFireAudioEntity.cpp) (7) ✅ 7 | [CNodeAddress](../source/game_sa/NodeAddress.cpp) (3) ✅ 3 | [CTaskComplexUsePairedAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUsePairedAttractor.cpp) (12) ✅ 12 |
-| [CAEFrontendAudioEntity](../source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp) (6) ✅ 6 | [CNodeRoute](../source/game_sa/NodeRoute.cpp) (3) ✅ 3 | [CTaskComplexUseScriptedAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp) (8) ✅ 8 |
-| [CAEGlobalWeaponAudioEntity](../source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp) (8) ✅ 8 | [CNodeRoutePool](../source/game_sa/Pools/NodeRoutePool.h) (1) ✅ 1 | [CTaskComplexUseScriptedBrain](../source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp) (9) ✅ 9 |
-| [CAEMFDecoder](../source/game_sa/Audio/Loaders/AEMFDecoder.cpp) (14) ✅ 14 | [CObject](../source/game_sa/Entity/Object/Object.cpp) (51) ✅ 51 | [CTaskComplexUseSequence](../source/game_sa/Tasks/TaskComplexUseSequence.cpp) (8) ✅ 8 |
-| [CAEMP3BankLoader](../source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp) (14) ✅ 14 | [CObjectData](../source/game_sa/ObjectData.cpp) (2) ✅ 2 | [CTaskComplexUseSwatRope](../source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp) (13) ✅ 13 |
-| [CAEMP3TrackLoader](../source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp) (8) ✅ 8 | [CObjectPool](../source/game_sa/Pools/ObjectPool.h) (2) ✅ 2 | [CTaskComplexUseWaterCannon](../source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp) (6) ✅ 6 |
-| [CAEPedAudioEntity](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp) (22) ✅ 22 | [CObjectPotentialCollisionScanner](../source/game_sa/Events/EventScanner.cpp) (1) ✅ 1 | [CTaskComplexWaitAtAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitAtAttractor.cpp) (7) ✅ 7 |
-| [CAEPedlessSpeechAudioEntity](../source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp) (12) ✅ 12 | [CObjectSaveStructure](../source/game_sa/ObjectSaveStructure.cpp) (2) ✅ 2 | [CTaskComplexWaitForBackup](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBackup.cpp) (9) ✅ 9 |
-| [CAEPedSpeechAudioEntity](../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp) (59) ✅ 59 | [COccluder](../source/game_sa/Occluder.cpp) (3) ✅ 3 | [CTaskComplexWaitForBus](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.cpp) (8) ✅ 8 |
-| [CAEPedSpeechSlot](../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp) (1) ✅ 1 | [COcclusion](../source/game_sa/Occlusion.cpp) (5) ✅ 5 | [CTaskComplexWaitForDryWeather](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForDryWeather.cpp) (8) ✅ 8 |
-| [CAEPedWeaponAudioEntity](../source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp) (5) ✅ 5 | [Common](../source/game_sa/common.cpp) (23) ✅ 23 | [CTaskComplexWaitForPed](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp) (3) ✅ 3 |
-| [CAEPoliceScannerAudioEntity](../source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp) (17) ✅ 17 | [CompressedVector](../source/game_sa/CompressedVector.cpp) (2) ✅ 2 | [CTaskComplexWalkAlongsidePed](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkAlongsidePed.cpp) (10) ✅ 10 |
-| [CAERadioTrackManager](../source/game_sa/Audio/Managers/AERadioTrackManager.cpp) (43) ✅ 43 | [COnscreenCounterEntry](../source/game_sa/OnscreenCounterEntry.cpp) (2) ✅ 2 | [CTaskComplexWalkRoundBuildingAttempt](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp) (13) ✅ 13 |
-| [CAEScriptAudioEntity](../source/game_sa/Audio/Entities/AEScriptAudioEntity.cpp) (19) ✅ 19 | [COnscreenTimer](../source/game_sa/OnscreenTimer.cpp) (7) ✅ 7 | [CTaskComplexWalkRoundCar](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp) (13) ✅ 13 |
-| [CAESmoothFadeThread](../source/game_sa/Audio/AESmoothFadeThread.cpp) (11) ✅ 11 | [CPad](../source/game_sa/Pad.cpp) (88) ✅ 88 | [CTaskComplexWalkRoundFire](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundFire.cpp) (9) ✅ 9 |
-| [CAESound](../source/game_sa/Audio/AESound.cpp) (19) ✅ 19 | [CPathFind](../source/game_sa/PathFind.cpp) (71) ✅ 71 | [CTaskComplexWalkRoundObject](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp) (9) ✅ 9 |
-| [CAESoundManager](../source/game_sa/Audio/Managers/AESoundManager.cpp) (14) ✅ 14 | [CPathNode](../source/game_sa/PathFind.cpp) (2) ✅ 2 | [CTaskComplexWander](../source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp) (17) ✅ 17 |
-| [CAEStaticChannel](../source/game_sa/Audio/Hardware/AEStaticChannel.cpp) (9) ✅ 9 | [CPatrolRoute](../source/game_sa/PatrolRoute.cpp) (3) ✅ 3 | [CTaskComplexWanderCop](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp) (9) ✅ 9 |
-| [CAEStreamingChannel](../source/game_sa/Audio/Hardware/AEStreamingChannel.cpp) (25) ✅ 25 | [CPatrolRoutePool](../source/game_sa/Pools/PatrolRoutePool.h) (1) ✅ 1 | [CTaskComplexWanderCriminal](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp) (7) ✅ 7 |
-| [CAEStreamingDecoder](../source/game_sa/Audio/Loaders/AEStreamingDecoder.cpp) (3) ✅ 3 | [CPed](../source/game_sa/Entity/Ped/Ped.cpp) (152) ✅ 152 | [CTaskComplexWanderFlee](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderFlee.cpp) (7) ✅ 7 |
-| [CAEStreamThread](../source/game_sa/Audio/AEStreamThread.cpp) (16) ✅ 16 | [CPedAcquaintanceScanner](../source/game_sa/Events/EventScanner.cpp) (4) ✅ 4 | [CTaskComplexWanderGang](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderGang.cpp) (4) ✅ 4 |
-| [CAEStreamTransformer](../source/game_sa/Audio/Loaders/AEStreamTransformer.cpp) (2) ✅ 2 | [CPedAttractor](../source/game_sa/Attractors/PedAttractor.cpp) (20) ✅ 20 | [CTaskComplexWanderMedic](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderMedic.cpp) (6) ✅ 6 |
-| [CAETrackLoader](../source/game_sa/Audio/Loaders/AETrackLoader.cpp) (1) ✅ 1 | [CPedAttractorManager](../source/game_sa/PedAttractorManager.cpp) (14) ✅ 14 | [CTaskComplexWanderProstitute](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp) (7) ✅ 7 |
-| [CAETwinLoopSoundEntity](../source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp) (10) ✅ 10 | [CPedAttractorPedPlacer](../source/game_sa/Attractors/PedAttractorPedPlacer.cpp) (1) ✅ 1 | [CTaskComplexWanderStandard](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp) (12) ✅ 12 |
-| [CAEUserRadioTrackManager](../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp) (15) ✅ 15 | [CPedAttractorPool](../source/game_sa/Pools/PedAttractorPool.h) (1) ✅ 1 | [CTaskGangHasslePed](../source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp) (8) ✅ 8 |
-| [CAEVehicleAudioEntity](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp) (107) ✅ 107 | [CPedClothesDesc](../source/game_sa/PedClothesDesc.cpp) (9) ✅ 9 | [CTaskGangHassleVehicle](../source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp) (10) ✅ 10 |
-| [CAEVorbisDecoder](../source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp) (14) ✅ 14 | [CPedDamageResponseCalculator](../source/game_sa/PedDamageResponseCalculator.cpp) (7) ✅ 7 | [CTaskGoToVehicleAndLean](../source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp) (9) ✅ 9 |
-| [CAEWaterCannonAudioEntity](../source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp) (7) ✅ 7 | [CPedGeometryAnalyser](../source/game_sa/PedGeometryAnalyser.cpp) (38) ✅ 38 | [CTaskInteriorBeInHouse](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInHouse.cpp) (9) ✅ 9 |
-| [CAEWaveDecoder](../source/game_sa/Audio/Loaders/AEWaveDecoder.cpp) (10) ✅ 10 | [CPedGroup](../source/game_sa/PedGroup.cpp) (12) ✅ 12 | [CTaskInteriorBeInOffice](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInOffice.cpp) (9) ✅ 9 |
-| [CAEWeaponAudioEntity](../source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp) (19) ✅ 19 | [CPedGroupDefaultTaskAllocatorChat](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h) (3) ✅ 3 | [CTaskInteriorBeInShop](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInShop.cpp) (7) ✅ 7 |
-| [CAEWeatherAudioEntity](../source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp) (5) ✅ 5 | [CPedGroupDefaultTaskAllocatorFollowAnyMeans](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h) (3) ✅ 3 | [CTaskInteriorGoToInfo](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorGoToInfo.cpp) (8) ✅ 8 |
-| [CAEWMADecoder](../source/game_sa/Audio/Loaders/AEWMADecoder.cpp) (13) ✅ 13 | [CPedGroupDefaultTaskAllocatorFollowLimited](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h) (3) ✅ 3 | [CTaskInteriorLieInBed](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.cpp) (7) ✅ 7 |
-| [CAnimatedBuilding](../source/game_sa/Entity/AnimatedBuilding.cpp) (6) ✅ 6 | [CPedGroupDefaultTaskAllocatorRandom](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h) (3) ✅ 3 | [CTaskInteriorShopKeeper](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp) (8) ✅ 8 |
-| [CAnimBlendAssocGroup](../source/game_sa/Animation/AnimBlendAssocGroup.cpp) (15) ✅ 15 | [CPedGroupDefaultTaskAllocators](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocators.h) (1) ✅ 1 | [CTaskInteriorSitAtDesk](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp) (10) ✅ 10 |
-| [CAnimBlendAssociation](../source/game_sa/Animation/AnimBlendAssociation.cpp) (23) ✅ 23 | [CPedGroupDefaultTaskAllocatorSitInLeaderCar](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h) (3) ✅ 3 | [CTaskInteriorSitInChair](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp) (1) ✅ 1 |
-| [CAnimBlendClumpData](../source/game_sa/Animation/AnimBlendClumpData.cpp) (6) ✅ 6 | [CPedGroupDefaultTaskAllocatorStandStill](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorStandStill.h) (3) ✅ 3 | [CTaskInteriorUseInfo](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.cpp) (9) ✅ 9 |
-| [CAnimBlendHierarchy](../source/game_sa/Animation/AnimBlendHierarchy.cpp) (16) ✅ 16 | [CPedGroupIntelligence](../source/game_sa/PedGroupIntelligence.cpp) (31) ✅ 31 | [CTaskLeanOnVehicle](../source/game_sa/Tasks/TaskTypes/TaskLeanOnVehicle.cpp) (7) ✅ 7 |
-| [CAnimBlendNode](../source/game_sa/Animation/AnimBlendNode.cpp) (16) ✅ 16 | [CPedGroupMembership](../source/game_sa/PedGroupMembership.cpp) (19) ✅ 19 | [CTaskManager](../source/game_sa/Tasks/TaskManager.cpp) (20) ✅ 20 |
-| [CAnimBlendSequence](../source/game_sa/Animation/AnimBlendSequence.cpp) (14) ✅ 14 | [CPedGroupPlacer](../source/game_sa/PedGroupPlacer.cpp) (4) ✅ 4 | [CTaskPool](../source/game_sa/Pools/TaskPool.h) (1) ✅ 1 |
-| [CAnimBlendStaticAssociation](../source/game_sa/Animation/AnimBlendStaticAssociation.cpp) (8) ✅ 8 | [CPedGroups](../source/game_sa/PedGroups.cpp) (12) ✅ 12 | [CTaskSequences](../source/game_sa/Tasks/TaskSequences.cpp) (3) ✅ 3 |
-| [CAnimManager](../source/game_sa/Animation/AnimManager.cpp) (32) ✅ 32 | [CPedIK](../source/game_sa/PedIK.cpp) (9) ✅ 9 | [CTaskSimple](../source/game_sa/Tasks/Task.cpp) · [archivo 2](../source/game_sa/Tasks/TaskSimple.cpp) (4) ✅ 4 |
-| [CAtomicModelInfo](../source/game_sa/Models/AtomicModelInfo.cpp) (13) ✅ 13 | [CPedIntelligence](../source/game_sa/PedIntelligence.cpp) (61) ✅ 61 | [CTaskSimpleAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskSimpleAchieveHeading.cpp) (8) ✅ 8 |
-| [CAttractorScanner](../source/game_sa/AttractorScanner.cpp) (2) ✅ 2 | [CPedIntelligencePool](../source/game_sa/Pools/PedIntelligencePool.h) (1) ✅ 1 | [CTaskSimpleAffectSecondaryBehaviour](../source/game_sa/Tasks/TaskTypes/TaskSimpleAffectSecondaryBehaviour.cpp) (7) ✅ 7 |
-| [CAudioEngine](../source/game_sa/Audio/AudioEngine.cpp) (83) ✅ 83 | [CPedList](../source/game_sa/PedList.cpp) (8) ✅ 8 | [CTaskSimpleAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp) (4) ✅ 4 |
-| [CAudioZones](../source/game_sa/Audio/AudioZones.cpp) (5) ✅ 5 | [CPedModelInfo](../source/game_sa/Models/PedModelInfo.cpp) (9) ✅ 9 | [CTaskSimpleArrestPed](../source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp) (8) ✅ 8 |
-| [CAutomobile](../source/game_sa/Entity/Vehicle/Automobile.cpp) (104) ✅ 104 | [CPedPlacement](../source/game_sa/PedPlacement.cpp) (4) ✅ 4 | [CTaskSimpleBeHit](../source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.cpp) (8) ✅ 8 |
-| [CAutoPilot](../source/game_sa/AutoPilot.cpp) (2) ✅ 2 | [CPedPool](../source/game_sa/Pools/PedPool.h) (3) ✅ 3 | [CTaskSimpleBikeJacked](../source/game_sa/Tasks/TaskTypes/TaskSimpleBikeJacked.cpp) (9) ✅ 9 |
-| [CBaseModelInfo](../source/game_sa/Models/BaseModelInfo.cpp) (37) ✅ 37 | [CPedSaveStructure](../source/game_sa/Entity/Ped/PedSaveStructure.cpp) (2) ✅ 2 | [CTaskSimpleCarAlign](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp) (11) ✅ 11 |
-| [CBike](../source/game_sa/Entity/Vehicle/Bike.cpp) (62) ✅ 62 | [CPedScanner](../source/game_sa/PedScanner.cpp) (1) ✅ 1 | [CTaskSimpleCarCloseDoorFromInside](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp) (11) ✅ 11 |
-| [CBirds](../source/game_sa/Birds.cpp) (6) ✅ 6 | [CPedScriptedTaskRecord](../source/game_sa/Tasks/PedScriptedTaskRecord.cpp) (5) ✅ 5 | [CTaskSimpleCarCloseDoorFromOutside](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromOutside.cpp) (11) ✅ 11 |
-| [CBmx](../source/game_sa/Entity/Vehicle/Bmx.cpp) (13) ✅ 13 | [CPedScriptedTaskRecordData](../source/game_sa/Tasks/PedScriptedTaskRecord.cpp) (8) ✅ 8 | [CTaskSimpleCarDrive](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp) (16) ✅ 16 |
-| [CBoat](../source/game_sa/Entity/Vehicle/Boat.cpp) (24) ✅ 24 | [CPedShelterAttractor](../source/game_sa/Attractors/PedShelterAttractor.cpp) (6) ✅ 6 | [CTaskSimpleCarDriveTimed](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDriveTimed.cpp) (6) ✅ 6 |
-| [CBouncingPanel](../source/game_sa/BouncingPanel.cpp) (3) ✅ 3 | [CPedStats](../source/game_sa/PedStats.cpp) (5) ✅ 5 | [CTaskSimpleCarFallOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarFallOut.cpp) (10) ✅ 10 |
-| [CBoundingBox](../source/game_sa/Collision/BoundingBox.cpp) (5) ✅ 5 | [CPedStuckChecker](../source/game_sa/PedStuckChecker.cpp) (1) ✅ 1 | [CTaskSimpleCarForcePedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp) (7) ✅ 7 |
-| [CBox](../source/game_sa/Collision/Box.cpp) (2) ✅ 2 | [CPedTaskPair](../source/game_sa/PedTaskPair.cpp) (1) ✅ 1 | [CTaskSimpleCarGetIn](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetIn.cpp) (10) ✅ 10 |
-| [CBridge](../source/game_sa/Bridge.cpp) (5) ✅ 5 | [CPedToPlayerConversations](../source/game_sa/Conversations/PedToPlayerConversations.cpp) (3) ✅ 3 | [CTaskSimpleCarGetOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetOut.cpp) (11) ✅ 11 |
-| [CBrightLights](../source/game_sa/BrightLights.cpp) (4) ✅ 4 | [CPedType](../source/game_sa/PedType.cpp) (14) ✅ 14 | [CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarGoToPointNearDoorUntilDoorNotInUse.cpp) (7) ✅ 7 |
-| [CBuilding](../source/game_sa/Entity/Building.cpp) (6) ✅ 6 | [CPhysical](../source/game_sa/Entity/Physical.cpp) (59) ✅ 59 | [CTaskSimpleCarJumpOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarJumpOut.cpp) (11) ✅ 11 |
-| [CBuildingPool](../source/game_sa/Pools/BuildingPool.h) (1) ✅ 1 | [CPickup](../source/game_sa/Pickup.cpp) (12) ✅ 12 | [CTaskSimpleCarOpenDoorFromOutside](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarOpenDoorFromOutside.cpp) (11) ✅ 11 |
-| [CBulletInfo](../source/game_sa/BulletInfo.cpp) (4) ✅ 4 | [CPickups](../source/game_sa/Pickups.cpp) (38) ✅ 38 | [CTaskSimpleCarOpenLockedDoorFromOutside](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarOpenLockedDoorFromOutside.cpp) (10) ✅ 10 |
-| [CBulletTraces](../source/game_sa/BulletTraces.cpp) (5) ✅ 5 | [CPlaceable](../source/game_sa/Entity/Placeable.cpp) (21) ✅ 21 | [CTaskSimpleCarSetPedInAsDriver](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.cpp) (7) ✅ 7 |
-| [cBuoyancy](../source/game_sa/Buoyancy.cpp) (10) ✅ 10 | [CPlaceName](../source/game_sa/PlaceName.cpp) (2) ✅ 2 | [CTaskSimpleCarSetPedInAsPassenger](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp) (5) ✅ 5 |
-| [CCam](../source/game_sa/Cam.cpp) (56) ✅ 56 | [CPlane](../source/game_sa/Entity/Vehicle/Plane.cpp) (24) ✅ 24 | [CTaskSimpleCarSetPedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp) (8) ✅ 8 |
-| [CCamera](../source/game_sa/Camera.cpp) (122) ✅ 122 | [CPlaneBanners](../source/game_sa/PlaneBanners.cpp) (1) ✅ 1 | [CTaskSimpleCarSetPedSlowDraggedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedSlowDraggedOut.cpp) (7) ✅ 7 |
-| [CCarAI](../source/game_sa/CarAI.cpp) (26) ✅ 26 | [CPlaneTrail](../source/game_sa/PlaneTrail.cpp) (3) ✅ 3 | [CTaskSimpleCarSetTempAction](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetTempAction.cpp) (7) ✅ 7 |
-| [CCarCtrl](../source/game_sa/CarCtrl.cpp) (112) ✅ 112 | [CPlaneTrails](../source/game_sa/PlaneTrails.cpp) (4) ✅ 4 | [CTaskSimpleCarShuffle](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarShuffle.cpp) (10) ✅ 10 |
-| [CCarEnterExit](../source/game_sa/CarEnterExit.cpp) (32) ✅ 32 | [CPlantColEntEntry](../source/game_sa/Plant/PlantColEntEntry.cpp) (2) ✅ 2 | [CTaskSimpleCarSlowBeDraggedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowBeDraggedOut.cpp) (11) ✅ 11 |
-| [CCarFXRenderer](../source/game_sa/Fx/CarFXRenderer.cpp) (10) ✅ 10 | [CPlantLocTri](../source/game_sa/Plant/PlantLocTri.cpp) (3) ✅ 3 | [CTaskSimpleCarSlowDragPedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowDragPedOut.cpp) (11) ✅ 11 |
-| [CCarGenerator](../source/game_sa/CarGenerator.cpp) (9) ✅ 9 | [CPlantMgr](../source/game_sa/PlantMgr.cpp) (20) ✅ 20 | [CTaskSimpleCarWaitForDoorNotToBeInUse](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitForDoorNotToBeInUse.cpp) (8) ✅ 8 |
-| [CCarPathLink](../source/game_sa/PathFind.cpp) (2) ✅ 2 | [CPlantSurfPropMgr](../source/game_sa/PlantSurfPropMgr.cpp) (4) ✅ 4 | [CTaskSimpleCarWaitToSlowDown](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitToSlowDown.cpp) (8) ✅ 8 |
-| [CCheat](../source/game_sa/Cheat.cpp) (72) ✅ 72 | [CPlayerInfo](../source/game_sa/PlayerInfo.cpp) (31) ✅ 31 | [CTaskSimpleChat](../source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp) (5) ✅ 5 |
-| [CCheckpoint](../source/game_sa/Checkpoint.cpp) (1) ✅ 1 | [CPlayerPed](../source/game_sa/Entity/Ped/PlayerPed.cpp) (66) ✅ 66 | [CTaskSimpleChoking](../source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp) (7) ✅ 7 |
-| [CCheckpoints](../source/game_sa/Checkpoints.cpp) (8) ✅ 8 | [CPlayerPedData](../source/game_sa/PlayerPedData.cpp) (5) ✅ 5 | [CTaskSimpleClearLookAt](../source/game_sa/Tasks/TaskTypes/TaskSimpleClearLookAt.cpp) (7) ✅ 7 |
-| [CCivilianPed](../source/game_sa/Entity/Ped/CivilianPed.cpp) (4) ✅ 4 | [CPlayerRelationshipRecorder](../source/game_sa/PlayerRelationshipRecorder.cpp) (6) ✅ 6 | [CTaskSimpleClimb](../source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp) (19) ✅ 19 |
-| [CClock](../source/game_sa/Clock.cpp) (9) ✅ 9 | [CPlayerSkin](../source/game_sa/Entity/Ped/PlayerSkin.cpp) (4) ✅ 4 | [CTaskSimpleCower](../source/game_sa/Tasks/TaskTypes/TaskSimpleCower.cpp) (5) ✅ 5 |
-| [CClothes](../source/game_sa/Clothes.cpp) (12) ✅ 12 | [CPointLights](../source/game_sa/PointLights.cpp) (7) ✅ 7 | [CTaskSimpleCreateCarAndGetIn](../source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp) (7) ✅ 7 |
-| [CClothesBuilder](../source/game_sa/ClothesBuilder.cpp) (23) ✅ 23 | [CPointList](../source/game_sa/PointList.cpp) (1) ✅ 1 | [CTaskSimpleDead](../source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp) (6) ✅ 6 |
-| [CClouds](../source/game_sa/Clouds.cpp) (21) ✅ 21 | [CPointRoute](../source/game_sa/PedGeometryAnalyser.cpp) (6) ✅ 6 | [CTaskSimpleDie](../source/game_sa/Tasks/TaskTypes/TaskSimpleDie.cpp) (9) ✅ 9 |
-| [CClumpModelInfo](../source/game_sa/Models/ClumpModelInfo.cpp) (26) ✅ 26 | [CPointRoutePool](../source/game_sa/Pools/PointRoutePool.h) (1) ✅ 1 | [CTaskSimpleDieInCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleDieInCar.cpp) (6) ✅ 6 |
-| [CColAccel](../source/game_sa/Collision/ColAccel.cpp) (11) ✅ 11 | [CPools](../source/game_sa/Pools.cpp) (20) ✅ 20 | [CTaskSimpleDoHandSignal](../source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp) (7) ✅ 7 |
-| [CColBox](../source/game_sa/Collision/ColBox.cpp) (2) ✅ 2 | [CPopCycle](../source/game_sa/PopCycle.cpp) (15) ✅ 15 | [CTaskSimpleDrown](../source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp) (2) ✅ 2 |
-| [CColDisk](../source/game_sa/Collision/ColDisk.cpp) (1) ✅ 1 | [CPopulation](../source/game_sa/Population.cpp) (68) ✅ 68 | [CTaskSimpleDrownInCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleDrownInCar.cpp) (1) ✅ 1 |
-| [CColLine](../source/game_sa/Collision/ColLine.cpp) (2) ✅ 2 | [CPostEffects](../source/game_sa/PostEffects.cpp) (38) ✅ 38 | [CTaskSimpleDuck](../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp) (17) ✅ 17 |
-| [CCollision](../source/game_sa/Collision/Collision.cpp) (62) ✅ 62 | [CPPTriPlantBuffer](../source/game_sa/PPTriPlantBuffer.cpp) (7) ✅ 7 | [CTaskSimpleDuckToggle](../source/game_sa/Tasks/TaskTypes/TaskSimpleDuckToggle.cpp) (6) ✅ 6 |
-| [CCollisionData](../source/game_sa/Collision/CollisionData.cpp) (10) ✅ 10 | [CProjectile](../source/game_sa/Entity/Object/Projectile.cpp) (3) ✅ 3 | [CTaskSimpleEvasiveDive](../source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveDive.cpp) (9) ✅ 9 |
-| [CCollisionEventScanner](../source/game_sa/Collision/CollisionEventScanner.cpp) (1) ✅ 1 | [CProjectileInfo](../source/game_sa/ProjectileInfo.cpp) (12) ✅ 12 | [CTaskSimpleEvasiveStep](../source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.cpp) (8) ✅ 8 |
-| [CCollisionPlugin](../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp) (2) ✅ 2 | [CPtrNodeDoubleLinkPool](../source/game_sa/Pools/PtrNodeDoubleLinkPool.h) (3) ✅ 3 | [CTaskSimpleFacial](../source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp) (8) ✅ 8 |
-| [CColModel](../source/game_sa/Collision/ColModel.cpp) (12) ✅ 12 | [CPtrNodeSingleLinkPool](../source/game_sa/Pools/PtrNodeSingleLinkPool.h) (2) ✅ 2 | [CTaskSimpleFall](../source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp) (9) ✅ 9 |
-| [CColModelPool](../source/game_sa/Pools/ColModelPool.h) (1) ✅ 1 | [CQuadBike](../source/game_sa/Entity/Vehicle/QuadBike.cpp) (13) ✅ 13 | [CTaskSimpleFight](../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp) (27) ✅ 27 |
-| [CColourSet](../source/game_sa/Collision/ColourSet.cpp) (2) ✅ 2 | [CQuadTreeNode&lt;T&gt;](../source/game_sa/Core/QuadTreeNode.h) (13) ✅ 13 | [CTaskSimpleFightingControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp) (8) ✅ 8 |
-| [CColPoint](../source/game_sa/Collision/ColPoint.cpp) (2) ✅ 2 | [CQuaternion](../source/game_sa/Core/Quaternion.cpp) (10) ✅ 10 | [CTaskSimpleFinishBrain](../source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp) (5) ✅ 5 |
-| [CColSphere](../source/game_sa/Collision/ColSphere.cpp) (5) ✅ 5 | [CRadar](../source/game_sa/Radar.cpp) (66) ✅ 66 | [CTaskSimpleGangDriveBy](../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp) (13) ✅ 13 |
-| [CColStore](../source/game_sa/Collision/ColStore.cpp) (24) ✅ 24 | [CRealTimeShadow](../source/game_sa/RealTimeShadow.cpp) (11) ✅ 11 | [CTaskSimpleGetUp](../source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.cpp) (7) ✅ 7 |
-| [CColTrianglePlane](../source/game_sa/Collision/ColTrianglePlane.cpp) (2) ✅ 2 | [CRealTimeShadowManager](../source/game_sa/RealTimeShadowManager.cpp) (9) ✅ 9 | [CTaskSimpleGiveCPR](../source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp) (8) ✅ 8 |
-| [CCompressedMatrixNotAligned](../source/game_sa/CompressedMatrixNotAligned.cpp) (2) ✅ 2 | [CRect](../source/game_sa/Core/Rect.cpp) (9) ✅ 9 | [CTaskSimpleGoTo](../source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp) (6) ✅ 6 |
-| [CControllerConfigManager](../source/game_sa/ControllerConfigManager.cpp) (58) ✅ 58 | [CReferences](../source/game_sa/References.cpp) (4) ✅ 4 | [CTaskSimpleGoToPoint](../source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp) (6) ✅ 6 |
-| [CControllerState](../source/game_sa/ControllerState.cpp) (2) ✅ 2 | [CRegisteredCorona](../source/game_sa/RegisteredCorona.cpp) (1) ✅ 1 | [CTaskSimpleGoToPointFine](../source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp) (11) ✅ 11 |
-| [CConversationForPed](../source/game_sa/Conversations/ConversationForPed.cpp) (2) ✅ 2 | [CRegisteredMotionBlurStreak](../source/game_sa/RegisteredMotionBlurStreak.cpp) (2) ✅ 2 | [CTaskSimpleGunControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp) (7) ✅ 7 |
-| [CConversationNode](../source/game_sa/Conversations/ConversationNode.cpp) (1) ✅ 1 | [CRemote](../source/game_sa/Remote.cpp) (2) ✅ 2 | [CTaskSimpleHandsUp](../source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.cpp) (5) ✅ 5 |
-| [CConversations](../source/game_sa/Conversations/Conversations.cpp) (11) ✅ 11 | [CRenderer](../source/game_sa/Renderer.cpp) (33) ✅ 33 | [CTaskSimpleHitByGunFromFront](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromFront.cpp) (3) ✅ 3 |
-| [CCopPed](../source/game_sa/Entity/Ped/CopPed.cpp) (7) ✅ 7 | [CReplay](../source/game_sa/Replay.cpp) (47) ✅ 47 | [CTaskSimpleHitByGunFromLeft](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromLeft.cpp) (3) ✅ 3 |
-| [CCoronas](../source/game_sa/Coronas.cpp) (12) ✅ 12 | [CRestart](../source/game_sa/Restart.cpp) (11) ✅ 11 | [CTaskSimpleHitByGunFromRear](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromRear.cpp) (3) ✅ 3 |
-| [CCover](../source/game_sa/Cover.cpp) (16) ✅ 16 | [CRGBA](../source/game_sa/RGBA.cpp) (2) ✅ 2 | [CTaskSimpleHitByGunFromRight](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromRight.cpp) (3) ✅ 3 |
-| [CCoverPoint](../source/game_sa/CoverPoint.cpp) (3) ✅ 3 | [CRideAnimData](../source/game_sa/RideAnimData.cpp) (2) ✅ 2 | [CTaskSimpleHitFromBack](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromBack.cpp) (3) ✅ 3 |
-| [CCranes](../source/game_sa/Cranes.cpp) (5) ✅ 5 | [CRoadBlocks](../source/game_sa/RoadBlocks.cpp) (8) ✅ 8 | [CTaskSimpleHitFromBehind](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromBehind.cpp) (3) ✅ 3 |
-| [CCredits](../source/game_sa/Credits.cpp) (6) ✅ 6 | [CRope](../source/game_sa/Rope.cpp) (7) ✅ 7 | [CTaskSimpleHitFromFront](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromFront.cpp) (3) ✅ 3 |
-| [CCreepingFire](../source/game_sa/CreepingFire.cpp) (3) ✅ 3 | [CRopes](../source/game_sa/Ropes.cpp) (11) ✅ 11 | [CTaskSimpleHitFromLeft](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromLeft.cpp) (3) ✅ 3 |
-| [CCrime](../source/game_sa/Crime.cpp) (2) ✅ 2 | [CRubbish](../source/game_sa/Rubbish.cpp) (1) ✅ 1 | [CTaskSimpleHitFromRight](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromRight.cpp) (3) ✅ 3 |
-| [CCullZones](../source/game_sa/CullZones.cpp) (21) ✅ 21 | [CRunningScript](../source/game_sa/Scripts/RunningScript.cpp) (39) ✅ 39 | [CTaskSimpleHitHead](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitHead.cpp) (6) ✅ 6 |
-| [CCurrentVehicle](../source/game_sa/CurrentVehicle.cpp) (2) ✅ 2 | [CScripted2dEffects](../source/game_sa/Scripts/Scripted2dEffects.cpp) (6) ✅ 6 | [CTaskSimpleHitWall](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitWall.cpp) (3) ✅ 3 |
-| [CCurves](../source/game_sa/Curves.cpp) (6) ✅ 6 | [CScriptedBrainTaskEntry](../source/game_sa/Tasks/ScriptedBrainTaskStore.cpp) (1) ✅ 1 | [CTaskSimpleHoldEntity](../source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp) (15) ✅ 15 |
-| [CCustomBuildingDNPipeline](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp) (18) ✅ 18 | [CScriptedBrainTaskStore](../source/game_sa/Tasks/ScriptedBrainTaskStore.cpp) (4) ✅ 4 | [CTaskSimpleHurtPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleHurtPedWithCar.cpp) (7) ✅ 7 |
-| [CCustomBuildingPipeline](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp) (7) ✅ 7 | [CScriptResourceManager](../source/game_sa/ScriptResourceManager.cpp) (4) ✅ 4 | [CTaskSimpleIKChain](../source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp) (11) ✅ 11 |
-| [CCustomBuildingRenderer](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp) (7) ✅ 7 | [CScriptsForBrains](../source/game_sa/ScriptsForBrains.cpp) (11) ✅ 11 | [CTaskSimpleIKLookAt](../source/game_sa/Tasks/TaskTypes/TaskSimpleIKLookAt.cpp) (9) ✅ 9 |
-| [CCustomCarEnvMapPipeline](../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp) (37) ✅ 37 | [CSearchLight](../source/game_sa/SearchLight.cpp) (1) ✅ 1 | [CTaskSimpleIKManager](../source/game_sa/Tasks/TaskTypes/TaskSimpleIKManager.cpp) (9) ✅ 9 |
-| [CCustomCarPlateMgr](../source/game_sa/CustomCarPlateMgr.cpp) (16) ✅ 16 | [CSector](../source/game_sa/Sector.cpp) (1) ✅ 1 | [CTaskSimpleIKPointArm](../source/game_sa/Tasks/TaskTypes/TaskSimpleIKPointArm.cpp) (7) ✅ 7 |
-| [CCustomRoadsignMgr](../source/game_sa/CustomRoadsignMgr.cpp) (10) ✅ 10 | [CSetPiece](../source/game_sa/SetPiece.cpp) (7) ✅ 7 | [CTaskSimpleInAir](../source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp) (8) ✅ 8 |
-| [CCutsceneMgr](../source/game_sa/CutsceneMgr.cpp) (37) ✅ 37 | [CSetPieces](../source/game_sa/SetPieces.cpp) (5) ✅ 5 | [CTaskSimpleJetPack](../source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp) (15) ✅ 15 |
-| [CCutsceneObject](../source/game_sa/Entity/Object/CutsceneObject.cpp) (7) ✅ 7 | [CSexyPedScanner](../source/game_sa/Events/EventScanner.cpp) (1) ✅ 1 | [CTaskSimpleJump](../source/game_sa/Tasks/TaskTypes/TaskSimpleJump.cpp) (11) ✅ 11 |
-| [CDamageAtomicModelInfo](../source/game_sa/Models/DamageAtomicModelInfo.cpp) (5) ✅ 5 | [CShadowCamera](../source/game_sa/ShadowCamera.cpp) (20) ✅ 20 | [CTaskSimpleKillPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleKillPedWithCar.cpp) (7) ✅ 7 |
-| [CDamageManager](../source/game_sa/DamageManager.cpp) (27) ✅ 27 | [CShadows](../source/game_sa/Shadows.cpp) (30) ✅ 30 | [CTaskSimpleLand](../source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp) (9) ✅ 9 |
-| [CDarkel](../source/game_sa/Darkel.cpp) (19) ✅ 19 | [CShinyTexts](../source/game_sa/ShinyTexts.cpp) (4) ✅ 4 | [CTaskSimpleLeaveGroup](../source/game_sa/Tasks/TaskTypes/TaskSimpleLeaveGroup.cpp) (2) ✅ 2 |
-| [CData](../source/game_sa/Text/Text.cpp) (3) ✅ 3 | [CShopping](../source/game_sa/Shopping.cpp) (30) ✅ 30 | [CTaskSimpleLookAbout](../source/game_sa/Tasks/TaskTypes/TaskSimpleLookAbout.cpp) (5) ✅ 5 |
-| [CDebug](../source/game_sa/Debug.cpp) (2) ✅ 2 | [CShotInfo](../source/game_sa/ShotInfo.cpp) (5) ✅ 5 | [CTaskSimpleNone](../source/game_sa/Tasks/TaskTypes/TaskSimpleNone.cpp) (5) ✅ 5 |
-| [CDecision](../source/game_sa/DecisionMakers/Decision.cpp) (7) ✅ 7 | [CSimpleTransform](../source/game_sa/SimpleTransform.cpp) (3) ✅ 3 | [CTaskSimpleOnEscalator](../source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp) (5) ✅ 5 |
-| [CDecisionMaker](../source/game_sa/DecisionMakers/DecisionMaker.cpp) (2) ✅ 2 | [CSimpleVariablesSaveStructure](../source/game_sa/SimpleVariablesSaveStructure.cpp) (2) ✅ 2 | [CTaskSimplePause](../source/game_sa/Tasks/TaskTypes/TaskSimplePause.cpp) (7) ✅ 7 |
-| [CDecisionMakerTypes](../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp) (12) ✅ 12 | [CSkidmarks](../source/game_sa/Skidmarks.cpp) (7) ✅ 7 | [CTaskSimplePickUpBike](../source/game_sa/Tasks/TaskTypes/TaskSimplePickUpBike.cpp) (10) ✅ 10 |
-| [CDecisionMakerTypesFileLoader](../source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp) (7) ✅ 7 | [CSpecialFX](../source/game_sa/SpecialFX.cpp) (7) ✅ 7 | [CTaskSimplePickUpEntity](../source/game_sa/Tasks/TaskTypes/TaskSimplePickUpEntity.cpp) (4) ✅ 4 |
-| [CDirectory](../source/game_sa/Directory.cpp) (10) ✅ 10 | [CSpecialPlateHandler](../source/game_sa/SpecialPlateHandler.cpp) (4) ✅ 4 | [CTaskSimplePlayerOnFire](../source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFire.cpp) (7) ✅ 7 |
-| [CDoor](../source/game_sa/Door.cpp) (6) ✅ 6 | [CSphere](../source/game_sa/Collision/Sphere.cpp) (1) ✅ 1 | [CTaskSimplePlayerOnFoot](../source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp) (13) ✅ 13 |
-| [CDraw](../source/game_sa/Draw.cpp) (2) ✅ 2 | [CSprite](../source/game_sa/Sprite.cpp) (15) ✅ 15 | [CTaskSimplePlayHandSignalAnim](../source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp) (3) ✅ 3 |
-| [CdStream](../source/game_sa/CdStreamInfo.cpp) (11) ✅ 11 | [CSprite2d](../source/game_sa/Sprite2d.cpp) (35) ✅ 35 | [CTaskSimplePutDownEntity](../source/game_sa/Tasks/TaskTypes/TaskSimplePutDownEntity.cpp) (3) ✅ 3 |
-| [CDummy](../source/game_sa/Entity/Dummy/Dummy.cpp) (6) ✅ 6 | [CStaticShadow](../source/game_sa/Shadows.cpp) (1) ✅ 1 | [CTaskSimpleRunAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp) (7) ✅ 7 |
-| [CDummyObject](../source/game_sa/Entity/Dummy/DummyObject.cpp) (6) ✅ 6 | [CStats](../source/game_sa/Stats.cpp) (51) ✅ 51 | [CTaskSimpleRunNamedAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp) (10) ✅ 10 |
-| [CDummyPool](../source/game_sa/Pools/DummyPool.h) (1) ✅ 1 | [CStencilShadowObject](../source/game_sa/StencilShadowObject.cpp) (3) ✅ 3 | [CTaskSimpleRunTimedAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleRunTimedAnim.cpp) (8) ✅ 8 |
-| [CEntity](../source/game_sa/Entity/Entity.cpp) (72) ✅ 72 | [CStencilShadows](../source/game_sa/StencilShadows.cpp) (13) ✅ 13 | [CTaskSimpleSay](../source/game_sa/Tasks/TaskTypes/TaskSimpleSay.cpp) (7) ✅ 7 |
-| [CEntityScanner](../source/game_sa/EntityScanner.cpp) (4) ✅ 4 | [CStoredCar](../source/game_sa/Garage.cpp) (2) ✅ 2 | [CTaskSimpleScratchHead](../source/game_sa/Tasks/TaskTypes/TaskSimpleScratchHead.cpp) (5) ✅ 5 |
-| [CEntitySeekPosCalculator](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp) (4) ✅ 4 | [CStreamedScripts](../source/game_sa/StreamedScripts.cpp) (12) ✅ 12 | [CTaskSimpleSetCharDecisionMaker](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharDecisionMaker.cpp) (7) ✅ 7 |
-| [CEntitySeekPosCalculatorFixedPos](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp) (1) ✅ 1 | [CStreaming](../source/game_sa/Streaming.cpp) (95) ✅ 95 | [CTaskSimpleSetCharIgnoreWeaponRangeFlag](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp) (6) ✅ 6 |
-| [CEntitySeekPosCalculatorRadiusAngleOffset](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp) (1) ✅ 1 | [CStreamingInfo](../source/game_sa/StreamingInfo.cpp) (7) ✅ 7 | [CTaskSimpleSetKindaStayInSamePlace](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetKindaStayInSamePlace.cpp) (6) ✅ 6 |
-| [CEntitySeekPosCalculatorStandard](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp) (1) ✅ 1 | [CStuckCarCheck](../source/game_sa/StuckCarCheck.cpp) (9) ✅ 9 | [CTaskSimpleSetPedAsAutoDriver](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetPedAsAutoDriver.cpp) (6) ✅ 6 |
-| [CEntitySeekPosCalculatorXYOffset](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp) (2) ✅ 2 | [CStuntJumpManager](../source/game_sa/StuntJumpManager.cpp) (7) ✅ 7 | [CTaskSimpleSetStayInSamePlace](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetStayInSamePlace.cpp) (6) ✅ 6 |
-| [CEntryExit](../source/game_sa/EntryExit.cpp) (13) ✅ 13 | [CTagManager](../source/game_sa/TagManager.cpp) (20) ✅ 20 | [CTaskSimpleShakeFist](../source/game_sa/Tasks/TaskTypes/TaskSimpleShakeFist.cpp) (8) ✅ 8 |
-| [CEntryExitManager](../source/game_sa/EntryExitManager.cpp) (19) ✅ 19 | [CTask](../source/game_sa/Tasks/Task.cpp) (8) ✅ 8 | [CTaskSimpleSitDown](../source/game_sa/Tasks/TaskTypes/TaskSimpleSitDown.cpp) (8) ✅ 8 |
-| [CEntryInfoList](../source/game_sa/Core/EntryInfoList.cpp) (1) ✅ 1 | [CTaskAllocator](../source/game_sa/Tasks/Allocators/TaskAllocator.cpp) (6) ✅ 6 | [CTaskSimpleSitIdle](../source/game_sa/Tasks/TaskTypes/TaskSimpleSitIdle.cpp) (8) ✅ 8 |
-| [CEntryInfoNode](../source/game_sa/Core/EntryInfoNode.cpp) (2) ✅ 2 | [CTaskAllocatorAttack](../source/game_sa/Tasks/Allocators/TaskAllocatorAttack.cpp) (5) ✅ 5 | [CTaskSimpleSlideToCoord](../source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp) (1) ✅ 1 |
-| [CEntryInfoNodePool](../source/game_sa/Pools/EntryInfoNodePool.h) (1) ✅ 1 | [CTaskAllocatorKillOnFoot](../source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.cpp) (4) ✅ 4 | [CTaskSimpleStandStill](../source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp) (5) ✅ 5 |
-| [CEscalator](../source/game_sa/Escalator.cpp) (5) ✅ 5 | [CTaskAllocatorKillThreatsBasic](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp) (6) ✅ 6 | [CTaskSimpleStandUp](../source/game_sa/Tasks/TaskTypes/TaskSimpleStandUp.cpp) (9) ✅ 9 |
-| [CEscalators](../source/game_sa/Escalators.cpp) (4) ✅ 4 | [CTaskAllocatorKillThreatsBasicRandomGroup](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp) (4) ✅ 4 | [CTaskSimpleStealthKill](../source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp) (9) ✅ 9 |
-| [CEvent](../source/game_sa/Events/Event.cpp) (16) ✅ 16 | [CTaskAllocatorKillThreatsDriveby](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp) (5) ✅ 5 | [CTaskSimpleSwim](../source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp) (15) ✅ 15 |
-| [CEventAcquaintancePed](../source/game_sa/Events/EventAcquaintancePed.cpp) (5) ✅ 5 | [CTaskAllocatorPlayerCommandAttack](../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp) (4) ✅ 4 | [CTaskSimpleThrowControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp) (6) ✅ 6 |
-| [CEventAcquaintancePedHate](../source/game_sa/Events/EventAcquaintancePedHate.cpp) (1) ✅ 1 | [CTaskAllocatorPool](../source/game_sa/Pools/TaskAllocatorPool.h) (1) ✅ 1 | [CTaskSimpleThrowProjectile](../source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp) (10) ✅ 10 |
-| [CEventAcquaintancePedHateBadlyLit](../source/game_sa/Events/EventAcquaintancePedHateBadlyLit.cpp) (2) ✅ 2 | [CTaskCategories](../source/game_sa/Tasks/TaskCategories.cpp) (3) ✅ 3 | [CTaskSimpleTired](../source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp) (6) ✅ 6 |
-| [CEventAreaCodes](../source/game_sa/Events/EventAreaCodes.cpp) (6) ✅ 6 | [CTaskComplex](../source/game_sa/Tasks/Task.cpp) · [archivo 2](../source/game_sa/Tasks/TaskComplex.cpp) (7) ✅ 7 | [CTaskSimpleTogglePedThreatScanner](../source/game_sa/Tasks/TaskTypes/TaskSimpleTogglePedThreatScanner.cpp) (7) ✅ 7 |
-| [CEventAttractor](../source/game_sa/Events/EventAttractor.cpp) (5) ✅ 5 | [CTaskComplexArrestPed](../source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp) (10) ✅ 10 | [CTaskSimpleTriggerLookAt](../source/game_sa/Tasks/TaskTypes/TaskSimpleTriggerLookAt.cpp) (2) ✅ 2 |
-| [CEventBuildingCollision](../source/game_sa/Events/EventBuildingCollision.cpp) (10) ✅ 10 | [CTaskComplexAttractorPartnerWait](../source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp) (8) ✅ 8 | [CTaskSimpleTurn180](../source/game_sa/Tasks/TaskTypes/TaskSimpleTurn180.cpp) (7) ✅ 7 |
-| [CEventCarUpsideDown](../source/game_sa/Events/EventCarUpsideDown.cpp) (6) ✅ 6 | [CTaskComplexAvoidOtherPedWhileWandering](../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp) (15) ✅ 15 | [CTaskSimpleUninterruptable](../source/game_sa/Tasks/TaskTypes/TaskSimpleUninterruptable.cpp) (7) ✅ 7 |
-| [CEventChatPartner](../source/game_sa/Events/EventChatPartner.cpp) (2) ✅ 2 | [CTaskComplexBeCop](../source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp) (4) ✅ 4 | [CTaskSimpleUseAtm](../source/game_sa/Tasks/TaskTypes/TaskSimpleUseAtm.cpp) (5) ✅ 5 |
-| [CEventCopCarBeingStolen](../source/game_sa/Events/EventCopCarBeingStolen.cpp) (6) ✅ 6 | [CTaskComplexBeInCouple](../source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp) (11) ✅ 11 | [CTaskSimpleUseGun](../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp) (22) ✅ 22 |
-| [CEventDamage](../source/game_sa/Events/EventDamage.cpp) (24) ✅ 24 | [CTaskComplexBeInGroup](../source/game_sa/Tasks/TaskTypes/TaskComplexBeInGroup.cpp) (11) ✅ 11 | [CTaskSimpleWaitForBus](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.cpp) (7) ✅ 7 |
-| [CEventDanger](../source/game_sa/Events/EventDanger.cpp) (8) ✅ 8 | [CTaskComplexBeStill](../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp) (8) ✅ 8 | [CTaskSimpleWaitForPizza](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp) (7) ✅ 7 |
-| [CEventDeadPed](../source/game_sa/Events/EventDeadPed.cpp) (2) ✅ 2 | [CTaskComplexCarDrive](../source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.cpp) (13) ✅ 13 | [CTaskSimpleWaitUntilAreaCodesMatch](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilAreaCodesMatch.cpp) (7) ✅ 7 |
-| [CEventDeath](../source/game_sa/Events/EventDeath.cpp) (1) ✅ 1 | [CTaskComplexCarDriveMission](../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp) (6) ✅ 6 | [CTaskSimpleWaitUntilLeaderAreaCodesMatch](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilLeaderAreaCodesMatch.cpp) (6) ✅ 6 |
-| [CEventDontJoinPlayerGroup](../source/game_sa/Events/EventDontJoinPlayerGroup.cpp) (7) ✅ 7 | [CTaskComplexCarDriveMissionFleeScene](../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp) (5) ✅ 5 | [CTaskSimpleWaitUntilPedIsInCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.cpp) (7) ✅ 7 |
-| [CEventDraggedOutCar](../source/game_sa/Events/EventDraggedOutCar.cpp) (3) ✅ 3 | [CTaskComplexCarDriveMissionKillPed](../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp) (5) ✅ 5 | [CTaskSimpleWaitUntilPedIsOutCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.cpp) (7) ✅ 7 |
-| [CEventEditableResponse](../source/game_sa/Events/EventEditableResponse.cpp) (13) ✅ 13 | [CTaskComplexCarDriveWander](../source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp) (7) ✅ 7 | [CTaskTimer](../source/game_sa/Tasks/TaskTimer.cpp) (2) ✅ 2 |
-| [CEventEscalator](../source/game_sa/Events/EventEscalator.cpp) (4) ✅ 4 | [CTaskComplexCarSlowBeDraggedOut](../source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOut.cpp) (12) ✅ 12 | [CTaskUtilityLineUpPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp) (6) ✅ 6 |
-| [CEventFireNearby](../source/game_sa/Events/EventFireNearby.cpp) (2) ✅ 2 | [CTaskComplexCarSlowBeDraggedOutAndStandUp](../source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.cpp) (10) ✅ 10 | [CTempColModels](../source/game_sa/Collision/TempColModels.cpp) (2) ✅ 2 |
-| [CEventGlobalGroup](../source/game_sa/Events/EventGlobalGroup.cpp) (5) ✅ 5 | [CTaskComplexChat](../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp) (8) ✅ 8 | [CText](../source/game_sa/Text/Text.cpp) (9) ✅ 9 |
-| [CEventGotKnockedOverByCar](../source/game_sa/Events/EventGotKnockedOverByCar.cpp) (2) ✅ 2 | [CTaskComplexClimb](../source/game_sa/Tasks/TaskTypes/TaskComplexClimb.cpp) (5) ✅ 5 | [CTheCarGenerators](../source/game_sa/TheCarGenerators.cpp) (7) ✅ 7 |
-| [CEventGroup](../source/game_sa/Events/EventGroup.cpp) (14) ✅ 14 | [CTaskComplexCopInCar](../source/game_sa/Tasks/TaskTypes/TaskComplexCopInCar.cpp) (10) ✅ 10 | [CTheScripts](../source/game_sa/Scripts/TheScripts.cpp) (72) ✅ 72 |
-| [CEventGroupEvent](../source/game_sa/Events/EventGroupEvent.cpp) (3) ✅ 3 | [CTaskComplexCrossRoadLookAndAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp) (10) ✅ 10 | [CTheZones](../source/game_sa/TheZones.cpp) (22) ✅ 22 |
-| [CEventGunAimedAt](../source/game_sa/Events/EventGunAimedAt.cpp) (2) ✅ 2 | [CTaskComplexDestroyCar](../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp) (10) ✅ 10 | [CTimeCycle](../source/game_sa/TimeCycle.cpp) (20) ✅ 20 |
-| [CEventGunShot](../source/game_sa/Events/EventGunShot.cpp) (13) ✅ 13 | [CTaskComplexDestroyCarArmed](../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp) (11) ✅ 11 | [CTimeInfo](../source/game_sa/Models/TimeInfo.cpp) (6) ✅ 6 |
-| [CEventGunShotWhizzedBy](../source/game_sa/Events/EventGunShotWhizzedBy.cpp) (7) ✅ 7 | [CTaskComplexDestroyCarMelee](../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarMelee.cpp) (11) ✅ 11 | [CTimeModelInfo](../source/game_sa/Models/TimeModelInfo.cpp) (4) ✅ 4 |
-| [CEventHandler](../source/game_sa/Events/EventHandler.cpp) (72) ✅ 72 | [CTaskComplexDie](../source/game_sa/Tasks/TaskTypes/TaskComplexDie.cpp) (8) ✅ 8 | [CTimer](../source/game_sa/Timer.cpp) (16) ✅ 16 |
-| [CEventHandlerHistory](../source/game_sa/Events/EventHandlerHistory.cpp) (12) ✅ 12 | [CTaskComplexDieInCar](../source/game_sa/Tasks/TaskTypes/TaskComplexDieInCar.cpp) (8) ✅ 8 | [CTrafficLights](../source/game_sa/TrafficLights.cpp) (12) ✅ 12 |
-| [CEventHitByWaterCannon](../source/game_sa/Events/EventHitByWaterCannon.cpp) (7) ✅ 7 | [CTaskComplexDiveFromAttachedEntityAndGetUp](../source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.cpp) (8) ✅ 8 | [CTrailer](../source/game_sa/Entity/Vehicle/Trailer.cpp) (16) ✅ 16 |
-| [CEventInAir](../source/game_sa/Events/EventInAir.cpp) (6) ✅ 6 | [CTaskComplexDragPedFromCar](../source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.cpp) (3) ✅ 3 | [CTrain](../source/game_sa/Entity/Vehicle/Train.cpp) (40) ✅ 40 |
-| [CEventInteriorUseInfo](../source/game_sa/Events/EventInteriorUseInfo.cpp) (1) ✅ 1 | [CTaskComplexDriveFireTruck](../source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp) (8) ✅ 8 | [CTrainNode](../source/game_sa/TrainNode.cpp) (1) ✅ 1 |
-| [CEventInWater](../source/game_sa/Events/EventInWater.cpp) (4) ✅ 4 | [CTaskComplexDrivePointRoute](../source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.cpp) (8) ✅ 8 | [cTransmission](../source/game_sa/cTransmission.cpp) (5) ✅ 5 |
-| [CEventKnockOffBike](../source/game_sa/Events/EventKnockOffBike.cpp) (11) ✅ 11 | [CTaskComplexDriveToPoint](../source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp) (10) ✅ 10 | [CTxdStore](../source/game_sa/TxdStore.cpp) (27) ✅ 27 |
-| [CEventLeaderEnteredCarAsDriver](../source/game_sa/Events/EventLeaderEnteredCarAsDriver.cpp) (11) ✅ 11 | [CTaskComplexEnterAnyCarAsDriver](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterAnyCarAsDriver.cpp) (8) ✅ 8 | [CUpsideDownCarCheck](../source/game_sa/UpsideDownCarCheck.cpp) (5) ✅ 5 |
-| [CEventLeaderEntryExit](../source/game_sa/Events/EventLeaderEntryExit.cpp) (12) ✅ 12 | [CTaskComplexEnterBoatAsDriver](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterBoatAsDriver.cpp) (9) ✅ 9 | [CUserDisplay](../source/game_sa/UserDisplay.cpp) (2) ✅ 2 |
-| [CEventLeaderExitedCarAsDriver](../source/game_sa/Events/EventLeaderExitedCarAsDriver.cpp) (10) ✅ 10 | [CTaskComplexEnterCar](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp) (17) ✅ 17 | [CVector](../source/game_sa/Core/Vector.cpp) (23) ✅ 23 |
-| [CEventLeaderQuitEnteringCarAsDriver](../source/game_sa/Events/EventLeaderQuitEnteringCarAsDriver.cpp) (10) ✅ 10 | [CTaskComplexEnterCarAsDriver](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriver.cpp) (5) ✅ 5 | [CVector2D](../source/game_sa/Core/Vector.cpp) · [archivo 2](../source/game_sa/Core/Vector2D.cpp) (2) ✅ 2 |
-| [CEventLeanOnVehicle](../source/game_sa/Events/EventLeanOnVehicle.cpp) (9) ✅ 9 | [CTaskComplexEnterCarAsDriverTimed](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp) (10) ✅ 10 | [CVehicle](../source/game_sa/Entity/Vehicle/Vehicle.cpp) (170) ✅ 170 |
-| [CEventNewGangMember](../source/game_sa/Events/EventNewGangMember.cpp) (7) ✅ 7 | [CTaskComplexEnterCarAsPassenger](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp) (5) ✅ 5 | [CVehicleAnimGroup](../source/game_sa/VehicleAnimGroupData.cpp) (5) ✅ 5 |
-| [CEventObjectCollision](../source/game_sa/Events/EventObjectCollision.cpp) (8) ✅ 8 | [CTaskComplexEnterCarAsPassengerTimed](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerTimed.cpp) (10) ✅ 10 | [CVehicleAnimGroupData](../source/game_sa/VehicleAnimGroupData.cpp) (6) ✅ 6 |
-| [CEventOnFire](../source/game_sa/Events/EventOnFire.cpp) (1) ✅ 1 | [CTaskComplexEnterCarAsPassengerWait](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.cpp) (9) ✅ 9 | [CVehicleModelInfo](../source/game_sa/Models/VehicleModelInfo.cpp) (78) ✅ 78 |
-| [CEventPassObject](../source/game_sa/Events/EventPassObject.cpp) (9) ✅ 9 | [CTaskComplexEvasiveCower](../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp) (9) ✅ 9 | [CVehiclePool](../source/game_sa/Pools/VehiclePool.h) (2) ✅ 2 |
-| [CEventPedCollisionWithPed](../source/game_sa/Events/EventPedCollisionWithPed.cpp) (7) ✅ 7 | [CTaskComplexEvasiveDiveAndGetUp](../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveDiveAndGetUp.cpp) (10) ✅ 10 | [CVehiclePotentialCollisionScanner](../source/game_sa/Events/EventScanner.cpp) (1) ✅ 1 |
-| [CEventPedCollisionWithPlayer](../source/game_sa/Events/EventPedCollisionWithPlayer.cpp) (5) ✅ 5 | [CTaskComplexEvasiveStep](../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp) (9) ✅ 9 | [CVehicleRecording](../source/game_sa/VehicleRecording.cpp) (29) ✅ 29 |
-| [CEventPedEnteredMyVehicle](../source/game_sa/Events/EventPedEnteredMyVehicle.cpp) (2) ✅ 2 | [CTaskComplexExtinguishFires](../source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.cpp) (9) ✅ 9 | [CVehicleSaveStructure](../source/game_sa/VehicleSaveStructure.cpp) (2) ✅ 2 |
-| [CEventPedToChase](../source/game_sa/Events/EventPedToChase.cpp) (2) ✅ 2 | [CTaskComplexFacial](../source/game_sa/Tasks/TaskTypes/TaskComplexFacial.cpp) (11) ✅ 11 | [CVehicleScanner](../source/game_sa/VehicleScanner.cpp) (1) ✅ 1 |
-| [CEventPedToFlee](../source/game_sa/Events/EventPedToFlee.cpp) (2) ✅ 2 | [CTaskComplexFallAndGetUp](../source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.cpp) (10) ✅ 10 | [CVisibilityPlugins](../source/game_sa/VisibilityPlugins.cpp) (84) ✅ 84 |
-| [CEventPlayerCollisionWithPed](../source/game_sa/Events/EventPlayerCollisionWithPed.cpp) (5) ✅ 5 | [CTaskComplexFallToDeath](../source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp) (9) ✅ 9 | [CWanted](../source/game_sa/Wanted.cpp) (35) ✅ 35 |
-| [CEventPlayerCommandToGroup](../source/game_sa/Events/EventPlayerCommandToGroup.cpp) (7) ✅ 7 | [CTaskComplexFleeAnyMeans](../source/game_sa/Tasks/TaskTypes/TaskComplexFleeAnyMeans.cpp) (9) ✅ 9 | [CWaterCannon](../source/game_sa/WaterCannon.cpp) (5) ✅ 5 |
-| [CEventPlayerCommandToGroupAttack](../source/game_sa/Events/EventPlayerCommandToGroupAttack.cpp) (7) ✅ 7 | [CTaskComplexFleeEntity](../source/game_sa/Tasks/TaskTypes/TaskComplexFleeEntity.cpp) (9) ✅ 9 | [CWaterCannons](../source/game_sa/WaterCannons.cpp) (4) ✅ 4 |
-| [CEventPlayerCommandToGroupGather](../source/game_sa/Events/EventPlayerCommandToGroupGather.cpp) (1) ✅ 1 | [CTaskComplexFleePoint](../source/game_sa/Tasks/TaskTypes/TaskComplexFleePoint.cpp) (12) ✅ 12 | [CWaterLevel](../source/game_sa/WaterLevel.cpp) (47) ✅ 47 |
-| [CEventPool](../source/game_sa/Pools/EventPool.h) (1) ✅ 1 | [CTaskComplexFleeShooting](../source/game_sa/Tasks/TaskTypes/TaskComplexFleeShooting.cpp) (9) ✅ 9 | [CWeapon](../source/game_sa/Weapon.cpp) (41) ✅ 41 |
-| [CEventPotentialGetRunOver](../source/game_sa/Events/EventPotentialGetRunOver.cpp) (2) ✅ 2 | [CTaskComplexFollowLeaderAnyMeans](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderAnyMeans.cpp) (8) ✅ 8 | [CWeaponEffects](../source/game_sa/WeaponEffects.cpp) (10) ✅ 10 |
-| [CEventPotentialWalkIntoFire](../source/game_sa/Events/EventPotentialWalkIntoFire.cpp) (3) ✅ 3 | [CTaskComplexFollowLeaderInFormation](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp) (9) ✅ 9 | [CWeaponInfo](../source/game_sa/WeaponInfo.cpp) (16) ✅ 16 |
-| [CEventPotentialWalkIntoObject](../source/game_sa/Events/EventPotentialWalkIntoObject.cpp) (7) ✅ 7 | [CTaskComplexFollowNodeRoute](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.cpp) (20) ✅ 20 | [CWeaponModelInfo](../source/game_sa/Models/WeaponModelInfo.cpp) (4) ✅ 4 |
-| [CEventPotentialWalkIntoPed](../source/game_sa/Events/EventPotentialWalkIntoPed.cpp) (8) ✅ 8 | [CTaskComplexFollowPedFootsteps](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp) (8) ✅ 8 | [CWeather](../source/game_sa/Weather.cpp) (13) ✅ 13 |
-| [CEventPotentialWalkIntoVehicle](../source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp) (7) ✅ 7 | [CTaskComplexFollowPointRoute](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.cpp) (14) ✅ 14 | [CWindModifiers](../source/game_sa/WindModifiers.cpp) (2) ✅ 2 |
-| [CEventRevived](../source/game_sa/Events/EventRevived.cpp) (2) ✅ 2 | [CTaskComplexGangFollower](../source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp) (9) ✅ 9 | [CWorld](../source/game_sa/World.cpp) (96) ✅ 96 |
-| [CEventScanner](../source/game_sa/Events/EventScanner.cpp) (3) ✅ 3 | [CTaskComplexGangJoinRespond](../source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp) (9) ✅ 9 | [CWorldScan](../source/game_sa/Renderer.cpp) (2) ✅ 2 |
-| [CEventScriptCommand](../source/game_sa/Events/EventScriptCommand.cpp) (9) ✅ 9 | [CTaskComplexGangLeader](../source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp) (16) ✅ 16 | [CZone](../source/game_sa/Zone.cpp) (1) ✅ 1 |
-| [CEventScriptedAttractor](../source/game_sa/Events/EventScriptedAttractor.cpp) (1) ✅ 1 | [CTaskComplexGetOnBoatSeat](../source/game_sa/Tasks/TaskTypes/TaskComplexGetOnBoatSeat.cpp) (8) ✅ 8 | [CZoneDef](../source/game_sa/CullZones.cpp) (1) ✅ 1 |
-| [CEventSeenCop](../source/game_sa/Events/EventSeenCop.cpp) (1) ✅ 1 | [CTaskComplexGetUpAndStandStill](../source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp) (8) ✅ 8 | [D3DIndexDataBuffer](../source/game_sa/RenderWare/D3DIndexDataBuffer.cpp) (3) ✅ 3 |
-| [CEventSeenPanickedPed](../source/game_sa/Events/EventSeenPanickedPed.cpp) (7) ✅ 7 | [CTaskComplexGoPickUpEntity](../source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp) (7) ✅ 7 | [D3DResourceSystem](../source/game_sa/RenderWare/D3DResourceSystem.cpp) (14) ✅ 14 |
-| [CEventSexyPed](../source/game_sa/Events/EventSexyPed.cpp) (2) ✅ 2 | [CTaskComplexGoToAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp) (9) ✅ 9 | [D3DTextureBuffer](../source/game_sa/RenderWare/D3DTextureBuffer.cpp) (6) ✅ 6 |
-| [CEventSexyVehicle](../source/game_sa/Events/EventSexyVehicle.cpp) (2) ✅ 2 | [CTaskComplexGoToBoatSteeringWheel](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp) (8) ✅ 8 | [Furniture_c](../source/game_sa/Interior/Furniture_c.cpp) (1) ✅ 1 |
-| [CEventSoundQuiet](../source/game_sa/Events/EventSoundQuiet.cpp) (11) ✅ 11 | [CTaskComplexGoToCarDoorAndStandStill](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp) (12) ✅ 12 | [FurnitureGroup_c](../source/game_sa/Interior/FurnitureGroup_c.cpp) (7) ✅ 7 |
-| [CEventSource](../source/game_sa/Events/EventSource.cpp) (1) ✅ 1 | [CTaskComplexGotoDoorAndOpen](../source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.cpp) (7) ✅ 7 | [FurnitureManager_c](../source/game_sa/Interior/FurnitureManager_c.cpp) (7) ✅ 7 |
-| [CEventSpecial](../source/game_sa/Events/EventSpecial.cpp) (1) ✅ 1 | [CTaskComplexGoToPointAiming](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp) (9) ✅ 9 | [FurnitureSubGroup_c](../source/game_sa/Interior/FurnitureSubGroup_c.cpp) (6) ✅ 6 |
-| [CEventStuckInAir](../source/game_sa/Events/EventStuckInAir.cpp) (8) ✅ 8 | [CTaskComplexGoToPointAndStandStill](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp) (9) ✅ 9 | [Fx_c](../source/game_sa/Fx/Fx.cpp) (28) ✅ 28 |
-| [CEventVehicleCollision](../source/game_sa/Events/EventVehicleCollision.cpp) (4) ✅ 4 | [CTaskComplexGoToPointAndStandStillAndAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.cpp) (8) ✅ 8 | [FxEmitter_c](../source/game_sa/Fx/FxEmitter.cpp) (4) ✅ 4 |
-| [CEventVehicleDamage](../source/game_sa/Events/EventVehicleDamage.cpp) (9) ✅ 9 | [CTaskComplexGoToPointAndStandStillTimed](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillTimed.cpp) (6) ✅ 6 | [FxEmitterBP_c](../source/game_sa/Fx/FxEmitterBP.cpp) (9) ✅ 9 |
-| [CEventVehicleDamageCollision](../source/game_sa/Events/EventVehicleDamageCollision.cpp) (5) ✅ 5 | [CTaskComplexGoToPointAnyMeans](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.cpp) (9) ✅ 9 | [FxEmitterPrt_c](../source/game_sa/Fx/FxEmitterPrt.cpp) (2) ✅ 2 |
-| [CEventVehicleDamageWeapon](../source/game_sa/Events/EventVehicleDamageWeapon.cpp) (5) ✅ 5 | [CTaskComplexGoToPointShooting](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.cpp) (5) ✅ 5 | [FxFrustumInfo_c](../source/game_sa/Fx/FxFrustumInfo.cpp) (1) ✅ 1 |
-| [CEventVehicleDied](../source/game_sa/Events/EventVehicleDied.cpp) (7) ✅ 7 | [CTaskComplexHitByGunResponse](../source/game_sa/Tasks/TaskTypes/TaskComplexHitByGunResponse.cpp) (9) ✅ 9 | [FxInfoManager_c](../source/game_sa/Fx/FxInfoManager.cpp) (5) ✅ 5 |
-| [CEventVehicleHitAndRun](../source/game_sa/Events/EventVehicleHitAndRun.cpp) (5) ✅ 5 | [CTaskComplexHitPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp) (11) ✅ 11 | [FxInterpInfo255_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp) (1) ✅ 1 |
-| [CEventVehicleOnFire](../source/game_sa/Events/EventVehicleOnFire.cpp) (4) ✅ 4 | [CTaskComplexHitResponse](../source/game_sa/Tasks/TaskTypes/TaskComplexHitResponse.cpp) (8) ✅ 8 | [FxInterpInfo32_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp) (1) ✅ 1 |
-| [CEventVehicleToSteal](../source/game_sa/Events/EventVehicleToSteal.cpp) (6) ✅ 6 | [CTaskComplexInAirAndLand](../source/game_sa/Tasks/TaskTypes/TaskComplexInAirAndLand.cpp) (6) ✅ 6 | [FxInterpInfoFloat_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp) (1) ✅ 1 |
-| [CExplosion](../source/game_sa/Explosion.cpp) (12) ✅ 12 | [CTaskComplexInvestigateDeadPed](../source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp) (10) ✅ 10 | [FxInterpInfoU255_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp) (1) ✅ 1 |
-| [CFallingGlassPane](../source/game_sa/FallingGlassPane.cpp) (2) ✅ 2 | [CTaskComplexInvestigateDisturbance](../source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDisturbance.cpp) (8) ✅ 8 | [FxManager_c](../source/game_sa/Fx/FxManager.cpp) (25) ✅ 25 |
-| [CFileLoader](../source/game_sa/FileLoader.cpp) (50) ✅ 50 | [CTaskComplexInWater](../source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp) (7) ✅ 7 | [FxMemoryPool_c](../source/game_sa/Fx/FxMemoryPool.cpp) (7) ✅ 7 |
-| [CFileMgr](../source/game_sa/FileMgr.cpp) (17) ✅ 17 | [CTaskComplexJump](../source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp) (10) ✅ 10 | [FxPrim_c](../source/game_sa/Fx/FxPrim.cpp) (3) ✅ 3 |
-| [CFire](../source/game_sa/Fire.cpp) (5) ✅ 5 | [CTaskComplexKillAllThreats](../source/game_sa/Tasks/TaskTypes/TaskComplexKillAllThreats.cpp) (1) ✅ 1 | [FxPrimBP_c](../source/game_sa/Fx/FxPrimBP.cpp) (4) ✅ 4 |
-| [CFireManager](../source/game_sa/FireManager.cpp) (24) ✅ 24 | [CTaskComplexKillCriminal](../source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp) (12) ✅ 12 | [FxPrtMult_c](../source/game_sa/Fx/FxPrtMult.cpp) (3) ✅ 3 |
-| [CFont](../source/game_sa/Font.cpp) (38) ✅ 38 | [CTaskComplexKillPedFromBoat](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp) (8) ✅ 8 | [FxSphere_c](../source/game_sa/Fx/FxSphere.cpp) (5) ✅ 5 |
-| [CFormation](../source/game_sa/Formation.cpp) (10) ✅ 10 | [CTaskComplexKillPedGroupOnFoot](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedGroupOnFoot.cpp) (9) ✅ 9 | [FxSystem_c](../source/game_sa/Fx/FxSystem.cpp) (39) ✅ 39 |
-| [CGame](../source/game_sa/Game.cpp) (22) ✅ 22 | [CTaskComplexKillPedOnFoot](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp) (9) ✅ 9 | [FxSystemBP_c](../source/game_sa/Fx/FxSystemBP.cpp) (10) ✅ 10 |
-| [CGameLogic](../source/game_sa/GameLogic.cpp) (27) ✅ 27 | [CTaskComplexKillPedOnFootArmed](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp) (12) ✅ 12 | [Game](../source/app/app_game.cpp) (12) ✅ 12 |
-| [CGamma](../source/game_sa/Gamma.cpp) (2) ✅ 2 | [CTaskComplexKillPedOnFootMelee](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.cpp) (10) ✅ 10 | [IKChain_c](../source/game_sa/Ragdoll/IKChain.cpp) (20) ✅ 20 |
-| [CGangs](../source/game_sa/Gangs.cpp) (8) ✅ 8 | [CTaskComplexKillPedOnFootStealth](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp) (7) ✅ 7 | [IKChainManager_c](../source/game_sa/Ragdoll/IKChainManager.cpp) (17) ✅ 17 |
-| [CGangWars](../source/game_sa/GangWars.cpp) (36) ✅ 36 | [CTaskComplexLeaveAnyCar](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp) (8) ✅ 8 | [Input](../source/app/app_input.cpp) · [archivo 2](../source/app/platform/win/WinInput.cpp) (8) ✅ 8 |
-| [CGarage](../source/game_sa/Garage.cpp) (32) ✅ 32 | [CTaskComplexLeaveBoat](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.cpp) (8) ✅ 8 | [Interior_c](../source/game_sa/Interior/Interior_c.cpp) (52) ✅ 52 |
-| [CGarages](../source/game_sa/Garages.cpp) (30) ✅ 30 | [CTaskComplexLeaveCar](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp) (9) ✅ 9 | [InteriorGroup_c](../source/game_sa/Interior/InteriorGroup_c.cpp) (24) ✅ 24 |
-| [CGeneral](../source/game_sa/General.cpp) (9) ✅ 9 | [CTaskComplexLeaveCarAndDie](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.cpp) (6) ✅ 6 | [InteriorManager_c](../source/game_sa/Interior/InteriorManager_c.cpp) (21) ✅ 21 |
-| [CGenericGameStorage](../source/game_sa/GenericGameStorage.cpp) (20) ✅ 20 | [CTaskComplexLeaveCarAndFlee](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.cpp) (9) ✅ 9 | [JPegPlugin](../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp) (6) ✅ 6 |
-| [CGlass](../source/game_sa/Glass.cpp) (19) ✅ 19 | [CTaskComplexLeaveCarAndWander](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.cpp) (9) ✅ 9 | [Light](../source/app/app_light.cpp) (27) ✅ 27 |
-| [CGrassRenderer](../source/game_sa/GrassRenderer.cpp) (12) ✅ 12 | [CTaskComplexLeaveCarAsPassengerWait](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp) (11) ✅ 11 | [ModelIndices](../source/game_sa/ModelIndices.cpp) (3) ✅ 3 |
-| [CGridRef](../source/game_sa/GridRef.cpp) (5) ✅ 5 | [CTaskComplexMedicTreatInjuredPed](../source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.cpp) (10) ✅ 10 | [NodeNamePlugin](../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp) (3) ✅ 3 |
-| [CGroupEventHandler](../source/game_sa/Events/GroupEventHandler.cpp) (32) ✅ 32 | [CTaskComplexMoveBackAndJump](../source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.cpp) (8) ✅ 8 | [Particle_c](../source/game_sa/Fx/Particle.cpp) (1) ✅ 1 |
-| [cHandlingDataMgr](../source/game_sa/cHandlingDataMgr.cpp) (11) ✅ 11 | [CTaskComplexObserveTrafficLights](../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.cpp) (9) ✅ 9 | [PipelinePlugin](../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp) (3) ✅ 3 |
-| [CHandObject](../source/game_sa/Entity/Object/HandObject.cpp) (3) ✅ 3 | [CTaskComplexObserveTrafficLightsAndAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp) (10) ✅ 10 | [ProcObjectMan_c](../source/game_sa/Plant/ProcObjectMan.cpp) (8) ✅ 8 |
-| [CHandShaker](../source/game_sa/HandShaker.cpp) (3) ✅ 3 | [CTaskComplexOnFire](../source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.cpp) (10) ✅ 10 | [ProcSurfaceInfo_c](../source/game_sa/Plant/ProcSurfaceInfo.cpp) (6) ✅ 6 |
-| [CHeli](../source/game_sa/Entity/Vehicle/Heli.cpp) (23) ✅ 23 | [CTaskComplexOpenDriverDoor](../source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.cpp) (5) ✅ 5 | [Ps](../source/app/platform/win/WinPs.cpp) (23) ✅ 23 |
-| [CHud](../source/game_sa/Hud.cpp) (39) ✅ 39 | [CTaskComplexOpenPassengerDoor](../source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.cpp) (5) ✅ 5 | [RenderBuffer](../source/game_sa/RenderBuffer.cpp) (4) ✅ 4 |
-| [CHudColours](../source/game_sa/HudColours.cpp) (5) ✅ 5 | [CTaskComplexPartner](../source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp) (10) ✅ 10 | [RpAnimBlend](../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) (46) ✅ 46 |
-| [CIdleCam](../source/game_sa/IdleCam.cpp) (14) ✅ 14 | [CTaskComplexPartnerChat](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp) (4) ✅ 4 | [RpAnisot](../source/game_sa/RenderWare/rw/rpanisot.cpp) (3) ✅ 3 |
-| [CInformFriendsEvent](../source/game_sa/InformFriendsEventQueue.cpp) (4) ✅ 4 | [CTaskComplexPartnerDeal](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp) (7) ✅ 7 | [Rs](../source/app/platform/platform.cpp) (30) ✅ 30 |
-| [CInformFriendsEventQueue](../source/game_sa/InformFriendsEventQueue.cpp) (4) ✅ 4 | [CTaskComplexPartnerGreet](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp) (7) ✅ 7 | [RwHelper](../source/game_sa/RwHelper.cpp) (42) ✅ 42 |
-| [CInformGroupEvent](../source/game_sa/InformGroupEvent.cpp) (5) ✅ 5 | [CTaskComplexPartnerShove](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp) (3) ✅ 3 | [Securom](../source/app/securom/Securom.cpp) (4) ✅ 4 |
-| [CInformGroupEventQueue](../source/game_sa/InformGroupEventQueue.cpp) (4) ✅ 4 | [CTaskComplexPassObject](../source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp) (10) ✅ 10 | [SurfaceInfos_c](../source/game_sa/SurfaceInfos_c.cpp) (47) ✅ 47 |
-| [CIniFile](../source/game_sa/IniFile.cpp) (1) ✅ 1 | [CTaskComplexPlayHandSignalAnim](../source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp) (10) ✅ 10 | [tColLighting](../source/game_sa/Collision/ColPoint.cpp) (1) ✅ 1 |
-| [CInterestingEvents](../source/game_sa/InterestingEvents.cpp) (7) ✅ 7 | [CTaskComplexPolicePursuit](../source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp) (14) ✅ 14 | [TList_c](../source/game_sa/Core/List_c.cpp) (3) ✅ 3 |
-| [CIplDefPool](../source/game_sa/Pools/IplDefPool.h) (4) ✅ 4 | [CTaskComplexProstituteSolicit](../source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp) (12) ✅ 12 | [tUserList](../source/game_sa/Scripts/Scripted2dEffects.cpp) (2) ✅ 2 |
-| [CIplStore](../source/game_sa/IplStore.cpp) (34) ✅ 34 | [CTaskComplexReactToGunAimedAt](../source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp) (9) ✅ 9 | [UserTracksLegacyVector](../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp) (1) ✅ 1 |
-| [CKeyArray](../source/game_sa/Text/Text.cpp) (5) ✅ 5 | [CTaskComplexRoadRage](../source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp) (10) ✅ 10 | [VectorConstructorIterator](../source/game_sa/RuntimeHelpers.cpp) (1) ✅ 1 |
-| [CKeyboardState](../source/game_sa/KeyboardState.cpp) (1) ✅ 1 | [CTaskComplexScreamInCarThenLeave](../source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp) (10) ✅ 10 | [VideoMode](../source/app/platform/win/VideoMode.cpp) (4) ✅ 4 |
-| [CKeyGen](../source/game_sa/Core/KeyGen.cpp) (4) ✅ 4 | [CTaskComplexSeekCoverUntilTargetDead](../source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp) (11) ✅ 11 | [VideoPlayer](../source/app/platform/win/VideoPlayer/VideoPlayer.cpp) (7) ✅ 7 |
-| [CLinkedUpgradeList](../source/game_sa/Models/VehicleModelInfo.cpp) (2) ✅ 2 | [CTaskComplexSeekEntity&lt;CEntitySeekPosCalculatorXYOffset&gt;](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h) (12) ✅ 12 | [WaterCreature_c](../source/game_sa/WaterCreature_c.cpp) (4) ✅ 4 |
-| [CLinkList&lt;CCollisionData*&gt;](../source/game_sa/Collision/Collision.cpp) (2) ✅ 2 | [CTaskComplexSeekEntityAiming](../source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp) (7) ✅ 7 | [WaterCreatureManager_c](../source/game_sa/WaterCreatureManager_c.cpp) (7) ✅ 7 |
-| [CLoadedCarGroup](../source/game_sa/LoadedCarGroup.cpp) (8) ✅ 8 | [CTaskComplexSeekEntityAnyMeansXYOffset](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.cpp) (6) ✅ 6 | [Win](../source/app/platform/win/WinMain.cpp) · [archivo 2](../source/app/platform/win/WinPlatform.cpp) · [archivo 3](../source/app/platform/win/WndProc.cpp) (7) ✅ 7 |
+| [App](../source/app/app.cpp) (11) ✅ 11 | [CLinkList&lt;CPed*&gt;](../source/game_sa/VisibilityPlugins.cpp) (1) ✅ 1 | [CTaskComplexSeekEntityAnyMeansXYOffset](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.cpp) (6) ✅ 6 |
+| [BoneNode_c](../source/game_sa/Ragdoll/BoneNode.cpp) (18) ✅ 18 | [CLoadedCarGroup](../source/game_sa/LoadedCarGroup.cpp) (8) ✅ 8 | [CTaskComplexSeekEntityRadiusAngleOffset](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp) (9) ✅ 9 |
+| [BoneNodeManager_c](../source/game_sa/Ragdoll/BoneNodeManager.cpp) (8) ✅ 8 | [CLoadingScreen](../source/game_sa/LoadingScreen.cpp) (20) ✅ 20 | [CTaskComplexSeekEntityStandard](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp) (10) ✅ 10 |
+| [BreakablePlugin](../source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.cpp) (6) ✅ 6 | [CLoadMonitor](../source/game_sa/LoadMonitor.cpp) (7) ✅ 7 | [CTaskComplexSequence](../source/game_sa/Tasks/TaskComplexSequence.cpp) (15) ✅ 15 |
+| [BreakManager_c](../source/game_sa/BreakManager_c.cpp) (7) ✅ 7 | [CLocalisation](../source/game_sa/Localisation.cpp) (18) ✅ 18 | [CTaskComplexShuffleSeats](../source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp) (11) ✅ 11 |
+| [BreakObject_c](../source/game_sa/BreakObject_c.cpp) (9) ✅ 9 | [CLodAtomicModelInfo](../source/game_sa/Models/LodAtomicModelInfo.cpp) (4) ✅ 4 | [CTaskComplexSignalAtPed](../source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp) (8) ✅ 8 |
+| [C2dEffect](../source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.cpp) (14) ✅ 14 | [CLodTimeModelInfo](../source/game_sa/Models/LodTimeModelInfo.cpp) (4) ✅ 4 | [CTaskComplexSitDownThenIdleThenStandUp](../source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp) (10) ✅ 10 |
+| [C3dMarker](../source/game_sa/3dMarker.cpp) (6) ✅ 6 | [CMaths](../source/game_sa/Maths.cpp) (6) ✅ 6 | [CTaskComplexSmartFleeEntity](../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp) (9) ✅ 9 |
+| [C3dMarkers](../source/game_sa/3dMarkers.cpp) (20) ✅ 20 | [CMatrix](../source/game_sa/Core/Matrix.cpp) (45) ✅ 45 | [CTaskComplexSmartFleePoint](../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp) (13) ✅ 13 |
+| [C_PcSave](../source/game_sa/C_PcSave.cpp) (6) ✅ 6 | [CMatrixLink](../source/game_sa/Core/MatrixLink.cpp) (2) ✅ 2 | [CTaskComplexStareAtPed](../source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp) (8) ✅ 8 |
+| [CAccidentManager](../source/game_sa/AccidentManager.cpp) (6) ✅ 6 | [CMatrixLinkList](../source/game_sa/Core/MatrixLinkList.cpp) (11) ✅ 11 | [CTaskComplexStealCar](../source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp) (9) ✅ 9 |
+| [CAcquaintance](../source/game_sa/Acquaintance.cpp) (5) ✅ 5 | [CMBlur](../source/game_sa/MBlur.cpp) (5) ✅ 5 | [CTaskComplexStuckInAir](../source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp) (8) ✅ 8 |
+| [CActiveOccluder](../source/game_sa/ActiveOccluder.cpp) (2) ✅ 2 | [CMemoryHeap](../source/game_sa/Memory/MemoryHeap.cpp) (1) ✅ 1 | [CTaskComplexSunbathe](../source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp) (11) ✅ 11 |
+| [CAEAmbienceTrackManager](../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp) (7) ✅ 7 | [CMemoryMgr](../source/game_sa/MemoryMgr.cpp) (10) ✅ 10 | [CTaskComplexTrackEntity](../source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp) (12) ✅ 12 |
+| [CAEAudioChannel](../source/game_sa/Audio/Hardware/AEAudioChannel.cpp) (14) ✅ 14 | [CMentalState](../source/game_sa/MentalHealth.cpp) (1) ✅ 1 | [CTaskComplexTreatAccident](../source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp) (9) ✅ 9 |
+| [CAEAudioEntity](../source/game_sa/Audio/Entities/AEAudioEntity.cpp) (6) ✅ 6 | [CMenuManager](../source/game_sa/MenuManager.cpp) (62) ✅ 62 | [CTaskComplexTurnToFaceEntityOrCoord](../source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.cpp) (9) ✅ 9 |
+| [CAEAudioEnvironment](../source/game_sa/Audio/AEAudioEnvironment.cpp) (6) ✅ 6 | [CMenuSystem](../source/game_sa/MenuSystem.cpp) (21) ✅ 21 | [CTaskComplexUseAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUseAttractor.cpp) (7) ✅ 7 |
+| [CAEAudioHardware](../source/game_sa/Audio/Hardware/AEAudioHardware.cpp) (55) ✅ 55 | [CMessages](../source/game_sa/Messages.cpp) (28) ✅ 28 | [CTaskComplexUseAttractorPartner](../source/game_sa/Tasks/TaskTypes/TaskComplexUseAttractorPartner.cpp) (8) ✅ 8 |
+| [CAEAudioUtility](../source/game_sa/Audio/AEAudioUtility.cpp) (11) ✅ 11 | [CMirrors](../source/game_sa/Mirrors.cpp) (8) ✅ 8 | [CTaskComplexUseClosestFreeScriptedAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp) (9) ✅ 9 |
+| [CAEBankLoader](../source/game_sa/Audio/Loaders/AEBankLoader.cpp) (8) ✅ 8 | [CMissionCleanup](../source/game_sa/MissionCleanup.cpp) (3) ✅ 3 | [CTaskComplexUseClosestFreeScriptedAttractorRun](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorRun.cpp) (5) ✅ 5 |
+| [CAECollisionAudioEntity](../source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp) (18) ✅ 18 | [CMissionTextOffsets](../source/game_sa/Text/Text.cpp) (1) ✅ 1 | [CTaskComplexUseClosestFreeScriptedAttractorSprint](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorSprint.cpp) (5) ✅ 5 |
+| [CAECutsceneTrackManager](../source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp) (11) ✅ 11 | [CModelInfo](../source/game_sa/Models/ModelInfo.cpp) (29) ✅ 29 | [CTaskComplexUseEffect](../source/game_sa/Tasks/TaskTypes/TaskComplexUseEffect.cpp) (8) ✅ 8 |
+| [CAEDataStream](../source/game_sa/Audio/Loaders/AEDataStream.cpp) (22) ✅ 22 | [CMonsterTruck](../source/game_sa/Entity/Vehicle/MonsterTruck.cpp) (13) ✅ 13 | [CTaskComplexUseEffectRunning](../source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp) (5) ✅ 5 |
+| [CAEDoorAudioEntity](../source/game_sa/Audio/Entities/AEDoorAudioEntity.cpp) (6) ✅ 6 | [CMotionBlurStreaks](../source/game_sa/MotionBlurStreaks.cpp) (4) ✅ 4 | [CTaskComplexUseEffectSprinting](../source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp) (5) ✅ 5 |
+| [CAEExplosionAudioEntity](../source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp) (4) ✅ 4 | [CMouseControllerState](../source/game_sa/MouseControllerState.cpp) (3) ✅ 3 | [CTaskComplexUseGoggles](../source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp) (8) ✅ 8 |
+| [CAEFireAudioEntity](../source/game_sa/Audio/Entities/AEFireAudioEntity.cpp) (7) ✅ 7 | [CMovingThings](../source/game_sa/MovingThings.cpp) (5) ✅ 5 | [CTaskComplexUseMobilePhone](../source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp) (1) ✅ 1 |
+| [CAEFrontendAudioEntity](../source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp) (7) ✅ 7 | [CNearbyFireScanner](../source/game_sa/Events/EventScanner.cpp) (1) ✅ 1 | [CTaskComplexUsePairedAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUsePairedAttractor.cpp) (12) ✅ 12 |
+| [CAEGlobalWeaponAudioEntity](../source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp) (8) ✅ 8 | [CNodeAddress](../source/game_sa/NodeAddress.cpp) (3) ✅ 3 | [CTaskComplexUseScriptedAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp) (8) ✅ 8 |
+| [CAEMFDecoder](../source/game_sa/Audio/Loaders/AEMFDecoder.cpp) (14) ✅ 14 | [CNodeRoute](../source/game_sa/NodeRoute.cpp) (3) ✅ 3 | [CTaskComplexUseScriptedBrain](../source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp) (9) ✅ 9 |
+| [CAEMP3BankLoader](../source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp) (14) ✅ 14 | [CNodeRoutePool](../source/game_sa/Pools/NodeRoutePool.h) (1) ✅ 1 | [CTaskComplexUseSequence](../source/game_sa/Tasks/TaskComplexUseSequence.cpp) (8) ✅ 8 |
+| [CAEMP3TrackLoader](../source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp) (8) ✅ 8 | [CObject](../source/game_sa/Entity/Object/Object.cpp) (51) ✅ 51 | [CTaskComplexUseSwatRope](../source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp) (13) ✅ 13 |
+| [CAEPedAudioEntity](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp) (22) ✅ 22 | [CObjectData](../source/game_sa/ObjectData.cpp) (2) ✅ 2 | [CTaskComplexUseWaterCannon](../source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp) (6) ✅ 6 |
+| [CAEPedlessSpeechAudioEntity](../source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp) (12) ✅ 12 | [CObjectPool](../source/game_sa/Pools/ObjectPool.h) (2) ✅ 2 | [CTaskComplexWaitAtAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitAtAttractor.cpp) (7) ✅ 7 |
+| [CAEPedSpeechAudioEntity](../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp) (59) ✅ 59 | [CObjectPotentialCollisionScanner](../source/game_sa/Events/EventScanner.cpp) (1) ✅ 1 | [CTaskComplexWaitForBackup](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBackup.cpp) (9) ✅ 9 |
+| [CAEPedSpeechSlot](../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp) (1) ✅ 1 | [CObjectSaveStructure](../source/game_sa/ObjectSaveStructure.cpp) (2) ✅ 2 | [CTaskComplexWaitForBus](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.cpp) (8) ✅ 8 |
+| [CAEPedWeaponAudioEntity](../source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp) (5) ✅ 5 | [COccluder](../source/game_sa/Occluder.cpp) (3) ✅ 3 | [CTaskComplexWaitForDryWeather](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForDryWeather.cpp) (8) ✅ 8 |
+| [CAEPoliceScannerAudioEntity](../source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp) (17) ✅ 17 | [COcclusion](../source/game_sa/Occlusion.cpp) (5) ✅ 5 | [CTaskComplexWaitForPed](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp) (3) ✅ 3 |
+| [CAERadioTrackManager](../source/game_sa/Audio/Managers/AERadioTrackManager.cpp) (43) ✅ 43 | [Common](../source/game_sa/common.cpp) (26) ✅ 26 | [CTaskComplexWalkAlongsidePed](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkAlongsidePed.cpp) (10) ✅ 10 |
+| [CAEScriptAudioEntity](../source/game_sa/Audio/Entities/AEScriptAudioEntity.cpp) (20) ✅ 20 | [CompressedVector](../source/game_sa/CompressedVector.cpp) (2) ✅ 2 | [CTaskComplexWalkRoundBuildingAttempt](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp) (13) ✅ 13 |
+| [CAESmoothFadeThread](../source/game_sa/Audio/AESmoothFadeThread.cpp) (11) ✅ 11 | [COnscreenCounterEntry](../source/game_sa/OnscreenCounterEntry.cpp) (2) ✅ 2 | [CTaskComplexWalkRoundCar](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp) (13) ✅ 13 |
+| [CAESound](../source/game_sa/Audio/AESound.cpp) (19) ✅ 19 | [COnscreenTimer](../source/game_sa/OnscreenTimer.cpp) (7) ✅ 7 | [CTaskComplexWalkRoundFire](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundFire.cpp) (9) ✅ 9 |
+| [CAESoundManager](../source/game_sa/Audio/Managers/AESoundManager.cpp) (15) ✅ 15 | [CPad](../source/game_sa/Pad.cpp) (92) ✅ 92 | [CTaskComplexWalkRoundObject](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp) (9) ✅ 9 |
+| [CAEStaticChannel](../source/game_sa/Audio/Hardware/AEStaticChannel.cpp) (11) ✅ 11 | [CPathFind](../source/game_sa/PathFind.cpp) (71) ✅ 71 | [CTaskComplexWander](../source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp) (17) ✅ 17 |
+| [CAEStreamingChannel](../source/game_sa/Audio/Hardware/AEStreamingChannel.cpp) (25) ✅ 25 | [CPathNode](../source/game_sa/PathFind.cpp) (2) ✅ 2 | [CTaskComplexWanderCop](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp) (9) ✅ 9 |
+| [CAEStreamingDecoder](../source/game_sa/Audio/Loaders/AEStreamingDecoder.cpp) (3) ✅ 3 | [CPatrolRoute](../source/game_sa/PatrolRoute.cpp) (3) ✅ 3 | [CTaskComplexWanderCriminal](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp) (7) ✅ 7 |
+| [CAEStreamThread](../source/game_sa/Audio/AEStreamThread.cpp) (16) ✅ 16 | [CPatrolRoutePool](../source/game_sa/Pools/PatrolRoutePool.h) (1) ✅ 1 | [CTaskComplexWanderFlee](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderFlee.cpp) (7) ✅ 7 |
+| [CAEStreamTransformer](../source/game_sa/Audio/Loaders/AEStreamTransformer.cpp) (3) ✅ 3 | [CPed](../source/game_sa/Entity/Ped/Ped.cpp) (152) ✅ 152 | [CTaskComplexWanderGang](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderGang.cpp) (4) ✅ 4 |
+| [CAETrackLoader](../source/game_sa/Audio/Loaders/AETrackLoader.cpp) (1) ✅ 1 | [CPedAcquaintanceScanner](../source/game_sa/Events/EventScanner.cpp) (4) ✅ 4 | [CTaskComplexWanderMedic](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderMedic.cpp) (6) ✅ 6 |
+| [CAETwinLoopSoundEntity](../source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp) (10) ✅ 10 | [CPedAttractor](../source/game_sa/Attractors/PedAttractor.cpp) (20) ✅ 20 | [CTaskComplexWanderProstitute](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp) (7) ✅ 7 |
+| [CAEUserRadioTrackManager](../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp) (15) ✅ 15 | [CPedAttractorManager](../source/game_sa/PedAttractorManager.cpp) (14) ✅ 14 | [CTaskComplexWanderStandard](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp) (12) ✅ 12 |
+| [CAEVehicleAudioEntity](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp) (107) ✅ 107 | [CPedAttractorPedPlacer](../source/game_sa/Attractors/PedAttractorPedPlacer.cpp) (1) ✅ 1 | [CTaskGangHasslePed](../source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp) (8) ✅ 8 |
+| [CAEVorbisDecoder](../source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp) (14) ✅ 14 | [CPedAttractorPool](../source/game_sa/Pools/PedAttractorPool.h) (1) ✅ 1 | [CTaskGangHassleVehicle](../source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp) (10) ✅ 10 |
+| [CAEWaterCannonAudioEntity](../source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp) (7) ✅ 7 | [CPedClothesDesc](../source/game_sa/PedClothesDesc.cpp) (9) ✅ 9 | [CTaskGoToVehicleAndLean](../source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp) (9) ✅ 9 |
+| [CAEWaveDecoder](../source/game_sa/Audio/Loaders/AEWaveDecoder.cpp) (10) ✅ 10 | [CPedDamageResponseCalculator](../source/game_sa/PedDamageResponseCalculator.cpp) (7) ✅ 7 | [CTaskInteriorBeInHouse](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInHouse.cpp) (9) ✅ 9 |
+| [CAEWeaponAudioEntity](../source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp) (19) ✅ 19 | [CPedGeometryAnalyser](../source/game_sa/PedGeometryAnalyser.cpp) (38) ✅ 38 | [CTaskInteriorBeInOffice](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInOffice.cpp) (9) ✅ 9 |
+| [CAEWeatherAudioEntity](../source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp) (5) ✅ 5 | [CPedGroup](../source/game_sa/PedGroup.cpp) (12) ✅ 12 | [CTaskInteriorBeInShop](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInShop.cpp) (7) ✅ 7 |
+| [CAEWMADecoder](../source/game_sa/Audio/Loaders/AEWMADecoder.cpp) (13) ✅ 13 | [CPedGroupDefaultTaskAllocatorChat](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h) (3) ✅ 3 | [CTaskInteriorGoToInfo](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorGoToInfo.cpp) (8) ✅ 8 |
+| [CAnimatedBuilding](../source/game_sa/Entity/AnimatedBuilding.cpp) (6) ✅ 6 | [CPedGroupDefaultTaskAllocatorFollowAnyMeans](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h) (3) ✅ 3 | [CTaskInteriorLieInBed](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.cpp) (7) ✅ 7 |
+| [CAnimBlendAssocGroup](../source/game_sa/Animation/AnimBlendAssocGroup.cpp) (15) ✅ 15 | [CPedGroupDefaultTaskAllocatorFollowLimited](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h) (3) ✅ 3 | [CTaskInteriorShopKeeper](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp) (8) ✅ 8 |
+| [CAnimBlendAssociation](../source/game_sa/Animation/AnimBlendAssociation.cpp) (23) ✅ 23 | [CPedGroupDefaultTaskAllocatorRandom](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h) (3) ✅ 3 | [CTaskInteriorSitAtDesk](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp) (10) ✅ 10 |
+| [CAnimBlendClumpData](../source/game_sa/Animation/AnimBlendClumpData.cpp) (6) ✅ 6 | [CPedGroupDefaultTaskAllocators](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocators.h) (1) ✅ 1 | [CTaskInteriorSitInChair](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp) (1) ✅ 1 |
+| [CAnimBlendHierarchy](../source/game_sa/Animation/AnimBlendHierarchy.cpp) (16) ✅ 16 | [CPedGroupDefaultTaskAllocatorSitInLeaderCar](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h) (3) ✅ 3 | [CTaskInteriorUseInfo](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.cpp) (9) ✅ 9 |
+| [CAnimBlendNode](../source/game_sa/Animation/AnimBlendNode.cpp) (16) ✅ 16 | [CPedGroupDefaultTaskAllocatorStandStill](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorStandStill.h) (3) ✅ 3 | [CTaskLeanOnVehicle](../source/game_sa/Tasks/TaskTypes/TaskLeanOnVehicle.cpp) (7) ✅ 7 |
+| [CAnimBlendSequence](../source/game_sa/Animation/AnimBlendSequence.cpp) (17) ✅ 17 | [CPedGroupIntelligence](../source/game_sa/PedGroupIntelligence.cpp) (31) ✅ 31 | [CTaskManager](../source/game_sa/Tasks/TaskManager.cpp) (20) ✅ 20 |
+| [CAnimBlendStaticAssociation](../source/game_sa/Animation/AnimBlendStaticAssociation.cpp) (8) ✅ 8 | [CPedGroupMembership](../source/game_sa/PedGroupMembership.cpp) (19) ✅ 19 | [CTaskPool](../source/game_sa/Pools/TaskPool.h) (1) ✅ 1 |
+| [CAnimManager](../source/game_sa/Animation/AnimManager.cpp) (32) ✅ 32 | [CPedGroupPlacer](../source/game_sa/PedGroupPlacer.cpp) (4) ✅ 4 | [CTaskSequences](../source/game_sa/Tasks/TaskSequences.cpp) (3) ✅ 3 |
+| [CAtomicModelInfo](../source/game_sa/Models/AtomicModelInfo.cpp) (13) ✅ 13 | [CPedGroups](../source/game_sa/PedGroups.cpp) (12) ✅ 12 | [CTaskSimple](../source/game_sa/Tasks/Task.cpp) · [archivo 2](../source/game_sa/Tasks/TaskSimple.cpp) (4) ✅ 4 |
+| [CAttractorScanner](../source/game_sa/AttractorScanner.cpp) (2) ✅ 2 | [CPedIK](../source/game_sa/PedIK.cpp) (9) ✅ 9 | [CTaskSimpleAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskSimpleAchieveHeading.cpp) (8) ✅ 8 |
+| [CAudioEngine](../source/game_sa/Audio/AudioEngine.cpp) (83) ✅ 83 | [CPedIntelligence](../source/game_sa/PedIntelligence.cpp) (61) ✅ 61 | [CTaskSimpleAffectSecondaryBehaviour](../source/game_sa/Tasks/TaskTypes/TaskSimpleAffectSecondaryBehaviour.cpp) (7) ✅ 7 |
+| [CAudioZones](../source/game_sa/Audio/AudioZones.cpp) (8) ✅ 8 | [CPedIntelligencePool](../source/game_sa/Pools/PedIntelligencePool.h) (1) ✅ 1 | [CTaskSimpleAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp) (4) ✅ 4 |
+| [CAutomobile](../source/game_sa/Entity/Vehicle/Automobile.cpp) (104) ✅ 104 | [CPedList](../source/game_sa/PedList.cpp) (9) ✅ 9 | [CTaskSimpleArrestPed](../source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp) (8) ✅ 8 |
+| [CAutoPilot](../source/game_sa/AutoPilot.cpp) (2) ✅ 2 | [CPedModelInfo](../source/game_sa/Models/PedModelInfo.cpp) (9) ✅ 9 | [CTaskSimpleBeHit](../source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.cpp) (8) ✅ 8 |
+| [CBaseModelInfo](../source/game_sa/Models/BaseModelInfo.cpp) (37) ✅ 37 | [CPedPlacement](../source/game_sa/PedPlacement.cpp) (4) ✅ 4 | [CTaskSimpleBikeJacked](../source/game_sa/Tasks/TaskTypes/TaskSimpleBikeJacked.cpp) (9) ✅ 9 |
+| [CBike](../source/game_sa/Entity/Vehicle/Bike.cpp) (62) ✅ 62 | [CPedPool](../source/game_sa/Pools/PedPool.h) (3) ✅ 3 | [CTaskSimpleCarAlign](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp) (11) ✅ 11 |
+| [CBirds](../source/game_sa/Birds.cpp) (6) ✅ 6 | [CPedSaveStructure](../source/game_sa/Entity/Ped/PedSaveStructure.cpp) (2) ✅ 2 | [CTaskSimpleCarCloseDoorFromInside](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp) (11) ✅ 11 |
+| [CBmx](../source/game_sa/Entity/Vehicle/Bmx.cpp) (13) ✅ 13 | [CPedScanner](../source/game_sa/PedScanner.cpp) (1) ✅ 1 | [CTaskSimpleCarCloseDoorFromOutside](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromOutside.cpp) (11) ✅ 11 |
+| [CBoat](../source/game_sa/Entity/Vehicle/Boat.cpp) (24) ✅ 24 | [CPedScriptedTaskRecord](../source/game_sa/Tasks/PedScriptedTaskRecord.cpp) (5) ✅ 5 | [CTaskSimpleCarDrive](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp) (16) ✅ 16 |
+| [CBouncingPanel](../source/game_sa/BouncingPanel.cpp) (3) ✅ 3 | [CPedScriptedTaskRecordData](../source/game_sa/Tasks/PedScriptedTaskRecord.cpp) (8) ✅ 8 | [CTaskSimpleCarDriveTimed](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDriveTimed.cpp) (6) ✅ 6 |
+| [CBoundingBox](../source/game_sa/Collision/BoundingBox.cpp) (5) ✅ 5 | [CPedShelterAttractor](../source/game_sa/Attractors/PedShelterAttractor.cpp) (6) ✅ 6 | [CTaskSimpleCarFallOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarFallOut.cpp) (10) ✅ 10 |
+| [CBox](../source/game_sa/Collision/Box.cpp) (2) ✅ 2 | [CPedStats](../source/game_sa/PedStats.cpp) (5) ✅ 5 | [CTaskSimpleCarForcePedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp) (7) ✅ 7 |
+| [CBridge](../source/game_sa/Bridge.cpp) (5) ✅ 5 | [CPedStuckChecker](../source/game_sa/PedStuckChecker.cpp) (1) ✅ 1 | [CTaskSimpleCarGetIn](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetIn.cpp) (10) ✅ 10 |
+| [CBrightLights](../source/game_sa/BrightLights.cpp) (4) ✅ 4 | [CPedTaskPair](../source/game_sa/PedTaskPair.cpp) (1) ✅ 1 | [CTaskSimpleCarGetOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetOut.cpp) (11) ✅ 11 |
+| [CBuilding](../source/game_sa/Entity/Building.cpp) (6) ✅ 6 | [CPedToPlayerConversations](../source/game_sa/Conversations/PedToPlayerConversations.cpp) (3) ✅ 3 | [CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarGoToPointNearDoorUntilDoorNotInUse.cpp) (7) ✅ 7 |
+| [CBuildingPool](../source/game_sa/Pools/BuildingPool.h) (1) ✅ 1 | [CPedType](../source/game_sa/PedType.cpp) (14) ✅ 14 | [CTaskSimpleCarJumpOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarJumpOut.cpp) (11) ✅ 11 |
+| [CBulletInfo](../source/game_sa/BulletInfo.cpp) (4) ✅ 4 | [CPhysical](../source/game_sa/Entity/Physical.cpp) (59) ✅ 59 | [CTaskSimpleCarOpenDoorFromOutside](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarOpenDoorFromOutside.cpp) (11) ✅ 11 |
+| [CBulletTraces](../source/game_sa/BulletTraces.cpp) (5) ✅ 5 | [CPickup](../source/game_sa/Pickup.cpp) (12) ✅ 12 | [CTaskSimpleCarOpenLockedDoorFromOutside](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarOpenLockedDoorFromOutside.cpp) (10) ✅ 10 |
+| [cBuoyancy](../source/game_sa/Buoyancy.cpp) (10) ✅ 10 | [CPickups](../source/game_sa/Pickups.cpp) (38) ✅ 38 | [CTaskSimpleCarSetPedInAsDriver](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.cpp) (7) ✅ 7 |
+| [CCam](../source/game_sa/Cam.cpp) (56) ✅ 56 | [CPlaceable](../source/game_sa/Entity/Placeable.cpp) (21) ✅ 21 | [CTaskSimpleCarSetPedInAsPassenger](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp) (5) ✅ 5 |
+| [CCamera](../source/game_sa/Camera.cpp) (122) ✅ 122 | [CPlaceName](../source/game_sa/PlaceName.cpp) (2) ✅ 2 | [CTaskSimpleCarSetPedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp) (8) ✅ 8 |
+| [CCarAI](../source/game_sa/CarAI.cpp) (26) ✅ 26 | [CPlane](../source/game_sa/Entity/Vehicle/Plane.cpp) (24) ✅ 24 | [CTaskSimpleCarSetPedSlowDraggedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedSlowDraggedOut.cpp) (7) ✅ 7 |
+| [CCarCtrl](../source/game_sa/CarCtrl.cpp) (112) ✅ 112 | [CPlaneBanners](../source/game_sa/PlaneBanners.cpp) (1) ✅ 1 | [CTaskSimpleCarSetTempAction](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetTempAction.cpp) (7) ✅ 7 |
+| [CCarEnterExit](../source/game_sa/CarEnterExit.cpp) (32) ✅ 32 | [CPlaneTrail](../source/game_sa/PlaneTrail.cpp) (3) ✅ 3 | [CTaskSimpleCarShuffle](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarShuffle.cpp) (10) ✅ 10 |
+| [CCarFXRenderer](../source/game_sa/Fx/CarFXRenderer.cpp) (10) ✅ 10 | [CPlaneTrails](../source/game_sa/PlaneTrails.cpp) (4) ✅ 4 | [CTaskSimpleCarSlowBeDraggedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowBeDraggedOut.cpp) (11) ✅ 11 |
+| [CCarGenerator](../source/game_sa/CarGenerator.cpp) (9) ✅ 9 | [CPlantColEntEntry](../source/game_sa/Plant/PlantColEntEntry.cpp) (2) ✅ 2 | [CTaskSimpleCarSlowDragPedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowDragPedOut.cpp) (11) ✅ 11 |
+| [CCarPathLink](../source/game_sa/PathFind.cpp) (2) ✅ 2 | [CPlantLocTri](../source/game_sa/Plant/PlantLocTri.cpp) (3) ✅ 3 | [CTaskSimpleCarWaitForDoorNotToBeInUse](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitForDoorNotToBeInUse.cpp) (8) ✅ 8 |
+| [CCheat](../source/game_sa/Cheat.cpp) (74) ✅ 74 | [CPlantMgr](../source/game_sa/PlantMgr.cpp) (20) ✅ 20 | [CTaskSimpleCarWaitToSlowDown](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitToSlowDown.cpp) (8) ✅ 8 |
+| [CCheckpoint](../source/game_sa/Checkpoint.cpp) (1) ✅ 1 | [CPlantSurfPropMgr](../source/game_sa/PlantSurfPropMgr.cpp) (4) ✅ 4 | [CTaskSimpleChat](../source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp) (5) ✅ 5 |
+| [CCheckpoints](../source/game_sa/Checkpoints.cpp) (8) ✅ 8 | [CPlayerInfo](../source/game_sa/PlayerInfo.cpp) (31) ✅ 31 | [CTaskSimpleChoking](../source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp) (7) ✅ 7 |
+| [CCivilianPed](../source/game_sa/Entity/Ped/CivilianPed.cpp) (4) ✅ 4 | [CPlayerPed](../source/game_sa/Entity/Ped/PlayerPed.cpp) (66) ✅ 66 | [CTaskSimpleClearLookAt](../source/game_sa/Tasks/TaskTypes/TaskSimpleClearLookAt.cpp) (7) ✅ 7 |
+| [CClock](../source/game_sa/Clock.cpp) (9) ✅ 9 | [CPlayerPedData](../source/game_sa/PlayerPedData.cpp) (5) ✅ 5 | [CTaskSimpleClimb](../source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp) (19) ✅ 19 |
+| [CClothes](../source/game_sa/Clothes.cpp) (12) ✅ 12 | [CPlayerRelationshipRecorder](../source/game_sa/PlayerRelationshipRecorder.cpp) (6) ✅ 6 | [CTaskSimpleCower](../source/game_sa/Tasks/TaskTypes/TaskSimpleCower.cpp) (5) ✅ 5 |
+| [CClothesBuilder](../source/game_sa/ClothesBuilder.cpp) (23) ✅ 23 | [CPlayerSkin](../source/game_sa/Entity/Ped/PlayerSkin.cpp) (4) ✅ 4 | [CTaskSimpleCreateCarAndGetIn](../source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp) (7) ✅ 7 |
+| [CClouds](../source/game_sa/Clouds.cpp) (21) ✅ 21 | [CPointLights](../source/game_sa/PointLights.cpp) (7) ✅ 7 | [CTaskSimpleDead](../source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp) (6) ✅ 6 |
+| [CClumpModelInfo](../source/game_sa/Models/ClumpModelInfo.cpp) (26) ✅ 26 | [CPointList](../source/game_sa/PointList.cpp) (2) ✅ 2 | [CTaskSimpleDie](../source/game_sa/Tasks/TaskTypes/TaskSimpleDie.cpp) (9) ✅ 9 |
+| [CColAccel](../source/game_sa/Collision/ColAccel.cpp) (11) ✅ 11 | [CPointRoute](../source/game_sa/PedGeometryAnalyser.cpp) (6) ✅ 6 | [CTaskSimpleDieInCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleDieInCar.cpp) (6) ✅ 6 |
+| [CColBox](../source/game_sa/Collision/ColBox.cpp) (2) ✅ 2 | [CPointRoutePool](../source/game_sa/Pools/PointRoutePool.h) (1) ✅ 1 | [CTaskSimpleDoHandSignal](../source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp) (7) ✅ 7 |
+| [CColDisk](../source/game_sa/Collision/ColDisk.cpp) (1) ✅ 1 | [CPools](../source/game_sa/Pools.cpp) (20) ✅ 20 | [CTaskSimpleDrown](../source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp) (2) ✅ 2 |
+| [CColLine](../source/game_sa/Collision/ColLine.cpp) (2) ✅ 2 | [CPopCycle](../source/game_sa/PopCycle.cpp) (15) ✅ 15 | [CTaskSimpleDrownInCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleDrownInCar.cpp) (1) ✅ 1 |
+| [CCollision](../source/game_sa/Collision/Collision.cpp) (62) ✅ 62 | [CPopulation](../source/game_sa/Population.cpp) (68) ✅ 68 | [CTaskSimpleDuck](../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp) (17) ✅ 17 |
+| [CCollisionData](../source/game_sa/Collision/CollisionData.cpp) (10) ✅ 10 | [CPostEffects](../source/game_sa/PostEffects.cpp) (38) ✅ 38 | [CTaskSimpleDuckToggle](../source/game_sa/Tasks/TaskTypes/TaskSimpleDuckToggle.cpp) (6) ✅ 6 |
+| [CCollisionEventScanner](../source/game_sa/Collision/CollisionEventScanner.cpp) (1) ✅ 1 | [CPPTriPlantBuffer](../source/game_sa/PPTriPlantBuffer.cpp) (7) ✅ 7 | [CTaskSimpleEvasiveDive](../source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveDive.cpp) (9) ✅ 9 |
+| [CCollisionPlugin](../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp) (2) ✅ 2 | [CProjectile](../source/game_sa/Entity/Object/Projectile.cpp) (3) ✅ 3 | [CTaskSimpleEvasiveStep](../source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.cpp) (8) ✅ 8 |
+| [CColModel](../source/game_sa/Collision/ColModel.cpp) (12) ✅ 12 | [CProjectileInfo](../source/game_sa/ProjectileInfo.cpp) (12) ✅ 12 | [CTaskSimpleFacial](../source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp) (8) ✅ 8 |
+| [CColModelPool](../source/game_sa/Pools/ColModelPool.h) (1) ✅ 1 | [CPtrNodeDoubleLinkPool](../source/game_sa/Pools/PtrNodeDoubleLinkPool.h) (5) ✅ 5 | [CTaskSimpleFall](../source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp) (9) ✅ 9 |
+| [CColourSet](../source/game_sa/Collision/ColourSet.cpp) (2) ✅ 2 | [CPtrNodeSingleLinkPool](../source/game_sa/Pools/PtrNodeSingleLinkPool.h) (4) ✅ 4 | [CTaskSimpleFight](../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp) (27) ✅ 27 |
+| [CColPoint](../source/game_sa/Collision/ColPoint.cpp) (2) ✅ 2 | [CQuadBike](../source/game_sa/Entity/Vehicle/QuadBike.cpp) (13) ✅ 13 | [CTaskSimpleFightingControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp) (8) ✅ 8 |
+| [CColSphere](../source/game_sa/Collision/ColSphere.cpp) (5) ✅ 5 | [CQuadTreeNode&lt;T&gt;](../source/game_sa/Core/QuadTreeNode.h) (13) ✅ 13 | [CTaskSimpleFinishBrain](../source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp) (5) ✅ 5 |
+| [CColStore](../source/game_sa/Collision/ColStore.cpp) (24) ✅ 24 | [CQuaternion](../source/game_sa/Core/Quaternion.cpp) (10) ✅ 10 | [CTaskSimpleGangDriveBy](../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp) (13) ✅ 13 |
+| [CColTrianglePlane](../source/game_sa/Collision/ColTrianglePlane.cpp) (2) ✅ 2 | [CRadar](../source/game_sa/Radar.cpp) (66) ✅ 66 | [CTaskSimpleGetUp](../source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.cpp) (7) ✅ 7 |
+| [CCompressedMatrixNotAligned](../source/game_sa/CompressedMatrixNotAligned.cpp) (2) ✅ 2 | [CRealTimeShadow](../source/game_sa/RealTimeShadow.cpp) (11) ✅ 11 | [CTaskSimpleGiveCPR](../source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp) (8) ✅ 8 |
+| [CControllerConfigManager](../source/game_sa/ControllerConfigManager.cpp) (58) ✅ 58 | [CRealTimeShadowManager](../source/game_sa/RealTimeShadowManager.cpp) (9) ✅ 9 | [CTaskSimpleGoTo](../source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp) (6) ✅ 6 |
+| [CControllerState](../source/game_sa/ControllerState.cpp) (2) ✅ 2 | [CRect](../source/game_sa/Core/Rect.cpp) (9) ✅ 9 | [CTaskSimpleGoToPoint](../source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp) (6) ✅ 6 |
+| [CConversationForPed](../source/game_sa/Conversations/ConversationForPed.cpp) (2) ✅ 2 | [CReferences](../source/game_sa/References.cpp) (4) ✅ 4 | [CTaskSimpleGoToPointFine](../source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp) (11) ✅ 11 |
+| [CConversationNode](../source/game_sa/Conversations/ConversationNode.cpp) (1) ✅ 1 | [CRegisteredCorona](../source/game_sa/RegisteredCorona.cpp) (1) ✅ 1 | [CTaskSimpleGunControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp) (7) ✅ 7 |
+| [CConversations](../source/game_sa/Conversations/Conversations.cpp) (11) ✅ 11 | [CRegisteredMotionBlurStreak](../source/game_sa/RegisteredMotionBlurStreak.cpp) (2) ✅ 2 | [CTaskSimpleHandsUp](../source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.cpp) (5) ✅ 5 |
+| [CCopPed](../source/game_sa/Entity/Ped/CopPed.cpp) (7) ✅ 7 | [CRemote](../source/game_sa/Remote.cpp) (2) ✅ 2 | [CTaskSimpleHitByGunFromFront](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromFront.cpp) (3) ✅ 3 |
+| [CCoronas](../source/game_sa/Coronas.cpp) (12) ✅ 12 | [CRenderer](../source/game_sa/Renderer.cpp) (33) ✅ 33 | [CTaskSimpleHitByGunFromLeft](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromLeft.cpp) (3) ✅ 3 |
+| [CCover](../source/game_sa/Cover.cpp) (16) ✅ 16 | [CReplay](../source/game_sa/Replay.cpp) (47) ✅ 47 | [CTaskSimpleHitByGunFromRear](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromRear.cpp) (3) ✅ 3 |
+| [CCoverPoint](../source/game_sa/CoverPoint.cpp) (3) ✅ 3 | [CRestart](../source/game_sa/Restart.cpp) (11) ✅ 11 | [CTaskSimpleHitByGunFromRight](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromRight.cpp) (3) ✅ 3 |
+| [CCranes](../source/game_sa/Cranes.cpp) (5) ✅ 5 | [CRGBA](../source/game_sa/RGBA.cpp) (2) ✅ 2 | [CTaskSimpleHitFromBack](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromBack.cpp) (3) ✅ 3 |
+| [CCredits](../source/game_sa/Credits.cpp) (6) ✅ 6 | [CRideAnimData](../source/game_sa/RideAnimData.cpp) (2) ✅ 2 | [CTaskSimpleHitFromBehind](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromBehind.cpp) (3) ✅ 3 |
+| [CCreepingFire](../source/game_sa/CreepingFire.cpp) (3) ✅ 3 | [CRoadBlocks](../source/game_sa/RoadBlocks.cpp) (8) ✅ 8 | [CTaskSimpleHitFromFront](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromFront.cpp) (3) ✅ 3 |
+| [CCrime](../source/game_sa/Crime.cpp) (2) ✅ 2 | [CRope](../source/game_sa/Rope.cpp) (7) ✅ 7 | [CTaskSimpleHitFromLeft](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromLeft.cpp) (3) ✅ 3 |
+| [CCullZones](../source/game_sa/CullZones.cpp) (21) ✅ 21 | [CRopes](../source/game_sa/Ropes.cpp) (11) ✅ 11 | [CTaskSimpleHitFromRight](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromRight.cpp) (3) ✅ 3 |
+| [CCurrentVehicle](../source/game_sa/CurrentVehicle.cpp) (2) ✅ 2 | [CRubbish](../source/game_sa/Rubbish.cpp) (1) ✅ 1 | [CTaskSimpleHitHead](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitHead.cpp) (6) ✅ 6 |
+| [CCurves](../source/game_sa/Curves.cpp) (6) ✅ 6 | [CRunningScript](../source/game_sa/Scripts/RunningScript.cpp) (39) ✅ 39 | [CTaskSimpleHitWall](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitWall.cpp) (3) ✅ 3 |
+| [CCustomBuildingDNPipeline](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp) (18) ✅ 18 | [CScripted2dEffects](../source/game_sa/Scripts/Scripted2dEffects.cpp) (6) ✅ 6 | [CTaskSimpleHoldEntity](../source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp) (15) ✅ 15 |
+| [CCustomBuildingPipeline](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp) (7) ✅ 7 | [CScriptedBrainTaskEntry](../source/game_sa/Tasks/ScriptedBrainTaskStore.cpp) (1) ✅ 1 | [CTaskSimpleHurtPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleHurtPedWithCar.cpp) (7) ✅ 7 |
+| [CCustomBuildingRenderer](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp) (7) ✅ 7 | [CScriptedBrainTaskStore](../source/game_sa/Tasks/ScriptedBrainTaskStore.cpp) (4) ✅ 4 | [CTaskSimpleIKChain](../source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp) (11) ✅ 11 |
+| [CCustomCarEnvMapPipeline](../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp) (37) ✅ 37 | [CScriptResourceManager](../source/game_sa/ScriptResourceManager.cpp) (4) ✅ 4 | [CTaskSimpleIKLookAt](../source/game_sa/Tasks/TaskTypes/TaskSimpleIKLookAt.cpp) (9) ✅ 9 |
+| [CCustomCarPlateMgr](../source/game_sa/CustomCarPlateMgr.cpp) (16) ✅ 16 | [CScriptsForBrains](../source/game_sa/ScriptsForBrains.cpp) (11) ✅ 11 | [CTaskSimpleIKManager](../source/game_sa/Tasks/TaskTypes/TaskSimpleIKManager.cpp) (9) ✅ 9 |
+| [CCustomRoadsignMgr](../source/game_sa/CustomRoadsignMgr.cpp) (10) ✅ 10 | [CSearchLight](../source/game_sa/SearchLight.cpp) (1) ✅ 1 | [CTaskSimpleIKPointArm](../source/game_sa/Tasks/TaskTypes/TaskSimpleIKPointArm.cpp) (7) ✅ 7 |
+| [CCutsceneMgr](../source/game_sa/CutsceneMgr.cpp) (37) ✅ 37 | [CSector](../source/game_sa/Sector.cpp) (1) ✅ 1 | [CTaskSimpleInAir](../source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp) (8) ✅ 8 |
+| [CCutsceneObject](../source/game_sa/Entity/Object/CutsceneObject.cpp) (10) ✅ 10 | [CSetPiece](../source/game_sa/SetPiece.cpp) (7) ✅ 7 | [CTaskSimpleJetPack](../source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp) (15) ✅ 15 |
+| [CDamageAtomicModelInfo](../source/game_sa/Models/DamageAtomicModelInfo.cpp) (8) ✅ 8 | [CSetPieces](../source/game_sa/SetPieces.cpp) (5) ✅ 5 | [CTaskSimpleJump](../source/game_sa/Tasks/TaskTypes/TaskSimpleJump.cpp) (11) ✅ 11 |
+| [CDamageManager](../source/game_sa/DamageManager.cpp) (27) ✅ 27 | [CSexyPedScanner](../source/game_sa/Events/EventScanner.cpp) (1) ✅ 1 | [CTaskSimpleKillPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleKillPedWithCar.cpp) (7) ✅ 7 |
+| [CDarkel](../source/game_sa/Darkel.cpp) (19) ✅ 19 | [CShadowCamera](../source/game_sa/ShadowCamera.cpp) (20) ✅ 20 | [CTaskSimpleLand](../source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp) (9) ✅ 9 |
+| [CData](../source/game_sa/Text/Text.cpp) (3) ✅ 3 | [CShadows](../source/game_sa/Shadows.cpp) (30) ✅ 30 | [CTaskSimpleLeaveGroup](../source/game_sa/Tasks/TaskTypes/TaskSimpleLeaveGroup.cpp) (2) ✅ 2 |
+| [CDebug](../source/game_sa/Debug.cpp) (2) ✅ 2 | [CShinyTexts](../source/game_sa/ShinyTexts.cpp) (4) ✅ 4 | [CTaskSimpleLookAbout](../source/game_sa/Tasks/TaskTypes/TaskSimpleLookAbout.cpp) (5) ✅ 5 |
+| [CDecision](../source/game_sa/DecisionMakers/Decision.cpp) (7) ✅ 7 | [CShopping](../source/game_sa/Shopping.cpp) (30) ✅ 30 | [CTaskSimpleNone](../source/game_sa/Tasks/TaskTypes/TaskSimpleNone.cpp) (5) ✅ 5 |
+| [CDecisionMaker](../source/game_sa/DecisionMakers/DecisionMaker.cpp) (2) ✅ 2 | [CShotInfo](../source/game_sa/ShotInfo.cpp) (5) ✅ 5 | [CTaskSimpleOnEscalator](../source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp) (5) ✅ 5 |
+| [CDecisionMakerTypes](../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp) (12) ✅ 12 | [CSimpleTransform](../source/game_sa/SimpleTransform.cpp) (3) ✅ 3 | [CTaskSimplePause](../source/game_sa/Tasks/TaskTypes/TaskSimplePause.cpp) (7) ✅ 7 |
+| [CDecisionMakerTypesFileLoader](../source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp) (7) ✅ 7 | [CSimpleVariablesSaveStructure](../source/game_sa/SimpleVariablesSaveStructure.cpp) (2) ✅ 2 | [CTaskSimplePickUpBike](../source/game_sa/Tasks/TaskTypes/TaskSimplePickUpBike.cpp) (10) ✅ 10 |
+| [CDirectory](../source/game_sa/Directory.cpp) (10) ✅ 10 | [CSkidmarks](../source/game_sa/Skidmarks.cpp) (7) ✅ 7 | [CTaskSimplePickUpEntity](../source/game_sa/Tasks/TaskTypes/TaskSimplePickUpEntity.cpp) (4) ✅ 4 |
+| [CDoor](../source/game_sa/Door.cpp) (6) ✅ 6 | [CSpecialFX](../source/game_sa/SpecialFX.cpp) (7) ✅ 7 | [CTaskSimplePlayerOnFire](../source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFire.cpp) (7) ✅ 7 |
+| [CDraw](../source/game_sa/Draw.cpp) (2) ✅ 2 | [CSpecialPlateHandler](../source/game_sa/SpecialPlateHandler.cpp) (4) ✅ 4 | [CTaskSimplePlayerOnFoot](../source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp) (13) ✅ 13 |
+| [CdStream](../source/game_sa/CdStreamInfo.cpp) (11) ✅ 11 | [CSphere](../source/game_sa/Collision/Sphere.cpp) (1) ✅ 1 | [CTaskSimplePlayHandSignalAnim](../source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp) (3) ✅ 3 |
+| [CDummy](../source/game_sa/Entity/Dummy/Dummy.cpp) (6) ✅ 6 | [CSprite](../source/game_sa/Sprite.cpp) (15) ✅ 15 | [CTaskSimplePutDownEntity](../source/game_sa/Tasks/TaskTypes/TaskSimplePutDownEntity.cpp) (3) ✅ 3 |
+| [CDummyObject](../source/game_sa/Entity/Dummy/DummyObject.cpp) (6) ✅ 6 | [CSprite2d](../source/game_sa/Sprite2d.cpp) (35) ✅ 35 | [CTaskSimpleRunAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp) (7) ✅ 7 |
+| [CDummyPool](../source/game_sa/Pools/DummyPool.h) (1) ✅ 1 | [CStaticShadow](../source/game_sa/Shadows.cpp) (1) ✅ 1 | [CTaskSimpleRunNamedAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp) (10) ✅ 10 |
+| [CEntity](../source/game_sa/Entity/Entity.cpp) (72) ✅ 72 | [CStats](../source/game_sa/Stats.cpp) (51) ✅ 51 | [CTaskSimpleRunTimedAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleRunTimedAnim.cpp) (8) ✅ 8 |
+| [CEntityScanner](../source/game_sa/EntityScanner.cpp) (4) ✅ 4 | [CStencilShadowObject](../source/game_sa/StencilShadowObject.cpp) (3) ✅ 3 | [CTaskSimpleSay](../source/game_sa/Tasks/TaskTypes/TaskSimpleSay.cpp) (7) ✅ 7 |
+| [CEntitySeekPosCalculator](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp) (4) ✅ 4 | [CStencilShadows](../source/game_sa/StencilShadows.cpp) (13) ✅ 13 | [CTaskSimpleScratchHead](../source/game_sa/Tasks/TaskTypes/TaskSimpleScratchHead.cpp) (5) ✅ 5 |
+| [CEntitySeekPosCalculatorFixedPos](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp) (1) ✅ 1 | [CStoredCar](../source/game_sa/Garage.cpp) (2) ✅ 2 | [CTaskSimpleSetCharDecisionMaker](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharDecisionMaker.cpp) (7) ✅ 7 |
+| [CEntitySeekPosCalculatorRadiusAngleOffset](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp) (1) ✅ 1 | [CStreamedScripts](../source/game_sa/StreamedScripts.cpp) (12) ✅ 12 | [CTaskSimpleSetCharIgnoreWeaponRangeFlag](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp) (6) ✅ 6 |
+| [CEntitySeekPosCalculatorStandard](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp) (1) ✅ 1 | [CStreaming](../source/game_sa/Streaming.cpp) (95) ✅ 95 | [CTaskSimpleSetKindaStayInSamePlace](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetKindaStayInSamePlace.cpp) (6) ✅ 6 |
+| [CEntitySeekPosCalculatorXYOffset](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp) (2) ✅ 2 | [CStreamingInfo](../source/game_sa/StreamingInfo.cpp) (7) ✅ 7 | [CTaskSimpleSetPedAsAutoDriver](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetPedAsAutoDriver.cpp) (6) ✅ 6 |
+| [CEntryExit](../source/game_sa/EntryExit.cpp) (13) ✅ 13 | [CStuckCarCheck](../source/game_sa/StuckCarCheck.cpp) (9) ✅ 9 | [CTaskSimpleSetStayInSamePlace](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetStayInSamePlace.cpp) (6) ✅ 6 |
+| [CEntryExitManager](../source/game_sa/EntryExitManager.cpp) (19) ✅ 19 | [CStuntJumpManager](../source/game_sa/StuntJumpManager.cpp) (11) ✅ 11 | [CTaskSimpleShakeFist](../source/game_sa/Tasks/TaskTypes/TaskSimpleShakeFist.cpp) (8) ✅ 8 |
+| [CEntryInfoList](../source/game_sa/Core/EntryInfoList.cpp) (1) ✅ 1 | [CTagManager](../source/game_sa/TagManager.cpp) (20) ✅ 20 | [CTaskSimpleSitDown](../source/game_sa/Tasks/TaskTypes/TaskSimpleSitDown.cpp) (8) ✅ 8 |
+| [CEntryInfoNode](../source/game_sa/Core/EntryInfoNode.cpp) (2) ✅ 2 | [CTask](../source/game_sa/Tasks/Task.cpp) (8) ✅ 8 | [CTaskSimpleSitIdle](../source/game_sa/Tasks/TaskTypes/TaskSimpleSitIdle.cpp) (8) ✅ 8 |
+| [CEntryInfoNodePool](../source/game_sa/Pools/EntryInfoNodePool.h) (1) ✅ 1 | [CTaskAllocator](../source/game_sa/Tasks/Allocators/TaskAllocator.cpp) (6) ✅ 6 | [CTaskSimpleSlideToCoord](../source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp) (1) ✅ 1 |
+| [CEscalator](../source/game_sa/Escalator.cpp) (5) ✅ 5 | [CTaskAllocatorAttack](../source/game_sa/Tasks/Allocators/TaskAllocatorAttack.cpp) (5) ✅ 5 | [CTaskSimpleStandStill](../source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp) (5) ✅ 5 |
+| [CEscalators](../source/game_sa/Escalators.cpp) (4) ✅ 4 | [CTaskAllocatorKillOnFoot](../source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.cpp) (4) ✅ 4 | [CTaskSimpleStandUp](../source/game_sa/Tasks/TaskTypes/TaskSimpleStandUp.cpp) (9) ✅ 9 |
+| [CEvent](../source/game_sa/Events/Event.cpp) (16) ✅ 16 | [CTaskAllocatorKillThreatsBasic](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp) (6) ✅ 6 | [CTaskSimpleStealthKill](../source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp) (9) ✅ 9 |
+| [CEventAcquaintancePed](../source/game_sa/Events/EventAcquaintancePed.cpp) (5) ✅ 5 | [CTaskAllocatorKillThreatsBasicRandomGroup](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp) (4) ✅ 4 | [CTaskSimpleSwim](../source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp) (15) ✅ 15 |
+| [CEventAcquaintancePedHate](../source/game_sa/Events/EventAcquaintancePedHate.cpp) (1) ✅ 1 | [CTaskAllocatorKillThreatsDriveby](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp) (5) ✅ 5 | [CTaskSimpleThrowControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp) (6) ✅ 6 |
+| [CEventAcquaintancePedHateBadlyLit](../source/game_sa/Events/EventAcquaintancePedHateBadlyLit.cpp) (2) ✅ 2 | [CTaskAllocatorPlayerCommandAttack](../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp) (4) ✅ 4 | [CTaskSimpleThrowProjectile](../source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp) (10) ✅ 10 |
+| [CEventAreaCodes](../source/game_sa/Events/EventAreaCodes.cpp) (6) ✅ 6 | [CTaskAllocatorPool](../source/game_sa/Pools/TaskAllocatorPool.h) (1) ✅ 1 | [CTaskSimpleTired](../source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp) (6) ✅ 6 |
+| [CEventAttractor](../source/game_sa/Events/EventAttractor.cpp) (5) ✅ 5 | [CTaskCategories](../source/game_sa/Tasks/TaskCategories.cpp) (3) ✅ 3 | [CTaskSimpleTogglePedThreatScanner](../source/game_sa/Tasks/TaskTypes/TaskSimpleTogglePedThreatScanner.cpp) (7) ✅ 7 |
+| [CEventBuildingCollision](../source/game_sa/Events/EventBuildingCollision.cpp) (10) ✅ 10 | [CTaskComplex](../source/game_sa/Tasks/Task.cpp) · [archivo 2](../source/game_sa/Tasks/TaskComplex.cpp) (7) ✅ 7 | [CTaskSimpleTriggerLookAt](../source/game_sa/Tasks/TaskTypes/TaskSimpleTriggerLookAt.cpp) (2) ✅ 2 |
+| [CEventCarUpsideDown](../source/game_sa/Events/EventCarUpsideDown.cpp) (6) ✅ 6 | [CTaskComplexArrestPed](../source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp) (10) ✅ 10 | [CTaskSimpleTurn180](../source/game_sa/Tasks/TaskTypes/TaskSimpleTurn180.cpp) (7) ✅ 7 |
+| [CEventChatPartner](../source/game_sa/Events/EventChatPartner.cpp) (2) ✅ 2 | [CTaskComplexAttractorPartnerWait](../source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp) (8) ✅ 8 | [CTaskSimpleUninterruptable](../source/game_sa/Tasks/TaskTypes/TaskSimpleUninterruptable.cpp) (7) ✅ 7 |
+| [CEventCopCarBeingStolen](../source/game_sa/Events/EventCopCarBeingStolen.cpp) (6) ✅ 6 | [CTaskComplexAvoidOtherPedWhileWandering](../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp) (15) ✅ 15 | [CTaskSimpleUseAtm](../source/game_sa/Tasks/TaskTypes/TaskSimpleUseAtm.cpp) (5) ✅ 5 |
+| [CEventDamage](../source/game_sa/Events/EventDamage.cpp) (24) ✅ 24 | [CTaskComplexBeCop](../source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp) (4) ✅ 4 | [CTaskSimpleUseGun](../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp) (22) ✅ 22 |
+| [CEventDanger](../source/game_sa/Events/EventDanger.cpp) (8) ✅ 8 | [CTaskComplexBeInCouple](../source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp) (11) ✅ 11 | [CTaskSimpleWaitForBus](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.cpp) (7) ✅ 7 |
+| [CEventDeadPed](../source/game_sa/Events/EventDeadPed.cpp) (2) ✅ 2 | [CTaskComplexBeInGroup](../source/game_sa/Tasks/TaskTypes/TaskComplexBeInGroup.cpp) (11) ✅ 11 | [CTaskSimpleWaitForPizza](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp) (7) ✅ 7 |
+| [CEventDeath](../source/game_sa/Events/EventDeath.cpp) (1) ✅ 1 | [CTaskComplexBeStill](../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp) (8) ✅ 8 | [CTaskSimpleWaitUntilAreaCodesMatch](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilAreaCodesMatch.cpp) (7) ✅ 7 |
+| [CEventDontJoinPlayerGroup](../source/game_sa/Events/EventDontJoinPlayerGroup.cpp) (7) ✅ 7 | [CTaskComplexCarDrive](../source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.cpp) (13) ✅ 13 | [CTaskSimpleWaitUntilLeaderAreaCodesMatch](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilLeaderAreaCodesMatch.cpp) (6) ✅ 6 |
+| [CEventDraggedOutCar](../source/game_sa/Events/EventDraggedOutCar.cpp) (3) ✅ 3 | [CTaskComplexCarDriveMission](../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp) (6) ✅ 6 | [CTaskSimpleWaitUntilPedIsInCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.cpp) (7) ✅ 7 |
+| [CEventEditableResponse](../source/game_sa/Events/EventEditableResponse.cpp) (13) ✅ 13 | [CTaskComplexCarDriveMissionFleeScene](../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp) (5) ✅ 5 | [CTaskSimpleWaitUntilPedIsOutCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.cpp) (7) ✅ 7 |
+| [CEventEscalator](../source/game_sa/Events/EventEscalator.cpp) (4) ✅ 4 | [CTaskComplexCarDriveMissionKillPed](../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp) (5) ✅ 5 | [CTaskTimer](../source/game_sa/Tasks/TaskTimer.cpp) (2) ✅ 2 |
+| [CEventFireNearby](../source/game_sa/Events/EventFireNearby.cpp) (2) ✅ 2 | [CTaskComplexCarDriveWander](../source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp) (7) ✅ 7 | [CTaskUtilityLineUpPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp) (6) ✅ 6 |
+| [CEventGlobalGroup](../source/game_sa/Events/EventGlobalGroup.cpp) (5) ✅ 5 | [CTaskComplexCarSlowBeDraggedOut](../source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOut.cpp) (12) ✅ 12 | [CTempColModels](../source/game_sa/Collision/TempColModels.cpp) (2) ✅ 2 |
+| [CEventGotKnockedOverByCar](../source/game_sa/Events/EventGotKnockedOverByCar.cpp) (2) ✅ 2 | [CTaskComplexCarSlowBeDraggedOutAndStandUp](../source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.cpp) (10) ✅ 10 | [CText](../source/game_sa/Text/Text.cpp) (9) ✅ 9 |
+| [CEventGroup](../source/game_sa/Events/EventGroup.cpp) (14) ✅ 14 | [CTaskComplexChat](../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp) (8) ✅ 8 | [CTheCarGenerators](../source/game_sa/TheCarGenerators.cpp) (7) ✅ 7 |
+| [CEventGroupEvent](../source/game_sa/Events/EventGroupEvent.cpp) (3) ✅ 3 | [CTaskComplexClimb](../source/game_sa/Tasks/TaskTypes/TaskComplexClimb.cpp) (5) ✅ 5 | [CTheScripts](../source/game_sa/Scripts/TheScripts.cpp) (72) ✅ 72 |
+| [CEventGunAimedAt](../source/game_sa/Events/EventGunAimedAt.cpp) (2) ✅ 2 | [CTaskComplexCopInCar](../source/game_sa/Tasks/TaskTypes/TaskComplexCopInCar.cpp) (10) ✅ 10 | [CTheZones](../source/game_sa/TheZones.cpp) (22) ✅ 22 |
+| [CEventGunShot](../source/game_sa/Events/EventGunShot.cpp) (13) ✅ 13 | [CTaskComplexCrossRoadLookAndAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp) (10) ✅ 10 | [CTimeCycle](../source/game_sa/TimeCycle.cpp) (20) ✅ 20 |
+| [CEventGunShotWhizzedBy](../source/game_sa/Events/EventGunShotWhizzedBy.cpp) (7) ✅ 7 | [CTaskComplexDestroyCar](../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp) (10) ✅ 10 | [CTimeInfo](../source/game_sa/Models/TimeInfo.cpp) (6) ✅ 6 |
+| [CEventHandler](../source/game_sa/Events/EventHandler.cpp) (72) ✅ 72 | [CTaskComplexDestroyCarArmed](../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp) (11) ✅ 11 | [CTimeModelInfo](../source/game_sa/Models/TimeModelInfo.cpp) (4) ✅ 4 |
+| [CEventHandlerHistory](../source/game_sa/Events/EventHandlerHistory.cpp) (12) ✅ 12 | [CTaskComplexDestroyCarMelee](../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarMelee.cpp) (11) ✅ 11 | [CTimer](../source/game_sa/Timer.cpp) (16) ✅ 16 |
+| [CEventHitByWaterCannon](../source/game_sa/Events/EventHitByWaterCannon.cpp) (7) ✅ 7 | [CTaskComplexDie](../source/game_sa/Tasks/TaskTypes/TaskComplexDie.cpp) (8) ✅ 8 | [CTrafficLights](../source/game_sa/TrafficLights.cpp) (12) ✅ 12 |
+| [CEventInAir](../source/game_sa/Events/EventInAir.cpp) (6) ✅ 6 | [CTaskComplexDieInCar](../source/game_sa/Tasks/TaskTypes/TaskComplexDieInCar.cpp) (8) ✅ 8 | [CTrailer](../source/game_sa/Entity/Vehicle/Trailer.cpp) (16) ✅ 16 |
+| [CEventInteriorUseInfo](../source/game_sa/Events/EventInteriorUseInfo.cpp) (1) ✅ 1 | [CTaskComplexDiveFromAttachedEntityAndGetUp](../source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.cpp) (8) ✅ 8 | [CTrain](../source/game_sa/Entity/Vehicle/Train.cpp) (43) ✅ 43 |
+| [CEventInWater](../source/game_sa/Events/EventInWater.cpp) (4) ✅ 4 | [CTaskComplexDragPedFromCar](../source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.cpp) (3) ✅ 3 | [CTrainNode](../source/game_sa/TrainNode.cpp) (2) ✅ 2 |
+| [CEventKnockOffBike](../source/game_sa/Events/EventKnockOffBike.cpp) (11) ✅ 11 | [CTaskComplexDriveFireTruck](../source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp) (8) ✅ 8 | [cTransmission](../source/game_sa/cTransmission.cpp) (5) ✅ 5 |
+| [CEventLeaderEnteredCarAsDriver](../source/game_sa/Events/EventLeaderEnteredCarAsDriver.cpp) (11) ✅ 11 | [CTaskComplexDrivePointRoute](../source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.cpp) (8) ✅ 8 | [CTxdStore](../source/game_sa/TxdStore.cpp) (27) ✅ 27 |
+| [CEventLeaderEntryExit](../source/game_sa/Events/EventLeaderEntryExit.cpp) (12) ✅ 12 | [CTaskComplexDriveToPoint](../source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp) (10) ✅ 10 | [CUpsideDownCarCheck](../source/game_sa/UpsideDownCarCheck.cpp) (5) ✅ 5 |
+| [CEventLeaderExitedCarAsDriver](../source/game_sa/Events/EventLeaderExitedCarAsDriver.cpp) (10) ✅ 10 | [CTaskComplexEnterAnyCarAsDriver](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterAnyCarAsDriver.cpp) (8) ✅ 8 | [CUserDisplay](../source/game_sa/UserDisplay.cpp) (2) ✅ 2 |
+| [CEventLeaderQuitEnteringCarAsDriver](../source/game_sa/Events/EventLeaderQuitEnteringCarAsDriver.cpp) (10) ✅ 10 | [CTaskComplexEnterBoatAsDriver](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterBoatAsDriver.cpp) (9) ✅ 9 | [CVector](../source/game_sa/Core/Vector.cpp) (23) ✅ 23 |
+| [CEventLeanOnVehicle](../source/game_sa/Events/EventLeanOnVehicle.cpp) (9) ✅ 9 | [CTaskComplexEnterCar](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp) (17) ✅ 17 | [CVector2D](../source/game_sa/Core/Vector.cpp) · [archivo 2](../source/game_sa/Core/Vector2D.cpp) (2) ✅ 2 |
+| [CEventNewGangMember](../source/game_sa/Events/EventNewGangMember.cpp) (7) ✅ 7 | [CTaskComplexEnterCarAsDriver](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriver.cpp) (5) ✅ 5 | [CVehicle](../source/game_sa/Entity/Vehicle/Vehicle.cpp) (170) ✅ 170 |
+| [CEventObjectCollision](../source/game_sa/Events/EventObjectCollision.cpp) (8) ✅ 8 | [CTaskComplexEnterCarAsDriverTimed](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp) (10) ✅ 10 | [CVehicleAnimGroup](../source/game_sa/VehicleAnimGroupData.cpp) (5) ✅ 5 |
+| [CEventOnFire](../source/game_sa/Events/EventOnFire.cpp) (1) ✅ 1 | [CTaskComplexEnterCarAsPassenger](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp) (5) ✅ 5 | [CVehicleAnimGroupData](../source/game_sa/VehicleAnimGroupData.cpp) (6) ✅ 6 |
+| [CEventPassObject](../source/game_sa/Events/EventPassObject.cpp) (9) ✅ 9 | [CTaskComplexEnterCarAsPassengerTimed](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerTimed.cpp) (10) ✅ 10 | [CVehicleModelInfo](../source/game_sa/Models/VehicleModelInfo.cpp) (78) ✅ 78 |
+| [CEventPedCollisionWithPed](../source/game_sa/Events/EventPedCollisionWithPed.cpp) (7) ✅ 7 | [CTaskComplexEnterCarAsPassengerWait](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.cpp) (9) ✅ 9 | [CVehiclePool](../source/game_sa/Pools/VehiclePool.h) (2) ✅ 2 |
+| [CEventPedCollisionWithPlayer](../source/game_sa/Events/EventPedCollisionWithPlayer.cpp) (5) ✅ 5 | [CTaskComplexEvasiveCower](../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp) (9) ✅ 9 | [CVehiclePotentialCollisionScanner](../source/game_sa/Events/EventScanner.cpp) (1) ✅ 1 |
+| [CEventPedEnteredMyVehicle](../source/game_sa/Events/EventPedEnteredMyVehicle.cpp) (2) ✅ 2 | [CTaskComplexEvasiveDiveAndGetUp](../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveDiveAndGetUp.cpp) (10) ✅ 10 | [CVehicleRecording](../source/game_sa/VehicleRecording.cpp) (29) ✅ 29 |
+| [CEventPedToChase](../source/game_sa/Events/EventPedToChase.cpp) (2) ✅ 2 | [CTaskComplexEvasiveStep](../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp) (9) ✅ 9 | [CVehicleSaveStructure](../source/game_sa/VehicleSaveStructure.cpp) (2) ✅ 2 |
+| [CEventPedToFlee](../source/game_sa/Events/EventPedToFlee.cpp) (2) ✅ 2 | [CTaskComplexExtinguishFires](../source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.cpp) (9) ✅ 9 | [CVehicleScanner](../source/game_sa/VehicleScanner.cpp) (1) ✅ 1 |
+| [CEventPlayerCollisionWithPed](../source/game_sa/Events/EventPlayerCollisionWithPed.cpp) (5) ✅ 5 | [CTaskComplexFacial](../source/game_sa/Tasks/TaskTypes/TaskComplexFacial.cpp) (11) ✅ 11 | [CVisibilityPlugins](../source/game_sa/VisibilityPlugins.cpp) (84) ✅ 84 |
+| [CEventPlayerCommandToGroup](../source/game_sa/Events/EventPlayerCommandToGroup.cpp) (7) ✅ 7 | [CTaskComplexFallAndGetUp](../source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.cpp) (10) ✅ 10 | [CWanted](../source/game_sa/Wanted.cpp) (35) ✅ 35 |
+| [CEventPlayerCommandToGroupAttack](../source/game_sa/Events/EventPlayerCommandToGroupAttack.cpp) (7) ✅ 7 | [CTaskComplexFallToDeath](../source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp) (9) ✅ 9 | [CWaterCannon](../source/game_sa/WaterCannon.cpp) (5) ✅ 5 |
+| [CEventPlayerCommandToGroupGather](../source/game_sa/Events/EventPlayerCommandToGroupGather.cpp) (1) ✅ 1 | [CTaskComplexFleeAnyMeans](../source/game_sa/Tasks/TaskTypes/TaskComplexFleeAnyMeans.cpp) (9) ✅ 9 | [CWaterCannons](../source/game_sa/WaterCannons.cpp) (4) ✅ 4 |
+| [CEventPool](../source/game_sa/Pools/EventPool.h) (1) ✅ 1 | [CTaskComplexFleeEntity](../source/game_sa/Tasks/TaskTypes/TaskComplexFleeEntity.cpp) (9) ✅ 9 | [CWaterLevel](../source/game_sa/WaterLevel.cpp) (48) ✅ 48 |
+| [CEventPotentialGetRunOver](../source/game_sa/Events/EventPotentialGetRunOver.cpp) (2) ✅ 2 | [CTaskComplexFleePoint](../source/game_sa/Tasks/TaskTypes/TaskComplexFleePoint.cpp) (12) ✅ 12 | [CWeapon](../source/game_sa/Weapon.cpp) (41) ✅ 41 |
+| [CEventPotentialWalkIntoFire](../source/game_sa/Events/EventPotentialWalkIntoFire.cpp) (3) ✅ 3 | [CTaskComplexFleeShooting](../source/game_sa/Tasks/TaskTypes/TaskComplexFleeShooting.cpp) (9) ✅ 9 | [CWeaponEffects](../source/game_sa/WeaponEffects.cpp) (10) ✅ 10 |
+| [CEventPotentialWalkIntoObject](../source/game_sa/Events/EventPotentialWalkIntoObject.cpp) (7) ✅ 7 | [CTaskComplexFollowLeaderAnyMeans](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderAnyMeans.cpp) (8) ✅ 8 | [CWeaponInfo](../source/game_sa/WeaponInfo.cpp) (16) ✅ 16 |
+| [CEventPotentialWalkIntoPed](../source/game_sa/Events/EventPotentialWalkIntoPed.cpp) (8) ✅ 8 | [CTaskComplexFollowLeaderInFormation](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp) (9) ✅ 9 | [CWeaponModelInfo](../source/game_sa/Models/WeaponModelInfo.cpp) (4) ✅ 4 |
+| [CEventPotentialWalkIntoVehicle](../source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp) (7) ✅ 7 | [CTaskComplexFollowNodeRoute](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.cpp) (20) ✅ 20 | [CWeather](../source/game_sa/Weather.cpp) (13) ✅ 13 |
+| [CEventRevived](../source/game_sa/Events/EventRevived.cpp) (2) ✅ 2 | [CTaskComplexFollowPedFootsteps](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp) (8) ✅ 8 | [CWindModifiers](../source/game_sa/WindModifiers.cpp) (2) ✅ 2 |
+| [CEventScanner](../source/game_sa/Events/EventScanner.cpp) (3) ✅ 3 | [CTaskComplexFollowPointRoute](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.cpp) (14) ✅ 14 | [CWorld](../source/game_sa/World.cpp) (96) ✅ 96 |
+| [CEventScriptCommand](../source/game_sa/Events/EventScriptCommand.cpp) (9) ✅ 9 | [CTaskComplexGangFollower](../source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp) (9) ✅ 9 | [CWorldScan](../source/game_sa/Renderer.cpp) (2) ✅ 2 |
+| [CEventScriptedAttractor](../source/game_sa/Events/EventScriptedAttractor.cpp) (1) ✅ 1 | [CTaskComplexGangJoinRespond](../source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp) (9) ✅ 9 | [CZone](../source/game_sa/Zone.cpp) (1) ✅ 1 |
+| [CEventSeenCop](../source/game_sa/Events/EventSeenCop.cpp) (1) ✅ 1 | [CTaskComplexGangLeader](../source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp) (16) ✅ 16 | [CZoneDef](../source/game_sa/CullZones.cpp) (1) ✅ 1 |
+| [CEventSeenPanickedPed](../source/game_sa/Events/EventSeenPanickedPed.cpp) (7) ✅ 7 | [CTaskComplexGetOnBoatSeat](../source/game_sa/Tasks/TaskTypes/TaskComplexGetOnBoatSeat.cpp) (8) ✅ 8 | [D3DIndexDataBuffer](../source/game_sa/RenderWare/D3DIndexDataBuffer.cpp) (3) ✅ 3 |
+| [CEventSexyPed](../source/game_sa/Events/EventSexyPed.cpp) (2) ✅ 2 | [CTaskComplexGetUpAndStandStill](../source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp) (8) ✅ 8 | [D3DResourceSystem](../source/game_sa/RenderWare/D3DResourceSystem.cpp) (14) ✅ 14 |
+| [CEventSexyVehicle](../source/game_sa/Events/EventSexyVehicle.cpp) (2) ✅ 2 | [CTaskComplexGoPickUpEntity](../source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp) (7) ✅ 7 | [D3DTextureBuffer](../source/game_sa/RenderWare/D3DTextureBuffer.cpp) (6) ✅ 6 |
+| [CEventSoundQuiet](../source/game_sa/Events/EventSoundQuiet.cpp) (11) ✅ 11 | [CTaskComplexGoToAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp) (9) ✅ 9 | [Furniture_c](../source/game_sa/Interior/Furniture_c.cpp) (1) ✅ 1 |
+| [CEventSource](../source/game_sa/Events/EventSource.cpp) (1) ✅ 1 | [CTaskComplexGoToBoatSteeringWheel](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp) (8) ✅ 8 | [FurnitureGroup_c](../source/game_sa/Interior/FurnitureGroup_c.cpp) (7) ✅ 7 |
+| [CEventSpecial](../source/game_sa/Events/EventSpecial.cpp) (1) ✅ 1 | [CTaskComplexGoToCarDoorAndStandStill](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp) (12) ✅ 12 | [FurnitureManager_c](../source/game_sa/Interior/FurnitureManager_c.cpp) (7) ✅ 7 |
+| [CEventStuckInAir](../source/game_sa/Events/EventStuckInAir.cpp) (8) ✅ 8 | [CTaskComplexGotoDoorAndOpen](../source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.cpp) (7) ✅ 7 | [FurnitureSubGroup_c](../source/game_sa/Interior/FurnitureSubGroup_c.cpp) (6) ✅ 6 |
+| [CEventVehicleCollision](../source/game_sa/Events/EventVehicleCollision.cpp) (4) ✅ 4 | [CTaskComplexGoToPointAiming](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp) (9) ✅ 9 | [Fx_c](../source/game_sa/Fx/Fx.cpp) (28) ✅ 28 |
+| [CEventVehicleDamage](../source/game_sa/Events/EventVehicleDamage.cpp) (9) ✅ 9 | [CTaskComplexGoToPointAndStandStill](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp) (9) ✅ 9 | [FxEmitter_c](../source/game_sa/Fx/FxEmitter.cpp) (4) ✅ 4 |
+| [CEventVehicleDamageCollision](../source/game_sa/Events/EventVehicleDamageCollision.cpp) (5) ✅ 5 | [CTaskComplexGoToPointAndStandStillAndAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.cpp) (8) ✅ 8 | [FxEmitterBP_c](../source/game_sa/Fx/FxEmitterBP.cpp) (9) ✅ 9 |
+| [CEventVehicleDamageWeapon](../source/game_sa/Events/EventVehicleDamageWeapon.cpp) (5) ✅ 5 | [CTaskComplexGoToPointAndStandStillTimed](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillTimed.cpp) (6) ✅ 6 | [FxEmitterPrt_c](../source/game_sa/Fx/FxEmitterPrt.cpp) (2) ✅ 2 |
+| [CEventVehicleDied](../source/game_sa/Events/EventVehicleDied.cpp) (7) ✅ 7 | [CTaskComplexGoToPointAnyMeans](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.cpp) (9) ✅ 9 | [FxFrustumInfo_c](../source/game_sa/Fx/FxFrustumInfo.cpp) (1) ✅ 1 |
+| [CEventVehicleHitAndRun](../source/game_sa/Events/EventVehicleHitAndRun.cpp) (5) ✅ 5 | [CTaskComplexGoToPointShooting](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.cpp) (5) ✅ 5 | [FxInfoManager_c](../source/game_sa/Fx/FxInfoManager.cpp) (5) ✅ 5 |
+| [CEventVehicleOnFire](../source/game_sa/Events/EventVehicleOnFire.cpp) (4) ✅ 4 | [CTaskComplexHitByGunResponse](../source/game_sa/Tasks/TaskTypes/TaskComplexHitByGunResponse.cpp) (9) ✅ 9 | [FxInterpInfo255_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp) (1) ✅ 1 |
+| [CEventVehicleToSteal](../source/game_sa/Events/EventVehicleToSteal.cpp) (6) ✅ 6 | [CTaskComplexHitPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp) (11) ✅ 11 | [FxInterpInfo32_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp) (1) ✅ 1 |
+| [CExplosion](../source/game_sa/Explosion.cpp) (12) ✅ 12 | [CTaskComplexHitResponse](../source/game_sa/Tasks/TaskTypes/TaskComplexHitResponse.cpp) (8) ✅ 8 | [FxInterpInfoFloat_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp) (1) ✅ 1 |
+| [CFallingGlassPane](../source/game_sa/FallingGlassPane.cpp) (2) ✅ 2 | [CTaskComplexInAirAndLand](../source/game_sa/Tasks/TaskTypes/TaskComplexInAirAndLand.cpp) (6) ✅ 6 | [FxInterpInfoU255_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp) (1) ✅ 1 |
+| [CFileLoader](../source/game_sa/FileLoader.cpp) (50) ✅ 50 | [CTaskComplexInvestigateDeadPed](../source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp) (10) ✅ 10 | [FxManager_c](../source/game_sa/Fx/FxManager.cpp) (25) ✅ 25 |
+| [CFileMgr](../source/game_sa/FileMgr.cpp) (17) ✅ 17 | [CTaskComplexInvestigateDisturbance](../source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDisturbance.cpp) (8) ✅ 8 | [FxMemoryPool_c](../source/game_sa/Fx/FxMemoryPool.cpp) (7) ✅ 7 |
+| [CFire](../source/game_sa/Fire.cpp) (5) ✅ 5 | [CTaskComplexInWater](../source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp) (7) ✅ 7 | [FxPrim_c](../source/game_sa/Fx/FxPrim.cpp) (3) ✅ 3 |
+| [CFireManager](../source/game_sa/FireManager.cpp) (24) ✅ 24 | [CTaskComplexJump](../source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp) (10) ✅ 10 | [FxPrimBP_c](../source/game_sa/Fx/FxPrimBP.cpp) (4) ✅ 4 |
+| [CFont](../source/game_sa/Font.cpp) (40) ✅ 40 | [CTaskComplexKillAllThreats](../source/game_sa/Tasks/TaskTypes/TaskComplexKillAllThreats.cpp) (1) ✅ 1 | [FxPrtMult_c](../source/game_sa/Fx/FxPrtMult.cpp) (3) ✅ 3 |
+| [CFontChar](../source/game_sa/Font.cpp) (1) ✅ 1 | [CTaskComplexKillCriminal](../source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp) (12) ✅ 12 | [FxSphere_c](../source/game_sa/Fx/FxSphere.cpp) (5) ✅ 5 |
+| [CFormation](../source/game_sa/Formation.cpp) (10) ✅ 10 | [CTaskComplexKillPedFromBoat](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp) (8) ✅ 8 | [FxSystem_c](../source/game_sa/Fx/FxSystem.cpp) (39) ✅ 39 |
+| [CGame](../source/game_sa/Game.cpp) (22) ✅ 22 | [CTaskComplexKillPedGroupOnFoot](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedGroupOnFoot.cpp) (9) ✅ 9 | [FxSystemBP_c](../source/game_sa/Fx/FxSystemBP.cpp) (10) ✅ 10 |
+| [CGameLogic](../source/game_sa/GameLogic.cpp) (27) ✅ 27 | [CTaskComplexKillPedOnFoot](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp) (9) ✅ 9 | [Game](../source/app/app_game.cpp) (12) ✅ 12 |
+| [CGamma](../source/game_sa/Gamma.cpp) (2) ✅ 2 | [CTaskComplexKillPedOnFootArmed](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp) (12) ✅ 12 | [IKChain_c](../source/game_sa/Ragdoll/IKChain.cpp) (20) ✅ 20 |
+| [CGangs](../source/game_sa/Gangs.cpp) (8) ✅ 8 | [CTaskComplexKillPedOnFootMelee](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.cpp) (10) ✅ 10 | [IKChainManager_c](../source/game_sa/Ragdoll/IKChainManager.cpp) (17) ✅ 17 |
+| [CGangWars](../source/game_sa/GangWars.cpp) (36) ✅ 36 | [CTaskComplexKillPedOnFootStealth](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp) (7) ✅ 7 | [Input](../source/app/app_input.cpp) · [archivo 2](../source/app/platform/win/WinInput.cpp) (8) ✅ 8 |
+| [CGarage](../source/game_sa/Garage.cpp) (32) ✅ 32 | [CTaskComplexLeaveAnyCar](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp) (8) ✅ 8 | [Interior_c](../source/game_sa/Interior/Interior_c.cpp) (52) ✅ 52 |
+| [CGarages](../source/game_sa/Garages.cpp) (30) ✅ 30 | [CTaskComplexLeaveBoat](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.cpp) (8) ✅ 8 | [InteriorGroup_c](../source/game_sa/Interior/InteriorGroup_c.cpp) (24) ✅ 24 |
+| [CGeneral](../source/game_sa/General.cpp) (9) ✅ 9 | [CTaskComplexLeaveCar](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp) (9) ✅ 9 | [InteriorManager_c](../source/game_sa/Interior/InteriorManager_c.cpp) (21) ✅ 21 |
+| [CGenericGameStorage](../source/game_sa/GenericGameStorage.cpp) (20) ✅ 20 | [CTaskComplexLeaveCarAndDie](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.cpp) (6) ✅ 6 | [JPegPlugin](../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp) (6) ✅ 6 |
+| [CGlass](../source/game_sa/Glass.cpp) (19) ✅ 19 | [CTaskComplexLeaveCarAndFlee](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.cpp) (9) ✅ 9 | [Light](../source/app/app_light.cpp) (27) ✅ 27 |
+| [CGrassRenderer](../source/game_sa/GrassRenderer.cpp) (12) ✅ 12 | [CTaskComplexLeaveCarAndWander](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.cpp) (9) ✅ 9 | [ModelIndices](../source/game_sa/ModelIndices.cpp) (3) ✅ 3 |
+| [CGridRef](../source/game_sa/GridRef.cpp) (5) ✅ 5 | [CTaskComplexLeaveCarAsPassengerWait](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp) (11) ✅ 11 | [NodeNamePlugin](../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp) (3) ✅ 3 |
+| [CGroupEventHandler](../source/game_sa/Events/GroupEventHandler.cpp) (32) ✅ 32 | [CTaskComplexMedicTreatInjuredPed](../source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.cpp) (10) ✅ 10 | [Particle_c](../source/game_sa/Fx/Particle.cpp) (1) ✅ 1 |
+| [cHandlingDataMgr](../source/game_sa/cHandlingDataMgr.cpp) (12) ✅ 12 | [CTaskComplexMoveBackAndJump](../source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.cpp) (8) ✅ 8 | [PipelinePlugin](../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp) (3) ✅ 3 |
+| [CHandObject](../source/game_sa/Entity/Object/HandObject.cpp) (3) ✅ 3 | [CTaskComplexObserveTrafficLights](../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.cpp) (9) ✅ 9 | [ProcObjectMan_c](../source/game_sa/Plant/ProcObjectMan.cpp) (8) ✅ 8 |
+| [CHandShaker](../source/game_sa/HandShaker.cpp) (3) ✅ 3 | [CTaskComplexObserveTrafficLightsAndAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp) (10) ✅ 10 | [ProcSurfaceInfo_c](../source/game_sa/Plant/ProcSurfaceInfo.cpp) (6) ✅ 6 |
+| [CHeli](../source/game_sa/Entity/Vehicle/Heli.cpp) (26) ✅ 26 | [CTaskComplexOnFire](../source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.cpp) (10) ✅ 10 | [Ps](../source/app/platform/win/WinPs.cpp) (23) ✅ 23 |
+| [CHud](../source/game_sa/Hud.cpp) (39) ✅ 39 | [CTaskComplexOpenDriverDoor](../source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.cpp) (5) ✅ 5 | [RenderBuffer](../source/game_sa/RenderBuffer.cpp) (4) ✅ 4 |
+| [CHudColours](../source/game_sa/HudColours.cpp) (5) ✅ 5 | [CTaskComplexOpenPassengerDoor](../source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.cpp) (5) ✅ 5 | [RpAnimBlend](../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) (46) ✅ 46 |
+| [CIdleCam](../source/game_sa/IdleCam.cpp) (14) ✅ 14 | [CTaskComplexPartner](../source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp) (10) ✅ 10 | [RpAnisot](../source/game_sa/RenderWare/rw/rpanisot.cpp) (3) ✅ 3 |
+| [CInformFriendsEvent](../source/game_sa/InformFriendsEventQueue.cpp) (4) ✅ 4 | [CTaskComplexPartnerChat](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp) (4) ✅ 4 | [Rs](../source/app/platform/platform.cpp) (30) ✅ 30 |
+| [CInformFriendsEventQueue](../source/game_sa/InformFriendsEventQueue.cpp) (4) ✅ 4 | [CTaskComplexPartnerDeal](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp) (7) ✅ 7 | [RwHelper](../source/game_sa/RwHelper.cpp) (42) ✅ 42 |
+| [CInformGroupEvent](../source/game_sa/InformGroupEvent.cpp) (5) ✅ 5 | [CTaskComplexPartnerGreet](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp) (7) ✅ 7 | [Securom](../source/app/securom/Securom.cpp) (4) ✅ 4 |
+| [CInformGroupEventQueue](../source/game_sa/InformGroupEventQueue.cpp) (4) ✅ 4 | [CTaskComplexPartnerShove](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp) (3) ✅ 3 | [SurfaceInfos_c](../source/game_sa/SurfaceInfos_c.cpp) (47) ✅ 47 |
+| [CIniFile](../source/game_sa/IniFile.cpp) (1) ✅ 1 | [CTaskComplexPassObject](../source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp) (10) ✅ 10 | [tColLighting](../source/game_sa/Collision/ColPoint.cpp) (1) ✅ 1 |
+| [CInterestingEvents](../source/game_sa/InterestingEvents.cpp) (7) ✅ 7 | [CTaskComplexPlayHandSignalAnim](../source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp) (10) ✅ 10 | [TList_c](../source/game_sa/Core/List_c.cpp) (3) ✅ 3 |
+| [CIplDefPool](../source/game_sa/Pools/IplDefPool.h) (4) ✅ 4 | [CTaskComplexPolicePursuit](../source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp) (14) ✅ 14 | [tUserList](../source/game_sa/Scripts/Scripted2dEffects.cpp) (2) ✅ 2 |
+| [CIplStore](../source/game_sa/IplStore.cpp) (34) ✅ 34 | [CTaskComplexProstituteSolicit](../source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp) (12) ✅ 12 | [UserTracksLegacyVector](../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp) (1) ✅ 1 |
+| [CKeyArray](../source/game_sa/Text/Text.cpp) (5) ✅ 5 | [CTaskComplexReactToGunAimedAt](../source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp) (9) ✅ 9 | [VectorConstructorIterator](../source/game_sa/RuntimeHelpers.cpp) (1) ✅ 1 |
+| [CKeyboardState](../source/game_sa/KeyboardState.cpp) (1) ✅ 1 | [CTaskComplexRoadRage](../source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp) (10) ✅ 10 | [VideoMode](../source/app/platform/win/VideoMode.cpp) (4) ✅ 4 |
+| [CKeyGen](../source/game_sa/Core/KeyGen.cpp) (4) ✅ 4 | [CTaskComplexScreamInCarThenLeave](../source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp) (10) ✅ 10 | [VideoPlayer](../source/app/platform/win/VideoPlayer/VideoPlayer.cpp) (7) ✅ 7 |
+| [CLinkedUpgradeList](../source/game_sa/Models/VehicleModelInfo.cpp) (2) ✅ 2 | [CTaskComplexSeekCoverUntilTargetDead](../source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp) (11) ✅ 11 | [WaterCreature_c](../source/game_sa/WaterCreature_c.cpp) (4) ✅ 4 |
+| [CLinkList&lt;AlphaObjectInfo&gt;](../source/game_sa/VisibilityPlugins.cpp) (3) ✅ 3 | [CTaskComplexSeekEntity&lt;CEntitySeekPosCalculatorXYOffset&gt;](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h) (12) ✅ 12 | [WaterCreatureManager_c](../source/game_sa/WaterCreatureManager_c.cpp) (7) ✅ 7 |
+| [CLinkList&lt;CCollisionData*&gt;](../source/game_sa/Collision/Collision.cpp) (2) ✅ 2 | [CTaskComplexSeekEntityAiming](../source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp) (7) ✅ 7 | [Win](../source/app/platform/win/WinMain.cpp) · [archivo 2](../source/app/platform/win/WinPlatform.cpp) · [archivo 3](../source/app/platform/win/WndProc.cpp) (7) ✅ 7 |
 
 </details>
 
@@ -685,31 +682,30 @@ Destinos originales explícitos que `source/` seguía referenciando y que no est
 
 ## 10. Dependencias directas de la DLL al EXE (grupo A)
 
-Lista viva del trabajo real. Al 12/11/2026, el grupo A de [JuegoExe](JuegoExe/README.md) tiene **562 funciones del juego** (88,701 bytes) que la DLL ya necesita: 386 se llaman **directamente** desde código ya reemplazado (llamadas detectadas con dirección, bytes y llamador) y 152 solo de forma transitiva, a través de otras funciones aún no reemplazadas. La categoría y los llamadores salen del análisis de [AnalisisGrupoA.md](AnalisisGrupoA.md) ([grupoA.csv](JuegoExe/grupoA.csv), 1,007 funciones en el momento del análisis; 469 ya no son del grupo A: se reconstruyeron desde entonces o pasaron a envoltura abierta). El cierre transitivo de la [sección 6](#que-falta) cuenta 575 funciones: la diferencia (13) son funciones del grupo A que además tienen una envoltura abierta y figuran como envolturas abiertas ([sección 7](#no-en-cpp) y bibliotecas), no en esta lista. Es una cota inferior: las llamadas indirectas sin resolver no entran en el grafo.
+Lista viva del trabajo real. Al 12/11/2026, el grupo A de [JuegoExe](JuegoExe/README.md) tiene **522 funciones del juego** (85,957 bytes) que la DLL ya necesita: 349 se llaman **directamente** desde código ya reemplazado (llamadas detectadas con dirección, bytes y llamador) y 152 solo de forma transitiva, a través de otras funciones aún no reemplazadas. La categoría y los llamadores salen del análisis de [AnalisisGrupoA.md](AnalisisGrupoA.md) ([grupoA.csv](JuegoExe/grupoA.csv), 1,007 funciones en el momento del análisis; 506 ya no son del grupo A: se reconstruyeron desde entonces o pasaron a envoltura abierta). El cierre transitivo de la [sección 6](#que-falta) cuenta 535 funciones: la diferencia (13) son funciones del grupo A que además tienen una envoltura abierta y figuran como envolturas abiertas ([sección 7](#no-en-cpp) y bibliotecas), no en esta lista. Es una cota inferior: las llamadas indirectas sin resolver no entran en el grafo.
 
 ### Composición por categoría de coste
 
 | Categoría de coste | Funciones | % de funciones del grupo A | Bytes | % de bytes del grupo A | Directas desde código reemplazado | Lote medido |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| 1. Triviales y thunks (≤ 0x20 B sin llamadas, o un solo `jmp`) | 78 | 14.5% | 1,000 | 1.2% | 65 | 90A |
-| 2. Pequeñas sin FPU (≤ 0x40 B, ≤ 1 llamada) | 97 | 18.0% | 4,195 | 4.9% | 57 | 90B |
-| 3. Lógica sin FPU (< 0x300 B) | 289 | 53.7% | 47,411 | 54.9% | 198 | 92A |
-| 4. Con FPU (método x87 a 24 bits; < 0x300 B) | 55 | 10.2% | 13,829 | 16.0% | 49 | sin medir |
-| 5. De 0x300 B o más (una por lote) | 19 | 3.5% | 19,953 | 23.1% | 17 | 92B, 92C |
+| 1. Triviales y thunks (≤ 0x20 B sin llamadas, o un solo `jmp`) | 66 | 13.2% | 813 | 1.0% | 53 | 90A |
+| 2. Pequeñas sin FPU (≤ 0x40 B, ≤ 1 llamada) | 92 | 18.4% | 3,935 | 4.7% | 52 | 90B |
+| 3. Lógica sin FPU (< 0x300 B) | 276 | 55.1% | 45,991 | 54.9% | 185 | 92A |
+| 4. Con FPU (método x87 a 24 bits; < 0x300 B) | 48 | 9.6% | 13,101 | 15.6% | 42 | sin medir |
+| 5. De 0x300 B o más (una por lote) | 19 | 3.8% | 19,953 | 23.8% | 17 | 92B, 92C |
 
 ### Llamadas directas detectadas
 
 Ordenadas por número de sitios de llamada desde código ya reemplazado (los más llamados ganan más por función) y, a igualdad, de mayor a menor tamaño. «Llamadores» son los primeros llamadores del código ya reemplazado (nombre del catálogo o dirección); «Lote» es el lote en curso o asignado que la reconstruye ([lotes-en-curso.csv](JuegoExe/lotes-en-curso.csv)); «—» significa sin lote asignado. Los lotes ya validados (90A, 90B, 92A–92C) dejaron de figurar porque estas funciones ya no están pendientes.
 
 <details>
-<summary>Llamadas directas del grupo A pendientes (386), de más a menos llamadas</summary>
+<summary>Llamadas directas del grupo A pendientes (349), de más a menos llamadas</summary>
 
 | Dirección | Bytes | Módulo estimado | Categoría | Llamadas desde código reemplazado | Llamadores | Lote |
 | --- | ---: | --- | ---: | ---: | --- | --- |
 | `0x00749DC0` | 127 | Win (baja) | 3 | 19 | `0x6d3300`, `C2dEffect::DestroyAtomic`, `C2dEffect::t2dEffectPluginDestructor` (+16 más) | — |
 | `0x004A8E30` | 59 | FxInfoManager_c (baja) | 2 | 14 | `FxEmitterBP_c::FreePrtFromPrim`, `FxEmitterBP_c::Update`, `FxManager_c::DestroyFxSystem` (+11 más) | — |
 | `0x0074A310` | 377 | Win (baja) | 3 | 13 | `C3dMarkers::Shutdown`, `CAnimBlendAssocGroup::CreateAssociations-1`, `CAnimBlendAssocGroup::CreateAssociations-3` (+10 más) | — |
-| `0x00733910` | 115 | CVisibilityPlugins (alta) | 4 | 13 | `CVisibilityPlugins::InsertAtomicIntoReallyDrawLastList`, `CVisibilityPlugins::InsertEntityIntoReallyDrawLastList`, `CVisibilityPlugins::InsertEntityIntoSortedList` (+10 más) | — |
 | `0x00638290` | 725 | CTaskComplexSunbathe (baja) | 3 | 12 | `CTaskComplexSunbathe::CreateFirstSubTask`, `CTaskComplexSunbathe::CreateNextSubTask` (+9 más) | — |
 | `0x00619440` | 5 | Rs (alta) | 1 | 12 | `App::DoRWStuffEndOfFrame`, `CLoadingScreen::DisplayNextSplash`, `CLoadingScreen::DisplayPCScreen` (+9 más) | — |
 | `0x0074C800` | 595 | Win (baja) | 3 | 11 | `0x5dd100`, `CClothesBuilder::BlendGeometry-2`, `CClothesBuilder::BlendGeometry-3` (+8 más) | — |
@@ -735,18 +731,14 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x006962A0` | 981 | CTaskComplexSeekEntityAnyMeansXYOffset (baja) | 5 | 7 | `CTaskComplexFollowLeaderInFormation::ControlSubTask`, `CTaskComplexFollowLeaderInFormation::CreateFirstSubTask`, `CTaskComplexFollowLeaderInFormation::CreateNextSubTask` (+4 más) | — |
 | `0x00749E60` | 258 | Win (baja) | 3 | 7 | `C3dMarker::AddMarker`, `CAutomobile::SpawnFlyingComponent`, `CBoat::BlowUpCar` (+4 más) | — |
 | `0x0074DA20` | 94 | Win (baja) | 3 | 7 | `0x734de0`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` (+4 más) | — |
-| `0x005523C0` | 11 | CPtrNodeDoubleLinkPool (baja) | 1 | 7 | `CCover::Update`, `CEntity::AttachToRwObject`, `CEntity::CreateRwObject` (+4 más) | — |
 | `0x0059EEB0` | 297 | CHandObject (baja) | 3 | 6 | `CTaskSimplePlayHandSignalAnim::StartAnim` (+3 más) | — |
 | `0x00646FE0` | 116 | CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse (baja) | 3 | 6 | `CCarEnterExit::SetPedInCarDirect`, `CTaskComplexEnterCar::CreateSubTask`, `CTaskComplexEnterCarAsPassengerTimed::ControlSubTask` (+3 más) | — |
 | `0x0070FA70` | 107 | CStencilShadows (alta) | 3 | 6 | `CStencilShadows::RenderForObject`, `CStencilShadows::RenderForVehicle` (+3 más) | — |
-| `0x005523D0` | 48 | CPtrNodeDoubleLinkPool (baja) | 2 | 6 | `CCover::Update`, `CEntity::Remove`, `CObject::RemoveFromControlCodeList` (+3 más) | — |
 | `0x00541F40` | 38 | CPad (baja) | 4 | 6 | `CPhysical::ApplySpeed` (+3 más) | — |
 | `0x0074A4C0` | 33 | Win (baja) | 2 | 6 | `0x6d3300`, `CFileLoader::FindRelatedModelInfoCB`, `CFileLoader::SetRelatedModelInfoCB` (+3 más) | — |
 | `0x00411BA0` | 4 | CPlaceable (baja) | 1 | 6 | `CAutomobile::ProcessCarWheelPair` (+3 más) | — |
 | `0x0074B420` | 2,207 | Win (baja) | 5 | 5 | `CFileLoader::LoadAtomicFile-`, `CFileLoader::LoadAtomicFile-stream`, `CFileLoader::LoadClumpFile-` (+2 más) | — |
 | `0x007491F0` | 318 | Win (baja) | 4 | 5 | `0x6c4e60`, `0x706520`, `CCutsceneMgr::CalculateBoundingSphereRadiusCB` (+2 más) | — |
-| `0x004CFB10` | 70 | CAnimBlendHierarchy (baja) | 4 | 5 | `CAnimBlendNode::GetCurrentTranslationCompressed`, `CAnimBlendNode::GetEndTranslationCompressed`, `CAnimBlendNode::UpdateCompressed` (+2 más) | — |
-| `0x00733F40` | 63 | CVisibilityPlugins (alta) | 2 | 5 | `CVisibilityPlugins::InitAlphaAtomicList`, `CVisibilityPlugins::InitAlphaEntityList` (+2 más) | — |
 | `0x005A2CB0` | 59 | CObject (baja) | 2 | 5 | `CAutomobile::SpawnFlyingComponent`, `CObjectData::SetObjectData` (+2 más) | — |
 | `0x004D6CC0` | 40 | CAEAmbienceTrackManager (alta) | 2 | 5 | `CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume`, `CAudioEngine::StopAmbienceTrack` (+2 más) | — |
 | `0x004A8DD0` | 13 | FxInfoManager_c (baja) | 1 | 5 | `BoneNodeManager_c::Constructor`, `BoneNode_c::Constructor`, `FxManager_c::Constructor` (+2 más) | — |
@@ -763,12 +755,9 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x005F6190` | 108 | CPedGeometryAnalyser (baja) | 3 | 4 | `CGroupEventHandler::ComputeDoDealResponse`, `CGroupEventHandler::ComputeGreetResponse`, `CTaskComplexGangLeader::ScanForStuff` (+1 más) | — |
 | `0x005D9110` | 104 | CCustomCarEnvMapPipeline (baja) | 3 | 4 | `CCustomBuildingDNPipeline::SetFxEnvTexture`, `CCustomCarEnvMapPipeline::SetFxEnvTexture`, `CCustomCarEnvMapPipeline::pluginEnvMatCopyConstructorCB` (+1 más) | — |
 | `0x004D1610` | 101 | RpAnimBlend (alta) | 4 | 4 | `RpAnimBlend::FrameUpdateCallBackCompressedNonSkinned`, `RpAnimBlend::FrameUpdateCallBackCompressedSkinned`, `RpAnimBlend::FrameUpdateCallBackNonSkinned` (+1 más) | — |
-| `0x004CFA90` | 91 | CAnimBlendHierarchy (baja) | 4 | 4 | `CAnimBlendNode::CalcDeltasCompressed`, `CAnimBlendNode::UpdateCompressed` (+1 más) | — |
 | `0x005F6200` | 90 | CPedGeometryAnalyser (baja) | 3 | 4 | `CGroupEventHandler::ComputeDoDealResponse`, `CGroupEventHandler::ComputeGreetResponse`, `CTaskComplexGangLeader::ScanForStuff` (+1 más) | — |
 | `0x004993D0` | 82 | CTaskComplexSeekEntityRadiusAngleOffset (baja) | 3 | 4 | `CSetPiece::Update`, `CTaskComplexBeCop::Clone` (+1 más) | — |
 | `0x0074C6C0` | 82 | Win (baja) | 3 | 4 | `0x5dd100`, `CClothesBuilder::ConstructGeometryAndSkinArrays`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` (+1 más) | — |
-| `0x004DC0E0` | 70 | CAECutsceneTrackManager (alta) | 3 | 4 | `CAECutsceneTrackManager::PreloadBeatTrack`, `CAudioEngine::PreloadCutsceneTrack` (+1 más) | — |
-| `0x006F5440` | 70 | cHandlingDataMgr (baja) | 4 | 4 | `CTrain::ProcessControl` (+1 más) | — |
 | `0x00441130` | 54 | CEntryExitManager (baja) | 2 | 4 | `CObject::ProcessControl`, `CPlane::DoPlaneGenerationAndRemoval`, `ProcSurfaceInfo_c::AddObject` (+1 más) | — |
 | `0x00407A30` | 10 | CStreaming (alta) | 1 | 4 | `CCutsceneMgr::LoadCutsceneData_preload`, `CEntryExit::TransitionFinished` (+1 más) | — |
 | `0x0045BA90` | 1,236 | CReplay (alta) | 5 | 3 | `CReplay::PlayBackThisFrameInterpolation` | — |
@@ -780,20 +769,17 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x0072A640` | 335 | CWeather (alta) | 4 | 3 | `CWeather::SetWeatherToAppropriateTypeNow`, `CWeather::Update` | — |
 | `0x0064CDA0` | 218 | CTaskSimpleCarFallOut (baja) | 3 | 3 | `CTaskComplexGoToBoatSteeringWheel::ControlSubTask`, `CTaskComplexGoToBoatSteeringWheel::CreateFirstSubTask`, `CTaskComplexGoToBoatSteeringWheel::CreateNextSubTask` | — |
 | `0x0040C450` | 195 | CStreaming (alta) | 3 | 3 | `CStreaming::AddModelsToRequestList` | — |
-| `0x00699E20` | 179 | CPedList (baja) | 3 | 3 | `CPedList::ExtractPedsWithGuns`, `CPedList::RemovePedsAttackingPedType`, `CPedList::RemovePedsThatDontListenToPlayer` | — |
 | `0x0074CCC0` | 165 | Win (baja) | 3 | 3 | `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
 | `0x00513220` | 164 | CCam (alta) | 3 | 3 | `CCam::Process_Cam_TwoPlayer` | — |
 | `0x0063BA00` | 157 | CTaskComplexStealCar (baja) | 3 | 3 | `0x6419f0` | — |
 | `0x00711160` | 136 | CStencilShadows (baja) | 4 | 3 | `CStencilShadows::RegisterStencilShadows` | — |
 | `0x00711280` | 134 | CStencilShadows (baja) | 3 | 3 | `CStencilShadows::RegisterStencilShadows` | — |
-| `0x00719240` | 115 | CFont (alta) | 3 | 3 | `0x559230`, `0x55a780` | — |
 | `0x00552520` | 114 | CPtrNodeDoubleLinkPool (baja) | 3 | 3 | `CColStore::Shutdown`, `CEntryExitManager::Shutdown`, `CIplStore::Shutdown` | — |
 | `0x00541DD0` | 113 | CPad (baja) | 3 | 3 | `CGame::Process`, `CMenuManager::CheckMissionPackValidMenu`, `Game::FrontendIdle` | — |
 | `0x005D9260` | 104 | CCustomCarEnvMapPipeline (baja) | 3 | 3 | `CCustomCarEnvMapPipeline::AllocEnvMapPipeAtomicData`, `CCustomCarEnvMapPipeline::CustomPipeRenderCB`, `CCustomCarEnvMapPipeline::pluginEnvAtmCopyConstructorCB` | — |
 | `0x005A1D10` | 90 | CObjectPool (baja) | 3 | 3 | `0x5a4030`, `CAutomobile::SpawnFlyingComponent`, `CBoat::BlowUpCar` | — |
 | `0x00632190` | 90 | CTaskComplexSunbathe (baja) | 4 | 3 | `CTaskComplexSunbathe::ControlSubTask`, `CTaskComplexSunbathe::CreateFirstSubTask`, `CTaskComplexSunbathe::CreateNextSubTask` | — |
 | `0x00533610` | 81 | CEntity (alta) | 3 | 3 | `CEntity::Remove`, `CQuadTreeNode&lt;T&gt;::DeleteItem-`, `CQuadTreeNode&lt;T&gt;::DeleteItem-rect` | — |
-| `0x0054EEA0` | 79 | Common (alta) | 3 | 3 | `CCamera::CalculateFrustumPlanes`, `CEntity::GetIsBoundingBoxOnScreen` | — |
 | `0x004A9010` | 67 | FxInfoManager_c (baja) | 3 | 3 | `FurnitureSubGroup_c::GetFurniture`, `FurnitureSubGroup_c::GetRandomId`, `FxManager_c::FreeUpParticle` | — |
 | `0x00408230` | 64 | CStreaming (baja) | 2 | 3 | `CStreaming::AddEntity` | — |
 | `0x0053E8D0` | 63 | Game (alta) | 2 | 3 | `CMirrors::BeforeMainRender`, `CPostEffects::Render`, `Game::Idle` | — |
@@ -807,14 +793,12 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x0074CDA0` | 34 | Win (baja) | 2 | 3 | `BreakablePlugin::BreakablePluginAttach`, `C2dEffect::PluginAttach`, `CCustomBuildingDNPipeline::ExtraVertColourPluginAttach` | — |
 | `0x00403E00` | 32 | CEntity (baja) | 2 | 3 | `CFileLoader::LoadObjectInstance-inst`, `Interior_c::PlaceFurniture`, `ProcSurfaceInfo_c::AddObject` | — |
 | `0x00572DB0` | 26 | CTheZones (baja) | 1 | 3 | `CMenuManager::DrawBackground` | — |
-| `0x0043A6A0` | 23 | CCheat (baja) | 1 | 3 | `CPedToPlayerConversations::Update` | — |
 | `0x004A8DB0` | 16 | FxInfoManager_c (baja) | 1 | 3 | `BoneNode_c::Constructor`, `FxSystemBP_c::Constructor`, `FxSystem_c::Constructor` | — |
 | `0x00552C80` | 11 | CQuadTreeNode&lt;T&gt; (alta) | 1 | 3 | `CColStore::Initialise`, `CEntryExitManager::Init`, `CIplStore::Initialise` | — |
 | `0x0074CCB0` | 9 | Win (baja) | 1 | 3 | `CClothesBuilder::BlendGeometry-2`, `CClothesBuilder::BlendGeometry-3`, `CClothesBuilder::CopyGeometry` | — |
 | `0x004ADE90` | 7 | CEventDamage (baja) | 1 | 3 | `CTaskComplexCarSlowBeDraggedOutAndStandUp::CreateNextSubTask`, `CTaskSimpleDie::ProcessPed`, `CTaskSimpleDrownInCar::ProcessPed` | — |
 | `0x005CFE00` | 5 | FxEmitterBP_c (baja) | 1 | 3 | `JPegPlugin::JPegDecompressToRaster` | — |
 | `0x00541D70` | 1 | CPad (alta) | 1 | 3 | `CMenuManager::Initialise`, `CPlayerInfo::MakePlayerSafe`, `CStreaming::RetryLoadFile` | — |
-| `0x00734640` | 1 | CVisibilityPlugins (baja) | 1 | 3 | `App::DoRWStuffEndOfFrame`, `Game::FrontendIdle`, `Game::Idle` | — |
 | `0x00421A50` | 1,418 | CCarCtrl (alta) | 5 | 2 | `0x426350` | — |
 | `0x006B0690` | 1,018 | CAutomobile (alta) | 5 | 2 | `0x6c5420`, `CPlane::PreRender` | — |
 | `0x0059AA40` | 591 | Interior_c (baja) | 4 | 2 | `CPed::ShoulderBoneRotation` | — |
@@ -832,11 +816,8 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x0074D990` | 131 | Win (baja) | 3 | 2 | `CClothesBuilder::CreateSkinnedClump`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
 | `0x00749D40` | 124 | Win (baja) | 3 | 2 | `0x5dd100`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
 | `0x0063BAE0` | 122 | CTaskComplexStealCar (baja) | 3 | 2 | `0x6419f0` | — |
-| `0x0057C5E0` | 118 | CMenuManager (alta) | 3 | 2 | `0x747eb0` | — |
-| `0x00718E50` | 117 | CFont (alta) | 3 | 2 | `CFont::RenderFontBuffer` | — |
 | `0x005DBE40` | 104 | CPlantMgr (alta) | 4 | 2 | `CPlantMgr::_ColEntityCache_Update` | — |
 | `0x00731B80` | 104 | CTxdStore (alta) | 3 | 2 | `CTxdStore::AddTxdSlot`, `CTxdStore::Initialise` | — |
-| `0x0049C9E0` | 103 | CStuntJumpManager (alta) | 3 | 2 | `CStuntJumpManager::AddOne`, `CStuntJumpManager::Load` | — |
 | `0x005EE200` | 102 | CPedAttractorManager (baja) | 3 | 2 | `CPedAttractor::BroadcastArrival`, `CPedAttractor::RegisterPed` | — |
 | `0x005D93B0` | 101 | CCustomCarEnvMapPipeline (baja) | 3 | 2 | `CCustomCarEnvMapPipeline::pluginSpecMatCopyConstructorCB`, `CCustomCarEnvMapPipeline::pluginSpecMatStreamReadCB` | — |
 | `0x005DE340` | 97 | CCopPed (baja) | 3 | 2 | `CPopulation::AddPed` | — |
@@ -844,7 +825,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x00648E90` | 80 | CTaskSimpleCarFallOut (alta) | 3 | 2 | `CTaskSimpleCarFallOut::MakeAbortable`, `CTaskSimpleCarFallOut::ProcessPed` | — |
 | `0x005336B0` | 79 | CEntity (alta) | 3 | 2 | `CEntity::DeleteRwObject`, `CEntity::DetachFromRwObject` | — |
 | `0x005CD810` | 76 | FxEmitterBP_c (baja) | 3 | 2 | `JPegPlugin::JPegCompressScreen`, `JPegPlugin::JPegDecompressToRaster` | — |
-| `0x0071DB30` | 76 | Common (alta) | 4 | 2 | `Common::DoesInfiniteLineTouchScreen` | — |
 | `0x00572130` | 69 | CTheZones (alta) | 4 | 2 | `CMenuManager::PrintMap`, `CTheZones::SetCurrentZoneAsUnlocked` | — |
 | `0x005EB6F0` | 68 | CPedAttractor (baja) | 3 | 2 | `CPedAttractorManager::HasEmptySlot`, `CPedAttractorManager::HasQueueTailArrivedAtSlot` | — |
 | `0x004D40C0` | 64 | CAnimManager (alta) | 2 | 2 | `CAnimManager::UncompressAnimation` | — |
@@ -860,11 +840,7 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x00533020` | 35 | CEntity (alta) | 3 | 2 | `CPhysical::Add`, `CPhysical::RemoveAndAdd` | — |
 | `0x0074DC20` | 34 | Win (baja) | 2 | 2 | `CCustomCarEnvMapPipeline::RegisterPlugin` | — |
 | `0x00454920` | 28 | CPathFind (baja) | 1 | 2 | `CPickup::Update` | — |
-| `0x0057C400` | 24 | CMenuManager (alta) | 1 | 2 | `CMenuManager::CheckRedefineControlInput`, `CMenuManager::UserInput` | — |
-| `0x0057C420` | 24 | CMenuManager (alta) | 1 | 2 | `CMenuManager::CheckRedefineControlInput`, `CMenuManager::UserInput` | — |
-| `0x00699F00` | 24 | CPedList (baja) | 1 | 2 | `CCover::FindCoordinatesCoverPoint`, `CTaskAllocatorKillOnFoot::AllocateTasks` | — |
 | `0x004D59E0` | 23 | CAnimManager (baja) | 1 | 2 | `CPad::GetAccelerateJustDown`, `CPad::WeaponJustDown` | — |
-| `0x00719360` | 19 | CFont (alta) | 1 | 2 | `CControllerConfigManager::GetControllerSettingTextKeyBoard` | — |
 | `0x00411BF0` | 10 | CPlaceable (baja) | 1 | 2 | `CAutomobile::ProcessCarWheelPair` | — |
 | `0x0049E650` | 10 | CTrafficLights (baja) | 1 | 2 | `CPostEffects::HeatHazeFX`, `Game::RenderEffects` | — |
 | `0x00558F90` | 6 | CStats (alta) | 1 | 2 | `CAERadioTrackManager::Initialise`, `CAERadioTrackManager::Reset` | — |
@@ -904,7 +880,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x005A2F80` | 229 | ProcSurfaceInfo_c (baja) | 4 | 1 | `ProcSurfaceInfo_c::AddObjects` | — |
 | `0x006D5E20` | 227 | CVehicle (alta) | 3 | 1 | `CVehicle::Constructor` | — |
 | `0x0045CDB0` | 226 | CReplay (alta) | 3 | 1 | `CReplay::PlayBackThisFrameInterpolation` | — |
-| `0x00438D60` | 223 | CCheat (alta) | 4 | 1 | `CCheat::MoneyArmourHealthCheat` | — |
 | `0x005CFD20` | 218 | FxEmitterBP_c (baja) | 3 | 1 | `JPegPlugin::JPegDecompressToRaster` | — |
 | `0x0049B0E0` | 217 | CVehicle (baja) | 3 | 1 | `CShopping::Buy` | — |
 | `0x0066CA40` | 209 | CTaskComplexInvestigateDisturbance (baja) | 3 | 1 | `CTaskComplexInvestigateDisturbance::CreateNextSubTask` | — |
@@ -920,7 +895,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x005D2560` | 186 | CVehicleSaveStructure (baja) | 3 | 1 | `CPlayerInfo::Load` | — |
 | `0x00619780` | 181 | Rs (alta) | 4 | 1 | `0x619fa0` | — |
 | `0x00744930` | 179 | Input (alta) | 3 | 1 | `Input::PadHandler` | — |
-| `0x005B19D0` | 175 | CCutsceneMgr (baja) | 3 | 1 | `CCutsceneMgr::CreateCutsceneObject` | — |
 | `0x005D24B0` | 172 | CVehicleSaveStructure (baja) | 3 | 1 | `CPlayerInfo::Save` | — |
 | `0x0045CD10` | 159 | CReplay (alta) | 3 | 1 | `CReplay::RecordThisFrame` | — |
 | `0x00646F40` | 158 | CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse (baja) | 4 | 1 | `CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::ProcessPed` | — |
@@ -934,7 +908,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x005EE270` | 138 | CPedAttractorManager (baja) | 3 | 1 | `CPedAttractor::SetTaskForPed` | — |
 | `0x005EE370` | 136 | CPedAttractorManager (baja) | 3 | 1 | `CPedShelterAttractor::GetDisplacement` | — |
 | `0x00748F70` | 134 | Win (baja) | 3 | 1 | `App::PluginAttach` | — |
-| `0x00506BA0` | 128 | CAEWeatherAudioEntity (baja) | 3 | 1 | `CAudioEngine::Destructor` | — |
 | `0x007448B0` | 123 | Input (alta) | 3 | 1 | `Input::PadHandler` | — |
 | `0x004D66A0` | 118 | RpAnimBlend (alta) | 3 | 1 | `RpAnimBlend::RpAnimBlendClumpInit` | — |
 | `0x005D8C50` | 118 | CCustomCarEnvMapPipeline (alta) | 4 | 1 | `CCustomCarEnvMapPipeline::pluginEnvMatStreamWriteCB` | — |
@@ -947,7 +920,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x005BD420` | 113 | CPopulation (baja) | 3 | 1 | `cHandlingDataMgr::LoadHandlingData` | — |
 | `0x005FFE60` | 113 | CEntityScanner (baja) | 3 | 1 | `CPedIntelligence::Process` | — |
 | `0x005D01D0` | 112 | FxEmitterBP_c (baja) | 3 | 1 | `JPegPlugin::JPegDecompressToRaster` | — |
-| `0x00506B20` | 108 | CAEWeatherAudioEntity (baja) | 3 | 1 | `CAudioEngine::Destructor` | — |
 | `0x005D8BE0` | 108 | CCustomCarEnvMapPipeline (alta) | 4 | 1 | `CCustomCarEnvMapPipeline::pluginEnvMatStreamReadCB` | — |
 | `0x00552B50` | 104 | CQuadTreeNode&lt;T&gt; (alta) | 3 | 1 | `CQuadTreeNode&lt;T&gt;::AddItem` | — |
 | `0x00411030` | 103 | CColStore (alta) | 3 | 1 | `CColStore::AddColSlot` | — |
@@ -1002,7 +974,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x00731AD0` | 92 | CTxdStore (alta) | 3 | 1 | `CTxdStore::Initialise` | — |
 | `0x00410F80` | 91 | CColStore (alta) | 3 | 1 | `CColStore::Initialise` | — |
 | `0x0043F720` | 91 | CEntryExitManager (alta) | 3 | 1 | `CEntryExitManager::Init` | — |
-| `0x0049C8F0` | 91 | CStuntJumpManager (alta) | 3 | 1 | `CStuntJumpManager::Init` | — |
 | `0x00550570` | 91 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
 | `0x005506F0` | 91 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
 | `0x00550890` | 91 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
@@ -1012,7 +983,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x00460D80` | 87 | CTaskComplexWanderCop (baja) | 3 | 1 | `CTaskComplexBeCop::Destructor` | — |
 | `0x0066C3E0` | 86 | CTaskComplexGotoDoorAndOpen (baja) | 3 | 1 | `CTaskComplexGoToAttractor::CreateFirstSubTask` | — |
 | `0x0074E150` | 86 | Win (baja) | 3 | 1 | `CVehicleModelInfo::ReduceMaterialsInVehicle` | — |
-| `0x004CFA30` | 83 | CAnimBlendHierarchy (baja) | 4 | 1 | `CAnimBlendNode::CalcDeltasCompressed` | — |
 | `0x0045BF90` | 81 | CReplay (alta) | 4 | 1 | `CReplay::RecordThisFrame` | — |
 | `0x0045C070` | 81 | CReplay (alta) | 4 | 1 | `CReplay::RecordThisFrame` | — |
 | `0x004A5DA0` | 79 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
@@ -1022,27 +992,22 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x005D8980` | 77 | CCustomCarEnvMapPipeline (alta) | 3 | 1 | `CCustomCarEnvMapPipeline::CreatePipe` | — |
 | `0x005E0540` | 74 | CPed (baja) | 3 | 1 | `CPed::operator`, `new-poolIndexed` | — |
 | `0x004D6450` | 73 | RpAnimBlend (alta) | 3 | 1 | `RpAnimBlend::RpAnimBlendClumpFillFrameArray` | — |
-| `0x004DBF10` | 71 | CAECutsceneTrackManager (alta) | 3 | 1 | `CAECutsceneTrackManager::Service` | — |
 | `0x004D6DA0` | 70 | CAEAmbienceTrackManager (alta) | 3 | 1 | `CAEAmbienceTrackManager::Service` | — |
 | `0x004A1280` | 67 | Fx_c (baja) | 3 | 1 | `CEntity::DestroyEffects` | — |
 | `0x0049EA90` | 66 | Fx_c (alta) | 3 | 1 | `CGame::Init1` | — |
-| `0x004DBF60` | 66 | CAECutsceneTrackManager (alta) | 3 | 1 | `CAECutsceneTrackManager::Service` | — |
 | `0x006198C0` | 65 | Rs (alta) | 3 | 1 | `0x619d60` | — |
 | `0x004D7910` | 64 | CAEAmbienceTrackManager (baja) | 3 | 1 | `CAEStreamingChannel::Destructor` | — |
 | `0x005EAB80` | 62 | CPedAttractorPool (baja) | 2 | 1 | `CPedAttractor::DeRegisterPed` | — |
-| `0x004F0B10` | 60 | CAESoundManager (baja) | 2 | 1 | `CAEAudioHardware::Initialise` | — |
 | `0x0045AFB0` | 54 | CVehicleRecording (baja) | 2 | 1 | `CAutomobile::ProcessHarvester` | — |
 | `0x004650A0` | 54 | CTheScripts (baja) | 3 | 1 | `CDecisionMakerTypesFileLoader::LoadDecisionMaker-enum` | — |
 | `0x0059F050` | 54 | CHandObject (baja) | 2 | 1 | `CObject::ProcessControl` | — |
 | `0x00669FB0` | 54 | CTaskComplexWander (baja) | 2 | 1 | `CTaskComplexGangLeader::ScanForStuff` | — |
 | `0x005EC220` | 49 | CPedAttractorManager (baja) | 2 | 1 | `CPedAttractor::BroadcastArrival` | — |
-| `0x0049C9A0` | 48 | CStuntJumpManager (alta) | 2 | 1 | `CStuntJumpManager::ShutdownForRestart` | — |
 | `0x005D9180` | 48 | CCustomCarEnvMapPipeline (baja) | 2 | 1 | `CCustomCarEnvMapPipeline::SetFxEnvTexture` | — |
 | `0x005E88E0` | 43 | CPed (alta) | 3 | 1 | `CCamera::CamControl` | — |
 | `0x006586A0` | 42 | CTaskComplexWalkRoundFire (baja) | 2 | 1 | `CTaskComplexUseSwatRope::CreateSubTask` | — |
 | `0x004048E0` | 41 | CObjectPool (baja) | 2 | 1 | `0x587000` | — |
 | `0x00465040` | 41 | CTheScripts (baja) | 2 | 1 | `0x587000` | — |
-| `0x00552390` | 41 | CPtrNodeDoubleLinkPool (baja) | 2 | 1 | `CEntity::Remove` | — |
 | `0x00465070` | 40 | CTheScripts (baja) | 2 | 1 | `CProjectileInfo::IsProjectileInRange` | — |
 | `0x005521D0` | 37 | CPools (baja) | 2 | 1 | `CCover::Update` | — |
 | `0x0054F490` | 36 | CPlaceable (alta) | 2 | 1 | `CEntity::Destructor` | — |
@@ -1060,8 +1025,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x0053BC60` | 26 | CGame (alta) | 1 | 1 | `0x747eb0` | — |
 | `0x0044CD30` | 25 | COnscreenCounterEntry (baja) | 1 | 1 | `CUserDisplay::Process` | — |
 | `0x00572E70` | 24 | CTheZones (baja) | 1 | 1 | `CMenuManager::AdditionalOptionInput` | — |
-| `0x0057C440` | 24 | CMenuManager (alta) | 1 | 1 | `CMenuManager::CheckRedefineControlInput` | — |
-| `0x0057C460` | 24 | CMenuManager (alta) | 1 | 1 | `CMenuManager::CheckRedefineControlInput` | — |
 | `0x004410E0` | 23 | CEntryExitManager (baja) | 1 | 1 | `CMenuManager::UserInput` | — |
 | `0x00541E90` | 23 | CPad (baja) | 2 | 1 | `CPhysical::PositionAttachedEntity` | — |
 | `0x0049EAE0` | 21 | Fx_c (alta) | 2 | 1 | `CGame::ShutDownForRestart` | — |
@@ -1074,7 +1037,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x007316D0` | 13 | CTxdStore (alta) | 1 | 1 | `CClothesBuilder::RequestTexture` | — |
 | `0x004F4CA0` | 12 | CAEUserRadioTrackManager (baja) | 1 | 1 | `CAutomobile::ProcessCarWheelPair` | — |
 | `0x004096C0` | 11 | CStreaming (alta) | 1 | 1 | `CRenderer::ConstructRenderList` | — |
-| `0x00552380` | 11 | CPtrNodeDoubleLinkPool (baja) | 1 | 1 | `CQuadTreeNode&lt;T&gt;::AddItem` | — |
 | `0x00746070` | 11 | Win (baja) | 1 | 1 | `CCutsceneMgr::IsCutsceneSkipButtonBeingPressed` | — |
 | `0x0049E640` | 10 | CTrafficLights (baja) | 1 | 1 | `CGame::Process` | — |
 | `0x0053F910` | 10 | CPad (alta) | 1 | 1 | `0x468560` | — |
@@ -1090,13 +1052,11 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x005531D0` | 1 | CQuadTreeNode&lt;T&gt; (baja) | 1 | 1 | `CGame::Shutdown` | — |
 | `0x0060F8C0` | 1 | CPlayerPed (baja) | 1 | 1 | `Game::Render2dStuff` | — |
 | `0x0072F3B0` | 1 | CCullZones (baja) | 1 | 1 | `CGame::InitialiseOnceBeforeRW` | — |
-| `0x00734610` | 1 | CVisibilityPlugins (baja) | 1 | 1 | `CGame::InitialiseRenderWare` | — |
-| `0x00734620` | 1 | CVisibilityPlugins (baja) | 1 | 1 | `CGame::ShutdownRenderWare` | — |
 
 </details>
 
 <a id="parciales"></a>
-## 11. 🟡 Parciales · 0 clases del catálogo + 152 clases/módulos con funciones del EXE pendientes
+## 11. 🟡 Parciales · 0 clases del catálogo + 139 clases/módulos con funciones del EXE pendientes
 
 Orden de mayor a menor tamaño de las envolturas al EXE pendientes (suma de bytes de sus cuerpos; a igualdad, alfabético). «Función más grande» y «Tamaño» (muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B) indican cuánto pesa la función más difícil de la clase. Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).
 
@@ -1106,33 +1066,20 @@ Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas 
 | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
 | *(ninguna clase parcial al 12/11/2026)* | | | | | | | | | |
 
-### Clases con funciones del EXE aún sin reemplazar · 152 clases / módulos
+### Clases con funciones del EXE aún sin reemplazar · 139 clases / módulos
 
-Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x401000–0x74FFFF sin reemplazar por C++ (grupos A–D del mapa del EXE y envolturas; 1,684 funciones). La clase se atribuye por cercanía de direcciones y puede ser errónea cuando su confianza es baja. Lista completa por función: [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md).
+Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x401000–0x74FFFF sin reemplazar por C++ (grupos A–D del mapa del EXE y envolturas; 1,620 funciones). La clase se atribuye por cercanía de direcciones y puede ser errónea cuando su confianza es baja. Lista completa por función: [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md).
 
 | Clase o módulo | Funciones pendientes | Bytes pendientes | Función más grande (B) | Tamaño |
 | --- | ---: | ---: | ---: | --- |
+| cHandlingDataMgr | **1** | 5 | 5 | pequeña |
+| CDamageAtomicModelInfo | **1** | 48 | 48 | pequeña |
+| CPtrNodeDoubleLinkPool | **1** | 114 | 114 | mediana |
+| CAudioZones | **1** | 139 | 139 | mediana |
 | CTaskComplexWanderProstitute | **1** | 182 | 182 | mediana |
-| CPedList | **2** | 203 | 179 | mediana |
-| CCutsceneMgr | **3** | 204 | 175 | mediana |
 | IKChain_c | **2** | 205 | 103 | mediana |
-| CVisibilityPlugins | **7** | 205 | 115 | mediana |
-| CDamageAtomicModelInfo | **5** | 210 | 103 | mediana |
+| CWaterLevel | **1** | 208 | 208 | mediana |
 | WaterCreature_c | **2** | 211 | 106 | mediana |
-| CMenuManager | **5** | 214 | 118 | mediana |
-| CHeli | **4** | 218 | 169 | mediana |
-| CWaterLevel | **2** | 219 | 208 | mediana |
-| CAECutsceneTrackManager | **4** | 219 | 71 | pequeña |
-| CAESoundManager | **3** | 220 | 127 | mediana |
-| CPtrNodeDoubleLinkPool | **5** | 225 | 114 | mediana |
-| CAnimBlendHierarchy | **3** | 244 | 91 | pequeña |
-| CCheat | **2** | 246 | 223 | mediana |
-| CFont | **3** | 251 | 117 | mediana |
-| Common | **3** | 260 | 105 | mediana |
-| CAEWeatherAudioEntity | **4** | 264 | 128 | mediana |
-| CAudioZones | **4** | 275 | 139 | mediana |
-| CStuntJumpManager | **4** | 296 | 103 | mediana |
-| cHandlingDataMgr | **6** | 299 | 85 | pequeña |
 | Input | **2** | 302 | 179 | mediana |
 | CTaskSimpleHoldEntity | **8** | 302 | 166 | mediana |
 | CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse | **3** | 304 | 158 | mediana |
@@ -1264,7 +1211,7 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CWeaponModelInfo | **41** | 13,554 | 1,530 | grande |
 | Win | **85** | 19,907 | 2,207 | muy grande |
 | FxEmitterBP_c | **141** | 28,395 | 801 | grande |
-| **TOTAL (152 clases / módulos)** | **1,684** | **233,992** | 8,957 | |
+| **TOTAL (139 clases / módulos)** | **1,620** | **230,234** | 8,957 | |
 
 <a id="sin-revertir"></a>
 ## 12. 🔴 Sin revertir · 0 clases

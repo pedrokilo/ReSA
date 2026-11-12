@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 888 grupos / 10227 funciones reconstruidas; 10227 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 891 grupos / 10291 funciones reconstruidas; 10291 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,59 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-441"></a>
+
+## CPickups
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CPickups::InjectHooks() | [source/game_sa/Pickups.cpp:47](../../source/game_sa/Pickups.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::Init() | [source/game_sa/Pickups.cpp:96](../../source/game_sa/Pickups.cpp#L96) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::Init 0x00454A70 | 0 / 0 | Posible dato fijo CollectedPickUpIndex: source/game_sa/Pickups.h:34 (0x00978624); Posible dato fijo DisplayHelpMessage: source/game_sa/Pickups.h:28 (0x008A5F48); Posible dato fijo NumMessages: source/game_sa/Pickups.h:36 (0x00978678); Posible dato fijo aPickUps: source/game_sa/Pickups.h:38 (0x009788C0); Posible dato fijo aPickUpsCollected: source/game_sa/Pickups.h:35 (0x00978628) |
+| CPickups::ReInit() | [source/game_sa/Pickups.cpp:111](../../source/game_sa/Pickups.cpp#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::ReInit 0x00456E60 | 0 / 0 | Posible dato fijo NumMessages: source/game_sa/Pickups.h:36 (0x00978678) |
+| CPickups::AddToCollectedPickupsArray(int32 pickupIndex) | [source/game_sa/Pickups.cpp:118](../../source/game_sa/Pickups.cpp#L118) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::AddToCollectedPickupsArray 0x00455240 | 0 / 0 | Posible dato fijo CollectedPickUpIndex: source/game_sa/Pickups.h:34 (0x00978624); Posible dato fijo aPickUpsCollected: source/game_sa/Pickups.h:35 (0x00978628) |
+| CPickups::CreatePickupCoorsCloseToCoors(float inX, float inY, float inZ, float& outX, float& outY, float& outZ) | [source/game_sa/Pickups.cpp:129](../../source/game_sa/Pickups.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::CreatePickupCoorsCloseToCoors- 0x00458A80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::CreateSomeMoney(CVector coors, int32 amount) | [source/game_sa/Pickups.cpp:168](../../source/game_sa/Pickups.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::CreateSomeMoney 0x00458970 | 0 / 0 | Posible dato fijo MI_MONEY: source/game_sa/ModelIndices.cpp:66 (0x008CD59C) |
+| CPickups::DetonateMinesHitByGunShot(const CVector& shotOrigin, const CVector& shotTarget) | [source/game_sa/Pickups.cpp:190](../../source/game_sa/Pickups.cpp#L190) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::DetonateMinesHitByGunShot 0x004590C0 | 0 / 0 | Posible dato fijo aPickUps: source/game_sa/Pickups.h:38 (0x009788C0) |
+| CPickups::DoCollectableEffects(CEntity* entity) | [source/game_sa/Pickups.cpp:210](../../source/game_sa/Pickups.cpp#L210) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::DoCollectableEffects 0x00455E20 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo gpShadowExplosionTex: source/game_sa/Shadows.h:254 (0x00C403F4) |
+| CPickups::DoMineEffects(CEntity* entity) | [source/game_sa/Pickups.cpp:268](../../source/game_sa/Pickups.cpp#L268) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::DoMineEffects 0x004560E0 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo gpShadowExplosionTex: source/game_sa/Shadows.h:254 (0x00C403F4) |
+| CPickups::DoMoneyEffects(CEntity* entity) | [source/game_sa/Pickups.cpp:326](../../source/game_sa/Pickups.cpp#L326) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::DoMoneyEffects 0x00454E80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::DoPickUpEffects(CEntity* entity) | [source/game_sa/Pickups.cpp:331](../../source/game_sa/Pickups.cpp#L331) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::DoPickUpEffects 0x00455720 | 0 / 0 | Conversión de dirección fija: 0x008A5FB0, 0x00B70153; Posible dato fijo MI_PICKUP_ADRENALINE: source/game_sa/ModelIndices.cpp:74 (0x008CD5BC); Posible dato fijo MI_PICKUP_BODYARMOUR: source/game_sa/ModelIndices.cpp:75 (0x008CD5C0); Posible dato fijo MI_PICKUP_BONUS: source/game_sa/ModelIndices.cpp:78 (0x008CD5CC); Posible dato fijo MI_PICKUP_BRIBE: source/game_sa/ModelIndices.cpp:79 (0x008CD5D0); Posible dato fijo MI_PICKUP_CAMERA: source/game_sa/ModelIndices.cpp:81 (0x008CD5D8); Posible dato fijo MI_PICKUP_CLOTHES: source/game_sa/ModelIndices.cpp:87 (0x008CD5F0); Posible dato fijo MI_PICKUP_HEALTH: source/game_sa/ModelIndices.cpp:77 (0x008CD5C8); Posible dato fijo MI_PICKUP_INFO: source/game_sa/ModelIndices.cpp:76 (0x008CD5C4); Posible dato fijo MI_PICKUP_KILLFRENZY: source/game_sa/ModelIndices.cpp:80 (0x008CD5D4); Posible dato fijo MI_PICKUP_PROPERTY: source/game_sa/ModelIndices.cpp:85 (0x008CD5E8); Posible dato fijo MI_PICKUP_PROPERTY_FORSALE: source/game_sa/ModelIndices.cpp:86 (0x008CD5EC); Posible dato fijo MI_PICKUP_REVENUE: source/game_sa/ModelIndices.cpp:83 (0x008CD5E0); Posible dato fijo MI_PICKUP_SAVEGAME: source/game_sa/ModelIndices.cpp:84 (0x008CD5E4); Posible dato fijo NumMessages: source/game_sa/Pickups.h:36 (0x00978678); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo aMessages: source/game_sa/Pickups.h:37 (0x00978680) |
+| * CPickups::FindPickUpForThisObject(CObject* object) | [source/game_sa/Pickups.cpp:429](../../source/game_sa/Pickups.cpp#L429) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::FindPickUpForThisObject 0x004551C0 | 0 / 0 | Posible dato fijo aPickUps: source/game_sa/Pickups.h:38 (0x009788C0) |
+| CPickups::GenerateNewOne(CVector coors, uint32 modelId, ePickupType pickupType, uint32 ammo, uint32 moneyPerDay, bool isEmpty, char* message) | [source/game_sa/Pickups.cpp:440](../../source/game_sa/Pickups.cpp#L440) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPickups::GenerateNewOne 0x00456F20 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::GenerateNewOne_ExeAbi(CVector coors, uint32 modelId, ePickupType pickupType, uint32 ammo, uint32 moneyPerDay, uint8 isEmpty, char* message) | [source/game_sa/Pickups.cpp:449](../../source/game_sa/Pickups.cpp#L449) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aPickUps: source/game_sa/Pickups.h:38 (0x009788C0) |
+| CPickups::GenerateNewOne_WeaponType(CVector coors, eWeaponType weaponType, ePickupType pickupType, uint32 ammo, bool isEmpty, char* message) | [source/game_sa/Pickups.cpp:573](../../source/game_sa/Pickups.cpp#L573) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::GenerateNewOne_WeaponType 0x00457380 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::GetActualPickupIndex(tPickupReference pickupRef) | [source/game_sa/Pickups.cpp:582](../../source/game_sa/Pickups.cpp#L582) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::GetActualPickupIndex 0x004552A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::GenerateNewOne_WeaponType_ExeAbi(CVector coors, eWeaponType weaponType, ePickupType pickupType, uint32 ammo, bool isEmpty, char* message) | [source/game_sa/Pickups.cpp:594](../../source/game_sa/Pickups.cpp#L594) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::GetNewUniquePickupIndex_ExeAbi(int32 pickupIndex) | [source/game_sa/Pickups.cpp:598](../../source/game_sa/Pickups.cpp#L598) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::GetUniquePickupIndex_ExeAbi(int32 pickupIndex) | [source/game_sa/Pickups.cpp:602](../../source/game_sa/Pickups.cpp#L602) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::GetNewUniquePickupIndex(int32 pickupIndex) | [source/game_sa/Pickups.cpp:607](../../source/game_sa/Pickups.cpp#L607) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::GetNewUniquePickupIndex 0x00456A30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::GetUniquePickupIndex(int32 pickupIndex) | [source/game_sa/Pickups.cpp:617](../../source/game_sa/Pickups.cpp#L617) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::GetUniquePickupIndex 0x00455280 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::GivePlayerGoodiesWithPickUpMI(uint16 modelId, int32 playerId) | [source/game_sa/Pickups.cpp:624](../../source/game_sa/Pickups.cpp#L624) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::GivePlayerGoodiesWithPickUpMI 0x004564F0 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo MI_HORSESHOE: source/game_sa/ModelIndices.cpp:176 (0x008CD754); Posible dato fijo MI_OYSTER: source/game_sa/ModelIndices.cpp:175 (0x008CD750); Posible dato fijo MI_PICKUP_BODYARMOUR: source/game_sa/ModelIndices.cpp:75 (0x008CD5C0); Posible dato fijo MI_PICKUP_BONUS: source/game_sa/ModelIndices.cpp:78 (0x008CD5CC); Posible dato fijo MI_PICKUP_BRIBE: source/game_sa/ModelIndices.cpp:79 (0x008CD5D0); Posible dato fijo MI_PICKUP_HEALTH: source/game_sa/ModelIndices.cpp:77 (0x008CD5C8); Posible dato fijo MI_PICKUP_INFO: source/game_sa/ModelIndices.cpp:76 (0x008CD5C4); Posible dato fijo MI_PICKUP_KILLFRENZY: source/game_sa/ModelIndices.cpp:80 (0x008CD5D4) |
+| CPickups::IsPickUpPickedUp(tPickupReference pickupRef) | [source/game_sa/Pickups.cpp:706](../../source/game_sa/Pickups.cpp#L706) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::IsPickUpPickedUp 0x00454B40 | 0 / 0 | Posible dato fijo aPickUpsCollected: source/game_sa/Pickups.h:35 (0x00978628) |
+| CPickups::ModelForWeapon(eWeaponType weaponType) | [source/game_sa/Pickups.cpp:718](../../source/game_sa/Pickups.cpp#L718) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::ModelForWeapon 0x00454AC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::PassTime(uint32 time) | [source/game_sa/Pickups.cpp:726](../../source/game_sa/Pickups.cpp#L726) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::PassTime 0x00455200 | 0 / 0 | Posible dato fijo aPickUps: source/game_sa/Pickups.h:38 (0x009788C0) |
+| CPickups::PickedUpHorseShoe() | [source/game_sa/Pickups.cpp:743](../../source/game_sa/Pickups.cpp#L743) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::PickedUpHorseShoe 0x00455390 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98) |
+| CPickups::PickedUpOyster() | [source/game_sa/Pickups.cpp:765](../../source/game_sa/Pickups.cpp#L765) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::PickedUpOyster 0x004552D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::PictureTaken() | [source/game_sa/Pickups.cpp:785](../../source/game_sa/Pickups.cpp#L785) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::PictureTaken 0x00456A70 | 0 / 0 | Conversión de dirección fija: 0x00B6F998, 0x00B6FA74, 0x00B6FABC; Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo aPickUps: source/game_sa/Pickups.h:38 (0x009788C0) |
+| CPickups::PlayerCanPickUpThisWeaponTypeAtThisMoment(eWeaponType weaponType) | [source/game_sa/Pickups.cpp:842](../../source/game_sa/Pickups.cpp#L842) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::PlayerCanPickUpThisWeaponTypeAtThisMoment 0x004554C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::RemoveMissionPickUps() | [source/game_sa/Pickups.cpp:852](../../source/game_sa/Pickups.cpp#L852) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::RemoveMissionPickUps 0x00456DE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::RemovePickUp(tPickupReference pickupRef) | [source/game_sa/Pickups.cpp:868](../../source/game_sa/Pickups.cpp#L868) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::RemovePickUp 0x004573D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::RemovePickUpsInArea(float minX, float maxX, float minY, float maxY, float minZ, float maxZ) | [source/game_sa/Pickups.cpp:875](../../source/game_sa/Pickups.cpp#L875) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::RemovePickUpsInArea 0x00456D30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::RemovePickupObjects() | [source/game_sa/Pickups.cpp:886](../../source/game_sa/Pickups.cpp#L886) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::RemovePickupObjects 0x00455470 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::RemoveUnnecessaryPickups(const CVector& posn, float radius) | [source/game_sa/Pickups.cpp:897](../../source/game_sa/Pickups.cpp#L897) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::RemoveUnnecessaryPickups 0x004563A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::RenderPickUpText() | [source/game_sa/Pickups.cpp:913](../../source/game_sa/Pickups.cpp#L913) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::RenderPickUpText 0x00455000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::TestForPickupsInBubble(const CVector posn, float radius) | [source/game_sa/Pickups.cpp:957](../../source/game_sa/Pickups.cpp#L957) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::TestForPickupsInBubble 0x00456450 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::TryToMerge_WeaponType(CVector posn, eWeaponType weaponType, ePickupType pickupType, uint32 ammo, bool arg4) | [source/game_sa/Pickups.cpp:967](../../source/game_sa/Pickups.cpp#L967) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::TryToMerge_WeaponType 0x004555A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::Update() | [source/game_sa/Pickups.cpp:983](../../source/game_sa/Pickups.cpp#L983) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::Update 0x00458DE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::UpdateMoneyPerDay(tPickupReference pickupRef, uint16 money) | [source/game_sa/Pickups.cpp:1063](../../source/game_sa/Pickups.cpp#L1063) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::UpdateMoneyPerDay 0x00455680 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::WeaponForModel(int32 modelId) | [source/game_sa/Pickups.cpp:1070](../../source/game_sa/Pickups.cpp#L1070) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::WeaponForModel 0x00454AE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::Load() | [source/game_sa/Pickups.cpp:1097](../../source/game_sa/Pickups.cpp#L1097) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::Load 0x005D35A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPickups::Save() | [source/game_sa/Pickups.cpp:1115](../../source/game_sa/Pickups.cpp#L1115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::Save 0x005D3540 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ModifyStringLabelForControlSetting(char* stringLabel) | [source/game_sa/Pickups.cpp:1129](../../source/game_sa/Pickups.cpp#L1129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::ModifyStringLabelForControlSetting 0x00454B70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CreatePickupCoorsCloseToCoors(const CVector& pos, CVector& createdAtPos) | [source/game_sa/Pickups.h:97](../../source/game_sa/Pickups.h#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::CreatePickupCoorsCloseToCoors- 0x00458A80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CreatePickupCoorsCloseToCoors(const CVector& pos, float& x, float& y, float& z) | [source/game_sa/Pickups.h:104](../../source/game_sa/Pickups.h#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPickups::CreatePickupCoorsCloseToCoors- 0x00458A80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetAllActivePickups() | [source/game_sa/Pickups.h:108](../../source/game_sa/Pickups.h#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aPickUps: source/game_sa/Pickups.h:38 (0x009788C0) |
+
+<a id="grupo-442"></a>
 
 ## CPlaceName
 
@@ -21,7 +74,7 @@
 | CPlaceName::Display() const | [source/game_sa/PlaceName.cpp:86](../../source/game_sa/PlaceName.cpp#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPlaceName::CalcPosition() | [source/game_sa/PlaceName.cpp:94](../../source/game_sa/PlaceName.cpp#L94) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-442"></a>
+<a id="grupo-443"></a>
 
 ## CPlaceable
 
@@ -61,7 +114,7 @@
 | & GetPosition() | [source/game_sa/Entity/Placeable.h:70](../../source/game_sa/Entity/Placeable.h#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetPosition2D() | [source/game_sa/Entity/Placeable.h:71](../../source/game_sa/Entity/Placeable.h#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-443"></a>
+<a id="grupo-444"></a>
 
 ## CPlane
 
@@ -95,7 +148,7 @@
 | * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Plane.h:121](../../source/game_sa/Entity/Vehicle/Plane.h#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlane::Constructor 0x006C8E20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destroy() | [source/game_sa/Entity/Vehicle/Plane.h:122](../../source/game_sa/Entity/Vehicle/Plane.h#L122) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-444"></a>
+<a id="grupo-445"></a>
 
 ## CPlaneBanners
 
@@ -107,7 +160,7 @@
 | CPlaneBanners::Render() | [source/game_sa/PlaneBanners.cpp:40](../../source/game_sa/PlaneBanners.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPlaneBanners::Update() | [source/game_sa/PlaneBanners.cpp:45](../../source/game_sa/PlaneBanners.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-445"></a>
+<a id="grupo-446"></a>
 
 ## CPlaneTrail
 
@@ -115,12 +168,12 @@
 | --- | --- | --- | --- | --- | --- |
 | CPlaneTrail::InjectHooks() | [source/game_sa/PlaneTrail.cpp:25](../../source/game_sa/PlaneTrail.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPlaneTrail::Init() | [source/game_sa/PlaneTrail.cpp:35](../../source/game_sa/PlaneTrail.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlaneTrail::Init 0x00717160 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPlaneTrail::Render(float intensity) | [source/game_sa/PlaneTrail.cpp:40](../../source/game_sa/PlaneTrail.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlaneTrail::Render 0x00717180 | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958) |
+| CPlaneTrail::Render(float intensity) | [source/game_sa/PlaneTrail.cpp:40](../../source/game_sa/PlaneTrail.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlaneTrail::Render 0x00717180 | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:289 (0x00C4D958) |
 | CPlaneTrail::RegisterPoint(CVector pos) | [source/game_sa/PlaneTrail.cpp:83](../../source/game_sa/PlaneTrail.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlaneTrail::RegisterPoint 0x007172D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPlaneTrail::Update(CVector pos, const CRGBA& color, uint32 coronaIdx, uint32 timeModifierMs, uint8 afterHour, uint8 beforeHour) | [source/game_sa/PlaneTrail.cpp:107](../../source/game_sa/PlaneTrail.cpp#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPlaneTrail::IsPointInUse(size_t pt) | [source/game_sa/PlaneTrail.cpp:144](../../source/game_sa/PlaneTrail.cpp#L144) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-446"></a>
+<a id="grupo-447"></a>
 
 ## CPlaneTrails
 
@@ -132,7 +185,7 @@
 | CPlaneTrails::RegisterPoint(CVector point, uint32 trailIndex) | [source/game_sa/PlaneTrails.cpp:73](../../source/game_sa/PlaneTrails.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlaneTrails::RegisterPoint 0x007174C0 | 0 / 0 | Posible dato fijo aArray: source/game_sa/PlaneTrails.h:13 (0x00C713A8) |
 | CPlaneTrails::Update() | [source/game_sa/PlaneTrails.cpp:78](../../source/game_sa/PlaneTrails.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlaneTrails::Update 0x007174F0 | 0 / 0 | Posible dato fijo aArray: source/game_sa/PlaneTrails.h:13 (0x00C713A8) |
 
-<a id="grupo-447"></a>
+<a id="grupo-448"></a>
 
 ## CPlantColEntEntry
 
@@ -142,7 +195,7 @@
 | * CPlantColEntEntry::AddEntry(CEntity* entity) | [source/game_sa/Plant/PlantColEntEntry.cpp:44](../../source/game_sa/Plant/PlantColEntEntry.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlantColEntEntry::AddEntry 0x005DB7D0 | 0 / 0 | Posible dato fijo m_CloseColEntListHead: source/game_sa/PlantMgr.h:27 (0x00C0399C); Posible dato fijo m_UnusedColEntListHead: source/game_sa/PlantMgr.h:26 (0x00C03998) |
 | CPlantColEntEntry::ReleaseEntry() | [source/game_sa/Plant/PlantColEntEntry.cpp:85](../../source/game_sa/Plant/PlantColEntEntry.cpp#L85) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlantColEntEntry::ReleaseEntry 0x005DB8A0 | 0 / 0 | Posible dato fijo m_CloseColEntListHead: source/game_sa/PlantMgr.h:27 (0x00C0399C); Posible dato fijo m_UnusedColEntListHead: source/game_sa/PlantMgr.h:26 (0x00C03998) |
 
-<a id="grupo-448"></a>
+<a id="grupo-449"></a>
 
 ## CPlantLocTri
 
@@ -153,7 +206,7 @@
 | * CPlantLocTri::Add(const CVector& p1, const CVector& p2, const CVector& p3, uint8 surface, tColLighting lightning, bool createsPlants, bool createsObjects) | [source/game_sa/Plant/PlantLocTri.cpp:65](../../source/game_sa/Plant/PlantLocTri.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlantLocTri::Add 0x005DC290 | 0 / 0 | Posible dato fijo m_CloseLocTriListHead: source/game_sa/PlantMgr.h:25 (0x00C03988); Posible dato fijo m_UnusedLocTriListHead: source/game_sa/PlantMgr.h:24 (0x00C03984) |
 | CPlantLocTri::Release() | [source/game_sa/Plant/PlantLocTri.cpp:118](../../source/game_sa/Plant/PlantLocTri.cpp#L118) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlantLocTri::Release 0x005DB6D0 | 0 / 0 | Posible dato fijo g_procObjMan: source/game_sa/Plant/ProcObjectMan.h:50 (0x00BB7CB0); Posible dato fijo m_CloseLocTriListHead: source/game_sa/PlantMgr.h:25 (0x00C03988); Posible dato fijo m_UnusedLocTriListHead: source/game_sa/PlantMgr.h:24 (0x00C03984) |
 
-<a id="grupo-449"></a>
+<a id="grupo-450"></a>
 
 ## CPlantMgr
 
@@ -188,7 +241,7 @@
 | CPlantMgr::DbgRenderLocTris() | [source/game_sa/PlantMgr.cpp:833](../../source/game_sa/PlantMgr.cpp#L833) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IncrementScanCode() | [source/game_sa/PlantMgr.h:70](../../source/game_sa/PlantMgr.h#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_scanCode: source/game_sa/PlantMgr.h:23 (0x00C03980) |
 
-<a id="grupo-450"></a>
+<a id="grupo-451"></a>
 
 ## CPlantSurfPropMgr
 
@@ -201,7 +254,7 @@
 | * CPlantSurfPropMgr::GetSurfProperties(uint16 index) | [source/game_sa/PlantSurfPropMgr.cpp:79](../../source/game_sa/PlantSurfPropMgr.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlantSurfPropMgr::GetSurfProperties 0x006F9DE0 | 0 / 0 | Posible dato fijo m_SurfPropPtrTab: source/game_sa/PlantSurfPropMgr.h:52 (0x00C38070) |
 | CPlantSurfPropMgr::LoadPlantsDat(const char* filename) | [source/game_sa/PlantSurfPropMgr.cpp:84](../../source/game_sa/PlantSurfPropMgr.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlantSurfPropMgr::LoadPlantsDat 0x005DD3B0 | 0 / 0 | Posible dato fijo g_surfaceInfos: source/game_sa/SurfaceInfos_c.h:79 (0x00B79538) |
 
-<a id="grupo-451"></a>
+<a id="grupo-452"></a>
 
 ## CPlayerInfo
 
@@ -244,7 +297,7 @@
 | CPlayerInfo::Save() | [source/game_sa/PlayerInfo.cpp:807](../../source/game_sa/PlayerInfo.cpp#L807) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlayerInfo::Save 0x005D3AC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & CPlayerInfo::operator=(const CPlayerInfo& rhs) | [source/game_sa/PlayerInfo.cpp:816](../../source/game_sa/PlayerInfo.cpp#L816) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-452"></a>
+<a id="grupo-453"></a>
 
 ## CPlayerInfoSaveStructure
 
@@ -253,7 +306,7 @@
 | Construct(CPlayerInfo* info) | [source/game_sa/PlayerInfo.h:165](../../source/game_sa/PlayerInfo.h#L165) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Extract(CPlayerInfo* info) | [source/game_sa/PlayerInfo.h:186](../../source/game_sa/PlayerInfo.h#L186) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-453"></a>
+<a id="grupo-454"></a>
 
 ## CPlayerPed
 
@@ -305,7 +358,7 @@
 | CPlayerPed::MakeChangesForNewWeapon(eWeaponType weaponType) | [source/game_sa/Entity/Ped/PlayerPed.cpp:1293](../../source/game_sa/Entity/Ped/PlayerPed.cpp#L1293) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlayerPed::MakeChangesForNewWeapon- 0x0060B460 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 | LOSBlockedBetweenPeds(CEntity* entity1, CEntity* entity2) | [source/game_sa/Entity/Ped/PlayerPed.cpp:1325](../../source/game_sa/Entity/Ped/PlayerPed.cpp#L1325) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlayerPed::LOSBlockedBetweenPeds 0x0060B550 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPlayerPed::Compute3rdPersonMouseTarget(bool meleeWeapon) | [source/game_sa/Entity/Ped/PlayerPed.cpp:1351](../../source/game_sa/Entity/Ped/PlayerPed.cpp#L1351) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPlayerPed::Compute3rdPersonMouseTarget 0x0060B650 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo bIncludeBikers: source/game_sa/World.h:65 (0x00B7CD6F); Posible dato fijo m_bUseMouse3rdPerson: source/game_sa/Camera.h:338 (0x00B6EC2E); Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84); Posible dato fijo pIgnoreEntity: source/game_sa/World.h:67 (0x00B7CD68) |
-| CPlayerPed::DrawTriangleForMouseRecruitPed() | [source/game_sa/Entity/Ped/PlayerPed.cpp:1434](../../source/game_sa/Entity/Ped/PlayerPed.cpp#L1434) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPlayerPed::DrawTriangleForMouseRecruitPed 0x0060BA80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958) |
+| CPlayerPed::DrawTriangleForMouseRecruitPed() | [source/game_sa/Entity/Ped/PlayerPed.cpp:1434](../../source/game_sa/Entity/Ped/PlayerPed.cpp#L1434) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPlayerPed::DrawTriangleForMouseRecruitPed 0x0060BA80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:289 (0x00C4D958); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:288 (0x00C4B958) |
 | CPlayerPed::DoesTargetHaveToBeBroken(CEntity* target, CWeapon* weapon) | [source/game_sa/Entity/Ped/PlayerPed.cpp:1484](../../source/game_sa/Entity/Ped/PlayerPed.cpp#L1484) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlayerPed::DoesTargetHaveToBeBroken 0x0060C0C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPlayerPed::KeepAreaAroundPlayerClear() | [source/game_sa/Entity/Ped/PlayerPed.cpp:1512](../../source/game_sa/Entity/Ped/PlayerPed.cpp#L1512) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPlayerPed::KeepAreaAroundPlayerClear 0x0060C1E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84); Posible dato fijo ms_groups: source/game_sa/PedGroups.h:20 (0x00C09920) |
 | CPlayerPed::SetPlayerMoveBlendRatio(CVector* point) | [source/game_sa/Entity/Ped/PlayerPed.cpp:1596](../../source/game_sa/Entity/Ped/PlayerPed.cpp#L1596) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlayerPed::SetPlayerMoveBlendRatio 0x0060C520 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
@@ -331,7 +384,7 @@
 | * GetWanted() const | [source/game_sa/Entity/Ped/PlayerPed.h:107](../../source/game_sa/Entity/Ped/PlayerPed.h#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & GetPlayerGroup() const noexcept | [source/game_sa/Entity/Ped/PlayerPed.h:118](../../source/game_sa/Entity/Ped/PlayerPed.h#L118) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-454"></a>
+<a id="grupo-455"></a>
 
 ## CPlayerPedData
 
@@ -346,7 +399,7 @@
 | CPlayerPedData::DeAllocateData() | [source/game_sa/PlayerPedData.cpp:88](../../source/game_sa/PlayerPedData.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlayerPedData::DeAllocateData 0x0056F890 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPlayerPedData::SetInitialState() | [source/game_sa/PlayerPedData.cpp:102](../../source/game_sa/PlayerPedData.cpp#L102) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlayerPedData::SetInitialState 0x0056F210 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-455"></a>
+<a id="grupo-456"></a>
 
 ## CPlayerRelationshipRecorder
 
@@ -363,7 +416,7 @@
 | & GetPlayerRelationshipRecorder() | [source/game_sa/PlayerRelationshipRecorder.cpp:131](../../source/game_sa/PlayerRelationshipRecorder.cpp#L131) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPlayerRelationshipRecorder::GetPlayerRelationshipRecorder 0x0061A2E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPlayerRelationshipRecorder::InjectHooks() | [source/game_sa/PlayerRelationshipRecorder.cpp:147](../../source/game_sa/PlayerRelationshipRecorder.cpp#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-456"></a>
+<a id="grupo-457"></a>
 
 ## CPlayerSkin
 
@@ -375,7 +428,7 @@
 | CPlayerSkin::RenderFrontendSkinEdit() | [source/game_sa/Entity/Ped/PlayerSkin.cpp:47](../../source/game_sa/Entity/Ped/PlayerSkin.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlayerSkin::RenderFrontendSkinEdit 0x006FF900 | 0 / 0 | Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo gpPlayerClump: source/game_sa/Entity/Ped/PlayerSkin.cpp:21 (0x00C3F040) |
 | * CPlayerSkin::GetSkinTexture(const char* name) | [source/game_sa/Entity/Ped/PlayerSkin.cpp:73](../../source/game_sa/Entity/Ped/PlayerSkin.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlayerSkin::GetSkinTexture 0x006FFA10 | 0 / 0 | Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo m_txdSlot: source/game_sa/Entity/Ped/PlayerSkin.h:7 (0x00C3F03C); Posible dato fijo ms_pTxdPool: source/game_sa/TxdStore.h:45 (0x00C8800C) |
 
-<a id="grupo-457"></a>
+<a id="grupo-458"></a>
 
 ## CPointLights
 
@@ -392,18 +445,19 @@
 | ResetNumLights() | [source/game_sa/PointLights.h:59](../../source/game_sa/PointLights.h#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo NumLights: source/game_sa/PointLights.h:42 (0x00C3F0D0) |
 | GetActiveLights() | [source/game_sa/PointLights.h:60](../../source/game_sa/PointLights.h#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo NumLights: source/game_sa/PointLights.h:42 (0x00C3F0D0); Posible dato fijo aLights: source/game_sa/PointLights.h:43 (0x00C3F0E0) |
 
-<a id="grupo-458"></a>
+<a id="grupo-459"></a>
 
 ## CPointList
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | CPointList::InjectHooks() | [source/game_sa/PointList.cpp:21](../../source/game_sa/PointList.cpp#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CPointList::Constructor() | [source/game_sa/PointList.cpp:31](../../source/game_sa/PointList.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointList::Constructor 0x006986E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPointList::Empty() const noexcept | [source/game_sa/PointList.cpp:37](../../source/game_sa/PointList.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPointList::AddPoint(CVector pt) noexcept | [source/game_sa/PointList.cpp:41](../../source/game_sa/PointList.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
+| * CPointList::Constructor() | [source/game_sa/PointList.cpp:32](../../source/game_sa/PointList.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointList::Constructor 0x006986E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPointList::Clear() | [source/game_sa/PointList.cpp:41](../../source/game_sa/PointList.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointList::Clear 0x00699F00 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPointList::Empty() const noexcept | [source/game_sa/PointList.cpp:46](../../source/game_sa/PointList.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPointList::AddPoint(CVector pt) noexcept | [source/game_sa/PointList.cpp:50](../../source/game_sa/PointList.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
 
-<a id="grupo-459"></a>
+<a id="grupo-460"></a>
 
 ## CPointRoute
 
@@ -415,12 +469,3 @@
 | CPointRoute::RemovePoint(int32 index) | [source/game_sa/PedGeometryAnalyser.cpp:877](../../source/game_sa/PedGeometryAnalyser.cpp#L877) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointRoute::RemovePoint 0x005F13A0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPointRoute::Reverse() | [source/game_sa/PedGeometryAnalyser.cpp:887](../../source/game_sa/PedGeometryAnalyser.cpp#L887) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointRoute::Reverse 0x00667720 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPointRoute::CopyFrom(const CPointRoute& src) | [source/game_sa/PedGeometryAnalyser.cpp:901](../../source/game_sa/PedGeometryAnalyser.cpp#L901) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPointRoute::CopyFrom 0x0063A040 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-460"></a>
-
-## CPointRoutePool
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| InjectHooks() | [source/game_sa/Pools/PointRoutePool.h:37](../../source/game_sa/Pools/PointRoutePool.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * New() | [source/game_sa/Pools/PointRoutePool.h:51](../../source/game_sa/Pools/PointRoutePool.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPointRoutePool::New 0x0041B5B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

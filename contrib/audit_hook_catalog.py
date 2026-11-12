@@ -13,6 +13,11 @@ SCOPE = re.compile(
     re.MULTILINE,
 )
 
+SCOPE_NAMED = re.compile(
+    r'^\s*RH_ScopedNamedClass\(\s*[^,]+,\s*"([^"\n]+)"\s*\)',
+    re.MULTILINE,
+)
+
 INSTALL = re.compile(
     r'^\s*RH_Scoped(?:'
     r'Install|OverloadedInstall|VMTInstall|OverloadedVMTInstall|'
@@ -96,6 +101,7 @@ def scan_source(root: Path):
         relative = path.relative_to(root).as_posix()
 
         owners = {m.group(1).strip() for m in SCOPE.finditer(data)}
+        owners |= {m.group(1).strip() for m in SCOPE_NAMED.finditer(data)}
         for owner in owners:
             owner_files[owner].add(relative)
 

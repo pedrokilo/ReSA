@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 888 grupos / 10227 funciones reconstruidas; 10227 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 891 grupos / 10291 funciones reconstruidas; 10291 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -12,11 +12,11 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CInformFriendsEventQueue::InjectHooks() | [source/game_sa/InformFriendsEventQueue.cpp:84](../../source/game_sa/InformFriendsEventQueue.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CInformFriendsEventQueue::Init() | [source/game_sa/InformFriendsEventQueue.cpp:99](../../source/game_sa/InformFriendsEventQueue.cpp#L99) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformFriendsEventQueue::Init 0x004B2990 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CInformFriendsEventQueue::Flush() | [source/game_sa/InformFriendsEventQueue.cpp:104](../../source/game_sa/InformFriendsEventQueue.cpp#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformFriendsEventQueue::Flush 0x004AC2A0 | 0 / 0 | Posible dato fijo ms_informFriendsEvents: source/game_sa/InformFriendsEventQueue.h:15 (0x00A9AFB8) |
-| CInformFriendsEventQueue::Add(CPed* ped, CEvent* event) | [source/game_sa/InformFriendsEventQueue.cpp:114](../../source/game_sa/InformFriendsEventQueue.cpp#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformFriendsEventQueue::Add 0x004AC1E0 | 0 / 0 | Posible dato fijo ms_informFriendsEvents: source/game_sa/InformFriendsEventQueue.h:15 (0x00A9AFB8) |
-| CInformFriendsEventQueue::Process() | [source/game_sa/InformFriendsEventQueue.cpp:139](../../source/game_sa/InformFriendsEventQueue.cpp#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformFriendsEventQueue::Process 0x004AC2E0 | 0 / 0 | Posible dato fijo ms_informFriendsEvents: source/game_sa/InformFriendsEventQueue.h:15 (0x00A9AFB8) |
+| CInformFriendsEventQueue::InjectHooks() | [source/game_sa/InformFriendsEventQueue.cpp:93](../../source/game_sa/InformFriendsEventQueue.cpp#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CInformFriendsEventQueue::Init() | [source/game_sa/InformFriendsEventQueue.cpp:108](../../source/game_sa/InformFriendsEventQueue.cpp#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformFriendsEventQueue::Init 0x004B2990 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CInformFriendsEventQueue::Flush() | [source/game_sa/InformFriendsEventQueue.cpp:113](../../source/game_sa/InformFriendsEventQueue.cpp#L113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformFriendsEventQueue::Flush 0x004AC2A0 | 0 / 0 | Posible dato fijo ms_informFriendsEvents: source/game_sa/InformFriendsEventQueue.h:15 (0x00A9AFB8) |
+| CInformFriendsEventQueue::Add(CPed* ped, CEvent* event) | [source/game_sa/InformFriendsEventQueue.cpp:123](../../source/game_sa/InformFriendsEventQueue.cpp#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformFriendsEventQueue::Add 0x004AC1E0 | 0 / 0 | Posible dato fijo ms_informFriendsEvents: source/game_sa/InformFriendsEventQueue.h:15 (0x00A9AFB8) |
+| CInformFriendsEventQueue::Process() | [source/game_sa/InformFriendsEventQueue.cpp:148](../../source/game_sa/InformFriendsEventQueue.cpp#L148) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformFriendsEventQueue::Process 0x004AC2E0 | 0 / 0 | Posible dato fijo ms_informFriendsEvents: source/game_sa/InformFriendsEventQueue.h:15 (0x00A9AFB8) |
 
 <a id="grupo-322"></a>
 
@@ -132,8 +132,8 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CJoySticks::CJoySticks() | [source/game_sa/ControllerConfigManager.cpp:1364](../../source/game_sa/ControllerConfigManager.cpp#L1364) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CJoySticks::ClearJoyInfo(int32 JoyNumber) | [source/game_sa/ControllerConfigManager.cpp:1371](../../source/game_sa/ControllerConfigManager.cpp#L1371) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CJoySticks::CJoySticks() | [source/game_sa/ControllerConfigManager.cpp:1360](../../source/game_sa/ControllerConfigManager.cpp#L1360) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CJoySticks::ClearJoyInfo(int32 JoyNumber) | [source/game_sa/ControllerConfigManager.cpp:1367](../../source/game_sa/ControllerConfigManager.cpp#L1367) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-329"></a>
 
@@ -180,7 +180,7 @@
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | CLines::RenderLineNoClipping(float startX, float startY, float startZ, float endX, float endY, float endZ, uint32 startColor, uint32 endColor) | [source/game_sa/Lines.cpp:6](../../source/game_sa/Lines.cpp#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CLines::RenderLineWithClipping(float startX, float startY, float startZ, float endX, float endY, float endZ, uint32 startColor, uint32 endColor) | [source/game_sa/Lines.cpp:20](../../source/game_sa/Lines.cpp#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x006FF4F0: fuera del catálogo consultado; ruta efectiva sin resolver; Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958) |
+| CLines::RenderLineWithClipping(float startX, float startY, float startZ, float endX, float endY, float endZ, uint32 startColor, uint32 endColor) | [source/game_sa/Lines.cpp:20](../../source/game_sa/Lines.cpp#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x006FF4F0: fuera del catálogo consultado; ruta efectiva sin resolver; Posible dato fijo TempBufferVertices: source/game_sa/common.h:289 (0x00C4D958) |
 | CLines::ImmediateLine2D(int32 startX, int32 startY, int32 endX, int32 endY, uint8 startR, uint8 startG, uint8 startB, uint8 startA, uint8 endR, uint8 endG, uint8 endB, uint8 endA) | [source/game_sa/Lines.cpp:47](../../source/game_sa/Lines.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RenderLineNoClipping(const CVector& start, const CVector& end, uint32 startRGBA, uint32 endRGBA) | [source/game_sa/Lines.h:11](../../source/game_sa/Lines.h#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RenderLineWithClipping(const CVector& start, const CVector& end, uint32 startColor, uint32 endColor) | [source/game_sa/Lines.h:15](../../source/game_sa/Lines.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
@@ -217,6 +217,14 @@
 | & GetHeadLink() | [source/game_sa/Core/LinkList.h:97](../../source/game_sa/Core/LinkList.h#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-335"></a>
+
+## CLinkList&lt;CVisibilityPlugins::AlphaObjectInfo&gt;
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * CLinkList&lt;CVisibilityPlugins::AlphaObjectInfo&gt;::InsertSorted(const CVisibilityPlugins::AlphaObjectInfo& data) | [source/game_sa/VisibilityPlugins.cpp:146](../../source/game_sa/VisibilityPlugins.cpp#L146) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-336"></a>
 
 ## CLoadMonitor
 
@@ -259,7 +267,7 @@
 | GetGraphPoint(eLoadType t, size_t idx) const | [source/game_sa/LoadMonitor.h:130](../../source/game_sa/LoadMonitor.h#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetCurrentGraphIndex() const | [source/game_sa/LoadMonitor.h:131](../../source/game_sa/LoadMonitor.h#L131) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-336"></a>
+<a id="grupo-337"></a>
 
 ## CLoadedCarGroup
 
@@ -279,7 +287,7 @@
 | GetAllModels() const | [source/game_sa/LoadedCarGroup.h:53](../../source/game_sa/LoadedCarGroup.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetAllModels() | [source/game_sa/LoadedCarGroup.h:54](../../source/game_sa/LoadedCarGroup.h#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-337"></a>
+<a id="grupo-338"></a>
 
 ## CLoadingScreen
 
@@ -310,7 +318,7 @@
 | IsPaused() | [source/game_sa/LoadingScreen.h:70](../../source/game_sa/LoadingScreen.h#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::IsActive 0x00744DB0 | 0 / 0 | Posible dato fijo m_bPaused: source/game_sa/LoadingScreen.h:35 (0x00BAB31A) |
 | & GetCurrentDisplayedSplash() | [source/game_sa/LoadingScreen.h:111](../../source/game_sa/LoadingScreen.h#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_aSplashes: source/game_sa/LoadingScreen.h:37 (0x00BAB35C); Posible dato fijo m_currDisplayedSplash: source/game_sa/LoadingScreen.h:38 (0x008D093C) |
 
-<a id="grupo-338"></a>
+<a id="grupo-339"></a>
 
 ## CLocalisation
 
@@ -336,25 +344,15 @@
 | CLocalisation::KillPeds() | [source/game_sa/Localisation.cpp:143](../../source/game_sa/Localisation.cpp#L143) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLocalisation::KillPeds 0x0056D2C0 | 0 / 0 | Posible dato fijo nastyGame: source/game_sa/Localisation.h:11 (0x00B9B7EC) |
 | CLocalisation::PedsOnFire() | [source/game_sa/Localisation.cpp:148](../../source/game_sa/Localisation.cpp#L148) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLocalisation::PedsOnFire 0x0056D2D0 | 0 / 0 | Posible dato fijo nastyGame: source/game_sa/Localisation.h:11 (0x00B9B7EC) |
 
-<a id="grupo-339"></a>
+<a id="grupo-340"></a>
 
 ## CLodAtomicModelInfo
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CLodAtomicModelInfo::InjectHooks() | [source/game_sa/Models/LodAtomicModelInfo.cpp:26](../../source/game_sa/Models/LodAtomicModelInfo.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CLodAtomicModelInfo::CLodAtomicModelInfo() | [source/game_sa/Models/LodAtomicModelInfo.cpp:37](../../source/game_sa/Models/LodAtomicModelInfo.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CLodAtomicModelInfo::AsLodAtomicModelInfoPtr() | [source/game_sa/Models/LodAtomicModelInfo.cpp:44](../../source/game_sa/Models/LodAtomicModelInfo.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLodAtomicModelInfo::AsLodAtomicModelInfoPtr 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CLodAtomicModelInfo::GetModelType() | [source/game_sa/Models/LodAtomicModelInfo.cpp:50](../../source/game_sa/Models/LodAtomicModelInfo.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLodAtomicModelInfo::GetModelType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CLodAtomicModelInfo::Init() | [source/game_sa/Models/LodAtomicModelInfo.cpp:56](../../source/game_sa/Models/LodAtomicModelInfo.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLodAtomicModelInfo::Init 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-340"></a>
-
-## CLodTimeModelInfo
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * __fastcall LodTimeModelInfoConstructorBody(CLodTimeModelInfo* self, void* /*edx*/) | [source/game_sa/Models/LodTimeModelInfo.cpp:34](../../source/game_sa/Models/LodTimeModelInfo.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CLodTimeModelInfo::Constructor 0x004C5690 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CLodTimeModelInfo::InjectHooks() | [source/game_sa/Models/LodTimeModelInfo.cpp:45](../../source/game_sa/Models/LodTimeModelInfo.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CLodTimeModelInfo::GetModelType() | [source/game_sa/Models/LodTimeModelInfo.cpp:59](../../source/game_sa/Models/LodTimeModelInfo.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLodTimeModelInfo::GetModelType 0x004C56C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CLodTimeModelInfo::GetTimeInfo() | [source/game_sa/Models/LodTimeModelInfo.cpp:65](../../source/game_sa/Models/LodTimeModelInfo.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLodTimeModelInfo::GetTimeInfo 0x004C56D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall LodAtomicModelInfoConstructorBody(CLodAtomicModelInfo* self, void* /*edx*/) | [source/game_sa/Models/LodAtomicModelInfo.cpp:30](../../source/game_sa/Models/LodAtomicModelInfo.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CLodAtomicModelInfo::ConstructorBody 0x004C55E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CLodAtomicModelInfo::InjectHooks() | [source/game_sa/Models/LodAtomicModelInfo.cpp:41](../../source/game_sa/Models/LodAtomicModelInfo.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CLodAtomicModelInfo::CLodAtomicModelInfo() | [source/game_sa/Models/LodAtomicModelInfo.cpp:53](../../source/game_sa/Models/LodAtomicModelInfo.cpp#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CLodAtomicModelInfo::AsLodAtomicModelInfoPtr() | [source/game_sa/Models/LodAtomicModelInfo.cpp:60](../../source/game_sa/Models/LodAtomicModelInfo.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLodAtomicModelInfo::AsLodAtomicModelInfoPtr 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CLodAtomicModelInfo::GetModelType() | [source/game_sa/Models/LodAtomicModelInfo.cpp:66](../../source/game_sa/Models/LodAtomicModelInfo.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLodAtomicModelInfo::GetModelType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CLodAtomicModelInfo::Init() | [source/game_sa/Models/LodAtomicModelInfo.cpp:72](../../source/game_sa/Models/LodAtomicModelInfo.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLodAtomicModelInfo::Init 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
