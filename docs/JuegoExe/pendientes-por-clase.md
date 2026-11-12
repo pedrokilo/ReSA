@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (12/11/2026). Total: **1,618** funciones en 137 clases/módulos (rango 0x401000–0x74FFFF): 1,596 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (12/11/2026). Total: **1,617** funciones en 136 clases/módulos (rango 0x401000–0x74FFFF): 1,595 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,7 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| cHandlingDataMgr | 1 | 5 |
 | CPtrNodeDoubleLinkPool | 1 | 114 |
 | CAudioZones | 1 | 139 |
 | CTaskComplexWanderProstitute | 1 | 182 |
@@ -147,13 +146,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (137 clases / módulos)** | **1,618** | **229,349** |
-
-## cHandlingDataMgr (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006F55C0 | 5 | B |  | 0 | 0 | sí | baja |
+| **TOTAL (136 clases / módulos)** | **1,617** | **229,344** |
 
 ## CPtrNodeDoubleLinkPool (1)
 

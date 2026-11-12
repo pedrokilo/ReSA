@@ -6,7 +6,7 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-388 funciones, 22,217 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+387 funciones, 22,212 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -367,7 +367,6 @@
 | `0x006D6350` | 5 | CVehicle | alta | 0 (0) | sí |
 | `0x006D6360` | 5 | CVehicle | alta | 0 (0) | sí |
 | `0x006D6370` | 5 | CVehicle | alta | 0 (0) | sí |
-| `0x006F55C0` | 5 | cHandlingDataMgr | baja | 0 (0) | sí |
 | `0x006F5EE0` | 5 | CTrain | alta | 0 (0) | sí |
 | `0x00420F10` | 4 | CEventEditableResponse | baja | 0 (0) | sí |
 | `0x00420F00` | 3 | CEventEditableResponse | baja | 0 (0) | sí |

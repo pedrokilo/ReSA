@@ -10715,7 +10715,6 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006F54D0,85,reemplazada,cHandlingDataMgr,baja,,1,0,,
 0x006F5530,49,reemplazada,cHandlingDataMgr,baja,,0,0,,sí
 0x006F5570,75,reemplazada,cHandlingDataMgr,baja,,0,0,,sí
-0x006F55C0,5,B,cHandlingDataMgr,baja,,0,0,sí,sí
 0x006F55D0,748,reemplazada,CTrain,exacta,CTrain::ReadAndInterpretTrackFile,4,4,,
 0x006F58D0,37,reemplazada,CTrain,exacta,CTrain::Shutdown,1,1,,
 0x006F5900,1,reemplazada,CTrain,exacta,CTrain::UpdateTrains,1,1,,
