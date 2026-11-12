@@ -24,8 +24,16 @@ void CEventVehicleThreat::InjectHooks() {
 // 0x4AFB50 (lote 178A, sin validar; thiscall, un argumento de pila, `ret 4`, 102 bytes con marco SEH que solo desenrolla): constructor del EXE con el de CEvent y el de CEventEditableResponse expandidos en linea.
 // Deja +4 = 0 (dword, m_nTimeActive), +8 = 0 (byte, m_bValid), +0xC = 1 (byte, m_bAddToEventGroup), +0xE = 200 (word, TASK_NONE), +0x10 = 0xFFFF (word), la vtable del EXE (0x85B298), guarda el vehiculo en +0x14
 // y lo registra con CEntity::RegisterReference (0x571B70, un argumento de pila = &m_Vehicle) solo si no es nulo. Devuelve this.
+// Banco Fn178A: con la forma exacta del EXE (escrituras en este orden). El constructor de C++ dejaria la vtable de la DLL en lugar de la 0x85B298 del EXE.
 CEventVehicleThreat* CEventVehicleThreat::Constructor(CVehicle* vehicle) {
-    this->CEventVehicleThreat::CEventVehicleThreat(vehicle);
+    m_nTimeActive = 0;
+    m_bValid = false;
+    m_bAddToEventGroup = true;
+    m_TaskId = TASK_NONE;
+    m_FacialExpressionType = eFacialExpression::NONE;
+    *reinterpret_cast<uint32*>(this) = 0x85B298;
+    m_Vehicle = vehicle;
+    CEntity::SafeRegisterRef(m_Vehicle);
     return this;
 }
 

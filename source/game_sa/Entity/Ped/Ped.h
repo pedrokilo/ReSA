@@ -654,6 +654,7 @@ public:
     auto Destructor() { this->CPed::~CPed(); return this; }
 
 private:
+    friend class CEmergencyPed; // 0x5DE340 (banco Fn178A): el constructor del EXE de CEmergencyPed llama a esta envoltura (0x5E8030) como el original
     // Virtual method wrappers
     auto Constructor(ePedType pt) { this->CPed::CPed(pt); return this; }
 };

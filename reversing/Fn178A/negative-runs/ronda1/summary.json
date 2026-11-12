@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "c5a7b5718171348a4c8aca5bc7546c909685fc436204afd09d261e696c7e9773",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CEventVehicleThreat::Constructor: 884/2048; CEventVehicleThreat::DestructorBody: 884/2048; InteriorManager_c::Constructor: 892/2048; InteriorManager_c::Destructor: 909/2048; CReplay::ApplyPanelDamageToCar: 586/2048; CWinsockLink::BaseDestructorBody: 919/2048; CWinsockLink::ScalarDeletingDestructor: 403/2048; CCopPed::ScalarDeletingDestructor: 408/2048; CDummyPed::Constructor: 920/2048; CDummyPed::DestructorBody: 905/2048; CDummyPed::ScalarDeletingDestructor: 402/2048; CEmergencyPed::Constructor: 901/2048; CEmergencyPed::DestructorBody: 899/2048; CEmergencyPed::ScalarDeletingDestructor: 403/2048; CEmergencyPed::ProcessControl: 51/2048; CEventAcquaintancePedHateBadlyLit::DestructorBody: 890/2048; CEventAcquaintancePedHateBadlyLit::GetEventType: 882/2048; CEventAcquaintancePedHateBadlyLit::CloneEditable: 889/2048; CEventAcquaintancePedHateBadlyLit::CanBeInterruptedBySameEvent: 908/2048; CEventAcquaintancePedHateBadlyLit::ScalarDeletingDestructor: 438/2048; CPlane::DestructorBody: 894/2048; CPlane::ScalarDeletingDestructor: 440/2048; CQuadBike::DestructorBody: 890/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

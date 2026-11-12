@@ -40,9 +40,13 @@ CEmergencyPed::CEmergencyPed(ePedType pedType, uint32 modelIndex) : CPed(pedType
     m_pedSpeech.Initialise(this);
 }
 
-// 0x5DE340
+// 0x5DE340 (banco Fn178A): con la forma del EXE. El constructor de C++ (CEmergencyPed(...) : CPed(...)) llamaria al constructor de CPed generado por el compilador (no a la envoltura con hook 0x5E8030) y dejaria la vtable
+// de la DLL; aqui, como el EXE: CPed::Constructor (0x5E8030), vtable del EXE (0x86C200), CPed::SetModelIndex directo (0x5E4880) y CAEPedSpeechAudioEntity::Initialise (0x4E68D0). Devuelve this.
 CEmergencyPed* CEmergencyPed::Constructor(ePedType pedType, uint32 modelIndex) {
-    this->CEmergencyPed::CEmergencyPed(pedType, modelIndex);
+    CPed::Constructor(pedType);
+    *reinterpret_cast<uint32*>(this) = 0x86C200;
+    CPed::SetModelIndex(modelIndex);
+    m_pedSpeech.Initialise(this);
     return this;
 }
 
@@ -63,9 +67,11 @@ void CEmergencyPed::ProcessControl() {
     if (GetWasPostponed() || m_nPedState == PEDSTATE_DEAD)
         return;
 
-    GetActiveWeapon().Update(nullptr);
+    // El EXE relee el slot (BYTE con signo, `movsx`) en cada llamada y no comprueba el rango: indexacion sin comprobar (std::array::operator[] la comprueba) con el slot como int8.
+    const auto activeWeapon = [this]() -> CWeapon& { return m_aWeapons.data()[static_cast<int8>(m_nActiveWeaponSlot)]; };
+    activeWeapon().Update(nullptr);
     if (m_nPedState != PEDSTATE_DIE) {
-        GetActiveWeapon().Update(nullptr);
+        activeWeapon().Update(nullptr);
         if (m_nPedType == PED_TYPE_FIREMAN) { // el EXE: tipo == MEDIC termina; tipo == FIREMAN llama a IsPedInControl
             CPed::IsPedInControl();
         }
