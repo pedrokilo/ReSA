@@ -35,8 +35,8 @@ public:
     CTaskComplexLeaveCar(const CTaskComplexLeaveCar& o); // NOTSA
     ~CTaskComplexLeaveCar() override;
 
-    eTaskType GetTaskType() const override { return Type; }
-    CTask* Clone() const override { return new CTaskComplexLeaveCar{ *this }; } // 0x63D9E0
+    eTaskType GetTaskType() const override; // 0x63B960 (lote 186A, sin validar)
+    CTask* Clone() const override; // 0x63D9E0 (lote 186A, sin validar)
     bool   MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;
@@ -50,5 +50,6 @@ private:
 
     CTaskComplexLeaveCar* Constructor(CVehicle* targetVehicle, int32 nTargetDoor, int32 nDelayTime, bool bSensibleLeaveCar, bool bForceGetOut) { this->CTaskComplexLeaveCar::CTaskComplexLeaveCar(targetVehicle, nTargetDoor, nDelayTime, bSensibleLeaveCar, bForceGetOut); return this; }
     CTaskComplexLeaveCar* Destructor() { this->CTaskComplexLeaveCar::~CTaskComplexLeaveCar(); return this; }
+    CTaskComplexLeaveCar* ScalarDeletingDestructor(uint8 flags); // 0x6410E0 (lote 186A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86E828), `ret 4`
 };
 VALIDATE_SIZE(CTaskComplexLeaveCar, 0x34);

@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 #include "Shopping.h"
 #include "PedClothesDesc.h"
 
+// 0x49ABD0 (definida mas abajo)
+int32 GetChangingStatIndex(const char* stat);
+
 void CShopping::InjectHooks() {
     RH_ScopedClass(CShopping);
     RH_ScopedCategoryGlobal();
@@ -54,8 +57,11 @@ void CShopping::InjectHooks() {
     RH_ScopedInstall(Load, 0x5D3E40);
     RH_ScopedInstall(Save, 0x5D3DE0);
 
-    // Sin hook (fuera de la lista validada): AddPriceModifier 0x49C2D0 (nombre) / 0x49BDD0 (clave),
-    // RemovePriceModifier 0x49BE50 (nombre) / 0x49ACD0 (clave).
+    // Lote 186A (sin validar): indice de la estadistica (0x49ABD0) y las versiones por clave de AddPriceModifier (0x49BDD0) y RemovePriceModifier (0x49ACD0).
+    // Sin hook: AddPriceModifier 0x49C2D0 (nombre) y RemovePriceModifier 0x49BE50 (nombre).
+    RH_ScopedGlobalInstall(GetChangingStatIndex, 0x49ABD0);
+    RH_ScopedOverloadedInstall(AddPriceModifier, "Key", 0x49BDD0, void(*)(uint32, int32));
+    RH_ScopedOverloadedInstall(RemovePriceModifier, "Key", 0x49ACD0, void(*)(uint32));
 
     // unused
     RH_ScopedInstall(SetCurrentProperty, 0x49B1F0);
@@ -63,7 +69,8 @@ void CShopping::InjectHooks() {
 
 /*!
  * @brief Get changing stat index from name. (Used only in CShopping::LoadStats)
- * @addr 0x49ABD0
+ * @addr 0x49ABD0 (lote 186A, sin validar; cdecl, un puntero en la pila, `ret`, 184 bytes: seis comparaciones `repe cmps` con el NUL incluido, "-" da -1, "fat" 0, "respect" 1,
+ *       "sexy" 2, "health" 3, "stamina" 4 y "calories" 5; sin coincidencia -1)
  * @param stat Changing stat name.
  * @returns Stat index from the list provided in the function.
  */

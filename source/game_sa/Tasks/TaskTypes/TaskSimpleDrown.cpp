@@ -73,6 +73,7 @@ void CTaskSimpleDrown::InjectHooks() {
     RH_ScopedNamedGlobalInstall(DrownConstructorBody, "Constructor", 0x62FEC0);
     RH_ScopedNamedGlobalInstall(DrownDestructorBody, "DestructorBody", 0x62FF10);                         // lote 177A (sin validar)
     RH_ScopedNamedGlobalInstall(DrownScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6378D0);     // lote 177A (sin validar)
+    RH_ScopedVMTInstall(Clone, 0x635E60);                                                                 // lote 186A (sin validar)
     RH_ScopedVMTInstall(GetTaskType, 0x62FF00);                                                           // lote 177A (sin validar): retorno de constante
     RH_ScopedVMTInstall(ProcessPed, 0x639900);
 }
@@ -80,6 +81,17 @@ void CTaskSimpleDrown::InjectHooks() {
 // 0x62FF00 (lote 177A, sin validar; thiscall, `ret`, 5 bytes: `mov eax,0D5h`): TASK_SIMPLE_DROWN (213); no lee el objeto (ranura 4 de la vtable 0x86DE30).
 eTaskType CTaskSimpleDrown::GetTaskType() const {
     return Type;
+}
+
+// 0x635E60 (lote 186A, sin validar; thiscall, sin argumentos, `ret`, 142 bytes con marco SEH que solo desenrolla; el listado decia CTaskSimpleDuckToggle): copia de la tarea, que no lee el objeto. Reserva 0x2C bytes con
+// CTask::operator new (0x61A5A0; nulo -> devuelve nulo sin construir) y construye en linea (CTask 0x61A390 y los campos del constructor 0x62FEC0, sin llamarlo): una tarea nueva de ahogamiento (animacion DROWN, mezcla 4.0f,
+// velocidad 0, ejecutar = true). El marco SEH se omite.
+CTask* CTaskSimpleDrown::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleDrown));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskSimpleDrown();
 }
 
 // 0x62FEC0

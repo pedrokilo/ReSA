@@ -23,10 +23,19 @@ END GENERATED HOOK STATUS */
 
 using EntityItem_c = void*;
 
+void ProcObjectListItem::InjectHooks() {
+    RH_ScopedClass(ProcObjectListItem);
+    RH_ScopedCategory("Plant");
+
+    RH_ScopedInstall(Constructor, 0x5A3070); // lote 186A (sin validar)
+}
+
 void ProcObjectMan_c::InjectHooks() {
     RH_ScopedClass(ProcObjectMan_c);
     RH_ScopedCategory("Plant");
 
+    RH_ScopedInstall(Constructor, 0x5A3E20); // lote 186A (sin validar)
+    RH_ScopedInstall(Destructor, 0x5A3090);  // lote 186A (sin validar)
     RH_ScopedInstall(Init, 0x5A3EA0);
     RH_ScopedInstall(Update, 0x5A3110);
     RH_ScopedInstall(Exit, 0x5A3EE0);
@@ -35,6 +44,28 @@ void ProcObjectMan_c::InjectHooks() {
     RH_ScopedInstall(ReturnEntityToPool, 0x5A3130);
     RH_ScopedInstall(ProcessTriangleAdded, 0x5A3F20);
     RH_ScopedInstall(ProcessTriangleRemoved, 0x5A3F70);
+}
+
+// 0x5A3070 (lote 186A, sin validar; thiscall, sin argumentos de pila, `ret`, 12 bytes: `push esi; mov esi,ecx; call 0x4A8DB0; mov eax,esi; pop esi; ret`): el listado lo atribuia a ProcSurfaceInfo_c; es el constructor de
+// cada elemento del array de 512 registros de ProcObjectMan_c (+0x2408, 0x14 bytes; lo pasa 0x5A3E20 al constructor de vectores del CRT). Solo ejecuta el constructor de ListItem_c (0x4A8DB0: enlaces anterior (+0) y siguiente (+4) a cero) y
+// devuelve `this`; no toca +8..+0x13 (objeto, triangulo y bandera).
+ProcObjectListItem* ProcObjectListItem::Constructor() {
+    this->ProcObjectListItem::ProcObjectListItem();
+    return this;
+}
+
+// 0x5A3E20 (lote 186A, sin validar; thiscall, sin argumentos de pila, `ret`, 126 bytes con marco SEH que solo desenrolla): el listado lo atribuia a ProcSurfaceInfo_c; es el constructor de ProcObjectMan_c. Construye con el constructor de
+// vectores del CRT (0x821D30) los 128 ProcSurfaceInfo_c de +8 (0x48 bytes; constructor 0x5A2E90: solo pone a cero los tres dwords de la lista de objetos en +0x3C) y los 512 registros de +0x2408 (0x14 bytes; constructor 0x5A3070: enlaces a cero),
+// y despues la lista de registros libres de +0x4C08 (0x4A8DD0: tres dwords a cero). No escribe los contadores (+0, +4). Los destructores que da al vector (0x5A2EA0 y 0x5A3080) no hacen nada. Devuelve `this`. El marco SEH se omite.
+ProcObjectMan_c* ProcObjectMan_c::Constructor() {
+    this->ProcObjectMan_c::ProcObjectMan_c();
+    return this;
+}
+
+// 0x5A3090 (lote 186A, sin validar; thiscall, sin argumentos de pila, `ret`, 122 bytes con marco SEH que solo desenrolla): destructor de ProcObjectMan_c. Recorre con el destructor de vectores del CRT (0x821E02) la lista de registros (+0x4C08),
+// los 512 registros de +0x2408 y los 128 ProcSurfaceInfo_c de +8, pero todos sus destructores son un `ret` (0x4A8DE0, 0x5A3080 y 0x5A2EA0 salta a 0x4A8DE0): no escribe nada. El marco SEH se omite.
+void ProcObjectMan_c::Destructor() {
+    this->ProcObjectMan_c::~ProcObjectMan_c();
 }
 
 // 0x5A3EA0

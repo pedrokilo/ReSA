@@ -129,6 +129,21 @@ __declspec(noinline) CStuntJump* __fastcall StuntJumpPoolNew(StuntJumpPoolRaw* p
     return reinterpret_cast<CStuntJump*>(uintptr_t(uint32(pool->lastFree) * 0x44u) + uintptr_t(pool->storage));
 }
 
+// 0x49C440 (lote 186A, sin validar; thiscall, sin argumentos de pila, `ret`, 54 bytes; el listado decia CShopping): segunda copia identica de CPool<CStuntJump>::Flush (0x49C950). Funcion propia que llama a la primera
+// (sin expansion en linea) para que cada direccion tenga su hook, como en CTxdStore.
+__declspec(noinline) void __fastcall StuntJumpPoolFlushSecondCopy(StuntJumpPoolRaw* pool, void* /*edx*/) {
+    StuntJumpPoolFlush(pool, nullptr);
+}
+
+// 0x49C3B0 (lote 186A, sin validar; thiscall, un dword de pila, `ret 4`, 28 bytes; el listado decia CShopping; lo llama CStuntJumpManager::Update en 0x49C820): CPool<CStuntJump>::GetAt. Como el original: si el estado
+// del slot (BYTE leido con signo, sin comprobar el indice) es negativo (bit 0x80: libre) devuelve nulo; si no, storage + indice * 0x44 (producto de 32 bits). No escribe nada.
+__declspec(noinline) CStuntJump* __fastcall StuntJumpPoolGetAt(StuntJumpPoolRaw* pool, void* /*edx*/, int32 index) {
+    if (static_cast<int8>(pool->states[index]) < 0) {
+        return nullptr;
+    }
+    return reinterpret_cast<CStuntJump*>(uintptr_t(uint32(index) * 0x44u) + uintptr_t(pool->storage));
+}
+
 // Como el original: tiempo de paso en ms = ftol(ms_fTimeStep * 0.02f * 1000.0f)
 int32 StuntJumpTimeStepInMS() {
     const float ms = CTimer::ms_fTimeStep * 0.02f * 1000.0f;
@@ -156,6 +171,8 @@ void CStuntJumpManager::InjectHooks() {
     RH_ScopedNamedGlobalInstall(StuntJumpPoolFlush, "PoolFlush", 0x49C950);             // lote 172A (banco Fn172A)
     RH_ScopedNamedGlobalInstall(StuntJumpPoolClear, "PoolClear", 0x49C9A0);             // lote 172A (banco Fn172A)
     RH_ScopedNamedGlobalInstall(StuntJumpPoolNew, "PoolNew", 0x49C9E0);                 // lote 172A (banco Fn172A)
+    RH_ScopedNamedGlobalInstall(StuntJumpPoolFlushSecondCopy, "PoolFlushSecondCopy", 0x49C440); // lote 186A (sin validar)
+    RH_ScopedNamedGlobalInstall(StuntJumpPoolGetAt, "PoolGetAt", 0x49C3B0);                     // lote 186A (sin validar)
 }
 
 // 0x49CA50

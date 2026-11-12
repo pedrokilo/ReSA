@@ -56,6 +56,8 @@ END GENERATED HOOK STATUS */
 
 namespace {
 void IsDoorInUse(const CVehicle* vehicle, int32 door, bool& gettingIn, bool& gettingOut);
+void __fastcall RegisterPedLeaving(CTaskComplexLeaveCar* task, void* edx, CPed* ped);
+void __fastcall CreateLineUpUtility(CTaskComplexLeaveCar* task, void* edx, CPed* ped);
 }
 
 void CTaskComplexLeaveCar::InjectHooks() {
@@ -64,6 +66,11 @@ void CTaskComplexLeaveCar::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x63B8C0);
     RH_ScopedInstall(Destructor, 0x63B970);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6410E0); // lote 186A (sin validar)
+    RH_ScopedNamedGlobalInstall(RegisterPedLeaving, "RegisterPedLeaving", 0x63BA00); // lote 186A (sin validar)
+    RH_ScopedNamedGlobalInstall(CreateLineUpUtility, "CreateLineUpUtility", 0x63BAE0); // lote 186A (sin validar)
+    RH_ScopedVMTInstall(Clone, 0x63D9E0); // lote 186A (sin validar)
+    RH_ScopedVMTInstall(GetTaskType, 0x63B960); // lote 186A (sin validar)
     RH_ScopedVMTInstall(MakeAbortable, 0x641100);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x6419F0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x641FC0);
@@ -109,6 +116,35 @@ CTaskComplexLeaveCar::~CTaskComplexLeaveCar() {
     if (m_pTaskUtilityLineUpPedWithCar) {
         delete m_pTaskUtilityLineUpPedWithCar;
     }
+}
+
+// 0x6410E0 (lote 186A, sin validar; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x63B970; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`;
+// el listado decia CTaskComplexStealCar): destructor con borrado de CTaskComplexLeaveCar del EXE (ranura 0 de su vtable 0x86E828). Como el original: destruye con el cuerpo de la clase (0x63B970), libera `this` con CTask::operator delete
+// (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexLeaveCar* CTaskComplexLeaveCar::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
+}
+
+static_assert(CTaskComplexLeaveCar::Type == 0x2C0); // el EXE (0x63B960) devuelve `mov eax,2C0h`
+
+// 0x63B960 (lote 186A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,2C0h`; el listado decia CTaskComplexStealCar): TASK_COMPLEX_LEAVE_CAR (704); no lee el objeto (ranura 4 de la vtable 0x86E828).
+eTaskType CTaskComplexLeaveCar::GetTaskType() const {
+    return Type;
+}
+
+// 0x63D9E0 (lote 186A, sin validar; thiscall, sin argumentos, `ret`, 116 bytes con marco SEH que solo desenrolla; el listado decia CTaskComplexStealCar): copia de la tarea. Reserva 0x34 bytes con CTask::operator new (0x61A5A0; nulo ->
+// devuelve nulo sin construir) y llama al constructor de 0x63B8C0 con (vehiculo, puerta, retraso, salida sensata y forzar salida como bytes ampliados a cero). No copia la bandera de muerte ni el resto de campos. Devuelve el resultado del
+// constructor. El marco SEH se omite.
+CTask* CTaskComplexLeaveCar::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskComplexLeaveCar));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CTaskComplexLeaveCar*>(memory)->Constructor(m_pTargetVehicle, m_nTargetDoor, m_nDelayTime, m_bSensibleLeaveCar, m_bForceGetOut);
 }
 
 CTaskComplexLeaveCar::CTaskComplexLeaveCar(const CTaskComplexLeaveCar& o) :
@@ -256,8 +292,10 @@ void CTaskComplexLeaveCar::ComputeTargetDoor(CPed* ped) {
 }
 
 namespace {
-// 0x63BA00: reserva la puerta y el hueco de salida en el vehículo.
-void RegisterPedLeaving(CTaskComplexLeaveCar* task, CPed* ped) {
+// 0x63BA00 (lote 186A, sin validar; thiscall, el peaton en la pila, `ret 4`, 157 bytes; el listado decia CTaskComplexStealCar): reserva la puerta y el hueco de salida en el vehiculo. Como el original: bandera de puerta =
+// CCarEnterExit::ComputeDoorFlag (0x64E550, con el vehiculo, la puerta y true) guardada en +0x20 antes de CVehicle::SetGettingOutFlags (0x6D3020, solo el byte bajo); +0x21 = 1; contador de ocupantes del vehiculo +1 (byte); si el
+// conductor existe, no es el jugador, es este peaton y la salida es sensata: velocidad de crucero (byte +0x3D0) = 0 y mision (+0x3BA) = ninguna; si este peaton es el jugador y el conductor: estado del vehiculo = FORCED_STOP (bits 3-7 de +0x36).
+void __fastcall RegisterPedLeaving(CTaskComplexLeaveCar* task, void* /*edx*/, CPed* ped) {
     const auto doorFlags = static_cast<uint8>(CCarEnterExit::ComputeDoorFlag(task->m_pTargetVehicle, task->m_nTargetDoor, true));
     task->m_nDoorFlagsSet = doorFlags;
     task->m_pTargetVehicle->SetGettingOutFlags(doorFlags);
@@ -273,8 +311,9 @@ void RegisterPedLeaving(CTaskComplexLeaveCar* task, CPed* ped) {
     }
 }
 
-// 0x63BAE0: utilidad de alineación con la puerta (se crea con un desplazamiento nulo).
-void CreateLineUpUtility(CTaskComplexLeaveCar* task) {
+// 0x63BAE0 (lote 186A, sin validar; thiscall, un dword de pila que no se lee (el peaton), `ret 4`, 122 bytes con marco SEH que solo desenrolla; el listado decia CTaskComplexStealCar): utilidad de alineacion con la puerta (se crea con un
+// desplazamiento nulo). Como el original: operator new (0x82119A) de 0x1C bytes; con memoria, CTaskUtilityLineUpPedWithCar (0x64FBB0) con (desplazamiento a cero, 0, 0, puerta +0x10); el resultado (o nulo) a +0x1C. El marco SEH se omite.
+void __fastcall CreateLineUpUtility(CTaskComplexLeaveCar* task, void* /*edx*/, CPed* /*ped*/) {
     // Como el original: comprobación de nulo tras operator new (MSVC antiguo); si no hay memoria se guarda nulo sin construir
     void* const memory = operator new(sizeof(CTaskUtilityLineUpPedWithCar));
     task->m_pTaskUtilityLineUpPedWithCar = memory ? new (memory) CTaskUtilityLineUpPedWithCar(CVector{ 0.0f, 0.0f, 0.0f }, 0, 0, task->m_nTargetDoor) : nullptr;
@@ -337,7 +376,7 @@ CTask* CTaskComplexLeaveCar::CreateNextSubTask(CPed* ped) {
         return CreateSubTask(TASK_SIMPLE_CAR_SET_PED_OUT, ped);
     case TASK_SIMPLE_CAR_WAIT_TO_SLOW_DOWN: {
         if (!m_pTargetVehicle->CanPedStepOutCar(false)) {
-            RegisterPedLeaving(this, ped);
+            RegisterPedLeaving(this, nullptr, ped);
             ped->SetPedState(PEDSTATE_NONE);
             return CreateSubTask(TASK_SIMPLE_CAR_JUMP_OUT, ped);
         }
@@ -392,16 +431,16 @@ CTask* CTaskComplexLeaveCar::CreateNextSubTask(CPed* ped) {
             }
         }
 
-        RegisterPedLeaving(this, ped);
+        RegisterPedLeaving(this, nullptr, ped);
         ped->SetPedState(PEDSTATE_NONE);
         if (giveUp) {
-            CreateLineUpUtility(this);
+            CreateLineUpUtility(this, nullptr, ped);
             return CreateSubTask(TASK_SIMPLE_CAR_FORCE_PED_OUT, ped);
         }
         if (m_bDie) {
             return CreateSubTask(TASK_COMPLEX_CAR_SLOW_BE_DRAGGED_OUT, ped);
         }
-        CreateLineUpUtility(this);
+        CreateLineUpUtility(this, nullptr, ped);
         return CreateSubTask(TASK_SIMPLE_CAR_GET_OUT, ped);
     }
     case TASK_SIMPLE_CAR_WAIT_FOR_DOOR_NOT_TO_BE_IN_USE:

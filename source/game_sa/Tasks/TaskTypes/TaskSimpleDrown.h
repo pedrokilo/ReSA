@@ -13,7 +13,7 @@ public:
     ~CTaskSimpleDrown() override = default; // 0x62FF10, 0x6378D0
 
     eTaskType GetTaskType() const override; // 0x62FF00 (lote 177A, sin validar)
-    CTask* Clone() const override { return new CTaskSimpleDrown(); } // 0x635E60
+    CTask* Clone() const override; // 0x635E60 (lote 186A, sin validar)
     bool ProcessPed(CPed* ped) override;
 
 private:

@@ -115,15 +115,19 @@ void CTaskSimpleDie::StartAnim(CPed* ped) {
     ped->m_nDeathTimeMS = CTimer::GetTimeInMS(); // todo: m_nDeathTimeMS int32 to uint32?
 }
 
-// 0x635DA0
-
-// 0x0
+// 0x635DA0 (lote 186A, sin validar; thiscall, sin argumentos, `ret`, 178 bytes con marco SEH que solo desenrolla; el listado decia CTaskSimpleDuckToggle): copia de la tarea. Reserva 0x28 bytes con CTask::operator new
+// (0x61A5A0, nulo -> devuelve nulo sin construir) y llama al constructor que corresponde: con jerarquia de animacion (+0x10 no nulo) el de 0x62FAF0 con (jerarquia, banderas +0x14, mezcla +0x18, velocidad +0x1C);
+// si no, el de 0x62FA00 con (grupo +8, animacion +0xC, mezcla +0x18, velocidad +0x1C). Devuelve el resultado del constructor. El marco SEH se omite.
 CTask* CTaskSimpleDie::Clone() const {
-    if (m_animHierarchy) {
-        return new CTaskSimpleDie(m_animHierarchy, m_animFlags, m_blendDelta, m_animSpeed);
-    } else {
-        return new CTaskSimpleDie(m_animGroupId, m_animId, m_blendDelta, m_animSpeed);
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleDie));
+    if (!memory) {
+        return nullptr;
     }
+    auto* const task = static_cast<CTaskSimpleDie*>(memory);
+    if (m_animHierarchy) {
+        return task->Constructor(m_animHierarchy, m_animFlags, m_blendDelta, m_animSpeed);
+    }
+    return task->Constructor(m_animGroupId, m_animId, m_blendDelta, m_animSpeed);
 }
 
 // 0x62FBA0
@@ -194,7 +198,7 @@ void CTaskSimpleDie__InjectHooks() {
     RH_ScopedVMTInstall(GetTaskType, 0x62FA50); // lote 159A (banco Fn159A): retorno de constante
     RH_ScopedInstall(FinishAnimDieCB, 0x62FC10);
     RH_ScopedInstall(StartAnim, 0x637520);
-    // clang moment: RH_ScopedVirtualOverloadedInstall(Clone, "", 0x635DA0,  CTask *(CTaskSimpleDie::*)());
+    RH_ScopedVMTInstall(Clone, 0x635DA0); // lote 186A (sin validar)
     RH_ScopedVMTInstall(MakeAbortable, 0x62FBA0);
     RH_ScopedVMTInstall(ProcessPed, 0x6397E0);
 }

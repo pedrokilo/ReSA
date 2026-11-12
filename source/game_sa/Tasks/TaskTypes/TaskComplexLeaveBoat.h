@@ -39,4 +39,6 @@ private: // Wrappers for hooks
         this->CTaskComplexLeaveBoat::~CTaskComplexLeaveBoat();
         return this;
     }
+
+    CTaskComplexLeaveBoat* ScalarDeletingDestructor(uint8 flags); // 0x642250 (lote 186A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86E854), `ret 4`
 };

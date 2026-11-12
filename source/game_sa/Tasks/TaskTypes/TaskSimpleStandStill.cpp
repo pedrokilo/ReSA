@@ -54,6 +54,7 @@ void CTaskSimpleStandStill::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x62F310);
     RH_ScopedNamedGlobalInstall(StandStillDestructorBody, "Destructor", 0x62F360);
     RH_ScopedVMTInstall(GetTaskType, 0x62F350); // lote 171A (banco Fn171A): retorno de constante
+    RH_ScopedVMTInstall(Clone, 0x635CF0); // lote 186A (sin validar)
     RH_ScopedVMTInstall(MakeAbortable, 0x4B8690);
     RH_ScopedVMTInstall(ProcessPed, 0x62F370);
 }
@@ -70,6 +71,17 @@ CTaskSimpleStandStill::CTaskSimpleStandStill(int32 nTime, bool Looped, bool bUse
 eTaskType CTaskSimpleStandStill::GetTaskType() const {
     static_assert(Type == 0xCB);
     return Type;
+}
+
+// 0x635CF0 (lote 186A, sin validar; thiscall, sin argumentos, `ret`, 168 bytes con marco SEH que solo desenrolla; el listado decia CTaskSimpleDuckToggle): copia de la tarea. Reserva 0x20 bytes con CTask::operator new
+// (0x61A5A0; nulo -> devuelve nulo sin construir) y construye en linea (CTask 0x61A390 y los campos, sin llamar al constructor 0x62F310): tiempo (+8), temporizador a cero (+0xC, +0x10, +0x14, +0x15), repeticion (+0x18) y
+// uso de la postura de reposo (+0x19) como bytes tal cual, y mezcla (+0x1C) como dword. El temporizador de la copia NO se copia. El marco SEH se omite.
+CTask* CTaskSimpleStandStill::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleStandStill));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskSimpleStandStill(m_nTime, m_bLooped, m_bUseAnimIdleStance, m_fBlendData);
 }
 
 // 0x4B8690

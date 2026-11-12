@@ -25,7 +25,7 @@ public:
 
 public:
     eTaskType GetTaskType() const override; // 0x62F350 (lote 171A, banco Fn171A)
-    CTask* Clone() const override { return new CTaskSimpleStandStill(m_nTime, m_bLooped, m_bUseAnimIdleStance, m_fBlendData); } // 0x635CF0
+    CTask* Clone() const override; // 0x635CF0 (lote 186A, sin validar)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;
 

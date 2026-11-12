@@ -39,6 +39,7 @@ void ProcSurfaceInfo_c::InjectHooks() {
     RH_ScopedInstall(Exit, 0x5A3270);
     RH_ScopedInstall(AddObject, 0x5A32D0);
     RH_ScopedInstall(AddObjects, 0x5A3850);
+    RH_ScopedInstall(IsPtInTriangle2D, 0x5A2F80); // lote 186A (sin validar)
 }
 
 // 0x5A2EB0
@@ -343,8 +344,9 @@ int32 ProcSurfaceInfo_c::AddObjects(CPlantLocTri* plant) {
     return numAdded;
 }
 
-// 0x5A2F80, Fucked up calling convention, can't hook
-// Como el original: cada prueba rechaza el punto si la expresión no es <= 0 (también con NaN).
+// 0x5A2F80 (lote 186A, sin validar; thiscall con ECX sin usar, 15 dwords en la pila (x, y, tres vectores de tres floats, normal y puntero a z), `ret 0x3C`, 229 bytes, devuelve bool en AL).
+// Como el original: cada prueba rechaza el punto si la expresión no es <= 0 (también con NaN). Cada borde suma (a-b)*(c-d) + (e-f)*(g-h) en ese orden; z = (-(nx*x) - ny*y - -(v1.z*nz + ny*v1.y + nx*v1.x)) / nz,
+// guardado solo si el punto esta dentro.
 bool ProcSurfaceInfo_c::IsPtInTriangle2D(float x, float y, CVector v1, CVector v2, CVector v3, CVector normal, float* z) {
     if (!((v1.x - v2.x) * (v1.y - y) + (v2.y - v1.y) * (v1.x - x) <= 0.0f)
         || !((v2.x - v3.x) * (v2.y - y) + (v3.y - v2.y) * (v2.x - x) <= 0.0f)

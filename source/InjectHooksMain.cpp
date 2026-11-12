@@ -650,6 +650,7 @@ void InjectHooksMain() {
     CRealTimeShadowManager::InjectHooks();
     CRealTimeShadow::InjectHooks();
     CPopCycle::InjectHooks();
+    ProcObjectListItem::InjectHooks();
     ProcObjectMan_c::InjectHooks();
     ProcSurfaceInfo_c::InjectHooks();
     RwHelperInjectHooks();

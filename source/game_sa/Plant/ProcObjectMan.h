@@ -15,6 +15,12 @@ public:
     CEntity*      m_Obj;
     CPlantLocTri* m_LocTri;
     bool          m_bAllocatedMatrix;
+
+public:
+    static void InjectHooks();
+
+    // 0x5A3070 (lote 186A, sin validar): constructor del EXE (thiscall, `ret`): solo pone a cero el enlace anterior y siguiente (ListItem_c, 0x4A8DB0) y devuelve `this`.
+    ProcObjectListItem* Constructor();
 };
 VALIDATE_SIZE(ProcObjectListItem, 0x14);
 
@@ -33,6 +39,11 @@ public:
 
     ProcObjectMan_c() = default;  // 0x5A3E20
     ~ProcObjectMan_c() = default; // 0x5A3090
+
+    // 0x5A3E20 (lote 186A, sin validar): constructor del EXE (thiscall, `ret`, devuelve `this`).
+    ProcObjectMan_c* Constructor();
+    // 0x5A3090 (lote 186A, sin validar): destructor del EXE (thiscall, `ret`; no devuelve nada).
+    void Destructor();
 
     bool Init();
     void Update();

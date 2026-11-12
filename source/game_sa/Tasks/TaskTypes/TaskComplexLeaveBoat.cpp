@@ -27,6 +27,7 @@ void CTaskComplexLeaveBoat::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x63BB60);
     // Como el original: 0x642250 es el destructor con borrado (slot 0, ret 4); el destructor es 0x63BBD0
     RH_ScopedInstall(Destructor, 0x63BBD0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x642250); // lote 186A (sin validar)
     
     RH_ScopedInstall(CreateSubTask, 0x63BC50);
 
@@ -53,6 +54,17 @@ CTaskComplexLeaveBoat::CTaskComplexLeaveBoat(const CTaskComplexLeaveBoat& o) :
 // 0x63BBD0
 CTaskComplexLeaveBoat::~CTaskComplexLeaveBoat() {
     CEntity::SafeCleanUpRef(m_veh);
+}
+
+// 0x642250 (lote 186A, sin validar; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x63BBD0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`;
+// el listado decia CTaskComplexStealCar): destructor con borrado de CTaskComplexLeaveBoat del EXE (ranura 0 de su vtable 0x86E854). Como el original: destruye con el cuerpo de la clase (0x63BBD0), libera `this` con CTask::operator delete
+// (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexLeaveBoat* CTaskComplexLeaveBoat::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x63BC50
