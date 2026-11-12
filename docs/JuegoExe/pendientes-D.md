@@ -6,7 +6,7 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-330 funciones, 55,807 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+329 funciones, 55,610 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -34,7 +34,6 @@
 | `0x006E67A0` | 208 | CWaterLevel | alta | 0 (0) |  |
 | `0x00553010` | 206 | CQuadTreeNode<T> | baja | 0 (0) |  |
 | `0x0066D300` | 204 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) |  |
-| `0x004B5C2A` | 197 | CPedDamageResponseCalculator | baja | 0 (0) |  |
 | `0x0061BCB0` | 193 | CTaskSimpleRunTimedAnim | baja | 0 (0) |  |
 | `0x005CA720` | 180 | FxEmitterBP_c | baja | 0 (0) |  |
 | `0x00671330` | 174 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) |  |

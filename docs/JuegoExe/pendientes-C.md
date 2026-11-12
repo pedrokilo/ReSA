@@ -6,7 +6,7 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-354 funciones, 58,644 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+339 funciones, 58,197 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -72,7 +72,6 @@
 | `0x0065A110` | 259 | CTaskComplexMedicTreatInjuredPed | baja | 4 (0) |  |
 | `0x005CC0F0` | 256 | FxEmitterBP_c | baja | 3 (0) |  |
 | `0x0050A870` | 253 | CCam | baja | 2 (0) |  |
-| `0x00745CC0` | 252 | VideoMode | baja | 1 (0) |  |
 | `0x004D56F0` | 249 | CAnimManager | baja | 2 (0) |  |
 | `0x004CCD70` | 236 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x006C9160` | 231 | CPlane | alta | 1 (0) |  |
@@ -114,7 +113,6 @@
 | `0x00403638` | 137 | CEntity | baja | 2 (0) |  |
 | `0x00493960` | 136 | CTaskComplexSeekEntityRadiusAngleOffset | baja | 1 (0) |  |
 | `0x0046A930` | 131 | CScriptsForBrains | alta | 2 (0) |  |
-| `0x00745DC0` | 130 | VideoMode | baja | 1 (0) |  |
 | `0x004CC0C0` | 129 | CWeaponModelInfo | baja | 3 (0) |  |
 | `0x00403C88` | 127 | CEntity | baja | 1 (0) |  |
 | `0x005C6600` | 127 | FxEmitterBP_c | baja | 3 (0) |  |
@@ -344,23 +342,10 @@
 | `0x0043E1A0` | 5 | CPlaceable | baja | 5 (0) |  |
 | `0x004A2BB0` | 5 | FxEmitterBP_c | alta | 1 (0) |  |
 | `0x00542080` | 5 | CEntity | baja | 2 (0) |  |
-| `0x0059F000` | 5 | CHandObject | baja | 1 (0) |  |
 | `0x005CF840` | 5 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005D28F0` | 5 | CObject | baja | 2 (0) |  |
 | `0x0061BCA0` | 5 | CTaskSimpleRunTimedAnim | baja | 1 (0) |  |
-| `0x00637320` | 5 | CTaskSimpleHitFromFront | baja | 1 (0) |  |
-| `0x00637350` | 5 | CTaskSimpleHitFromFront | baja | 1 (0) |  |
-| `0x00637380` | 5 | CTaskSimpleHitFromFront | baja | 1 (0) |  |
-| `0x006373B0` | 5 | CTaskSimpleHitFromFront | baja | 1 (0) |  |
-| `0x006373E0` | 5 | CTaskSimpleHitFromFront | baja | 1 (0) |  |
-| `0x00637410` | 5 | CTaskSimpleHitFromFront | baja | 1 (0) |  |
-| `0x00637440` | 5 | CTaskSimpleHitFromFront | baja | 1 (0) |  |
-| `0x00637470` | 5 | CTaskSimpleHitFromFront | baja | 1 (0) |  |
-| `0x00655DD0` | 5 | CTaskComplexWalkRoundFire | baja | 1 (0) |  |
-| `0x00655E00` | 5 | CTaskComplexWalkRoundFire | baja | 1 (0) |  |
 | `0x00659E00` | 5 | CTaskComplexUseWaterCannon | baja | 1 (0) |  |
-| `0x006935B0` | 5 | CTaskSimpleHoldEntity | baja | 1 (0) |  |
-| `0x006935E0` | 5 | CTaskSimpleHoldEntity | baja | 1 (0) |  |
 | `0x00403B7B` | 2 | CEntity | baja | 3 (0) |  |
 | `0x00486AE0` | 1 | CTheScripts | alta | 1 (0) |  |
 | `0x0074EAC0` | 1 | Win | baja | 2 (0) |  |

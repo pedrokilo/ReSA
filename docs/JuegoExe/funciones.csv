@@ -1603,7 +1603,6 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0049E950,229,reemplazada,Fx_c,exacta,Fx_c::CreateMatFromVec,7,6,,
 0x0049EA40,10,reemplazada,Fx_c,alta,,6,6,,
 0x0049EA50,4,reemplazada,Fx_c,alta,,29,29,,
-0x0049EA70,5,A,Fx_c,alta,,3,0,sí,
 0x0049EA80,12,D,Fx_c,alta,,0,0,,
 0x0049EA90,66,A,Fx_c,alta,,1,1,,
 0x0049EAE0,21,A,Fx_c,alta,,1,1,,
@@ -2263,7 +2262,6 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004B5A20,76,B,CEventEditableResponse,baja,,0,0,,sí
 0x004B5A70,76,D,CEventEditableResponse,baja,,0,0,,
 0x004B5AC0,362,reemplazada,CPedDamageResponseCalculator,exacta,CPedDamageResponseCalculator::ComputeDamageResponse,26,25,,
-0x004B5C2A,197,D,CPedDamageResponseCalculator,baja,,0,0,,
 0x004B5CF0,76,B,CPedDamageResponseCalculator,baja,,0,0,,sí
 0x004B5D40,102,reemplazada,CEventDamage,exacta,CEventDamage::CloneEditable,0,0,,sí
 0x004B5E00,76,D,CEventDamage,baja,,0,0,,
@@ -5397,7 +5395,6 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0059EE80,44,reemplazada,CHandObject,exacta,CHandObject::Render,0,0,,sí
 0x0059EEB0,297,A,CHandObject,baja,,6,6,,
 0x0059EFE0,30,B,CHandObject,baja,,0,0,,sí
-0x0059F000,5,C,CHandObject,baja,,1,0,sí,
 0x0059F050,54,A,CHandObject,baja,,1,1,,
 0x0059F090,22,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::IsBreakableStatuePart,0,0,,
 0x0059F0C0,77,reemplazada,CBaseModelInfo,baja,,7,7,,
@@ -6076,7 +6073,6 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005DB8A0,148,reemplazada,CPlantColEntEntry,exacta,CPlantColEntEntry::ReleaseEntry,4,4,,
 0x005DB940,402,reemplazada,CPlantMgr,exacta,CPlantMgr::Shutdown,1,1,,
 0x005DBAE0,834,reemplazada,CPlantMgr,exacta,CPlantMgr::Render,1,1,,
-0x005DBE40,104,A,CPlantMgr,alta,,2,2,,
 0x005DBEB0,63,reemplazada,CPlantMgr,exacta,CPlantMgr::_ColEntityCache_Add,0,0,,
 0x005DBEF0,33,reemplazada,CPlantMgr,exacta,CPlantMgr::_ColEntityCache_Remove,0,0,,
 0x005DBF20,752,reemplazada,CPlantMgr,exacta,CPlantMgr::_ProcessEntryCollisionDataSections_RemoveLocTris,1,1,,
@@ -6089,8 +6085,6 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005DCF30,108,reemplazada,CPlantMgr,exacta,CPlantMgr::PreUpdateOnceForNewCameraPos,2,2,,
 0x005DCFA0,153,reemplazada,CPlantMgr,exacta,CPlantMgr::Update,1,1,,
 0x005DD100,221,reemplazada,CPlantMgr,baja,,1,0,,
-0x005DD1E0,57,A,CPlantMgr,baja,,1,0,,
-0x005DD220,323,A,CPlantMgr,baja,,2,2,,
 0x005DD370,62,reemplazada,CPlantSurfPropMgr,exacta,CPlantSurfPropMgr::AllocSurfProperties,0,0,,
 0x005DD3B0,687,reemplazada,CPlantSurfPropMgr,exacta,CPlantSurfPropMgr::LoadPlantsDat,1,1,,
 0x005DD6B0,3,reemplazada,CGrassRenderer,exacta,CGrassRenderer::Initialise,1,1,,
@@ -7892,21 +7886,13 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00637280,5,reemplazada,CTaskSimpleHitFromFront,exacta,CTaskSimpleHitFromFront::IsInterruptable,0,0,,sí
 0x00637290,99,reemplazada,CTaskSimpleHitFromFront,exacta,CTaskSimpleHitFromFront::Clone,0,0,,sí
 0x00637300,30,B,CTaskSimpleHitFromFront,baja,,0,0,,sí
-0x00637320,5,C,CTaskSimpleHitFromFront,baja,,1,0,sí,
 0x00637330,30,B,CTaskSimpleHitFromFront,baja,,0,0,,sí
-0x00637350,5,C,CTaskSimpleHitFromFront,baja,,1,0,sí,
 0x00637360,30,B,CTaskSimpleHitFromFront,baja,,0,0,,sí
-0x00637380,5,C,CTaskSimpleHitFromFront,baja,,1,0,sí,
 0x00637390,30,B,CTaskSimpleHitFromFront,baja,,0,0,,sí
-0x006373B0,5,C,CTaskSimpleHitFromFront,baja,,1,0,sí,
 0x006373C0,30,B,CTaskSimpleHitFromFront,baja,,0,0,,sí
-0x006373E0,5,C,CTaskSimpleHitFromFront,baja,,1,0,sí,
 0x006373F0,30,B,CTaskSimpleHitFromFront,baja,,0,0,,sí
-0x00637410,5,C,CTaskSimpleHitFromFront,baja,,1,0,sí,
 0x00637420,30,B,CTaskSimpleHitFromFront,baja,,0,0,,sí
-0x00637440,5,C,CTaskSimpleHitFromFront,baja,,1,0,sí,
 0x00637450,30,B,CTaskSimpleHitFromFront,baja,,0,0,,sí
-0x00637470,5,C,CTaskSimpleHitFromFront,baja,,1,0,sí,
 0x00637480,30,B,CTaskSimpleHitFromFront,baja,,0,0,,sí
 0x006374A0,30,B,CTaskSimpleHitFromFront,baja,,0,0,,sí
 0x006374C0,30,B,CTaskSimpleHitFromFront,baja,,0,0,,sí
@@ -8689,9 +8675,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00655CD0,100,reemplazada,CTaskComplexEvasiveCower,exacta,CTaskComplexEvasiveCower::Clone,0,0,,sí
 0x00655D40,108,reemplazada,CTaskComplexWalkRoundFire,exacta,CTaskComplexWalkRoundFire::Clone,0,0,,sí
 0x00655DB0,30,B,CTaskComplexWalkRoundFire,baja,,0,0,,sí
-0x00655DD0,5,C,CTaskComplexWalkRoundFire,baja,,1,0,sí,
 0x00655DE0,30,B,CTaskComplexWalkRoundFire,baja,,0,0,,sí
-0x00655E00,5,C,CTaskComplexWalkRoundFire,baja,,1,0,sí,
 0x00655E30,30,B,CTaskComplexWalkRoundFire,baja,,0,0,,sí
 0x00655E80,30,B,CTaskComplexWalkRoundFire,baja,,0,0,,sí
 0x00655EA0,53,reemplazada,CTaskSimpleEvasiveStep,exacta,CTaskSimpleEvasiveStep::StartAnim,1,1,,
@@ -9821,9 +9805,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006930F0,844,reemplazada,CTaskSimpleHoldEntity,exacta,CTaskSimpleHoldEntity::DropEntity,7,5,,
 0x00693440,323,reemplazada,CTaskSimpleHoldEntity,exacta,CTaskSimpleHoldEntity::ChoosePutDownHeight,1,1,,
 0x00693590,30,B,CTaskSimpleHoldEntity,baja,,0,0,,sí
-0x006935B0,5,C,CTaskSimpleHoldEntity,baja,,1,0,sí,
 0x006935C0,30,B,CTaskSimpleHoldEntity,baja,,0,0,,sí
-0x006935E0,5,C,CTaskSimpleHoldEntity,baja,,1,0,sí,
 0x006935F0,30,B,CTaskSimpleHoldEntity,baja,,0,0,,sí
 0x00693610,958,reemplazada,CTaskSimpleHoldEntity,baja,,0,0,,sí
 0x006939D0,30,B,CTaskSimpleHoldEntity,baja,,0,0,,sí
@@ -11666,8 +11648,6 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00745AF0,375,reemplazada,VideoMode,exacta,VideoMode::GetVideoModeList,4,3,,
 0x00745C70,48,reemplazada,VideoMode,exacta,VideoMode::SetVideoMode,4,4,,
 0x00745CA0,29,reemplazada,VideoMode,exacta,VideoMode::IsVideoModeExclusive,5,5,,
-0x00745CC0,252,C,VideoMode,baja,,1,0,,
-0x00745DC0,130,C,VideoMode,baja,,1,0,,
 0x00745F90,31,reemplazada,VideoPlayer,exacta,VideoPlayer::WaitState,2,2,,
 0x00745FB0,165,reemplazada,VideoPlayer,exacta,VideoPlayer::OnGraphNotify,1,1,,
 0x00746060,11,reemplazada,Win,exacta,Win::IsForegroundApp,3,3,,

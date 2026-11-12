@@ -6,7 +6,7 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-520 funciones, 85,006 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+516 funciones, 84,517 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -116,7 +116,6 @@
 | `0x0059F660` | 480 | CObject | alta | 6 (2) |  |
 | `0x0053E600` | 353 | Game | alta | 2 (2) |  |
 | `0x0065ED40` | 329 | CTaskComplexGangFollower | alta | 2 (2) |  |
-| `0x005DD220` | 323 | CPlantMgr | baja | 2 (2) |  |
 | `0x00746D80` | 322 | CPad | baja | 2 (2) |  |
 | `0x00664770` | 295 | CTaskGoToVehicleAndLean | baja | 2 (2) |  |
 | `0x0074C200` | 269 | Win | baja | 2 (2) |  |
@@ -130,7 +129,6 @@
 | `0x00749D40` | 124 | Win | baja | 5 (2) |  |
 | `0x0063BAE0` | 122 | CTaskComplexStealCar | baja | 2 (2) |  |
 | `0x004D7890` | 115 | CAEAmbienceTrackManager | baja | 2 (2) |  |
-| `0x005DBE40` | 104 | CPlantMgr | alta | 2 (2) |  |
 | `0x00731B80` | 104 | CTxdStore | alta | 2 (2) |  |
 | `0x005EE200` | 102 | CPedAttractorManager | baja | 2 (2) |  |
 | `0x005D93B0` | 101 | CCustomCarEnvMapPipeline | baja | 2 (2) |  |
@@ -479,7 +477,6 @@
 | `0x005EACC0` | 59 | CPedAttractorPool | baja | 1 (0) |  |
 | `0x004A12D0` | 57 | Fx_c | baja | 1 (0) |  |
 | `0x004F4170` | 57 | CAEUserRadioTrackManager | alta | 2 (0) |  |
-| `0x005DD1E0` | 57 | CPlantMgr | baja | 1 (0) |  |
 | `0x005EAEA0` | 57 | CPedAttractorPool | baja | 3 (0) |  |
 | `0x005C6B50` | 56 | FxEmitterBP_c | baja | 3 (0) |  |
 | `0x005EB340` | 55 | CPedAttractor | alta | 3 (0) |  |
@@ -527,6 +524,5 @@
 | `0x004A8B50` | 20 | FxInfoManager_c | baja | 2 (0) |  |
 | `0x005CF800` | 16 | FxEmitterBP_c | baja | 3 (0) |  |
 | `0x005CF890` | 16 | FxEmitterBP_c | baja | 14 (0) |  |
-| `0x0049EA70` | 5 | Fx_c | alta | 3 (0) |  |
 | `0x005CF870` | 3 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CF880` | 1 | FxEmitterBP_c | baja | 2 (0) |  |

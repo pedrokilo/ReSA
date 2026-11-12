@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-12 17:15 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-12 18:25 UTC
 
 **Índice:** [1. Objetivo y dimensiones](#objetivo) · [2. Siguientes mediciones](#mediciones) · [3. Siguiente fase](#siguiente-fase) · [4. Vista general](#vista-general) · [5. Cobertura real del EXE](#cobertura-exe) · [6. Lo que falta del código del juego](#que-falta) · [7. Funciones del juego aún no en C++](#no-en-cpp) · [8. Completas](#completas) · [9. Cohorte 17/10/2026](#cohorte-nuevo) · [10. Dependencias directas (grupo A)](#grupo-a) · [11. Parciales](#parciales) · [12. Sin revertir](#sin-revertir) · [13. Cómo leer y actualizar](#metodo)
 
@@ -10,22 +10,22 @@
 
 ## 1. Objetivo y dimensiones de progreso
 
-La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del EXE, seguida de un ejecutable propio. **La meta de este informe es completar todas las funciones del juego** (11,799 funciones y 3.01 MB de código en el EXE: el código propio del juego y su capa de plataforma). RenderWare, Direct3D y el CRT son bibliotecas enlazadas dentro del EXE: no forman parte de la meta, no se cuentan en las tablas y solo aparecen en la [cobertura real del EXE](#cobertura-exe) y en la lista de [bibliotecas fuera del objetivo](#bibliotecas) para aclarar qué queda fuera. Completar el juego es un hito hacia **ReSA — Zero Original Function Dependency**.
+La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del EXE, seguida de un ejecutable propio. **La meta de este informe es completar todas las funciones del juego** (11,779 funciones y 3.01 MB de código en el EXE: el código propio del juego y su capa de plataforma). RenderWare, Direct3D y el CRT son bibliotecas enlazadas dentro del EXE: no forman parte de la meta, no se cuentan en las tablas y solo aparecen en la [cobertura real del EXE](#cobertura-exe) y en la lista de [bibliotecas fuera del objetivo](#bibliotecas) para aclarar qué queda fuera. Completar el juego es un hito hacia **ReSA — Zero Original Function Dependency**.
 
 Cifras medidas el 12/11/2026. **Cada porcentaje de este informe lleva escrita la dimensión de la que habla**: *funciones* (del EXE), *bytes* (de código del EXE), *clases*, *entradas del catálogo* (filas de `hooks.csv`) o *validación* (cuántas de las ya hechas tienen evidencia aprobada). Dimensiones distintas dan porcentajes distintos y no son comparables entre sí.
 
 | Tipo | Dimensión | Qué cuenta | Numerador | Denominador | Porcentaje (de qué) | Progreso |
 | --- | --- | --- | ---: | ---: | --- | --- |
-| **Funciones** | Funciones del juego reemplazadas por C++ en el EXE (**meta del proyecto**) | Funciones del EXE en 0x401000–0x74FFFF que ya tienen su hook reconstruido (análisis estático del EXE) | 10,187 | 11,799 | 86.34% de las funciones del juego | `█████████████████░░░` |
-| **Funciones** | Funciones del juego que faltan | Complemento de la fila anterior: grupos A–D de [lo que falta](#que-falta) | 1,612 | 11,799 | 13.66% de las funciones del juego | `███░░░░░░░░░░░░░░░░░` |
-| **Bytes** | Bytes de código del juego reemplazados | Suma de los cuerpos de esas mismas funciones, en bytes de código | 2,778,096 | 3,006,872 | 92.39% de los bytes de código del juego | `██████████████████░░` |
+| **Funciones** | Funciones del juego reemplazadas por C++ en el EXE (**meta del proyecto**) | Funciones del EXE en 0x401000–0x74FFFF que ya tienen su hook reconstruido (análisis estático del EXE) | 10,187 | 11,779 | 86.48% de las funciones del juego | `█████████████████░░░` |
+| **Funciones** | Funciones del juego que faltan | Complemento de la fila anterior: grupos A–D de [lo que falta](#que-falta) | 1,592 | 11,779 | 13.52% de las funciones del juego | `███░░░░░░░░░░░░░░░░░` |
+| **Bytes** | Bytes de código del juego reemplazados | Suma de los cuerpos de esas mismas funciones, en bytes de código | 2,778,096 | 3,005,739 | 92.43% de los bytes de código del juego | `██████████████████░░` |
 | **Clases** | Clases del juego completas | Clases o grupos del catálogo con todas sus entradas reconstruidas y sin envolturas del juego abiertas | 883 | 883 | 100.00% de las clases del juego | `████████████████████` |
 | **Validación** | Clases del juego validadas | Clases completas cuyas entradas tienen todas `validated=1` | 883 | 883 | 100.00% de las clases completas | `████████████████████` |
 | **Entradas del catálogo** | Entradas del juego reconstruidas | Filas de `hooks.csv` con `reversed=1` más las envolturas del juego abiertas, que cuentan como no reconstruidas | 10,212 | 10,212 | 100.00% de las entradas del juego del catálogo | `████████████████████` |
 | **Validación** | Entradas del juego validadas | Entradas reconstruidas con evidencia aprobada vinculada (`validated=1`) | 10,212 | 10,212 | 100.00% de las entradas reconstruidas | `████████████████████` |
 | **Entradas del catálogo** | Entradas reconstruidas escritas solo en C++ | Entradas reconstruidas cuyo cuerpo fuente no tiene `__asm` ni `naked` (las de fuente no identificada de forma inequívoca no cuentan) | 10,186 | 10,212 | 99.75% de las entradas reconstruidas | `████████████████████` |
 
-**Por qué hay un 86% y un 92%.** No se contradicen: miden cosas distintas. El 86.34% cuenta *funciones* y el 92.39% cuenta *bytes* de código; las funciones que faltan son más pequeñas que las ya reemplazadas, así que quedan muchas funciones pero pocos bytes. Las filas «Funciones» y «Bytes» miden el propio EXE (análisis estático, ver [cobertura real del EXE](#cobertura-exe)) y son la medida del avance hacia la meta; las filas de «Entradas del catálogo», «Clases» y «Validación» miden las filas registradas de `hooks.csv`, que solo conocen una parte del código del juego, por eso su porcentaje es mayor. Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última fila cuenta, de las entradas reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
+**Por qué hay un 86% y un 92%.** No se contradicen: miden cosas distintas. El 86.48% cuenta *funciones* y el 92.43% cuenta *bytes* de código; las funciones que faltan son más pequeñas que las ya reemplazadas, así que quedan muchas funciones pero pocos bytes. Las filas «Funciones» y «Bytes» miden el propio EXE (análisis estático, ver [cobertura real del EXE](#cobertura-exe)) y son la medida del avance hacia la meta; las filas de «Entradas del catálogo», «Clases» y «Validación» miden las filas registradas de `hooks.csv`, que solo conocen una parte del código del juego, por eso su porcentaje es mayor. Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última fila cuenta, de las entradas reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
 
 **Migración de ensamblador a C++:** en `source/game_sa` ya no queda ningún `__asm` ni función `naked`: todo lo reconstruido está escrito en C++, con resultados validados contra el EXE dentro del juego. Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Historial y excepciones documentadas: [estado de la migración](../reversing/CppOnlyMigration/README.md) · [FILES.md](../reversing/CppOnlyMigration/FILES.md).
 
@@ -40,8 +40,8 @@ Estado al 12/11/2026. Lo que ya se midió y lo que todavía no tiene un porcenta
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
 | Validación vigente para el árbol actual (validación) | 0/10,212 entradas validadas confirmadas como vigentes (0.00% de las entradas validadas) | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). El 04/11/2026 se repitieron 20 bancos desfasados sin regresión de producción (todos eran bancos desfasados o artefactos del entorno): falta consolidarlos en el registro. |
-| Dependencias de funciones originales eliminadas (funciones) | Medido (cota inferior): 382 funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; cierre transitivo: 533 funciones / 91,174 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan: lista viva en la [sección 10](#grupo-a). |
-| Trabajo real que falta (funciones y bytes) | 1,612 funciones y 228,776 bytes del juego sin reemplazar (13.66% de las funciones y 7.61% de los bytes del juego); grupo A 533 funciones y 91,174 bytes | Reconstruir y validar de menor a mayor coste, empezando por el grupo A ([sección 6](#que-falta)). |
+| Dependencias de funciones originales eliminadas (funciones) | Medido (cota inferior): 380 funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; cierre transitivo: 529 funciones / 90,685 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan: lista viva en la [sección 10](#grupo-a). |
+| Trabajo real que falta (funciones y bytes) | 1,592 funciones y 227,643 bytes del juego sin reemplazar (13.52% de las funciones y 7.57% de los bytes del juego); grupo A 529 funciones y 90,685 bytes | Reconstruir y validar de menor a mayor coste, empezando por el grupo A ([sección 6](#que-falta)). |
 | Coste por categoría de lote (tiempo de reconstrucción y validación) | Medido para las categorías 1, 2, 3 y 5 en los lotes 90A, 90B, 92A, 92B y 92C (tabla de abajo); sin medir la categoría 4 (funciones con FPU) | Cronometrar un lote piloto con FPU (método x87 a 24 bits) y los siguientes lotes de lógica para convertir la estimación en un coste por función. |
 
 Costes medidos en los lotes cerrados (datos al 12/11/2026, [lotes.csv](JuegoExe/lotes.csv)). Cada lote reconstruye en C++ puro funciones que antes se llamaban al EXE por dirección y las valida dentro del juego (pares EXE/DLL con cero diferencias).
@@ -65,7 +65,7 @@ Las envolturas de biblioteca no cuentan: 211 funciones con envoltura al EXE (Ren
 
 **Lotes en curso:** ninguno registrado para las envolturas del juego.
 
-Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D, 1,612 funciones al 12/11/2026; [sección 6](#que-falta)). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv), y la lista viva está en la [sección 10](#grupo-a):
+Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D, 1,592 funciones al 12/11/2026; [sección 6](#que-falta)). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv), y la lista viva está en la [sección 10](#grupo-a):
 
 1. **Grupo A, por categorías y de menor a mayor coste:** helpers triviales y thunks muy llamados (hecho en el lote 90A: `CPad::GetPad` 0x53FB70, `CRGBA::Constructor` 0x7170C0...), pequeñas sin FPU (lote 90B), lógica sin FPU (empezando por las más llamadas y por clases enteras), funciones con FPU con el método x87 a 24 bits, y por último las de 0x300 bytes o más, una por lote (92B, 92C).
 2. **Lote piloto de cada categoría** para medir el coste real: ya medidos los de las categorías 1, 2, 3 y 5 (tabla de la sección 2); falta la 4, con FPU.
@@ -94,31 +94,31 @@ Reconstrucción por clases: 883 completas, 0 parciales y 0 sin revertir de 883 c
 
 ## 5. Cobertura real del EXE (estimación)
 
-Esta tabla es la única parte del informe que habla de lo que no es código del juego: sirve para aclarar qué queda fuera de la meta. Las dos primeras filas de la tabla de dimensiones salen de aquí (región del juego); las demás miden filas del catálogo (`hooks.csv`). Se mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,760 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 10,295 filas reconstruidas del catálogo equivalen a **10,257 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo). En esta tabla, «% de funciones» es la parte de las funciones de esa región que ya está en C++ y «% de bytes» la parte de los bytes de código de esa región.
+Esta tabla es la única parte del informe que habla de lo que no es código del juego: sirve para aclarar qué queda fuera de la meta. Las dos primeras filas de la tabla de dimensiones salen de aquí (región del juego); las demás miden filas del catálogo (`hooks.csv`). Se mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,740 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 10,295 filas reconstruidas del catálogo equivalen a **10,257 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo). En esta tabla, «% de funciones» es la parte de las funciones de esa región que ya está en C++ y «% de bytes» la parte de los bytes de código de esa región.
 
 | Región del EXE | Funciones (total de la región) | Bytes de código (total de la región) | Reemplazadas por C++: funciones y % de funciones | Reemplazadas: % de bytes | Funciones de la región llamadas directamente desde código ya reemplazado |
 | --- | ---: | ---: | --- | --- | ---: |
-| Juego y plataforma (0x401000–0x74FFFF) | 11,799 | 3,006,872 | `█████████████████░░░` 10,187 · 86.3% de funciones | `██████████████████░░` 92.4% de bytes | 382 |
+| Juego y plataforma (0x401000–0x74FFFF) | 11,779 | 3,005,739 | `█████████████████░░░` 10,187 · 86.5% de funciones | `██████████████████░░` 92.4% de bytes | 380 |
 | RenderWare y D3D (0x750000–0x81FFFF) | 1,889 | 600,971 | `█░░░░░░░░░░░░░░░░░░░` 61 · 3.2% de funciones | `░░░░░░░░░░░░░░░░░░░░` 0.3% de bytes | 229 |
 | CRT/MSVC y runtime (0x820000 en adelante) | 4,072 | 115,711 | `░░░░░░░░░░░░░░░░░░░░` 9 · 0.2% de funciones | `░░░░░░░░░░░░░░░░░░░░` 0.2% de bytes | 61 |
-| **Total** | **17,760** | **3,723,554** | `████████████░░░░░░░░` 10,257 · 57.8% de funciones | `███████████████░░░░░` 74.7% de bytes | **672** |
+| **Total** | **17,740** | **3,722,421** | `████████████░░░░░░░░` 10,257 · 57.8% de funciones | `███████████████░░░░░` 74.7% de bytes | **670** |
 
-**Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,760 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes del EXE) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,799 funciones, 81% de los bytes del EXE), y de él ya está reemplazado el **92% de los bytes del juego** y el 86% de las funciones del juego: no se contradicen, las funciones que quedan son más pequeñas que la media. Entre las 11,799 funciones del juego hay 1,833 de 16 bytes o menos (stubs, thunks y helpers).
+**Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,740 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes del EXE) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,779 funciones, 81% de los bytes del EXE), y de él ya está reemplazado el **92% de los bytes del juego** y el 86% de las funciones del juego: no se contradicen, las funciones que quedan son más pequeñas que la media. Entre las 11,779 funciones del juego hay 1,819 de 16 bytes o menos (stubs, thunks y helpers).
 
 <a id="que-falta"></a>
 
-## 6. Lo que falta del código del juego: 1,612 funciones, 229 KB
+## 6. Lo que falta del código del juego: 1,592 funciones, 228 KB
 
-Al 12/11/2026: 1,612 funciones (13.66% de las funciones del juego) y 228,776 bytes (7.61% de los bytes del juego) siguen sin reemplazar. Este es el trabajo real que falta del código del juego, lo mida o no el catálogo. Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
+Al 12/11/2026: 1,592 funciones (13.52% de las funciones del juego) y 227,643 bytes (7.57% de los bytes del juego) siguen sin reemplazar. Este es el trabajo real que falta del código del juego, lo mida o no el catálogo. Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
 
 | Grupo (de mayor a menor tamaño) | Funciones | Bytes | Lectura |
 | --- | ---: | ---: | --- |
-| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 533 | 91,174 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. Lista viva: [dependencias directas (grupo A)](#grupo-a). |
-| C. Llamadas directas solo desde código aún no reemplazado | 360 | 59,363 | Dependen de reconstruir antes A y B; parte puede ser código muerto. |
-| D. Sin llamadas directas ni vtable | 333 | 56,032 | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |
+| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 529 | 90,685 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. Lista viva: [dependencias directas (grupo A)](#grupo-a). |
+| C. Llamadas directas solo desde código aún no reemplazado | 345 | 58,916 | Dependen de reconstruir antes A y B; parte puede ser código muerto. |
+| D. Sin llamadas directas ni vtable | 332 | 55,835 | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |
 | B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | 386 | 22,207 | Probablemente necesarios: se ejecutan por despacho virtual. |
 
-Del código del juego ya reemplazado, **382 funciones del juego siguen llamándose directamente desde el EXE**. Esa es la lista corta de dependencias reales que hay que eliminar. Las que caen en RenderWare/D3D o el CRT se muestran solo en la última columna de la tabla de cobertura. No hay envolturas del juego abiertas (sección siguiente).
+Del código del juego ya reemplazado, **380 funciones del juego siguen llamándose directamente desde el EXE**. Esa es la lista corta de dependencias reales que hay que eliminar. Las que caen en RenderWare/D3D o el CRT se muestran solo en la última columna de la tabla de cobertura. No hay envolturas del juego abiertas (sección siguiente).
 
 > [!NOTE]
 > **Cotas y límites.** Es un análisis estático: hay 6,004 llamadas indirectas sin resolver que no están en el grafo, así que A es una **cota inferior** del trabajo. La partición por regiones usa la dirección, no una clasificación función a función. «Reemplazada» significa que el hook existe y pasó su banco; no acredita independencia del EXE ni que la validación siga vigente para el árbol actual. Se regenera con `contrib/exe_coverage.py` al sincronizar la documentación.
@@ -683,24 +683,24 @@ Destinos originales explícitos que `source/` seguía referenciando y que no est
 
 ## 10. Dependencias directas de la DLL al EXE (grupo A)
 
-Lista viva del trabajo real. Al 12/11/2026, el grupo A de [JuegoExe](JuegoExe/README.md) tiene **520 funciones del juego** (85,006 bytes) que la DLL ya necesita: 347 se llaman **directamente** desde código ya reemplazado (llamadas detectadas con dirección, bytes y llamador) y 152 solo de forma transitiva, a través de otras funciones aún no reemplazadas. La categoría y los llamadores salen del análisis de [AnalisisGrupoA.md](AnalisisGrupoA.md) ([grupoA.csv](JuegoExe/grupoA.csv), 1,007 funciones en el momento del análisis; 508 ya no son del grupo A: se reconstruyeron desde entonces o pasaron a envoltura abierta). El cierre transitivo de la [sección 6](#que-falta) cuenta 533 funciones: la diferencia (13) son funciones del grupo A que además tienen una envoltura abierta y figuran como envolturas abiertas ([sección 7](#no-en-cpp) y bibliotecas), no en esta lista. Es una cota inferior: las llamadas indirectas sin resolver no entran en el grafo.
+Lista viva del trabajo real. Al 12/11/2026, el grupo A de [JuegoExe](JuegoExe/README.md) tiene **516 funciones del juego** (84,517 bytes) que la DLL ya necesita: 345 se llaman **directamente** desde código ya reemplazado (llamadas detectadas con dirección, bytes y llamador) y 150 solo de forma transitiva, a través de otras funciones aún no reemplazadas. La categoría y los llamadores salen del análisis de [AnalisisGrupoA.md](AnalisisGrupoA.md) ([grupoA.csv](JuegoExe/grupoA.csv), 1,007 funciones en el momento del análisis; 512 ya no son del grupo A: se reconstruyeron desde entonces o pasaron a envoltura abierta). El cierre transitivo de la [sección 6](#que-falta) cuenta 529 funciones: la diferencia (13) son funciones del grupo A que además tienen una envoltura abierta y figuran como envolturas abiertas ([sección 7](#no-en-cpp) y bibliotecas), no en esta lista. Es una cota inferior: las llamadas indirectas sin resolver no entran en el grafo.
 
 ### Composición por categoría de coste
 
 | Categoría de coste | Funciones | % de funciones del grupo A | Bytes | % de bytes del grupo A | Directas desde código reemplazado | Lote medido |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| 1. Triviales y thunks (≤ 0x20 B sin llamadas, o un solo `jmp`) | 66 | 13.2% | 813 | 1.0% | 53 | 90A |
-| 2. Pequeñas sin FPU (≤ 0x40 B, ≤ 1 llamada) | 92 | 18.4% | 3,935 | 4.8% | 52 | 90B |
-| 3. Lógica sin FPU (< 0x300 B) | 275 | 55.1% | 45,877 | 55.4% | 184 | 92A |
-| 4. Con FPU (método x87 a 24 bits; < 0x300 B) | 48 | 9.6% | 13,101 | 15.8% | 42 | sin medir |
-| 5. De 0x300 B o más (una por lote) | 18 | 3.6% | 19,116 | 23.1% | 16 | 92B, 92C |
+| 1. Triviales y thunks (≤ 0x20 B sin llamadas, o un solo `jmp`) | 65 | 13.1% | 808 | 1.0% | 53 | 90A |
+| 2. Pequeñas sin FPU (≤ 0x40 B, ≤ 1 llamada) | 92 | 18.6% | 3,935 | 4.8% | 52 | 90B |
+| 3. Lógica sin FPU (< 0x300 B) | 273 | 55.2% | 45,497 | 55.2% | 183 | 92A |
+| 4. Con FPU (método x87 a 24 bits; < 0x300 B) | 47 | 9.5% | 12,997 | 15.8% | 41 | sin medir |
+| 5. De 0x300 B o más (una por lote) | 18 | 3.6% | 19,116 | 23.2% | 16 | 92B, 92C |
 
 ### Llamadas directas detectadas
 
 Ordenadas por número de sitios de llamada desde código ya reemplazado (los más llamados ganan más por función) y, a igualdad, de mayor a menor tamaño. «Llamadores» son los primeros llamadores del código ya reemplazado (nombre del catálogo o dirección); «Lote» es el lote en curso o asignado que la reconstruye ([lotes-en-curso.csv](JuegoExe/lotes-en-curso.csv)); «—» significa sin lote asignado. Los lotes ya validados (90A, 90B, 92A–92C) dejaron de figurar porque estas funciones ya no están pendientes.
 
 <details>
-<summary>Llamadas directas del grupo A pendientes (347), de más a menos llamadas</summary>
+<summary>Llamadas directas del grupo A pendientes (345), de más a menos llamadas</summary>
 
 | Dirección | Bytes | Módulo estimado | Categoría | Llamadas desde código reemplazado | Llamadores | Lote |
 | --- | ---: | --- | ---: | ---: | --- | --- |
@@ -805,7 +805,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x0059A840` | 510 | Interior_c (baja) | 4 | 2 | `CPed::ShoulderBoneRotation` | — |
 | `0x0053E600` | 353 | Game (alta) | 4 | 2 | `Game::FrontendIdle`, `Game::Idle` | — |
 | `0x0065ED40` | 329 | CTaskComplexGangFollower (alta) | 4 | 2 | `CTaskComplexAvoidOtherPedWhileWandering::ControlSubTask`, `CTaskComplexGangFollower::ControlSubTask` | — |
-| `0x005DD220` | 323 | CPlantMgr (baja) | 3 | 2 | `CPlantMgr::Initialise` | — |
 | `0x00664770` | 295 | CTaskGoToVehicleAndLean (baja) | 4 | 2 | `CTaskGoToVehicleAndLean::ControlSubTask`, `CTaskGoToVehicleAndLean::CreateFirstSubTask` | — |
 | `0x0074C200` | 269 | Win (baja) | 4 | 2 | `CClothesBuilder::ConstructGeometryAndSkinArrays`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
 | `0x005DA6A0` | 236 | CCustomCarEnvMapPipeline (baja) | 3 | 2 | `CCustomBuildingPipeline::CustomPipeRenderCB`, `CCustomCarEnvMapPipeline::CustomPipeRenderCB` | — |
@@ -816,7 +815,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x0074D990` | 131 | Win (baja) | 3 | 2 | `CClothesBuilder::CreateSkinnedClump`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
 | `0x00749D40` | 124 | Win (baja) | 3 | 2 | `0x5dd100`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
 | `0x0063BAE0` | 122 | CTaskComplexStealCar (baja) | 3 | 2 | `0x6419f0` | — |
-| `0x005DBE40` | 104 | CPlantMgr (alta) | 4 | 2 | `CPlantMgr::_ColEntityCache_Update` | — |
 | `0x00731B80` | 104 | CTxdStore (alta) | 3 | 2 | `CTxdStore::AddTxdSlot`, `CTxdStore::Initialise` | — |
 | `0x005EE200` | 102 | CPedAttractorManager (baja) | 3 | 2 | `CPedAttractor::BroadcastArrival`, `CPedAttractor::RegisterPed` | — |
 | `0x005D93B0` | 101 | CCustomCarEnvMapPipeline (baja) | 3 | 2 | `CCustomCarEnvMapPipeline::pluginSpecMatCopyConstructorCB`, `CCustomCarEnvMapPipeline::pluginSpecMatStreamReadCB` | — |
@@ -1055,7 +1053,7 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 </details>
 
 <a id="parciales"></a>
-## 11. 🟡 Parciales · 0 clases del catálogo + 134 clases/módulos con funciones del EXE pendientes
+## 11. 🟡 Parciales · 0 clases del catálogo + 132 clases/módulos con funciones del EXE pendientes
 
 Orden de mayor a menor tamaño de las envolturas al EXE pendientes (suma de bytes de sus cuerpos; a igualdad, alfabético). «Función más grande» y «Tamaño» (muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B) indican cuánto pesa la función más difícil de la clase. Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).
 
@@ -1065,23 +1063,23 @@ Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas 
 | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
 | *(ninguna clase parcial al 12/11/2026)* | | | | | | | | | |
 
-### Clases con funciones del EXE aún sin reemplazar · 134 clases / módulos
+### Clases con funciones del EXE aún sin reemplazar · 132 clases / módulos
 
-Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x401000–0x74FFFF sin reemplazar por C++ (grupos A–D del mapa del EXE y envolturas; 1,612 funciones). La clase se atribuye por cercanía de direcciones y puede ser errónea cuando su confianza es baja. Lista completa por función: [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md).
+Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x401000–0x74FFFF sin reemplazar por C++ (grupos A–D del mapa del EXE y envolturas; 1,592 funciones). La clase se atribuye por cercanía de direcciones y puede ser errónea cuando su confianza es baja. Lista completa por función: [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md).
 
 | Clase o módulo | Funciones pendientes | Bytes pendientes | Función más grande (B) | Tamaño |
 | --- | ---: | ---: | ---: | --- |
+| CPedDamageResponseCalculator | **2** | 122 | 76 | pequeña |
 | CAudioZones | **1** | 139 | 139 | mediana |
 | IKChain_c | **2** | 205 | 103 | mediana |
 | CWaterLevel | **1** | 208 | 208 | mediana |
 | WaterCreature_c | **2** | 211 | 106 | mediana |
+| CTaskSimpleHoldEntity | **6** | 292 | 166 | mediana |
 | Input | **2** | 302 | 179 | mediana |
-| CTaskSimpleHoldEntity | **8** | 302 | 166 | mediana |
 | CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse | **3** | 304 | 158 | mediana |
 | CTaskInteriorSitInChair | **4** | 304 | 106 | mediana |
 | FurnitureManager_c | **3** | 306 | 117 | mediana |
 | CAEWaterCannonAudioEntity | **2** | 309 | 223 | mediana |
-| CPedDamageResponseCalculator | **3** | 319 | 197 | mediana |
 | CTaskComplexHitPedWithCar | **4** | 319 | 208 | mediana |
 | CStats | **2** | 320 | 314 | mediana |
 | CTaskComplexOpenPassengerDoor | **4** | 327 | 131 | mediana |
@@ -1098,14 +1096,14 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CTaskComplexGangFollower | **3** | 365 | 329 | mediana |
 | CEventPlayerCommandToGroupGather | **8** | 372 | 217 | mediana |
 | CColStore | **5** | 373 | 103 | mediana |
+| CTaskComplexWalkRoundFire | **7** | 375 | 111 | mediana |
+| CHandObject | **3** | 381 | 297 | mediana |
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | **2** | 382 | 292 | mediana |
-| VideoMode | **2** | 382 | 252 | mediana |
-| CTaskComplexWalkRoundFire | **9** | 385 | 111 | mediana |
-| CHandObject | **4** | 386 | 297 | mediana |
 | CAEAmbienceTrackManager | **5** | 386 | 115 | mediana |
 | CTaskSimpleCarFallOut | **5** | 388 | 218 | mediana |
 | CTaskComplexGotoDoorAndOpen | **6** | 388 | 151 | mediana |
 | CTxdStore | **6** | 388 | 104 | mediana |
+| CTaskSimpleHitFromFront | **13** | 390 | 30 | pequeña |
 | CEventKnockOffBike | **7** | 395 | 232 | mediana |
 | CPopulation | **8** | 399 | 113 | mediana |
 | CTaskSimpleDieInCar | **5** | 403 | 152 | mediana |
@@ -1114,9 +1112,8 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CTheZones | **5** | 422 | 154 | mediana |
 | CTaskSimpleIKPointArm | **5** | 426 | 176 | mediana |
 | CGame | **9** | 428 | 75 | pequeña |
-| CTaskSimpleHitFromFront | **21** | 430 | 30 | pequeña |
+| Fx_c | **8** | 429 | 153 | mediana |
 | CAnimManager | **6** | 434 | 249 | mediana |
-| Fx_c | **9** | 434 | 153 | mediana |
 | CEventPotentialWalkIntoFire | **9** | 440 | 76 | pequeña |
 | CTaskComplexWanderCop | **9** | 442 | 122 | mediana |
 | CObjectPool | **5** | 446 | 230 | mediana |
@@ -1126,7 +1123,6 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | Game | **3** | 460 | 353 | mediana |
 | CShopping | **5** | 460 | 184 | mediana |
 | CTaskComplexStealCar | **6** | 461 | 157 | mediana |
-| CPlantMgr | **3** | 484 | 323 | mediana |
 | CTaskSimpleDuckToggle | **3** | 488 | 178 | mediana |
 | ProcSurfaceInfo_c | **4** | 489 | 229 | mediana |
 | CEventAttractor | **8** | 490 | 154 | mediana |
@@ -1205,7 +1201,7 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CWeaponModelInfo | **41** | 13,554 | 1,530 | grande |
 | Win | **85** | 19,907 | 2,207 | muy grande |
 | FxEmitterBP_c | **141** | 28,395 | 801 | grande |
-| **TOTAL (134 clases / módulos)** | **1,612** | **228,776** | 8,957 | |
+| **TOTAL (132 clases / módulos)** | **1,592** | **227,643** | 8,957 | |
 
 <a id="sin-revertir"></a>
 ## 12. 🔴 Sin revertir · 0 clases

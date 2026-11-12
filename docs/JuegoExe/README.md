@@ -2,22 +2,22 @@
 > **Estado al 12/11/2026 (Ciudad de México):** 892 grupos / 10295 funciones reconstruidas; 10295 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
-# Código del juego en el EXE: mapa de las 11,799 funciones
+# Código del juego en el EXE: mapa de las 11,779 funciones
 
 [Progreso del reversing](../ReversedClasses.md#cobertura-exe) · [Lista completa (CSV)](funciones.csv)
 
-Región **0x401000–0x74FFFF**: 11,799 funciones, 3,006,872 bytes. Es el código propio del juego y la capa de plataforma; RenderWare, D3D y el CRT quedan fuera (se sustituyen enlazando bibliotecas equivalentes). Generado por `contrib/game_function_map.py`; cotas y método en `contrib/exe_coverage.py`.
+Región **0x401000–0x74FFFF**: 11,779 funciones, 3,005,739 bytes. Es el código propio del juego y la capa de plataforma; RenderWare, D3D y el CRT quedan fuera (se sustituyen enlazando bibliotecas equivalentes). Generado por `contrib/game_function_map.py`; cotas y método en `contrib/exe_coverage.py`.
 
 ## Estado
 
 | Estado | Funciones | % func. | Bytes | % bytes |
 | --- | ---: | ---: | ---: | ---: |
-| D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 330 | 2.8% | 55,807 | 1.9% |
-| C · Falta: solo la llaman funciones aún no reemplazadas | 354 | 3.0% | 58,644 | 2.0% |
+| D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 329 | 2.8% | 55,610 | 1.9% |
+| C · Falta: solo la llaman funciones aún no reemplazadas | 339 | 2.9% | 58,197 | 1.9% |
 | B · Falta: método virtual | 386 | 3.3% | 22,207 | 0.7% |
-| A · Falta: llamada desde código ya reemplazado | 520 | 4.4% | 85,006 | 2.8% |
+| A · Falta: llamada desde código ya reemplazado | 516 | 4.4% | 84,517 | 2.8% |
 | Envoltura pendiente (la DLL aún llama al EXE) | 22 | 0.2% | 7,112 | 0.2% |
-| Reemplazada por C++ | 10,187 | 86.3% | 2,778,096 | 92.4% |
+| Reemplazada por C++ | 10,187 | 86.5% | 2,778,096 | 92.4% |
 
 Las funciones de A–D son **lo que falta**. El grupo A es el piso para la independencia (la DLL ya depende de ellas); es una cota inferior porque hay 6,004 llamadas indirectas sin resolver. Las envolturas pendientes (que ya tienen hook pero llaman al EXE) se cuentan aparte, por eso A–D suman menos que en la tabla de cobertura de ReversedClasses. Listas: [A](pendientes-A.md) · [B](pendientes-B.md) · [C](pendientes-C.md) · [D](pendientes-D.md).
 
@@ -29,14 +29,34 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 
 ## Excluidas del objetivo
 
-5 función(es) del rango del juego no se cuentan en las cifras de arriba porque no son viables en C++ puro (lista en [excluidas.csv](excluidas.csv)):
+25 función(es) del rango del juego no se cuentan en las cifras de arriba porque no son viables en C++ puro (lista en [excluidas.csv](excluidas.csv)):
 
 | Dirección | Bytes | Módulo estimado | Motivo |
 | --- | ---: | ---: | ---: |
+| 0x0049EA70 | 5 | Fx_c | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
 | 0x004AFB40 | 5 | CEventAcquaintancePed | no es una funcion con trabajo propio: un unico jmp a CEventAcquaintancePed::AffectsPed (0x4AFA30), sin llamadores ni referencias de datos; excluida el 12/11/2026 (lote 178A) |
+| 0x004B5C2A | 197 | CPedDamageResponseCalculator | no es una funcion: bloque interior de CPedDamageResponseCalculator/ComputeDamageResponse (0x4B5AC0), sin prologo; excluida el 12/11/2026 (lote 176A) |
 | 0x004C4923 | 48 | CDamageAtomicModelInfo | no es una funcion: fragmento interno de CDamageAtomicModelInfo::CreateInstance (0x4C4910), que ya tiene hook (lote 173A); artefacto del mapa; excluida el 12/11/2026 |
+| 0x0059F000 | 5 | CHandObject | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
+| 0x005DBE40 | 104 | CPlantMgr | __usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 12/11/2026 (lotes 180A y 186A) |
+| 0x005DD1E0 | 57 | CPlantMgr | __usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 12/11/2026 (lotes 180A y 186A) |
+| 0x005DD220 | 323 | CPlantMgr | __usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 12/11/2026 (lotes 180A y 186A) |
+| 0x00637320 | 5 | CTaskSimpleHitFromFront | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
+| 0x00637350 | 5 | CTaskSimpleHitFromFront | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
+| 0x00637380 | 5 | CTaskSimpleHitFromFront | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
+| 0x006373B0 | 5 | CTaskSimpleHitFromFront | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
+| 0x006373E0 | 5 | CTaskSimpleHitFromFront | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
+| 0x00637410 | 5 | CTaskSimpleHitFromFront | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
+| 0x00637440 | 5 | CTaskSimpleHitFromFront | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
+| 0x00637470 | 5 | CTaskSimpleHitFromFront | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
+| 0x00655DD0 | 5 | CTaskComplexWalkRoundFire | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
+| 0x00655E00 | 5 | CTaskComplexWalkRoundFire | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
+| 0x006935B0 | 5 | CTaskSimpleHoldEntity | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
+| 0x006935E0 | 5 | CTaskSimpleHoldEntity | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
 | 0x006F55C0 | 5 | CTrain | no es una funcion con trabajo propio: un unico jmp a CVehicle::Render (0x6D0E60), ranura 18 de la vtable 0x872370 de CTrain; sin logica que reconstruir; excluida el 12/11/2026 (lote 174A) |
 | 0x00709CF0 | 837 | CShadows | __usercall (EAX=normal, EBX=triangulo, EDI=parametros): C++ no puede engancharla sin __asm; ya reconstruida en source/game_sa/Shadows.cpp pero sin hook; excluida del objetivo el 12/11/2026 |
+| 0x00745CC0 | 252 | VideoMode | __usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 12/11/2026 (lotes 180A y 186A) |
+| 0x00745DC0 | 130 | VideoMode | __usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 12/11/2026 (lotes 180A y 186A) |
 | 0x00746800 | 110 | VideoPlayer | __usercall anti-manipulacion: lee registros que C++ no puede leer; sin llamadores directos ni vtable; excluida del objetivo el 11/11/2026 (lote 161A, evidencia en reversing/Fn161A) |
 
 | Bloque | Funciones | Reemplazadas | Faltan | Bytes que faltan | Módulos con más faltantes (estimado) |
@@ -60,7 +80,7 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x430000 | 200 | 95% | 10 | 603 | CEntryExitManager (9) |
 | 0x5B0000 | 157 | 94% | 10 | 523 | — |
 | 0x6E0000 | 92 | 93% | 6 | 593 | CVehicle (3), CWaterLevel (1) |
-| 0x590000 | 255 | 93% | 18 | 3,127 | InteriorManager_c (2), CObject (2), Interior_c (1) |
+| 0x590000 | 254 | 93% | 17 | 3,122 | InteriorManager_c (2), CObject (2), Interior_c (1) |
 | 0x6A0000 | 112 | 93% | 8 | 1,869 | CAutomobile (8) |
 | 0x680000 | 184 | 92% | 15 | 1,230 | — |
 | 0x510000 | 61 | 92% | 5 | 794 | CCam (2) |
@@ -70,17 +90,17 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x610000 | 327 | 91% | 29 | 3,568 | Rs (4) |
 | 0x420000 | 135 | 91% | 12 | 2,079 | CCarCtrl (3) |
 | 0x600000 | 237 | 91% | 22 | 4,054 | CPlayerPed (2) |
+| 0x630000 | 577 | 91% | 54 | 5,130 | — |
 | 0x450000 | 172 | 90% | 17 | 4,918 | CReplay (10), CPathFind (1) |
-| 0x630000 | 585 | 89% | 62 | 5,170 | — |
-| 0x690000 | 310 | 89% | 33 | 2,749 | CTaskComplexSeekEntityAiming (5), CTaskSimpleHoldEntity (2) |
-| 0x650000 | 387 | 88% | 47 | 3,203 | CTaskComplexMedicTreatInjuredPed (2), CTaskComplexUseWaterCannon (2), CTaskComplexGangFollower (2) |
+| 0x690000 | 308 | 90% | 31 | 2,739 | CTaskComplexSeekEntityAiming (5), CTaskSimpleHoldEntity (2) |
+| 0x650000 | 385 | 88% | 45 | 3,193 | CTaskComplexMedicTreatInjuredPed (2), CTaskComplexUseWaterCannon (2), CTaskComplexGangFollower (2) |
 | 0x460000 | 164 | 87% | 21 | 7,205 | CScriptsForBrains (4), CTheScripts (1) |
 | 0x470000 | 46 | 87% | 6 | 220 | — |
+| 0x5D0000 | 332 | 87% | 44 | 5,397 | CCustomCarEnvMapPipeline (5) |
 | 0x620000 | 282 | 86% | 39 | 2,753 | — |
-| 0x5D0000 | 335 | 86% | 47 | 5,881 | CCustomCarEnvMapPipeline (5), CPlantMgr (1) |
+| 0x490000 | 152 | 86% | 22 | 10,695 | CTheScripts (3), CShopping (3), Fx_c (3) |
 | 0x4F0000 | 203 | 85% | 30 | 2,533 | CAEUserRadioTrackManager (28) |
 | 0x660000 | 300 | 85% | 45 | 6,337 | CTaskComplexGoToPointAndStandStill (3), CTaskComplexGotoDoorAndOpen (2), CTaskGoToVehicleAndLean (1) |
-| 0x490000 | 153 | 85% | 23 | 10,700 | Fx_c (4), CTheScripts (3), CShopping (3) |
 | 0x540000 | 176 | 85% | 27 | 1,314 | CPlaceable (3), CPad (2) |
 | 0x6D0000 | 179 | 84% | 29 | 470 | CVehicle (29) |
 | 0x400000 | 281 | 83% | 47 | 9,569 | CStreaming (14) |
@@ -88,11 +108,11 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x5A0000 | 116 | 80% | 23 | 2,314 | CClothesBuilder (3), CObject (1) |
 | 0x5F0000 | 292 | 79% | 60 | 2,518 | — |
 | 0x4C0000 | 370 | 79% | 76 | 14,469 | CModelInfo (19), CVehicleModelInfo (13) |
-| 0x4B0000 | 360 | 75% | 90 | 7,176 | CEventScriptCommand (1) |
+| 0x4B0000 | 359 | 75% | 89 | 6,979 | CEventScriptCommand (1) |
 | 0x550000 | 257 | 74% | 66 | 6,947 | CPools (51), CQuadTreeNode<T> (6), SurfaceInfos_c (2) |
 | 0x4A0000 | 469 | 66% | 158 | 7,943 | FxInfoManager_c (96), FxEmitterBP_c (9), CEventKnockOffBike (4) |
 | 0x5E0000 | 254 | 54% | 117 | 11,447 | CPedAttractor (13), CPed (4) |
-| 0x740000 | 194 | 49% | 79 | 16,270 | Ps (4), Input (2) |
+| 0x740000 | 192 | 49% | 77 | 15,888 | Ps (4), Input (2) |
 | 0x5C0000 | 139 | 9% | 127 | 27,874 | — |
 
 ## Por módulo (estimado)
@@ -101,17 +121,17 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 
 | Módulo | Funciones | Reemplazadas | Faltan | Bytes que faltan | Confianza alta |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| CPedDamageResponseCalculator | 9 | 7 | 2 | 122 | 0 |
 | CAudioZones | 11 | 10 | 1 | 139 | 0 |
 | IKChain_c | 22 | 20 | 2 | 205 | 0 |
 | CWaterLevel | 48 | 47 | 1 | 208 | 1 |
 | WaterCreature_c | 5 | 3 | 2 | 211 | 0 |
+| CTaskSimpleHoldEntity | 21 | 15 | 6 | 292 | 2 |
 | Input | 7 | 5 | 2 | 302 | 2 |
-| CTaskSimpleHoldEntity | 23 | 15 | 8 | 302 | 2 |
 | CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse | 9 | 6 | 3 | 304 | 0 |
 | CTaskInteriorSitInChair | 5 | 1 | 4 | 304 | 0 |
 | FurnitureManager_c | 10 | 7 | 3 | 306 | 0 |
 | CAEWaterCannonAudioEntity | 9 | 7 | 2 | 309 | 1 |
-| CPedDamageResponseCalculator | 10 | 7 | 3 | 319 | 0 |
 | CTaskComplexHitPedWithCar | 14 | 10 | 4 | 319 | 1 |
 | CStats | 53 | 51 | 2 | 320 | 1 |
 | CTaskComplexOpenPassengerDoor | 8 | 4 | 4 | 327 | 0 |
@@ -128,14 +148,14 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CTaskComplexGangFollower | 11 | 8 | 3 | 365 | 2 |
 | CEventPlayerCommandToGroupGather | 10 | 2 | 8 | 372 | 0 |
 | CColStore | 29 | 24 | 5 | 373 | 5 |
+| CTaskComplexWalkRoundFire | 15 | 8 | 7 | 375 | 0 |
+| CHandObject | 6 | 3 | 3 | 381 | 0 |
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | 9 | 7 | 2 | 382 | 1 |
-| VideoMode | 6 | 4 | 2 | 382 | 0 |
-| CTaskComplexWalkRoundFire | 17 | 8 | 9 | 385 | 0 |
-| CHandObject | 7 | 3 | 4 | 386 | 0 |
 | CAEAmbienceTrackManager | 12 | 7 | 5 | 386 | 3 |
 | CTaskSimpleCarFallOut | 14 | 9 | 5 | 388 | 1 |
 | CTaskComplexGotoDoorAndOpen | 14 | 8 | 6 | 388 | 2 |
 | CTxdStore | 32 | 26 | 6 | 388 | 6 |
+| CTaskSimpleHitFromFront | 16 | 3 | 13 | 390 | 0 |
 | CEventKnockOffBike | 18 | 11 | 7 | 395 | 4 |
 | CPopulation | 76 | 68 | 8 | 399 | 0 |
 | CTaskSimpleDieInCar | 10 | 5 | 5 | 403 | 0 |
@@ -144,9 +164,8 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CTheZones | 27 | 22 | 5 | 422 | 1 |
 | CTaskSimpleIKPointArm | 12 | 7 | 5 | 426 | 0 |
 | CGame | 44 | 35 | 9 | 428 | 3 |
-| CTaskSimpleHitFromFront | 24 | 3 | 21 | 430 | 0 |
+| Fx_c | 36 | 28 | 8 | 429 | 3 |
 | CAnimManager | 39 | 33 | 6 | 434 | 2 |
-| Fx_c | 37 | 28 | 9 | 434 | 4 |
 | CEventPotentialWalkIntoFire | 14 | 5 | 9 | 440 | 0 |
 | CTaskComplexWanderCop | 18 | 9 | 9 | 442 | 0 |
 | CObjectPool | 9 | 4 | 5 | 446 | 0 |
@@ -156,7 +175,6 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | Game | 15 | 12 | 3 | 460 | 2 |
 | CShopping | 36 | 31 | 5 | 460 | 3 |
 | CTaskComplexStealCar | 22 | 16 | 6 | 461 | 0 |
-| CPlantMgr | 23 | 20 | 3 | 484 | 1 |
 | CTaskSimpleDuckToggle | 9 | 6 | 3 | 488 | 0 |
 | ProcSurfaceInfo_c | 8 | 4 | 4 | 489 | 0 |
 | CEventAttractor | 13 | 5 | 8 | 490 | 3 |
@@ -236,7 +254,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | Win | 109 | 24 | 65 | 14,050 | 0 |
 | FxEmitterBP_c | 155 | 14 | 141 | 28,395 | 9 |
 
-134 de 782 módulos tienen algo pendiente.
+132 de 782 módulos tienen algo pendiente.
 
 ## Cómo usarlo
 
