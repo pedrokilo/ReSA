@@ -27,7 +27,7 @@ SLOTS = ()
 # colaboradores sustituidos por falsos: (direccion del EXE, hooked). Con hook RH en la DLL (apagado durante el banco): el mismo falso va en el cuerpo de la DLL (los cuerpos de destructor con hook propio, en la
 # envoltura de la DLL; CTask::operator delete 0x61A5B0 en su cuerpo). Sin hook (hooked False) y con funcion propia de la DLL (DLL_BODY_WITHOUT_HOOK: cuerpos de ~CTaskComplexFollowPointRoute, ~CTaskSimpleGangDriveBy y
 # ~CTaskComplexUseSequence): el falso va tambien en esa funcion; operator delete del CRT (0x8214BD): sin hook, la DLL lo llama por la direccion del EXE (un solo parche).
-DLL_BODY_WITHOUT_HOOK = {0x66E050, 0x6218C0, 0x6396C0}
+DLL_BODY_WITHOUT_HOOK = {0x66E050, 0x6396C0}   # pase final: ~CTaskSimpleGangDriveBy (0x6218C0) tiene hook desde el lote 170A
 STUBBED = {NAMES[0]: [],
            NAMES[1]: [(0x502760, True), (0x8214BD, False)],
            NAMES[2]: [(0x648690, True), (0x61A5B0, True)],
@@ -38,7 +38,7 @@ STUBBED = {NAMES[0]: [],
            NAMES[7]: [(0x66EB70, True), (0x61A5B0, True)],
            NAMES[8]: [(0x631E30, True), (0x61A5B0, True)],
            NAMES[9]: [(0x632050, True), (0x61A5B0, True)],
-           NAMES[10]: [(0x6218C0, False), (0x61A5B0, True)],
+           NAMES[10]: [(0x6218C0, True), (0x61A5B0, True)],
            NAMES[11]: [(0x621CB0, True), (0x61A5B0, True)],
            NAMES[12]: [(0x6335B0, True), (0x61A5B0, True)],
            NAMES[13]: [(0x633830, True), (0x61A5B0, True)],

@@ -412,7 +412,7 @@ inline void Update() {
     env.stubs[7] = {H(0x63D100, Lote149ABody_CTaskComplexEnterAnyCarAsDriver(), K[7]), Del()};
     env.stubs[8] = {H(0x63DFA0, Lote149ABody_CTaskComplexEnterCar(), K[8]), Del()};
     env.stubs[9] = {H(0x632A90, Lote149ABody_CTaskSimpleWaitForBus(), K[9]), Del()};
-    env.stubs[10] = {U(0x632B70, Lote149ABody_CTaskSimpleWaitForPizza(), K[10]), Del()};
+    env.stubs[10] = {H(0x632B70, Lote149ABody_CTaskSimpleWaitForPizza(), K[10]), Del()};
     env.stubs[16] = {F(0x5E0170, &FkIsAlive)};
     env.stubs[17] = {H(0x535E90, Lote149ABuildingEntityDestructor(), K[17])};
     env.stubs[18] = {Rt(17, K[18])};

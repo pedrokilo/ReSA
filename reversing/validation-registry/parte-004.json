@@ -86251,7 +86251,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CEventDontJoinPlayerGroup::Destructor"
@@ -86260,12 +86260,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86275,7 +86275,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86284,7 +86284,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86307,7 +86307,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CEventPassObject::Destructor"
@@ -86316,12 +86316,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86331,7 +86331,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86340,7 +86340,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86363,7 +86363,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskComplexKillPedOnFoot::Destructor"
@@ -86372,12 +86372,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86387,7 +86387,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86396,7 +86396,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86419,7 +86419,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSequence::Destructor"
@@ -86428,12 +86428,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86443,7 +86443,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86452,7 +86452,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86475,7 +86475,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsDriver::Destructor"
@@ -86484,12 +86484,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86499,7 +86499,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86508,7 +86508,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86531,7 +86531,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedOut::Destructor"
@@ -86540,12 +86540,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86555,7 +86555,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86564,7 +86564,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86587,7 +86587,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleGoTo::Destructor"
@@ -86596,12 +86596,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86611,7 +86611,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86620,7 +86620,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86643,7 +86643,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWander::Destructor"
@@ -86652,12 +86652,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86667,7 +86667,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86676,7 +86676,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86699,7 +86699,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskComplexJump::Destructor"
@@ -86708,12 +86708,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86723,7 +86723,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86732,7 +86732,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86755,7 +86755,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleAnim::Constructor"
@@ -86764,12 +86764,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86779,7 +86779,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86788,7 +86788,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86811,7 +86811,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayHandSignalAnim::Constructor"
@@ -86820,12 +86820,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86835,7 +86835,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86844,7 +86844,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86867,7 +86867,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDrown::Constructor"
@@ -86876,12 +86876,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86891,7 +86891,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86900,7 +86900,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86923,7 +86923,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskComplexAttractorPartnerWait::Constructor"
@@ -86932,12 +86932,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -86947,7 +86947,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -86956,7 +86956,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -86979,7 +86979,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseGoggles::Constructor"
@@ -86988,12 +86988,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -87003,7 +87003,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -87012,7 +87012,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -87035,7 +87035,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseEffectRunning::Constructor"
@@ -87044,12 +87044,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -87059,7 +87059,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -87068,7 +87068,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -87091,7 +87091,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseEffectSprinting::Constructor"
@@ -87100,12 +87100,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -87115,7 +87115,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -87124,7 +87124,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -87147,7 +87147,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStuckInAir::Constructor"
@@ -87156,12 +87156,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -87171,7 +87171,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -87180,7 +87180,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -87203,7 +87203,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleArrestPed::Constructor"
@@ -87212,12 +87212,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -87227,7 +87227,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -87236,7 +87236,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -87259,7 +87259,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskAllocatorPlayerCommandAttack::Constructor"
@@ -87268,12 +87268,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -87283,7 +87283,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -87292,7 +87292,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
@@ -87315,7 +87315,7 @@
       },
       "evidence": {
         "path": "reversing/Fn115A/validation-summary.json",
-        "sha256": "f6e035d2b63e0299589ec6133480017f755434dc4d70e8b46c9ac0010d99353c",
+        "sha256": "01b2efb8696e0e7b7e8e6ce2528ef514074eb1fee13691bb826f482175e93eea",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleFacial::Constructor"
@@ -87324,12 +87324,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
-        "source/game_sa/Events/Event.cpp": "e62a02c3bb05beb172b4dfe0930406e923878f81226a62cb8fd580116f642d0e",
+        "source/CMakeLists.txt": "79cd40bd905df865477c129e843e9ebd4b933e22fc40f2f8b628cd5dfedf181c",
+        "source/InjectHooksMain.cpp": "4064cf48243bfad7f4737f0c7b5c08d64c6f96814570ffdc1b7bb378a109acfe",
+        "source/game_sa/Events/Event.cpp": "dcffb550e688019acdc319824a36ac5389cb979ed6f8255deee2a07a3ba3aa86",
         "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "b8788a9f47e7dfa30956f9871a2a8867c4d26f016318a0937531a4f84cd4e752",
-        "source/game_sa/Events/EventPassObject.cpp": "3441f757765e4c2d722b108bf63a8f5c6cdc5ab9a6a943f450a988191559f69e",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Events/EventPassObject.cpp": "6dbbde2fb1a89217690af87ed771da9028d0be69ec14db9a4c2091c4bd1db409",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "source/game_sa/Tasks/TaskComplexSequence.cpp": "dd93e80e2e7546ae8eedfc7dbfe1f3ab4f311f5c2474929be96f085c8090b76f",
         "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
         "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "6f6b312fdc52c57473d9159e84f1163c2eb7ef7d05ce1d579c966ea8d178bb27",
@@ -87339,7 +87339,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
         "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "4d3473769ed3eda8514863549db7c1b66379f9a150851a5c354c10496395e529",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "4a66c89ac0f9c64bf2ca5bbbc8b648199e7e38dd036d023762ac9e2e73074dfb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "2ef12e60291a11aaa49f9c3f1255895af2944d8ad4a995ce5e97ae3220800318",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "6e34db08707a1688ce2824ebe632365bc98bbae9cbc538981c989223939fe26d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "38240c355995a25008be5b5388d69aa6e46d95ee24f1b473ff603befe9e4c19e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
@@ -87348,7 +87348,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "7f26eea32e8b155c7c67dbe7e149c176c34e371e7830fd6fd58d5dfd60e8d8c3",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "53ab6d22e03c728d5ed70d3d277ca9e66e97e9309d02e9de850e3691cac5651a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "680c86bbe93cdac5aaae8e228203bc60f5d447f0d6dc9db5dbc2c32734f2ba79",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "2677863d2f82593a17b60c2b1d3dca03bf25ce43fda0c8b47e4aae8003842180",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "40ed21d884dffbc01ba0ab08871478542b35bf9317b7edd79eed7b7a073ee046",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
