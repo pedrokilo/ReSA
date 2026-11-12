@@ -2486,7 +2486,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004C4A10,22,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::SetIsLod,0,0,,
 0x004C4A30,5,reemplazada,CTimeInfo,exacta,CTimeInfo::GetOtherTimeModel,0,0,,
 0x004C4A40,25,reemplazada,C2dEffect,exacta,C2dEffect::RpGeometryGet2dFxAtIndex,0,0,,
-0x004C4A60,21,reemplazada,C2dEffect,baja,,9,5,,
+0x004C4A60,21,reemplazada,C2dEffect,baja,,9,6,,
 0x004C4A80,3,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AsAtomicModelInfoPtr,0,0,,sí
 0x004C4A90,3,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AsDamageAtomicModelInfoPtr,0,0,,sí
 0x004C4AA0,3,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AsLodAtomicModelInfoPtr,0,0,,sí
@@ -2557,8 +2557,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004C5720,3,reemplazada,CClumpModelInfo,exacta,CClumpModelInfo::GetModelType,0,0,,sí
 0x004C5730,6,reemplazada,CClumpModelInfo,exacta,CClumpModelInfo::GetRwModelType,0,0,,sí
 0x004C5740,4,reemplazada,CClumpModelInfo,exacta,CClumpModelInfo::GetAnimFileIndex,0,0,,sí
-0x004C5750,7,C,CClumpModelInfo,baja,,2,0,,
-0x004C5760,18,D,CClumpModelInfo,baja,,0,0,,
+0x004C5750,7,reemplazada,CClumpModelInfo,baja,,2,0,,
+0x004C5760,18,reemplazada,CClumpModelInfo,baja,,0,0,,
 0x004C5780,3,reemplazada,CWeaponModelInfo,exacta,CWeaponModelInfo::GetModelType,0,0,,sí
 0x004C5790,7,C,CWeaponModelInfo,baja,,1,0,,
 0x004C57A0,25,D,CWeaponModelInfo,baja,,0,0,,
@@ -2773,7 +2773,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004CEB80,17,reemplazada,CAnimBlendAssociation,exacta,CAnimBlendAssociation::SetBlendTo,0,0,,
 0x004CEBA0,17,reemplazada,CAnimBlendAssociation,exacta,CAnimBlendAssociation::SetBlend,2,2,,
 0x004CEBC0,24,reemplazada,CAnimBlendAssociation,exacta,CAnimBlendAssociation::SetDeleteCallback,67,60,,
-0x004CEBE0,24,reemplazada,CAnimBlendAssociation,exacta,CAnimBlendAssociation::SetFinishCallback,146,128,,
+0x004CEBE0,24,reemplazada,CAnimBlendAssociation,exacta,CAnimBlendAssociation::SetFinishCallback,146,129,,
 0x004CEC00,20,reemplazada,CAnimBlendAssociation,baja,,1,1,,
 0x004CEC20,206,reemplazada,CAnimBlendStaticAssociation,exacta,CAnimBlendStaticAssociation::Init,5,5,,
 0x004CECF0,94,reemplazada,CAnimBlendStaticAssociation,baja,,1,1,,
@@ -3086,7 +3086,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004DC1C0,102,reemplazada,CAEDataStream,exacta,CAEDataStream::FillBuffer,5,5,,
 0x004DC230,24,reemplazada,CAEDataStream,exacta,CAEDataStream::GetCurrentPosition,2,2,,
 0x004DC250,76,reemplazada,CAEDataStream,exacta,CAEDataStream::Seek-OG,2,2,,
-0x004DC2A0,15,A,CAEDataStream,alta,,1,1,,
+0x004DC2A0,15,reemplazada,CAEDataStream,alta,,1,1,,
 0x004DC2B0,100,reemplazada,CAEDataStream,exacta,CAEDataStream::Initialise,4,4,,
 0x004DC320,30,reemplazada,CAEDataStream,exacta,CAEDataStream::Read,0,0,,sí
 0x004DC340,93,reemplazada,CAEDataStream,exacta,CAEDataStream::Seek-istream,0,0,,sí
@@ -3102,7 +3102,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004DC520,8,reemplazada,CAEDataStream,exacta,CAEDataStream::LockRegion,0,0,,sí
 0x004DC530,8,reemplazada,CAEDataStream,exacta,CAEDataStream::UnlockRegion,0,0,,sí
 0x004DC540,8,reemplazada,CAEDataStream,exacta,CAEDataStream::Clone,0,0,,sí
-0x004DC550,62,D,CAEDataStream,alta,,0,0,,
+0x004DC550,62,reemplazada,CAEDataStream,alta,,0,0,,
 0x004DC5B0,84,reemplazada,CAEDataStream,exacta,CAEDataStream::Release,0,0,,sí
 0x004DC620,61,reemplazada,CAEDataStream,exacta,CAEDataStream::Constructor,3,3,,
 0x004DC670,54,reemplazada,CAEDataStream,baja,,8,8,,
@@ -4942,7 +4942,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00571980,5,reemplazada,CPlayerInfo,baja,,1,0,,
 0x005719B0,44,reemplazada,CReferences,exacta,CReferences::Init,1,1,,
 0x005719E0,24,reemplazada,CReferences,exacta,CReferences::ListSize,0,0,,
-0x00571A00,59,reemplazada,CEntity,exacta,CEntity::CleanUpOldReference-,407,370,,
+0x00571A00,59,reemplazada,CEntity,exacta,CEntity::CleanUpOldReference-,407,371,,
 0x00571A40,78,reemplazada,CEntity,exacta,CEntity::ResolveReferences,4,4,,
 0x00571A90,62,reemplazada,CEntity,exacta,CEntity::PruneReferences,12,12,,
 0x00571AD0,151,reemplazada,CReferences,exacta,CReferences::RemoveReferencesToPlayer,5,5,,
@@ -6169,7 +6169,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005DF510,79,reemplazada,CPed,exacta,CPed::GetBikeRidingSkill,5,5,,
 0x005DF560,874,reemplazada,CPed,exacta,CPed::ShoulderBoneRotation,2,2,,
 0x005DF8D0,28,reemplazada,CPed,exacta,CPed::SetLookTimer,2,2,,
-0x005DF8F0,21,reemplazada,CPed,exacta,CPed::IsPlayer,436,403,,
+0x005DF8F0,21,reemplazada,CPed,exacta,CPed::IsPlayer,436,404,,
 0x005DF910,970,reemplazada,CPed,exacta,CPed::SetPedPositionInCar,12,12,,
 0x005DFD60,16,reemplazada,CPed,exacta,CPed::RestoreHeadingRate,11,11,,
 0x005DFD70,20,reemplazada,CPed,exacta,CPed::RestoreHeadingRateCB,0,0,,
@@ -6218,7 +6218,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005E4220,91,reemplazada,CPed,exacta,CPed::IsPointerValid,7,7,,
 0x005E4280,257,reemplazada,CPed,exacta,CPed::GetBonePosition-Original,43,42,,
 0x005E4390,353,reemplazada,CPed,exacta,CPed::GiveObjectToPedToHold,4,4,,
-0x005E4500,120,reemplazada,CPed,exacta,CPed::SetPedState,25,21,,
+0x005E4500,120,reemplazada,CPed,exacta,CPed::SetPedState,25,22,,
 0x005E45E0,106,reemplazada,CPedPool,exacta,CPedPool::New,1,1,,
 0x005E46D0,67,reemplazada,CVisibilityPlugins,exacta,CVisibilityPlugins::AddWeaponPedForPC,1,1,,
 0x005E4720,11,reemplazada,CPed,exacta,CPed::operator new-anon,27,14,,
@@ -7159,7 +7159,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061A350,7,reemplazada,CPlayerRelationshipRecorder,baja,,1,0,,
 0x0061A360,41,reemplazada,CPlayerRelationshipRecorder,baja,,29,27,,
 0x0061A390,16,reemplazada,CPlayerRelationshipRecorder,baja,,234,209,,
-0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,123,,
+0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,124,,
 0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,207,,
 0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,126,,
 0x0061A430,40,reemplazada,CPlayerRelationshipRecorder,baja,,0,0,,sí
@@ -9673,7 +9673,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006883D0,1083,reemplazada,CTaskSimplePlayerOnFoot,exacta,CTaskSimplePlayerOnFoot::PlayerControlZelda,3,2,,
 0x00688810,274,reemplazada,CTaskSimplePlayerOnFoot,exacta,CTaskSimplePlayerOnFoot::ProcessPed,0,0,,sí
 0x00688930,180,reemplazada,CTaskSimpleSwim,exacta,CTaskSimpleSwim::Constructor,5,4,,
-0x006889F0,6,B,CTaskSimpleSwim,alta,,0,0,,sí
+0x006889F0,6,reemplazada,CTaskSimpleSwim,alta,,0,0,,sí
 0x00688A00,141,reemplazada,CTaskSimpleSwim,alta,,1,1,,
 0x00688A90,2961,reemplazada,CTaskSimpleSwim,exacta,CTaskSimpleSwim::ProcessControlInput,1,1,,
 0x00689640,934,reemplazada,CTaskSimpleSwim,exacta,CTaskSimpleSwim::ProcessControlAI,2,2,,
@@ -9690,8 +9690,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0068B100,181,reemplazada,CTaskSimpleSwim,exacta,CTaskSimpleSwim::MakeAbortable,0,0,,sí
 0x0068B1C0,969,reemplazada,CTaskSimpleSwim,exacta,CTaskSimpleSwim::ProcessPed,0,0,,sí
 0x0068B620,91,reemplazada,CTaskSimpleSwim,baja,,2,1,,
-0x0068B680,6,B,CTaskSimpleSwim,baja,,0,0,,sí
-0x0068B690,162,C,CTaskSimpleSwim,baja,,1,0,,
+0x0068B680,6,reemplazada,CTaskSimpleSwim,baja,,0,0,,sí
+0x0068B690,162,reemplazada,CTaskSimpleSwim,baja,,1,0,,
 0x0068B740,136,reemplazada,CTaskSimpleArrestPed,exacta,CTaskSimpleArrestPed::MakeAbortable,0,0,,sí
 0x0068B7E0,186,reemplazada,CTaskSimpleArrestPed,exacta,CTaskSimpleArrestPed::StartAnim,1,1,,
 0x0068B8A0,234,reemplazada,CTaskSimpleArrestPed,exacta,CTaskSimpleArrestPed::ProcessPed,0,0,,sí

@@ -1,18 +1,18 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 885 grupos / 10129 funciones reconstruidas; 10129 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 11/11/2026 (Ciudad de México):** 885 grupos / 10136 funciones reconstruidas; 10136 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Inventario de validación de funciones reconstruidas
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **10,129 entradas reversed=1**, de 10,129 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **10,136 entradas reversed=1**, de 10,136 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 10129 |
+| `validated=1` · evidencia aprobada vinculada | 10136 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 10129 |
+| Evidencia histórica vinculada; revisión pendiente | 10136 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -252,6 +252,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAECutsceneTrackManager | `StopCutsceneTrack` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CAEDataStream | `AddRef` | [Resumen](../reversing/FixHooks/validation-summary.json) |
 | CAEDataStream | `Clone` | [Resumen](../reversing/FixHooks/validation-summary.json) |
+| CAEDataStream | `Close` | [Resumen](../reversing/Fn167A/validation-summary.json) |
 | CAEDataStream | `Commit` | [Resumen](../reversing/FixHooks/validation-summary.json) |
 | CAEDataStream | `Constructor` | [Resumen](../reversing/Audio20/validation-summary.json) |
 | CAEDataStream | `CopyTo` | [Resumen](../reversing/FixHooks/validation-summary.json) |
@@ -264,6 +265,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEDataStream | `Read` | [Resumen](../reversing/FixHooks/validation-summary.json) |
 | CAEDataStream | `Release` | [Resumen](../reversing/FixHooks/validation-summary.json) |
 | CAEDataStream | `Revert` | [Resumen](../reversing/FixHooks/validation-summary.json) |
+| CAEDataStream | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn167A/validation-summary.json) |
 | CAEDataStream | `Seek-OG` | [Resumen](../reversing/Audio20/validation-summary.json) |
 | CAEDataStream | `Seek-istream` | [Resumen](../reversing/FixHooks/validation-summary.json) |
 | CAEDataStream | `SetSize` | [Resumen](../reversing/FixHooks/validation-summary.json) |
@@ -1875,6 +1877,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CClumpModelInfo | `CreateInstance-mat` | [Resumen](../reversing/Clump24/validation-summary.json) |
 | CClumpModelInfo | `CreateInstance-void` | [Resumen](../reversing/Clump24/validation-summary.json) |
 | CClumpModelInfo | `DeleteRwObject` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `DestructorBody` | [Resumen](../reversing/Fn167A/validation-summary.json) |
 | CClumpModelInfo | `FillFrameArray` | [Resumen](../reversing/Clump24/validation-summary.json) |
 | CClumpModelInfo | `FillFrameArrayCB` | [Resumen](../reversing/Clump24/validation-summary.json) |
 | CClumpModelInfo | `FindFrameFromIdCB` | [Resumen](../reversing/Clump24/validation-summary.json) |
@@ -7513,6 +7516,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleAnim | `MakeAbortable` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CTaskSimpleAnim | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn150A/validation-summary.json) |
 | CTaskSimpleArrestPed | `Constructor` | [Resumen](../reversing/Fn115A/validation-summary.json) |
+| CTaskSimpleArrestPed | `DestructorBody` | [Resumen](../reversing/Fn167A/validation-summary.json) |
+| CTaskSimpleArrestPed | `GetTaskType` | [Resumen](../reversing/Fn167A/validation-summary.json) |
 | CTaskSimpleArrestPed | `MakeAbortable` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleArrestPed | `ProcessPed` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleArrestPed | `StartAnim` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
@@ -8309,6 +8314,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleSwim | `CreateFxSystem` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CTaskSimpleSwim | `DestroyFxSystem` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CTaskSimpleSwim | `DestructorBody` | [Resumen](../reversing/Fn163A/validation-summary.json) |
+| CTaskSimpleSwim | `GetTaskType` | [Resumen](../reversing/Fn167A/validation-summary.json) |
 | CTaskSimpleSwim | `MakeAbortable` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CTaskSimpleSwim | `ProcessControlAI` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CTaskSimpleSwim | `ProcessControlInput` | [Resumen](../reversing/Mix11/validation-summary.json) |
@@ -9249,6 +9255,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWeaponInfo | `Initialise` | [Resumen](../reversing/Data10/validation-summary.json) |
 | CWeaponInfo | `LoadWeaponData` | [Resumen](../reversing/Data10/validation-summary.json) |
 | CWeaponInfo | `Shutdown` | [Resumen](../reversing/Data10/validation-summary.json) |
+| CWeaponModelInfo | `ConstructorBody` | [Resumen](../reversing/Fn167A/validation-summary.json) |
 | CWeaponModelInfo | `GetModelType` | [Resumen](../reversing/World52/validation-summary.json) |
 | CWeaponModelInfo | `Init` | [Resumen](../reversing/World52/validation-summary.json) |
 | CWeaponModelInfo | `SetClump` | [Resumen](../reversing/World52/validation-summary.json) |
@@ -10178,7 +10185,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEBankLoader` | 8 | 0 | 8 | 0 |
 | `CAECollisionAudioEntity` | 18 | 0 | 18 | 0 |
 | `CAECutsceneTrackManager` | 8 | 0 | 8 | 0 |
-| `CAEDataStream` | 20 | 0 | 20 | 0 |
+| `CAEDataStream` | 22 | 0 | 22 | 0 |
 | `CAEDoorAudioEntity` | 6 | 0 | 6 | 0 |
 | `CAEExplosionAudioEntity` | 4 | 0 | 4 | 0 |
 | `CAEFireAudioEntity` | 7 | 0 | 7 | 0 |
@@ -10261,7 +10268,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CClothes` | 12 | 0 | 12 | 0 |
 | `CClothesBuilder` | 23 | 0 | 23 | 0 |
 | `CClouds` | 21 | 0 | 21 | 0 |
-| `CClumpModelInfo` | 25 | 0 | 25 | 0 |
+| `CClumpModelInfo` | 26 | 0 | 26 | 0 |
 | `CColAccel` | 11 | 0 | 11 | 0 |
 | `CColBox` | 2 | 0 | 2 | 0 |
 | `CColDisk` | 1 | 0 | 1 | 0 |
@@ -10808,7 +10815,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleAchieveHeading` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleAffectSecondaryBehaviour` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleAnim` | 3 | 0 | 3 | 0 |
-| `CTaskSimpleArrestPed` | 4 | 0 | 4 | 0 |
+| `CTaskSimpleArrestPed` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleBeHit` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleBikeJacked` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleCarAlign` | 11 | 0 | 11 | 0 |
@@ -10912,7 +10919,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleStandStill` | 4 | 0 | 4 | 0 |
 | `CTaskSimpleStandUp` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleStealthKill` | 9 | 0 | 9 | 0 |
-| `CTaskSimpleSwim` | 14 | 0 | 14 | 0 |
+| `CTaskSimpleSwim` | 15 | 0 | 15 | 0 |
 | `CTaskSimpleThrowControl` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleThrowProjectile` | 10 | 0 | 10 | 0 |
 | `CTaskSimpleTired` | 6 | 0 | 6 | 0 |
@@ -10965,7 +10972,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWeapon` | 41 | 0 | 41 | 0 |
 | `CWeaponEffects` | 10 | 0 | 10 | 0 |
 | `CWeaponInfo` | 14 | 0 | 14 | 0 |
-| `CWeaponModelInfo` | 3 | 0 | 3 | 0 |
+| `CWeaponModelInfo` | 4 | 0 | 4 | 0 |
 | `CWeather` | 13 | 0 | 13 | 0 |
 | `CWindModifiers` | 2 | 0 | 2 | 0 |
 | `CWorld` | 96 | 0 | 96 | 0 |
