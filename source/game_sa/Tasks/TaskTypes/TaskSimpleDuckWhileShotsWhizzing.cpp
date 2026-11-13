@@ -4,33 +4,32 @@
 #include "AnimBlendAssociation.h"
 #include "AnimManager.h"
 
-namespace {
+// (lote 187A: las dos funciones siguientes pasan a ser miembros estaticos privados de la clase para poder llamar al envoltorio enganchado CTaskSimpleDuck::Destructor, privado)
 // 0x6926F0 (lote 187A, sin validar; el listado decia CTaskSimpleDuck): cuerpo no virtual de ~CTaskSimpleDuckWhileShotsWhizzing del EXE (thiscall, sin argumentos de pila, 11 bytes: `mov dword [ecx],870BECh; jmp 0x692030`). Deja la vtable
 // de la clase del EXE (0x870BEC) y sigue con el destructor de CTaskSimpleDuck (0x692030, con hook; el EXE salta, aqui se llama y se vuelve). Funcion propia sin expansion en linea; la llama el destructor con borrado (0x693B80)
 // como el `call 0x6926F0` del EXE.
-__declspec(noinline) void __fastcall DuckWhileShotsWhizzingDestructorBody(CTaskSimpleDuckWhileShotsWhizzing* self, void* /*edx*/) {
+__declspec(noinline) void __fastcall CTaskSimpleDuckWhileShotsWhizzing::DestructorBody(CTaskSimpleDuckWhileShotsWhizzing* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x870BEC;
-    self->CTaskSimpleDuck::~CTaskSimpleDuck();
+    self->Destructor(); // correccion hecha al validar: llama al envoltorio enganchado (0x692030), como el `jmp 0x692030` del EXE (el destructor de C++ directo no es enganchable)
 }
 
 // 0x693B80 (lote 187A, sin validar; el listado decia CTaskSimpleDuck): destructor con borrado de CTaskSimpleDuckWhileShotsWhizzing del EXE (ranura 0 de su vtable 0x870BEC; thiscall, un argumento de pila, `ret 4`, 30 bytes:
 // `push esi; mov esi,ecx; call 0x6926F0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6926F0), libera `this` con
 // CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
-__declspec(noinline) CTaskSimpleDuckWhileShotsWhizzing* __fastcall DuckWhileShotsWhizzingScalarDeletingDestructor(CTaskSimpleDuckWhileShotsWhizzing* self, void* /*edx*/, uint8 flags) {
-    DuckWhileShotsWhizzingDestructorBody(self, nullptr);
+__declspec(noinline) CTaskSimpleDuckWhileShotsWhizzing* __fastcall CTaskSimpleDuckWhileShotsWhizzing::ScalarDeletingDestructor(CTaskSimpleDuckWhileShotsWhizzing* self, void* /*edx*/, uint8 flags) {
+    DestructorBody(self, nullptr);
     if (flags & 1) {
         CTask::operator delete(self);
     }
     return self;
 }
-} // namespace
 
 void CTaskSimpleDuckWhileShotsWhizzing::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleDuckWhileShotsWhizzing, 0x870BEC, 9); // vtable verificada en gta_sa.exe (GetTaskType en la ranura 4, MakeAbortable en la 6, ProcessPed en la 7)
     RH_ScopedCategory("Tasks/TaskTypes");
 
-    RH_ScopedNamedGlobalInstall(DuckWhileShotsWhizzingDestructorBody, "DestructorBody", 0x6926F0);                     // lote 187A (sin validar)
-    RH_ScopedNamedGlobalInstall(DuckWhileShotsWhizzingScalarDeletingDestructor, "ScalarDeletingDestructor", 0x693B80); // lote 187A (sin validar)
+    RH_ScopedNamedGlobalInstall(CTaskSimpleDuckWhileShotsWhizzing::DestructorBody, "DestructorBody", 0x6926F0);                     // lote 187A (sin validar)
+    RH_ScopedNamedGlobalInstall(CTaskSimpleDuckWhileShotsWhizzing::ScalarDeletingDestructor, "ScalarDeletingDestructor", 0x693B80); // lote 187A (sin validar)
     RH_ScopedInstall(Constructor, 0x692680);                                                                           // lote 187A (sin validar)
     RH_ScopedVMTInstall(Clone, 0x692D60);                                                                              // lote 187A (sin validar): ranura 1
     RH_ScopedVMTInstall(GetTaskType, 0x6926E0);                                                                        // lote 187A (sin validar): ranura 4
@@ -43,6 +42,8 @@ void CTaskSimpleDuckWhileShotsWhizzing::InjectHooks() {
 CTaskSimpleDuckWhileShotsWhizzing::CTaskSimpleDuckWhileShotsWhizzing(uint16 lengthOfDuck) :
     CTaskSimpleDuck{DUCK_STANDALONE, lengthOfDuck, -1}
 {
+    // Correccion hecha al validar (lote 187A): el EXE deja al final la vtable 0x870BEC (la del EXE), no la de la DLL.
+    *reinterpret_cast<uint32*>(this) = 0x870BEC;
 }
 
 CTaskSimpleDuckWhileShotsWhizzing* CTaskSimpleDuckWhileShotsWhizzing::Constructor(uint16 lengthOfDuck) {
@@ -96,7 +97,7 @@ bool CTaskSimpleDuckWhileShotsWhizzing::MakeAbortable(CPed* ped, eAbortPriority 
 bool CTaskSimpleDuckWhileShotsWhizzing::ProcessPed(CPed* ped) {
     if (!m_DuckAnim) {
         m_DuckAnim = CAnimManager::BlendAnimation(ped->GetRpClump(), ANIM_GROUP_DEFAULT, ANIM_ID_DUCK_COWER, 4.0f);
-        m_DuckAnim->SetFinishCallback(CTaskSimpleDuck::DeleteDuckAnimCB, this);
+        m_DuckAnim->SetDeleteCallback(CTaskSimpleDuck::DeleteDuckAnimCB, this); // correccion hecha al validar: el EXE llama a 0x4CEBC0 (SetDeleteCallback), no a 0x4CEBE0 (SetFinishCallback)
     }
     return CTaskSimpleDuck::ProcessPed(ped);
 }

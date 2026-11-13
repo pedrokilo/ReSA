@@ -70,6 +70,8 @@ private: // Wrappers for hooks
         return this;
     }
 
+    friend class CTaskSimpleDuckWhileShotsWhizzing; // lote 187A: su cuerpo del destructor llama a este envoltorio enganchado
+
     // 0x692030
     CTaskSimpleDuck* Destructor() {
         this->CTaskSimpleDuck::~CTaskSimpleDuck();

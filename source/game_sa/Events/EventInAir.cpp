@@ -49,7 +49,12 @@ CEvent* CEventInAir::Clone() const noexcept {
     if (!memory) {
         return nullptr;
     }
-    return static_cast<CEventInAir*>(memory)->Constructor();
+    // Correccion hecha al validar (lote 187A): el EXE construye en linea (+4 = 0, BYTE +8 = 0, vtable 0x85B3C0 del EXE) y NO llama al constructor; el constructor de C++ dejaria la vtable de la DLL.
+    auto* const bytes = static_cast<uint8*>(memory);
+    *reinterpret_cast<uint32*>(bytes + 4) = 0;
+    bytes[8] = 0;
+    *reinterpret_cast<uint32*>(bytes) = 0x85B3C0;
+    return static_cast<CEvent*>(memory);
 }
 
 // 0x4B0CB0

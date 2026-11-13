@@ -23,6 +23,9 @@ public:
 private:
     friend void InjectHooksMain();
 
+    static void __fastcall DestructorBody(CTaskSimpleDuckWhileShotsWhizzing* self, void* edx);                                         // 0x6926F0 (lote 187A, sin validar)
+    static CTaskSimpleDuckWhileShotsWhizzing* __fastcall ScalarDeletingDestructor(CTaskSimpleDuckWhileShotsWhizzing* self, void* edx, uint8 flags); // 0x693B80 (lote 187A, sin validar)
+
     CTaskSimpleDuckWhileShotsWhizzing* Constructor(uint16 lengthOfDuck); // 0x692680 (lote 187A, sin validar)
 };
 VALIDATE_SIZE(CTaskSimpleDuckWhileShotsWhizzing, 0x28);

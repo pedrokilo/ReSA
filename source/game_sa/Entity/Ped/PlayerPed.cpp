@@ -257,6 +257,7 @@ bool CPlayerPed::Save() {
 
 // 0x60D5B0
 CPlayerPed::CPlayerPed(int32 playerId, bool bGroupCreated) : CPed(PED_TYPE_PLAYER1) {
+    *reinterpret_cast<uint32*>(this) = 0x86D168; // correccion hecha al validar (lote 187A): el EXE deja la vtable 0x86D168 (la del EXE) justo despues del constructor base, no la de la DLL
     m_pPlayerData = &CWorld::Players[playerId].m_PlayerData;
     GetPlayerData()->AllocateData();
 

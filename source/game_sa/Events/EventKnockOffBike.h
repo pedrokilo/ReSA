@@ -54,7 +54,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
-    CEventKnockOffBike* Constructor(CVehicle* vehicle, CVector* moveSpeed, CVector* collisionImpactVelocity, float damageIntensity, float a6, uint8 knockOffType, uint8 knockOutDirection, int32 time, CPed* ped, bool isVictimDriver, bool forceKnockOff);
+    CEventKnockOffBike* Constructor(CVehicle* vehicle, CVector* moveSpeed, CVector* collisionImpactVelocity, float damageIntensity, float a6, int32 knockOffType, uint8 knockOutDirection, int32 time, CPed* ped, bool isVictimDriver, bool forceKnockOff); // lote 187A: el tipo es int32 (solo cuenta el BYTE bajo): Clone lo empuja extendido con signo, como el movsx del EXE
     CEventKnockOffBike* Constructor();
 
 };

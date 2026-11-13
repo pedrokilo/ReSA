@@ -59,7 +59,7 @@ void CEventKnockOffBike::InjectHooks()
     RH_ScopedVirtualClass(CEventKnockOffBike, 0x85B2E0, 16);
     RH_ScopedCategory("Events");
 
-    RH_ScopedOverloadedInstall(Constructor, "first", 0x4AFCF0, CEventKnockOffBike*(CEventKnockOffBike::*)(CVehicle*, CVector*, CVector*, float, float, uint8, uint8, int32, CPed*, bool, bool));
+    RH_ScopedOverloadedInstall(Constructor, "first", 0x4AFCF0, CEventKnockOffBike*(CEventKnockOffBike::*)(CVehicle*, CVector*, CVector*, float, float, int32, uint8, int32, CPed*, bool, bool));
     RH_ScopedOverloadedInstall(Constructor, "second", 0x4AFC70, CEventKnockOffBike*(CEventKnockOffBike::*)());
     RH_ScopedNamedGlobalInstall(KnockOffBikeDestructorBody, "Destructor", 0x4AFE70);
     RH_ScopedNamedGlobalInstall(KnockOffBikeAssignExe, "operator=", 0x4B4AA0); // lote 152A (banco Fn152A)
@@ -93,7 +93,7 @@ CEvent* CEventKnockOffBike::Clone() const noexcept {
         const_cast<CVector*>(&m_collisionImpactVelocity),
         m_damageIntensity,
         field_28,
-        m_knockOffType,
+        static_cast<int32>(static_cast<int8>(m_knockOffType)), // correccion hecha al validar (lote 187A): el EXE lo extiende con signo (movsx) al empujarlo; el parametro es int32 para que se empuje el dword completo
         m_knockOffDirection,
         static_cast<int32>(m_time),
         m_ped,
@@ -138,9 +138,9 @@ CEventKnockOffBike::~CEventKnockOffBike()
     CEntity::SafeCleanUpRef(m_ped);
 }
 
-CEventKnockOffBike* CEventKnockOffBike::Constructor(CVehicle* vehicle, CVector* moveSpeed, CVector* collisionImpactVelocity, float damageIntensity, float a6, uint8 knockOffType, uint8 knockOffDirection, int32 time, CPed* ped, bool isVictimDriver, bool forceKnockOff)
+CEventKnockOffBike* CEventKnockOffBike::Constructor(CVehicle* vehicle, CVector* moveSpeed, CVector* collisionImpactVelocity, float damageIntensity, float a6, int32 knockOffType, uint8 knockOffDirection, int32 time, CPed* ped, bool isVictimDriver, bool forceKnockOff)
 {
-    this->CEventKnockOffBike::CEventKnockOffBike(vehicle, *moveSpeed, *collisionImpactVelocity, damageIntensity, a6, knockOffType, knockOffDirection, time, ped, isVictimDriver, forceKnockOff);
+    this->CEventKnockOffBike::CEventKnockOffBike(vehicle, *moveSpeed, *collisionImpactVelocity, damageIntensity, a6, static_cast<uint8>(knockOffType), knockOffDirection, time, ped, isVictimDriver, forceKnockOff);
     return this;
 }
 
