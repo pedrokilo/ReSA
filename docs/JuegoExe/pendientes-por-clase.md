@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,373** funciones en 90 clases/módulos (rango 0x401000–0x74FFFF): 1,351 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,347** funciones en 85 clases/módulos (rango 0x401000–0x74FFFF): 1,325 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -15,11 +15,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWaterLevel | 1 | 208 |
 | WaterCreature_c | 2 | 211 |
 | CTaskComplexGotoDoorAndOpen | 6 | 388 |
-| CObjectPool | 5 | 446 |
-| COnscreenCounterEntry | 3 | 450 |
-| CTaskComplexSeekEntityAiming | 6 | 451 |
-| CTaskComplexPartnerGreet | 9 | 458 |
-| Game | 3 | 460 |
 | CShopping | 5 | 460 |
 | CTaskComplexStealCar | 6 | 461 |
 | CTaskSimpleDuckToggle | 3 | 488 |
@@ -100,7 +95,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (90 clases / módulos)** | **1,373** | **212,467** |
+| **TOTAL (85 clases / módulos)** | **1,347** | **210,202** |
 
 ## CAudioZones (1)
 
@@ -138,57 +133,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0066C3E0 | 86 | A |  | 3 | 1 |  | baja |
 | 0x0066C450 | 106 | C |  | 3 | 0 |  | baja |
 | 0x0066C280 | 151 | D |  | 0 | 0 |  | baja |
-
-## CObjectPool (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005A1EF0 | 36 | A |  | 2 | 2 |  | baja |
-| 0x004048E0 | 41 | A |  | 297 | 1 |  | baja |
-| 0x005A1F20 | 49 | A |  | 33 | 3 |  | baja |
-| 0x005A1D10 | 90 | A |  | 5 | 5 |  | baja |
-| 0x005A1DF0 | 230 | A |  | 2 | 2 |  | baja |
-
-## COnscreenCounterEntry (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0044CD30 | 25 | A |  | 1 | 1 |  | baja |
-| 0x0044CB10 | 167 | A |  | 1 | 0 |  | baja |
-| 0x0044CC20 | 258 | A |  | 1 | 1 |  | baja |
-
-## CTaskComplexSeekEntityAiming (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00695BC0 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x00695BE0 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x00695C00 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x00695890 | 96 | B |  | 0 | 0 | sí | alta |
-| 0x00695DC0 | 113 | C |  | 1 | 0 |  | baja |
-| 0x00695B20 | 152 | D |  | 0 | 0 |  | alta |
-
-## CTaskComplexPartnerGreet (9)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00681E10 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00681E20 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00684F60 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00684F80 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00684FA0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00684FC0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00684FE0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00684ED0 | 142 | B |  | 0 | 0 | sí | baja |
-| 0x00684E30 | 154 | B |  | 0 | 0 | sí | baja |
-
-## Game (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005BF3D0 | 44 | D |  | 0 | 0 |  | baja |
-| 0x0053E8D0 | 63 | A |  | 3 | 3 |  | alta |
-| 0x0053E600 | 353 | A |  | 2 | 2 |  | alta |
 
 ## CShopping (5)
 
@@ -428,7 +372,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x005D28D0 | 15 | D |  | 0 | 0 |  | baja |
 | 0x005D28B0 | 19 | C |  | 2 | 0 |  | baja |
 | 0x005A2CB0 | 59 | A |  | 5 | 5 |  | baja |
-| 0x0059F610 | 74 | A |  | 1 | 0 |  | alta |
+| 0x0059F610 | 74 | A |  | 1 | 1 |  | alta |
 | 0x005A2BD0 | 76 | B |  | 0 | 0 | sí | alta |
 | 0x0059F660 | 480 | A |  | 6 | 2 |  | alta |
 
