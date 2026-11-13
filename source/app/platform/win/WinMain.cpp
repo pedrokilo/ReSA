@@ -122,15 +122,27 @@ auto Win32_InitInstance(HINSTANCE hInstance) {
     RECT rect = { 0, 0, RsGlobal.maximumWidth, RsGlobal.maximumHeight };
     AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
+    // La ventana se abre siempre en el monitor principal (el punto (0,0) del escritorio virtual pertenece a él), centrada en su área de trabajo,
+    // en vez de dejar que Windows elija una posición por defecto (que podía caer en el segundo monitor).
+    const int winW = rect.right - rect.left;
+    const int winH = rect.bottom - rect.top;
+    int winX = CW_USEDEFAULT, winY = CW_USEDEFAULT;
+    MONITORINFO monitor{ .cbSize = sizeof(MONITORINFO) };
+    if (GetMonitorInfo(MonitorFromPoint(POINT{ 0, 0 }, MONITOR_DEFAULTTOPRIMARY), &monitor)) {
+        const RECT& work = monitor.rcWork;
+        winX = std::max<LONG>(work.left, work.left + ((work.right - work.left) - winW) / 2);
+        winY = std::max<LONG>(work.top, work.top + ((work.bottom - work.top) - winH) / 2);
+    }
+
     return CreateWindowEx(
         0,
         APP_CLASS,
         RsGlobal.appName,
         WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT,
-        CW_USEDEFAULT,
-        rect.right - rect.left,
-        rect.bottom - rect.top,
+        winX,
+        winY,
+        winW,
+        winH,
         nullptr,
         nullptr,
         hInstance,
