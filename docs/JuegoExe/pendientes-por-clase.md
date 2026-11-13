@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,518** funciones en 117 clases/módulos (rango 0x401000–0x74FFFF): 1,496 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,492** funciones en 109 clases/módulos (rango 0x401000–0x74FFFF): 1,470 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,18 +10,10 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CPedDamageResponseCalculator | 2 | 122 |
 | CAudioZones | 1 | 139 |
 | IKChain_c | 2 | 205 |
 | CWaterLevel | 1 | 208 |
 | WaterCreature_c | 2 | 211 |
-| CTaskSimpleHoldEntity | 6 | 292 |
-| Input | 2 | 302 |
-| CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse | 3 | 304 |
-| CTaskInteriorSitInChair | 4 | 304 |
-| FurnitureManager_c | 3 | 306 |
-| CAEWaterCannonAudioEntity | 2 | 309 |
-| CTaskComplexHitPedWithCar | 4 | 319 |
 | CTaskComplexWalkRoundFire | 7 | 375 |
 | CHandObject | 3 | 381 |
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | 2 | 382 |
@@ -127,14 +119,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (117 clases / módulos)** | **1,518** | **222,471** |
-
-## CPedDamageResponseCalculator (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AD800 | 46 | D |  | 0 | 0 |  | baja |
-| 0x004B5CF0 | 76 | B |  | 0 | 0 | sí | baja |
+| **TOTAL (109 clases / módulos)** | **1,492** | **220,213** |
 
 ## CAudioZones (1)
 
@@ -161,65 +146,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x006E3EB0 | 105 | C |  | 1 | 0 |  | baja |
 | 0x006E3F20 | 106 | C |  | 1 | 0 |  | baja |
-
-## CTaskSimpleHoldEntity (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00691460 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x00693590 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006935C0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006935F0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006939D0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00691630 | 166 | A |  | 1 | 1 |  | alta |
-
-## Input (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x007448B0 | 123 | A |  | 1 | 1 |  | alta |
-| 0x00744930 | 179 | A |  | 1 | 1 |  | alta |
-
-## CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064B5B0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00646FE0 | 116 | A |  | 9 | 6 |  | baja |
-| 0x00646F40 | 158 | A |  | 1 | 1 |  | baja |
-
-## CTaskInteriorSitInChair (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00675C80 | 6 | D |  | 0 | 0 |  | baja |
-| 0x00675C90 | 93 | C |  | 1 | 0 |  | baja |
-| 0x00675D60 | 99 | D |  | 0 | 0 |  | baja |
-| 0x00675CF0 | 106 | D |  | 0 | 0 |  | baja |
-
-## FurnitureManager_c (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00591360 | 76 | D |  | 0 | 0 |  | baja |
-| 0x005912E0 | 113 | C |  | 1 | 0 |  | baja |
-| 0x00591260 | 117 | C |  | 1 | 0 |  | baja |
-
-## CAEWaterCannonAudioEntity (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00728AB0 | 86 | C |  | 1 | 0 |  | baja |
-| 0x00502F80 | 223 | A |  | 4 | 4 |  | alta |
-
-## CTaskComplexHitPedWithCar (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006563B0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00657B60 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00653AA0 | 51 | D |  | 0 | 0 |  | alta |
-| 0x006563D0 | 208 | A |  | 1 | 1 |  | baja |
 
 ## CTaskComplexWalkRoundFire (7)
 
@@ -1681,14 +1607,14 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x004A8DC0 | 1 | A |  | 18 | 3 |  | baja |
-| 0x004A8DE0 | 1 | A |  | 35 | 10 |  | baja |
+| 0x004A8DC0 | 1 | A |  | 18 | 4 |  | baja |
+| 0x004A8DE0 | 1 | A |  | 35 | 12 |  | baja |
 | 0x004A8460 | 7 | C |  | 18 | 0 |  | baja |
 | 0x004A87F0 | 7 | C |  | 15 | 0 |  | baja |
 | 0x004A89B0 | 7 | C |  | 27 | 0 |  | baja |
 | 0x004A8B70 | 7 | C |  | 4 | 0 |  | baja |
 | 0x004A9090 | 12 | D |  | 0 | 0 |  | baja |
-| 0x004A8DD0 | 13 | A |  | 20 | 12 |  | baja |
+| 0x004A8DD0 | 13 | A |  | 20 | 13 |  | baja |
 | 0x004A8DB0 | 16 | A |  | 15 | 10 |  | baja |
 | 0x004A8440 | 20 | A |  | 9 | 0 |  | baja |
 | 0x004A87D0 | 20 | A |  | 8 | 0 |  | baja |

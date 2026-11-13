@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 897 grupos / 10369 funciones reconstruidas; 10369 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 897 grupos / 10395 funciones reconstruidas; 10395 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo D: Falta: sin llamadas ni vtable (¿muerto o por puntero?)
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-318 funciones, 55,060 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+312 funciones, 54,676 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -53,7 +53,6 @@
 | `0x00678A10` | 110 | CTaskComplexFallAndGetUp | baja | 0 (0) |  |
 | `0x004B6DC0` | 107 | CEventVehicleCollision | baja | 0 (0) |  |
 | `0x004B6E70` | 107 | CEventVehicleCollision | baja | 0 (0) |  |
-| `0x00675CF0` | 106 | CTaskInteriorSitInChair | baja | 0 (0) |  |
 | `0x004B7170` | 105 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x005C88F0` | 105 | FxEmitterBP_c | baja | 0 (0) |  |
 | `0x005CEF30` | 104 | FxEmitterBP_c | baja | 0 (0) |  |
@@ -61,7 +60,6 @@
 | `0x004B7210` | 103 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x006586D0` | 102 | CTaskComplexWalkRoundFire | baja | 0 (0) |  |
 | `0x004F4230` | 101 | CAEUserRadioTrackManager | alta | 0 (0) |  |
-| `0x00675D60` | 99 | CTaskInteriorSitInChair | baja | 0 (0) |  |
 | `0x004B6F40` | 97 | CEventVehicleCollision | baja | 0 (0) |  |
 | `0x004B7280` | 97 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x004B72F0` | 97 | CEventVehicleHitAndRun | baja | 0 (0) |  |
@@ -100,7 +98,6 @@
 | `0x004B67A0` | 76 | CEventScriptCommand | baja | 0 (0) |  |
 | `0x004B7A70` | 76 | CEventVehicleOnFire | baja | 0 (0) |  |
 | `0x004C9840` | 76 | CVehicleModelInfo | baja | 0 (0) |  |
-| `0x00591360` | 76 | FurnitureManager_c | baja | 0 (0) |  |
 | `0x005EE4E0` | 76 | CPedAttractorManager | baja | 0 (0) |  |
 | `0x005EE5B0` | 76 | CPedAttractorManager | baja | 0 (0) |  |
 | `0x005EE680` | 76 | CPedAttractorManager | baja | 0 (0) |  |
@@ -194,9 +191,7 @@
 | `0x00731800` | 54 | CTxdStore | alta | 0 (0) |  |
 | `0x00731B30` | 54 | CTxdStore | alta | 0 (0) |  |
 | `0x004B6E30` | 53 | CEventVehicleCollision | baja | 0 (0) |  |
-| `0x00653AA0` | 51 | CTaskComplexHitPedWithCar | alta | 0 (0) |  |
 | `0x004D6240` | 47 | RpAnimBlend | alta | 0 (0) |  |
-| `0x004AD800` | 46 | CPedDamageResponseCalculator | baja | 0 (0) |  |
 | `0x004D6310` | 46 | RpAnimBlend | alta | 0 (0) |  |
 | `0x005A47E0` | 46 | CClothesBuilder | alta | 0 (0) |  |
 | `0x0072FEC0` | 46 | CGame | baja | 0 (0) |  |
@@ -324,7 +319,6 @@
 | `0x005ED643` | 9 | CPedAttractorManager | baja | 0 (0) |  |
 | `0x005ED92A` | 9 | CPedAttractorManager | baja | 0 (0) |  |
 | `0x005EDBE3` | 9 | CPedAttractorManager | baja | 0 (0) |  |
-| `0x00675C80` | 6 | CTaskInteriorSitInChair | baja | 0 (0) |  |
 | `0x006833C0` | 6 | CTaskComplexWaitForPed | baja | 0 (0) |  |
 | `0x00683430` | 5 | CTaskComplexWaitForPed | baja | 0 (0) |  |
 | `0x00683440` | 5 | CTaskComplexWaitForPed | baja | 0 (0) |  |
