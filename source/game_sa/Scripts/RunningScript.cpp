@@ -171,8 +171,8 @@ void CRunningScript::InjectCustomCommandHooks() {
         if (handler) ++reversed;
         (handler ? ofsrev : ofsnotrev) << ::notsa::script::GetScriptCommandName(id) << '\n';
     }
-    NOTSA_LOG_DEBUG("Script cmds dumped! Find them in `<GTA Directory>/Scripts`!");
-    NOTSA_LOG_DEBUG("Script cmds reverse progress: {}/{} ({:.2f}% done)", reversed, total, 100.0f * ((float)reversed / (float)total));
+    NOTSA_LOG_DEBUG("Comandos de script volcados; búscalos en `<directorio de GTA>/Scripts`");
+    NOTSA_LOG_DEBUG("Progreso de ingeniería inversa de comandos de script: {}/{} ({:.2f}% hecho)", reversed, total, 100.0f * ((float)reversed / (float)total));
 #endif
 }
 

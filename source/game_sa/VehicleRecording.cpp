@@ -171,12 +171,12 @@ void CVehicleRecording::Load(RwStream* stream, int32 recordId, int32 totalSize) 
     recording.m_nSize = RwStreamRead(stream, recording.m_pData, 9'999'999u);
     RwStreamClose(stream, nullptr);
 
-    CARREC_LOG("Load carrec to streaming slot idx:{} (size={})", recordId, totalSize);
+    CARREC_LOG("Cargando carrec en la ranura de streaming idx:{} (tamaño={})", recordId, totalSize);
 
     // Como el original: recorre en bytes mientras offset < m_nSize; el primer fotograma no inicial con tiempo 0 recorta.
     for (int32 offset = 0; offset < recording.m_nSize; offset += sizeof(CVehicleStateEachFrame)) {
         if (FrameAt(recording.m_pData, offset)->m_nTime == 0 && offset != 0) {
-            CARREC_LOG("\tRecording pruned at offset {}", offset);
+            CARREC_LOG("\tGrabación recortada en el desplazamiento {}", offset);
             recording.m_nSize = offset;
         }
     }
@@ -207,7 +207,7 @@ int32 CVehicleRecording::RegisterRecordingFile(const char* name) {
         sscanf_s(name, "CARREC%d", &fileNumber); // Como el original: no comprueba el resultado
     }
 
-    CARREC_LOG("Registering carrec file '{}', (streamIdx={})", name, NumPlayBackFiles);
+    CARREC_LOG("Registrando el archivo carrec '{}' (streamIdx={})", name, NumPlayBackFiles);
 
     StreamingArray[NumPlayBackFiles].m_nNumber = fileNumber;
     StreamingArray[NumPlayBackFiles].m_pData = nullptr;
@@ -668,12 +668,12 @@ uint32 CPath::GetIndex() const {
 }
 
 void CPath::AddRef() {
-    CARREC_LOG("Ref added for path {} (number= {}, size= {}, ptr= {})", GetIndex(), m_nNumber, m_nSize, LOG_PTR(m_pData));
+    CARREC_LOG("Referencia añadida a la ruta {} (número= {}, tamaño= {}, puntero= {})", GetIndex(), m_nNumber, m_nSize, LOG_PTR(m_pData));
     m_nRefCount++;
 }
 
 void CPath::RemoveRef() {
-    CARREC_LOG("Ref removed for path {} (number= {}, size= {}, ptr= {})", GetIndex(), m_nNumber, m_nSize, LOG_PTR(m_pData));
+    CARREC_LOG("Referencia quitada de la ruta {} (número= {}, tamaño= {}, puntero= {})", GetIndex(), m_nNumber, m_nSize, LOG_PTR(m_pData));
     // Como el original (0x459440, 0x45A4A0): al llegar a 0 libera y quita el modelo sin comprobar m_pData.
     if (!--m_nRefCount) {
         CMemoryMgr::Free(m_pData);

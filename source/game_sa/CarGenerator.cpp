@@ -490,7 +490,7 @@ CVehicle* CCarGenerator::CreateVehicle(eModelID model, eVehicleCreatedBy created
     case VEHICLE_TYPE_TRAIN:
         return new CTrain{model, createdBy};
     default:
-        NOTSA_LOG_WARN("Invalid vehicle type ({})", (int32)(vt));
+        NOTSA_LOG_WARN("Tipo de vehículo no válido ({})", (int32)(vt));
     }
     return nullptr;
 }

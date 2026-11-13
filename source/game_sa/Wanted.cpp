@@ -756,11 +756,11 @@ void CWanted::Update() {
         }
 
         if (cops != m_NumCopsInPursuit) {
-            NOTSA_LOG_DEBUG("CopPursuit total messed up: re-setting!"); // leftover debug shit
+            NOTSA_LOG_DEBUG("El total de CopPursuit está corrupto: se reinicia"); // leftover debug shit
             m_NumCopsInPursuit = cops;
         }
         if (listMessedUp) {
-            NOTSA_LOG_DEBUG("CopPursuit pointer list messed up: re-sorting!");
+            NOTSA_LOG_DEBUG("La lista de punteros de CopPursuit está corrupta: se reordena");
             bool notFixed = true;
 
             for (auto i = 0u; i < MAX_COPS_IN_PURSUIT; i++) {

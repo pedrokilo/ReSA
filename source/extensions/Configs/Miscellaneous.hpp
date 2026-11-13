@@ -21,7 +21,7 @@ inline struct MiscConfig {
 
         if (SaveDirectoryPath.has_value() && SaveDirectoryPath->size() >= 255) {
             SaveDirectoryPath->resize(255);
-            NOTSA_LOG_WARN("Custom save directory path is too long! Truncated to: '{}'", *SaveDirectoryPath);
+            NOTSA_LOG_WARN("La ruta personalizada del directorio de guardado es demasiado larga; se recorta a: '{}'", *SaveDirectoryPath);
         }
 
         STORE_INI_CONFIG_VALUE(LoadSavesWithMismatchingVersion, false);

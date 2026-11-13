@@ -116,7 +116,7 @@ tMessage* FindUnusedMsgInArray(std::array<tMessage, N>& arr) {
             return &msg;
         }
     }
-    NOTSA_LOG_DEBUG("No free brief message found!");
+    NOTSA_LOG_DEBUG("No se encontró ningún hueco libre para mensajes breves");
     return nullptr;
 }
 

@@ -16,7 +16,7 @@ inline bool IsDebuggerPresent() {
 
 inline void WaitForDebugger() {
     while (!IsDebuggerPresent()) {
-        NOTSA_LOG_INFO("[debug] Waiting for debugger\n");
+        NOTSA_LOG_INFO("[debug] Esperando al depurador\n");
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }

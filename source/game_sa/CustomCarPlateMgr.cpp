@@ -419,7 +419,7 @@ RpMaterial* CCustomCarPlateMgr::MaterialUpgradeSetCarplateTextureCB(RpMaterial* 
 
 // 0x6FDFC0
 RpAtomic* CCustomCarPlateMgr::AtomicUpgradeSetCarplateTextureCB(RpAtomic* atomic, _IGNORED_ void* data) {
-    NOTSA_LOG_DEBUG("[Debug - Trace]: AtomicUpgradeSetCarplateTextureCB");
+    NOTSA_LOG_DEBUG("[Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB");
     assert(atomic);
 
     RpGeometryForAllMaterials(RpAtomicGetGeometry(atomic), MaterialUpgradeSetCarplateTextureCB, RpAtomicGetGeometry(atomic));
@@ -434,7 +434,7 @@ int8 CCustomCarPlateMgr::SetupClumpAfterVehicleUpgrade(RpClump* clump, RpMateria
 
     assert(clump);
 
-    NOTSA_LOG_DEBUG("[Debug - Trace]: SetupClumpAfterVehicleUpgrade");
+    NOTSA_LOG_DEBUG("[Depuración - Traza]: SetupClumpAfterVehicleUpgrade");
 
     CurrentLicensePlateType = plateType;
     CurrentLicensePlateMaterial = plateMaterial;

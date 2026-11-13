@@ -428,7 +428,7 @@ void __declspec(naked) HookDirect3DDeviceReplacerSA() noexcept {
     if (SUCCEEDED(hr)) {
         D3D9ProxyDevice::Initialize(GetD3D9Device());
     } else {
-        NOTSA_LOG_ERR("CreateDevice failed, existing...");
+        NOTSA_LOG_ERR("CreateDevice falló, saliendo...");
         Sleep(10);
         exit(10);
     }

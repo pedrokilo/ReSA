@@ -70,7 +70,7 @@ void CTaskAllocatorKillThreatsDriveby::AllocateTasks(CPedGroupIntelligence* inte
         const auto threatGroupId = tPrimaryBeInGroup->GetGroupID();
         auto* const threatGroup  = &CPedGroups::ms_groups.data()[threatGroupId];
         if (group == threatGroup) { // 0x69CCB2
-            NOTSA_LOG_DEBUG("ComputeKillThreatsDriveby() - threat ped already in group"); // vanilla
+            NOTSA_LOG_DEBUG("ComputeKillThreatsDriveby() - el peatón amenaza ya está en el grupo"); // vanilla
         } else { // 0x69CCEC
             CPed* closest[TOTAL_PED_GROUP_MEMBERS]{};
             KillThreatsBasicAccess::ComputeClosestPeds(*group, *threatGroup, closest);

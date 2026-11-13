@@ -42,8 +42,8 @@ END GENERATED HOOK STATUS */
 #define CHECK_ARG_COUNT(_l, _expected, _n) \
     do { \
         if (_n < _expected) { \
-            NOTSA_LOG_WARN("Expected {} values to be read, got {}. Default initialized values will be used instead", _expected, _n); \
-            NOTSA_LOG_WARN("Line: {:?}", _l); \
+            NOTSA_LOG_WARN("Se esperaba leer {} valores pero se leyeron {}; se usarán los valores por defecto", _expected, _n); \
+            NOTSA_LOG_WARN("Línea: {:?}", _l); \
         } \
     } while (0)
 auto& gAtomicModelId = StaticRef<uint32>(0xB71840);

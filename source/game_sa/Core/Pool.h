@@ -204,9 +204,9 @@ public:
                 // primer fallo de cada tipo se registra como error y después uno de cada 1000, a nivel de depuración.
                 static uint32 s_nFailed{};
                 if (s_nFailed++ == 0) {
-                    NOTSA_LOG_ERR("Allocation failed for type {:?}", typeid(T).name());
+                    NOTSA_LOG_ERR("Falló la reserva para el tipo {:?}", typeid(T).name());
                 } else if (s_nFailed % 1000 == 0) {
-                    NOTSA_LOG_DEBUG("Allocation failed for type {:?} ({} fallos)", typeid(T).name(), s_nFailed);
+                    NOTSA_LOG_DEBUG("Falló la reserva para el tipo {:?} ({} fallos)", typeid(T).name(), s_nFailed);
                 }
             } else {
                 NOTSA_DEBUG_BREAK();

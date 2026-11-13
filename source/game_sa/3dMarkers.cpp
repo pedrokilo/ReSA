@@ -377,7 +377,7 @@ C3dMarker* C3dMarkers::PlaceMarker(
         break;
     }
     default: {
-        NOTSA_LOG_WARN("Invalid marker type ({})", (int)type);
+        NOTSA_LOG_WARN("Tipo de marcador no válido ({})", (int)type);
         return nullptr; // OG behaviour
     }
     }

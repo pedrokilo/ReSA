@@ -107,14 +107,14 @@ LONG WINAPI WindowsExceptionHandler(PEXCEPTION_POINTERS pExceptionInfo) {
 
     Section("UNHANDLED EXCEPTION");
 
-    SPDLOG_INFO("Exception Code: {:#010x}", pExceptionInfo->ExceptionRecord->ExceptionCode);
-    SPDLOG_INFO("Exception Flags: {:#010x}", pExceptionInfo->ExceptionRecord->ExceptionFlags);
-    SPDLOG_INFO("Exception Address: {:#010x}", (uintptr_t)pExceptionInfo->ExceptionRecord->ExceptionAddress);
+    SPDLOG_INFO("Código de excepción: {:#010x}", pExceptionInfo->ExceptionRecord->ExceptionCode);
+    SPDLOG_INFO("Indicadores de excepción: {:#010x}", pExceptionInfo->ExceptionRecord->ExceptionFlags);
+    SPDLOG_INFO("Dirección de excepción: {:#010x}", (uintptr_t)pExceptionInfo->ExceptionRecord->ExceptionAddress);
 
     // Dump exception parameters
     Section("PARAMETERS");
     {
-        SPDLOG_INFO("Parameters[{}]:", pExceptionInfo->ExceptionRecord->NumberParameters);
+        SPDLOG_INFO("Parámetros[{}]:", pExceptionInfo->ExceptionRecord->NumberParameters);
         for (DWORD i = 0; i < pExceptionInfo->ExceptionRecord->NumberParameters; i++) {
             SPDLOG_INFO("{:>8}: {:#010x}", i, pExceptionInfo->ExceptionRecord->ExceptionInformation[i]);
         }

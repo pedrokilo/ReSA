@@ -143,7 +143,7 @@ void CEscalator::Update() {
                     CreateStep((int32)m_NumIntermediatePlanes + i, ModelIndices::MI_ESCALATORSTEP8);
                 }
             } else {
-                NOTSA_LOG_WARN("Too many shit in the object pool now we can't create escalators!");
+                NOTSA_LOG_WARN("Demasiados objetos en el pool: no se pueden crear escaleras mecánicas");
             }
         }
     }

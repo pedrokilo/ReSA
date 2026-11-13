@@ -197,7 +197,7 @@ void CColModel::AllocateData(int32 numSpheres, int32 numBoxes, int32 numLines, i
 
 // Reserva el bloque contiguo bruto y marca el modelo como single-allocation.
 void CColModel::AllocateData(int32 size) {
-    DEV_LOG_COL("AllocateData[Size]: {} [ColSlot: {}; Size: {}]", LOG_PTR(this), m_nColSlot, size);
+    DEV_LOG_COL("AllocateData[Size]: {} [ranura de colisión: {}; tamaño: {}]", LOG_PTR(this), m_nColSlot, size);
 
     m_bIsSingleColDataAlloc = true;
     m_pColData = static_cast<CCollisionData*>(CMemoryMgr::Malloc(size, 0));
@@ -215,7 +215,7 @@ void CColModel::RemoveCollisionVolumes() {
         return;
     }
 
-    DEV_LOG_COL("Removing: {} [ColSlot: {}]", LOG_PTR(this), m_nColSlot);
+    DEV_LOG_COL("Eliminando: {} [ranura de colisión: {}]", LOG_PTR(this), m_nColSlot);
 
     if (m_bIsSingleColDataAlloc) {
         CCollision::RemoveTrianglePlanes(m_pColData);

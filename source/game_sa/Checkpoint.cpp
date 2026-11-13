@@ -223,7 +223,7 @@ void CCheckpoint::Update() {
         }
 
         if (FindPlayerCoors().z - 0.75f >= m_Pos.z) {
-            NOTSA_LOG_DEBUG("Done"); // OG
+            NOTSA_LOG_DEBUG("Hecho"); // OG
         } else {
             m_Pos.z += m_MultiSize;
         }

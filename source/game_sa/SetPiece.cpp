@@ -78,7 +78,7 @@ CCopPed* CSetPiece::TryToGenerateCopPed(CVector2D posn) {
     auto* cop = new CCopPed(0);
     cop->SetPosn(point);
 
-    NOTSA_LOG_DEBUG("generated cop at ({}, {}, {}) dist to player {:.2f}", cop->GetPosition().x, cop->GetPosition().y, cop->GetPosition().z, DistanceBetweenPoints(FindPlayerCoors(), cop->GetPosition()));
+    NOTSA_LOG_DEBUG("policía generado en ({}, {}, {}), distancia al jugador {:.2f}", cop->GetPosition().x, cop->GetPosition().y, cop->GetPosition().z, DistanceBetweenPoints(FindPlayerCoors(), cop->GetPosition()));
     CWorld::Add(cop);
     return cop;
 }
@@ -135,7 +135,7 @@ CVehicle* CSetPiece::TryToGenerateCopCar(CVector2D posn, CVector2D target) {
 
     if (!numCollidingObjects) {
         car->ChangeLawEnforcerState(true);
-        NOTSA_LOG_DEBUG("generated cop car at ({}, {}, {}) dist to player {:.2f}", car->GetPosition().x, car->GetPosition().y, car->GetPosition().z, DistanceBetweenPoints(FindPlayerCoors(), car->GetPosition()));
+        NOTSA_LOG_DEBUG("coche de policía generado en ({}, {}, {}), distancia al jugador {:.2f}", car->GetPosition().x, car->GetPosition().y, car->GetPosition().z, DistanceBetweenPoints(FindPlayerCoors(), car->GetPosition()));
         CWorld::Add(car);
     } else {
         delete std::exchange(car, nullptr);

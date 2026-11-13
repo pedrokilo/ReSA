@@ -498,7 +498,7 @@ void HooksDebugModule::RenderWindow() {
             if (ImGui::MenuItem("Export hooks.csv")) {
                 const auto path = fs::weakly_canonical("hooks.csv");
                 ReversibleHooks::WriteHooksToFile(path);
-                NOTSA_LOG_INFO("Exported hooks to {:?}", path.string());
+                NOTSA_LOG_INFO("Hooks exportados a {:?}", path.string());
             }
             ImGui::EndMenu();
         }

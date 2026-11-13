@@ -133,7 +133,7 @@ void CCheckpoints::Update() {
             if (player.z - 0.75f < cp.m_Pos.z) {
                 cp.m_Pos.z = cp.m_MultiSize + cp.m_Pos.z;
             } else {
-                NOTSA_LOG_DEBUG("Done"); // OG
+                NOTSA_LOG_DEBUG("Hecho"); // OG
             }
         }
     }

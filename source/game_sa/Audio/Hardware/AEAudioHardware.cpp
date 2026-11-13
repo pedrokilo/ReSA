@@ -121,7 +121,7 @@ bool CAEAudioHardware::Initialise() {
     m_pMP3BankLoader  = static_cast<CAEMP3BankLoader*>(operator new(sizeof(CAEMP3BankLoader)))->Constructor();
     m_pMP3TrackLoader = new CAEMP3TrackLoader;
     if (!m_pMP3BankLoader->Initialise() || !m_pMP3TrackLoader->Initialise()) {
-        NOTSA_LOG_ERR("Failed initializing MP3 module!");
+        NOTSA_LOG_ERR("No se pudo inicializar el módulo MP3");
         return false;
     }
 

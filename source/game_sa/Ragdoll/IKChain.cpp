@@ -204,7 +204,7 @@ inline BoneNode_c* IKChain_c::GetBoneNodeFromTag(eBoneTag32 boneTag) {
             return bone;
         }
     }
-    NOTSA_LOG_WARN("IKChain_c::GetBoneNodeFromTag: Bone tag {} not found in chain", (int32)(boneTag));
+    NOTSA_LOG_WARN("IKChain_c::GetBoneNodeFromTag: la etiqueta de hueso {} no está en la cadena", (int32)(boneTag));
     return nullptr;
 }
 

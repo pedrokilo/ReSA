@@ -1432,7 +1432,7 @@ void CWorld::RemoveFallenPeds() {
         if (!(vecPedPos.z < MAP_Z_LOW_LIMIT)) {
             continue;
         }
-        NOTSA_LOG_WARN("&&&&&&Another ped has fallen through the map&&&&&&&&&& {:4f} {:4f} {:4f}", vecPedPos.x, vecPedPos.y, vecPedPos.z); // R* log
+        NOTSA_LOG_WARN("&&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& {:4f} {:4f} {:4f}", vecPedPos.x, vecPedPos.y, vecPedPos.z); // R* log
         if (!ped->IsCreatedBy(ePedCreatedBy::PED_GAME) || ped->IsPlayer()) {
             // Como el original: distancia maxima 999999.88f (0x497423FE)
             CNodeAddress pathNodeAddress = ThePaths.FindNodeClosestToCoors(vecPedPos, PATH_TYPE_PED, 999999.88f, 0, 0, 0, 0, 0);
@@ -1466,7 +1466,7 @@ void CWorld::RemoveFallenCars() {
             continue;
         }
 
-        NOTSA_LOG_WARN("&&&&&&Another vehicle has fallen through the map&&&&&&&&&& {:4f} {:4f} {:4f}", vecPos.x, vecPos.y, vecPos.z); // R* log
+        NOTSA_LOG_WARN("&&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& {:4f} {:4f} {:4f}", vecPos.x, vecPos.y, vecPos.z); // R* log
 
         const auto ShouldWeKeepIt = [vehicle]() {
             if (vehicle->IsCreatedBy(eVehicleCreatedBy::MISSION_VEHICLE) && !vehicle->physicalFlags.bRenderScorched) {
@@ -2576,7 +2576,7 @@ void CWorld::Process() {
                         entity->SetIsStuck(true);
 
                         if (entity->TreatAsPlayerForCollisions()) {
-                            NOTSA_LOG_DEBUG("STUCK: Final Step: Player Entity {} Is Stuck", entity->GetModelIndex()); // R* log
+                            NOTSA_LOG_DEBUG("ATASCADO: paso final: la entidad del jugador {} está atascada", entity->GetModelIndex()); // R* log
                             const auto physical = entity->AsPhysical();
                             // Como el original (0x568952..0x568978): _CIpow del EXE (0x822130, precision completa) con base
                             // 0.707 (0x8CDEEC) y como exponente ms_fTimeStep (no en milisegundos); cada componente se
@@ -2789,7 +2789,7 @@ float CWorld::FindRoofZFor3DCoord(float x, float y, float z, bool* outResult) {
         if (outResult) {
             *outResult = false;
         } else {
-            NOTSA_LOG_DEBUG("THERE IS NO MAP BELOW THE FOLLOWING COORS:{} {} {}. (FindGroundZFor3DCoord)", x, y, z); // R* triggered
+            NOTSA_LOG_DEBUG("NO HAY MAPA BAJO LAS SIGUIENTES COORDENADAS: {} {} {} (FindGroundZFor3DCoord)", x, y, z); // R* triggered
         }
         return 20.0f;
     }

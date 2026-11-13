@@ -72,7 +72,7 @@ Simple::Simple(
             InstallHook(true);
         }
         else {
-            NOTSA_LOG_WARN("Couldn't find the jump for address = 0x{:08X}\n", installAddress);
+            NOTSA_LOG_WARN("No se encontró el salto para la dirección = 0x{:08X}\n", installAddress);
             InstallHook(false);
         }
     }

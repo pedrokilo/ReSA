@@ -76,7 +76,7 @@ private:
                 continue;
             }
 
-            NOTSA_LOG_DEBUG("err: something wrong!");
+            NOTSA_LOG_DEBUG("error: algo salió mal");
             break;
         }
     }

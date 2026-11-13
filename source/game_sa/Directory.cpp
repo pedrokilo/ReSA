@@ -71,7 +71,7 @@ void CDirectory::AddItem(const DirectoryInfo& dirInfo) {
         std::memcpy(&m_pEntries[m_nNumEntries], &dirInfo, sizeof(DirectoryInfo)); // Como el original: rep movs de 32 bytes
         m_nNumEntries++;
     } else {
-        NOTSA_LOG_DEBUG("Too many objects without modelinfo structures");
+        NOTSA_LOG_DEBUG("Demasiados objetos sin estructuras de modelinfo");
     }
 }
 

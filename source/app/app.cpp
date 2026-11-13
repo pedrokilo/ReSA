@@ -184,7 +184,7 @@ RsEventStatus AppEventHandler(RsEvent event, void* param) {
 bool PluginAttach() {
     const auto Attach = [](auto name, auto attachFn) {
         if (!attachFn()) {
-            NOTSA_LOG_DEBUG("Couldn't attach {} plugin", name);
+            NOTSA_LOG_DEBUG("No se pudo asociar el plugin {}", name);
             return false;
         }
         return true;

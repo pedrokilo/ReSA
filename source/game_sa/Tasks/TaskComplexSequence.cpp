@@ -135,7 +135,7 @@ bool CTaskComplexSequence::AddTask(CTask* task) {
     if (task) {
         delete task;
     }
-    NOTSA_LOG_DEBUG("Failed to add task to sequence");
+    NOTSA_LOG_DEBUG("No se pudo añadir la tarea a la secuencia");
     return false;
 }
 
@@ -146,7 +146,7 @@ void CTaskComplexSequence::AddTask(int32 sequenceIdx, CTask* task) {
         if (task) {
             delete task;
         }
-        NOTSA_LOG_DEBUG("Failed to add task to sequence");
+        NOTSA_LOG_DEBUG("No se pudo añadir la tarea a la secuencia");
     } else {
         if (const auto old = m_Tasks.data()[sequenceIdx]) {
             delete old;

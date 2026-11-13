@@ -38,7 +38,7 @@ inline struct FastLoaderConfig {
     //! `slot` can have the same values as `SaveGameToLoad`
     bool StartGame(int32 slot) {
         if (slot == 0) {
-            NOTSA_LOG_TRACE("Starting new game (FastLoader)");
+            NOTSA_LOG_TRACE("Iniciando una partida nueva (FastLoader)");
             FrontEndMenuManager.SimulateGameLoad(true, 0);
             return true;
         }
@@ -53,17 +53,17 @@ inline struct FastLoaderConfig {
                     return StartGame(i); // Load this slot
                 }
             }
-            NOTSA_LOG_TRACE("Couldn't find any savegame to load!");
+            NOTSA_LOG_TRACE("No se encontró ninguna partida guardada que cargar");
             return false;
         }
 
         // Load game from slot
         assert(slot > 0);
         if (!CheckIfSaveFileExists(slot)) {
-            NOTSA_LOG_WARN("Save slot {} is empty!", slot);
+            NOTSA_LOG_WARN("La ranura de guardado {} está vacía", slot);
             return false;
         }
-        NOTSA_LOG_TRACE("Loading game from slot {}", slot);
+        NOTSA_LOG_TRACE("Cargando la partida de la ranura {}", slot);
 
         if (!NoLoadingTune) {
             for (size_t i = 0; i < SoundDelay; i++) {

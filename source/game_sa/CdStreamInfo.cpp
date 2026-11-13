@@ -164,7 +164,7 @@ bool CdStreamRead(int32 streamId, void* lpBuffer, CdStreamPos pos, int32 sectorC
         stream.bLocked = false;
         AddToQueue(&gStreamQueue, streamId);
         if (!ReleaseSemaphore(gStreamSemaphore, 1, nullptr))
-            NOTSA_LOG_DEBUG("Signal Sema Error");
+            NOTSA_LOG_DEBUG("Error al señalizar el semáforo");
         return true;
     }
     const DWORD numberOfBytesToRead = sectorCount * STREAMING_SECTOR_SIZE;
@@ -238,7 +238,7 @@ void CdStreamInitThread() {
         HANDLE hSemaphore = OS_SemaphoreCreate(2, nullptr);
         gCdStreams[i].sync.hSemaphore = hSemaphore;
         if (!hSemaphore) {
-            NOTSA_LOG_DEBUG("cdvd_stream: failed to create sync semaphore");
+            NOTSA_LOG_DEBUG("cdvd_stream: no se pudo crear el semáforo de sincronización");
             return;
         }
     }
@@ -250,10 +250,10 @@ void CdStreamInitThread() {
             SetThreadPriority(gStreamingThread, GetThreadPriority(GetCurrentThread()));
             ResumeThread(gStreamingThread);
         } else {
-            NOTSA_LOG_DEBUG("cdvd_stream: failed to create streaming thread");
+            NOTSA_LOG_DEBUG("cdvd_stream: no se pudo crear el hilo de streaming");
         }
     } else {
-        NOTSA_LOG_DEBUG("cdvd_stream: failed to create stream semaphore");
+        NOTSA_LOG_DEBUG("cdvd_stream: no se pudo crear el semáforo de streaming");
     }
 }
 

@@ -187,8 +187,8 @@ void DebugModules::DoDeserializeModules() {
         } catch ([[maybe_unused]] const json::exception& e) {
             const fs::path bakFileName{std::format("DebugModules-{}.json.bak", time(nullptr))};
             fs::copy("DebugModules.json", bakFileName);
-            NOTSA_LOG_ERR("Error while loading `DebugModules.json`: {}", e.what());
-            NOTSA_LOG_ERR("Backing up corrupted file to {} and creating a new one.", bakFileName.string());
+            NOTSA_LOG_ERR("Error al cargar `DebugModules.json`: {}", e.what());
+            NOTSA_LOG_ERR("Se guarda una copia del archivo corrupto en {} y se crea uno nuevo.", bakFileName.string());
             return;
         }
     }
@@ -212,7 +212,7 @@ void DebugModules::DoDeserializeModules() {
         try {
             m->Deserialize(*s);
         } catch ([[maybe_unused]] const json::exception& e) {
-            NOTSA_LOG_ERR("JSON exception occurred while deserializing module `{}`: {}", id, e.what());
+            NOTSA_LOG_ERR("Excepción JSON al deserializar el módulo `{}`: {}", id, e.what());
         }
     }
 }

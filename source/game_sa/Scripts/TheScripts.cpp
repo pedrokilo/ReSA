@@ -1947,7 +1947,7 @@ void CTheScripts::PrintListSizes() {
     for (const auto* s = pActiveScripts; s; s = s->m_pNext) active++;
     for (const auto* s = pIdleScripts; s; s = s->m_pNext) idle++;
 
-    NOTSA_LOG_DEBUG("Scripts Active: {}, Idle: {}", active, idle);
+    NOTSA_LOG_DEBUG("Scripts activos: {}, inactivos: {}", active, idle);
 }
 
 uint32 DbgLineColour = 0x0000FFFF; // r = 0, g = 0, b = 255, a = 255

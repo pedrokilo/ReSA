@@ -249,7 +249,7 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
 
             t2dEffectLightStreamData d{};
             if (sectionSize != sizeof(t2dEffectLightStreamData) && sectionSize != t2dEffectLightStreamData::SizeOfRequiredFields) {
-                NOTSA_LOG_ERR("Invalid light 2dfx section size: {}, skipping...", sectionSize);
+                NOTSA_LOG_ERR("Tamaño de sección 2dfx de luz no válido: {}; se omite...", sectionSize);
                 break;
             }
 
@@ -282,7 +282,7 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
             auto* sign = C2dEffect::Cast<C2dEffectRoadsign>(&fx);
 
             if (sectionSize != sizeof(t2dEffectRoadsignStreamData)) {
-                NOTSA_LOG_ERR("Invalid roadsign 2dfx section size: {}", sectionSize);
+                NOTSA_LOG_ERR("Tamaño de sección 2dfx de señal de tráfico no válido: {}", sectionSize);
                 break;
             }
 
@@ -300,7 +300,7 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
             auto* enex = C2dEffect::Cast<C2dEffectEnEx>(&fx);
 
             if (sectionSize != sizeof(t2dEffectEnExStreamData) && sectionSize != t2dEffectEnExStreamData::SizeOfRequiredFields) {
-                NOTSA_LOG_ERR("Invalid enex 2dfx section size: {}", sectionSize);
+                NOTSA_LOG_ERR("Tamaño de sección 2dfx de entrada/salida (enex) no válido: {}", sectionSize);
                 break;
             }
 
@@ -324,7 +324,7 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
             auto* cp = C2dEffect::Cast<C2dEffectCoverPoint>(&fx);
 
             if (sectionSize != sizeof(t2dEffectCoverPointStreamData)) {
-                NOTSA_LOG_ERR("Invalid cp 2dfx section size: {}", sectionSize);
+                NOTSA_LOG_ERR("Tamaño de sección 2dfx de punto de control (cp) no válido: {}", sectionSize);
                 break;
             }
 
@@ -341,7 +341,7 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
             auto* wheel = C2dEffect::Cast<C2dEffectSlotMachineWheel>(&fx);
 
             if (sectionSize != sizeof(t2dEffectSlotMachineWheelStreamData)) {
-                NOTSA_LOG_ERR("Invalid slot machine wheel 2dfx section size: {}", sectionSize);
+                NOTSA_LOG_ERR("Tamaño de sección 2dfx de rueda de tragaperras no válido: {}", sectionSize);
                 break;
             }
 
@@ -354,7 +354,7 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
             auto* e = C2dEffect::Cast<C2dEffectEscalator>(&fx);
 
             if (sectionSize != sizeof(t2dEffectEscalatorStreamData)) {
-                NOTSA_LOG_ERR("Invalid escalator 2dfx section size: {}", sectionSize);
+                NOTSA_LOG_ERR("Tamaño de sección 2dfx de escalera mecánica no válido: {}", sectionSize);
                 break;
             }
 
@@ -370,7 +370,7 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
             auto* pa = C2dEffect::Cast<C2dEffectPedAttractor>(&fx);
 
             if (sectionSize != sizeof(t2dEffectPedAttractorStreamData)) {
-                NOTSA_LOG_ERR("Invalid ped attractor 2dfx section size: {}", sectionSize);
+                NOTSA_LOG_ERR("Tamaño de sección 2dfx de atractor de peatones no válido: {}", sectionSize);
                 break;
             }
 
@@ -391,7 +391,7 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
             auto* p = C2dEffect::Cast<C2dEffectParticle>(&fx);
 
             if (sectionSize != sizeof(t2dEffectParticleStreamData)) {
-                NOTSA_LOG_ERR("Invalid particle 2dfx section size: {}", sectionSize);
+                NOTSA_LOG_ERR("Tamaño de sección 2dfx de partículas no válido: {}", sectionSize);
                 break;
             }
 
@@ -407,7 +407,7 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
             continue;
         }
         default:
-            NOTSA_LOG_ERR("Unknown 2dfx type: {}", +fx.m_Type);
+            NOTSA_LOG_ERR("Tipo de 2dfx desconocido: {}", +fx.m_Type);
             continue; // not skipping unintended?
         }
 

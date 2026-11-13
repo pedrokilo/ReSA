@@ -112,7 +112,7 @@ void CAEStreamingChannel::InitialiseSilence() {
         m_pSilenceBuffer->Play(0, 0, DSBPLAY_LOOPING);
 
     } else {
-        NOTSA_LOG_WARN("Creating silence buffer failed.");
+        NOTSA_LOG_WARN("No se pudo crear el búfer de silencio.");
     }
 }
 

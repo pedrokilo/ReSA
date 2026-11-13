@@ -404,7 +404,7 @@ INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdL
     }
 
     if (!Win32_InitApplication(instance)) {
-        NOTSA_LOG_ERR("Window class registration failed: {}", GetLastError());
+        NOTSA_LOG_ERR("No se pudo registrar la clase de ventana (error {})", GetLastError());
         return false;
     }
 
@@ -517,15 +517,15 @@ INT WINAPI WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdLine, I
         notsa::debug::WaitForDebugger();
     }
 #ifdef NOTSA_STANDALONE_DUMP_HOOKS_ONLY
-    NOTSA_LOG_INFO("Dumping hooks only, no memory writing will be performed");
+    NOTSA_LOG_INFO("Solo se volcarán los hooks; no se escribirá en memoria");
     if (CommandLine::s_DumpHooksPath.empty()) {
-        NOTSA_LOG_ERR("No path provided for dumping hooks, use `--dump-hooks-to` CLI argument");
+        NOTSA_LOG_ERR("No se indicó la ruta para volcar los hooks; usa el argumento `--dump-hooks-to`");
         return 1;
     }
     InjectHooksMain(GetModuleHandle(nullptr)); // this will call injecthooks which then ends up dumping the data
     return 0;
 #else
-    NOTSA_LOG_ERR("This executable is meant to be used for dumping hooks only, see `NOTSA_STANDALONE_DUMP_HOOKS_ONLY` option");
+    NOTSA_LOG_ERR("Este ejecutable solo sirve para volcar hooks; consulta la opción `NOTSA_STANDALONE_DUMP_HOOKS_ONLY`");
     return 1;
 #endif
 }

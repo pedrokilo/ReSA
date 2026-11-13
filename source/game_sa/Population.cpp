@@ -1107,7 +1107,7 @@ CPed* CPopulation::AddDeadPedInFrontOfCar(const CVector& createPedAt, CVehicle* 
     const float groundZ = (groundZ1 < createPedAt.z) ? createPedAt.z : groundZ1; // std::max(groundZ1, z) con la comparacion del EXE
 
     if (!CModelInfo::GetModelInfo(MODEL_MALE01)->GetRwObject()) {
-        NOTSA_LOG_DEBUG("Didn't create ped, because MODEL_MALE01 has no RW object!");
+        NOTSA_LOG_DEBUG("No se creó el peatón porque MODEL_MALE01 no tiene objeto RW");
         return nullptr;
     }
 

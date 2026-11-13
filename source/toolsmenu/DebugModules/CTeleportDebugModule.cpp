@@ -340,13 +340,13 @@ void TeleportDebugModule::AddSettingsHandler(ImGuiContext* ctx) {
             break;
         }
         default: {
-            NOTSA_LOG_ERR("Invalid teleport tool version: {}", version);
+            NOTSA_LOG_ERR("Versión de la herramienta de teletransporte no válida: {}", version);
             return;
         }
         }
 
         if (line[0] && line[0] != '\n') { // Report failed reads on non-empty lines only
-            NOTSA_LOG_ERR("Failed to load saved location from ini: `{}`", line);
+            NOTSA_LOG_ERR("No se pudo cargar la ubicación guardada del ini: `{}`", line);
         }
     };
     ih.ApplyAllFn = [](ImGuiContext* ctx, ImGuiSettingsHandler* handler) {

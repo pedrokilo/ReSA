@@ -45,6 +45,6 @@ bool OALCheckErrors(std::string_view file, int32 line) {
         }
     }();
 
-    NOTSA_LOG_ERR("OpenAL error at '{}' line {}: {}", file, line, message);
+    NOTSA_LOG_ERR("Error de OpenAL en '{}' línea {}: {}", file, line, message);
     return false;
 }

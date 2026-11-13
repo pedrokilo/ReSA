@@ -57,19 +57,19 @@ char** GetVideoModeList() {
 
         gVideoModes[modeId] = nullptr;
         if ((vmi.flags & rwVIDEOMODEEXCLUSIVE) == 0) {
-            VIDEO_MODE_LOG("Unavailable video mode id={:02d}: {} X {} X {} [reason: video mode not exclusive]", modeId, videoMode.width, videoMode.height, videoMode.depth);
+            VIDEO_MODE_LOG("Modo de vídeo no disponible id={:02d}: {} X {} X {} [motivo: el modo de vídeo no es exclusivo]", modeId, videoMode.width, videoMode.height, videoMode.depth);
             continue;
         }
 
         if (vmi.width < APP_MINIMAL_WIDTH || vmi.height < APP_MINIMAL_HEIGHT) {
-            VIDEO_MODE_LOG("Unavailable video mode id={:02d}: {} X {} X {} [reason: size]", modeId, videoMode.width, videoMode.height, videoMode.depth);
+            VIDEO_MODE_LOG("Modo de vídeo no disponible id={:02d}: {} X {} X {} [motivo: tamaño]", modeId, videoMode.width, videoMode.height, videoMode.depth);
             continue;
         }
 
         // Como el original: comparación exacta con 0.8, 0.75, 0.6 y 0.625 (sin tolerancia ni 16:9)
         float fRatio = float(vmi.height) / float(vmi.width);
         if (fRatio != 0.8f && fRatio != 0.75f && fRatio != 0.6f && fRatio != 0.625f) {
-            VIDEO_MODE_LOG("Unavailable video mode id={:02d}: {} X {} X {} [reason: ratio {:0.2f}]", modeId, videoMode.width, videoMode.height, videoMode.depth, fRatio);
+            VIDEO_MODE_LOG("Modo de vídeo no disponible id={:02d}: {} X {} X {} [motivo: proporción {:0.2f}]", modeId, videoMode.width, videoMode.height, videoMode.depth, fRatio);
             continue;
         }
 
@@ -84,7 +84,7 @@ char** GetVideoModeList() {
         // Como el original: rwsprintf (RwEngineInstance->stringFuncs.vecSprintf), sin el relleno de sprintf_s
         RWSRCGLOBAL(stringFuncs).vecSprintf(gVideoModes[modeId], "%lu X %lu X %lu", vmi.width, vmi.height, vmi.depth);
 
-        VIDEO_MODE_LOG("Available video mode id={:02d}: {}", modeId, gVideoModes[modeId]);
+        VIDEO_MODE_LOG("Modo de vídeo disponible id={:02d}: {}", modeId, gVideoModes[modeId]);
     }
 
     return gVideoModes;
@@ -107,7 +107,7 @@ bool FreeVideoModeList() {
 // 0x745C70
 void SetVideoMode(int32 mode) {
     // Como el original: sin comprobar RwEngineGetNumVideoModes (el assert añadía una llamada)
-    VIDEO_MODE_LOG("Changing Video Mode to {} ({})", mode, gVideoModes ? gVideoModes[mode] : "unknown");
+    VIDEO_MODE_LOG("Cambiando el modo de vídeo a {} ({})", mode, gVideoModes ? gVideoModes[mode] : "desconocido");
 
     RwD3D9ChangeVideoMode(mode);
     CPostEffects::SetupBackBufferVertex();

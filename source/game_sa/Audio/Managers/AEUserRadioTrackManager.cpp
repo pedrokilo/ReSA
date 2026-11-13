@@ -644,7 +644,7 @@ std::wstring CAEUserRadioTrackManager::ResolveShortcut(const std::wstring& path)
     }
 
     if (FAILED(shellLink->QueryInterface(IID_IPersistFile, (void**)&persistFile))) {
-        NOTSA_LOG_ERR("QueryInterface(IID_IPersistFile) failed.");
+        NOTSA_LOG_ERR("QueryInterface(IID_IPersistFile) falló.");
         shellLink->Release();
         return {};
     }

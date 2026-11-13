@@ -55,11 +55,11 @@ bool CAEAudioEntity::StaticInitialise() {
     auto file = CFileMgr::OpenFile("AUDIO\\CONFIG\\EVENTVOL.DAT", "r");
     if (!file) {
         // Como el original (0x5B9D7C `cmp edi,ebx / je 0x5B9DA5`): sin fichero no se llama a CloseFile (0x5389D0).
-        NOTSA_LOG_WARN("[AudioEngine] Failed to open EVENTVOL.DAT");
+        NOTSA_LOG_WARN("[AudioEngine] No se pudo abrir EVENTVOL.DAT");
         return false;
     }
     if (CFileMgr::Read(file, m_pAudioEventVolumes, EVENT_VOLUMES_BUFFER_SIZE) != EVENT_VOLUMES_BUFFER_SIZE) {
-        NOTSA_LOG_WARN("[AudioEngine] Failed to read EVENTVOL.DAT");
+        NOTSA_LOG_WARN("[AudioEngine] No se pudo leer EVENTVOL.DAT");
         CFileMgr::CloseFile(file);
         return false;
     }

@@ -272,29 +272,29 @@ bool CAudioEngine::Initialise() {
     CLoadingScreen::Pause();
 
     if (!AEAudioHardware.Initialise()) {
-        NOTSA_LOG_ERR("Failed to initialise Audio Hardware");
+        NOTSA_LOG_ERR("No se pudo inicializar el hardware de audio");
         return false;
     }
 
     m_nBackgroundAudioChannel = AEAudioHardware.AllocateChannels(1);
 
     if (!AERadioTrackManager.Initialise(m_nBackgroundAudioChannel)) {
-        NOTSA_LOG_ERR("Failed to initialise Radio Track Manager");
+        NOTSA_LOG_ERR("No se pudo inicializar el gestor de pistas de radio");
         return false;
     }
 
     if (!AECutsceneTrackManager.Initialise(m_nBackgroundAudioChannel)) {
-        NOTSA_LOG_ERR("Failed to initialise Cutscene Track Manager");
+        NOTSA_LOG_ERR("No se pudo inicializar el gestor de pistas de escenas");
         return false;
     }
 
     if (!AEAmbienceTrackManager.Initialise(m_nBackgroundAudioChannel)) {
-        NOTSA_LOG_ERR("Failed to initialise Ambience Track Manager");
+        NOTSA_LOG_ERR("No se pudo inicializar el gestor de pistas de ambiente");
         return false;
     }
 
     if (!AESoundManager.Initialise()) {
-        NOTSA_LOG_ERR("Failed to initialise Sound Manager");
+        NOTSA_LOG_ERR("No se pudo inicializar el gestor de sonido");
         return false;
     }
 

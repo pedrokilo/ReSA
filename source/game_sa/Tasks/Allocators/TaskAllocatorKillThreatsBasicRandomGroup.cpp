@@ -39,7 +39,7 @@ void CTaskAllocatorKillThreatsBasicRandomGroup::AllocateTasks(CPedGroupIntellige
     auto* const group = &intel->GetPedGroup();
     if (auto* const threatsGroup = m_Threat->GetGroup()) {
         if (threatsGroup == group) {
-            NOTSA_LOG_DEBUG("ComputeKillThreatsBasicResponse() - threat ped already in group"); // vanilla
+            NOTSA_LOG_DEBUG("ComputeKillThreatsBasicResponse() - el peatón amenaza ya está en el grupo"); // vanilla
         } else {
             CPed* closest[TOTAL_PED_GROUP_MEMBERS]{};
             ComputeClosestPeds(*group, *threatsGroup, closest);

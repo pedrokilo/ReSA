@@ -29,9 +29,9 @@ bool CPad::ProcessMouseEvent(const SDL_Event& e, CMouseControllerState& ms) {
     case SDL_EVENT_MOUSE_ADDED:
     case SDL_EVENT_MOUSE_REMOVED: {
         NOTSA_LOG_DEBUG(
-            "SDL: Mouse ({}) {}",
+            "SDL: ratón ({}) {}",
             e.mdevice.which,
-            e.mdevice.type == SDL_EVENT_MOUSE_ADDED ? "added" : "removed"
+            e.mdevice.type == SDL_EVENT_MOUSE_ADDED ? "conectado" : "desconectado"
         );
         return true;
     }
@@ -124,9 +124,9 @@ bool CPad::ProcessKeyboardEvent(const SDL_Event& e, CKeyboardState& ks) {
     case SDL_EVENT_KEYBOARD_ADDED:
     case SDL_EVENT_KEYBOARD_REMOVED: {
         NOTSA_LOG_DEBUG(
-            "SDL: Keyboard ({}) {}",
+            "SDL: teclado ({}) {}",
             e.kdevice.which,
-            e.kdevice.type == SDL_EVENT_KEYBOARD_ADDED ? "added" : "removed"
+            e.kdevice.type == SDL_EVENT_KEYBOARD_ADDED ? "conectado" : "desconectado"
         );
         return true;
     }

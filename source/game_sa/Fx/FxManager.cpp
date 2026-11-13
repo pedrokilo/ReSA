@@ -192,7 +192,7 @@ bool FxManager_c::LoadFxProject(const char* path) {
 
     // NOTSA: sanity check
     if (!fs::exists(txdPath)) {
-        NOTSA_LOG_ERR("Fx TXD file '{}' doesn't exists. Game will crash after trying to render a fx!", txdPath);
+        NOTSA_LOG_ERR("El archivo TXD de Fx '{}' no existe; el juego se cerrará al intentar dibujar un efecto", txdPath);
     }
 
     m_nFxTxdIndex = CTxdStore::AddTxdSlot("fx");
@@ -269,7 +269,7 @@ FxSystemBP_c* FxManager_c::FindFxSystemBP(const char* name) {
         }
     }
 
-    NOTSA_LOG_ERR("Couldn't find Fx system bp '{}'", name);
+    NOTSA_LOG_ERR("No se encontró el blueprint del sistema Fx '{}'", name);
     return nullptr;
 }
 

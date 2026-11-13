@@ -53,7 +53,7 @@ UIRenderer::UIRenderer() :
 
     SetIsActive(false);
 
-    NOTSA_LOG_DEBUG("I say hello!");
+    NOTSA_LOG_DEBUG("Interfaz de depuración iniciada");
 }
 
 UIRenderer::~UIRenderer() {
@@ -191,7 +191,7 @@ void UIRenderer::DebugCode() {
             },
             TASK_PRIMARY_PRIMARY
         );
-        NOTSA_LOG_DEBUG("GOING!");
+        NOTSA_LOG_DEBUG("Procediendo");
         //CPointRoute route{};
         //
         //const auto r = 10.f;
@@ -234,7 +234,7 @@ void UIRenderer::DebugCode() {
     }
     if (pad->IsStandardKeyJustDown('8')) {
         TheCamera.AddShakeSimple(10000.f, 1, 10.f);
-        NOTSA_LOG_DEBUG("Hey");
+        NOTSA_LOG_DEBUG("Eh");
     }
     if (pad->IsStandardKeyJustPressed('5')) {
         if (const auto veh = FindPlayerVehicle()) {

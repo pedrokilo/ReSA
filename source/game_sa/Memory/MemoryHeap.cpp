@@ -241,7 +241,7 @@ void* CMemoryHeap::Malloc(uint32 size) {
     while (blockSize > uint32(block->m_nSize)) {
         block = block->m_Next;
         if (block == &m_FreeListEnd) {
-            NOTSA_LOG_DEBUG("CMemoryHeap[{:02d}]: !!! failed to allocate {} bytes !!!", m_nMemId, block->m_nSize);
+            NOTSA_LOG_DEBUG("CMemoryHeap[{:02d}]: ¡¡¡ no se pudieron reservar {} bytes !!!", m_nMemId, block->m_nSize);
             return nullptr;
         }
     }
@@ -303,7 +303,7 @@ void CMemoryHeap::PrintMemoryLeaks() {
         return;
     }
 
-    NOTSA_LOG_DEBUG("MemoryHeap 0x{:08x} LEAKS (used {} bytes out of {} bytes total)\n", m_FirstBlock, m_nMemUsed, _GetHeapSize());
+    NOTSA_LOG_DEBUG("MemoryHeap 0x{:08x} FUGAS (usados {} bytes de {} bytes en total)\n", m_FirstBlock, m_nMemUsed, _GetHeapSize());
     NOTSA_LOG_DEBUG("-----------------------------------------------------------------------------------------------------------\n");
 
     HeapBlockDesc* p = m_FirstBlock;
@@ -453,16 +453,16 @@ void CMemoryHeap::ParseHeap() {
 }
 
 void CMemoryHeap::_DumpHeapStatus(bool bCommonSizes) {
-    NOTSA_LOG_DEBUG("MemoryHeap 0x{:08x} STATUS (used {} bytes out of {} bytes total)", LOG_PTR(m_FirstBlock), m_nMemUsed, GetHeapSize());
+    NOTSA_LOG_DEBUG("MemoryHeap 0x{:08x} ESTADO (usados {} bytes de {} bytes en total)", LOG_PTR(m_FirstBlock), m_nMemUsed, GetHeapSize());
 
-    NOTSA_LOG_DEBUG(" - Block map");
+    NOTSA_LOG_DEBUG(" - Mapa de bloques");
     HeapBlockDesc* p = m_FirstBlock;
     while (p != m_LastBlock) {
         p->_DumpBlockInfo();
         p = p->_GetNextLocatedBlock();
     }
 
-    NOTSA_LOG_DEBUG(" - Free list");
+    NOTSA_LOG_DEBUG(" - Lista de bloques libres");
     HeapFreeBlockDesc* pF = &m_FreeListBegin;
     do {
         pF->_DumpBlockInfo();
@@ -470,7 +470,7 @@ void CMemoryHeap::_DumpHeapStatus(bool bCommonSizes) {
     } while (pF != m_FreeListEnd.m_Next);
 
     if (m_paCommonSizes && bCommonSizes) {
-        NOTSA_LOG_DEBUG(" - CommonSizes");
+        NOTSA_LOG_DEBUG(" - Tamaños comunes (CommonSizes)");
         for (auto i = 0; i < CORE_COMMON_SIZE_COUNT; ++i) {
             if (m_paCommonSizes[i].m_NumFreeBlocks) {
                 m_paCommonSizes[i]._DumpInfo();
@@ -478,9 +478,9 @@ void CMemoryHeap::_DumpHeapStatus(bool bCommonSizes) {
         }
     }
 
-    NOTSA_LOG_DEBUG(" Percentage used:    {:0.1f}%", 100.f * float(m_nMemUsed) / float(GetHeapSize()));
-    NOTSA_LOG_DEBUG(" Largest free block: {} bytes", GetLargestFreeBlock());
-    NOTSA_LOG_DEBUG(" Holes size:         {} bytes", GetSizeOfHoles());
+    NOTSA_LOG_DEBUG(" Porcentaje usado:       {:0.1f}%", 100.f * float(m_nMemUsed) / float(GetHeapSize()));
+    NOTSA_LOG_DEBUG(" Mayor bloque libre:     {} bytes", GetLargestFreeBlock());
+    NOTSA_LOG_DEBUG(" Tamaño de los huecos:  {} bytes", GetSizeOfHoles());
 }
 
 HeapBlockDesc* CMemoryHeap::_FindBlockDesc(void* memory) {

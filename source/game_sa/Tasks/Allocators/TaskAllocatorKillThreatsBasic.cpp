@@ -45,7 +45,7 @@ void CTaskAllocatorKillThreatsBasic::AllocateTasks(CPedGroupIntelligence* intel)
         // Como el original: un solo GetGroupId y la comparacion con &ms_groups[id]
         const auto threatsGroupId = CPedGroups::GetGroupId(threatsGroup);
         if (CPedGroups::ms_groups.data() + threatsGroupId == group) {
-            NOTSA_LOG_DEBUG("ComputeKillThreatsBasicResponse() - threat ped already in group"); // vanilla
+            NOTSA_LOG_DEBUG("ComputeKillThreatsBasicResponse() - el peatón amenaza ya está en el grupo"); // vanilla
         } else {
             CPed* closest[TOTAL_PED_GROUP_MEMBERS]{};
             ComputeClosestPeds(*group, *threatsGroup, closest);

@@ -94,7 +94,7 @@ void CTimeCycle::Initialise(bool padFile) {
     CFileMgr::SetDir("");
 
     if (!file) { // NOTSA
-        NOTSA_LOG_WARN("[CTimeCycle] Failed to open TIMECYC.DAT");
+        NOTSA_LOG_WARN("[CTimeCycle] No se pudo abrir TIMECYC.DAT");
         CFileMgr::CloseFile(file);
         return;
     }
@@ -179,7 +179,7 @@ void CTimeCycle::Initialise(bool padFile) {
                 // R* made a mistake in line 320:
                 // instead of the first 3 RGB values, only 255 is specified,
                 // which causes the entire line to shift and be read incorrectly
-                NOTSA_LOG_WARN("Bad timecyc line: '{}'", line);
+                NOTSA_LOG_WARN("Línea de timecyc incorrecta: '{}'", line);
             }
 
             m_nAmbientRed[h][w]   = ambR;
