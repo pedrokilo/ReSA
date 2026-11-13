@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **10,424 entradas reversed=1**, de 10,424 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **10,446 entradas reversed=1**, de 10,446 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 10424 |
+| `validated=1` · evidencia aprobada vinculada | 10446 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 10424 |
+| Evidencia histórica vinculada; revisión pendiente | 10446 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -118,15 +118,20 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | C3dMarkers | `User3dMarkerFindFirstFreeSlot` | [Resumen](../reversing/Markers/validation-summary.json) |
 | C3dMarkers | `User3dMarkerSet` | [Resumen](../reversing/Markers/validation-summary.json) |
 | C3dMarkers | `User3dMarkersDraw` | [Resumen](../reversing/Markers/validation-summary.json) |
+| CAEAmbienceTrackManager | `CheckForPause` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CAEAmbienceTrackManager | `IsAmbienceRadioActive` | [Resumen](../reversing/AmbienceTrack/validation-summary.json) |
 | CAEAmbienceTrackManager | `IsAmbienceTrackActive` | [Resumen](../reversing/AmbienceTrack/validation-summary.json) |
 | CAEAmbienceTrackManager | `PlaySpecialMissionAmbienceTrack` | [Resumen](../reversing/AmbienceTrack/validation-summary.json) |
 | CAEAmbienceTrackManager | `Reset` | [Resumen](../reversing/AmbienceTrack/validation-summary.json) |
 | CAEAmbienceTrackManager | `Service` | [Resumen](../reversing/AmbienceTrack/validation-summary.json) |
+| CAEAmbienceTrackManager | `StartTrackPlayback` | [Resumen](../reversing/Fn180A/validation-summary.json) |
+| CAEAmbienceTrackManager | `StopAmbienceTrack` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CAEAmbienceTrackManager | `StopSpecialMissionAmbienceTrack` | [Resumen](../reversing/AmbienceTrack/validation-summary.json) |
 | CAEAmbienceTrackManager | `UpdateAmbienceTrackAndVolume` | [Resumen](../reversing/AudioCompletion/validation-summary.json) |
+| CAEAudioChannel | `Constructor` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CAEAudioChannel | `ConvertFromBytesToMS` | [Resumen](../reversing/AudioChannel/validation-summary.json) |
 | CAEAudioChannel | `ConvertFromMsToBytes` | [Resumen](../reversing/AudioChannel/validation-summary.json) |
+| CAEAudioChannel | `DestructorBody` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CAEAudioChannel | `GetCurrentPlaybackPosition` | [Resumen](../reversing/AudioChannel/validation-summary.json) |
 | CAEAudioChannel | `IsBufferPlaying` | [Resumen](../reversing/Fn149A/validation-summary.json) |
 | CAEAudioChannel | `Lost` | [Resumen](../reversing/AudioChannel/validation-summary.json) |
@@ -3585,9 +3590,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGroupEventHandler | `ComputeStareResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGroupEventHandler | `ComputeWalkAlongsideResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGroupEventHandler | `IsKillTaskAppropriate` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CHandObject | `Constructor` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CHandObject | `PreRender` | [Resumen](../reversing/World52/validation-summary.json) |
 | CHandObject | `ProcessControl` | [Resumen](../reversing/World52/validation-summary.json) |
 | CHandObject | `Render` | [Resumen](../reversing/World52/validation-summary.json) |
+| CHandObject | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CHandShaker | `Process` | [Resumen](../reversing/World52/validation-summary.json) |
 | CHandShaker | `Reset` | [Resumen](../reversing/World52/validation-summary.json) |
 | CHandShaker | `SetDefaults` | [Resumen](../reversing/World52/validation-summary.json) |
@@ -4103,6 +4110,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CObject | `GetRopeHeight` | [Resumen](../reversing/Object48/validation-summary.json) |
 | CObject | `GrabObjectToCarryWithRope` | [Resumen](../reversing/Object48/validation-summary.json) |
 | CObject | `Init` | [Resumen](../reversing/Object48/validation-summary.json) |
+| CObject | `IsCraneMovingPartModel` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CObject | `IsObjectPointerValid` | [Resumen](../reversing/Object48/validation-summary.json) |
 | CObject | `IsObjectPointerValid_NotInWorld` | [Resumen](../reversing/Object48/validation-summary.json) |
 | CObject | `Load` | [Resumen](../reversing/Object48/validation-summary.json) |
@@ -6598,6 +6606,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexFollowPointRoute | `CreateFirstSubTask` | [Resumen](../reversing/CTasks13/validation-summary.json) |
 | CTaskComplexFollowPointRoute | `CreateNextSubTask` | [Resumen](../reversing/CTasks13/validation-summary.json) |
 | CTaskComplexFollowPointRoute | `CreateTask` | [Resumen](../reversing/CTasks13/validation-summary.json) |
+| CTaskComplexFollowPointRoute | `DestructorBody` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskComplexFollowPointRoute | `GetLastWaypoint` | [Resumen](../reversing/CTasks13/validation-summary.json) |
 | CTaskComplexFollowPointRoute | `GetNextWaypoint` | [Resumen](../reversing/CTasks13/validation-summary.json) |
 | CTaskComplexFollowPointRoute | `GetSubTaskType` | [Resumen](../reversing/CTasks13/validation-summary.json) |
@@ -6648,6 +6657,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexGetOnBoatSeat | `Destructor` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
 | CTaskComplexGetOnBoatSeat | `GetTaskType` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
 | CTaskComplexGetOnBoatSeat | `MakeAbortable` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
+| CTaskComplexGetOnBoatSeat | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskComplexGetUpAndStandStill | `Constructor` | [Resumen](../reversing/CTasks43/validation-summary.json) |
 | CTaskComplexGetUpAndStandStill | `ControlSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
 | CTaskComplexGetUpAndStandStill | `CreateFirstSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
@@ -6679,8 +6689,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexGoToBoatSteeringWheel | `ControlSubTask` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
 | CTaskComplexGoToBoatSteeringWheel | `CreateFirstSubTask` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
 | CTaskComplexGoToBoatSteeringWheel | `CreateNextSubTask` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
+| CTaskComplexGoToBoatSteeringWheel | `CreateSubTask` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskComplexGoToBoatSteeringWheel | `Destructor` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
 | CTaskComplexGoToBoatSteeringWheel | `GetTaskType` | [Resumen](../reversing/Fn171A/validation-summary.json) |
+| CTaskComplexGoToBoatSteeringWheel | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskComplexGoToCarDoorAndStandStill | `Clone` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CTaskComplexGoToCarDoorAndStandStill | `ComputeRouteToDoor` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CTaskComplexGoToCarDoorAndStandStill | `Constructor` | [Resumen](../reversing/Mix11/validation-summary.json) |
@@ -6716,6 +6728,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | `ControlSubTask` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | `CreateFirstSubTask` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | `CreateNextSubTask` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
+| CTaskComplexGoToPointAndStandStillAndAchieveHeading | `CreateSubTask` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | `Destructor` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | `GetTaskType` | [Resumen](../reversing/FixHooks/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn147A/validation-summary.json) |
@@ -7707,6 +7720,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimple | `GetSubTask` | [Resumen](../reversing/Fn158A/validation-summary.json) |
 | CTaskSimple | `IsSimple` | [Resumen](../reversing/Fn158A/validation-summary.json) |
 | CTaskSimple | `SetPedPosition` | [Resumen](../reversing/Fn158A/validation-summary.json) |
+| CTaskSimpleAbseil | `Clone` | [Resumen](../reversing/Fn180A/validation-summary.json) |
+| CTaskSimpleAbseil | `Constructor` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskSimpleAchieveHeading | `Clone` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleAchieveHeading | `Constructor` | [Resumen](../reversing/Fn90B/validation-summary.json) |
 | CTaskSimpleAchieveHeading | `Destructor` | [Resumen](../reversing/Fn122A/validation-summary.json) |
@@ -7807,6 +7822,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleCarDriveTimed | `ProcessPed` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskSimpleCarDriveTimed | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn128A/validation-summary.json) |
 | CTaskSimpleCarFallOut | `Clone` | [Resumen](../reversing/STasks9/validation-summary.json) |
+| CTaskSimpleCarFallOut | `ComputeAnimIDExe` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskSimpleCarFallOut | `Constructor` | [Resumen](../reversing/STasks9/validation-summary.json) |
 | CTaskSimpleCarFallOut | `Destructor` | [Resumen](../reversing/STasks9/validation-summary.json) |
 | CTaskSimpleCarFallOut | `FinishAnimFallOutCB` | [Resumen](../reversing/STasks9/validation-summary.json) |
@@ -8099,6 +8115,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleEvasiveStep | `GetTaskType` | [Resumen](../reversing/STasks8a/validation-summary.json) |
 | CTaskSimpleEvasiveStep | `MakeAbortable` | [Resumen](../reversing/STasks8a/validation-summary.json) |
 | CTaskSimpleEvasiveStep | `ProcessPed` | [Resumen](../reversing/STasks8a/validation-summary.json) |
+| CTaskSimpleEvasiveStep | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskSimpleEvasiveStep | `StartAnim` | [Resumen](../reversing/STasks8a/validation-summary.json) |
 | CTaskSimpleFacial | `Clone` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleFacial | `Constructor` | [Resumen](../reversing/Fn115A/validation-summary.json) |
@@ -8239,6 +8256,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleHitFromBehind | `Clone` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleHitFromBehind | `Constructor` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleHitFromBehind | `IsInterruptable` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
+| CTaskSimpleHitFromBehind | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskSimpleHitFromFront | `Clone` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleHitFromFront | `Constructor` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleHitFromFront | `IsInterruptable` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
@@ -8248,15 +8266,18 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleHitFromRight | `Clone` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleHitFromRight | `Constructor` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleHitFromRight | `IsInterruptable` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
+| CTaskSimpleHitHead | `Clone` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskSimpleHitHead | `Constructor` | [Resumen](../reversing/STasks19/validation-summary.json) |
 | CTaskSimpleHitHead | `DestructorBody` | [Resumen](../reversing/Fn150A/validation-summary.json) |
 | CTaskSimpleHitHead | `FinishAnimCB` | [Resumen](../reversing/STasks19/validation-summary.json) |
 | CTaskSimpleHitHead | `GetTaskType` | [Resumen](../reversing/Fn150A/validation-summary.json) |
 | CTaskSimpleHitHead | `MakeAbortable` | [Resumen](../reversing/STasks19/validation-summary.json) |
 | CTaskSimpleHitHead | `ProcessPed` | [Resumen](../reversing/STasks19/validation-summary.json) |
+| CTaskSimpleHitHead | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskSimpleHitWall | `Clone` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleHitWall | `Constructor` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleHitWall | `IsInterruptable` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
+| CTaskSimpleHitWall | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskSimpleHoldEntity | `CanThrowEntity` | [Resumen](../reversing/CTasks14b/validation-summary.json) |
 | CTaskSimpleHoldEntity | `ChoosePutDownHeight` | [Resumen](../reversing/CTasks14b/validation-summary.json) |
 | CTaskSimpleHoldEntity | `Clone` | [Resumen](../reversing/CTasks14b/validation-summary.json) |
@@ -8497,6 +8518,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleSetPedAsAutoDriver | `GetTaskType` | [Resumen](../reversing/STasks6c/validation-summary.json) |
 | CTaskSimpleSetPedAsAutoDriver | `MakeAbortable` | [Resumen](../reversing/STasks6c/validation-summary.json) |
 | CTaskSimpleSetPedAsAutoDriver | `ProcessPed` | [Resumen](../reversing/STasks6c/validation-summary.json) |
+| CTaskSimpleSetPedAsAutoDriver | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn180A/validation-summary.json) |
 | CTaskSimpleSetStayInSamePlace | `Clone` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleSetStayInSamePlace | `Constructor` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleSetStayInSamePlace | `Destructor` | [Resumen](../reversing/Fn122A/validation-summary.json) |
@@ -10460,8 +10482,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `C2dEffect` | 14 | 0 | 14 | 0 |
 | `C3dMarker` | 6 | 0 | 6 | 0 |
 | `C3dMarkers` | 20 | 0 | 20 | 0 |
-| `CAEAmbienceTrackManager` | 7 | 0 | 7 | 0 |
-| `CAEAudioChannel` | 14 | 0 | 14 | 0 |
+| `CAEAmbienceTrackManager` | 10 | 0 | 10 | 0 |
+| `CAEAudioChannel` | 16 | 0 | 16 | 0 |
 | `CAEAudioEntity` | 6 | 0 | 6 | 0 |
 | `CAEAudioEnvironment` | 6 | 0 | 6 | 0 |
 | `CAEAudioHardware` | 55 | 0 | 55 | 0 |
@@ -10725,7 +10747,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGrassRenderer` | 12 | 0 | 12 | 0 |
 | `CGridRef` | 5 | 0 | 5 | 0 |
 | `CGroupEventHandler` | 32 | 0 | 32 | 0 |
-| `CHandObject` | 3 | 0 | 3 | 0 |
+| `CHandObject` | 5 | 0 | 5 | 0 |
 | `CHandShaker` | 3 | 0 | 3 | 0 |
 | `CHeli` | 26 | 0 | 26 | 0 |
 | `CHud` | 39 | 0 | 39 | 0 |
@@ -10775,7 +10797,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CNodeAddress` | 3 | 0 | 3 | 0 |
 | `CNodeRoute` | 3 | 0 | 3 | 0 |
 | `CNodeRoutePool` | 1 | 0 | 1 | 0 |
-| `CObject` | 51 | 0 | 51 | 0 |
+| `CObject` | 52 | 0 | 52 | 0 |
 | `CObjectData` | 2 | 0 | 2 | 0 |
 | `CObjectPool` | 2 | 0 | 2 | 0 |
 | `CObjectPotentialCollisionScanner` | 1 | 0 | 1 | 0 |
@@ -10977,19 +10999,19 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexFollowNodeRoute` | 20 | 0 | 20 | 0 |
 | `CTaskComplexFollowPatrolRoute` | 1 | 0 | 1 | 0 |
 | `CTaskComplexFollowPedFootsteps` | 8 | 0 | 8 | 0 |
-| `CTaskComplexFollowPointRoute` | 14 | 0 | 14 | 0 |
+| `CTaskComplexFollowPointRoute` | 15 | 0 | 15 | 0 |
 | `CTaskComplexGangFollower` | 11 | 0 | 11 | 0 |
 | `CTaskComplexGangJoinRespond` | 9 | 0 | 9 | 0 |
 | `CTaskComplexGangLeader` | 16 | 0 | 16 | 0 |
-| `CTaskComplexGetOnBoatSeat` | 8 | 0 | 8 | 0 |
+| `CTaskComplexGetOnBoatSeat` | 9 | 0 | 9 | 0 |
 | `CTaskComplexGetUpAndStandStill` | 8 | 0 | 8 | 0 |
 | `CTaskComplexGoPickUpEntity` | 8 | 0 | 8 | 0 |
 | `CTaskComplexGoToAttractor` | 9 | 0 | 9 | 0 |
-| `CTaskComplexGoToBoatSteeringWheel` | 8 | 0 | 8 | 0 |
+| `CTaskComplexGoToBoatSteeringWheel` | 10 | 0 | 10 | 0 |
 | `CTaskComplexGoToCarDoorAndStandStill` | 12 | 0 | 12 | 0 |
 | `CTaskComplexGoToPointAiming` | 9 | 0 | 9 | 0 |
 | `CTaskComplexGoToPointAndStandStill` | 9 | 0 | 9 | 0 |
-| `CTaskComplexGoToPointAndStandStillAndAchieveHeading` | 8 | 0 | 8 | 0 |
+| `CTaskComplexGoToPointAndStandStillAndAchieveHeading` | 9 | 0 | 9 | 0 |
 | `CTaskComplexGoToPointAndStandStillTimed` | 6 | 0 | 6 | 0 |
 | `CTaskComplexGoToPointAnyMeans` | 9 | 0 | 9 | 0 |
 | `CTaskComplexGoToPointShooting` | 5 | 0 | 5 | 0 |
@@ -11106,6 +11128,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskPool` | 1 | 0 | 1 | 0 |
 | `CTaskSequences` | 3 | 0 | 3 | 0 |
 | `CTaskSimple` | 4 | 0 | 4 | 0 |
+| `CTaskSimpleAbseil` | 2 | 0 | 2 | 0 |
 | `CTaskSimpleAchieveHeading` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleAffectSecondaryBehaviour` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleAnim` | 4 | 0 | 4 | 0 |
@@ -11117,7 +11140,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleCarCloseDoorFromOutside` | 11 | 0 | 11 | 0 |
 | `CTaskSimpleCarDrive` | 16 | 0 | 16 | 0 |
 | `CTaskSimpleCarDriveTimed` | 6 | 0 | 6 | 0 |
-| `CTaskSimpleCarFallOut` | 10 | 0 | 10 | 0 |
+| `CTaskSimpleCarFallOut` | 11 | 0 | 11 | 0 |
 | `CTaskSimpleCarForcePedOut` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleCarGetIn` | 10 | 0 | 10 | 0 |
 | `CTaskSimpleCarGetOut` | 11 | 0 | 11 | 0 |
@@ -11150,7 +11173,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleDuck` | 18 | 0 | 18 | 0 |
 | `CTaskSimpleDuckToggle` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleEvasiveDive` | 9 | 0 | 9 | 0 |
-| `CTaskSimpleEvasiveStep` | 8 | 0 | 8 | 0 |
+| `CTaskSimpleEvasiveStep` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleFacial` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleFall` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleFight` | 27 | 0 | 27 | 0 |
@@ -11169,12 +11192,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleHitByGunFromRear` | 3 | 0 | 3 | 0 |
 | `CTaskSimpleHitByGunFromRight` | 3 | 0 | 3 | 0 |
 | `CTaskSimpleHitFromBack` | 3 | 0 | 3 | 0 |
-| `CTaskSimpleHitFromBehind` | 3 | 0 | 3 | 0 |
+| `CTaskSimpleHitFromBehind` | 4 | 0 | 4 | 0 |
 | `CTaskSimpleHitFromFront` | 3 | 0 | 3 | 0 |
 | `CTaskSimpleHitFromLeft` | 3 | 0 | 3 | 0 |
 | `CTaskSimpleHitFromRight` | 3 | 0 | 3 | 0 |
-| `CTaskSimpleHitHead` | 6 | 0 | 6 | 0 |
-| `CTaskSimpleHitWall` | 3 | 0 | 3 | 0 |
+| `CTaskSimpleHitHead` | 8 | 0 | 8 | 0 |
+| `CTaskSimpleHitWall` | 4 | 0 | 4 | 0 |
 | `CTaskSimpleHoldEntity` | 17 | 0 | 17 | 0 |
 | `CTaskSimpleHurtPedWithCar` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleIKChain` | 11 | 0 | 11 | 0 |
@@ -11205,7 +11228,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleSetCharDecisionMaker` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleSetCharIgnoreWeaponRangeFlag` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleSetKindaStayInSamePlace` | 6 | 0 | 6 | 0 |
-| `CTaskSimpleSetPedAsAutoDriver` | 6 | 0 | 6 | 0 |
+| `CTaskSimpleSetPedAsAutoDriver` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleSetStayInSamePlace` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleShakeFist` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleSitDown` | 9 | 0 | 9 | 0 |

@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,463** funciones en 104 clases/módulos (rango 0x401000–0x74FFFF): 1,441 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,441** funciones en 99 clases/módulos (rango 0x401000–0x74FFFF): 1,419 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -14,11 +14,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | IKChain_c | 2 | 205 |
 | CWaterLevel | 1 | 208 |
 | WaterCreature_c | 2 | 211 |
-| CTaskComplexWalkRoundFire | 7 | 375 |
-| CHandObject | 3 | 381 |
-| CTaskComplexGoToPointAndStandStillAndAchieveHeading | 2 | 382 |
-| CAEAmbienceTrackManager | 5 | 386 |
-| CTaskSimpleCarFallOut | 5 | 388 |
 | CTaskComplexGotoDoorAndOpen | 6 | 388 |
 | CTaskSimpleHitFromFront | 13 | 390 |
 | CTaskComplexWalkRoundBuildingAttempt | 4 | 421 |
@@ -114,7 +109,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (104 clases / módulos)** | **1,463** | **218,211** |
+| **TOTAL (99 clases / módulos)** | **1,441** | **216,299** |
 
 ## CAudioZones (1)
 
@@ -141,53 +136,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x006E3EB0 | 105 | C |  | 1 | 0 |  | baja |
 | 0x006E3F20 | 106 | C |  | 1 | 0 |  | baja |
-
-## CTaskComplexWalkRoundFire (7)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00655DB0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00655DE0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00655E30 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00655E80 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006586A0 | 42 | A |  | 1 | 1 |  | baja |
-| 0x006586D0 | 102 | D |  | 0 | 0 |  | baja |
-| 0x006557A0 | 111 | B |  | 0 | 0 | sí | baja |
-
-## CHandObject (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0059EFE0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0059F050 | 54 | A |  | 1 | 1 |  | baja |
-| 0x0059EEB0 | 297 | A |  | 6 | 6 |  | baja |
-
-## CTaskComplexGoToPointAndStandStillAndAchieveHeading (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0066E050 | 90 | A |  | 1 | 1 |  | baja |
-| 0x00668D50 | 292 | A |  | 4 | 4 |  | alta |
-
-## CAEAmbienceTrackManager (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004D6CC0 | 40 | A |  | 5 | 5 |  | alta |
-| 0x004D7910 | 64 | A |  | 4 | 2 |  | baja |
-| 0x004D6DA0 | 70 | A |  | 1 | 1 |  | alta |
-| 0x004D6DF0 | 97 | A |  | 1 | 1 |  | alta |
-| 0x004D7890 | 115 | A |  | 2 | 2 |  | baja |
-
-## CTaskSimpleCarFallOut (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064CD60 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0064CD80 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0064CE80 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00648E90 | 80 | A |  | 2 | 2 |  | alta |
-| 0x0064CDA0 | 218 | A |  | 3 | 3 |  | baja |
 
 ## CTaskComplexGotoDoorAndOpen (6)
 
@@ -319,8 +267,8 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x005A1EF0 | 36 | A |  | 2 | 2 |  | baja |
 | 0x004048E0 | 41 | A |  | 297 | 1 |  | baja |
-| 0x005A1F20 | 49 | A |  | 33 | 2 |  | baja |
-| 0x005A1D10 | 90 | A |  | 5 | 4 |  | baja |
+| 0x005A1F20 | 49 | A |  | 33 | 3 |  | baja |
+| 0x005A1D10 | 90 | A |  | 5 | 5 |  | baja |
 | 0x005A1DF0 | 230 | A |  | 2 | 2 |  | baja |
 
 ## COnscreenCounterEntry (3)
