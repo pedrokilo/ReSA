@@ -184,7 +184,7 @@ void HookInstall(std::string_view category, std::string fnName, uint32 installAd
 #ifndef NDEBUG // Functions with the same name are asserted in `HookCategory::AddItem()`
     auto [iter, inserted] = s_HookedAddresses.insert(installAddress);
     if (!inserted) {
-        NOTSA_LOG_ERR("{}/{} is hooked to an address (0x{:X}) that is already hooked! That's bad!", category.data(), fnName.c_str(), LOG_PTR(installAddress));
+        NOTSA_LOG_ERR("{}/{} se engancha a una dirección (0x{:X}) que ya está enganchada. Esto está mal.", category.data(), fnName.c_str(), LOG_PTR(installAddress));
         assert(false);
         return;
     }

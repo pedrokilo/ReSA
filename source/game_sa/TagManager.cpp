@@ -98,7 +98,7 @@ tTagDesc* CTagManager::FindTagDesc(const CEntity& entity) {
             return &tag;
         }
     }
-    NOTSA_LOG_WARN("CTagManager::FindTagDesc: Couldn't find tag desc for entity %p - This shouldn't happen! Perhaps corrupted savefile?", LOG_PTR(&entity));
+    NOTSA_LOG_WARN("CTagManager::FindTagDesc: no se encontró la descripción del tag de la entidad {}. No debería pasar; ¿partida guardada corrupta?", LOG_PTR(&entity));
     return nullptr;
 }
 
