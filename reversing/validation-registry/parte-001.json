@@ -136077,7 +136077,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::AddRef"
@@ -136086,10 +136086,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136105,7 +136105,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::Create"
@@ -136114,10 +136114,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136133,7 +136133,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::FindTxdSlot-hash"
@@ -136142,10 +136142,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136161,7 +136161,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::FindTxdSlot-name"
@@ -136170,10 +136170,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136189,7 +136189,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::FinishLoadTxd"
@@ -136198,10 +136198,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136217,7 +136217,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::GameShutdown"
@@ -136226,10 +136226,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136245,7 +136245,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::GetNumRefs"
@@ -136254,10 +136254,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136273,7 +136273,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::GetParentTxdSlot"
@@ -136282,10 +136282,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136301,7 +136301,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::GetTxd"
@@ -136310,10 +136310,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136329,7 +136329,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::Initialise"
@@ -136338,10 +136338,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136357,7 +136357,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::LoadTxd-filename"
@@ -136366,10 +136366,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136385,7 +136385,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::LoadTxd-stream"
@@ -136394,10 +136394,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136413,7 +136413,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::PopCurrentTxd"
@@ -136422,10 +136422,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136441,7 +136441,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::PushCurrentTxd"
@@ -136450,10 +136450,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136469,7 +136469,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::RemoveIfRefCountIsGreaterThanOne"
@@ -136478,10 +136478,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136497,7 +136497,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::RemoveRef"
@@ -136506,10 +136506,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136525,7 +136525,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::RemoveRefWithoutDelete"
@@ -136534,10 +136534,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136553,7 +136553,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::RemoveTxd"
@@ -136562,10 +136562,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136581,7 +136581,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::SetCurrentTxd"
@@ -136590,10 +136590,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136609,7 +136609,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::SetupTxdParent"
@@ -136618,10 +136618,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136637,7 +136637,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::Shutdown"
@@ -136646,10 +136646,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136665,7 +136665,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::StartLoadTxd"
@@ -136674,10 +136674,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136693,7 +136693,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::TxdStoreFindCB"
@@ -136702,10 +136702,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136721,7 +136721,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
+        "sha256": "d004f2ed0a937e76cd696245e9f0cc088e4e89cb947e556f177295252c2c026d",
         "passed_path": [
           "covered_functions",
           "CTxdStore::TxdStoreLoadCB"
@@ -136730,10 +136730,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/TxdStore.cpp": "92c6c3fd4ac069efa880fb3c9dcbe99e594f07d481f1baed0cf24de7941890f3",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
-        "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+        "source/game_sa/TxdStore_Plugin.cpp": "a7f54fbb382dfe6f69f4fd1002147c0a6b3ad237f029274c3691bb3b47982014",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -162780,7 +162780,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::GetSurfaceIdFromName"
@@ -162789,7 +162789,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -162807,7 +162807,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::Init"
@@ -162816,7 +162816,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -162834,7 +162834,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::GetAdhesionGroup"
@@ -162843,7 +162843,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -162861,7 +162861,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::GetTyreGrip"
@@ -162870,7 +162870,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -162888,7 +162888,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::GetWetMultiplier"
@@ -162897,7 +162897,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -162915,7 +162915,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::GetSkidmarkType"
@@ -162924,7 +162924,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -162942,7 +162942,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::GetFrictionEffect"
@@ -162951,7 +162951,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -162969,7 +162969,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::GetBulletFx"
@@ -162978,7 +162978,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -162996,7 +162996,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsSoftLanding"
@@ -163005,7 +163005,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163023,7 +163023,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsSeeThrough"
@@ -163032,7 +163032,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163050,7 +163050,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsShootThrough"
@@ -163059,7 +163059,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163077,7 +163077,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsSand"
@@ -163086,7 +163086,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163104,7 +163104,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsWater"
@@ -163113,7 +163113,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163131,7 +163131,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsShallowWater"
@@ -163140,7 +163140,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163158,7 +163158,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsBeach"
@@ -163167,7 +163167,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163185,7 +163185,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsSteepSlope"
@@ -163194,7 +163194,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163212,7 +163212,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsGlass"
@@ -163221,7 +163221,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163239,7 +163239,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsStairs"
@@ -163248,7 +163248,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163266,7 +163266,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsSkateable"
@@ -163275,7 +163275,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163293,7 +163293,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsPavement"
@@ -163302,7 +163302,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163320,7 +163320,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::GetRoughness"
@@ -163329,7 +163329,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163347,7 +163347,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::GetFlammability"
@@ -163356,7 +163356,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163374,7 +163374,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::CreatesSparks"
@@ -163383,7 +163383,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163401,7 +163401,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::CantSprintOn"
@@ -163410,7 +163410,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163428,7 +163428,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::LeavesFootsteps"
@@ -163437,7 +163437,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163455,7 +163455,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::ProducesFootDust"
@@ -163464,7 +163464,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163482,7 +163482,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::MakesCarDirty"
@@ -163491,7 +163491,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163509,7 +163509,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::MakesCarClean"
@@ -163518,7 +163518,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163536,7 +163536,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::CreatesWheelGrass"
@@ -163545,7 +163545,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163563,7 +163563,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::CreatesWheelGravel"
@@ -163572,7 +163572,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163590,7 +163590,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::CreatesWheelMud"
@@ -163599,7 +163599,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163617,7 +163617,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::CreatesWheelDust"
@@ -163626,7 +163626,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163644,7 +163644,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::CreatesWheelSand"
@@ -163653,7 +163653,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163671,7 +163671,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::CreatesWheelSpray"
@@ -163680,7 +163680,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163698,7 +163698,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::CreatesPlants"
@@ -163707,7 +163707,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163725,7 +163725,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::CreatesObjects"
@@ -163734,7 +163734,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163752,7 +163752,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::CanClimb"
@@ -163761,7 +163761,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163779,7 +163779,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsAudioConcrete"
@@ -163788,7 +163788,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163806,7 +163806,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsAudioGrass"
@@ -163815,7 +163815,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163833,7 +163833,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsAudioSand"
@@ -163842,7 +163842,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163860,7 +163860,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsAudioGravel"
@@ -163869,7 +163869,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163887,7 +163887,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsAudioWood"
@@ -163896,7 +163896,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163914,7 +163914,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsAudioWater"
@@ -163923,7 +163923,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163941,7 +163941,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsAudioMetal"
@@ -163950,7 +163950,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163968,7 +163968,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsAudioLongGrass"
@@ -163977,7 +163977,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -163995,7 +163995,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::IsAudioTile"
@@ -164004,7 +164004,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },
@@ -164022,7 +164022,7 @@
       },
       "evidence": {
         "path": "reversing/Surface47/validation-summary.json",
-        "sha256": "cebd0c5a8a4d78977855479f115dae7cf77f6ff0a28b66928cb5f7eaa3aa8054",
+        "sha256": "f39f8e1c578168951f10426955bdd1591a2d4bb411199b9e6f759128ea1c9c9b",
         "passed_path": [
           "covered_functions",
           "SurfaceInfos_c::GetAdhesiveLimit"
@@ -164031,7 +164031,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+        "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
       },

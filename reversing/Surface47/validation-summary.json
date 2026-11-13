@@ -63,7 +63,7 @@
   "log_sha256": "bade4bf994a2f1cc8524cef9bbd9c67b3cf93349631fefa492fb4bba759ec8ad",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-surface47\\20261005-090324-424358",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-surface47\\20261113-102738-627239",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "SurfaceInfos_c::GetSurfaceIdFromName": true,
@@ -116,15 +116,15 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "f06897a8c670a8a6f719e08ab8c31df399562ddc7b0f88d7f1e7f7943d548b0f",
-      "pdb": "a691816a1551654807af48f701ab0c6ddb8b0a539236120283b1524106e13520"
+      "asi": "505a69cfeb2a5ea906d58ade6297b0499a03c46941d6f087fdc338436f9abea7",
+      "pdb": "41a7ba340b244ceae112bde08ef27d3c7d04225c4a719ff6869b67056793ef24"
     },
     "sources": {
-      "source/game_sa/SurfaceInfos_c.cpp": "9b2251f1228d0baf9b570fd4ef89491d41bc202fd2d1444799d2ea8554c5a820",
+      "source/game_sa/SurfaceInfos_c.cpp": "1c2ef99b577ee6189095bebe2c79ba978d732d3c99ab5d0b9833f8aef17a8d1c",
       "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
       "source/game_sa/SurfaceInfo_c.h": "7d035e1e77ef82e08252778f194c6b36350108fe63059fd1ece928bfc188ed9e"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
       "LiveComparison.hpp": "61b8c248dcffef2123ee7ea1ad745007e5ad83ec1b6dc9e165b3da1d37a881fa",
       "build_probe.py": "d76bc5a66563c056d37595101b44ea1c54bfddf0d3e920861b72d545b0de63f8",
@@ -133,6 +133,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
