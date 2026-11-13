@@ -42,7 +42,7 @@
   "log_sha256": "f22e8494fc5149c18f155680122f9ba196fd382831f956c0150bb3ff4c78b7c1",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio13\\20261111-201641-424118",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio13\\20261113-130259-308478",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEMP3BankLoader::Constructor": true,
@@ -74,8 +74,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "39b3d09ad3f9b22f7738a46e4e1bcf7e7565ceda484b691236ffa7d67388d2c0",
-      "pdb": "82f3fdc6fe1407a7720c8bcf4b288f5c43292d02dc5b9d1c504bae5015d42bbe"
+      "asi": "babeda9eb8e28c648839fd0d71a6961327161f326a37e8d8dd926eefe33c5742",
+      "pdb": "3e24615e87c4e25300f5977b6c2c79f4de5066a61f34d77071ff45461fe34721"
     },
     "sources": {
       "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "3cd30a79254fe8e52f17932defe5ae622d6b1f4a95747c167a29112916fbd095",
@@ -83,7 +83,7 @@
       "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "4699ebdc6df0e5395e0a0d2e5468b12076508d2c21bf04fe8cfb012627fff5cf",
       "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "09ef8da9f6b56ba41f56d25af169b04d9672abaa9a2e08d038738b3a5ee19435"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
       "LiveComparison.hpp": "b3d0965af3c9df54d67392e5397fc834720d6bf6b730515d6b8aa85e076e8ccf",
       "build_probe.py": "9bb6ced4c30f309343aacfcc965ac379147dc44a23760e15face6f39be827841",

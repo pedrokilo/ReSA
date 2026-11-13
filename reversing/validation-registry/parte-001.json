@@ -6652,7 +6652,7 @@
       },
       "evidence": {
         "path": "reversing/AmbienceTrack/validation-summary.json",
-        "sha256": "da9039f62fb1733ba842fc186948755bb1b7e61c1757543148ac735113eafac2",
+        "sha256": "8bd2ccb13550e0e7f82814786bfc1cb1584669cb46a56aa746bde6e045fd956e",
         "passed_path": [
           "covered_functions",
           "CAEAmbienceTrackManager::Reset"
@@ -6661,7 +6661,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "14795d10607915bf610269b88b570ddace8b5f50bf4d1eb163387874449d6876",
+        "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "bedcbfecee363ab7ad13ea1bf02d4021ad54171b088cd6e327728c222fb673a0",
         "source/game_sa/Audio/managers/AEAmbienceTrackManager.h": "130489b3c18d3e9b9ac473ea13dc5e2d23beeaf402284660718b2aa32afc619f"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-030240-169992).",
@@ -6678,7 +6678,7 @@
       },
       "evidence": {
         "path": "reversing/AmbienceTrack/validation-summary.json",
-        "sha256": "da9039f62fb1733ba842fc186948755bb1b7e61c1757543148ac735113eafac2",
+        "sha256": "8bd2ccb13550e0e7f82814786bfc1cb1584669cb46a56aa746bde6e045fd956e",
         "passed_path": [
           "covered_functions",
           "CAEAmbienceTrackManager::IsAmbienceTrackActive"
@@ -6687,7 +6687,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "14795d10607915bf610269b88b570ddace8b5f50bf4d1eb163387874449d6876",
+        "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "bedcbfecee363ab7ad13ea1bf02d4021ad54171b088cd6e327728c222fb673a0",
         "source/game_sa/Audio/managers/AEAmbienceTrackManager.h": "130489b3c18d3e9b9ac473ea13dc5e2d23beeaf402284660718b2aa32afc619f"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-030240-169992).",
@@ -6704,7 +6704,7 @@
       },
       "evidence": {
         "path": "reversing/AmbienceTrack/validation-summary.json",
-        "sha256": "da9039f62fb1733ba842fc186948755bb1b7e61c1757543148ac735113eafac2",
+        "sha256": "8bd2ccb13550e0e7f82814786bfc1cb1584669cb46a56aa746bde6e045fd956e",
         "passed_path": [
           "covered_functions",
           "CAEAmbienceTrackManager::IsAmbienceRadioActive"
@@ -6713,7 +6713,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "14795d10607915bf610269b88b570ddace8b5f50bf4d1eb163387874449d6876",
+        "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "bedcbfecee363ab7ad13ea1bf02d4021ad54171b088cd6e327728c222fb673a0",
         "source/game_sa/Audio/managers/AEAmbienceTrackManager.h": "130489b3c18d3e9b9ac473ea13dc5e2d23beeaf402284660718b2aa32afc619f"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-030240-169992).",
@@ -6730,7 +6730,7 @@
       },
       "evidence": {
         "path": "reversing/AmbienceTrack/validation-summary.json",
-        "sha256": "da9039f62fb1733ba842fc186948755bb1b7e61c1757543148ac735113eafac2",
+        "sha256": "8bd2ccb13550e0e7f82814786bfc1cb1584669cb46a56aa746bde6e045fd956e",
         "passed_path": [
           "covered_functions",
           "CAEAmbienceTrackManager::PlaySpecialMissionAmbienceTrack"
@@ -6739,7 +6739,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "14795d10607915bf610269b88b570ddace8b5f50bf4d1eb163387874449d6876",
+        "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "bedcbfecee363ab7ad13ea1bf02d4021ad54171b088cd6e327728c222fb673a0",
         "source/game_sa/Audio/managers/AEAmbienceTrackManager.h": "130489b3c18d3e9b9ac473ea13dc5e2d23beeaf402284660718b2aa32afc619f"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-030240-169992).",
@@ -6756,7 +6756,7 @@
       },
       "evidence": {
         "path": "reversing/AmbienceTrack/validation-summary.json",
-        "sha256": "da9039f62fb1733ba842fc186948755bb1b7e61c1757543148ac735113eafac2",
+        "sha256": "8bd2ccb13550e0e7f82814786bfc1cb1584669cb46a56aa746bde6e045fd956e",
         "passed_path": [
           "covered_functions",
           "CAEAmbienceTrackManager::StopSpecialMissionAmbienceTrack"
@@ -6765,7 +6765,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "14795d10607915bf610269b88b570ddace8b5f50bf4d1eb163387874449d6876",
+        "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "bedcbfecee363ab7ad13ea1bf02d4021ad54171b088cd6e327728c222fb673a0",
         "source/game_sa/Audio/managers/AEAmbienceTrackManager.h": "130489b3c18d3e9b9ac473ea13dc5e2d23beeaf402284660718b2aa32afc619f"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-030240-169992).",
@@ -6782,7 +6782,7 @@
       },
       "evidence": {
         "path": "reversing/AmbienceTrack/validation-summary.json",
-        "sha256": "da9039f62fb1733ba842fc186948755bb1b7e61c1757543148ac735113eafac2",
+        "sha256": "8bd2ccb13550e0e7f82814786bfc1cb1584669cb46a56aa746bde6e045fd956e",
         "passed_path": [
           "covered_functions",
           "CAEAmbienceTrackManager::Service"
@@ -6791,7 +6791,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "14795d10607915bf610269b88b570ddace8b5f50bf4d1eb163387874449d6876",
+        "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "bedcbfecee363ab7ad13ea1bf02d4021ad54171b088cd6e327728c222fb673a0",
         "source/game_sa/Audio/managers/AEAmbienceTrackManager.h": "130489b3c18d3e9b9ac473ea13dc5e2d23beeaf402284660718b2aa32afc619f"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-030240-169992).",
@@ -116240,7 +116240,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::Constructor"
@@ -116268,7 +116268,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetBankSlotBuffer"
@@ -116296,7 +116296,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetSoundBankLoadingStatus"
@@ -116324,7 +116324,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetSoundBuffer"
@@ -116352,7 +116352,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetSoundHeadroom"
@@ -116380,7 +116380,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetSoundLoadingStatus"
@@ -116408,7 +116408,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::Initialise"
@@ -116436,7 +116436,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::IsSoundBankLoaded"
@@ -116464,7 +116464,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::IsSoundLoaded"
@@ -116492,7 +116492,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::LoadSound"
@@ -116520,7 +116520,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::LoadSoundBank"
@@ -116548,7 +116548,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::Service"
@@ -116576,7 +116576,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::UpdateVirtualChannels"
@@ -116604,7 +116604,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::CloseCallback"
@@ -116632,7 +116632,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::Constructor"
@@ -116660,7 +116660,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::Destructor"
@@ -116688,7 +116688,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::FillBuffer"
@@ -116716,7 +116716,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::GetSampleRate"
@@ -116744,7 +116744,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::GetStreamID"
@@ -116772,7 +116772,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::GetStreamLengthMs"
@@ -116800,7 +116800,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::GetStreamPlayTimeMs"
@@ -116828,7 +116828,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::Initialise"
@@ -116856,7 +116856,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::ReadCallback"
@@ -116884,7 +116884,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::SeekCallback"
@@ -116912,7 +116912,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::SetCursor"
@@ -116940,7 +116940,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "3dc72eaf72b9ad78ca64529eb4ea30826f609056d53ffbf19c4a6d8b63a861ce",
+        "sha256": "21d860e91a8baa84b672531716453a24188e3760d00318a76d4687860f9c393b",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::TellCallback"
@@ -129075,7 +129075,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::AddColSlot"
@@ -129084,8 +129084,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129101,7 +129101,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::AddCollisionNeededAtPosn"
@@ -129110,8 +129110,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129127,7 +129127,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::AddRef"
@@ -129136,8 +129136,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129153,7 +129153,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::BoundingBoxesPostProcess"
@@ -129162,8 +129162,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129179,7 +129179,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::EnsureCollisionIsInMemory"
@@ -129188,8 +129188,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129205,7 +129205,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::GetBoundingBox"
@@ -129214,8 +129214,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129231,7 +129231,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::HasCollisionLoaded"
@@ -129240,8 +129240,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129257,7 +129257,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::IncludeModelIndex"
@@ -129266,8 +129266,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129283,7 +129283,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::Initialise"
@@ -129292,8 +129292,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129309,7 +129309,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::LoadAllBoundingBoxes"
@@ -129318,8 +129318,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129335,7 +129335,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::LoadAllCollision"
@@ -129344,8 +129344,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129361,7 +129361,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::LoadCol-"
@@ -129370,8 +129370,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129387,7 +129387,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::LoadCol-2"
@@ -129396,8 +129396,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129413,7 +129413,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::LoadCollision"
@@ -129422,8 +129422,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129439,7 +129439,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::RemoveAllCollision"
@@ -129448,8 +129448,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129465,7 +129465,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::RemoveCol"
@@ -129474,8 +129474,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129491,7 +129491,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::RemoveColSlot"
@@ -129500,8 +129500,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129517,7 +129517,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::RemoveRef"
@@ -129526,8 +129526,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129543,7 +129543,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::RequestCollision"
@@ -129552,8 +129552,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129569,7 +129569,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::SetCollisionRequired"
@@ -129578,8 +129578,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129595,7 +129595,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::SetIfCollisionIsRequired"
@@ -129604,8 +129604,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129621,7 +129621,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::SetIfCollisionIsRequiredReducedBB"
@@ -129630,8 +129630,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -129647,7 +129647,7 @@
       },
       "evidence": {
         "path": "reversing/ColStore23/validation-summary.json",
-        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "sha256": "309ed85d0ffdcf5f16e7731a632f914664fe3877ccc5b6531ba66108956aa0df",
         "passed_path": [
           "covered_functions",
           "CColStore::Shutdown"
@@ -129656,8 +129656,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
-        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+        "source/game_sa/Collision/ColStore.cpp": "3932f2c51c22abeacb0ef053eb4d362173c502a3cf65c5603df5e947b45ab22a",
+        "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
       "dependency_review": null,
@@ -130245,7 +130245,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::CanSeeOutSideFromCurrArea"
@@ -130254,8 +130254,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130272,7 +130272,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::CanSeeWaterFromCurrArea"
@@ -130281,8 +130281,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130299,7 +130299,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::ValidateVersion"
@@ -130308,8 +130308,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130326,7 +130326,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::CameraDestroy"
@@ -130335,8 +130335,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130353,7 +130353,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::TidyUpMemory"
@@ -130362,8 +130362,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130380,7 +130380,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::DrasticTidyUpMemory"
@@ -130389,8 +130389,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130407,7 +130407,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::ReloadIPLs"
@@ -130416,8 +130416,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130434,7 +130434,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::InitialiseOnceBeforeRW"
@@ -130443,8 +130443,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130461,7 +130461,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::InitialiseEssentialsAfterRW"
@@ -130470,8 +130470,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130488,7 +130488,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::InitialiseCoreDataAfterRW"
@@ -130497,8 +130497,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130515,7 +130515,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::InitialiseRenderWare"
@@ -130524,8 +130524,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130542,7 +130542,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::ShutdownRenderWare"
@@ -130551,8 +130551,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130569,7 +130569,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::FinalShutdown"
@@ -130578,8 +130578,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130596,7 +130596,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::Init1"
@@ -130605,8 +130605,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130623,7 +130623,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::Init2"
@@ -130632,8 +130632,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130650,7 +130650,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::Init3"
@@ -130659,8 +130659,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130677,7 +130677,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::Initialise"
@@ -130686,8 +130686,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130704,7 +130704,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::ReInitGameObjectVariables"
@@ -130713,8 +130713,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130731,7 +130731,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::InitialiseWhenRestarting"
@@ -130740,8 +130740,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130758,7 +130758,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::ShutDownForRestart"
@@ -130767,8 +130767,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130785,7 +130785,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::Shutdown"
@@ -130794,8 +130794,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -130812,7 +130812,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
+        "sha256": "e688f14736e63e9f77973f5d30c2aa1cff10e7b118ecb80e7c293d3cd653c907",
         "passed_path": [
           "covered_functions",
           "CGame::Process"
@@ -130821,8 +130821,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Game.cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
+        "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
         "source/app/app_camera.cpp": "9a4b7fc3b239fe7e6d12e108b6819f23ef77491465bc16f2685876011542344c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
@@ -154137,7 +154137,7 @@
       },
       "evidence": {
         "path": "reversing/GameIdle/validation-summary.json",
-        "sha256": "d21c74eb31591f05fa09dcdc03f8215e156889e556c5d363fa8ead83a62853ba",
+        "sha256": "c000c6cef85fc3ffe8b3cb4d7d1369b44723000db44c84994098bc2266ba513a",
         "passed_path": [
           "covered_functions",
           "Game::Idle"
@@ -154146,7 +154146,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121818-892636).",
       "dependency_review": null,
@@ -154162,7 +154162,7 @@
       },
       "evidence": {
         "path": "reversing/GameIdle/validation-summary.json",
-        "sha256": "d21c74eb31591f05fa09dcdc03f8215e156889e556c5d363fa8ead83a62853ba",
+        "sha256": "c000c6cef85fc3ffe8b3cb4d7d1369b44723000db44c84994098bc2266ba513a",
         "passed_path": [
           "covered_functions",
           "Game::FrontendIdle"
@@ -154171,7 +154171,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121818-892636).",
       "dependency_review": null,
@@ -154187,7 +154187,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::Initialise"
@@ -154198,9 +154198,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154216,7 +154216,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::ReInitialise"
@@ -154227,9 +154227,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154245,7 +154245,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::FindStreamedScript"
@@ -154256,9 +154256,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154274,7 +154274,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::FindStreamedScriptQuiet"
@@ -154285,9 +154285,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154303,7 +154303,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::GetProperIndexFromIndexUsedByScript"
@@ -154314,9 +154314,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154332,7 +154332,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::GetStreamedScriptFilename"
@@ -154343,9 +154343,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154361,7 +154361,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::GetStreamedScriptWithThisStartAddress"
@@ -154372,9 +154372,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154390,7 +154390,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::RegisterScript"
@@ -154401,9 +154401,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154419,7 +154419,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::RemoveStreamedScriptFromMemory"
@@ -154430,9 +154430,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154448,7 +154448,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::LoadStreamedScript"
@@ -154459,9 +154459,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154477,7 +154477,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::StartNewStreamedScript"
@@ -154488,9 +154488,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154506,7 +154506,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::ReadStreamedScriptData"
@@ -154517,9 +154517,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154535,7 +154535,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::InitPool"
@@ -154546,9 +154546,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154564,7 +154564,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::FindSector-rect"
@@ -154575,9 +154575,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154593,7 +154593,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::FindSector-vec"
@@ -154604,9 +154604,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154622,7 +154622,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::InSector"
@@ -154633,9 +154633,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154651,7 +154651,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::AddItem"
@@ -154662,9 +154662,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154680,7 +154680,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::DeleteItem-"
@@ -154691,9 +154691,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154709,7 +154709,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::DeleteItem-rect"
@@ -154720,9 +154720,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154738,7 +154738,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::GetAll"
@@ -154749,9 +154749,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154767,7 +154767,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::GetAllMatching-rect"
@@ -154778,9 +154778,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154796,7 +154796,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::GetAllMatching-vec"
@@ -154807,9 +154807,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154825,7 +154825,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::ForAllMatching-rect"
@@ -154836,9 +154836,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154854,7 +154854,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::ForAllMatching-vec"
@@ -154865,9 +154865,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154883,7 +154883,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "Game::GameInit"
@@ -154894,9 +154894,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154912,7 +154912,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "Game::RwInitialize"
@@ -154923,9 +154923,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154941,7 +154941,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "Game::RwTerminate"
@@ -154952,9 +154952,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154970,7 +154970,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "Game::InitialiseGame"
@@ -154981,9 +154981,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154999,7 +154999,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "Game::TheGame"
@@ -155010,9 +155010,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -155028,7 +155028,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "Game::RenderMenus"
@@ -155039,9 +155039,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -155057,7 +155057,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "Game::RenderDebugShit"
@@ -155068,9 +155068,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -155086,7 +155086,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "Game::RenderEffects"
@@ -155097,9 +155097,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -155115,7 +155115,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "Game::RenderScene"
@@ -155126,9 +155126,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -155144,7 +155144,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "6409b8ae4c8c20f4bdb18881e2dfd42bdcefdbe1fcb70f803da0ae8195ff4400",
+        "sha256": "4d81a69edb19f910e0bf82b549426c1dfd4a2db694517d766097a19bf356ed5f",
         "passed_path": [
           "covered_functions",
           "Game::Render2dStuff"
@@ -155155,9 +155155,9 @@
       "tested_sources": {
         "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "3bda80a7e3243f3fdb7d3f7980369933acb23cba696b07c4f5de736f6d3a965e",
-        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
+        "source/game_sa/Core/QuadTreeNode.h": "53a58f3eb4a8990b19b9022161f3292b211c3cf9768460eeca9aad5ed64372f0",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "1dbe5352ff366310ef7e7b1303f15848229bbf872e9b5b52e35bb87f8e398b75",
+        "source/app/app_game.cpp": "71a2e5d69d2db03eb995d3e5532d68e72f1210b037a7a11e3aeee4d77da5e528"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -169312,7 +169312,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::CanBeDeleted"
@@ -169321,8 +169321,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169338,7 +169338,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::CanBeTargetted"
@@ -169347,8 +169347,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169364,7 +169364,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::SetObjectTargettable"
@@ -169373,8 +169373,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169390,7 +169390,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::TryToExplode"
@@ -169399,8 +169399,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169416,7 +169416,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::RefModelInfo"
@@ -169425,8 +169425,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169442,7 +169442,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::SetRemapTexture"
@@ -169451,8 +169451,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169468,7 +169468,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::SetRelatedDummy"
@@ -169477,8 +169477,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169494,7 +169494,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::GetRopeHeight"
@@ -169503,8 +169503,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169520,7 +169520,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::SetRopeHeight"
@@ -169529,8 +169529,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169546,7 +169546,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::GetObjectCarriedWithRope"
@@ -169555,8 +169555,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169572,7 +169572,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::ReleaseObjectCarriedWithRope"
@@ -169581,8 +169581,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169598,7 +169598,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::GrabObjectToCarryWithRope"
@@ -169607,8 +169607,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169624,7 +169624,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::AddToControlCodeList"
@@ -169633,8 +169633,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169650,7 +169650,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::RemoveFromControlCodeList"
@@ -169659,8 +169659,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169676,7 +169676,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::ResetDoorAngle"
@@ -169685,8 +169685,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169702,7 +169702,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::LockDoor"
@@ -169711,8 +169711,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169728,7 +169728,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::SetIsStatic"
@@ -169737,8 +169737,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169754,7 +169754,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::Init"
@@ -169763,8 +169763,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169780,7 +169780,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::DoBurnEffect"
@@ -169789,8 +169789,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169806,7 +169806,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::GetLightingFromCollisionBelow"
@@ -169815,8 +169815,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169832,7 +169832,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::PreRender"
@@ -169841,8 +169841,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169858,7 +169858,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::Render"
@@ -169867,8 +169867,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169884,7 +169884,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::SetupLighting"
@@ -169893,8 +169893,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169910,7 +169910,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::RemoveLighting"
@@ -169919,8 +169919,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169936,7 +169936,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::CreateRwObject"
@@ -169945,8 +169945,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169962,7 +169962,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::Teleport"
@@ -169971,8 +169971,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -169988,7 +169988,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::SpecialEntityPreCollisionStuff"
@@ -169997,8 +169997,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170014,7 +170014,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::SpecialEntityCalcCollisionSteps"
@@ -170023,8 +170023,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170040,7 +170040,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::ProcessSamSiteBehaviour"
@@ -170049,8 +170049,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170066,7 +170066,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::ProcessTrainCrossingBehaviour"
@@ -170075,8 +170075,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170092,7 +170092,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::SetMatrixForTrainCrossing"
@@ -170101,8 +170101,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170118,7 +170118,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::ProcessGarageDoorBehaviour"
@@ -170127,8 +170127,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170144,7 +170144,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::ProcessControlLogic"
@@ -170153,8 +170153,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170170,7 +170170,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::ObjectDamage"
@@ -170179,8 +170179,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170196,7 +170196,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::Explode"
@@ -170205,8 +170205,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170222,7 +170222,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::ObjectFireDamage"
@@ -170231,8 +170231,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170248,7 +170248,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::CanBeUsedToTakeCoverBehind"
@@ -170257,8 +170257,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170274,7 +170274,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::ProcessControl"
@@ -170283,8 +170283,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170300,7 +170300,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::TryToFreeUpTempObjects"
@@ -170309,8 +170309,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170326,7 +170326,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::DeleteAllTempObjects"
@@ -170335,8 +170335,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170352,7 +170352,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::DeleteAllMissionObjects"
@@ -170361,8 +170361,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170378,7 +170378,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::DeleteAllTempObjectsInArea"
@@ -170387,8 +170387,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170404,7 +170404,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::Create-intbool"
@@ -170413,8 +170413,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170430,7 +170430,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::Create-dummy"
@@ -170439,8 +170439,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170456,7 +170456,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::IsObjectPointerValid"
@@ -170465,8 +170465,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170482,7 +170482,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::IsObjectPointerValid_NotInWorld"
@@ -170491,8 +170491,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170508,7 +170508,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::Save"
@@ -170517,8 +170517,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
@@ -170534,7 +170534,7 @@
       },
       "evidence": {
         "path": "reversing/Object48/validation-summary.json",
-        "sha256": "0ff49670642719f77ca98d39f0cca05fe24f0cd0479e066a58e3e19ee8616903",
+        "sha256": "61442a430f8aa795ae8d4fb001cf7e6124d8e8d6cf71e388b5738dafe912356f",
         "passed_path": [
           "covered_functions",
           "CObject::Load"
@@ -170543,8 +170543,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Object/Object.cpp": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161",
-        "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
+        "source/game_sa/Entity/Object/Object.cpp": "16e57e5830eaeafde13cf13791709ce5ca9a0177c912159674012464b21a4c63",
+        "source/game_sa/Entity/Object/Object.h": "b9498b33bac41bfcefe72ef95125ad98642f30c15935bbcfe70df1873c42c639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-092552-392869).",
       "dependency_review": null,
