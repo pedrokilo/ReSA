@@ -606,7 +606,7 @@ inline void Update() {
     env.stubs[8]  = {F(0x4EF660, &FkDtorSent<0x4EF660, 0x5E570002u>)};
     env.stubs[9]  = {F(0x4EF660, &FkDtorSent<0x4EF660, 0x5E570002u>)};
     env.stubs[10] = {F(0x4EF660, &FkDtorSent<0x4EF660, 0x5E570002u>)};
-    env.stubs[14] = {ByExeAddress(0x5A1D10, &FkObjCtor), FV(0x5A0760, &FkSetStatic)};
+    env.stubs[14] = {F(0x5A1D10, &FkObjCtor), FV(0x5A0760, &FkSetStatic)};
     env.stubs[15] = {D(0x59F660, std::bit_cast<uintptr_t>(&CObjectBody::Destructor), &FkBody<0x59F660>)};
     // 0x5D5B20 es un `jmp 0x5DA610` y ese destino (CCustomCarEnvMapPipeline::CustomPipeAtomicSetup) tiene hook: se registra tambien (apagado, con falso que no llega a usarse) para que la entrada siga siendo codigo del EXE
     env.stubs[16] = {F(0x5D5B20, &FkAtomicSetup), F(0x5DA610, &FkAtomicSetup)};
@@ -614,7 +614,7 @@ inline void Update() {
     const char* dllReal[kFunctions];
     for (unsigned f = 0; f < kFunctions; ++f) dllReal[f] = "toda la funcion salvo los colaboradores falseados (falso identico en la direccion del EXE y en la funcion de la DLL)";
     for (unsigned f : {4u, 5u, 6u, 11u, 12u, 13u, 17u, 18u, 19u, 20u, 22u}) dllReal[f] = "toda la funcion (sin colaboradores falseados; memoria del CRT real, bloques del monton del banco)";
-    dllReal[14] = "toda la funcion salvo el constructor de CObject 0x5A1D10 (sin hook: falso en la direccion del EXE, que la DLL llama) y SetIsStatic 0x5A0760 (hook virtual: falso en la direccion del EXE y en el cuerpo de la DLL)";
+    dllReal[14] = "toda la funcion salvo el constructor de CObject 0x5A1D10 (con hook ConstructorDefault: falso en la direccion del EXE y en el cuerpo de la DLL) y SetIsStatic 0x5A0760 (hook virtual: falso en la direccion del EXE y en el cuerpo de la DLL)";
     dllReal[15] = "toda la funcion salvo el cuerpo del destructor de CObject (0x59F660; funcion propia de la DLL CObjectBody::Destructor: falso en la direccion del EXE y en ella)";
     for (unsigned f = 0; f < kFunctions; ++f) {
         json stubbed = json::array(), real = json::array();

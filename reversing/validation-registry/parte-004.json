@@ -16145,7 +16145,7 @@
       },
       "evidence": {
         "path": "reversing/PoolsWave4/validation-summary.json",
-        "sha256": "c9a121672c14be6a52f816759248e09037b9bad87d13c5dc8785357562656cdb",
+        "sha256": "c60ac6bc6cdec9f9b7d0034b3cd50f0da49a13ac08aeed2f55e87add466d1733",
         "passed_path": [
           "covered_functions",
           "CPools::Initialise"
@@ -16154,7 +16154,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools.cpp": "83c0a4cc9e0f236d31d30dcdea4981b92836f1885038fcfe6b7cf7164d1b90ab",
         "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93"
       },
       "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -16171,7 +16171,7 @@
       },
       "evidence": {
         "path": "reversing/PoolsWave4/validation-summary.json",
-        "sha256": "c9a121672c14be6a52f816759248e09037b9bad87d13c5dc8785357562656cdb",
+        "sha256": "c60ac6bc6cdec9f9b7d0034b3cd50f0da49a13ac08aeed2f55e87add466d1733",
         "passed_path": [
           "covered_functions",
           "CPools::ShutDown"
@@ -16180,7 +16180,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools.cpp": "83c0a4cc9e0f236d31d30dcdea4981b92836f1885038fcfe6b7cf7164d1b90ab",
         "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93"
       },
       "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -16197,7 +16197,7 @@
       },
       "evidence": {
         "path": "reversing/PoolsWave4/validation-summary.json",
-        "sha256": "c9a121672c14be6a52f816759248e09037b9bad87d13c5dc8785357562656cdb",
+        "sha256": "c60ac6bc6cdec9f9b7d0034b3cd50f0da49a13ac08aeed2f55e87add466d1733",
         "passed_path": [
           "covered_functions",
           "CPools::Save"
@@ -16206,7 +16206,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools.cpp": "83c0a4cc9e0f236d31d30dcdea4981b92836f1885038fcfe6b7cf7164d1b90ab",
         "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93"
       },
       "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -16223,7 +16223,7 @@
       },
       "evidence": {
         "path": "reversing/PoolsWave4/validation-summary.json",
-        "sha256": "c9a121672c14be6a52f816759248e09037b9bad87d13c5dc8785357562656cdb",
+        "sha256": "c60ac6bc6cdec9f9b7d0034b3cd50f0da49a13ac08aeed2f55e87add466d1733",
         "passed_path": [
           "covered_functions",
           "CPools::Load"
@@ -16232,7 +16232,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools.cpp": "83c0a4cc9e0f236d31d30dcdea4981b92836f1885038fcfe6b7cf7164d1b90ab",
         "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93"
       },
       "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -16249,7 +16249,7 @@
       },
       "evidence": {
         "path": "reversing/PoolsWave4/validation-summary.json",
-        "sha256": "c9a121672c14be6a52f816759248e09037b9bad87d13c5dc8785357562656cdb",
+        "sha256": "c60ac6bc6cdec9f9b7d0034b3cd50f0da49a13ac08aeed2f55e87add466d1733",
         "passed_path": [
           "covered_functions",
           "CPools::LoadObjectPool"
@@ -16258,7 +16258,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools.cpp": "83c0a4cc9e0f236d31d30dcdea4981b92836f1885038fcfe6b7cf7164d1b90ab",
         "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93"
       },
       "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -16275,7 +16275,7 @@
       },
       "evidence": {
         "path": "reversing/PoolsWave4/validation-summary.json",
-        "sha256": "c9a121672c14be6a52f816759248e09037b9bad87d13c5dc8785357562656cdb",
+        "sha256": "c60ac6bc6cdec9f9b7d0034b3cd50f0da49a13ac08aeed2f55e87add466d1733",
         "passed_path": [
           "covered_functions",
           "CPools::LoadPedPool"
@@ -16284,7 +16284,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools.cpp": "83c0a4cc9e0f236d31d30dcdea4981b92836f1885038fcfe6b7cf7164d1b90ab",
         "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93"
       },
       "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -16301,7 +16301,7 @@
       },
       "evidence": {
         "path": "reversing/PoolsWave4/validation-summary.json",
-        "sha256": "c9a121672c14be6a52f816759248e09037b9bad87d13c5dc8785357562656cdb",
+        "sha256": "c60ac6bc6cdec9f9b7d0034b3cd50f0da49a13ac08aeed2f55e87add466d1733",
         "passed_path": [
           "covered_functions",
           "CPools::LoadVehiclePool"
@@ -16310,7 +16310,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools.cpp": "83c0a4cc9e0f236d31d30dcdea4981b92836f1885038fcfe6b7cf7164d1b90ab",
         "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93"
       },
       "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",

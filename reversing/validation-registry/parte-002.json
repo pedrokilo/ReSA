@@ -26251,7 +26251,7 @@
       },
       "evidence": {
         "path": "reversing/AudioStreamingPending/validation-summary.json",
-        "sha256": "cd1a6488b7a9a79bd9ca55b5e69881d9a987d603e1b7d84489f6cb7307c17489",
+        "sha256": "6294ef6384bc6eeed136e3d7e9f24ae33c0cce5d1f84667cd3a0381e2ff7ff8c",
         "passed_path": [
           "covered_functions",
           "CAEStreamingChannel::Constructor"
@@ -26260,10 +26260,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Hardware/AEStreamingChannel.cpp": "38b085b21f5102bc80bb75ffa816fa47b01b5546a53e2e5e2952e25288b871fd",
-        "source/game_sa/Audio/Hardware/AEStreamingChannel.h": "e3b2955d1dca1619146e9c31e905b88d394fa6e9fe1dcc3bd461606b8a045bad",
-        "source/game_sa/Audio/Hardware/AEAudioChannel.cpp": "67ef38a18d83947b04a4a19841b06cff02a12530cab5f864bac0008e7a534786",
-        "source/game_sa/Audio/Hardware/AEAudioChannel.h": "616e9689d1fd6ded10b14d7c90cf7c671e6e92cc95979b46e9a6dc75db2a8a55"
+        "source/game_sa/Audio/Hardware/AEStreamingChannel.cpp": "6efa9229024621e7bf7e943acd327cd6348110c164bdc56258b747aede0bf5b4",
+        "source/game_sa/Audio/Hardware/AEStreamingChannel.h": "d0cd50404d9c2560cae9e8a39ef0d48c5124298c9b14b8b85dc390a91ffaffe8",
+        "source/game_sa/Audio/Hardware/AEAudioChannel.cpp": "41d5814d4ff5a93e0415510fe738f94a7c944a04f65565a4cda4027970574379",
+        "source/game_sa/Audio/Hardware/AEAudioChannel.h": "d4a6acdf16ba2b742abf765217d6e6be7ef6ee8761ee5405972e06023e8237c1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-195440-816486).",
       "dependency_review": null,
@@ -26279,7 +26279,7 @@
       },
       "evidence": {
         "path": "reversing/AudioStreamingPending/validation-summary.json",
-        "sha256": "cd1a6488b7a9a79bd9ca55b5e69881d9a987d603e1b7d84489f6cb7307c17489",
+        "sha256": "6294ef6384bc6eeed136e3d7e9f24ae33c0cce5d1f84667cd3a0381e2ff7ff8c",
         "passed_path": [
           "covered_functions",
           "CAEStreamingChannel::PrepareStream"
@@ -26288,10 +26288,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Hardware/AEStreamingChannel.cpp": "38b085b21f5102bc80bb75ffa816fa47b01b5546a53e2e5e2952e25288b871fd",
-        "source/game_sa/Audio/Hardware/AEStreamingChannel.h": "e3b2955d1dca1619146e9c31e905b88d394fa6e9fe1dcc3bd461606b8a045bad",
-        "source/game_sa/Audio/Hardware/AEAudioChannel.cpp": "67ef38a18d83947b04a4a19841b06cff02a12530cab5f864bac0008e7a534786",
-        "source/game_sa/Audio/Hardware/AEAudioChannel.h": "616e9689d1fd6ded10b14d7c90cf7c671e6e92cc95979b46e9a6dc75db2a8a55"
+        "source/game_sa/Audio/Hardware/AEStreamingChannel.cpp": "6efa9229024621e7bf7e943acd327cd6348110c164bdc56258b747aede0bf5b4",
+        "source/game_sa/Audio/Hardware/AEStreamingChannel.h": "d0cd50404d9c2560cae9e8a39ef0d48c5124298c9b14b8b85dc390a91ffaffe8",
+        "source/game_sa/Audio/Hardware/AEAudioChannel.cpp": "41d5814d4ff5a93e0415510fe738f94a7c944a04f65565a4cda4027970574379",
+        "source/game_sa/Audio/Hardware/AEAudioChannel.h": "d4a6acdf16ba2b742abf765217d6e6be7ef6ee8761ee5405972e06023e8237c1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-195440-816486).",
       "dependency_review": null,
@@ -26307,7 +26307,7 @@
       },
       "evidence": {
         "path": "reversing/AudioStreamingPending/validation-summary.json",
-        "sha256": "cd1a6488b7a9a79bd9ca55b5e69881d9a987d603e1b7d84489f6cb7307c17489",
+        "sha256": "6294ef6384bc6eeed136e3d7e9f24ae33c0cce5d1f84667cd3a0381e2ff7ff8c",
         "passed_path": [
           "covered_functions",
           "CAEStreamingChannel::Service"
@@ -26316,10 +26316,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Hardware/AEStreamingChannel.cpp": "38b085b21f5102bc80bb75ffa816fa47b01b5546a53e2e5e2952e25288b871fd",
-        "source/game_sa/Audio/Hardware/AEStreamingChannel.h": "e3b2955d1dca1619146e9c31e905b88d394fa6e9fe1dcc3bd461606b8a045bad",
-        "source/game_sa/Audio/Hardware/AEAudioChannel.cpp": "67ef38a18d83947b04a4a19841b06cff02a12530cab5f864bac0008e7a534786",
-        "source/game_sa/Audio/Hardware/AEAudioChannel.h": "616e9689d1fd6ded10b14d7c90cf7c671e6e92cc95979b46e9a6dc75db2a8a55"
+        "source/game_sa/Audio/Hardware/AEStreamingChannel.cpp": "6efa9229024621e7bf7e943acd327cd6348110c164bdc56258b747aede0bf5b4",
+        "source/game_sa/Audio/Hardware/AEStreamingChannel.h": "d0cd50404d9c2560cae9e8a39ef0d48c5124298c9b14b8b85dc390a91ffaffe8",
+        "source/game_sa/Audio/Hardware/AEAudioChannel.cpp": "41d5814d4ff5a93e0415510fe738f94a7c944a04f65565a4cda4027970574379",
+        "source/game_sa/Audio/Hardware/AEAudioChannel.h": "d4a6acdf16ba2b742abf765217d6e6be7ef6ee8761ee5405972e06023e8237c1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-195440-816486).",
       "dependency_review": null,
@@ -28445,7 +28445,7 @@
       },
       "evidence": {
         "path": "reversing/PoolsPending/validation-summary.json",
-        "sha256": "d1db52f2e2cdd7f0faa831e440185dee31810362f0b2c7990c260779cf1236ac",
+        "sha256": "3aa4bb0c9a6bbc79be522c3115c78748c046a0d42db9974ceefe0f1e3684ccaa",
         "passed_path": [
           "covered_functions",
           "CPools::SaveObjectPool"
@@ -28454,8 +28454,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pools.cpp": "bcb6131d7e43c1ed38a7af1276d8b8ee508b93525c311154f796d57724c871d3",
-        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe"
+        "source/game_sa/Pools.cpp": "83c0a4cc9e0f236d31d30dcdea4981b92836f1885038fcfe6b7cf7164d1b90ab",
+        "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-201151-743253).",
       "dependency_review": null,
@@ -28471,7 +28471,7 @@
       },
       "evidence": {
         "path": "reversing/PoolsPending/validation-summary.json",
-        "sha256": "d1db52f2e2cdd7f0faa831e440185dee31810362f0b2c7990c260779cf1236ac",
+        "sha256": "3aa4bb0c9a6bbc79be522c3115c78748c046a0d42db9974ceefe0f1e3684ccaa",
         "passed_path": [
           "covered_functions",
           "CPools::SavePedPool"
@@ -28480,8 +28480,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pools.cpp": "bcb6131d7e43c1ed38a7af1276d8b8ee508b93525c311154f796d57724c871d3",
-        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe"
+        "source/game_sa/Pools.cpp": "83c0a4cc9e0f236d31d30dcdea4981b92836f1885038fcfe6b7cf7164d1b90ab",
+        "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-201151-743253).",
       "dependency_review": null,
@@ -28497,7 +28497,7 @@
       },
       "evidence": {
         "path": "reversing/PoolsPending/validation-summary.json",
-        "sha256": "d1db52f2e2cdd7f0faa831e440185dee31810362f0b2c7990c260779cf1236ac",
+        "sha256": "3aa4bb0c9a6bbc79be522c3115c78748c046a0d42db9974ceefe0f1e3684ccaa",
         "passed_path": [
           "covered_functions",
           "CPools::SaveVehiclePool"
@@ -28506,8 +28506,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pools.cpp": "bcb6131d7e43c1ed38a7af1276d8b8ee508b93525c311154f796d57724c871d3",
-        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe"
+        "source/game_sa/Pools.cpp": "83c0a4cc9e0f236d31d30dcdea4981b92836f1885038fcfe6b7cf7164d1b90ab",
+        "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-201151-743253).",
       "dependency_review": null,

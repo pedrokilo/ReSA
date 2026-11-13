@@ -31,11 +31,11 @@ SLOTS = ()
 # 0x4D8960, 0x4D8F60 y 0x4D9870, CAECutsceneTrackManager::Service 0x4DBFB0, CAEStreamTransformer::Initialise 0x4F1750, el cuerpo del destructor de CAETwinLoopSoundEntity 0x4F2B80, el destructor de CAESound 0x4EF660,
 # SetIsStatic de CObject 0x5A0760 (hook virtual), CustomCarPipeAtomicSetup 0x5D5B20, FindPlayerPed 0x56E210 y FindPlayerVehicle 0x56E0D0. Sin hook: el constructor de CObject 0x5A1D10 (la DLL lo llama por la direccion
 # del EXE: el falso va solo en ella) y el cuerpo de CObject 0x59F660 (funcion propia de la DLL, CObjectBody::Destructor: falso en la direccion del EXE y en esa funcion).
-DLL_BODY_WITHOUT_HOOK = {0x59F660}
+DLL_BODY_WITHOUT_HOOK = {0x59F660}   # pase final: el constructor 0x5A1D10 tiene hook (F)
 STUBBED = {n: [] for n in NAMES}
 STUBBED.update({NAMES[0]: [(0x4D94D0, True), (0x4D9500, True), (0x4D8870, True), (0x4D8F30, True)], NAMES[1]: [(0x4D8960, True)], NAMES[2]: [(0x4D8F60, True), (0x4DBFB0, True), (0x4D9870, True)],
                 NAMES[3]: [(0x4F1750, True)], NAMES[7]: [(0x4F2B80, True), (0x4EF660, True)], NAMES[8]: [(0x4EF660, True)], NAMES[9]: [(0x4EF660, True)], NAMES[10]: [(0x4EF660, True)],
-                NAMES[14]: [(0x5A1D10, False), (0x5A0760, True)], NAMES[15]: [(0x59F660, False)], NAMES[16]: [(0x5D5B20, True), (0x5DA610, True)], NAMES[21]: [(0x56E210, True), (0x56E0D0, True)]})
+                NAMES[14]: [(0x5A1D10, True), (0x5A0760, True)], NAMES[15]: [(0x59F660, False)], NAMES[16]: [(0x5D5B20, True), (0x5DA610, True)], NAMES[21]: [(0x56E210, True), (0x56E0D0, True)]})
 REAL = {}
 WATCHED = set(HOOKS.values()) | set(SLOTS) | {a for lst in STUBBED.values() for a, _ in lst} | {a for lst in REAL.values() for a, _ in lst}
 COVER_FLOOR = 50

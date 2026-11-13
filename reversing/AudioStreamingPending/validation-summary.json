@@ -17,10 +17,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "930bdd92039bebddc60cbee5d7877cedd455feeedecfb8c1f713a28daf4cf3b6",
+  "log_sha256": "963c672d5bc56c6d05ee68190cfb2fa529573fc09660f1528950b1e778bc1cd9",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio-streaming-pending\\20261007-195440-816486",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio-streaming-pending\\20261113-130023-363292",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEStreamingChannel::Constructor": true,
@@ -29,23 +29,24 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "7af8278a7456ec6f5df2daeb27b1fc12a18dd9627879f267565aaa22240b9ad6",
-      "pdb": "c41f47bf5571546a3a9d9301b7ff579871f98d29ff57fd82e673b34c3467a171"
+      "asi": "ce31db56a9a3e320b7f4c4149dc696750a7b10a3bb42b200be039fbfea7312f0",
+      "pdb": "7c0dbb429f1580a44573a2b0a96953d2d179a22b44cd38d0f6b315273ed45005"
     },
     "sources": {
-      "source/game_sa/Audio/Hardware/AEStreamingChannel.cpp": "38b085b21f5102bc80bb75ffa816fa47b01b5546a53e2e5e2952e25288b871fd",
-      "source/game_sa/Audio/Hardware/AEStreamingChannel.h": "e3b2955d1dca1619146e9c31e905b88d394fa6e9fe1dcc3bd461606b8a045bad",
-      "source/game_sa/Audio/Hardware/AEAudioChannel.cpp": "67ef38a18d83947b04a4a19841b06cff02a12530cab5f864bac0008e7a534786",
-      "source/game_sa/Audio/Hardware/AEAudioChannel.h": "616e9689d1fd6ded10b14d7c90cf7c671e6e92cc95979b46e9a6dc75db2a8a55"
+      "source/game_sa/Audio/Hardware/AEStreamingChannel.cpp": "6efa9229024621e7bf7e943acd327cd6348110c164bdc56258b747aede0bf5b4",
+      "source/game_sa/Audio/Hardware/AEStreamingChannel.h": "d0cd50404d9c2560cae9e8a39ef0d48c5124298c9b14b8b85dc390a91ffaffe8",
+      "source/game_sa/Audio/Hardware/AEAudioChannel.cpp": "41d5814d4ff5a93e0415510fe738f94a7c944a04f65565a4cda4027970574379",
+      "source/game_sa/Audio/Hardware/AEAudioChannel.h": "d4a6acdf16ba2b742abf765217d6e6be7ef6ee8761ee5405972e06023e8237c1"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
-      "LiveComparison.hpp": "83564f0964235543d0b2a4c3ee2cb9f3371689907b93fb026219f224800cbd15",
+      "LiveComparison.hpp": "e0d34f9d818562648ea53b72d0b09647600410f05de4eacde0f5554173db9bc8",
       "build_probe.py": "014019d4c578d5e331d1c49410769af45b2f9732dc1f1246173bf0b0db63da98",
       "run_local.py": "b30bde27aed3d8a18fba2247fa594d26d9ee667a616ad2eccff58815a352e7dd"
     }
   },
   "limitations": [
-    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
