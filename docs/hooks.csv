@@ -10576,3 +10576,16 @@ CTaskSimpleDuckWhileShotsWhizzing,Clone,0x00000000,1,0,1,V
 CTaskSimpleShakeFist,ScalarDeletingDestructor,0x00692DD0,1,0,1,S
 CTaskSimpleDuckWhileShotsWhizzing,ScalarDeletingDestructor,0x00693B80,1,0,1,S
 CTaskSimpleDuckWhileShotsWhizzing,ProcessPed,0x00000000,1,0,1,V
+CEventScriptedAttractor,DestructorBody,0x005FEF70,1,0,0,S
+CEventScriptedAttractor,GetEventType,0x00000000,1,0,0,V
+CEventScriptedAttractor,CloneEditable,0x00000000,1,0,0,V
+CEventScriptedAttractor,ScalarDeletingDestructor,0x005FEFF0,1,0,0,S
+CEventAcquaintancePedRespect,DestructorBody,0x005FF030,1,0,0,S
+CEventAcquaintancePedRespect,CloneEditable,0x00000000,1,0,0,V
+CEventAcquaintancePedRespect,ScalarDeletingDestructor,0x005FF0B0,1,0,0,S
+CEventAcquaintancePedLike,DestructorBody,0x005FF0F0,1,0,0,S
+CEventAcquaintancePedLike,CloneEditable,0x00000000,1,0,0,V
+CEventAcquaintancePedLike,ScalarDeletingDestructor,0x005FF170,1,0,0,S
+CEventAcquaintancePedDislike,DestructorBody,0x005FF1B0,1,0,0,S
+CEventAcquaintancePedDislike,CloneEditable,0x00000000,1,0,0,V
+CEventAcquaintancePedDislike,ScalarDeletingDestructor,0x005FF230,1,0,0,S

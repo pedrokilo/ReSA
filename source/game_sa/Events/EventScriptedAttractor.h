@@ -16,7 +16,7 @@ public:
     ~CEventScriptedAttractor() override = default;
 
     CEventScriptedAttractor* Constructor(C2dEffectPedAttractor* the2dEffect, CEntity* entity);
-    eEventType GetEventType() const override { return EVENT_SCRIPTED_ATTRACTOR; }
-    CEventScriptedAttractor* CloneEditable() const noexcept override { return new CEventScriptedAttractor(m_2dEffect, m_entity); }
+    eEventType GetEventType() const override; // 0x5FEF80 (lote 188A, sin validar)
+    CEventEditableResponse* CloneEditable() const noexcept override; // 0x5FEF90 (lote 188A, sin validar)
 };
 VALIDATE_SIZE(CEventScriptedAttractor, 0x20);

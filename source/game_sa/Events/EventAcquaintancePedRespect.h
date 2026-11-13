@@ -13,6 +13,10 @@ public:
 
     eEventType GetEventType() const override { return EVENT_ACQUAINTANCE_PED_RESPECT; }
     int32 GetEventPriority() const override { return 23; }
-    CEventEditableResponse* CloneEditable() const noexcept override { return new CEventAcquaintancePedRespect(m_AcquaintancePed); }
+    CEventEditableResponse* CloneEditable() const noexcept override; // 0x5FF050 (lote 188A, sin validar)
+
+public:
+    friend void InjectHooksMain();
+    static void InjectHooks();
 };
 VALIDATE_SIZE(CEventAcquaintancePedRespect, 0x18);

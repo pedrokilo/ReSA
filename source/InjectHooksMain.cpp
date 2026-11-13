@@ -568,6 +568,9 @@
 #include "EventDontJoinPlayerGroup.h"
 #include "EventNewGangMember.h"
 #include "EventAcquaintancePedHate.h"
+#include "EventAcquaintancePedRespect.h"
+#include "EventAcquaintancePedLike.h"
+#include "EventAcquaintancePedDislike.h"
 #include "EventAcquaintancePedHateBadlyLit.h"
 #include "EventPedCollisionWithPed.h"
 #include "EventPedCollisionWithPlayer.h"
@@ -1565,6 +1568,9 @@ void InjectHooksMain() {
         CEventHandler::InjectHooks();
         CEventAcquaintancePedHate::InjectHooks();
         CEventAcquaintancePedHateBadlyLit::InjectHooks();
+        CEventAcquaintancePedRespect::InjectHooks();
+        CEventAcquaintancePedLike::InjectHooks();
+        CEventAcquaintancePedDislike::InjectHooks();
         CEventInteriorUseInfo::InjectHooks();
         // + CEventLowAngerAtPlayer
         CEventPedEnteredMyVehicle::InjectHooks();
