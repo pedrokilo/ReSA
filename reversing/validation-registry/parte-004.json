@@ -30947,7 +30947,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::AddToCheatString"
@@ -30956,8 +30956,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -30973,7 +30973,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::AdrenalineCheat"
@@ -30982,8 +30982,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -30999,7 +30999,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::AllCarsAreGreatCheat"
@@ -31008,8 +31008,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31025,7 +31025,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::AllCarsAreShitCheat"
@@ -31034,8 +31034,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31051,7 +31051,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::ApacheCheat"
@@ -31060,8 +31060,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31077,7 +31077,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::ApplyCheat"
@@ -31086,8 +31086,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31103,7 +31103,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::BeachPartyCheat"
@@ -31112,8 +31112,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31129,7 +31129,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::BlackCarsCheat"
@@ -31138,8 +31138,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31155,7 +31155,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::BlowUpCarsCheat"
@@ -31164,8 +31164,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31181,7 +31181,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::CloudyWeatherCheat"
@@ -31190,8 +31190,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31207,7 +31207,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::CountrysideInvasionCheat"
@@ -31216,8 +31216,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31233,7 +31233,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::DoCheats"
@@ -31242,8 +31242,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31259,7 +31259,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::DozerCheat"
@@ -31268,8 +31268,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31285,7 +31285,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::DrivebyCheat"
@@ -31294,8 +31294,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31311,7 +31311,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::DuskCheat"
@@ -31320,8 +31320,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31337,7 +31337,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::ElvisLivesCheat"
@@ -31346,8 +31346,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31363,7 +31363,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::EverybodyAttacksPlayerCheat"
@@ -31372,8 +31372,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31389,7 +31389,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::ExtraSunnyWeatherCheat"
@@ -31398,8 +31398,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31415,7 +31415,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::FastTimeCheat"
@@ -31424,8 +31424,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31441,7 +31441,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::FatCheat"
@@ -31450,8 +31450,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31467,7 +31467,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::FlyboyCheat"
@@ -31476,8 +31476,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31493,7 +31493,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::FoggyWeatherCheat"
@@ -31502,8 +31502,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31519,7 +31519,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::FunhouseCheat"
@@ -31528,8 +31528,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31545,7 +31545,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::GangLandCheat"
@@ -31554,8 +31554,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31571,7 +31571,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::GangsCheat"
@@ -31580,8 +31580,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31597,7 +31597,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::GolfcartCheat"
@@ -31606,8 +31606,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31623,7 +31623,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::HandleSpecialCheats"
@@ -31632,8 +31632,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31649,7 +31649,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::HearseCheat"
@@ -31658,8 +31658,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31675,7 +31675,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::IsZoneStreamingAllowed"
@@ -31684,8 +31684,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31701,7 +31701,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::JetpackCheat"
@@ -31710,8 +31710,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31727,7 +31727,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::LoveConquersAllCheat"
@@ -31736,8 +31736,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31753,7 +31753,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::LovefistCheat"
@@ -31762,8 +31762,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31779,7 +31779,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::MayhemCheat"
@@ -31788,8 +31788,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31805,7 +31805,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::MidnightCheat"
@@ -31814,8 +31814,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31831,7 +31831,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::MoneyArmourHealthCheat"
@@ -31840,8 +31840,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31857,7 +31857,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::MonsterTruckCheat"
@@ -31866,8 +31866,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31883,7 +31883,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::MuscleCheat"
@@ -31892,8 +31892,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31909,7 +31909,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::NinjaCheat"
@@ -31918,8 +31918,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31935,7 +31935,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::NotWantedCheat"
@@ -31944,8 +31944,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31961,7 +31961,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::ParachuteCheat"
@@ -31970,8 +31970,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -31987,7 +31987,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::PinkCarsCheat"
@@ -31996,8 +31996,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32013,7 +32013,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::PredatorCheat"
@@ -32022,8 +32022,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32039,7 +32039,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::QuadCheat"
@@ -32048,8 +32048,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32065,7 +32065,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::RainyWeatherCheat"
@@ -32074,8 +32074,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32091,7 +32091,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::ResetCheats"
@@ -32100,8 +32100,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32117,7 +32117,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::RiotCheat"
@@ -32126,8 +32126,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32143,7 +32143,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::SandstormCheat"
@@ -32152,8 +32152,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32169,7 +32169,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::SkinnyCheat"
@@ -32178,8 +32178,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32195,7 +32195,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::SlowTimeCheat"
@@ -32204,8 +32204,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32221,7 +32221,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::StaminaCheat"
@@ -32230,8 +32230,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32247,7 +32247,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::StockCar2Cheat"
@@ -32256,8 +32256,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32273,7 +32273,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::StockCar3Cheat"
@@ -32282,8 +32282,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32299,7 +32299,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::StockCar4Cheat"
@@ -32308,8 +32308,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32325,7 +32325,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::StockCarCheat"
@@ -32334,8 +32334,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32351,7 +32351,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::StormCheat"
@@ -32360,8 +32360,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32377,7 +32377,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::StuntPlaneCheat"
@@ -32386,8 +32386,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32403,7 +32403,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::SuicideCheat"
@@ -32412,8 +32412,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32429,7 +32429,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::SunnyWeatherCheat"
@@ -32438,8 +32438,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32455,7 +32455,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::TankCheat"
@@ -32464,8 +32464,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32481,7 +32481,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::TankerCheat"
@@ -32490,8 +32490,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32507,7 +32507,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::TrashmasterCheat"
@@ -32516,8 +32516,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32533,7 +32533,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::VehicleCheat"
@@ -32542,8 +32542,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32559,7 +32559,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::VehicleSkillsCheat"
@@ -32568,8 +32568,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32585,7 +32585,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::VillagePeopleCheat"
@@ -32594,8 +32594,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32611,7 +32611,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::VortexCheat"
@@ -32620,8 +32620,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32637,7 +32637,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::WantedCheat"
@@ -32646,8 +32646,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32663,7 +32663,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::WantedLevelDownCheat"
@@ -32672,8 +32672,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32689,7 +32689,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::WantedLevelUpCheat"
@@ -32698,8 +32698,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32715,7 +32715,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::WeaponCheat1"
@@ -32724,8 +32724,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32741,7 +32741,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::WeaponCheat2"
@@ -32750,8 +32750,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32767,7 +32767,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::WeaponCheat3"
@@ -32776,8 +32776,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -32793,7 +32793,7 @@
       },
       "evidence": {
         "path": "reversing/CheatFinal3/validation-summary.json",
-        "sha256": "c96c6cc365294daa1d3e06fa4b211074e52de8a77ad67d55095e550b78517776",
+        "sha256": "f9c7ef173b9cb80cdc5f24060f4b902448c757335d5f1a9dffebfb258f5c57ba",
         "passed_path": [
           "covered_functions",
           "CCheat::WeaponSkillsCheat"
@@ -32802,8 +32802,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cheat.cpp": "0d30059ab7e729e7f6cd3bb963450343c0e8f85ad8c2366020fbfaa30563791d",
-        "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+        "source/game_sa/Cheat.cpp": "99ad516eace440205c34cce04e1ec6d56a3f73e07f39a7ede4aa58c3d5d29cfd",
+        "source/game_sa/Cheat.h": "c36af5599edb650f57f9c212312a5be475098997fb51675a8c81ca83e0874f55"
       },
       "source_provenance": "Exact compiled CheatFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -82486,7 +82486,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CSetPiece::GetSpawnCoord1"
@@ -82495,22 +82495,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -82526,7 +82526,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CSetPiece::GetSpawnCoord2"
@@ -82535,22 +82535,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -82566,7 +82566,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CSetPiece::GetTargetCoord1"
@@ -82575,22 +82575,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -82606,7 +82606,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CSetPiece::GetTargetCoord2"
@@ -82615,22 +82615,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -82646,7 +82646,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CCam::ClipBeta"
@@ -82655,22 +82655,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -82686,7 +82686,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CCam::GetWeaponFirstPersonOn"
@@ -82695,22 +82695,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -82726,7 +82726,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "IsLampPost"
@@ -82735,22 +82735,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -82766,7 +82766,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "VectorsDiffer"
@@ -82775,22 +82775,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -82806,7 +82806,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "VectorsAreEqual"
@@ -82815,22 +82815,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -82846,7 +82846,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CEventDamage::HasKilledPed"
@@ -82855,22 +82855,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -82886,7 +82886,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CVehicleScanner::GetClosestVehicleInRange"
@@ -82895,22 +82895,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -82926,7 +82926,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CPedScanner::GetClosestPedInRange"
@@ -82935,22 +82935,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -82966,7 +82966,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CPointRoute::operator new"
@@ -82975,22 +82975,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -83006,7 +83006,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CPointRoute::operator delete"
@@ -83015,22 +83015,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -83046,7 +83046,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CPedClothesDesc::SetTextureAndModel-hash"
@@ -83055,22 +83055,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -83086,7 +83086,7 @@
       },
       "evidence": {
         "path": "reversing/Fn109A/validation-summary.json",
-        "sha256": "74822450c75590a8c5296e5e8a49fea647538e1fbe2cf34c181f848cd1be0805",
+        "sha256": "05efdc834440593f034f722d6aae07170ac047b0ba22245602c3ee3ac33c1c0b",
         "passed_path": [
           "covered_functions",
           "CPedClothesDesc::SetTextureAndModel-name"
@@ -83095,22 +83095,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
-        "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
-        "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
-        "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
-        "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/common.cpp": "b86d4e97dd6a1493638a1f7bc369a196d4226016fa36b7b19c46e8840c4214cf",
+        "source/game_sa/SetPiece.cpp": "6766aa16f608f04c68fcddb84014cf9734abf8c5e88aedb518a399f26257da86",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
         "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
         "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
-        "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+        "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
         "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
         "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
         "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
