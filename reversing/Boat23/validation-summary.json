@@ -36,10 +36,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "cf367ce8db7371cbad7c1fe093cccdabc9e0c0e85f7c9e5374463c010229a2ed",
+  "log_sha256": "65c33156aa6e9e382d60ee58088e346822cc80c9ef5dbda10a49af6139489f10",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-boat23\\20261105-200738-369342",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-boat23\\20261113-171523-825281",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CBoat::AddWakePoint": true,
@@ -68,14 +68,14 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "ef90b1cb8ecaa836f32a0f207650d6bfb05b4d40dd2278e00c5ad5e90807a82a",
-      "pdb": "cf1ff9402f4c1dbce224fc56bad4ec204698cec1921540134e7b3a45ea529afc"
+      "asi": "dd05ea3b3dc4d8cd4ade3bc71991a4de348894f698a9afc1012549ebe42a1937",
+      "pdb": "bb95103d1e3a91f0be689a16decd8bce811e3629e2a42b937daf02e4c4ab5ec3"
     },
     "sources": {
-      "source/game_sa/Entity/Vehicle/Boat.cpp": "cda2951a31b01f521e18021c6ef427424dcf75e8f391bcae4a89463eee6e6287",
-      "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      "source/game_sa/Entity/Vehicle/Boat.cpp": "9b14d49d28e9df6cfa9008ae0e5701762c27fb557da4f0b9616cea100eb8ba03",
+      "source/game_sa/Entity/Vehicle/Boat.h": "6c21c2fd874a500c3768a5ae30571c8133dbc3902f3040df2e10e746d47dc005"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
       "LiveComparison.hpp": "85fed383a9197cecd22d70f0d89cab0c83aa7abb3e87ec3cec6e248cbad2161a",
       "build_probe.py": "03c65acd24ec14c88fb48641fd7a9c8f3b53925651fed3ac6af803a85b1f5560",

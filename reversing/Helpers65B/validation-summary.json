@@ -20,36 +20,36 @@
     "CTaskComplexGoPickUpEntity::Constructor": true,
     "CTaskComplexGoPickUpEntity::Destructor": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wr-2 (HEAD 633dceef0 + fuente del lote 65B: CCamera::IsActiveCamUnderWater, ResetDWHeliChaseParams y RandomiseDWHeliChaseParams de CCam, CHeli::FindSwatPositionRelativeToHeli y constructor/destructor de CTaskComplexGoPickUpEntity). Colaboradores sustituidos por falsos identicos en ambos lados (no se validan sus cuerpos): CWaterLevel::GetWaterLevel (0x6EB690), rand del CRT del EXE (0x821B1E), CEntity::RegisterReference (0x571B70), CEntity::CleanUpOldReference (0x571A00), CAnimManager::RemoveAnimBlockRef (0x4D3FD0) y el destructor virtual de una subtarea falsa. Los ayudantes de CCam y el envoltorio de CHeli se instalan con RH_ScopedNamedGlobalInstall (funciones estaticas __fastcall que terminan en ResidueRegsCpp: el thunk 0x5173F0 lee ECX tras 0x50E180 y el llamador 0x6C7844 conserva EDX a traves de 0x6C4760). Entorno: FCW 0x7F (24 bits) y MXCSR 0x9F80 fijados por el banco. Aritmetica de Randomise acotada a rand() <= 32767. CreateNextSubTask/CreateFirstSubTask/ControlSubTask de la tarea siguen en el EXE (reenvio) y no se validan. Ningun llamador del EXE lee EAX/ECX/EDX salvo los indicados en el README (EAX de 0x50B830 en AL, ECX de 0x50E180, EAX/EDX de 0x6C4760, EAX de 0x6919C0). Revalidado el 2026-11-10 con el codigo de main e4a0b2fc72 (colaboradores con hook de lotes posteriores); el banco se adapto (ver su README.md).",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wr-2 (HEAD 633dceef0 + fuente del lote 65B: CCamera::IsActiveCamUnderWater, ResetDWHeliChaseParams y RandomiseDWHeliChaseParams de CCam, CHeli::FindSwatPositionRelativeToHeli y constructor/destructor de CTaskComplexGoPickUpEntity). Colaboradores sustituidos por falsos identicos en ambos lados (no se validan sus cuerpos): CWaterLevel::GetWaterLevel (0x6EB690), rand del CRT del EXE (0x821B1E), CEntity::RegisterReference (0x571B70), CEntity::CleanUpOldReference (0x571A00), CAnimManager::RemoveAnimBlockRef (0x4D3FD0) y el destructor virtual de una subtarea falsa. Los ayudantes de CCam y el envoltorio de CHeli se instalan con RH_ScopedNamedGlobalInstall (funciones estaticas __fastcall que terminan en ResidueRegsCpp: el thunk 0x5173F0 lee ECX tras 0x50E180 y el llamador 0x6C7844 conserva EDX a traves de 0x6C4760). Entorno: FCW 0x7F (24 bits) y MXCSR 0x9F80 fijados por el banco. Aritmetica de Randomise acotada a rand() <= 32767. CreateNextSubTask/CreateFirstSubTask/ControlSubTask de la tarea siguen en el EXE (reenvio) y no se validan. Ningun llamador del EXE lee EAX/ECX/EDX salvo los indicados en el README (EAX de 0x50B830 en AL, ECX de 0x50E180, EAX/EDX de 0x6C4760, EAX de 0x6919C0). Revalidado el 2026-11-10 con el codigo de main e4a0b2fc72 (colaboradores con hook de lotes posteriores); el banco se adapto (ver su README.md). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Helpers65B-20261110-071145-232266",
-  "summary_sha256": "187acb555bc7f38d552ffd5253144056c40f054b75d02bfedc9a165fcfdd6add",
-  "result_txt_sha256": "ff4d620d188c9d27b7b053048e154a3c56da98615e43a48c447d3574e7d23e77",
-  "log_sha256": "1cd6d0774dc9d297179a4ae2ed36511a73fecb039c43b367f42c6f7fdfd0d904",
+  "run": "reversing/CppTwelveLevel6Final/runs/Helpers65B-20261113-170828-995696",
+  "summary_sha256": "44c0fcd0c3e5d9926e60640428420b6c216433eb201fa454f111e258e5d24700",
+  "result_txt_sha256": "6284766406932d923965db01a29aab0f6cc5a4e5e972564614c78a9d6ae1c146",
+  "log_sha256": "d495a5f604129f45924fdfbd5d46cba5e9bf6ab754f818e958409e4fb518c883",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "205961564a68487e7257d5a4dcabaa3fb24f7f535cf1df9218912b9a534f6d76",
+  "executed_probe_sha256": "3a0904fc1604ebd53911308c2c7dc4300e04b3159345ef28a8db025d07d7bb80",
   "manifest": {
     "tested_sources": {
       "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
       "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
       "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
-      "source/game_sa/Entity/Vehicle/Heli.cpp": "92b5ed6df0119d1691430d65e4b1f3184dda6c2be8c5ea7a563852c596d50998",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "084a2eb9cbaedbb24688c3b1a8360919c3f90e96390c34d2b3b3ed0d92533180",
       "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "c5d0cd29a8671a468f5f7b1edbd8dd6ca7c3cd558456034149f32d5a9ff60a19",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "cbff387a21140586a36f495da45d196f00acb95dd6666265496355d89ffea51e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "d6f8ae845706056acb7a8f6d6e7f98f5b2b9e95eb9d95548f80113856bbfbf7e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "2209581954942f123939ba2aafa676bda2ba59eaa2d401942cae1e285616e3b4",
       "source/game_sa/PlayerInfoProcess.cpp.inc": "a3c4ca4439508d7c33a6c06a723039305cd475d6b62f47cf655085a698cb6f6c",
-      "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b"
+      "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2"
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Helpers65B-20261110-071145-232266/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Helpers65B-20261113-170828-995696/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "75851d4b38c38c111cfbcad79a300363a424e9254d516d008063c82cc54de2c1",
-    "uncompressed_sha256": "1cd6d0774dc9d297179a4ae2ed36511a73fecb039c43b367f42c6f7fdfd0d904"
+    "compressed_sha256": "6d8dd0900cb8db9d43de7faf74cb05af20435b85dd256e7db37d29d0ddfa1360",
+    "uncompressed_sha256": "d495a5f604129f45924fdfbd5d46cba5e9bf6ab754f818e958409e4fb518c883"
   }
 }

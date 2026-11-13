@@ -21078,7 +21078,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::CreateEffects"
@@ -21087,8 +21087,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21104,7 +21104,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::DestroyEffects"
@@ -21113,8 +21113,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21130,7 +21130,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::GetRandom2dEffect"
@@ -21139,8 +21139,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21156,7 +21156,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::HasPreRenderEffects"
@@ -21165,8 +21165,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21182,7 +21182,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::ProcessLightsForEntity"
@@ -21191,8 +21191,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21208,7 +21208,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::PreRender"
@@ -21217,8 +21217,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21234,7 +21234,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::PreRenderForGlassWindow"
@@ -21243,8 +21243,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21260,7 +21260,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::Render"
@@ -21269,8 +21269,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21286,7 +21286,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::RenderEffects"
@@ -21295,8 +21295,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21312,7 +21312,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::RemoveEscalatorsForEntity"
@@ -21321,8 +21321,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21338,7 +21338,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::RemoveLighting"
@@ -21347,8 +21347,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21364,7 +21364,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::SetupLighting"
@@ -21373,8 +21373,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21390,7 +21390,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::SetAtomicAlpha"
@@ -21399,8 +21399,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21416,7 +21416,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::SetCompAlphaCB"
@@ -21425,8 +21425,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21442,7 +21442,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::SetRwObjectAlpha"
@@ -21451,8 +21451,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
@@ -21468,7 +21468,7 @@
       },
       "evidence": {
         "path": "reversing/CEntC/validation-summary.json",
-        "sha256": "42da0f910a723acc0eabb0027da6829c8fd2fb31bb5ad832a9af474082d68321",
+        "sha256": "14552ccb718752de317b26e498e21e8ba959ae8f726f02d9089c0afee0aeecea",
         "passed_path": [
           "covered_functions",
           "CEntity::MaterialUpdateUVAnimCB"
@@ -21477,8 +21477,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e"
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
       "dependency_review": null,
