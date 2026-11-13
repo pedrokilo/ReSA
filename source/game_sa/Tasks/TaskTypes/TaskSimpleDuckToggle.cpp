@@ -42,6 +42,8 @@ CTaskSimpleDuckToggle* __fastcall DuckToggleScalarDeletingDestructor(CTaskSimple
 }
 } // namespace
 
+uintptr_t Lote183ABody_CTaskSimpleDuckToggle() { return reinterpret_cast<uintptr_t>(&DuckToggleDestructorBodyExe); } // para el banco Fn183A
+
 void CTaskSimpleDuckToggle::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleDuckToggle, 0x86dd98, 9);
     RH_ScopedCategory("Tasks/TaskTypes");

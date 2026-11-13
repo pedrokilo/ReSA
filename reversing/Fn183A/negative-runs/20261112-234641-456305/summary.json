@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "09790fb1d1036816fdcb5a2c6fd643cc3e87503921bbb08f2f682efd5c335d34",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CLinkList<CAnimBlendHierarchy*>::Shutdown: 884/2048; CLinkList<CAnimBlendHierarchy*>::Insert: 668/2048; RpAnimBlend::ConvertBoneTag2BoneName: 360/2048; CPad::IsEnterJustPressed: 553/2048; CPad::IsStandardKeyJustPressed: 586/2048; CPad::IsCrossPressed: 146/2048; CTaskSimpleHitFromFront::ScalarDeletingDestructor: 899/2048; CTaskSimpleHitFromBack::ScalarDeletingDestructor: 889/2048; CTaskSimpleHitFromLeft::ScalarDeletingDestructor: 920/2048; CTaskSimpleHitFromRight::ScalarDeletingDestructor: 905/2048; CTaskSimpleHitByGunFromFront::ScalarDeletingDestructor: 906/2048; CTaskSimpleHitByGunFromRear::ScalarDeletingDestructor: 901/2048; CTaskSimpleHitByGunFromLeft::ScalarDeletingDestructor: 899/2048; CTaskSimpleHitByGunFromRight::ScalarDeletingDestructor: 896/2048; CTaskSimpleStandStill::ScalarDeletingDestructor: 909/2048; CTaskSimpleSetStayInSamePlace::ScalarDeletingDestructor: 890/2048; CTaskSimpleSetKindaStayInSamePlace::ScalarDeletingDestructor: 882/2048; CTaskSimpleDuckToggle::ScalarDeletingDestructor: 889/2048; CTaskSimpleDie::ScalarDeletingDestructor: 908/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

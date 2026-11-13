@@ -39,6 +39,8 @@ CTaskSimpleSetKindaStayInSamePlace* __fastcall SetKindaStayInSamePlaceScalarDele
 }
 } // namespace
 
+uintptr_t Lote183ABody_CTaskSimpleSetKindaStayInSamePlace() { return reinterpret_cast<uintptr_t>(&SetKindaStayInSamePlaceDestructorBodyExe); } // para el banco Fn183A
+
 void CTaskSimpleSetKindaStayInSamePlace::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleSetKindaStayInSamePlace, 0x86dd74, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
