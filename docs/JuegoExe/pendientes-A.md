@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 897 grupos / 10344 funciones reconstruidas; 10344 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 897 grupos / 10369 funciones reconstruidas; 10369 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-506 funciones, 82,994 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+502 funciones, 82,136 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -77,7 +77,6 @@
 | `0x006A3BD0` | 646 | CAutomobile | alta | 3 (3) |  |
 | `0x0074CA90` | 543 | Win | baja | 4 (3) |  |
 | `0x0060D5B0` | 465 | CPlayerPed | alta | 3 (3) |  |
-| `0x0072A640` | 335 | CWeather | alta | 3 (3) |  |
 | `0x0064CDA0` | 218 | CTaskSimpleCarFallOut | baja | 3 (3) |  |
 | `0x0040C450` | 195 | CStreaming | alta | 3 (3) |  |
 | `0x0074CCC0` | 165 | Win | baja | 23 (3) |  |
@@ -112,7 +111,6 @@
 | `0x0059A840` | 510 | Interior_c | baja | 2 (2) |  |
 | `0x0059F660` | 480 | CObject | alta | 6 (2) |  |
 | `0x0053E600` | 353 | Game | alta | 2 (2) |  |
-| `0x0065ED40` | 329 | CTaskComplexGangFollower | alta | 2 (2) |  |
 | `0x00746D80` | 322 | CPad | baja | 2 (2) |  |
 | `0x0074C200` | 269 | Win | baja | 2 (2) |  |
 | `0x005DA6A0` | 236 | CCustomCarEnvMapPipeline | baja | 3 (2) |  |
@@ -236,7 +234,6 @@
 | `0x005D8BE0` | 108 | CCustomCarEnvMapPipeline | alta | 1 (1) |  |
 | `0x006396C0` | 108 | CTaskComplexUseClosestFreeScriptedAttractor | baja | 1 (1) |  |
 | `0x00552B50` | 104 | CQuadTreeNode<T> | alta | 2 (1) |  |
-| `0x00411030` | 103 | CColStore | alta | 1 (1) |  |
 | `0x0043F7D0` | 103 | CEntryExitManager | alta | 1 (1) |  |
 | `0x005EE300` | 102 | CPedAttractorManager | baja | 1 (1) |  |
 | `0x005EE400` | 102 | CPedAttractorManager | baja | 2 (1) |  |
@@ -286,7 +283,6 @@
 | `0x005D9060` | 92 | CCustomCarEnvMapPipeline | baja | 1 (1) |  |
 | `0x005D91B0` | 92 | CCustomCarEnvMapPipeline | baja | 1 (1) |  |
 | `0x00731AD0` | 92 | CTxdStore | alta | 1 (1) |  |
-| `0x00410F80` | 91 | CColStore | alta | 1 (1) |  |
 | `0x0043F720` | 91 | CEntryExitManager | alta | 1 (1) |  |
 | `0x00550570` | 91 | CPools | alta | 1 (1) |  |
 | `0x005506F0` | 91 | CPools | alta | 1 (1) |  |

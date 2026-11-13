@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (12/11/2026). Total: **1,543** funciones en 122 clases/módulos (rango 0x401000–0x74FFFF): 1,521 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,518** funciones en 117 clases/módulos (rango 0x401000–0x74FFFF): 1,496 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -22,11 +22,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | FurnitureManager_c | 3 | 306 |
 | CAEWaterCannonAudioEntity | 2 | 309 |
 | CTaskComplexHitPedWithCar | 4 | 319 |
-| CWeather | 2 | 352 |
-| CTaskAllocatorPool | 7 | 362 |
-| CTaskComplexGangFollower | 3 | 365 |
-| CEventPlayerCommandToGroupGather | 8 | 372 |
-| CColStore | 5 | 373 |
 | CTaskComplexWalkRoundFire | 7 | 375 |
 | CHandObject | 3 | 381 |
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | 2 | 382 |
@@ -132,7 +127,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (122 clases / módulos)** | **1,543** | **224,295** |
+| **TOTAL (117 clases / módulos)** | **1,518** | **222,471** |
 
 ## CPedDamageResponseCalculator (2)
 
@@ -225,56 +220,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00657B60 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00653AA0 | 51 | D |  | 0 | 0 |  | alta |
 | 0x006563D0 | 208 | A |  | 1 | 1 |  | baja |
-
-## CWeather (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0072A620 | 17 | C |  | 1 | 0 |  | alta |
-| 0x0072A640 | 335 | A |  | 3 | 3 |  | alta |
-
-## CTaskAllocatorPool (7)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0069DB40 | 11 | C |  | 1 | 0 |  | baja |
-| 0x0069DAC0 | 56 | B |  | 0 | 0 | sí | baja |
-| 0x0069D9C0 | 59 | B |  | 0 | 0 | sí | baja |
-| 0x0069DA00 | 59 | B |  | 0 | 0 | sí | baja |
-| 0x0069DA40 | 59 | B |  | 0 | 0 | sí | baja |
-| 0x0069DA80 | 59 | B |  | 0 | 0 | sí | baja |
-| 0x0069DB00 | 59 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexGangFollower (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0065EBA0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x006634E0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0065ED40 | 329 | A |  | 2 | 2 |  | alta |
-
-## CEventPlayerCommandToGroupGather (8)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00609270 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00609310 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00609320 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00609330 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00609300 | 11 | C |  | 1 | 0 |  | baja |
-| 0x006092E0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00609280 | 90 | B |  | 0 | 0 | sí | baja |
-| 0x006093B0 | 217 | C |  | 1 | 0 |  | baja |
-
-## CColStore (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00410610 | 54 | D |  | 0 | 0 |  | alta |
-| 0x00410FE0 | 54 | D |  | 0 | 0 |  | alta |
-| 0x004110E0 | 71 | D |  | 0 | 0 |  | alta |
-| 0x00410F80 | 91 | A |  | 1 | 1 |  | alta |
-| 0x00411030 | 103 | A |  | 1 | 1 |  | alta |
 
 ## CTaskComplexWalkRoundFire (7)
 

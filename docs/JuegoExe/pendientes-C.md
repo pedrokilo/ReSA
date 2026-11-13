@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 897 grupos / 10344 funciones reconstruidas; 10344 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 897 grupos / 10369 funciones reconstruidas; 10369 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-328 funciones, 57,381 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+324 funciones, 57,125 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -80,7 +80,6 @@
 | `0x005CBB20` | 223 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x0061AD10` | 222 | CTaskSimpleRunTimedAnim | baja | 1 (0) |  |
 | `0x0061FD20` | 219 | CTaskSimpleThrowControl | baja | 1 (0) |  |
-| `0x006093B0` | 217 | CEventPlayerCommandToGroupGather | baja | 1 (0) |  |
 | `0x00402A36` | 211 | CEntity | baja | 1 (0) |  |
 | `0x005CAA90` | 210 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x004C9990` | 202 | CWeaponModelInfo | baja | 4 (0) |  |
@@ -276,7 +275,6 @@
 | `0x0046A2F0` | 18 | CEntity | baja | 2 (0) |  |
 | `0x004700E0` | 18 | CTaskComplexGoToPointAndStandStill | baja | 1 (0) |  |
 | `0x0048B570` | 18 | CRunningScript | baja | 1 (0) |  |
-| `0x0072A620` | 17 | CWeather | alta | 1 (0) |  |
 | `0x005CF820` | 16 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x0049E620` | 15 | CTrafficLights | baja | 1 (0) |  |
 | `0x00447000` | 14 | CEntity | baja | 7 (0) |  |
@@ -308,7 +306,6 @@
 | `0x00605FB0` | 11 | CPedIntelligencePool | baja | 1 (0) |  |
 | `0x00606000` | 11 | CPedIntelligencePool | baja | 1 (0) |  |
 | `0x00606050` | 11 | CPedIntelligencePool | baja | 1 (0) |  |
-| `0x00609300` | 11 | CEventPlayerCommandToGroupGather | baja | 1 (0) |  |
 | `0x006221C0` | 11 | CTaskComplexRoadRage | baja | 1 (0) |  |
 | `0x006348E0` | 11 | CTaskComplexUseClosestFreeScriptedAttractor | baja | 1 (0) |  |
 | `0x006598B0` | 11 | CTaskComplexUseWaterCannon | baja | 1 (0) |  |
@@ -317,7 +314,6 @@
 | `0x00674ED0` | 11 | CTaskComplexWanderCop | baja | 3 (0) |  |
 | `0x00678A90` | 11 | CTaskComplexFallAndGetUp | baja | 1 (0) |  |
 | `0x006926F0` | 11 | CTaskSimpleDuck | baja | 1 (0) |  |
-| `0x0069DB40` | 11 | CTaskAllocatorPool | baja | 1 (0) |  |
 | `0x005CF810` | 10 | FxEmitterBP_c | baja | 2 (0) |  |
 | `0x005CF830` | 10 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x00402DC5` | 9 | CEntity | baja | 4 (0) |  |

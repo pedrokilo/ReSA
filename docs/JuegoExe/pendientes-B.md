@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 897 grupos / 10344 funciones reconstruidas; 10344 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 897 grupos / 10369 funciones reconstruidas; 10369 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo B: Falta: método virtual
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-366 funciones, 21,569 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+352 funciones, 21,038 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -84,7 +84,6 @@
 | `0x00695890` | 96 | CTaskComplexSeekEntityAiming | alta | 0 (0) | sí |
 | `0x004C7670` | 95 | CVehicleModelInfo | alta | 0 (0) | sí |
 | `0x005FEF90` | 93 | CEventScriptedAttractor | baja | 0 (0) | sí |
-| `0x00609280` | 90 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
 | `0x00420F50` | 88 | CEventEditableResponse | baja | 0 (0) | sí |
 | `0x005FF3C0` | 88 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x004B77B0` | 84 | CEventVehicleOnFire | baja | 0 (0) | sí |
@@ -133,12 +132,6 @@
 | `0x00625C20` | 68 | CTaskSimpleThrowProjectile | baja | 0 (0) | sí |
 | `0x00694640` | 68 | CTaskSimpleDuck | baja | 0 (0) | sí |
 | `0x00620BF0` | 64 | CTaskSimpleBeHit | baja | 0 (0) | sí |
-| `0x0069D9C0` | 59 | CTaskAllocatorPool | baja | 0 (0) | sí |
-| `0x0069DA00` | 59 | CTaskAllocatorPool | baja | 0 (0) | sí |
-| `0x0069DA40` | 59 | CTaskAllocatorPool | baja | 0 (0) | sí |
-| `0x0069DA80` | 59 | CTaskAllocatorPool | baja | 0 (0) | sí |
-| `0x0069DB00` | 59 | CTaskAllocatorPool | baja | 0 (0) | sí |
-| `0x0069DAC0` | 56 | CTaskAllocatorPool | baja | 0 (0) | sí |
 | `0x0054F5D0` | 53 | CPlaceable | alta | 0 (0) | sí |
 | `0x006A6590` | 49 | CAutomobile | alta | 0 (0) | sí |
 | `0x0066AD40` | 48 | CTaskComplexAvoidOtherPedWhileWandering | baja | 0 (0) | sí |
@@ -160,7 +153,6 @@
 | `0x005FEFF0` | 30 | CEventScriptedAttractor | baja | 0 (0) | sí |
 | `0x005FF420` | 30 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x005FF7F0` | 30 | CEventSeenCop | baja | 0 (0) | sí |
-| `0x006092E0` | 30 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
 | `0x0060A9A0` | 30 | CPlayerPed | alta | 0 (0) | sí |
 | `0x0061BD80` | 30 | CTaskSimpleRunTimedAnim | baja | 0 (0) | sí |
 | `0x00625B60` | 30 | CTaskSimpleThrowProjectile | baja | 0 (0) | sí |
@@ -213,7 +205,6 @@
 | `0x0065A0F0` | 30 | CTaskComplexMedicTreatInjuredPed | baja | 0 (0) | sí |
 | `0x0065A220` | 30 | CTaskComplexMedicTreatInjuredPed | baja | 0 (0) | sí |
 | `0x0065A700` | 30 | CTaskComplexUseWaterCannon | baja | 0 (0) | sí |
-| `0x006634E0` | 30 | CTaskComplexGangFollower | baja | 0 (0) | sí |
 | `0x0066D6D0` | 30 | CTaskComplexInvestigateDisturbance | baja | 0 (0) | sí |
 | `0x0066D6F0` | 30 | CTaskComplexInvestigateDisturbance | baja | 0 (0) | sí |
 | `0x0066DC70` | 30 | CTaskComplexGoToPointAndStandStill | baja | 0 (0) | sí |
@@ -299,10 +290,6 @@
 | `0x005FF880` | 6 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x005FF890` | 6 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x005FF8A0` | 6 | CEventSeenCop | baja | 0 (0) | sí |
-| `0x00609270` | 6 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
-| `0x00609310` | 6 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
-| `0x00609320` | 6 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
-| `0x00609330` | 6 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
 | `0x0061AEA0` | 6 | CTaskSimpleRunTimedAnim | baja | 0 (0) | sí |
 | `0x0061FC40` | 6 | CTaskSimpleThrowControl | baja | 0 (0) | sí |
 | `0x0061FE60` | 6 | CTaskSimpleThrowControl | baja | 0 (0) | sí |
@@ -318,7 +305,6 @@
 | `0x006597A0` | 6 | CTaskComplexUseWaterCannon | alta | 0 (0) | sí |
 | `0x006598A0` | 6 | CTaskComplexUseWaterCannon | baja | 0 (0) | sí |
 | `0x00659980` | 6 | CTaskComplexUseWaterCannon | baja | 0 (0) | sí |
-| `0x0065EBA0` | 6 | CTaskComplexGangFollower | alta | 0 (0) | sí |
 | `0x0066AAD0` | 6 | CTaskComplexAvoidOtherPedWhileWandering | baja | 0 (0) | sí |
 | `0x0066B780` | 6 | CTaskComplexGoToPointAnyMeans | alta | 0 (0) | sí |
 | `0x0066BB90` | 6 | CTaskComplexGotoDoorAndOpen | alta | 0 (0) | sí |
