@@ -59,12 +59,11 @@ CTask* __fastcall SitInChairClone(CTaskInteriorSitInChair* self, void* /*edx*/) 
         return nullptr;
     }
     auto* const clone = static_cast<CTaskInteriorSitInChair*>(memory);
-    clone->Constructor(
+    return reinterpret_cast<CTask*>(static_cast<uintptr_t>(clone->Constructor(
         reinterpret_cast<void*>(static_cast<uintptr_t>(SitInChairField<uint32>(self, 0x08))),
         SitInChairField<uint32>(self, 0x0C),
         SitInChairField<uint8>(self, 0x10)
-    );
-    return clone;
+    )));
 }
 
 // 0x675D60 (thiscall, tres argumentos de pila, `ret 0xC`, 99 bytes): MakeAbortable del EXE (ranura 2). Con prioridad distinta de INMEDIATA (2) solo pide la parada (byte +0x2A = 1) y devuelve falso. Con prioridad

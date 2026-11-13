@@ -25,12 +25,41 @@ END GENERATED HOOK STATUS */
 #include "CarEnterExit.h"
 #include "Crime.h"
 
+namespace CTaskSimpleBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
+}
+
+namespace {
+constexpr uint32 kSetPedInAsPassengerVTable = 0x86EE04;
+
+// 0x646FE0 (lote 176A, validado con el banco Fn176A; el listado la atribuia a CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse: la clase sale de la vtable 0x86EE04): el constructor del EXE llama a CTaskSimple::CTaskSimple (0x61A390), deja
+// vtable propia, m_bIsFinished (+8) y m_pAnim (+0xC) a cero, m_pTargetVehicle (+0x10), m_nTargetDoor (+0x14), m_pUtility (+0x18) y a cero m_bWarpingInToCar (+0x1C), m_nDoorFlagsToClear (+0x1D) y m_nNumGettingInToClear (+0x1E);
+// por ultimo registra la referencia al vehiculo (CEntity::RegisterReference 0x571B70) solo si no es nulo. thiscall, tres argumentos de pila, `ret 0xC`; devuelve `this`.
+// Como el original, en este orden: base CTaskSimple (0x61A390, con hook), puerta (+14h), vtable del EXE (0x86EE04: la de la DLL no vale para los objetos que construyen los 9 llamadores del EXE), +8 y +0Ch a cero, vehiculo (+10h),
+// utilidad (+18h) y los tres bytes de estado a cero (+1Ch es el argumento NOTSA `warpingInToCar`, siempre falso aqui); por ultimo registra la referencia al vehiculo solo si no es nulo (0x571B70). Funcion propia sin expansion en linea.
+__declspec(noinline) CTaskSimpleCarSetPedInAsPassenger* __fastcall SetPedInAsPassengerConstructorBody(CTaskSimpleCarSetPedInAsPassenger* self, void* /*edx*/, CVehicle* targetVehicle, eTargetDoor targetDoor, CTaskUtilityLineUpPedWithCar* utility) {
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    CTaskSimpleBody::Constructor(self, nullptr);
+    self->m_nTargetDoor = targetDoor;
+    *reinterpret_cast<uint32*>(bytes) = kSetPedInAsPassengerVTable;
+    bytes[0x8] = 0;
+    *reinterpret_cast<uint32*>(bytes + 0xC) = 0;
+    self->m_pTargetVehicle = targetVehicle;
+    self->m_pUtility = utility;
+    bytes[0x1C] = 0;
+    bytes[0x1D] = 0;
+    bytes[0x1E] = 0;
+    CEntity::SafeRegisterRef(self->m_pTargetVehicle);
+    return self;
+}
+} // namespace
+
 void CTaskSimpleCarSetPedInAsPassenger::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCarSetPedInAsPassenger, 0x86EE04, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     // Lote 176A (sin validar): el constructor original (0x646FE0) recibe (vehiculo, puerta, utilidad); la firma de la DLL añade el argumento NOTSA `warpingInToCar`, que la envoltura deja a falso.
-    RH_ScopedInstall(Constructor, 0x646FE0);
+    RH_ScopedNamedGlobalInstall(SetPedInAsPassengerConstructorBody, "Constructor", 0x646FE0);
     RH_ScopedInstall(Destructor, 0x647080);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x64B5B0);
 
@@ -40,9 +69,6 @@ void CTaskSimpleCarSetPedInAsPassenger::InjectHooks() {
     RH_ScopedVMTInstall(ProcessPed, 0x64B5D0);
 }
 
-// 0x646FE0 (lote 176A, sin validar; el listado la atribuia a CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse: la clase sale de la vtable 0x86EE04): el constructor del EXE llama a CTaskSimple::CTaskSimple (0x61A390), deja
-// vtable propia, m_bIsFinished (+8) y m_pAnim (+0xC) a cero, m_pTargetVehicle (+0x10), m_nTargetDoor (+0x14), m_pUtility (+0x18) y a cero m_bWarpingInToCar (+0x1C), m_nDoorFlagsToClear (+0x1D) y m_nNumGettingInToClear (+0x1E);
-// por ultimo registra la referencia al vehiculo (CEntity::RegisterReference 0x571B70) solo si no es nulo. thiscall, tres argumentos de pila, `ret 0xC`; devuelve `this`.
 CTaskSimpleCarSetPedInAsPassenger::CTaskSimpleCarSetPedInAsPassenger(CVehicle* targetVehicle, eTargetDoor nTargetDoor, bool warpingInToCar, CTaskUtilityLineUpPedWithCar* utility) :
     m_nTargetDoor{ nTargetDoor },
     m_pTargetVehicle{ targetVehicle },

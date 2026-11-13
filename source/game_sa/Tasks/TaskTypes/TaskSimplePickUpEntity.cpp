@@ -94,7 +94,7 @@ CTask* CTaskSimplePickUpEntity::Clone() const {
 // je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6935B0; `jmp 0x691630`: es el de CTaskSimpleHoldEntity), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el
 // bit 0 del BYTE de banderas esta puesto y devuelve `this`.
 CTaskSimplePickUpEntity* CTaskSimplePickUpEntity::ScalarDeletingDestructor(uint8 flags) {
-    this->CTaskSimplePickUpEntity::~CTaskSimplePickUpEntity();
+    HoldEntityDestructorBody(this, nullptr); // 0x6935B0 es `jmp 0x691630`
     if (flags & 1) {
         CTask::operator delete(this);
     }

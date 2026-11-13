@@ -83,3 +83,6 @@ private:
 
 VALIDATE_SIZE(CTaskSimpleHoldEntity, 0x3C);
 
+//! 0x691630 (lote 176A): cuerpo del destructor de CTaskSimpleHoldEntity del EXE; lo llaman los destructores con borrado de HoldEntity, PickUp y PutDown
+void __fastcall HoldEntityDestructorBody(CTaskSimpleHoldEntity* self, void* edx);
+
