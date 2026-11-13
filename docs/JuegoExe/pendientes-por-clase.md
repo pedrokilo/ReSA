@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,347** funciones en 85 clases/módulos (rango 0x401000–0x74FFFF): 1,325 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,329** funciones en 81 clases/módulos (rango 0x401000–0x74FFFF): 1,307 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -15,10 +15,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWaterLevel | 1 | 208 |
 | WaterCreature_c | 2 | 211 |
 | CTaskComplexGotoDoorAndOpen | 6 | 388 |
-| CShopping | 5 | 460 |
-| CTaskComplexStealCar | 6 | 461 |
-| CTaskSimpleDuckToggle | 3 | 488 |
-| ProcSurfaceInfo_c | 4 | 489 |
 | CEventAttractor | 8 | 490 |
 | CPlayerPed | 3 | 496 |
 | CTaskSimpleDuck | 8 | 496 |
@@ -95,7 +91,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (85 clases / módulos)** | **1,347** | **210,202** |
+| **TOTAL (81 clases / módulos)** | **1,329** | **208,304** |
 
 ## CAudioZones (1)
 
@@ -133,44 +129,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0066C3E0 | 86 | A |  | 3 | 1 |  | baja |
 | 0x0066C450 | 106 | C |  | 3 | 0 |  | baja |
 | 0x0066C280 | 151 | D |  | 0 | 0 |  | baja |
-
-## CShopping (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0049C3B0 | 28 | A |  | 1 | 1 |  | baja |
-| 0x0049C440 | 54 | D |  | 0 | 0 |  | baja |
-| 0x0049ACD0 | 74 | C |  | 1 | 0 |  | alta |
-| 0x0049BDD0 | 120 | C |  | 1 | 0 |  | alta |
-| 0x0049ABD0 | 184 | A |  | 2 | 2 |  | alta |
-
-## CTaskComplexStealCar (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0063B960 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x006410E0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00642250 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0063D9E0 | 116 | B |  | 0 | 0 | sí | baja |
-| 0x0063BAE0 | 122 | A |  | 2 | 2 |  | baja |
-| 0x0063BA00 | 157 | A |  | 3 | 3 |  | baja |
-
-## CTaskSimpleDuckToggle (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00635E60 | 142 | B |  | 0 | 0 | sí | baja |
-| 0x00635CF0 | 168 | B |  | 0 | 0 | sí | baja |
-| 0x00635DA0 | 178 | B |  | 0 | 0 | sí | baja |
-
-## ProcSurfaceInfo_c (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005A3070 | 12 | D |  | 0 | 0 |  | baja |
-| 0x005A3090 | 122 | C |  | 1 | 0 |  | baja |
-| 0x005A3E20 | 126 | C |  | 1 | 0 |  | baja |
-| 0x005A2F80 | 229 | A |  | 1 | 1 |  | baja |
 
 ## CEventAttractor (8)
 
@@ -1319,14 +1277,14 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x004A8DC0 | 1 | A |  | 18 | 4 |  | baja |
-| 0x004A8DE0 | 1 | A |  | 35 | 12 |  | baja |
+| 0x004A8DE0 | 1 | A |  | 35 | 13 |  | baja |
 | 0x004A8460 | 7 | C |  | 18 | 0 |  | baja |
 | 0x004A87F0 | 7 | C |  | 15 | 0 |  | baja |
 | 0x004A89B0 | 7 | C |  | 27 | 0 |  | baja |
 | 0x004A8B70 | 7 | C |  | 4 | 0 |  | baja |
 | 0x004A9090 | 12 | D |  | 0 | 0 |  | baja |
-| 0x004A8DD0 | 13 | A |  | 20 | 13 |  | baja |
-| 0x004A8DB0 | 16 | A |  | 15 | 12 |  | baja |
+| 0x004A8DD0 | 13 | A |  | 20 | 14 |  | baja |
+| 0x004A8DB0 | 16 | A |  | 15 | 13 |  | baja |
 | 0x004A8440 | 20 | A |  | 9 | 0 |  | baja |
 | 0x004A87D0 | 20 | A |  | 8 | 0 |  | baja |
 | 0x004A8990 | 20 | A |  | 13 | 0 |  | baja |

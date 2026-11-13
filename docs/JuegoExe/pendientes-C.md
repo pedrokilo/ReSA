@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 13/11/2026 (Ciudad de México):** 901 grupos / 10540 funciones reconstruidas; 10540 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 13/11/2026 (Ciudad de México):** 902 grupos / 10558 funciones reconstruidas; 10558 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-313 funciones, 55,778 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+309 funciones, 55,336 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -111,15 +111,12 @@
 | `0x005C6600` | 127 | FxEmitterBP_c | baja | 3 (0) |  |
 | `0x005C9C60` | 127 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x00745560` | 127 | Ps | alta | 1 (0) |  |
-| `0x005A3E20` | 126 | ProcSurfaceInfo_c | baja | 1 (0) |  |
 | `0x005A74F0` | 125 | CClothesBuilder | baja | 1 (0) |  |
 | `0x0074EB80` | 124 | Win | baja | 1 (0) |  |
-| `0x005A3090` | 122 | ProcSurfaceInfo_c | baja | 1 (0) |  |
 | `0x005A6FC0` | 122 | CClothesBuilder | baja | 4 (0) |  |
 | `0x00620B00` | 121 | CTaskSimpleBeHit | baja | 1 (0) |  |
 | `0x00670A70` | 121 | CTaskComplexTurnToFaceEntityOrCoord | baja | 2 (0) |  |
 | `0x00403B03` | 120 | CEntity | baja | 1 (0) |  |
-| `0x0049BDD0` | 120 | CShopping | alta | 1 (0) |  |
 | `0x00659990` | 120 | CTaskComplexUseWaterCannon | baja | 1 (0) |  |
 | `0x0043EF20` | 112 | CEntryExitManager | alta | 2 (0) |  |
 | `0x0061AC90` | 112 | CTaskSimpleRunTimedAnim | baja | 1 (0) |  |
@@ -166,7 +163,6 @@
 | `0x004CB560` | 78 | CWeaponModelInfo | baja | 7 (0) |  |
 | `0x0054F440` | 77 | CPlaceable | alta | 1 (0) |  |
 | `0x00401000` | 74 | CEntity | baja | 1 (0) |  |
-| `0x0049ACD0` | 74 | CShopping | alta | 1 (0) |  |
 | `0x005CF8C0` | 70 | FxEmitterBP_c | baja | 6 (0) |  |
 | `0x004A6A90` | 67 | FxInfoManager_c | alta | 1 (0) |  |
 | `0x004A6B00` | 67 | FxInfoManager_c | alta | 1 (0) |  |
