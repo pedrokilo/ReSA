@@ -447,7 +447,7 @@ inline void Update() {
     env.stubs[8] = {F(0x61A3A0, K[8])};
     env.stubs[9] = {F(0x690D90, K[9]), Del()};
     env.stubs[10] = {F(0x6912C0, K[10]), Del()};
-    env.stubs[11] = {U(0x691630, Lote151ABody_CTaskSimpleHoldEntity(), K[11]), Del()};
+    env.stubs[11] = {H(0x691630, Lote151ABody_CTaskSimpleHoldEntity(), K[11]), Del()};
     env.stubs[12] = {F(0x61ABE0, &FkRunTimedCtor)};
     env.stubs[15] = {F(0x61A5A0, &FkNew<0x61A5A0>), F(0x6919C0, &FkPickCtor)};
     MakeCollab(env, 0x4AC010, hooksFound);   // 0x5FF860 es `jmp 0x4AC010` y ese cuerpo de ~CEvent tiene hook ajeno: se apaga (ruta de colaborador) para que el salto lleve al codigo del EXE
