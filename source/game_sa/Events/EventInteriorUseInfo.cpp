@@ -73,7 +73,12 @@ bool CEventInteriorUseInfo::IsValid(CPed* ped) {
 // 0x674EA0 (lote 184A, sin validar; el listado decia CTaskComplexWanderCop): constructor del EXE (thiscall, cuatro argumentos de pila, `ret 10h`, 48 bytes). Llama al constructor de CEvent (0x4ABFC0), guarda la informacion del
 // interior (+0xC), el BYTE bajo del cuarto argumento (+0x18), deja la vtable de la clase del EXE (0x8701A8), el interior (+0x10) y el tiempo de animacion (+0x14); devuelve `this`.
 CEventInteriorUseInfo* CEventInteriorUseInfo::Constructor(InteriorInfo_t* interiorInfo, Interior_c* interior, uint32 animTime, int8 loopAction) {
-    this->CEventInteriorUseInfo::CEventInteriorUseInfo(interiorInfo, interior, animTime, loopAction);
+    CEvent::Constructor(); // 0x4ABFC0 (con hook): el EXE lo llama PRIMERO; despues escribe los campos y la vtable de la clase del EXE
+    m_InteriorInfo = interiorInfo;
+    m_nLoopAction = loopAction;
+    *reinterpret_cast<uint32*>(this) = 0x8701A8;
+    m_Interior = interior;
+    m_ActionAnimTime = animTime;
     return this;
 }
 
