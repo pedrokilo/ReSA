@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 899 grupos / 10469 funciones reconstruidas; 10469 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 13/11/2026 (Ciudad de México):** 900 grupos / 10514 funciones reconstruidas; 10514 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo D: Falta: sin llamadas ni vtable (¿muerto o por puntero?)
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-292 funciones, 53,397 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+286 funciones, 53,149 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -45,7 +45,6 @@
 | `0x00683450` | 138 | CTaskComplexWaitForPed | baja | 0 (0) |  |
 | `0x005CC610` | 136 | FxEmitterBP_c | baja | 0 (0) |  |
 | `0x0074BCC0` | 124 | Win | baja | 0 (0) |  |
-| `0x00674F00` | 122 | CTaskComplexWanderCop | baja | 0 (0) |  |
 | `0x007496A0` | 122 | Win | baja | 0 (0) |  |
 | `0x005C90D0` | 120 | FxEmitterBP_c | baja | 0 (0) |  |
 | `0x00678A10` | 110 | CTaskComplexFallAndGetUp | baja | 0 (0) |  |
@@ -186,7 +185,6 @@
 | `0x004D6240` | 47 | RpAnimBlend | alta | 0 (0) |  |
 | `0x004D6310` | 46 | RpAnimBlend | alta | 0 (0) |  |
 | `0x005A47E0` | 46 | CClothesBuilder | alta | 0 (0) |  |
-| `0x004B1F90` | 45 | CEventPotentialWalkIntoFire | baja | 0 (0) |  |
 | `0x004F3AAD` | 45 | CAEUserRadioTrackManager | alta | 0 (0) |  |
 | `0x004B7810` | 44 | CEventVehicleOnFire | baja | 0 (0) |  |
 | `0x005BF3D0` | 44 | Game | baja | 0 (0) |  |
@@ -224,10 +222,8 @@
 | `0x0066BA70` | 30 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) |  |
 | `0x0066CB90` | 30 | CTaskComplexInvestigateDisturbance | baja | 0 (0) |  |
 | `0x006712C0` | 30 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) |  |
-| `0x00674F90` | 30 | CTaskComplexWanderCop | baja | 0 (0) |  |
 | `0x00676D10` | 30 | CTaskInteriorUseInfo | baja | 0 (0) |  |
 | `0x00407670` | 27 | CStreaming | alta | 0 (0) |  |
-| `0x004A11C0` | 27 | Fx_c | baja | 0 (0) |  |
 | `0x004A6A70` | 27 | FxInfoManager_c | alta | 0 (0) |  |
 | `0x004A6AE0` | 27 | FxInfoManager_c | alta | 0 (0) |  |
 | `0x004A6B50` | 27 | FxInfoManager_c | alta | 0 (0) |  |
@@ -284,9 +280,7 @@
 | `0x004032A4` | 15 | CEntity | baja | 0 (0) |  |
 | `0x005D28D0` | 15 | CObject | baja | 0 (0) |  |
 | `0x004F3D50` | 14 | CAEUserRadioTrackManager | alta | 0 (0) |  |
-| `0x0049EA80` | 12 | Fx_c | alta | 0 (0) |  |
 | `0x004A9090` | 12 | FxInfoManager_c | baja | 0 (0) |  |
-| `0x004D40A0` | 12 | CAnimManager | alta | 0 (0) |  |
 | `0x00517760` | 12 | CCam | baja | 0 (0) |  |
 | `0x00597FE0` | 12 | Interior_c | baja | 0 (0) |  |
 | `0x005A3070` | 12 | ProcSurfaceInfo_c | baja | 0 (0) |  |

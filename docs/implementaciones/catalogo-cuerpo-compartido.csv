@@ -1,4 +1,5 @@
 catalog_identity,catalog_address,catalog,reversed,validated,file,line,language,via
+CLinkList<CAnimBlendHierarchy*>::Shutdown,0x004D40A0,hooks.csv,1,1,source/game_sa/Core/LinkList.h,41,C++,plantilla genérica
 CObjectPool::GetAt,0x00404870,hooks.csv,1,1,source/game_sa/Core/Pool.h,164,C++,plantilla heredada
 CTaskComplexSeekEntityRadiusAngleOffset::CreateSubTask,0x00496270,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,146,C++,plantilla heredada
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::CreateSubTask,0x00665270,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,146,C++,plantilla genérica

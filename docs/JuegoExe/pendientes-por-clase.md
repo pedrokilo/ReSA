@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,418** funciones en 95 clases/módulos (rango 0x401000–0x74FFFF): 1,396 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,373** funciones en 90 clases/módulos (rango 0x401000–0x74FFFF): 1,351 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -15,11 +15,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWaterLevel | 1 | 208 |
 | WaterCreature_c | 2 | 211 |
 | CTaskComplexGotoDoorAndOpen | 6 | 388 |
-| CTaskSimpleHitFromFront | 13 | 390 |
-| Fx_c | 8 | 429 |
-| CAnimManager | 6 | 434 |
-| CEventPotentialWalkIntoFire | 9 | 440 |
-| CTaskComplexWanderCop | 9 | 442 |
 | CObjectPool | 5 | 446 |
 | COnscreenCounterEntry | 3 | 450 |
 | CTaskComplexSeekEntityAiming | 6 | 451 |
@@ -105,7 +100,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (95 clases / módulos)** | **1,418** | **214,602** |
+| **TOTAL (90 clases / módulos)** | **1,373** | **212,467** |
 
 ## CAudioZones (1)
 
@@ -143,76 +138,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0066C3E0 | 86 | A |  | 3 | 1 |  | baja |
 | 0x0066C450 | 106 | C |  | 3 | 0 |  | baja |
 | 0x0066C280 | 151 | D |  | 0 | 0 |  | baja |
-
-## CTaskSimpleHitFromFront (13)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00637300 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637330 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637360 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637390 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006373C0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006373F0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637420 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637450 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637480 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006374A0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006374C0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006374E0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637500 | 30 | B |  | 0 | 0 | sí | baja |
-
-## Fx_c (8)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0049EA80 | 12 | D |  | 0 | 0 |  | alta |
-| 0x0049EAE0 | 21 | A |  | 1 | 1 |  | alta |
-| 0x004A1320 | 26 | A |  | 1 | 1 |  | baja |
-| 0x004A11C0 | 27 | D |  | 0 | 0 |  | baja |
-| 0x004A12D0 | 57 | A |  | 1 | 0 |  | baja |
-| 0x0049EA90 | 66 | A |  | 1 | 1 |  | alta |
-| 0x004A1280 | 67 | A |  | 1 | 1 |  | baja |
-| 0x004A11E0 | 153 | A |  | 1 | 1 |  | baja |
-
-## CAnimManager (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004D40A0 | 12 | D |  | 0 | 0 |  | alta |
-| 0x004D59E0 | 23 | A |  | 2 | 2 |  | baja |
-| 0x004D59B0 | 40 | C |  | 1 | 0 |  | baja |
-| 0x004D5980 | 46 | C |  | 1 | 0 |  | baja |
-| 0x004D40C0 | 64 | A |  | 2 | 2 |  | alta |
-| 0x004D56F0 | 249 | C |  | 2 | 0 |  | baja |
-
-## CEventPotentialWalkIntoFire (9)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B1EE0 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004B1ED0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B1EF0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B1F90 | 45 | D |  | 0 | 0 |  | baja |
-| 0x004B6990 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B69E0 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B6A30 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B6A80 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B6AD0 | 76 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexWanderCop (9)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00460CD0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00460D50 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00674ED0 | 11 | C |  | 3 | 0 |  | baja |
-| 0x00460D60 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00674F90 | 30 | D |  | 0 | 0 |  | baja |
-| 0x00674EA0 | 48 | A |  | 2 | 2 |  | baja |
-| 0x00460D80 | 87 | A |  | 2 | 1 |  | baja |
-| 0x00460CE0 | 102 | B |  | 0 | 0 | sí | baja |
-| 0x00674F00 | 122 | D |  | 0 | 0 |  | baja |
 
 ## CObjectPool (5)
 
@@ -566,8 +491,8 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0049E640 | 10 | A |  | 1 | 1 |  | baja |
 | 0x0049E650 | 10 | A |  | 2 | 2 |  | baja |
 | 0x0049E620 | 15 | C |  | 1 | 0 |  | baja |
-| 0x0049E850 | 242 | A |  | 1 | 0 |  | baja |
-| 0x0049E660 | 493 | A |  | 2 | 0 |  | baja |
+| 0x0049E850 | 242 | A |  | 1 | 1 |  | baja |
+| 0x0049E660 | 493 | A |  | 2 | 2 |  | baja |
 
 ## CTaskComplexWaitForPed (6)
 
@@ -1457,7 +1382,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004A8B70 | 7 | C |  | 4 | 0 |  | baja |
 | 0x004A9090 | 12 | D |  | 0 | 0 |  | baja |
 | 0x004A8DD0 | 13 | A |  | 20 | 13 |  | baja |
-| 0x004A8DB0 | 16 | A |  | 15 | 10 |  | baja |
+| 0x004A8DB0 | 16 | A |  | 15 | 12 |  | baja |
 | 0x004A8440 | 20 | A |  | 9 | 0 |  | baja |
 | 0x004A87D0 | 20 | A |  | 8 | 0 |  | baja |
 | 0x004A8990 | 20 | A |  | 13 | 0 |  | baja |
@@ -1499,7 +1424,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004A8D70 | 27 | D |  | 0 | 0 |  | baja |
 | 0x004A8D90 | 27 | D |  | 0 | 0 |  | baja |
 | 0x004A8E70 | 54 | A |  | 11 | 11 |  | baja |
-| 0x004A8E30 | 59 | A |  | 16 | 14 |  | baja |
+| 0x004A8E30 | 59 | A |  | 16 | 16 |  | baja |
 | 0x004A6A90 | 67 | C |  | 1 | 0 |  | alta |
 | 0x004A6B00 | 67 | C |  | 1 | 0 |  | alta |
 | 0x004A6B70 | 67 | C |  | 1 | 0 |  | alta |
