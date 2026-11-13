@@ -10445,7 +10445,6 @@ CTaskSimpleAbseil,Constructor,0x006586A0,1,0,1,S
 CTaskSimpleAbseil,Clone,0x00000000,1,0,1,V
 CTaskComplexGoToPointAndStandStillAndAchieveHeading,CreateSubTask,0x00668D50,1,0,1,S
 CTaskComplexFollowPointRoute,DestructorBody,0x0066E050,1,0,1,S
-<<<<<<< HEAD
 CGame,ActivateMenuOnSetFocus,0x0053BC60,1,0,1,S
 CGame,ReleaseBlockA,0x0053C860,1,0,1,S
 CGame,ReleaseBlockB,0x0053C890,1,0,1,S
@@ -10488,33 +10487,6 @@ CTaskSimpleSetStayInSamePlace,ScalarDeletingDestructor,0x006374A0,1,0,1,S
 CTaskSimpleSetKindaStayInSamePlace,ScalarDeletingDestructor,0x006374C0,1,0,1,S
 CTaskSimpleDuckToggle,ScalarDeletingDestructor,0x006374E0,1,0,1,S
 CTaskSimpleDie,ScalarDeletingDestructor,0x00637500,1,0,1,S
-CTaskComplexWander,GetTaskType,0x00000000,1,0,0,V
-CTaskComplexWanderCop,DestructorBody,0x00460D80,1,0,0,S
-CTaskComplexWanderCop,ScalarDeletingDestructor,0x00460D60,1,0,0,S
-CTaskComplexWanderCop,Clone,0x00000000,1,0,0,V
-CTaskComplexWanderCop,GetWanderType,0x00000000,1,0,0,V
-Fx_c,FxEntitySystemConstructor,0x0049EA80,1,0,0,S
-Fx_c,Init,0x0049EA90,1,0,0,S
-Fx_c,Reset,0x0049EAE0,1,0,0,S
-Fx_c,FxEntitySystemScalarDeletingDestructor,0x004A11C0,1,0,0,S
-Fx_c,CreateEntityFx,0x004A11E0,1,0,0,S
-Fx_c,DestroyEntityFx,0x004A1280,1,0,0,S
-Fx_c,ExitEntitySystems,0x004A12D0,1,0,0,S
-Fx_c,Exit,0x004A1320,1,0,0,S
-CEventPotentialWalkIntoFire,GetEventType,0x00000000,1,0,0,V
-CEventPotentialWalkIntoFire,GetLifeTime,0x00000000,1,0,0,V
-CEventPotentialWalkIntoFire,GetEventPriority,0x00000000,1,0,0,V
-CEventFireNearby,AffectsPed,0x00000000,1,0,0,V
-CEventGunShotWhizzedBy,ScalarDeletingDestructor,0x004B6990,1,0,0,S
-CEventSeenPanickedPed,ScalarDeletingDestructor,0x004B69E0,1,0,0,S
-CEventAreaCodes,ScalarDeletingDestructor,0x004B6A30,1,0,0,S
-CEventPlayerCommandToGroup,ScalarDeletingDestructor,0x004B6A80,1,0,0,S
-CEventDanger,ScalarDeletingDestructor,0x004B6AD0,1,0,0,S
-CEventInteriorUseInfo,Constructor,0x00674EA0,1,0,0,S
-CEventInteriorUseInfo,DestructorBody,0x00674ED0,1,0,0,S
-CEventInteriorUseInfo,Clone,0x00000000,1,0,0,V
-CEventInteriorUseInfo,ScalarDeletingDestructor,0x00674F90,1,0,0,S
-=======
 CTaskComplexWander,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexWanderCop,DestructorBody,0x00460D80,1,0,1,S
 CTaskComplexWanderCop,ScalarDeletingDestructor,0x00460D60,1,0,1,S
@@ -10541,4 +10513,3 @@ CEventInteriorUseInfo,Constructor,0x00674EA0,1,0,1,S
 CEventInteriorUseInfo,DestructorBody,0x00674ED0,1,0,1,S
 CEventInteriorUseInfo,Clone,0x00000000,1,0,1,V
 CEventInteriorUseInfo,ScalarDeletingDestructor,0x00674F90,1,0,1,S
->>>>>>> 408c2e0120 (Lote 184A validado: 26 funciones (GetTaskType de CTaskComplexWander, Clone, GetWanderType, destructor con borrado y cuerpo de CTaskComplexWanderCop, constructor y destructor con borrado de FxEntitySystem, Init, Reset, CreateEntityFx, DestroyEntityFx, ExitEntitySystems y Exit de Fx_c, tres virtuales constantes de CEventPotentialWalkIntoFire, AffectsPed de CEventFireNearby, cinco destructores con borrado de eventos, constructor, cuerpo del destructor, Clone y destructor con borrado de CEventInteriorUseInfo) con banco Fn184A (425984 pares, cero diferencias, 26/26 fallan en dos rondas negativas); correccion de fuente hecha al validar: constructor y Clone de CEventInteriorUseInfo llaman primero al CEvent::Constructor enganchado y dejan la vtable 0x8701A8 del EXE; 26 filas de hooks.csv a validated=1)
