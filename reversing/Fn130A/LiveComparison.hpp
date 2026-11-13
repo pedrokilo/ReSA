@@ -372,6 +372,17 @@ inline void Update() {
         if (!it->second.hooked || !it->second.dll) ready = false;   // se esperaba hook RH con cuerpo en el ASI
         return S(it->second, reinterpret_cast<void*>(fake));
     };
+    // Colaborador CON hook RH cuya llamada, en la funcion probada, va a una funcion propia de la DLL distinta de la envoltura del hook (direccion dada): el hook se apaga (ruta) y el falso va en la
+    // direccion del EXE y en esa funcion (pase final de bancos viejos: el colaborador tiene hook desde un lote posterior).
+    auto H = [&](uintptr_t exe, uintptr_t dllAddress, auto* fake) {
+        auto it = collabCache.find(exe);
+        if (it == collabCache.end()) it = collabCache.emplace(exe, MakeCollab(env, exe, hooksFound)).first;
+        if (!it->second.hooked) ready = false;
+        Pair p = it->second;
+        p.dll = Body(dllAddress); p.hooked = true;
+        if (!p.dll || ModuleOf(p.dll) != env.asi) ready = false;
+        return S(p, reinterpret_cast<void*>(fake));
+    };
     // Colaborador SIN hook RH: la DLL tiene su propia funcion (direccion dada); el falso va en la direccion del EXE y en esa funcion. Se exige que de verdad no tenga hook.
     auto U = [&](uintptr_t exe, uintptr_t dllAddress, auto* fake) {
         std::string cat, name;
@@ -389,7 +400,7 @@ inline void Update() {
     env.stubs[2] = {F(0x53DED0, &FkLoadingScreen)};
     env.reals[2] = {Pair{0x821490, 0, false}, Pair{0x821BB5, 0, false}};
     env.reals[3] = {Pair{0x821B40, 0, false}};
-    env.stubs[4] = {U(0x572130, Lote130ATheZonesLockedOrUnlockedAddress(), &FkZone)};
+    env.stubs[4] = {H(0x572130, Lote130ATheZonesLockedOrUnlockedAddress(), &FkZone)};
     env.stubs[5] = {X(0x8213AE, &FkFree), X(0x8214BD, &FkDelete)};
     env.stubs[7] = {F(0x732380, &FkSetUser)};
     env.stubs[9] = {F(0x532560, &FkDummyBody)};   // desde el lote 141A el cuerpo de ~CDummy (0x532560) tiene hook RH

@@ -260,9 +260,9 @@ inline void Update() {
     const uintptr_t vehicleDelete = reinterpret_cast<uintptr_t>(static_cast<VoidDelete>(&CVehicle::operator delete));
     const uintptr_t objectDelete = reinterpret_cast<uintptr_t>(static_cast<VoidDelete>(&CObject::operator delete));
     env.stubs[0] = {F(0x6F00F0, &FkBody<0x6F00F0>), U(0x6E2D90, vehicleDelete, &FkDelete<0x6E2D90>)};
-    env.stubs[1] = {U(0x5B1A80, Lote125ACutsceneObjectDestructorBody(), &FkBody<0x5B1A80>), U(0x5A1F20, objectDelete, &FkDelete<0x5A1F20>)};
+    env.stubs[1] = {H(0x5B1A80, Lote125ACutsceneObjectDestructorBody(), &FkBody<0x5B1A80>), H(0x5A1F20, objectDelete, &FkDelete<0x5A1F20>)};
     env.stubs[2] = {H(0x59EAB0, Lote125ADummyObjectDestructorBody(), &FkBody<0x59EAB0>), F(0x5326F0, &FkDelete<0x5326F0>)};
-    env.stubs[3] = {U(0x6C7D10, Lote125AMonsterTruckDestructorBody(), &FkBody<0x6C7D10>), U(0x6E2D90, vehicleDelete, &FkDelete<0x6E2D90>)};
+    env.stubs[3] = {H(0x6C7D10, Lote125AMonsterTruckDestructorBody(), &FkBody<0x6C7D10>), U(0x6E2D90, vehicleDelete, &FkDelete<0x6E2D90>)};
     env.stubs[4] = {F(0x4994E0, &FkBody<0x4994E0>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[5] = {F(0x6331E0, &FkBody<0x6331E0>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[6] = {F(0x5F6700, &FkBody<0x5F6700>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
@@ -274,9 +274,9 @@ inline void Update() {
     env.stubs[12] = {F(0x622110, &FkBody<0x622110>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     const char* dllReal[kFunctions] = {
         "toda la funcion salvo el cuerpo ~CBoat (0x6F00F0, envoltura Destructor() con falso identico) y CVehicle::operator delete (0x6E2D90, funcion de la DLL sin hook, falso identico)",
-        "toda la funcion salvo el cuerpo ~CCutsceneObject (0x5B1A80, funcion propia sin hook, falso identico) y CObject::operator delete (0x5A1F20, sin hook, falso identico)",
+        "toda la funcion salvo el cuerpo ~CCutsceneObject (0x5B1A80, con hook desde el lote 164A-187A y cuerpo propio, falso identico en la direccion del EXE y en el cuerpo) y CObject::operator delete (0x5A1F20, con hook, falso identico en la direccion del EXE y en su cuerpo)",
         "toda la funcion salvo el cuerpo ~CDummyObject (0x59EAB0, con hook desde el lote 161A y cuerpo propio, falso identico en la direccion del EXE y en el cuerpo) y CDummy::operator delete (0x5326F0, con hook desde el lote 146A, falso identico en la direccion del EXE y en su cuerpo)",
-        "toda la funcion salvo el cuerpo ~CMonsterTruck (0x6C7D10, funcion propia sin hook, falso identico) y CVehicle::operator delete (0x6E2D90, sin hook, falso identico)",
+        "toda la funcion salvo el cuerpo ~CMonsterTruck (0x6C7D10, con hook y cuerpo propio, falso identico en la direccion del EXE y en el cuerpo) y CVehicle::operator delete (0x6E2D90, sin hook, falso identico)",
         "toda la funcion salvo ~CTaskComplexBeCop (0x4994E0, envoltura Destructor() con falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)",
         "toda la funcion salvo ~CTaskComplexUsePairedAttractor (0x6331E0, envoltura Destructor() con falso identico) y CTask::operator delete (0x61A5B0, falso identico)",
         "toda la funcion salvo ~CTaskComplexBeStill (0x5F6700, envoltura Destructor() con falso identico) y CTask::operator delete (0x61A5B0, falso identico)",

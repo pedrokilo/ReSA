@@ -349,6 +349,17 @@ inline void Update() {
         if (!body || ModuleOf(body) != env.asi) ready = false;
         return S(Pair{exe, body, false}, fake);
     };
+    // Colaborador CON hook RH cuya llamada, en la funcion probada, va a una funcion propia de la DLL distinta de la envoltura del hook (direccion dada): el hook se apaga (ruta) y el falso va en la
+    // direccion del EXE y en esa funcion. (Pase final: 0x6CDC30 tiene hook desde el lote 164A-187A.)
+    auto H = [&](uintptr_t exe, uintptr_t dllAddress, void* fake) {
+        auto it = collabCache.find(exe);
+        if (it == collabCache.end()) it = collabCache.emplace(exe, MakeCollab(env, exe, hooksFound)).first;
+        if (!it->second.hooked) ready = false;
+        Pair p = it->second;
+        p.dll = Body(dllAddress); p.hooked = true;
+        if (!p.dll || ModuleOf(p.dll) != env.asi) ready = false;
+        return S(p, fake);
+    };
     using VoidDelete = void (*)(void*);
     const uintptr_t vehicleDelete = reinterpret_cast<uintptr_t>(static_cast<VoidDelete>(&CVehicle::operator delete));
     std::array<std::string, kFunctions> dllRealText;
@@ -356,7 +367,7 @@ inline void Update() {
         const u32 body = kCollab[f], del = kDelete[f];
         std::string text = "toda la funcion";
         if (body) {
-            env.stubs[f].push_back(body == 0x6CDC30 ? U(body, Lote141AQuadBikeDestructorBody(), BodyFake(body)) : F(body, BodyFake(body)));
+            env.stubs[f].push_back(body == 0x6CDC30 ? H(body, Lote141AQuadBikeDestructorBody(), BodyFake(body)) : F(body, BodyFake(body)));
             text += body == 0x6CDC30 ? " salvo ~CQuadBike (0x6CDC30, funcion propia sin hook, falso identico)" : " salvo el colaborador 0x" + [&] { char b[16]; std::snprintf(b, sizeof(b), "%X", body); return std::string(b); }() + " (con hook, falso identico en la direccion del EXE y en el cuerpo de la DLL)";
         }
         if (del) {
