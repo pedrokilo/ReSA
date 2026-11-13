@@ -1,0 +1,3 @@
+APROBADO: CPed, grupo D: ciclo de vida, estado y consultas
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpedd\20261113-150319-415003

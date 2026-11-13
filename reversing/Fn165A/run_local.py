@@ -28,12 +28,12 @@ SLOTS = ()
 # ~CAESound 0x4EF660, CleanUpOldReference 0x571A00, cuerpo ~CEventEditableResponse 0x4AC480, CEvent::operator delete 0x4B5630, ~CPedIntelligence 0x607300, CPedIntelligence::operator delete 0x6074E0, CMemoryMgr::Free 0x72F430,
 # FindKeyFrame 0x4D0240, cuerpos de destructor 0x64FC00, 0x640330, 0x640380, 0x6403D0 y 0x640420 y CTask::operator delete 0x61A5B0; 0x5DEA00 es otra funcion probada del lote, con su propia ruta). El cuerpo 0x6404D0 no
 # tiene hook (funcion propia de la DLL, con el falso en la direccion del EXE y en ella) y operator delete del CRT 0x8214BD tampoco (la DLL lo llama por la direccion del EXE: un solo parche).
-DLL_BODY_WITHOUT_HOOK = {0x6404D0}
+DLL_BODY_WITHOUT_HOOK = set()   # pase final de bancos viejos: ~CTaskComplexDragPedFromCar 0x6404D0 tiene hook (H)
 DL, EV, CRT = (0x61A5B0, True), (0x4B5630, True), (0x8214BD, False)
 STUBBED = {n: [] for n in NAMES}
 STUBBED.update({NAMES[0]: [(0x4EF1C0, True)], NAMES[1]: [(0x4EF850, True), (0x4EF660, True)], NAMES[2]: [(0x571A00, True), (0x4AC480, True)], NAMES[8]: [(0x5DEA00, True), EV],
                 NAMES[10]: [(0x607300, True), (0x6074E0, True)], NAMES[12]: [(0x72F430, True)], NAMES[13]: [(0x72F430, True), CRT], NAMES[14]: [(0x4D0240, True)], NAMES[15]: [(0x64FC00, True), CRT],
-                NAMES[16]: [(0x640330, True), DL], NAMES[17]: [(0x640380, True), DL], NAMES[18]: [(0x6403D0, True), DL], NAMES[19]: [(0x640420, True), DL], NAMES[20]: [(0x6404D0, False), DL]})
+                NAMES[16]: [(0x640330, True), DL], NAMES[17]: [(0x640380, True), DL], NAMES[18]: [(0x6403D0, True), DL], NAMES[19]: [(0x640420, True), DL], NAMES[20]: [(0x6404D0, True), DL]})
 REAL = {}
 WATCHED = set(HOOKS.values()) | set(SLOTS) | {a for lst in STUBBED.values() for a, _ in lst} | {a for lst in REAL.values() for a, _ in lst}
 COVER_FLOOR = 50

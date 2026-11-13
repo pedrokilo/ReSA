@@ -40,7 +40,7 @@
   "log_sha256": "c786d28791de2d13b9549b19e081d7fe7315f6b430afdfaf3a6fc3e3f86441f5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc70\\20261107-002009-048018",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc70\\20261113-134704-671174",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEStreamingDecoder::Constructor": true,
@@ -70,14 +70,14 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "ce492f4f53f096e1ebd4fe1959378dea50daab37bc0371af06ecb9df0d177840",
-      "pdb": "6565cab850acdf5a27f2d31fdaf7479e0cd17620814f95450477e44898a66101"
+      "asi": "8173b8a8a237f91488a2906ec1f588008630622c5ef2c913e9b38d7a9d7b5074",
+      "pdb": "9a0b9891d0ad99d32e48d0706698df0c40f01ccfe5e88d39dda6ede8485a5f0f"
     },
     "sources": {
       "source/game_sa/Audio/Loaders/AEStreamingDecoder.cpp": "c50c71a1e899152ae7a2e4205559cc0e8a7c6b179643e36dee8bcd94570b7850",
       "source/game_sa/Audio/Loaders/AEStreamingDecoder.h": "b9c2565c76e795f8405595b9d0d6e620ed20c71ad320a8b56eb0e160ef5a57c0",
-      "source/game_sa/Audio/Loaders/AEStreamTransformer.cpp": "8edb5df40a3f1fb70672db5e0da21d3cc8de59b9eb166b1d827acfbf229dc4ed",
-      "source/game_sa/Audio/Loaders/AEStreamTransformer.h": "a2edeef521d734aec75578428a8e942b72a6d2bacbe2180f2a65155a346c19d0",
+      "source/game_sa/Audio/Loaders/AEStreamTransformer.cpp": "e0729c0e65bbe01c425f68ac92b337713fd6eb9ae089bc4b71e45f222d0b4225",
+      "source/game_sa/Audio/Loaders/AEStreamTransformer.h": "64b7df0205426e33c1281d823057e2f820d794d5cab912a39b4355e1df3a0427",
       "source/game_sa/Collision/ColourSet.cpp": "3ac19ab41af85aca76b9ae18b6c22a7da408625543e67be98fa31e4f06d5e427",
       "source/game_sa/Collision/ColourSet.h": "dc8e6070157b9648b67470ce88398e2bd693339a2edcc6d41b512e08a6f98e17",
       "source/game_sa/Crime.cpp": "ff7f3bbadcc857977952edab7342ee033bb5f2e091e053e06eb0dd2e3eee23a7",
@@ -96,10 +96,10 @@
       "source/game_sa/RegisteredMotionBlurStreak.h": "b6cf9ce6f0e6210f233771016c4a2bf169dab290c39cbd0217de8ea8533f4d82",
       "source/game_sa/UserDisplay.cpp": "d89f8708514c175425a7724efc46c40c6f654525f13be894f7aed061a96eaac3",
       "source/game_sa/UserDisplay.h": "9ea3ab0d795705b87c994013f73366bd1a19d9cc603ec89c7a4cd0bed3109dbf",
-      "source/app/securom/Securom.cpp": "310ca6db22dc39db4bb4bb423d4a6cdfec5b1d0c88a500b44a85bdb9fc4b41fe",
-      "source/app/securom/Securom.h": "e996fbf74f5f18a2f6efca65132fcfe865107a8edbc78d3e9d0ee50d5ac7f8df"
+      "source/app/securom/Securom.cpp": "8deeddb3312545e0d7e482a30b894e397a7b4c12197a99884140928a48667dd5",
+      "source/app/securom/Securom.h": "1424bf076b8e81389a19061291bb42002add02cedbffce01ff0e7240b394af57"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
       "LiveComparison.hpp": "8d5bee005ae3b96865ea599cd6d582bd8addcec26ec9a1e8bf769b2b23d99395",
       "build_probe.py": "757b2033842773e69c8894f2ee732989b239a380ee17135cb962a71e0ed21dfb",

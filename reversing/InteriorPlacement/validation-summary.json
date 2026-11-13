@@ -20,10 +20,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "9b460ae30b412a7a7dfbfe272a502b9ae035984c895c15955c5c01bef217a630",
+  "log_sha256": "3800d808457dfa4685f0d5e4beb6d29768b2918247a8256ddf923a4921ba4fa9",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-placement\\20261109-221434-163451",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-placement\\20261113-150024-912540",
   "covered_functions": {
     "Interior_c::PlaceFurniture": true,
     "Interior_c::PlaceFurnitureOnWall": true,
@@ -32,19 +32,19 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "b9c6235e757d42f2ab0946bdef662097d9cf032c95a38c284714e574ed4d240d",
-      "pdb": "0f792414835f5d99acccae1361364405b524f9a99224e6308a050bcea7a18946"
+      "asi": "7e87840aac1b977f3d29de33120c8a07471c01f1002ec735d854372b232de508",
+      "pdb": "9e0e97fcb513337e0f7023e94886f0ef7d79d86d27d31e2ff09cf7ec83680de7"
     },
     "sources": {
-      "source/game_sa/Interior/Interior_c.cpp": "5b9a3f006550285c8d831442667e0b384a6ca4b2ecf192e3fc9c155a1b00061b",
+      "source/game_sa/Interior/Interior_c.cpp": "1840785008f85c8969279f83fa5aa242cf0d2bb7b09d9040b7f28abe31451405",
       "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
-      "source/game_sa/Interior/InteriorManager_c.h": "03902416fd4a3d05afde758819ecb4296316c711f6894955b75bbf1a9d700aab",
-      "source/game_sa/Interior/Furniture_c.h": "13c5c9d6d0ea5448412e158532530f5e9a30b95228f01bc6e48fc27a92f71216",
+      "source/game_sa/Interior/InteriorManager_c.h": "02b2de9692c421be06b205060aea3993647df943783a94311ad0d102d8faa785",
+      "source/game_sa/Interior/Furniture_c.h": "29e32f9eb48036b8e1e5443cafefdd155b8afd5a04072f9b4bae83ad4d650098",
       "source/game_sa/Interior/FurnitureEntity_c.h": "f4500e8e142f61f2abbf86435d070389e41e2bb59c0b58020fa096075624738d",
       "source/game_sa/Interior/InteriorObject.h": "07f5e7c9fdd43ee8dcecbce89e9759eeabd4953c52973bd872ffcbd55d687a6f",
       "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
       "LiveComparison.hpp": "a457fe32a9a83c35c14b0139f1a0e724708a1fa28803045a64a1b223f0618b35",
       "build_probe.py": "13d1cf9375c1187b9f2aeae6c82d966519d26bcb1319a45d3c4d81e515b74bac",

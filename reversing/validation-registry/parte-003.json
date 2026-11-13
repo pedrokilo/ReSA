@@ -53688,7 +53688,7 @@
       },
       "evidence": {
         "path": "reversing/InteriorPlacement/validation-summary.json",
-        "sha256": "0a5da6215bb8d076ab8539fb66688ebc62af74e0d3f17ac5dc35516434186f37",
+        "sha256": "b99caa2177aabe84a7ad6224b40a60506c2dc9a6b6efb4ff8fe96c93d67bfda2",
         "passed_path": [
           "covered_functions",
           "Interior_c::PlaceFurniture"
@@ -53697,10 +53697,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Interior/Interior_c.cpp": "5b9a3f006550285c8d831442667e0b384a6ca4b2ecf192e3fc9c155a1b00061b",
+        "source/game_sa/Interior/Interior_c.cpp": "1840785008f85c8969279f83fa5aa242cf0d2bb7b09d9040b7f28abe31451405",
         "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
-        "source/game_sa/Interior/InteriorManager_c.h": "03902416fd4a3d05afde758819ecb4296316c711f6894955b75bbf1a9d700aab",
-        "source/game_sa/Interior/Furniture_c.h": "13c5c9d6d0ea5448412e158532530f5e9a30b95228f01bc6e48fc27a92f71216",
+        "source/game_sa/Interior/InteriorManager_c.h": "02b2de9692c421be06b205060aea3993647df943783a94311ad0d102d8faa785",
+        "source/game_sa/Interior/Furniture_c.h": "29e32f9eb48036b8e1e5443cafefdd155b8afd5a04072f9b4bae83ad4d650098",
         "source/game_sa/Interior/FurnitureEntity_c.h": "f4500e8e142f61f2abbf86435d070389e41e2bb59c0b58020fa096075624738d",
         "source/game_sa/Interior/InteriorObject.h": "07f5e7c9fdd43ee8dcecbce89e9759eeabd4953c52973bd872ffcbd55d687a6f",
         "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9"
@@ -53767,7 +53767,7 @@
       },
       "evidence": {
         "path": "reversing/InteriorPlacement/validation-summary.json",
-        "sha256": "0a5da6215bb8d076ab8539fb66688ebc62af74e0d3f17ac5dc35516434186f37",
+        "sha256": "b99caa2177aabe84a7ad6224b40a60506c2dc9a6b6efb4ff8fe96c93d67bfda2",
         "passed_path": [
           "covered_functions",
           "Interior_c::PlaceFurnitureOnWall"
@@ -53776,10 +53776,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Interior/Interior_c.cpp": "5b9a3f006550285c8d831442667e0b384a6ca4b2ecf192e3fc9c155a1b00061b",
+        "source/game_sa/Interior/Interior_c.cpp": "1840785008f85c8969279f83fa5aa242cf0d2bb7b09d9040b7f28abe31451405",
         "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
-        "source/game_sa/Interior/InteriorManager_c.h": "03902416fd4a3d05afde758819ecb4296316c711f6894955b75bbf1a9d700aab",
-        "source/game_sa/Interior/Furniture_c.h": "13c5c9d6d0ea5448412e158532530f5e9a30b95228f01bc6e48fc27a92f71216",
+        "source/game_sa/Interior/InteriorManager_c.h": "02b2de9692c421be06b205060aea3993647df943783a94311ad0d102d8faa785",
+        "source/game_sa/Interior/Furniture_c.h": "29e32f9eb48036b8e1e5443cafefdd155b8afd5a04072f9b4bae83ad4d650098",
         "source/game_sa/Interior/FurnitureEntity_c.h": "f4500e8e142f61f2abbf86435d070389e41e2bb59c0b58020fa096075624738d",
         "source/game_sa/Interior/InteriorObject.h": "07f5e7c9fdd43ee8dcecbce89e9759eeabd4953c52973bd872ffcbd55d687a6f",
         "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9"
@@ -53846,7 +53846,7 @@
       },
       "evidence": {
         "path": "reversing/InteriorPlacement/validation-summary.json",
-        "sha256": "0a5da6215bb8d076ab8539fb66688ebc62af74e0d3f17ac5dc35516434186f37",
+        "sha256": "b99caa2177aabe84a7ad6224b40a60506c2dc9a6b6efb4ff8fe96c93d67bfda2",
         "passed_path": [
           "covered_functions",
           "Interior_c::PlaceFurnitureInCorner"
@@ -53855,10 +53855,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Interior/Interior_c.cpp": "5b9a3f006550285c8d831442667e0b384a6ca4b2ecf192e3fc9c155a1b00061b",
+        "source/game_sa/Interior/Interior_c.cpp": "1840785008f85c8969279f83fa5aa242cf0d2bb7b09d9040b7f28abe31451405",
         "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
-        "source/game_sa/Interior/InteriorManager_c.h": "03902416fd4a3d05afde758819ecb4296316c711f6894955b75bbf1a9d700aab",
-        "source/game_sa/Interior/Furniture_c.h": "13c5c9d6d0ea5448412e158532530f5e9a30b95228f01bc6e48fc27a92f71216",
+        "source/game_sa/Interior/InteriorManager_c.h": "02b2de9692c421be06b205060aea3993647df943783a94311ad0d102d8faa785",
+        "source/game_sa/Interior/Furniture_c.h": "29e32f9eb48036b8e1e5443cafefdd155b8afd5a04072f9b4bae83ad4d650098",
         "source/game_sa/Interior/FurnitureEntity_c.h": "f4500e8e142f61f2abbf86435d070389e41e2bb59c0b58020fa096075624738d",
         "source/game_sa/Interior/InteriorObject.h": "07f5e7c9fdd43ee8dcecbce89e9759eeabd4953c52973bd872ffcbd55d687a6f",
         "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9"
@@ -53925,7 +53925,7 @@
       },
       "evidence": {
         "path": "reversing/InteriorPlacement/validation-summary.json",
-        "sha256": "0a5da6215bb8d076ab8539fb66688ebc62af74e0d3f17ac5dc35516434186f37",
+        "sha256": "b99caa2177aabe84a7ad6224b40a60506c2dc9a6b6efb4ff8fe96c93d67bfda2",
         "passed_path": [
           "covered_functions",
           "Interior_c::PlaceObject"
@@ -53934,10 +53934,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Interior/Interior_c.cpp": "5b9a3f006550285c8d831442667e0b384a6ca4b2ecf192e3fc9c155a1b00061b",
+        "source/game_sa/Interior/Interior_c.cpp": "1840785008f85c8969279f83fa5aa242cf0d2bb7b09d9040b7f28abe31451405",
         "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
-        "source/game_sa/Interior/InteriorManager_c.h": "03902416fd4a3d05afde758819ecb4296316c711f6894955b75bbf1a9d700aab",
-        "source/game_sa/Interior/Furniture_c.h": "13c5c9d6d0ea5448412e158532530f5e9a30b95228f01bc6e48fc27a92f71216",
+        "source/game_sa/Interior/InteriorManager_c.h": "02b2de9692c421be06b205060aea3993647df943783a94311ad0d102d8faa785",
+        "source/game_sa/Interior/Furniture_c.h": "29e32f9eb48036b8e1e5443cafefdd155b8afd5a04072f9b4bae83ad4d650098",
         "source/game_sa/Interior/FurnitureEntity_c.h": "f4500e8e142f61f2abbf86435d070389e41e2bb59c0b58020fa096075624738d",
         "source/game_sa/Interior/InteriorObject.h": "07f5e7c9fdd43ee8dcecbce89e9759eeabd4953c52973bd872ffcbd55d687a6f",
         "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9"

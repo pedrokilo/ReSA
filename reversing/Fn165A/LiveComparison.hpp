@@ -379,6 +379,17 @@ inline void Update() {
         if (!it->second.hooked || !it->second.dll) ready = false;   // se esperaba hook RH con cuerpo en el ASI
         return S(it->second, reinterpret_cast<void*>(fake));
     };
+    // Colaborador CON hook RH cuya llamada, en la funcion probada, va a una funcion propia de la DLL distinta de la envoltura del hook (direccion dada): el hook se apaga (ruta) y el falso va en la
+    // direccion del EXE y en esa funcion (pase final de bancos viejos: el colaborador tiene hook desde un lote posterior).
+    auto H = [&](uintptr_t exe, uintptr_t dllAddress, auto* fake) {
+        auto it = collabCache.find(exe);
+        if (it == collabCache.end()) it = collabCache.emplace(exe, MakeCollab(env, exe, hooksFound)).first;
+        if (!it->second.hooked) ready = false;
+        Pair p = it->second;
+        p.dll = Body(dllAddress); p.hooked = true;
+        if (!p.dll || ModuleOf(p.dll) != env.asi) ready = false;
+        return S(p, reinterpret_cast<void*>(fake));
+    };
     // Colaborador SIN hook RH: la DLL tiene su propia funcion (direccion dada); el falso va en la direccion del EXE y en esa funcion. Se exige que de verdad no tenga hook.
     auto U = [&](uintptr_t exe, uintptr_t dllAddress, auto* fake) {
         std::string cat, name;
@@ -417,7 +428,7 @@ inline void Update() {
     env.stubs[17] = {F(0x640380, K[17]), Del()};
     env.stubs[18] = {F(0x6403D0, K[18]), Del()};
     env.stubs[19] = {F(0x640420, K[19]), Del()};
-    env.stubs[20] = {U(0x6404D0, Lote165ABody_CTaskComplexDragPedFromCar(), K[20]), Del()};
+    env.stubs[20] = {H(0x6404D0, Lote165ABody_CTaskComplexDragPedFromCar(), K[20]), Del()};
     const char* dllReal[kFunctions];
     for (unsigned f = 0; f < kFunctions; ++f) dllReal[f] = "toda la funcion salvo los colaboradores falseados (falso identico en la direccion del EXE y en la funcion de la DLL)";
     for (unsigned f : {3u, 4u, 5u, 6u, 7u, 9u, 11u, 21u, 22u, 23u, 24u, 25u}) dllReal[f] = "toda la funcion (sin colaboradores)";
