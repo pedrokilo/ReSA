@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,441** funciones en 99 clases/módulos (rango 0x401000–0x74FFFF): 1,419 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,418** funciones en 95 clases/módulos (rango 0x401000–0x74FFFF): 1,396 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -16,10 +16,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | WaterCreature_c | 2 | 211 |
 | CTaskComplexGotoDoorAndOpen | 6 | 388 |
 | CTaskSimpleHitFromFront | 13 | 390 |
-| CTaskComplexWalkRoundBuildingAttempt | 4 | 421 |
-| CTheZones | 5 | 422 |
-| CTaskSimpleIKPointArm | 5 | 426 |
-| CGame | 9 | 428 |
 | Fx_c | 8 | 429 |
 | CAnimManager | 6 | 434 |
 | CEventPotentialWalkIntoFire | 9 | 440 |
@@ -109,7 +105,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (99 clases / módulos)** | **1,441** | **216,299** |
+| **TOTAL (95 clases / módulos)** | **1,418** | **214,602** |
 
 ## CAudioZones (1)
 
@@ -165,49 +161,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006374C0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x006374E0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00637500 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexWalkRoundBuildingAttempt (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00657200 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00657750 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00655C10 | 104 | B |  | 0 | 0 | sí | baja |
-| 0x00654840 | 257 | A |  | 4 | 4 |  | alta |
-
-## CTheZones (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00572E70 | 24 | A |  | 1 | 1 |  | baja |
-| 0x00572DB0 | 26 | A |  | 3 | 3 |  | baja |
-| 0x00572130 | 69 | A |  | 3 | 3 |  | alta |
-| 0x005D3020 | 149 | A |  | 1 | 1 |  | baja |
-| 0x005D30C0 | 154 | A |  | 1 | 1 |  | baja |
-
-## CTaskSimpleIKPointArm (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00634610 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x006344F0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00634620 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x00634440 | 163 | C |  | 5 | 0 |  | baja |
-| 0x00634560 | 176 | B |  | 0 | 0 | sí | baja |
-
-## CGame (9)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00730450 | 25 | D |  | 0 | 0 |  | baja |
-| 0x0053BC60 | 26 | A |  | 1 | 1 |  | alta |
-| 0x0053C860 | 39 | D |  | 0 | 0 |  | alta |
-| 0x0053C890 | 39 | D |  | 0 | 0 |  | alta |
-| 0x0072FEC0 | 46 | D |  | 0 | 0 |  | baja |
-| 0x007301D0 | 46 | D |  | 0 | 0 |  | baja |
-| 0x0072FEF0 | 66 | D |  | 0 | 0 |  | baja |
-| 0x00730200 | 66 | D |  | 0 | 0 |  | baja |
-| 0x007304B0 | 75 | A |  | 1 | 1 |  | baja |
 
 ## Fx_c (8)
 

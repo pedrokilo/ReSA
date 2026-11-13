@@ -391,7 +391,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0041B5B0,103,reemplazada,CPointRoutePool,exacta,CPointRoutePool::New,1,1,,
 0x0041B660,106,reemplazada,CPointRoutePool,baja,,1,1,,
 0x0041B710,104,reemplazada,CNodeRoutePool,exacta,CNodeRoutePool::New,1,1,,
-0x0041B7C0,11,reemplazada,CNodeRoutePool,baja,,11,9,,
+0x0041B7C0,11,reemplazada,CNodeRoutePool,baja,,11,11,,
 0x0041B7D0,49,reemplazada,CNodeRoutePool,baja,,9,8,,
 0x0041B810,11,reemplazada,CNodeRoutePool,baja,,1,1,,
 0x0041B820,51,reemplazada,CNodeRoutePool,baja,,3,0,,
@@ -4195,7 +4195,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0053BB50,33,reemplazada,CGame,exacta,CGame::InitialiseOnceBeforeRW,1,1,,
 0x0053BB80,172,reemplazada,CGame,exacta,CGame::ShutdownRenderWare,1,1,,
 0x0053BC30,42,reemplazada,CGame,exacta,CGame::FinalShutdown,1,1,,
-0x0053BC60,26,A,CGame,alta,,1,1,,
+0x0053BC60,26,reemplazada,CGame,alta,,1,1,,
 0x0053BC80,101,reemplazada,CGame,exacta,CGame::Initialise,2,2,,
 0x0053BCF0,475,reemplazada,CGame,exacta,CGame::ReInitGameObjectVariables,2,2,,
 0x0053BED0,1,reemplazada,CGame,exacta,CGame::ReloadIPLs,0,0,,
@@ -4206,8 +4206,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0053C550,293,reemplazada,CGame,exacta,CGame::ShutDownForRestart,3,1,,
 0x0053C680,394,reemplazada,CGame,exacta,CGame::InitialiseWhenRestarting,2,0,,
 0x0053C810,23,reemplazada,CGame,exacta,CGame::DrasticTidyUpMemory,5,5,,
-0x0053C860,39,D,CGame,alta,,0,0,,
-0x0053C890,39,D,CGame,alta,,0,0,,
+0x0053C860,39,reemplazada,CGame,alta,,0,0,,
+0x0053C890,39,reemplazada,CGame,alta,,0,0,,
 0x0053C900,499,reemplazada,CGame,exacta,CGame::Shutdown,1,0,,
 0x0053CB00,69,reemplazada,CGeneral,exacta,CGeneral::LimitAngle,2,2,,
 0x0053CB50,121,reemplazada,CGeneral,exacta,CGeneral::LimitRadianAngle,82,76,,
@@ -4942,7 +4942,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00571A40,78,reemplazada,CEntity,exacta,CEntity::ResolveReferences,4,4,,
 0x00571A90,62,reemplazada,CEntity,exacta,CEntity::PruneReferences,12,12,,
 0x00571AD0,151,reemplazada,CReferences,exacta,CReferences::RemoveReferencesToPlayer,5,5,,
-0x00571B70,315,reemplazada,CEntity,exacta,CEntity::RegisterReference-,423,402,,
+0x00571B70,315,reemplazada,CEntity,exacta,CEntity::RegisterReference-,423,404,,
 0x00571CC0,171,reemplazada,CReferences,exacta,CReferences::PruneAllReferencesInWorld,1,1,,
 0x00571D90,176,reemplazada,CPlaceName,exacta,CPlaceName::GetForMap,1,1,,
 0x00571EA0,50,reemplazada,CCurrentVehicle,exacta,CCurrentVehicle::Display,0,0,,
@@ -4953,7 +4953,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005720C0,15,reemplazada,CUserDisplay,baja,,2,2,,
 0x005720D0,63,reemplazada,CTheZones,exacta,CTheZones::InitZonesPopulationSettings,2,1,,
 0x00572110,27,reemplazada,CTheZones,exacta,CTheZones::ResetZonesRevealed,1,1,,
-0x00572130,69,A,CTheZones,alta,,3,3,,
+0x00572130,69,reemplazada,CTheZones,alta,,3,3,,
 0x00572180,158,reemplazada,CTheZones,exacta,CTheZones::AssignZoneInfoForThisZone,1,1,,
 0x00572220,74,reemplazada,CTheZones,exacta,CTheZones::ZoneIsEntirelyContainedWithinOtherZone,0,0,,
 0x00572270,144,reemplazada,CTheZones,exacta,CTheZones::PointLiesWithinZone,4,4,,
@@ -4972,8 +4972,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00572C40,123,reemplazada,CTheZones,exacta,CTheZones::FindZoneByLabel,9,0,,
 0x00572CC0,65,reemplazada,CTheZones,exacta,CTheZones::SetZoneRadarColours,0,0,,
 0x00572D10,92,reemplazada,CTheZones,exacta,CTheZones::Update,1,1,,
-0x00572DB0,26,A,CTheZones,baja,,3,3,,
-0x00572E70,24,A,CTheZones,baja,,1,1,,
+0x00572DB0,26,reemplazada,CTheZones,baja,,3,3,,
+0x00572E70,24,reemplazada,CTheZones,baja,,1,1,,
 0x00572EC0,480,reemplazada,CMenuManager,exacta,CMenuManager::LoadAllTextures,2,2,,
 0x005730A0,438,reemplazada,CMenuManager,exacta,CMenuManager::SwapTexturesRound,1,1,,
 0x00573260,186,reemplazada,CMenuManager,exacta,CMenuManager::InitialiseChangedLanguageSettings,3,3,,
@@ -5357,7 +5357,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0059C790,115,reemplazada,CQuaternion,baja,,129,121,,
 0x0059C810,115,reemplazada,CQuaternion,baja,,23,22,,
 0x0059C890,124,reemplazada,CQuaternion,baja,,270,255,,
-0x0059C910,81,reemplazada,CQuaternion,baja,,457,438,,
+0x0059C910,81,reemplazada,CQuaternion,baja,,457,439,,
 0x0059C970,95,reemplazada,CQuaternion,baja,,19,18,,
 0x0059CA10,307,reemplazada,CQuaternion,baja,,1,0,,
 0x0059CBA0,7,reemplazada,CQuaternion,baja,,1,1,,
@@ -5883,8 +5883,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005D2D70,230,reemplazada,CPools,exacta,CPools::LoadPedPool,1,1,,
 0x005D2E60,221,reemplazada,CTheZones,exacta,CTheZones::Save,1,1,,
 0x005D2F40,224,reemplazada,CTheZones,exacta,CTheZones::Load,1,1,,
-0x005D3020,149,A,CTheZones,baja,,1,1,,
-0x005D30C0,154,A,CTheZones,baja,,1,1,,
+0x005D3020,149,reemplazada,CTheZones,baja,,1,1,,
+0x005D30C0,154,reemplazada,CTheZones,baja,,1,1,,
 0x005D3160,251,reemplazada,CGarages,exacta,CGarages::Save,1,1,,
 0x005D3270,276,reemplazada,CGarages,exacta,CGarages::Load,1,1,,
 0x005D3390,45,reemplazada,CTheScripts,exacta,CTheScripts::DoScriptSetupAfterPoolsHaveLoaded,1,1,,
@@ -7100,7 +7100,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00618750,169,reemplazada,IKChainManager_c,exacta,IKChainManager_c::AddIKChain,3,3,,
 0x00618800,167,reemplazada,IKChainManager_c,exacta,IKChainManager_c::CanAccept,2,2,,
 0x006188B0,192,reemplazada,IKChainManager_c,exacta,IKChainManager_c::CanAcceptLookAt,1,1,,
-0x00618970,492,reemplazada,IKChainManager_c,exacta,IKChainManager_c::LookAt,76,69,,
+0x00618970,492,reemplazada,IKChainManager_c,exacta,IKChainManager_c::LookAt,76,70,,
 0x00618B60,393,reemplazada,IKChainManager_c,exacta,IKChainManager_c::PointArm,10,10,,
 0x00618D00,13,reemplazada,CGenericGameStorage,exacta,CGenericGameStorage::GetSavedGameDateAndTime,1,1,,
 0x00618E70,1,reemplazada,CGenericGameStorage,exacta,CGenericGameStorage::InitRadioStationPositionList,1,1,,
@@ -7150,15 +7150,15 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061A2E0,64,reemplazada,CPlayerRelationshipRecorder,baja,,2,2,,
 0x0061A350,7,reemplazada,CPlayerRelationshipRecorder,baja,,1,0,,
 0x0061A360,41,reemplazada,CPlayerRelationshipRecorder,baja,,29,27,,
-0x0061A390,16,reemplazada,CPlayerRelationshipRecorder,baja,,234,216,,
+0x0061A390,16,reemplazada,CPlayerRelationshipRecorder,baja,,234,217,,
 0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,130,,
-0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,213,,
+0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,214,,
 0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,131,,
 0x0061A430,40,reemplazada,CPlayerRelationshipRecorder,baja,,0,0,,sí
 0x0061A4B0,73,reemplazada,CTask,exacta,CTask::IsTaskPtr,2,2,,
 0x0061A500,103,reemplazada,CTaskPool,exacta,CTaskPool::New,1,1,,
-0x0061A5A0,11,reemplazada,CTask,exacta,CTask::operator new,1788,1564,,
-0x0061A5B0,41,reemplazada,CTask,exacta,CTask::operator delete,2114,235,,
+0x0061A5A0,11,reemplazada,CTask,exacta,CTask::operator new,1788,1566,,
+0x0061A5B0,41,reemplazada,CTask,exacta,CTask::operator delete,2114,237,,
 0x0061A620,59,reemplazada,CTask,baja,,0,0,,
 0x0061A660,56,reemplazada,CTask,baja,,0,0,,sí
 0x0061A6C0,47,reemplazada,CTask,baja,,2,1,,
@@ -7762,12 +7762,12 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00634250,160,reemplazada,CTaskSimpleIKPointArm,exacta,CTaskSimpleIKPointArm::Clone,0,0,,sí
 0x006342F0,124,reemplazada,CTaskSimpleIKPointArm,exacta,CTaskSimpleIKPointArm::CreateIKChain,0,0,,sí
 0x00634370,192,reemplazada,CTaskSimpleIKPointArm,exacta,CTaskSimpleIKPointArm::UpdatePointArmInfo,1,1,,
-0x00634440,163,C,CTaskSimpleIKPointArm,baja,,5,0,,
-0x006344F0,6,B,CTaskSimpleIKPointArm,baja,,0,0,,sí
+0x00634440,163,reemplazada,CTaskSimpleIKPointArm,baja,,5,1,,
+0x006344F0,6,reemplazada,CTaskSimpleIKPointArm,baja,,0,0,,sí
 0x00634500,90,reemplazada,CTaskSimpleIKPointArm,baja,,1,1,,
-0x00634560,176,B,CTaskSimpleIKPointArm,baja,,0,0,,sí
-0x00634610,5,B,CTaskSimpleIKPointArm,baja,,0,0,,sí
-0x00634620,76,B,CTaskSimpleIKPointArm,baja,,0,0,,sí
+0x00634560,176,reemplazada,CTaskSimpleIKPointArm,baja,,0,0,,sí
+0x00634610,5,reemplazada,CTaskSimpleIKPointArm,baja,,0,0,,sí
+0x00634620,76,reemplazada,CTaskSimpleIKPointArm,baja,,0,0,,sí
 0x00634670,18,reemplazada,CTaskSimpleClearLookAt,exacta,CTaskSimpleClearLookAt::Constructor,1,0,,
 0x00634690,6,reemplazada,CTaskSimpleClearLookAt,exacta,CTaskSimpleClearLookAt::GetTaskType,0,0,,sí
 0x006346A0,11,reemplazada,CTaskSimpleClearLookAt,exacta,CTaskSimpleClearLookAt::Destructor,1,1,,
@@ -8631,21 +8631,21 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00654720,28,reemplazada,CTaskComplexWalkRoundCar,exacta,CTaskComplexWalkRoundCar::GoingForDoor,1,1,,
 0x00654740,226,reemplazada,CTaskComplexWalkRoundBuildingAttempt,exacta,CTaskComplexWalkRoundBuildingAttempt::Constructor,5,5,,
 0x00654830,6,reemplazada,CTaskComplexWalkRoundBuildingAttempt,exacta,CTaskComplexWalkRoundBuildingAttempt::GetTaskType,0,0,,sí
-0x00654840,257,A,CTaskComplexWalkRoundBuildingAttempt,alta,,4,4,,
+0x00654840,257,reemplazada,CTaskComplexWalkRoundBuildingAttempt,alta,,4,4,,
 0x00654950,122,reemplazada,CTaskComplexWalkRoundBuildingAttempt,exacta,CTaskComplexWalkRoundBuildingAttempt::Destructor,1,1,,
 0x006549D0,39,reemplazada,CTaskComplexWalkRoundBuildingAttempt,exacta,CTaskComplexWalkRoundBuildingAttempt::MakeAbortable,0,0,,sí
 0x00654A00,350,reemplazada,CTaskComplexWalkRoundBuildingAttempt,exacta,CTaskComplexWalkRoundBuildingAttempt::CreateFirstSubTask,0,0,,sí
 0x00654B80,175,reemplazada,CTaskComplexWalkRoundBuildingAttempt,exacta,CTaskComplexWalkRoundBuildingAttempt::ComputeMoveDir,1,1,,
 0x00654C80,680,reemplazada,CTaskComplexWalkRoundBuildingAttempt,exacta,CTaskComplexWalkRoundBuildingAttempt::CreateSubTask,11,11,,
-0x00655020,156,reemplazada,CTaskComplexWalkRoundObject,exacta,CTaskComplexWalkRoundObject::Constructor,4,3,,
+0x00655020,156,reemplazada,CTaskComplexWalkRoundObject,exacta,CTaskComplexWalkRoundObject::Constructor,4,4,,
 0x006550C0,6,reemplazada,CTaskComplexWalkRoundObject,baja,,0,0,,sí
-0x006550D0,106,reemplazada,CTaskComplexWalkRoundObject,baja,,1,0,,
+0x006550D0,106,reemplazada,CTaskComplexWalkRoundObject,baja,,1,1,,
 0x00655140,130,reemplazada,CTaskComplexWalkRoundObject,baja,,4,4,,
 0x006551D0,187,reemplazada,CTaskComplexWalkRoundObject,baja,,1,1,,
 0x00655290,161,reemplazada,CTaskComplexWalkRoundObject,baja,,1,1,,
 0x00655340,18,reemplazada,CTaskComplexMoveBackAndJump,exacta,CTaskComplexMoveBackAndJump::Constructor,1,1,,
 0x00655360,6,reemplazada,CTaskComplexMoveBackAndJump,exacta,CTaskComplexMoveBackAndJump::GetTaskType,0,0,,sí
-0x00655370,11,reemplazada,CTaskComplexMoveBackAndJump,exacta,CTaskComplexMoveBackAndJump::Destructor,1,0,,
+0x00655370,11,reemplazada,CTaskComplexMoveBackAndJump,exacta,CTaskComplexMoveBackAndJump::Destructor,1,1,,
 0x00655380,6,reemplazada,CTaskComplexMoveBackAndJump,exacta,CTaskComplexMoveBackAndJump::ControlSubTask,0,0,,sí
 0x00655390,207,reemplazada,CTaskComplexMoveBackAndJump,exacta,CTaskComplexMoveBackAndJump::CreateSubTask,3,3,,
 0x00655460,110,reemplazada,CTaskComplexEvasiveCower,exacta,CTaskComplexEvasiveCower::Constructor,1,1,,
@@ -8670,7 +8670,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00655A90,100,reemplazada,CTaskSimpleHurtPedWithCar,exacta,CTaskSimpleHurtPedWithCar::Clone,0,0,,sí
 0x00655B00,130,reemplazada,CTaskComplexWalkRoundCar,exacta,CTaskComplexWalkRoundCar::Clone,0,0,,sí
 0x00655B90,121,reemplazada,CTaskComplexWalkRoundBuildingAttempt,exacta,CTaskComplexWalkRoundBuildingAttempt::Clone,0,0,,sí
-0x00655C10,104,B,CTaskComplexWalkRoundBuildingAttempt,baja,,0,0,,sí
+0x00655C10,104,reemplazada,CTaskComplexWalkRoundBuildingAttempt,baja,,0,0,,sí
 0x00655C80,80,reemplazada,CTaskComplexMoveBackAndJump,exacta,CTaskComplexMoveBackAndJump::Clone,0,0,,sí
 0x00655CD0,100,reemplazada,CTaskComplexEvasiveCower,exacta,CTaskComplexEvasiveCower::Clone,0,0,,sí
 0x00655D40,108,reemplazada,CTaskComplexWalkRoundFire,exacta,CTaskComplexWalkRoundFire::Clone,0,0,,sí
@@ -8698,11 +8698,11 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00656E50,30,reemplazada,CTaskComplexWalkRoundCar,baja,,0,0,,sí
 0x00656E70,257,reemplazada,CTaskComplexWalkRoundBuildingAttempt,exacta,CTaskComplexWalkRoundBuildingAttempt::CreateNextSubTask,0,0,,sí
 0x00656F80,625,reemplazada,CTaskComplexWalkRoundBuildingAttempt,exacta,CTaskComplexWalkRoundBuildingAttempt::ComputeCrapRoute,1,1,,
-0x00657200,30,B,CTaskComplexWalkRoundBuildingAttempt,baja,,0,0,,sí
+0x00657200,30,reemplazada,CTaskComplexWalkRoundBuildingAttempt,baja,,0,0,,sí
 0x00657220,341,reemplazada,CTaskComplexWalkRoundBuildingAttempt,baja,,0,0,,sí
 0x00657380,620,reemplazada,CTaskComplexWalkRoundBuildingAttempt,baja,,0,0,,sí
 0x006575F0,341,reemplazada,CTaskComplexWalkRoundBuildingAttempt,baja,,0,0,,sí
-0x00657750,30,B,CTaskComplexWalkRoundBuildingAttempt,baja,,0,0,,sí
+0x00657750,30,reemplazada,CTaskComplexWalkRoundBuildingAttempt,baja,,0,0,,sí
 0x00657770,69,reemplazada,CTaskComplexMoveBackAndJump,exacta,CTaskComplexMoveBackAndJump::CreateNextSubTask,0,0,,sí
 0x006577C0,13,reemplazada,CTaskComplexMoveBackAndJump,exacta,CTaskComplexMoveBackAndJump::CreateFirstSubTask,0,0,,sí
 0x006577D0,30,reemplazada,CTaskComplexMoveBackAndJump,baja,,0,0,,sí
@@ -11304,17 +11304,17 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0072FC70,273,reemplazada,PipelinePlugin,baja,,6,6,,
 0x0072FD90,118,reemplazada,CGame,exacta,CGame::CameraDestroy,3,3,,
 0x0072FE80,63,reemplazada,CGame,baja,,1,1,,
-0x0072FEC0,46,D,CGame,baja,,0,0,,
-0x0072FEF0,66,D,CGame,baja,,0,0,,
+0x0072FEC0,46,reemplazada,CGame,baja,,0,0,,
+0x0072FEF0,66,reemplazada,CGame,baja,,0,0,,
 0x0072FF60,141,reemplazada,CGame,baja,,1,1,,
 0x0072FFF0,43,reemplazada,CGame,baja,,1,1,,
 0x00730020,115,reemplazada,CGame,baja,,2,2,,
-0x007301D0,46,D,CGame,baja,,0,0,,
-0x00730200,66,D,CGame,baja,,0,0,,
+0x007301D0,46,reemplazada,CGame,baja,,0,0,,
+0x00730200,66,reemplazada,CGame,baja,,0,0,,
 0x00730270,132,reemplazada,CGame,baja,,1,1,,
 0x00730330,115,reemplazada,CGame,baja,,2,2,,
-0x00730450,25,D,CGame,baja,,0,0,,
-0x007304B0,75,A,CGame,baja,,1,1,,
+0x00730450,25,reemplazada,CGame,baja,,0,0,,
+0x007304B0,75,reemplazada,CGame,baja,,1,1,,
 0x00730510,204,reemplazada,CGame,baja,,2,0,,
 0x007305E0,119,reemplazada,CGame,baja,,3,3,,
 0x007306A0,153,reemplazada,CGame,baja,,1,1,,

@@ -14,6 +14,15 @@
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  *
+ * ESTADO: CSaveGarage
+ * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 2/2 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ *
  * ESTADO: CStoredCar
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
