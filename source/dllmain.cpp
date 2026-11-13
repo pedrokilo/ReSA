@@ -7,6 +7,7 @@
 #include "extensions/debug.hpp"
 #include "extensions/Configuration.hpp"
 #include "reversiblehooks/RootHookCategory.h"
+#include "reversiblehooks/HookStats.generated.hpp"
 #include "reversiblehooks/ReversibleHook/Simple.h"
 #include "reversiblehooks/ReversibleHook/Virtual.h"
 #include <fstream>
@@ -91,6 +92,10 @@ static void LogHookSummary() {
     NOTSA_LOG_INFO(
         "Funciones del juego reemplazadas por código C++: {} en {} clases/grupos ({} sobre la dirección del EXE y {} sobre la tabla virtual). Activas: {}. Desactivadas: {}.",
         simple + virtuals, classes, simple, virtuals, active, disabled
+    );
+    NOTSA_LOG_INFO(
+        "Catálogo del proyecto (docs/hooks.csv): {} entradas, {} reconstruidas y {} validadas una a una contra el EXE original.",
+        ReversibleHooks::stats::CatalogEntries, ReversibleHooks::stats::Reconstructed, ReversibleHooks::stats::Validated
     );
     NOTSA_LOG_INFO("El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.");
 }

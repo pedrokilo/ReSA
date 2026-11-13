@@ -20,7 +20,7 @@ La tabla conserva lo acreditado en aquellas revalidaciones. El estado actual se 
 
 Hay **10.395 funciones con `validated=1`** y **0 con vigencia confirmada para el árbol modificado**. La barra de vigencia es **0/10.395 · 0,00%**.
 
-**781 funciones conservan coincidencia de todas sus fuentes registradas.** La coincidencia de fuentes y la evidencia aprobada se consultan por función en el inventario. La revisión de dependencias es una condición adicional para acreditar vigencia; no se deduce de haber pasado un banco.
+**780 funciones conservan coincidencia de todas sus fuentes registradas.** La coincidencia de fuentes y la evidencia aprobada se consultan por función en el inventario. La revisión de dependencias es una condición adicional para acreditar vigencia; no se deduce de haber pasado un banco.
 
 El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 10.395 entradas: 0 vigentes, 10.395 con evidencia histórica por revisar y 0 sin evidencia vinculada. Las 0 entradas pendientes de reconstrucción se contabilizan aparte. Sin evidencia vinculada no significa nunca probada ni fallida.
 

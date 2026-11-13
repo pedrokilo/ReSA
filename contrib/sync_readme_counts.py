@@ -29,6 +29,15 @@ def main():
     complete = sum(all(x['reversed'] == '1' for x in v) for v in classes.values())
     vclasses = sum(all(x['validated'] == '1' and x['reversed'] == '1' for x in v) for v in classes.values())  # de las completas
     locked = sum(r['locked'] == '1' for r in rows)
+    # Cifras para el resumen de arranque de la DLL (dllmain.cpp::LogHookSummary).
+    (ROOT/'source/reversiblehooks/HookStats.generated.hpp').write_text(
+        '// Generado por contrib/sync_readme_counts.py desde docs/hooks.csv; no editar a mano.\n'
+        '#pragma once\n\n'
+        'namespace ReversibleHooks::stats {\n'
+        f'inline constexpr int CatalogEntries = {total};\n'
+        f'inline constexpr int Reconstructed = {rev};\n'
+        f'inline constexpr int Validated = {val};\n'
+        '} // namespace ReversibleHooks::stats\n', encoding='utf-8', newline='\n')
     notsa = ROOT/'docs/hooks_notsa.csv'
     notsa_count = len(list(csv.DictReader(notsa.open(encoding='utf-8-sig')))) if notsa.exists() else 0
     cases = json.loads((ROOT/'reversing/cases.json').read_text(encoding='utf-8'))
