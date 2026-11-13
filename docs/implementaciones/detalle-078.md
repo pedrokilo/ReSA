@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/11/2026 (Ciudad de México):** 897 grupos / 10395 funciones reconstruidas; 10395 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/11/2026 (Ciudad de México):** 897 grupos / 10424 funciones reconstruidas; 10424 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -80,6 +80,18 @@
 
 <a id="grupo-1549"></a>
 
+## Globales y helpers: source/game_sa/TxdStore.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| TxdPoolFlushBody(TxdPoolRaw* pool) | [source/game_sa/TxdStore.cpp:43](../../source/game_sa/TxdStore.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| TxdPoolFlush(TxdPoolRaw* pool, void* /*edx*/) | [source/game_sa/TxdStore.cpp:57](../../source/game_sa/TxdStore.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTxdStore::PoolFlush 0x00731800 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| TxdPoolFlushSecondCopy(TxdPoolRaw* pool, void* /*edx*/) | [source/game_sa/TxdStore.cpp:62](../../source/game_sa/TxdStore.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTxdStore::PoolFlushSecondCopy 0x00731B30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall TxdPoolScalarDeletingDestructor(TxdPoolRaw* pool, void* /*edx*/, uint8 flags) | [source/game_sa/TxdStore.cpp:68](../../source/game_sa/TxdStore.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTxdStore::PoolScalarDeletingDestructor 0x00731C20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| TxdStoreDefaultSlotExe(int32 index) | [source/game_sa/TxdStore.cpp:120](../../source/game_sa/TxdStore.cpp#L120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTxdStore::GetDefaultTxdSlot 0x007316D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo defaultTxds: source/game_sa/TxdStore.h:50 (0x00C88004) |
+
+<a id="grupo-1550"></a>
+
 ## Globales y helpers: source/game_sa/TxdStore_Plugin.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -88,7 +100,15 @@
 | * TxdParentDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/TxdStore_Plugin.cpp:28](../../source/game_sa/TxdStore_Plugin.cpp#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * TxdParentCopyConstructor(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/TxdStore_Plugin.cpp:33](../../source/game_sa/TxdStore_Plugin.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_txdPluginOffset: source/game_sa/TxdStore.h:22 (0x00C88018) |
 
-<a id="grupo-1550"></a>
+<a id="grupo-1551"></a>
+
+## Globales y helpers: source/game_sa/VehicleAnimGroupData.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * __fastcall VehicleAnimGroupConstructorExe(CVehicleAnimGroup* self, void* /*edx*/) | [source/game_sa/VehicleAnimGroupData.cpp:36](../../source/game_sa/VehicleAnimGroupData.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1552"></a>
 
 ## Globales y helpers: source/game_sa/VehicleAnimGroupData.h
 
@@ -97,7 +117,7 @@
 | sVehicleAnimDataGroupFlags() | [source/game_sa/VehicleAnimGroupData.h:34](../../source/game_sa/VehicleAnimGroupData.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | sVehicleAnimDataSpecialFlags() | [source/game_sa/VehicleAnimGroupData.h:53](../../source/game_sa/VehicleAnimGroupData.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1551"></a>
+<a id="grupo-1553"></a>
 
 ## Globales y helpers: source/game_sa/VehicleRecording.cpp
 
@@ -107,7 +127,7 @@
 | * FrameAt(CVehicleStateEachFrame* buffer, uint32 byteOffset) | [source/game_sa/VehicleRecording.cpp:69](../../source/game_sa/VehicleRecording.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | X87UInt(uint32 value) | [source/game_sa/VehicleRecording.cpp:74](../../source/game_sa/VehicleRecording.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1552"></a>
+<a id="grupo-1554"></a>
 
 ## Globales y helpers: source/game_sa/VehicleScanner.cpp
 
@@ -115,7 +135,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CVehicleScannerInjectHooksLote109A() | [source/game_sa/VehicleScanner.cpp:24](../../source/game_sa/VehicleScanner.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1553"></a>
+<a id="grupo-1555"></a>
 
 ## Globales y helpers: source/game_sa/VisibilityPlugins.cpp
 
@@ -123,7 +143,7 @@
 | --- | --- | --- | --- | --- | --- |
 | InsertIntoList(CLinkList&lt;CVisibilityPlugins::AlphaObjectInfo&gt;& list, TObject* obj, float dist, CVisibilityPlugins::RenderFunction callback) | [source/game_sa/VisibilityPlugins.cpp:234](../../source/game_sa/VisibilityPlugins.cpp#L234) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1554"></a>
+<a id="grupo-1556"></a>
 
 ## Globales y helpers: source/game_sa/Wanted.cpp
 
@@ -132,7 +152,7 @@
 | WantedAsInt(eWantedLevel level) | [source/game_sa/Wanted.cpp:72](../../source/game_sa/Wanted.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | WantedDistSqZYX(const CVector& from, const CVector& to) | [source/game_sa/Wanted.cpp:77](../../source/game_sa/Wanted.cpp#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1555"></a>
+<a id="grupo-1557"></a>
 
 ## Globales y helpers: source/game_sa/WaterCreature_c.cpp
 
@@ -144,7 +164,7 @@
 | SetHeading_6E4(CPlaceable* placeable, float heading) | [source/game_sa/WaterCreature_c.cpp:78](../../source/game_sa/WaterCreature_c.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RandomPercent_6E4() | [source/game_sa/WaterCreature_c.cpp:87](../../source/game_sa/WaterCreature_c.cpp#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1556"></a>
+<a id="grupo-1558"></a>
 
 ## Globales y helpers: source/game_sa/WaterLevel.cpp
 
@@ -168,7 +188,7 @@
 | & WaterIndexWord(int32 i) | [source/game_sa/WaterLevel.cpp:1640](../../source/game_sa/WaterLevel.cpp#L1640) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * WaterVertexAt(uint16 index) | [source/game_sa/WaterLevel.cpp:2032](../../source/game_sa/WaterLevel.cpp#L2032) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:96 (0x00C22910) |
 
-<a id="grupo-1557"></a>
+<a id="grupo-1559"></a>
 
 ## Globales y helpers: source/game_sa/Weapon.cpp
 
@@ -181,33 +201,10 @@
 | InstantHitSwayAccumulate355(CVector* endpoint,const CVector* sineBasis,const CVector* cosineBasis,float amplitude,float sine,float cosine) | [source/game_sa/Weapon.cpp:1789](../../source/game_sa/Weapon.cpp#L1789) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | InstantHitOscillation(uint32 milliseconds, float& sine, float& cosine) | [source/game_sa/Weapon.cpp:1794](../../source/game_sa/Weapon.cpp#L1794) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1558"></a>
+<a id="grupo-1560"></a>
 
 ## Globales y helpers: source/game_sa/WeaponEffects.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | RenderPlayerCrosshair_Hook(uint32* crosshair, void* /*edx*/, int32 playerIndex) | [source/game_sa/WeaponEffects.cpp:344](../../source/game_sa/WeaponEffects.cpp#L344) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponEffects::RenderPlayerCrosshair 0x0056EF90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1559"></a>
-
-## Globales y helpers: source/game_sa/WeaponInfo.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FindAnimGroupIndexByName(const char* name, bool& found) | [source/game_sa/WeaponInfo.cpp:208](../../source/game_sa/WeaponInfo.cpp#L208) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1560"></a>
-
-## Globales y helpers: source/game_sa/Weather.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| Rand() | [source/game_sa/Weather.cpp:85](../../source/game_sa/Weather.cpp#L85) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RandMulAddSub(float mul, float add, float sub) | [source/game_sa/Weather.cpp:88](../../source/game_sa/Weather.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Ftol(float f) | [source/game_sa/Weather.cpp:94](../../source/game_sa/Weather.cpp#L94) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsRainyType(int16 w) | [source/game_sa/Weather.cpp:96](../../source/game_sa/Weather.cpp#L96) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsSunnyType(int16 w) | [source/game_sa/Weather.cpp:97](../../source/game_sa/Weather.cpp#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsExtraSunnyType(int16 w) | [source/game_sa/Weather.cpp:101](../../source/game_sa/Weather.cpp#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsHeatHazeType(int16 w) | [source/game_sa/Weather.cpp:105](../../source/game_sa/Weather.cpp#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StepTowards(float& value, float target, float step) | [source/game_sa/Weather.cpp:110](../../source/game_sa/Weather.cpp#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

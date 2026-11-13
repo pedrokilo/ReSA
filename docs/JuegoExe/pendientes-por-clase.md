@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,492** funciones en 109 clases/módulos (rango 0x401000–0x74FFFF): 1,470 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,463** funciones en 104 clases/módulos (rango 0x401000–0x74FFFF): 1,441 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -20,12 +20,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CAEAmbienceTrackManager | 5 | 386 |
 | CTaskSimpleCarFallOut | 5 | 388 |
 | CTaskComplexGotoDoorAndOpen | 6 | 388 |
-| CTxdStore | 6 | 388 |
 | CTaskSimpleHitFromFront | 13 | 390 |
-| CEventKnockOffBike | 7 | 395 |
-| CPopulation | 8 | 399 |
-| CTaskSimpleDieInCar | 5 | 403 |
-| CVehicleRecording | 3 | 417 |
 | CTaskComplexWalkRoundBuildingAttempt | 4 | 421 |
 | CTheZones | 5 | 422 |
 | CTaskSimpleIKPointArm | 5 | 426 |
@@ -119,7 +114,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (109 clases / módulos)** | **1,492** | **220,213** |
+| **TOTAL (104 clases / módulos)** | **1,463** | **218,211** |
 
 ## CAudioZones (1)
 
@@ -205,17 +200,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0066C450 | 106 | C |  | 3 | 0 |  | baja |
 | 0x0066C280 | 151 | D |  | 0 | 0 |  | baja |
 
-## CTxdStore (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x007316D0 | 13 | A |  | 1 | 1 |  | alta |
-| 0x00731800 | 54 | D |  | 0 | 0 |  | alta |
-| 0x00731B30 | 54 | D |  | 0 | 0 |  | alta |
-| 0x00731C20 | 71 | D |  | 0 | 0 |  | alta |
-| 0x00731AD0 | 92 | A |  | 1 | 1 |  | alta |
-| 0x00731B80 | 104 | A |  | 2 | 2 |  | alta |
-
 ## CTaskSimpleHitFromFront (13)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -233,49 +217,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006374C0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x006374E0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00637500 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CEventKnockOffBike (7)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AFCC0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004B06F0 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004AFCB0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004AFCE0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004AFCD0 | 7 | B |  | 0 | 0 | sí | alta |
-| 0x004B0810 | 138 | D |  | 0 | 0 |  | baja |
-| 0x004B4EE0 | 232 | D |  | 0 | 0 |  | baja |
-
-## CPopulation (8)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00407000 | 26 | A |  | 1 | 1 |  | baja |
-| 0x005BD510 | 43 | D |  | 0 | 0 |  | baja |
-| 0x005BD540 | 43 | D |  | 0 | 0 |  | baja |
-| 0x005BD570 | 43 | D |  | 0 | 0 |  | baja |
-| 0x005BD5A0 | 43 | D |  | 0 | 0 |  | baja |
-| 0x005BD5D0 | 43 | D |  | 0 | 0 |  | baja |
-| 0x005BD4E0 | 45 | D |  | 0 | 0 |  | baja |
-| 0x005BD420 | 113 | A |  | 1 | 1 |  | baja |
-
-## CTaskSimpleDieInCar (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0062FCB0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0062FC80 | 41 | D |  | 0 | 0 |  | baja |
-| 0x00636010 | 80 | B |  | 0 | 0 | sí | baja |
-| 0x00635F90 | 124 | B |  | 0 | 0 | sí | baja |
-| 0x00636060 | 152 | B |  | 0 | 0 | sí | baja |
-
-## CVehicleRecording (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0045AF40 | 47 | A |  | 4 | 2 |  | baja |
-| 0x0045AFB0 | 54 | A |  | 5 | 1 |  | baja |
-| 0x0045AD40 | 316 | C |  | 1 | 0 |  | baja |
 
 ## CTaskComplexWalkRoundBuildingAttempt (4)
 
