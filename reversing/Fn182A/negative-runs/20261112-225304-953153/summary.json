@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "40dbe59e1da890b1fe75619965817d9a5010ecf729a0fa13f22c909569ee9f5a",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CGame::ActivateMenuOnSetFocus: 102/2048; CGame::ReleaseBlockA: 884/2048; CGame::ReleaseBlockB: 892/2048; CTheZones::GetCurrentZoneLockedOrUnlocked: 118/2048; CPad::IsEscJustPressed: 105/2048; CPad::IsMouseRButtonPressed: 68/2048; CSaveGarage::CopyGarageIntoSaveGarage: 899/2048; CSaveGarage::CopyGarageOutOfSaveGarage: 889/2048; CTaskSimpleTriggerLookAt::Constructor: 841/2048; CTaskSimpleTriggerLookAt::GetTaskType: 1031/2048; CTaskSimpleTriggerLookAt::Clone: 190/2048; CTaskSimpleTriggerLookAt::MakeAbortable: 1072/2048; CTaskSimpleTriggerLookAt::ProcessPed: 691/2048; CTaskComplexWalkRoundBuildingAttempt::ConstructorEntity: 1020/2048; CTaskComplexWalkRoundObject::Clone: 1007/2048; CTaskComplexWalkRoundObject::ScalarDeletingDestructor: 482/2048; CTaskComplexMoveBackAndJump::ScalarDeletingDestructor: 496/2048; D3DTextureBuffer::Clear: 1012/2048; D3DTextureBuffer::Destroy: 850/2048; D3DIndexDataBuffer::Clear: 1001/2048; D3DIndexDataBuffer::Destroy: 818/2048; D3DResourceSystem::GrowableArrayFree: 769/2048; D3DResourceSystem::GrowableArrayResize: 802/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

@@ -44,7 +44,7 @@ public:
 
 private:
     // Envoltura para el hook del constructor (0x634440; thiscall, 10 dwords en la pila, `ret 0x28`, devuelve this)
-    CTaskSimpleTriggerLookAt* Constructor(CEntity* entity, int32 time, int32 offsetBoneTag, RwV3d offsetPos, bool bUseTorso, float speed, int32 blendTime, int32 priority) {
+    __declspec(noinline) CTaskSimpleTriggerLookAt* Constructor(CEntity* entity, int32 time, int32 offsetBoneTag, RwV3d offsetPos, bool bUseTorso, float speed, int32 blendTime, int32 priority) {
         this->CTaskSimpleTriggerLookAt::CTaskSimpleTriggerLookAt(entity, time, offsetBoneTag, offsetPos, bUseTorso, speed, blendTime, priority);
         return this;
     }

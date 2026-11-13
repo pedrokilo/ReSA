@@ -1835,8 +1835,8 @@ void CSaveGarage::CopyGarageIntoSaveGarage(Const CGarage& g) {
     m_fBackCoord    = g.m_fBackCoord;
     m_fDoorPosition = g.m_fDoorPosition;
     m_nTimeToOpen   = g.m_nTimeToOpen;
+    strcpy(m_anName, g.m_anName); // Como el original: strcpy (sin relleno 0xFE de depuración); el tipo original se escribe DESPUÉS (un nombre de más de 7 caracteres desborda sobre +0x4C)
     m_nOriginalType = g.m_nOriginalType;
-    strcpy(m_anName, g.m_anName); // Como el original: strcpy (sin relleno 0xFE de depuración)
 }
 
 // 0x5D30C0
@@ -1856,9 +1856,9 @@ void CSaveGarage::CopyGarageOutOfSaveGarage(CGarage& g) const {
     g.m_fBackCoord    = m_fBackCoord;
     g.m_fDoorPosition = m_fDoorPosition;
     g.m_nTimeToOpen   = m_nTimeToOpen;
-    g.m_nOriginalType = m_nOriginalType;
     g.m_pTargetCar    = nullptr;
-    strcpy(g.m_anName, m_anName); // Como el original: strcpy (sin relleno 0xFE de depuración)
+    strcpy(g.m_anName, m_anName); // Como el original: strcpy (sin relleno 0xFE de depuración); el tipo original se escribe DESPUÉS (un nombre largo desborda sobre +0x4C..+0x4F)
+    g.m_nOriginalType = m_nOriginalType;
 }
 
 // Lote 182A (sin validar): CopyGarageIntoSaveGarage (0x5D3020) y CopyGarageOutOfSaveGarage (0x5D30C0), ya en C++, ahora enganchadas. Ambas thiscall con un puntero en la pila (`ret 4`). La copia es campo a campo en el orden
