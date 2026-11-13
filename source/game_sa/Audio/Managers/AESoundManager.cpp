@@ -108,7 +108,7 @@ bool CAESoundManager::Initialise() {
 
     // Como el original: printf del CRT del juego (0x821982), sin reservas (spdlog guarda el mensaje en su backtrace
     // aunque el nivel esté apagado y reservaría/liberaría memoria)
-    reinterpret_cast<int(__cdecl*)(const char*, ...)>(0x821982)("Initialised SoundManager\n");
+    reinterpret_cast<int(__cdecl*)(const char*, ...)>(0x821982)("SoundManager inicializado\n");
     return true;
 }
 

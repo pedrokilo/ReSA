@@ -61,7 +61,7 @@ bool Initialize() {
         Terminate();
         return false;
     }
-    NOTSA_LOG_DEBUG("SDL attached to native HWND; platform block size={}", sizeof(psGlobalType));
+    NOTSA_LOG_DEBUG("SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma={}", sizeof(psGlobalType));
     return true;
 }
 

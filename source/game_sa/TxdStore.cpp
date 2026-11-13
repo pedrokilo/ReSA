@@ -253,7 +253,7 @@ int32 CTxdStore::GetParentTxdSlot(int32 index) {
 // create rw tex dictionary for txd slot
 // 0x731990
 void CTxdStore::Create(int32 index) {
-    NOTSA_LOG_DEBUG("CTxdStore::Create({})", index);
+    NOTSA_LOG_DEBUG("Creando diccionario de texturas (TXD) en la ranura {}", index);
     // Como el original: sin comprobar el slot (RwTexDictionaryCreate se llama siempre)
     TxdDef* txd = ms_pTxdPool->GetAt(index);
     txd->m_pRwDictionary = RwTexDictionaryCreate();

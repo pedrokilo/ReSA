@@ -21,20 +21,20 @@ void ProcessArgument(std::string_view arg) {
         s_WaitForDebugger = true;
     } else if (arg == "--unhook-all") {
         if (!s_UnhookExcept.empty()) {
-            NOTSA_LOG_WARN("--unhook-except has been called previously, unhook-all will be effective.");
+            NOTSA_LOG_WARN("--unhook-except ya se usó antes: tendrá efecto --unhook-all.");
             s_UnhookExcept.clear(); // we aren't gonna use it.
         }
         if (!s_UnhookSome.empty()) {
-            NOTSA_LOG_WARN("--unhook-some has been called previously, unhook-all will be effective.");
+            NOTSA_LOG_WARN("--unhook-some ya se usó antes: tendrá efecto --unhook-all.");
             s_UnhookSome.clear(); // we aren't gonna use it.
         }
         s_UnhookAll = true;
     } else if (arg.starts_with("--unhook-except=")) {
         if (s_UnhookAll) {
-            NOTSA_LOG_WARN("--unhook-all has been called previously, unhook-all will be effective.");
+            NOTSA_LOG_WARN("--unhook-all ya se usó antes: tendrá efecto --unhook-all.");
         } else {
             if (!s_UnhookSome.empty()) {
-                NOTSA_LOG_WARN("--unhook has been called previously, unhook-except will be effective.");
+                NOTSA_LOG_WARN("--unhook ya se usó antes: tendrá efecto --unhook-except.");
                 s_UnhookSome.clear(); // we aren't gonna use it.
             }
 
@@ -44,9 +44,9 @@ void ProcessArgument(std::string_view arg) {
         }
     } else if (arg.starts_with("--unhook=")) {
         if (s_UnhookAll) {
-            NOTSA_LOG_WARN("--unhook-all has been called previously, unhook-all will be effective.");
+            NOTSA_LOG_WARN("--unhook-all ya se usó antes: tendrá efecto --unhook-all.");
         } else if (!s_UnhookExcept.empty()) {
-            NOTSA_LOG_WARN("--unhook-except has been called previously, unhook-except will be effective.");
+            NOTSA_LOG_WARN("--unhook-except ya se usó antes: tendrá efecto --unhook-except.");
         } else {
             for (auto hook : SplitStringView(arg.substr(arg.find('=') + 1), ",")) {
                 s_UnhookSome.emplace_back(std::move(hook));
@@ -56,20 +56,20 @@ void ProcessArgument(std::string_view arg) {
         if (const auto eqPos = arg.find('='); eqPos != std::string_view::npos) {
             s_DumpHooksPath = arg.substr(eqPos + 1);
         } else {
-            NOTSA_LOG_WARN("Invalid argument '{}', expected format --dump-hooks-to=path", arg);
+            NOTSA_LOG_WARN("Argumento no válido '{}', el formato es --dump-hooks-to=ruta", arg);
         }
     } else if (arg.starts_with("--historical-hooks=")) {
         // Applied after normal command-line hook settings in DllMain.
     } else {
-        NOTSA_LOG_WARN("Unknown argument '{}'", arg);
+        NOTSA_LOG_WARN("Argumento desconocido '{}'", arg);
     }
 }
 
 void CommandLine::Load(int argc, char** argv) {
-    NOTSA_LOG_DEBUG("[Command Line]: Loading arguments");
+    NOTSA_LOG_DEBUG("[Línea de comandos]: leyendo argumentos");
     for (int32 i = 1; i < argc; i++) { // Skip first 'argument' which is the exec path.
         ProcessArgument(argv[i]);
     }
-    NOTSA_LOG_DEBUG("[Command Line]: Arguments loaded");
+    NOTSA_LOG_DEBUG("[Línea de comandos]: argumentos leídos");
 }
 } // namespace CommandLine

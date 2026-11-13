@@ -245,9 +245,9 @@ void CPools::CheckPoolsEmpty() {
             continue;
 
         const auto& objPos = obj.GetPosition();
-        NOTSA_LOG_DEBUG("Offending object: MI: {} Coors:{} {} {}", obj.m_nModelIndex, objPos.x, objPos.y, objPos.z);
+        NOTSA_LOG_DEBUG("Objeto problemático: modelo={} coordenadas=({}, {}, {})", obj.m_nModelIndex, objPos.x, objPos.y, objPos.z);
     }
-    NOTSA_LOG_DEBUG("Pools have been cleared!");
+    NOTSA_LOG_DEBUG("Pools de entidades vaciados (peatones, vehículos, objetos...).");
 }
 
 // 0x550050

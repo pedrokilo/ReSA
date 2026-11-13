@@ -64,7 +64,7 @@ uint32 CdStreamGetLastPosn() {
 
 // 0x4067B0
 CdStreamHandle CdStreamOpen(const char* lpFileName) {
-    NOTSA_LOG_DEBUG("CdStreamOpen: {}", lpFileName);
+    NOTSA_LOG_DEBUG("Abriendo archivo del juego (CdStream): {}", lpFileName);
     int32 idx = 0;
     for (; idx < MAX_CD_STREAM_HANDLES; idx++) {
         if (!gStreamFileHandles[idx])

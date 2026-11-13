@@ -192,7 +192,7 @@ void CheckFileEncoding(const char* file, uint16 version, uint16 encoding) {
             return std::format("{}-bit unknown", e);
         }
     };
-    NOTSA_LOG_DEBUG("Loading '{}' version={:02d} ({})", file, version, GetEncodingName(encoding));
+    NOTSA_LOG_DEBUG("Cargando textos '{}' versión={:02d} ({})", file, version, GetEncodingName(encoding));
     if (encoding != GAME_ENCODING) {
         NOTSA_UNREACHABLE("File {} was compiled with {} encoding but {} is required.", file, GetEncodingName(encoding), GetEncodingName(GAME_ENCODING));
     }

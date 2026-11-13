@@ -5,7 +5,7 @@
 //! Win32 fail check (returns from function automagically)
 #define WIN_FCHECK(x) do { \
         if (HRESULT hr = (x); FAILED(hr)) { \
-	        NOTSA_LOG_DEBUG(TEXT("FAILED(hr=0x{:x}) in ") TEXT(#x) TEXT("\n"), (size_t)(hr)); \
+	        NOTSA_LOG_DEBUG(TEXT("FALLÓ (hr=0x{:x}{}) en ") TEXT(#x) TEXT("\n"), (size_t)(hr), (hr == (HRESULT)0x80070005L) ? ", acceso denegado" : ""); \
             return; \
         } \
     } while (0) \

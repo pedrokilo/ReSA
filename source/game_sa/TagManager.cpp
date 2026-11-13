@@ -300,6 +300,6 @@ bool CTagManager::Load() {
         CGenericGameStorage::LoadDataFromWorkBuffer(ms_tagDesc.data()[i].Alpha);
     }
 
-    NOTSA_LOG_DEBUG("Loaded {} tags", ms_numTags);
+    NOTSA_LOG_DEBUG("Se cargaron {} tags (grafitis)", ms_numTags);
     return true;
 }

@@ -34,9 +34,9 @@ static void ApplyCommandLineHookSettings() {
 
     const auto ResultText = [](SetCatOrItemStateResult res) {
         switch (res) {
-        case SetCatOrItemStateResult::NotFound: return "not found";
-        case SetCatOrItemStateResult::Locked:   return "locked";
-        case SetCatOrItemStateResult::Done:     return "done";
+        case SetCatOrItemStateResult::NotFound: return "no encontrado";
+        case SetCatOrItemStateResult::Locked:   return "bloqueado";
+        case SetCatOrItemStateResult::Done:     return "hecho";
         default:                                NOTSA_UNREACHABLE();
         }
     };
@@ -44,14 +44,14 @@ static void ApplyCommandLineHookSettings() {
     if (CommandLine::s_UnhookAll || !CommandLine::s_UnhookExcept.empty()) {
         GetRootCategory().SetAllItemsEnabled(false);
 
-        NOTSA_LOG_DEBUG("Unhooked all via command-line");
+        NOTSA_LOG_DEBUG("Todos los hooks desactivados por línea de comandos (se vuelve al código original del juego)");
         for (const auto& item : CommandLine::s_UnhookExcept) {
             const auto res = SetCategoryOrItemStateByPath(item, true);
 
             if (res == SetCatOrItemStateResult::Done) {
-                NOTSA_LOG_DEBUG("Rehooked '{}' via command-line.", item);
+                NOTSA_LOG_DEBUG("Hook reactivado '{}' por línea de comandos.", item);
             } else {
-                NOTSA_LOG_WARN("Couldn't rehook '{}' via command-line: {}", item, ResultText(res));
+                NOTSA_LOG_WARN("No se pudo reactivar '{}' por línea de comandos: {}", item, ResultText(res));
             }
         }
         return;
@@ -62,12 +62,37 @@ static void ApplyCommandLineHookSettings() {
             const auto res = SetCategoryOrItemStateByPath(item, false);
 
             if (res == SetCatOrItemStateResult::Done) {
-                NOTSA_LOG_DEBUG("Unhooked '{}' via command-line.", item);
+                NOTSA_LOG_DEBUG("Hook desactivado '{}' por línea de comandos (usa el código original del juego).", item);
             } else {
-                NOTSA_LOG_WARN("Couldn't unhook '{}' via command-line: {}", item, ResultText(res));
+                NOTSA_LOG_WARN("No se pudo desactivar '{}' por línea de comandos: {}", item, ResultText(res));
             }
         }
     }
+}
+
+// Resumen de arranque: cuántas funciones del juego corren ya como C++ y cuántas siguen con el código original del EXE.
+static void LogHookSummary() {
+    using namespace ReversibleHooks;
+    using namespace ReversibleHooks::ReversibleHook;
+
+    size_t classes = 0, simple = 0, virtuals = 0, active = 0, disabled = 0;
+    GetRootCategory().ForEachCategory([&](auto& cat) {
+        size_t inCat = 0;
+        for (auto& item : cat.Items()) {
+            if (item->Type() == Base::HookType::ScriptCommand) {
+                continue;
+            }
+            ++inCat;
+            (item->Type() == Base::HookType::Virtual ? virtuals : simple)++;
+            (item->Hooked() ? active : disabled)++;
+        }
+        classes += inCat ? 1 : 0;
+    });
+    NOTSA_LOG_INFO(
+        "Funciones del juego reemplazadas por código C++: {} en {} clases/grupos ({} sobre la dirección del EXE y {} sobre la tabla virtual). Activas: {}. Desactivadas: {}.",
+        simple + virtuals, classes, simple, virtuals, active, disabled
+    );
+    NOTSA_LOG_INFO("El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.");
 }
 
 // Opt-in historical catalog selection; unknown functions are disabled.
@@ -147,6 +172,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
         InjectHooksMain(hModule);
         ApplyCommandLineHookSettings();
         ApplyHistoricalHookSettings();
+        LogHookSummary();
         break;
     }
     case DLL_THREAD_ATTACH:

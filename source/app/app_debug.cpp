@@ -8,8 +8,32 @@
 #include <spdlog/async.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/pattern_formatter.h>
 
 #define FINAL 0
+
+namespace {
+//! Nombre del nivel del registro en español (flag `%*` del patrón).
+class SpanishLevelFlag final : public spdlog::custom_flag_formatter {
+public:
+    void format(const spdlog::details::log_msg& msg, const std::tm&, spdlog::memory_buf_t& dest) override {
+        std::string_view name;
+        switch (msg.level) {
+        case spdlog::level::trace:    name = "traza";        break;
+        case spdlog::level::debug:    name = "depuración";   break;
+        case spdlog::level::info:     name = "info";         break;
+        case spdlog::level::warn:     name = "aviso";        break;
+        case spdlog::level::err:      name = "error";        break;
+        case spdlog::level::critical: name = "crítico";      break;
+        default:                      name = "?";            break;
+        }
+        dest.append(name.data(), name.data() + name.size());
+    }
+    std::unique_ptr<custom_flag_formatter> clone() const override {
+        return std::make_unique<SpanishLevelFlag>();
+    }
+};
+}
 
 #ifndef FINAL
 RtCharset* debugCharset;
@@ -283,7 +307,11 @@ notsa::Logging::Logging() {
     spdlog::init_thread_pool(1 << 16, 4);
 
     // See https://github.com/gabime/spdlog/wiki/3.-Custom-formatting#pattern-flags
-    spdlog::set_pattern("%^[%l][%H:%M:%S.%e][%s:%#]: %v%$");
+    {
+        auto formatter = std::make_unique<spdlog::pattern_formatter>();
+        formatter->add_flag<SpanishLevelFlag>('*').set_pattern("%^[%*][%H:%M:%S.%e][%s:%#]: %v%$");
+        spdlog::set_formatter(std::move(formatter));
+    }
     spdlog::enable_backtrace(128);
     spdlog::set_level(spdlog::level::debug);
 

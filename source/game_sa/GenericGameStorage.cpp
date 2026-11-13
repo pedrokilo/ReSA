@@ -306,17 +306,17 @@ bool CGenericGameStorage::GenericLoad(bool& out_bVariablesLoaded) {
             uint32 varsVer{};
             vars.Extract(varsVer);
             if (GetCurrentVersionNumber() != varsVer) {
-                NOTSA_LOG_ERR("Tried loading a save file with mismatching version!");
-                NOTSA_LOG_ERR("Got {}, expected {}", SaveVersionName(varsVer), SaveVersionName(GetCurrentVersionNumber()));
+                NOTSA_LOG_ERR("Se intentó cargar una partida guardada de otra versión.");
+                NOTSA_LOG_ERR("La partida es {}, se esperaba {}", SaveVersionName(varsVer), SaveVersionName(GetCurrentVersionNumber()));
 
                 if (!g_MiscConfig.LoadSavesWithMismatchingVersion) {
-                    NOTSA_LOG_WARN("Starting a new game instead... (You can force load it by setting Misc.LoadSavesWithMismatchingVersion to true in the config)");
+                    NOTSA_LOG_WARN("Se inicia una partida nueva en su lugar (para forzar la carga, pon Misc.LoadSavesWithMismatchingVersion en true en la configuración).");
 
                     varsBackup.Extract(varsVer); // Restore old state
                     CloseFile();
                     return false;
                 } else {
-                    NOTSA_LOG_WARN("Forcefully loading a mismatching save. You are on your own! If the save mismatches with the script, the game will crash.");
+                    NOTSA_LOG_WARN("Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.");
                 }
             }
             break;

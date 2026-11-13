@@ -132,7 +132,7 @@ void CPopCycle::Initialise() {
     m_pCurrZoneInfo      = nullptr;
     m_nCurrentZoneType   = -1;
 
-    NOTSA_LOG_DEBUG("POPCYCLE.DAT has been loaded successfully!");
+    NOTSA_LOG_DEBUG("POPCYCLE.DAT (población de peatones y coches) cargado correctamente.");
 }
 
 // 0x60FBD0

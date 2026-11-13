@@ -173,9 +173,9 @@ void WriteHooksToFile(const std::filesystem::path& file) {
                 );
             }
         });
-        NOTSA_LOG_INFO("Hooks written to `{}`", path.string());
+        NOTSA_LOG_INFO("Lista de hooks escrita en `{}`", path.string());
     } else {
-        NOTSA_LOG_ERR("Failed to open file `{}` for writing hooks!", path.string());
+        NOTSA_LOG_ERR("No se pudo abrir el archivo `{}` para escribir la lista de hooks", path.string());
     }
 }
 
