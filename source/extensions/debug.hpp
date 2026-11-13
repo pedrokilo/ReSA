@@ -22,10 +22,6 @@ inline void WaitForDebugger() {
 }
 
 inline void DisplayConsole() {
-    // Support UTF-8 IO for Windows Terminal. (or CMD if a supported font is used)
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
-
 #ifdef NOTSA_STANDALONE
     // In standalone mode try using the parent process's console if it has one
     if (!AttachConsole(ATTACH_PARENT_PROCESS)) {
@@ -35,6 +31,11 @@ inline void DisplayConsole() {
     // In asi mode always allocate a new console
     VERIFY(AllocConsole());
 #endif
+
+    // Soporte de UTF-8 en la consola (acentos y eñes en el registro). Debe hacerse DESPUÉS de crear o enlazar la consola:
+    // antes de AllocConsole() estas llamadas no tienen efecto y la consola nueva arranca con la página de códigos OEM (437/850).
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
 
     FILESTREAM fs{};
     VERIFY(freopen_s(&fs, "CONIN$", "r", stdin) == NOERROR);

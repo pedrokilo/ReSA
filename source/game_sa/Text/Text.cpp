@@ -185,11 +185,11 @@ void CheckFileEncoding(const char* file, uint16 version, uint16 encoding) {
     const auto GetEncodingName = [](uint16 e) -> std::string {
         switch (e) {
         case 8:
-            return "8-bit ASCII";
+            return "ASCII de 8 bits";
         case 16:
-            return "16-bit UTF-16";
+            return "UTF-16 de 16 bits";
         default:
-            return std::format("{}-bit unknown", e);
+            return std::format("codificación desconocida de {} bits", e);
         }
     };
     NOTSA_LOG_DEBUG("Cargando textos '{}' versión={:02d} ({})", file, version, GetEncodingName(encoding));
