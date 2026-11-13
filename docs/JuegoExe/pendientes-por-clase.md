@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,329** funciones en 81 clases/módulos (rango 0x401000–0x74FFFF): 1,307 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (13/11/2026). Total: **1,310** funciones en 78 clases/módulos (rango 0x401000–0x74FFFF): 1,288 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -15,9 +15,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWaterLevel | 1 | 208 |
 | WaterCreature_c | 2 | 211 |
 | CTaskComplexGotoDoorAndOpen | 6 | 388 |
-| CEventAttractor | 8 | 490 |
-| CPlayerPed | 3 | 496 |
-| CTaskSimpleDuck | 8 | 496 |
 | CEventScriptedAttractor | 13 | 527 |
 | CPedAttractorPool | 12 | 530 |
 | CStreaming | 17 | 535 |
@@ -91,7 +88,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (81 clases / módulos)** | **1,329** | **208,304** |
+| **TOTAL (78 clases / módulos)** | **1,310** | **206,822** |
 
 ## CAudioZones (1)
 
@@ -129,40 +126,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0066C3E0 | 86 | A |  | 3 | 1 |  | baja |
 | 0x0066C450 | 106 | C |  | 3 | 0 |  | baja |
 | 0x0066C280 | 151 | D |  | 0 | 0 |  | baja |
-
-## CEventAttractor (8)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AF3E0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004AF3F0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004AF3D0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B76A0 | 33 | B |  | 0 | 0 | sí | baja |
-| 0x004B74B0 | 97 | B |  | 0 | 0 | sí | baja |
-| 0x004B7520 | 97 | D |  | 0 | 0 |  | baja |
-| 0x004B7630 | 97 | D |  | 0 | 0 |  | baja |
-| 0x004B7590 | 154 | B |  | 0 | 0 | sí | baja |
-
-## CPlayerPed (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0060F8C0 | 1 | A |  | 1 | 1 |  | baja |
-| 0x0060A9A0 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x0060D5B0 | 465 | A |  | 3 | 3 |  | alta |
-
-## CTaskSimpleDuck (8)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006926E0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x006926F0 | 11 | C |  | 1 | 0 |  | baja |
-| 0x00692DD0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00693B80 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00694640 | 68 | B |  | 0 | 0 | sí | baja |
-| 0x00692680 | 85 | C |  | 1 | 0 |  | baja |
-| 0x00692D60 | 99 | B |  | 0 | 0 | sí | baja |
-| 0x00692700 | 167 | B |  | 0 | 0 | sí | baja |
 
 ## CEventScriptedAttractor (13)
 
