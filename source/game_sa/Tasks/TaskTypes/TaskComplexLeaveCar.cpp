@@ -316,7 +316,7 @@ void __fastcall RegisterPedLeaving(CTaskComplexLeaveCar* task, void* /*edx*/, CP
 void __fastcall CreateLineUpUtility(CTaskComplexLeaveCar* task, void* /*edx*/, CPed* /*ped*/) {
     // Como el original: comprobación de nulo tras operator new (MSVC antiguo); si no hay memoria se guarda nulo sin construir
     void* const memory = operator new(sizeof(CTaskUtilityLineUpPedWithCar));
-    task->m_pTaskUtilityLineUpPedWithCar = memory ? new (memory) CTaskUtilityLineUpPedWithCar(CVector{ 0.0f, 0.0f, 0.0f }, 0, 0, task->m_nTargetDoor) : nullptr;
+    task->m_pTaskUtilityLineUpPedWithCar = memory ? static_cast<CTaskUtilityLineUpPedWithCar*>(memory)->Constructor(CVector{ 0.0f, 0.0f, 0.0f }, 0, 0, task->m_nTargetDoor) : nullptr;   // el EXE guarda el EAX del constructor enganchado (0x64FBB0)
 }
 
 // 0x646CF0: ¿la puerta está siendo usada para subir (gettingIn) o para bajar (gettingOut)?

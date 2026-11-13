@@ -18998,3 +18998,19 @@ __declspec(noinline) int __cdecl TimerStepMsCpp(float step) {
     return static_cast<int>(static_cast<long long>(scaled));
 }
 #pragma float_control(pop)
+
+// Lote 186A (sin validar).
+// 0x5A2F80 (ProcSurfaceInfo_c::IsPtInTriangle2D): cada borde `(a-b)*(c-d) + (e-f)*(g-h) <= 0` (fcomp contra 0.0f; con NaN no se cumple) en la x87 a la precision vigente (24 bits, exponente ampliado: los productos que
+// desbordan o se hunden por debajo del rango del float no se aplanan); z con la secuencia exacta del EXE (`-(nx*x) - ny*y - -(v1z*nz + ny*v1y + nx*v1x)`, division por nz y guardado como float: un NaN conserva su carga util).
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl ProcSurfaceInTriangle2DCpp(const float* in, float* z) {
+    const double x = in[0], y = in[1];
+    if (!((double(in[2]) - double(in[5])) * (double(in[3]) - y) + (double(in[6]) - double(in[3])) * (double(in[2]) - x) <= 0.0)
+        || !((double(in[5]) - double(in[8])) * (double(in[6]) - y) + (double(in[9]) - double(in[6])) * (double(in[5]) - x) <= 0.0)
+        || !((double(in[3]) - double(in[9])) * (double(in[8]) - x) + (double(in[8]) - double(in[2])) * (double(in[9]) - y) <= 0.0)) {
+        return false;
+    }
+    *z = float((-(double(in[11]) * x) - double(in[12]) * y - -(double(in[4]) * double(in[13]) + double(in[12]) * double(in[3]) + double(in[11]) * double(in[2]))) / double(in[13]));
+    return true;
+}
+#pragma float_control(pop)

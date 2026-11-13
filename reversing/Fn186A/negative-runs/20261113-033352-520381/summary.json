@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "0c5552d68f72378d271062f7824ec20cb7497717e3eb7d3ff12351959b103591",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: GetChangingStatIndex: 61/2048; CShopping::RemovePriceModifier-Key: 216/2048; CShopping::AddPriceModifier-Key: 51/2048; CStuntJumpManager::PoolGetAt: 360/2048; CStuntJumpManager::PoolFlushSecondCopy: 309/2048; ProcSurfaceInfo_c::IsPtInTriangle2D: 233/2048; ProcObjectListItem::Constructor: 205/2048; ProcObjectMan_c::Destructor: 298/2048; ProcObjectMan_c::Constructor: 285/2048; CTaskSimpleStandStill::Clone: 290/2048; CTaskSimpleDie::Clone: 286/2048; CTaskSimpleDrown::Clone: 289/2048; CTaskComplexLeaveCar::GetTaskType: 271/2048; CTaskComplexLeaveCar::RegisterPedLeaving: 329/2048; CTaskComplexLeaveCar::CreateLineUpUtility: 243/2048; CTaskComplexLeaveCar::Clone: 231/2048; CTaskComplexLeaveCar::ScalarDeletingDestructor: 148/2048; CTaskComplexLeaveBoat::ScalarDeletingDestructor: 140/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

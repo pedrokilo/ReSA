@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
 #include "PlantLocTri.h"
 #include "X87Math.h"
 
+// 0x5A2F80 (lote 186A): aritmetica x87 del triangulo, en X87Math.cpp (compilado con /arch:IA32). Declarada aqui y no en X87Math.h para no recompilar los 206 archivos que lo incluyen (precedente: lote 173A).
+bool __cdecl ProcSurfaceInTriangle2DCpp(const float* in, float* z);
+
 // 0x5A2E90
 ProcSurfaceInfo_c* ProcSurfaceInfo_c::Constructor() {
     this->ProcSurfaceInfo_c::ProcSurfaceInfo_c();
@@ -345,15 +348,10 @@ int32 ProcSurfaceInfo_c::AddObjects(CPlantLocTri* plant) {
 }
 
 // 0x5A2F80 (lote 186A, sin validar; thiscall con ECX sin usar, 15 dwords en la pila (x, y, tres vectores de tres floats, normal y puntero a z), `ret 0x3C`, 229 bytes, devuelve bool en AL).
-// Como el original: cada prueba rechaza el punto si la expresión no es <= 0 (también con NaN). Cada borde suma (a-b)*(c-d) + (e-f)*(g-h) en ese orden; z = (-(nx*x) - ny*y - -(v1.z*nz + ny*v1.y + nx*v1.x)) / nz,
-// guardado solo si el punto esta dentro.
+// Como el original: cada prueba rechaza el punto si la expresion no es <= 0 (tambien con NaN). Cada borde suma (a-b)*(c-d) + (e-f)*(g-h) en ese orden; z = (-(nx*x) - ny*y - -(v1.z*nz + ny*v1.y + nx*v1.x)) / nz,
+// guardado solo si el punto esta dentro. El EXE lo calcula con la x87 (24 bits de mantisa y exponente ampliado): el banco Fn186A mostro que con el SSE de este archivo cambian el resultado los productos fuera del rango del
+// float y los denormales, asi que la aritmetica esta en ProcSurfaceInTriangle2DCpp (X87Math.cpp, compilado con /arch:IA32).
 bool ProcSurfaceInfo_c::IsPtInTriangle2D(float x, float y, CVector v1, CVector v2, CVector v3, CVector normal, float* z) {
-    if (!((v1.x - v2.x) * (v1.y - y) + (v2.y - v1.y) * (v1.x - x) <= 0.0f)
-        || !((v2.x - v3.x) * (v2.y - y) + (v3.y - v2.y) * (v2.x - x) <= 0.0f)
-        || !((v1.y - v3.y) * (v3.x - x) + (v3.x - v1.x) * (v3.y - y) <= 0.0f)) {
-        return false;
-    }
-
-    *z = (-(normal.x * x) - normal.y * y - -(v1.z * normal.z + normal.y * v1.y + normal.x * v1.x)) / normal.z;
-    return true;
+    const float in[14] = {x, y, v1.x, v1.y, v1.z, v2.x, v2.y, v2.z, v3.x, v3.y, v3.z, normal.x, normal.y, normal.z};
+    return ProcSurfaceInTriangle2DCpp(in, z);
 }
