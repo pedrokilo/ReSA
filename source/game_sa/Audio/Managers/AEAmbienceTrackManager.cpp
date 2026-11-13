@@ -476,21 +476,28 @@ void CAEAmbienceTrackManager::StopAmbienceTrack() {
     m_StartAmbienceAtBeginning  = false;
 }
 
-// 0x4D6DA0 (lote 180A, sin validar; thiscall, `jmp` final, 70 bytes): DisableBassEq (0x4D94D0), SetChannelVolume (0x4D8870, canal en 16 bits, 0, volumen +0x18, 0), SetChannelFlags (0x4D9500, canal, 0, 0x21) y salto a
-// StartTrackPlayback (0x4D8F30), todo sobre el objeto de hardware 0xB5F8B8. El volumen viaja como el dword crudo de la pila.
+// 0x4D6DA0 (lote 180A, banco Fn180A; thiscall, `jmp` final, 70 bytes): DisableBassEq (0x4D94D0), SetChannelVolume (0x4D8870: canal, 0, volumen +0x18, 0), SetChannelFlags (0x4D9500: canal, 0, 0x21) y salto a StartTrackPlayback
+// (0x4D8F30), todo sobre el objeto de hardware 0xB5F8B8. Como el original: el canal se lee como WORD de +4 y se empuja EXTENDIDO A CERO (xor ecx,ecx; mov cx,[esi+4]), releido para cada llamada; el volumen se lee ANTES del canal
+// y viaja como el dword crudo de la pila. La envoltura de la DLL (int16) lo empujaria extendido con signo, por eso estas dos llamadas llevan el dword exacto por la direccion del EXE (el cuerpo con hook recorta a int16).
 void CAEAmbienceTrackManager::StartTrackPlayback() const {
     AEAudioHardware.DisableBassEq();
-    AEAudioHardware.SetChannelVolume(m_HwClientHandle, 0, m_Volume, 0);
-    AEAudioHardware.SetChannelFlags(m_HwClientHandle, 0, 33);
+    const uint32 volume = std::bit_cast<uint32>(m_Volume);
+    const uint32 channelForVolume = *reinterpret_cast<const volatile uint16*>(reinterpret_cast<const uint8*>(this) + 4);
+    plugin::CallMethod<0x4D8870, CAEAudioHardware*, uint32, uint32, uint32, uint32>(&AEAudioHardware, channelForVolume, 0, volume, 0);
+    const uint32 channelForFlags = *reinterpret_cast<const volatile uint16*>(reinterpret_cast<const uint8*>(this) + 4);
+    plugin::CallMethod<0x4D9500, CAEAudioHardware*, uint32, uint32, uint32>(&AEAudioHardware, channelForFlags, 0, 0x21);
     AEAudioHardware.StartTrackPlayback();
 }
 
-// 0x4D6DF0 (lote 180A, sin validar; thiscall, `ret`, 97 bytes): el factor es 0 si hay pausa de usuario (0xB7CB49), de codigo (0xB7CB48) o el interruptor del menu principal (0xBA6831); si no, el de +0x1C. Llama dos veces a
-// SetChannelFrequencyScalingFactor (0x4D8960) con (canal en 16 bits, 0, factor), releyendo nada entre ambas (el factor se guarda una vez en la pila).
+// 0x4D6DF0 (lote 180A, banco Fn180A; thiscall, `ret`, 97 bytes): el factor es 0 si hay pausa de usuario (0xB7CB49), de codigo (0xB7CB48) o el interruptor del menu principal (0xBA6831); si no, el dword de +0x1C (se lee UNA vez y
+// se guarda en la pila). Llama dos veces a SetChannelFrequencyScalingFactor (0x4D8960) con (canal, 0, factor): el canal es el WORD de +4 EXTENDIDO A CERO y se relee para cada llamada; la envoltura de la DLL (int16) lo empujaria extendido
+// con signo y el factor como float, por eso las llamadas llevan los dwords exactos por la direccion del EXE (el cuerpo con hook recorta a int16).
 void CAEAmbienceTrackManager::CheckForPause() const {
-    float freqFactor = CTimer::GetIsPaused() || FrontEndMenuManager.m_bMainMenuSwitch ? 0.0f : m_FreqFactor;
-    AEAudioHardware.SetChannelFrequencyScalingFactor(m_HwClientHandle, 0, freqFactor);
-    AEAudioHardware.SetChannelFrequencyScalingFactor(m_HwClientHandle, 0, freqFactor);
+    const uint32 factor = CTimer::GetIsPaused() || FrontEndMenuManager.m_bMainMenuSwitch ? 0u : std::bit_cast<uint32>(m_FreqFactor);
+    const uint32 firstChannel = *reinterpret_cast<const volatile uint16*>(reinterpret_cast<const uint8*>(this) + 4);
+    plugin::CallMethod<0x4D8960, CAEAudioHardware*, uint32, uint32, uint32>(&AEAudioHardware, firstChannel, 0, factor);
+    const uint32 secondChannel = *reinterpret_cast<const volatile uint16*>(reinterpret_cast<const uint8*>(this) + 4);
+    plugin::CallMethod<0x4D8960, CAEAudioHardware*, uint32, uint32, uint32>(&AEAudioHardware, secondChannel, 0, factor);
 }
 
 // NOTSA

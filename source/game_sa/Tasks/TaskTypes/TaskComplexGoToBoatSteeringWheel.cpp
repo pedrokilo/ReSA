@@ -109,11 +109,22 @@ eTaskType CTaskComplexGoToBoatSteeringWheel::GetTaskType() const {
 // (TASK_FINISHED 0x516 incluido) devuelve nulo. Una reserva nula devuelve nulo sin llamar al constructor.
 CTask* CTaskComplexGoToBoatSteeringWheel::CreateSubTask(eTaskType taskType) {
     switch (taskType) {
-    case TASK_SIMPLE_STAND_STILL:
-        return new CTaskSimpleStandStill(-1, false, false, 8.0f);
-    case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL:
+    case TASK_SIMPLE_STAND_STILL: {
+        // Como el original: sin memoria (nulo) no se construye; devuelve el EAX del constructor (0x62F310, con hook)
+        auto* const memory = static_cast<CTaskSimpleStandStill*>(CTask::operator new(sizeof(CTaskSimpleStandStill)));
+        if (!memory) {
+            return nullptr;
+        }
+        return memory->Constructor(-1, false, false, 8.0f);
+    }
+    case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL: {
         ComputeTargetPos();
-        return new CTaskComplexGoToPointAndStandStill(PEDMOVE_WALK, m_TargetPos, 0.5f, 2.0f, false, false);
+        auto* const memory = static_cast<CTaskComplexGoToPointAndStandStill*>(CTask::operator new(sizeof(CTaskComplexGoToPointAndStandStill)));
+        if (!memory) {
+            return nullptr;
+        }
+        return memory->Constructor(PEDMOVE_WALK, m_TargetPos, 0.5f, 2.0f, false, false); // el constructor enganchado 0x668120; devuelve su EAX
+    }
     default: // Como el original: TASK_FINISHED y cualquier otro tipo
         return nullptr;
     }

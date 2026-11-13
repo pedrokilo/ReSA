@@ -32,6 +32,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    friend class CTaskSimpleAbseil; // su constructor y su Clone (lote 180A) llaman a Constructor2 (0x61A900) como el EXE
     CTaskSimpleRunAnim* Constructor(AssocGroupId animGroup, AnimationId animId, float fBlendDelta, bool bHoldLastFrame);
     CTaskSimpleRunAnim* Constructor2(AssocGroupId animGroup, AnimationId animId, float fBlendDelta, int32 nTaskType, const char* taskName _IGNORED_, bool bHoldLastFrame);
 

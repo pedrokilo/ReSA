@@ -46,6 +46,7 @@ public:
 
 private:
     friend void InjectHooksMain();
+    friend class CTaskComplexGoToBoatSteeringWheel; // su CreateSubTask (0x64CDA0, lote 180A) llama al constructor enganchado 0x668120
     static void InjectHooks();
 
     // 0x668120

@@ -14,7 +14,7 @@ public:
     ~CTaskSimpleHitHead() override;
 
     eTaskType GetTaskType() const override; // 0x653080 (lote 150A, banco Fn150A: definido en el .cpp)
-    CTask* Clone() const override { return new CTaskSimpleHitHead(); }
+    CTask* Clone() const override; // 0x6557A0 (lote 180A, banco Fn180A)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;
     static void FinishAnimCB(CAnimBlendAssociation* anim, void* data);

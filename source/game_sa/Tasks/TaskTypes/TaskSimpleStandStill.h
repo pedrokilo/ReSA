@@ -33,6 +33,8 @@ private:
     friend void InjectHooksMain();
     friend class CTaskSimpleOnEscalator;      // su Clone llama al Constructor enganchado (0x62F310), como el EXE
     friend class CTaskComplexWalkRoundObject; // su CreateSubTask (0x655290) tambien
+    friend class CTaskComplexGoToBoatSteeringWheel; // su CreateSubTask (0x64CDA0, lote 180A) tambien
+    friend class CTaskComplexGoToPointAndStandStillAndAchieveHeading; // su CreateSubTask (0x668D50, lote 180A) tambien
     static void InjectHooks();
 
     __declspec(noinline) CTaskSimpleStandStill* Constructor(int32 nTime, bool Looped, bool bUseAnimIdleStance, float fBlendData) { this->CTaskSimpleStandStill::CTaskSimpleStandStill(nTime, Looped, bUseAnimIdleStance, fBlendData); return this; }

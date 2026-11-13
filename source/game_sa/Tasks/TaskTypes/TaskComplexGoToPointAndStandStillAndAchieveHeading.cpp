@@ -90,13 +90,20 @@ CTask* CTaskComplexGoToPointAndStandStillAndAchieveHeading::CreateNextSubTask(CP
 // 0x20 bytes, CTaskSimpleStandStill (0x62F310) con (0, false, false, 8.0f). TASK_SIMPLE_ACHIEVE_HEADING (0x386): 0x18 bytes, CTaskSimpleAchieveHeading (0x667E20) con (m_Angle +0x20, m_ChangeRateMult +0x24, m_MaxHeading +0x28). Cualquier otro
 // tipo (TASK_FINISHED 0x516 incluido) devuelve nulo.
 CTask* CTaskComplexGoToPointAndStandStillAndAchieveHeading::CreateSubTask(eTaskType taskType) {
+    // Como el original: cada rama reserva con CTask::operator new (0x61A5A0); sin memoria devuelve nulo sin construir; si no, devuelve el EAX del constructor enganchado de la subtarea
     switch (taskType) {
-    case TASK_SIMPLE_ACHIEVE_HEADING:
-        return new CTaskSimpleAchieveHeading(m_Angle, m_ChangeRateMult, m_MaxHeading);
-    case TASK_SIMPLE_STAND_STILL:
-        return new CTaskSimpleStandStill{};
-    case TASK_SIMPLE_GO_TO_POINT:
-        return new CTaskSimpleGoToPoint(m_MoveState, m_TargetPos, m_Radius, false, false);
+    case TASK_SIMPLE_ACHIEVE_HEADING: {
+        auto* const memory = static_cast<CTaskSimpleAchieveHeading*>(CTask::operator new(sizeof(CTaskSimpleAchieveHeading)));
+        return memory ? memory->Constructor(m_Angle, m_ChangeRateMult, m_MaxHeading) : nullptr;
+    }
+    case TASK_SIMPLE_STAND_STILL: {
+        auto* const memory = static_cast<CTaskSimpleStandStill*>(CTask::operator new(sizeof(CTaskSimpleStandStill)));
+        return memory ? memory->Constructor(0, false, false, 8.0f) : nullptr;
+    }
+    case TASK_SIMPLE_GO_TO_POINT: {
+        auto* const memory = static_cast<CTaskSimpleGoToPoint*>(CTask::operator new(sizeof(CTaskSimpleGoToPoint)));
+        return memory ? memory->Constructor(m_MoveState, m_TargetPos, m_Radius, false, false) : nullptr;
+    }
     default:
         return nullptr;
     }

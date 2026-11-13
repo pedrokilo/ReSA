@@ -10343,6 +10343,7 @@ CEventAcquaintancePedHateBadlyLit,ScalarDeletingDestructor,0x005FF360,1,0,1,S
 CPlane,DestructorBody,0x006C9160,1,0,1,S
 CPlane,ScalarDeletingDestructor,0x006CADB0,1,0,1,S
 CQuadBike,DestructorBody,0x006CDC30,1,0,1,S
+<<<<<<< HEAD
 CColStore,PoolFlush,0x00410610,1,0,1,S
 CColStore,PoolConstructor,0x00410F80,1,0,1,S
 CColStore,PoolFlushSecondCopy,0x00410FE0,1,0,1,S
@@ -10445,3 +10446,27 @@ CTaskSimpleAbseil,Constructor,0x006586A0,1,0,0,S
 CTaskSimpleAbseil,Clone,0x00000000,1,0,0,V
 CTaskComplexGoToPointAndStandStillAndAchieveHeading,CreateSubTask,0x00668D50,1,0,0,S
 CTaskComplexFollowPointRoute,DestructorBody,0x0066E050,1,0,0,S
+=======
+CAEAmbienceTrackManager,StopAmbienceTrack,0x004D6CC0,1,0,1,S
+CAEAmbienceTrackManager,StartTrackPlayback,0x004D6DA0,1,0,1,S
+CAEAmbienceTrackManager,CheckForPause,0x004D6DF0,1,0,1,S
+CAEAudioChannel,Constructor,0x004D7890,1,0,1,S
+CAEAudioChannel,DestructorBody,0x004D7910,1,0,1,S
+CHandObject,Constructor,0x0059EEB0,1,0,1,S
+CHandObject,ScalarDeletingDestructor,0x0059EFE0,1,0,1,S
+CObject,IsCraneMovingPartModel,0x0059F050,1,0,1,S
+CTaskSimpleCarFallOut,ComputeAnimIDExe,0x00648E90,1,0,1,S
+CTaskSimpleSetPedAsAutoDriver,ScalarDeletingDestructor,0x0064CD60,1,0,1,S
+CTaskComplexGoToBoatSteeringWheel,ScalarDeletingDestructor,0x0064CD80,1,0,1,S
+CTaskComplexGoToBoatSteeringWheel,CreateSubTask,0x0064CDA0,1,0,1,S
+CTaskComplexGetOnBoatSeat,ScalarDeletingDestructor,0x0064CE80,1,0,1,S
+CTaskSimpleHitHead,Clone,0x00000000,1,0,1,V
+CTaskSimpleHitFromBehind,ScalarDeletingDestructor,0x00655DB0,1,0,1,S
+CTaskSimpleHitWall,ScalarDeletingDestructor,0x00655DE0,1,0,1,S
+CTaskSimpleHitHead,ScalarDeletingDestructor,0x00655E30,1,0,1,S
+CTaskSimpleEvasiveStep,ScalarDeletingDestructor,0x00655E80,1,0,1,S
+CTaskSimpleAbseil,Constructor,0x006586A0,1,0,1,S
+CTaskSimpleAbseil,Clone,0x00000000,1,0,1,V
+CTaskComplexGoToPointAndStandStillAndAchieveHeading,CreateSubTask,0x00668D50,1,0,1,S
+CTaskComplexFollowPointRoute,DestructorBody,0x0066E050,1,0,1,S
+>>>>>>> 9ba1ae4cc7 (Lote 180A validado: 22 funciones (StopAmbienceTrack, StartTrackPlayback y CheckForPause de CAEAmbienceTrackManager, constructor y cuerpo del destructor de CAEAudioChannel, constructor y destructor con borrado de CHandObject, CObject::IsCraneMovingPartModel, CTaskSimpleCarFallOut::ComputeAnimIDExe, destructores con borrado de siete clases de tareas, CreateSubTask de CTaskComplexGoToBoatSteeringWheel y de CTaskComplexGoToPointAndStandStillAndAchieveHeading, Clone de CTaskSimpleHitHead y de CTaskSimpleAbseil, constructor de CTaskSimpleAbseil, cuerpo del destructor de CTaskComplexFollowPointRoute) con banco Fn180A (360448 pares, cero diferencias, 22/22 fallan en dos rondas negativas); correcciones de fuente hechas al validar: canal como WORD extendido a cero y dwords exactos en StartTrackPlayback y CheckForPause, Clone de CTaskSimpleHitHead y constructor y Clone de CTaskSimpleAbseil con la forma y la vtable del EXE, CreateSubTask de las dos tareas con los constructores enganchados de las subtareas; 22 filas de hooks.csv a validated=1)

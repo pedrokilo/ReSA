@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "451a5f6a2451eee73eeadc064ad711572b6a28c36f77eb918edc9310cea7e067",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CAEAmbienceTrackManager::StopAmbienceTrack: 296/2048; CAEAmbienceTrackManager::StartTrackPlayback: 314/2048; CAEAmbienceTrackManager::CheckForPause: 313/2048; CAEAudioChannel::Constructor: 306/2048; CAEAudioChannel::DestructorBody: 198/2048; CHandObject::Constructor: 321/2048; CHandObject::ScalarDeletingDestructor: 291/2048; CObject::IsCraneMovingPartModel: 149/2048; CTaskSimpleCarFallOut::ComputeAnimIDExe: 38/2048; CTaskSimpleSetPedAsAutoDriver::ScalarDeletingDestructor: 290/2048; CTaskComplexGoToBoatSteeringWheel::ScalarDeletingDestructor: 286/2048; CTaskComplexGoToBoatSteeringWheel::CreateSubTask: 51/2048; CTaskComplexGetOnBoatSeat::ScalarDeletingDestructor: 271/2048; CTaskSimpleHitHead::Clone: 259/2048; CTaskSimpleHitFromBehind::ScalarDeletingDestructor: 313/2048; CTaskSimpleHitWall::ScalarDeletingDestructor: 295/2048; CTaskSimpleHitHead::ScalarDeletingDestructor: 278/2048; CTaskSimpleEvasiveStep::ScalarDeletingDestructor: 272/2048; CTaskSimpleAbseil::Constructor: 309/2048; CTaskSimpleAbseil::Clone: 298/2048; CTaskComplexGoToPointAndStandStillAndAchieveHeading::CreateSubTask: 72/2048; CTaskComplexFollowPointRoute::DestructorBody: 224/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

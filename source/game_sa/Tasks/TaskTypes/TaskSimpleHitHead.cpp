@@ -20,6 +20,10 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleHitHead.h"
 
+namespace CTaskSimpleBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
+}
+
 namespace {
 // Callback por defecto de animaciones del EXE (CDefaultAnimCallback::DefaultAnimCB, 0x4D1390: `ret`). Como el original, el destructor pasa la direccion del EXE a SetFinishCallback (la de la DLL no
 // vale para la comparacion de lo que se le pasa).
@@ -48,6 +52,22 @@ CTaskSimpleHitHead* __fastcall CTaskSimpleHitHeadScalarDeletingDestructor(CTaskS
     return self;
 }
 } // namespace
+
+// 0x6557A0 (lote 180A, banco Fn180A; thiscall, sin argumentos, `ret`, 111 bytes con marco SEH que solo libera la memoria si el constructor lanza y aqui se omite; ranura 1 de la vtable 0x86F1D0): Clone. Como el original: reserva 0x10
+// bytes con CTask::operator new (0x61A5A0, con hook); sin memoria devuelve nulo; si no, llama al cuerpo del constructor de CTaskSimple (0x61A390, con hook), deja la vtable de la clase del EXE (0x86F1D0), pone el BYTE +8 y el dword
+// +0xC a cero y devuelve el objeto reservado (no el EAX del constructor base).
+CTask* CTaskSimpleHitHead::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleHitHead));
+    if (!memory) {
+        return nullptr;
+    }
+    CTaskSimpleBody::Constructor(memory, nullptr);
+    uint8* const bytes = static_cast<uint8*>(memory);
+    *reinterpret_cast<uint32*>(bytes) = 0x86F1D0;
+    bytes[8] = 0;
+    *reinterpret_cast<uint32*>(bytes + 0xC) = 0;
+    return static_cast<CTask*>(memory);
+}
 
 // 0x653080 (lote 150A, banco Fn150A; thiscall, `ret`, 6 bytes: `mov eax,0x1F4`): TASK_SIMPLE_HIT_HEAD (500); no lee el objeto.
 eTaskType CTaskSimpleHitHead::GetTaskType() const {
