@@ -260,7 +260,10 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
-    CPhysical* Constructor() { this->CPhysical::CPhysical(); return this; }
+public: // Envoltura del cuerpo 0x542260 (con hook): la llaman CObject::ConstructorDefault y CObject::ConstructorFromDummy (lote 185A) como el `call 0x542260` del EXE, sin expansion en linea
+    __declspec(noinline) CPhysical* Constructor() { this->CPhysical::CPhysical(); return this; }
+
+private:
     CPhysical* Destructor() { this->CPhysical::~CPhysical(); return this; }
 
 };

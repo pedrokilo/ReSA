@@ -91,6 +91,15 @@ void DoFade() {
             );
         }
 
-        CSprite2d::DrawRect({-5.0f, SCREEN_HEIGHT + 5.0f, SCREEN_WIDTH + 5.0f, -5.0f}, color);
+        // Como el original: ancho y alto se suman como ENTEROS (con desbordamiento) antes de pasar a float (fild + fstp)
+        const auto right  = static_cast<float>(static_cast<int32>(static_cast<uint32>(RsGlobal.maximumWidth) + 5u));
+        const auto bottom = static_cast<float>(static_cast<int32>(static_cast<uint32>(RsGlobal.maximumHeight) + 5u));
+        // El rectangulo en memoria es (x1, y1, x2, y2) = (-5, -5, ancho + 5, alto + 5): el constructor de CRect (izquierda, abajo, derecha, arriba) lo da por invertido (assert) con y1 < y2, asi que se rellenan los campos
+        CRect rect;
+        rect.left   = -5.0f;
+        rect.top    = -5.0f;
+        rect.right  = right;
+        rect.bottom = bottom;
+        CSprite2d::DrawRect(rect, color);
     }
 }

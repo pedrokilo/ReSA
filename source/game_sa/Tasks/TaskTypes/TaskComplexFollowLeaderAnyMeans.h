@@ -31,16 +31,12 @@ public:
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override;
+    __declspec(noinline) CTaskComplexFollowLeaderAnyMeans* Destructor(); // 0x694B30 (con hook, lote 185A): cuerpo del destructor del EXE (vtable 0x870C68, limpia +0x10, CTaskComplex::Destructor); sin expansion en linea
 
 private: // Wrappers for hooks
     // 0x694AA0
     CTaskComplexFollowLeaderAnyMeans* Constructor(CPedGroup* pedGroup, CPed* ped, CVector const& pos) {
         this->CTaskComplexFollowLeaderAnyMeans::CTaskComplexFollowLeaderAnyMeans(pedGroup, ped, pos);
-        return this;
-    }
-    // 0x694B30
-    CTaskComplexFollowLeaderAnyMeans* Destructor() {
-        this->CTaskComplexFollowLeaderAnyMeans::~CTaskComplexFollowLeaderAnyMeans();
         return this;
     }
 };

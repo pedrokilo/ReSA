@@ -30,6 +30,6 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
-    CTaskComplexFollowPedFootsteps* Constructor(CPed* ped);
+    __declspec(noinline) CTaskComplexFollowPedFootsteps* Constructor(CPed* ped); // 0x694E20 (con hook): sin expansion en linea (el archivo se compila con /O2 e inlining) para que Clone la llame por su cuerpo enganchado
 };
 VALIDATE_SIZE(CTaskComplexFollowPedFootsteps, 0x20);

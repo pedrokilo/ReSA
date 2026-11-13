@@ -21,17 +21,12 @@ public:
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override;
+    __declspec(noinline) CTaskComplexSeekEntityAiming* Destructor(); // 0x694C10 (con hook, lote 185A): cuerpo del destructor del EXE (vtable 0x870C94, limpia +0xC, CTaskComplex::Destructor); sin expansion en linea
 
 private: // Wrappers for hooks
     // 0x694B90
     CTaskComplexSeekEntityAiming* Constructor(CEntity* entity, float a3, float a4) {
         this->CTaskComplexSeekEntityAiming::CTaskComplexSeekEntityAiming(entity, a3, a4);
-        return this;
-    }
-
-    // 0x694C10
-    CTaskComplexSeekEntityAiming* Destructor() {
-        this->CTaskComplexSeekEntityAiming::~CTaskComplexSeekEntityAiming();
         return this;
     }
 

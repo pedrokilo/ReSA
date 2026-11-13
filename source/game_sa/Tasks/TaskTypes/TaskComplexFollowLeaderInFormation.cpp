@@ -27,12 +27,16 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleCarDrive.h"
 #include "SeekEntity/TaskComplexSeekEntity.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
 namespace {
 // 0x695BC0 (lote 185A, sin validar; el listado decia CTaskComplexSeekEntityAiming): destructor con borrado de CTaskComplexFollowLeaderInFormation del EXE (ranura 0 de la vtable 0x870C3C; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x694A40;
 // test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). 0x694A40 es el cuerpo del destructor de la clase (vtable 0x870C3C en +0, limpia la referencia de m_Leader (+0x10) y termina en CTaskComplex::Destructor 0x61A3D0);
-// aqui es la llamada no virtual al destructor de la clase. Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+// aqui la envoltura Destructor() de la clase (cuerpo con hook, sin expansion en linea). Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
 CTaskComplexFollowLeaderInFormation* __fastcall FollowLeaderInFormationScalarDeletingDestructor(CTaskComplexFollowLeaderInFormation* self, void* /*edx*/, uint8 flags) {
-    self->CTaskComplexFollowLeaderInFormation::~CTaskComplexFollowLeaderInFormation();
+    self->Destructor();
     if (flags & 1) {
         CTask::operator delete(self);
     }
@@ -140,6 +144,15 @@ CTaskComplexFollowLeaderInFormation::CTaskComplexFollowLeaderInFormation(const C
 // 0x694A40
 CTaskComplexFollowLeaderInFormation::~CTaskComplexFollowLeaderInFormation() {
     CEntity::SafeCleanUpRef(m_Leader);
+}
+
+// 0x694A40 (lote 185A, sin validar; thiscall, sin argumentos de pila, `ret`, marco SEH que solo desenrolla y se omite): cuerpo del destructor del EXE. Orden del EXE: vtable de la clase (0x870C3C), CEntity::CleanUpOldReference
+// (0x571A00) sobre +0x10 si no es nulo y CTaskComplex::Destructor (0x61A3D0, con hook). El destructor generado por el compilador dejaria la vtable de la DLL. Es el hook de 0x694A40 y lo llama el destructor con borrado (0x695BC0).
+CTaskComplexFollowLeaderInFormation* CTaskComplexFollowLeaderInFormation::Destructor() {
+    *reinterpret_cast<uint32*>(this) = 0x870C3C;
+    CEntity::SafeCleanUpRef(m_Leader);
+    CTaskComplexBody::Destructor(this, nullptr);
+    return this;
 }
 
 // 0x696820

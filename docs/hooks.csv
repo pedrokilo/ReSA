@@ -10539,3 +10539,29 @@ CTaskComplexFollowLeaderInFormation,ScalarDeletingDestructor,0x00695BC0,1,0,0,S
 CTaskComplexFollowLeaderAnyMeans,ScalarDeletingDestructor,0x00695BE0,1,0,0,S
 CTaskComplexSeekEntityAiming,ScalarDeletingDestructor,0x00695C00,1,0,0,S
 CTaskComplexFollowPedFootsteps,DestructorBody,0x00695DC0,1,0,0,S
+CVehiclePool,GetAtRef,0x004048E0,1,0,1,S
+COnscreenTimerEntry,Process,0x0044CB10,1,0,1,S
+COnscreenTimer,ProcessForDisplay,0x0044CC20,1,0,1,S
+COnscreenTimer,Process,0x0044CD30,1,0,1,S
+CDraw,DoFade,0x0053E600,1,0,1,S
+CLinkList<CPed*>,Clear,0x0053E8D0,1,0,1,S
+CObject,ConstructorDefault,0x005A1D10,1,0,1,S
+CObject,ConstructorFromDummy,0x005A1DF0,1,0,1,S
+CObject,operator new-poolRef,0x005A1EF0,1,0,1,S
+CObject,operator delete-anon,0x005A1F20,1,0,1,S
+cHandlingDataMgr,Initialise,0x005BF3D0,1,0,1,S
+CTaskComplexPartnerChat,GetTaskType,0x00000000,1,0,1,V
+CTaskComplexPartnerShove,GetTaskType,0x00000000,1,0,1,V
+CTaskComplexPartnerChat,Clone,0x00000000,1,0,1,V
+CTaskComplexPartnerShove,Clone,0x00000000,1,0,1,V
+CTaskComplexPartner,ScalarDeletingDestructor,0x00684F60,1,0,1,S
+CTaskComplexPartnerDeal,ScalarDeletingDestructor,0x00684F80,1,0,1,S
+CTaskComplexPartnerGreet,ScalarDeletingDestructor,0x00684FA0,1,0,1,S
+CTaskComplexPartnerChat,ScalarDeletingDestructor,0x00684FC0,1,0,1,S
+CTaskComplexPartnerShove,ScalarDeletingDestructor,0x00684FE0,1,0,1,S
+CTaskComplexFollowPedFootsteps,Clone,0x00000000,1,0,1,V
+CTaskComplexFollowLeaderInFormation,ConstructorFormation,0x00695B20,1,0,1,S
+CTaskComplexFollowLeaderInFormation,ScalarDeletingDestructor,0x00695BC0,1,0,1,S
+CTaskComplexFollowLeaderAnyMeans,ScalarDeletingDestructor,0x00695BE0,1,0,1,S
+CTaskComplexSeekEntityAiming,ScalarDeletingDestructor,0x00695C00,1,0,1,S
+CTaskComplexFollowPedFootsteps,DestructorBody,0x00695DC0,1,0,1,S

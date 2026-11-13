@@ -38,6 +38,7 @@ public:
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override;
     CTask*    CreateSubTask(eTaskType type, CPed* ped);
+    __declspec(noinline) CTaskComplexFollowLeaderInFormation* Destructor(); // 0x694A40 (con hook, lote 185A): cuerpo del destructor del EXE (vtable 0x870C3C, limpia +0x10, CTaskComplex::Destructor); sin expansion en linea para que el banco la sustituya
 
 private:
     friend void InjectHooksMain();
@@ -45,6 +46,5 @@ private:
 
     CTaskComplexFollowLeaderInFormation* Constructor(CPedGroup* pedGroup, CPed* ped, CVector const& posn, float a5) { this->CTaskComplexFollowLeaderInFormation::CTaskComplexFollowLeaderInFormation(pedGroup, ped, posn, a5); return this; }
     CTaskComplexFollowLeaderInFormation* ConstructorFormation(CPedGroup* pedGroup, CPed* ped, int32 dx, int32 dy, float dist) { this->CTaskComplexFollowLeaderInFormation::CTaskComplexFollowLeaderInFormation(pedGroup, ped, dx, dy, dist); return this; }
-    CTaskComplexFollowLeaderInFormation* Destructor() { this->CTaskComplexFollowLeaderInFormation::~CTaskComplexFollowLeaderInFormation(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexFollowLeaderInFormation, 0x28);

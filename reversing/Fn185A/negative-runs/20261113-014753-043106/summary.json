@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "ae7410df5a6977ca92cc264697a82d8f02781ace90d578532162fa1aa6a9a795",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CVehiclePool::GetAtRef: 686/2048; COnscreenTimerEntry::Process: 139/2048; COnscreenTimer::ProcessForDisplay: 570/2048; COnscreenTimer::Process: 240/2048; DoFade: 111/2048; CLinkList<CPed*>::Clear: 919/2048; CObject::ConstructorDefault: 899/2048; CObject::ConstructorFromDummy: 679/2048; CObject::operator new(poolRef): 2048/2048; CObject::operator delete: 1026/2048; cHandlingDataMgr::Initialise: 906/2048; CTaskComplexPartnerChat::GetTaskType: 901/2048; CTaskComplexPartnerShove::GetTaskType: 899/2048; CTaskComplexPartnerChat::Clone: 613/2048; CTaskComplexPartnerShove::Clone: 626/2048; CTaskComplexPartner::ScalarDeletingDestructor: 460/2048; CTaskComplexPartnerDeal::ScalarDeletingDestructor: 462/2048; CTaskComplexPartnerGreet::ScalarDeletingDestructor: 481/2048; CTaskComplexPartnerChat::ScalarDeletingDestructor: 477/2048; CTaskComplexPartnerShove::ScalarDeletingDestructor: 471/2048; CTaskComplexFollowPedFootsteps::Clone: 616/2048; CTaskComplexFollowLeaderInFormation::ConstructorFormation: 876/2048; CTaskComplexFollowLeaderInFormation::ScalarDeletingDestructor: 467/2048; CTaskComplexFollowLeaderAnyMeans::ScalarDeletingDestructor: 487/2048; CTaskComplexSeekEntityAiming::ScalarDeletingDestructor: 441/2048; CTaskComplexFollowPedFootsteps::DestructorBody: 685/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

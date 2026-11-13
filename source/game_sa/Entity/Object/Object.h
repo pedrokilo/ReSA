@@ -137,7 +137,7 @@ public:
     void     RemoveFromControlCodeList();
     void     ResetDoorAngle();
     void     LockDoor();
-    void     Init();
+    __declspec(noinline) void Init(); // 0x59F840 (con hook): funcion propia sin expansion en linea; la llaman los constructores ConstructorDefault y ConstructorFromDummy (lote 185A) como el `call 0x59F840` del EXE
     void     DoBurnEffect() const;
     void     GetLightingFromCollisionBelow();
     void     ProcessSamSiteBehaviour();

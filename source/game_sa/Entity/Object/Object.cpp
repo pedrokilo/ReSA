@@ -164,12 +164,48 @@ CObject::CObject() : CPhysical() {
     m_nObjectType = eObjectType::OBJECT_UNKNOWN;
 }
 
+namespace {
+// Pasos de los constructores de CObject a partir de un CDummyObject (0x5A1DF0 tras la vtable), en el orden del EXE y con las lecturas del dummy donde las hace el EXE (todas por desplazamiento): 1) SetModelIndexNoCreate
+// (0x533700, llamada directa) con el WORD con signo de +0x22; 2) si el RwObject del dummy (+0x18) no es nulo, AttachToRwObject (0x533ED0) con actualizar la matriz; si no, la matriz del dummy (+0x14) se crea si falta
+// (AllocateMatrix 0x54F560 y UpdateMatrix 0x54F1B0 sobre +4) y se pasa a SetMatrix (0x54F610); 3) DetachFromRwObject (0x533FB0) del dummy; 4) Init (0x59F840); 5) copia los bytes +0x2E y +0x2F del dummy y el bit 0x200
+// de las banderas +0x1C; 6) con RwObject propio (+0x18): atomo = el propio si su byte de tipo es 1, si no GetFirstAtomic (0x734820); si IsCBPCPipelineAttached (0x5D7F40) devuelve 0 pone el bit 0x10000000 de +0x1C.
+void ObjectAdoptDummy(CObject* self, CDummyObject* dummy) {
+    auto* const d = reinterpret_cast<uint8*>(dummy);
+    auto* const s = reinterpret_cast<uint8*>(self);
+    self->CEntity::SetModelIndexNoCreate(static_cast<uint32>(static_cast<int32>(*reinterpret_cast<int16*>(d + 0x22))));
+    if (auto* const rw = *reinterpret_cast<RwObject**>(d + 0x18)) {
+        self->CEntity::AttachToRwObject(rw, true);
+    } else {
+        if (!dummy->m_matrix) {
+            dummy->AllocateMatrix();
+            dummy->m_placement.UpdateMatrix(dummy->m_matrix);
+        }
+        self->CPlaceable::SetMatrix(*dummy->m_matrix);
+    }
+    dummy->CEntity::DetachFromRwObject();
+    self->Init();
+    s[0x2E] = d[0x2E];
+    s[0x2F] = d[0x2F];
+    auto& flags = *reinterpret_cast<uint32*>(s + 0x1C);
+    flags ^= (*reinterpret_cast<uint32*>(d + 0x1C) ^ flags) & 0x200u;
+    if (auto* const rw = *reinterpret_cast<RwObject**>(s + 0x18)) {
+        auto* const atomic = *reinterpret_cast<uint8*>(rw) == rpATOMIC ? reinterpret_cast<RpAtomic*>(rw) : GetFirstAtomic(reinterpret_cast<RpClump*>(rw));
+        if (!CCustomBuildingRenderer::IsCBPCPipelineAttached(atomic)) {
+            flags |= 0x10000000u;
+        }
+    }
+}
+} // namespace
+
 // 0x5A1D10 (lote 185A, sin validar; thiscall, sin argumentos de pila, `ret`, 90 bytes con marco SEH que solo desenrolla y aqui se omite): constructor por defecto de CObject del EXE (CPhysical::CPhysical 0x542260, vtable 0x866F60,
 // m_pDummyObject (+0x170) = 0, Init 0x59F840 y m_nObjectType (+0x13C) = 0). Devuelve this. El hook corre el constructor de la DLL (CObject(), que escribe la vtable de la DLL) y despues deja la vtable de la clase del EXE (0x866F60), que es la que
 // dejaria el constructor del EXE (los constructores derivados del EXE la sobrescriben con la suya). Lo llaman CAutomobile::SpawnFlyingComponent, CBoat::BlowUpCar, 0x5A4030 (CProjectile), CHandObject y CCutsceneObject.
 CObject* CObject::ConstructorDefault() {
-    this->CObject::CObject();
-    *reinterpret_cast<uint32*>(this) = 0x866F60;
+    this->CPhysical::Constructor();                  // 0x542260 (con hook, sin expansion en linea)
+    *reinterpret_cast<uint32*>(this) = 0x866F60;     // vtable de la clase del EXE
+    m_pDummyObject = nullptr;                        // +0x170
+    Init();                                          // 0x59F840 (con hook, sin expansion en linea)
+    m_nObjectType = eObjectType::OBJECT_UNKNOWN;     // byte +0x13C
     return this;
 }
 
@@ -186,31 +222,15 @@ CObject::CObject(int32 modelId, bool bCreate) : CPhysical() {
 
 // 0x5A1DF0
 CObject::CObject(CDummyObject* dummyObj) : CPhysical() {
-    CEntity::SetModelIndexNoCreate(dummyObj->m_nModelIndex);
-    if (dummyObj->GetRwObject())
-        CEntity::AttachToRwObject(dummyObj->GetRwObject(), true);
-    else
-        CPlaceable::SetMatrix(dummyObj->GetMatrix());
-
-    dummyObj->DetachFromRwObject();
-    Init();
-
-    SetIplIndex(dummyObj->GetIplIndex());
-    SetAreaCode(dummyObj->GetAreaCode());
-    m_bRenderDamaged = dummyObj->m_bRenderDamaged;
-
-    if (auto* const atomic = GetRpAtomicOrFirstAtomicOfClump()) {
-        if (!CCustomBuildingRenderer::IsCBPCPipelineAttached(atomic)) {
-            m_bLightObject = true;
-        }
-    }
+    ObjectAdoptDummy(this, dummyObj);
 }
 
 // 0x5A1DF0 (lote 185A, sin validar; thiscall, un argumento de pila, `ret 4`, 230 bytes con marco SEH que solo desenrolla y aqui se omite): constructor de CObject a partir de un CDummyObject del EXE; lo llama CObject::Create(dummy)
 // (0x5A2070). Cuerpo en CObject::CObject(CDummyObject*) (ver arriba); tras el constructor de la DLL deja la vtable de la clase del EXE (0x866F60). Devuelve this.
 CObject* CObject::ConstructorFromDummy(CDummyObject* dummyObj) {
-    this->CObject::CObject(dummyObj);
-    *reinterpret_cast<uint32*>(this) = 0x866F60;
+    this->CPhysical::Constructor();                  // 0x542260 (con hook, sin expansion en linea)
+    *reinterpret_cast<uint32*>(this) = 0x866F60;     // vtable de la clase del EXE
+    ObjectAdoptDummy(this, dummyObj);
     return this;
 }
 
