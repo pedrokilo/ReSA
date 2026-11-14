@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "72671d752da41e898a4a29b063aae3c3ad409cd983a12548db24125c335557bc",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 6976,
+  "pairs_per_function": {
+    "CEventDamage::GetEventType": 64,
+    "CEventDamage::GetEventPriority": 64,
+    "CEventDamage::GetLifeTime": 64,
+    "CEventDamage::AffectsPed": 1024,
+    "CEventDamage::AffectsPedGroup": 512,
+    "CEventDamage::IsCriminalEvent": 256,
+    "CEventDamage::ReportCriminalEvent": 512,
+    "CEventDamage::GetSourceEntity": 128,
+    "CEventDamage::TakesPriorityOver": 512,
+    "CEventDamage::GetLocalSoundLevel": 64,
+    "CEventDamage::DoInformVehicleOccupants": 128,
+    "CEventDamage::CanBeInterruptedBySameEvent": 64,
+    "CEventDamage::CloneEditable": 256,
+    "CEventDamage::Constructor-": 256,
+    "CEventDamage::Constructor-1": 256,
+    "CEventDamage::From": 256,
+    "CEventDamage::ProcessDamage": 256,
+    "CEventDamage::ComputeBodyPartToRemove": 256,
+    "CEventDamage::ComputeDeathAnim": 1024,
+    "CEventDamage::ComputeDamageAnim": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "73cd8c6a36e5361f7f0efc4e1c073635dc99e717f3cc7765fdd2cb3431c6c56e",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

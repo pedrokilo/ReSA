@@ -1,0 +1,3 @@
+APROBADO: CEventDamage (lista de 20)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-event20\20261114-165852-536405

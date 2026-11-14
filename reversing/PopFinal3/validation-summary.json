@@ -178,26 +178,26 @@
     "CPopulation::UpdatePedCount": "Corpus 256; source reviewed against the EXE and corrected before the run where needed (see git diff). Limites del banco: pools de peds (0x7C4), objetos (0x19C) y dummies (0x38) de 16 ranuras y model infos falsos intercambiados solo durante la ejecucion; colaboradores doblados con traza y sin credito; fixtures sin objetos de cristal sin dummy (0x6146F0)."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PopFinal3-20261107-194447-616880",
-  "summary_sha256": "8d98be4e58801565a1317953179204a5939b5f3ecfa5e6745fcbef32019c905b",
-  "result_txt_sha256": "df70ee529c9f402c927ec92c1947666aa88cf991a948ca8c3171d2586ee80f3a",
-  "log_sha256": "30305e464a24a09eef0a45641f7fc715935bec8ea7d0f588d5b429e99c3a3bfc",
+  "run": "reversing/CppTwelveLevel6Final/runs/PopFinal3-20261114-164616-547267",
+  "summary_sha256": "f13745938ac2b55def46ec5c43a46b2b62cac5eb4c1e2cf61c6d35c8f9ae345e",
+  "result_txt_sha256": "0a44f886d8075a9df3184d87bc50891e3f2440540b688b6cf26a42871b72d8e9",
+  "log_sha256": "ec8b886d308458406cbdd2fb7eb16a178f2a5a55650830a3b0d106539bb2d11f",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PopFinal3-20261107-194447-616880/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PopFinal3-20261114-164616-547267/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "17d8078a31557d3efa5b71e09d4a6a96e43de65376e00d6b98419516fdef7f36",
-    "uncompressed_sha256": "30305e464a24a09eef0a45641f7fc715935bec8ea7d0f588d5b429e99c3a3bfc"
+    "compressed_sha256": "55b60532c77caae6be0d084dc825b10b144c6469b47f87ecfa878addf1c980a2",
+    "uncompressed_sha256": "ec8b886d308458406cbdd2fb7eb16a178f2a5a55650830a3b0d106539bb2d11f"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "097cb6dc225a7437bdd5e51dd846e45e1262e830a6160ac64459a204ba6bbad7",
+  "executed_probe_sha256": "1d6bbf7dfbe16130f297adac2d8d979d8af890b5e5b441276169c42c13bca615",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Population.cpp": "767e9f9e3cc66357c5a6f6c665db0bd7a9a36695838f76536b55eafe22d68109",
+      "source/game_sa/Population.cpp": "bb243ee3d93e63ebeebc53c2f6b6716c4b49286bec3a8f49cd1f946cc9ccdaf9",
       "source/game_sa/Population.h": "03d63c9f80cbddf755b71a5ef1b2f3b8e97dcb746fb0fa46cfe0b6d595ab51d5"
     }
   },

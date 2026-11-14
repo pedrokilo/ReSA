@@ -33,10 +33,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "6474e1e85995604b07b3d971dbecd46f529569f93d7c8398cdfbf311998c1974",
+  "log_sha256": "73cd8c6a36e5361f7f0efc4e1c073635dc99e717f3cc7765fdd2cb3431c6c56e",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-event20\\20261003-215412-405801",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-event20\\20261114-165852-536405",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CEventDamage::GetEventType": true,
@@ -62,14 +62,14 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "4776459bea06713bc33458bc181c4a14ec6a73d28562c710a7c4abda5c2d1f40",
-      "pdb": "e212f9fe0ed1cf14f90d2ab8a7812cb981e604bdef4c0533843e4f7613cf24df"
+      "asi": "72671d752da41e898a4a29b063aae3c3ad409cd983a12548db24125c335557bc",
+      "pdb": "bd6f77f69163c33bdab50ab1e7551af3c05d37490b142fa388e303d35d0b5226"
     },
     "sources": {
-      "source/game_sa/Events/EventDamage.cpp": "6511e422cc843695317f17a23bba5d34fb5017705dde2ccc630e48d15b4db118",
-      "source/game_sa/Events/EventDamage.h": "0b039361cb2f917e475ce43c695640f08e57ad8c35dc0f79d988286d55b96e7d"
+      "source/game_sa/Events/EventDamage.cpp": "60988860b7262c8abbbd0d03604475c37afa9aa5b59add27e22c662cf6f16dc1",
+      "source/game_sa/Events/EventDamage.h": "fc275b2d0d911c26ae7281482363641a04739e675b4f7cb5f7cd1639b4809635"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
       "LiveComparison.hpp": "9f6d63e04f34d5558ff0cf82b01c8a0606561da4327f25e194e5ae0ee78a676f",
       "build_probe.py": "1c5f4af41f710a96cafe50d02df461df894df70c4ba2ec86a59cc80809179eac",
@@ -78,6 +78,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
