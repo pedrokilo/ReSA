@@ -120815,7 +120815,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::CalculateWindBending"
@@ -120841,7 +120841,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::Initialise"
@@ -120867,7 +120867,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::MoveColEntToList"
@@ -120893,7 +120893,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::MoveLocTriToList"
@@ -120919,7 +120919,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::PreUpdateOnceForNewCameraPos"
@@ -120945,7 +120945,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::ReloadConfig"
@@ -120971,7 +120971,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::Render"
@@ -120997,7 +120997,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::SetPlantFriendlyFlagInAtomicMI"
@@ -121023,7 +121023,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::Shutdown"
@@ -121049,7 +121049,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::Update"
@@ -121075,7 +121075,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::UpdateAmbientColor"
@@ -121101,7 +121101,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ColEntityCache_Add"
@@ -121127,7 +121127,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ColEntityCache_FindInCache"
@@ -121153,7 +121153,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ColEntityCache_Remove"
@@ -121179,7 +121179,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ColEntityCache_Update"
@@ -121205,7 +121205,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ProcessEntryCollisionDataSections"
@@ -121231,7 +121231,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ProcessEntryCollisionDataSections_AddLocTris"
@@ -121257,7 +121257,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ProcessEntryCollisionDataSections_RemoveLocTris"
@@ -121283,7 +121283,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
+        "sha256": "6e59cc98bf572ab42b7bd3217ee776d54594abb6967605c1c69506ad2df4c3df",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_UpdateLocTris"
@@ -149954,7 +149954,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::Buy"
@@ -149963,7 +149963,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -149980,7 +149980,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::FindItem"
@@ -149989,7 +149989,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150006,7 +150006,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::FindSection"
@@ -150015,7 +150015,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150032,7 +150032,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::FindSectionInSection"
@@ -150041,7 +150041,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150058,7 +150058,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::GetExtraInfo"
@@ -150067,7 +150067,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150084,7 +150084,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::GetItemIndex"
@@ -150093,7 +150093,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150110,7 +150110,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::GetKey"
@@ -150119,7 +150119,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150136,7 +150136,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::GetNameTag"
@@ -150145,7 +150145,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150162,7 +150162,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::GetNextSection"
@@ -150171,7 +150171,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150188,7 +150188,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::GetPrice"
@@ -150197,7 +150197,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150214,7 +150214,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::GetPriceSectionFromName"
@@ -150223,7 +150223,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150240,7 +150240,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::HasPlayerBought"
@@ -150249,7 +150249,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150266,7 +150266,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::IncrementStat"
@@ -150275,7 +150275,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150292,7 +150292,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::IncrementStat2"
@@ -150301,7 +150301,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150318,7 +150318,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::Init"
@@ -150327,7 +150327,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150344,7 +150344,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::Load"
@@ -150353,7 +150353,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150370,7 +150370,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::LoadPrices"
@@ -150379,7 +150379,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150396,7 +150396,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::LoadShop"
@@ -150405,7 +150405,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150422,7 +150422,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::LoadStats"
@@ -150431,7 +150431,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150448,7 +150448,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::RemoveLoadedPrices"
@@ -150457,7 +150457,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150474,7 +150474,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::RemoveLoadedShop"
@@ -150483,7 +150483,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150500,7 +150500,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::RestoreClothesState"
@@ -150509,7 +150509,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150526,7 +150526,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::RestoreVehicleMods"
@@ -150535,7 +150535,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150552,7 +150552,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::Save"
@@ -150561,7 +150561,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150578,7 +150578,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::SetCurrentProperty"
@@ -150587,7 +150587,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150604,7 +150604,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::SetPlayerHasBought"
@@ -150613,7 +150613,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150630,7 +150630,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::ShutdownForRestart"
@@ -150639,7 +150639,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150656,7 +150656,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::StoreClothesState"
@@ -150665,7 +150665,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150682,7 +150682,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::StoreVehicleMods"
@@ -150691,7 +150691,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -150708,7 +150708,7 @@
       },
       "evidence": {
         "path": "reversing/Shop30/validation-summary.json",
-        "sha256": "b93e1ec9a99cf3a230f049124badece85ef10dd3623c6ec18f134f6421941cc3",
+        "sha256": "80ca811087e14de23ca018899f1cf7fb05ac2850c62e08b4cf67a0ceaaf50552",
         "passed_path": [
           "covered_functions",
           "CShopping::UpdateStats"
@@ -150717,7 +150717,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+        "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
         "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112645-312087).",
@@ -179852,7 +179852,7 @@
       },
       "evidence": {
         "path": "reversing/BeCop60/validation-summary.json",
-        "sha256": "700bb28ab044442870a10f65a8a25683b198cb1d300727d366d3bd5066d8294e",
+        "sha256": "07fe9e297e576539b9969e9710ac2d057c8a69791b87f28e39c571c2389b43a4",
         "passed_path": [
           "covered_functions",
           "CTaskComplexBeCop::Clone"
@@ -179861,12 +179861,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp": "81f3f3578c0fdb702f3cfdd02e08da8ec88b4338e5234242984069b3d41c166b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h": "a0ccfdc5275120a1b091dee3af54bf21ed2b866e4913c9cf1698d1d7cbedd816",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "8ba48e693f9be5164939881cdcbf5f4f7d6d63d0709d43813092d598354736bf",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "40a2db44b471d8168bd9fadb98a85dd876fc5800e09ec784981aaf75f7d02360"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp": "bbb5092da7f367a68a357e99cb26eb5074aea8233a9574cdf3d70ba4d997e125",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h": "8c1173df909d7eccca304f0cf30cc375f6b788c0e66b17adf589c58a5160d8c9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "b18232aa2df64675bb081c204a203fcab5a9386ab184140f395de14ef575bea9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "4f24816057bc6fd9d95de14a5297c01b7463c9b59be07e191d18becf82bb285c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "6eebbec71dfd76efbc9eeb17d1abf6142a44e031979732f70650526d793f5fb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "7684f82e1c04884e84897c2bcb7727294e4ae2330d2a0dac5febfef8846adc93"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-184930-270360).",
       "dependency_review": null,
@@ -179882,7 +179882,7 @@
       },
       "evidence": {
         "path": "reversing/BeCop60/validation-summary.json",
-        "sha256": "700bb28ab044442870a10f65a8a25683b198cb1d300727d366d3bd5066d8294e",
+        "sha256": "07fe9e297e576539b9969e9710ac2d057c8a69791b87f28e39c571c2389b43a4",
         "passed_path": [
           "covered_functions",
           "CTaskComplexBeCop::Destructor"
@@ -179891,12 +179891,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp": "81f3f3578c0fdb702f3cfdd02e08da8ec88b4338e5234242984069b3d41c166b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h": "a0ccfdc5275120a1b091dee3af54bf21ed2b866e4913c9cf1698d1d7cbedd816",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "8ba48e693f9be5164939881cdcbf5f4f7d6d63d0709d43813092d598354736bf",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "40a2db44b471d8168bd9fadb98a85dd876fc5800e09ec784981aaf75f7d02360"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp": "bbb5092da7f367a68a357e99cb26eb5074aea8233a9574cdf3d70ba4d997e125",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h": "8c1173df909d7eccca304f0cf30cc375f6b788c0e66b17adf589c58a5160d8c9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "b18232aa2df64675bb081c204a203fcab5a9386ab184140f395de14ef575bea9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "4f24816057bc6fd9d95de14a5297c01b7463c9b59be07e191d18becf82bb285c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "6eebbec71dfd76efbc9eeb17d1abf6142a44e031979732f70650526d793f5fb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "7684f82e1c04884e84897c2bcb7727294e4ae2330d2a0dac5febfef8846adc93"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-184930-270360).",
       "dependency_review": null,
@@ -179912,7 +179912,7 @@
       },
       "evidence": {
         "path": "reversing/BeCop60/validation-summary.json",
-        "sha256": "700bb28ab044442870a10f65a8a25683b198cb1d300727d366d3bd5066d8294e",
+        "sha256": "07fe9e297e576539b9969e9710ac2d057c8a69791b87f28e39c571c2389b43a4",
         "passed_path": [
           "covered_functions",
           "CTaskComplexBeCop::GetTaskType"
@@ -179921,12 +179921,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp": "81f3f3578c0fdb702f3cfdd02e08da8ec88b4338e5234242984069b3d41c166b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h": "a0ccfdc5275120a1b091dee3af54bf21ed2b866e4913c9cf1698d1d7cbedd816",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "8ba48e693f9be5164939881cdcbf5f4f7d6d63d0709d43813092d598354736bf",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "40a2db44b471d8168bd9fadb98a85dd876fc5800e09ec784981aaf75f7d02360"
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp": "bbb5092da7f367a68a357e99cb26eb5074aea8233a9574cdf3d70ba4d997e125",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h": "8c1173df909d7eccca304f0cf30cc375f6b788c0e66b17adf589c58a5160d8c9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "b18232aa2df64675bb081c204a203fcab5a9386ab184140f395de14ef575bea9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "4f24816057bc6fd9d95de14a5297c01b7463c9b59be07e191d18becf82bb285c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "6eebbec71dfd76efbc9eeb17d1abf6142a44e031979732f70650526d793f5fb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "7684f82e1c04884e84897c2bcb7727294e4ae2330d2a0dac5febfef8846adc93"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-184930-270360).",
       "dependency_review": null,

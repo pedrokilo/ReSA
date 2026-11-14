@@ -21494,7 +21494,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDamageResponse"
@@ -21521,7 +21521,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePersonalityResponseToDamage"
@@ -21548,7 +21548,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDeathResponse"
@@ -21575,7 +21575,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDeadPedResponse"
@@ -21602,7 +21602,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeVehicleDamageResponse"
@@ -21629,7 +21629,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeGotKnockedOverByCarResponse"
@@ -21656,7 +21656,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeVehicleCollisionResponse"
@@ -21683,7 +21683,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeVehiclePotentialCollisionResponse"
@@ -21710,7 +21710,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeEventResponseTask-0"
@@ -21737,7 +21737,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeEventResponseTask-Ped"
@@ -21764,7 +21764,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::HandleEvents"
@@ -21791,7 +21791,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::Flush"
@@ -21818,7 +21818,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::FlushImmediately"
@@ -21845,7 +21845,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::SetEventResponseTask"
@@ -21872,7 +21872,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::RegisterKill"
@@ -21899,7 +21899,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::Constructor"
@@ -21926,7 +21926,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::Destructor"
@@ -21953,7 +21953,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::IsKillTaskAppropriate"
@@ -21980,7 +21980,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::IsTemporaryEvent"
@@ -22007,7 +22007,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
+        "sha256": "c5ceb787133321649ee8001b88f311f02ff5fd1bef8f8b389e3cc7bb3b6228c5",
         "passed_path": [
           "covered_functions",
           "CEventHandler::GetCurrentEventType"
@@ -22960,7 +22960,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeAreaCodesResponse"
@@ -22986,7 +22986,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeAttractorResponse"
@@ -23012,7 +23012,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeBuildingCollisionResponse"
@@ -23038,7 +23038,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeCarUpsideDownResponse"
@@ -23064,7 +23064,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeChatPartnerResponse"
@@ -23090,7 +23090,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeCopCarBeingStolenResponse"
@@ -23116,7 +23116,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeCreatePartnerTaskResponse"
@@ -23142,7 +23142,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDangerResponse"
@@ -23168,7 +23168,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDontJoinGroupResponse"
@@ -23194,7 +23194,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDraggedOutCarResponse"
@@ -23220,7 +23220,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeFireNearbyResponse"
@@ -23246,7 +23246,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeGunAimedAtResponse"
@@ -23272,7 +23272,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeHighAngerAtPlayerResponse"
@@ -23298,7 +23298,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeInWaterResponse"
@@ -23324,7 +23324,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeInteriorUseInfoResponse"
@@ -23350,7 +23350,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeLowAngerAtPlayerResponse"
@@ -23376,7 +23376,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeLowHealthResponse"
@@ -23402,7 +23402,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeObjectCollisionPassiveResponse"
@@ -23428,7 +23428,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
+        "sha256": "24280e0575951f508b8f088097697a869851ef85152fa977ec3b2893797ecec9",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeObjectCollisionResponse"

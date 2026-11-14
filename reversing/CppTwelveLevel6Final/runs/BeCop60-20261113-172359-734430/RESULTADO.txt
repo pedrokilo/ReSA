@@ -1,0 +1,3 @@
+APROBADO: Tarea de policía de a pie (CTaskComplexBeCop)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-becop60\20261113-172359-734430
