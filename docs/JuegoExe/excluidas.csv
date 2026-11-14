@@ -24,3 +24,6 @@ va,bytes,modulo,motivo
 0x005DD1E0,57,CPlantMgr,"__usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 12/11/2026 (lotes 180A y 186A)"
 0x005DD220,323,CPlantMgr,"__usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 12/11/2026 (lotes 180A y 186A)"
 0x004B5C2A,197,CPedDamageResponseCalculator,"no es una funcion: bloque interior de CPedDamageResponseCalculator/ComputeDamageResponse (0x4B5AC0), sin prologo; excluida el 12/11/2026 (lote 176A)"
+0x0070FA70,107,CStencilShadows,"__usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 14/11/2026 (lote 190A)"
+0x00711160,136,CStencilShadows,"__usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 14/11/2026 (lote 190A)"
+0x007111F0,136,CStencilShadows,"__usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 14/11/2026 (lote 190A)"
