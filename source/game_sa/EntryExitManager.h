@@ -65,6 +65,7 @@ public:
     static void GotoNextEntryExit();
     static void GotoPreviousEntryExit();
     static void SetEnabledByName(const char* name, bool enable);
+    static void SetEntryExitFlagWithName(const char* name, uint32 flag, bool enable); // 0x43EF20 (lote 191A, sin validar)
     static void SetEntryExitFlagWithIndex(int32 index, uint32 flag, bool enable);
     static bool WeAreInInteriorTransition();
 

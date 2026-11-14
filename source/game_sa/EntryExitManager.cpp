@@ -32,9 +32,109 @@ auto& mp_poolEntryExits = StaticRef<CEntryExitsPool*>(0x96A7D8);
 constexpr int32 ENTRY_EXITS_POOL_SIZE  = 400;
 constexpr int32 ENTRY_EXITS_SAVED_SLOTS = 400;
 
+namespace {
+// Lote 191A (sin validar). El EXE tiene fuera de linea varias funciones del pool de CEntryExit (CPool<CEntryExit>, elementos de 0x3C bytes; el listado las atribuia a CEntryExitManager). Se manejan con el
+// diseno en crudo del EXE (almacenamiento +0, mapa de estados +4, capacidad +8 con signo, ultimo hueco +0xC, propietario +0x10), como Init/Shutdown/Save de este archivo.
+
+// Parte comun de 0x43EEB0, 0x43F780 y 0x43F950 (copias del cuerpo del destructor de CPool, sin llamadores salvo el borrado): si la capacidad (con signo) es > 0, libera con delete[] (0x8213AE) el almacenamiento y
+// despues el mapa SOLO si el byte +0x10 (propietario) no es cero, y pone a cero +0, +4, +8 y +0xC. No toca +0x10 ni +0x11. El EXE lo hace con ESI = this y escribe EAX/ECX.
+void EntryExitPoolFlushBody(uint8* pool) {
+    if (*reinterpret_cast<int32*>(pool + 0x8) > 0) {
+        if (pool[0x10] != 0) {
+            ::operator delete[](*reinterpret_cast<void**>(pool + 0x0));
+            ::operator delete[](*reinterpret_cast<void**>(pool + 0x4));
+        }
+        *reinterpret_cast<void**>(pool + 0x0) = nullptr;
+        *reinterpret_cast<void**>(pool + 0x4) = nullptr;
+        *reinterpret_cast<int32*>(pool + 0x8) = 0;
+        *reinterpret_cast<int32*>(pool + 0xC) = 0;
+    }
+}
+
+// 0x43EEB0 y 0x43F780 (thiscall, sin pila, `ret`; 66 bytes cada una aunque el listado dice 54; sin llamadores): cuerpo del destructor de CPool<CEntryExit>, dos copias identicas del EXE.
+void __fastcall EntryExitPoolDestructorBodyExe(void* self, void* /*edx*/) {
+    EntryExitPoolFlushBody(static_cast<uint8*>(self));
+}
+
+// 0x43F950 (thiscall, un argumento de pila (BYTE de banderas), `ret 4`, 71 bytes; sin llamadores): destructor con borrado de CPool<CEntryExit>. Cuerpo del destructor en linea (igual que 0x43EEB0) y, solo si el
+// bit 0 de las banderas esta puesto, operator delete escalar (0x8214BD) del objeto. Devuelve this.
+void* __fastcall EntryExitPoolScalarDeletingDestructorExe(void* self, void* /*edx*/, uint8 flags) {
+    EntryExitPoolFlushBody(static_cast<uint8*>(self));
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
+// 0x43F720 (thiscall, dos argumentos de pila (capacidad con signo y nombre, que no se usa), `ret 8`, 91 bytes; unico llamador 0x43F92E = CEntryExitManager::Init): constructor de CPool<CEntryExit>. Como el original: almacenamiento
+// con operator new de capacidad * 0x3C (32 bits) escrito en +0 ANTES de pedir el mapa (capacidad bytes) en +4, sin comprobar nulos; despues +0x10 = 1, +8 = capacidad, +0xC = -1 y cada byte del mapa en 0x80 (el EXE lo
+// deja como (b | 0x80) & 0x80). No rellena el almacenamiento. Devuelve this.
+void* __fastcall EntryExitPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) {
+    auto* const pool = static_cast<uint8*>(self);
+    *reinterpret_cast<void**>(pool + 0x0) = ::operator new[](uint32(capacity) * uint32(sizeof(CEntryExit)));
+    auto* const states                    = static_cast<uint8*>(::operator new[](uint32(capacity)));
+    *reinterpret_cast<uint8**>(pool + 0x4) = states;
+    pool[0x10]                             = 1;
+    *reinterpret_cast<int32*>(pool + 0x8)  = capacity;
+    *reinterpret_cast<int32*>(pool + 0xC)  = -1;
+    for (int32 i = 0; i < capacity; i++) {
+        states[i] = 0x80;
+    }
+    return self;
+}
+
+// 0x43F7D0 (thiscall, sin pila, `ret`, 103 bytes; unico llamador 0x43FA23 = CEntryExitManager::AddOne): reserva un hueco del pool de CEntryExit (CPool::New del EXE). Como el original: lee la capacidad una vez; busca desde
+// (ultimo hueco + 1), escribiendo el cursor en +0xC en cada paso; al llegar a la capacidad lo pone a 0 y, si ya habia dado la vuelta una vez, devuelve nulo (cursor en 0); un hueco libre es el que tiene el bit 7 del byte
+// del mapa. Al elegirlo: borra el bit 7 y suma 1 a la cuenta de 7 bits (sin tocar el almacenamiento) y devuelve almacenamiento + indice * 0x3C.
+void* __fastcall EntryExitPoolNewExe(void* self, void* /*edx*/) {
+    auto* const pool        = static_cast<uint8*>(self);
+    const int32 capacity    = *reinterpret_cast<int32*>(pool + 0x8);
+    bool        wrapped     = false;
+    int32       index       = 0;
+    for (;;) {
+        index                                = *reinterpret_cast<int32*>(pool + 0xC) + 1;
+        *reinterpret_cast<int32*>(pool + 0xC) = index;
+        if (index == capacity) {
+            *reinterpret_cast<int32*>(pool + 0xC) = 0;
+            if (wrapped) {
+                return nullptr;
+            }
+            wrapped = true;
+        }
+        index = *reinterpret_cast<int32*>(pool + 0xC);
+        if (*(*reinterpret_cast<uint8**>(pool + 0x4) + index) & 0x80) {
+            break;
+        }
+    }
+    uint8* const state = *reinterpret_cast<uint8**>(pool + 0x4) + index;
+    *state = uint8(*state & 0x7F);                       // quita el bit de hueco libre
+    *state = uint8((*state & 0x80) | ((*state + 1) & 0x7F)); // cuenta de 7 bits + 1
+    return *reinterpret_cast<uint8**>(pool + 0x0) + index * int32(sizeof(CEntryExit));
+}
+
+// Como el original (0x43EF00, 0x43EF90): objeto del slot sin comprobar limites; un byte de estado con el bit 7 (negativo con signo) es un hueco libre y da nulo.
+CEntryExit* EntryExitInSlot(int32 slot) {
+    auto* const pool = reinterpret_cast<uint8*>(mp_poolEntryExits);
+    if (static_cast<int8>(*(*reinterpret_cast<uint8**>(pool + 0x4) + slot)) < 0) {
+        return nullptr;
+    }
+    return reinterpret_cast<CEntryExit*>(*reinterpret_cast<uint8**>(pool + 0x0) + slot * int32(sizeof(CEntryExit)));
+}
+} // namespace
+
 void CEntryExitManager::InjectHooks() {
     RH_ScopedClass(CEntryExitManager);
     RH_ScopedCategoryGlobal();
+
+    RH_ScopedNamedGlobalInstall(EntryExitPoolDestructorBodyExe, "PoolDestructorBody", 0x43EEB0);      // lote 191A (sin validar)
+    RH_ScopedNamedGlobalInstall(EntryExitPoolDestructorBodyExe, "PoolDestructorBodyCopy", 0x43F780);  // lote 191A (sin validar)
+    RH_ScopedNamedGlobalInstall(EntryExitPoolScalarDeletingDestructorExe, "PoolScalarDeletingDestructor", 0x43F950); // lote 191A (sin validar)
+    RH_ScopedNamedGlobalInstall(EntryExitPoolConstructorExe, "PoolConstructor", 0x43F720);            // lote 191A (sin validar)
+    RH_ScopedNamedGlobalInstall(EntryExitPoolNewExe, "PoolNew", 0x43F7D0);                            // lote 191A (sin validar)
+    RH_ScopedInstall(GetInSlot, 0x43EF00);                // lote 191A (sin validar)
+    RH_ScopedInstall(SetEntryExitFlagWithName, 0x43EF20); // lote 191A (sin validar)
+    RH_ScopedInstall(SetEntryExitFlagWithIndex, 0x43EF90); // lote 191A (sin validar)
+    RH_ScopedInstall(SetEnabledByName, 0x43F9B0);         // lote 191A (sin validar)
 
     RH_ScopedInstall(Init, 0x43F880);
     RH_ScopedInstall(WeAreInInteriorTransition, 0x43E400);
@@ -75,15 +175,7 @@ void CEntryExitManager::Init() {
     // después Init pone el byte +0x11 (m_bDealWithNoMemory) a 1, también si la reserva falló.
     auto* const pool = static_cast<uint8*>(::operator new(sizeof(CEntryExitsPool)));
     if (pool) {
-        *reinterpret_cast<void**>(pool + 0x0) = ::operator new[](ENTRY_EXITS_POOL_SIZE * sizeof(CEntryExit));
-        auto* const flags                     = static_cast<uint8*>(::operator new[](ENTRY_EXITS_POOL_SIZE));
-        *reinterpret_cast<uint8**>(pool + 0x4) = flags;
-        pool[0x10]                             = 1;
-        *reinterpret_cast<int32*>(pool + 0x8)  = ENTRY_EXITS_POOL_SIZE;
-        *reinterpret_cast<int32*>(pool + 0xC)  = -1;
-        for (auto i = 0; i < ENTRY_EXITS_POOL_SIZE; i++) {
-            flags[i] = 0x80;
-        }
+        EntryExitPoolConstructorExe(pool, nullptr, ENTRY_EXITS_POOL_SIZE, nullptr); // lote 191A: el cuerpo en linea de antes es ahora la funcion 0x43F720
     }
     mp_poolEntryExits = reinterpret_cast<CEntryExitsPool*>(pool);
     pool[0x11]        = 1;
@@ -638,8 +730,47 @@ bool CEntryExitManager::Save() {
     return true;
 }
 
+// 0x43EF00 (lote 191A, sin validar; cdecl, el slot en la pila, `ret`, 30 bytes; llamadores 0x471568, 0x4750F5, 0x47587B): objeto del slot o nulo si el slot esta libre (byte de estado con el bit 7). Como el original, sin
+// comprobar que el slot este dentro de la capacidad (CPool::GetAt de C++ lo asevera).
 CEntryExit* CEntryExitManager::GetInSlot(int32 slot) {
-    return mp_poolEntryExits->GetAt(slot);
+    return EntryExitInSlot(slot);
+}
+
+// 0x43EF20 (lote 191A, sin validar; cdecl, nombre / mascara de banderas / activar en la pila, `ret`, 112 bytes; llamadores 0x43F9BF = SetEnabledByName y 0x478D96): recorre el pool de 0 a la capacidad (leida UNA vez
+// al entrar, con signo; <= 0 no hace nada), volviendo a leer el puntero global del pool en cada vuelta. Para cada slot ocupado cuyo nombre (8 caracteres, sin distinguir mayusculas: 0x835AC7) coincide, suma (activar) o quita
+// (desactivar) los 16 bits bajos de la mascara a las banderas +0x30 de la entrada (`or word [esi+30h], bx` / `and word [esi+30h], ~bx`). El EXE no devuelve nada util.
+void CEntryExitManager::SetEntryExitFlagWithName(const char* name, uint32 flag, bool enable) {
+    const int32 capacity = *reinterpret_cast<int32*>(reinterpret_cast<uint8*>(mp_poolEntryExits) + 0x8);
+    for (int32 i = 0; i < capacity; i++) {
+        CEntryExit* const enex = EntryExitInSlot(i);
+        if (!enex) {
+            continue;
+        }
+        if (_strnicmp(enex->m_szName, name, std::size(enex->m_szName)) != 0) {
+            continue;
+        }
+        if (enable) {
+            enex->m_nFlags |= uint16(flag);
+        } else {
+            enex->m_nFlags &= uint16(~flag);
+        }
+    }
+}
+
+// 0x43EF90 (lote 191A, sin validar; cdecl, indice / mascara / activar en la pila, `ret`, 59 bytes; llamador 0x47957D): igual que la anterior pero para el slot dado. Como el original: un slot libre da un puntero nulo y la
+// escritura de las banderas (+0x30) fallaria; solo cuentan los 16 bits bajos de la mascara.
+void CEntryExitManager::SetEntryExitFlagWithIndex(int32 index, uint32 flag, bool enable) {
+    CEntryExit* const enex = EntryExitInSlot(index);
+    if (enable) {
+        enex->m_nFlags |= uint16(flag);
+    } else {
+        enex->m_nFlags &= uint16(~flag);
+    }
+}
+
+// 0x43F9B0 (lote 191A, sin validar; cdecl, nombre y activar en la pila, `ret`, 24 bytes; llamadores 0x4730CF y 0x4730E5): llama a SetEntryExitFlagWithName con la mascara 0x4000 (ENABLE_ACCESS).
+void CEntryExitManager::SetEnabledByName(const char* name, bool enable) {
+    SetEntryExitFlagWithName(name, CEntryExit::eFlags::ENABLE_ACCESS, enable);
 }
 
 CEntryExitsPool* CEntryExitManager::GetPool() {

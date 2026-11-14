@@ -59,6 +59,9 @@ int32 __fastcall PadDPadUpPressedExe(const CPad* self, void* /*edx*/) { return (
 int32 __fastcall PadTrianglePressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.ButtonTriangle != 0 && self->OldState.ButtonTriangle == 0) ? 1 : 0; }
 // 0x53EF60: ButtonCircle (palabras +0x22 y +0x52)
 int32 __fastcall PadCirclePressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.ButtonCircle != 0 && self->OldState.ButtonCircle == 0) ? 1 : 0; }
+// 0x4410E0 (lote 191A, sin validar; el listado decia CEntryExitManager): DPadRight (palabras +0x16 y +0x46); thiscall, sin pila, `ret`, 23 bytes; la llama 0x5802A2 con ECX = CPad::GetPad(0).
+static_assert(offsetof(CControllerState, DPadRight) == 0x16 && offsetof(CPad, OldState) == 0x30);
+int32 __fastcall PadDPadRightPressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.DPadRight != 0 && self->OldState.DPadRight == 0) ? 1 : 0; }
 // Lote 183A (sin validar): otras dos funciones propias del EXE con EAX completo (thiscall).
 // 0x4D59E0 (el listado decia CAnimManager): ButtonCross (palabras +0x20 y +0x50), thiscall, sin pila, `ret`.
 int32 __fastcall PadCrossPressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.ButtonCross != 0 && self->OldState.ButtonCross == 0) ? 1 : 0; }
@@ -103,6 +106,7 @@ void CPad::InjectHooks() {
     RH_ScopedNamedGlobalInstall(PadLeftShoulder1PressedExe, "IsLeftShoulder1Pressed", 0x53EDC0); // lote 152A (banco Fn152A)
     RH_ScopedNamedGlobalInstall(PadRightShoulder1PressedExe, "IsRightShoulder1Pressed", 0x53EE20); // lote 152A (banco Fn152A)
     RH_ScopedNamedGlobalInstall(PadDPadUpPressedExe, "IsDPadUpPressed", 0x53EE60); // lote 152A (banco Fn152A)
+    RH_ScopedNamedGlobalInstall(PadDPadRightPressedExe, "IsDPadRightPressed", 0x4410E0); // lote 191A (sin validar)
     RH_ScopedNamedGlobalInstall(PadTrianglePressedExe, "IsTrianglePressed", 0x53EF40); // lote 152A (banco Fn152A)
     RH_ScopedNamedGlobalInstall(PadCirclePressedExe, "IsCirclePressed", 0x53EF60); // lote 152A (banco Fn152A)
     RH_ScopedInstall(GetCameraCycleUp, 0x5404A0);

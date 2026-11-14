@@ -56,6 +56,17 @@ __declspec(noinline) void __fastcall PhysicalSetTurnSpeedExe(CPhysical* self, vo
     turnSpeed[1] = yBits;
     turnSpeed[2] = zBits;
 }
+
+// 0x441130 (lote 191A, sin validar; el listado decia CEntryExitManager): CPhysical::SetVelocity(CVector) del EXE (thiscall, un CVector por valor = tres dwords en la pila, `ret 0Ch`, 54 bytes). Copia los tres dwords (sin x87:
+// se conservan los bits de un NaN senalizante) a la velocidad de movimiento (+0x44, +0x48, +0x4C) pasando por una copia local; no lee ni escribe nada mas. Llamadores del EXE: 0x470D43, 0x483579, 0x485468, 0x48CFE5,
+// 0x5A2634, 0x5A33CD, 0x6CD45E y 0x6CD775. Los argumentos llegan como los bits del float.
+__declspec(noinline) void __fastcall PhysicalSetVelocityExe(CPhysical* self, void* /*edx*/, uint32 xBits, uint32 yBits, uint32 zBits) {
+    static_assert(offsetof(CPhysical, m_vecMoveSpeed) == 0x44);
+    uint32* const moveSpeed = reinterpret_cast<uint32*>(&self->m_vecMoveSpeed);
+    moveSpeed[0] = xBits;
+    moveSpeed[1] = yBits;
+    moveSpeed[2] = zBits;
+}
 } // namespace
 
 uintptr_t Lote140APhysicalDestructorBody() { return reinterpret_cast<uintptr_t>(&PhysicalDestructorBody); } // para el banco Fn140A
@@ -72,6 +83,7 @@ void CPhysical::InjectHooks()
     RH_ScopedInstall(Destructor, 0x542450);
     RH_ScopedNamedGlobalInstall(PhysicalScalarDeletingDestructor, "ScalarDeletingDestructor", 0x544990); // lote 140A (banco Fn140A)
     RH_ScopedNamedGlobalInstall(PhysicalSetTurnSpeedExe, "SetTurnSpeed", 0x45AFB0); // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(PhysicalSetVelocityExe, "SetVelocity", 0x441130); // lote 191A (sin validar)
 
     RH_ScopedInstall(RemoveAndAdd, 0x542560);
     RH_ScopedInstall(ApplyTurnForce, 0x542A50);

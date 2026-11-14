@@ -321,6 +321,7 @@
 #include "TaskSimpleGetUp.h"
 #include "TaskSimpleUninterruptable.h"
 #include "TaskComplexFallAndGetUp.h"
+#include "TaskComplexFallAndStayDown.h"
 #include "TaskComplexFollowNodeRoute.h"
 #include "TaskComplexFollowLeaderInFormation.h"
 #include "TaskSimpleTriggerLookAt.h"
@@ -1195,7 +1196,7 @@ void InjectHooksMain() {
         CTaskComplexEvasiveStep::InjectHooks();
         // CTaskComplexExtinguishFireOnFoot::InjectHooks();
         CTaskComplexExtinguishFires::InjectHooks();
-        // CTaskComplexFallAndStayDown::InjectHooks();
+        CTaskComplexFallAndStayDown::InjectHooks(); // lote 191A (sin validar)
         CTaskComplexFallToDeath::InjectHooks();
         CTaskComplexFleeAnyMeans::InjectHooks();
         CTaskComplexFleeEntity::InjectHooks();

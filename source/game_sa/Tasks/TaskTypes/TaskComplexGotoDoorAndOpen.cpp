@@ -27,6 +27,31 @@ END GENERATED HOOK STATUS */
 #include "Pad.h"
 #include "AnimManager.h"
 #include "RwHelper.h"
+#include "X87Math.h"
+
+static_assert(CTaskComplexGotoDoorAndOpen::Type == 0x3A4); // 0x66BB90: `mov eax,3A4h`
+static_assert(ABORT_PRIORITY_IMMEDIATE == 2);              // 0x66BC80: `cmp dword [esp+8],2`
+
+namespace {
+// 0x66C280 (lote 191A, sin validar; el listado lo atribuia a CTaskComplexGotoDoorAndOpen): funcion del EXE SIN llamadores ni punteros (ni llamada directa, ni salto, ni dword en ninguna seccion; codigo muerto).
+// thiscall, un argumento de pila que no se lee (`ret 4`), 151 bytes con marco SEH que solo desenrolla. NO es de CTaskComplexGotoDoorAndOpen: `this + 0xC` es un CEntryExit* (rectangulo de entrada en +8..+0x14 y
+// Z en +0x18), asi que es de una tarea sin identificar con ese puntero. Como el original: calcula el centro de la entrada (X87 de CEntryExit::GetPosition en X87Math.cpp), reserva 0x30 bytes con
+// CTask::operator new (0x61A5A0; sin memoria devuelve nulo) y construye CTaskSimpleGoToPoint (0x667CD0, con hook) con (PEDMOVE_RUN = 6, centro, 0.5f, false, false).
+CTask* __fastcall GoToEntryExitCenterTask(void* self, void* /*edx*/, void* /*unused*/) {
+    CVector center;
+    EntryExitGetPositionCpp(*reinterpret_cast<void* const*>(static_cast<const uint8*>(self) + 0xC), &center);
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleGoToPoint));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskSimpleGoToPoint(PEDMOVE_RUN, center, 0.5f, false, false);
+}
+} // namespace
+
+// 0x66BB90 (lote 191A, sin validar; `mov eax,3A4h; ret`, 6 bytes; ranura 4 de la vtable 0x86FFC0): no lee el objeto.
+eTaskType CTaskComplexGotoDoorAndOpen::GetTaskType() const {
+    return Type;
+}
 
 void CTaskComplexGotoDoorAndOpen::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGotoDoorAndOpen, 0x86FFC0, 11);
@@ -35,6 +60,9 @@ void CTaskComplexGotoDoorAndOpen::InjectHooks() {
     RH_ScopedOverloadedInstall(Constructor, "0", 0x66BB20, CTaskComplexGotoDoorAndOpen*(CTaskComplexGotoDoorAndOpen::*)(CObject *));
     RH_ScopedOverloadedInstall(Constructor, "1", 0x66BBA0, CTaskComplexGotoDoorAndOpen*(CTaskComplexGotoDoorAndOpen::*)(CVector const&, CVector const&));
     RH_ScopedInstall(Destructor, 0x66BC00);
+    RH_ScopedNamedGlobalInstall(GoToEntryExitCenterTask, "GoToEntryExitCenterTask", 0x66C280); // lote 191A (sin validar)
+    RH_ScopedVMTInstall(GetTaskType, 0x66BB90);   // lote 191A (sin validar)
+    RH_ScopedVMTInstall(MakeAbortable, 0x66BC80); // lote 191A (sin validar)
     RH_ScopedVMTInstall(Clone, 0x66BCA0);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x66C0D0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x66BD40);
@@ -81,7 +109,8 @@ CTask* CTaskComplexGotoDoorAndOpen::Clone() const {
     }
 }
 
-// 0x66BC80
+// 0x66BC80 (lote 191A, sin validar; thiscall, ped/prioridad/evento en la pila, `ret 0Ch`, 28 bytes; ranura 6): solo con prioridad 2 (inmediata) salta SIN guarda de nulo a MakeAbortable de la subtarea (ranura 6, mismos
+// argumentos con la prioridad 2) y devuelve su resultado; con otra prioridad devuelve false sin tocar la subtarea.
 bool CTaskComplexGotoDoorAndOpen::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
     return priority == ABORT_PRIORITY_IMMEDIATE && m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_IMMEDIATE, event);
 }

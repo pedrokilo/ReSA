@@ -32,6 +32,7 @@ private:
 
     CTaskSimpleSlideToCoord* Constructor(const CVector& pos, float fAimingRotation, float radius) { this->CTaskSimpleSlideToCoord::CTaskSimpleSlideToCoord(pos, fAimingRotation, radius); return this; }
     CTaskSimpleSlideToCoord* Constructor(const CVector& pos, float aimRot, float radius, const char* animName, const char* fileName, int32 flags, float frameDelta, bool isActiveSequence, int32 time) { this->CTaskSimpleSlideToCoord::CTaskSimpleSlideToCoord(pos, aimRot, radius, animName, fileName, flags, frameDelta, isActiveSequence, time); return this; }
-    CTaskSimpleSlideToCoord* Destructor() { this->CTaskSimpleSlideToCoord::~CTaskSimpleSlideToCoord(); return this; }
+    // 0x66C4C0 (lote 191A, sin validar): cuerpo del destructor del EXE (`mov [ecx],86FFECh; jmp 0x61A6F0`)
+    __declspec(noinline) CTaskSimpleSlideToCoord* Destructor() { this->CTaskSimpleSlideToCoord::~CTaskSimpleSlideToCoord(); return this; }
 };
 VALIDATE_SIZE(CTaskSimpleSlideToCoord, 0x80);

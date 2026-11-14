@@ -27,13 +27,15 @@ void CTaskSimpleSlideToCoord::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleSlideToCoord, 0x86FFEC, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
-    // + RH_ScopedOverloadedInstall(Constructor, "NoAnim", 0x66C3E0, CTaskSimpleSlideToCoord*(CTaskSimpleSlideToCoord::*)(CVector const&, float, float));
-    // + RH_ScopedOverloadedInstall(Constructor, "Anim", 0x66C450, CTaskSimpleSlideToCoord*(CTaskSimpleSlideToCoord::*)(CVector const&, float, float, char const*, char const*, int32, float, bool, int32));
+    RH_ScopedOverloadedInstall(Constructor, "NoAnim", 0x66C3E0, CTaskSimpleSlideToCoord*(CTaskSimpleSlideToCoord::*)(CVector const&, float, float)); // lote 191A (sin validar)
+    RH_ScopedOverloadedInstall(Constructor, "Anim", 0x66C450, CTaskSimpleSlideToCoord*(CTaskSimpleSlideToCoord::*)(CVector const&, float, float, char const*, char const*, int32, float, bool, int32)); // lote 191A (sin validar)
+    RH_ScopedInstall(Destructor, 0x66C4C0); // lote 191A (sin validar)
     // + RH_ScopedVmtInstall(MakeAbortable, 0x66C4D0);
     RH_ScopedVMTInstall(ProcessPed, 0x66C4E0);
 }
 
-// 0x66C3E0
+// 0x66C3E0 (lote 191A, sin validar; thiscall, posicion/rotacion/velocidad en la pila, `ret 0Ch`, 86 bytes): CTaskSimpleAnim (0x61A6C0) con false, el temporizador de CTaskSimpleRunNamedAnim a cero (+0x44, +0x48, +0x4C, +0x4D), vtable 0x86FFEC,
+// posicion (+0x64), rotacion (+0x70), velocidad (+0x74) y la palabra de bits +0x78 con bit 0 (primera vez) a 1 y bit 1 (animacion en marcha) a 0, conservando los demas bits. +0x7C (m_Timer) no se escribe.
 CTaskSimpleSlideToCoord::CTaskSimpleSlideToCoord(const CVector& slideToPos, float aimingRotation, float speed) :
     CTaskSimpleRunNamedAnim(),
     m_SlideToPos{ slideToPos },
@@ -45,14 +47,15 @@ CTaskSimpleSlideToCoord::CTaskSimpleSlideToCoord(const CVector& slideToPos, floa
     // m_Timer not initialized
 }
 
-// 0x66C450
+// 0x66C450 (lote 191A, sin validar; thiscall, nueve argumentos de pila, `ret 24h`, 106 bytes): CTaskSimpleRunNamedAnim (0x61A990) con (bloque, grupo, banderas, mezcla, tiempo, false, enSecuencia, false, false), vtable 0x86FFEC,
+// posicion (+0x64), rotacion (+0x70), velocidad (+0x74), `or byte [+0x78], 3` (primera vez Y animacion en marcha a 1; el codigo anterior dejaba la animacion en false: corregido al revisar el desensamblado) y +0x7C = -1.
 CTaskSimpleSlideToCoord::CTaskSimpleSlideToCoord(const CVector& slideToPos, float aimingRotation, float speed, const char* animBlockName, const char* animGroupName, uint32 animFlags, float animBlendDelta, bool bRunInSequence, uint32 endTime) :
     CTaskSimpleRunNamedAnim{ animBlockName, animGroupName, animFlags, animBlendDelta, endTime, false, bRunInSequence, false, false },
     m_SlideToPos{ slideToPos },
     m_fAimingRotation{ aimingRotation },
     m_Speed{ speed },
     m_bFirstTime{ true },
-    m_bRunningAnim{ false },
+    m_bRunningAnim{ true },
     m_Timer{ -1 }
 {
 }

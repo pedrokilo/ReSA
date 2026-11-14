@@ -23,7 +23,7 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleGetUp.h"
 
 namespace {
-// 0x678790 (lote 154A, banco Fn154A): cuerpo del destructor de CTaskComplexFallAndGetUp del EXE (sin hook: `mov [ecx],0x870454; jmp 0x61A3D0`; vtable 0x870454). Funcion propia de la DLL, sin expansion en linea, para que el banco pueda
+// 0x678790 (lote 154A, banco Fn154A): cuerpo del destructor de CTaskComplexFallAndGetUp del EXE (enganchado desde el lote 191A: `mov [ecx],0x870454; jmp 0x61A3D0`, 11 bytes; vtable 0x870454). Funcion propia de la DLL, sin expansion en linea, para que el banco pueda
 // sustituirla; la llama el destructor con borrado como el `call 0x678790` del EXE.
 __declspec(noinline) void __fastcall CTaskComplexFallAndGetUpDestructorBody(CTaskComplexFallAndGetUp* self, void* /*edx*/) { self->CTaskComplexFallAndGetUp::~CTaskComplexFallAndGetUp(); }
 
@@ -40,9 +40,18 @@ CTaskComplexFallAndGetUp* __fastcall CTaskComplexFallAndGetUpScalarDeletingDestr
 
 uintptr_t Lote154ABody_CTaskComplexFallAndGetUp() { return reinterpret_cast<uintptr_t>(&CTaskComplexFallAndGetUpDestructorBody); } // para el banco Fn154A
 
+static_assert(CTaskComplexFallAndGetUp::Type == 0xD0); // 0x6786F0: `mov eax,0D0h`
+
+// 0x6786F0 (lote 191A, sin validar; `mov eax,0D0h; ret`, 6 bytes; ranura 4 de la vtable 0x870454): no lee el objeto.
+eTaskType CTaskComplexFallAndGetUp::GetTaskType() const {
+    return Type;
+}
+
 void CTaskComplexFallAndGetUp::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexFallAndGetUp, 0x870454, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexFallAndGetUpDestructorBody, "DestructorBody", 0x678790); // lote 191A (sin validar): el cuerpo ya existia sin enganchar (lote 154A)
+    RH_ScopedVMTInstall(GetTaskType, 0x6786F0); // lote 191A (sin validar)
     RH_ScopedNamedGlobalInstall(CTaskComplexFallAndGetUpScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67CB50); // lote 154A (banco Fn154A)
     RH_ScopedInstall(Constructor, 0x6786C0);
     RH_ScopedInstall(Constructor2, 0x678700);

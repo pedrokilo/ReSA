@@ -85,6 +85,9 @@ void RsInjectHooks() {
     RH_ScopedGlobalInstall(RsRwInitialize, 0x619C90);
     RH_ScopedGlobalInstall(RsSavePresetView, 0x619FA0);
     RH_ScopedGlobalInstall(RsLoadPresetViews, 0x619D60);
+    RH_ScopedGlobalInstall(RsCameraShowRaster, 0x619440);    // lote 191A (sin validar)
+    RH_ScopedGlobalInstall(RsSetPresetView, 0x619780);       // lote 191A (sin validar)
+    RH_ScopedGlobalInstall(RsDestroyPresetViews, 0x6198C0);  // lote 191A (sin validar)
 }
 
 static auto& KeysShifted = StaticRef<std::array<uint8, 256>>(0x8D2D00);
@@ -115,7 +118,7 @@ RwBool RsCameraBeginUpdate(RwCamera* camera) {
     return psCameraBeginUpdate(camera); // Como el original: salto directo con la misma cámara, eax completo
 }
 
-// 0x619440
+// 0x619440 (lote 191A, sin validar; `jmp 0x745240`, 5 bytes: salto directo a psCameraShowRaster con la misma pila y EAX/camara de retorno de ese; psCameraShowRaster ya esta enganchada, no se produce bucle)
 RwCamera* RsCameraShowRaster(RwCamera* camera) {
     ZoneScoped;
 

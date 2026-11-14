@@ -25,7 +25,7 @@ public:
     CTaskComplexGotoDoorAndOpen(const CVector& start, const CVector& end);
     ~CTaskComplexGotoDoorAndOpen() override;
 
-    eTaskType GetTaskType() const override{ return Type; } // 0x66BB90
+    eTaskType GetTaskType() const override; // 0x66BB90 (lote 191A, sin validar)
     CTask* Clone() const override;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;

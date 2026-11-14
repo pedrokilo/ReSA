@@ -24,10 +24,13 @@ auto& PresetViews = StaticRef<PresetView*>(0xC1707C);
 auto& NumPresetViews = StaticRef<int32>(0xC17080);
 auto& CurrentPresetView = StaticRef<int32>(0x8D2E30); // -1
 
-// 0x619780
-bool RsSetPresetView(RwCamera* camera, int32 viewNum) {
+// 0x619780 (lote 191A, sin validar; cdecl, camara y numero de vista en la pila, `ret`, 181 bytes): devuelve 1 o 0 en EAX COMPLETO (`mov eax,1` / `xor eax,eax`; los llamadores 0x61986A y 0x6198A6 hacen neg/sbb sobre eax), por eso RwBool.
+// Con nulo, sin vistas o numero fuera de [0, NumPresetViews) devuelve 0 sin tocar nada. Si no, CurrentPresetView = viewNum (se escribe tras leer PresetViews y antes de recorrer la lista), avanza (N - viewNum - 1) nodos
+// (solo mientras el nodo no sea nulo; si lo fuera, el EXE leeria +0xC de un nulo), RwFrameSetIdentity, RwFrameRotate(X, -rotX, REPLACE), RwFrameRotate(Y, rotY, POSTCONCAT), RwFrameTranslate(POSTCONCAT),
+// RwFrameUpdateObjects y los planos cercano/lejano (+0x14, +0x18).
+RwBool RsSetPresetView(RwCamera* camera, int32 viewNum) {
     if (!camera || !NumPresetViews || viewNum >= NumPresetViews || viewNum < 0)
-        return false;
+        return FALSE;
 
     auto* pv = PresetViews;
     int v3 = NumPresetViews - viewNum - 1u;
@@ -49,7 +52,7 @@ bool RsSetPresetView(RwCamera* camera, int32 viewNum) {
     RwCameraSetNearClipPlane(camera, pv->m_NearClip);
     RwCameraSetFarClipPlane(camera, pv->m_FarClip);
 
-    return true;
+    return TRUE;
 }
 
 // 0x619840
@@ -80,7 +83,8 @@ void RsSetPreviousPresetView(RwCamera* camera) {
     RsSetPresetView(camera, CurrentPresetView);
 }
 
-// 0x6198C0
+// 0x6198C0 (lote 191A, sin validar; cdecl, sin argumentos, `ret`, 65 bytes; unico llamador del EXE 0x619D6A = RsLoadPresetViews): recorre la lista (0xC1707C) por m_Next (+0x20); por cada nodo libera la descripcion (+0x1C) si no es
+// nula y despues el nodo con CMemoryMgr::Free (0x72F430); termina con la lista y el contador (0xC17080) a cero. El EXE deja EAX = 1 (nadie lo lee), aqui void.
 void RsDestroyPresetViews() {
     auto pv = PresetViews;
     if (PresetViews) {

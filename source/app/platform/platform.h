@@ -37,7 +37,7 @@ void RsTerminate();
 RwBool RsInitialize();
 RwBool RsRwInitialize(void* param);
 
-bool RsSetPresetView(RwCamera* camera, int32 viewNum);
+RwBool RsSetPresetView(RwCamera* camera, int32 viewNum); // Como el original: RwBool (eax completo; 0x61986A y 0x6198A6 hacen neg/sbb sobre eax)
 void RsSetNextPresetView(RwCamera* camera);
 void RsSetPreviousPresetView(RwCamera* camera);
 void RsDestroyPresetViews();
