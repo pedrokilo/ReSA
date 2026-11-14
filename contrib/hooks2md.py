@@ -317,15 +317,15 @@ def generate(input_path, output_path, update_source_status=False):
     if game_wrappers:
         wrappers_text = (f"**Envolturas del juego abiertas: {len(game_wrappers)}** (comprobado el {fecha}; {sum(w[3] or 0 for w in game_wrappers):,} bytes): "
                          + ', '.join(f"`{w[1]}` `{w[2]}`" for w in game_wrappers) + ". Son código del juego (D3DResourceSystem y lectura de streams en 0x72E000–0x735000): la DLL llama al EXE por dirección y no cuentan como reconstruidas hasta validarse. "
-                         "Detalle en la [sección 7](#no-en-cpp).")
+                         "Los nombres y direcciones están en la lista de arriba.")
     else:
         wrappers_text = f"**Envolturas del juego abiertas: 0** (comprobado el {fecha}): todas las funciones del juego con hook están reconstruidas en C++."
     lines = ["# Progreso del reversing", "",
              "[Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)", "",
              f"> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** {now}", "",
              "**Índice:** [1. Objetivo y dimensiones](#objetivo) · [2. Siguientes mediciones](#mediciones) · [3. Siguiente fase](#siguiente-fase) · [4. Vista general](#vista-general) · [5. Cobertura real del EXE](#cobertura-exe) · "
-             "[6. Lo que falta del código del juego](#que-falta) · [7. Funciones del juego aún no en C++](#no-en-cpp) · [8. Completas](#completas) · [9. Cohorte 17/10/2026](#cohorte-nuevo) · [10. Dependencias directas (grupo A)](#grupo-a) · "
-             "[11. Parciales](#parciales) · [12. Sin revertir](#sin-revertir) · [13. Cómo leer y actualizar](#metodo)", "",
+             "[6. Lo que falta del código del juego](#que-falta) · [7. Completas](#completas) · "
+             "[8. Parciales](#parciales) · [9. Sin revertir](#sin-revertir) · [10. Cómo leer y actualizar](#metodo)", "",
              '<a id="objetivo"></a>', "",
              "## 1. Objetivo y dimensiones de progreso", "",
              "La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del EXE, seguida de un ejecutable propio. "
@@ -348,7 +348,7 @@ def generate(input_path, output_path, update_source_status=False):
              "| Dimensión | Estado actual | Qué hay que hacer |",
              "| --- | --- | --- |",
              f"| Validación vigente para el árbol actual (validación) | {validation['current']}/{validated_count:,} entradas validadas confirmadas como vigentes ({pct(validation['current'], validated_count)} de las entradas validadas) | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). El 04/11/2026 se repitieron 20 bancos desfasados sin regresión de producción (todos eran bancos desfasados o artefactos del entorno): falta consolidarlos en el registro. |",
-             f"| Dependencias de funciones originales eliminadas (funciones) | {_dep_row or 'No medido'} | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan: lista viva en la [sección 10](#grupo-a). |",
+             f"| Dependencias de funciones originales eliminadas (funciones) | {_dep_row or 'No medido'} | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan: lista viva en la [sección 10](AnalisisGrupoA.md). |",
              *([f"| Trabajo real que falta (funciones y bytes) | {_d['game_remaining_total']['functions']:,} funciones y {_d['game_remaining_total']['bytes']:,} bytes del juego sin reemplazar ({pct(_d['game_remaining_total']['functions'], _cov['functions'])} de las funciones y {pct(_d['game_remaining_total']['bytes'], _cov['bytes'])} de los bytes del juego); grupo A {_d['game_remaining']['A']['functions']:,} funciones y {_d['game_remaining']['A']['bytes']:,} bytes | Reconstruir y validar de menor a mayor coste, empezando por el grupo A ([sección 6](#que-falta)). |"] if _d and _cov else []),
              f"| Coste por categoría de lote (tiempo de reconstrucción y validación) | Medido para las categorías 1, 2, 3 y 5 en los lotes 90A, 90B, 92A, 92B y 92C (tabla de abajo); sin medir la categoría 4 (funciones con FPU) | Cronometrar un lote piloto con FPU (método x87 a 24 bits) y los siguientes lotes de lógica para convertir la estimación en un coste por función. |", "",
              *lots_lines, "",
@@ -359,7 +359,7 @@ def generate(input_path, output_path, update_source_status=False):
              "La clasificación sale de la dirección del destino: dentro de 0x401000–0x74FFFF es juego, fuera es biblioteca.", "",
              "**Lotes en curso:** " + ("lotes 95A y 95C, que reconstruyen en C++ las "
                                       + f"{sum(1 for w in game_wrappers if w[4] != '—')} envolturas del juego de D3DResourceSystem y de las lecturas de streams ([lotes-en-curso.csv](JuegoExe/lotes-en-curso.csv)); cuando se validen dejarán de figurar solas en la lista de la sección 7." if any(w[4] != '—' for w in game_wrappers) else "ninguno registrado para las envolturas del juego."), "",
-             f"Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D, {_d['game_remaining_total']['functions']:,} funciones al {fecha}; [sección 6](#que-falta)). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv), y la lista viva está en la [sección 10](#grupo-a):" if _d else "Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D).", "",
+             f"Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D, {_d['game_remaining_total']['functions']:,} funciones al {fecha}; [sección 6](#que-falta)). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv), y la lista viva está en la [sección 10](AnalisisGrupoA.md):" if _d else "Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D).", "",
              "1. **Grupo A, por categorías y de menor a mayor coste:** helpers triviales y thunks muy llamados (hecho en el lote 90A: `CPad::GetPad` 0x53FB70, `CRGBA::Constructor` 0x7170C0...), pequeñas sin FPU (lote 90B), lógica sin FPU (empezando por las más llamadas y por clases enteras), funciones con FPU con el método x87 a 24 bits, y por último las de 0x300 bytes o más, una por lote (92B, 92C).",
              "2. **Lote piloto de cada categoría** para medir el coste real: ya medidos los de las categorías 1, 2, 3 y 5 (tabla de la sección 2); falta la 4, con FPU.",
              "3. **Revalidación vigente:** repetir los bancos sobre el árbol actual, priorizando los de fuentes cambiadas por lotes posteriores. Motivo: el banco `CVehD` llevaba roto desde el lote 83C (se cambió `m_fSteerAngle` por `m_GasPedal` en `ProcessDrivingAnims`) y no se vio hasta repetirlo.",
@@ -380,8 +380,12 @@ def generate(input_path, output_path, update_source_status=False):
         lines += [f"Generación de CI: [{sha[:12]}]({repo}/commit/{sha}).", ""]
     lines += exe_coverage.coverage_section(root, _d, '5. ')
     lines += ['<a id="que-falta"></a>', ''] + exe_coverage.missing_section(root, _d, '6. ', fecha)
-    lines += exe_coverage.pending_section(root, '7. ', fecha)
-    lines += ['<a id="completas"></a>', f"## 8. 🟢 Completas · {len(full)} clases", "",
+    # La antigua sección 7 desaparece del informe; el bloque de bibliotecas (RenderWare, D3D9, CRT, QuickTime) pasa a «Sin revertir».
+    _pending_block = exe_coverage.pending_section(root, '', fecha)
+    _split = next((i for i, l in enumerate(_pending_block) if l.startswith('<a id="bibliotecas">')), len(_pending_block))
+    _libs_block = _pending_block[_split:]
+    _wrappers_block = [l.replace('## ', '### ', 1) if l.startswith('## ') else l for l in _pending_block[:_split]] if game_wrappers else []
+    lines += ['<a id="completas"></a>', f"## 7. 🟢 Completas · {len(full)} clases", "",
               f"Al {fecha}: {len(full)} de {class_total} clases o grupos están completas (todas sus entradas reconstruidas y ninguna envoltura del juego abierta). Orden alfabético. El número entre paréntesis indica funciones registradas; ✅ indica entradas con validated=1 y 🔒 indica hooks cuya conmutación sigue bloqueada. Los bloqueos no son pendientes de validación.", "",
               "<details>", "<summary>Mostrar catálogo de clases completas</summary>", "",
               "| Clase (funciones) | Clase (funciones) | Clase (funciones) |", "| --- | --- | --- |"]
@@ -401,9 +405,7 @@ def generate(input_path, output_path, update_source_status=False):
                 cells.append("")
         lines.append("| " + " | ".join(cells) + " |")
     lines += ["", "</details>", ""]
-    lines += difficulty_section(root, input_path, '9. ', fecha)
-    lines += [''] + group_a_section.group_a_section(root, '10. ', fecha, _d['game_remaining']['A']['functions'] if _d else None)
-    lines += ['<a id="parciales"></a>', f"## 11. 🟡 Parciales · {len(partial)} clases del catálogo + {len(pendientes_por_clase.build(root, fecha))} clases/módulos con funciones del EXE pendientes", "",
+    lines += ['<a id="parciales"></a>', f"## 8. 🟡 Parciales · {len(partial)} clases del catálogo + {len(pendientes_por_clase.build(root, fecha))} clases/módulos con funciones del EXE pendientes", "",
               "Orden de mayor a menor tamaño de las envolturas al EXE pendientes (suma de bytes de sus cuerpos; a igualdad, alfabético). «Función más grande» y «Tamaño» (muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B) indican cuánto pesa la función más difícil de la clase. Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).", "",
               "Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas pero conservan funciones del juego que siguen delegando en el EXE (columna «Envolturas del juego al EXE», que cuenta solo código del juego; las de biblioteca no entran): no cuentan como completas hasta reconstruirlas. Detalle por función en [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).", "",
               "| Clase | Revertidas / total | Pendientes | Envolturas del juego al EXE (sin bibliotecas) | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |"]
@@ -419,7 +421,7 @@ def generate(input_path, output_path, update_source_status=False):
         for m, n, bts, big in _pend:
             lines.append(f"| {m.replace('|', chr(92) + '|')} | **{n}** | {bts:,} | {big:,} | {exe_coverage.size_label(big)} |")
         lines.append(f"| **TOTAL ({len(_pend)} clases / módulos)** | **{sum(p[1] for p in _pend):,}** | **{sum(p[2] for p in _pend):,}** | {max(p[3] for p in _pend):,} | |")
-    lines += ["", '<a id="sin-revertir"></a>', f"## 12. 🔴 Sin revertir · {len(empty) + len(uncatalogued)} clases", "",
+    lines += ["", '<a id="sin-revertir"></a>', f"## 9. 🔴 Sin revertir · {len(empty) + len(uncatalogued)} clases del juego y bibliotecas fuera del objetivo (RenderWare, D3D9, CRT, QuickTime)", "",
               "Orden de mayor a menor tamaño de las envolturas pendientes. Clases o grupos sin ninguna entrada reconstruida en el catálogo. Las que figuran con envolturas al EXE no están en [hooks.csv](hooks.csv): sus funciones del juego se conocen por el código fuente o por las cohortes de dependencias y siguen delegando en el original.", "",
               "| Clase | Revertidas / total | Pendientes | Envolturas del juego al EXE (sin bibliotecas) | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |"]
     for c in sorted(empty, key=lambda c: (-wrap_bytes.get(c.name, 0), c.name.casefold())):
@@ -427,7 +429,11 @@ def generate(input_path, output_path, update_source_status=False):
     for name in sorted(uncatalogued, key=lambda n: (-wrap_bytes.get(n, 0), n.casefold())):
         label = name.replace('<', '&lt;').replace('>', '&gt;').replace('|', '\\|')
         lines.append(f"| {label} | 0/0 | — | **{len(wrappers[name])}** | {_size_cells(name)} | 0.00% | 0 | 0 |")
-    lines += ["", '<a id="metodo"></a>', "## 13. Cómo leer y actualizar", "",
+    if _wrappers_block:
+        lines += [""] + _wrappers_block
+    if _libs_block:
+        lines += ["", "Además de las clases del juego, aquí quedan las **bibliotecas enlazadas dentro del EXE** (RenderWare, controlador D3D9, CRT y QuickTime), que no se reconstruyen: se sustituyen por bibliotecas equivalentes."] + [""] + _libs_block
+    lines += ["", '<a id="metodo"></a>', "## 10. Cómo leer y actualizar", "",
               "- **Pendientes:** total menos revertidas. Cada fila del CSV cuenta como una entrada, incluidas sobrecargas y virtuales.",
               "- **Validated:** `1` indica evidencia aprobada vinculada para esa entrada. No implica vigencia actual ni independencia del EXE.",
               f"- **Locked:** indicador de bloqueo del hook; hay {locked:,} entradas bloqueadas en el CSV. No equivale por sí solo a pendiente ni informa si el hook está activo durante una ejecución.",
