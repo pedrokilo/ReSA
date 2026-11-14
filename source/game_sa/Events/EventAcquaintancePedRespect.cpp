@@ -37,11 +37,13 @@ void CEventAcquaintancePedRespect::InjectHooks()
 
 // 0x5FF050 (lote 188A, sin validar; thiscall, sin argumentos, `ret`, 88 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 16 de la vtable 0x86CA38).
 // Como el original: CEvent::operator new (0x4B5620, con hook) con 0x18 bytes; sin memoria devuelve nulo; si no, llama al constructor de CEventAcquaintancePed (0x4AF820, con hook) con el conocido (+0x14),
-// deja la vtable de la clase y devuelve la memoria. En C++ el constructor heredado de CEventAcquaintancePedRespect hace lo mismo.
+// deja la vtable de la clase del EXE (0x86CA38) y devuelve la memoria. Llama al envoltorio enganchado del constructor (0x4AF820), no al constructor de C++ (que dejaria la vtable de la DLL).
 CEventEditableResponse* CEventAcquaintancePedRespect::CloneEditable() const noexcept {
     void* const memory = CEvent::operator new(sizeof(CEventAcquaintancePedRespect));
     if (!memory) {
         return nullptr;
     }
-    return ::new (memory) CEventAcquaintancePedRespect(m_AcquaintancePed);
+    static_cast<CEventAcquaintancePed*>(memory)->Constructor(m_AcquaintancePed);
+    *reinterpret_cast<uint32*>(memory) = 0x86CA38;
+    return static_cast<CEventAcquaintancePedRespect*>(memory);
 }

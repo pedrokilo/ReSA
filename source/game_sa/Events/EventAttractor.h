@@ -25,6 +25,7 @@ public:
 
     static bool IsEffectActive(CEntity* entity, const C2dEffectPedAttractor* effect);
 private:
+    friend class CEventScriptedAttractor; // CloneEditable de CEventScriptedAttractor (0x5FEF90) llama al envoltorio del constructor como el EXE
     // 0x4AF350
     auto Constructor(C2dEffectPedAttractor* effect, CEntity* entity, bool bAvoidLookingAtAttractor) {
         return std::construct_at(this, effect, entity, bAvoidLookingAtAttractor);

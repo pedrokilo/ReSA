@@ -63,13 +63,15 @@ eEventType CEventScriptedAttractor::GetEventType() const {
 
 // 0x5FEF90 (lote 188A, sin validar; thiscall, sin argumentos, `ret`, 93 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 16 de la vtable 0x86C9F0).
 // Como el original: CEvent::operator new (0x4B5620, con hook) con 0x20 bytes; sin memoria devuelve nulo; si no, llama al constructor de CEventAttractor (0x4AF350, con hook) con el efecto (+0x14), la entidad (+0x18)
-// y false, deja la vtable de la clase y devuelve la memoria. En C++ el constructor de CEventScriptedAttractor hace lo mismo (CEventAttractor(effect, entity, false)).
+// y false, deja la vtable de la clase del EXE (0x86C9F0) y devuelve la memoria. Llama al envoltorio enganchado del constructor (0x4AF350), no al constructor de C++ (que dejaria la vtable de la DLL).
 CEventEditableResponse* CEventScriptedAttractor::CloneEditable() const noexcept {
     void* const memory = CEvent::operator new(sizeof(CEventScriptedAttractor));
     if (!memory) {
         return nullptr;
     }
-    return ::new (memory) CEventScriptedAttractor(m_2dEffect, m_entity);
+    static_cast<CEventAttractor*>(memory)->Constructor(m_2dEffect, m_entity, false);
+    *reinterpret_cast<uint32*>(memory) = 0x86C9F0;
+    return static_cast<CEventScriptedAttractor*>(memory);
 }
 
 // 0x5FEF40
