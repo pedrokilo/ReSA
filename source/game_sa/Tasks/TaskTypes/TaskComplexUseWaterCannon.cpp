@@ -23,8 +23,10 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleCarDrive.h"
 #include "TaskSimpleCarDriveTimed.h"
 
+static_assert(TASK_COMPLEX_USE_WATER_CANNON == 0x6D); // 0x6597A0: `mov eax, 0x6D; ret`
+
 namespace {
-// 0x6597B0 (lote 153A, banco Fn153A): cuerpo del destructor de CTaskComplexUseWaterCannon del EXE (sin hook; vtable 0x86F5D0). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor
+// 0x6597B0 (lote 153A, banco Fn153A): cuerpo del destructor de CTaskComplexUseWaterCannon del EXE (con hook desde el lote 193A, sin validar; vtable 0x86F5D0). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor
 // con borrado como el `call 0x6597B0` del EXE.
 __declspec(noinline) void __fastcall CTaskComplexUseWaterCannonDestructorBody(CTaskComplexUseWaterCannon* self, void* /*edx*/) { self->CTaskComplexUseWaterCannon::~CTaskComplexUseWaterCannon(); }
 
@@ -47,8 +49,10 @@ void CTaskComplexUseWaterCannon::InjectHooks()
     RH_ScopedVirtualClass(CTaskComplexUseWaterCannon, 0x86F5D0, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskComplexUseWaterCannonScalarDeletingDestructor, "ScalarDeletingDestructor", 0x65A620); // lote 153A (banco Fn153A)
+    RH_ScopedNamedGlobalInstall(CTaskComplexUseWaterCannonDestructorBody, "DestructorBody", 0x6597B0); // lote 193A (sin validar): cuerpo del destructor (vtable 0x86F5D0 y salto a ~CTaskComplex)
     RH_ScopedInstall(Constructor, 0x659780);
     //VTABLE
+    RH_ScopedVMTInstall(GetTaskType, 0x6597A0); // lote 193A (sin validar): retorno de constante (TASK_COMPLEX_USE_WATER_CANNON = 0x6D)
     RH_ScopedVMTInstall(Clone, 0x659D10);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x6597D0);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x6597C0);

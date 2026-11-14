@@ -517,6 +517,8 @@
 #include "TaskSimpleDrownInCar.h"
 #include "TaskSimpleDuckToggle.h"
 #include "TaskSimpleDuckWhileShotsWhizzing.h"
+#include "TaskSimpleBeHitWhileMoving.h"
+#include "TaskComplexExtinguishFireOnFoot.h"
 #include "TaskSimpleThrowControl.h"
 #include "TaskSimpleDieInCar.h"
 #include "TaskComplexTurnToFaceEntityOrCoord.h"
@@ -1194,7 +1196,7 @@ void InjectHooksMain() {
         CTaskComplexEnterCarAsPassengerWait::InjectHooks();
         CTaskComplexEvasiveCower::InjectHooks();
         CTaskComplexEvasiveStep::InjectHooks();
-        // CTaskComplexExtinguishFireOnFoot::InjectHooks();
+        CTaskComplexExtinguishFireOnFoot::InjectHooks(); // lote 193A (sin validar)
         CTaskComplexExtinguishFires::InjectHooks();
         CTaskComplexFallAndStayDown::InjectHooks(); // lote 191A (sin validar)
         CTaskComplexFallToDeath::InjectHooks();
@@ -1243,7 +1245,7 @@ void InjectHooksMain() {
         CTaskComplexOpenPassengerDoor::InjectHooks();
         CTaskComplexPassObject::InjectHooks();
         // CTaskComplexPresentIDToCop::InjectHooks();
-        CTaskComplexReactToAttack::InjectHooks(); // lote 199A (sin validar): MakeAbortable, CreateSubTask, ControlSubTask y Clone
+        CTaskComplexReactToAttack::InjectHooks(); // lote 199A (sin validar): MakeAbortable, CreateSubTask, ControlSubTask y Clone; lote 193A (sin validar): cuerpo del destructor, destructor con borrado, CreateNextSubTask y CreateFirstSubTask
         CTaskComplexReactToGunAimedAt::InjectHooks();
         CTaskComplexRoadRage::InjectHooks();
         CTaskComplexScreamInCarThenLeave::InjectHooks();
@@ -1292,7 +1294,7 @@ void InjectHooksMain() {
         CTaskSimpleAffectSecondaryBehaviour::InjectHooks();
         CTaskSimpleArrestPed__InjectHooks();
         CTaskSimpleBeHit::InjectHooks();
-        // CTaskSimpleBeHitWhileMoving::InjectHooks();
+        CTaskSimpleBeHitWhileMoving::InjectHooks(); // lote 193A (sin validar): cuerpo del destructor y destructor con borrado
         // CTaskSimpleBeKickedOnGround::InjectHooks();
         CTaskSimpleBikeJacked::InjectHooks();
         CTaskSimpleCarAlign::InjectHooks();

@@ -24,6 +24,10 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleNone.h"
 #include "Pad.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
 namespace CTaskSimpleBody {
 void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
 }
@@ -120,6 +124,86 @@ CTask* __fastcall ReactToAttackClone(CTaskComplexReactToAttack* self, void* /*ed
     // 0x620B00 (lote 198A, sin validar; sin hook en esta rama): constructor del EXE, llamado por su direccion como hacia el EXE
     return plugin::CallMethodAndReturn<CTaskComplexReactToAttack*, 0x620B00, CTaskComplexReactToAttack*, int32, CEntity*, int32, int32, int32>(
         static_cast<CTaskComplexReactToAttack*>(memory), FieldAt<int32>(self, 0x10), FieldAt<CEntity*>(self, 0x14), FieldAt<int32>(self, 0x18), FieldAt<int32>(self, 0x1C), FieldAt<int32>(self, 0x20));
+
+}
+
+// 0x620B90 (lote 193A, sin validar): cuerpo del destructor de CTaskComplexReactToAttack del EXE (thiscall, sin argumentos de pila, `ret`, con marco SEH que solo desenrolla y aqui se omite; ranura 0 de la vtable 0x86D868). Deja la vtable
+// de la clase del EXE (0x86D868); si el agresor (+0x14) no es nulo, CEntity::CleanUpOldReference (0x571A00) con la direccion de +0x14 (sin poner el puntero a cero); y sigue con ~CTaskComplex (0x61A3D0, con hook).
+__declspec(noinline) void __fastcall ReactToAttackDestructorBody(CTaskComplexReactToAttack* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86D868;
+    CEntity::SafeCleanUpRef(FieldAt<CEntity*>(self, 0x14));
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+
+// 0x625C00 (lote 193A, sin validar; el listado decia CTaskComplexReactToAttack: es la ranura 0 de la vtable 0x86D868; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x620B90; test byte [esp+8],1; je ..;
+// push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo (0x620B90, ReactToAttackDestructorBody), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
+// del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (clase sin reconstruir: sin vtable exportada).
+CTaskComplexReactToAttack* __fastcall ReactToAttackScalarDeletingDestructor(CTaskComplexReactToAttack* self, void* /*edx*/, uint8 flags) {
+    ReactToAttackDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+
+// 0x625C20 (lote 193A, sin validar; ranura 8 (CreateNextSubTask) de la vtable 0x86D868; thiscall, un argumento de pila (el ped, que no se lee), `ret 4`, 68 bytes): si el byte +0xD es distinto de cero devuelve nulo sin mirar la subtarea.
+// Si no, pide el tipo de la subtarea (llamada virtual, ranura 4, sin comprobar si es nula); con TASK_NONE (0xC8), TASK_COMPLEX_FALL_AND_GET_UP (0xD0) o TASK_SIMPLE_BE_HIT (0x3F0) devuelve CreateSubTask(TASK_FINISHED = 0x516)
+// (0x620C30, sin reconstruir: llamada al EXE por direccion fija); con otro tipo, nulo. No escribe ningun campo.
+CTask* __fastcall ReactToAttackCreateNextSubTask(CTaskComplexReactToAttack* self, void* /*edx*/, CPed* /*ped*/) {
+    if (FieldAt<uint8>(self, 0xD)) {
+        return nullptr;
+    }
+    const eTaskType subTaskType = self->GetSubTask()->GetTaskType();
+    if (subTaskType == TASK_NONE || subTaskType == TASK_COMPLEX_FALL_AND_GET_UP || subTaskType == TASK_SIMPLE_BE_HIT) {
+        return ReactToAttackCreateSubTask(self, nullptr, TASK_FINISHED);
+    }
+    return nullptr;
+}
+
+// 0x625C70 (lote 193A, sin validar; ranura 9 (CreateFirstSubTask) de la vtable 0x86D868; thiscall, un argumento de pila (el ped), `ret 4`, 429 bytes): pone a cero el byte +0xC. Si el ped es el jugador (CPed::IsPlayer 0x5DF8F0) y el tipo de
+// arma (+0x10, int32 con signo) es mayor que 9: con el pad 0 sin controles desactivados (palabra +0x10E, DisablePlayerControls), si CPad::GetTarget (0x540670) o alguno de los ejes/cruceta (palabras +0, +2, +0x10, +0x12, +0x14, +0x16
+// del estado nuevo) es distinto de cero, devuelve CreateSubTask(TASK_NONE = 0xC8). Despues, si el estado (+0x20) es 3: con la bandera 0x4000000 de la palabra +0x470 del ped y arma 0x1B o 0x19 (o 0x18 si el ped no es el jugador), calcula el
+// vector 2D (agresor - ped) con las posiciones de ambos (matriz +0x14 o posicion propia), lo normaliza con CVector2D::Normalise del EXE (0x44E480, x87; la de la DLL difiere con NaN), apaga el bit 0 de la palabra +0x46C del ped
+// (bIsStanding), le aplica CPhysical::ApplyMoveForce (0x5429F0, con hook) de (-5 * x, -5 * y, 5) y devuelve CreateSubTask(TASK_COMPLEX_FALL_AND_GET_UP = 0xD0); si no (o con arma menor que 9 y salud menor que 30.0f en comparacion
+// ordenada) devuelve CreateSubTask(0xD0); en cualquier otro caso CreateSubTask(TASK_SIMPLE_BE_HIT = 0x3F0). x87 a 24 bits: restas y productos redondeados a float. El agresor no se comprueba contra nulo (igual que el EXE).
+CTask* __fastcall ReactToAttackCreateFirstSubTask(CTaskComplexReactToAttack* self, void* /*edx*/, CPed* ped) {
+    FieldAt<uint8>(self, 0xC) = 0;
+
+    if (ped->IsPlayer() && FieldAt<int32>(self, 0x10) > 9) {
+        CPad* const pad = CPad::GetPad(0); // 0x53FB70
+        if (pad->DisablePlayerControls == 0) {
+            const CControllerState& state = pad->NewState;
+            if (pad->GetTarget()
+                || state.LeftStickX != 0 || state.LeftStickY != 0
+                || state.DPadUp != 0 || state.DPadDown != 0 || state.DPadLeft != 0 || state.DPadRight != 0) {
+                return ReactToAttackCreateSubTask(self, nullptr, TASK_NONE);
+            }
+        }
+    }
+
+    if (FieldAt<int32>(self, 0x20) == 3) {
+        const int32 weapon = FieldAt<int32>(self, 0x10);
+        // Bit 26 de la segunda palabra de banderas del ped (+0x470; bCanBeShotInVehicle segun Ped.h)
+        const bool flagSet = (FieldAt<uint32>(ped, 0x470) & 0x4000000u) != 0;
+        if (flagSet && (weapon == 0x1B || weapon == 0x19 || (weapon == 0x18 && !ped->IsPlayer()))) {
+            CEntity* const attacker = FieldAt<CEntity*>(self, 0x14);
+            CVector2D direction;
+            direction.x = attacker->GetPosition().x - ped->GetPosition().x;
+            direction.y = attacker->GetPosition().y - ped->GetPosition().y;
+            plugin::CallMethod<0x44E480, CVector2D*>(&direction); // CVector2D::Normalise del EXE
+            const uint32 clearedFlags = FieldAt<uint32>(ped, 0x46C) & 0xFFFFFFFEu;
+            const float forceX = direction.x * -5.0f;
+            const float forceY = direction.y * -5.0f;
+            const CVector force{ forceX, forceY, 5.0f };
+            FieldAt<uint32>(ped, 0x46C) = clearedFlags;
+            ped->ApplyMoveForce(force);
+            return ReactToAttackCreateSubTask(self, nullptr, TASK_COMPLEX_FALL_AND_GET_UP);
+        }
+        if (weapon < 9 && ped->m_fHealth < 30.0f) {
+            return ReactToAttackCreateSubTask(self, nullptr, TASK_COMPLEX_FALL_AND_GET_UP);
+        }
+    }
+    return ReactToAttackCreateSubTask(self, nullptr, TASK_SIMPLE_BE_HIT);
 }
 } // namespace
 
@@ -131,5 +215,9 @@ void CTaskComplexReactToAttack::InjectHooks() {
     RH_ScopedNamedGlobalInstall(ReactToAttackCreateSubTask, "CreateSubTask", 0x620C30); // lote 199A (sin validar)
     RH_ScopedNamedGlobalInstall(ReactToAttackControlSubTask, "ControlSubTask", 0x620E00); // lote 199A (sin validar)
     RH_ScopedNamedGlobalInstall(ReactToAttackClone, "Clone", 0x623300); // lote 199A (sin validar)
+    RH_ScopedNamedGlobalInstall(ReactToAttackDestructorBody, "DestructorBody", 0x620B90); // lote 193A (sin validar)
+    RH_ScopedNamedGlobalInstall(ReactToAttackScalarDeletingDestructor, "ScalarDeletingDestructor", 0x625C00); // lote 193A (sin validar)
+    RH_ScopedNamedGlobalInstall(ReactToAttackCreateNextSubTask, "CreateNextSubTask", 0x625C20); // lote 193A (sin validar)
+    RH_ScopedNamedGlobalInstall(ReactToAttackCreateFirstSubTask, "CreateFirstSubTask", 0x625C70); // lote 193A (sin validar)
     // TODO: instalar las funciones conforme se reconstruyan.
 }

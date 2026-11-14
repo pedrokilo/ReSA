@@ -53,12 +53,24 @@ void __fastcall KillPedOnFootDestructorBody(CTaskComplexKillPedOnFoot* self, voi
     CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(bytes + 0x10));
     CTaskComplexBody::Destructor(self, nullptr);
 }
+
+// 0x625E20 (lote 193A, sin validar; el listado decia CTaskSimpleThrowProjectile: es la ranura 0 de la vtable 0x86D894 de CTaskComplexKillPedOnFoot; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x620EF0;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x620EF0, KillPedOnFootDestructorBody), libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexKillPedOnFoot* __fastcall KillPedOnFootScalarDeletingDestructor(CTaskComplexKillPedOnFoot* self, void* /*edx*/, uint8 flags) {
+    KillPedOnFootDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexKillPedOnFoot::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexKillPedOnFoot, 0x86D894, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(KillPedOnFootDestructorBody, "Destructor", 0x620EF0);
+    RH_ScopedNamedGlobalInstall(KillPedOnFootScalarDeletingDestructor, "ScalarDeletingDestructor", 0x625E20); // lote 193A (sin validar)
     RH_ScopedInstall(Constructor, 0x620E30);
     RH_ScopedInstall(CreateSubTask, 0x625E70);
     RH_ScopedInstall(SayGangAttack, 0x65E9A0);

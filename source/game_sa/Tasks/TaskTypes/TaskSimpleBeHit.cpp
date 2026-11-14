@@ -27,12 +27,26 @@ static float BeHitAtan2(float x, float y) {
     return TrigAtan2Cpp(x, y);
 }
 
+namespace {
+// 0x625BE0 (lote 193A, sin validar; el listado decia CTaskSimpleThrowProjectile: es la ranura 0 de la vtable 0x86D844 de CTaskSimpleBeHit; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x620810;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x620810, el destructor de C++ con el hook Destructor), libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskSimpleBeHit* __fastcall BeHitScalarDeletingDestructor(CTaskSimpleBeHit* self, void* /*edx*/, uint8 flags) {
+    self->CTaskSimpleBeHit::~CTaskSimpleBeHit();
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskSimpleBeHit::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleBeHit, 0x86D844, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x620780);
     RH_ScopedInstall(Destructor, 0x620810);
+    RH_ScopedNamedGlobalInstall(BeHitScalarDeletingDestructor, "ScalarDeletingDestructor", 0x625BE0); // lote 193A (sin validar)
     RH_ScopedGlobalInstall(FinishAnimBeHitCB, 0x620900);
     RH_ScopedInstall(StartAnim, 0x620910);
     RH_ScopedVMTInstall(Clone, 0x623290);

@@ -29,12 +29,26 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexTurnToFaceEntityOrCoord.h"
 #include "TaskSimpleShakeFist.h"
 
+namespace {
+// 0x626AA0 (lote 193A, sin validar; el listado decia CTaskSimpleThrowProjectile: es la ranura 0 de la vtable 0x86D8EC de CTaskComplexKillPedOnFootMelee; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x621090;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x621090, el destructor de C++ con el hook Destructor), libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexKillPedOnFootMelee* __fastcall KillPedOnFootMeleeScalarDeletingDestructor(CTaskComplexKillPedOnFootMelee* self, void* /*edx*/, uint8 flags) {
+    self->CTaskComplexKillPedOnFootMelee::~CTaskComplexKillPedOnFootMelee();
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskComplexKillPedOnFootMelee::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexKillPedOnFootMelee, 0x86d8ec, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x621000);
     RH_ScopedInstall(Destructor, 0x621090);
+    RH_ScopedNamedGlobalInstall(KillPedOnFootMeleeScalarDeletingDestructor, "ScalarDeletingDestructor", 0x626AA0); // lote 193A (sin validar)
 
     RH_ScopedInstall(CalculateSearchPositionAndRanges, 0x621100);
     RH_ScopedInstall(CreateSubTask, 0x626AC0);

@@ -36,6 +36,17 @@ void __fastcall TreatAccidentDestructorBody(CTaskComplexTreatAccident* self, voi
     *reinterpret_cast<uint32*>(self) = 0x86F4EC;
     CTaskComplexBody::Destructor(self, nullptr);
 }
+
+// 0x659E70 (lote 193A, sin validar; el listado decia CTaskComplexUseWaterCannon: es la ranura 0 de la vtable 0x86F4EC de CTaskComplexTreatAccident; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x658AE0;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x658AE0, TreatAccidentDestructorBody, con hook), libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexTreatAccident* __fastcall TreatAccidentScalarDeletingDestructor(CTaskComplexTreatAccident* self, void* /*edx*/, uint8 flags) {
+    TreatAccidentDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexTreatAccident::InjectHooks()
@@ -43,6 +54,7 @@ void CTaskComplexTreatAccident::InjectHooks()
     RH_ScopedVirtualClass(CTaskComplexTreatAccident, 0x86F4EC, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(TreatAccidentDestructorBody, "Destructor", 0x658AE0); // lote 143A (banco Fn143A)
+    RH_ScopedNamedGlobalInstall(TreatAccidentScalarDeletingDestructor, "ScalarDeletingDestructor", 0x659E70); // lote 193A (sin validar)
     RH_ScopedVMTInstall(GetTaskType, 0x658AD0);                                       // lote 143A: retorno de constante (101)
     RH_ScopedInstall(Constructor, 0x658AB0);
     RH_ScopedInstall(CreateSubTask, 0x659E90);

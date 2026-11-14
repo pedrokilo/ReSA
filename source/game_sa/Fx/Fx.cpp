@@ -68,10 +68,10 @@ void Fx_c::InjectHooks() {
     RH_ScopedClass(Fx_c);
     RH_ScopedCategory("Fx");
 
-    // + RH_ScopedInstall(Constructor, 0x49E620);
+    RH_ScopedInstall(Constructor, 0x49E620);       // lote 193A (sin validar)
     // + RH_ScopedInstall(Destructor, 0x49E630);
-    // + RH_ScopedInstall(InitStaticSystems, 0x49E660);
-    // + RH_ScopedInstall(ExitStaticSystems, 0x49E850);
+    RH_ScopedInstall(InitStaticSystems, 0x49E660); // lote 193A (sin validar)
+    RH_ScopedInstall(ExitStaticSystems, 0x49E850); // lote 193A (sin validar)
     // + RH_ScopedInstall(InitEntitySystems, 0x49EA60);
     RH_ScopedInstall(ExitEntitySystems, 0x4A12D0); // lote 184A (sin validar)
     RH_ScopedInstall(Init, 0x49EA90);              // lote 184A (sin validar)
@@ -81,8 +81,8 @@ void Fx_c::InjectHooks() {
     RH_ScopedInstall(DestroyEntityFx, 0x4A1280);   // lote 184A (sin validar)
     RH_ScopedNamedGlobalInstall(FxEntitySystemConstructor, "FxEntitySystemConstructor", 0x49EA80); // lote 184A (sin validar)
     RH_ScopedNamedGlobalInstall(FxEntitySystemScalarDeletingDestructor, "FxEntitySystemScalarDeletingDestructor", 0x4A11C0); // lote 184A (sin validar)
-    // + RH_ScopedInstall(Update, 0x49E640);
-    // + RH_ScopedInstall(Render, 0x49E650);
+    RH_ScopedInstall(Update, 0x49E640);            // lote 193A (sin validar)
+    RH_ScopedInstall(Render, 0x49E650);            // lote 193A (sin validar)
     RH_ScopedInstall(CreateMatFromVec, 0x49E950);
     RH_ScopedInstall(SetFxQuality, 0x49EA40);
     RH_ScopedInstall(GetFxQuality, 0x49EA50);

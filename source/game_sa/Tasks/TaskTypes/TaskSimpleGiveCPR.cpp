@@ -38,6 +38,17 @@ void __fastcall CTaskSimpleGiveCPRDestructorBodyExe(CTaskSimpleGiveCPR* self, vo
     }
     self->CTask::Destructor();
 }
+
+// 0x659E10 (lote 193A, sin validar; el listado decia CTaskComplexUseWaterCannon: es la ranura 0 de la vtable 0x86F4C8 de CTaskSimpleGiveCPR; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6588A0;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6588A0, CTaskSimpleGiveCPRDestructorBodyExe, con hook), libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskSimpleGiveCPR* __fastcall CTaskSimpleGiveCPRScalarDeletingDestructor(CTaskSimpleGiveCPR* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleGiveCPRDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 // 0x658890 (lote 150A, banco Fn150A; thiscall, `ret`, 6 bytes: `mov eax,0x66`): TASK_SIMPLE_GIVE_CPR (102); no lee el objeto.
@@ -49,6 +60,7 @@ void CTaskSimpleGiveCPR::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleGiveCPR, 0x86F4C8, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskSimpleGiveCPRDestructorBodyExe, "DestructorBody", 0x6588A0); // lote 150A (banco Fn150A)
+    RH_ScopedNamedGlobalInstall(CTaskSimpleGiveCPRScalarDeletingDestructor, "ScalarDeletingDestructor", 0x659E10); // lote 193A (sin validar)
     RH_ScopedVMTInstall(GetTaskType, 0x658890); // lote 150A (banco Fn150A): retorno de constante
     RH_ScopedInstall(Constructor, 0x658860);
     RH_ScopedInstall(ReviveDeadPed, 0x658900);

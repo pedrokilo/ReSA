@@ -26,13 +26,27 @@ void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
 }
 
 namespace {
-// 0x6833D0 (lote 151A, banco Fn151A): cuerpo del destructor de CTaskComplexWaitForPed del EXE (sin hook: la clase aun no declara su destructor; thiscall, sin argumentos de pila, `ret`, con marco SEH que solo desenrolla y aqui
+// 0x6833D0 (lote 151A, banco Fn151A; con hook desde el lote 193A, sin validar): cuerpo del destructor de CTaskComplexWaitForPed del EXE (la clase aun no declara su destructor; thiscall, sin argumentos de pila, `ret`, con marco SEH que solo desenrolla y aqui
 // se omite). Como el original: vtable de la clase del EXE (0x8706F8); si el ped (+0xC) no es nulo, CEntity::CleanUpOldReference (0x571A00) con la direccion de +0xC (sin poner el puntero a cero) y ~CTaskComplex (0x61A3D0, con hook).
 // Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x6833D0` del EXE.
 __declspec(noinline) void __fastcall WaitForPedDestructorBody(CTaskComplexWaitForPed* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x8706F8;
     CEntity::SafeCleanUpRef(self->m_ped);
     CTaskComplexBody::Destructor(self, nullptr);
+}
+
+static_assert(TASK_COMPLEX_WAIT_FOR_PED == 0x4BD); // 0x6833C0: `mov eax, 0x4BD; ret`
+
+// 0x6833C0 (lote 193A, sin validar; ranura 4 (GetTaskType) de la vtable 0x8706F8; thiscall, sin argumentos de pila, `ret`, 6 bytes: `mov eax,0x4BD; ret`): TASK_COMPLEX_WAIT_FOR_PED; no lee el objeto. La clase aun no declara sus
+// virtuales: se engancha como S (sin vtable exportada para RH_ScopedVMTInstall).
+eTaskType __fastcall WaitForPedGetTaskType(CTaskComplexWaitForPed* /*self*/, void* /*edx*/) {
+    return TASK_COMPLEX_WAIT_FOR_PED;
+}
+
+// 0x683430 (lote 193A, sin validar; ranura 6 (MakeAbortable) de la vtable 0x8706F8; thiscall, tres argumentos de pila (ped, prioridad, evento), `ret 0xC`, 5 bytes: `mov al,1; ret 0xC`): siempre devuelve true; no lee el
+// objeto ni los argumentos (el EXE solo escribe AL: los bytes altos de EAX quedan como estaban). Se engancha como S (clase sin virtuales declaradas).
+bool __fastcall WaitForPedMakeAbortable(CTaskComplexWaitForPed* /*self*/, void* /*edx*/, CPed* /*ped*/, eAbortPriority /*priority*/, const CEvent* /*event*/) {
+    return true;
 }
 
 // 0x684780 (lote 151A, banco Fn151A; el listado decia CTaskComplexPartnerShove): destructor con borrado de CTaskComplexWaitForPed del EXE (ranura 0 de su vtable 0x8706F8; thiscall, un argumento de pila, `ret 4`, 30 bytes:
@@ -54,6 +68,9 @@ void CTaskComplexWaitForPed::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x683340);
+    RH_ScopedNamedGlobalInstall(WaitForPedGetTaskType, "GetTaskType", 0x6833C0); // lote 193A (sin validar)
+    RH_ScopedNamedGlobalInstall(WaitForPedDestructorBody, "DestructorBody", 0x6833D0); // lote 193A (sin validar)
+    RH_ScopedNamedGlobalInstall(WaitForPedMakeAbortable, "MakeAbortable", 0x683430); // lote 193A (sin validar)
     RH_ScopedInstall(CloneBody, 0x683950); // lote 132A (banco Fn132A)
     RH_ScopedNamedGlobalInstall(WaitForPedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x684780); // lote 151A (banco Fn151A)
 }

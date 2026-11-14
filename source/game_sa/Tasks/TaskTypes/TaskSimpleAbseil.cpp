@@ -23,6 +23,23 @@ END GENERATED HOOK STATUS */
 namespace {
 // Cadena "Abseil" del EXE (0x86F484): el constructor de CTaskSimpleRunAnim la ignora, pero el EXE empuja esta direccion
 const char* const kExeAbseilName = reinterpret_cast<const char*>(0x86F484);
+
+// 0x659E00 (lote 193A, sin validar; el listado decia CTaskComplexUseWaterCannon: es el cuerpo del destructor de CTaskSimpleAbseil, ranura 0 de la vtable 0x86F45C; thiscall, sin argumentos de pila, 5 bytes: `jmp 0x61A6F0`): no escribe
+// ninguna vtable ni toca campos; sigue con el cuerpo de ~CTaskSimpleAnim (0x61A6F0, con hook; deja la vtable 0x86D504, suelta la animacion y termina en CTask::Destructor). Funcion propia sin expansion en linea.
+__declspec(noinline) void __fastcall AbseilDestructorBody(CTaskSimpleAbseil* self, void* /*edx*/) {
+    CTaskSimpleAnim::DestructorBodyExe(self, nullptr);
+}
+
+// 0x659DE0 (lote 193A, sin validar; el listado decia CTaskComplexUseWaterCannon: es la ranura 0 de la vtable 0x86F45C de CTaskSimpleAbseil; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x659E00;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo (0x659E00, AbseilDestructorBody), libera `this` con CTask::operator delete (0x61A5B0, con
+// hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskSimpleAbseil* __fastcall AbseilScalarDeletingDestructor(CTaskSimpleAbseil* self, void* /*edx*/, uint8 flags) {
+    AbseilDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskSimpleAbseil::InjectHooks() {
@@ -31,6 +48,8 @@ void CTaskSimpleAbseil::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x6586A0); // lote 180A (banco Fn180A)
     RH_ScopedVMTInstall(Clone, 0x6586D0);    // lote 180A (banco Fn180A)
+    RH_ScopedNamedGlobalInstall(AbseilDestructorBody, "DestructorBody", 0x659E00);                     // lote 193A (sin validar)
+    RH_ScopedNamedGlobalInstall(AbseilScalarDeletingDestructor, "ScalarDeletingDestructor", 0x659DE0); // lote 193A (sin validar)
 }
 
 // 0x6586A0 (lote 180A, banco Fn180A; el listado decia CTaskComplexWalkRoundFire; thiscall, sin argumentos de pila, `ret`, 42 bytes): constructor del EXE. Como el original: llama al constructor de CTaskSimpleRunAnim (0x61A900, con
