@@ -26,10 +26,10 @@ HOOKS = dict(zip(NAMES, oracle.ENTRIES))
 SLOTS = ()
 # colaboradores sustituidos por falsos, en el orden de env.stubs del banco: (direccion del EXE, hooked). Con hook RH en la DLL (apagado durante el banco) el mismo falso va en el cuerpo de la DLL; sin hook, en
 # la funcion propia de la DLL (DLL_BODY_WITHOUT_HOOK) o solo en la direccion del EXE (operator delete 0x8214BD: la DLL lo llama por esa direccion).
-DLL_BODY_WITHOUT_HOOK = {0x59F660, 0x5A1F20, 0x4F0B50, 0x5F67E0}
+DLL_BODY_WITHOUT_HOOK = {0x59F660, 0x5F67E0}   # pase final: 0x5A1F20 y 0x4F0B50 tienen hook (H)
 STUBBED = {NAMES[0]: [(0x658850, True), (0x61A5B0, True)], NAMES[1]: [(0x669D20, True)], NAMES[2]: [(0x48E600, True), (0x61A5B0, True)], NAMES[3]: [(0x669D20, True)],
            NAMES[4]: [(0x4636E0, True), (0x61A5B0, True)], NAMES[5]: [(0x61A3A0, True)], NAMES[6]: [(0x61A3A0, True)], NAMES[7]: [(0x492D40, True), (0x61A5B0, True)],
-           NAMES[10]: [(0x59F660, False)], NAMES[11]: [(0x5A40E0, True), (0x5A1F20, False)], NAMES[12]: [(0x4F0B50, False), (0x8214BD, False)],
+           NAMES[10]: [(0x59F660, False)], NAMES[11]: [(0x5A40E0, True), (0x5A1F20, True)], NAMES[12]: [(0x4F0B50, True), (0x8214BD, False)],
            NAMES[15]: [(0x697330, True), (0x61A5B0, True)], NAMES[17]: [(0x5F67E0, True), (0x61A5B0, True)], NAMES[18]: [(0x699DB0, True)], NAMES[22]: [(0x5DF8F0, True)]}
 REAL = {}
 # 0x4C4A60 (constructor de CBaseModelInfo, sin hook) y 0x699F00 (pone a cero el CPointList, sin hook): el EXE las sigue llamando y la DLL las lleva en linea; se vigila que sus entradas sigan siendo las originales.

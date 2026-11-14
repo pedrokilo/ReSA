@@ -344,7 +344,7 @@ inline void Update() {
         &Lote145ABody_CTaskComplexWanderCriminal,
         &Lote145ABody_CTaskComplexGoToAttractor,
     };
-    static const bool kBodyHooked[kBodyExe.size()] = {true, true, true, true, true, false, true, true, true, false, true, true, true, true, true, true, true, true, false, true, true};
+    static const bool kBodyHooked[kBodyExe.size()] = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true};
     for (unsigned i = 0; i < kBodyExe.size(); ++i) {
         const unsigned fn = i + 1;
         StubSpec body = kBodyHooked[i] ? H(kBodyExe[i], kDllBody[i](), kBodyFakes[i]) : U(kBodyExe[i], kDllBody[i](), kBodyFakes[i]);

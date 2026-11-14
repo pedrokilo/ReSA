@@ -35,15 +35,15 @@
   "audit_path": "reversing/RequestedFxEmitterTwo/Diagnostics/correct-adapter-baseline-audit.json",
   "audit_sha256": "c551265c3b55779d8c3fbb284515e767ff3de98b0aa022577c84298dd1dcaf30",
   "manifest": {
-    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
+    "head": "f1a1597a456f7db872bc399ab2b6bb412ce7a184",
     "bank_sources": {
       "reversing/RequestedFxEmitterTwo/LiveComparison.hpp": "e2157879147e4773e8e01496e1320d49dcce312d0b4c2ba13831e562d12ce47d",
       "reversing/RequestedFxEmitterTwo/Preflight.hpp": "aed2c1e68824541556dc615bbc67c3a2e3e3f64a05f9103e7b4fd34920270c0a",
-      "reversing/RequestedFxEmitterTwo/VTableRanges.hpp": "59a71643a14ecf5676b0d4fae5f4236d70d10348eef40dc77689e0078b7366e6",
+      "reversing/RequestedFxEmitterTwo/VTableRanges.hpp": "8fd908bfd215512a6572f9e526d2a5d99e7e70180fa5dd532cb3f2c406ef0ac4",
       "reversing/RequestedFxEmitterTwo/build_probe.py": "8825226459c8132de0754db2b4bbeb23cba9a0be35320e59e66b7675b53568fe",
       "reversing/RequestedFxEmitterTwo/run_local.py": "1cf2fd9966dcaea5ede17b7393e7629d22fe7d15ef495ed848290f0852cf8870",
       "reversing/RequestedFxEmitterTwo/model.py": "f526cd34a22ae73d9eb5a42bf016fb52306fa5c796c42bf6c56bf5efae96546e",
-      "reversing/RequestedFxEmitterTwo/prepared-freeze.json": "d96f91d66a348dbdce98984397c0b57ad05accc564532edd885147b8090a5f17",
+      "reversing/RequestedFxEmitterTwo/prepared-freeze.json": "846768e85dcbeb5a9e9ca36977e1120560e440637be9dcff854bcf7c7448b8aa",
       "reversing/RequestedFxEmitterTwo/preparation-plan.json": "57be090e5f146d157e6ce181631704d5a0b8043e466e54fb2333afd6add3ef75",
       "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
       "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
@@ -62,7 +62,7 @@
     "tested_sources": {
       "source/game_sa/Fx/FxEmitterBP.cpp": "1a8661dc93fb50d1e66ded53c81c621496a1df41b8bdc377cbe45b1ca9106755",
       "source/game_sa/Fx/FxEmitterBP.h": "56a2a609dd12fc61d2218966cc0cbbd306e68a0a6e6a00068b81df6438c2875a",
-      "source/game_sa/Fx/FxPrimBP.cpp": "a50405dd75d0be3083d46acb0d40613a1950f6a1f1a31165c9dc087f64dd8159",
+      "source/game_sa/Fx/FxPrimBP.cpp": "f7a020a088f616cd41b8025c35d3fce9672de00b13464b59d7bee4ef15607331",
       "source/game_sa/Fx/FxPrimBP.h": "9ea02baa23d54ffeb2610ac5e8af04ac4af6d8a17034c66514ebbf9fba05a8c4",
       "source/game_sa/Fx/FxInfoManager.h": "732c9394986e6f778c7d8a0d62a39609352af65d423c0aced391dbf960fce09c",
       "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9",
@@ -75,13 +75,13 @@
   "compiled_call_path_proof_sha256": "2a0b0d30b11d70b01e4a2942d8f76f938769851a7ab14eb445a9ef74dd3f2c3a",
   "natural_exit0": true,
   "all17692ranges_restored": true,
-  "log_sha256": "e8cf08602c6eac5d6dc9a7d7250948962c0cf5a54772241aeebdb118469c68fb",
+  "log_sha256": "8da1ba9e0969ee2422386ec973144b6c17223221112f5d75fa6caf830bf98178",
   "state_restored": true,
   "all_equal": true,
-  "run": "reversing/CppTwelveLevel6Final/runs/RequestedFxEmitterTwo-20261110-125713-161278",
-  "summary_sha256": "ef7140b4343741fb5d936b943cb465cffdd866feb13a1702dbb84dd5ea11cb9a",
-  "result_txt_sha256": "652959a5e2f8b7f7c1c9c07d3289131a666abe6c388eaa90c801ace8e1b01e74",
-  "executed_probe_sha256": "dc68886570cf1c87c0e14d1ac79ace0c40033bcddcd7a86c0cd979ecb8bb513e",
+  "run": "reversing/CppTwelveLevel6Final/runs/RequestedFxEmitterTwo-20261111-233127-494903",
+  "summary_sha256": "b3fabeb69453c06d976b2df09479aeb49a293a58e33e28d6b8946e39af801891",
+  "result_txt_sha256": "ed11c77a179fa8f21a70945f621d3047914d9f96cb3479b23831eefeff1f6fa2",
+  "executed_probe_sha256": "d5b8ae9222ca34281584a64be193ba69ee781ad6cea2ea4062f3691f18e9e334",
   "functions": {
     "FxEmitterBP_c::Constructor": 512
   },
@@ -90,10 +90,10 @@
   },
   "registered_pairs": 512,
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RequestedFxEmitterTwo-20261110-125713-161278/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RequestedFxEmitterTwo-20261111-233127-494903/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "d18033dc28a90ed0110723c35c8809e855c0bdc4021bca86cead83fe0088503c",
-    "uncompressed_sha256": "e8cf08602c6eac5d6dc9a7d7250948962c0cf5a54772241aeebdb118469c68fb"
+    "compressed_sha256": "15f8d410afa8c693d7f6b857902fa31ac410e5b556bff3ba37f22209e127df09",
+    "uncompressed_sha256": "8da1ba9e0969ee2422386ec973144b6c17223221112f5d75fa6caf830bf98178"
   }
 }

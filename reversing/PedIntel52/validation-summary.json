@@ -65,10 +65,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "a4bd89448393c16f73b741e0379e1f1212614fa93436d9f82cd56d83589f46ac",
+  "log_sha256": "dddbe660c3d8e288468ec19cdd7a39b4412384adc9f3c3759ee3e2305e70d3bc",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-pedintel52\\20261106-174433-790328",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-pedintel52\\20261112-062942-166527",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPedIntelligence::Constructor": true,
@@ -126,14 +126,14 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "f1ec56f4b6354906e44c42c2d9948addcf468fa222c336f50df99a998758068e",
-      "pdb": "9348ab482e3d76c2f318be3f57dc71d9352d34e9250456f020d0bf08ba8de223"
+      "asi": "9fc6037c630f72f2eb1c858ea5fb1f14772207e8ed0a631954779c478050213f",
+      "pdb": "5fb4875871c980aa805de8557b64fe7f55760834e4de4da6033256f8c8707c92"
     },
     "sources": {
-      "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
-      "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
-      "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
-      "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369"
+      "source/game_sa/PedIntelligence.cpp": "72978c96d1f5e9bf35feae2377bf5197b4804bbc99da4672bd76285b5548d11f",
+      "source/game_sa/PedIntelligence.h": "047a45cb8b6ed07ae61bd09a37f2ea4e6f118509009f3ed7bff2146cb2f12198",
+      "source/game_sa/Events/EventScanner.cpp": "1bfc2222d6785e4088e6fcba5456eeb08b0aeb3cabbe45daca57ec8368f96b96",
+      "source/game_sa/Events/EventScanner.h": "8c6010e7378f8b70bfd3d6c5e7932c66a722f6cb0e13433fcfae4eedc0f8d96f"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {

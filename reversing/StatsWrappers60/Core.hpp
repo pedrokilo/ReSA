@@ -174,11 +174,11 @@ inline void Run(Env& env, bool ready, const json& registered, const json& bodies
            {"cases", {{kNames[0], kCasesFind}, {kNames[1], kCasesBuild}, {kNames[2], kCasesRespect}, {kNames[3], kCasesConstruct}}},
            {"direct_functions", json::array()}, {"compare_dead_x87_registers", kCompareDeadX87Registers}, {"compare_volatile_registers", kCompareVolatileRegisters},
            {"x87_comparison", "fcw+top+ftw+valid_st; ignora FSW banderas/CC, FIP/FDP y registros vacios; MXCSR sin banderas"}, {"collaborators_stubbed", true},
-           {"collaborators", {{"exe_only", std::vector<std::uintptr_t>{ 0x719240, 0x821BB5 }}, {"stubbed", stubbed}}},
+           {"collaborators", {{"exe_only", std::vector<std::uintptr_t>{ 0x821BB5 }}, {"stubbed", stubbed}}},
            {"watched_entries", watchedJson}, {"bodies", bodies}, {"asi_module", env.asi}, {"original_module", env.game}, {"initial_fp", HexBytes(savedFP.data(), 108)}, {"initial_mxcsr", savedMXCSR}});
     Totals totals;
     if (ready) {
-        const std::initializer_list<std::uintptr_t> exeOnly{ 0x719240, 0x821BB5 };
+        const std::initializer_list<std::uintptr_t> exeOnly{ 0x821BB5 };
         RunFunction<FxFind>(env, totals, kNames[0], kCasesFind, kAllowedFind, MakeFind, InputFind, SetupFind,
             [](const FxFind&, const Reg& reg) { return ObserveFind(reg); },
             [&](const FxFind& f, bool candidate) {

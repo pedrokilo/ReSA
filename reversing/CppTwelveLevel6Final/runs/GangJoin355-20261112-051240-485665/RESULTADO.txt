@@ -1,0 +1,3 @@
+APROBADO: GangJoin355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-gang-join355\20261112-051240-485665

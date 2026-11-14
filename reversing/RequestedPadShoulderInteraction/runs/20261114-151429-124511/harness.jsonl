@@ -1,0 +1,8 @@
+{"event":"preflight_entered","graphics_initialized":false}
+{"category":"CEventVehicleThreat","event":"unknown_vtable_category"}
+{"category":"CEventCreatePartnerTask","event":"unknown_vtable_category"}
+{"category":"CTaskSimpleAbseil","event":"unknown_vtable_category"}
+{"category":"CTaskSimple","event":"unknown_vtable_category"}
+{"category":"CTaskComplex","event":"unknown_vtable_category"}
+{"category":"CEmergencyPed","event":"unknown_vtable_category"}
+{"event":"error","reason":"unknown virtual class metadata","state_restored":true}

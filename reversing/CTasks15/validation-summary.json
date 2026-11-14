@@ -61,7 +61,7 @@
   "log_sha256": "c0326801b431cd740bad2ecc432b8018577771e81f8d6d668a2c1e305c94cc28",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks15\\20261110-211726-392891",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks15\\20261113-170514-618999",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexAvoidOtherPedWhileWandering::Clone": true,
@@ -112,19 +112,19 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "c278c402552b321d9775070a8647e7cf31f29c2c0570be6b1280eca20462e267",
-      "pdb": "bae022adc2dbddfee426c5a97df3ec527aeacdf8d5c797da6462c9f7198273d0"
+      "asi": "76e633cc6f8d5254cae4f077b76e6e3c937fb0a03d76651a4144ecddcc05f7c9",
+      "pdb": "9ac82a399ea0b464100cbc7f92f91d24e4c62b60d26e718ca035ca6e854c7db6"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp": "2ccecd7dc653cb255e7f4f87bbb521f7c83a871511beb65f470f30434c0a23a3",
       "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h": "16966b71a1c11212c47811cddc02ac4046ecc0bd95a49c8244a202e02371314e",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "fb89859ef6007f16116f9515e3aa237af31daece7da1ae8a5141bf21abbae823",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.h": "da24772047ca91a2bd5b33cd8fd5dd679ca6f222ea3f4352907aeb483279d9fd",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "ab0d55663e320c6e45ede9cc6697b28bcf04b2541b2ea3867873165b6658c05f",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h": "d54eed4e75e1c79bed74f14a43ea09039db40b710404d2c67b01064653f32c84",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "2ffde2f6868c623199047011ef7f4f577e1731b666d49d91b7028f9b1560b184",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.h": "604764581ad90b5cca1455fc0a600d11a1d246d8615bd3ce1529365b23b63aa7",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "1eb4d821e733176ce735c7dd27a0c6e68414f66c1e59f59eb16574ce08138e41",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h": "c97a8806dfe1e61bacffb70fffdc03eacd9b22a6be025e9a346c645f449aaa93",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb_models.h": "8ea3f37578e8df2e2f15684e3938de5f291a6f99c930beccc040b939c76f9b5f"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
       "LiveComparison.hpp": "604ff73f0888e9afc8013c7251a9ff6e03aced034c01e63671e3648a85c49d2d",
       "build_probe.py": "348c223ec2fe7a83cdbcceaa4a0e701d771787bfdf539f82a9b0e9e2e9cb3396",

@@ -40,26 +40,26 @@
     "CPopulation::TestSafeForRealObject": "Corpus 256; sector lists 0xB992B8 and pool headers backed up and restored; model infos fake (ids 0..319); FindObjectsInRange/ProcessColModels/collision collaborators doubled with trace. "
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PopFinal4-20261107-195834-532978",
-  "summary_sha256": "6d7a5b05bdea3c2599ed7117370b6003dab7d56c592803a28f7a04356182c3b8",
-  "result_txt_sha256": "950c9f15f62f3adc88144192b278dbffbd16d2fc47364c639b551ca618892153",
-  "log_sha256": "173fed306d5375044ffca99d4874ddb8e72a897c2913d0b5fc9917c252b02f14",
+  "run": "reversing/CppTwelveLevel6Final/runs/PopFinal4-20261114-170015-608125",
+  "summary_sha256": "1ede535711fa474fe739dab374177fe1d44f508ae9bb005d19c54d085771f2cb",
+  "result_txt_sha256": "3d44a05ff4333deda2ac2099017324b8d7f9cb0f8c2398b6e88e8b81110619ad",
+  "log_sha256": "3d5ad8d8d182fdbd3ca71358eb014dfa7eb36c30f59c08ec90634ff837fa4d76",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PopFinal4-20261107-195834-532978/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PopFinal4-20261114-170015-608125/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "840620258b79134f51e6a98bf219742ac4f45bdd4143473b173f9dc090d5aea8",
-    "uncompressed_sha256": "173fed306d5375044ffca99d4874ddb8e72a897c2913d0b5fc9917c252b02f14"
+    "compressed_sha256": "d3ab67197e8a07e4a4beba50f00c3f988d6a9d0e511f8def3d5ac09d29883798",
+    "uncompressed_sha256": "3d5ad8d8d182fdbd3ca71358eb014dfa7eb36c30f59c08ec90634ff837fa4d76"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "f8403e7e81377a028fe11a0c263779828c12840194be357d055798ff6377cb7e",
+  "executed_probe_sha256": "1c361cf194bcc663fd469c23493414ef427caa45e242f7fc2327da4de8f28cf7",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Population.cpp": "767e9f9e3cc66357c5a6f6c665db0bd7a9a36695838f76536b55eafe22d68109",
+      "source/game_sa/Population.cpp": "bb243ee3d93e63ebeebc53c2f6b6716c4b49286bec3a8f49cd1f946cc9ccdaf9",
       "source/game_sa/Population.h": "03d63c9f80cbddf755b71a5ef1b2f3b8e97dcb746fb0fa46cfe0b6d595ab51d5"
     }
   },

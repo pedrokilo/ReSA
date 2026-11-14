@@ -42,6 +42,7 @@ inline void Update() {
         ready&=reg&&body&&ModuleOf(body)==env.asi;
     }
     // Cuerpos de la DLL de los colaboradores reconstruidos que la DLL llama directamente (se resuelven saltando los E9 de enlace incremental ANTES de crear parches).
+    env.offRoute.reset(new HookRoute("RwHelper","GetAnimHierarchyFromFrameCallback",0x734A70,HookRoute::RegisteredTarget{}));
     env.directDll=Resolve(reinterpret_cast<uintptr_t>(&GetAnimHierarchyFromFrameCallback));
     env.dllRemoveAll=Resolve(std::bit_cast<uintptr_t>(&CPedGroup::RemoveAllFollowers));
     env.dllSetDefault=Resolve(std::bit_cast<uintptr_t>(&CDecision::SetDefault));

@@ -74,6 +74,8 @@ inline void Update(){
  const auto savedMap=ReversingProbe::Bytes(CTheZones::MapZoneArray.data(),sizeof(CTheZones::MapZoneArray));
  const auto gridBefore=ReversingProbe::Bytes(reinterpret_cast<void*>(0xBA371C),16);const auto gridAfter=ReversingProbe::Bytes(reinterpret_cast<void*>(0xBA3794),16);const auto levelBefore=ReversingProbe::Bytes(reinterpret_cast<void*>(0xBA6714),4);const auto levelAfter=ReversingProbe::Bytes(reinterpret_cast<void*>(0xBA671C),4);
  OriginalDependencies499::HookRoute route("CTheZones","SetCurrentZoneAsUnlocked",0x572800,&CTheZones::SetCurrentZoneAsUnlocked);
+ // Pase final de bancos viejos: CTheZones::GetCurrentZoneLockedOrUnlocked (0x572130) tiene hook RH desde un lote posterior; se apaga (ruta) para que el helper nativo siga siendo el codigo del EXE; la DLL llama a su propia funcion.
+ OriginalDependencies499::HookRoute helperRoute("CTheZones","GetCurrentZoneLockedOrUnlocked",0x572130,OriginalDependencies499::HookRoute::RegisteredTarget{});
  std::vector<Helper> helpers;for(auto at:{0x56E010u,0x572300u,0x572270u,0x572130u,0x821B40u})helpers.emplace_back(at);
  auto helpersOK=[&]{for(auto& h:helpers)if(!h.Check())return false;return true;};
  const bool nativePlayerCoords=helpers[0].body==0x56E010;

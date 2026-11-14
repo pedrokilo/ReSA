@@ -33,26 +33,26 @@
     "CPools::LoadVehiclePool": "Corpus 768; MATCH, no source change (EXE 0x5D2A20)."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PoolsWave4-20261105-112533-379197",
-  "summary_sha256": "7aa58df2c8f898c67a570916f8d51dec748b4ececbd294ecf4f0d1a4d8ea129d",
-  "result_txt_sha256": "cf875ff15b49dae24ebd8c46b58986ee3c03ad098fc23e3c497a2a8a71ad0dd8",
-  "log_sha256": "2d254e08e74cf8dbb7cdc5a99ddfd47440e001df3189e7d15a84abf33bf1bb04",
+  "run": "reversing/CppTwelveLevel6Final/runs/PoolsWave4-20261113-130113-907339",
+  "summary_sha256": "70824341ec41a18912aa28c2856fb14d02c494267d71399c86bb5f56c1527d95",
+  "result_txt_sha256": "c274b851d902fe0209a6a2773e2f70994242b395afbf7711de84f670410e0b37",
+  "log_sha256": "d9c04b1c694cbc78c0da43a5ff8e6145762bfb2f1eb868e44ec5c5437653adb3",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PoolsWave4-20261105-112533-379197/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PoolsWave4-20261113-130113-907339/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "8a0d3bf77b807a307df172baafff95283034d9fddd169459ea1a88b4f00e9791",
-    "uncompressed_sha256": "2d254e08e74cf8dbb7cdc5a99ddfd47440e001df3189e7d15a84abf33bf1bb04"
+    "compressed_sha256": "ae18ce1f8752997b5e74695baedc8e165064e587dfd325a05b6acc9fb1359dac",
+    "uncompressed_sha256": "d9c04b1c694cbc78c0da43a5ff8e6145762bfb2f1eb868e44ec5c5437653adb3"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "c8dead7b1f4d72641ce7caf5030c79d8edbc17df0889bff959dfa27f6583e392",
+  "executed_probe_sha256": "311848b17c3a8140dd48d30d7a0c642974d2c34ed6977a121ca55261320add9b",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+      "source/game_sa/Pools.cpp": "83c0a4cc9e0f236d31d30dcdea4981b92836f1885038fcfe6b7cf7164d1b90ab",
       "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93"
     }
   },

@@ -319,28 +319,28 @@
     "CAEVehicleAudioEntity::Service": "Corpus 640; mundo falso de vehículos, entidades de audio, matrices, transmisiones, peatones y sonidos; gestor/hardware de audio, azar, pad, entorno, referencias y radio doblados con traza sin crédito; dominio real del EXE; escritorio m_tempSound y campos no escritos de CAESound excluidos conforme README; "
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/VehAudioFinal4-20261110-050226-675056",
-  "summary_sha256": "8b0fb79f2ccdfedb3a07ee5d72d6292ee8c8bcde0813bfb61d08287143ca4eee",
-  "result_txt_sha256": "204f6a76f23aa19a8e37e9a950338cda5bfec84a65df5e6c0f7524225d930dfe",
-  "log_sha256": "7c8ef7dbd2bd620731262af9892434e0eec7e2aa6bb3fe4031a9604f5ac079fb",
+  "run": "reversing/CppTwelveLevel6Final/runs/VehAudioFinal4-20261111-181332-572430",
+  "summary_sha256": "da98e2b4a2bd1cb99d95c5009eb5d07ec73a25f98da80965fc386b2d55df028a",
+  "result_txt_sha256": "1689fbc87f38564165dfdedd926d7d0e7abc425dfd36b496a9bab8a38f94dd2d",
+  "log_sha256": "1ac29c0ab82094e4486748bb818f325ff4950aa34d19d95ebd1625b4e13abc27",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/VehAudioFinal4-20261110-050226-675056/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/VehAudioFinal4-20261111-181332-572430/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "9a0b7fa9ccde067f93f7558c197411ff807e08f41ec06ab5860ac047643280bc",
-    "uncompressed_sha256": "7c8ef7dbd2bd620731262af9892434e0eec7e2aa6bb3fe4031a9604f5ac079fb"
+    "compressed_sha256": "eb9bb49914fb14a1282580120d02518951a4855a0da35dfa24bb7822c17b87d1",
+    "uncompressed_sha256": "1ac29c0ab82094e4486748bb818f325ff4950aa34d19d95ebd1625b4e13abc27"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "c7e3313514540bbc7668020055616dd9beabaccbbd24437d76d0ca5d8936fb02",
+  "executed_probe_sha256": "1cd61575971af40802852c635346e8276e8544f35c24e272e538d5e023f02c14",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp": "023d5957f9fa63e81eea7ee7f12c5cd3d486b353a83fc2f679e9914fecabef70",
-      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.h": "3cf60b4781bfa0aaeeaeb79cde010acbb7efcdf990fa8dac51c7e0a079c43d00",
-      "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "306dd14750a3e4281f11cb708872a73f66d4b2d491c961106ed3c9c6d6f769c0"
+      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp": "c8ac1d4f486cf9890ee95a77697015b9b59bd86f9ce097741a709f247272bf4d",
+      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.h": "ae1bf5c43e3a1de3515679247babb2ed2c4bf03cff8cdd32a709bf9905a36786",
+      "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e"
     }
   },
   "source_corrections": {

@@ -16,10 +16,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "83f85b27cfe50219fa555af338739c6e56fc93f7b5d10e3a38ce252e07153d6a",
+  "log_sha256": "7f1c9409b1da99947eab1667e784f0adbae98704c0a3b2df1c29364ffb5b1c73",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-group-event-pending\\20261007-200524-500570",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-group-event-pending\\20261114-150547-730070",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CGroupEventHandler::ComputeResponsLeaderQuitEnteringCar": true,
@@ -27,21 +27,22 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "45928eda6cf3565f7d401fdb02fdaca4758324566bc3592c724353a0cab17b97",
-      "pdb": "b0d182589eaef5b26533e62b10e745231014ec0e92551e5f92b28b5d697f4eea"
+      "asi": "843d76e75790fc9ec0cbace60c1a4d00a6f0c70b057be944f7e04424122bccf1",
+      "pdb": "cbf2168c9733c6e8fc12b8e9234d1dd50382b3f1d3fe257f21291635223b9663"
     },
     "sources": {
-      "source/game_sa/Events/GroupEventHandler.cpp": "9b59994cae7f8b79a8ee2c70b901a411ab6386d47cd0318bb9b1815b0c2be3f3",
+      "source/game_sa/Events/GroupEventHandler.cpp": "03251fef3b03bd6ab2c26a4d501f91f7004da5fe8897cce631154c63c6a4efb5",
       "source/game_sa/Events/GroupEventHandler.h": "8f358c7ef276555df486440dbe7483ed596235c473b11db632354d23550be3df"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
-      "LiveComparison.hpp": "d1899d6212ccb79ef5fd60eb7b73880d784719dea277ebbc2dc165bec88f62cc",
-      "build_probe.py": "8f585aee21d7854f416e681f345c12b26e5fb87f476bdcfbc592fd4717ea38bd",
-      "run_local.py": "04cc36d92020d6a87472715734fe7b74652207373255d0b25ddf0632b128b137"
+      "LiveComparison.hpp": "0f16f8ded386688d9eb5e35cb829d7d5f0f7451e93810688c427c7f49d5f5673",
+      "build_probe.py": "2ef9779d7c353ac6fb26ff8bad1a7f68e349ac16ce62d5c2ee51296d7824ec30",
+      "run_local.py": "ab66a07b31da55e38a2aa1dabcdf0e4b07816b2ddc78786f2e263c3663c5480b"
     }
   },
   "limitations": [
-    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

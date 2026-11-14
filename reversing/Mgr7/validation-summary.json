@@ -62,10 +62,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "969f185836b9585380edb1748af4cb07cd73b3581fbe5d24326bf934196f56c9",
+  "log_sha256": "e23e3752696f9f6a743042fb7ae67f83649d0dbe482a226de554996e14abc261",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mgr7\\20261002-234803-816850",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mgr7\\20261113-114846-693333",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CStuntJumpManager::Init": true,
@@ -120,34 +120,35 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "b83125eecb8602e6587cace2d421aa1803e74330229c3cd6c71004198481dc01",
-      "pdb": "f96a824857834fa051c0cf3519c7cf6df4a75b2c3ba57a8a9a2c281e5961cdc5"
+      "asi": "9f75fa844e21b79bcd15318e0c254c3ff6b213988a214595f088a056465aabee",
+      "pdb": "9b8a2dfc3b3e9414df4806b79d6e31970cb2e7421d5df6e4af9dcdd57bf81ed3"
     },
     "sources": {
-      "source/game_sa/StuntJumpManager.cpp": "ce36194ef717c434c03d5689a58b57fd4e4e292ce0dcc42cf18a533ba10f298a",
+      "source/game_sa/StuntJumpManager.cpp": "5295963ec53771ed75603674aff55c11b9aae2d554bf9fb0b8b32a00e1faaa13",
       "source/game_sa/StuntJumpManager.h": "2f8f2e1a727c90a79c1c425025d4fcc9326fca2cba4af0f69f8a078d680cafd7",
-      "source/game_sa/TheCarGenerators.cpp": "a0f007ef10c077372b100b1b2dc01201104b5561dafb422a9ce18b65af90ec40",
+      "source/game_sa/TheCarGenerators.cpp": "d7e31689e35de71515f7ec7a7ecedfee7879f846284354f7bc10bb23febcf773",
       "source/game_sa/TheCarGenerators.h": "27030acd02fb11267e50a0060589c48c32e525045626f34b22e61ac29f1ea07e",
-      "source/game_sa/Interior/FurnitureManager_c.cpp": "cf6389b0c1543b7188b3dc6f1061db438d6c981073b82ec759dd0307740a50ec",
-      "source/game_sa/Interior/FurnitureManager_c.h": "e235083ff94829d209180cf56fd504d74784a71b45fff39c42a14d4ae9bfa4f0",
-      "source/game_sa/WaterCreatureManager_c.cpp": "b0d543ffde6dd79adb24a7d3eb16d130c2a87851572b16cc6a175717fcc35b61",
+      "source/game_sa/Interior/FurnitureManager_c.cpp": "f72d9a6566d31aa905fbbfe6412426a188040941ed0cfa3c3f391dd3119b6f0b",
+      "source/game_sa/Interior/FurnitureManager_c.h": "2c39b498d543710e55de3f7d418f3d99ac01d609377188c1c0484ad8ce67408e",
+      "source/game_sa/WaterCreatureManager_c.cpp": "7a7fcecfba92445b326df9a8470db51bf89c0035393abd75bc8d49ba1cc16142",
       "source/game_sa/WaterCreatureManager_c.h": "07ecdf3d2ab819320a13ad84c6dbb0ed8b5dfa75d72600b9af33be5011392876",
-      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorGoToInfo.cpp": "446d698aca570bfc857a4283cc534c5272d63a2974009e93c19b7399ba9fc49f",
-      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorGoToInfo.h": "822affd0c6ed17d4294cde780a5112c49c602652af83c762ae8045abb2e8a94a",
-      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.cpp": "76e625ba7d2a9fb4d32b38a47da1dd5bf748a5a7a48a0e78fc13007199bca31a",
-      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.h": "ff928ba504c11050960638776435ea5b367682ba72a96a8d2a4b25aba6ab680b",
-      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp": "f4ebf64d52e0f35c2cf6cf269753c24c693c24cbcdd7799993ebee6bce64d0bb",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorGoToInfo.cpp": "970c9bc5bab5a23639fa506bc1533c21c7ca3950a78b095469230aa68e803912",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorGoToInfo.h": "2345876e4a8c59cb42fa44b75dbb1e5d518c2e8d490be9094234827a9414e5a4",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.cpp": "edd2fc4a129012e466f9fde98e6a505d1a5def052096c39c9d0fdd8a364300c3",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.h": "57a2a74396e661a63f6787992b7450c87a1275957c0bb15197801c8e0e337fd0",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp": "233c81b0a6ba466cfa53ba1172217c2d035bc676152bacac6623485acdf972f0",
       "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.h": "a3fd1c95e6354904006459d255ec54f544565f56020cda3247431b26f5a4233f"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
-      "LiveComparison.hpp": "42bfeabc36a6849e62e46b1595f961caac9ff5737e8b11f346515148d5ade508",
+      "LiveComparison.hpp": "674ac3b8b1653c94634426e5cfd7bb350186d42c9081944594cb1043b77166ff",
       "build_probe.py": "602cd5af0e05537b95a83226d42ea179cd4a80794617210cd03b3bbaef34c8a3",
       "run_local.py": "ffbeaa1677c07c5c26a134488f9a6c101edd947563bcb5272eb650b5c7875c86"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Nunca crea vehiculos ni objetos reales; arrays de los gestores restaurados."
+    "Nunca crea vehiculos ni objetos reales; arrays de los gestores restaurados.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

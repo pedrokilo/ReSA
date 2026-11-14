@@ -36,7 +36,7 @@
   "log_sha256": "b89deed2d47b2571c4709e4f17abf91703ca0c1c487ab091938bc82d03a5b7d7",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-menumgra\\20261107-200450-713656",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-menumgra\\20261113-141840-104441",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CMenuManager::DrawBackground": true,
@@ -61,17 +61,17 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "e69fe96040aa487aaa08c426b408fe13cae2942fb39389bda3255c16dba5e838",
-      "pdb": "2fa5bffb32f09eae8d35e516377f60230f74e064b26e29690753dc9aa65db1f8"
+      "asi": "876d2784ac70c961ad59ded216de8fbbc10ad00968ec031362479abd50dc3b7d",
+      "pdb": "8cd916ccfa17882cf0e50119d2b72498f04acbbf784f5eac69aefd90a10ea45d"
     },
     "sources": {
-      "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
+      "source/game_sa/MenuManager.cpp": "7fccb98ff794840e4eea0bb2a30e913380375d450a35c8c546c90244fea683ca",
       "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
       "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
       "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
       "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
       "LiveComparison.hpp": "2e0ef4c5ae39e5b479c726910868e4a31e0308c6941f256741adbc950564f2dc",
       "build_probe.py": "bacff7c2a16d0ade3a087de447d61a337c25af52239253175dd512ebcae4b0ec",

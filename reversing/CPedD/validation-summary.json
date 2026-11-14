@@ -40,10 +40,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "122f30822ff8c658475cb01095790f169e6e69550714b1a0d3381af92987b299",
+  "log_sha256": "5740a9cc33b645f872e29bfc32424c68a0e7a1f7845077f368a839fd7e3017f2",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cpedd\\20261106-181949-187432",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cpedd\\20261113-150319-415003",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPed::Constructor": true,
@@ -75,15 +75,15 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "dd902398bbc6d0758457eee01e3052a7a17de81637869c32a0ef7d394e93c57b",
-      "pdb": "69bc894be26bfa30b5ae63a06f9a2ff10dce1cde815da307fe49068fc4245d0a"
+      "asi": "2946ec704bfc68516d6d82ba537fbbe4d39b67a43240c1014ce20f3df97aeba1",
+      "pdb": "5e6fbc179e8577c3d601c947b6538ffd3f96587bdd5ff210e9a69f1254d59378"
     },
     "sources": {
-      "source/game_sa/Entity/Ped/Ped.cpp": "271efa2cd399f93fdcce58c8a83d43c932b118e3d80895955f0d010a07bd6089",
-      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      "source/game_sa/Entity/Ped/Ped.cpp": "2d234551b4e414df4497014453bb257399f54ab62383f7f1c181def33dde8cf8",
+      "source/game_sa/Entity/Ped/Ped.h": "96951e2ffdfd112c1c9beac2cff1ed63c750cd4fe15883975887a54930bf678f",
+      "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
       "LiveComparison.hpp": "3a1c1c22b7c7f719f35ed3c2b8abf8f8d6adff1dde9d2cfaeaf6de3b24d7b65c",
       "build_probe.py": "6ad21e3ff4036a37731dbda7419a720918d45d24509b31e4571924f11a2ab818",

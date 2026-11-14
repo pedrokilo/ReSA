@@ -34,33 +34,33 @@
     "CRealTimeShadowManager::Update": "Corpus 1024: signed intensity (test values with bit 7: 128, 129, 200, 253, 255 to exercise the movsx), CRealTimeShadow::Update and CShadows::StoreRealTimeShadow stubbed; source corrected to the EXE (signed intensity)."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/GeoFinal1-20261107-151122-399862",
-  "summary_sha256": "afa5084e9d75ee1735dd1a96f71db74eef26c11e85abc8fc462b07841e4d43e1",
-  "result_txt_sha256": "eaeb29efda4d044f8fd8cc86bc6c5e0c75b4b812cf33259d8c76133cef294d9e",
-  "log_sha256": "589ffa81ec66b9b544e6f6bdee0c8fa0222f5b31d2dbabc09d293c0292c79a50",
+  "run": "reversing/CppTwelveLevel6Final/runs/GeoFinal1-20261114-162525-539555",
+  "summary_sha256": "5f2700695cb80d1217b9172efec7ea062ea0702995b03de1b8ec274765dc7e7e",
+  "result_txt_sha256": "6af3ae0d544bb92a2598cb2766f9edc7ebb3cb59022f0e2d02cff6e1ac40f66a",
+  "log_sha256": "b8cfd58ff81a3e585e04c34886f7ed09bbb498ae3184b3661eb4e028027ab209",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/GeoFinal1-20261107-151122-399862/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/GeoFinal1-20261114-162525-539555/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "d2da1ce7f1a34f352042c577510d2d2787b55656ac028137006c9c16506dff48",
-    "uncompressed_sha256": "589ffa81ec66b9b544e6f6bdee0c8fa0222f5b31d2dbabc09d293c0292c79a50"
+    "compressed_sha256": "f1941b1f450b03f9550116cc2742bf1159402b7beed6cd5c894dded58bf28c22",
+    "uncompressed_sha256": "b8cfd58ff81a3e585e04c34886f7ed09bbb498ae3184b3661eb4e028027ab209"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "cd3aca4677bfa485cbea9bab24ec8aea427a28e58af28cbd019014cc06748a1e",
+  "executed_probe_sha256": "061d7964ed0d217984804ae67c9d1f022ef1311940cc4f3418b57aea39933583",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Collision/Collision.cpp": "fc796ec6fbcf261f79045da809bed7e41f0f1ed275f02dc5f937063a45e36fa6",
+      "source/game_sa/Collision/Collision.cpp": "59212d0061b057fcc63c0e8d0f53ccc0cc0043327a34313904d647c8d210652c",
       "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7",
-      "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
-      "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
-      "source/game_sa/PedGeometryAnalyser.cpp": "895f72beef0d3aaad4835cf3f4ff88575707cf5e12417ff9c763a798c0abaa9e",
-      "source/game_sa/PedGeometryAnalyser.h": "770e9c4f1c479898442f1a1048da0c055ca649b00e5c72d41f101ea66913d4d8",
-      "source/game_sa/RealTimeShadowManager.cpp": "fe571954e09ae35f8acb6fee7cdf75d0cea141efb84c13e1fcf29bfafb39b8f8",
-      "source/game_sa/RealTimeShadowManager.h": "0f614a440916acab27fa80efaaa1efbbeafcc61b0ad5862a3a4b9579beb0d32d"
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "fb8b16009088a68a78e1f527e71ba6dcc7842e4a929e06a795771732efcf6143",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "980d3fd47bf51f6bdd52148f9355b1d0c97315a38b734cc15bf3ec895f568ae4",
+      "source/game_sa/PedGeometryAnalyser.cpp": "a6a205e6601c200bedc39cb660252f3da1e459cab9beb50d7bd71576f8c9b3f4",
+      "source/game_sa/PedGeometryAnalyser.h": "3285e5fcf8e3953b56062b0264a6f690d59e00a400ea737bd7a090a7922d29da",
+      "source/game_sa/RealTimeShadowManager.cpp": "a6ad2a76c74f83e5ffd9e3e59f3c000faf6804bb8d741dece9c1b484d0eefb6d",
+      "source/game_sa/RealTimeShadowManager.h": "86c488fbf964e09660affec34d693b5fef417b4943661f04177d1c34e24962c5"
     }
   },
   "source_corrections_before_run": {

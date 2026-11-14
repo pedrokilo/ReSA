@@ -52,10 +52,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "13959c7b6957d4071c0271c01542f7836815ac90faa55105f142c634a5e9fc13",
+  "log_sha256": "3cb443d0458b94932f0bbd67c087a9c9a2a5690fa3c38856447adc87f6817391",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks\\20261002-021843-813270",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks\\20261112-022008-421531",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexStareAtPed::Constructor": true,
@@ -100,31 +100,32 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "c3d73fc415e4b26f4774d93bb1808421c43822ac77f219c3fc51cdb67ebb6a00",
-      "pdb": "4915b7be30eae1d3285b80f097a4e48b71e5e80320535bb07646894dcd684424"
+      "asi": "686c461a8345444ad2abfef703f55b3fc52346463bb85e5b20592d2141542288",
+      "pdb": "dac682264e7a6ec8477c62e58ddd89886269ecd7816ced02d1c3059b60fbee84"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "7d0f4be34efb82da1c5e79e92706fcbb59f31a1979d9b9c1df70c79b3b6a7642",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
       "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h": "b68c06cf9bac3fecff417ec1f53afa72853e9535678ed98bd57e41df6c5375d3",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "b75a04f1d63033047324ee93feabef42edf30118ac5498ad65fded7866ac6c22",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "8741a042e4c4ccf0a0737850ff6c9df440355413ac04d55f3b423e37cb07ff42",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "744ac80edb2f75a1ef4d2b5c2ff6513dfb4e67ba8fa21a27ee1cbd89245bce82",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "a7e7dcf1c39fed8e62defe44cb6ed81b7961d2936763b5368bb65c83182516e6",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "886965b3a350a8ab47d7525df97d75a9ff17326366b4aeb0a62481f83bb10324",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h": "981a3915cac7d3fa57ed1a27cbad4d449dacfa92522ab0ab32536a0a5f772d54",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "dc1d313660eecc93177f91e9e78c7a1d4085060fbeed13702db73b91a14aa434",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h": "4e245c42a848993618ab6c70918033eb48de845c701723b8a41cea26f3535f9e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "8963b571f9b7151315086ec01941d1551778b1d8c6e5df59b7831de169929e75",
       "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "a4ffdb682f1dc1d60728d1167337d055794ac7bdb39d413aa85423ab778cb799",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp": "40fa4396f7fe7d5976d54cf30ea9de89ce8cff09de64936e3c1896d661db1101",
       "source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h": "7004aa605b891d30099bb4fddf8fa69b818f803aa0f9ec15471756a5e4ec365d"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "a32b1699972442c1be397849bd6a9737c660addcb554e724a71fe7552c4dc7e5",
+      "LiveComparison.hpp": "630a6f0ab268f176b3440235b0d2b394fe02f1c76159f45a12f4c5358ba7f28d",
       "build_probe.py": "1c35cf659ab9fe5fd7567b0b5c2442d24f3cc7e4ee2fad45aa6a436a44d9f877",
       "report.py": "24ddf1e4fc85c829578a565707c02732e2dc6153254311a191f104e88b297adf",
-      "run_local.py": "ec958d567fe1f1fb71b6ac17d19999caa32423e76772c0a8e4457976e444ed21"
+      "run_local.py": "4ff19f1578e60e95ff795c5ea1b01b2ae246ed940a60ce544628edf21133e2ba"
     }
   },
   "limitations": [
     "Peatones/vehiculo/grupo/accidente en memoria propia; subtareas falsas; IK, voz, bloques de animacion, streaming, pad, huesos, asociaciones y RNG controlados.",
-    "Excluidos: relleno y campos que el constructor original no inicializa; objetivo/subtarea nulos donde el original los desreferencia sin comprobar."
+    "Excluidos: relleno y campos que el constructor original no inicializa; objetivo/subtarea nulos donde el original los desreferencia sin comprobar.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

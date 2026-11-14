@@ -1,0 +1,3 @@
+APROBADO: Fn132A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn132a\20261112-001623-496131

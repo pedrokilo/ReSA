@@ -35,7 +35,7 @@
   "log_sha256": "6ff9c7ef74e235488cdf49dd476103b0fbe9d34e8ad43a854e74be3688331e9d",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-plant19\\20261106-121844-673127",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-plant19\\20261113-172930-062016",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPlantMgr::CalculateWindBending": true,
@@ -60,14 +60,14 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "4ae333ed453cf8eefce2bfc5ef41f6ee62524b2601b15e1e4fe3935c60b92e03",
-      "pdb": "6d936d62e60aa4eec8d351cd764bf0313ffa8c35eb12eb98a28342b833b24dc7"
+      "asi": "30b8ab6c2ba01cc23311a048354452515cde7a97a6b5730dd7fd46609c52559e",
+      "pdb": "f5d8bde320d4bfedd4e55a5c1431d4cd398e844a9700e8a921029cc2efe27275"
     },
     "sources": {
       "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
       "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
       "LiveComparison.hpp": "c090f6c518dc04d186f0f7495972d271b814d60153f0f2edc6625c07ec42772c",
       "build_probe.py": "f38065bffa38fd6ed3714aa3f79474f88a4e1147da28300db7ddfc9fdb9b5d96",

@@ -26,12 +26,12 @@ HOOKS = dict(zip(NAMES, oracle.ENTRIES))
 SLOTS = ()
 # colaboradores sustituidos por falsos: (direccion del EXE, hooked), en el orden [cuerpo, operator delete]. Los que tienen hook RH en la DLL (apagado durante el banco) llevan el mismo falso en el cuerpo del
 # hook; ~CQuadBike (0x6CDC30) y CVehicle::operator delete (0x6E2D90) no tienen hook: la DLL llama a su propia funcion y el falso va tambien ahi (accesor Lote141AQuadBikeDestructorBody y &CVehicle::operator delete).
-DLL_BODY_WITHOUT_HOOK = {0x6CDC30, 0x6E2D90}
+DLL_BODY_WITHOUT_HOOK = {0x6E2D90}
 STUBBED = {}
 for _i, _n in enumerate(NAMES):
     _l = []
     if _i in oracle.COLLAB:
-        _l.append((oracle.COLLAB[_i], _i != 8))
+        _l.append((oracle.COLLAB[_i], True))   # pase final: ~CQuadBike 0x6CDC30 (indice 8) tiene hook (H)
     if _i in oracle.DELETE:
         _l.append((oracle.DELETE[_i], oracle.DELETE[_i] != 0x6E2D90))
     if _l:

@@ -64,7 +64,7 @@
   "log_sha256": "b76a37b3620865f0c00d38b6fc54606b3696ae6abb5ad20de0864cc0328ea207",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks8b\\20261003-012938-492106",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks8b\\20261113-171356-254917",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexGetOnBoatSeat::Clone": true,
@@ -118,32 +118,33 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "206a9ca15085cd23fee6be1192586a5076bea4ac90f12149fedf48f79ff724bd",
-      "pdb": "32271c87d625a46d35fea7415dec921b94a0c63000a30764d40fb3564e1bebb3"
+      "asi": "497235f100a92810d63647870a189bac56d525022ed93e9de6b50b8cecacf3c1",
+      "pdb": "dbfcd5c9bc185d5928d7136bcb1b4720a8cc95d7fcf93d2227c3084e9b57c4a8"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGetOnBoatSeat.cpp": "17483e6ffeab0e4c2e670b270194d553a56f2d3ee5a83377c8c88fddb638cd01",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGetOnBoatSeat.h": "1554ece8ba61943a927c552f3cdbb6cd29ac648648b9eafcb6e6b3d946a6f867",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexHitByGunResponse.cpp": "a94075f3512ed8cbae3cfefd91cfc219ac3e2b4d97d15607ea652d54fe0d70d8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGetOnBoatSeat.cpp": "d828f696153d26cc239aec651c67d42956b07e7a02e4b8b67e6b022ddd1dc06b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGetOnBoatSeat.h": "df9bc6cc76d148b969d50adff488ba0124f64474519a28b6de82f7eacfe9f980",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexHitByGunResponse.cpp": "a6843fe5ddd4a0e475c42a66c82228b995a87501b678b66d9bef174d57ad2b22",
       "source/game_sa/Tasks/TaskTypes/TaskComplexHitByGunResponse.h": "17289e2e55f963d5c467e2e61adc68cf0e25add7ce858bb04d8eeeb8e4dda4d2",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDisturbance.cpp": "d4833a3ef3013a3900bb1857643384a83a4db68c5a28beb4b9b1fb360f85c5f3",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDisturbance.cpp": "1e0cd5200b4012e852d2bbbc0a6d6406613785f7921f44d38e77c00e92b43bf0",
       "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDisturbance.h": "717a53f37870d3a2a01e07b4c2a2359c82ce4a86117410c713d97e0728af97b9",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.cpp": "69b5db11549bab897f92f9691ebbc183c58d9dae713a06eb356df91538c5295b",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.h": "bff8f4d6f68cb8657068454a7a0e26271d551be965b08f1a65de862219c3388d",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.cpp": "59e67a1572d47bf4b4f03725258b1136bb69dc7f9f8656a808c6e29689807c8c",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h": "de7e607b1647c9c5e33783c7a69ea84b7c7b3051b900c67d159d48d131dd1db1",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.cpp": "2261b2eb2c69b2ee704554a5bdcc45b7419d1a8379cf56633a106d2b4494a0e5",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h": "69992ec24b7614ceb807d60815d4f37d965cc60af3379d8f3aff6ea50922e4df"
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.cpp": "e7358d43adc41fbe4594405a71a3605b7ffab36e73ca9308b932deda88ff5d7e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.h": "594a8f9cf542a11ca540fd6fc57bd7b6ada6020e8c0bc7e19991c2afc7823470",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.cpp": "c9bdc9d4c4f0891e7f7eb52a59019ee334b47efd0cd851dc45dc21bc7626a651",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h": "bda6f93afca67f9d06c41ec30593cba8decc5c09582b5d2422193daa5cbe409e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.cpp": "1dda929ad80d7fa75057efc276f2b0d9e4cfac4551bf300e2f5c1bbf4c5e4be7",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h": "95f8a9ad8687643e30d71e1c5f0391c2e75b114bc93ad67bb01f59706955f529"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
-      "LiveComparison.hpp": "035862ff7f9d8d8e2a4c43d1cd545c51c1cfc7284ac4a101ad6ca3543440b3fa",
+      "LiveComparison.hpp": "d021c9fe97bd7ef36e4c7be9e554d11ce8a200d600757066b6dc50f03cf855e9",
       "build_probe.py": "7a264b305abdaa7f9e75c3c6f05053242b0280c110fa93e4e33931dd2e95c5a1",
       "run_local.py": "50b82092c9d6a3728b8191288fad5d217d3daabec5764d575c27c805beb380a3"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

@@ -351,8 +351,8 @@ inline void Update() {
     env.stubs[kIdxScannerBody] = {F(0x61A3A0, &FkCollab<0x61A3A0>)};
     env.stubs[kIdxScannerSdd] = {F(0x492D40, &FkBody<0x492D40>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[kIdxProjectileBody] = {U(0x59F660, objectDtor, &FkCollab<0x59F660>)};
-    env.stubs[kIdxProjectileSdd] = {F(0x5A40E0, &FkBody<0x5A40E0>), U(0x5A1F20, objectDelete, &FkDelete<0x5A1F20>)};
-    env.stubs[kIdxStaticSdd] = {U(0x4F0B50, Lote142AStaticChannelDestructorBody(), &FkBody<0x4F0B50>), ByExeAddress(0x8214BD, &FkDelete<0x8214BD>)};
+    env.stubs[kIdxProjectileSdd] = {F(0x5A40E0, &FkBody<0x5A40E0>), H(0x5A1F20, objectDelete, &FkDelete<0x5A1F20>)};
+    env.stubs[kIdxStaticSdd] = {H(0x4F0B50, Lote142AStaticChannelDestructorBody(), &FkBody<0x4F0B50>), ByExeAddress(0x8214BD, &FkDelete<0x8214BD>)};
     env.stubs[kIdxBackupSdd] = {F(0x697330, &FkBody<0x697330>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[kIdxLeaderSdd] = {H(0x5F67E0, Lote142ALeaderAreaCodesMatchDestructorBody(), &FkBody<0x5F67E0>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[kIdxPedListCtor] = {F(0x699DB0, &FkCollab<0x699DB0>)};

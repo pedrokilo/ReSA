@@ -60,20 +60,20 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagados durante el banco): 0x571A00 (CEntity::CleanUpOldReference) en los 21 destructores que liberan referencias, 0x571B70 (CEntity::RegisterReference) en el de CEventCarUpsideDown (el EXE registra en lugar de liberar) y 0x50A0A0 (RoundToDecimals, falso que devuelve un double armado con sus argumentos) en RoundVectorToDecimals. Los destructores triviales de CEvent y CEventEditableResponse no tienen colaboradores y se exige que EAX, ECX y EDX salgan intactos (los llamadores del EXE, p. ej. los destructores con borrado, siguen usando ECX). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN senalizantes mas alla de los patrones del banco, la exactitud de los colaboradores falseados (RoundToDecimals ya validado en el lote 106A) y los registros volatiles (ECX/EDX/EAX) de los destructores con referencias, que no se comparan (el EXE los deja como residuo del marco SEH). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn107A-20261110-191415-937215",
-  "summary_sha256": "3c0a8310ded24e2cc95d2dd67ab52c78988d230ae296f85b73bb0f3f6b676ee6",
-  "result_txt_sha256": "9c2932d213ee263c32f62e6dd9601dc3af145551efd9b5ca437c52f6c84c3951",
-  "log_sha256": "6ce0f5b2f7e8743e349bd58b9402dec6ba357930b4ad181760bd883621f4dca4",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn107A-20261111-020150-262210",
+  "summary_sha256": "81d0c211bb77e51e3731bc64f1a9cacc95799d1b51d48cb11f512aa7be94fff1",
+  "result_txt_sha256": "6f4a144cfc4044a509bbad09b8f6597cf6fe9b2418036b2babd5e431c665378a",
+  "log_sha256": "5f1972064feb7737a285c40ce44c1504f4735bcacce59f6bbf3f3e4b047ac2bc",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "8afd9bdaef0597f86e6482947c352486558a762bca4ccedb47e97d668bc65d76",
+  "executed_probe_sha256": "1c1bd35e35bb1a8b20c39c44e3159ae7903141145a58b0682f6a4b34967ed87f",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-      "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
+      "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
       "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
       "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
       "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -81,9 +81,9 @@
       "source/game_sa/Events/EventEditableResponse.cpp": "f4cc0045cc183b7a5018e0b6d425152953fee57e224ffe9d121b874092fbfd0a",
       "source/game_sa/Events/EventAcquaintancePed.cpp": "13c1d39189b0538604f7393c49c36f00ca8281fe30e31ecf1d5a6e46047bb91c",
       "source/game_sa/Events/EventVehicleDamage.cpp": "bba387a8ebd9477a662bb89a4cdba884af35f9d7b0e722f60d5b1fbef68d7a8c",
-      "source/game_sa/Events/EventAreaCodes.cpp": "c328d9828cc4a2ff253a5a0809677e4d7d8c135b395ec30f09dbc6e79fa3a68b",
+      "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
       "source/game_sa/Events/EventGunShot.cpp": "0e43da50604168b80ad1ab92d0bcd7eb83f0fd979cb8c1087dfae0b329c119b2",
-      "source/game_sa/Events/EventPedCollisionWithPed.cpp": "f9e56c5a71df86fabab9bb49893fb01cb5d2891415b3990024d36770bd62f4ce",
+      "source/game_sa/Events/EventPedCollisionWithPed.cpp": "079def1eed04a8bada266d45e52e675653e816d6e044e692ae1d773e434c43d7",
       "source/game_sa/Events/EventCopCarBeingStolen.cpp": "b65373ddb3ee245b08d31e828236c934c967963a473cc06b5e97824dabea7351",
       "source/game_sa/Events/EventVehicleOnFire.cpp": "2395b187c457a29f8af45ed56f8ad564437cbae7b979e58110e5dbcf23a353c9",
       "source/game_sa/Events/EventAttractor.cpp": "d3ce435699049d8b665957a998b7f28d9842d86f8177760bc62fd78669aa085f",
@@ -110,10 +110,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn107A-20261110-191415-937215/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn107A-20261111-020150-262210/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "8d9578e78ce27368c151329d986af4348edaff9702e3345cf96c2caa3690d4d9",
-    "uncompressed_sha256": "6ce0f5b2f7e8743e349bd58b9402dec6ba357930b4ad181760bd883621f4dca4"
+    "compressed_sha256": "1ddcff2c4bf50b1b02cf9c485a95929e383bedcdddd32091af29b492c9bfc1b7",
+    "uncompressed_sha256": "5f1972064feb7737a285c40ce44c1504f4735bcacce59f6bbf3f3e4b047ac2bc"
   }
 }

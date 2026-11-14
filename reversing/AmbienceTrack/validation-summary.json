@@ -22,7 +22,7 @@
   "log_sha256": "e3567f7b4280c593b5e9069dade5a721d89dfb4d6a13cff42ee2fd1a97a49f61",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ambience\\20261002-030240-169992",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ambience\\20261113-132217-433870",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEAmbienceTrackManager::Reset": true,
@@ -34,21 +34,22 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "8552b55e7814061987da2ce818719f62ba59c5a77b0784d0f0011f0761c6df20",
-      "pdb": "c28022226632bde9629f6ca02808ebd921b957908339be103a6d48e891b17dd6"
+      "asi": "9ff81eee8e8871a0f1369dc2d6325b6a460cf16130a07bc826728bb66d85f7ca",
+      "pdb": "1e482235cd7a9c6a944b879c4c4aa28092d7f5785c69d21e183420db6363b459"
     },
     "sources": {
-      "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "14795d10607915bf610269b88b570ddace8b5f50bf4d1eb163387874449d6876",
+      "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "bedcbfecee363ab7ad13ea1bf02d4021ad54171b088cd6e327728c222fb673a0",
       "source/game_sa/Audio/managers/AEAmbienceTrackManager.h": "130489b3c18d3e9b9ac473ea13dc5e2d23beeaf402284660718b2aa32afc619f"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
-      "LiveComparison.hpp": "e8baadc9299ad58f9bb104b58536617d0d14d869c2c54827659579424316b211",
+      "LiveComparison.hpp": "a56365f6eba3f5540749953de818155f8083a67fd15310dc91dac3ee547f69cd",
       "build_probe.py": "0159ee0a567741031050773df0ed905e22156033d4d8581ee4ee08def07c4285",
       "run_local.py": "a7cc2eef09fd3f37034939779cc4ba5bbbe203e1ec8f308b0b4346fd7eca0498"
     }
   },
   "limitations": [
-    "Gestor propio; AudioEngine/AEAudioHardware, UpdateAmbienceTrackAndVolume, StartTrackPlayback, CheckForPause y RNG base controlados; hook de CAEAudioUtility::GetRandomNumberInRange<int> desactivado en la fase original."
+    "Gestor propio; AudioEngine/AEAudioHardware, UpdateAmbienceTrackAndVolume, StartTrackPlayback, CheckForPause y RNG base controlados; hook de CAEAudioUtility::GetRandomNumberInRange<int> desactivado en la fase original.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

@@ -1,6 +1,7 @@
 #pragma once
 namespace RequestedPreflightFxEmitterTwoLive {
 inline const std::map<std::string,std::pair<uintptr_t,size_t>> vtableRanges{
+{"CTaskSimple",{0x0086D4A8,9}},   // pase final 157A-162A: categoria virtual nueva del lote 158A
 {"CAEAudioChannel",{0x0085F03C,9}},
 {"CAEAudioEntity",{0x00859988,1}},
 {"CAECollisionAudioEntity",{0x00862E64,1}},

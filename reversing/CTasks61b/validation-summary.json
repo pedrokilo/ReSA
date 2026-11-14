@@ -84,7 +84,7 @@
   "log_sha256": "3e755420a2169210b055b0569f94f1e88e4a6d364e369c13eb0e6472f0277f4e",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks61b\\20261106-150058-920745",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks61b\\20261111-123123-990365",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexWanderCriminal::Clone": true,
@@ -158,25 +158,25 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "92e6ea5521ec34626a21ba72f933436624ad0ae61ea37a4951e7f54acb3c7b8e",
-      "pdb": "a2075b47feb150dfbaa720f084cfde624a06be562f2edb4d56d249450cc3ceb4"
+      "asi": "d7f7d30d9a6183f6a687bcc4f93378e33defe81718400795176f2bcc72e011f8",
+      "pdb": "81aa61daf4cc7c29abfe2692ad7e84f00abd13a6435b25dca1ca13da22dba673"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "e11375c29aaac1ee4af90720146269837e3d9c2de9597acb608f18e7863cdae6",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "9cd9cc14b9bc66892ab306cd11afa8329cf1bf3d9c6d3dade7ad55d4f3e88247",
       "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.h": "f38146f1df86caf78a07b7acd7bcb4b6aed23a3c5be186b1caab79a741e22ae0",
       "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp": "fb8dd2aaca7e2edde69463dbde8aad6ea54e94f96b6b44f4bc00919ec62f2279",
       "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.h": "0a8e75e2cbceab0429b8c23525a249be3930d8b9e5af465cdedd4df47915a25a",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "f556580f037263a1d0a3e597cebd87179c377b628bc957e21bf3ce1792db1364",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "5aecac4330d4383baccea4e3370367bc67cc251f59235bb03197e990e484f14e",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "5549b2480dc3dc2821cb71ed9d9e1e004cd1fb31b6094b85a9bcde35c388b6cc",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "5afda88100e6f795e35b1cd911c09f173e118c3e3287ac9e00b1da73c29f6ec1",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "fdeac7ecf80b8be0e3e4060fa6ad3386599a737110b735ebd6cc7c97b5626a5e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "498e51aae630fd779f983ce2cdee4fb196cef512ed1b163bcffac0b612584afe",
       "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h": "82bbd730ecb4a26b7207b12330163c4779fa98c542b8a60812245329189c7a2d",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "c45dec7025a48f49e2c183684d86dfe96a596a61c2793bd4e585aa95cdfd5b27",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "7c00e0066d8c57aaf9c871234d92d91a1b9baa5c02769c84601943ea9a87d87b",
       "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h": "2b11017c74fa8320ad5b41895c9ccf8f54765693fe859164ae42738ae026c6cc",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "844c50f4168a6612fc302d5289f0792b7657a934705da99d7f7ed607eee3431a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "5e396a5b9ad2194f0e4d02255d3847cd188b25f4d83d44be6caad75424563d82",
       "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h": "8003882353696c8da5abc6696d0a354b6fdfb5f6638c73ec68bb4ab8e336aaf9",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "86b2fe3dc893df70948b45d71d1f2e0eabbf89d5139a90b04f52d73820dc56da",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "ca9a8c3e5f96bd56e03ef8d7db7d7b41cfc9e4b5792c1479cab8cc8bef854ea6",
       "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h": "46f871e6205cd64012a94fa1a253f9619803196705075cb5a8f739e19a7f04ef",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "7cc73625640ada03fea36c8283ae0a9c2266574a255824b9f24048e14deef960",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "2e2eab2e5b93910aaf4d39af2bcfa1e7ac869404db1521f3370438d840b44018",
       "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h": "7be4c19913cbee1270d11f00c453ea684d3e3be2d23e20be0a732ce9e66be520",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp": "e9fbfa255cceec21fbc2e0582a7156d6bf40ff5edf895474461e763d16e86f13",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h": "d42e928aa41d040a093f37849ce18f4d4984cde1f26490519e1a9ca8af378b27"

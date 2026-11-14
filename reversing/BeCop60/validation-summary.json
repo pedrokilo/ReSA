@@ -20,7 +20,7 @@
   "log_sha256": "a9664f1667327e214f18dd4139234f89cfce2757f8aa46f1c4c9a697f8e11654",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-becop60\\20261005-184930-270360",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-becop60\\20261113-172359-734430",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexBeCop::Clone": true,
@@ -30,18 +30,18 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "925c5bd72b484652c1d5a9eb0ec8d5177cf3140109bcd7c060e3dc04c5b50c6b",
-      "pdb": "15a52694d7a4525a7142a54ae79d8025d90f4bfa39908712d59f5af8bc017e9c"
+      "asi": "9f497e313e681a6206f8963460c79a50b93d5eb1bb144af5272bab2e87f4709e",
+      "pdb": "01e48ea8f2d0a08a739791eb871f006e1c799e15aeeecee67634e9e18031308d"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp": "81f3f3578c0fdb702f3cfdd02e08da8ec88b4338e5234242984069b3d41c166b",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h": "a0ccfdc5275120a1b091dee3af54bf21ed2b866e4913c9cf1698d1d7cbedd816",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "8ba48e693f9be5164939881cdcbf5f4f7d6d63d0709d43813092d598354736bf",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "40a2db44b471d8168bd9fadb98a85dd876fc5800e09ec784981aaf75f7d02360"
+      "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp": "bbb5092da7f367a68a357e99cb26eb5074aea8233a9574cdf3d70ba4d997e125",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h": "8c1173df909d7eccca304f0cf30cc375f6b788c0e66b17adf589c58a5160d8c9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "b18232aa2df64675bb081c204a203fcab5a9386ab184140f395de14ef575bea9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "4f24816057bc6fd9d95de14a5297c01b7463c9b59be07e191d18becf82bb285c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "6eebbec71dfd76efbc9eeb17d1abf6142a44e031979732f70650526d793f5fb1",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "7684f82e1c04884e84897c2bcb7727294e4ae2330d2a0dac5febfef8846adc93"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
       "LiveComparison.hpp": "f08de99e44c944e82d57ada39302d87b7441d81ec90cc0a547b3e83d1c389e63",
       "build_probe.py": "390be072fc0241f10cc1fbebe34b813bbf5b46ea37f502b45e6afaa40c8dbede",
@@ -50,6 +50,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

@@ -58,7 +58,7 @@
   "log_sha256": "4420eafad2660dac64daee878184b7aad5880a5fbe1869c07fb21b5a25b7eb72",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks6a\\20261106-180337-523488",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks6a\\20261111-024542-902326",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleClearLookAt::Clone": true,
@@ -106,34 +106,34 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "7f9d1a17b43c79e74d970df39cca98e05884882b332ad05eee9d5530b37015a9",
-      "pdb": "ac13761f6d22633097a96b7d6b501bad62b178c3028d9811db354184ef6a6d58"
+      "asi": "bed120fd9d086cf53a9d207a1db7b3f17a9f5d3395e781a93e48a523a6402fc3",
+      "pdb": "814ae7524556a817157c29b5c9c07bd5bea1c35a5a4318aa26b3b6562326802e"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleClearLookAt.cpp": "78d3608aa091dc362049914d5318392ed9018f7180d8372f2c35a2165ffc548b",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClearLookAt.cpp": "77709ee709a0281cac4cace46aec9423ea1ece6928e7eccc85037689f1dc9e07",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleClearLookAt.h": "736db88ae0a3beb8a6599d11b1003d4a82e73f9afe41928d0f89edc7841908fe",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp": "55f1c08a9f79d0e942123e2287c4887a877f050a9833a318021e8fd41aa2bd14",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.h": "4140d260a160ed5aaaf9e4bb5adb6642f31a07fdb87246eb3a6871f9cafb53f9",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "8a0e65350ae141b6311fb5a6c9981415cca59ecc5c93777bd39231b6e8885678",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.h": "9cb6eecc11f9422d4db1edb82c9851fe3be6549f23cb8b15bf7538baf3bd210e",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleDuckToggle.cpp": "215fcfb297cc47b73e7ab2371794ed52dabad6a84cf8a21aac6b903914b09a4f",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleDuckToggle.h": "9a90f7786ccc3de9bd4e63ec2ff957fe3d38e5519a3643bc0927d1b85319608b",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp": "a094804199c21aa380d267b956896117f60691d20d2dae0ab605c75209a89582",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h": "c9224f5b845695eba5a5cf4352474ec047fcc1714fe23ed39e06ef4c645ef6f2",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp": "103785413236a2adc87d9e37fd3f7b3ec97c1cdab74b6d7c6ceeb8a1e4ae5bd0",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.h": "31b6fe8a5457052174c20e769561ce9d503768139228fee1c81049e98bcec1bd",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp": "5c0bd6df32d4275270288496c9d407b8aaf9a7aa63e573d6474037f11e239f20",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h": "cf4b75e020ad6fe805d9cb0b748d8312a67bbf5f376af01a998f3c5b47c63ffd",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp": "2b6016ef2798c8bc3bba1641ab64548fad5642fc21ca39ff906e03345f04ac9e",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.h": "86ea61dd5ba90685bd00cc4036b454cd251f91783f78105a36ae81e069760026",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "ecf60ff4f3431570d6dbaadf89d3edc5e76d457ccf16751f8b33339a345f67d6",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "8e991a6a54abc13cfcfb7a70f3beafaa84a83041352a9bcb7c17dd19008bf793",
       "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "710805d5207063422a601ee598a67b5598331b53279f058c2cc771ca6a9311ae",
       "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "7899633694c605f266d06f4053ea7deafb7f527df6d1863bfb56fb8146b1ef38",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "bff646ecc8b0f570467872be0c77178a9fef1400981957a44c2cd21b1e2ff2b3",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "3a6429f26373a916d4af8e66a9e8faa39ba210522efb7cb2b312f3de1c22cd27",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "ab0d55663e320c6e45ede9cc6697b28bcf04b2541b2ea3867873165b6658c05f",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h": "d54eed4e75e1c79bed74f14a43ea09039db40b710404d2c67b01064653f32c84",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "953d25222b373fc6f370bbfbb0eb0441fd907a1723e8bf6375448dcfdcdb903e",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.cpp": "efa551bb32ae70785eac04b974132ea6eadd064983412f03f6b04afcf092f22b",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5"
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.cpp": "4955547c97eb62c6ef7c0a9b3d12973df55e2c5e32ac0f34299d8324b7465484",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "308a1ad94648bba6179dc073e1e316758b7edecd6f27aeb44c99569aa37e2045"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {

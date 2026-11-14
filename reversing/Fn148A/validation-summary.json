@@ -50,20 +50,20 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main f990ef21b1 con los cambios del lote (ver artifacts/build-manifest.json). 20 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia mal casi todas): constructores y cuerpos de destructor de FxPrim_c (0x4A9F20, 0x4A9F40), FxPrim_c::Enable, copia del cuerpo de destructor de CAEAudioEntity (0x4A9F60), constructor de FxSphere_c, CPedGroupIntelligence::SetDefaultTask y ReportAllBarDefaultTasksFinished, cuerpos de destructor de CTaskComplexCarDriveWander, CPedGroupMembership y CTaskComplexInAirAndLand, cinco destructores con borrado (CTaskComplexCarDriveMission, CTaskComplexDriveToPoint, CTaskSimpleChat, CTaskSimpleInAir y CTaskSimpleLand), tUserList::IsPedTypeAllowed, IsPedTypeGang, las instancias CLinkList<CCollisionData*>::Shutdown e Insert y la ranura V CTaskComplexInAirAndLand::GetTaskType. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (con hook, apagado durante el banco): 0x4EF660, 0x5F7540, 0x5F7730, 0x5F80D0, 0x63CA40, 0x63CCC0, 0x63CE70, 0x5F7FD0, 0x61A3D0 y CTask::operator delete 0x61A5B0; los cuerpos 0x678D50 y 0x678EE0 (sin hook) con falso en la direccion del EXE y en la funcion propia de la DLL; operator delete[] 0x8213AE solo en la direccion del EXE (la DLL lo llama por ella). EAX/ECX/EDX tras la llamada son informativos (los llamadores no los leen salvo EAX donde se compara). Fuera de los fixtures: this nulo o crudo, objetos reales del EXE, listas CLinkList con enlaces corruptos, exactitud de los colaboradores falseados. No se salta ninguna funcion. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn148A-20261110-203923-377519",
-  "summary_sha256": "cc0ecb5c87dd4cd0f18535b0033881fddbad52359299c2f4252f89a5b9e91f64",
-  "result_txt_sha256": "f24b337c62f45edb604fdde2f54147de2c67fa32ade7b71f71b12dd0fbac2fa4",
-  "log_sha256": "0b573788f09c1bbe94493838e8e4f465d646a0bee8a5d5258db5c0e20ebf4256",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn148A-20261111-170514-485430",
+  "summary_sha256": "9883517fbd10d1d1489eae7ab3d39d0875ad79ca4cdc89991fa94b5d1a083f72",
+  "result_txt_sha256": "805f738de6c735572b6daff094d87532e25081308c30813ebfe1024c2b656442",
+  "log_sha256": "458201247f927a88f4509385e4868485ec22b83f70cdcaea3bebd470a0fd86e6",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "de8877c0bac64b1bc63a5ede5929dbefdccfc538ab3fdb1af961e696df407d84",
+  "executed_probe_sha256": "8992944fb58c4c06900d556a106a86abc3d0904309c39592b81e82a8f1cbe025",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-      "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+      "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
       "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
       "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
       "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -88,7 +88,7 @@
       "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
       "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -100,10 +100,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn148A-20261110-203923-377519/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn148A-20261111-170514-485430/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "dc33245142dedee57b44a773c6096c2afc3e14560a7633df92cb459589fd1d02",
-    "uncompressed_sha256": "0b573788f09c1bbe94493838e8e4f465d646a0bee8a5d5258db5c0e20ebf4256"
+    "compressed_sha256": "d7b7a554ba6c836dc8004cf1f87477f73fea67bdd2a4239b04cfcef149ecab12",
+    "uncompressed_sha256": "458201247f927a88f4509385e4868485ec22b83f70cdcaea3bebd470a0fd86e6"
   }
 }

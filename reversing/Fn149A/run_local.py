@@ -28,11 +28,11 @@ SLOTS = ()
 # envoltura de la DLL; CTask::operator delete 0x61A5B0, ~CTask 0x61A3A0, constructor de CTaskComplex 0x61A3B0, ~CEntity 0x535E90, CPed::IsAlive 0x5E0170 y SetTask 0x5F7540 en su cuerpo; los cuerpos 0x48E8A0 y 0x404180
 # son funciones probadas del propio lote: se reutiliza su ruta). Sin hook (hooked False) y con funcion propia de la DLL (DLL_BODY_WITHOUT_HOOK: ~CTaskSimpleWaitForPizza 0x632B70): el falso va tambien en esa funcion;
 # operator delete del CRT (0x8214BD): sin hook, la DLL lo llama por la direccion del EXE (un solo parche).
-DLL_BODY_WITHOUT_HOOK = {0x632B70}
+DLL_BODY_WITHOUT_HOOK = set()   # pase final: ~CTaskSimpleWaitForPizza (0x632B70) tiene hook desde el lote 171A
 DL, CD = (0x61A5B0, True), (0x8214BD, False)
 STUBBED = {n: [] for n in NAMES}
 STUBBED.update({NAMES[1]: [(0x61A3A0, True)], NAMES[2]: [(0x48E8A0, True), DL], NAMES[3]: [(0x48E900, True), DL], NAMES[6]: [(0x61A3B0, True)],
-                NAMES[7]: [(0x63D100, True), DL], NAMES[8]: [(0x63DFA0, True), DL], NAMES[9]: [(0x632A90, True), DL], NAMES[10]: [(0x632B70, False), DL],
+                NAMES[7]: [(0x63D100, True), DL], NAMES[8]: [(0x63DFA0, True), DL], NAMES[9]: [(0x632A90, True), DL], NAMES[10]: [(0x632B70, True), DL],
                 NAMES[16]: [(0x5E0170, True)], NAMES[17]: [(0x535E90, True)], NAMES[18]: [(0x404180, True)], NAMES[21]: [CD], NAMES[22]: [(0x5F7540, True)]})
 REAL = {}
 WATCHED = set(HOOKS.values()) | set(SLOTS) | {a for lst in STUBBED.values() for a, _ in lst} | {a for lst in REAL.values() for a, _ in lst}

@@ -5,32 +5,43 @@
   "registered_pairs": 7168,
   "registered_functions": 1,
   "functions": {
-    "RpAnimBlend::FrameUpdateCallBackOffscreen": 7168
+    "RpAnimBlend::RpAnimBlendClumpUpdateAnimations": 4096,
+    "RpAnimBlend::RpAnimBlendClumpUpdateAnimations-CppCallbacks": 2048,
+    "RpAnimBlend::FrameUpdateCallBackOffscreen": 1024
   },
   "covered_functions": {
+    "RpAnimBlend::RpAnimBlendClumpUpdateAnimations": true,
+    "RpAnimBlend::RpAnimBlendClumpUpdateAnimations-CppCallbacks": true,
     "RpAnimBlend::FrameUpdateCallBackOffscreen": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwoLevel5Unified/runs/CppRpAnimUpdate1-20261015-154942-427862",
-  "summary_sha256": "b7d3f023be6d01d4d6056d10294d1a78b5b1a6f63f35dfa6eadf472305a49db8",
-  "result_txt_sha256": "e9ac374e71e408f3a7d9a9359a6766de30967d054fa0bea5818aa81a36e8fde5",
-  "log_sha256": "750a10fbac3996721fbb3917505a2047bbb10551cbfc2109a0d64e7154d801e1",
+  "run": "reversing/CppTwelveLevel6Final/runs/CppRpAnimUpdate1-20261111-182536-171581",
+  "summary_sha256": "b3afcae127ada96081275544ca0bca87cfd476862919ca092befd8e8c851bb44",
+  "result_txt_sha256": "42422d5257c918b4f9b9f080518ba6b77ee351c5e7a9a044aac0f5926e4d2834",
+  "log_sha256": "926a66622cb7dd51bd9c650f347ff4d38213086f8457ba97c7b365039a4fe6ee",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "b9d147a5c4562ccc024385c1452a380fcb484b951421de3c60645d4545f8c957",
+  "executed_probe_sha256": "70754c0a4a0f4f74daed80674fb59d68911079b56f080777cb2692e64e5be9e6",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp": "902df4f01b47e18d907b35c4078c3cc8d7e475768bfb326a816ab9184cd9fbac",
-      "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.h": "8cc6f2bf196cb46a8aa05c353127a7f528bb095ebbdad7560eaf1a4bf6239aa5",
-      "source/game_sa/X87Math.cpp": "9d15a8816749f9a8cd684ce3cc97684cd154c294a2e815838d0510760568fa8a",
-      "source/game_sa/X87Math.h": "c8dafcfc93ee672a18006250d821ada89949e12d30312b05bbbeb3aa204a2ec4",
-      "reversing/RpAnim43/LiveComparison.hpp": "4fa98dec1c89ebdb2f3cad210e1773ccdd1666c1319340391576f53ed832d649",
-      "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp": "a5aaea7096a89591b6517aad0b7bff5e73b2c103ae250ece88636dffba141af2",
+      "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.h": "3727c5f03eb21d765cd5755ee91551b524138d7dfcc399c8e3da02093ec30e3e",
+      "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
+      "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
+      "reversing/RpAnim43/LiveComparison.hpp": "9f98767a606ebe320d02ddd5a1c7180637df9e23561b75f19c087b6c87679c74",
+      "reversing/ProbeRuntime.hpp": "8e7a7badac510d0a3d0f96104607989b8efae936cf4583b6e546dfaa8be889d3",
       "reversing/CppRpAnimUpdate1/run_local.py": "7c1b9798b3cdc4c9eea8c37bc2b8d38d08bd3989e63875c1abc25a6b764c9926"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CppRpAnimUpdate1-20261111-182536-171581/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "7c04759256b5b1de7d4423f8a8f6b67f7487103e00eda61819b7e44151c916ba",
+    "uncompressed_sha256": "926a66622cb7dd51bd9c650f347ff4d38213086f8457ba97c7b365039a4fe6ee"
   }
 }

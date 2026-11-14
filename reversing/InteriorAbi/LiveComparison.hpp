@@ -1,6 +1,9 @@
 #pragma once
 #include "Interior/Interior_c.h"
 #include "../ProbeRuntime.hpp"
+#include <optional>
+#include "../OriginalDependencies499/HookRoute.hpp"   // pase final de bancos viejos: apaga el hook RH de produccion (Interior_c::Destructor 0x591360, lote 157A-187A) mientras dura el banco
+using OriginalDependencies499::HookRoute;
 namespace InteriorAbiLive {
 inline bool done{}; inline std::ofstream log;
 inline void Write(const json& r) { ReversingProbe::PumpMessages(); log << r.dump() << '\n'; log.flush(); }
@@ -17,25 +20,35 @@ inline void Update(){
  if(!FindPlayerPed()||CCutsceneMgr::IsRunning())return;done=true;bool passed=true;uint32 pairs=0;
  for(const auto& fn:fns){
  const auto candidateAddress=fn.address==0x5921D0?std::bit_cast<uintptr_t>(&Interior_c::Constructor):std::bit_cast<uintptr_t>(&Interior_c::Destructor);
+ // Ruta RH apagada (si la funcion ya tiene hook de produccion; el constructor la deja apagada y el destructor la restaura): EntryPatch decide por si solo a donde salta la entrada.
+ const std::string rhName=fn.address==0x5921D0?"Constructor":"Destructor";
+ HookRoute rhRoute("Interior_c",rhName.c_str(),fn.address,HookRoute::RegisteredTarget{});
  std::array<uint8,5> entryBefore{};std::memcpy(entryBefore.data(),reinterpret_cast<const void*>(fn.address),5);
  int failures=0;const std::string full=std::string(fn.cls)+"::"+fn.name;
  {
- ReversingProbe::EntryPatch patch(fn.address,reinterpret_cast<void*>(candidateAddress));
+ // Funcion con hook RH de produccion (Destructor 0x591360, lote 176A): la ruta RH conmuta EXE/DLL (Invoke); sin hook (Constructor 0x5921D0) se sigue usando EntryPatch.
+ std::optional<ReversingProbe::EntryPatch> patch;if(!rhRoute.Registered())patch.emplace(fn.address,reinterpret_cast<void*>(candidateAddress));
  for(int i=0;i<fn.cases;++i){
  auto run=[&](bool candidate){
- patch.Enable(candidate);
+ if(patch)patch->Enable(candidate);
  alignas(Interior_c) std::array<uint8,sizeof(Interior_c)> raw{};
  for(size_t j=0;j<raw.size();++j)raw[j]=uint8((uint32(i)*37u+uint32(j)*83u+(uint32(j)*uint32(j)>>3))&255u);
  // Exercise every NodeId byte value; these bytes must survive the native constructor unchanged.
  raw[0x3F2]=uint8(i);raw[0x3F3]=uint8(i>>2);
  const auto before=raw;auto expected=raw;auto* self=reinterpret_cast<Interior_c*>(raw.data());
- bool returnSelf=true;
- const bool switched=ReversingProbe::JumpsToDll(fn.address)==candidate;
+ bool returnSelf=true;bool switched=false;
+ auto call=[&]{
+ switched=ReversingProbe::JumpsToDll(fn.address)==candidate;
  if(fn.address==0x5921D0){
  auto* result=reinterpret_cast<Interior_c*(__thiscall*)(Interior_c*)>(fn.address)(self);returnSelf=result==self;
+ }else reinterpret_cast<void(__thiscall*)(Interior_c*)>(fn.address)(self);
+ return 0;
+ };
+ if(rhRoute.Registered())rhRoute.Invoke(candidate,call);else call();
+ if(fn.address==0x5921D0){
  std::fill(expected.begin(),expected.begin()+8,0);std::fill(expected.begin()+0x5C,expected.begin()+0x68,0);
  expected[0x3EC]=255;expected[0x3ED]=255;expected[0x3F0]=255;expected[0x3F1]=255;
- }else reinterpret_cast<void(__thiscall*)(Interior_c*)>(fn.address)(self);
+ }
  return json{{"before_hex",Bytes(before.data(),before.size())},{"after_hex",Bytes(raw.data(),raw.size())},{"expected_writes",raw==expected},{"node_id_preserved",raw[0x3F2]==before[0x3F2]&&raw[0x3F3]==before[0x3F3]},{"returns_self",returnSelf},{"switches",switched}};
  };
  const auto original=run(false),candidate=run(true);const bool ok=original==candidate&&original["switches"]==true&&original["expected_writes"]==true&&original["returns_self"]==true;

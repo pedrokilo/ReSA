@@ -40,23 +40,23 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn154A-20261110-212740-669393",
-  "summary_sha256": "56e8cb07e6e5a1d297208b6931fd9b2fd24a3f9f448d0b424aa528e4ee189ffc",
-  "result_txt_sha256": "70720ecd6c1cc33b1020ebd2a4b9bd3f576f767b04c2636ed45e4b34ba0f911d",
-  "log_sha256": "b67598c2ffe8468f02c6825a327eb68bfd80f6b8986f2e8c581cbfff3b8edadf",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn154A-20261111-011230-755487",
+  "summary_sha256": "02c5c4277bac990b1f35096c2485055df03f2f337e5db9b922b0c26da6276af9",
+  "result_txt_sha256": "67861fabff9232b02140b2e45b53d096a42d686be8fdeeec79c2f3c0ee9f0234",
+  "log_sha256": "d8eca585fced4c7777818d47a166242e2071b56f293376220cf9a669a6dcfc7c",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "94ca6dfae09763346bdefcca32f189e57e44820f4b451b1bd4592629fbe1067b",
+  "executed_probe_sha256": "2c334123e570036cc747b0e3f21e5730197335063bf6081662195ce36d9de91f",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-      "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+      "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
       "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
-      "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-      "source/game_sa/Core/Matrix.h": "0e7e49af78bc639ca3660a59c159a20cc0381c597ecb7b8b24049451a1f6d60c",
+      "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+      "source/game_sa/Core/Matrix.h": "724c69d1e950e897f17c6c56572c03055fed7a1349e536c37281f6b7aa546bd5",
       "source/game_sa/Events/EventHandlerHistory.cpp": "1cf2dccf573b2d3cc08af27b741a6154c8d0c7fc363a6c59d5cc0656d957b3da",
       "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
       "source/game_sa/Events/EventObjectCollision.h": "85bbcf9864ec4b2acd8e6e321f540c48457510b335f0df034d497b348372dc8d",
@@ -65,7 +65,7 @@
       "source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.cpp": "82658bd26caa4017498f1ba5d2324c7fa0ca2ce142a94d2f698cadf4d640968f",
       "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "5e396a5b9ad2194f0e4d02255d3847cd188b25f4d83d44be6caad75424563d82",
       "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "f1b191cb4462c6b3e511b76c2a7eff8bae4c46bb4ad7e6ed881fb110ccaaeaac",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp": "029b69c8501d9b68b34f4fa92439b806a542ac851aa1d959e6a3610c880620b1",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp": "5c0bd6df32d4275270288496c9d407b8aaf9a7aa63e573d6474037f11e239f20",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h": "cf4b75e020ad6fe805d9cb0b748d8312a67bbf5f376af01a998f3c5b47c63ffd",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Fn154A/LiveComparison.hpp": "e82ad0480772b32ee6ddd387460c26fab0351d8a69f28bd38dfb7bb3e1236994",
@@ -78,10 +78,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn154A-20261110-212740-669393/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn154A-20261111-011230-755487/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "89560d675aae61be29bb2691dc5c0d6c54ed6e205b1a3205c1212440a7503d29",
-    "uncompressed_sha256": "b67598c2ffe8468f02c6825a327eb68bfd80f6b8986f2e8c581cbfff3b8edadf"
+    "compressed_sha256": "c6b8fdb90a1165d5c9401834b7108e557827125165ee5da4bf2adcb004058851",
+    "uncompressed_sha256": "d8eca585fced4c7777818d47a166242e2071b56f293376220cf9a669a6dcfc7c"
   }
 }

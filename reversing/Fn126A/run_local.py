@@ -26,9 +26,9 @@ SLOTS = ()
 # colaboradores sustituidos por falsos: (direccion del EXE, hooked). Con hook RH en la DLL (apagado durante el banco) el mismo falso va en el cuerpo de la DLL; los que no tienen hook llevan el falso
 # en la direccion del EXE y en la funcion propia de la DLL (DLL_BODY_WITHOUT_HOOK). No hay colaboradores reales (sin falso).
 STUBBED = {
-    NAMES[i]: [(oracle.BODY[i], oracle.BODY[i] != 0x622680), (oracle.DELETE[i], True)] for i in range(len(NAMES))}
+    NAMES[i]: [(oracle.BODY[i], True), (oracle.DELETE[i], True)] for i in range(len(NAMES))}
 REAL = {}
-DLL_BODY_WITHOUT_HOOK = {0x622680}
+DLL_BODY_WITHOUT_HOOK = set()   # pase final 157A-162A: 0x622680 tiene hook desde el lote 163A
 WATCHED = set(HOOKS.values()) | set(SLOTS) | {a for lst in STUBBED.values() for a, _ in lst} | {a for lst in REAL.values() for a, _ in lst}
 COVER_FLOOR = 50
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}

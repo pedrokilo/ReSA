@@ -202,26 +202,26 @@
     "CRadar::TransformRealWorldPointToRadarSpace": "Corpus 256; source reviewed against the EXE and corrected before the run where needed (see git diff). fuente corregida: reciproco y orden x87. Limites del banco: motor RW falso (zBufferFar, estados, Im2D), pools falsos de TXD, EntryExit, vehiculos, peds y objetos; dibujo y TXD doblados con traza (sin credito); colores y alturas enmascarados a 8 bits; FindPlayerPed/Vehicle no se trazan."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/RadarFinal3-20261106-015608-024203",
-  "summary_sha256": "a725148a2deb768d711342f8a1f38d43d843a5b24cd9dde6d5752d4b336a46bb",
-  "result_txt_sha256": "e9a6e0b5f2246307beb00c90f40ea5c01c65a90e93f2da6f848bfad787c5e86a",
-  "log_sha256": "80d853c5a2e08c802450867989cf2d5d4ede03a07f3c04d8dbb4ddc87185a1e6",
+  "run": "reversing/CppTwelveLevel6Final/runs/RadarFinal3-20261113-143944-319937",
+  "summary_sha256": "927f926554197d373250087a24151a65ea0f0b899a4076d56b704db1774dc616",
+  "result_txt_sha256": "d355c6bfebd7c6dc1153baa5164d7e0960c477e9e1262bda588d3a88e08346ab",
+  "log_sha256": "3d64b972f4e98846537b12e8156771ca5a1dc39bce2763c8de9d5c97bbc66da7",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RadarFinal3-20261106-015608-024203/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RadarFinal3-20261113-143944-319937/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "bffa249deaff39fc5afa6370ec1e89500d8c1f555668e3c187ed9baff38e3d2e",
-    "uncompressed_sha256": "80d853c5a2e08c802450867989cf2d5d4ede03a07f3c04d8dbb4ddc87185a1e6"
+    "compressed_sha256": "ff66631e44ec37ca9788201529a7e1dc3c1818a8cd66866010a301705f5de67f",
+    "uncompressed_sha256": "3d64b972f4e98846537b12e8156771ca5a1dc39bce2763c8de9d5c97bbc66da7"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "3772d8064ed708db9e253352f2675b9b1d2c4e51d71d2ecdac679e0c57626291",
+  "executed_probe_sha256": "bb280e09a1e61dc06aef54663f2e65c54469c733bfbc6f1b7d3f8a2c3590f70c",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Radar.cpp": "f45353ae1033c154eb49a030facd7fd87d54b85c2d0bc6e7610a1ed0b1cac826",
+      "source/game_sa/Radar.cpp": "8e7533933749f424141e84d78b09292de0f9541d8c78f265b8750a2b0226596b",
       "source/game_sa/Radar.h": "37241ab2f505642088b569348800dc5cc9779a0a952d0d56a4941524a06bb511"
     }
   },

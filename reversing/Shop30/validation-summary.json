@@ -46,7 +46,7 @@
   "log_sha256": "19864c2dd0447feab62a15ffe654732493ff33c331ef0016cbdc990e857ff26a",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shop30\\20261106-153055-982368",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shop30\\20261113-172530-588010",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CShopping::Buy": true,
@@ -82,14 +82,14 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "48a8fc1d9710b0c31d409b0f4cca20b7e12ff49ae0491ead07126a82c1352213",
-      "pdb": "65f7d5bbb95ac35831292b0be2307b7fea2965405e72a2b723845e9a14169d08"
+      "asi": "0388dfe8054c761d0ecc12698367ab45d88f612b578329c5c18af2c83b405777",
+      "pdb": "47817227de5c54c26842fe2e8b518859a116bfbdbe822894d487bd83db571ebb"
     },
     "sources": {
-      "source/game_sa/Shopping.cpp": "b901eb120ad59427433ee48a7ddcbd0d074bca38aa0d31c0f571dd3c23750561",
+      "source/game_sa/Shopping.cpp": "c2b85cf782d3b9fe66f0247a0b70b39683b79e4f4ce4692835d6b1e603cbc370",
       "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "e93ff90c1d563fc37ab03b697077aa64631370cf1e022163e8b19c9c1a4e6bcb",
     "instrumentation": {
       "LiveComparison.hpp": "33c38f4e0d173c40fa68d507582da46795d74934d85875a4cb4543bd41e21e87",
       "build_probe.py": "5ca22c405116c22c021464b29cd7bbd529142137be2e266e25bfad51c4d45881",

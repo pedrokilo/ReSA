@@ -10,32 +10,39 @@
   "covered_functions": {
     "CRadar::DrawEntityBlip": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal en el momento del registro. Corrida aprobada = 20261018-180858-453761 (la más reciente); la 20261018-180039-989711 (sonda 4cf50bdb...) se conserva sólo como nota, no como evidencia. Incluye RadarAirstripRotateCpp (X87Math). En el aeropuerto lejano el EXE deja la posición sin inicializar y la DLL la deja a cero (argumentos derivados enmascarados). 17 colaboradores sustituidos por falsos con traza idénticos en ambos lados; pools falsos, CPickup::GetPosn, ScriptSearchLightArray, CRGBA y _ftol2 reales.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal en el momento del registro. Corrida aprobada = 20261018-180858-453761 (la más reciente); la 20261018-180039-989711 (sonda 4cf50bdb...) se conserva sólo como nota, no como evidencia. Incluye RadarAirstripRotateCpp (X87Math). En el aeropuerto lejano el EXE deja la posición sin inicializar y la DLL la deja a cero (argumentos derivados enmascarados). 17 colaboradores sustituidos por falsos con traza idénticos en ambos lados; pools falsos, CPickup::GetPosn, ScriptSearchLightArray, CRGBA y _ftol2 reales. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/RadarBlip28-20261018-180858-453761",
-  "summary_sha256": "f3c0222f2551736f10ef197cdc3ca14591ed726f0183ffbd53db8be1a09ef33c",
-  "result_txt_sha256": "602f66f766a9cabd25e03c818d52aa53578d8b542098cdc8c2b795ad7b81ba45",
-  "log_sha256": "99b604cfcab0b178ea1db121e2e2450adb38278c94f2dcf573741b6bcb8d44eb",
+  "run": "reversing/CppTwelveLevel6Final/runs/RadarBlip28-20261113-140604-123807",
+  "summary_sha256": "c1669e3645f14fc282347a964ec5e8a428af24e34fd2998825ec15e193f7addd",
+  "result_txt_sha256": "8dc75f0e37dd9e7f424ab4849805675027a45431031eff9ce0e373c3775d34cb",
+  "log_sha256": "c556b3be8820509228ef6cfb68bf10a568209ec195aacd2f20c0cf7610374c25",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "4fb7727c855a52d2a19ad21dc42ae4b948f48b0aede13f0993aafa0998953679",
+  "executed_probe_sha256": "1b8076f40fbcf87bef6e88646ca950eaf6892859f44dc331bcb976eb49ff559c",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
-      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
-      "source/game_sa/Radar.cpp": "dbd3a1d520f3003ee8cd088b8ed8b9d31f3dcddea72cdc9c09952ed18f60ced2",
+      "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+      "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+      "source/game_sa/Radar.cpp": "8e7533933749f424141e84d78b09292de0f9541d8c78f265b8750a2b0226596b",
       "source/game_sa/Radar.h": "37241ab2f505642088b569348800dc5cc9779a0a952d0d56a4941524a06bb511",
-      "source/game_sa/X87Math.cpp": "26b2c8771fe218cb9c102acb4b73c68c5ed7dc90953f5a6ce9a1fbe40126920a",
-      "source/game_sa/X87Math.h": "c6b5f413d16b9f83c4707ce877024fcb7ba83d805f37dfed100e45715a14862f",
+      "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+      "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/RadarBlip28/LiveComparison.hpp": "dc981580baececae2977c015192a4ec1a0d2215da078d3d4d792f47c337d9e44",
       "reversing/RadarBlip28/Core.hpp": "dd51a2af48058b38d95dd95f0d869b47957bc45cf33155a3120691d6a96ed5f6",
       "reversing/RadarBlip28/Fixtures.hpp": "af8af62c722ac26eae51bb27afd6eed79a939ba0c5f8ac98778476337441339e",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RadarBlip28-20261113-140604-123807/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "e5df14aa2f727a22acf529f01ba4cd25af79eec630f069bc7278811beed6475c",
+    "uncompressed_sha256": "c556b3be8820509228ef6cfb68bf10a568209ec195aacd2f20c0cf7610374c25"
   }
 }

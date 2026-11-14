@@ -1,0 +1,3 @@
+APROBADO: Tareas de cobertura, cambio de asiento y coche (lista de 10)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ctasks10b\20261111-222010-994915

@@ -20,7 +20,7 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x647710}
 # (direccion del EXE, hooked): CTaskSimple::CTaskSimple (sin hook ni cuerpo en la DLL: solo EXE), CEntity::RegisterReference
-STUBBED = {NAMES[0]: [(0x61A390, False), (0x571B70, True)]}
+STUBBED = {NAMES[0]: [(0x61A390, True), (0x571B70, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x647710}
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}
 def is_nan(b):

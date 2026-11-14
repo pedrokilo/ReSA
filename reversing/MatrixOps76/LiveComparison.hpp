@@ -191,6 +191,12 @@ inline void Update() {
     env.route[1].reset(new HookRoute("CMatrix","operator=",0x59BBC0,HookRoute::RegisteredTarget{}));
     gOffRoutes.emplace_back(new HookRoute("CMatrix","UpdateRW",0x59BBB0,HookRoute::RegisteredTarget{}));
     gOffRoutes.emplace_back(new HookRoute("CMatrix","UpdateRwMatrix",0x59AD70,HookRoute::RegisteredTarget{}));
+    // Pase final 157A-162A: el lote 162A activo hooks de Update, UpdateMatrix, Detach (los llama el EXE por dentro) y el 154A/162A el de CopyOnlyMatrix: se apagan igual que UpdateRW
+    gOffRoutes.emplace_back(new HookRoute("CMatrix","Update",0x59BB60,HookRoute::RegisteredTarget{}));
+    gOffRoutes.emplace_back(new HookRoute("CMatrix","UpdateMatrix",0x59AD20,HookRoute::RegisteredTarget{}));
+    gOffRoutes.emplace_back(new HookRoute("CMatrix","Detach",0x59ACF0,HookRoute::RegisteredTarget{}));
+    gOffRoutes.emplace_back(new HookRoute("CMatrix","CopyOnlyMatrix",0x59ADD0,HookRoute::RegisteredTarget{}));
+
     for(unsigned f=0;f<kFunctions;++f) {
         registered[kFn[f]]=env.route[f]->Registered();bodies[kFn[f]]=env.route[f]->Body()!=0;
         ready&=env.route[f]->Registered()&&env.route[f]->Body()&&ModuleOf(env.route[f]->Body())==env.asi;
