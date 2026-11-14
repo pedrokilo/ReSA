@@ -22,7 +22,7 @@ NAMES = oracle.NAMES
 EXPECTED = dict(oracle.CASES)
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'route_ok', 'globals_restored', 'floating_state_restored')
 HOOKS = {oracle.NF: 0x559010, oracle.NB: 0x559230, oracle.NR: 0x55BC50, oracle.NC: 0x55A780}
-EXE_ONLY = {0x719240, 0x821BB5}   # 0x69F7E0 (GxtCharToAscii) tiene cuerpo en la DLL desde el lote 106A
+EXE_ONLY = {0x821BB5}   # pase final: 0x719240 (CFont::StripTildeTags) tiene cuerpo en la DLL desde el lote 174A   # 0x69F7E0 (GxtCharToAscii) tiene cuerpo en la DLL desde el lote 106A
 STUBBED = {0x558E40, 0x56D220, 0x56D200, 0x558EC0, 0x558FA0, 0x559010, 0x5591E0, 0x559540, 0x559560, 0x559230, 0x6A0050, 0x69F7E0, 0x718660, 0x719240, 0x718600, 0x821BB5,
            0x507010, 0x56E210, 0x5E3B60, 0x49CDA0, 0x5595F0, 0x55B980, 0x559760}
 WATCHED = {0x559010, 0x559230, 0x55BC50, 0x55A780, 0x821BB5, 0x69F7E0, 0x719240, 0x558E40, 0x56D220, 0x56D200, 0x558EC0, 0x558FA0, 0x5591E0, 0x559540, 0x559560, 0x6A0050, 0x718660, 0x718600,

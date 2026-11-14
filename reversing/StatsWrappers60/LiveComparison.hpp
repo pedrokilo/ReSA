@@ -5,6 +5,7 @@
 #include "Stats.h"
 #include "Localisation.h"
 #include "Text/Text.h"
+#include "Font.h"
 #include "GxtChar.h"
 #include "AudioEngine.h"
 #include "World.h"
@@ -58,7 +59,7 @@ inline void Update() {
     env.c.get = { 0x6A0050, B(static_cast<const GxtChar*(CText::*)(const char*)>(&CText::Get)) };
     env.c.g2a = { 0x69F7E0, B(&GxtCharToAscii) };   // lote 106A: con hook RH y cuerpo en la DLL
     env.c.strcpy_ = { 0x718660, B(&GxtCharStrcpy) };
-    env.c.strip = { 0x719240, 0 };
+    env.c.strip = { 0x719240, B(&CFont::StripTildeTags) };   // pase final de bancos viejos: CFont::StripTildeTags tiene hook y cuerpo en la DLL desde el lote 174A
     env.c.a2g = { 0x718600, B(&AsciiToGxtChar) };
     env.c.sprintf_ = { 0x821BB5, 0 };
     env.c.stationKey = { 0x507010, B(&CAudioEngine::GetRadioStationNameKey) };

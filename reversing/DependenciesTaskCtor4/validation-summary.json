@@ -12,83 +12,38 @@
     "CTaskInteriorSitInChair::Constructor": true,
     "CTaskComplexWaitForPed::Constructor": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia histórica limitada a fixtures, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia histórica limitada a fixtures, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/DependenciesTaskCtor4/runs/20261010-192735-616118",
-  "summary_sha256": "843dc77da5892093d682e0a832e3daca3e0bc787e578c7e86139ed8457b63585",
-  "result_txt_sha256": "6a52f120f21b77accbfbbb02d9293662bd31a5ea3e7d5aa14260b0cc05cabe6a",
-  "log_sha256": "2a568acfefefe8a714823dc7c8138c94d74508aa8eb72fc03d24a3ba7d39567d",
+  "run": "reversing/CppTwelveLevel6Final/runs/DependenciesTaskCtor4-20261114-171153-593192",
+  "summary_sha256": "d26ef911ef932bec716b654b6a8d419ef9a21d5e2e934845dc3fd60b2964d55b",
+  "result_txt_sha256": "c3fa64441651b3647ea03261158a8f0c0256cd9eab417b9ba228e5d34725a4ce",
+  "log_sha256": "5dbbed825138b0d8bde7e063a080667af853286db9f1568f3df980749fbc2d5f",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "67d4d85cb7b467fe7b92b7fbea9bebce802e63fc39c2864fb9ec5907a25b86a9",
+  "executed_probe_sha256": "044d10d1184dccf6154b52554a8182df823e10d6e7186b1502281abefb56ae4d",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp": "ea1da323f01379f7eba9087e6d6ba0570f9eca95c4343609e3bc6e6b03c22764",
-      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h": "7ded0f21b737bd7dafc5d3510845cdcbd9fe15a56eceb75c96d3e196568ca17e",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "5d44bf69ddd3f066ed601f7ba9e52a6843f143a942cbb0fb3aa1134989795d55",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "5dc8544aadc9236205c162de39ac209f62df342dede76c22645c9e6088709453",
-      "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
-      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-      "source/game_sa/Entity/Entity.h": "a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp": "08a7a44b478446a26598fbd38b766b674a226c487a2347675b7703c23a8f0929",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h": "f9181b34198ef319bf31cf1d312c72685266ee8aac6ad63ab1a0bb06ea4e1190",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "a69a654a580dc473d7d867596fa4868855bb87284b11f9b6c8e7e1b80cb306c6",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "1966410668e7873108fdb125326284ad2150adf8cef61c48a34d6ec666a3ed51",
+      "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+      "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+      "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
       "source/game_sa/Reference.h": "f84250056639dbf79a17ba416bdbdea6bd48772e33a19a5f2dbfb90d4c41a797",
       "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-      "source/InjectHooksMain.cpp": "399556be232dab15fe51f27b1a7a8273bd0b6374f060ee746bda26b2d1cef22e",
-      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
-    },
-    "bank_sources": {
-      "LiveComparison.hpp": "bb3fc805b5335031808f7d7b92f79834f7fa2fb2ec01df48f62911a912531cb1",
-      "build_probe.py": "4b203b784234723a5fe4a928c0da2f349679e194f5fad750b81200910c2ae1c7",
-      "run_local.py": "2de7d1adbe9d0828f0186e2b0f30bb8b048760e889fd814d5ad0f99d32a11102"
+      "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
     }
   },
-  "reaudit": {
-    "bank": "DependenciesTaskCtor4",
-    "run": "20261010-192735-616118",
-    "functions": 2,
-    "pairs": 4096,
-    "pairs_per_function": {
-      "CTaskInteriorSitInChair::Constructor": 2048,
-      "CTaskComplexWaitForPed::Constructor": 2048
-    },
-    "differences": 0,
-    "null_comparison_records": 0,
-    "state_restored": true,
-    "saves_unchanged": true,
-    "configs_restored": true,
-    "hook_routes_verified": true,
-    "log_sha256": "2a568acfefefe8a714823dc7c8138c94d74508aa8eb72fc03d24a3ba7d39567d",
-    "tested_sources": {
-      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp": "ea1da323f01379f7eba9087e6d6ba0570f9eca95c4343609e3bc6e6b03c22764",
-      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h": "7ded0f21b737bd7dafc5d3510845cdcbd9fe15a56eceb75c96d3e196568ca17e",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "5d44bf69ddd3f066ed601f7ba9e52a6843f143a942cbb0fb3aa1134989795d55",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "5dc8544aadc9236205c162de39ac209f62df342dede76c22645c9e6088709453",
-      "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
-      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-      "source/game_sa/Entity/Entity.h": "a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed",
-      "source/game_sa/Reference.h": "f84250056639dbf79a17ba416bdbdea6bd48772e33a19a5f2dbfb90d4c41a797",
-      "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-      "source/InjectHooksMain.cpp": "399556be232dab15fe51f27b1a7a8273bd0b6374f060ee746bda26b2d1cef22e",
-      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
-    },
-    "bank_sources": {
-      "LiveComparison.hpp": "bb3fc805b5335031808f7d7b92f79834f7fa2fb2ec01df48f62911a912531cb1",
-      "build_probe.py": "4b203b784234723a5fe4a928c0da2f349679e194f5fad750b81200910c2ae1c7",
-      "run_local.py": "2de7d1adbe9d0828f0186e2b0f30bb8b048760e889fd814d5ad0f99d32a11102"
-    },
-    "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-    "executed_probe_sha256": "67d4d85cb7b467fe7b92b7fbea9bebce802e63fc39c2864fb9ec5907a25b86a9",
-    "registered_hook_verified": true
-  },
   "comparison_storage": {
-    "compressed_path": "reversing/DependenciesTaskCtor4/runs/20261010-192735-616118/comparisons.jsonl.gz",
-    "compressed_sha256": "befdc87eacd23443d6168ca3937ab08b35a55a4249da29f9fba641b8bca8cf85",
-    "uncompressed_sha256": "2a568acfefefe8a714823dc7c8138c94d74508aa8eb72fc03d24a3ba7d39567d",
-    "uncompressed_bytes": 34125218,
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/DependenciesTaskCtor4-20261114-171153-593192/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "lossless_roundtrip_sha256": "2a568acfefefe8a714823dc7c8138c94d74508aa8eb72fc03d24a3ba7d39567d"
+    "compressed_sha256": "ccea19793575afc013809e1e371d9ad0cb11fc07ebd7f527155d1bbd58275571",
+    "uncompressed_sha256": "5dbbed825138b0d8bde7e063a080667af853286db9f1568f3df980749fbc2d5f"
   }
 }

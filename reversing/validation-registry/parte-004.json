@@ -51842,7 +51842,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesTaskCtor4/validation-summary.json",
-        "sha256": "4951dca9e5a1d8a5e70498d118897592c28bc0a9fa2d2e2cf7268b331e26a200",
+        "sha256": "8dd6669cf38948b914dbbed686d74d3269925b312b95f87d0c804c9b1954a18d",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitInChair::Constructor"
@@ -51851,17 +51851,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp": "ea1da323f01379f7eba9087e6d6ba0570f9eca95c4343609e3bc6e6b03c22764",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h": "7ded0f21b737bd7dafc5d3510845cdcbd9fe15a56eceb75c96d3e196568ca17e",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "5d44bf69ddd3f066ed601f7ba9e52a6843f143a942cbb0fb3aa1134989795d55",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "5dc8544aadc9236205c162de39ac209f62df342dede76c22645c9e6088709453",
-        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
-        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-        "source/game_sa/Entity/Entity.h": "a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp": "08a7a44b478446a26598fbd38b766b674a226c487a2347675b7703c23a8f0929",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h": "f9181b34198ef319bf31cf1d312c72685266ee8aac6ad63ab1a0bb06ea4e1190",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "a69a654a580dc473d7d867596fa4868855bb87284b11f9b6c8e7e1b80cb306c6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "1966410668e7873108fdb125326284ad2150adf8cef61c48a34d6ec666a3ed51",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Reference.h": "f84250056639dbf79a17ba416bdbdea6bd48772e33a19a5f2dbfb90d4c41a797",
         "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-        "source/InjectHooksMain.cpp": "399556be232dab15fe51f27b1a7a8273bd0b6374f060ee746bda26b2d1cef22e",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -51877,7 +51877,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesTaskCtor4/validation-summary.json",
-        "sha256": "4951dca9e5a1d8a5e70498d118897592c28bc0a9fa2d2e2cf7268b331e26a200",
+        "sha256": "8dd6669cf38948b914dbbed686d74d3269925b312b95f87d0c804c9b1954a18d",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWaitForPed::Constructor"
@@ -51886,17 +51886,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp": "ea1da323f01379f7eba9087e6d6ba0570f9eca95c4343609e3bc6e6b03c22764",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h": "7ded0f21b737bd7dafc5d3510845cdcbd9fe15a56eceb75c96d3e196568ca17e",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "5d44bf69ddd3f066ed601f7ba9e52a6843f143a942cbb0fb3aa1134989795d55",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "5dc8544aadc9236205c162de39ac209f62df342dede76c22645c9e6088709453",
-        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
-        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-        "source/game_sa/Entity/Entity.h": "a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp": "08a7a44b478446a26598fbd38b766b674a226c487a2347675b7703c23a8f0929",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h": "f9181b34198ef319bf31cf1d312c72685266ee8aac6ad63ab1a0bb06ea4e1190",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "a69a654a580dc473d7d867596fa4868855bb87284b11f9b6c8e7e1b80cb306c6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "1966410668e7873108fdb125326284ad2150adf8cef61c48a34d6ec666a3ed51",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "source/game_sa/Entity/Entity.cpp": "9a728a1bc73731c38c608f66b4472e814cfea3440bf435edce13d4f201966773",
+        "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
         "source/game_sa/Reference.h": "f84250056639dbf79a17ba416bdbdea6bd48772e33a19a5f2dbfb90d4c41a797",
         "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-        "source/InjectHooksMain.cpp": "399556be232dab15fe51f27b1a7a8273bd0b6374f060ee746bda26b2d1cef22e",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -61957,7 +61957,7 @@
       },
       "evidence": {
         "path": "reversing/StatsWrappers60/validation-summary.json",
-        "sha256": "596b37d642d648fd906d19c11f94dbac4445af37f165bba8c02b7e4ac3891abe",
+        "sha256": "4d64560367ff0bc64b08a160f3743bc6686dda06ef097bf9cb37e34c508f60f5",
         "passed_path": [
           "covered_functions",
           "CStats::FindLeastFavoriteRadioStation"
@@ -61966,21 +61966,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
-        "source/game_sa/Stats.cpp": "4b27b8845e82808f315697a7ba086bafb3c3da2e9b2ac9f77f929316594a5548",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/Stats.cpp": "9ffdb839e0d56e91c557df6b2ae1960ecc61835920fd9f439ed8fdccc6239c97",
         "source/game_sa/Stats.h": "6be0a2376936a21144df72891577f531373c1c9698742cafdae298a4587232e3",
-        "source/game_sa/X87Math.cpp": "8a3069041b3e9a8cf1476464ebff56c0cbd0b9737af9625430af6ecf0389e0da",
-        "source/game_sa/X87Math.h": "dd99480cdcca21fda46e35fdde5ac1b9d2a443600f1c37ac8efc9eb00f20ed5d",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/StatsWrappers60/LiveComparison.hpp": "64b18a27c8c1ce077d3640c83ee8c9318bd9e35c02fce3819a0d2da1c3642e90",
-        "reversing/StatsWrappers60/Core.hpp": "1ce517541bfffa4f4668e077ace27927eb7d0f21bf11939053ed7c0fb74f9c5b",
+        "reversing/StatsWrappers60/LiveComparison.hpp": "154122304c4e2f9954978bbbfce20c6130319fc1a8f8c6b6e02832ed71cf2274",
+        "reversing/StatsWrappers60/Core.hpp": "79890ebaf41c5b20882c56d5046cb84628b0bd69c9e0b888f2b455829dfdf0b6",
         "reversing/StatsWrappers60/Gate.hpp": "007e395eaa021cd4fb7a15c3db19cd31c749b50ad91b8133f724c496f8d3ba04",
         "reversing/StatsWrappers60/Cases.hpp": "623bee20c5733d7e9131ff87726c4f1006f1a32c64213b207bbd7b45a1f1d60e",
         "reversing/StatsWrappers60/Fakes.hpp": "bea945ac2c333cb5d448f2b4ccf740ccbeefaa7ac8ab994a8baebe8cf475dd00",
         "reversing/StatsWrappers60/Fixtures.hpp": "111572eb59a289102d09c0b5776fe6c01ea6e57c512b47f4daa3cc40ea2362c7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -61996,7 +61996,7 @@
       },
       "evidence": {
         "path": "reversing/StatsWrappers60/validation-summary.json",
-        "sha256": "596b37d642d648fd906d19c11f94dbac4445af37f165bba8c02b7e4ac3891abe",
+        "sha256": "4d64560367ff0bc64b08a160f3743bc6686dda06ef097bf9cb37e34c508f60f5",
         "passed_path": [
           "covered_functions",
           "CStats::BuildStatLine"
@@ -62005,21 +62005,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
-        "source/game_sa/Stats.cpp": "4b27b8845e82808f315697a7ba086bafb3c3da2e9b2ac9f77f929316594a5548",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/Stats.cpp": "9ffdb839e0d56e91c557df6b2ae1960ecc61835920fd9f439ed8fdccc6239c97",
         "source/game_sa/Stats.h": "6be0a2376936a21144df72891577f531373c1c9698742cafdae298a4587232e3",
-        "source/game_sa/X87Math.cpp": "8a3069041b3e9a8cf1476464ebff56c0cbd0b9737af9625430af6ecf0389e0da",
-        "source/game_sa/X87Math.h": "dd99480cdcca21fda46e35fdde5ac1b9d2a443600f1c37ac8efc9eb00f20ed5d",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/StatsWrappers60/LiveComparison.hpp": "64b18a27c8c1ce077d3640c83ee8c9318bd9e35c02fce3819a0d2da1c3642e90",
-        "reversing/StatsWrappers60/Core.hpp": "1ce517541bfffa4f4668e077ace27927eb7d0f21bf11939053ed7c0fb74f9c5b",
+        "reversing/StatsWrappers60/LiveComparison.hpp": "154122304c4e2f9954978bbbfce20c6130319fc1a8f8c6b6e02832ed71cf2274",
+        "reversing/StatsWrappers60/Core.hpp": "79890ebaf41c5b20882c56d5046cb84628b0bd69c9e0b888f2b455829dfdf0b6",
         "reversing/StatsWrappers60/Gate.hpp": "007e395eaa021cd4fb7a15c3db19cd31c749b50ad91b8133f724c496f8d3ba04",
         "reversing/StatsWrappers60/Cases.hpp": "623bee20c5733d7e9131ff87726c4f1006f1a32c64213b207bbd7b45a1f1d60e",
         "reversing/StatsWrappers60/Fakes.hpp": "bea945ac2c333cb5d448f2b4ccf740ccbeefaa7ac8ab994a8baebe8cf475dd00",
         "reversing/StatsWrappers60/Fixtures.hpp": "111572eb59a289102d09c0b5776fe6c01ea6e57c512b47f4daa3cc40ea2362c7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -62035,7 +62035,7 @@
       },
       "evidence": {
         "path": "reversing/StatsWrappers60/validation-summary.json",
-        "sha256": "596b37d642d648fd906d19c11f94dbac4445af37f165bba8c02b7e4ac3891abe",
+        "sha256": "4d64560367ff0bc64b08a160f3743bc6686dda06ef097bf9cb37e34c508f60f5",
         "passed_path": [
           "covered_functions",
           "CStats::UpdateRespectStat"
@@ -62044,21 +62044,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
-        "source/game_sa/Stats.cpp": "4b27b8845e82808f315697a7ba086bafb3c3da2e9b2ac9f77f929316594a5548",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/Stats.cpp": "9ffdb839e0d56e91c557df6b2ae1960ecc61835920fd9f439ed8fdccc6239c97",
         "source/game_sa/Stats.h": "6be0a2376936a21144df72891577f531373c1c9698742cafdae298a4587232e3",
-        "source/game_sa/X87Math.cpp": "8a3069041b3e9a8cf1476464ebff56c0cbd0b9737af9625430af6ecf0389e0da",
-        "source/game_sa/X87Math.h": "dd99480cdcca21fda46e35fdde5ac1b9d2a443600f1c37ac8efc9eb00f20ed5d",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/StatsWrappers60/LiveComparison.hpp": "64b18a27c8c1ce077d3640c83ee8c9318bd9e35c02fce3819a0d2da1c3642e90",
-        "reversing/StatsWrappers60/Core.hpp": "1ce517541bfffa4f4668e077ace27927eb7d0f21bf11939053ed7c0fb74f9c5b",
+        "reversing/StatsWrappers60/LiveComparison.hpp": "154122304c4e2f9954978bbbfce20c6130319fc1a8f8c6b6e02832ed71cf2274",
+        "reversing/StatsWrappers60/Core.hpp": "79890ebaf41c5b20882c56d5046cb84628b0bd69c9e0b888f2b455829dfdf0b6",
         "reversing/StatsWrappers60/Gate.hpp": "007e395eaa021cd4fb7a15c3db19cd31c749b50ad91b8133f724c496f8d3ba04",
         "reversing/StatsWrappers60/Cases.hpp": "623bee20c5733d7e9131ff87726c4f1006f1a32c64213b207bbd7b45a1f1d60e",
         "reversing/StatsWrappers60/Fakes.hpp": "bea945ac2c333cb5d448f2b4ccf740ccbeefaa7ac8ab994a8baebe8cf475dd00",
         "reversing/StatsWrappers60/Fixtures.hpp": "111572eb59a289102d09c0b5776fe6c01ea6e57c512b47f4daa3cc40ea2362c7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -62074,7 +62074,7 @@
       },
       "evidence": {
         "path": "reversing/StatsWrappers60/validation-summary.json",
-        "sha256": "596b37d642d648fd906d19c11f94dbac4445af37f165bba8c02b7e4ac3891abe",
+        "sha256": "4d64560367ff0bc64b08a160f3743bc6686dda06ef097bf9cb37e34c508f60f5",
         "passed_path": [
           "covered_functions",
           "CStats::ConstructStatLine"
@@ -62083,21 +62083,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
-        "source/game_sa/Stats.cpp": "4b27b8845e82808f315697a7ba086bafb3c3da2e9b2ac9f77f929316594a5548",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/Stats.cpp": "9ffdb839e0d56e91c557df6b2ae1960ecc61835920fd9f439ed8fdccc6239c97",
         "source/game_sa/Stats.h": "6be0a2376936a21144df72891577f531373c1c9698742cafdae298a4587232e3",
-        "source/game_sa/X87Math.cpp": "8a3069041b3e9a8cf1476464ebff56c0cbd0b9737af9625430af6ecf0389e0da",
-        "source/game_sa/X87Math.h": "dd99480cdcca21fda46e35fdde5ac1b9d2a443600f1c37ac8efc9eb00f20ed5d",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/StatsWrappers60/LiveComparison.hpp": "64b18a27c8c1ce077d3640c83ee8c9318bd9e35c02fce3819a0d2da1c3642e90",
-        "reversing/StatsWrappers60/Core.hpp": "1ce517541bfffa4f4668e077ace27927eb7d0f21bf11939053ed7c0fb74f9c5b",
+        "reversing/StatsWrappers60/LiveComparison.hpp": "154122304c4e2f9954978bbbfce20c6130319fc1a8f8c6b6e02832ed71cf2274",
+        "reversing/StatsWrappers60/Core.hpp": "79890ebaf41c5b20882c56d5046cb84628b0bd69c9e0b888f2b455829dfdf0b6",
         "reversing/StatsWrappers60/Gate.hpp": "007e395eaa021cd4fb7a15c3db19cd31c749b50ad91b8133f724c496f8d3ba04",
         "reversing/StatsWrappers60/Cases.hpp": "623bee20c5733d7e9131ff87726c4f1006f1a32c64213b207bbd7b45a1f1d60e",
         "reversing/StatsWrappers60/Fakes.hpp": "bea945ac2c333cb5d448f2b4ccf740ccbeefaa7ac8ab994a8baebe8cf475dd00",
         "reversing/StatsWrappers60/Fixtures.hpp": "111572eb59a289102d09c0b5776fe6c01ea6e57c512b47f4daa3cc40ea2362c7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
