@@ -78,7 +78,8 @@ float StencilSignedDistSq(const CVector& cam, CEntity* entity) {
     return (sign * d) * d;
 }
 
-// Como el original: 0x710BA0, busca el objeto de sombra activo de una entidad
+// Como el original: 0x710BA0 (lote 190A, sin validar; cdecl, un puntero en la pila, `ret`, 30 bytes, solo escribe EAX y ECX), busca el objeto de sombra activo de una entidad:
+// recorre la lista de activos desde pFirstActiveStencilShadowObject (0xC6A16C) por m_pNext (+0x14) y devuelve el primero cuyo propietario (+0) sea la entidad, o nulo.
 CStencilShadowObject* StencilFindForOwner(const CEntity* owner) {
     for (auto* obj = CStencilShadows::pFirstActiveStencilShadowObject; obj; obj = obj->m_pNext) {
         if (obj->m_pOwner == owner) {
@@ -281,6 +282,7 @@ void CStencilShadows::InjectHooks() {
     RH_ScopedInstall(RenderBuffer, 0x710B50);
     RH_ScopedInstall(SunSetPositionFromEntity, 0x710AF0);
     RH_ScopedInstall(sub_710CC0, 0x710CC0);
+    RH_ScopedNamedGlobalInstall(StencilFindForOwner, "FindForOwner", 0x710BA0); // lote 190A (sin validar): cdecl, un puntero en la pila; ya existia como ayudante interno
 }
 
 // 0x70F9E0

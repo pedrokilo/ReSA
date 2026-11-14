@@ -28,6 +28,17 @@ void __fastcall ObjectCollisionDestructorBody(CEventObjectCollision* self, void*
     CEntity::SafeCleanUpRef(self->m_object);
     *reinterpret_cast<uint32*>(self) = 0x85AB38;
 }
+
+// 0x4B59D0 (lote 190A, sin validar): destructor con borrado de CEventObjectCollision del EXE (ranura 0 de su vtable 0x85ACA8; thiscall, un argumento de pila, `ret 4`, 76 bytes: `push esi; push edi; mov edi,ecx; call 0x4ACDD0; test byte [esp+0Ch],1; je ..;`
+// y, con el bit 0 del BYTE de banderas, el operator delete de CEvent EN LINEA (pool de eventos 0xB744AC, como 0x4B5630); devuelve `this`). Como el original: destruye con el cuerpo de la clase (0x4ACDD0), libera `this`
+// con CEvent::operator delete (0x4B5630, con hook; mismo efecto que la copia en linea) solo si el bit 0 esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CEventObjectCollision* __fastcall ObjectCollisionScalarDeletingDestructor(CEventObjectCollision* self, void* /*edx*/, uint8 flags) {
+    ObjectCollisionDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CEventObjectCollision::InjectHooks()
@@ -35,6 +46,7 @@ void CEventObjectCollision::InjectHooks()
     RH_ScopedVirtualClass(CEventObjectCollision, 0x85ACA8, 16);
     RH_ScopedCategory("Events");
     RH_ScopedNamedGlobalInstall(ObjectCollisionDestructorBody, "Destructor", 0x4ACDD0);
+    RH_ScopedNamedGlobalInstall(ObjectCollisionScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B59D0); // lote 190A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x4ACCF0);
     RH_ScopedVMTInstall(AffectsPed, 0x4ACE30);

@@ -11,9 +11,12 @@ class NOTSA_EXPORT_VTABLE CEventAcquaintancePedHate : public CEventAcquaintanceP
 public:
     using CEventAcquaintancePed::CEventAcquaintancePed;
 
-    eEventType GetEventType() const override { return EVENT_ACQUAINTANCE_PED_HATE; }
-    int32 GetEventPriority() const override { return 26; }
-    CEventEditableResponse* CloneEditable() const noexcept override { return new CEventAcquaintancePedHate(m_AcquaintancePed); }
+    eEventType GetEventType() const override;                         // 0x420F40 (lote 190A, sin validar)
+    int32 GetEventPriority() const override;                          // 0x420FD0 (lote 190A, sin validar)
+    int32 GetLifeTime() override;                                     // 0x420F00 (lote 190A, sin validar)
+    CEntity* GetSourceEntity() const override;                        // 0x420F10 (lote 190A, sin validar)
+    bool CanBeInterruptedBySameEvent() override;                      // 0x420F20 (lote 190A, sin validar)
+    CEventEditableResponse* CloneEditable() const noexcept override;  // 0x420F50 (lote 190A, sin validar)
 
 public:
     friend class CEventAcquaintancePed;

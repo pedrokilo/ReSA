@@ -49,4 +49,6 @@ private: // Wrappers for hooks
         this->CTaskComplexKillPedGroupOnFoot::~CTaskComplexKillPedGroupOnFoot();
         return this;
     }
+
+    CTaskComplexKillPedGroupOnFoot* ScalarDeletingDestructor(uint8 flags); // 0x629550 (lote 190A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86DA48), `ret 4`
 };

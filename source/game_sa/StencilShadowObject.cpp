@@ -27,6 +27,7 @@ void CStencilShadowObject::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x70F8D0);
     RH_ScopedInstall(Destructor, 0x70F8E0);
     RH_ScopedInstall(Destroy, 0x711310);
+    RH_ScopedInstall(Create, 0x711280); // lote 190A (sin validar)
 }
 
 // 0x711310
@@ -63,7 +64,8 @@ void CStencilShadowObject::Destroy() {
     }
 }
 
-// 0x711280
+// 0x711280 (lote 190A, sin validar; thiscall, entidad y tipo (BYTE) en la pila, `ret 8`, 134 bytes; el listado lo atribuia a CStencilShadows): toma este objeto libre para una entidad con datos de sombra
+// y lo pasa a la lista activa (UpdateHierarchy 0x710BC0, con hook); devuelve this o nulo.
 CStencilShadowObject* CStencilShadowObject::Create(CEntity* owner, eStencilShadowObjType type) {
     if (type == eStencilShadowObjType::NONE || (uint8)type > 2) {
         return nullptr;

@@ -29,12 +29,24 @@ void __fastcall Destructor(CEventGunShot* self, void* /*edx*/) {
     CEntity::SafeCleanUpRef(self->m_firedBy);
     *reinterpret_cast<uint32*>(self) = 0x85AB38;
 }
+
+// 0x4B58E0 (lote 190A, sin validar): destructor con borrado de CEventGunShot del EXE (ranura 0 de su vtable 0x85ABE0; thiscall, un argumento de pila, `ret 4`, 76 bytes: `push esi; push edi; mov edi,ecx; call 0x4AC720; test byte [esp+0Ch],1; je ..;`
+// y, con el bit 0 del BYTE de banderas, el operator delete de CEvent EN LINEA (pool de eventos 0xB744AC, como 0x4B5630); devuelve `this`). Como el original: destruye con el cuerpo de la clase (0x4AC720), libera `this`
+// con CEvent::operator delete (0x4B5630, con hook; mismo efecto que la copia en linea) solo si el bit 0 esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CEventGunShot* __fastcall GunShotScalarDeletingDestructor(CEventGunShot* self, void* /*edx*/, uint8 flags) {
+    CEventGunShotBody::Destructor(self, nullptr);
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
+}
 } // namespace CEventGunShotBody
 
 void CEventGunShot::InjectHooks() {
     RH_ScopedVirtualClass(CEventGunShot, 0x85ABE0, 17);
     RH_ScopedCategory("Events");
     RH_ScopedNamedGlobalInstall(CEventGunShotBody::Destructor, "Destructor", 0x4AC720);
+    RH_ScopedNamedGlobalInstall(CEventGunShotBody::GunShotScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B58E0); // lote 190A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x4AC610);
     RH_ScopedVMTInstall(AffectsPed, 0x4B2CD0);
