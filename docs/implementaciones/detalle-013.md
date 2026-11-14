@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 14/11/2026 (Ciudad de México):** 903 grupos / 10577 funciones reconstruidas; 10577 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 14/11/2026 (Ciudad de México):** 906 grupos / 10590 funciones reconstruidas; 10590 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,33 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-241"></a>
+
+## CEventKnockOffBike
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * __fastcall KnockOffBikeCopyConstructorExe(CEventKnockOffBike* self, void* /*edx*/, const CEventKnockOffBike* other) | [source/game_sa/Events/EventKnockOffBike.cpp:48](../../source/game_sa/Events/EventKnockOffBike.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventKnockOffBike::CopyConstructor 0x004B4A50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::InjectHooks() | [source/game_sa/Events/EventKnockOffBike.cpp:57](../../source/game_sa/Events/EventKnockOffBike.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CEventKnockOffBike::Clone() const noexcept | [source/game_sa/Events/EventKnockOffBike.cpp:85](../../source/game_sa/Events/EventKnockOffBike.cpp#L85) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventKnockOffBike::Clone 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::CEventKnockOffBike(CVehicle* vehicle, const CVector& moveSpeed, const CVector& collisionImpactVelocity, float damageIntensity, float a6, uint8 knockOffType, uint8 knockOffDirection, int32 time, CPed* ped, bool isVictimDriver, bool forceKnockOff) | [source/game_sa/Events/EventKnockOffBike.cpp:104](../../source/game_sa/Events/EventKnockOffBike.cpp#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::CEventKnockOffBike() | [source/game_sa/Events/EventKnockOffBike.cpp:122](../../source/game_sa/Events/EventKnockOffBike.cpp#L122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::~CEventKnockOffBike() | [source/game_sa/Events/EventKnockOffBike.cpp:135](../../source/game_sa/Events/EventKnockOffBike.cpp#L135) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CEventKnockOffBike::Constructor(CVehicle* vehicle, CVector* moveSpeed, CVector* collisionImpactVelocity, float damageIntensity, float a6, int32 knockOffType, uint8 knockOffDirection, int32 time, CPed* ped, bool isVictimDriver, bool forceKnockOff) | [source/game_sa/Events/EventKnockOffBike.cpp:141](../../source/game_sa/Events/EventKnockOffBike.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventKnockOffBike::Constructor-first 0x004AFCF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CEventKnockOffBike::Constructor() | [source/game_sa/Events/EventKnockOffBike.cpp:147](../../source/game_sa/Events/EventKnockOffBike.cpp#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventKnockOffBike::Constructor-second 0x004AFC70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::GetEventType() const | [source/game_sa/Events/EventKnockOffBike.cpp:154](../../source/game_sa/Events/EventKnockOffBike.cpp#L154) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventKnockOffBike::GetEventType 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::GetEventPriority() const | [source/game_sa/Events/EventKnockOffBike.cpp:159](../../source/game_sa/Events/EventKnockOffBike.cpp#L159) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventKnockOffBike::GetEventPriority 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::GetLifeTime() | [source/game_sa/Events/EventKnockOffBike.cpp:164](../../source/game_sa/Events/EventKnockOffBike.cpp#L164) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventKnockOffBike::GetLifeTime 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::IsCriminalEvent() | [source/game_sa/Events/EventKnockOffBike.cpp:169](../../source/game_sa/Events/EventKnockOffBike.cpp#L169) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventKnockOffBike::IsCriminalEvent 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::GetLocalSoundLevel() | [source/game_sa/Events/EventKnockOffBike.cpp:174](../../source/game_sa/Events/EventKnockOffBike.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventKnockOffBike::GetLocalSoundLevel 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::AffectsPed(CPed* ped) | [source/game_sa/Events/EventKnockOffBike.cpp:179](../../source/game_sa/Events/EventKnockOffBike.cpp#L179) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventKnockOffBike::AffectsPed 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::ReportCriminalEvent(CPed* ped) | [source/game_sa/Events/EventKnockOffBike.cpp:204](../../source/game_sa/Events/EventKnockOffBike.cpp#L204) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventKnockOffBike::ReportCriminalEvent 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::From(const CEventKnockOffBike& right) | [source/game_sa/Events/EventKnockOffBike.cpp:213](../../source/game_sa/Events/EventKnockOffBike.cpp#L213) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventKnockOffBike::From 0x004AFDD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::SetPedOutCar(CPed* ped) | [source/game_sa/Events/EventKnockOffBike.cpp:231](../../source/game_sa/Events/EventKnockOffBike.cpp#L231) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventKnockOffBike::SetPedOutCar 0x004AFF60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::CalcForcesAndAnims(CPed* ped) | [source/game_sa/Events/EventKnockOffBike.cpp:269](../../source/game_sa/Events/EventKnockOffBike.cpp#L269) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventKnockOffBike::CalcForcesAndAnims 0x004B0020 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventKnockOffBike::SetPedSafePosition(CPed* ped) | [source/game_sa/Events/EventKnockOffBike.cpp:418](../../source/game_sa/Events/EventKnockOffBike.cpp#L418) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventKnockOffBike::SetPedSafePosition 0x004B4AC0 | 0 / 0 | Posible dato fijo pIgnoreEntity: source/game_sa/World.h:67 (0x00B7CD68) |
+| operator=(const CEventKnockOffBike& right) | [source/game_sa/Events/EventKnockOffBike.h:47](../../source/game_sa/Events/EventKnockOffBike.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventKnockOffBike::operator= 0x004B4AA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-242"></a>
 
 ## CEventLeaderEnteredCarAsDriver
 
@@ -27,7 +54,7 @@
 | CEventLeaderEnteredCarAsDriver::AffectsPedGroup(CPedGroup* pedGroup) | [source/game_sa/Events/EventLeaderEnteredCarAsDriver.cpp:121](../../source/game_sa/Events/EventLeaderEnteredCarAsDriver.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventLeaderEnteredCarAsDriver::AffectsPedGroup 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | TakesPriorityOver(const CEvent& refEvent) override | [source/game_sa/Events/EventLeaderEnteredCarAsDriver.h:26](../../source/game_sa/Events/EventLeaderEnteredCarAsDriver.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventLeaderEnteredCarAsDriver::TakesPriorityOver 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-242"></a>
+<a id="grupo-243"></a>
 
 ## CEventLeaderEntryExit
 
@@ -47,7 +74,7 @@
 | AffectsPedGroup(CPedGroup* pedGroup) override | [source/game_sa/Events/EventLeaderEntryExit.h:25](../../source/game_sa/Events/EventLeaderEntryExit.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventLeaderEntryExit::AffectsPedGroup 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | TakesPriorityOver(const CEvent& refEvent) override | [source/game_sa/Events/EventLeaderEntryExit.h:26](../../source/game_sa/Events/EventLeaderEntryExit.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventLeaderEntryExit::TakesPriorityOver 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-243"></a>
+<a id="grupo-244"></a>
 
 ## CEventLeaderExitedCarAsDriver
 
@@ -65,7 +92,7 @@
 | * CEventLeaderExitedCarAsDriver::Constructor() | [source/game_sa/Events/EventLeaderExitedCarAsDriver.cpp:104](../../source/game_sa/Events/EventLeaderExitedCarAsDriver.cpp#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventLeaderExitedCarAsDriver::Constructor 0x004B8300 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CEventLeaderExitedCarAsDriver::AffectsPedGroup(CPedGroup* pg) | [source/game_sa/Events/EventLeaderExitedCarAsDriver.cpp:111](../../source/game_sa/Events/EventLeaderExitedCarAsDriver.cpp#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventLeaderExitedCarAsDriver::AffectsPedGroup 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-244"></a>
+<a id="grupo-245"></a>
 
 ## CEventLeaderQuitEnteringCarAsDriver
 
@@ -83,7 +110,7 @@
 | * CEventLeaderQuitEnteringCarAsDriver::Constructor() | [source/game_sa/Events/EventLeaderQuitEnteringCarAsDriver.cpp:103](../../source/game_sa/Events/EventLeaderQuitEnteringCarAsDriver.cpp#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventLeaderQuitEnteringCarAsDriver::Constructor 0x0063A110 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CEventLeaderQuitEnteringCarAsDriver::AffectsPedGroup(CPedGroup* pedGroup) | [source/game_sa/Events/EventLeaderQuitEnteringCarAsDriver.cpp:110](../../source/game_sa/Events/EventLeaderQuitEnteringCarAsDriver.cpp#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventLeaderQuitEnteringCarAsDriver::AffectsPedGroup 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-245"></a>
+<a id="grupo-246"></a>
 
 ## CEventLeanOnVehicle
 
@@ -102,7 +129,7 @@
 | CEventLeanOnVehicle::~CEventLeanOnVehicle() | [source/game_sa/Events/EventLeanOnVehicle.cpp:104](../../source/game_sa/Events/EventLeanOnVehicle.cpp#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CEventLeanOnVehicle::IsValid(CPed* ped) | [source/game_sa/Events/EventLeanOnVehicle.cpp:109](../../source/game_sa/Events/EventLeanOnVehicle.cpp#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventLeanOnVehicle::IsValid 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-246"></a>
+<a id="grupo-247"></a>
 
 ## CEventLowAngerAtPlayer
 
@@ -114,7 +141,7 @@
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventLowAngerAtPlayer.h:16](../../source/game_sa/Events/EventLowAngerAtPlayer.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventLowAngerAtPlayer.h:17](../../source/game_sa/Events/EventLowAngerAtPlayer.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-247"></a>
+<a id="grupo-248"></a>
 
 ## CEventNewGangMember
 
@@ -132,7 +159,7 @@
 | CEventNewGangMember::~CEventNewGangMember() | [source/game_sa/Events/EventNewGangMember.cpp:101](../../source/game_sa/Events/EventNewGangMember.cpp#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CEventNewGangMember::Constructor(CPed* member) | [source/game_sa/Events/EventNewGangMember.cpp:107](../../source/game_sa/Events/EventNewGangMember.cpp#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventNewGangMember::Constructor 0x00608F70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-248"></a>
+<a id="grupo-249"></a>
 
 ## CEventObjectCollision
 
@@ -150,7 +177,7 @@
 | CEventObjectCollision::AffectsPed(CPed* ped) | [source/game_sa/Events/EventObjectCollision.cpp:103](../../source/game_sa/Events/EventObjectCollision.cpp#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventObjectCollision::AffectsPed 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const noexcept override | [source/game_sa/Events/EventObjectCollision.h:33](../../source/game_sa/Events/EventObjectCollision.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-249"></a>
+<a id="grupo-250"></a>
 
 ## CEventOnFire
 
@@ -164,7 +191,7 @@
 | * Clone() const noexcept override | [source/game_sa/Events/EventOnFire.h:15](../../source/game_sa/Events/EventOnFire.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetLocalSoundLevel() override | [source/game_sa/Events/EventOnFire.h:17](../../source/game_sa/Events/EventOnFire.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-250"></a>
+<a id="grupo-251"></a>
 
 ## CEventPassObject
 
@@ -182,7 +209,7 @@
 | CEventPassObject::AffectsPed(CPed* ped) | [source/game_sa/Events/EventPassObject.cpp:106](../../source/game_sa/Events/EventPassObject.cpp#L106) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventPassObject::AffectsPed 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CEventPassObject::IsValid(CPed* ped) | [source/game_sa/Events/EventPassObject.cpp:111](../../source/game_sa/Events/EventPassObject.cpp#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventPassObject::IsValid 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-251"></a>
+<a id="grupo-252"></a>
 
 ## CEventPedCollisionWithPed
 
@@ -201,7 +228,7 @@
 | GetVictimMoveState() const | [source/game_sa/Events/EventPedCollisionWithPed.h:29](../../source/game_sa/Events/EventPedCollisionWithPed.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetMoveState() const | [source/game_sa/Events/EventPedCollisionWithPed.h:30](../../source/game_sa/Events/EventPedCollisionWithPed.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-252"></a>
+<a id="grupo-253"></a>
 
 ## CEventPedCollisionWithPlayer
 
@@ -214,7 +241,7 @@
 | CEventPedCollisionWithPlayer::CEventPedCollisionWithPlayer(int16 pieceType, float damageIntensity, CPed* victim, const CVector& collisionImpactVelocity, const CVector& collisionPos, eMoveState moveState, eMoveState victimMoveState) | [source/game_sa/Events/EventPedCollisionWithPlayer.cpp:78](../../source/game_sa/Events/EventPedCollisionWithPlayer.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventPedCollisionWithPlayer::Constructor 0x005FED40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CEventPedCollisionWithPlayer::Constructor(int16 pieceType, float damageIntensity, CPed* victim, const CVector& collisionImpactVelocity, const CVector& collisionPos, eMoveState moveState, eMoveState victimMoveState) | [source/game_sa/Events/EventPedCollisionWithPlayer.cpp:84](../../source/game_sa/Events/EventPedCollisionWithPlayer.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventPedCollisionWithPlayer::Constructor 0x005FED40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-253"></a>
+<a id="grupo-254"></a>
 
 ## CEventPedEnteredMyVehicle
 
@@ -233,7 +260,7 @@
 | GetLocalSoundLevel() override | [source/game_sa/Events/EventPedEnteredMyVehicle.h:17](../../source/game_sa/Events/EventPedEnteredMyVehicle.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventPedEnteredMyVehicle.h:18](../../source/game_sa/Events/EventPedEnteredMyVehicle.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-254"></a>
+<a id="grupo-255"></a>
 
 ## CEventPedToChase
 
@@ -249,7 +276,7 @@
 | * Clone() const noexcept override | [source/game_sa/Events/EventPedToChase.h:19](../../source/game_sa/Events/EventPedToChase.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventPedToChase.h:20](../../source/game_sa/Events/EventPedToChase.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-255"></a>
+<a id="grupo-256"></a>
 
 ## CEventPedToFlee
 
@@ -265,7 +292,7 @@
 | * Clone() const noexcept override | [source/game_sa/Events/EventPedToFlee.h:17](../../source/game_sa/Events/EventPedToFlee.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventPedToFlee.h:18](../../source/game_sa/Events/EventPedToFlee.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-256"></a>
+<a id="grupo-257"></a>
 
 ## CEventPlayerCollisionWithPed
 
@@ -278,7 +305,7 @@
 | CEventPlayerCollisionWithPed::CEventPlayerCollisionWithPed(int16 pieceType, float damageIntensity, CPed* victim, const CVector& collisionImpactVelocity, const CVector& collisionPos, eMoveState moveState, eMoveState victimMoveState) | [source/game_sa/Events/EventPlayerCollisionWithPed.cpp:78](../../source/game_sa/Events/EventPlayerCollisionWithPed.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventPlayerCollisionWithPed::Constructor 0x005FEE40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CEventPlayerCollisionWithPed::Constructor(int16 pieceType, float damageIntensity, CPed* victim, const CVector& collisionImpactVelocity, const CVector& collisionPos, eMoveState moveState, eMoveState victimMoveState) | [source/game_sa/Events/EventPlayerCollisionWithPed.cpp:84](../../source/game_sa/Events/EventPlayerCollisionWithPed.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventPlayerCollisionWithPed::Constructor 0x005FEE40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-257"></a>
+<a id="grupo-258"></a>
 
 ## CEventPlayerCommandBody
 
@@ -286,7 +313,7 @@
 | --- | --- | --- | --- | --- | --- |
 | PlayerCommandToGroupDestructorBody(CEventPlayerCommandToGroup* self, void* /*edx*/) | [source/game_sa/Events/EventPlayerCommandToGroup.cpp:26](../../source/game_sa/Events/EventPlayerCommandToGroup.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventPlayerCommandToGroup::Destructor 0x004B2470 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-258"></a>
+<a id="grupo-259"></a>
 
 ## CEventPlayerCommandToGroup
 
@@ -306,7 +333,7 @@
 | * GetSourceEntity() const override | [source/game_sa/Events/EventPlayerCommandToGroup.h:31](../../source/game_sa/Events/EventPlayerCommandToGroup.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventPlayerCommandToGroup::GetSourceEntity 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | TakesPriorityOver(const CEvent& refEvent) override | [source/game_sa/Events/EventPlayerCommandToGroup.h:32](../../source/game_sa/Events/EventPlayerCommandToGroup.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventPlayerCommandToGroup::TakesPriorityOver 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-259"></a>
+<a id="grupo-260"></a>
 
 ## CEventPlayerCommandToGroupAttack
 
@@ -321,16 +348,3 @@
 | * CEventPlayerCommandToGroupAttack::Constructor(CPed* target) | [source/game_sa/Events/EventPlayerCommandToGroupAttack.cpp:85](../../source/game_sa/Events/EventPlayerCommandToGroupAttack.cpp#L85) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventPlayerCommandToGroupAttack::Constructor 0x005F6340 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CEventPlayerCommandToGroupAttack::AffectsPedGroup(CPedGroup* pedGroup) | [source/game_sa/Events/EventPlayerCommandToGroupAttack.cpp:92](../../source/game_sa/Events/EventPlayerCommandToGroupAttack.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventPlayerCommandToGroupAttack::AffectsPedGroup 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CEventPlayerCommandToGroupAttack(CPed* target) | [source/game_sa/Events/EventPlayerCommandToGroupAttack.h:13](../../source/game_sa/Events/EventPlayerCommandToGroupAttack.h#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-260"></a>
-
-## CEventPlayerCommandToGroupGather
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CEventPlayerCommandToGroupGather::InjectHooks() | [source/game_sa/Events/EventPlayerCommandToGroupGather.cpp:46](../../source/game_sa/Events/EventPlayerCommandToGroupGather.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEventPlayerCommandToGroupGather::GetEventType() const | [source/game_sa/Events/EventPlayerCommandToGroupGather.cpp:60](../../source/game_sa/Events/EventPlayerCommandToGroupGather.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventPlayerCommandToGroupGather::GetEventType 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEventPlayerCommandToGroupGather::GetEventPriority() const | [source/game_sa/Events/EventPlayerCommandToGroupGather.cpp:65](../../source/game_sa/Events/EventPlayerCommandToGroupGather.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventPlayerCommandToGroupGather::GetEventPriority 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CEventPlayerCommandToGroupGather::CloneEditable() const noexcept | [source/game_sa/Events/EventPlayerCommandToGroupGather.cpp:72](../../source/game_sa/Events/EventPlayerCommandToGroupGather.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventPlayerCommandToGroupGather::CloneEditable 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CEventPlayerCommandToGroupGather::Constructor(CPed* target) | [source/game_sa/Events/EventPlayerCommandToGroupGather.cpp:83](../../source/game_sa/Events/EventPlayerCommandToGroupGather.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventPlayerCommandToGroupGather::Constructor 0x00609250 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEventPlayerCommandToGroupGather(CPed* target) | [source/game_sa/Events/EventPlayerCommandToGroupGather.h:11](../../source/game_sa/Events/EventPlayerCommandToGroupGather.h#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

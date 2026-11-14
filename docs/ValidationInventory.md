@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **10,577 entradas reversed=1**, de 10,577 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **10,590 entradas reversed=1**, de 10,590 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 10577 |
+| `validated=1` · evidencia aprobada vinculada | 10590 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 10577 |
+| Evidencia histórica vinculada; revisión pendiente | 10590 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2653,6 +2653,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventAcquaintancePed | `Constructor` | [Resumen](../reversing/Events23/validation-summary.json) |
 | CEventAcquaintancePed | `Destructor` | [Resumen](../reversing/Fn107A/validation-summary.json) |
 | CEventAcquaintancePed | `TakesPriorityOver` | [Resumen](../reversing/Events23/validation-summary.json) |
+| CEventAcquaintancePedDislike | `CloneEditable` | [Resumen](../reversing/Fn188A/validation-summary.json) |
+| CEventAcquaintancePedDislike | `DestructorBody` | [Resumen](../reversing/Fn188A/validation-summary.json) |
+| CEventAcquaintancePedDislike | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn188A/validation-summary.json) |
 | CEventAcquaintancePedHate | `Constructor2` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CEventAcquaintancePedHateBadlyLit | `AffectsPed` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventAcquaintancePedHateBadlyLit | `CanBeInterruptedBySameEvent` | [Resumen](../reversing/Fn178A/validation-summary.json) |
@@ -2661,6 +2664,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventAcquaintancePedHateBadlyLit | `DestructorBody` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CEventAcquaintancePedHateBadlyLit | `GetEventType` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CEventAcquaintancePedHateBadlyLit | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
+| CEventAcquaintancePedLike | `CloneEditable` | [Resumen](../reversing/Fn188A/validation-summary.json) |
+| CEventAcquaintancePedLike | `DestructorBody` | [Resumen](../reversing/Fn188A/validation-summary.json) |
+| CEventAcquaintancePedLike | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn188A/validation-summary.json) |
+| CEventAcquaintancePedRespect | `CloneEditable` | [Resumen](../reversing/Fn188A/validation-summary.json) |
+| CEventAcquaintancePedRespect | `DestructorBody` | [Resumen](../reversing/Fn188A/validation-summary.json) |
+| CEventAcquaintancePedRespect | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn188A/validation-summary.json) |
 | CEventAreaCodes | `AffectsPed` | [Resumen](../reversing/Events52/validation-summary.json) |
 | CEventAreaCodes | `Constructor` | [Resumen](../reversing/Events52/validation-summary.json) |
 | CEventAreaCodes | `Destructor` | [Resumen](../reversing/Fn107A/validation-summary.json) |
@@ -3113,7 +3122,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventScriptCommand | `GetEventType` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CEventScriptCommand | `IsValid` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CEventScriptCommand | `TakesPriorityOver` | [Resumen](../reversing/Data8b/validation-summary.json) |
+| CEventScriptedAttractor | `CloneEditable` | [Resumen](../reversing/Fn188A/validation-summary.json) |
 | CEventScriptedAttractor | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
+| CEventScriptedAttractor | `DestructorBody` | [Resumen](../reversing/Fn188A/validation-summary.json) |
+| CEventScriptedAttractor | `GetEventType` | [Resumen](../reversing/Fn188A/validation-summary.json) |
+| CEventScriptedAttractor | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn188A/validation-summary.json) |
 | CEventSeenCop | `Constructor1` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CEventSeenPanickedPed | `AffectsPed` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventSeenPanickedPed | `Constructor` | [Resumen](../reversing/Events70/validation-summary.json) |
@@ -10779,8 +10792,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEscalators` | 4 | 0 | 4 | 0 |
 | `CEvent` | 16 | 0 | 16 | 0 |
 | `CEventAcquaintancePed` | 5 | 0 | 5 | 0 |
+| `CEventAcquaintancePedDislike` | 3 | 0 | 3 | 0 |
 | `CEventAcquaintancePedHate` | 1 | 0 | 1 | 0 |
 | `CEventAcquaintancePedHateBadlyLit` | 7 | 0 | 7 | 0 |
+| `CEventAcquaintancePedLike` | 3 | 0 | 3 | 0 |
+| `CEventAcquaintancePedRespect` | 3 | 0 | 3 | 0 |
 | `CEventAreaCodes` | 7 | 0 | 7 | 0 |
 | `CEventAttractor` | 8 | 0 | 8 | 0 |
 | `CEventBuildingCollision` | 10 | 0 | 10 | 0 |
@@ -10838,7 +10854,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventRevived` | 2 | 0 | 2 | 0 |
 | `CEventScanner` | 3 | 0 | 3 | 0 |
 | `CEventScriptCommand` | 9 | 0 | 9 | 0 |
-| `CEventScriptedAttractor` | 1 | 0 | 1 | 0 |
+| `CEventScriptedAttractor` | 5 | 0 | 5 | 0 |
 | `CEventSeenCop` | 1 | 0 | 1 | 0 |
 | `CEventSeenPanickedPed` | 8 | 0 | 8 | 0 |
 | `CEventSexyPed` | 2 | 0 | 2 | 0 |

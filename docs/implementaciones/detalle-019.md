@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 14/11/2026 (Ciudad de México):** 903 grupos / 10577 funciones reconstruidas; 10577 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 14/11/2026 (Ciudad de México):** 906 grupos / 10590 funciones reconstruidas; 10590 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,24 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-361"></a>
+
+## CModelInfoAccelerator
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CModelInfoAccelerator::CModelInfoAccelerator() | [source/game_sa/ModelInfoAccelerator.cpp:6](../../source/game_sa/ModelInfoAccelerator.cpp#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CModelInfoAccelerator::Init() | [source/game_sa/ModelInfoAccelerator.cpp:11](../../source/game_sa/ModelInfoAccelerator.cpp#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CModelInfoAccelerator::AddModelInfoId(uint16 modelId) | [source/game_sa/ModelInfoAccelerator.cpp:20](../../source/game_sa/ModelInfoAccelerator.cpp#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CModelInfoAccelerator::GetNextModelInfoId() | [source/game_sa/ModelInfoAccelerator.cpp:25](../../source/game_sa/ModelInfoAccelerator.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CModelInfoAccelerator::AllocModelInfoIds() | [source/game_sa/ModelInfoAccelerator.cpp:30](../../source/game_sa/ModelInfoAccelerator.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CModelInfoAccelerator::FreeModelInfoIds() | [source/game_sa/ModelInfoAccelerator.cpp:36](../../source/game_sa/ModelInfoAccelerator.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CModelInfoAccelerator::GetEntry(CBaseModelInfo** mi, int32* arg1, char* arg2) | [source/game_sa/ModelInfoAccelerator.cpp:42](../../source/game_sa/ModelInfoAccelerator.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CModelInfoAccelerator::Begin(const char* filePath) | [source/game_sa/ModelInfoAccelerator.cpp:47](../../source/game_sa/ModelInfoAccelerator.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CModelInfoAccelerator::End(const char* filePath) | [source/game_sa/ModelInfoAccelerator.cpp:56](../../source/game_sa/ModelInfoAccelerator.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CModelInfoAccelerator::GetModelInfoIdFile() | [source/game_sa/ModelInfoAccelerator.cpp:61](../../source/game_sa/ModelInfoAccelerator.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CModelInfoAccelerator::EndOfLoadPhase() | [source/game_sa/ModelInfoAccelerator.cpp:75](../../source/game_sa/ModelInfoAccelerator.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-362"></a>
 
 ## CMonsterTruck
 
@@ -29,7 +47,7 @@
 | * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/MonsterTruck.h:67](../../source/game_sa/Entity/Vehicle/MonsterTruck.h#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMonsterTruck::Constructor 0x006C8D60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Entity/Vehicle/MonsterTruck.h:68](../../source/game_sa/Entity/Vehicle/MonsterTruck.h#L68) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-362"></a>
+<a id="grupo-363"></a>
 
 ## CMotionBlurStreaks
 
@@ -41,7 +59,7 @@
 | CMotionBlurStreaks::Render() | [source/game_sa/MotionBlurStreaks.cpp:52](../../source/game_sa/MotionBlurStreaks.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMotionBlurStreaks::Render 0x007240E0 | 0 / 0 | Posible dato fijo aStreaks: source/game_sa/MotionBlurStreaks.h:14 (0x00C7CA08); Posible dato fijo m_CurrentColours: source/game_sa/TimeCycle.h:105 (0x00B7C4A0); Posible dato fijo m_nSkyBottomBlue: source/game_sa/TimeCycle.h:54 (0x00B7BBE0); Posible dato fijo m_nSkyBottomGreen: source/game_sa/TimeCycle.h:53 (0x00B7BC98); Posible dato fijo m_nSkyBottomRed: source/game_sa/TimeCycle.h:52 (0x00B7BD50) |
 | CMotionBlurStreaks::RegisterStreak(uint32 id, uint8 red, uint8 green, uint8 blue, uint8 alpha, CVector leftPoint, CVector rightPoint) | [source/game_sa/MotionBlurStreaks.cpp:82](../../source/game_sa/MotionBlurStreaks.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMotionBlurStreaks::RegisterStreak 0x00721DC0 | 0 / 0 | Posible dato fijo aStreaks: source/game_sa/MotionBlurStreaks.h:14 (0x00C7CA08) |
 
-<a id="grupo-363"></a>
+<a id="grupo-364"></a>
 
 ## CMouseControllerState
 
@@ -54,7 +72,7 @@
 | CMouseControllerState::CheckForInput() const | [source/game_sa/MouseControllerState.cpp:56](../../source/game_sa/MouseControllerState.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMouseControllerState::CheckForInput 0x0053F270 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetAmountMouseMoved() const | [source/game_sa/MouseControllerState.h:24](../../source/game_sa/MouseControllerState.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-364"></a>
+<a id="grupo-365"></a>
 
 ## CMovingThings
 
@@ -67,7 +85,7 @@
 | CMovingThings::Render() | [source/game_sa/MovingThings.cpp:58](../../source/game_sa/MovingThings.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMovingThings::Render 0x00717150 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CMovingThings::Render_BeforeClouds() | [source/game_sa/MovingThings.cpp:65](../../source/game_sa/MovingThings.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMovingThings::Render_BeforeClouds 0x007178F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-365"></a>
+<a id="grupo-366"></a>
 
 ## CNearbyFireScanner
 
@@ -76,7 +94,7 @@
 | CNearbyFireScanner::InjectHooks() | [source/game_sa/Events/EventScanner.cpp:124](../../source/game_sa/Events/EventScanner.cpp#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CNearbyFireScanner::ScanForNearbyFires(CPed& ped) | [source/game_sa/Events/EventScanner.cpp:682](../../source/game_sa/Events/EventScanner.cpp#L682) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CNearbyFireScanner::ScanForNearbyFires 0x00603E70 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo gFireManager: source/game_sa/FireManager.h:81 (0x00B71F80) |
 
-<a id="grupo-366"></a>
+<a id="grupo-367"></a>
 
 ## CNodeAddress
 
@@ -92,7 +110,7 @@
 | IsAreaValid() const | [source/game_sa/NodeAddress.h:26](../../source/game_sa/NodeAddress.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsValid() const | [source/game_sa/NodeAddress.h:27](../../source/game_sa/NodeAddress.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-367"></a>
+<a id="grupo-368"></a>
 
 ## CNodeRoute
 
@@ -103,7 +121,7 @@
 | * CNodeRoute::operator new(uint32 size) | [source/game_sa/NodeRoute.cpp:43](../../source/game_sa/NodeRoute.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CNodeRoute::operator new 0x0041B860 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CNodeRoute::operator delete(void* ptr, size_t sz) | [source/game_sa/NodeRoute.cpp:47](../../source/game_sa/NodeRoute.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CNodeRoute::operator delete 0x0041B870 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-368"></a>
+<a id="grupo-369"></a>
 
 ## CNodeRoutePool
 
@@ -113,7 +131,7 @@
 | * New() | [source/game_sa/Pools/NodeRoutePool.h:51](../../source/game_sa/Pools/NodeRoutePool.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CNodeRoutePool::New 0x0041B710 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Delete(CNodeRoute* route) | [source/game_sa/Pools/NodeRoutePool.h:56](../../source/game_sa/Pools/NodeRoutePool.h#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-369"></a>
+<a id="grupo-370"></a>
 
 ## CObject
 
@@ -188,7 +206,7 @@
 | CanBeSmashed() const | [source/game_sa/Entity/Object/Object.h:169](../../source/game_sa/Entity/Object/Object.h#L169) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Constructor(int32 modelId, bool bCreate) | [source/game_sa/Entity/Object/Object.h:176](../../source/game_sa/Entity/Object/Object.h#L176) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CObject::Constructor 0x005A1D70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-370"></a>
+<a id="grupo-371"></a>
 
 ## CObjectBody
 
@@ -196,7 +214,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Destructor(CObject* self, void* /*edx*/) | [source/game_sa/Entity/Object/Object.cpp:240](../../source/game_sa/Entity/Object/Object.cpp#L240) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-371"></a>
+<a id="grupo-372"></a>
 
 ## CObjectData
 
@@ -209,7 +227,7 @@
 | & GetAtIndex(int32 index) | [source/game_sa/ObjectData.h:89](../../source/game_sa/ObjectData.h#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_aObjectInfo: source/game_sa/ObjectData.h:78 (0x00BB4A90) |
 | & GetDefault() | [source/game_sa/ObjectData.h:90](../../source/game_sa/ObjectData.h#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_aObjectInfo: source/game_sa/ObjectData.h:78 (0x00BB4A90) |
 
-<a id="grupo-372"></a>
+<a id="grupo-373"></a>
 
 ## CObjectPool
 
@@ -218,7 +236,7 @@
 | InjectHooks() | [source/game_sa/Pools/ObjectPool.h:38](../../source/game_sa/Pools/ObjectPool.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * New() | [source/game_sa/Pools/ObjectPool.h:50](../../source/game_sa/Pools/ObjectPool.h#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CObjectPool::New 0x005A1C20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-373"></a>
+<a id="grupo-374"></a>
 
 ## CObjectPotentialCollisionScanner
 
@@ -227,7 +245,7 @@
 | CObjectPotentialCollisionScanner::InjectHooks() | [source/game_sa/Events/EventScanner.cpp:100](../../source/game_sa/Events/EventScanner.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CObjectPotentialCollisionScanner::ScanForObjectPotentialCollisionEvents(CPed& ped) | [source/game_sa/Events/EventScanner.cpp:396](../../source/game_sa/Events/EventScanner.cpp#L396) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CObjectPotentialCollisionScanner::ScanForObjectPotentialCollisionEvents 0x00606890 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-374"></a>
+<a id="grupo-375"></a>
 
 ## CObjectSaveStructure
 
@@ -237,7 +255,7 @@
 | CObjectSaveStructure::Construct(CObject* obj) | [source/game_sa/ObjectSaveStructure.cpp:32](../../source/game_sa/ObjectSaveStructure.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CObjectSaveStructure::Construct 0x005D2160 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CObjectSaveStructure::Extract(CObject* obj) | [source/game_sa/ObjectSaveStructure.cpp:69](../../source/game_sa/ObjectSaveStructure.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CObjectSaveStructure::Extract 0x005D2220 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-375"></a>
+<a id="grupo-376"></a>
 
 ## CObjectScanner
 
@@ -247,7 +265,7 @@
 | * CObjectScanner::GetClosestObjectInRange() const | [source/game_sa/ObjectScanner.cpp:14](../../source/game_sa/ObjectScanner.cpp#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CObjectScanner() | [source/game_sa/ObjectScanner.h:9](../../source/game_sa/ObjectScanner.h#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-376"></a>
+<a id="grupo-377"></a>
 
 ## COccluder
 
@@ -262,7 +280,7 @@
 | GetRotation() const noexcept | [source/game_sa/Occluder.h:29](../../source/game_sa/Occluder.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetSize() const noexcept | [source/game_sa/Occluder.h:30](../../source/game_sa/Occluder.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-377"></a>
+<a id="grupo-378"></a>
 
 ## COcclusion
 
@@ -276,7 +294,7 @@
 | COcclusion::ProcessBeforeRendering() | [source/game_sa/Occlusion.cpp:166](../../source/game_sa/Occlusion.cpp#L166) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: COcclusion::ProcessBeforeRendering 0x007201C0 | 0 / 0 | Posible dato fijo ActiveOccluders: source/game_sa/Occlusion.h:18 (0x00C78610); Posible dato fijo FarAwayList: source/game_sa/Occlusion.h:26 (0x008D5D68); Posible dato fijo InteriorOccluders: source/game_sa/Occlusion.h:16 (0x00C73CC8); Posible dato fijo ListWalkThroughFA: source/game_sa/Occlusion.h:27 (0x008D5D70); Posible dato fijo NearbyList: source/game_sa/Occlusion.h:24 (0x008D5D6C); Posible dato fijo NumActiveOccluders: source/game_sa/Occlusion.h:22 (0x00C73CC0); Posible dato fijo NumInteriorOccludersOnMap: source/game_sa/Occlusion.h:20 (0x00C73CC4); Posible dato fijo Occluders: source/game_sa/Occlusion.h:17 (0x00C73FA0); Posible dato fijo PreviousListWalkThroughFA: source/game_sa/Occlusion.h:28 (0x008D5D74); Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914) |
 | GetActiveOccluders() | [source/game_sa/Occlusion.h:39](../../source/game_sa/Occlusion.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ActiveOccluders: source/game_sa/Occlusion.h:18 (0x00C78610); Posible dato fijo NumActiveOccluders: source/game_sa/Occlusion.h:22 (0x00C73CC0) |
 
-<a id="grupo-378"></a>
+<a id="grupo-379"></a>
 
 ## COctTree
 
@@ -296,7 +314,7 @@
 | COctTree::RemoveChildren() | [source/game_sa/Core/OctTree.cpp:178](../../source/game_sa/Core/OctTree.cpp#L178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_octTreePool: source/game_sa/Core/OctTree.h:25 (0x00BC12E4) |
 | COctTree::empty() | [source/game_sa/Core/OctTree.cpp:190](../../source/game_sa/Core/OctTree.cpp#L190) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-379"></a>
+<a id="grupo-380"></a>
 
 ## COctTreeBase
 
@@ -308,15 +326,3 @@
 | COctTreeBase::Insert(uint8 red, uint8 green, uint8 blue) | [source/game_sa/Core/OctTreeBase.cpp:47](../../source/game_sa/Core/OctTreeBase.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_bFailed: source/game_sa/Core/OctTree.h:23 (0x00BC12DC), source/game_sa/GenericGameStorage.h:69 (0x00C16EFC) |
 | COctTreeBase::ReduceBranches(int32 newBranchesCount) | [source/game_sa/Core/OctTreeBase.cpp:70](../../source/game_sa/Core/OctTreeBase.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | COctTreeBase::Reduce() | [source/game_sa/Core/OctTreeBase.cpp:81](../../source/game_sa/Core/OctTreeBase.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gpTmpOctTree: source/game_sa/Core/OctTree.cpp:4 (0x00BC12D8) |
-
-<a id="grupo-380"></a>
-
-## COnscreenCounterEntry
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| COnscreenCounterEntry::InjectHooks() | [source/game_sa/OnscreenCounterEntry.cpp:23](../../source/game_sa/OnscreenCounterEntry.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| COnscreenCounterEntry::Init() | [source/game_sa/OnscreenCounterEntry.cpp:32](../../source/game_sa/OnscreenCounterEntry.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| COnscreenCounterEntry::Clear() | [source/game_sa/OnscreenCounterEntry.cpp:38](../../source/game_sa/OnscreenCounterEntry.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| COnscreenCounterEntry::ProcessForDisplayCounter(eOnscreenCounter type) | [source/game_sa/OnscreenCounterEntry.cpp:47](../../source/game_sa/OnscreenCounterEntry.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: COnscreenCounterEntry::ProcessForDisplayCounter 0x0044CA90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| COnscreenCounterEntry::SetColourID(eHudColours colorId) | [source/game_sa/OnscreenCounterEntry.cpp:64](../../source/game_sa/OnscreenCounterEntry.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: COnscreenCounterEntry::SetColourID 0x0044CB00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

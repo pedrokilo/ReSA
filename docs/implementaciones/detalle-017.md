@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 14/11/2026 (Ciudad de México):** 903 grupos / 10577 funciones reconstruidas; 10577 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 14/11/2026 (Ciudad de México):** 906 grupos / 10590 funciones reconstruidas; 10590 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,20 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-321"></a>
+
+## CHudColours
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CHudColours::InjectHooks() | [source/game_sa/HudColours.cpp:25](../../source/game_sa/HudColours.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CHudColours::CHudColours() | [source/game_sa/HudColours.cpp:37](../../source/game_sa/HudColours.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::Constructor 0x0058FDA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CHudColours::Constructor() | [source/game_sa/HudColours.cpp:55](../../source/game_sa/HudColours.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::Constructor 0x0058FDA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CHudColours::SetRGBAValue(eHudColours colorIndex, uint8 red, uint8 green, uint8 blue, uint8 alpha) | [source/game_sa/HudColours.cpp:62](../../source/game_sa/HudColours.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::SetRGBAValue 0x0058FD20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CHudColours::GetIntColour(eHudColours colorIndex) const | [source/game_sa/HudColours.cpp:68](../../source/game_sa/HudColours.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::GetIntColour 0x0058FD50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CHudColours::GetRGB(eHudColours colorIndex) const | [source/game_sa/HudColours.cpp:76](../../source/game_sa/HudColours.cpp#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::GetRGB 0x0058FEA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CHudColours::GetRGBA(eHudColours index, uint8 alpha) const | [source/game_sa/HudColours.cpp:82](../../source/game_sa/HudColours.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::GetRGBA 0x0058FEE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-322"></a>
 
 ## CIdleCam
 
@@ -31,7 +45,7 @@
 | CIdleCam::Process() | [source/game_sa/IdleCam.cpp:471](../../source/game_sa/IdleCam.cpp#L471) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CIdleCam::Process 0x00522C80 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo g_InterestingEvents: source/game_sa/InterestingEvents.cpp:24 (0x00C0B058); Posible dato fijo gbCineyCamProcessedOnFrame: source/game_sa/IdleCam.cpp:27 (0x00B6EC40) |
 | VectorToAnglesRotXRotZ(const CVector& pos) | [source/game_sa/IdleCam.h:35](../../source/game_sa/IdleCam.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-322"></a>
+<a id="grupo-323"></a>
 
 ## CInformFriendsEventBody
 
@@ -43,7 +57,7 @@
 | Process(CInformFriendsEvent* self, void* /*edx*/) | [source/game_sa/InformFriendsEventQueue.cpp:66](../../source/game_sa/InformFriendsEventQueue.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84) |
 | InjectHooks() | [source/game_sa/InformFriendsEventQueue.cpp:82](../../source/game_sa/InformFriendsEventQueue.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-323"></a>
+<a id="grupo-324"></a>
 
 ## CInformFriendsEventQueue
 
@@ -55,7 +69,7 @@
 | CInformFriendsEventQueue::Add(CPed* ped, CEvent* event) | [source/game_sa/InformFriendsEventQueue.cpp:123](../../source/game_sa/InformFriendsEventQueue.cpp#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformFriendsEventQueue::Add 0x004AC1E0 | 0 / 0 | Posible dato fijo ms_informFriendsEvents: source/game_sa/InformFriendsEventQueue.h:15 (0x00A9AFB8) |
 | CInformFriendsEventQueue::Process() | [source/game_sa/InformFriendsEventQueue.cpp:148](../../source/game_sa/InformFriendsEventQueue.cpp#L148) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformFriendsEventQueue::Process 0x004AC2E0 | 0 / 0 | Posible dato fijo ms_informFriendsEvents: source/game_sa/InformFriendsEventQueue.h:15 (0x00A9AFB8) |
 
-<a id="grupo-324"></a>
+<a id="grupo-325"></a>
 
 ## CInformGroupEvent
 
@@ -68,7 +82,7 @@
 | * Constructor() | [source/game_sa/InformGroupEvent.h:25](../../source/game_sa/InformGroupEvent.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformGroupEvent::Constructor 0x004AC350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/InformGroupEvent.h:30](../../source/game_sa/InformGroupEvent.h#L30) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CInformGroupEvent::Destructor-2 0x004AC370 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-325"></a>
+<a id="grupo-326"></a>
 
 ## CInformGroupEventQueue
 
@@ -80,7 +94,7 @@
 | CInformGroupEventQueue::Flush() | [source/game_sa/InformGroupEventQueue.cpp:79](../../source/game_sa/InformGroupEventQueue.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformGroupEventQueue::Flush 0x004AC410 | 0 / 0 | Posible dato fijo ms_informGroupEvents: source/game_sa/InformGroupEventQueue.h:10 (0x00A9B018) |
 | CInformGroupEventQueue::Process() | [source/game_sa/InformGroupEventQueue.cpp:89](../../source/game_sa/InformGroupEventQueue.cpp#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformGroupEventQueue::Process 0x004B2AE0 | 0 / 0 | Posible dato fijo ms_informGroupEvents: source/game_sa/InformGroupEventQueue.h:10 (0x00A9B018) |
 
-<a id="grupo-326"></a>
+<a id="grupo-327"></a>
 
 ## CIniFile
 
@@ -89,7 +103,7 @@
 | CIniFile::InjectHooks() | [source/game_sa/IniFile.cpp:24](../../source/game_sa/IniFile.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CIniFile::LoadIniFile() | [source/game_sa/IniFile.cpp:32](../../source/game_sa/IniFile.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CIniFile::LoadIniFile 0x0056D070 | 0 / 0 | Posible dato fijo CarNumberMultiplier: source/game_sa/IniFile.h:12 (0x008CDF18); Posible dato fijo MaxNumberOfCarsInUse: source/game_sa/CarCtrl.h:30 (0x008A5B24); Posible dato fijo MaxNumberOfPedsInUse: source/game_sa/Population.h:37 (0x008D2538); Posible dato fijo PedNumberMultiplier: source/game_sa/IniFile.h:11 (0x008CDF14); Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670) |
 
-<a id="grupo-327"></a>
+<a id="grupo-328"></a>
 
 ## CInterestingEvents
 
@@ -106,7 +120,7 @@
 | CInterestingEvents::InvalidateEvent(const TInterestingEvent* event) | [source/game_sa/InterestingEvents.cpp:292](../../source/game_sa/InterestingEvents.cpp#L292) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInterestingEvents::InvalidateEvent 0x00602960 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CInterestingEvents::InvalidateNonVisibleEvents() | [source/game_sa/InterestingEvents.cpp:307](../../source/game_sa/InterestingEvents.cpp#L307) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInterestingEvents::InvalidateNonVisibleEvents 0x006029C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-328"></a>
+<a id="grupo-329"></a>
 
 ## CIplDefPool
 
@@ -118,7 +132,7 @@
 | DestructorBody() | [source/game_sa/Pools/IplDefPool.h:76](../../source/game_sa/Pools/IplDefPool.h#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CIplDefPool::DestructorBody 0x00405960 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Pools/IplDefPool.h:92](../../source/game_sa/Pools/IplDefPool.h#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CIplDefPool::ScalarDeletingDestructor 0x00405A60 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-329"></a>
+<a id="grupo-330"></a>
 
 ## CIplStore
 
@@ -163,7 +177,7 @@
 | CIplStore::InjectHooks() | [source/game_sa/IplStore.cpp:891](../../source/game_sa/IplStore.cpp#L891) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HasDynamicStreamingDisabled(int32 iplSlotIndex) | [source/game_sa/IplStore.h:53](../../source/game_sa/IplStore.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-330"></a>
+<a id="grupo-331"></a>
 
 ## CJoySticks
 
@@ -172,7 +186,7 @@
 | CJoySticks::CJoySticks() | [source/game_sa/ControllerConfigManager.cpp:1360](../../source/game_sa/ControllerConfigManager.cpp#L1360) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CJoySticks::ClearJoyInfo(int32 JoyNumber) | [source/game_sa/ControllerConfigManager.cpp:1367](../../source/game_sa/ControllerConfigManager.cpp#L1367) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-331"></a>
+<a id="grupo-332"></a>
 
 ## CKeyArray
 
@@ -187,7 +201,7 @@
 | * CKeyArray::Search(const char* key, bool& found) | [source/game_sa/Text/KeyArray.cpp:64](../../source/game_sa/Text/KeyArray.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyArray::Search 0x006A0000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CKeyArray::BinarySearch(uint32 hash, CKeyEntry* entries, int16 firstIndex, int16 lastIndex) | [source/game_sa/Text/KeyArray.cpp:72](../../source/game_sa/Text/KeyArray.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyArray::BinarySearch 0x0069F570 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-332"></a>
+<a id="grupo-333"></a>
 
 ## CKeyGen
 
@@ -201,7 +215,7 @@
 | GetUppercaseKey(const char* begin, const char* end) noexcept | [source/game_sa/Core/KeyGen.h:67](../../source/game_sa/Core/KeyGen.h#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyGen::GetUppercaseKey- 0x0053CF30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ToUppercase(char x) | [source/game_sa/Core/KeyGen.h:78](../../source/game_sa/Core/KeyGen.h#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-333"></a>
+<a id="grupo-334"></a>
 
 ## CKeyboardState
 
@@ -210,7 +224,7 @@
 | CKeyboardState::InjectHooks() | [source/game_sa/KeyboardState.cpp:23](../../source/game_sa/KeyboardState.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CKeyboardState::Clear() | [source/game_sa/KeyboardState.cpp:31](../../source/game_sa/KeyboardState.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyboardState::Clear 0x0053F090 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-334"></a>
+<a id="grupo-335"></a>
 
 ## CLines
 
@@ -224,7 +238,7 @@
 | ImmediateLine2D(const CVector2D& start, const CVector2D& end, const CRGBA& startColor, const CRGBA& endColor) | [source/game_sa/Lines.h:19](../../source/game_sa/Lines.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RenderLineCircleNoClipping(const CVector& centerPoint, float radius, uint32 numLines, uint32 color) | [source/game_sa/Lines.h:28](../../source/game_sa/Lines.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-335"></a>
+<a id="grupo-336"></a>
 
 ## CLink
 
@@ -233,7 +247,7 @@
 | Remove() | [source/game_sa/Core/Link.h:16](../../source/game_sa/Core/Link.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Insert(CLink&lt;T&gt;* after) | [source/game_sa/Core/Link.h:26](../../source/game_sa/Core/Link.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-336"></a>
+<a id="grupo-337"></a>
 
 ## CLinkList
 
@@ -253,7 +267,7 @@
 | GetHead() | [source/game_sa/Core/LinkList.h:96](../../source/game_sa/Core/LinkList.h#L96) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & GetHeadLink() | [source/game_sa/Core/LinkList.h:97](../../source/game_sa/Core/LinkList.h#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-337"></a>
+<a id="grupo-338"></a>
 
 ## CLinkList&lt;CVisibilityPlugins::AlphaObjectInfo&gt;
 
@@ -261,7 +275,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * CLinkList&lt;CVisibilityPlugins::AlphaObjectInfo&gt;::InsertSorted(const CVisibilityPlugins::AlphaObjectInfo& data) | [source/game_sa/VisibilityPlugins.cpp:169](../../source/game_sa/VisibilityPlugins.cpp#L169) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-338"></a>
+<a id="grupo-339"></a>
 
 ## CLoadMonitor
 
@@ -304,7 +318,7 @@
 | GetGraphPoint(eLoadType t, size_t idx) const | [source/game_sa/LoadMonitor.h:130](../../source/game_sa/LoadMonitor.h#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetCurrentGraphIndex() const | [source/game_sa/LoadMonitor.h:131](../../source/game_sa/LoadMonitor.h#L131) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-339"></a>
+<a id="grupo-340"></a>
 
 ## CLoadedCarGroup
 
@@ -323,34 +337,3 @@
 | CLoadedCarGroup() | [source/game_sa/LoadedCarGroup.h:13](../../source/game_sa/LoadedCarGroup.h#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetAllModels() const | [source/game_sa/LoadedCarGroup.h:53](../../source/game_sa/LoadedCarGroup.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetAllModels() | [source/game_sa/LoadedCarGroup.h:54](../../source/game_sa/LoadedCarGroup.h#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-340"></a>
-
-## CLoadingScreen
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CLoadingScreen::InjectHooks() | [source/game_sa/LoadingScreen.cpp:33](../../source/game_sa/LoadingScreen.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CLoadingScreen::Init(bool isLegalScreen, bool isReloadDisabled) | [source/game_sa/LoadingScreen.cpp:74](../../source/game_sa/LoadingScreen.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::Init 0x005902B0 | 0 / 0 | Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo m_currDisplayedSplash: source/game_sa/LoadingScreen.h:38 (0x008D093C); Posible dato fijo m_timeSinceLastScreen: source/game_sa/LoadingScreen.h:64 (0x00BAB340) |
-| CLoadingScreen::Shutdown(bool isForce) | [source/game_sa/LoadingScreen.cpp:91](../../source/game_sa/LoadingScreen.cpp#L91) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::Shutdown 0x0058FF10 | 0 / 0 | Posible dato fijo m_aSplashes: source/game_sa/LoadingScreen.h:37 (0x00BAB35C); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo m_pTexture: source/game_sa/Skidmarks.h:10 (0x00C79A88) |
-| CLoadingScreen::RenderSplash() | [source/game_sa/LoadingScreen.cpp:109](../../source/game_sa/LoadingScreen.cpp#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::RenderSplash 0x0058FF60 | 0 / 0 | Posible dato fijo m_FadeAlpha: source/game_sa/LoadingScreen.h:44 (0x00BAB320); Posible dato fijo m_aSplashes: source/game_sa/LoadingScreen.h:37 (0x00BAB35C); Posible dato fijo m_bFadeInNextSplashFromBlack: source/game_sa/LoadingScreen.h:42 (0x00BAB31E); Posible dato fijo m_bFadeOutCurrSplashToBlack: source/game_sa/LoadingScreen.h:43 (0x00BAB31F); Posible dato fijo m_bFading: source/game_sa/LoadingScreen.h:40 (0x00BAB31C); Posible dato fijo m_bReadyToDelete: source/game_sa/LoadingScreen.h:59 (0x00BAB33D); Posible dato fijo m_currDisplayedSplash: source/game_sa/LoadingScreen.h:38 (0x008D093C) |
-| CLoadingScreen::LoadSplashes(bool useSplashId, eLoadingLogo id) | [source/game_sa/LoadingScreen.cpp:145](../../source/game_sa/LoadingScreen.cpp#L145) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::LoadSplashes 0x005900B0 | 0 / 0 | Posible dato fijo m_aSplashes: source/game_sa/LoadingScreen.h:37 (0x00BAB35C) |
-| CLoadingScreen::DisplayMessage(const char* msg) | [source/game_sa/LoadingScreen.cpp:195](../../source/game_sa/LoadingScreen.cpp#L195) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::DisplayMessage 0x00590220 | 0 / 0 | Posible dato fijo m_PopUpMessage: source/game_sa/LoadingScreen.h:56 (0x00BAB268) |
-| CLoadingScreen::SetLoadingBarMsg(const char* msg1, const char* msg2) | [source/game_sa/LoadingScreen.cpp:200](../../source/game_sa/LoadingScreen.cpp#L200) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::SetLoadingBarMsg 0x00590240 | 0 / 0 | Posible dato fijo m_LoadingGxtMsg1: source/game_sa/LoadingScreen.h:53 (0x00BAB2C8); Posible dato fijo m_LoadingGxtMsg2: source/game_sa/LoadingScreen.h:54 (0x00BAB278) |
-| CLoadingScreen::GetClockTime(bool isRealTime) | [source/game_sa/LoadingScreen.cpp:215](../../source/game_sa/LoadingScreen.cpp#L215) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::GetClockTime 0x00590280 | 0 / 0 | Posible dato fijo m_PauseTime: source/game_sa/LoadingScreen.h:47 (0x00BAB32C) |
-| CLoadingScreen::Pause() | [source/game_sa/LoadingScreen.cpp:221](../../source/game_sa/LoadingScreen.cpp#L221) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::Pause 0x00590310 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CLoadingScreen::Continue() | [source/game_sa/LoadingScreen.cpp:226](../../source/game_sa/LoadingScreen.cpp#L226) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::Continue 0x00590320 | 0 / 0 | Posible dato fijo m_ClockTimeOnPause: source/game_sa/LoadingScreen.h:46 (0x00BAB328); Posible dato fijo m_PauseTime: source/game_sa/LoadingScreen.h:47 (0x00BAB32C); Posible dato fijo m_bPaused: source/game_sa/LoadingScreen.h:35 (0x00BAB31A); Posible dato fijo m_bWantToPause: source/game_sa/LoadingScreen.h:34 (0x00BAB319) |
-| CLoadingScreen::RenderLoadingBar() | [source/game_sa/LoadingScreen.cpp:239](../../source/game_sa/LoadingScreen.cpp#L239) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::RenderLoadingBar 0x00590370 | 0 / 0 | Posible dato fijo HudColour: source/game_sa/HudColours.cpp:23 (0x00BAB22C); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo m_LoadingGxtMsg1: source/game_sa/LoadingScreen.h:53 (0x00BAB2C8); Posible dato fijo m_LoadingGxtMsg2: source/game_sa/LoadingScreen.h:54 (0x00BAB278); Posible dato fijo m_PercentLoaded: source/game_sa/LoadingScreen.h:49 (0x00BAB330); Posible dato fijo m_TimeBarAppeared: source/game_sa/LoadingScreen.h:51 (0x00BAB338); Posible dato fijo m_bLegalScreen: source/game_sa/LoadingScreen.h:41 (0x00BAB31D) |
-| CLoadingScreen::DisplayNextSplash() | [source/game_sa/LoadingScreen.cpp:277](../../source/game_sa/LoadingScreen.cpp#L277) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::DisplayNextSplash 0x005904D0 | 0 / 0 | Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo m_FadeAlpha: source/game_sa/LoadingScreen.h:44 (0x00BAB320); Posible dato fijo m_bFading: source/game_sa/LoadingScreen.h:40 (0x00BAB31C); Posible dato fijo m_currDisplayedSplash: source/game_sa/LoadingScreen.h:38 (0x008D093C) |
-| CLoadingScreen::StartFading() | [source/game_sa/LoadingScreen.cpp:296](../../source/game_sa/LoadingScreen.cpp#L296) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::StartFading 0x00590530 | 0 / 0 | Posible dato fijo m_FadeAlpha: source/game_sa/LoadingScreen.h:44 (0x00BAB320); Posible dato fijo m_StartFadeTime: source/game_sa/LoadingScreen.h:45 (0x00BAB324); Posible dato fijo m_bFading: source/game_sa/LoadingScreen.h:40 (0x00BAB31C) |
-| CLoadingScreen::DisplayPCScreen() | [source/game_sa/LoadingScreen.cpp:304](../../source/game_sa/LoadingScreen.cpp#L304) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::DisplayPCScreen 0x00590570 | 0 / 0 | Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo m_bFading: source/game_sa/LoadingScreen.h:40 (0x00BAB31C); Posible dato fijo m_currDisplayedSplash: source/game_sa/LoadingScreen.h:38 (0x008D093C) |
-| CLoadingScreen::DoPCTitleFadeIn() | [source/game_sa/LoadingScreen.cpp:320](../../source/game_sa/LoadingScreen.cpp#L320) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::DoPCTitleFadeIn 0x00590860 | 0 / 0 | Posible dato fijo m_FadeAlpha: source/game_sa/LoadingScreen.h:44 (0x00BAB320); Posible dato fijo m_bFadeInNextSplashFromBlack: source/game_sa/LoadingScreen.h:42 (0x00BAB31E); Posible dato fijo m_bFading: source/game_sa/LoadingScreen.h:40 (0x00BAB31C); Posible dato fijo m_currDisplayedSplash: source/game_sa/LoadingScreen.h:38 (0x008D093C) |
-| CLoadingScreen::DoPCTitleFadeOut() | [source/game_sa/LoadingScreen.cpp:336](../../source/game_sa/LoadingScreen.cpp#L336) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::DoPCTitleFadeOut 0x00590990 | 0 / 0 | Posible dato fijo m_FadeAlpha: source/game_sa/LoadingScreen.h:44 (0x00BAB320); Posible dato fijo m_bFadeInNextSplashFromBlack: source/game_sa/LoadingScreen.h:42 (0x00BAB31E); Posible dato fijo m_bFading: source/game_sa/LoadingScreen.h:40 (0x00BAB31C); Posible dato fijo m_currDisplayedSplash: source/game_sa/LoadingScreen.h:38 (0x008D093C) |
-| CLoadingScreen::DoPCScreenChange(bool isLastOne) | [source/game_sa/LoadingScreen.cpp:356](../../source/game_sa/LoadingScreen.cpp#L356) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::DoPCScreenChange 0x00590AC0 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo m_FadeAlpha: source/game_sa/LoadingScreen.h:44 (0x00BAB320); Posible dato fijo m_bFadeInNextSplashFromBlack: source/game_sa/LoadingScreen.h:42 (0x00BAB31E); Posible dato fijo m_bFadeOutCurrSplashToBlack: source/game_sa/LoadingScreen.h:43 (0x00BAB31F); Posible dato fijo m_bFading: source/game_sa/LoadingScreen.h:40 (0x00BAB31C); Posible dato fijo m_currDisplayedSplash: source/game_sa/LoadingScreen.h:38 (0x008D093C) |
-| CLoadingScreen::NewChunkLoaded() | [source/game_sa/LoadingScreen.cpp:396](../../source/game_sa/LoadingScreen.cpp#L396) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::NewChunkLoaded 0x00590D00 | 0 / 0 | Posible dato fijo m_PercentLoaded: source/game_sa/LoadingScreen.h:49 (0x00BAB330); Posible dato fijo m_chunkBarAppeared: source/game_sa/LoadingScreen.h:63 (0x008D0944); Posible dato fijo m_currDisplayedSplash: source/game_sa/LoadingScreen.h:38 (0x008D093C); Posible dato fijo m_numChunksLoaded: source/game_sa/LoadingScreen.h:61 (0x008D0940); Posible dato fijo m_timeSinceLastScreen: source/game_sa/LoadingScreen.h:64 (0x00BAB340) |
-| CLoadingScreen::Update() | [source/game_sa/LoadingScreen.cpp:432](../../source/game_sa/LoadingScreen.cpp#L432) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::Update 0x005905E0 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo m_FadeAlpha: source/game_sa/LoadingScreen.h:44 (0x00BAB320); Posible dato fijo m_PercentLoaded: source/game_sa/LoadingScreen.h:49 (0x00BAB330); Posible dato fijo m_StartFadeTime: source/game_sa/LoadingScreen.h:45 (0x00BAB324); Posible dato fijo m_TimeBarAppeared: source/game_sa/LoadingScreen.h:51 (0x00BAB338); Posible dato fijo m_TimeStartedLoading: source/game_sa/LoadingScreen.h:50 (0x00BAB334); Posible dato fijo m_bFadeInNextSplashFromBlack: source/game_sa/LoadingScreen.h:42 (0x00BAB31E); Posible dato fijo m_bFadeOutCurrSplashToBlack: source/game_sa/LoadingScreen.h:43 (0x00BAB31F); Posible dato fijo m_bFading: source/game_sa/LoadingScreen.h:40 (0x00BAB31C); Posible dato fijo m_bLegalScreen: source/game_sa/LoadingScreen.h:41 (0x00BAB31D); Posible dato fijo m_bReadyToDelete: source/game_sa/LoadingScreen.h:59 (0x00BAB33D); Posible dato fijo m_bSignalDelete: source/game_sa/LoadingScreen.h:58 (0x00BAB33C); Posible dato fijo m_currDisplayedSplash: source/game_sa/LoadingScreen.h:38 (0x008D093C) |
-| CLoadingScreen::SkipCopyrightSplash() | [source/game_sa/LoadingScreen.cpp:503](../../source/game_sa/LoadingScreen.cpp#L503) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_bFadeInNextSplashFromBlack: source/game_sa/LoadingScreen.h:42 (0x00BAB31E); Posible dato fijo m_currDisplayedSplash: source/game_sa/LoadingScreen.h:38 (0x008D093C); Posible dato fijo m_timeSinceLastScreen: source/game_sa/LoadingScreen.h:64 (0x00BAB340) |
-| LoadingScreen(const char* msg1, const char* msg2, const char* msg3) | [source/game_sa/LoadingScreen.cpp:512](../../source/game_sa/LoadingScreen.cpp#L512) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::LoadingScreen 0x0053DED0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsActive() | [source/game_sa/LoadingScreen.h:69](../../source/game_sa/LoadingScreen.h#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::IsActive 0x00744DB0 | 0 / 0 | Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890) |
-| IsPaused() | [source/game_sa/LoadingScreen.h:70](../../source/game_sa/LoadingScreen.h#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLoadingScreen::IsActive 0x00744DB0 | 0 / 0 | Posible dato fijo m_bPaused: source/game_sa/LoadingScreen.h:35 (0x00BAB31A) |
-| & GetCurrentDisplayedSplash() | [source/game_sa/LoadingScreen.h:111](../../source/game_sa/LoadingScreen.h#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_aSplashes: source/game_sa/LoadingScreen.h:37 (0x00BAB35C); Posible dato fijo m_currDisplayedSplash: source/game_sa/LoadingScreen.h:38 (0x008D093C) |

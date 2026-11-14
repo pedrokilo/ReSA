@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 14/11/2026 (Ciudad de México):** 903 grupos / 10577 funciones reconstruidas; 10577 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 14/11/2026 (Ciudad de México):** 906 grupos / 10590 funciones reconstruidas; 10590 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo B: Falta: método virtual
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-260 funciones, 16,612 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+257 funciones, 16,483 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -66,7 +66,6 @@
 | `0x0065AFE0` | 97 | CTaskComplexMedicTreatInjuredPed | baja | 0 (0) | sí |
 | `0x00659B60` | 96 | CTaskComplexMedicTreatInjuredPed | baja | 0 (0) | sí |
 | `0x004C7670` | 95 | CVehicleModelInfo | alta | 0 (0) | sí |
-| `0x005FEF90` | 93 | CEventScriptedAttractor | baja | 0 (0) | sí |
 | `0x00420F50` | 88 | CEventEditableResponse | baja | 0 (0) | sí |
 | `0x005FF3C0` | 88 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x004B77B0` | 84 | CEventVehicleOnFire | baja | 0 (0) | sí |
@@ -121,7 +120,6 @@
 | `0x00420FB0` | 30 | CEventEditableResponse | baja | 0 (0) | sí |
 | `0x004748D0` | 30 | CTheScripts | baja | 0 (0) | sí |
 | `0x00493870` | 30 | CTaskComplexSeekEntityRadiusAngleOffset | alta | 0 (0) | sí |
-| `0x005FEFF0` | 30 | CEventScriptedAttractor | baja | 0 (0) | sí |
 | `0x005FF420` | 30 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x005FF7F0` | 30 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x0061BD80` | 30 | CTaskSimpleRunTimedAnim | baja | 0 (0) | sí |
@@ -203,7 +201,6 @@
 | `0x004B1130` | 6 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x004B1160` | 6 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x005EE820` | 6 | CPedAttractorManager | baja | 0 (0) | sí |
-| `0x005FEF80` | 6 | CEventScriptedAttractor | baja | 0 (0) | sí |
 | `0x005FF3B0` | 6 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x005FF770` | 6 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x005FF840` | 6 | CEventSeenCop | baja | 0 (0) | sí |

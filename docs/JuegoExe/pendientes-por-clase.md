@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (14/11/2026). Total: **1,310** funciones en 78 clases/módulos (rango 0x401000–0x74FFFF): 1,288 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (14/11/2026). Total: **1,294** funciones en 77 clases/módulos (rango 0x401000–0x74FFFF): 1,272 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -11,14 +11,13 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Clase | Funciones | Bytes |
 |---|---:|---:|
 | CAudioZones | 1 | 139 |
+| CStencilShadows | 2 | 164 |
 | IKChain_c | 2 | 205 |
 | CWaterLevel | 1 | 208 |
 | WaterCreature_c | 2 | 211 |
 | CTaskComplexGotoDoorAndOpen | 6 | 388 |
-| CEventScriptedAttractor | 13 | 527 |
 | CPedAttractorPool | 12 | 530 |
 | CStreaming | 17 | 535 |
-| CStencilShadows | 5 | 543 |
 | CTaskComplexRoadRage | 9 | 585 |
 | CEventEditableResponse | 14 | 607 |
 | Rs | 4 | 661 |
@@ -88,13 +87,20 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (78 clases / módulos)** | **1,310** | **206,822** |
+| **TOTAL (77 clases / módulos)** | **1,294** | **205,916** |
 
 ## CAudioZones (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00509230 | 139 | D |  | 0 | 0 |  | baja |
+
+## CStencilShadows (2)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00710BA0 | 30 | A |  | 1 | 1 |  | alta |
+| 0x00711280 | 134 | A |  | 3 | 3 |  | baja |
 
 ## IKChain_c (2)
 
@@ -126,24 +132,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0066C3E0 | 86 | A |  | 3 | 1 |  | baja |
 | 0x0066C450 | 106 | C |  | 3 | 0 |  | baja |
 | 0x0066C280 | 151 | D |  | 0 | 0 |  | baja |
-
-## CEventScriptedAttractor (13)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005FEF80 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005FEF70 | 11 | C |  | 2 | 0 |  | baja |
-| 0x005FF030 | 11 | C |  | 3 | 0 |  | baja |
-| 0x005FF0F0 | 11 | C |  | 2 | 0 |  | baja |
-| 0x005FF1B0 | 11 | C |  | 3 | 0 |  | baja |
-| 0x005FEFF0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x005FF0B0 | 30 | D |  | 0 | 0 |  | baja |
-| 0x005FF170 | 30 | D |  | 0 | 0 |  | baja |
-| 0x005FF230 | 30 | D |  | 0 | 0 |  | baja |
-| 0x005FF050 | 88 | D |  | 0 | 0 |  | baja |
-| 0x005FF110 | 88 | D |  | 0 | 0 |  | baja |
-| 0x005FF1D0 | 88 | D |  | 0 | 0 |  | baja |
-| 0x005FEF90 | 93 | B |  | 0 | 0 | sí | baja |
 
 ## CPedAttractorPool (12)
 
@@ -183,16 +171,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00408230 | 64 | A |  | 3 | 3 |  | baja |
 | 0x005B8340 | 94 | A |  | 1 | 1 |  | baja |
 | 0x0040C450 | 195 | A |  | 3 | 3 |  | alta |
-
-## CStencilShadows (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00710BA0 | 30 | A |  | 1 | 1 |  | alta |
-| 0x0070FA70 | 107 | A |  | 6 | 6 |  | alta |
-| 0x00711280 | 134 | A |  | 3 | 3 |  | baja |
-| 0x00711160 | 136 | A |  | 3 | 3 |  | baja |
-| 0x007111F0 | 136 | A |  | 2 | 2 |  | baja |
 
 ## CTaskComplexRoadRage (9)
 

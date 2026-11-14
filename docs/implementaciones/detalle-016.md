@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 14/11/2026 (Ciudad de México):** 903 grupos / 10577 funciones reconstruidas; 10577 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 14/11/2026 (Ciudad de México):** 906 grupos / 10590 funciones reconstruidas; 10590 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,24 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-301"></a>
+
+## CFormation
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CFormation::ReturnTargetPedForPed(CPed* ped, CPed** pOutTargetPed) | [source/game_sa/Formation.cpp:24](../../source/game_sa/Formation.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CFormation::ReturnTargetPedForPed 0x00699F50 | 0 / 0 | Posible dato fijo m_DestinationPeds: source/game_sa/Formation.h:22 (0x00C1A458); Posible dato fijo m_Peds: source/game_sa/Formation.h:23 (0x00C1A4D8); Posible dato fijo m_aPedLinkToDestinations: source/game_sa/Formation.h:20 (0x00C1A2C0) |
+| CFormation::ReturnDestinationForPed(CPed* ped, CVector* out) | [source/game_sa/Formation.cpp:34](../../source/game_sa/Formation.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CFormation::ReturnDestinationForPed 0x00699FA0 | 0 / 0 | Posible dato fijo m_Destinations: source/game_sa/Formation.h:21 (0x00C1A318); Posible dato fijo m_Peds: source/game_sa/Formation.h:23 (0x00C1A4D8); Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8); Posible dato fijo m_aPedLinkToDestinations: source/game_sa/Formation.h:20 (0x00C1A2C0) |
+| CFormation::FindCoverPointsBehindBox( CPointList* outPoints, CVector target, CMatrix* mat, const CVector& center, const CVector& bbMin, const CVector& bbMax, float cutoffDist ) | [source/game_sa/Formation.cpp:47](../../source/game_sa/Formation.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CFormation::FindCoverPointsBehindBox 0x00699FF0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
+| CFormation::GenerateGatherDestinations(CPedList& pedList, CPed* ped) | [source/game_sa/Formation.cpp:92](../../source/game_sa/Formation.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CFormation::GenerateGatherDestinations 0x0069A620 | 0 / 0 | Posible dato fijo m_Destinations: source/game_sa/Formation.h:21 (0x00C1A318); Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
+| CFormation::GenerateGatherDestinations_AroundCar(CPedList& pedList, CVehicle* veh) | [source/game_sa/Formation.cpp:115](../../source/game_sa/Formation.cpp#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CFormation::GenerateGatherDestinations_AroundCar 0x0069A770 | 0 / 0 | Posible dato fijo m_Destinations: source/game_sa/Formation.h:21 (0x00C1A318); Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
+| CFormation::DistributeDestinations(CPedList& pedList) | [source/game_sa/Formation.cpp:141](../../source/game_sa/Formation.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CFormation::DistributeDestinations 0x0069B240 | 0 / 0 | Posible dato fijo m_Destinations: source/game_sa/Formation.h:21 (0x00C1A318); Posible dato fijo m_Peds: source/game_sa/Formation.h:23 (0x00C1A4D8); Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8); Posible dato fijo m_aFinalPedLinkToDestinations: source/game_sa/Formation.h:19 (0x00C1A2E0); Posible dato fijo m_aPedLinkToDestinations: source/game_sa/Formation.h:20 (0x00C1A2C0) |
+| CFormation::DistributeDestinations_CoverPoints(const CPedList& pedlist, CVector pos) | [source/game_sa/Formation.cpp:181](../../source/game_sa/Formation.cpp#L181) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CFormation::DistributeDestinations_CoverPoints 0x0069B5B0 | 0 / 0 | Posible dato fijo m_Destinations: source/game_sa/Formation.h:21 (0x00C1A318); Posible dato fijo m_Peds: source/game_sa/Formation.h:23 (0x00C1A4D8); Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8); Posible dato fijo m_aPedLinkToDestinations: source/game_sa/Formation.h:20 (0x00C1A2C0) |
+| CFormation::DistributeDestinations_PedsToAttack(const CPedList& pedList) | [source/game_sa/Formation.cpp:207](../../source/game_sa/Formation.cpp#L207) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CFormation::DistributeDestinations_PedsToAttack 0x0069B700 | 0 / 0 | Posible dato fijo m_DestinationPeds: source/game_sa/Formation.h:22 (0x00C1A458); Posible dato fijo m_Peds: source/game_sa/Formation.h:23 (0x00C1A4D8); Posible dato fijo m_aPedLinkToDestinations: source/game_sa/Formation.h:20 (0x00C1A2C0) |
+| CFormation::FindCoverPoints(CVector pos, float radius) | [source/game_sa/Formation.cpp:240](../../source/game_sa/Formation.cpp#L240) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CFormation::FindCoverPoints 0x0069B860 | 0 / 0 | Posible dato fijo m_Destinations: source/game_sa/Formation.h:21 (0x00C1A318); Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
+| CFormation::InjectHooks() | [source/game_sa/Formation.cpp:275](../../source/game_sa/Formation.cpp#L275) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CFormation::FindNearestFreeDestination(CVector origin, float* total) | [source/game_sa/Formation.cpp:292](../../source/game_sa/Formation.cpp#L292) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CFormation::FindNearestFreeDestination 0x0069B1B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_Destinations: source/game_sa/Formation.h:21 (0x00C1A318); Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
+
+<a id="grupo-302"></a>
 
 ## CGame
 
@@ -42,7 +60,7 @@
 | CGame::ReloadIPLs() | [source/game_sa/Game.cpp:949](../../source/game_sa/Game.cpp#L949) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGame::ReloadIPLs 0x0053BED0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetCurrentAreaCode() | [source/game_sa/Game.h:54](../../source/game_sa/Game.h#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914) |
 
-<a id="grupo-302"></a>
+<a id="grupo-303"></a>
 
 ## CGameLogic
 
@@ -81,7 +99,7 @@
 | CGameLogic::CanPlayerTripSkip() | [source/game_sa/GameLogic.cpp:1068](../../source/game_sa/GameLogic.cpp#L1068) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo SkipState: source/game_sa/GameLogic.h:60 (0x0096A8A0) |
 | CGameLogic::SetMissionFailed() | [source/game_sa/GameLogic.cpp:1073](../../source/game_sa/GameLogic.cpp#L1073) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo GameState: source/game_sa/GameLogic.h:64 (0x0096A8B0); Posible dato fijo TimeOfLastEvent: source/game_sa/GameLogic.h:63 (0x0096A8AC) |
 
-<a id="grupo-303"></a>
+<a id="grupo-304"></a>
 
 ## CGamma
 
@@ -91,7 +109,7 @@
 | CGamma::Init() | [source/game_sa/Gamma.cpp:33](../../source/game_sa/Gamma.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGamma::Init 0x00747180 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CGamma::SetGamma(float gammaLevel, bool fade) | [source/game_sa/Gamma.cpp:56](../../source/game_sa/Gamma.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CGamma::SetGamma 0x00747200 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo gamma: source/game_sa/Gamma.h:24 (0x00C92134); Posible dato fijo gbGammaChanged: source/game_sa/Gamma.h:23 (0x00C920C8); Posible dato fijo ms_GammaTable: source/game_sa/Gamma.h:6 (0x00C8DAC8); Posible dato fijo ms_SavedGamma: source/game_sa/Gamma.h:5 (0x00C8D4C8) |
 
-<a id="grupo-304"></a>
+<a id="grupo-305"></a>
 
 ## CGangInfo
 
@@ -101,7 +119,7 @@
 | GetRandomWeapon(bool skipUnarmed = true) const | [source/game_sa/GangInfo.h:21](../../source/game_sa/GangInfo.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetWeapons(std::array&lt;eWeaponType, 3&gt; weapons) | [source/game_sa/GangInfo.h:31](../../source/game_sa/GangInfo.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-305"></a>
+<a id="grupo-306"></a>
 
 ## CGangWars
 
@@ -147,7 +165,7 @@
 | CGangWars::GetGangColor(int32 gang) | [source/game_sa/GangWars.cpp:1232](../../source/game_sa/GangWars.cpp#L1232) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetSpecificZones() | [source/game_sa/GangWars.h:136](../../source/game_sa/GangWars.h#L136) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo NumSpecificZones: source/game_sa/GangWars.h:76 (0x0096AB94); Posible dato fijo aSpecificZones: source/game_sa/GangWars.h:67 (0x0096AB68) |
 
-<a id="grupo-306"></a>
+<a id="grupo-307"></a>
 
 ## CGangWarsSaveStructure
 
@@ -156,7 +174,7 @@
 | CGangWarsSaveStructure::Construct() | [source/game_sa/GangWarsSaveStructure.cpp:6](../../source/game_sa/GangWarsSaveStructure.cpp#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo CoorsOfPlayerAtStartOfWar: source/game_sa/GangWars.h:80 (0x0096ABBC); Posible dato fijo Difficulty: source/game_sa/GangWars.h:68 (0x0096AB80); Posible dato fijo FightTimer: source/game_sa/GangWars.h:56 (0x0096AB44); Posible dato fijo Gang1: source/game_sa/GangWars.h:69 (0x0096AB84); Posible dato fijo Gang2: source/game_sa/GangWars.h:58 (0x0096AB50); Posible dato fijo LastTimeInArea: source/game_sa/GangWars.h:59 (0x0096AB54); Posible dato fijo NavigationZoneArray: source/game_sa/TheZones.h:21 (0x00BA3798); Posible dato fijo PointOfAttack: source/game_sa/GangWars.h:81 (0x0096ABC8); Posible dato fijo RadarBlip: source/game_sa/GangWars.h:77 (0x0096AB98); Posible dato fijo State: source/game_sa/GangWars.h:64 (0x0096AB64); Posible dato fijo State2: source/game_sa/GangWars.h:66 (0x0096AB4C); Posible dato fijo TerritoryUnderControlPercentage: source/game_sa/GangWars.h:78 (0x0096AB9C); Posible dato fijo TimeStarted: source/game_sa/GangWars.h:62 (0x0096AB60); Posible dato fijo TimeTillNextAttack: source/game_sa/GangWars.h:57 (0x0096AB48); Posible dato fijo TotalNumberOfNavigationZones: source/game_sa/TheZones.h:20 (0x00BA3794); Posible dato fijo TotalNumberOfZoneInfos: source/game_sa/TheZones.h:24 (0x00BA1DE8); Posible dato fijo WarFerocity: source/game_sa/GangWars.h:60 (0x0096AB58); Posible dato fijo ZoneInfoArray: source/game_sa/TheZones.h:26 (0x00BA1DF0); Posible dato fijo bGangWarsActive: source/game_sa/GangWars.h:72 (0x0096AB90); Posible dato fijo bPlayerIsCloseby: source/game_sa/GangWars.h:74 (0x0096AB92); Posible dato fijo pZoneInfoToFightOver: source/game_sa/GangWars.h:71 (0x0096AB8C); Posible dato fijo pZoneToFightOver: source/game_sa/GangWars.h:70 (0x0096AB88) |
 | CGangWarsSaveStructure::Extract() const | [source/game_sa/GangWarsSaveStructure.cpp:48](../../source/game_sa/GangWarsSaveStructure.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo CoorsOfPlayerAtStartOfWar: source/game_sa/GangWars.h:80 (0x0096ABBC); Posible dato fijo Difficulty: source/game_sa/GangWars.h:68 (0x0096AB80); Posible dato fijo FightTimer: source/game_sa/GangWars.h:56 (0x0096AB44); Posible dato fijo Gang1: source/game_sa/GangWars.h:69 (0x0096AB84); Posible dato fijo Gang2: source/game_sa/GangWars.h:58 (0x0096AB50); Posible dato fijo LastTimeInArea: source/game_sa/GangWars.h:59 (0x0096AB54); Posible dato fijo NavigationZoneArray: source/game_sa/TheZones.h:21 (0x00BA3798); Posible dato fijo PointOfAttack: source/game_sa/GangWars.h:81 (0x0096ABC8); Posible dato fijo RadarBlip: source/game_sa/GangWars.h:77 (0x0096AB98); Posible dato fijo State: source/game_sa/GangWars.h:64 (0x0096AB64); Posible dato fijo State2: source/game_sa/GangWars.h:66 (0x0096AB4C); Posible dato fijo TerritoryUnderControlPercentage: source/game_sa/GangWars.h:78 (0x0096AB9C); Posible dato fijo TimeStarted: source/game_sa/GangWars.h:62 (0x0096AB60); Posible dato fijo TimeTillNextAttack: source/game_sa/GangWars.h:57 (0x0096AB48); Posible dato fijo WarFerocity: source/game_sa/GangWars.h:60 (0x0096AB58); Posible dato fijo ZoneInfoArray: source/game_sa/TheZones.h:26 (0x00BA1DF0); Posible dato fijo bGangWarsActive: source/game_sa/GangWars.h:72 (0x0096AB90); Posible dato fijo bPlayerIsCloseby: source/game_sa/GangWars.h:74 (0x0096AB92); Posible dato fijo pZoneInfoToFightOver: source/game_sa/GangWars.h:71 (0x0096AB8C); Posible dato fijo pZoneToFightOver: source/game_sa/GangWars.h:70 (0x0096AB88) |
 
-<a id="grupo-307"></a>
+<a id="grupo-308"></a>
 
 ## CGangs
 
@@ -172,7 +190,7 @@
 | CGangs::SetWillAttackPlayerWithCops(ePedType pedType, bool attackPlayerWithCops) | [source/game_sa/Gangs.cpp:115](../../source/game_sa/Gangs.cpp#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGangs::SetWillAttackPlayerWithCops 0x005DE4E0 | 0 / 0 | Posible dato fijo GangAttackWithCops: source/game_sa/Gangs.h:19 (0x00C091E0) |
 | CGangs::SetGangPedModelOverride(int16 gangId, int8 pedModelOverride) | [source/game_sa/Gangs.cpp:124](../../source/game_sa/Gangs.cpp#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGangs::SetGangPedModelOverride 0x005DE580 | 0 / 0 | Posible dato fijo Gang: source/game_sa/Gangs.h:20 (0x00C091F0) |
 
-<a id="grupo-308"></a>
+<a id="grupo-309"></a>
 
 ## CGarage
 
@@ -218,7 +236,7 @@
 | SetClosed() | [source/game_sa/Garage.h:183](../../source/game_sa/Garage.h#L183) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ResetDoorPosition() | [source/game_sa/Garage.h:184](../../source/game_sa/Garage.h#L184) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-309"></a>
+<a id="grupo-310"></a>
 
 ## CGarages
 
@@ -266,7 +284,7 @@
 | * GetStoredCarsInSafehouse(int32 iSafehouseInd) | [source/game_sa/Garages.h:95](../../source/game_sa/Garages.h#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aCarsInSafeHouse: source/game_sa/Garages.h:21 (0x0096ABD8) |
 | & GetStoredCar(int32 iSafehouseInd, int32 iCarInd) | [source/game_sa/Garages.h:96](../../source/game_sa/Garages.h#L96) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aCarsInSafeHouse: source/game_sa/Garages.h:21 (0x0096ABD8) |
 
-<a id="grupo-310"></a>
+<a id="grupo-311"></a>
 
 ## CGeneral
 
@@ -296,7 +314,7 @@
 | RandomNodeHeading() | [source/game_sa/General.h:172](../../source/game_sa/General.h#L172) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetPiecewiseLinear(R&& r, float x) | [source/game_sa/General.h:186](../../source/game_sa/General.h#L186) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-311"></a>
+<a id="grupo-312"></a>
 
 ## CGenericGameStorage
 
@@ -328,7 +346,7 @@
 | LoadDataFromWorkBuffer() | [source/game_sa/GenericGameStorage.h:103](../../source/game_sa/GenericGameStorage.h#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::LoadDataFromWorkBuffer-org 0x005D1300 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SaveDataToWorkBuffer(const T& data) | [source/game_sa/GenericGameStorage.h:106](../../source/game_sa/GenericGameStorage.h#L106) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::SaveDataToWorkBuffer-org 0x005D1270 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-312"></a>
+<a id="grupo-313"></a>
 
 ## CGlass
 
@@ -355,7 +373,7 @@
 | CGlass::WindowRespondsToExplosion(CEntity* entity, CVector pos) | [source/game_sa/Glass.cpp:745](../../source/game_sa/Glass.cpp#L745) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGlass::WindowRespondsToExplosion 0x0071C1A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CGlass::IsObjectGlass(CEntity* entity) | [source/game_sa/Glass.cpp:762](../../source/game_sa/Glass.cpp#L762) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGlass::IsObjectGlass 0x0046A760 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-313"></a>
+<a id="grupo-314"></a>
 
 ## CGrassRenderer
 
@@ -375,7 +393,7 @@
 | CGrassRenderer::SetGlobalWindBending(float bending) | [source/game_sa/GrassRenderer.cpp:187](../../source/game_sa/GrassRenderer.cpp#L187) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGrassRenderer::SetGlobalWindBending 0x005DAC00 | 0 / 0 | Posible dato fijo m_windBending: source/game_sa/GrassRenderer.h:9 (0x00C02DB8) |
 | & CGrassRenderer::GenPointInTriangle(CVector& outPosn, const CVector& v1, const CVector& v2, const CVector& v3, float stepA, float stepB) | [source/game_sa/GrassRenderer.cpp:194](../../source/game_sa/GrassRenderer.cpp#L194) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGrassRenderer::GenPointInTriangle 0x005DAB00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-314"></a>
+<a id="grupo-315"></a>
 
 ## CGridRef
 
@@ -388,7 +406,7 @@
 | CGridRef::GetGridRefPositions(CVector pos, uint8* x, uint8* y) | [source/game_sa/GridRef.cpp:74](../../source/game_sa/GridRef.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGridRef::GetGridRefPositions-vec 0x0071D5A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CGridRef::GetGridRefPositions(uint8* x, uint8* y) | [source/game_sa/GridRef.cpp:82](../../source/game_sa/GridRef.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGridRef::GetGridRefPositions- 0x0071D5E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-315"></a>
+<a id="grupo-316"></a>
 
 ## CGroupEventHandler
 
@@ -428,7 +446,7 @@
 | * CGroupEventHandler::ComputeDrivebyResponse(CPedGroup* pg, CPed* threat, CPed* originator) | [source/game_sa/Events/GroupEventHandler.cpp:947](../../source/game_sa/Events/GroupEventHandler.cpp#L947) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGroupEventHandler::ComputeDrivebyResponse 0x005F7A00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CGroupEventHandler::ComputeEventResponseTasks(const CEventGroupEvent& ge, CPedGroup* g) | [source/game_sa/Events/GroupEventHandler.cpp:952](../../source/game_sa/Events/GroupEventHandler.cpp#L952) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGroupEventHandler::ComputeEventResponseTasks 0x005FC200 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-316"></a>
+<a id="grupo-317"></a>
 
 ## CHandObject
 
@@ -443,7 +461,7 @@
 | CHandObject::PreRender() | [source/game_sa/Entity/Object/HandObject.cpp:124](../../source/game_sa/Entity/Object/HandObject.cpp#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHandObject::PreRender 0x00000000 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | CHandObject::Render() | [source/game_sa/Entity/Object/HandObject.cpp:164](../../source/game_sa/Entity/Object/HandObject.cpp#L164) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHandObject::Render 0x00000000 | 0 / 0 | Posible dato fijo m_pTexture: source/game_sa/Skidmarks.h:10 (0x00C79A88) |
 
-<a id="grupo-317"></a>
+<a id="grupo-318"></a>
 
 ## CHandShaker
 
@@ -455,7 +473,7 @@
 | CHandShaker::Process(float degree) | [source/game_sa/HandShaker.cpp:59](../../source/game_sa/HandShaker.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHandShaker::Process 0x0050D930 | 0 / 0 | Posible dato fijo ms_fTimeStepNonClipped: source/game_sa/Timer.h:32 (0x00B7CB58) |
 | CHandShaker() | [source/game_sa/HandShaker.h:20](../../source/game_sa/HandShaker.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-318"></a>
+<a id="grupo-319"></a>
 
 ## CHeli
 
@@ -492,7 +510,7 @@
 | GetRopeId() | [source/game_sa/Entity/Vehicle/Heli.h:126](../../source/game_sa/Entity/Vehicle/Heli.h#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Heli.h:158](../../source/game_sa/Entity/Vehicle/Heli.h#L158) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHeli::Constructor 0x006C4190 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-319"></a>
+<a id="grupo-320"></a>
 
 ## CHud
 
@@ -541,17 +559,3 @@
 | CHud::RenderArmorBar(int32 playerId, int32 x, int32 y) | [source/game_sa/Hud.cpp:2037](../../source/game_sa/Hud.cpp#L2037) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHud::RenderArmorBar 0x005890A0 | 0 / 0 | Posible dato fijo HudColour: source/game_sa/HudColours.cpp:23 (0x00BAB22C); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo m_ItemToFlash: source/game_sa/Hud.h:60 (0x00BAB1DC) |
 | CHud::RenderBreathBar(int32 playerId, int32 x, int32 y) | [source/game_sa/Hud.cpp:2066](../../source/game_sa/Hud.cpp#L2066) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHud::RenderBreathBar 0x00589190 | 0 / 0 | Posible dato fijo HudColour: source/game_sa/HudColours.cpp:23 (0x00BAB22C); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo m_ItemToFlash: source/game_sa/Hud.h:60 (0x00BAB1DC) |
 | CHud::RenderHealthBar(int32 playerId, int32 x, int32 y) | [source/game_sa/Hud.cpp:2088](../../source/game_sa/Hud.cpp#L2088) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHud::RenderHealthBar 0x00589270 | 0 / 0 | Posible dato fijo HudColour: source/game_sa/HudColours.cpp:23 (0x00BAB22C); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo m_ItemToFlash: source/game_sa/Hud.h:60 (0x00BAB1DC) |
-
-<a id="grupo-320"></a>
-
-## CHudColours
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CHudColours::InjectHooks() | [source/game_sa/HudColours.cpp:25](../../source/game_sa/HudColours.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CHudColours::CHudColours() | [source/game_sa/HudColours.cpp:37](../../source/game_sa/HudColours.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::Constructor 0x0058FDA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CHudColours::Constructor() | [source/game_sa/HudColours.cpp:55](../../source/game_sa/HudColours.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::Constructor 0x0058FDA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CHudColours::SetRGBAValue(eHudColours colorIndex, uint8 red, uint8 green, uint8 blue, uint8 alpha) | [source/game_sa/HudColours.cpp:62](../../source/game_sa/HudColours.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::SetRGBAValue 0x0058FD20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CHudColours::GetIntColour(eHudColours colorIndex) const | [source/game_sa/HudColours.cpp:68](../../source/game_sa/HudColours.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::GetIntColour 0x0058FD50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CHudColours::GetRGB(eHudColours colorIndex) const | [source/game_sa/HudColours.cpp:76](../../source/game_sa/HudColours.cpp#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::GetRGB 0x0058FEA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CHudColours::GetRGBA(eHudColours index, uint8 alpha) const | [source/game_sa/HudColours.cpp:82](../../source/game_sa/HudColours.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::GetRGBA 0x0058FEE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

@@ -1,23 +1,23 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 14/11/2026 (Ciudad de México):** 903 grupos / 10577 funciones reconstruidas; 10577 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 14/11/2026 (Ciudad de México):** 906 grupos / 10590 funciones reconstruidas; 10590 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
-# Código del juego en el EXE: mapa de las 11,779 funciones
+# Código del juego en el EXE: mapa de las 11,776 funciones
 
 [Progreso del reversing](../ReversedClasses.md#cobertura-exe) · [Lista completa (CSV)](funciones.csv)
 
-Región **0x401000–0x74FFFF**: 11,779 funciones, 3,005,739 bytes. Es el código propio del juego y la capa de plataforma; RenderWare, D3D y el CRT quedan fuera (se sustituyen enlazando bibliotecas equivalentes). Generado por `contrib/game_function_map.py`; cotas y método en `contrib/exe_coverage.py`.
+Región **0x401000–0x74FFFF**: 11,776 funciones, 3,005,360 bytes. Es el código propio del juego y la capa de plataforma; RenderWare, D3D y el CRT quedan fuera (se sustituyen enlazando bibliotecas equivalentes). Generado por `contrib/game_function_map.py`; cotas y método en `contrib/exe_coverage.py`.
 
 ## Estado
 
 | Estado | Funciones | % func. | Bytes | % bytes |
 | --- | ---: | ---: | ---: | ---: |
-| B · Falta: método virtual | 260 | 2.2% | 16,612 | 0.6% |
-| D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 280 | 2.4% | 52,693 | 1.8% |
-| C · Falta: solo la llaman funciones aún no reemplazadas | 307 | 2.6% | 55,240 | 1.8% |
-| A · Falta: llamada desde código ya reemplazado | 441 | 3.7% | 75,165 | 2.5% |
+| B · Falta: método virtual | 257 | 2.2% | 16,483 | 0.5% |
+| D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 274 | 2.3% | 52,339 | 1.7% |
+| C · Falta: solo la llaman funciones aún no reemplazadas | 303 | 2.6% | 55,196 | 1.8% |
+| A · Falta: llamada desde código ya reemplazado | 438 | 3.7% | 74,786 | 2.5% |
 | Envoltura pendiente (la DLL aún llama al EXE) | 22 | 0.2% | 7,112 | 0.2% |
-| Reemplazada por C++ | 10,469 | 88.9% | 2,798,917 | 93.1% |
+| Reemplazada por C++ | 10,482 | 89.0% | 2,799,444 | 93.1% |
 
 Las funciones de A–D son **lo que falta**. El grupo A es el piso para la independencia (la DLL ya depende de ellas); es una cota inferior porque hay 6,004 llamadas indirectas sin resolver. Las envolturas pendientes (que ya tienen hook pero llaman al EXE) se cuentan aparte, por eso A–D suman menos que en la tabla de cobertura de ReversedClasses. Listas: [A](pendientes-A.md) · [B](pendientes-B.md) · [C](pendientes-C.md) · [D](pendientes-D.md).
 
@@ -29,7 +29,7 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 
 ## Excluidas del objetivo
 
-25 función(es) del rango del juego no se cuentan en las cifras de arriba porque no son viables en C++ puro (lista en [excluidas.csv](excluidas.csv)):
+28 función(es) del rango del juego no se cuentan en las cifras de arriba porque no son viables en C++ puro (lista en [excluidas.csv](excluidas.csv)):
 
 | Dirección | Bytes | Módulo estimado | Motivo |
 | --- | ---: | ---: | ---: |
@@ -55,6 +55,9 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x006935E0 | 5 | CTaskSimpleHoldEntity | no es una funcion con trabajo propio: un unico jmp a otra direccion, sin llamadores utiles (solo los destructores con borrado ya reconstruidos); excluida el 12/11/2026 (lotes 176A-184A) |
 | 0x006F55C0 | 5 | CTrain | no es una funcion con trabajo propio: un unico jmp a CVehicle::Render (0x6D0E60), ranura 18 de la vtable 0x872370 de CTrain; sin logica que reconstruir; excluida el 12/11/2026 (lote 174A) |
 | 0x00709CF0 | 837 | CShadows | __usercall (EAX=normal, EBX=triangulo, EDI=parametros): C++ no puede engancharla sin __asm; ya reconstruida en source/game_sa/Shadows.cpp pero sin hook; excluida del objetivo el 12/11/2026 |
+| 0x0070FA70 | 107 | CStencilShadows | __usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 14/11/2026 (lote 190A) |
+| 0x00711160 | 136 | CStencilShadows | __usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 14/11/2026 (lote 190A) |
+| 0x007111F0 | 136 | CStencilShadows | __usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 14/11/2026 (lote 190A) |
 | 0x00745CC0 | 252 | VideoMode | __usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 12/11/2026 (lotes 180A y 186A) |
 | 0x00745DC0 | 130 | VideoMode | __usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 12/11/2026 (lotes 180A y 186A) |
 | 0x00746800 | 110 | VideoPlayer | __usercall anti-manipulacion: lee registros que C++ no puede leer; sin llamadores directos ni vtable; excluida del objetivo el 11/11/2026 (lote 161A, evidencia en reversing/Fn161A) |
@@ -68,15 +71,15 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x580000 | 129 | 100% | 0 | 0 | — |
 | 0x640000 | 425 | 100% | 0 | 0 | — |
 | 0x6C0000 | 135 | 100% | 0 | 0 | — |
+| 0x700000 | 136 | 100% | 0 | 0 | — |
 | 0x730000 | 278 | 100% | 0 | 0 | — |
 | 0x500000 | 305 | 99% | 2 | 392 | — |
-| 0x700000 | 137 | 99% | 1 | 107 | CStencilShadows (1) |
 | 0x5B0000 | 157 | 99% | 2 | 106 | — |
+| 0x710000 | 156 | 99% | 2 | 164 | CStencilShadows (1) |
 | 0x690000 | 308 | 99% | 4 | 1,138 | — |
 | 0x410000 | 162 | 98% | 3 | 49 | — |
 | 0x590000 | 254 | 98% | 6 | 1,754 | CObject (2), Interior_c (1) |
 | 0x6B0000 | 83 | 98% | 2 | 1,048 | CAutomobile (2) |
-| 0x710000 | 158 | 97% | 4 | 436 | CStencilShadows (1) |
 | 0x530000 | 275 | 97% | 7 | 333 | CEntity (5), CPad (1) |
 | 0x680000 | 184 | 97% | 6 | 772 | — |
 | 0x630000 | 577 | 97% | 19 | 2,793 | — |
@@ -100,13 +103,13 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x620000 | 282 | 89% | 31 | 2,649 | — |
 | 0x5A0000 | 116 | 87% | 15 | 1,420 | CClothesBuilder (3), CObject (1) |
 | 0x660000 | 300 | 87% | 39 | 5,594 | CTaskComplexGoToPointAndStandStill (3), CTaskComplexGotoDoorAndOpen (2), CTaskComplexGoToPointAnyMeans (1) |
+| 0x5F0000 | 292 | 87% | 38 | 1,499 | — |
 | 0x470000 | 46 | 87% | 6 | 220 | — |
 | 0x4F0000 | 203 | 85% | 30 | 2,533 | CAEUserRadioTrackManager (28) |
 | 0x540000 | 176 | 85% | 27 | 1,314 | CPlaceable (3), CPad (2) |
 | 0x670000 | 290 | 84% | 45 | 8,916 | CTaskComplexFallAndGetUp (2), CTaskComplexWander (1), CTaskComplexStuckInAir (1) |
 | 0x400000 | 281 | 84% | 45 | 9,502 | CStreaming (14) |
 | 0x6D0000 | 179 | 84% | 29 | 470 | CVehicle (29) |
-| 0x5F0000 | 292 | 83% | 51 | 2,026 | — |
 | 0x4B0000 | 359 | 80% | 71 | 5,612 | CEventScriptCommand (1) |
 | 0x4C0000 | 370 | 79% | 76 | 14,469 | CModelInfo (19), CVehicleModelInfo (13) |
 | 0x550000 | 257 | 75% | 64 | 6,627 | CPools (51), CQuadTreeNode<T> (6), SurfaceInfos_c (2) |
@@ -122,14 +125,13 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | Módulo | Funciones | Reemplazadas | Faltan | Bytes que faltan | Confianza alta |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | CAudioZones | 11 | 10 | 1 | 139 | 0 |
+| CStencilShadows | 15 | 13 | 2 | 164 | 1 |
 | IKChain_c | 22 | 20 | 2 | 205 | 0 |
 | CWaterLevel | 48 | 47 | 1 | 208 | 1 |
 | WaterCreature_c | 5 | 3 | 2 | 211 | 0 |
 | CTaskComplexGotoDoorAndOpen | 14 | 8 | 6 | 388 | 2 |
-| CEventScriptedAttractor | 14 | 1 | 13 | 527 | 0 |
 | CPedAttractorPool | 13 | 1 | 12 | 530 | 0 |
 | CStreaming | 113 | 96 | 17 | 535 | 14 |
-| CStencilShadows | 18 | 13 | 5 | 543 | 2 |
 | CTaskComplexRoadRage | 18 | 9 | 9 | 585 | 0 |
 | CEventEditableResponse | 26 | 12 | 14 | 607 | 0 |
 | Rs | 35 | 31 | 4 | 661 | 4 |
@@ -200,7 +202,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | Win | 109 | 24 | 65 | 14,050 | 0 |
 | FxEmitterBP_c | 155 | 14 | 141 | 28,395 | 9 |
 
-78 de 782 módulos tienen algo pendiente.
+77 de 782 módulos tienen algo pendiente.
 
 ## Cómo usarlo
 
