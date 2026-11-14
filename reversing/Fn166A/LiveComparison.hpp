@@ -452,7 +452,7 @@ inline void Update() {
     env.stubs[2] = {F(0x61DCA0, K[2]), Del()};
     env.stubs[3] = {F(0x61A390, K[3])};
     env.stubs[6] = {F(0x61A3B0, K[6]), F(kRegRef, &FkRegRef)};
-    env.stubs[7] = {X(kResize, &FkResize)};
+    env.stubs[7] = {F(kResize, &FkResize)};   // pase final de bancos viejos: GrowableArrayResize 0x7304B0 tiene hook (antes X, sin hook)
     env.stubs[8] = {X(kNewScalar, &FkNewScalar), F(kDirCtor, &FkDirCtor)};
     env.stubs[9] = {F(kRegPlugin, &FkRegPlugin)};
     env.stubs[11] = {X(kTexDestroy, &FkTexDestroy)};

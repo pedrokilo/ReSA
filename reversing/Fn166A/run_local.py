@@ -30,7 +30,7 @@ DLL_BODY_WITHOUT_HOOK = set()
 DEL = (0x61A5B0, True)
 STUBBED = {n: [] for n in NAMES}
 STUBBED.update({NAMES[0]: [(0x61A5A0, True), (0x61C470, True)], NAMES[1]: [(0x61C530, True), DEL], NAMES[2]: [(0x61DCA0, True), DEL], NAMES[3]: [(0x61A390, True)],
-                NAMES[6]: [(0x61A3B0, True), (0x571B70, True)], NAMES[7]: [(0x7304B0, False)], NAMES[8]: [(0x82119A, False), (0x5322A0, True)], NAMES[9]: [(0x7F3C10, True)],
+                NAMES[6]: [(0x61A3B0, True), (0x571B70, True)], NAMES[7]: [(0x7304B0, True)], NAMES[8]: [(0x82119A, False), (0x5322A0, True)], NAMES[9]: [(0x7F3C10, True)],
                 NAMES[11]: [(0x7F3820, False)], NAMES[16]: [(0x681720, True), (0x5DF8F0, True), (0x5E0170, True)], NAMES[18]: [(0x4D4410, True), (0x4CEBE0, True), (0x4CEBC0, True)],
                 NAMES[19]: [(0x48E090, True), DEL], NAMES[20]: [(0x46AD70, True), DEL], NAMES[23]: [(0x46AF10, True), DEL, (0x61A3A0, True)]})
 REAL = {}
