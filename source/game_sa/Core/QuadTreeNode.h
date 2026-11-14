@@ -66,6 +66,13 @@ public:
     // Como el original (0x552B50 / 0x552C90): política original del pool (ver CQuadTreeNodeLegacyPool).
     static void* operator new(size_t sz) {
         assert(sz == sizeof(CQuadTreeNode<void*>));
+        return AllocateStorageExe();
+    }
+
+    // 0x552C80 (lote 192A, sin validar; el listado decia CQuadTreeNode<T>: es el operator new del nodo; cdecl, SIN argumentos de pila, `ret`, 11 bytes: `mov ecx,[0xB745BC]; jmp 0x552B50`):
+    // reserva un nodo en el pool de nodos (CQuadTreeNodeLegacyPool::New = 0x552B50) y devuelve la direccion del nodo o nulo si el pool esta lleno. Funcion propia sin expansion en linea para enganchar la direccion; la llama el operator new
+    // como el `call 0x552C80` de los llamadores del EXE (0x405F4E, 0x411480, 0x43F8BB). No comprueba que el pool exista. Se engancha como S.
+    __declspec(noinline) static void* AllocateStorageExe() {
         return static_cast<CQuadTreeNodeLegacyPool<T>*>(ms_pQuadTreeNodePool)->New();
     }
 
@@ -80,6 +87,12 @@ public:
         RH_ScopedCategory("Core");
 
         RH_ScopedInstall(InitPool, 0x552C00);
+        RH_ScopedInstall(Constructor, 0x552830);                                                      // lote 192A (sin validar)
+        RH_ScopedNamedGlobalInstall(PoolConstructorExe, "PoolConstructor", 0x552AF0);                 // lote 192A (sin validar)
+        RH_ScopedNamedGlobalInstall(CQuadTreeNodeLegacyPool<T>::New, "PoolNew", 0x552B50);            // lote 192A (sin validar)
+        RH_ScopedNamedGlobalInstall(CQuadTreeNodeLegacyPool<T>::Delete, "PoolDelete", 0x552BC0);      // lote 192A (sin validar)
+        RH_ScopedNamedGlobalInstall(AllocateStorageExe, "AllocateStorage", 0x552C80);                 // lote 192A (sin validar)
+        RH_ScopedNamedGlobalInstall(DeleteStorageExe, "DeleteStorage", 0x552C90);                     // lote 192A (sin validar)
         RH_ScopedNamedInstall(ScalarDeletingDestructorExe, "ScalarDeletingDestructor", 0x404590); // lote 150A (banco Fn150A)
         RH_ScopedNamedInstall(DestructorBodyExe, "DestructorBody", 0x552520); // lote 175A (banco Fn175A)
         RH_ScopedOverloadedInstall(FindSector, "rect", 0x5525A0, int32(CQuadTreeNode<T>::*)(const CRect&));
@@ -102,23 +115,33 @@ public:
         if (ms_pQuadTreeNodePool) {
             return;
         }
-        // Como el original: operator new de 0x14 bytes y el constructor del pool en línea (0x552AF0): objetos y
-        // mapa con operator new (no new[]) y sin relleno del almacenamiento; cada byte del mapa queda en 0x80,
-        // el byte +0x11 no se escribe y el nombre no se usa. Si la primera reserva falla el puntero queda nulo.
+        // Como el original: operator new de 0x14 bytes y llamada al constructor del pool (0x552AF0, PoolConstructorExe; objetos y mapa con operator new (no new[]) y sin relleno del
+        // almacenamiento; cada byte del mapa queda en 0x80, el byte +0x11 no se escribe y el nombre no se usa). Si la primera reserva falla el puntero queda nulo.
         constexpr int32 SIZE = 400;
-        auto* const pool = static_cast<uint8*>(::operator new(sizeof(CQuadTreeNodePool)));
+        void* const pool = ::operator new(sizeof(CQuadTreeNodePool));
         if (pool) {
-            *reinterpret_cast<void**>(pool + 0x0) = ::operator new(SIZE * sizeof(CQuadTreeNode<void*>));
-            auto* const flags = static_cast<uint8*>(::operator new(SIZE));
-            *reinterpret_cast<uint8**>(pool + 0x4) = flags;
-            pool[0x10]                             = 1;
-            *reinterpret_cast<int32*>(pool + 0x8)  = SIZE;
-            *reinterpret_cast<int32*>(pool + 0xC)  = -1;
-            for (int32 i = 0; i < SIZE; i++) {
-                flags[i] = 0x80;
-            }
+            ms_pQuadTreeNodePool = static_cast<CQuadTreeNodePool*>(PoolConstructorExe(pool, nullptr, SIZE, "QuadTreeNodes"));
+        } else {
+            ms_pQuadTreeNodePool = nullptr;
         }
-        ms_pQuadTreeNodePool = reinterpret_cast<CQuadTreeNodePool*>(pool);
+    }
+
+    // 0x552AF0 (lote 192A, sin validar; el listado decia CQuadTreeNode<T> sin nombre: es el constructor de CPool<CQuadTreeNode<void*>> en el EXE; thiscall, dos argumentos de pila (capacidad y nombre), `ret 8`, 92 bytes sin marco SEH):
+    // el almacenamiento de objetos es operator new (0x82119A) de capacidad * 40 bytes (+0x0) y el mapa de estados operator new de capacidad bytes (+0x4), sin rellenar; +0x10 = 1 (BYTE), +0x8 = capacidad, +0xC = -1; con capacidad > 0
+    // cada byte del mapa se pone a 0x80 (la lectura-modificacion-escritura `or 0x80` / `and 0x80` deja siempre 0x80); el byte +0x11 y el nombre no se usan. Devuelve `pool` (EAX = ECX). No comprueba que las reservas tengan exito.
+    // Funcion propia sin expansion en linea; la llama InitPool como el `call 0x552AF0` del EXE. Se engancha como S.
+    __declspec(noinline) static void* __fastcall PoolConstructorExe(void* pool, void* /*edx*/, int32 size, const char* /*name*/) {
+        auto* const bytes = static_cast<uint8*>(pool);
+        *reinterpret_cast<void**>(bytes + 0x0) = ::operator new(static_cast<size_t>(size) * sizeof(CQuadTreeNode<void*>));
+        uint8* const flags = static_cast<uint8*>(::operator new(static_cast<size_t>(size)));
+        *reinterpret_cast<uint8**>(bytes + 0x4) = flags;
+        bytes[0x10]                            = 1;
+        *reinterpret_cast<int32*>(bytes + 0x8) = size;
+        *reinterpret_cast<int32*>(bytes + 0xC) = -1;
+        for (int32 i = 0; i < size; i++) {
+            flags[i] = 0x80;
+        }
+        return pool;
     }
 
     static CQuadTreeNodePool* GetPool() {
@@ -131,6 +154,13 @@ public:
         m_apChildren{ nullptr } {
         m_Rect   = size;
         m_nLevel = startLevel;
+    }
+
+    // 0x552830 (lote 192A, sin validar): constructor de CQuadTreeNode del EXE (thiscall, dos argumentos de pila (rectangulo por puntero y nivel), `ret 8`, 63 bytes): copia el rectangulo (+0x0..+0xC) como cuatro dwords, deja la lista
+    // de elementos vacia (+0x10 = 0), los cuatro hijos a nulo (+0x14..+0x20) y el nivel (+0x24); devuelve this. Se engancha como S (envoltura sobre el constructor de la clase).
+    CQuadTreeNode* Constructor(const CRect& size, int32 startLevel) {
+        this->CQuadTreeNode::CQuadTreeNode(size, startLevel);
+        return this;
     }
 
     ~CQuadTreeNode() {

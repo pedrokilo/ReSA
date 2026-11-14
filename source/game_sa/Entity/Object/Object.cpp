@@ -93,6 +93,12 @@ uint8 ObjCeilSteps(float f) {
 }
 } // namespace
 
+// Cuerpo del destructor (0x59F660) y destructor con borrado (0x5A2BD0): definidos mas abajo, enganchados en InjectHooks.
+namespace CObjectBody {
+void __fastcall Destructor(CObject* self, void* edx);
+CObject* __fastcall ScalarDeletingDestructor(CObject* self, void* edx, uint8 flags);
+} // namespace CObjectBody
+
 void CObject::InjectHooks()
 {
     RH_ScopedVirtualClass(CObject, 0x866F60, 23);
@@ -101,6 +107,8 @@ void CObject::InjectHooks()
     RH_ScopedOverloadedInstall(operator new, "anon", 0x5A1EE0, void* (*)(size_t));
     RH_ScopedOverloadedInstall(operator new, "poolRef", 0x5A1EF0, void* (*)(size_t, int32)); // lote 185A (sin validar)
     RH_ScopedOverloadedInstall(operator delete, "anon", 0x5A1F20, void (*)(void*));          // lote 185A (sin validar)
+    RH_ScopedNamedGlobalInstall(CObjectBody::Destructor, "Destructor", 0x59F660);                                    // lote 192A (sin validar)
+    RH_ScopedNamedGlobalInstall(CObjectBody::ScalarDeletingDestructor, "ScalarDeletingDestructor", 0x5A2BD0);        // lote 192A (sin validar)
     RH_ScopedInstall(ConstructorDefault, 0x5A1D10);                                          // lote 185A (sin validar)
     RH_ScopedInstall(ConstructorFromDummy, 0x5A1DF0);                                        // lote 185A (sin validar)
     RH_ScopedInstall(Constructor, 0x5A1D70);
@@ -234,11 +242,23 @@ CObject* CObject::ConstructorFromDummy(CDummyObject* dummyObj) {
     return this;
 }
 
-// Lote 142A (banco Fn142A): 0x59F660 sin hook; funcion propia sin expansion en linea para que el cuerpo de ~CProjectile (0x5A40E0, `mov [ecx],0x867030; jmp 0x59F660`) la llame como el `jmp` del EXE y el
+// Lote 142A (banco Fn142A): 0x59F660 (enganchado en el lote 192A, sin validar); funcion propia sin expansion en linea para que el cuerpo de ~CProjectile (0x5A40E0, `mov [ecx],0x867030; jmp 0x59F660`) la llame como el `jmp` del EXE y el
 // banco pueda sustituirla.
 namespace CObjectBody {
 __declspec(noinline) void __fastcall Destructor(CObject* self, void* /*edx*/) {
     self->CObject::~CObject();
+}
+
+// 0x5A2BD0 (lote 192A, sin validar; el listado decia CObject sin nombre; thiscall, un argumento de pila, `ret 4`, 76 bytes: `push esi; push edi; mov edi,ecx; call 0x59F660; test byte [esp+0Ch],1; je ..;` y, con el bit 0 del BYTE de banderas,
+// el operator delete de CObject EN LINEA (pool de objetos 0xB7449C, indice = (this - almacenamiento) / 0x19C con signo, estado |= 0x80, cursor = min(cursor, indice); igual que 0x5A1F20); devuelve `this`). Ranura 0 de la vtable 0x866F60.
+// Como el original: destruye con el cuerpo de la clase (0x59F660, Destructor de arriba, con hook), libera `this` con CObject::operator delete (0x5A1F20, con hook; mismo efecto que la copia en linea) solo si el bit 0 esta puesto y
+// devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CObject* __fastcall ScalarDeletingDestructor(CObject* self, void* /*edx*/, uint8 flags) {
+    Destructor(self, nullptr);
+    if (flags & 1) {
+        CObject::operator delete(self);
+    }
+    return self;
 }
 } // namespace CObjectBody
 

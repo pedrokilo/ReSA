@@ -19,6 +19,29 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Lines.h"
+#include "General.h"
+#include "X87Math.h"
+
+namespace {
+// 0x553010 (lote 192A, sin validar; el listado decia CQuadTreeNode<T>: lee seis floats (+0x0..+0x8 minimo, +0xC..+0x14 maximo) como un CBox; sin llamadores ni referencias en el EXE, nombre inferido): punto aleatorio dentro de la caja.
+// thiscall, un argumento de pila (CVector* de salida), `ret 4`, 206 bytes. Pasos del EXE: anchoX = _ftol2(|maxX - minX|) y anchoY = _ftol2(|maxY - minY|) (valor absoluto `fcom 0.0f; test ah,5; jp; fchs`: solo se niega si es estrictamente
+// menor que cero; _ftol2 trunca a 64 bits y se usan los 32 bajos), anchoZ = |maxZ - minZ| guardado como float; x = float(rand() % anchoX + minX), y = float(rand() % anchoY + minY) y z = float(rand() % _ftol2(anchoZ) + minZ), cada uno
+// con `fild` del resto con signo y `fadd` (un solo redondeo a float; con un ancho 0 el EXE y esta funcion fallan igual con la excepcion de division). Tres rand() (CGeneral::GetRandomNumber) en el orden x, y, z. Los resultados se escriben como floats en out. Se engancha como S.
+__declspec(noinline) void __fastcall BoxGetRandomPoint(CBox* self, void* /*edx*/, CVector* out) {
+    const auto absIfNegative = [](float v) { return v < 0.0f ? -v : v; };
+    const auto ftol          = [](float v) { return static_cast<int32>(static_cast<int64>(v)); };
+
+    const int32 widthX = ftol(absIfNegative(self->m_vecMax.x - self->m_vecMin.x));
+    const int32 widthY = ftol(absIfNegative(self->m_vecMax.y - self->m_vecMin.y));
+    const float widthZ = absIfNegative(self->m_vecMax.z - self->m_vecMin.z);
+    const float x      = FloatPlusIntCpp(self->m_vecMin.x, static_cast<int32>(CGeneral::GetRandomNumber()) % widthX);
+    const float y      = FloatPlusIntCpp(self->m_vecMin.y, static_cast<int32>(CGeneral::GetRandomNumber()) % widthY);
+    const float z      = FloatPlusIntCpp(self->m_vecMin.z, static_cast<int32>(CGeneral::GetRandomNumber()) % ftol(widthZ));
+    out->x = x;
+    out->y = y;
+    out->z = z;
+}
+} // namespace
 
 /**
  * Registra las operaciones básicas de la caja de colisión alineada con los ejes.
@@ -30,6 +53,7 @@ void CBox::InjectHooks()
 
     RH_ScopedInstall(Set, 0x40EDE0);
     RH_ScopedInstall(Recalc, 0x40EE20);
+    RH_ScopedNamedGlobalInstall(BoxGetRandomPoint, "GetRandomPoint", 0x553010); // lote 192A (sin validar)
 }
 
 // Sustituye ambos extremos sin corregir su orden; Recalc() puede normalizarlos después.

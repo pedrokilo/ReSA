@@ -73,6 +73,8 @@ void CRenderer::InjectHooks()
     RH_ScopedClass(CRenderer);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedInstall(Init, 0x5531C0);     // lote 192A (sin validar): funcion vacia (`ret`), la llama CGame::Init2 (0x5BA2AC) tras CPed::Initialise
+    RH_ScopedInstall(Shutdown, 0x5531D0); // lote 192A (sin validar): funcion vacia (`ret`), la llama CGame::Shutdown (0x53C9B7) antes de CWorld::ShutDown
     RH_ScopedInstall(RenderFadingInEntities, 0x5531E0);
     RH_ScopedInstall(RenderFadingInUnderwaterEntities, 0x553220);
     RH_ScopedInstall(RenderOneRoad, 0x553230);
@@ -424,10 +426,12 @@ void CWorldScan::SetExtraRectangleToScan(float minX, float maxX, float minY, flo
     } while (xi < WsCeilToInt(maxX));
 }
 
+// 0x5531C0 (lote 192A, sin validar; el listado decia CQuadTreeNode<T>; cdecl, sin argumentos, `ret`, 1 byte): funcion vacia. Llamador en el EXE: 0x5BA2AC (CGame::Init2, entre CPed::Initialise y el bloque de CRadar).
 void CRenderer::Init() {
     // empty
 }
 
+// 0x5531D0 (lote 192A, sin validar; el listado decia CQuadTreeNode<T>; cdecl, sin argumentos, `ret`, 1 byte): funcion vacia. Llamador en el EXE: 0x53C9B7 (CGame::Shutdown, antes de CWorld::ShutDown 0x564050 y CEntryExitManager::Shutdown 0x440B90).
 void CRenderer::Shutdown() {
     // empty
 }

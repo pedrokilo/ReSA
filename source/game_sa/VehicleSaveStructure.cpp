@@ -20,12 +20,23 @@ END GENERATED HOOK STATUS */
 
 #include "VehicleSaveStructure.h"
 
+namespace {
+// 0x5D28F0 (lote 192A, sin validar; el listado decia CObject: es el destructor de CVehicleSaveStructure (la estructura local de CVehicle::Load, 0x5D2900, y CVehicle::Save), cuyo primer miembro (+0x0) es un CMatrix; thiscall, sin argumentos de pila,
+// 5 bytes: `jmp 0x59ACD0` (cuerpo del destructor de CMatrix); lo alcanza el EXE desde el desenrollado de CVehicle::Load/Save (0x83D5D3 y 0x83D6F3). Como el original: destruye la matriz con el cuerpo de CMatrix del EXE (0x59ACD0, con hook:
+// CMatrix::Destructor; la bandera de propiedad se lee como dword y se comprueba antes que la matriz enlazada). Se engancha como S.
+__declspec(noinline) void __fastcall VehicleSaveStructureDestructor(CVehicleSaveStructure* self, void* /*edx*/) {
+    static_assert(offsetof(CVehicleSaveStructure, m_matrix) == 0);
+    self->m_matrix.Destructor();
+}
+} // namespace
+
 void CVehicleSaveStructure::InjectHooks() {
     RH_ScopedClass(CVehicleSaveStructure);
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Construct, 0x5D2330);
     RH_ScopedInstall(Extract, 0x5D23B0);
+    RH_ScopedNamedGlobalInstall(VehicleSaveStructureDestructor, "Destructor", 0x5D28F0); // lote 192A (sin validar)
 }
 
 // 0x5D2330

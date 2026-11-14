@@ -25,6 +25,29 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Rect.h"
+#include "General.h"
+#include "X87Math.h"
+
+namespace {
+// 0x552EE0 (lote 192A, sin validar; el listado decia CQuadTreeNode<T>: lee cuatro floats (+0x0 izquierda, +0x4, +0x8 derecha, +0xC) como un CRect; sin llamadores ni referencias en el EXE, nombre inferido): punto aleatorio dentro del
+// rectangulo. thiscall, un argumento de pila (CVector2D* de salida), `ret 4`, 144 bytes. Pasos del EXE: ancho = _ftol2(|(+0x8) - (+0x0)|) (el valor absoluto es `fcom 0.0f; test ah,5; jp; fchs`: solo se niega si es
+// estrictamente menor que cero, un NaN no se toca; _ftol2 trunca a 64 bits y se usan los 32 bajos); alto = |(+0xC) - (+0x4)| guardado como float; x = float(rand() % ancho + (+0x0)) con `fild` del resto y `fadd` (un solo redondeo a
+// float, idiv con signo: con ancho 0 el EXE y esta funcion fallan igual con la excepcion de division); segunda rand() para y = float(rand() % _ftol2(alto) + (+0x4)). Orden de colaboradores: _ftol2(ancho), alto, rand() (x),
+// rand() (y), _ftol2(alto). rand() es CGeneral::GetRandomNumber. Los resultados se escriben como floats en out->x y out->y. Se engancha como S.
+__declspec(noinline) void __fastcall RectGetRandomPoint(CRect* self, void* /*edx*/, CVector2D* out) {
+    const auto absIfNegative = [](float v) { return v < 0.0f ? -v : v; };
+    const auto ftol          = [](float v) { return static_cast<int32>(static_cast<int64>(v)); };
+
+    const int32 width  = ftol(absIfNegative(self->right - self->left));
+    const float height = absIfNegative(self->bottom - self->top);
+    const int32 xRem   = static_cast<int32>(CGeneral::GetRandomNumber()) % width;
+    const float x      = FloatPlusIntCpp(self->left, xRem);
+    const int32 yRem   = static_cast<int32>(CGeneral::GetRandomNumber()) % ftol(height);
+    const float y      = FloatPlusIntCpp(self->top, yRem);
+    out->x = x;
+    out->y = y;
+}
+} // namespace
 
 /**
  * Registra las operaciones geométricas de CRect en sus direcciones originales.
@@ -43,6 +66,7 @@ void CRect::InjectHooks()
     RH_ScopedOverloadedInstall(GetCenter, "", 0x43E050, void(CRect::*)(float*, float*) const);
     RH_ScopedInstall(StretchToPoint, 0x5327F0);
     RH_ScopedGlobalInstall(RectMin, 0x404330);
+    RH_ScopedNamedGlobalInstall(RectGetRandomPoint, "GetRandomPoint", 0x552EE0); // lote 192A (sin validar)
 }
 
 // 0x404330

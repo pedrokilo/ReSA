@@ -28,12 +28,23 @@ void __fastcall CarUpsideDownDestructorBody(CEventCarUpsideDown* self, void* /*e
     CEntity::SafeRegisterRef(self->m_vehicle);
     *reinterpret_cast<uint32*>(self) = 0x85AB38;
 }
+// 0x4B67F0 (lote 192A, sin validar): destructor con borrado de CEventCarUpsideDown del EXE (ranura 0 de su vtable 0x85B660; thiscall, un argumento de pila, `ret 4`, 76 bytes: `call 0x4B1D50; test byte [esp+..],1; je ..;`
+// y, con el bit 0 del BYTE de banderas, el operator delete de CEvent EN LINEA (pool de eventos 0xB744AC, indice = (this - base) / 0x44 con signo, estado |= 0x80, cursor = min(cursor, indice)); devuelve `this`). El EXE conserva ECX tras la llamada al cuerpo (sin pila extra).
+// Como el original: destruye con el cuerpo de la clase (0x4B1D50), libera `this` con CEvent::operator delete (0x4B5630, con hook; mismo efecto que la copia en linea) solo si el bit 0 esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CEventCarUpsideDown* __fastcall CarUpsideDownScalarDeletingDestructor(CEventCarUpsideDown* self, void* /*edx*/, uint8 flags) {
+    CarUpsideDownDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CEventCarUpsideDown::InjectHooks() {
     RH_ScopedVirtualClass(CEventCarUpsideDown, 0x85B660, 16);
     RH_ScopedCategory("Events");
     RH_ScopedNamedGlobalInstall(CarUpsideDownDestructorBody, "Destructor", 0x4B1D50);
+    RH_ScopedNamedGlobalInstall(CarUpsideDownScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B67F0); // lote 192A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x4B1CC0);
     RH_ScopedVMTInstall(GetEventType, 0x4B1D20);      // lote 138A (banco Fn138A): retorno de constante

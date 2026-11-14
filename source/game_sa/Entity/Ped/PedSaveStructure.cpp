@@ -23,6 +23,17 @@ END GENERATED HOOK STATUS */
 #include "EntryExitManager.h"
 #include "EntryExit.h"
 
+namespace {
+// 0x5D28B0 (lote 192A, sin validar; el listado decia CObject: es el destructor de CPedSaveStructure (la estructura local de CPed::Load, 0x5D4640, y de CPed::Save, 0x5D5730), cuyo unico miembro con destructor es la tabla de 13 CWeapon (0x1C bytes cada una) en +0x14;
+// thiscall, sin argumentos de pila, `ret`, 19 bytes: `add ecx,14h; push 0x4411A0; push 0Dh; push 1Ch; push ecx; call 0x821E02` (iterador de destructores de vector del CRT) y su destructor por elemento 0x4411A0 es un solo `ret`; lo alcanza el EXE
+// desde el desenrollado de CPed::Load (0x83D6D6, marco de 0x5D4640) y de CPed::Save (0x83D716, marco de 0x5D5730). Como el original: destruye las 13 armas en orden inverso (indice 12 a 0); el destructor de CWeapon no hace nada, asi que el efecto es nulo. Se engancha como S.
+__declspec(noinline) void __fastcall PedSaveStructureDestructor(CPedSaveStructure* self, void* /*edx*/) {
+    for (size_t i = std::size(self->m_weapons); i-- > 0;) {
+        std::destroy_at(&self->m_weapons[i]);
+    }
+}
+} // namespace
+
 // 0x5D44B0
 void CPedSaveStructure::Extract(CPed* ped) {
     // Como el original: posicion (matriz o colocacion), vida, armadura, slot activo, creador y estilo de lucha
@@ -116,4 +127,5 @@ void CPedSaveStructure::InjectHooks() {
     RH_ScopedCategory("Entity/Ped");
     RH_ScopedInstall(Extract, 0x5D44B0);
     RH_ScopedInstall(Construct, 0x5D43D0);
+    RH_ScopedNamedGlobalInstall(PedSaveStructureDestructor, "Destructor", 0x5D28B0); // lote 192A (sin validar)
 }

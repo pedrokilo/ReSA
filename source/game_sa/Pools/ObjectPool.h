@@ -41,6 +41,7 @@ public:
 
         RH_ScopedInstall(GetAt, 0x404870);
         RH_ScopedInstall(New, 0x005A1C20);
+        RH_ScopedInstall(CreateAtRef, 0x59F610); // lote 192A (sin validar): CPool<CObject>::CreateAtRef, thiscall con la referencia en la pila, `ret 4`
     }
 
 public:

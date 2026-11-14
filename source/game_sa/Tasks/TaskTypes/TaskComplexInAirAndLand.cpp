@@ -40,6 +40,17 @@ void __fastcall InAirAndLandDestructorBody(CTaskComplexInAirAndLand* self, void*
     *reinterpret_cast<uint32*>(self) = 0x8704AC;
     CTaskComplexBody::Destructor(self, nullptr);
 }
+
+// 0x67CC10 (lote 192A, sin validar; el listado decia CTaskComplexFallAndGetUp: es la ranura 0 de la vtable 0x8704AC de CTaskComplexInAirAndLand; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x678CC0;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo (0x678CC0, InAirAndLandDestructorBody), libera `this` con CTask::operator delete (0x61A5B0,
+// con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CTaskComplexInAirAndLand* __fastcall InAirAndLandScalarDeletingDestructor(CTaskComplexInAirAndLand* self, void* /*edx*/, uint8 flags) {
+    InAirAndLandDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexInAirAndLand::InjectHooks() {
@@ -48,6 +59,7 @@ void CTaskComplexInAirAndLand::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x678C80);
     RH_ScopedNamedGlobalInstall(InAirAndLandDestructorBody, "Destructor", 0x678CC0); // lote 148A (banco Fn148A)
+    RH_ScopedNamedGlobalInstall(InAirAndLandScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67CC10); // lote 192A (sin validar)
     RH_ScopedVMTInstall(GetTaskType, 0x678CB0); // lote 148A (banco Fn148A): retorno de constante (240), ranura 4
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x67CC30);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x67CCB0);

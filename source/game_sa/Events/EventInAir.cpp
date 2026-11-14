@@ -24,6 +24,16 @@ namespace {
 void __fastcall InAirDestructorBody(CEventInAir* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x85AB38;
 }
+// 0x4B64D0 (lote 192A, sin validar): destructor con borrado de CEventInAir del EXE (ranura 0 de su vtable 0x85B3C0; thiscall, un argumento de pila, `ret 4`, 77 bytes: `call 0x4B0D00; test byte [esp+..],1; je ..;`
+// y, con el bit 0 del BYTE de banderas, el operator delete de CEvent EN LINEA (pool de eventos 0xB744AC, indice = (this - base) / 0x44 con signo, estado |= 0x80, cursor = min(cursor, indice)); devuelve `this`). El EXE conserva ECX tras la llamada al cuerpo (sin pila extra).
+// Como el original: destruye con el cuerpo de la clase (0x4B0D00), libera `this` con CEvent::operator delete (0x4B5630, con hook; mismo efecto que la copia en linea) solo si el bit 0 esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CEventInAir* __fastcall InAirScalarDeletingDestructor(CEventInAir* self, void* /*edx*/, uint8 flags) {
+    InAirDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 
@@ -32,6 +42,7 @@ void CEventInAir::InjectHooks()
     RH_ScopedVirtualClass(CEventInAir, 0x85B3C0, 16);
     RH_ScopedCategory("Events");
     RH_ScopedNamedGlobalInstall(InAirDestructorBody, "Destructor", 0x4B0D00);
+    RH_ScopedNamedGlobalInstall(InAirScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B64D0); // lote 192A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x4B0CB0);
     RH_ScopedVMTInstall(GetEventType, 0x4B0CD0);     // lote 137A (banco Fn137A)

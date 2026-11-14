@@ -519,6 +519,7 @@
 #include "TaskSimpleDuckWhileShotsWhizzing.h"
 #include "TaskSimpleBeHitWhileMoving.h"
 #include "TaskComplexExtinguishFireOnFoot.h"
+#include "TaskSimpleBeKickedOnGround.h"
 #include "TaskSimpleThrowControl.h"
 #include "TaskSimpleDieInCar.h"
 #include "TaskComplexTurnToFaceEntityOrCoord.h"
@@ -1295,7 +1296,7 @@ void InjectHooksMain() {
         CTaskSimpleArrestPed__InjectHooks();
         CTaskSimpleBeHit::InjectHooks();
         CTaskSimpleBeHitWhileMoving::InjectHooks(); // lote 193A (sin validar): cuerpo del destructor y destructor con borrado
-        // CTaskSimpleBeKickedOnGround::InjectHooks();
+        CTaskSimpleBeKickedOnGround::InjectHooks(); // lote 192A (sin validar): cuerpo del destructor y destructor con borrado
         CTaskSimpleBikeJacked::InjectHooks();
         CTaskSimpleCarAlign::InjectHooks();
         CTaskSimpleCarCloseDoorFromInside::InjectHooks();

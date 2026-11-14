@@ -36,6 +36,7 @@ void CEventScriptCommand::InjectHooks()
     // Como el original se llaman por la vtable: con RH_ScopedInstall el destino era el thunk virtual de la DLL, que
     // vuelve a saltar por la vtable del EXE (entrada enganchada) y se queda en un bucle infinito
     RH_ScopedVMTInstall(GetEventType, 0x4B0A30);
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B0A40); // lote 192A (sin validar): `xor eax,eax`, ranura 3
     RH_ScopedVMTInstall(GetEventPriority, 0x4B0B20);
     RH_ScopedVMTInstall(Clone, 0x4B6490);
     RH_ScopedVMTInstall(AffectsPed, 0x4B0AF0);

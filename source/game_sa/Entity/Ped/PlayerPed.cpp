@@ -130,6 +130,10 @@ void EmptyStub60F8C0() {
 }
 } // namespace
 
+// Estructura local de CPlayerPed::Load/Save (definida mas abajo): su constructor (0x5D28D0) se engancha en InjectHooks.
+struct CPlayerPedDataSaveStructure;
+CPlayerPedDataSaveStructure* __fastcall PlayerPedDataSaveStructureConstructor(CPlayerPedDataSaveStructure* self, void* edx);
+
 void CPlayerPed::InjectHooks() {
     RH_ScopedVirtualClass(CPlayerPed, 0x86D168, 26);
     RH_ScopedCategory("Entity/Ped");
@@ -137,6 +141,7 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedNamedGlobalInstall(PlayerPedDestructorBody, "DestructorBody", 0x6093B0); // lote 179A (sin validar)
     RH_ScopedNamedGlobalInstall(PlayerPedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x60A9A0); // lote 187A (sin validar)
     RH_ScopedNamedGlobalInstall(EmptyStub60F8C0, "EmptyStub60F8C0", 0x60F8C0); // lote 187A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlayerPedDataSaveStructureConstructor, "DataSaveStructureConstructor", 0x5D28D0); // lote 192A (sin validar)
     RH_ScopedInstall(Constructor, 0x60D5B0); // lote 187A (sin validar)
     RH_ScopedInstall(ResetSprintEnergy, 0x60A530);
     RH_ScopedInstall(ResetPlayerBreath, 0x60A8A0);
@@ -217,6 +222,15 @@ struct CPlayerPedDataSaveStructure {
 };
 
 VALIDATE_SIZE(CPlayerPedDataSaveStructure, 0x84 /* + 0x4 */);
+
+// 0x5D28D0 (lote 192A, sin validar; el listado decia CObject: es el constructor de CPlayerPedDataSaveStructure (la estructura local de CPlayerPed::Load, 0x5D46E0, y CPlayerPed::Save, 0x5D57E0); thiscall, sin argumentos de pila, `ret`, 15 bytes:
+// `push esi; mov esi,ecx; lea ecx,[esi+8]; call 0x5A8020; mov eax,esi; pop esi; ret`; sin llamadores directos en el EXE). Como el original: construye el miembro de ropa (+0x8) con el constructor de
+// CPedClothesDesc (0x5A8020, con hook; pone a cero sus 0x78 bytes) y devuelve `this`; no toca los demas campos (+0x0, +0x4 y +0x80 quedan como estaban). Se engancha como S.
+__declspec(noinline) CPlayerPedDataSaveStructure* __fastcall PlayerPedDataSaveStructureConstructor(CPlayerPedDataSaveStructure* self, void* /*edx*/) {
+    static_assert(offsetof(CPlayerPedDataSaveStructure, ClothesDesc) == 8);
+    new (&self->ClothesDesc) CPedClothesDesc();
+    return self;
+}
 
 // 0x5D46E0
 bool CPlayerPed::Load() {

@@ -67,6 +67,17 @@ __declspec(noinline) void __fastcall PhysicalSetVelocityExe(CPhysical* self, voi
     moveSpeed[1] = yBits;
     moveSpeed[2] = zBits;
 }
+
+// 0x5A2CB0 (lote 192A, sin validar; el listado decia CObject: toca un campo de CPhysical y lo llaman CObject (0x5A2E05) y CAutomobile::SpawnFlyingComponent (0x6A8690, 0x6A86B2, 0x6A86D4 y 0x6A8730)): CPhysical::SetCentreOfMass(x, y, z) del EXE (thiscall, tres
+// dwords en la pila, `ret 0Ch`, 59 bytes). Copia los tres argumentos como dwords (sin pasar por la x87: se conservan los bits de un NaN senalizante) al centro de masa (+0xA4, +0xA8, +0xAC) pasando por una copia local; no lee ni escribe
+// nada mas. Los argumentos llegan como los bits del float. Se engancha como S (nombre inferido; no existe en el EXE con simbolo).
+__declspec(noinline) void __fastcall PhysicalSetCentreOfMassExe(CPhysical* self, void* /*edx*/, uint32 xBits, uint32 yBits, uint32 zBits) {
+    static_assert(offsetof(CPhysical, m_vecCentreOfMass) == 0xA4);
+    uint32* const centre = reinterpret_cast<uint32*>(&self->m_vecCentreOfMass);
+    centre[0] = xBits;
+    centre[1] = yBits;
+    centre[2] = zBits;
+}
 } // namespace
 
 uintptr_t Lote140APhysicalDestructorBody() { return reinterpret_cast<uintptr_t>(&PhysicalDestructorBody); } // para el banco Fn140A
@@ -84,6 +95,7 @@ void CPhysical::InjectHooks()
     RH_ScopedNamedGlobalInstall(PhysicalScalarDeletingDestructor, "ScalarDeletingDestructor", 0x544990); // lote 140A (banco Fn140A)
     RH_ScopedNamedGlobalInstall(PhysicalSetTurnSpeedExe, "SetTurnSpeed", 0x45AFB0); // lote 181A (sin validar)
     RH_ScopedNamedGlobalInstall(PhysicalSetVelocityExe, "SetVelocity", 0x441130); // lote 191A (sin validar)
+    RH_ScopedNamedGlobalInstall(PhysicalSetCentreOfMassExe, "SetCentreOfMass", 0x5A2CB0); // lote 192A (sin validar)
 
     RH_ScopedInstall(RemoveAndAdd, 0x542560);
     RH_ScopedInstall(ApplyTurnForce, 0x542A50);

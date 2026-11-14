@@ -6,7 +6,8 @@ class CPed;
 class CEvent;
 
 // Plantilla: clase todavía no reconstruida. Sin constructor, campos ni
-// VALIDATE_SIZE; no se registra en InjectHooksMain ni figura en hooks.csv.
+// VALIDATE_SIZE. Desde el lote 192A (sin validar) se registra en InjectHooksMain solo
+// para enganchar funciones sueltas del EXE (sin vtable exportada); ver el .cpp.
 class NOTSA_EXPORT_VTABLE CTaskSimpleBeKickedOnGround : public CTaskSimple {
 public:
     static constexpr auto Type = eTaskType::TASK_SIMPLE_BE_KICKED_ON_GROUND;

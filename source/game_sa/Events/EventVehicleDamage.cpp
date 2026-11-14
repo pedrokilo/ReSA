@@ -32,6 +32,16 @@ void __fastcall Destructor(CEventVehicleDamage* self, void* /*edx*/) {
     CEntity::SafeCleanUpRef(self->m_attacker);
     *reinterpret_cast<uint32*>(self) = 0x85AB38;
 }
+// 0x4B6700 (lote 192A, sin validar): destructor con borrado de CEventVehicleDamage del EXE (ranura 0 de su vtable 0x85B588; thiscall, un argumento de pila, `ret 4`, 76 bytes: `call 0x4B1990; test byte [esp+..],1; je ..;`
+// y, con el bit 0 del BYTE de banderas, el operator delete de CEvent EN LINEA (pool de eventos 0xB744AC, indice = (this - base) / 0x44 con signo, estado |= 0x80, cursor = min(cursor, indice)); devuelve `this`). El EXE conserva ECX tras la llamada al cuerpo (sin pila extra).
+// Como el original: destruye con el cuerpo de la clase (0x4B1990), libera `this` con CEvent::operator delete (0x4B5630, con hook; mismo efecto que la copia en linea) solo si el bit 0 esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CEventVehicleDamage* __fastcall VehicleDamageScalarDeletingDestructor(CEventVehicleDamage* self, void* /*edx*/, uint8 flags) {
+    CEventVehicleDamageBody::Destructor(self, nullptr);
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
+}
 } // namespace CEventVehicleDamageBody
 
 void CEventVehicleDamage::InjectHooks()
@@ -39,6 +49,7 @@ void CEventVehicleDamage::InjectHooks()
     RH_ScopedVirtualClass(CEventVehicleDamage, 0x85B588, 17);
     RH_ScopedCategory("Events");
     RH_ScopedNamedGlobalInstall(CEventVehicleDamageBody::Destructor, "Destructor", 0x4B1990);
+    RH_ScopedNamedGlobalInstall(CEventVehicleDamageBody::VehicleDamageScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B6700); // lote 192A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x4B18D0);
     RH_ScopedVMTInstall(AffectsPed, 0x4B1A00);
