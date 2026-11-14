@@ -16535,7 +16535,7 @@
       },
       "evidence": {
         "path": "reversing/CarEnterWave4/validation-summary.json",
-        "sha256": "66def0c8ddb0403123a52e9f333c8efd25bdd7655e17fa336e6660bee0e2f051",
+        "sha256": "62f80d3975c029aaeabc9100822246e139c4c795c1175d2daaaba9685cb545d4",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::GetNearestCarDoor"
@@ -16561,7 +16561,7 @@
       },
       "evidence": {
         "path": "reversing/CarEnterWave4/validation-summary.json",
-        "sha256": "66def0c8ddb0403123a52e9f333c8efd25bdd7655e17fa336e6660bee0e2f051",
+        "sha256": "62f80d3975c029aaeabc9100822246e139c4c795c1175d2daaaba9685cb545d4",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::IsVehicleStealable"
@@ -16587,7 +16587,7 @@
       },
       "evidence": {
         "path": "reversing/CarEnterWave4/validation-summary.json",
-        "sha256": "66def0c8ddb0403123a52e9f333c8efd25bdd7655e17fa336e6660bee0e2f051",
+        "sha256": "62f80d3975c029aaeabc9100822246e139c4c795c1175d2daaaba9685cb545d4",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::MakeUndraggedDriverPedLeaveCar"
@@ -16613,7 +16613,7 @@
       },
       "evidence": {
         "path": "reversing/CarEnterWave4/validation-summary.json",
-        "sha256": "66def0c8ddb0403123a52e9f333c8efd25bdd7655e17fa336e6660bee0e2f051",
+        "sha256": "62f80d3975c029aaeabc9100822246e139c4c795c1175d2daaaba9685cb545d4",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle"
@@ -16639,7 +16639,7 @@
       },
       "evidence": {
         "path": "reversing/CarEnterWave4/validation-summary.json",
-        "sha256": "66def0c8ddb0403123a52e9f333c8efd25bdd7655e17fa336e6660bee0e2f051",
+        "sha256": "62f80d3975c029aaeabc9100822246e139c4c795c1175d2daaaba9685cb545d4",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::SetPedInCarDirect"
@@ -68510,7 +68510,7 @@
       },
       "evidence": {
         "path": "reversing/PickUpControl68/validation-summary.json",
-        "sha256": "699ed762757f250f89d76ef3d1489a336b8b9a51676569625ed377ba39349be1",
+        "sha256": "fd8f60ee36f757e3bf7543477d28b4084dc263d87b0dded480ee36fb7dfe25d7",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoPickUpEntity::ControlSubTask"
@@ -68520,18 +68520,18 @@
         "original_address": "0x00691D50"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "c3da23de9108cdeba382bbbce1bd57a9fef1b8d6f9b5d93ef9a8cdec90c24a32",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "9ea9b04ee4f4382ab2d8389393da7c2f29979325968de0880eca628487b8c93e",
-        "source/game_sa/X87Math.cpp": "7b703b6ecdb4bbb9b38e5a5f6ac83d24d194ebe784cc41c52fdfe6ce1f795f41",
-        "source/game_sa/X87Math.h": "7487efb01e7af178d11d6b2a418623cda7ad46b7bbffc28c40f34fbaaebc02e1",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "d6f8ae845706056acb7a8f6d6e7f98f5b2b9e95eb9d95548f80113856bbfbf7e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "2209581954942f123939ba2aafa676bda2ba59eaa2d401942cae1e285616e3b4",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/PickUpControl68/LiveComparison.hpp": "b4f480cd30348a47614aca426ab4b7437d9e262817ec73d38ae750eabc34b78c",
-        "reversing/PickUpControl68/Core.hpp": "50dffc27cc2316ac98561601e976e39bb558474134a6c7f625bec623cbc4fbf2",
+        "reversing/PickUpControl68/Core.hpp": "51851c84bd3d2df3a0cd87aab80d4b2ebdb86cea0cd545f2c6f3a575f598b567",
         "reversing/PickUpControl68/Fixtures.hpp": "a0cdddf332e61e6a36b6a9d5a3b32cc46699df83d829cb199747b30777230078",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -91038,7 +91038,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexEnterCarAsDriverTimed::ScalarDeletingDestructor"
@@ -91047,8 +91047,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91059,12 +91059,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91075,13 +91075,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },
@@ -91099,7 +91099,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStealCar::ScalarDeletingDestructor"
@@ -91108,8 +91108,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91120,12 +91120,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91136,13 +91136,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },
@@ -91160,7 +91160,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexEnterCarAsPassengerTimed::ScalarDeletingDestructor"
@@ -91169,8 +91169,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91181,12 +91181,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91197,13 +91197,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },
@@ -91221,7 +91221,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexEnterCarAsPassengerWait::ScalarDeletingDestructor"
@@ -91230,8 +91230,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91242,12 +91242,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91258,13 +91258,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },
@@ -91282,7 +91282,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveCarAsPassengerWait::ScalarDeletingDestructor"
@@ -91291,8 +91291,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91303,12 +91303,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91319,13 +91319,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },
@@ -91343,7 +91343,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexHitPedWithCar::ScalarDeletingDestructor"
@@ -91352,8 +91352,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91364,12 +91364,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91380,13 +91380,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },
@@ -91404,7 +91404,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexInvestigateDeadPed::ScalarDeletingDestructor"
@@ -91413,8 +91413,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91425,12 +91425,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91441,13 +91441,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },
@@ -91465,7 +91465,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGangFollower::ScalarDeletingDestructor"
@@ -91474,8 +91474,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91486,12 +91486,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91502,13 +91502,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },
@@ -91526,7 +91526,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarAlign::ScalarDeletingDestructor"
@@ -91535,8 +91535,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91547,12 +91547,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91563,13 +91563,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },
@@ -91587,7 +91587,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexReactToGunAimedAt::ScalarDeletingDestructor"
@@ -91596,8 +91596,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91608,12 +91608,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91624,13 +91624,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },
@@ -91648,7 +91648,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexCopInCar::ScalarDeletingDestructor"
@@ -91657,8 +91657,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91669,12 +91669,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91685,13 +91685,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },
@@ -91709,7 +91709,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleStealthKill::ScalarDeletingDestructor"
@@ -91718,8 +91718,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91730,12 +91730,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91746,13 +91746,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },
@@ -91770,7 +91770,7 @@
       },
       "evidence": {
         "path": "reversing/Fn126A/validation-summary.json",
-        "sha256": "e385b81fc5743b9a2990de70488a18a5255ef591c2b58e52a62a31bbf443d0a4",
+        "sha256": "5d813d5ea3ef3fe7271ad00ebf630a9e99c3437b0db6b18e3f2570acb4c0d08f",
         "passed_path": [
           "covered_functions",
           "CTaskComplexKillPedOnFootArmed::ScalarDeletingDestructor"
@@ -91779,8 +91779,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "622360c350240d2efe0a8e30e4ab50d3dcb730d558ac84572ef8dd02e9a235c9",
+        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
+        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp": "65a132a394dcc8f53cf8c6ffb48eed705703531f8f48fe43c79ea3c60d862988",
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h": "6a814a2c9912fd7150c45686b2b4e66fe2f8db7756aaae0ae4cb13290f869484",
         "source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp": "9cb5f2a20023b1afe2691c004841b2f3870f9ec8f5d9ebabf88ea64a2cb99648",
@@ -91791,12 +91791,12 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "e441ec5cfe5ecda7e3152bb94d832c1104a87b5f00bda1c60eb4d6b3cb761ed0",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp": "55036b9b6999ea5250de84234baaf9f4b1ce36c126a8dbc4f6aa5141591ab2d5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h": "dba37f38fcf1b74607983f7520ffdb244b5d413be21cda03862710041a9bfbc3",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "a5c08eef82b524fc605f450deb257febe66eca4d1e878b80fd96d7370729391c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "4dadf8c952631a2fa1d0d29d173b89559c8f88fe26da2dcb3e3d94e8823638ec",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp": "5901acd5c77cd13a6d55078f7930580cb3412bf1fe36acf94c21e7c19f962529",
         "source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.h": "13b8050989f5b04f22ff190b968e35a7e444ae361f574f4d5f03d59e2d89ae03",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "7af9eb6ad7dfaea1d1832edb82ac1acde161f759357b889ade65976fefdaaa36",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "dcb9f531851bf0cf52b712049055abd417223a27475d4d6b8556a8668f22d585",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "edbe7333235692cdd9864b6d2cd1aa2d20cff4cfbf24816d867cbbb73d111a08",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp": "b56c8b0282959a38238b9052bf660d2da3a303a6be39032292090fd2bd63fb64",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.h": "660757eca36c1713cd6dfbf4d9c71adffd3ea983cb1791de05eeec517fa18f98",
         "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
@@ -91807,13 +91807,13 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "2fed3637588537d7395bb932289319d982227583bedd5dd539d54697e2f1a977",
         "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "a0fe14c2a63c2cd278b4385ac98da03f29ba8b247bd07edfa0220c5898a84a28",
-        "source/game_sa/Tasks/Task.cpp": "d2cb6d421cc36b128764514fc5dd1dff99c2fb1f000663be57d03be852c5ab34",
+        "source/game_sa/Tasks/Task.cpp": "aafbd4ee6267f7e9575cb4cd386ef3c77d6231c01c2b6b32ffb9a9de36efcbc1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn126A/LiveComparison.hpp": "c09e7dbbf051130e1c9ec5b2e2888edf97b102b501a5ec985e4584415e67d1c5",
         "reversing/Fn126A/Core.hpp": "85b5c0a02d3449adc6cb65a5d522bff0d8bc972901b414412fa135e22b85e76a",
         "reversing/Fn126A/Fixtures.hpp": "6981ada2faf269722a92a41b32ad67203a9392e98f7f4f9707b472b460cc22e7",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
       },

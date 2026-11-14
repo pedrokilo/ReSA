@@ -27,22 +27,22 @@
     "CCarEnterExit::SetPedInCarDirect": "Corpus 1024; source corrected (EXE): ComputePassengerIndexFromCarDoor evaluated BEFORE building the local task (0x65034F..0x65035E, via the EDX-preserving wrapper); local CTaskSimpleCarSetPedInAsPassenger lives until the end of the function (ctor 0x646FE0 at 0x650362, dtor 0x647080 at 0x6504A7); acquaintance loop uses .data()[] (no range check, as the EXE)."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CarEnterWave4-20261107-015419-134386",
-  "summary_sha256": "13813406b07e6413ea488a2f6040774793bf5be161311db6284b0a48d57efa63",
-  "result_txt_sha256": "d5a65cb334ee85c4488653b9789430c42b1e00359d35cb3f00ad2ceb750c26a6",
-  "log_sha256": "9a75e1a82f312b020cdbf495f2e1714a2d3eeda0c9743584cf44eb0c37e7252b",
+  "run": "reversing/CppTwelveLevel6Final/runs/CarEnterWave4-20261114-152233-874757",
+  "summary_sha256": "025700e85d4178ab466c149bcbf63191b2b202d23d49917b1d9e62392d82c45b",
+  "result_txt_sha256": "a9cdcde2112a196f149872b748ac65be0c62815d15601893e9d1988a075379b3",
+  "log_sha256": "8e4bd3e8b8f28dab276730e72ed4b59ffcb1b2ca456c9bb3cf41c39dd5826bb8",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarEnterWave4-20261107-015419-134386/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarEnterWave4-20261114-152233-874757/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "fe6629456f782173e624b55f3cc5ca294805c7720446050b83c0a89ae6800a11",
-    "uncompressed_sha256": "9a75e1a82f312b020cdbf495f2e1714a2d3eeda0c9743584cf44eb0c37e7252b"
+    "compressed_sha256": "066aabe1f431bad74cbd53a6aca67a4f6439ec5de6ae526fb05313cf50ee2077",
+    "uncompressed_sha256": "8e4bd3e8b8f28dab276730e72ed4b59ffcb1b2ca456c9bb3cf41c39dd5826bb8"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "9c52d2f401d70d46a780e86fef79d9d70de324b167ea015d734e3d6894127124",
+  "executed_probe_sha256": "0d63b8049de4d386ba4786ed211a16b148d7b1cbaaadb3da4d0631ef8dedd9e2",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {

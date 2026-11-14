@@ -3778,7 +3778,7 @@
       },
       "evidence": {
         "path": "reversing/AppBatch/validation-summary.json",
-        "sha256": "b66e2f00f237b72d5b64d15053be53d16b5936b7b1acf7875984d2a416b28d87",
+        "sha256": "279fb87062371de7399654f76b2206d3f4206b6400fe436f1c5aff59e568aeea",
         "passed_path": [
           "covered_functions",
           "App::AppEventHandler"
@@ -3787,7 +3787,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app.cpp": "28c731cb15f470c6e28c0ead652b6d52c745293eaa0e9d5d0729169b155e46da",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
         "source/app/app.h": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd",
         "source/game_sa/IniFile.cpp": "30459558263580b4b34c806c81ec169940ec1ef34840d3a3de5c0d9ba0f6e8d9",
         "source/game_sa/IniFile.h": "96af401307617cea831ee9d6459400d1a9b07edb9b107593b44057947ec0d004",
@@ -3807,7 +3807,7 @@
       },
       "evidence": {
         "path": "reversing/AppBatch/validation-summary.json",
-        "sha256": "b66e2f00f237b72d5b64d15053be53d16b5936b7b1acf7875984d2a416b28d87",
+        "sha256": "279fb87062371de7399654f76b2206d3f4206b6400fe436f1c5aff59e568aeea",
         "passed_path": [
           "covered_functions",
           "App::DefinedState"
@@ -3816,7 +3816,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app.cpp": "28c731cb15f470c6e28c0ead652b6d52c745293eaa0e9d5d0729169b155e46da",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
         "source/app/app.h": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd",
         "source/game_sa/IniFile.cpp": "30459558263580b4b34c806c81ec169940ec1ef34840d3a3de5c0d9ba0f6e8d9",
         "source/game_sa/IniFile.h": "96af401307617cea831ee9d6459400d1a9b07edb9b107593b44057947ec0d004",
@@ -3836,7 +3836,7 @@
       },
       "evidence": {
         "path": "reversing/AppBatch/validation-summary.json",
-        "sha256": "b66e2f00f237b72d5b64d15053be53d16b5936b7b1acf7875984d2a416b28d87",
+        "sha256": "279fb87062371de7399654f76b2206d3f4206b6400fe436f1c5aff59e568aeea",
         "passed_path": [
           "covered_functions",
           "App::DefinedState2d"
@@ -3845,7 +3845,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app.cpp": "28c731cb15f470c6e28c0ead652b6d52c745293eaa0e9d5d0729169b155e46da",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
         "source/app/app.h": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd",
         "source/game_sa/IniFile.cpp": "30459558263580b4b34c806c81ec169940ec1ef34840d3a3de5c0d9ba0f6e8d9",
         "source/game_sa/IniFile.h": "96af401307617cea831ee9d6459400d1a9b07edb9b107593b44057947ec0d004",
@@ -3865,7 +3865,7 @@
       },
       "evidence": {
         "path": "reversing/AppBatch/validation-summary.json",
-        "sha256": "b66e2f00f237b72d5b64d15053be53d16b5936b7b1acf7875984d2a416b28d87",
+        "sha256": "279fb87062371de7399654f76b2206d3f4206b6400fe436f1c5aff59e568aeea",
         "passed_path": [
           "covered_functions",
           "App::DoRWStuffEndOfFrame"
@@ -3874,7 +3874,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app.cpp": "28c731cb15f470c6e28c0ead652b6d52c745293eaa0e9d5d0729169b155e46da",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
         "source/app/app.h": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd",
         "source/game_sa/IniFile.cpp": "30459558263580b4b34c806c81ec169940ec1ef34840d3a3de5c0d9ba0f6e8d9",
         "source/game_sa/IniFile.h": "96af401307617cea831ee9d6459400d1a9b07edb9b107593b44057947ec0d004",
@@ -3894,7 +3894,7 @@
       },
       "evidence": {
         "path": "reversing/AppBatch/validation-summary.json",
-        "sha256": "b66e2f00f237b72d5b64d15053be53d16b5936b7b1acf7875984d2a416b28d87",
+        "sha256": "279fb87062371de7399654f76b2206d3f4206b6400fe436f1c5aff59e568aeea",
         "passed_path": [
           "covered_functions",
           "App::DoRWStuffStartOfFrame"
@@ -3903,7 +3903,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app.cpp": "28c731cb15f470c6e28c0ead652b6d52c745293eaa0e9d5d0729169b155e46da",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
         "source/app/app.h": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd",
         "source/game_sa/IniFile.cpp": "30459558263580b4b34c806c81ec169940ec1ef34840d3a3de5c0d9ba0f6e8d9",
         "source/game_sa/IniFile.h": "96af401307617cea831ee9d6459400d1a9b07edb9b107593b44057947ec0d004",
@@ -3923,7 +3923,7 @@
       },
       "evidence": {
         "path": "reversing/AppBatch/validation-summary.json",
-        "sha256": "b66e2f00f237b72d5b64d15053be53d16b5936b7b1acf7875984d2a416b28d87",
+        "sha256": "279fb87062371de7399654f76b2206d3f4206b6400fe436f1c5aff59e568aeea",
         "passed_path": [
           "covered_functions",
           "App::DoRWStuffStartOfFrame_Horizon"
@@ -3932,7 +3932,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app.cpp": "28c731cb15f470c6e28c0ead652b6d52c745293eaa0e9d5d0729169b155e46da",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
         "source/app/app.h": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd",
         "source/game_sa/IniFile.cpp": "30459558263580b4b34c806c81ec169940ec1ef34840d3a3de5c0d9ba0f6e8d9",
         "source/game_sa/IniFile.h": "96af401307617cea831ee9d6459400d1a9b07edb9b107593b44057947ec0d004",
@@ -3952,7 +3952,7 @@
       },
       "evidence": {
         "path": "reversing/AppBatch/validation-summary.json",
-        "sha256": "b66e2f00f237b72d5b64d15053be53d16b5936b7b1acf7875984d2a416b28d87",
+        "sha256": "279fb87062371de7399654f76b2206d3f4206b6400fe436f1c5aff59e568aeea",
         "passed_path": [
           "covered_functions",
           "App::PluginAttach"
@@ -3961,7 +3961,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app.cpp": "28c731cb15f470c6e28c0ead652b6d52c745293eaa0e9d5d0729169b155e46da",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
         "source/app/app.h": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd",
         "source/game_sa/IniFile.cpp": "30459558263580b4b34c806c81ec169940ec1ef34840d3a3de5c0d9ba0f6e8d9",
         "source/game_sa/IniFile.h": "96af401307617cea831ee9d6459400d1a9b07edb9b107593b44057947ec0d004",
@@ -3981,7 +3981,7 @@
       },
       "evidence": {
         "path": "reversing/AppBatch/validation-summary.json",
-        "sha256": "b66e2f00f237b72d5b64d15053be53d16b5936b7b1acf7875984d2a416b28d87",
+        "sha256": "279fb87062371de7399654f76b2206d3f4206b6400fe436f1c5aff59e568aeea",
         "passed_path": [
           "covered_functions",
           "CIniFile::LoadIniFile"
@@ -3990,7 +3990,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app.cpp": "28c731cb15f470c6e28c0ead652b6d52c745293eaa0e9d5d0729169b155e46da",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
         "source/app/app.h": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd",
         "source/game_sa/IniFile.cpp": "30459558263580b4b34c806c81ec169940ec1ef34840d3a3de5c0d9ba0f6e8d9",
         "source/game_sa/IniFile.h": "96af401307617cea831ee9d6459400d1a9b07edb9b107593b44057947ec0d004",
@@ -4010,7 +4010,7 @@
       },
       "evidence": {
         "path": "reversing/AppBatch/validation-summary.json",
-        "sha256": "b66e2f00f237b72d5b64d15053be53d16b5936b7b1acf7875984d2a416b28d87",
+        "sha256": "279fb87062371de7399654f76b2206d3f4206b6400fe436f1c5aff59e568aeea",
         "passed_path": [
           "covered_functions",
           "CIplDefPool::New"
@@ -4019,7 +4019,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app.cpp": "28c731cb15f470c6e28c0ead652b6d52c745293eaa0e9d5d0729169b155e46da",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
         "source/app/app.h": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd",
         "source/game_sa/IniFile.cpp": "30459558263580b4b34c806c81ec169940ec1ef34840d3a3de5c0d9ba0f6e8d9",
         "source/game_sa/IniFile.h": "96af401307617cea831ee9d6459400d1a9b07edb9b107593b44057947ec0d004",
