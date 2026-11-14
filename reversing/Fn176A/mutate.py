@@ -30,7 +30,7 @@ DEL2 = '    if (flags & 1) {' + NL + '        CTask::operator delete(this);' + N
 
 FILES = {
     'bleed': G + 'PedDamageResponseCalculator.cpp', 'evt': G + 'Events/EventDamage.cpp', 'water': G + 'Audio/Entities/AEWaterCannonAudioEntity.cpp',
-    'furn': G + 'Interior/FurnitureManager_c.cpp', 'interior': G + 'Interior/Interior_c.cpp', 'target': T + 'TaskSimpleCarGoToPointNearDoorUntilDoorNotInUse.cpp',
+    'furn': G + 'Interior/FurnitureManager_c.cpp', 'interior': G + 'Interior/Interior_c.cpp', 'target': T + 'TaskSimpleCarGoToPointNearDoorUntilDoorNotInUseTarget.cpp', 'shake': T + 'TaskSimpleKillPedWithCarShake.cpp',
     'pass': T + 'TaskSimpleCarSetPedInAsPassenger.cpp', 'hit': T + 'TaskComplexHitPedWithCar.cpp', 'kill': T + 'TaskSimpleKillPedWithCar.cpp', 'walk': T + 'TaskComplexWalkRoundCar.cpp',
     'sit': T + 'Interior/TaskInteriorSitInChair.cpp', 'holdh': T + 'TaskSimpleHoldEntity.h', 'hold': T + 'TaskSimpleHoldEntity.cpp', 'pick': T + 'TaskSimplePickUpEntity.cpp',
     'put': T + 'TaskSimplePutDownEntity.cpp', 'gopick': T + 'TaskComplexGoPickUpEntity.cpp', 'duck': T + 'TaskSimpleDuck.cpp', 'input': 'source/app/app_input.cpp'}
@@ -58,7 +58,7 @@ def round1():
     out.append((FILES['pass'], DEL, DEL1))
     out.append((FILES['hit'], '    return m_ImpulseMag > threshold;', '    return m_ImpulseMag > threshold && !' + UT + ';'))     # 9
     out.append((FILES['kill'], DEL, DEL1))                                                                                                      # 10
-    out.append((FILES['kill'], '    const auto freq = static_cast<uint8>(static_cast<int64>(value));', '    const auto freq = static_cast<uint8>(static_cast<int64>(value) + (' + UT + ' ? 1 : 0));'))   # 11
+    out.append((FILES['shake'], '    const auto freq = static_cast<uint8>(static_cast<int64>(value));', '    const auto freq = static_cast<uint8>(static_cast<int64>(value) + (' + UT + ' ? 1 : 0));'))   # 11
     out.append((FILES['walk'], DEL, DEL1))                                                                                                      # 12
     out.append((FILES['sit'], 'eTaskType __fastcall SitInChairGetTaskType(CTaskInteriorSitInChair* /*self*/, void* /*edx*/) {' + NL + '    return CTaskInteriorSitInChair::Type;',
                 'eTaskType __fastcall SitInChairGetTaskType(CTaskInteriorSitInChair* self, void* /*edx*/) {' + NL + '    return ' + US + ' ? static_cast<eTaskType>(CTaskInteriorSitInChair::Type + 1) : CTaskInteriorSitInChair::Type;'))   # 13
@@ -92,7 +92,7 @@ def round2():
     out.append((FILES['pass'], DEL, DEL2))   # 8
     out.append((FILES['hit'], 'bool CTaskComplexHitPedWithCar::HitKillsPed(CPed* ped) const {' + NL + '    const float threshold = ped->IsPlayer() ? 20.0f : 12.0f;', 'bool CTaskComplexHitPedWithCar::HitKillsPed(CPed* ped) const {' + NL + '    const float threshold = ped->IsPlayer() ? 20.0f : (' + UT + ' ? 0.0f : 12.0f);'))   # 9
     out.append((FILES['kill'], DEL, DEL2))   # 10
-    out.append((FILES['kill'], "    CPad::GetPad(0)->StartShake(static_cast<int16>(40'000 / static_cast<int32>(freq)), freq, 0);", "    CPad::GetPad(0)->StartShake(static_cast<int16>(40'000 / static_cast<int32>(freq)), freq, " + UT + " ? 1 : 0);"))   # 11
+    out.append((FILES['shake'], "    CPad::GetPad(0)->StartShake(static_cast<int16>(40'000 / static_cast<int32>(freq)), freq, 0);", "    CPad::GetPad(0)->StartShake(static_cast<int16>(40'000 / static_cast<int32>(freq)), freq, " + UT + " ? 1 : 0);"))   # 11
     out.append((FILES['walk'], DEL, DEL2))   # 12
     out.append((FILES['sit'], 'eTaskType __fastcall SitInChairGetTaskType(CTaskInteriorSitInChair* /*self*/, void* /*edx*/) {' + NL + '    return CTaskInteriorSitInChair::Type;',
                 'eTaskType __fastcall SitInChairGetTaskType(CTaskInteriorSitInChair* self, void* /*edx*/) {' + NL + '    return ' + US + ' ? static_cast<eTaskType>(CTaskInteriorSitInChair::Type + 2) : CTaskInteriorSitInChair::Type;'))   # 13
