@@ -20,9 +20,24 @@ END GENERATED HOOK STATUS */
 
 #include "Directory.h"
 
+namespace {
+// 0x407670 (lote 189A, sin validar; el listado decia CStreaming): destructor con borrado de CDirectory del EXE (thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x5322D0; test byte
+// [esp+8],1; je ..; push esi; call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). CDirectory no tiene vtable: sin llamadores directos en el EXE. Como el original: destruye con el cuerpo (0x5322D0, con hook),
+// libera `this` con operator delete (0x8214BD) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CDirectory* __fastcall CDirectoryScalarDeletingDestructor(CDirectory* self, void* /*edx*/, uint8 flags) {
+    self->~CDirectory();
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CDirectory::InjectHooks() {
     RH_ScopedClass(CDirectory);
     RH_ScopedCategoryGlobal();
+
+    RH_ScopedNamedGlobalInstall(CDirectoryScalarDeletingDestructor, "ScalarDeletingDestructor", 0x407670); // lote 189A (sin validar)
 
     RH_ScopedOverloadedInstall(Constructor, "Empty", 0x532290, CDirectory*(CDirectory::*)());
     RH_ScopedOverloadedInstall(Constructor, "Capacity", 0x5322A0, CDirectory*(CDirectory::*)(size_t));

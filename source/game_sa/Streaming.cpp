@@ -143,6 +143,28 @@ void CStreaming::InjectHooks() {
     RH_ScopedInstall(StreamZoneModels_Gangs, 0x40AA10);
     RH_ScopedInstall(Update, 0x40E670);
     RH_ScopedInstall(WeAreTryingToPhaseVehicleOut, 0x407F80);
+
+    // Lote 189A (sin validar)
+    RH_ScopedInstall(IsObjectInCdImage, 0x407800);
+    RH_ScopedInstall(ForceLayerToRead, 0x407A10);
+    RH_ScopedInstall(SetLoadVehiclesInLoadScene, 0x407A30);
+    RH_ScopedInstall(RemoveUnusedModelsInLoadedList, 0x407AC0);
+    RH_ScopedInstall(ImGonnaUseStreamingMemory, 0x407BE0);
+    RH_ScopedInstall(IHaveUsedStreamingMemory, 0x407BF0);
+    RH_ScopedInstall(GetDefaultAmbulanceModel, 0x407D30);
+    RH_ScopedInstall(GetDefaultFireEngineModel, 0x407DC0);
+    RH_ScopedInstall(LoadInitialVehicles, 0x407F20);
+    RH_ScopedInstall(StartRenderEntities, 0x4096C0);
+    RH_ScopedInstall(SetMissionDoesntRequireSpecialChar, 0x40B490);
+    RH_ScopedInstall(RemoveStreamedScriptModel, 0x40C1C0);
+    RH_ScopedOverloadedInstall(ProcessEntitiesInSectorList<CPtrListSingleLink<CEntity*>>, "Simple", 0x40C450, void(*)(CPtrListSingleLink<CEntity*>&, int32));
+
+    // Instancia de la plantilla CLinkList<CEntity*> (ms_rwObjectInstances, 0x9654F0) que el EXE tiene fuera de linea: mismas instrucciones, byte a byte, que 0x4161F0 (CLinkList<CCollisionData*>, lote 148A) y 0x4D40C0
+    {
+        RH_ScopedClass(CLinkList<CEntity*>);
+        RH_ScopedCategoryGlobal();
+        RH_ScopedOverloadedInstall(Insert, "Data", 0x408230, CLink<CEntity*>* (CLinkList<CEntity*>::*)(CEntity* const&));
+    }
 }
 
 // 0x409650
@@ -2553,6 +2575,12 @@ void CStreaming::RemoveUnusedModelsInLoadedList() {
     // NOP
 }
 
+// 0x40C1C0 (lote 189A, sin validar; el listado decia CStreaming sin nombre): cdecl, un argumento de pila; suma 0x6676 (RESOURCE_ID_SCM = 26230) al indice del script en streaming y salta (`jmp`, cola) a RemoveModel (0x4089A0).
+// La llama el comando REMOVE_STREAMED_SCRIPT (0x4766EB).
+void CStreaming::RemoveStreamedScriptModel(int32 scriptIndex) {
+    RemoveModel(SCMToModelId(scriptIndex));
+}
+
 // 0x40C180
 void CStreaming::RemoveTxdModel(int32 modelId) {
     RemoveModel(TXDToModelId(modelId));
@@ -2632,7 +2660,8 @@ void CStreaming::ProcessEntitiesInSectorList(PtrListType& list, int32 streamingF
             continue;
         entity->SetCurrentScanCode() ;
 
-        const uint16 modelId = entity->m_nModelIndex;
+        // Como el original (0x40C48A y 0x40C500): el indice del modelo se lee con movsx (WORD con signo), dos veces (antes y despues de CreateRwObject)
+        const int32 modelId = static_cast<int16>(entity->m_nModelIndex);
         if (GetInfo(modelId).IsLoaded())
             continue;
         if (entity->m_bStreamingDontDelete)
@@ -2651,7 +2680,7 @@ void CStreaming::ProcessEntitiesInSectorList(PtrListType& list, int32 streamingF
         if (modelInfo->GetRwObject() && !entity->GetRwObject())
             entity->CreateRwObject();
 
-        RequestModel(entity->m_nModelIndex, streamingFlags);
+        RequestModel(static_cast<int16>(entity->m_nModelIndex), streamingFlags);
     }
 }
 
@@ -2746,8 +2775,10 @@ void CStreaming::FlushRequestList() {
 // Sets value of two global vars, the value is then set to false in CStreaming::RequestModelStream
 // 0x407A10
 void CStreaming::ForceLayerToRead(int32 arg1) {
+    // Como el original (0x407A10): primero el BYTE de 0x9654C4 y despues el DWORD de 0x9654C8 (sin uso)
     ms_bReadLayerForceFully = true;
-    *(int32*)0x9654C8 = arg1; // unused
+    static auto& s_ForcedLayer = StaticRef<int32>(0x9654C8);
+    s_ForcedLayer = arg1;
 }
 
 // 0x408000
@@ -2867,6 +2898,16 @@ eModelID CStreaming::GetDefaultCopModel() {
 
     // No cop model loaded
     return MODEL_INVALID;
+}
+
+// 0x407D30 (lote 189A, sin validar; el listado decia CStreaming sin nombre): modelo de ambulancia por nivel (0x8A5AB4 + nivel * 4); sin limite del indice, como el EXE
+eModelID CStreaming::GetDefaultAmbulanceModel() {
+    return (eModelID)ms_aDefaultAmbulanceModel.data()[CTheZones::m_CurrLevel];
+}
+
+// 0x407DC0 (lote 189A, sin validar): modelo de camion de bomberos por nivel (0x8A5AD4 + nivel * 4); sin limite del indice, como el EXE
+eModelID CStreaming::GetDefaultFireEngineModel() {
+    return (eModelID)ms_aDefaultFireEngineModel.data()[CTheZones::m_CurrLevel];
 }
 
 // 0x407D40
@@ -3088,7 +3129,8 @@ bool CStreaming::IsInitialised() {
 
 // 0x407800
 bool CStreaming::IsObjectInCdImage(int32 modelId) {
-    return GetInfo(modelId).GetCdSize() != 0;
+    // Como el original (0x407800): lee m_CDSize (+0xC) de la ranura sin comprobar el indice (ni assert ni limite)
+    return ms_aInfoForModel.data()[modelId].m_CDSize != 0;
 }
 
 // 0x407A30
@@ -3879,13 +3921,12 @@ void CStreaming::UpdateMemoryUsed() {
 #endif
 }
 
-// 0x407BF0
+// 0x407BF0 (lote 189A, sin validar): en el EXE es un solo `ret` (1 byte); no desapila ningun id de memoria ni llama a UpdateMemoryUsed
 void CStreaming::IHaveUsedStreamingMemory() {
-    CMemoryMgr::PopMemId();
-    UpdateMemoryUsed();
+    // NOP
 }
 
-// 0x407BE0
+// 0x407BE0 (lote 189A, sin validar): en el EXE es un solo `ret` (1 byte); no apila ningun id de memoria
 void CStreaming::ImGonnaUseStreamingMemory() {
-    CMemoryMgr::PushMemId(MEM_STREAMING);
+    // NOP
 }

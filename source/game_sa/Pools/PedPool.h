@@ -41,6 +41,9 @@ public:
         RH_ScopedInstall(GetRef, 0x4442D0);
         RH_ScopedInstall(New, 0x005E45E0);
         RH_ScopedInstall(GetAtRef, 0x404910);
+        // Lote 189A (sin validar; el listado decia CStreaming): CPool<CPed, CCopPed>::GetAt (thiscall, un argumento de pila, `ret 4`, 31 bytes; 6 llamadores; el elemento de 0x7C4 bytes y el ECX = 0xB74490 comprobado en un llamador, 0x46DF01, son los del pool de peatones).
+        // Nulo si el bit 7 del BYTE de estado de la ranura esta puesto (libre); si no, almacenamiento + indice * 0x7C4. El EXE no comprueba el limite del indice; la plantilla si (assert).
+        RH_ScopedInstall(GetAt, 0x4082A0);
     }
 
 public:

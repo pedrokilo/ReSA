@@ -81,6 +81,7 @@ auto& ms_pPedAttractorPool      = StaticRef<CPedAttractorPool*>(0xB744C4);
 
 namespace {
 void __fastcall PoolDestructorBodyExe(void* poolPtr, void* edx); // 0x4049C0 (lote 129A), definida mas abajo
+void* __fastcall VehicleStructPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x5B8340 (lote 189A), definida mas abajo
 }
 
 void CPools::InjectHooks() {
@@ -88,6 +89,7 @@ void CPools::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PoolDestructorBody", 0x4049C0);
+    RH_ScopedNamedGlobalInstall(VehicleStructPoolConstructorExe, "VehicleStructPoolConstructor", 0x5B8340); // lote 189A (sin validar)
     RH_ScopedInstall(Initialise, 0x550F10);
     RH_ScopedInstall(ShutDown, 0x5519F0);
     RH_ScopedInstall(CheckBuildingAtomics, 0x550170);
@@ -133,23 +135,37 @@ static_assert(sizeof(CPedAttractorPoolSlot) == 0xC4);    // 0x550E48: imul eax,e
 // almacenamiento (el CPool de la DLL lo rellena con 0xFD) ni toca +0x11..+0x13 (basura de operator new). El nombre del pool
 // que reciben los constructores no se guarda en ningun sitio. Si operator new devuelve null el EXE no construye el pool
 // (0x550F3E: je) y deja el puntero global a 0.
+//
+// Lote 189A (sin validar): el cuerpo (todo salvo el operator new del objeto) es el de 0x5B8340, constructor de CPool<CVehicleStructure> (50 elementos de 0x314 bytes), que el EXE si tiene fuera de linea; se comparte
+// aqui con ConstructPool. Orden del EXE: operator new[] del almacenamiento (n * tamano, multiplicacion de 32 bits), se escribe +0, operator new[] de los estados (n), se escribe +4, y despues +0x10, +8 y +0xC.
+void ConstructPoolBody(uint8* pool, int32 capacity, uint32 elementSize) {
+    *reinterpret_cast<uint8**>(pool + 0x0) = static_cast<uint8*>(::operator new[](size_t(capacity) * elementSize));
+    *reinterpret_cast<uint8**>(pool + 0x4) = static_cast<uint8*>(::operator new[](size_t(capacity)));
+    *(pool + 0x10)                         = 1;
+    *reinterpret_cast<int32*>(pool + 0x8)  = capacity;
+    *reinterpret_cast<int32*>(pool + 0xC)  = -1;
+    auto* const states = *reinterpret_cast<uint8**>(pool + 0x4);
+    for (int32 i = 0; i < capacity; ++i) {
+        states[i] = 0x80;
+    }
+}
+
 template<class PoolT>
 PoolT* ConstructPool(int32 capacity, uint32 elementSize) {
     auto* const pool = static_cast<uint8*>(::operator new(0x14));
     if (!pool) {
         return nullptr;
     }
-    auto* const storage = static_cast<uint8*>(::operator new[](size_t(capacity) * elementSize));
-    auto* const states  = static_cast<uint8*>(::operator new[](size_t(capacity)));
-    *reinterpret_cast<uint8**>(pool + 0x0) = storage;
-    *reinterpret_cast<uint8**>(pool + 0x4) = states;
-    *reinterpret_cast<int32*>(pool + 0x8)  = capacity;
-    *reinterpret_cast<int32*>(pool + 0xC)  = -1;
-    *(pool + 0x10)                         = 1;
-    for (int32 i = 0; i < capacity; ++i) {
-        states[i] = 0x80;
-    }
+    ConstructPoolBody(pool, capacity, elementSize);
     return reinterpret_cast<PoolT*>(pool);
+}
+
+// 0x5B8340 (lote 189A, sin validar; el listado decia CStreaming): constructor de CPool<CVehicleStructure> (CVehicleModelInfo::CVehicleStructure::m_pInfoPool, 0xB4E680), thiscall, dos argumentos de pila (capacidad y nombre,
+// que no se guarda), `ret 8`, 94 bytes. Su unico llamador (0x5B8FE7, en CVehicleModelInfo::SetupCommonData, 0x5B8F00) reserva el objeto (operator new de 0x14) y llama con 50 y "VehicleStruct" (0x869A9C). Devuelve `this`.
+// Mismo cuerpo que los constructores de los demas pools (0x550180...), con elementos de 0x314 bytes.
+void* __fastcall VehicleStructPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) {
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x314);
+    return self;
 }
 
 // Como el original: destructor de CPool + operator delete del EXE (p. ej. 0x551A07..0x551A40, repetido para cada pool).

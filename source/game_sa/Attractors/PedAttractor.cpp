@@ -26,9 +26,113 @@ END GENERATED HOOK STATUS */
 #include "Tasks/TaskTypes/TaskComplexUsePairedAttractor.h"
 #include "Tasks/TaskTypes/TaskSimpleStandStill.h"
 
+namespace {
+// Lote 189A (sin validar): 12 funciones de plantilla de la STL de MSVC 6 (std::fill, std::uninitialized_copy, std::copy y std::copy_backward) que el EXE no expande en linea en el codigo de los vectores de los atractores
+// (0x5EAAA0..0x5EAF04, cdecl, sin llamadores fuera de las instancias de SArray). El listado las atribuia a CPedAttractorPool; son el mismo bloque que SArraySizeStride20/12 (0x5E9800, PedShelterAttractor.cpp).
+// Los iteradores son punteros (4 bytes) pasados por valor; el valor a rellenar se pasa por puntero; las dos copias que devuelven un iterador lo escriben en el puntero que reciben primero (retorno de estructura) y lo devuelven.
+// Elementos de 4 bytes (SArray<puntero>), de 20 bytes (CPedTaskPair) y de 12 bytes (CVector). Las instancias identicas de distinto tipo de elemento tienen su propia direccion (A, B y C).
+struct SArrayElem20 { uint32 w[5]; };
+struct SArrayElem12 { uint32 w[3]; };
+
+// std::fill: lee el valor en cada vuelta; con inicio == fin no lo lee. EAX queda en fin, nadie lo usa.
+void __cdecl SArrayFillStride4(uint32* first, uint32* last, const uint32* value) {
+    for (; first != last; ++first) {
+        *first = *value;
+    }
+}
+void __cdecl SArrayFillStride20(SArrayElem20* first, SArrayElem20* last, const SArrayElem20* value) {
+    for (; first != last; ++first) {
+        *first = *value;
+    }
+}
+
+// std::uninitialized_copy: construye en el destino solo si no es nulo (new(puntero) T(*origen)); devuelve el final del destino en EAX.
+uint32* __cdecl SArrayUninitCopyStride4(const uint32* first, const uint32* last, uint32* dest) {
+    for (; first != last; ++first, ++dest) {
+        if (dest) {
+            *dest = *first;
+        }
+    }
+    return dest;
+}
+SArrayElem20* __cdecl SArrayUninitCopyStride20(const SArrayElem20* first, const SArrayElem20* last, SArrayElem20* dest) {
+    for (; first != last; ++first, ++dest) {
+        if (dest) {
+            *dest = *first;
+        }
+    }
+    return dest;
+}
+SArrayElem12* __cdecl SArrayUninitCopyStride12(const SArrayElem12* first, const SArrayElem12* last, SArrayElem12* dest) {
+    for (; first != last; ++first, ++dest) {
+        if (dest) {
+            *dest = *first;
+        }
+    }
+    return dest;
+}
+
+// std::copy (hacia delante, con las mismas comprobaciones de rango vacio que el EXE): *out = final del destino; devuelve out.
+SArrayElem20** __cdecl SArrayCopyStride20(SArrayElem20** out, SArrayElem20* first, SArrayElem20* last, SArrayElem20* dest) {
+    if (first == last) {
+        *out = dest;
+        return out;
+    }
+    do {
+        *dest = *first;
+        ++first;
+        ++dest;
+    } while (first != last);
+    *out = dest;
+    return out;
+}
+
+// std::copy_backward: recorre desde el final; *out = inicio del destino; devuelve out.
+SArrayElem20** __cdecl SArrayCopyBackwardStride20(SArrayElem20** out, SArrayElem20* first, SArrayElem20* last, SArrayElem20* destEnd) {
+    if (first == last) {
+        *out = destEnd;
+        return out;
+    }
+    do {
+        --last;
+        --destEnd;
+        *destEnd = *last;
+    } while (last != first);
+    *out = destEnd;
+    return out;
+}
+SArrayElem12** __cdecl SArrayCopyBackwardStride12(SArrayElem12** out, SArrayElem12* first, SArrayElem12* last, SArrayElem12* destEnd) {
+    if (first == last) {
+        *out = destEnd;
+        return out;
+    }
+    do {
+        --last;
+        --destEnd;
+        *destEnd = *last;
+    } while (last != first);
+    *out = destEnd;
+    return out;
+}
+} // namespace
+
 void CPedAttractor::InjectHooks() {
     RH_ScopedVirtualClass(CPedAttractor, 0x86C538, 6);
     RH_ScopedCategory("Attractors");
+
+    // Lote 189A (sin validar): ayudantes de plantilla de los vectores (ver arriba)
+    RH_ScopedNamedGlobalInstall(SArrayFillStride4, "SArrayFillStride4A", 0x5EAAA0);
+    RH_ScopedNamedGlobalInstall(SArrayFillStride20, "SArrayFillStride20", 0x5EAAC0);
+    RH_ScopedNamedGlobalInstall(SArrayFillStride4, "SArrayFillStride4B", 0x5EAAF0);
+    RH_ScopedNamedGlobalInstall(SArrayFillStride4, "SArrayFillStride4C", 0x5EAB10);
+    RH_ScopedNamedGlobalInstall(SArrayCopyStride20, "SArrayCopyStride20", 0x5EAB80);
+    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride20, "SArrayCopyBackwardStride20", 0x5EAC50);
+    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride12, "SArrayCopyBackwardStride12", 0x5EACC0);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4, "SArrayUninitCopyStride4A", 0x5EAE10);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride20, "SArrayUninitCopyStride20", 0x5EAE40);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4, "SArrayUninitCopyStride4B", 0x5EAE70);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride12, "SArrayUninitCopyStride12", 0x5EAEA0);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4, "SArrayUninitCopyStride4C", 0x5EAEE0);
 
     RH_ScopedInstall(Constructor, 0x5EDFB0);
     RH_ScopedInstall(Destructor, 0x5EC410);

@@ -299,6 +299,8 @@ public:
     static int32 GetDefaultCabDriverModel();
     static eModelID GetDefaultCopCarModel(bool ignoreLvpd1Model = true);
     static eModelID GetDefaultCopModel();
+    static eModelID GetDefaultAmbulanceModel();
+    static eModelID GetDefaultFireEngineModel();
     static eModelID GetDefaultFiremanModel();
     static eModelID GetDefaultMedicModel();
     static int32 GetDiscInDrive();
@@ -351,6 +353,7 @@ public:
     static bool RemoveLoadedZoneModel();
     static void RemoveModel(int32 modelId);
     static void RemoveTxdModel(int32 modelId);
+    static void RemoveStreamedScriptModel(int32 scriptIndex);
     static void RemoveUnusedModelsInLoadedList();
     static void RenderEntity(CLink<CEntity*>* streamingLink);
     static void RequestBigBuildings(const CVector& point);
