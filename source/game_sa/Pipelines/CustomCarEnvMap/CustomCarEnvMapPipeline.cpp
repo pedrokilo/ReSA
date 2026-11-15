@@ -148,7 +148,9 @@ void CalcEnvWaveUV(RpAtomic* atomic, uint8* matData, CustomEnvMapPipeAtomicData*
 }
 
 // 0x5DA790 - Rellena el material D3D9 global y los estados de color/ambiente
-void SetEnvMapMaterial(const RwSurfaceProperties* surfProps, const RwRGBA* color, RwUInt32 flags, float spec, float power) {
+// Lote 212A (sin validar): enganchada en 0x5DA790 (cdecl, cinco argumentos de pila: propiedades de superficie, color, banderas, brillo y potencia; 804 bytes). El EXE termina con RwD3D9SetMaterial (0x7FC430) sobre
+// el material global y devuelve EAX = 1 (ninguno de sus llamadores lo lee). Revisada instruccion por instruccion: x87 a 24 bits, mismo orden de productos ((c * ambiente_saturado) * (ambiente / 255)).
+RwBool SetEnvMapMaterial(const RwSurfaceProperties* surfProps, const RwRGBA* color, RwUInt32 flags, float spec, float power) {
     auto& m = gEnvMapD3DMaterial;
     m.Specular.r = m.Specular.g = m.Specular.b = spec;
     m.Power = power;
@@ -207,6 +209,13 @@ void SetEnvMapMaterial(const RwSurfaceProperties* surfProps, const RwRGBA* color
         }
     }
     RwD3D9SetMaterial(&m);
+    return TRUE;
+}
+
+// 0x5DAAC0 (lote 212A, sin validar): restaura las propiedades de superficie y el color por defecto globales (RwD3D9SetSurfaceProperties 0x7FC4D0 con 0x8D131C, 0x8D1328 y rxGEOMETRY_LIGHT = 0x20). Sin argumentos, cdecl, `ret`,
+// 21 bytes; la llama el final de CustomPipeRenderCB (0x5D9F3F).
+void SetDefaultSurfaceProperties() {
+    RwD3D9SetSurfaceProperties(&gDefaultSurfaceProps, &gDefaultColor, rxGEOMETRY_LIGHT);
 }
 
 // Como el original: new de 0x14 bytes y constructor inline de CPool (0x5D9060/0x5D91B0/0x5D9300: new escalar
@@ -245,6 +254,27 @@ void DestroyEnvMapPool(Pool* pool) {
         p->LastFreeSlot = 0;
     }
     ::operator delete(p);
+}
+
+// 0x5D94B0 y 0x5D9510 (lote 212A, sin validar; 71 bytes cada una): destructores con borrado de dos de las tres instancias de CPool de este pipeline (el EXE tambien trae 0x5D9450, no incluida en el lote; mismos bytes salvo las
+// direcciones de operator delete). thiscall con un argumento de pila (banderas, `ret 4`), devuelve `this`. Con tamano (+8, con signo) > 0: si el propietario (+0x10, byte) no es cero libera el almacenamiento (+0) y los estados (+4)
+// con operator delete escalar (0x8214BD, el mismo que usa DestroyEnvMapPool); despues pone +0, +4, +8 y +0xC a cero. Solo si el bit 0 de las banderas esta puesto libera `this` con operator delete. No toca el byte propietario.
+void* __fastcall EnvMapPoolScalarDeletingDestructor(void* self, void* /*edx*/, uint32 deleteFlags) {
+    auto* const p = static_cast<RawPool*>(self);
+    if (p->Size > 0) {
+        if (p->OwnsAllocations) {
+            ::operator delete(p->Objects);
+            ::operator delete(p->Flags);
+        }
+        p->Objects      = nullptr;
+        p->Flags        = nullptr;
+        p->Size         = 0;
+        p->LastFreeSlot = 0;
+    }
+    if (deleteFlags & 1) {
+        ::operator delete(self);
+    }
+    return self;
 }
 } // namespace
 
@@ -292,6 +322,14 @@ void CCustomCarEnvMapPipeline::InjectHooks() {
     RH_ScopedInstall(pluginSpecMatStreamGetSizeCB, 0x5D8DD0);
     RH_ScopedInstall(GetFxSpecSpecularity, 0x5D8B90);
     RH_ScopedInstall(GetFxSpecTexture, 0x5D8B50);
+
+    // Lote 212A (sin validar)
+    RH_ScopedNamedGlobalInstall(EnvMapPoolScalarDeletingDestructor, "PoolScalarDeletingDestructorB", 0x5D94B0);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolScalarDeletingDestructor, "PoolScalarDeletingDestructorC", 0x5D9510);
+    RH_ScopedNamedGlobalInstall(RxD3D9InstanceDataRender, "RxD3D9InstanceDataRender", 0x5DA640);
+    RH_ScopedNamedGlobalInstall(RxD3D9InstanceDataRenderLighting, "RxD3D9InstanceDataRenderLighting", 0x5DA6A0);
+    RH_ScopedNamedGlobalInstall(SetEnvMapMaterial, "SetEnvMapMaterial", 0x5DA790);
+    RH_ScopedNamedGlobalInstall(SetDefaultSurfaceProperties, "SetDefaultSurfaceProperties", 0x5DAAC0);
 }
 
 // 0x5DA450
@@ -646,8 +684,7 @@ void CCustomCarEnvMapPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* ob
         }
     }
 
-    // 0x5DAAC0
-    RwD3D9SetSurfaceProperties(&gDefaultSurfaceProps, &gDefaultColor, rxGEOMETRY_LIGHT);
+    SetDefaultSurfaceProperties(); // 0x5DAAC0
 
     RwD3D9SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
     RwD3D9SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);

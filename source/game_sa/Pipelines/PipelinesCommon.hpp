@@ -24,7 +24,7 @@ inline void SetTextureStagesForLighting(bool isGeoTextured, RwTexture* tex) {
     }
 }
 
-// 0x5DA640 (Render::Obj)
+// 0x5DA640 (Render::Obj; lote 212A: enganchada desde CCustomCarEnvMapPipeline::InjectHooks. cdecl, 2 argumentos; SetPixelShader(0), SetVertexShader(+0x10) y el dibujo indexado o no segun el buffer de indices)
 inline void RxD3D9InstanceDataRender(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* mesh) {
     RwD3D9SetPixelShader(NULL);
     RwD3D9SetVertexShader(mesh->vertexShader);
@@ -36,7 +36,7 @@ inline void RxD3D9InstanceDataRender(RxD3D9ResEntryHeader* header, RxD3D9Instanc
     }
 }
 
-// 0x5DA6A0 (Render::Obj::Lighting)
+// 0x5DA6A0 (Render::Obj::Lighting; lote 212A: enganchada igual; la mascara de texturas es 0x84 = TEXTURED2 | TEXTURED; el EXE trae el dibujo en linea)
 inline void RxD3D9InstanceDataRenderLighting(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* mesh, uint32 rxGeoFlags, RwTexture* tex) {
     SetTextureStagesForLighting((rxGeoFlags & (rxGEOMETRY_TEXTURED2 | rxGEOMETRY_TEXTURED)) != 0, tex);
     RxD3D9InstanceDataRender(header, mesh);

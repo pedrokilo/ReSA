@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 
+#include <Pipelines/PipelinesCommon.hpp>
 #include "CustomBuildingDNPipeline.h"
 #include "CustomCarEnvMapPipeline.h"
 
@@ -309,10 +310,6 @@ static inline auto& DNEnvMapTexMatrix = StaticRef<D3DMATRIX>(0xC02C28);
 static void DNSetIndices(void* indexBuffer) { ((void(__cdecl*)(void*))0x7FA1C0)(indexBuffer); }
 static void DNSetVertexDeclaration(void* declaration) { ((void(__cdecl*)(void*))0x7F9F70)(declaration); }
 static void DNVertexAlphaEnable(RwBool enable) { ((void(__cdecl*)(RwBool))0x7FE0A0)(enable); }
-static void DNInstanceDataRender(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* mesh) { ((void(__cdecl*)(RxD3D9ResEntryHeader*, RxD3D9InstanceData*))0x5DA640)(header, mesh); }
-static void DNInstanceDataRenderLighting(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* mesh, uint32 rxGeoFlags, RwTexture* texture) {
-    ((void(__cdecl*)(RxD3D9ResEntryHeader*, RxD3D9InstanceData*, uint32, RwTexture*))0x5DA6A0)(header, mesh, rxGeoFlags, texture);
-}
 
 // 0x5D6480
 // Callback de dibujo de la tubería (cdecl, void; sus llamadores no leen EAX/ECX/EDX). Estructura como la de CCustomBuildingPipeline::CustomPipeRenderCB, con estas diferencias:
@@ -387,12 +384,12 @@ void CCustomBuildingDNPipeline::CustomPipeRenderCB(RwResEntry* entry, void* obje
         DNVertexAlphaEnable(mesh->vertexAlpha || mesh->material->color.alpha != 0xFF);
 
         if (geoHasNoLighting) {
-            DNInstanceDataRender(header, mesh);
+            RxD3D9InstanceDataRender(header, mesh); // 0x5DA640 (lote 212A: cuerpo en C++ comun, ya no por direccion)
         } else {
             if (isLightingEnabled) {
                 RwD3D9SetSurfaceProperties(&mesh->material->surfaceProps, &mesh->material->color, flags);
             }
-            DNInstanceDataRenderLighting(header, mesh, flags, mesh->material->texture);
+            RxD3D9InstanceDataRenderLighting(header, mesh, flags, mesh->material->texture); // 0x5DA6A0
         }
     }
 

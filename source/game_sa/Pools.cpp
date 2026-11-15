@@ -80,6 +80,19 @@ auto& ms_pTaskAllocatorPool     = StaticRef<CTaskAllocatorPool*>(0xB744BC);
 auto& ms_pPedAttractorPool      = StaticRef<CPedAttractorPool*>(0xB744C4);
 
 namespace {
+void* __fastcall PtrNodeSingleLinkPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550180 (lote 212A), definida mas abajo
+void* __fastcall PtrNodeDoubleLinkPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550250 (lote 212A), definida mas abajo
+void* __fastcall EntryInfoNodePoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550320 (lote 212A), definida mas abajo
+void* __fastcall PedPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x5503F0 (lote 212A), definida mas abajo
+void* __fastcall VehiclePoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x5504C0 (lote 212A), definida mas abajo
+void* __fastcall BuildingPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550570 (lote 212A), definida mas abajo
+void* __fastcall ObjectPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550640 (lote 212A), definida mas abajo
+void* __fastcall DummyPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x5506F0 (lote 212A), definida mas abajo
+void* __fastcall ColModelPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x5507C0 (lote 212A), definida mas abajo
+void* __fastcall TaskPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550890 (lote 212A), definida mas abajo
+void* __fastcall EventPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550960 (lote 212A), definida mas abajo
+void* __fastcall PointRoutePoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550A30 (lote 212A), definida mas abajo
+void* __fastcall PatrolRoutePoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550B00 (lote 212A), definida mas abajo
 void __fastcall PoolDestructorBodyExe(void* poolPtr, void* edx); // 0x4049C0 (lote 129A), definida mas abajo
 void* __fastcall VehicleStructPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x5B8340 (lote 189A), definida mas abajo
 }
@@ -90,6 +103,33 @@ void CPools::InjectHooks() {
 
     RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PoolDestructorBody", 0x4049C0);
     RH_ScopedNamedGlobalInstall(VehicleStructPoolConstructorExe, "VehicleStructPoolConstructor", 0x5B8340); // lote 189A (sin validar)
+    // Lote 212A (sin validar): constructores de pool fuera de linea (cuerpo de 0x5B8340 con el tamano de elemento de cada tipo) y copias del cuerpo del destructor de pool (13 copias identicas entre si salvo la direccion de operator delete[]; misma semantica que 0x4049C0).
+    RH_ScopedNamedGlobalInstall(PtrNodeSingleLinkPoolConstructorExe, "PtrNodeSingleLinkPoolConstructor", 0x550180);
+    RH_ScopedNamedGlobalInstall(PtrNodeDoubleLinkPoolConstructorExe, "PtrNodeDoubleLinkPoolConstructor", 0x550250);
+    RH_ScopedNamedGlobalInstall(EntryInfoNodePoolConstructorExe, "EntryInfoNodePoolConstructor", 0x550320);
+    RH_ScopedNamedGlobalInstall(PedPoolConstructorExe, "PedPoolConstructor", 0x5503F0);
+    RH_ScopedNamedGlobalInstall(VehiclePoolConstructorExe, "VehiclePoolConstructor", 0x5504C0);
+    RH_ScopedNamedGlobalInstall(BuildingPoolConstructorExe, "BuildingPoolConstructor", 0x550570);
+    RH_ScopedNamedGlobalInstall(ObjectPoolConstructorExe, "ObjectPoolConstructor", 0x550640);
+    RH_ScopedNamedGlobalInstall(DummyPoolConstructorExe, "DummyPoolConstructor", 0x5506F0);
+    RH_ScopedNamedGlobalInstall(ColModelPoolConstructorExe, "ColModelPoolConstructor", 0x5507C0);
+    RH_ScopedNamedGlobalInstall(TaskPoolConstructorExe, "TaskPoolConstructor", 0x550890);
+    RH_ScopedNamedGlobalInstall(EventPoolConstructorExe, "EventPoolConstructor", 0x550960);
+    RH_ScopedNamedGlobalInstall(PointRoutePoolConstructorExe, "PointRoutePoolConstructor", 0x550A30);
+    RH_ScopedNamedGlobalInstall(PatrolRoutePoolConstructorExe, "PatrolRoutePoolConstructor", 0x550B00);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PtrNodeSingleLinkPoolDestructorBody", 0x5501E0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PtrNodeDoubleLinkPoolDestructorBody", 0x5502B0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "EntryInfoNodePoolDestructorBody", 0x550380);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PedPoolDestructorBody", 0x550450);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "VehiclePoolDestructorBody", 0x550520);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "BuildingPoolDestructorBody", 0x5505D0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "ObjectPoolDestructorBody", 0x5506A0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "DummyPoolDestructorBody", 0x550750);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "ColModelPoolDestructorBody", 0x550820);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "TaskPoolDestructorBody", 0x5508F0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "EventPoolDestructorBody", 0x5509C0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PointRoutePoolDestructorBody", 0x550A90);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PatrolRoutePoolDestructorBody", 0x550B60);
     RH_ScopedInstall(Initialise, 0x550F10);
     RH_ScopedInstall(ShutDown, 0x5519F0);
     RH_ScopedInstall(CheckBuildingAtomics, 0x550170);
@@ -187,6 +227,62 @@ void __fastcall PoolDestructorBodyExe(void* poolPtr, void* /*edx*/) {
         *reinterpret_cast<int32*>(pool + 0x8) = 0;
         *reinterpret_cast<int32*>(pool + 0xC) = 0;
     }
+}
+
+// Lote 212A (sin validar): constructores de CPool del EXE fuera de linea, uno por tipo de pool (0x550180, 0x550250, 0x550320, 0x5503F0, 0x5504C0, 0x550570, 0x550640, 0x5506F0, 0x5507C0, 0x550890, 0x550960, 0x550A30 y 0x550B00).
+// Todos son thiscall con dos argumentos de pila (capacidad y nombre, que no se guarda), `ret 8`, devuelven `this` y tienen el cuerpo de 0x5B8340 (ConstructPoolBody) salvo el tamano de elemento: 8 (lea [edi*8]), 12, 0x14, 0x7C4, 0xA18, 0x38, 0x19C, 0x38, 0x30, 0x80, 0x44, 0x64 y 0x1A4.
+// El objeto del pool lo reserva el llamador (aqui no hay operator new del objeto, a diferencia de ConstructPool).
+void* __fastcall PtrNodeSingleLinkPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550180
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x8);
+    return self;
+}
+void* __fastcall PtrNodeDoubleLinkPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550250
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0xc);
+    return self;
+}
+void* __fastcall EntryInfoNodePoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550320
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x14);
+    return self;
+}
+void* __fastcall PedPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x5503F0
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x7c4);
+    return self;
+}
+void* __fastcall VehiclePoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x5504C0
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0xa18);
+    return self;
+}
+void* __fastcall BuildingPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550570
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x38);
+    return self;
+}
+void* __fastcall ObjectPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550640
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x19c);
+    return self;
+}
+void* __fastcall DummyPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x5506F0
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x38);
+    return self;
+}
+void* __fastcall ColModelPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x5507C0
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x30);
+    return self;
+}
+void* __fastcall TaskPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550890
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x80);
+    return self;
+}
+void* __fastcall EventPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550960
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x44);
+    return self;
+}
+void* __fastcall PointRoutePoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550A30
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x64);
+    return self;
+}
+void* __fastcall PatrolRoutePoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550B00
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x1a4);
+    return self;
 }
 
 void DestroyPool(void* poolPtr) {
