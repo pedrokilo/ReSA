@@ -11530,3 +11530,17 @@ CPtrNodeSingleLinkPool,RemoveItem,0x00533610,1,0,0,S
 CPtrNodeDoubleLinkPool,AddItem,0x00533670,1,0,0,S
 CPtrNodeDoubleLinkPool,RemoveItem,0x005336B0,1,0,0,S
 CEntity,ScalarDeletingDestructor,0x00536C20,1,0,0,S
+RwD3D9RasterDriver,RasterListPush,0x004CB530,1,0,0,S
+RwD3D9RasterDriver,RasterListDestroy,0x004CB5E0,1,0,0,S
+RwD3D9RasterDriver,RasterListReleaseResources,0x004CB640,1,0,0,S
+RwD3D9RasterDriver,RasterDestroy,0x004CBB00,1,0,0,S
+RwD3D9RasterDriver,CheckDepthStencilSurfaceFormat,0x004CBD80,1,0,0,S
+RwD3D9RasterDriver,CheckTextureFormat,0x004CBDE0,1,0,0,S
+RwD3D9RasterDriver,CheckRenderTargetTextureFormat,0x004CBE20,1,0,0,S
+RwD3D9RasterDriver,CheckDepthStencilTextureFormat,0x004CBE80,1,0,0,S
+RwD3D9RasterDriver,CheckRenderTargetCubeFormat,0x004CBF20,1,0,0,S
+RwD3D9RasterDriver,CheckTextureFormatUsage400,0x004CBF80,1,0,0,S
+RwD3D9RasterDriver,CheckTextureFormatUsage401,0x004CBFD0,1,0,0,S
+RwD3D9RasterDriver,CheckCubeFormatUsage400,0x004CC020,1,0,0,S
+RwD3D9RasterDriver,RasterListInit,0x004CC150,1,0,0,S
+RwD3D9RasterDriver,RasterListShutdown,0x004CC170,1,0,0,S

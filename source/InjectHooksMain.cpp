@@ -231,6 +231,7 @@
 #include "Attractors/PedStopAttractor.h"
 #include "Attractors/PedPizzaAttractor.h"
 #include "ProtectionStub.h"
+#include "RenderWare/D3D9RasterDriver.h"
 #include "Attractors/PedTriggerScriptAttractor.h"
 #include "Attractors/PedLookAtAttractor.h"
 #include "Attractors/PedScriptedAttractor.h"
@@ -739,6 +740,7 @@ void InjectHooksMain() {
     CPedShelterAttractor::InjectHooks();
     CPedATMAttractor::InjectHooks();
     CProtectionStub::InjectHooks();
+    RwD3D9RasterDriver::InjectHooks();     // lote 224A (sin validar)
     CPedSeatAttractor::InjectHooks();
     CPedStopAttractor::InjectHooks();
     CPedPizzaAttractor::InjectHooks();
