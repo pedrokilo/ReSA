@@ -11770,3 +11770,9 @@ LibJpegDecompressApi,jpeg_read_header,0x005D01D0,1,0,0,S
 CRunningScript,ProcessCommands1200To1299,0x0048B590,1,0,0,S
 CRunningScript,ProcessCommands1900To1999,0x0046B460,1,0,0,S
 CRunningScript,ProcessCommands800To899,0x00481300,1,0,0,S
+IKChainManager_c,Constructor,0x00617FC0,1,0,0,S
+IKChainManager_c,Destructor,0x00618030,1,0,0,S
+WaterCreatureManager_c,Constructor,0x006E3EB0,1,0,0,S
+WaterCreatureManager_c,Destructor,0x006E3F20,1,0,0,S
+CWaterLevel,IsPointInCameraDepthRange,0x006E67A0,1,0,0,S
+CAudioZones,BugstarWriteScreenShotEntry,0x00509230,1,0,0,S

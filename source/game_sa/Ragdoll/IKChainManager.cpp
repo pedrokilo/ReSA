@@ -32,6 +32,8 @@ void IKChainManager_c::InjectHooks() {
     RH_ScopedClass(IKChainManager_c);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedInstall(Constructor, 0x617FC0); // lote F1A (sin validar)
+    RH_ScopedInstall(Destructor, 0x618030);  // lote F1A (sin validar)
     RH_ScopedInstall(Init, 0x6180A0);
     RH_ScopedInstall(Exit, 0x6180D0);
     RH_ScopedInstall(Reset, 0x618140);
@@ -49,6 +51,26 @@ void IKChainManager_c::InjectHooks() {
     RH_ScopedInstall(AbortPointArm, 0x6182F0);
     RH_ScopedInstall(IsFacingTarget, 0x618330);
     RH_ScopedInstall(PointArm, 0x618B60);
+}
+
+// 0x617FC0 (lote F1A, sin validar; el listado decia IKChain_c; thiscall, sin argumentos de pila, `ret`, 102 bytes con marco SEH; solo lo llama el inicializador estatico de g_ikChainMan, 0x851B55).
+// Orden del EXE: `eh_vector_constructor_iterator` (0x821D30; 32 elementos de 0x58 bytes, de menor a mayor direccion) con el constructor de elemento 0x617850 (`ListItem_c::ListItem_c`, 0x4A8DB0:
+// m_pPrev = nullptr y luego m_pNext = nullptr; no toca ningun otro campo del IKChain_c), despues el constructor de TList_c (0x4A8DD0: cabeza, cola y contador a cero, en ese orden) para la lista activa (+0xB00)
+// y para la libre (+0xB0C). Devuelve this. El `m_IKChains{}` de la clase pondria a cero cada IKChain_c entero, cosa que el EXE no hace, por eso se escribe el bucle a mano.
+IKChainManager_c* IKChainManager_c::Constructor() {
+    for (auto& chain : m_IKChains) {
+        chain.m_pPrev = nullptr;
+        chain.m_pNext = nullptr;
+    }
+    m_ActiveList.RemoveAll(); // cabeza, cola, contador = 0
+    m_FreeList.RemoveAll();
+    return this;
+}
+
+// 0x618030 (lote F1A, sin validar; thiscall, sin argumentos de pila, `ret`, 103 bytes con marco SEH; el destructor del EXE, 0x8568E0, es `mov ecx, g_ikChainMan; jmp 0x618030`).
+// Orden del EXE: destructor de TList_c (0x4A8DE0, un `ret`) de la lista libre (+0xB0C) y de la activa (+0xB00), y `eh_vector_destructor_iterator` (0x821E02) con el destructor de elemento 0x617860
+// (`jmp 0x4A8DC0`, un `ret`), de mayor a menor direccion. Ninguno escribe memoria: no hay nada que reproducir salvo el orden vacio. No devuelve nada util.
+void IKChainManager_c::Destructor() {
 }
 
 // 0x6180A0

@@ -26,6 +26,8 @@ void WaterCreatureManager_c::InjectHooks() {
     RH_ScopedClass(WaterCreatureManager_c);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedInstall(Constructor, 0x6E3EB0); // lote F1A (sin validar)
+    RH_ScopedInstall(Destructor, 0x6E3F20);  // lote F1A (sin validar)
     RH_ScopedInstall(Init, 0x6E3F90);
     RH_ScopedInstall(Exit, 0x6E3FD0);
     RH_ScopedInstall(Update, 0x6E4F10);
@@ -37,6 +39,27 @@ void WaterCreatureManager_c::InjectHooks() {
 
 WaterCreatureManager_c::WaterCreatureManager_c() : m_waterCreatureItems(), m_waterCreaturePool(), m_waterCreatureList()
 {}
+
+// 0x6E3EB0 (lote F1A, sin validar; el listado decia WaterCreature_c; thiscall, sin argumentos de pila, `ret`, 105 bytes con marco SEH; solo lo llama el inicializador estatico de g_waterCreatureMan, 0x853F15).
+// Orden del EXE: `eh_vector_constructor_iterator` (0x821D30; 128 elementos de 0x34 bytes, de menor a mayor direccion) con el constructor de elemento 0x6E3E30 (`WaterCreature_c::WaterCreature_c`:
+// m_pPrev = nullptr, m_pNext = nullptr, m_pObject = nullptr; ningun otro campo), despues el constructor de TList_c (0x4A8DD0: cabeza, cola y contador a cero, en ese orden) para la reserva (+0x1A00)
+// y para la lista activa (+0x1A0C). m_lastUpdateTime (+0x1A18) no se toca. Devuelve this.
+WaterCreatureManager_c* WaterCreatureManager_c::Constructor() {
+    for (auto& creature : m_waterCreatureItems) {
+        creature.m_pPrev   = nullptr;
+        creature.m_pNext   = nullptr;
+        creature.m_pObject = nullptr;
+    }
+    m_waterCreaturePool.RemoveAll(); // cabeza, cola, contador = 0
+    m_waterCreatureList.RemoveAll();
+    return this;
+}
+
+// 0x6E3F20 (lote F1A, sin validar; thiscall, sin argumentos de pila, `ret`, 106 bytes con marco SEH; el destructor registrado del EXE, 0x856A85, salta aqui).
+// Orden del EXE: destructor de TList_c (0x4A8DE0, un `ret`) de la lista activa (+0x1A0C) y de la reserva (+0x1A00), y `eh_vector_destructor_iterator` (0x821E02) con el destructor de elemento
+// 0x6E3E50 (`jmp 0x4A8DC0`, un `ret`). Ninguno escribe memoria. No devuelve nada util.
+void WaterCreatureManager_c::Destructor() {
+}
 
 // 0x6E3F90
 bool WaterCreatureManager_c::Init() {

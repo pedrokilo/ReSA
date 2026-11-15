@@ -63,6 +63,81 @@ __declspec(noinline) void __fastcall AudioZonesTextBufferClear(TextBufferRaw* se
         self->length = 0;
     }
 }
+
+// 0x509230 (lote F1A, sin validar; el listado decia CAudioZones por cercania y daba 139 bytes: la funcion real llega hasta 0x50962E, `ret 1Ch`, unos 1022 bytes con marco SEH que solo destruye la cadena local;
+// ningun llamador en el EXE: sin `call`/`jmp` ni referencias). thiscall, siete argumentos de pila (tres floats, dos `char*`, un bloque (puntero y tamano)). Es parte del volcado de informes de "bugstar.cnf"
+// (cadenas "XCoord", "YCoord", "ZCoord", "grid", "ScreenShot", "image", "text", "SA"): serializa un registro en una cadena local TextBufferRaw (0x508930 agregar, 0x508A10 vaciar) y la entrega a 0x509190. `self` (ECX)
+// solo se pasa a 0x509190. Colaboradores del EXE sin reconstruir, por direccion fija: 0x508B80 (thiscall, un entero: agrega una entrada de tipo 0xB con "%d"), 0x508D30 (thiscall, clave y tipo: agrega una entrada
+// de tipo 0x11) y 0x509190 (thiscall, tres argumentos: 0, bloque y longitud). Orden del EXE:
+//  1. Entrada con cabecera de 8 bytes {0, longitud} y la cadena `title` (+0x18 de pila); luego 0x508B80(1); luego la misma entrada con cabecera {0xA, 2} y "SA" (0x862EF4).
+//  2. Para x, y, z (en ese orden): sprintf("%f", (double)v) en un bufer local; 0x508D30("XCoord"/"YCoord"/"ZCoord", "text"); entrada con cabecera de 4 bytes {longitud} y el texto formateado; cuatro bytes a cero.
+//  3. 0x508D30("grid", "text"); entrada {longitud} con `grid` (+0x14); cuatro bytes a cero.
+//  4. 0x508D30("ScreenShot", "image"); entrada {imageSize} con los `imageSize` bytes de `image` (sin strlen); cuatro bytes a cero.
+//  5. 0x509190(self, 0, datos, longitud) y, si hay datos, operator delete de la cadena.
+// Cada entrada se arma en un bloque temporal (operator new, 0x82119A; copia con rep movsd/movsb) que se agrega y se libera (0x8214BD) antes de seguir; los bytes a cero se agregan desde una variable local (4 bytes).
+// sprintf del EXE (0x821BB5) se sustituye por el de la biblioteca de C del DLL (mismo formato "%f" con un double).
+__declspec(noinline) void __fastcall BugstarWriteScreenShotEntry(void* self, void* /*edx*/, float x, float y, float z, const char* grid, const char* title, const void* image, uint32 imageSize) {
+    TextBufferRaw text{ nullptr, 0 };
+
+    // Entrada con cabecera de 8 bytes {tipo, longitud}: la cadena se copia sin terminador
+    const auto appendTagged = [&](uint32 tag, const char* str) {
+        const uint32 length = (uint32)strlen(str);
+        const uint32 size   = length + 8;
+        uint8* const block  = static_cast<uint8*>(::operator new(size));
+        *reinterpret_cast<uint32*>(block + 4) = length;
+        *reinterpret_cast<uint32*>(block)     = tag;
+        memcpy(block + 8, str, length);
+        AudioZonesTextBufferAppend(&text, nullptr, block, size);
+        ::operator delete(block);
+    };
+    // Entrada con cabecera de 4 bytes {longitud}
+    const auto appendSized = [&](const void* data, uint32 length) {
+        const uint32 size  = length + 4;
+        uint8* const block = static_cast<uint8*>(::operator new(size));
+        *reinterpret_cast<uint32*>(block) = length;
+        memcpy(block + 4, data, length);
+        AudioZonesTextBufferAppend(&text, nullptr, block, size);
+        ::operator delete(block);
+    };
+    const auto appendZero = [&] {
+        uint32 zero = 0;
+        AudioZonesTextBufferAppend(&text, nullptr, &zero, 4);
+    };
+    const auto addTyped = [&](const char* key, const char* type) { // 0x508D30
+        plugin::CallMethod<0x508D30, TextBufferRaw*, const char*, const char*>(&text, key, type);
+    };
+    const auto appendCoordinate = [&](float value, const char* key) {
+        char formatted[0x44];
+        sprintf(formatted, "%f", (double)value);
+        addTyped(key, "text");
+        appendSized(formatted, (uint32)strlen(formatted));
+        appendZero();
+    };
+
+    appendTagged(0, title);
+    plugin::CallMethod<0x508B80, TextBufferRaw*, int32>(&text, 1);
+    appendTagged(0xA, "SA");
+
+    appendCoordinate(x, "XCoord");
+    appendCoordinate(y, "YCoord");
+    appendCoordinate(z, "ZCoord");
+
+    addTyped("grid", "text");
+    appendSized(grid, (uint32)strlen(grid));
+    appendZero();
+
+    addTyped("ScreenShot", "image");
+    appendSized(image, imageSize);
+    appendZero();
+
+    const char* const data   = text.data;
+    const uint32      length = text.length;
+    // plugin::CallMethod exige un puntero a clase: `self` (ECX del EXE) se pasa tal cual, solo cambia el tipo del puntero
+    plugin::CallMethod<0x509190, TextBufferRaw*, int32, const char*, uint32>(static_cast<TextBufferRaw*>(self), 0, data, length);
+    if (data) {
+        ::operator delete(const_cast<char*>(data));
+    }
+}
 } // namespace
 
 /**
@@ -80,6 +155,7 @@ void CAudioZones::InjectHooks() {
     RH_ScopedNamedGlobalInstall(AudioZonesTextBufferAppend, "TextBufferAppend", 0x508930); // lote 172A (banco Fn172A)
     RH_ScopedNamedGlobalInstall(AudioZonesTextBufferClear, "TextBufferClear", 0x508A10);   // lote 172A (banco Fn172A)
     RH_ScopedNamedGlobalInstall(AudioZonesTextBufferClear, "TextBufferClear-2", 0x509140); // lote 172A (banco Fn172A): copia identica
+    RH_ScopedNamedGlobalInstall(BugstarWriteScreenShotEntry, "BugstarWriteScreenShotEntry", 0x509230); // lote F1A (sin validar)
 }
 
 // 0x5081A0

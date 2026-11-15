@@ -44,7 +44,7 @@ private:
 
 public:
     WaterCreatureManager_c();
-    ~WaterCreatureManager_c();
+    ~WaterCreatureManager_c() = default; // 0x6E3F20 (cuerpo del EXE en Destructor)
 
     bool Init();
     void Exit();
@@ -60,6 +60,10 @@ private:
 
 public: // NOTSA
     static const tWaterCreatureInfo& GetCreatureInfo(uint32/*eWaterCreatureType*/ type) { return ms_waterCreatureInfos[type]; }
+
+    // Lote F1A (sin validar): cuerpos del constructor (0x6E3EB0) y del destructor (0x6E3F20) del EXE (g_waterCreatureMan, 0xC1DF30)
+    WaterCreatureManager_c* Constructor(); // 0x6E3EB0
+    void Destructor();                     // 0x6E3F20
 
 private:
     friend WaterCreature_c;

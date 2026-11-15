@@ -124,6 +124,10 @@ private: // notsa section
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    // Lote F1A (sin validar): cuerpos del constructor (0x617FC0) y del destructor (0x618030) del EXE; el destructor del EXE (0x8568E0) salta aqui con ECX = g_ikChainMan
+    IKChainManager_c* Constructor(); // 0x617FC0
+    void Destructor();               // 0x618030
+
 public:
     /*!
     * @notsa

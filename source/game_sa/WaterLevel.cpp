@@ -63,9 +63,33 @@ CRenPar lerp(CRenPar rp1, CRenPar rp2, float t) {
     return out;
 }
 
+// 0x6E67A0 (lote F1A, sin validar; el listado decia CWaterLevel y ningun llamador del EXE la usa: sin `call`/`jmp` ni referencias; cdecl, tres argumentos de pila (punto por puntero, radio, banderin), `ret`,
+// 208 bytes con marco SEH que solo destruye la matriz local). Sin nombre en el EXE: nombre descriptivo. Orden del EXE: near/far de la camara de la escena (Scene.m_pRwCamera, +0x80 y +0x84) a dos floats;
+// matriz local = CMatrix::ConstructAttached (0x59C050) sobre la matriz de vista de la camara (+0x20, `temporary` = false); punto en espacio de camara = matriz * punto (0x59C890, con la x87 del EXE); la matriz
+// (destructor 0x59ACD0, no hace nada: no es propietaria) se destruye en todas las salidas. Devuelve false si NO se cumple (near - radio) < z (comparacion ordenada: con NaN da false); si z < far devuelve true; si no, devuelve !checkFar (el byte tal cual: cualquier valor
+// distinto de cero cuenta como cierto). La resta es de un solo float (x87 a 24 bits).
+static bool __cdecl IsPointInCameraDepthRange(const CVector* point, float radius, bool checkFar) {
+    RwCamera* const camera    = Scene.m_pRwCamera;
+    const float     nearPlane = camera->nearPlane;
+    const float     farPlane  = camera->farPlane;
+
+    CMatrix matrix{ &camera->viewMatrix, false }; // 0x59C050
+    CVector inCamera;
+    Hp65MatrixTimesPointCpp(&matrix.GetRight().x, &point->x, &inCamera.x); // 0x59C890
+
+    if (!(nearPlane - radius < inCamera.z)) {
+        return false;
+    }
+    if (inCamera.z < farPlane) {
+        return true;
+    }
+    return !checkFar;
+}
+
 void CWaterLevel::InjectHooks() {
     RH_ScopedClass(CWaterLevel);
     RH_ScopedCategoryGlobal();
+    RH_ScopedNamedGlobalInstall(IsPointInCameraDepthRange, "IsPointInCameraDepthRange", 0x6E67A0); // lote F1A (sin validar)
     RH_ScopedGlobalInstall(LerpRenPar, 0x6E5280);
     RH_ScopedGlobalInstall(FlushWaterRenderBuffer, 0x6E7680);
     RH_ScopedInstall(SyncWater, 0x6E76E0); // lote 173A (banco Fn173A)
