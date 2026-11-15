@@ -17,4 +17,6 @@ public:
     void GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) override;
 private:
     FxInfoAnimTexture_c* Constructor(); // 0x4A6550 (lote 216A)
+    void Destructor(); // 0x4A78F0 (lote 218A)
+    FxInfoAnimTexture_c* ScalarDeletingDestructor(uint8 flags); // 0x4A78D0 (lote 218A)
 };

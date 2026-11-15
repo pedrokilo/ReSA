@@ -17,4 +17,6 @@ public:
     void GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) override;
 private:
     FxInfoHeatHaze_c* Constructor(); // 0x4A61A0 (lote 216A)
+    void Destructor(); // 0x4A7730 (lote 218A)
+    FxInfoHeatHaze_c* ScalarDeletingDestructor(uint8 flags); // 0x4A7710 (lote 218A)
 };

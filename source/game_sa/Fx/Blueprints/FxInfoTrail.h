@@ -17,4 +17,6 @@ public:
     void GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) override;
 private:
     FxInfoTrail_c* Constructor(); // 0x4A6220 (lote 216A)
+    void Destructor(); // 0x4A77A0 (lote 218A)
+    FxInfoTrail_c* ScalarDeletingDestructor(uint8 flags); // 0x4A7780 (lote 218A)
 };

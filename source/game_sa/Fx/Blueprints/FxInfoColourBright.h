@@ -17,4 +17,6 @@ public:
     void GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) override;
 private:
     FxInfoColourBright_c* Constructor(); // 0x4A67D0 (lote 216A)
+    void Destructor(); // 0x4A7A40 (lote 218A)
+    FxInfoColourBright_c* ScalarDeletingDestructor(uint8 flags); // 0x4A7A20 (lote 218A)
 };

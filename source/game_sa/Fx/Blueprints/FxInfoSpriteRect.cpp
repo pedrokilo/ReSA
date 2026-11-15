@@ -9,6 +9,7 @@ void FxInfoSpriteRect_c::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x004A60B0);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x4A76A0);
+    RH_ScopedInstall(Destructor, 0x004A76C0);
 }
 
 // 0x4A60B0
@@ -21,6 +22,11 @@ FxInfoSpriteRect_c::FxInfoSpriteRect_c() : FxInfo_c() {
 FxInfoSpriteRect_c* FxInfoSpriteRect_c::Constructor() {
     this->FxInfoSpriteRect_c::FxInfoSpriteRect_c();
     return this;
+}
+
+// 0x4A76C0 (lote 218A, sin validar): cuerpo del destructor (thiscall): destruye el interp de +8 (deja su vtable base) y pone la vtable base de FxInfo_c (0x85A7DC). Lo llama el destructor con borrado 0x4A76A0 (lote 217A).
+__declspec(noinline) void FxInfoSpriteRect_c::Destructor() {
+    this->FxInfoSpriteRect_c::~FxInfoSpriteRect_c();
 }
 
 // 0x4A6120

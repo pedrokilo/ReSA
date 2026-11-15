@@ -18,4 +18,5 @@ public:
     void GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) override;
 private:
     FxInfoSpriteRect_c* Constructor(); // 0x4A60B0 (lote 216A)
+    void Destructor(); // 0x4A76C0 (lote 218A)
 };

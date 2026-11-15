@@ -668,6 +668,7 @@ void CColPointInjectHooksLote105A(); // ColPoint.cpp (lote 105A)
 void tColLightingInjectHooksLote116A(); // ColPoint.cpp (lote 116A)
 void CompressedVectorInjectHooksLote105A(); // CompressedVector.cpp (lote 105A)
 void TListInjectHooksLote105A(); // List_c.cpp (lote 105A)
+void ListItemInjectHooksLote218A(); // ListItem_c.cpp (lote 218A, sin validar)
 void RuntimeHelpersInjectHooksLote105A(); // RuntimeHelpers.cpp (lote 105A)
 void CZoneInjectHooksLote124A(); // Zone.cpp (lote 124A)
 void CPedScannerInjectHooksLote109A(); // PedScanner.cpp (lote 109A)
@@ -824,6 +825,7 @@ void InjectHooksMain() {
     tColLightingInjectHooksLote116A(); // Only tColLighting::GetCurrentLighting 0x59F0C0.
     CompressedVectorInjectHooksLote105A(); // Only the CompressedVector to CVector conversion 0x411590.
     TListInjectHooksLote105A(); // Only TList_c AddItem 0x4A8DF0, RemoveAll 0x4A8EB0 and GetNumItems 0x4A8EC0.
+    ListItemInjectHooksLote218A(); // Only ListItem_c constructor 0x4A8DB0 (lote 218A, sin validar).
     RuntimeHelpersInjectHooksLote105A(); // Only the vector constructor iterator 0x403D60.
     CPedScannerInjectHooksLote109A(); // Only CPedScanner::GetClosestPedInRange 0x5FFF20.
     CVehicleScannerInjectHooksLote109A(); // Only CVehicleScanner::GetClosestVehicleInRange 0x5FFEE0 y (lote 198A, sin validar) ScanForVehiclesInRange 0x5FFE60.

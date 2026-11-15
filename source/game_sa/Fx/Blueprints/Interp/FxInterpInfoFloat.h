@@ -17,4 +17,8 @@ public:
     void Allocate(int32 count);
     float GetVal(int32 attrib, float time, float deltaTime);
     void GetVal(float* outValues, float delta);
+private:
+    FxInterpInfoFloat_c* Constructor(); // 0x4A8440 (lote 218A)
+    void Destructor(); // 0x4A8460 (lote 218A)
+    FxInterpInfoFloat_c* ScalarDeletingDestructor(uint8 flags); // 0x4A8D30 (lote 218A)
 };
