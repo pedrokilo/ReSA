@@ -27,9 +27,9 @@ void CScriptsForBrains::InjectHooks() {
     RH_ScopedInstall(Init, 0x46A8C0);
     RH_ScopedInstall(CheckIfNewEntityNeedsScript, 0x46FF20);
     RH_ScopedInstall(MarkAttractorScriptBrainWithThisNameAsNoLongerNeeded, 0x46AAE0);
-    //RH_ScopedInstall(SwitchAllObjectBrainsWithThisID, 0x46A900, {.reversed = false});
-    //RH_ScopedInstall(AddNewScriptBrain, 0x46A930, {.reversed = false});
-    //RH_ScopedInstall(AddNewStreamedScriptBrainForCodeUse, 0x46A9C0, {.reversed = false});
+    RH_ScopedInstall(SwitchAllObjectBrainsWithThisID, 0x46A900); // lote 215A (sin validar)
+    RH_ScopedInstall(AddNewScriptBrain, 0x46A930); // lote 215A (sin validar)
+    RH_ScopedInstall(AddNewStreamedScriptBrainForCodeUse, 0x46A9C0); // lote 215A (sin validar)
     RH_ScopedInstall(GetIndexOfScriptBrainWithThisName, 0x46AA30);
     RH_ScopedInstall(HasAttractorScriptBrainWithThisNameLoaded, 0x46AB20);
     RH_ScopedInstall(StartNewStreamedScriptBrain, 0x46B270);
@@ -54,6 +54,64 @@ void CScriptsForBrains::Init() {
         script.m_PedModelOrPedGeneratorIndex = 0;
         script.m_PercentageChance = 0;
         script.m_Pad = 0;
+    }
+}
+
+// 0x46A900 (lote 215A, sin validar): thiscall (ECX = this), dos argumentos de pila (ID de grupo, estado) `ret 8`. El ID es un byte CON signo: si es negativo no hace nada. Si no, recorre los 70
+// registros y a los que tengan ese ID de grupo (+3) les copia el byte de estado en m_bBrainActive (+4), tal cual (sin normalizar a 0/1). Sin x87.
+void CScriptsForBrains::SwitchAllObjectBrainsWithThisID(int8 ID, bool bStatus) {
+    if (ID < 0) {
+        return;
+    }
+    for (auto& brain : m_aScriptForBrains) {
+        if (brain.m_ObjectGroupingId == ID) {
+            brain.m_bBrainActive = bStatus;
+        }
+    }
+}
+
+// 0x46A930 (lote 215A, sin validar): thiscall (ECX = this), seis argumentos de pila `ret 0x18`. Busca el primer registro libre (m_StreamedScriptIndex == -1, comparacion de 16 bits, indice de 8 bits
+// sin signo < 70); si no hay ninguno, no hace nada. Si lo hay escribe SOLO: +0 (word) = ImgIndex, +0xC (word) = Model, +0xE (word) = priority, +2 (byte) = attachType, +3 (byte) = Type, +4 = 1 y +8
+// (dword) = Radius si NO es <= 0 (con NaN tambien se guarda el NaN: fcomp + `test ah,41h` + `jp`) o 5.0f (0x859D9C) en caso contrario. NO toca m_Pad (+0x10).
+void CScriptsForBrains::AddNewScriptBrain(int16 ImgIndex, int16 Model, uint16 priority, int8 attachType, int8 Type, float Radius) {
+    for (uint8 i = 0; i < 70; i++) {
+        auto& brain = m_aScriptForBrains[i];
+        if (brain.m_StreamedScriptIndex != -1) {
+            continue;
+        }
+        brain.m_StreamedScriptIndex          = ImgIndex;
+        brain.m_PedModelOrPedGeneratorIndex  = Model;
+        brain.m_PercentageChance             = priority;
+        brain.m_ObjectGroupingId             = Type;
+        brain.m_TypeOfBrain                  = attachType;
+        brain.m_bBrainActive                 = true;
+        brain.m_ObjectBrainActivationRadius  = !(Radius <= 0.0f) ? Radius : 5.0f; // 0x859D9C
+        return;
+    }
+}
+
+// 0x46A9C0 (lote 215A, sin validar): thiscall (ECX = this), tres argumentos de pila `ret 0xC`. Busca el primer registro libre igual que AddNewScriptBrain; si no hay, no hace nada. Si lo hay: +0 (word) =
+// a2, copia la cadena a3 BYTE a BYTE con su NUL a +0xC SIN limite de longitud (un nombre de mas de 7 caracteres desborda hacia el registro siguiente), +2 (byte) = attachtype, +3 = 0xFF, +4 = 1 y
+// +8 = 5.0f (0x859D9C). No toca m_Pad salvo por ese desbordamiento. Sin x87.
+void CScriptsForBrains::AddNewStreamedScriptBrainForCodeUse(int16 a2, char* a3, int8 attachtype) {
+    for (uint8 i = 0; i < 70; i++) {
+        auto& brain = m_aScriptForBrains[i];
+        if (brain.m_StreamedScriptIndex != -1) {
+            continue;
+        }
+        brain.m_StreamedScriptIndex = a2;
+        char* dst = brain.m_ScriptName;
+        const char* src = a3;
+        char c;
+        do {
+            c = *src++;
+            *dst++ = c;
+        } while (c != '\0');
+        brain.m_TypeOfBrain                 = attachtype;
+        brain.m_ObjectGroupingId            = -1;
+        brain.m_bBrainActive                = true;
+        brain.m_ObjectBrainActivationRadius = 5.0f; // 0x859D9C
+        return;
     }
 }
 

@@ -65,7 +65,7 @@ FxInterpInfo32_c* FxInterpInfo32_c::ScalarDeletingDestructor(uint8 flags) {
 
 // 0x5C1B10
 void FxInterpInfo32_c::Load(FILESTREAM file) {
-    for (auto i = 0; i < m_nCount; i++) {
+    for (auto i = 0; i < static_cast<int8>(m_nCount); i++) { // el EXE relee el contador como byte (el byte alto no lo escribe Allocate)
         ReadField<void>(file);
         ReadField<void>(file, "FX_INTERP_DATA:");
 
@@ -87,7 +87,8 @@ void FxInterpInfo32_c::Load(FILESTREAM file) {
 
 // NOTSA
 void FxInterpInfo32_c::Allocate(int32 count) {
-    m_nCount  = count;
+    // 0x4A4C20..0x4A57C0 (lote 215A, sin validar): el EXE escribe solo el byte bajo del contador (+6); el byte alto queda como estaba en la arena
+    *reinterpret_cast<int8*>(&m_nCount) = static_cast<int8>(count);
     m_Keys = g_fxMan.Allocate<int16*>(count);
 }
 

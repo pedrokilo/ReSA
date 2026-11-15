@@ -19,4 +19,7 @@ public:
 
     void Load(FILESTREAM file, int32 version) override;
     void GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) override;
+
+private:
+    FxInfoEmWeather_c* Constructor() { this->FxInfoEmWeather_c::FxInfoEmWeather_c(); return this; } // 0x004A50E0 (lote 215A, sin validar): constructor del EXE, thiscall sin argumentos, devuelve this
 };

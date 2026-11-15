@@ -17,4 +17,7 @@ public:
 
     void Load(FILESTREAM file, int32 version) override;
     void GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) override;
+
+private:
+    FxInfoAttractLine_c* Constructor() { this->FxInfoAttractLine_c::FxInfoAttractLine_c(); return this; } // 0x004A57C0 (lote 215A, sin validar): constructor del EXE, thiscall sin argumentos, devuelve this
 };

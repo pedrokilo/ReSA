@@ -9,6 +9,7 @@ void FxInfoEmDir_c::InjectHooks() {
 
     RH_ScopedInstall(Destructor, 0x004A6BE0);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x004A6BC0);
+    RH_ScopedInstall(Constructor, 0x4A4DC0); // lote 215A (sin validar)
 }
 
 // 0x4A4DC0

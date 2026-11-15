@@ -20,6 +20,19 @@ END GENERATED HOOK STATUS */
 
 #include "AnimBlendClumpData.h"
 
+namespace {
+// 0x4D5F20 (lote 215A, sin validar; el listado decia RpAnimBlend): destructor con borrado de CAnimBlendClumpData del EXE (27 bytes; thiscall, un argumento de pila, `ret 4`). Llama al cuerpo del
+// destructor (0x4CF100, con hook) con ECX = this y, solo si el bit 0 del BYTE de banderas esta puesto, libera `this` con operator delete (0x8214BD, CRT, sin hook); devuelve `this`.
+// Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CAnimBlendClumpData* __fastcall CAnimBlendClumpDataScalarDeletingDestructor(CAnimBlendClumpData* self, void* /*edx*/, uint8 flags) {
+    self->Destructor();
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 /**
  * Registra el ciclo de vida y recorrido de los datos de animación anexos a un clump.
  */
@@ -33,6 +46,7 @@ void CAnimBlendClumpData::InjectHooks() {
     RH_ScopedInstall(ForAllFrames, 0x4CF190);
     RH_ScopedInstall(LoadFramesIntoSPR, 0x4CF1D0);
     RH_ScopedInstall(ForAllFramesInSPR, 0x4CF1E0);
+    RH_ScopedNamedGlobalInstall(CAnimBlendClumpDataScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4D5F20); // lote 215A (sin validar)
 }
 
 // 0x4CF0E0

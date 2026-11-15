@@ -2,6 +2,15 @@
 
 #include "FxInfoFriction.h"
 
+void FxInfoFriction_c::InjectHooks() {
+    RH_ScopedClass(FxInfoFriction_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Constructor, 0x4A5550); // lote 215A (sin validar)
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A6F40);
+    RH_ScopedInstall(DestructorBody, 0x4A6F60);
+}
+
 // 0x4A5550
 FxInfoFriction_c::FxInfoFriction_c() : FxInfo_c(), m_InterpInfo() {
     m_nType = FX_INFO_FRICTION_DATA;
@@ -26,14 +35,6 @@ void FxInfoFriction_c::GetValue(float currentTime, float mult, float totalTime, 
     movement.m_Vel *= std::pow(values[0], totalTime * 50.0f);
 }
 
-// Lote 217A (sin validar): ver reversing/PendienteValidar/217A.md
-void FxInfoFriction_c::InjectHooks() {
-    RH_ScopedClass(FxInfoFriction_c);
-    RH_ScopedCategory("Fx");
-
-    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A6F40);
-    RH_ScopedInstall(DestructorBody, 0x4A6F60);
-}
 
 // 0x4A6F60 (67 bytes con marco SEH que solo desenrolla y aqui se omite; thiscall sin argumentos, `ret`): cuerpo del destructor de FxInfoFriction_c del EXE. Como el original: destruye el miembro +8
 // (FxInterpInfo32_c, 0x4A89B0: solo deja la vtable de FxInterpInfo_c, 0x85A968) y despues deja la vtable de la base FxInfo_c (0x85A7DC). El destructor generado por el compilador dejaria vtables propias

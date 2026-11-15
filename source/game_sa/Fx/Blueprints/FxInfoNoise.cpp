@@ -2,6 +2,16 @@
 
 #include "FxInfoNoise.h"
 
+void FxInfoNoise_c::InjectHooks() {
+    RH_ScopedClass(FxInfoNoise_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Constructor, 0x4A5270); // lote 215A (sin validar)
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A6E60);
+    RH_ScopedInstall(DestructorBody, 0x4A6E80);
+}
+
+// 0x4A5270
 FxInfoNoise_c::FxInfoNoise_c() : FxInfo_c() {
     m_nType = FX_INFO_NOISE_DATA;
     m_InterpInfo.Allocate(1);
@@ -35,14 +45,6 @@ void FxInfoNoise_c::GetValue(float currentTime, float mult, float totalTime, flo
     movement.m_Vel *= length;
 }
 
-// Lote 217A (sin validar): ver reversing/PendienteValidar/217A.md
-void FxInfoNoise_c::InjectHooks() {
-    RH_ScopedClass(FxInfoNoise_c);
-    RH_ScopedCategory("Fx");
-
-    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A6E60);
-    RH_ScopedInstall(DestructorBody, 0x4A6E80);
-}
 
 // 0x4A6E80 (67 bytes con marco SEH que solo desenrolla y aqui se omite; thiscall sin argumentos, `ret`): cuerpo del destructor de FxInfoNoise_c del EXE. Como el original: destruye el miembro +8
 // (FxInterpInfo32_c, 0x4A89B0: solo deja la vtable de FxInterpInfo_c, 0x85A968) y despues deja la vtable de la base FxInfo_c (0x85A7DC). El destructor generado por el compilador dejaria vtables propias

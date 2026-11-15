@@ -21,6 +21,9 @@ END GENERATED HOOK STATUS */
 #include "RpAnimBlend.h"
 #include "X87Math.h"
 
+// 0x4D56F0 (definida al final del archivo): version con la ABI del EXE (tag de 32 bits sin truncar) que usan los callbacks de busqueda por hueso
+static const char* __cdecl ConvertBoneTag2BoneNameExe(int32 boneTag);
+
 // Offset del payload CAnimBlendClumpData* registrado dentro de cada RpClump.
 static auto& ClumpOffset = StaticRef<uint32>(0xB5F878);
 
@@ -345,7 +348,7 @@ void RpAnimBlendClumpGiveAssociations(RpClump* clump, CAnimBlendAssociation* ass
     associations->GetLink().prev = &bd->m_AnimList;
 }
 
-// 0x4D6430 (FillFrameArrayIndiciesNonSkinned)
+// 0x4D6430 (FillFrameArrayIndiciesNonSkinned) (lote 215A, sin validar): cdecl (fd, data); data[GetFrameHierarchyId(fd->Frame) (0x732A20)] = fd, sin comprobar limites
 static void FillFrameArrayIndiciesNonSkinnedCB(AnimBlendFrameData* fd, void* data) {
     static_cast<AnimBlendFrameData**>(data)[CVisibilityPlugins::GetFrameHierarchyId(fd->Frame)] = fd;
 }
@@ -384,15 +387,15 @@ AnimBlendFrameData* RpAnimBlendClumpFindBone(RpClump* clump, eBoneTag32 boneTag)
     return gpAnimBlendFrameData;
 }
 
-// 0x4D6240
+// 0x4D6240 (lote 215A, sin validar): cdecl (fd, data), `ret`. Convierte el tag de 32 bits completo (0x4D56F0) y, si hay nombre, _stricmp (0x8229B6) con `data`; la ultima coincidencia gana (0xB5F87C)
 static void FrameFindByNameCBskin(AnimBlendFrameData* fd, void* data) {
-    const auto boneName = ConvertBoneTag2BoneName((eBoneTag)fd->BoneTag);
+    const auto boneName = ConvertBoneTag2BoneNameExe(static_cast<int32>(fd->BoneTag));
     if (boneName && !_stricmp(static_cast<const char*>(data), boneName)) {
         gpAnimBlendFrameData = fd;
     }
 }
 
-// 0x4D6270
+// 0x4D6270 (lote 215A, sin validar): cdecl (fd, data); nombre del RwFrame (0x72FB30) sin comprobar nulo, _stricmp(data, nombre)
 static void FrameFindByNameCBnonskin(AnimBlendFrameData* fd, void* data) {
     if (!_stricmp(static_cast<const char*>(data), GetFrameNodeName(fd->Frame))) {
         gpAnimBlendFrameData = fd;
@@ -413,15 +416,15 @@ AnimBlendFrameData* RpAnimBlendClumpFindFrame(RpClump* clump, const char* needle
     return gpAnimBlendFrameData;
 }
 
-// 0x4D6310
+// 0x4D6310 (lote 215A, sin validar): cdecl (fd, data); nombre del tag de 32 bits completo y, si existe, GetUppercaseKey (0x53CF30) == data
 static void FrameFindByKeyCBskin(AnimBlendFrameData* fd, void* data) {
-    const auto boneName = ConvertBoneTag2BoneName((eBoneTag)fd->BoneTag);
+    const auto boneName = ConvertBoneTag2BoneNameExe(static_cast<int32>(fd->BoneTag));
     if (boneName && CKeyGen::GetUppercaseKey(boneName) == reinterpret_cast<uint32>(data)) {
         gpAnimBlendFrameData = fd;
     }
 }
 
-// 0x4D6340
+// 0x4D6340 (lote 215A, sin validar): cdecl (fd, data); GetUppercaseKey(nombre del RwFrame, sin comprobar nulo) == data
 static void FrameFindByKeyCBnonskin(AnimBlendFrameData* fd, void* data) {
     if (CKeyGen::GetUppercaseKey(GetFrameNodeName(fd->Frame)) == reinterpret_cast<uint32>(data)) {
         gpAnimBlendFrameData = fd;
@@ -1321,6 +1324,11 @@ void RpAnimBlendPlugin::InjectHooks() {
     RH_ScopedGlobalInstall(RpAnimBlendClumpFindBone, 0x4D6400);
     RH_ScopedGlobalInstall(RpAnimBlendClumpFindFrame, 0x4D62A0);
     RH_ScopedGlobalInstall(RpAnimBlendClumpFindFrameFromHashKey, 0x4D6370);
+    RH_ScopedGlobalInstall(FrameFindByNameCBskin, 0x4D6240);        // lote 215A (sin validar)
+    RH_ScopedGlobalInstall(FrameFindByNameCBnonskin, 0x4D6270);     // lote 215A (sin validar)
+    RH_ScopedGlobalInstall(FrameFindByKeyCBskin, 0x4D6310);         // lote 215A (sin validar)
+    RH_ScopedGlobalInstall(FrameFindByKeyCBnonskin, 0x4D6340);      // lote 215A (sin validar)
+    RH_ScopedGlobalInstall(FillFrameArrayIndiciesNonSkinnedCB, 0x4D6430); // lote 215A (sin validar)
     RH_ScopedGlobalOverloadedInstall(RpAnimBlendClumpGetAssociation, "Hier", 0x4D68E0, CAnimBlendAssociation*(*)(RpClump*, bool, CAnimBlendHierarchy*));
     RH_ScopedGlobalOverloadedInstall(RpAnimBlendClumpGetAssociation, "AnimName", 0x4D6870, CAnimBlendAssociation*(*)(RpClump*, const char*));
     RH_ScopedGlobalOverloadedInstall(RpAnimBlendClumpGetAssociation, "AnimId", 0x4D68B0, CAnimBlendAssociation*(*)(RpClump*, uint32));

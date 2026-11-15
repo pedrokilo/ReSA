@@ -2,6 +2,15 @@
 
 #include "FxInfoAttractPt.h"
 
+void FxInfoAttractPt_c::InjectHooks() {
+    RH_ScopedClass(FxInfoAttractPt_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Constructor, 0x4A5650); // lote 215A (sin validar)
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A6FB0);
+    RH_ScopedInstall(DestructorBody, 0x4A6FD0);
+}
+
 // 0x4A5650
 FxInfoAttractPt_c::FxInfoAttractPt_c() : FxInfo_c() {
     m_nType = FX_INFO_ATTRACTPT_DATA;
@@ -34,14 +43,6 @@ void FxInfoAttractPt_c::GetValue(float currentTime, float mult, float totalTime,
     }
 }
 
-// Lote 217A (sin validar): ver reversing/PendienteValidar/217A.md
-void FxInfoAttractPt_c::InjectHooks() {
-    RH_ScopedClass(FxInfoAttractPt_c);
-    RH_ScopedCategory("Fx");
-
-    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A6FB0);
-    RH_ScopedInstall(DestructorBody, 0x4A6FD0);
-}
 
 // 0x4A6FD0 (67 bytes con marco SEH que solo desenrolla y aqui se omite; thiscall sin argumentos, `ret`): cuerpo del destructor de FxInfoAttractPt_c del EXE. Como el original: destruye el miembro +8
 // (FxInterpInfo32_c, 0x4A89B0: solo deja la vtable de FxInterpInfo_c, 0x85A968) y despues deja la vtable de la base FxInfo_c (0x85A7DC). El destructor generado por el compilador dejaria vtables propias

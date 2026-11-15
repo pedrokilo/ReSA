@@ -18,4 +18,7 @@ public:
 private:
     void Destructor(); // 0x4A6BE0 (lote 216A)
     FxInfoEmDir_c* ScalarDeletingDestructor(uint8 flags); // 0x4A6BC0 (lote 216A)
+
+private:
+    FxInfoEmDir_c* Constructor() { this->FxInfoEmDir_c::FxInfoEmDir_c(); return this; } // 0x004A4DC0 (lote 215A, sin validar): constructor del EXE, thiscall sin argumentos, devuelve this
 };

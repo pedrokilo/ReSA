@@ -373,7 +373,6 @@
 #include "TaskSimpleJump.h"
 #include "TaskSimpleFall.h"
 #include "TaskSimpleClimb.h"
-#include "TaskComplexPlayHandSignalAnim.h"
 #include "TaskComplexWaitForPed.h"
 #include "TaskComplexJump.h"
 #include "TaskComplexWanderStandard.h"
@@ -403,7 +402,6 @@
 #include "TaskComplexPassObject.h"
 #include "TaskComplexEnterCarAsPassenger.h"
 #include "TaskComplexEnterCarAsDriver.h"
-#include "TaskSimpleCarShuffle.h"
 #include "TaskSimpleCarSlowBeDraggedOut.h"
 #include "TaskComplexReactToAttack.h"
 #include "TaskComplexReactToGunAimedAt.h"
@@ -428,14 +426,12 @@
 #include "TaskComplexWalkRoundBuildingAttempt.h"
 #include "TaskSimpleLookAbout.h"
 #include "TaskSimpleOnEscalator.h"
-#include "TaskComplexEvasiveDiveAndGetUp.h"
 #include "TaskComplexPartnerGreet.h"
 #include "Interior/TaskInteriorShopKeeper.h"
 #include "TaskComplexWaitForDryWeather.h"
 #include "TaskSimpleShakeFist.h"
 #include "TaskComplexFleeShooting.h"
 #include "TaskComplexWalkRoundCar.h"
-#include "TaskSimpleDuck.h"
 #include "TaskComplexLeaveCarAndFlee.h"
 #include "TaskComplexLeaveCarAndWander.h"
 #include "TaskComplexMedicTreatInjuredPed.h"
@@ -570,12 +566,10 @@
 #include "TaskSimpleCarAlign.h"
 #include "TaskComplexLeaveBoat.h"
 #include "TaskSimpleCarGetOut.h"
-#include "TaskSimpleTired.h"
 #include "TaskSimpleCarOpenDoorFromOutside.h"
 #include "TaskSimpleCarJumpOut.h"
 #include "TaskSimpleCarCloseDoorFromInside.h"
 #include "TaskSimpleClearLookAt.h"
-#include "TaskSimpleCarWaitToSlowDown.h"    
 #include "TaskComplexFleePoint.h"
 #include "TaskSimpleWaitUntilAreaCodesMatch.h"
 #include "TaskSimplePlayerOnFire.h"
@@ -584,10 +578,8 @@
 #include "TaskSimpleRunAnimLoopedMiddle.h" // lote 202A (sin validar)
 #include "TaskSimpleRunTimedAnim.h"
 #include "TaskSimpleSay.h"
-#include "TaskComplexEnterCar.h"
 #include "TaskComplexLeaveCarAndDie.h"
 #include "TaskSimpleHandsUp.h"
-#include "TaskComplexEnterCar.h"
 #include "TaskComplexSmartFleePoint.h"
 #include "Interior/TaskInteriorBeInHouse.h"
 #include "Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h"
@@ -598,7 +590,6 @@
 
 // Interior Tasks
 #include "Tasks/TaskTypes/Interior/TaskInteriorUseInfo.h"
-#include "TaskComplexSmartFleePoint.h"
 
 #include "EventSeenPanickedPed.h"
 #include "EventCarUpsideDown.h"
@@ -1683,10 +1674,6 @@ void InjectHooksMain() {
         FxInfoEmAngle_c::InjectHooks();
         FxInfoEmLife_c::InjectHooks();
         FxInfoEmPos_c::InjectHooks();
-        FxInterpInfoFloat_c::InjectHooks();
-        FxInterpInfoU255_c::InjectHooks();
-        FxInterpInfo32_c::InjectHooks();
-        FxInterpInfo255_c::InjectHooks();
         FxInfoEmWeather_c::InjectHooks();
         FxInfoEmRotation_c::InjectHooks();
         FxInfoNoise_c::InjectHooks();
@@ -1694,6 +1681,10 @@ void InjectHooksMain() {
         FxInfoFriction_c::InjectHooks();
         FxInfoAttractPt_c::InjectHooks();
         FxInfoAttractLine_c::InjectHooks();
+        FxInterpInfoFloat_c::InjectHooks();
+        FxInterpInfoU255_c::InjectHooks();
+        FxInterpInfo32_c::InjectHooks();
+        FxInterpInfo255_c::InjectHooks();
         FxManager_c::InjectHooks();
         // ReversibleHooks::Install("FxFrustumInfo_c", "IsCollision", 0x4AA030, &FxFrustumInfo_c::IsCollision);
         FxEmitterPrt_c::InjectHooks();

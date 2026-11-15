@@ -9,6 +9,7 @@ void FxInfoEmAngle_c::InjectHooks() {
 
     RH_ScopedInstall(Destructor, 0x004A6C50);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x004A6C30);
+    RH_ScopedInstall(Constructor, 0x4A4E90); // lote 215A (sin validar)
 }
 
 // 0x4A4E90
