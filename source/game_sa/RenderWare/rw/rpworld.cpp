@@ -1010,7 +1010,6 @@ RpAtomic* RpAtomicSetFrame(RpAtomic* atomic, RwFrame* frame) {
 namespace {
 
 // Registro de plugins de RpClump y desplazamientos de plugin que dejan RpWorldPluginAttach (0x74FDxx) / clumpModule en el EXE.
-static auto& s_clumpTKList       = StaticRef<RwPluginRegistry>(0x8D6264);
 static auto& s_clumpModuleOffset = StaticRef<RwInt32>(0xC924AC);  // clumpModule.globalsOffset (globales del modulo dentro de RwEngineInstance)
 static auto& s_cameraClumpOffset = StaticRef<RwInt32>(0xC924D8);  // desplazamiento del enlace de clump dentro de RwCamera
 static auto& s_lightClumpOffset  = StaticRef<RwInt32>(0xC924DC);  // desplazamiento del enlace de clump dentro de RpLight
