@@ -189,6 +189,7 @@ struct Env {
     unsigned cases{kCases};
     std::array<std::unique_ptr<HookRoute>,kFunctions> routes{};
     std::array<uintptr_t,kFunctions> entry{};
+    uintptr_t directRaw{};      // diagnostico: &GetAnimHierarchyFromFrameCallback sin resolver
     uintptr_t directDll{};      // F7: funcion de la DLL (hoy con hook RH: se apaga con offRoute)
     std::unique_ptr<HookRoute> offRoute;   // pase final 157A-162A: 0x734A70 tiene hook RH; durante el banco queda apagado (EXE original) y el candidato es la funcion de la DLL directa
     uintptr_t dllRemoveAll{},dllSetDefault{},dllFindSafehouse{},dllAtomicId{},dllModelIndex{},dllHierarchy{},dllChildren{};
@@ -456,7 +457,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies) {
         {"compare_dead_x87_registers",kCompareDeadX87Registers},{"collaborators_stubbed",true},
         {"collaborators",{{"exe",std::vector<uintptr_t>{0x5FB7D0,0x600530,0x4489F0,0x732370,0x732250,0x7C5160,0x7F0DC0,0x8214BD}},
                           {"dll",std::vector<uintptr_t>{env.dllRemoveAll,env.dllSetDefault,env.dllFindSafehouse,env.dllAtomicId,env.dllModelIndex,env.dllHierarchy,env.dllChildren}}}},
-        {"watched_entries",watched},{"bodies",bodies},{"direct_dll",env.directDll},{"asi_module",env.asi},{"original_module",env.game},
+        {"watched_entries",watched},{"bodies",bodies},{"direct_dll",env.directDll},{"direct_raw",env.directRaw},{"direct_raw_bytes",HexBytes(reinterpret_cast<void*>(env.directRaw),16)},{"entry_734A70_bytes",HexBytes(reinterpret_cast<void*>(uintptr_t(0x734A70)),16)},{"asi_module",env.asi},{"original_module",env.game},
         {"initial_fp",HexBytes(savedFP.data(),108)},{"initial_mxcsr",savedMXCSR},{"initial_active_groups",HexBytes(savedActive.data(),savedActive.size())},
         {"initial_safehouse_hash",Fnv64(savedTable.data(),savedTable.size())}});
     Totals totals;
