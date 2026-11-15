@@ -1,494 +1,660 @@
 #include "StdInc.h"
 
+#include <intrin.h>
+
 #include "LibJpegCompress.h"
+#include "X87Math.h"
 
-// Lote 230A (sin validar): rutinas de la libjpeg 6b del EXE (compresion). Trabajan sobre el jpeg_compress_struct del EXE; se accede a sus campos por desplazamiento (los de libjpeg-turbo de la DLL no coinciden).
-// Desplazamientos usados del jpeg_compress_struct: +0x00 err, +0x04 mem, +0x08 progress, +0x14 global_state, +0x18 dest, +0x1C image_width, +0x20 image_height, +0x24 input_components, +0x28 in_color_space,
-// +0x3C num_components, +0x40 jpeg_color_space, +0x44 comp_info (0x54 bytes cada uno: +0x08 h_samp_factor, +0x0C v_samp_factor, +0x1C width_in_blocks, +0x20 height_in_blocks), +0x58 dc_huff_tbl_ptrs[4],
-// +0x68 ac_huff_tbl_ptrs[4], +0xA8 num_scans, +0xB0 raw_data_in, +0xB1 arith_code, +0xB2 optimize_coding, +0xB8 dct_method, +0xD0 next_scanline, +0xD4 progressive_mode, +0x13C master, +0x140 main, +0x148 coef,
-// +0x14C marker, +0x150 cconvert, +0x158 fdct, +0x15C entropy. jpeg_error_mgr: +0x00 error_exit, +0x04 emit_message, +0x10 reset_error_mgr, +0x14 msg_code, +0x18 msg_parm.i[0].
-// jpeg_memory_mgr: +0x00 alloc_small, +0x04 alloc_large, +0x08 alloc_sarray, +0x14 request_virt_barray, +0x18 realize_virt_arrays. Todas las rutinas del EXE que se llaman son cdecl.
+// Lote 231A (sin validar): reconstruccion en C++ puro de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y
+// jcomapi.c, 0x5C55D0..0x5C6BD0). El listado las atribuia a FxEmitterBP_c; la clase real sale del desensamblado (todas manejan un jpeg_compress_struct: cinfo+0x14C
+// = marker, +0x13C = master, error 0x18 = JERR_CANT_SUSPEND...). Revisado contra el desensamblado instruccion por instruccion; no hay banco. Sin x87 ni SEH.
+//
+// ABI del EXE (las funciones salieron de un compilador con optimizacion de programa completo):
+//  - Las que reciben cinfo en pila (cdecl) se enganchan directamente: WriteFileHeader, WriteFrameHeader, WriteFileTrailer, JinitMarkerWriter, PrepareForPass,
+//    PassStartup, JinitCMasterControl, JpegAbort, JpegDestroy, JpegAllocQuantTable y JpegAllocHuffTable.
+//  - EmitDqt, EmitDri, EmitSos, EmitJfifApp0 y EmitAdobeApp14 reciben cinfo en EAX (EmitDqt ademas el indice en pila), EmitSof recibe cinfo en ECX y el marcador en
+//    AL de EAX, y EmitDht cinfo en ECX, AL = es AC y el indice en pila (todas salen con `ret`, el llamador limpia la pila). Se enganchan con envolturas que leen EAX con
+//    EntryEaxCpp (X87Math; tiene que ser lo primero que se ejecuta, sin comprobaciones de ejecucion ni cookie de /GS: lo vigila contrib/audit_register_residue.py, objeto
+//    LibJpegCompress), ECX como primer parametro __fastcall y la pila con _AddressOfReturnAddress. Los llamadores del EXE que quedan (0x5C61E0, 0x5C62F0 y los `jmp` de
+//    0x5C61E0) no leen ECX, EDX ni EAX tras la llamada.
+//  - InitialSetup (0x5C6430), SelectScanParameters (0x5C6600) y PerScanSetup (0x5C6680) reciben cinfo en ESI, que C++ no puede leer, y solo los llaman PrepareForPass y
+//    JinitCMasterControl (xrefs del EXE: 0x5C6AC5, 0x5C6884/0x5C68C4/0x5C6933 y 0x5C6889/0x5C68C9/0x5C6938): ayudantes locales sin hook.
+//  - Los ayudantes de bajo nivel emit_byte (0x5C54B0), emit_marker (0x5C54F0) y emit_2bytes (0x5C5560) (ESI = cinfo, EBX = valor) se reproducen en linea (EmitByte,
+//    EmitMarker, Emit2Bytes); no se enganchan.
+
 namespace {
-template<typename T>
-inline T& At(void* base, uint32 offset) {
-    return *reinterpret_cast<T*>(static_cast<uint8*>(base) + offset);
+constexpr int32 JERR_CANT_SUSPEND = 0x18;
+
+constexpr uintptr_t kJpegNaturalOrder = 0x86B818; // jpeg_natural_order: 64 int32 (el EXE lo pone a 0x86B918 como fin del bucle)
+
+// ERREXIT / ERREXIT1 / ERREXIT2: msg_code y parametros se escriben antes de llamar a error_exit; el original sigue ejecutando si error_exit vuelve.
+void ErrExit(ExeJpegCompress* cinfo, int32 code) {
+    cinfo->err->msg_code = code;
+    cinfo->err->error_exit(cinfo);
 }
 
-// ERREXIT: err->msg_code = code; (*err->error_exit)(cinfo). Como el EXE, `err` se lee dos veces (para escribir y para llamar).
-inline void ErrExit(void* cinfo, int32 code) {
-    At<int32>(At<void*>(cinfo, 0x00), 0x14) = code;
-    At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x00), 0x00)(cinfo);
+void ErrExit1(ExeJpegCompress* cinfo, int32 code, int32 p0) {
+    cinfo->err->msg_code = code;
+    cinfo->err->msg_parm_i[0] = p0;
+    cinfo->err->error_exit(cinfo);
 }
 
-// ERREXIT1: ademas msg_parm.i[0] = parm antes de llamar.
-inline void ErrExit1(void* cinfo, int32 code, int32 parm) {
-    At<int32>(At<void*>(cinfo, 0x00), 0x14) = code;
-    At<int32>(At<void*>(cinfo, 0x00), 0x18) = parm;
-    At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x00), 0x00)(cinfo);
+void ErrExit2(ExeJpegCompress* cinfo, int32 code, int32 p0, int32 p1) {
+    cinfo->err->msg_code = code;
+    cinfo->err->msg_parm_i[0] = p0;
+    cinfo->err->msg_parm_i[1] = p1;
+    cinfo->err->error_exit(cinfo);
 }
 
-inline void* AllocSmall(void* cinfo, int32 pool, uint32 size) {
-    return At<void*(__cdecl*)(void*, int32, uint32)>(At<void*>(cinfo, 0x04), 0x00)(cinfo, pool, size);
-}
-
-inline void* AllocLarge(void* cinfo, int32 pool, uint32 size) {
-    return At<void*(__cdecl*)(void*, int32, uint32)>(At<void*>(cinfo, 0x04), 0x04)(cinfo, pool, size);
-}
-
-inline long JRoundUp(long a, long b) { // jround_up (0x5CF8A0)
-    return reinterpret_cast<long(__cdecl*)(long, long)>(0x5CF8A0)(a, b);
-}
-
-constexpr int32 JERR_ARITH_NOTIMPL = 1;
-constexpr int32 JERR_BAD_BUFFER_MODE = 4;
-constexpr int32 JERR_BAD_DCT_COEF = 6;
-constexpr int32 JERR_BAD_HUFF_TABLE = 8;
-constexpr int32 JERR_BAD_IN_COLORSPACE = 9;
-constexpr int32 JERR_BAD_J_COLORSPACE = 10;
-constexpr int32 JERR_BAD_STATE = 0x14;
-constexpr int32 JERR_CONVERSION_NOTIMPL = 0x1B;
-constexpr int32 JERR_HUFF_CLEN_OVERFLOW = 0x27;
-constexpr int32 JERR_NOT_COMPILED = 0x30;
-constexpr int32 JWRN_TOO_MUCH_DATA = 0x7B;
-
-constexpr int32 CSTATE_START = 100;
-constexpr int32 CSTATE_SCANNING = 101;
-constexpr int32 CSTATE_RAW_OK = 102;
-
-// 0x5C3660 (null_convert), 0x5C35F0 (grayscale_convert), 0x5C36F0 (null_method), 0x5C31E0 (rgb_ycc_start), 0x5C32C0 (rgb_ycc_convert), 0x5C33E0 (rgb_gray_convert), 0x5C3490 (cmyk_ycck_convert),
-// 0x5C3940 (start_pass de jcdctmgr), 0x5C3B70 (forward_DCT_float), 0x5CD860 (jpeg_fdct_float), 0x5C2FF0 (start_pass_coef), 0x5C53D0 (start_pass_main), 0x5C5090 (start_pass_huff): se guardan por direccion.
-
-// 0x5C5420 (cdecl, dos argumentos, 134 bytes; el listado decia FxEmitterBP_c): jinit_c_main_controller(cinfo, need_full_buffer). Reserva 0x28 bytes (JPOOL_IMAGE = 1) y los guarda en +0x140; start_pass_main
-// (0x5C53D0) en la ranura 0. Con raw_data_in (+0xB0, byte) termina aqui. Sin raw_data_in: need_full_buffer (byte) -> ERREXIT(JERR_BAD_BUFFER_MODE) y vuelve; si no, por cada componente (num_components, +0x3C, releido en
-// cada vuelta; el contador de comp_info avanza 0x54) main->buffer[ci] (+0x18 + 4*ci) = alloc_sarray(cinfo, 1, width_in_blocks << 3, v_samp_factor << 3) (mem+8).
-void ExeJinitMainController(void* cinfo, int32 needFullBuffer) {
-    void* const main = AllocSmall(cinfo, 1, 0x28);
-    At<void*>(cinfo, 0x140) = main;
-    At<uint32>(main, 0x00) = 0x5C53D0;
-    if (At<uint8>(cinfo, 0xB0)) {
-        return;
-    }
-    if (static_cast<uint8>(needFullBuffer)) {
-        ErrExit(cinfo, JERR_BAD_BUFFER_MODE);
-        return;
-    }
-    uint8* compptr = At<uint8*>(cinfo, 0x44);
-    for (int32 ci = 0; ci < At<int32>(cinfo, 0x3C); ++ci, compptr += 0x54) {
-        const uint32 vSamp = *reinterpret_cast<uint32*>(compptr + 0x0C);
-        const uint32 width = *reinterpret_cast<uint32*>(compptr + 0x1C);
-        void* const mem = At<void*>(cinfo, 0x04);
-        At<void*>(main, 0x18 + 4 * ci) = At<void*(__cdecl*)(void*, int32, uint32, uint32)>(mem, 0x08)(cinfo, 1, width << 3, vSamp << 3);
-    }
-}
-
-// 0x5C30D0 (cdecl, dos argumentos, 259 bytes; el listado decia FxEmitterBP_c): jinit_c_coef_controller(cinfo, need_full_buffer). Reserva 0x50 bytes y los guarda en +0x148; start_pass_coef (0x5C2FF0) en la ranura 0.
-// need_full_buffer (byte) != 0: por cada componente (num_components releido en cada vuelta) coef->whole_image[ci] (+0x40 + 4*ci) = request_virt_barray(cinfo, 1, 0, jround_up(width_in_blocks, h_samp_factor),
-// jround_up(height_in_blocks, v_samp_factor), v_samp_factor) (mem+0x14; primero se calcula la altura redondeada y despues la anchura). Si no: un bloque de 0x500 bytes (alloc_large, mem+4) repartido en las diez
-// MCU_buffer[i] (+0x18 + 4*i = bloque + 0x80*i) y whole_image[0] = 0.
-void ExeJinitCoefController(void* cinfo, int32 needFullBuffer) {
-    void* const coef = AllocSmall(cinfo, 1, 0x50);
-    At<void*>(cinfo, 0x148) = coef;
-    At<uint32>(coef, 0x00) = 0x5C2FF0;
-    if (static_cast<uint8>(needFullBuffer)) {
-        uint8* compptr = At<uint8*>(cinfo, 0x44);
-        for (int32 ci = 0; ci < At<int32>(cinfo, 0x3C); ++ci, compptr += 0x54) {
-            const uint32 vSamp = *reinterpret_cast<uint32*>(compptr + 0x0C);
-            const uint32 hSamp = *reinterpret_cast<uint32*>(compptr + 0x08);
-            void* const mem = At<void*>(cinfo, 0x04);
-            const long heightRounded = JRoundUp(*reinterpret_cast<long*>(compptr + 0x20), static_cast<long>(vSamp));
-            const long widthRounded = JRoundUp(*reinterpret_cast<long*>(compptr + 0x1C), static_cast<long>(hSamp));
-            At<void*>(coef, 0x40 + 4 * ci) = At<void*(__cdecl*)(void*, int32, int32, long, long, uint32)>(mem, 0x14)(cinfo, 1, 0, widthRounded, heightRounded, vSamp);
-        }
-    } else {
-        uint8* const buffer = static_cast<uint8*>(AllocLarge(cinfo, 1, 0x500));
-        for (int32 i = 0; i < 10; ++i) {
-            At<uint8*>(coef, 0x18 + 4 * i) = buffer + 0x80 * i;
-        }
-        At<void*>(coef, 0x40) = nullptr;
-    }
-}
-
-// 0x5C35F0 (cdecl, cinco argumentos, 97 bytes; el listado decia FxEmitterBP_c): grayscale_convert(cinfo, input_buf, output_buf, output_row, num_rows) de jccolor. Lee image_width (+0x1C) e input_components (+0x24)
-// una sola vez; por cada fila (num_rows con signo, `--n >= 0`) copia el byte 0 de cada pixel de entrada (paso = input_components) a output_buf[0][output_row++]; el contador de columnas es sin signo.
-void ExeGrayscaleConvert(void* cinfo, uint8** inputBuf, uint8*** outputBuf, uint32 outputRow, int32 numRows) {
-    const uint32 width = At<uint32>(cinfo, 0x1C);
-    const int32 stride = At<int32>(cinfo, 0x24);
-    while (--numRows >= 0) {
-        const uint8* in = *inputBuf++;
-        uint8* out = outputBuf[0][outputRow++];
-        for (uint32 col = 0; col < width; ++col) {
-            out[col] = *in;
-            in += stride;
+// 0x5C54B0 (ESI = cinfo, un byte en pila): *next_output_byte++ = value; si free_in_buffer llega a 0 y empty_output_buffer devuelve 0 -> JERR_CANT_SUSPEND.
+void EmitByte(ExeJpegCompress* cinfo, int32 value) {
+    ExeJpegDestinationMgr* dest = cinfo->dest;
+    *dest->next_output_byte = static_cast<uint8>(value);
+    uint8* next = dest->next_output_byte + 1;
+    size_t left = dest->free_in_buffer - 1;
+    dest->next_output_byte = next;
+    dest->free_in_buffer = left;
+    if (left == 0) {
+        if (!dest->empty_output_buffer(cinfo)) {
+            ErrExit(cinfo, JERR_CANT_SUSPEND);
         }
     }
 }
 
-// 0x5C3700 (cdecl, un argumento, 531 bytes; el listado decia FxEmitterBP_c): jinit_color_converter(cinfo) de jccolor con las ramas que dejo el compilador del EXE. Reserva 0xC bytes, los guarda en +0x150 y
-// pone null_method (0x5C36F0) en la ranura 0. Valida input_components (+0x24) segun in_color_space (+0x28): 1 -> 1, 2 -> 4, 3 -> 3, 4 y 5 -> 4, otro -> >= 1; si no, ERREXIT(JERR_BAD_IN_COLORSPACE) y SIGUE.
-// Segun jpeg_color_space (+0x40): 1 (gris) exige num_components (+0x3C) == 1 (JERR_BAD_J_COLORSPACE) y elige grayscale_convert (entrada 1 o 3), rgb_gray (entrada 2: start 0x5C31E0, convert 0x5C33E0) o
-// ERREXIT(JERR_CONVERSION_NOTIMPL); 2 (RGB) comprueba num_components == 3 y SIEMPRE termina en ERREXIT(JERR_CONVERSION_NOTIMPL) sin asignar convert; 3 (YCbCr) -> entrada 2: rgb_ycc (0x5C31E0/0x5C32C0), entrada 3:
-// null_convert (0x5C3660), otro: NOTIMPL; 4 (CMYK) exige 4 y entrada 4 -> null_convert, si no NOTIMPL; 5 (YCCK) exige 4 y entrada 4 -> cmyk_ycck (0x5C31E0/0x5C3490), entrada 5 -> null_convert, si no NOTIMPL; otro
-// valor: NOTIMPL si jpeg_color_space != in_color_space o num_components != input_components y despues null_convert (tambien tras el error). En los NOTIMPL de las ramas 1..5 vuelve sin asignar convert.
-void ExeJinitColorConverter(void* cinfo) {
-    void* const cconvert = AllocSmall(cinfo, 1, 0xC);
-    At<void*>(cinfo, 0x150) = cconvert;
-    At<uint32>(cconvert, 0x00) = 0x5C36F0;
-
-    switch (At<int32>(cinfo, 0x28)) {
-    case 1:
-        if (At<int32>(cinfo, 0x24) != 1) { ErrExit(cinfo, JERR_BAD_IN_COLORSPACE); }
-        break;
-    case 2:
-        if (At<int32>(cinfo, 0x24) != 4) { ErrExit(cinfo, JERR_BAD_IN_COLORSPACE); }
-        break;
-    case 3:
-        if (At<int32>(cinfo, 0x24) != 3) { ErrExit(cinfo, JERR_BAD_IN_COLORSPACE); }
-        break;
-    case 4:
-    case 5:
-        if (At<int32>(cinfo, 0x24) != 4) { ErrExit(cinfo, JERR_BAD_IN_COLORSPACE); }
-        break;
-    default:
-        if (At<int32>(cinfo, 0x24) < 1) { ErrExit(cinfo, JERR_BAD_IN_COLORSPACE); }
-        break;
-    }
-
-    switch (At<int32>(cinfo, 0x40)) {
-    case 1: // JCS_GRAYSCALE
-        if (At<int32>(cinfo, 0x3C) != 1) { ErrExit(cinfo, JERR_BAD_J_COLORSPACE); }
-        switch (At<int32>(cinfo, 0x28)) {
-        case 1:
-        case 3:
-            At<uint32>(cconvert, 0x04) = 0x5C35F0;
-            return;
-        case 2:
-            At<uint32>(cconvert, 0x00) = 0x5C31E0;
-            At<uint32>(cconvert, 0x04) = 0x5C33E0;
-            return;
-        default:
-            ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
-            return;
-        }
-    case 2: // JCS_RGB
-        if (At<int32>(cinfo, 0x3C) != 3) { ErrExit(cinfo, JERR_BAD_J_COLORSPACE); }
-        ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
-        return;
-    case 3: // JCS_YCbCr
-        if (At<int32>(cinfo, 0x3C) != 3) { ErrExit(cinfo, JERR_BAD_J_COLORSPACE); }
-        switch (At<int32>(cinfo, 0x28)) {
-        case 2:
-            At<uint32>(cconvert, 0x00) = 0x5C31E0;
-            At<uint32>(cconvert, 0x04) = 0x5C32C0;
-            return;
-        case 3:
-            At<uint32>(cconvert, 0x04) = 0x5C3660;
-            return;
-        default:
-            ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
-            return;
-        }
-    case 4: // JCS_CMYK
-        if (At<int32>(cinfo, 0x3C) != 4) { ErrExit(cinfo, JERR_BAD_J_COLORSPACE); }
-        if (At<int32>(cinfo, 0x28) == 4) {
-            At<uint32>(cconvert, 0x04) = 0x5C3660;
-            return;
-        }
-        ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
-        return;
-    case 5: // JCS_YCCK
-        if (At<int32>(cinfo, 0x3C) != 4) { ErrExit(cinfo, JERR_BAD_J_COLORSPACE); }
-        switch (At<int32>(cinfo, 0x28)) {
-        case 4:
-            At<uint32>(cconvert, 0x00) = 0x5C31E0;
-            At<uint32>(cconvert, 0x04) = 0x5C3490;
-            return;
-        case 5:
-            At<uint32>(cconvert, 0x04) = 0x5C3660;
-            return;
-        default:
-            ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
-            return;
-        }
-    default:
-        if (At<int32>(cinfo, 0x40) != At<int32>(cinfo, 0x28) || At<int32>(cinfo, 0x3C) != At<int32>(cinfo, 0x24)) {
-            ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
-        }
-        At<uint32>(cconvert, 0x04) = 0x5C3660;
-        return;
-    }
+// 0x5C54F0 (ESI = cinfo, un byte en pila): 0xFF y el marcador.
+void EmitMarker(ExeJpegCompress* cinfo, int32 mark) {
+    EmitByte(cinfo, 0xFF);
+    EmitByte(cinfo, mark);
 }
 
-// 0x5C4380 (cdecl, un argumento, 108 bytes; el listado decia FxEmitterBP_c): jinit_forward_dct(cinfo) de jcdctmgr, solo con el DCT en coma flotante. Reserva 0x30 bytes, los guarda en +0x158 y pone 0x5C3940
-// en la ranura 0. Si dct_method (+0xB8) != 2 (JDCT_FLOAT): ERREXIT(JERR_NOT_COMPILED); si no, +0x04 = 0x5C3B70 (forward_DCT) y +0x1C = 0x5CD860 (jpeg_fdct_float). Despues pone a cero los cuatro divisores
-// enteros (+0x0C..+0x18) y los cuatro de coma flotante (+0x20..+0x2C), por pares en cada vuelta (incluso tras el error).
-void ExeJinitForwardDct(void* cinfo) {
-    void* const fdct = AllocSmall(cinfo, 1, 0x30);
-    At<void*>(cinfo, 0x158) = fdct;
-    At<uint32>(fdct, 0x00) = 0x5C3940;
-    if (At<int32>(cinfo, 0xB8) != 2) {
-        ErrExit(cinfo, JERR_NOT_COMPILED);
-    } else {
-        At<uint32>(fdct, 0x04) = 0x5C3B70;
-        At<uint32>(fdct, 0x1C) = 0x5CD860;
-    }
-    for (int32 i = 0; i < 4; ++i) {
-        At<uint32>(fdct, 0x0C + 4 * i) = 0;
-        At<uint32>(fdct, 0x20 + 4 * i) = 0;
-    }
+// 0x5C5560 (ESI = cinfo, EBX = valor): byte alto (value >> 8, solo el byte bajo se escribe) y byte bajo.
+void Emit2Bytes(ExeJpegCompress* cinfo, int32 value) {
+    EmitByte(cinfo, value >> 8);
+    EmitByte(cinfo, value);
 }
 
-// 0x5C5210 (cdecl, un argumento, 66 bytes; el listado decia FxEmitterBP_c): jinit_huff_encoder(cinfo) de jchuff. Reserva 0x6C bytes, los guarda en +0x15C y pone start_pass_huff (0x5C5090) en la ranura 0.
-// Pone a cero, de cuatro en cuatro, dc_derived_tbls (+0x2C), ac_derived_tbls (+0x3C), dc_count_ptrs (+0x4C) y ac_count_ptrs (+0x5C); en cada vuelta escribe +0x3C, +0x2C, +0x5C y +0x4C.
-void ExeJinitHuffEncoder(void* cinfo) {
-    void* const entropy = AllocSmall(cinfo, 1, 0x6C);
-    At<void*>(cinfo, 0x15C) = entropy;
-    At<uint32>(entropy, 0x00) = 0x5C5090;
-    for (int32 i = 0; i < 4; ++i) {
-        At<uint32>(entropy, 0x3C + 4 * i) = 0;
-        At<uint32>(entropy, 0x2C + 4 * i) = 0;
-        At<uint32>(entropy, 0x5C + 4 * i) = 0;
-        At<uint32>(entropy, 0x4C + 4 * i) = 0;
-    }
-}
-
-// 0x5C5260 (cdecl, un argumento, 188 bytes; el listado decia FxEmitterBP_c): jinit_compress_master(cinfo) de jcinit. Orden: jinit_c_master_control(cinfo, 0) (0x5C6A90); sin raw_data_in (+0xB0, byte):
-// jinit_color_converter, jinit_downsampler (0x5C7DF0) y jinit_c_prep_controller(cinfo, 0) (0x5C7920); jinit_forward_dct; si arith_code (+0xB1, byte) ERREXIT(JERR_ARITH_NOTIMPL) y si no, con progressive_mode
-// (+0xD4, byte) ERREXIT(JERR_NOT_COMPILED) o jinit_huff_encoder; need_full = num_scans (+0xA8, con signo) > 1 || optimize_coding (+0xB2, byte); jinit_c_coef_controller(cinfo, need_full);
-// jinit_c_main_controller(cinfo, 0); jinit_marker_writer (0x5C63D0); mem->realize_virt_arrays(cinfo) (mem+0x18) y marker->write_file_header(cinfo) (+0x14C, ranura 0).
-void ExeJinitCompressMaster(void* cinfo) {
-    reinterpret_cast<void(__cdecl*)(void*, int32)>(0x5C6A90)(cinfo, 0);
-    if (!At<uint8>(cinfo, 0xB0)) {
-        ExeJinitColorConverter(cinfo);
-        reinterpret_cast<void(__cdecl*)(void*)>(0x5C7DF0)(cinfo);
-        reinterpret_cast<void(__cdecl*)(void*, int32)>(0x5C7920)(cinfo, 0);
-    }
-    ExeJinitForwardDct(cinfo);
-    if (At<uint8>(cinfo, 0xB1)) {
-        ErrExit(cinfo, JERR_ARITH_NOTIMPL);
-    } else if (At<uint8>(cinfo, 0xD4)) {
-        ErrExit(cinfo, JERR_NOT_COMPILED);
-    } else {
-        ExeJinitHuffEncoder(cinfo);
-    }
-    const int32 needFull = (At<int32>(cinfo, 0xA8) > 1 || At<uint8>(cinfo, 0xB2)) ? 1 : 0;
-    ExeJinitCoefController(cinfo, needFull);
-    ExeJinitMainController(cinfo, 0);
-    reinterpret_cast<void(__cdecl*)(void*)>(0x5C63D0)(cinfo);
-    At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x04), 0x18)(cinfo);
-    At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x14C), 0x00)(cinfo);
-}
-
-// 0x5C26B0 (cdecl, dos argumentos, 117 bytes; el listado decia FxEmitterBP_c): jpeg_start_compress(cinfo, write_all_tables) de jcapistd. global_state (+0x14) != CSTATE_START (100): ERREXIT1(JERR_BAD_STATE,
-// global_state) y sigue. Con write_all_tables (byte) != 0: jpeg_suppress_tables(cinfo, 0) (0x5CFA50). Despues err->reset_error_mgr (+0x10), dest->init_destination (dest = +0x18, ranura +8), jinit_compress_master,
-// master->prepare_for_pass (+0x13C, ranura 0), next_scanline (+0xD0) = 0 y global_state = (raw_data_in (+0xB0, byte) != 0) ? CSTATE_RAW_OK : CSTATE_SCANNING.
-void ExeJpegStartCompress(void* cinfo, int32 writeAllTables) {
-    if (At<int32>(cinfo, 0x14) != CSTATE_START) {
-        ErrExit1(cinfo, JERR_BAD_STATE, At<int32>(cinfo, 0x14));
-    }
-    if (static_cast<uint8>(writeAllTables)) {
-        reinterpret_cast<void(__cdecl*)(void*, int32)>(0x5CFA50)(cinfo, 0);
-    }
-    At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x00), 0x10)(cinfo);
-    At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x18), 0x08)(cinfo);
-    ExeJinitCompressMaster(cinfo);
-    At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x13C), 0x00)(cinfo);
-    At<uint32>(cinfo, 0xD0) = 0;
-    At<int32>(cinfo, 0x14) = At<uint8>(cinfo, 0xB0) ? CSTATE_RAW_OK : CSTATE_SCANNING;
-}
-
-// 0x5C2730 (cdecl, tres argumentos, 194 bytes; el listado decia FxEmitterBP_c): jpeg_write_scanlines(cinfo, scanlines, num_lines) de jcapistd. global_state != CSTATE_SCANNING (101): ERREXIT1(JERR_BAD_STATE, state)
-// y sigue. next_scanline (+0xD0) >= image_height (+0x20), sin signo: WARNMS(JWRN_TOO_MUCH_DATA): msg_code = 0x7B y err->emit_message(cinfo, -1) (+4). Con progress (+0x08): pass_counter (+4) = next_scanline, pass_limit (+8)
-// = image_height y progress_monitor (+0) (cinfo). Con master->call_pass_startup (+0x13C, byte +0xC): master->pass_startup (+4)(cinfo). rows_left = image_height - next_scanline; num_lines = min(num_lines, rows_left) sin
-// signo; row_ctr = 0 y main->process_data (+0x140, ranura +4)(cinfo, scanlines, &row_ctr, num_lines); next_scanline += row_ctr; devuelve row_ctr.
-uint32 ExeJpegWriteScanlines(void* cinfo, uint8** scanlines, uint32 numLines) {
-    if (At<int32>(cinfo, 0x14) != CSTATE_SCANNING) {
-        ErrExit1(cinfo, JERR_BAD_STATE, At<int32>(cinfo, 0x14));
-    }
-    if (At<uint32>(cinfo, 0xD0) >= At<uint32>(cinfo, 0x20)) {
-        At<int32>(At<void*>(cinfo, 0x00), 0x14) = JWRN_TOO_MUCH_DATA;
-        At<void(__cdecl*)(void*, int32)>(At<void*>(cinfo, 0x00), 0x04)(cinfo, -1);
-    }
-    if (void* const progress = At<void*>(cinfo, 0x08)) {
-        At<uint32>(progress, 0x04) = At<uint32>(cinfo, 0xD0);
-        At<uint32>(progress, 0x08) = At<uint32>(cinfo, 0x20);
-        At<void(__cdecl*)(void*)>(progress, 0x00)(cinfo);
-    }
-    if (void* const master = At<void*>(cinfo, 0x13C); At<uint8>(master, 0x0C)) {
-        At<void(__cdecl*)(void*)>(master, 0x04)(cinfo);
-    }
-    const uint32 rowsLeft = At<uint32>(cinfo, 0x20) - At<uint32>(cinfo, 0xD0);
-    if (numLines > rowsLeft) {
-        numLines = rowsLeft;
-    }
-    uint32 rowCtr = 0;
-    At<void(__cdecl*)(void*, uint8**, uint32*, uint32)>(At<void*>(cinfo, 0x140), 0x04)(cinfo, scanlines, &rowCtr, numLines);
-    At<uint32>(cinfo, 0xD0) += rowCtr;
-    return rowCtr;
-}
-
-// 0x5C43F0 (cdecl, cuatro argumentos, 520 bytes; el listado decia FxEmitterBP_c): jpeg_make_c_derived_tbl(cinfo, isDC, tblno, pdtbl) de jchuff. tblno fuera de 0..3 o tabla nula (dc_huff_tbl_ptrs +0x58 si el BYTE
-// isDC != 0, si no ac_huff_tbl_ptrs +0x68): ERREXIT1(JERR_NO_HUFF_TABLE = 0x32, tblno) y sigue. Si *pdtbl es nulo lo reserva (0x500 bytes, JPOOL_IMAGE). Genera huffsize/huffcode como libjpeg; cualquier incoherencia ->
-// ERREXIT(JERR_BAD_HUFF_TABLE) y sigue. Pone a cero ehufsi (+0x400, 256 bytes) y, para cada simbolo (maxsymbol 15 si isDC, si no 255), ehufco[i] (+0) = huffcode[p], ehufsi[i] = huffsize[p].
-void ExeJpegMakeCDerivedTbl(void* cinfo, int32 isDC, int32 tblno, void** pdtbl) {
-    if (tblno < 0 || tblno >= 4) {
-        ErrExit1(cinfo, 0x32, tblno);
-    }
-    uint8* htbl = static_cast<uint8*>(static_cast<uint8>(isDC) ? At<void*>(cinfo, 0x58 + tblno * 4) : At<void*>(cinfo, 0x68 + tblno * 4));
-    if (!htbl) {
-        ErrExit1(cinfo, 0x32, tblno);
-    }
-    if (*pdtbl == nullptr) {
-        *pdtbl = AllocSmall(cinfo, 1, 0x500);
-    }
-    uint8* const dtbl = static_cast<uint8*>(*pdtbl);
-
-    uint8 huffsize[257];
-    uint32 huffcode[257];
-    int32 p = 0;
-    for (int32 l = 1; l <= 16; ++l) {
-        int32 i = htbl[l];
-        if (i < 0 || p + i > 256) {
-            ErrExit(cinfo, JERR_BAD_HUFF_TABLE);
-        }
-        while (i--) {
-            huffsize[p++] = static_cast<uint8>(l);
-        }
-    }
-    huffsize[p] = 0;
-    const int32 lastp = p;
-
-    int32 code = 0;
-    int32 si = huffsize[0];
-    p = 0;
-    while (huffsize[p]) {
-        while (static_cast<int32>(huffsize[p]) == si) {
-            huffcode[p++] = static_cast<uint32>(code);
-            code++;
-        }
-        if (code >= (1 << si)) {
-            ErrExit(cinfo, JERR_BAD_HUFF_TABLE);
-        }
-        code <<= 1;
-        si++;
-    }
-
-    std::memset(dtbl + 0x400, 0, 0x100);
-    const int32 maxSymbol = static_cast<uint8>(isDC) ? 15 : 255;
-    for (p = 0; p < lastp; ++p) {
-        const int32 i = htbl[0x11 + p];
-        if (i < 0 || i > maxSymbol || dtbl[0x400 + i]) {
-            ErrExit(cinfo, JERR_BAD_HUFF_TABLE);
-        }
-        *reinterpret_cast<uint32*>(dtbl + i * 4) = huffcode[p];
-        dtbl[0x400 + i] = huffsize[p];
-    }
-}
-
-// 0x5C4D50 (cdecl, tres argumentos, 571 bytes; el listado decia FxEmitterBP_c): jpeg_gen_optimal_table(cinfo, htbl, freq) de jchuff. freq[256] = 1; en cada vuelta busca el menor (c1) y el segundo menor (c2, distinto de
-// c1) de los freq != 0 con `<=` (v inicial 1000000000, indices 0..256); sin c2 termina; fusiona (freq[c1] += freq[c2], freq[c2] = 0) y aumenta codesize por las dos cadenas `others`. Cuenta longitudes en bits[]
-// (>32: ERREXIT(JERR_HUFF_CLEN_OVERFLOW) y sigue), las reduce a 16 como libjpeg, copia bits[0..16] a htbl (+0x00), escribe huffval (+0x11) ordenado por longitud y simbolo y pone sent_table (+0x111) a FALSE.
-void ExeJpegGenOptimalTable(void* cinfo, void* htblArg, int32* freq) {
-    uint8* const htbl = static_cast<uint8*>(htblArg);
-    uint8 bits[33];
-    int32 codesize[257];
-    int32 others[257];
-    std::memset(bits, 0, sizeof(bits));
-    std::memset(codesize, 0, sizeof(codesize));
-    std::memset(others, 0xFF, sizeof(others));
-    freq[256] = 1;
-
-    for (;;) {
-        int32 c1 = -1;
-        int32 v = 1000000000;
-        for (int32 i = 0; i <= 256; ++i) {
-            if (freq[i] && freq[i] <= v) {
-                v = freq[i];
-                c1 = i;
-            }
-        }
-        int32 c2 = -1;
-        v = 1000000000;
-        for (int32 i = 0; i <= 256; ++i) {
-            if (freq[i] && freq[i] <= v && i != c1) {
-                v = freq[i];
-                c2 = i;
-            }
-        }
-        if (c2 < 0) {
-            break;
-        }
-        freq[c1] += freq[c2];
-        freq[c2] = 0;
-        codesize[c1]++;
-        while (others[c1] >= 0) {
-            c1 = others[c1];
-            codesize[c1]++;
-        }
-        others[c1] = c2;
-        codesize[c2]++;
-        while (others[c2] >= 0) {
-            c2 = others[c2];
-            codesize[c2]++;
-        }
-    }
-
-    for (int32 i = 0; i <= 256; ++i) {
-        if (codesize[i]) {
-            if (codesize[i] > 32) {
-                ErrExit(cinfo, JERR_HUFF_CLEN_OVERFLOW);
-            }
-            bits[codesize[i]]++;
-        }
-    }
-
-    int32 i = 32;
-    for (; i > 16; --i) {
-        while (bits[i] > 0) {
-            int32 j = i - 2;
-            while (bits[j] == 0) {
-                j--;
-            }
-            bits[i] -= 2;
-            bits[i - 1]++;
-            bits[j + 1] += 2;
-            bits[j]--;
-        }
-    }
-    while (bits[i] == 0) {
-        i--;
-    }
-    bits[i]--;
-
-    std::memcpy(htbl, bits, 17);
-    int32 p = 0;
-    for (int32 len = 1; len <= 32; ++len) {
-        for (int32 j = 0; j <= 255; ++j) {
-            if (codesize[j] == len) {
-                htbl[0x11 + p] = static_cast<uint8>(j);
-                p++;
-            }
-        }
-    }
-    htbl[0x111] = 0;
+// 0x5CF890 (cdecl, a y b en pila): (a + b - 1) / b con idiv con signo. No esta reconstruida: se llama por direccion fija.
+int32 JdivRoundUp(int32 a, int32 b) {
+    return plugin::CallAndReturn<int32, 0x5CF890, int32, int32>(a, b);
 }
 } // namespace
 
-/**
- * Registra las rutinas internas de compresion de la libjpeg del EXE (lote 230A, sin validar).
- */
+// Envolturas con los registros del EXE. /RTC1 anade __RTC_CheckEsp tras las llamadas y la cookie de /GS tambien: de ahi runtime_checks off y safebuffers (lo vigila
+// contrib/audit_register_residue.py, objeto LibJpegCompress). EntryEaxCpp es lo primero que se ejecuta en cada una que lo usa.
+namespace {
+#pragma runtime_checks("", off)
+// 0x5C55D0: EAX = cinfo, indice en pila, devuelve la precision en EAX.
+__declspec(safebuffers) int32 __cdecl EmitDqtExe(int32 index) {
+    auto* const cinfo = reinterpret_cast<ExeJpegCompress*>(EntryEaxCpp());
+    return LibJpegCompress::EmitDqt(cinfo, index);
+}
+
+// 0x5C5780: ECX = cinfo (primer parametro __fastcall; EDX no se usa), AL = es AC, indice en la primera posicion de pila (no se declara como parametro: la funcion
+// __fastcall la limpiaria con `ret 4`, y el EXE sale con `ret` y limpia el llamador).
+__declspec(safebuffers) void __fastcall EmitDhtExe(ExeJpegCompress* cinfo, uint32 /*edx*/) {
+    const bool isAc = static_cast<uint8>(EntryEaxCpp()) != 0;
+    const int32 index = static_cast<const int32*>(_AddressOfReturnAddress())[1];
+    LibJpegCompress::EmitDht(cinfo, index, isAc);
+}
+
+// 0x5C5910: EAX = cinfo.
+__declspec(safebuffers) void __cdecl EmitDriExe() {
+    LibJpegCompress::EmitDri(reinterpret_cast<ExeJpegCompress*>(EntryEaxCpp()));
+}
+
+// 0x5C5940: ECX = cinfo, AL = marcador.
+__declspec(safebuffers) void __fastcall EmitSofExe(ExeJpegCompress* cinfo, uint32 /*edx*/) {
+    const uint8 code = static_cast<uint8>(EntryEaxCpp());
+    LibJpegCompress::EmitSof(cinfo, code);
+}
+
+// 0x5C5AC0: EAX = cinfo.
+__declspec(safebuffers) void __cdecl EmitSosExe() {
+    LibJpegCompress::EmitSos(reinterpret_cast<ExeJpegCompress*>(EntryEaxCpp()));
+}
+
+// 0x5C5CA0: EAX = cinfo.
+__declspec(safebuffers) void __cdecl EmitJfifApp0Exe() {
+    LibJpegCompress::EmitJfifApp0(reinterpret_cast<ExeJpegCompress*>(EntryEaxCpp()));
+}
+
+// 0x5C5EC0: EAX = cinfo.
+__declspec(safebuffers) void __cdecl EmitAdobeApp14Exe() {
+    LibJpegCompress::EmitAdobeApp14(reinterpret_cast<ExeJpegCompress*>(EntryEaxCpp()));
+}
+#pragma runtime_checks("", restore)
+} // namespace
+
 void LibJpegCompress::InjectHooks() {
     RH_ScopedClass(LibJpegCompress);
-    RH_ScopedCategoryGlobal();
+    RH_ScopedCategory("Plugins");
 
-    RH_ScopedNamedGlobalInstall(ExeJpegStartCompress, "jpeg_start_compress", 0x5C26B0);               // lote 230A (sin validar)
-    RH_ScopedNamedGlobalInstall(ExeJpegWriteScanlines, "jpeg_write_scanlines", 0x5C2730);             // lote 230A (sin validar)
-    RH_ScopedNamedGlobalInstall(ExeJinitCoefController, "jinit_c_coef_controller", 0x5C30D0);         // lote 230A (sin validar)
-    RH_ScopedNamedGlobalInstall(ExeGrayscaleConvert, "grayscale_convert", 0x5C35F0);                  // lote 230A (sin validar)
-    RH_ScopedNamedGlobalInstall(ExeJinitColorConverter, "jinit_color_converter", 0x5C3700);           // lote 230A (sin validar)
-    RH_ScopedNamedGlobalInstall(ExeJinitForwardDct, "jinit_forward_dct", 0x5C4380);                   // lote 230A (sin validar)
-    RH_ScopedNamedGlobalInstall(ExeJpegMakeCDerivedTbl, "jpeg_make_c_derived_tbl", 0x5C43F0);         // lote 230A (sin validar)
-    RH_ScopedNamedGlobalInstall(ExeJpegGenOptimalTable, "jpeg_gen_optimal_table", 0x5C4D50);          // lote 230A (sin validar)
-    RH_ScopedNamedGlobalInstall(ExeJinitHuffEncoder, "jinit_huff_encoder", 0x5C5210);                 // lote 230A (sin validar)
-    RH_ScopedNamedGlobalInstall(ExeJinitCompressMaster, "jinit_compress_master", 0x5C5260);           // lote 230A (sin validar)
-    RH_ScopedNamedGlobalInstall(ExeJinitMainController, "jinit_c_main_controller", 0x5C5420);         // lote 230A (sin validar)
+    RH_ScopedNamedGlobalInstall(EmitDqtExe, "EmitDqt", 0x5C55D0);           // lote 231A (sin validar)
+    RH_ScopedNamedGlobalInstall(EmitDhtExe, "EmitDht", 0x5C5780);           // lote 231A (sin validar)
+    RH_ScopedNamedGlobalInstall(EmitDriExe, "EmitDri", 0x5C5910);           // lote 231A (sin validar)
+    RH_ScopedNamedGlobalInstall(EmitSofExe, "EmitSof", 0x5C5940);           // lote 231A (sin validar)
+    RH_ScopedNamedGlobalInstall(EmitSosExe, "EmitSos", 0x5C5AC0);           // lote 231A (sin validar)
+    RH_ScopedNamedGlobalInstall(EmitJfifApp0Exe, "EmitJfifApp0", 0x5C5CA0); // lote 231A (sin validar)
+    RH_ScopedNamedGlobalInstall(EmitAdobeApp14Exe, "EmitAdobeApp14", 0x5C5EC0); // lote 231A (sin validar)
+    RH_ScopedInstall(WriteFileHeader, 0x5C60B0);     // lote 231A (sin validar)
+    RH_ScopedInstall(WriteFrameHeader, 0x5C6100);    // lote 231A (sin validar)
+    RH_ScopedInstall(WriteFileTrailer, 0x5C62D0);    // lote 231A (sin validar)
+    RH_ScopedInstall(JinitMarkerWriter, 0x5C63D0);   // lote 231A (sin validar)
+    RH_ScopedInstall(PrepareForPass, 0x5C6850);      // lote 231A (sin validar)
+    RH_ScopedInstall(PassStartup, 0x5C69E0);         // lote 231A (sin validar)
+    RH_ScopedInstall(JinitCMasterControl, 0x5C6A90); // lote 231A (sin validar)
+    RH_ScopedInstall(JpegAbort, 0x5C6B50);           // lote 231A (sin validar)
+    RH_ScopedInstall(JpegDestroy, 0x5C6B90);         // lote 231A (sin validar)
+    RH_ScopedInstall(JpegAllocQuantTable, 0x5C6BB0); // lote 231A (sin validar)
+    RH_ScopedInstall(JpegAllocHuffTable, 0x5C6BD0);  // lote 231A (sin validar)
+}
+
+// 0x5C55D0 (lote 231A, sin validar; EAX = cinfo, indice en pila, `ret`, 419 bytes): emit_dqt. Devuelve la precision (0 u 1, EAX); sent_table = 1 al terminar.
+int32 LibJpegCompress::EmitDqt(ExeJpegCompress* cinfo, int32 index) {
+    ExeJpegQuantTable* qtbl = cinfo->quant_tbl_ptrs[index];
+    if (!qtbl) {
+        ErrExit1(cinfo, 0x34, index); // JERR_NO_QUANT_TABLE
+    }
+
+    int32 prec = 0;
+    for (int32 i = 0; i < 64; i++) {
+        if (qtbl->quantval[i] > 255) {
+            prec = 1;
+        }
+    }
+
+    if (!qtbl->sent_table) {
+        EmitMarker(cinfo, 0xDB); // DQT
+        Emit2Bytes(cinfo, prec ? 64 * 2 + 1 + 2 : 64 + 1 + 2); // neg/sbb/and 0x40 + 0x43: 0x83 o 0x43
+        EmitByte(cinfo, index + (prec << 4));
+
+        const auto* const naturalOrder = reinterpret_cast<const int32*>(kJpegNaturalOrder);
+        for (int32 i = 0; i < 64; i++) {
+            const uint32 qval = qtbl->quantval[naturalOrder[i]]; // movzx word
+            if (prec) {
+                EmitByte(cinfo, static_cast<int32>(qval >> 8));
+            }
+            EmitByte(cinfo, static_cast<int32>(qval));
+        }
+
+        qtbl->sent_table = 1;
+    }
+    return prec;
+}
+
+// 0x5C5780 (lote 231A, sin validar; ECX = cinfo, AL = es AC, indice en pila, `ret`, 373 bytes): emit_dht. Con AC el indice se desplaza +0x10 (tambien en el mensaje de error).
+void LibJpegCompress::EmitDht(ExeJpegCompress* cinfo, int32 index, bool isAc) {
+    ExeJpegHuffTable* htbl;
+    if (isAc) {
+        htbl = cinfo->ac_huff_tbl_ptrs[index];
+        index += 0x10;
+    } else {
+        htbl = cinfo->dc_huff_tbl_ptrs[index];
+    }
+    if (!htbl) {
+        ErrExit1(cinfo, 0x32, index); // JERR_NO_HUFF_TABLE
+    }
+
+    if (!htbl->sent_table) {
+        EmitMarker(cinfo, 0xC4); // DHT
+
+        int32 length = 0;
+        for (int32 i = 1; i <= 16; i++) {
+            length += htbl->bits[i];
+        }
+
+        Emit2Bytes(cinfo, length + 2 + 1 + 16);
+        EmitByte(cinfo, index);
+
+        for (int32 i = 1; i <= 16; i++) {
+            EmitByte(cinfo, htbl->bits[i]);
+        }
+        for (int32 i = 0; i < length; i++) {
+            EmitByte(cinfo, htbl->huffval[i]);
+        }
+
+        htbl->sent_table = 1;
+    }
+}
+
+// 0x5C5910 (lote 231A, sin validar; EAX = cinfo, `ret`, 41 bytes): emit_dri. Sin llamadores en el EXE (el compilador lo dejo suelto).
+void LibJpegCompress::EmitDri(ExeJpegCompress* cinfo) {
+    EmitMarker(cinfo, 0xDD); // DRI
+    Emit2Bytes(cinfo, 4);
+    Emit2Bytes(cinfo, static_cast<int32>(cinfo->restart_interval));
+}
+
+// 0x5C5940 (lote 231A, sin validar; ECX = cinfo, AL = marcador, `ret`, 370 bytes): emit_sof. Solo la llaman por `jmp` WriteFrameHeader (0x5C61B0, 0x5C61C7, 0x5C61DB).
+void LibJpegCompress::EmitSof(ExeJpegCompress* cinfo, uint8 code) {
+    EmitMarker(cinfo, code);
+    Emit2Bytes(cinfo, cinfo->num_components * 3 + 2 + 5 + 1);
+
+    // Comparaciones con signo del EXE (jg/jle sobre las dimensiones sin signo).
+    if (static_cast<int32>(cinfo->image_height) > 65535 || static_cast<int32>(cinfo->image_width) > 65535) {
+        ErrExit1(cinfo, 0x29, 65535); // JERR_IMAGE_TOO_BIG
+    }
+
+    EmitByte(cinfo, cinfo->data_precision);
+    Emit2Bytes(cinfo, static_cast<int32>(cinfo->image_height));
+    Emit2Bytes(cinfo, static_cast<int32>(cinfo->image_width));
+    EmitByte(cinfo, cinfo->num_components);
+
+    const ExeJpegComponentInfo* comp = cinfo->comp_info;
+    for (int32 ci = 0; ci < cinfo->num_components; ci++, comp++) {
+        EmitByte(cinfo, comp->component_id);
+        EmitByte(cinfo, static_cast<uint8>((static_cast<uint8>(comp->h_samp_factor) << 4) + static_cast<uint8>(comp->v_samp_factor)));
+        EmitByte(cinfo, comp->quant_tbl_no);
+    }
+}
+
+// 0x5C5AC0 (lote 231A, sin validar; EAX = cinfo, `ret`, 468 bytes): emit_sos. Solo la llama por `jmp` el write_scan_header del EXE (0x5C62C1, no incluido en el lote).
+void LibJpegCompress::EmitSos(ExeJpegCompress* cinfo) {
+    EmitMarker(cinfo, 0xDA); // SOS
+    Emit2Bytes(cinfo, 2 * cinfo->comps_in_scan + 2 + 1 + 3);
+    EmitByte(cinfo, cinfo->comps_in_scan);
+
+    for (int32 i = 0; i < cinfo->comps_in_scan; i++) {
+        const ExeJpegComponentInfo* comp = cinfo->cur_comp_info[i];
+        EmitByte(cinfo, comp->component_id);
+
+        int32 td = comp->dc_tbl_no;
+        int32 ta = comp->ac_tbl_no;
+        if (cinfo->progressive_mode) {
+            // Modo progresivo: en un barrido solo se usan tablas DC o AC, y el refinamiento DC con Huffman no usa tabla.
+            if (cinfo->Ss == 0) {
+                ta = 0;
+                if (cinfo->Ah != 0 && !cinfo->arith_code) {
+                    td = 0;
+                }
+            } else {
+                td = 0;
+            }
+        }
+        EmitByte(cinfo, static_cast<uint8>((static_cast<uint8>(td) << 4) + static_cast<uint8>(ta)));
+    }
+
+    EmitByte(cinfo, cinfo->Ss);
+    EmitByte(cinfo, cinfo->Se);
+    EmitByte(cinfo, static_cast<uint8>((static_cast<uint8>(cinfo->Ah) << 4) + static_cast<uint8>(cinfo->Al)));
+}
+
+// 0x5C5CA0 (lote 231A, sin validar; EAX = cinfo, `ret`, 536 bytes): emit_jfif_app0.
+void LibJpegCompress::EmitJfifApp0(ExeJpegCompress* cinfo) {
+    EmitMarker(cinfo, 0xE0); // APP0
+    Emit2Bytes(cinfo, 2 + 4 + 1 + 2 + 1 + 2 + 2 + 1 + 1);
+    EmitByte(cinfo, 0x4A); // 'J'
+    EmitByte(cinfo, 0x46); // 'F'
+    EmitByte(cinfo, 0x49); // 'I'
+    EmitByte(cinfo, 0x46); // 'F'
+    EmitByte(cinfo, 0);
+    EmitByte(cinfo, cinfo->JFIF_major_version);
+    EmitByte(cinfo, cinfo->JFIF_minor_version);
+    EmitByte(cinfo, cinfo->density_unit);
+    Emit2Bytes(cinfo, cinfo->X_density); // movzx word
+    Emit2Bytes(cinfo, cinfo->Y_density);
+    EmitByte(cinfo, 0); // sin miniatura
+    EmitByte(cinfo, 0);
+}
+
+// 0x5C5EC0 (lote 231A, sin validar; EAX = cinfo, `ret`, 362 bytes): emit_adobe_app14. Solo la llama por `jmp` WriteFileHeader (0x5C60EF).
+void LibJpegCompress::EmitAdobeApp14(ExeJpegCompress* cinfo) {
+    EmitMarker(cinfo, 0xEE); // APP14
+    Emit2Bytes(cinfo, 2 + 5 + 2 + 2 + 2 + 1);
+    EmitByte(cinfo, 0x41); // 'A'
+    EmitByte(cinfo, 0x64); // 'd'
+    EmitByte(cinfo, 0x6F); // 'o'
+    EmitByte(cinfo, 0x62); // 'b'
+    EmitByte(cinfo, 0x65); // 'e'
+    Emit2Bytes(cinfo, 100); // version
+    Emit2Bytes(cinfo, 0);   // flags0
+    Emit2Bytes(cinfo, 0);   // flags1
+    switch (cinfo->jpeg_color_space) {
+    case 3: // JCS_YCbCr
+        EmitByte(cinfo, 1);
+        break;
+    case 5: // JCS_YCCK
+        EmitByte(cinfo, 2);
+        break;
+    default:
+        EmitByte(cinfo, 0);
+        break;
+    }
+}
+
+// 0x5C60B0 (lote 231A, sin validar; cdecl, `ret`, 70 bytes): write_file_header.
+void LibJpegCompress::WriteFileHeader(ExeJpegCompress* cinfo) {
+    ExeJpegMarkerWriter* marker = cinfo->marker;
+    EmitMarker(cinfo, 0xD8); // SOI
+    marker->last_restart_interval = 0;
+
+    if (cinfo->write_JFIF_header) {
+        EmitJfifApp0(cinfo);
+    }
+    if (cinfo->write_Adobe_marker) {
+        EmitAdobeApp14(cinfo);
+    }
+}
+
+// 0x5C6100 (lote 231A, sin validar; cdecl, `ret`, 224 bytes): write_frame_header. Termina con `jmp` a EmitSof (ECX = cinfo, AL = marcador).
+void LibJpegCompress::WriteFrameHeader(ExeJpegCompress* cinfo) {
+    int32 prec = 0;
+    for (int32 ci = 0; ci < cinfo->num_components; ci++) {
+        prec += EmitDqt(cinfo, cinfo->comp_info[ci].quant_tbl_no);
+    }
+
+    bool isBaseline;
+    if (!cinfo->arith_code && !cinfo->progressive_mode && cinfo->data_precision == 8) {
+        isBaseline = true;
+        for (int32 ci = 0; ci < cinfo->num_components; ci++) {
+            const ExeJpegComponentInfo& comp = cinfo->comp_info[ci];
+            if (comp.dc_tbl_no > 1 || comp.ac_tbl_no > 1) {
+                isBaseline = false;
+            }
+        }
+        if (prec && isBaseline) {
+            isBaseline = false;
+            cinfo->err->msg_code = 0x4B; // JTRC_16BIT_TABLES, TRACEMS(cinfo, 0, ...)
+            cinfo->err->emit_message(cinfo, 0);
+        }
+    } else {
+        isBaseline = false;
+    }
+
+    if (cinfo->arith_code) {
+        EmitSof(cinfo, 0xC9);
+    } else if (cinfo->progressive_mode) {
+        EmitSof(cinfo, 0xC2);
+    } else if (isBaseline) {
+        EmitSof(cinfo, 0xC0);
+    } else {
+        EmitSof(cinfo, 0xC1);
+    }
+}
+
+// 0x5C62D0 (lote 231A, sin validar; cdecl, `ret`, 20 bytes): write_file_trailer.
+void LibJpegCompress::WriteFileTrailer(ExeJpegCompress* cinfo) {
+    EmitMarker(cinfo, 0xD9); // EOI
+}
+
+// 0x5C63D0 (lote 231A, sin validar; cdecl, `ret`, 81 bytes): jinit_marker_writer. Los punteros que guarda son los del EXE (los enganchados saltan a los hooks; 0x5C61E0, 0x5C62F0,
+// 0x5C6030 y 0x5C6070 siguen siendo codigo del EXE).
+void LibJpegCompress::JinitMarkerWriter(ExeJpegCompress* cinfo) {
+    auto* marker = static_cast<ExeJpegMarkerWriter*>(cinfo->mem->alloc_small(cinfo, 1, sizeof(ExeJpegMarkerWriter))); // JPOOL_IMAGE, 0x20
+    cinfo->marker = marker;
+    marker->write_file_header = reinterpret_cast<void*>(0x5C60B0);
+    marker->write_frame_header = reinterpret_cast<void*>(0x5C6100);
+    marker->write_scan_header = reinterpret_cast<void*>(0x5C61E0);
+    marker->write_file_trailer = reinterpret_cast<void*>(0x5C62D0);
+    marker->write_tables_only = reinterpret_cast<void*>(0x5C62F0);
+    marker->write_marker_header = reinterpret_cast<void*>(0x5C6030);
+    marker->write_marker_byte = reinterpret_cast<void*>(0x5C6070);
+    marker->last_restart_interval = 0;
+}
+
+// 0x5C6430 (lote 231A, sin validar; ESI = cinfo, `ret`, 460 bytes): initial_setup. Ayudante local sin hook (solo lo llama JinitCMasterControl, 0x5C6AC5).
+void LibJpegCompress::InitialSetup(ExeJpegCompress* cinfo) {
+    if (cinfo->image_height == 0 || cinfo->image_width == 0 || cinfo->num_components <= 0 || cinfo->input_components <= 0) {
+        ErrExit(cinfo, 0x20); // JERR_EMPTY_IMAGE
+    }
+
+    // Comparaciones con signo del EXE (jg/jle).
+    if (static_cast<int32>(cinfo->image_height) > 0xFFDC || static_cast<int32>(cinfo->image_width) > 0xFFDC) {
+        ErrExit1(cinfo, 0x29, 0xFFDC); // JERR_IMAGE_TOO_BIG
+    }
+
+    if (cinfo->data_precision != 8) {
+        ErrExit1(cinfo, 0x0F, cinfo->data_precision); // JERR_BAD_PRECISION
+    }
+
+    if (cinfo->num_components > 4) {
+        ErrExit2(cinfo, 0x1A, cinfo->num_components, 4); // JERR_COMPONENT_COUNT
+    }
+
+    cinfo->max_h_samp_factor = 1;
+    cinfo->max_v_samp_factor = 1;
+    {
+        ExeJpegComponentInfo* comp = cinfo->comp_info;
+        for (int32 ci = 0; ci < cinfo->num_components; ci++, comp++) {
+            if (comp->h_samp_factor <= 0 || comp->h_samp_factor > 4 || comp->v_samp_factor <= 0 || comp->v_samp_factor > 4) {
+                ErrExit(cinfo, 0x12); // JERR_BAD_SAMPLING
+            }
+            // max con signo: se conserva el actual si es mayor (jg), si no el del componente.
+            cinfo->max_h_samp_factor = cinfo->max_h_samp_factor > comp->h_samp_factor ? cinfo->max_h_samp_factor : comp->h_samp_factor;
+            cinfo->max_v_samp_factor = cinfo->max_v_samp_factor > comp->v_samp_factor ? cinfo->max_v_samp_factor : comp->v_samp_factor;
+        }
+    }
+
+    {
+        ExeJpegComponentInfo* comp = cinfo->comp_info;
+        for (int32 ci = 0; ci < cinfo->num_components; ci++, comp++) {
+            comp->component_index = ci;
+            comp->DCT_scaled_size = 8;
+            comp->width_in_blocks = static_cast<uint32>(JdivRoundUp(static_cast<int32>(comp->h_samp_factor * cinfo->image_width), cinfo->max_h_samp_factor * 8));
+            comp->height_in_blocks = static_cast<uint32>(JdivRoundUp(static_cast<int32>(comp->v_samp_factor * cinfo->image_height), cinfo->max_v_samp_factor * 8));
+            comp->downsampled_width = static_cast<uint32>(JdivRoundUp(static_cast<int32>(comp->h_samp_factor * cinfo->image_width), cinfo->max_h_samp_factor));
+            comp->downsampled_height = static_cast<uint32>(JdivRoundUp(static_cast<int32>(comp->v_samp_factor * cinfo->image_height), cinfo->max_v_samp_factor));
+            comp->component_needed = 1;
+        }
+    }
+
+    cinfo->total_iMCU_rows = static_cast<uint32>(JdivRoundUp(static_cast<int32>(cinfo->image_height), cinfo->max_v_samp_factor * 8));
+}
+
+// 0x5C6600 (lote 231A, sin validar; ESI = cinfo, `ret`, 127 bytes): select_scan_parameters (un solo barrido con todos los componentes). Ayudante local sin hook.
+void LibJpegCompress::SelectScanParameters(ExeJpegCompress* cinfo) {
+    if (cinfo->num_components > 4) {
+        ErrExit2(cinfo, 0x1A, cinfo->num_components, 4); // JERR_COMPONENT_COUNT
+    }
+
+    cinfo->comps_in_scan = cinfo->num_components;
+    for (int32 ci = 0; ci < cinfo->num_components; ci++) {
+        cinfo->cur_comp_info[ci] = &cinfo->comp_info[ci];
+    }
+
+    cinfo->Ss = 0;
+    cinfo->Se = 63;
+    cinfo->Ah = 0;
+    cinfo->Al = 0;
+}
+
+// 0x5C6680 (lote 231A, sin validar; ESI = cinfo, `ret`, 453 bytes): per_scan_setup. Ayudante local sin hook.
+void LibJpegCompress::PerScanSetup(ExeJpegCompress* cinfo) {
+    if (cinfo->comps_in_scan == 1) {
+        // Barrido no entrelazado.
+        ExeJpegComponentInfo* comp = cinfo->cur_comp_info[0];
+        cinfo->MCUs_per_row = comp->width_in_blocks;
+        cinfo->MCU_rows_in_scan = comp->height_in_blocks;
+        const uint32 vSamp = static_cast<uint32>(comp->v_samp_factor);
+        const uint32 remainder = comp->height_in_blocks % vSamp; // div sin signo; con v_samp = 0 el EXE tambien falla
+        comp->MCU_width = 1;
+        comp->MCU_height = 1;
+        comp->MCU_blocks = 1;
+        comp->MCU_sample_width = 8;
+        comp->last_col_width = 1;
+        comp->last_row_height = static_cast<int32>(remainder == 0 ? vSamp : remainder);
+        cinfo->blocks_in_MCU = 1;
+        cinfo->MCU_membership[0] = 0;
+    } else {
+        // Barrido entrelazado.
+        if (cinfo->comps_in_scan <= 0 || cinfo->comps_in_scan > 4) {
+            ErrExit2(cinfo, 0x1A, cinfo->comps_in_scan, 4); // JERR_COMPONENT_COUNT
+        }
+
+        cinfo->MCUs_per_row = static_cast<uint32>(JdivRoundUp(static_cast<int32>(cinfo->image_width), cinfo->max_h_samp_factor * 8));
+        cinfo->MCU_rows_in_scan = static_cast<uint32>(JdivRoundUp(static_cast<int32>(cinfo->image_height), cinfo->max_v_samp_factor * 8));
+        cinfo->blocks_in_MCU = 0;
+
+        for (int32 ci = 0; ci < cinfo->comps_in_scan; ci++) {
+            ExeJpegComponentInfo* comp = cinfo->cur_comp_info[ci];
+            const int32 hSamp = comp->h_samp_factor;
+            const int32 vSamp = comp->v_samp_factor;
+            comp->MCU_sample_width = hSamp * 8;
+            const uint32 colRemainder = comp->width_in_blocks % static_cast<uint32>(hSamp);
+            int32 mcuBlocks = vSamp * hSamp;
+            comp->MCU_width = hSamp;
+            comp->MCU_height = vSamp;
+            comp->MCU_blocks = mcuBlocks;
+            comp->last_col_width = static_cast<int32>(colRemainder == 0 ? static_cast<uint32>(hSamp) : colRemainder);
+            const uint32 rowRemainder = comp->height_in_blocks % static_cast<uint32>(vSamp);
+            comp->last_row_height = static_cast<int32>(rowRemainder == 0 ? static_cast<uint32>(vSamp) : rowRemainder);
+
+            if (cinfo->blocks_in_MCU + mcuBlocks > 10) {
+                ErrExit(cinfo, 0x0D); // JERR_BAD_MCU_SIZE
+            }
+            while (mcuBlocks > 0) {
+                cinfo->MCU_membership[cinfo->blocks_in_MCU] = ci;
+                cinfo->blocks_in_MCU++;
+                mcuBlocks--;
+            }
+        }
+    }
+
+    if (cinfo->restart_in_rows > 0) {
+        const int32 nominal = static_cast<int32>(cinfo->MCUs_per_row) * cinfo->restart_in_rows;
+        cinfo->restart_interval = static_cast<uint32>(nominal < 0xFFFF ? nominal : 0xFFFF); // jl: con signo
+    }
+}
+
+// 0x5C6850 (lote 231A, sin validar; cdecl, `ret`, 396 bytes): prepare_for_pass (jcmaster.c). pass_type: 0 main_pass, 1 huff_opt_pass, 2 output_pass.
+void LibJpegCompress::PrepareForPass(ExeJpegCompress* cinfo) {
+    ExeJpegMaster* master = cinfo->master;
+
+    using StartPass1 = void(__cdecl*)(ExeJpegCompress*);
+    using StartPass2 = void(__cdecl*)(ExeJpegCompress*, int32);
+    const auto call1 = [cinfo](const ExeJpegSubmodule* module) { reinterpret_cast<StartPass1>(module->start_pass)(cinfo); };
+    const auto call2 = [cinfo](const ExeJpegSubmodule* module, int32 mode) { reinterpret_cast<StartPass2>(module->start_pass)(cinfo, mode); };
+
+    switch (master->pass_type) {
+    case 0: // main_pass
+        SelectScanParameters(cinfo);
+        PerScanSetup(cinfo);
+        if (!cinfo->raw_data_in) {
+            call1(cinfo->cconvert);
+            call1(cinfo->downsample);
+            call2(cinfo->prep, 0); // JBUF_PASS_THRU
+        }
+        call1(cinfo->fdct);
+        call2(cinfo->entropy, cinfo->optimize_coding);
+        call2(cinfo->coef, master->total_passes > 1 ? 3 : 0); // JBUF_SAVE_AND_PASS / JBUF_PASS_THRU
+        call2(cinfo->main, 0);                                // JBUF_PASS_THRU
+        master->call_pass_startup = cinfo->optimize_coding == 0;
+        break;
+    case 1: // huff_opt_pass
+        SelectScanParameters(cinfo);
+        PerScanSetup(cinfo);
+        if (cinfo->Ss != 0 || cinfo->Ah == 0 || cinfo->arith_code) {
+            call2(cinfo->entropy, 1);
+            call2(cinfo->coef, 2); // JBUF_CRANK_DEST
+            master->call_pass_startup = false;
+            break;
+        }
+        // Refinamiento DC con Huffman: no necesita tabla, se salta la pasada de optimizacion y se pasa a la de salida.
+        master->pass_type = 2;
+        master->pass_number++;
+        [[fallthrough]];
+    case 2: // output_pass
+        if (!cinfo->optimize_coding) {
+            SelectScanParameters(cinfo);
+            PerScanSetup(cinfo);
+        }
+        call2(cinfo->entropy, 0);
+        call2(cinfo->coef, 2); // JBUF_CONSUME_DATA
+        if (master->scan_number == 0) {
+            reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(cinfo->marker->write_frame_header)(cinfo);
+        }
+        reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(cinfo->marker->write_scan_header)(cinfo);
+        master->call_pass_startup = false;
+        break;
+    default:
+        ErrExit(cinfo, 0x30); // JERR_NOT_COMPILED
+        break;
+    }
+
+    master->is_last_pass = master->pass_number == master->total_passes - 1;
+
+    if (cinfo->progress) {
+        cinfo->progress->completed_passes = master->pass_number;
+        cinfo->progress->total_passes = master->total_passes;
+    }
+}
+
+// 0x5C69E0 (lote 231A, sin validar; cdecl, `ret`, 40 bytes): pass_startup.
+void LibJpegCompress::PassStartup(ExeJpegCompress* cinfo) {
+    cinfo->master->call_pass_startup = false;
+    reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(cinfo->marker->write_frame_header)(cinfo);
+    reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(cinfo->marker->write_scan_header)(cinfo);
+}
+
+// 0x5C6A90 (lote 231A, sin validar; cdecl (cinfo, transcode_only: solo se lee el byte bajo), `ret`, 186 bytes): jinit_c_master_control. Los punteros del maestro son los del EXE
+// (0x5C6850 y 0x5C69E0 enganchadas; 0x5C6A10, finish_pass_master, sigue siendo del EXE).
+void LibJpegCompress::JinitCMasterControl(ExeJpegCompress* cinfo, bool transcodeOnly) {
+    auto* master = static_cast<ExeJpegMaster*>(cinfo->mem->alloc_small(cinfo, 1, sizeof(ExeJpegMaster))); // JPOOL_IMAGE, 0x20
+    cinfo->master = master;
+    master->prepare_for_pass = reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(0x5C6850);
+    master->pass_startup = reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(0x5C69E0);
+    master->finish_pass = reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(0x5C6A10);
+    master->is_last_pass = 0;
+
+    InitialSetup(cinfo);
+
+    if (cinfo->scan_info != nullptr) {
+        ErrExit(cinfo, 0x30); // JERR_NOT_COMPILED (sin soporte de guiones de barridos)
+    } else {
+        cinfo->progressive_mode = 0;
+        cinfo->num_scans = 1;
+    }
+
+    if (cinfo->progressive_mode) {
+        cinfo->optimize_coding = 1;
+    }
+
+    if (transcodeOnly) {
+        master->pass_type = cinfo->optimize_coding == 0 ? 2 : 1; // output_pass o huff_opt_pass
+    } else {
+        master->pass_type = 0; // main_pass
+    }
+
+    master->scan_number = 0;
+    master->pass_number = 0;
+    if (cinfo->optimize_coding) {
+        master->total_passes = cinfo->num_scans * 2;
+    } else {
+        master->total_passes = cinfo->num_scans;
+    }
+}
+
+// 0x5C6B50 (lote 231A, sin validar; cdecl, `ret`, 56 bytes): jpeg_abort. Solo actua con `mem` (si es 0 no toca nada). En descompresion 0x10C es marker_list (jpeg_decompress_struct 6b).
+void LibJpegCompress::JpegAbort(ExeJpegCompress* cinfo) {
+    if (cinfo->mem) {
+        cinfo->mem->free_pool(cinfo, 1); // JPOOL_IMAGE
+        if (cinfo->is_decompressor) {
+            cinfo->global_state = 200; // DSTATE_START
+            *reinterpret_cast<void**>(reinterpret_cast<uint8*>(cinfo) + 0x10C) = nullptr;
+        } else {
+            cinfo->global_state = 100; // CSTATE_START
+        }
+    }
+}
+
+// 0x5C6B90 (lote 231A, sin validar; cdecl, `ret`, 31 bytes): jpeg_destroy.
+void LibJpegCompress::JpegDestroy(ExeJpegCompress* cinfo) {
+    if (cinfo->mem != nullptr) {
+        cinfo->mem->self_destruct(cinfo);
+    }
+    cinfo->mem = nullptr;
+    cinfo->global_state = 0;
+}
+
+// 0x5C6BB0 (lote 231A, sin validar; cdecl, `ret`, 28 bytes): jpeg_alloc_quant_table. Reserva en el pool permanente (0) y deja sent_table = 0; devuelve la tabla.
+ExeJpegQuantTable* LibJpegCompress::JpegAllocQuantTable(ExeJpegCompress* cinfo) {
+    auto* table = static_cast<ExeJpegQuantTable*>(cinfo->mem->alloc_small(cinfo, 0, sizeof(ExeJpegQuantTable)));
+    table->sent_table = 0;
+    return table;
+}
+
+// 0x5C6BD0 (lote 231A, sin validar; cdecl, `ret`, 28 bytes): jpeg_alloc_huff_table.
+ExeJpegHuffTable* LibJpegCompress::JpegAllocHuffTable(ExeJpegCompress* cinfo) {
+    auto* table = static_cast<ExeJpegHuffTable*>(cinfo->mem->alloc_small(cinfo, 0, sizeof(ExeJpegHuffTable)));
+    table->sent_table = 0;
+    return table;
 }

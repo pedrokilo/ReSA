@@ -240,6 +240,7 @@
 #include "Attractors/PedStepAttractor.h"
 #include "ExeProtectionStub.h"
 #include "RenderWare/D3D9RasterFormat.h"
+#include "Plugins/JPegCompressPlugin/LibJpegCompressEncode.h"
 #include "IdleCam.h"
 #include "Tasks/TaskTypes/TaskComplexChat.h"
 #include "Credits.h"
@@ -741,6 +742,7 @@ void InjectHooksMain() {
     RpWorldInjectHooks229A();
     RpWorldInjectHooks230A();
     RpAnisotInjectHooks();
+    LibJpegCompress::InjectHooks();        // lote 231A (sin validar)
     CCam::InjectHooks();
     CCarAI::InjectHooks();
     CMenuSystem::InjectHooks();
@@ -751,7 +753,7 @@ void InjectHooksMain() {
     CPedATMAttractor::InjectHooks();
     CProtectionStub::InjectHooks();
     RwD3D9RasterDriver::InjectHooks();     // lote 224A (sin validar)
-    LibJpegCompress::InjectHooks();        // lote 230A (sin validar)
+    LibJpegCompressEncode::InjectHooks();  // lote 230A (sin validar)
     D3D9RasterFormat::InjectHooks();       // lote 225A (sin validar)
     CPedSeatAttractor::InjectHooks();
     CPedStopAttractor::InjectHooks();
