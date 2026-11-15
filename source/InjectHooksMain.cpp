@@ -234,6 +234,10 @@
 #include "RenderWare/D3D9RasterDriver.h"
 #include "Plugins/JPegCompressPlugin/LibJpegCompress.h"
 #include "Plugins/JPegCompressPlugin/LibJpegDecompress.h"
+#include "Plugins/JPegCompressPlugin/LibJpegMemory.h"
+#include "Plugins/JPegCompressPlugin/LibJpegError.h"
+#include "Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.h"
+#include "Plugins/JPegCompressPlugin/LibJpegCompressApi.h"
 #include "Attractors/PedTriggerScriptAttractor.h"
 #include "Attractors/PedLookAtAttractor.h"
 #include "Attractors/PedScriptedAttractor.h"
@@ -758,6 +762,10 @@ void InjectHooksMain() {
     RwD3D9RasterDriver::InjectHooks();     // lote 224A (sin validar)
     LibJpegCompressEncode::InjectHooks();  // lote 230A (sin validar)
     LibJpegDecompress::InjectHooks();      // lote 233A (sin validar)
+    LibJpegMemory::InjectHooks();                 // lote 235A (sin validar)
+    LibJpegError::InjectHooks();                  // lote 235A (sin validar)
+    LibJpegDecompressUpsample::InjectHooks();     // lote 235A (sin validar)
+    LibJpegCompressApi::InjectHooks();            // lote 235A (sin validar)
     D3D9RasterFormat::InjectHooks();       // lote 225A (sin validar)
     CPedSeatAttractor::InjectHooks();
     CPedStopAttractor::InjectHooks();
