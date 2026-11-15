@@ -80,6 +80,104 @@ bool __stdcall AttractorsIsPedRegisteredWithEffect(CPed* ped, const C2dEffectPed
     }
     return false;
 }
+// Lote 206A (sin validar): instancias de plantilla de CPedAttractorManager del EXE (`this` en ECX sin usar, argumentos en la pila, `ret 0Ch` o `ret 10h`; el codigo es identico para los diez tipos de atractor porque
+// solo lee campos de la base CPedAttractor, asi que el enlazador del EXE dejo una sola copia y el listado las atribuia a CPedAttractor). Como no leen `this`, son funciones stdcall sin objeto; los tres primeros
+// argumentos son los de las plantillas del .h (FindAssociatedAttractor, GetPedUsingEffect, GetRelevantAttractor, BroadcastDeparture y DeRegisterPed) y el ultimo es la lista (SArray) por referencia.
+// La lista se recorre por indice con el tamano con signo del EXE ((fin - inicio) >> 2, 0 si el inicio es nulo).
+using AttractorList = SArray<CPedAttractor*>;
+
+// 0x5EB6F0 (68 bytes, `ret 0Ch`): primer atractor de la lista cuyo efecto (+4) y entidad (+8) son los dados; nulo si no hay. No llama a nada.
+CPedAttractor* __stdcall FindAssociatedAttractorList(const C2dEffectPedAttractor* fx, const CEntity* entity, const AttractorList& attractors) {
+    const auto count = static_cast<int32>(attractors.size());
+    for (int32 i = 0; i < count; i++) {
+        CPedAttractor* const a = attractors.begin()[i];
+        if (a->GetEffect() == fx && a->GetEntity() == entity) {
+            return a;
+        }
+    }
+    return nullptr;
+}
+
+// 0x5EB740 (97 bytes, `ret 0Ch`): como la anterior, pero devuelve el primer peaton de la cola de llegada (+0x20, GetHeadOfQueue en linea, sin llamarla) del primer atractor que coincide; nulo si la cola esta vacia
+// (o sin reservar) o si no hay atractor. Con el primero que coincide para: no sigue buscando aunque su cola este vacia.
+CPed* __stdcall GetPedUsingEffectList(const C2dEffectPedAttractor* fx, const CEntity* entity, const AttractorList& attractors) {
+    const auto count = static_cast<int32>(attractors.size());
+    for (int32 i = 0; i < count; i++) {
+        CPedAttractor* const a = attractors.begin()[i];
+        if (a->GetEffect() == fx && a->GetEntity() == entity) {
+            const auto& queue = a->GetArrivedPeds();
+            if (queue.empty()) {
+                return nullptr;
+            }
+            return queue.begin()[0];
+        }
+    }
+    return nullptr;
+}
+
+// 0x5EB7B0 (95 bytes, `ret 10h`): primer atractor de la lista con ese efecto y esa entidad en el que ademas esta registrado el peaton (CPedAttractor::IsRegisteredWithPed 0x5EB4C0, con hook, solo si los dos
+// primeros campos coinciden); nulo si ninguno. Los argumentos son (peaton, efecto, entidad, lista).
+const CPedAttractor* __stdcall GetRelevantAttractorList(const CPed* ped, const C2dEffectPedAttractor* fx, const CEntity* entity, const AttractorList& attractors) {
+    const auto count = static_cast<int32>(attractors.size());
+    for (int32 i = 0; i < count; i++) {
+        const CPedAttractor* const a = attractors.begin()[i];
+        if (a->GetEffect() == fx && a->GetEntity() == entity && a->IsRegisteredWithPed(ped)) {
+            return a;
+        }
+    }
+    return nullptr;
+}
+
+// Busca `attractor` en la lista como el EXE (por indice, con el tamano con signo); devuelve si esta.
+bool AttractorListContains(const AttractorList& attractors, const CPedAttractor* attractor) {
+    const auto count = static_cast<int32>(attractors.size());
+    for (int32 i = 0; i < count; i++) {
+        if (attractors.begin()[i] == attractor) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Quita `attractor` de la lista si esta (busca desde el inicio hasta el fin; desplaza el resto hacia delante y baja el fin en un puntero) y despues lo borra con su destructor virtual con borrado (ranura 1 de la
+// vtable, argumento 1), este o no en la lista. Es el final comun de BroadcastDeparture y DeRegisterPed cuando el atractor se queda sin peatones registrados.
+void RemoveFromListAndDelete(AttractorList& attractors, CPedAttractor* attractor) {
+    if (const auto it = rng::find(attractors, attractor); it != attractors.end()) {
+        attractors.erase(it);
+    }
+    delete attractor;
+}
+
+// 0x5EC660 (217 bytes, `ret 0Ch`): (peaton, atractor, lista). Falso si el atractor es nulo o no esta en la lista. Llama a BroadcastDeparture del atractor por la vtable (ranura 5, con el peaton) y, si
+// no le queda ningun peaton registrado (llegados + en camino), lo quita de la lista y lo borra. Devuelve verdadero.
+bool __stdcall BroadcastDepartureList(CPed* ped, CPedAttractor* attractor, AttractorList& attractors) {
+    if (!attractor) {
+        return false;
+    }
+    if (!AttractorListContains(attractors, attractor)) {
+        return false;
+    }
+    attractor->BroadcastDeparture(ped);
+    if (attractor->GetNoOfRegisteredPeds() == 0) {
+        RemoveFromListAndDelete(attractors, attractor);
+    }
+    return true;
+}
+
+// 0x5EC740 (217 bytes, `ret 0Ch`): igual que la anterior pero llama a CPedAttractor::DeRegisterPed (0x5EC5B0, con hook, no virtual) en lugar de BroadcastDeparture.
+bool __stdcall DeRegisterPedList(CPed* ped, CPedAttractor* attractor, AttractorList& attractors) {
+    if (!attractor) {
+        return false;
+    }
+    if (!AttractorListContains(attractors, attractor)) {
+        return false;
+    }
+    attractor->DeRegisterPed(ped);
+    if (attractor->GetNoOfRegisteredPeds() == 0) {
+        RemoveFromListAndDelete(attractors, attractor);
+    }
+    return true;
+}
 } // namespace
 
 void CPedAttractorManager::InjectHooks() {
@@ -117,6 +215,11 @@ void CPedAttractorManager::InjectHooks() {
     RH_ScopedInstall(RegisterPedWithAttractor, 0x5EFCA0);
     RH_ScopedInstall(IsApproachable, 0x5EA220);
     RH_ScopedGlobalInstall(GetPedAttractorManager, 0x5EE190);
+    RH_ScopedNamedGlobalInstall(BroadcastDepartureList, "BroadcastDepartureList", 0x5EC660); // lote 206A (sin validar): instancia de la plantilla del EXE, ver arriba
+    RH_ScopedNamedGlobalInstall(DeRegisterPedList, "DeRegisterPedList", 0x5EC740); // lote 206A (sin validar)
+    RH_ScopedNamedGlobalInstall(FindAssociatedAttractorList, "FindAssociatedAttractorList", 0x5EB6F0); // lote 206A (sin validar)
+    RH_ScopedNamedGlobalInstall(GetPedUsingEffectList, "GetPedUsingEffectList", 0x5EB740); // lote 206A (sin validar)
+    RH_ScopedNamedGlobalInstall(GetRelevantAttractorList, "GetRelevantAttractorList", 0x5EB7B0); // lote 206A (sin validar)
 }
 
 // 0x5EE190

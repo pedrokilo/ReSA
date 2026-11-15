@@ -19076,3 +19076,42 @@ __declspec(noinline) float __cdecl TrainAddPosCpp(float position, float saved) {
     return float(double(position) + double(saved));
 }
 #pragma float_control(pop)
+
+// --- Lote 206A (sin validar) ---
+// CTaskSimpleBeHitWhileMoving::StartAnim (0x61FF40): tiempo del juego como entra en la x87: `fild dword [0xB7CB84]` (entero con signo, exacto) y, si es negativo (`test; jge`), `fadd dword [0x858C54]` (2^32 como float) con un
+// solo redondeo a 24 bits; el resultado se suma despues con `faddp`. Los productos por 1000.0f (0x858C4C) y las sumas se redondean a 24 bits por la palabra de control del juego, sin guardado intermedio; `fadd [500.0f]`
+// (0x858B58) o `fadd [100.0f]` (0x858628) y _ftol (0x821B40, trunca a 64 bits; el EXE guarda el EAX).
+static __forceinline double BeHitMovingTimeRegister(int timeMs) {
+    double t = double(timeMs);
+    if (timeMs < 0) {
+        t += double(4294967296.0f);
+    }
+    return t;
+}
+#pragma float_control(precise, on, push)
+// ((total * 1000) + tiempo) + 500: `fld [total]; fmul [1000.0f]; fild [tiempo]; (fadd 2^32); faddp; fadd [500.0f]; call _ftol`
+__declspec(noinline) int __cdecl BeHitMovingUnconsciousPlayerCpp(float totalTime, int timeMs) {
+    const double scaled = double(totalTime) * double(1000.0f);
+    const double summed = scaled + BeHitMovingTimeRegister(timeMs);
+    const double result = summed + double(500.0f);
+    return static_cast<int>(static_cast<long long>(result));
+}
+// (((int)resto + total * 1000) + tiempo) + 500: `fild [resto]; (fadd 2^32); fld [total]; fmul [1000.0f]; faddp; fild [tiempo]; (fadd 2^32); faddp; fadd [500.0f]; call _ftol`
+__declspec(noinline) int __cdecl BeHitMovingUnconsciousPedCpp(int remainder, float totalTime, int timeMs) {
+    const double remainderRegister = BeHitMovingTimeRegister(remainder);
+    const double scaled            = double(totalTime) * double(1000.0f);
+    const double withRemainder     = remainderRegister + scaled;
+    const double summed            = withRemainder + BeHitMovingTimeRegister(timeMs);
+    const double result            = summed + double(500.0f);
+    return static_cast<int>(static_cast<long long>(result));
+}
+// (((total * 1000) + tiempo) - actual * 1000) + 100: `fld [total]; fmul [1000.0f]; fild [tiempo]; (fadd 2^32); faddp; fld [actual]; fmul [1000.0f]; fsubp; fadd [100.0f]; call _ftol`
+__declspec(noinline) int __cdecl BeHitMovingUnconsciousRemainingCpp(float totalTime, float currentTime, int timeMs) {
+    const double scaled   = double(totalTime) * double(1000.0f);
+    const double summed   = scaled + BeHitMovingTimeRegister(timeMs);
+    const double elapsed  = double(currentTime) * double(1000.0f);
+    const double left     = summed - elapsed;
+    const double result   = left + double(100.0f);
+    return static_cast<int>(static_cast<long long>(result));
+}
+#pragma float_control(pop)

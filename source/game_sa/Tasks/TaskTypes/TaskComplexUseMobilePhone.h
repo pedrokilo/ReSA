@@ -25,6 +25,9 @@ public:
 
     // 0x634A40: pide terminar la llamada (marca m_bQuit y aborta la tarea con prioridad ABORT_PRIORITY_LEISURE)
     void Quit(CPed* ped);
+
+    // Lote 206A (sin validar): lectura directa del campo +8 (m_pSubTask) para las funciones sueltas enganchadas del EXE (CTaskComplex::GetSubTask es una llamada que el EXE no hace)
+    CTask* GetSubTaskRaw() const { return m_pSubTask; }
 };
 
 VALIDATE_SIZE(CTaskComplexUseMobilePhone, 0x20);

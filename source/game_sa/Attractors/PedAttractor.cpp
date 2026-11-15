@@ -208,6 +208,37 @@ SArrayElem12** __cdecl SArrayCopyBackwardStride12(SArrayElem12** out, SArrayElem
     *out = destEnd;
     return out;
 }
+
+// Lote 206A (sin validar): envolturas stdcall de std::uninitialized_copy (0x5EB930, 0x5EB960, 0x5EB990, 0x5EB9D0 y 0x5EBA00; `ret 0Ch`, tres argumentos de pila (origen, fin, destino)). Cada una reserva en la pila un marco
+// de 0x14 bytes con los tres argumentos y un hueco sin inicializar (el ECX de entrada, basura), llama a la funcion cdecl de la tabla de 189A (0x5EAE10 / 0x5EAE40 / 0x5EAE70 / 0x5EAEA0 / 0x5EAEE0), la limpia con
+// `add esp, 14h` y devuelve su EAX (el final del destino). No usan `this`. Las tres de elemento de 4 bytes (0x5EB930, 0x5EB990 y 0x5EBA00) comparten cuerpo, como las funciones de 189A.
+template<int Id>
+uint32* __stdcall SArrayUninitCopyWrapStride4(const uint32* first, const uint32* last, uint32* dest) {
+    return SArrayUninitCopyStride4<Id>(first, last, dest);
+}
+SArrayElem20* __stdcall SArrayUninitCopyWrapStride20(const SArrayElem20* first, const SArrayElem20* last, SArrayElem20* dest) {
+    return SArrayUninitCopyStride20(first, last, dest);
+}
+SArrayElem12* __stdcall SArrayUninitCopyWrapStride12(const SArrayElem12* first, const SArrayElem12* last, SArrayElem12* dest) {
+    return SArrayUninitCopyStride12(first, last, dest);
+}
+
+// 0x5EC820 (39 bytes, thiscall sin argumentos de pila, `ret`): liberar el almacenamiento de un vector SArray de elementos sin destructor (el inicio esta en +4, el fin en +8 y el limite en +0xC): si el inicio no es nulo
+// lo libera con operator delete del EXE (0x8214BD) y pone los tres punteros a cero. Es el mismo trozo que el destructor de los vectores de CPedAttractor 0x5EC410 trae en linea.
+void __fastcall SArrayTidyStride4(SArray<uint32>* self, void* /*edx*/) {
+    self->clear();
+}
+
+// 0x5EC4B0 (76 bytes, thiscall con el BYTE de banderas en la pila, `ret 4`): destructor con borrado de CPedAttractor del EXE (ranura 1 de su vtable 0x86C538, tras GetType). Llama al cuerpo del destructor (0x5EC410, con
+// hook: aqui el destructor de la clase llamado sin pasar por la vtable) y, solo si el bit 0 del BYTE de banderas esta puesto, libera `this` en el pool de atractores (0xB744C4) EN LINEA (indice = (this - almacenamiento) / 0xC4 con signo,
+// estado |= 0x80, cursor = min con signo), como CPedAttractor::operator delete (0x5EAFE0, con hook). Devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CPedAttractor* __fastcall PedAttractorScalarDeletingDestructor(CPedAttractor* self, void* /*edx*/, uint8 flags) {
+    self->CPedAttractor::~CPedAttractor();
+    if (flags & 1) {
+        CPedAttractor::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CPedAttractor::InjectHooks() {
@@ -227,6 +258,14 @@ void CPedAttractor::InjectHooks() {
     RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4<1>, "SArrayUninitCopyStride4B", 0x5EAE70);
     RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride12, "SArrayUninitCopyStride12", 0x5EAEA0);
     RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4<2>, "SArrayUninitCopyStride4C", 0x5EAEE0);
+    // Lote 206A (sin validar): envolturas stdcall de las copias anteriores, vaciado de vector y destructor con borrado
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyWrapStride4<0>, "SArrayUninitCopyWrapStride4A", 0x5EB930);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyWrapStride20, "SArrayUninitCopyWrapStride20", 0x5EB960);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyWrapStride4<1>, "SArrayUninitCopyWrapStride4B", 0x5EB990);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyWrapStride12, "SArrayUninitCopyWrapStride12", 0x5EB9D0);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyWrapStride4<2>, "SArrayUninitCopyWrapStride4C", 0x5EBA00);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4", 0x5EC820);
+    RH_ScopedNamedGlobalInstall(PedAttractorScalarDeletingDestructor, "ScalarDeletingDestructor", 0x5EC4B0);
 
     // Lote 205A (sin validar): mas ayudantes de plantilla de los vectores (ver arriba)
     RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride4<0>, "SArrayCopyBackwardStride4A", 0x5EB140);

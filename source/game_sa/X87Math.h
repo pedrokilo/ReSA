@@ -2375,3 +2375,14 @@ float __cdecl Pf194ClosestDistSqCpp(const float* next, const float* last, const 
 float __cdecl TrainStreakDoorYCpp(float openAngle, float closedAngle, float ratio);
 // 0x6F6370 (CTrain::OpenDoor), rama normal: suma de la posicion guardada con la x87 (24 bits, sin aplanar denormales). Ver X87Math.cpp.
 float __cdecl TrainAddPosCpp(float position, float saved);
+
+// Lote 206A (sin validar).
+// CTaskSimpleBeHitWhileMoving::StartAnim (0x61FF40): tiempo de inconsciencia del peaton (+0x744) como entero, _ftol (truncado a 64 bits; se usan los 32 bits bajos) de una suma x87 (24 bits de mantisa, sin guardados intermedios)
+// en la que el tiempo del juego (CTimer::m_snTimeInMilliseconds, entero con signo) entra con `fild` y, si es negativo, se le suma 2^32 (0x858C54) antes de sumarlo. `totalTime` es la duracion de la animacion (segundos);
+// 1000.0f = 0x858C4C, 500.0f = 0x858B58, 100.0f = 0x858628. Ver X87Math.cpp.
+// Jugador: ((totalTime * 1000.0f) + tiempo) + 500.0f.
+int __cdecl BeHitMovingUnconsciousPlayerCpp(float totalTime, int timeMs);
+// Peaton no jugador con animacion: (((int)remainder + totalTime * 1000.0f) + tiempo) + 500.0f.
+int __cdecl BeHitMovingUnconsciousPedCpp(int remainder, float totalTime, int timeMs);
+// Jugador con la animacion 0x6E o 0x6F: (((totalTime * 1000.0f) + tiempo) - currentTime * 1000.0f) + 100.0f.
+int __cdecl BeHitMovingUnconsciousRemainingCpp(float totalTime, float currentTime, int timeMs);
