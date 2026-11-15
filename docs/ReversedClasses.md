@@ -570,6 +570,30 @@ Estas envolturas llaman al EXE, pero su destino es una biblioteca enlazada dentr
 
 </details>
 
+<a id="renderware-d3d"></a>
+### RenderWare y D3D por clase o módulo (0x750000–0x81FFFF)
+
+Las 1,889 funciones de esta región, agrupadas por la clase o módulo al que pertenecen. El EXE no trae símbolos, así que la clase sale de nombres ya conocidos (exacta), de cadenas del `.rdata` que referencia cada función (cadenas) o de la vecindad de direcciones y del grafo de llamadas (estimada). Detalle por función en [docs/RenderWareExe](RenderWareExe/README.md) y lista de pendientes en [pendientes-por-clase](RenderWareExe/pendientes-por-clase.md).
+
+| Clase / módulo | Funciones | Reemplazadas | Envolturas | Faltan | Bytes que faltan | Clase exacta / por cadenas / estimada |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| D3DX9 (compilador de shaders) | 878 | 0 | 0 | 878 | 323,180 | 0 / 120 / 758 |
+| RwCore | 324 | 27 | 67 | 230 | 67,628 | 174 / 0 / 150 |
+| libpng + zlib | 182 | 0 | 1 | 181 | 81,023 | 2 / 28 / 152 |
+| RpWorld | 163 | 11 | 45 | 107 | 20,781 | 72 / 0 / 91 |
+| RpMatFX | 92 | 0 | 5 | 87 | 13,629 | 9 / 0 / 83 |
+| RwPlCore | 129 | 14 | 41 | 74 | 14,172 | 87 / 0 / 42 |
+| RpSkin | 27 | 1 | 3 | 23 | 3,752 | 14 / 0 / 13 |
+| RpHAnim | 24 | 1 | 2 | 21 | 8,033 | 7 / 0 / 17 |
+| RtQuat | 20 | 0 | 0 | 20 | 9,888 | 3 / 0 / 17 |
+| RpUVAnim | 22 | 2 | 5 | 15 | 2,312 | 10 / 0 / 12 |
+| RtAnim | 11 | 3 | 2 | 6 | 956 | 9 / 0 / 2 |
+| RtDict | 12 | 2 | 7 | 3 | 773 | 12 / 0 / 0 |
+| RtBMP | 2 | 0 | 0 | 2 | 2,588 | 1 / 0 / 1 |
+| Controlador D3D9 (RwD3D9) | 1 | 0 | 0 | 1 | 6 | 1 / 0 / 0 |
+| RpAnisot | 1 | 0 | 0 | 1 | 6 | 1 / 0 / 0 |
+| RtSlerp | 1 | 0 | 0 | 1 | 949 | 1 / 0 / 0 |
+
 
 <a id="metodo"></a>
 ## 10. Cómo leer y actualizar

@@ -1,0 +1,149 @@
+va,modulo,evidencia
+0x0076A598,D3DX9 (compilador de shaders),_bias opportunity missed because source 
+0x0076A93E,D3DX9 (compilador de shaders), because source was not clamped 0 to 1
+0x0076BDB4,D3DX9 (compilador de shaders),invalid preprocessor command '%s' | syntax error
+0x0076BE89,D3DX9 (compilador de shaders),syntax error
+0x0076C17F,D3DX9 (compilador de shaders),unexpected #elif | unexpected #elif following #else
+0x0076C1F2,D3DX9 (compilador de shaders),unexpected #else | unexpected #else following #else
+0x0076C254,D3DX9 (compilador de shaders),unexpected #endif
+0x0076C8BE,D3DX9 (compilador de shaders),internal error: production failed
+0x0076C8F1,D3DX9 (compilador de shaders),duplicate macro parameter '%s'
+0x0076CC47,D3DX9 (compilador de shaders),functional defines in preprocessor expre
+0x0076CCAD,D3DX9 (compilador de shaders),not enough actual parameters for macro ' | unexpected end of file in macro expansio
+0x0076D37E,D3DX9 (compilador de shaders),D3DX | D3DX_VERSION | DIRECT3D
+0x0076D5A5,D3DX9 (compilador de shaders),division by zero in preprocessor express | internal error: out of memory | internal error: stack underflow
+0x0076D9F0,D3DX9 (compilador de shaders),syntax error
+0x0076E033,D3DX9 (compilador de shaders),unexpected end of file | unexpected tokens following preprocessor
+0x0076EDAE,D3DX9 (compilador de shaders),syntax error : unexpected %s
+0x0076FB07,D3DX9 (compilador de shaders),'%s' is not a valid instruction in this  | invalid instruction modifiers '%s' | syntax error
+0x0076FC31,D3DX9 (compilador de shaders),internal error: production failed
+0x0076FC66,D3DX9 (compilador de shaders),texcoord
+0x007706AD,D3DX9 (compilador de shaders),invalid swizzle '%s'
+0x00770859,D3DX9 (compilador de shaders),"Matrices cannot be specified in temp reg | call, callnz, label, and ret instruction | internal error: instruction size mismatc"
+0x0077107F,D3DX9 (compilador de shaders),fragment info exceeds maximum comment si
+0x00771724,D3DX9 (compilador de shaders),'%s' is not a valid register name.  Regi | Invalid input register '%s' specified | addressing operations are not allowed on
+0x00771A47,D3DX9 (compilador de shaders),invalid register '%s' | invalid register '%s[%u]' | invalid register '%s[...]'
+0x00771F9D,D3DX9 (compilador de shaders),complement cannot be used with other mod | complement is not supported in this shad | instruction coissue is not supported in 
+0x00773E3B,D3DX9 (compilador de shaders),internal error: argument missing context | internal error: result register invalid
+0x0077429F,D3DX9 (compilador de shaders),internal error: unknown node
+0x007743FA,D3DX9 (compilador de shaders),internal error: unknown node
+0x00774602,D3DX9 (compilador de shaders),internal error: unknown node
+0x00775EC5,D3DX9 (compilador de shaders),asymetric returns from if statements not
+0x007765FA,D3DX9 (compilador de shaders),general for/do/while statements are not  | internal error: unrecognized statement
+0x00776904,D3DX9 (compilador de shaders),intrinsic function '%s' is not yet imple | tex1D will considered dependent since te
+0x0077BE0F,D3DX9 (compilador de shaders),'%s': function return value missing sema | '%s': input parameter '%s' missing seman | '%s': output parameter '%s' missing sema
+0x0077C8D2,D3DX9 (compilador de shaders),array references of intermediate argumen | internal error: out of memory | internal error: result register invalid
+0x0077E869,D3DX9 (compilador de shaders),internal error: unrecognized value
+0x0077EEF7,D3DX9 (compilador de shaders),expressions returning objects in an arra | internal error: expression expected | non-trivial object expressions not yet i
+0x0078191A,D3DX9 (compilador de shaders),DisableMMX
+0x007819CA,D3DX9 (compilador de shaders),GenuineIntel
+0x00781A87,D3DX9 (compilador de shaders),DisableD3DXPSGP | DisablePSGP
+0x00783CF8,D3DX9 (compilador de shaders),boolean constant register '%s' must be d | integer constant register '%s' must be d
+0x00783EAF,D3DX9 (compilador de shaders),Constant variable '%s' bound to register
+0x00789E5C,D3DX9 (compilador de shaders),internal error: argument used without ha | internal error: argument was never used  | internal error: cannot read from argumen
+0x007902D8,D3DX9 (compilador de shaders),expression too complex
+0x007908B1,D3DX9 (compilador de shaders),internal error: unknown node
+0x007920AE,D3DX9 (compilador de shaders),syntax error | syntax error: unexpected %s
+0x007922D1,D3DX9 (compilador de shaders),internal error: production failed!
+0x00792302,D3DX9 (compilador de shaders),internal error: out of memory
+0x00792362,D3DX9 (compilador de shaders),internal error: scope underflow
+0x007923E2,D3DX9 (compilador de shaders),internal error: scope missing
+0x007925F1,D3DX9 (compilador de shaders),internal error: unknown node
+0x00792684,D3DX9 (compilador de shaders),syntax error
+0x0079270F,D3DX9 (compilador de shaders),internal error: unknown node
+0x0079279C,D3DX9 (compilador de shaders),internal error: unknown node
+0x0079280E,D3DX9 (compilador de shaders),internal error: unknown node
+0x00792945,D3DX9 (compilador de shaders),pixelfragment | pixelshader | vertexfragment
+0x00792C08,D3DX9 (compilador de shaders),internal error: unknown node
+0x00793E03,D3DX9 (compilador de shaders),non-matrix types cannot be declared 'row
+0x007941E0,D3DX9 (compilador de shaders),'%s': cannot %sconvert from '%s' to '%s' | cannot %sconvert from '%s' to '%s'
+0x0079665B,D3DX9 (compilador de shaders),pixelshader | vertexshader
+0x00796F1A,D3DX9 (compilador de shaders),cannot convert from 'object type' to 'nu
+0x0079897F,D3DX9 (compilador de shaders),'%s': functions cannot be declared 'exte | '%s': functions cannot be declared 'unif | '%s': void function cannot have a semant
+0x00798EC7,D3DX9 (compilador de shaders),'%s': array dimensions must be literal s
+0x007990D6,D3DX9 (compilador de shaders),vector dimension must be a literal scala
+0x0079915B,D3DX9 (compilador de shaders),matrix dimensions must be literal scalar
+0x00799203,D3DX9 (compilador de shaders),array dimensions must be literal scalar 
+0x0079992C,D3DX9 (compilador de shaders),'%s': void functions cannot return a val
+0x007999F2,D3DX9 (compilador de shaders),'%s': %s cannot be declared 'const' | '%s': %s cannot be declared 'extern' | '%s': %s cannot be declared 'inline'
+0x0079AA6F,D3DX9 (compilador de shaders),comma expression used where an initializ | internal error: out of memory | internal error: stack underflow
+0x0079D329,D3DX9 (compilador de shaders),"texcoord inputs used directly (that is, "
+0x0079D402,D3DX9 (compilador de shaders),internal error: malformed clip found
+0x0079EDB5,D3DX9 (compilador de shaders),cannot access w component from texcoord 
+0x0079F745,D3DX9 (compilador de shaders),internal error: InputRemap component mat
+0x0079F86A,D3DX9 (compilador de shaders),internal error: InputRemap component mat
+0x0079F990,D3DX9 (compilador de shaders),cannot perform dependent texture read wh | cannot perform double dependent texture 
+0x0079FB55,D3DX9 (compilador de shaders),cannot bind sampler to sampler array. In | cannot bind sampler to user specified st | cannot perform texture lookup twice from
+0x007A0301,D3DX9 (compilador de shaders),can read from texcoord and use it for te | cannot perform dependent texture read wh | texture loads or clips cannot be from in
+0x007A08B2,D3DX9 (compilador de shaders),internal error: arguments not vectorized
+0x007A0C35,D3DX9 (compilador de shaders),exceeded maximum constant registers | program too complex: exceeded available 
+0x007A10F3,D3DX9 (compilador de shaders),internal error: texld alias found
+0x007A126A,D3DX9 (compilador de shaders),program too complex: out of temporary re
+0x007A1394,D3DX9 (compilador de shaders),internal error: uppropagation failed
+0x007A17E5,D3DX9 (compilador de shaders),internal error: unvectorized register fo | program too complex: out of temporary re
+0x007A2CAA,D3DX9 (compilador de shaders),cannot match to texreg2ar or texreg2gb i | cannot match to texreg2rgb instruction b | expression can only be map to texreg2rgb
+0x007A316C,D3DX9 (compilador de shaders),"cannot bind sampler to sampler array, sa | cannot bind sampler to user specified st | cannot match to texm* because texm* can "
+0x007A377B,D3DX9 (compilador de shaders),accessing texture coordinate w-component | cannot access texture coordinate w-compo | pixel shader must minimally write all fo
+0x007A396B,D3DX9 (compilador de shaders),internal error: unexpected output regist
+0x007A3EA2,D3DX9 (compilador de shaders),'texcoord' reference exceeds valid range | input semantic '%s' has been deprecated; | invalid input semantic '%s%d'
+0x007A49FB,D3DX9 (compilador de shaders),cannot map swizzle to ps_1_4
+0x007A4BE2,D3DX9 (compilador de shaders),internal error: illformed write field | unable to emmulate write masks for ps_1_
+0x007A5345,D3DX9 (compilador de shaders),cannot map this dependent texture read t | shader cannot compile to a ps_1_%i shade
+0x007A55EB,D3DX9 (compilador de shaders),cannot map expression to pixel shader in | relative addressing not allowed for pixe
+0x007A5EEA,D3DX9 (compilador de shaders),internal error: overlapping output write
+0x007A6018,D3DX9 (compilador de shaders),pixel shader must minimally write all fo
+0x007A698E,D3DX9 (compilador de shaders),input semantic '%s' has been deprecated; | invalid input semantic '%s%d' | invalid output semantic '%s%d'
+0x007A71CB,D3DX9 (compilador de shaders),internal error: compiler emittimg multip | internal error: write to output with ins
+0x007A7BF1,D3DX9 (compilador de shaders),internal error: invalid swizzle found
+0x007A832D,D3DX9 (compilador de shaders),cannot map expression to pixel shader in | relative addressing not allowed for pixe
+0x007A8D9D,D3DX9 (compilador de shaders),vertex shader must minimally write all f
+0x007A9D19,D3DX9 (compilador de shaders),input semantic '%s' has been deprecated; | invalid input semantic '%s%d' | invalid output semantic '%s%d'
+0x007AAA7B,D3DX9 (compilador de shaders),relative addressing not supported in vs_
+0x007AAE3D,D3DX9 (compilador de shaders),Constant variable '%s' bound to register
+0x007AAFEF,D3DX9 (compilador de shaders),internal error: DST test failure | internal error: multiple write to same o
+0x007AB7DC,D3DX9 (compilador de shaders),cannot map expression to vertex shader i
+0x007ABBBC,D3DX9 (compilador de shaders),invalid reference to input semantic '%s% | invalid reference to output semantic '%s
+0x007AC299,D3DX9 (compilador de shaders),GenuineIntel
+0x007AD6B6,D3DX9 (compilador de shaders),invalid register semantic '%s' | maximum constant register index exceeded | maximum input register index exceeded
+0x007ADFE1,D3DX9 (compilador de shaders),internal error: multiple write to same o
+0x007AEB06,D3DX9 (compilador de shaders),cannot match lerp because lerp factor is
+0x007AF839,D3DX9 (compilador de shaders),internal error: unexpected output regist | maximum address register index exceeded | maximum temp register index exceeded
+0x007AF92A,D3DX9 (compilador de shaders),internal error: overlapping output write
+0x007AFACE,D3DX9 (compilador de shaders),internal error: unexpected input registe | maximum constant register index exceeded | maximum sampler register index exceeded
+0x007B15CE,D3DX9 (compilador de shaders),_bias opportunity missed because source 
+0x007B19FD,D3DX9 (compilador de shaders),complement opportunity missed because in
+0x007B207B,D3DX9 (compilador de shaders),cannot match lerp because lerp factor is
+0x007B32C6,D3DX9 (compilador de shaders),internal error: input register missing s | internal error: output register missing  | overlapping output semantics
+0x007B416C,D3DX9 (compilador de shaders),cannot clip from a swizzled vector | clip cannot be performed from a constant | internal error: unexpected input registe
+0x007B488C,D3DX9 (compilador de shaders),internal error: size mismatch in scalar 
+0x007BC2C0,D3DX9 (compilador de shaders),portunity missed because source was not 
+0x007BD5A1,D3DX9 (compilador de shaders),_bias opportunity missed because source  | y missed because source was not clamped 
+0x007BF309,D3DX9 (compilador de shaders),_bias opportunity missed because source  | y missed because source was not clamped 
+0x007D03B0,libpng + zlib,1.0.12
+0x007D36D0,libpng + zlib,1.0.12
+0x007D3AB0,libpng + zlib,IDAT | IEND | IHDR
+0x007D3E90,libpng + zlib,IDAT
+0x007D43E0,libpng + zlib,IDAT | IEND | IHDR
+0x007DAB30,libpng + zlib,IHDR
+0x007DAF10,libpng + zlib,PLTE
+0x007DB040,libpng + zlib,IDAT
+0x007DB100,libpng + zlib,IEND
+0x007DB190,libpng + zlib,gAMA
+0x007DB350,libpng + zlib,sRGB
+0x007DB410,libpng + zlib,iCCP
+0x007DB910,libpng + zlib,sPLT
+0x007DBB40,libpng + zlib,sBIT
+0x007DBCB0,libpng + zlib,cHRM
+0x007DC4F0,libpng + zlib,tRNS
+0x007DC760,libpng + zlib,bKGD
+0x007DC9B0,libpng + zlib,hIST
+0x007DCC50,libpng + zlib,tEXt
+0x007DCD90,libpng + zlib,tEXt | zTXt
+0x007DD020,libpng + zlib,oFFs
+0x007DD130,libpng + zlib,pCAL
+0x007DD3A0,libpng + zlib,sCAL
+0x007DD500,libpng + zlib,pHYs
+0x007DD7B0,libpng + zlib,IDAT
+0x007DE900,libpng + zlib,IDAT
+0x007E6560,libpng + zlib,IDAT
+0x007E71A0,libpng + zlib,IDAT

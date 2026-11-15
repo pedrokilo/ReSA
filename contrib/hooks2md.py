@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from pathlib import Path
 import exe_coverage
 import pendientes_por_clase
+import rw_function_map
 import registry_store
 import group_a_section
 from validation_registry import evaluate
@@ -433,6 +434,7 @@ def generate(input_path, output_path, update_source_status=False):
         lines += [""] + _wrappers_block
     if _libs_block:
         lines += ["", "Además de las clases del juego, aquí quedan las **bibliotecas enlazadas dentro del EXE** (RenderWare, controlador D3D9, CRT y QuickTime), que no se reconstruyen: se sustituyen por bibliotecas equivalentes."] + [""] + _libs_block
+        lines += [""] + rw_function_map.reversedclasses_section(root)
     lines += ["", '<a id="metodo"></a>', "## 10. Cómo leer y actualizar", "",
               "- **Pendientes:** total menos revertidas. Cada fila del CSV cuenta como una entrada, incluidas sobrecargas y virtuales.",
               "- **Validated:** `1` indica evidencia aprobada vinculada para esa entrada. No implica vigencia actual ni independencia del EXE.",

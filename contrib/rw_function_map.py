@@ -29,17 +29,33 @@ STATUS = {
     'D': 'D · Falta: sin llamadas ni vtable (¿muerto o por puntero?)',
 }
 BLOCK = 0x10000
-GAP = 0x3000  # distancia máxima (bytes) a las funciones con nombre vecinas para dar confianza «alta»
+GAP = 0x4000  # distancia máxima (bytes) a las funciones con nombre vecinas para dar confianza «alta»
 FILE_MODULE = {
     'rwcore': 'RwCore', 'rwplcore': 'RwPlCore', 'rpworld': 'RpWorld', 'rpmatfx': 'RpMatFX', 'rpuvanim': 'RpUVAnim',
-    'rtanim': 'RtAnim', 'rphanim': 'RpHAnim', 'rpskin': 'RpSkin', 'rtdict': 'RtDict',
+    'rtanim': 'RtAnim', 'rphanim': 'RpHAnim', 'rpskin': 'RpSkin', 'rtdict': 'RtDict', 'rtbmp': 'RtBMP', 'rtquat': 'RtQuat',
+    'rtslerp': 'RtSlerp', 'rpanisot': 'RpAnisot', 'rwtexdict': 'RwCore', 'rpdbgerr': 'RwCore',
 }
 ADDR = re.compile(r'0x([78][0-9A-Fa-f]{5})\b')
 NAME = re.compile(r'([A-Za-z_]\w*)\s*(?:<[^>]*>)?\s*\(')
 SKIP_NAMES = {'Call', 'CallMethod', 'CallAndReturn', 'CallMethodAndReturn', 'if', 'sizeof', 'static_cast', 'reinterpret_cast',
               'RH_ScopedInstall', 'RH_ScopedGlobalInstall', 'RH_ScopedNamedGlobalInstall', 'RH_ScopedOverloadedInstall'}
-PREFIX = (('_rwD3D9', 'RwD3D9'), ('RwD3D9', 'RwD3D9'), ('rwD3D9', 'RwD3D9'), ('_rwD3D', 'RwD3D9'), ('Rw', 'RwCore'), ('_rw', 'RwCore'),
+D3D9 = 'Controlador D3D9 (RwD3D9)'
+PREFIX = (('_rwD3D9', D3D9), ('RwD3D9', D3D9), ('rwD3D9', D3D9), ('_rwD3D', D3D9), ('RpHAnim', 'RpHAnim'), ('RpSkin', 'RpSkin'),
+          ('RpMatFX', 'RpMatFX'), ('RpUVAnim', 'RpUVAnim'), ('RtAnim', 'RtAnim'), ('RtDict', 'RtDict'), ('Rw', 'RwCore'), ('_rw', 'RwCore'),
           ('Rp', 'RpWorld'), ('Rt', 'RtAnim'), ('Rs', 'Rs'), ('Ps', 'Ps'))
+# Evidencia de cadenas (el EXE no trae símbolos): una función que referencia cadenas de estos grupos pertenece a ese módulo.
+# Cada grupo solo se aplica dentro de su rango de direcciones, para descartar coincidencias casuales de valores de 32 bits.
+D3DX = 'D3DX9 (compilador de shaders)'
+PNG = 'libpng + zlib'
+STRING_RULES = (
+    (D3DX, 0x764000, 0x7C4600, ('internal error', 'semantic', 'register', 'instruction', 'macro', 'preprocessor', 'shader', 'texcoord',
+                                'swizzle', 'pixel shader', 'D3DX', 'DIRECT3D', 'fragment', 'not yet implemented', 'cannot ', 'expression',
+                                'GenuineIntel', 'PSGP', 'DisableMMX', 'not clamped', 'syntax error', 'unexpected', 'argument pool')),
+    (PNG, 0x7D0000, 0x7EA000, ('IHDR', 'PLTE', 'IDAT', 'IEND', 'gAMA', 'sRGB', 'iCCP', 'sPLT', 'sBIT', 'cHRM', 'tRNS', 'bKGD', 'hIST',
+                               'tEXt', 'zTXt', 'oFFs', 'pCAL', 'sCAL', 'pHYs', '1.0.12')),
+)
+PNG_FILE = {'rtpng': 'libpng + zlib'}
+EXE_CANDIDATES = ('RESA_EXE', 'E:/JUEGOS/GTA San Andreas - CVehicle Test/gta_sa.exe', 'E:/JUEGOS/GTA San Andreas/gta_sa.exe')
 
 
 def _module_of_name(name):
@@ -63,11 +79,70 @@ def source_anchors(root):
         if len(addrs) != 1 or not (ec.GAME_END <= addrs[0] < ec.RW_END):
             continue
         base = Path(path).stem.lower()
-        names = [n for n in NAME.findall(text) if n not in SKIP_NAMES]
+        names = [n for n in NAME.findall(text) if n not in SKIP_NAMES and _module_of_name(n)]
         name = names[0] if names else ''
-        mod = FILE_MODULE.get(base) or _module_of_name(name)
+        by_name = _module_of_name(name)
+        mod = by_name if by_name == D3D9 else (PNG_FILE.get(base) or FILE_MODULE.get(base) or by_name)
         if mod and addrs[0] not in res:
             res[addrs[0]] = (name, mod)
+    return res
+
+
+def _exe_bytes():
+    import os
+    for c in EXE_CANDIDATES:
+        path = os.environ.get(c) if c == 'RESA_EXE' else c
+        if path and Path(path).exists():
+            return Path(path).read_bytes()
+    return None
+
+
+def string_anchors(root, rw, funcs):
+    """{va: (módulo, evidencia)} por cadenas del .rdata que referencia el cuerpo de cada función.
+    Necesita gta_sa.exe (variable RESA_EXE o las rutas de EXE_CANDIDATES); sin él se usa el caché docs/RenderWareExe/anclas.csv."""
+    cache = Path(root) / 'docs/RenderWareExe/anclas.csv'
+    exe = _exe_bytes()
+    if exe is None:
+        if not cache.exists():
+            return {}
+        with open(cache, encoding='utf-8', newline='') as f:
+            return {ec._hex(r['va']): (r['modulo'], r['evidencia']) for r in csv.DictReader(f)}
+    import struct
+    ranges = defaultdict(list)
+    with open(Path(root) / 'docs/MemoryMap/binary_function_ranges.csv', encoding='utf-8-sig', newline='') as f:
+        for r in csv.DictReader(f):
+            ranges[ec._hex(r['function_va'])].append((ec._hex(r['start_va']), ec._hex(r['end_va'])))
+    text_va, text_off, text_size = 0x401000, 1024, 4546560
+    rd_va, rd_off, rd_end = 0x858000, 4548608, 0x8A4000
+    res = {}
+    for va in rw:
+        rules = [r for r in STRING_RULES if r[1] <= va < r[2]]
+        if not rules:
+            continue
+        found = defaultdict(set)
+        for a, b in ranges.get(va, [(va, va + funcs[va]['size'])]):
+            if not (text_va <= a < text_va + text_size):
+                continue
+            o = a - text_va + text_off
+            body = exe[o:o + (b - a + 1)]
+            for i in range(len(body) - 3):
+                v = struct.unpack_from('<I', body, i)[0]
+                if rd_va <= v < rd_end:
+                    po = v - rd_va + rd_off
+                    txt = exe[po:po + 120].split(b'\x00')[0]
+                    if len(txt) >= 4 and all(32 <= c < 127 for c in txt):
+                        text = txt.decode()
+                        for mod, lo, hi, kws in rules:
+                            if any(k in text for k in kws):
+                                found[mod].add(text[:40])
+        if found:
+            mod = max(found, key=lambda m: len(found[m]))
+            res[va] = (mod, ' | '.join(sorted(found[mod])[:3]))
+    with open(cache, 'w', encoding='utf-8', newline='') as f:
+        w = csv.writer(f, lineterminator='\n')
+        w.writerow(['va', 'modulo', 'evidencia'])
+        for va, (m, e) in sorted(res.items()):
+            w.writerow([f'0x{va:08X}', m, e])
     return res
 
 
@@ -87,28 +162,47 @@ def build(root):
             callers_total[target] += 1
             if caller in covered:
                 callers_repl[target] += 1
+    strs = string_anchors(root, rw, funcs)
     known = {}
     for va in rw:
         names = funcs[va]['names']
         if names and va in covered:
-            known[va] = (names[0], names[0].split('::')[0])
+            known[va] = (names[0], names[0].split('::')[0], 'exacta')
         elif va in anchors:
-            known[va] = anchors[va]
-        elif names:
-            mod = _module_of_name(names[0].split('::')[0])
-            if mod:
-                known[va] = (names[0], mod)
+            known[va] = (anchors[va][0], anchors[va][1], 'exacta')
+        elif names and _module_of_name(names[0].split('::')[0]):
+            known[va] = (names[0], _module_of_name(names[0].split('::')[0]), 'exacta')
+        elif va in strs:
+            known[va] = ('', strs[va][0], 'cadenas')
     keys = sorted(known)
+    calls = defaultdict(set)
+    with open(root / 'docs/MemoryMap/binary_calls.csv', encoding='utf-8-sig', newline='') as f:
+        for r in csv.DictReader(f):
+            if r['kind'] == 'direct':
+                a, b = ec._hex(r['caller_va']), ec._hex(r['target_va'])
+                if a != b and ec.GAME_END <= a < ec.RW_END and ec.GAME_END <= b < ec.RW_END:
+                    calls[a].add(b)
+                    calls[b].add(a)
 
     def module(va):
         if va in known:
-            return known[va][1], 'exacta', known[va][0]
+            return known[va][1], known[va][2], known[va][0]
         i = bisect.bisect_left(keys, va)
-        prev = known[keys[i - 1]][1] if i > 0 else None
-        nxt = known[keys[i]][1] if i < len(keys) else None
+        pk = keys[i - 1] if i > 0 else None
+        nk = keys[i] if i < len(keys) else None
+        prev = known[pk][1] if pk else None
+        nxt = known[nk][1] if nk else None
         near = lambda k: abs(k - va) <= GAP
-        if prev and prev == nxt and near(keys[i - 1]) and near(keys[i]):
+        if prev and prev == nxt and near(pk) and near(nk):
             return prev, 'alta', ''
+        # llamadas directas con funciones identificadas: si todas coinciden (al menos dos), se toma ese módulo
+        votes = Counter(known[n][1] for n in calls[va] if n in known)
+        if sum(votes.values()) >= 2 and len(votes) == 1:
+            return next(iter(votes)), 'media', ''
+        if prev and prev == nxt:
+            return prev, 'media', ''
+        if pk is not None and nk is not None:
+            return (prev if va - pk <= nk - va else nxt), 'baja', ''
         return (prev or nxt or '?'), 'baja', ''
 
     rows = []
@@ -156,6 +250,8 @@ def write(root):
          'Generado por `contrib/rw_function_map.py` (mismos datos y cotas que `contrib/exe_coverage.py`).', '',
          'Estas funciones **no cuentan** en las cifras de reconstrucción del juego: para un ejecutable independiente se sustituyen enlazando una implementación '
          'equivalente (por ejemplo librw) y reconstruyendo solo los pipelines propios de San Andreas. Este mapa sirve para saber qué hay y por dónde empezar si se quiere reconstruir.', '',
+         '**Hallazgo:** gran parte de la región (≈0x765000–0x7C4000, más de 800 funciones y 320 KB) no es RenderWare sino **D3DX9** (compilador de shaders HLSL, preprocesador y ensamblador) enlazado estáticamente; '
+         'entre 0x7D0000 y 0x7EA000 hay **libpng + zlib**. Ninguno de los dos es código de Rockstar ni de RenderWare: se sustituyen enlazando las bibliotecas originales.', '',
          '## Estado', '']
     body = []
     for k in ['A', 'B', 'C', 'D', 'envoltura', 'reemplazada']:
@@ -207,6 +303,40 @@ def write(root):
                   [[f'0x{x["va"]:08X}', x['size'], x['status'], x['confidence'], x['name'] or '—', x['callers']] for x in v]) + ['']
     (d / 'pendientes-por-clase.md').write_text('\n'.join(P) + '\n', encoding='utf-8')
     return rows
+
+
+def reversedclasses_section(root):
+    """Líneas Markdown para docs/ReversedClasses.md: RenderWare y D3D (0x750000–0x81FFFF) por clase o módulo, leído de funciones.csv."""
+    path = Path(root) / 'docs/RenderWareExe/funciones.csv'
+    if not path.exists():
+        return []
+    with open(path, encoding='utf-8', newline='') as f:
+        rows = list(csv.DictReader(f))
+    mods = defaultdict(lambda: Counter())
+    for r in rows:
+        m = mods[r['clase_modulo']]
+        m['n'] += 1
+        m['bytes'] += int(r['bytes'])
+        st = r['estado']
+        if st == 'reemplazada':
+            m['rep'] += 1
+        elif st == 'envoltura':
+            m['env'] += 1
+        else:
+            m['falta'] += 1
+            m['falta_bytes'] += int(r['bytes'])
+        m['exacta' if r['confianza'] == 'exacta' else ('cad' if r['confianza'] == 'cadenas' else 'est')] += 1
+    n = len(rows)
+    L = ['<a id="renderware-d3d"></a>', '### RenderWare y D3D por clase o módulo (0x750000–0x81FFFF)', '',
+         f'Las {n:,} funciones de esta región, agrupadas por la clase o módulo al que pertenecen. El EXE no trae símbolos, así que la clase sale de nombres '
+         'ya conocidos (exacta), de cadenas del `.rdata` que referencia cada función (cadenas) o de la vecindad de direcciones y del grafo de llamadas (estimada). '
+         'Detalle por función en [docs/RenderWareExe](RenderWareExe/README.md) y lista de pendientes en [pendientes-por-clase](RenderWareExe/pendientes-por-clase.md).', '',
+         '| Clase / módulo | Funciones | Reemplazadas | Envolturas | Faltan | Bytes que faltan | Clase exacta / por cadenas / estimada |',
+         '| --- | ---: | ---: | ---: | ---: | ---: | --- |']
+    for k, m in sorted(mods.items(), key=lambda kv: (-kv[1]['falta'], kv[0])):
+        L.append(f"| {k} | {m['n']:,} | {m['rep']:,} | {m['env']:,} | {m['falta']:,} | {m['falta_bytes']:,} | {m['exacta']} / {m['cad']} / {m['est']} |")
+    L.append('')
+    return L
 
 
 if __name__ == '__main__':
