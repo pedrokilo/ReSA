@@ -58,9 +58,20 @@ void CTaskComplexGetUpAndStandStill::InjectHooks() {
     RH_ScopedInstall(CreateSubTask, 0x678170);
     // VTABLE
     RH_ScopedVMTInstall(GetTaskType, 0x678150);   // lote 138A (banco Fn138A): retorno de constante
+    RH_ScopedVMTInstall(Clone, 0x67C130);         // lote 200A (sin validar)
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x6782A0);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x678240);
     RH_ScopedVMTInstall(ControlSubTask, 0x6782B0);
+}
+
+// 0x67C130 (lote 200A, sin validar; thiscall, sin argumentos, `ret`, 80 bytes con marco SEH que solo desenrolla): reserva 0xC bytes con CTask::operator new (0x61A5A0; sin memoria devuelve nulo) y construye una tarea nueva
+// (base CTaskComplex 0x61A3B0, vtable 0x870404): no copia nada de `this`.
+CTask* CTaskComplexGetUpAndStandStill::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskComplexGetUpAndStandStill));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskComplexGetUpAndStandStill();
 }
 
 // 0x678130

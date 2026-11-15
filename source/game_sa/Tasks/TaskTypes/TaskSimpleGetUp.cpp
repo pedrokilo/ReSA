@@ -32,6 +32,17 @@ __declspec(noinline) void __fastcall SimpleGetUpDestructorBodyExe(CTaskSimpleGet
     }
     self->CTask::Destructor();
 }
+
+// 0x67C750 (lote 200A, sin validar; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x677F80; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`):
+// destructor con borrado de CTaskSimpleGetUp (ranura 0 de la vtable 0x8703E0). Como el original: destruye con el cuerpo de la clase (0x677F80, SimpleGetUpDestructorBodyExe, con hook), libera `this` con CTask::operator delete (0x61A5B0,
+// con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CTaskSimpleGetUp* __fastcall SimpleGetUpScalarDeletingDestructor(CTaskSimpleGetUp* self, void* /*edx*/, uint8 flags) {
+    SimpleGetUpDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 // 0x677F70 (lote 159A, banco Fn159A; thiscall, `ret`, 6 bytes: `mov eax,0CDh`): TASK_SIMPLE_GET_UP (205); no lee el objeto (ranura 4 de la vtable 0x8703E0).
@@ -44,11 +55,23 @@ void CTaskSimpleGetUp::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x677F50);
     RH_ScopedNamedGlobalInstall(SimpleGetUpDestructorBodyExe, "DestructorBody", 0x677F80); // lote 159A (banco Fn159A)
+    RH_ScopedNamedGlobalInstall(SimpleGetUpScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67C750); // lote 200A (sin validar)
+    RH_ScopedVMTInstall(Clone, 0x67C0C0); // lote 200A (sin validar)
     RH_ScopedVMTInstall(GetTaskType, 0x677F70); // lote 159A (banco Fn159A): retorno de constante
     RH_ScopedInstall(StartAnim, 0x67C770);
     RH_ScopedInstall(FinishGetUpAnimCB, 0x678110);
     RH_ScopedVMTInstall(ProcessPed, 0x67FA80);
     RH_ScopedVMTInstall(MakeAbortable, 0x677FE0);
+}
+
+// 0x67C0C0 (lote 200A, sin validar; thiscall, sin argumentos, `ret`, 110 bytes con marco SEH que solo desenrolla): reserva 0x10 bytes con CTask::operator new (0x61A5A0; sin memoria devuelve nulo) y construye una tarea nueva
+// (base CTaskSimple 0x61A390, +8 y +9 = 0, +0xC = 0, vtable 0x8703E0): no copia nada de `this`.
+CTask* CTaskSimpleGetUp::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleGetUp));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskSimpleGetUp();
 }
 
 CTaskSimpleGetUp* CTaskSimpleGetUp::Constructor() {

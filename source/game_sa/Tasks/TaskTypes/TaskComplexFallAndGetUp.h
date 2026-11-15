@@ -16,7 +16,7 @@ public:
     ~CTaskComplexFallAndGetUp() override = default;
 
     eTaskType GetTaskType() const override; // 0x6786F0 (lote 191A, sin validar)
-    CTask* Clone() const override { return new CTaskComplexFallAndGetUp(m_nFallAnimId, m_nFallAnimGroup, m_nFallDownTime); }
+    CTask* Clone() const override; // 0x67C200 (lote 200A, sin validar)
     CTask* CreateFirstSubTask(CPed* ped) override;
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* ControlSubTask(CPed* ped) override;

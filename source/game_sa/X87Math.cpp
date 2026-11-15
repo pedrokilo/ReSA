@@ -19044,5 +19044,15 @@ __declspec(noinline) float __cdecl Pf194ClosestDistSqCpp(const float* next, cons
     }
     const float stored = nextDist;
     return lastDist < double(stored) ? float(lastDist) : stored;
+
+// --- Lote 200A (sin validar) ---
+// 0x6F6370 (CTrain::OpenDoor), rama del tren Streak (modelo 570): y = ((abierta - cerrada) * razon) + cerrada con la x87 y SIN redondeos intermedios a float (`fld cerrada; fld cerrada; fld abierta; fsub st,st(1); fmul [razon];
+// fadd st,st(2); fstp`): la resta, el producto y la suma quedan en el registro (24 bits de mantisa por la palabra de control del juego, exponente ampliado) y solo el resultado se guarda como float.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl TrainStreakDoorYCpp(float openAngle, float closedAngle, float ratio) {
+    const double difference = double(openAngle) - double(closedAngle);
+    const double scaled     = difference * double(ratio);
+    const double sum        = scaled + double(closedAngle);
+    return float(sum);
 }
 #pragma float_control(pop)

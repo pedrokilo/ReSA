@@ -31,6 +31,9 @@ __declspec(noinline) CBoundingBox* BoundingBoxConstructorAliasBody(CBoundingBox*
 __declspec(noinline) CBoundingBox* __fastcall BoundingBoxConstructorAlias537550(CBoundingBox* self, void* /*edx*/) { return BoundingBoxConstructorAliasBody(self); }
 __declspec(noinline) CBoundingBox* __fastcall BoundingBoxConstructorAlias537560(CBoundingBox* self, void* /*edx*/) { return BoundingBoxConstructorAliasBody(self); }
 __declspec(noinline) CBoundingBox* __fastcall BoundingBoxConstructorAlias537570(CBoundingBox* self, void* /*edx*/) { return BoundingBoxConstructorAliasBody(self); }
+// 0x5B2AB0 (lote 200A, sin validar; el listado decia CCam): cuarta copia identica del mismo codigo (thiscall, sin argumentos, `ret`, 12 bytes: `push esi; mov esi,ecx; call 0x40FAF0; mov eax,esi; pop esi; ret`), sin llamadores ni
+// referencias en el EXE. Igual que las tres anteriores: llama al constructor del EXE (0x40FAF0, con hook; envoltura Constructor) y devuelve `this`.
+__declspec(noinline) CBoundingBox* __fastcall BoundingBoxConstructorAlias5B2AB0(CBoundingBox* self, void* /*edx*/) { return BoundingBoxConstructorAliasBody(self); }
 } // namespace
 
 void CBoundingBox::InjectHooks() {
@@ -43,6 +46,7 @@ void CBoundingBox::InjectHooks() {
     RH_ScopedNamedGlobalInstall(BoundingBoxConstructorAlias537550, "ConstructorAlias537550", 0x537550); // lote 159A (banco Fn159A)
     RH_ScopedNamedGlobalInstall(BoundingBoxConstructorAlias537560, "ConstructorAlias537560", 0x537560); // lote 159A (banco Fn159A)
     RH_ScopedNamedGlobalInstall(BoundingBoxConstructorAlias537570, "ConstructorAlias537570", 0x537570); // lote 159A (banco Fn159A)
+    RH_ScopedNamedGlobalInstall(BoundingBoxConstructorAlias5B2AB0, "ConstructorAlias5B2AB0", 0x5B2AB0); // lote 200A (sin validar)
 }
 
 // 0x40FAF0 (lote 130A, banco Fn130A): thiscall sin argumentos, `ret`, 96 bytes. Como el original: escribe los seis dwords del cuadro (1.0f, 1.0f, 1.0f, -1.0f, -1.0f, -1.0f; el EXE los pasa por la pila,

@@ -35,7 +35,7 @@ public:
     ~CTaskComplexFallToDeath() override = default; // 0x6790B0
 
     eTaskType GetTaskType() const override { return Type; }; // 0x6790A0
-    CTask* Clone() const override { return new CTaskComplexFallToDeath(static_cast<int32>(m_nFallToDeathDir), m_Posn, b0x8, b0x10); } // 0x67C480
+    CTask* Clone() const override; // 0x67C480 (lote 200A, sin validar)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* ControlSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;

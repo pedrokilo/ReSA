@@ -61,6 +61,7 @@ void CTaskSimpleFall::InjectHooks()
     RH_ScopedNamedGlobalInstall(CTaskSimpleFallDestructorBodyExe, "DestructorBody", 0x678310); // lote 154A (banco Fn154A)
     RH_ScopedNamedGlobalInstall(CTaskSimpleFallScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67CA20); // lote 159A (banco Fn159A)
     RH_ScopedVMTInstall(GetTaskType, 0x678300); // lote 154A (banco Fn154A): retorno de constante
+    RH_ScopedVMTInstall(Clone, 0x67C180); // lote 200A (sin validar)
     RH_ScopedInstall(Constructor, 0x6782C0);
     RH_ScopedInstall(StartAnim, 0x67CA40);
     RH_ScopedInstall(ProcessFall, 0x6784C0);
@@ -73,6 +74,20 @@ CTaskSimpleFall* CTaskSimpleFall::Constructor(AnimationId nAnimId, AssocGroupId 
 {
     this->CTaskSimpleFall::CTaskSimpleFall(nAnimId, nAnimGroup, nDownTime);
     return this;
+}
+
+// 0x67C180 (lote 200A, sin validar; thiscall, sin argumentos, `ret`, 120 bytes con marco SEH que solo desenrolla): reserva 0x20 bytes con CTask::operator new (0x61A5A0; sin memoria devuelve nulo) y construye una copia: el
+// EXE lee ANTES de construir el grupo (+0x10), el tiempo total (+0x18) y la animacion (+0xC) y los escribe despues de la base CTaskSimple (0x61A390): +0x18 y +0x1C = tiempo total (el actual se reinicia al total), +0x10 = grupo,
+// vtable 0x870430, +8 = 0, +0xC = animacion y +0x14 = 0 (igual que el constructor 0x6782C0).
+CTask* CTaskSimpleFall::Clone() const {
+    const AnimationId  animId        = m_nAnimId;
+    const AssocGroupId animGroup     = m_nAnimGroup;
+    const int32        totalDownTime = m_nTotalDownTime;
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleFall));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskSimpleFall(animId, animGroup, totalDownTime);
 }
 
 // 0x6782C0

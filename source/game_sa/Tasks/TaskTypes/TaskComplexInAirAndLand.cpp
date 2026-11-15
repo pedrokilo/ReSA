@@ -61,6 +61,7 @@ void CTaskComplexInAirAndLand::InjectHooks() {
     RH_ScopedNamedGlobalInstall(InAirAndLandDestructorBody, "Destructor", 0x678CC0); // lote 148A (banco Fn148A)
     RH_ScopedNamedGlobalInstall(InAirAndLandScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67CC10); // lote 192A (sin validar)
     RH_ScopedVMTInstall(GetTaskType, 0x678CB0); // lote 148A (banco Fn148A): retorno de constante (240), ranura 4
+    RH_ScopedVMTInstall(Clone, 0x67C2E0);       // lote 200A (sin validar)
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x67CC30);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x67CCB0);
     RH_ScopedVMTInstall(ControlSubTask, 0x67D230);
@@ -76,6 +77,18 @@ CTaskComplexInAirAndLand::CTaskComplexInAirAndLand(bool bUsingJumpGlide, bool bU
     m_bUsingJumpGlide = bUsingJumpGlide;
     m_bUsingFallGlide = bUsingFallGlide;
     m_bInvalidClimb   = false;
+}
+
+// 0x67C2E0 (lote 200A, sin validar; thiscall, sin argumentos, `ret`, 120 bytes con marco SEH que solo desenrolla): reserva 0x10 bytes con CTask::operator new (0x61A5A0; sin memoria devuelve nulo) y construye una copia: lee los
+// bytes +0xC y +0xD y los normaliza con `!= 0` (setne) ANTES de construir; tras la base CTaskComplex (0x61A3B0) escribe +0xC, +0xD, vtable 0x8704AC y +0xE = 0 (el constructor 0x678C80).
+CTask* CTaskComplexInAirAndLand::Clone() const {
+    const bool usingJumpGlide = m_bUsingJumpGlide != 0;
+    const bool usingFallGlide = m_bUsingFallGlide != 0;
+    void* const memory = CTask::operator new(sizeof(CTaskComplexInAirAndLand));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskComplexInAirAndLand(usingJumpGlide, usingFallGlide);
 }
 
 // 0x67CC30

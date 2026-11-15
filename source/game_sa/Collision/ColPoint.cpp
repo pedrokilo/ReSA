@@ -74,6 +74,20 @@ static uint8 __fastcall ColPointSurfaceTypeBExe(const CColPoint* self, void* /*e
     return *reinterpret_cast<const volatile uint8*>(reinterpret_cast<const uint8*>(self) + 0x23);
 }
 
+// 0x411BA0 (lote 200A, sin validar; el listado decia CPlaceable; thiscall, sin argumentos, `ret`, 4 bytes: `lea eax,[ecx+10h]; ret`; solo lo llama CAutomobile::ProcessCarWheelPair, 0x6A4EC0, con ECX = el punto de colision de la
+// rueda (+0x724 + 0x2C * indice)): direccion de la normal (m_vecNormal, +0x10) del punto. No lee memoria. __fastcall con EDX ficticio: ECX = this, igual que thiscall.
+static CVector* __fastcall ColPointNormalAddressExe(CColPoint* self, void* /*edx*/)
+{
+    return reinterpret_cast<CVector*>(reinterpret_cast<uint8*>(self) + 0x10);
+}
+
+// 0x411BF0 (lote 200A, sin validar; el listado decia CPlaceable; thiscall, un argumento de pila (BYTE), `ret 4`, 10 bytes: `mov al,[esp+4]; mov [ecx+20h],al; ret 4`; solo lo llama CAutomobile::ProcessCarWheelPair, 0x6A548C y
+// 0x6A5916): escribe el BYTE bajo del argumento en el tipo de superficie A del punto (m_nSurfaceTypeA, +0x20); los otros bytes del argumento no cuentan. No toca +0x21. __fastcall con EDX ficticio: ECX = this.
+static void __fastcall ColPointSetSurfaceTypeAExe(CColPoint* self, void* /*edx*/, uint8 surfaceType)
+{
+    *reinterpret_cast<volatile uint8*>(reinterpret_cast<uint8*>(self) + 0x20) = surfaceType;
+}
+
 // Lote 105A (banco Fn105A): CColPoint::operator= (0x40FC80). Funcion libre para no tocar ColPoint.h; se llama desde InjectHooksMain.cpp.
 void CColPointInjectHooksLote105A()
 {
@@ -82,6 +96,8 @@ void CColPointInjectHooksLote105A()
 
     RH_ScopedGlobalInstall(ColPointAssignExe, 0x40FC80);
     RH_ScopedNamedGlobalInstall(ColPointSurfaceTypeBExe, "GetSurfaceTypeB", 0x47E050); // lote 144A (banco Fn144A)
+    RH_ScopedNamedGlobalInstall(ColPointNormalAddressExe, "GetNormalAddress", 0x411BA0); // lote 200A (sin validar)
+    RH_ScopedNamedGlobalInstall(ColPointSetSurfaceTypeAExe, "SetSurfaceTypeA", 0x411BF0); // lote 200A (sin validar)
 }
 
 // Lote 116A (banco Fn116A): tColLighting::GetCurrentLighting (0x59F0C0). Funcion libre como la anterior; se llama desde InjectHooksMain.cpp.

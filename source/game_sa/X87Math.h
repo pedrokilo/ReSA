@@ -2367,3 +2367,7 @@ bool __cdecl Wfp194NearCpp(const float* a, const float* b, float radius);
 // CTaskComplexWander::GetDistSqOfClosestPathNodeToPed (0x669FF0): distancia al cuadrado ((dz*dz + dy*dy) + dx*dx) del peaton a cada nodo (nulo = nodo no valido: 999999.0f) en la x87 (24 bits, exponente ampliado): la del
 // siguiente se guarda como float (`fstp dword`), la del anterior queda en el registro y gana solo si es ESTRICTAMENTE menor (comparacion ordenada; empate o NaN devuelven el siguiente). Los punteros apuntan a x, y, z consecutivos.
 float __cdecl Pf194ClosestDistSqCpp(const float* next, const float* last, const float* ped);
+
+// Lote 200A (sin validar).
+// 0x6F6370 (CTrain::OpenDoor), rama del tren Streak: ((abierta - cerrada) * razon) + cerrada con la x87 sin redondeos intermedios a float; solo el resultado se guarda como float. Ver X87Math.cpp.
+float __cdecl TrainStreakDoorYCpp(float openAngle, float closedAngle, float ratio);

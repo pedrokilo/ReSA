@@ -23,7 +23,7 @@ public:
     ~CTaskSimpleLand() override;
 
     eTaskType GetTaskType() const override; // 0x678ED0 (lote 159A, banco Fn159A)
-    CTask* Clone() const override { return new CTaskSimpleLand(m_nAnimId); }
+    CTask* Clone() const override; // 0x67C3F0 (lote 200A, sin validar)
     bool ProcessPed(CPed* ped) override;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
 

@@ -58,6 +58,7 @@ void CTaskComplexFallToDeath::InjectHooks() {
     RH_ScopedNamedGlobalInstall(FallToDeathDestructorBody, "Destructor", 0x6790B0);
     RH_ScopedNamedGlobalInstall(CTaskComplexFallToDeathScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67D550); // lote 159A (banco Fn159A)
     RH_ScopedVMTInstall(GetTaskType, 0x6790A0);   // lote 138A (banco Fn138A): retorno de constante
+    RH_ScopedVMTInstall(Clone, 0x67C480);         // lote 200A (sin validar)
     RH_ScopedVMTInstall(MakeAbortable, 0x6790C0);
     RH_ScopedVMTInstall(ControlSubTask, 0x679510);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x679120);
@@ -66,6 +67,19 @@ void CTaskComplexFallToDeath::InjectHooks() {
 }
 
 CTaskComplexFallToDeath* CTaskComplexFallToDeath::Constructor(int32 direction, const CVector& posn, bool a4, bool a5) { this->CTaskComplexFallToDeath::CTaskComplexFallToDeath(direction, posn, a4, a5); return this; }
+
+// 0x67C480 (lote 200A, sin validar; thiscall, sin argumentos, `ret`, 130 bytes con marco SEH que solo desenrolla): reserva 0x24 bytes con CTask::operator new (0x61A5A0; sin memoria devuelve nulo) y llama al constructor
+// (0x679040, con hook) con (direccion = BYTE +0x20 sin signo, &posicion (+0xC), bit 3 de +0x21, bit 4 de +0x21), empujados en orden inverso; las banderas se leen como BYTE y se desplazan 3 y 4 bits (`and 1`).
+CTask* CTaskComplexFallToDeath::Clone() const {
+    const int32 direction = static_cast<uint8>(m_nFallToDeathDir);
+    const bool  bit3      = ((m_nFlags >> 3) & 1) != 0;
+    const bool  bit4      = ((m_nFlags >> 4) & 1) != 0;
+    void* const memory = CTask::operator new(sizeof(CTaskComplexFallToDeath));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskComplexFallToDeath(direction, m_Posn, bit3, bit4);
+}
 
 // 0x679040
 CTaskComplexFallToDeath::CTaskComplexFallToDeath(int32 direction, const CVector& posn, bool bFallToDeathOverRailing, bool a5) : CTaskComplex() {

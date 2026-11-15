@@ -127,6 +127,19 @@ static CVector* __fastcall VectorDefaultConstructorExe(CVector* self, void* /*ed
     return self;
 }
 
+// 0x411A30 (lote 200A, sin validar; el listado decia CPlaceable: es CVector::operator/=(float); thiscall, un argumento float en la pila, `ret 4`, 35 bytes, EAX = this): el EXE multiplica por el inverso: r = 1.0 / divisor
+// (`fld 1.0; fdiv [divisor]`, x87 de 24 bits de mantisa y exponente ampliado) y r SE QUEDA EN EL REGISTRO (sin guardarlo como float) para las tres multiplicaciones, en orden x, y, z (`fld st0; fmul [v]; fstp [v]`; la ultima
+// consume el registro). Cada componente se lee y se escribe antes de pasar a la siguiente. Los callers (0x48F54B, 0x5F33DC) ignoran EAX.
+static CVector* __fastcall VectorDivideAssignExe(CVector* self, void* /*edx*/, float divisor)
+{
+    const volatile float* d = &divisor;
+    const double r = 1.0 / double(*d);
+    self->x = float(r * self->x);
+    self->y = float(r * self->y);
+    self->z = float(r * self->z);
+    return self;
+}
+
 // Operadores y productos del EXE con la x87 exacta (lote 97A), validados por el banco Fn97A: DotProduct (0x40FDB0), CrossProduct (0x59C730), Multiply3x3 matriz * vector (0x59C790),
 // la suma (0x40FE30) y la resta (0x40FE60) de vectores, los productos escalar * vector (0x40FE90) y vector * escalar (0x40FEC0), operator+= (0x411A00) y operator*=(float) (0x40FEF0).
 void CVector::InjectHooksExactOperators()
@@ -149,6 +162,7 @@ void CVector::InjectHooksExactOperators()
     RH_ScopedGlobalInstall(FloatTimesVector, 0x40FE90);
     RH_ScopedGlobalInstall(VectorTimesFloat, 0x40FEC0);
     RH_ScopedGlobalInstall(VectorDividedByFloat, 0x4119D0);
+    RH_ScopedNamedGlobalInstall(VectorDivideAssignExe, "DivideAssignExe", 0x411A30); // lote 200A (sin validar)
     RH_ScopedOverloadedInstall(operator-=, "v3d", 0x406D70, void(CVector::*)(const CVector&));
     RH_ScopedOverloadedInstall(operator+=, "v3d", 0x411A00, void(CVector::*)(const CVector&));
     RH_ScopedOverloadedInstall(operator*=, "float", 0x40FEF0, void(CVector::*)(float));

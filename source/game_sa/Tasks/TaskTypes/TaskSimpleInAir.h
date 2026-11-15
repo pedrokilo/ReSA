@@ -42,7 +42,7 @@ public:
     ~CTaskSimpleInAir() override;
 
     eTaskType GetTaskType() const override; // 0x678D40 (lote 152A, banco Fn152A): `mov eax,0F1h; ret` (ranura 4 de la vtable 0x8704D8)
-    CTask* Clone() const override { return new CTaskSimpleInAir(m_bUsingJumpGlide, m_bUsingFallGlide, m_bUsingClimbJump); }
+    CTask* Clone() const override; // 0x67C360 (lote 200A, sin validar)
     bool ProcessPed(CPed* ped) override;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
 

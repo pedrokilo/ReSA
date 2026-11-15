@@ -13,6 +13,7 @@ namespace details {
 void* CPtrNodeSingleLink__operator_new(size_t sz);
 void  CPtrNodeSingleLink__operator_delete(void* data); // 0x552390 (lote 173A, banco Fn173A)
 void __fastcall CPtrListSingleLink__FlushExe(void* list, void* edx); // 0x552400 (lote 131A, banco Fn131A)
+void __fastcall CPtrListSingleLink__FlushJumpExe(void* list, void* edx); // 0x43E1A0 (lote 200A, sin validar): `jmp 0x552400`
 };
 
 template<typename TItemType>

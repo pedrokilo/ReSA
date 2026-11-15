@@ -47,6 +47,63 @@ __declspec(noinline) static CPlaceable* __fastcall PlaceableConstructorBody(CPla
     return self;
 }
 
+// 0x54F490 (lote 200A, sin validar; thiscall, sin argumentos, `ret`, 36 bytes): cuerpo del destructor de CPlaceable del EXE (lo llaman CEntity 0x535E90 y 0x50A870, ademas de la ranura 0 de la vtable 0x863C40). Como el original: lee
+// m_matrix (+0x14), deja SIEMPRE la vtable de CPlaceable del EXE (0x863C40), y solo si habia matriz llama a RemoveMatrix (0x54F3B0, con hook; ECX = this) y decrementa el contador de matrices (0xB74238); termina con
+// m_matrix = la matriz de relleno (0xB74240). El destructor generado ~CPlaceable deja la vtable de la DLL.
+__declspec(noinline) static void __fastcall PlaceableDestructorBodyExe(CPlaceable* self, void* /*edx*/) {
+    const bool hasMatrix = self->m_matrix != nullptr;
+    *reinterpret_cast<uint32*>(self) = 0x863C40;
+    if (hasMatrix) {
+        self->RemoveMatrix();
+        --numMatrices;
+    }
+    self->m_matrix = reinterpret_cast<CMatrixLink*>(&gDummyMatrix);
+}
+
+// 0x54F5D0 (lote 200A, sin validar; thiscall, un argumento de pila, `ret 4`, 53 bytes): destructor con borrado de CPlaceable (ranura 0 de la vtable 0x863C40) con el cuerpo 0x54F490 EXPANDIDO en linea (mismas escrituras; el EXE
+// comprueba las banderas entre RemoveMatrix y la escritura final de m_matrix, sin efecto observable). Como el original: libera `this` con operator delete (0x8214BD, CRT, sin hook) solo si el bit 0 del BYTE de banderas esta puesto y
+// devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) static CPlaceable* __fastcall PlaceableScalarDeletingDestructor(CPlaceable* self, void* /*edx*/, uint8 flags) {
+    const bool hasMatrix = self->m_matrix != nullptr;
+    *reinterpret_cast<uint32*>(self) = 0x863C40;
+    if (hasMatrix) {
+        self->RemoveMatrix();
+        --numMatrices;
+    }
+    const bool freeMemory = (flags & 1) != 0;
+    self->m_matrix = reinterpret_cast<CMatrixLink*>(&gDummyMatrix);
+    if (freeMemory) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
+// 0x54FA10, 0x54FA60, 0x54FAB0, 0x54FB00, 0x54FB50, 0x54FBA0 y 0x54FBF0 (lote 200A, sin validar; el listado decia CPlaceable, pero NO usan nada de CPlaceable): siete copias identicas (thiscall, sin argumentos, `ret`, 54 bytes cada una, con
+// 80 bytes de paso: hay diez mas hasta 0x54FF10) de un mismo codigo de plantilla que vacia un bloque de dos punteros, sin llamadores ni referencias en el EXE (codigo muerto). Layout visto en el codigo: +0 = puntero A, +4 =
+// puntero B, +8 = contador (int32 CON SIGNO), +0xC = entero, +0x10 = BYTE "es dueno". Como el original: si el contador es mayor que cero (comparacion con signo: cero o negativo no hace nada) y el BYTE +0x10 es distinto de cero libera
+// A y despues B con operator delete[] (0x8213AE, CRT, sin hook; no se comprueba si son nulos), y SIEMPRE (con contador > 0) pone a cero +0, +4, +8 y +0xC en ese orden. Cada direccion lleva su propia funcion enganchada porque un
+// hook Simple reescribe el comienzo de la funcion de la DLL con un salto a la direccion del EXE mientras esta apagado.
+__declspec(noinline) static void PlaceableArrayPairResetBody(void* self) {
+    auto* const bytes = reinterpret_cast<uint8*>(self);
+    if (*reinterpret_cast<int32*>(bytes + 8) > 0) {
+        if (bytes[0x10] != 0) {
+            ::operator delete[](*reinterpret_cast<void**>(bytes + 0));
+            ::operator delete[](*reinterpret_cast<void**>(bytes + 4));
+        }
+        *reinterpret_cast<uint32*>(bytes + 0x0) = 0;
+        *reinterpret_cast<uint32*>(bytes + 0x4) = 0;
+        *reinterpret_cast<uint32*>(bytes + 0x8) = 0;
+        *reinterpret_cast<uint32*>(bytes + 0xC) = 0;
+    }
+}
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FA10(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FA60(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FAB0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FB00(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FB50(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FBA0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FBF0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+
 /**
  * Registra las operaciones de transformación y gestión del pool global de matrices.
  */
@@ -55,6 +112,15 @@ void CPlaceable::InjectHooks() {
     RH_ScopedCategory("Entity");
 
     RH_ScopedNamedGlobalInstall(PlaceableConstructorBody, "Constructor", 0x54F1E0); // lote 161A (banco Fn161A)
+    RH_ScopedNamedGlobalInstall(PlaceableDestructorBodyExe, "DestructorBody", 0x54F490);                       // lote 200A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableScalarDeletingDestructor, "ScalarDeletingDestructor", 0x54F5D0);      // lote 200A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FA10, "ArrayPairReset54FA10", 0x54FA10);              // lote 200A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FA60, "ArrayPairReset54FA60", 0x54FA60);              // lote 200A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FAB0, "ArrayPairReset54FAB0", 0x54FAB0);              // lote 200A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FB00, "ArrayPairReset54FB00", 0x54FB00);              // lote 200A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FB50, "ArrayPairReset54FB50", 0x54FB50);              // lote 200A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FBA0, "ArrayPairReset54FBA0", 0x54FBA0);              // lote 200A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FBF0, "ArrayPairReset54FBF0", 0x54FBF0);              // lote 200A (sin validar)
     RH_ScopedOverloadedInstall(SetPosn, "xyz", 0x420B80, void(CPlaceable::*)(float, float, float));
     RH_ScopedOverloadedInstall(SetPosn, "vector", 0x4241C0, void(CPlaceable::*)(const CVector&));
     RH_ScopedOverloadedInstall(SetOrientation, "xyz", 0x439A80, void(CPlaceable::*)(float, float, float));

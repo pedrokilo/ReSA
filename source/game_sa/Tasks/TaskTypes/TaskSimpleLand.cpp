@@ -59,6 +59,7 @@ void CTaskSimpleLand::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x678E90);
     RH_ScopedNamedGlobalInstall(CTaskSimpleLandDestructorBody, "DestructorBody", 0x678EE0); // lote 159A (banco Fn159A)
     RH_ScopedVMTInstall(GetTaskType, 0x678ED0); // lote 159A (banco Fn159A): retorno de constante
+    RH_ScopedVMTInstall(Clone, 0x67C3F0);       // lote 200A (sin validar)
     RH_ScopedNamedGlobalInstall(CTaskSimpleLandScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67D360); // lote 148A (banco Fn148A)
     RH_ScopedInstall(LeftFootLanded, 0x679010);
     RH_ScopedInstall(RightFootLanded, 0x678FE0);
@@ -70,6 +71,18 @@ void CTaskSimpleLand::InjectHooks() {
 CTaskSimpleLand* CTaskSimpleLand::Constructor(AnimationId nAnimId) {
     this->CTaskSimpleLand::CTaskSimpleLand(nAnimId);
     return this;
+}
+
+// 0x67C3F0 (lote 200A, sin validar; thiscall, sin argumentos, `ret`, 141 bytes con marco SEH que solo desenrolla): reserva 0x14 bytes con CTask::operator new (0x61A5A0; sin memoria devuelve nulo) y construye una copia con el
+// constructor (0x678E90) EXPANDIDO en linea (no lo llama): lee la animacion (+0xC) ANTES de construir, base CTaskSimple (0x61A390), banderas (+0x10) = (viejas & 0xFC) | (((anim == -1) | 2) << 1) (bit 0 = 0, bit 1 = sin
+// animacion, bit 2 = 1; los bits 3..7 conservan la memoria del pool), +0xC = animacion, vtable 0x8704FC y +8 = 0. El constructor C++ deja el mismo resultado (campo a campo, conservando los bits altos).
+CTask* CTaskSimpleLand::Clone() const {
+    const AnimationId animId = m_nAnimId;
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleLand));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskSimpleLand(animId);
 }
 
 // 0x678E90

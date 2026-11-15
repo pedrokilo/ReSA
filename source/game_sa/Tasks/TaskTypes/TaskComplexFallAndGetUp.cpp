@@ -52,6 +52,7 @@ void CTaskComplexFallAndGetUp::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskComplexFallAndGetUpDestructorBody, "DestructorBody", 0x678790); // lote 191A (sin validar): el cuerpo ya existia sin enganchar (lote 154A)
     RH_ScopedVMTInstall(GetTaskType, 0x6786F0); // lote 191A (sin validar)
+    RH_ScopedVMTInstall(Clone, 0x67C200);       // lote 200A (sin validar)
     RH_ScopedNamedGlobalInstall(CTaskComplexFallAndGetUpScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67CB50); // lote 154A (banco Fn154A)
     RH_ScopedInstall(Constructor, 0x6786C0);
     RH_ScopedInstall(Constructor2, 0x678700);
@@ -73,6 +74,19 @@ CTaskComplexFallAndGetUp* CTaskComplexFallAndGetUp::Constructor(AnimationId nFal
 CTaskComplexFallAndGetUp* CTaskComplexFallAndGetUp::Constructor2(int32 nDir, int32 nFallDownTime) {
     this->CTaskComplexFallAndGetUp::CTaskComplexFallAndGetUp(nDir, nFallDownTime);
     return this;
+}
+
+// 0x67C200 (lote 200A, sin validar; thiscall, sin argumentos, `ret`, 106 bytes con marco SEH que solo desenrolla): reserva 0x18 bytes con CTask::operator new (0x61A5A0; sin memoria devuelve nulo) y construye una copia: lee
+// ANTES de construir el tiempo (+0x14), el grupo (+0x10) y la animacion (+0xC) y, tras la base CTaskComplex (0x61A3B0), escribe +0x10 = grupo, +0x14 = tiempo, vtable 0x870454 y +0xC = animacion (el constructor 0x6786C0).
+CTask* CTaskComplexFallAndGetUp::Clone() const {
+    const AnimationId  animId    = m_nFallAnimId;
+    const AssocGroupId animGroup = m_nFallAnimGroup;
+    const int32        downTime  = m_nFallDownTime;
+    void* const memory = CTask::operator new(sizeof(CTaskComplexFallAndGetUp));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskComplexFallAndGetUp(animId, animGroup, downTime);
 }
 
 // 0x6786C0

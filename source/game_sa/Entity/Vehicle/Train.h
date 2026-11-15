@@ -94,6 +94,11 @@ public:
     void ProcessControl() override;
     void SetModelIndex(uint32 index) override; // 0x6F5530 (lote 174A, banco Fn174A)
     void PreRender() override;                 // 0x6F5570 (lote 174A, banco Fn174A)
+    void Teleport(CVector newCoors, bool clearOrientation) override; // 0x6F7190 (lote 200A, sin validar)
+    void OpenDoor(CPed* ped, int32 componentId, eDoors door, float doorOpenRatio, bool playSound) override; // 0x6F6370 (lote 200A, sin validar)
+    float GetDooorAngleOpenRatioU32(uint32 door) override; // 0x6F5930 (lote 200A, sin validar)
+    float GetDooorAngleOpenRatio(eDoors door) override;    // 0x6F59C0 (lote 200A, sin validar)
+    bool IsRoomForPedToLeaveCar(uint32 doorId, CVector* arg1) override; // 0x6F5EE0 (lote 200A, sin validar)
     void SetupModelNodes();
 
     bool FindMaximumSpeedToStopAtStations(float* speed);

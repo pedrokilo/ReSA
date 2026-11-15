@@ -64,6 +64,7 @@ void CTaskSimpleInAir::InjectHooks()
 
     RH_ScopedNamedGlobalInstall(CTaskSimpleInAirDestructorBodyExe, "DestructorBody", 0x678D50); // lote 152A (banco Fn152A)
     RH_ScopedVMTInstall(GetTaskType, 0x678D40); // lote 152A (banco Fn152A): retorno de constante
+    RH_ScopedVMTInstall(Clone, 0x67C360);       // lote 200A (sin validar)
     RH_ScopedInstall(Constructor, 0x678CD0);
     RH_ScopedNamedGlobalInstall(CTaskSimpleInAirScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67D340); // lote 148A (banco Fn148A)
     RH_ScopedInstall(DeleteAnimCB, 0x678E60);
@@ -81,6 +82,20 @@ CTaskSimpleInAir* CTaskSimpleInAir::Constructor(bool bUsingJumpGlide, bool bUsin
 {
     this->CTaskSimpleInAir::CTaskSimpleInAir(bUsingJumpGlide, bUsingFallGlide, bUsingClimbJump);
     return this;
+}
+
+// 0x67C360 (lote 200A, sin validar; thiscall, sin argumentos, `ret`, 129 bytes con marco SEH que solo desenrolla): reserva 0x3C bytes con CTask::operator new (0x61A5A0; sin memoria devuelve nulo) y llama al constructor
+// (0x678CD0, con hook) con los tres bits de las banderas (+0x24: bit 0 = planeo de salto, bit 1 = planeo de caida, bit 2 = salto de escalada) como argumentos de pila (empuja el tercero primero). El EXE no limpia los 24 bits altos
+// del primer argumento (`and edx,0FFFFFF01h` sobre un EDX con restos), pero el constructor solo lee el BYTE bajo (`mov dl,[esp+8]; and dl,1`). Devuelve lo que devuelve el constructor (this).
+CTask* CTaskSimpleInAir::Clone() const {
+    const bool usingJumpGlide = (m_nFlags & 1) != 0;
+    const bool usingFallGlide = ((m_nFlags >> 1) & 1) != 0;
+    const bool usingClimbJump = ((m_nFlags >> 2) & 1) != 0;
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleInAir));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskSimpleInAir(usingJumpGlide, usingFallGlide, usingClimbJump);
 }
 
 // 0x678CD0

@@ -49,6 +49,26 @@ __declspec(noinline) void __fastcall CTrainDestructorBodyExe(CTrain* self, void*
     self->m_vehicleAudio.Terminate();
     CTrainBaseDestructorCall(self, nullptr);
 }
+
+// 0x6F6300 (lote 200A, sin validar; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6F54D0; test byte [esp+8],1; je ..; push esi; call 0x6E2D90; add esp,4; mov eax,esi; pop esi; ret 4`):
+// destructor con borrado de CTrain (ranura 0 de la vtable 0x872370). Como el original: destruye con el cuerpo de la clase (0x6F54D0, CTrainDestructorBodyExe, con hook), libera `this` con CVehicle::operator delete (0x6E2D90,
+// sin hook: marca el hueco del pool de vehiculos 0xB74494) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CTrain* __fastcall CTrainScalarDeletingDestructor(CTrain* self, void* /*edx*/, uint8 flags) {
+    CTrainDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CVehicle::operator delete(self);
+    }
+    return self;
+}
+
+// Como el original (0x6F65A7..0x6F65C7): CMatrix::SetRotate (0x59B120) deja la posicion a cero y el codigo SUMA la posicion guardada (`fld pos; fadd guardada; fstp pos`), que no es una copia exacta con -0.0f.
+void TrainSetRotateAddPos(CMatrix& mat, const CVector& rot, const CVector& saved) {
+    mat.SetRotate(rot.x, rot.y, rot.z);
+    CVector& pos = mat.GetPosition();
+    pos.x = pos.x + saved.x;
+    pos.y = pos.y + saved.y;
+    pos.z = pos.z + saved.z;
+}
 } // namespace
 
 uintptr_t Lote174ABody_CTrainBaseDestructor() { return reinterpret_cast<uintptr_t>(&CTrainBaseDestructorCall); } // para el banco Fn174A
@@ -58,6 +78,12 @@ void CTrain::InjectHooks() {
     RH_ScopedCategory("Vehicle");
 
     RH_ScopedNamedGlobalInstall(CTrainDestructorBodyExe, "DestructorBody", 0x6F54D0); // lote 174A (banco Fn174A)
+    RH_ScopedNamedGlobalInstall(CTrainScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6F6300); // lote 200A (sin validar)
+    RH_ScopedVMTInstall(Teleport, 0x6F7190);                   // lote 200A (sin validar)
+    RH_ScopedVMTInstall(OpenDoor, 0x6F6370);                   // lote 200A (sin validar)
+    RH_ScopedVMTInstall(GetDooorAngleOpenRatioU32, 0x6F5930);  // lote 200A (sin validar)
+    RH_ScopedVMTInstall(GetDooorAngleOpenRatio, 0x6F59C0);     // lote 200A (sin validar)
+    RH_ScopedVMTInstall(IsRoomForPedToLeaveCar, 0x6F5EE0);     // lote 200A (sin validar)
     RH_ScopedVMTInstall(SetModelIndex, 0x6F5530); // lote 174A (banco Fn174A)
     RH_ScopedVMTInstall(PreRender, 0x6F5570);     // lote 174A (banco Fn174A)
     RH_ScopedInstall(Constructor, 0x6F6030);
@@ -153,6 +179,110 @@ CTrain::CTrain(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(created
     m_autoPilot.m_speed = 0.f;
     m_autoPilot.SetCruiseSpeed(0);
     m_vehicleAudio.Initialise(this);
+}
+
+// 0x6F7190 (lote 200A, sin validar; thiscall, tres floats y un BYTE en la pila, `ret 10h`, 197 bytes): mismo codigo que CBoat::Teleport (0x6F20E0). Como el original: CWorld::Remove (0x563280) primero; la posicion va a la matriz
+// (+0x30..+0x38) si hay, o a la posicion compacta (+4..+0xC) si no; con `clearOrientation` (solo el BYTE bajo) SetOrientation(0, 0, 0) (0x439A80); velocidad (+0x44) y giro (+0x50) a cero, y CWorld::Add (0x563220) al final.
+void CTrain::Teleport(CVector newCoors, bool clearOrientation) {
+    CWorld::Remove(this);
+    SetPosn(newCoors);
+    if (clearOrientation) {
+        SetOrientation(CVector{ 0.0f });
+    }
+
+    ResetMoveSpeed();
+    ResetTurnSpeed();
+    CWorld::Add(this);
+}
+
+// 0x6F6370 (lote 200A, sin validar; thiscall, `ret 14h`, 719 bytes con marco SEH que solo desenrolla): abre o cierra una puerta del tren (en el EXE el listado no la nombraba; es la ranura 27 de la vtable 0x872370). Como el original:
+//  - solo existen las puertas 2 (DOOR_LEFT_FRONT, nodo 1 = TRAIN_DOOR_LF) y 3 (DOOR_RIGHT_FRONT, nodo 2 = TRAIN_DOOR_RF): el EXE REESCRIBE `componentId` (1 para la puerta 2, 2 para la 3) y con otra puerta sale sin hacer nada;
+//    sin marco en m_aTrainNodes[componentId] (+0x668) tambien sale. `playSound` no se lee.
+//  - CMatrix temporal ligada al RwMatrix del marco (0x59C050, no propietaria); se guarda la posicion (x, y, z) ANTES de tocar nada.
+//  - puerta = m_aDoors[puerta] (+0x5D8, 0x18 bytes); `estabaCerrada` = CDoor::IsClosed (0x6F4800). Si estaba cerrada: RwFrameForAllObjects (0x7F1200) con ClearAtomicFlagCB (0x4C7BB0) y 0x400. Despues CDoor::Open (0x6F4790) con la razon.
+//  - estabaCerrada y ahora ya no esta cerrada (cerrada != angulo): RwFrameForAllObjects con SetAtomicFlagCB (0x4C7B90) y 0x400, y con ped no nulo evento CEventSoundQuiet(ped, 60.0f, -1, (0,0,0)) al grupo de eventos global
+//    (0x4ABA50 + CEventGroup::Add 0x4AB420, sin validar). No estaba cerrada y razon == 0.0f (ordenado; NaN no): con ped no nulo el mismo evento con 120.0f. (SIN audio del vehiculo ni gestor de danos.)
+//  - modelo 570 (MODEL_STREAKC): la matriz se pone con SetTranslate (0x59AF40) en (x guardada, ((abierta - cerrada) * razon) + cerrada, z guardada) con la x87 sin guardados intermedios (TrainStreakDoorYCpp); el resto:
+//    orientacion = (0, 0, 0) con orientacion[eje de la puerta] = angulo, SetRotate (0x59B120) y se suma la posicion guardada. En ambos casos UpdateRW (0x59BBB0) y se destruye la CMatrix (0x59ACD0).
+void CTrain::OpenDoor(CPed* ped, int32 componentId, eDoors door, float doorOpenRatio, bool /*playSound*/) {
+    if (door == DOOR_LEFT_FRONT) {
+        componentId = TRAIN_DOOR_LF;
+    } else if (door == DOOR_RIGHT_FRONT) {
+        componentId = TRAIN_DOOR_RF;
+    } else {
+        return;
+    }
+
+    RwFrame* const frame = m_aTrainNodes[componentId];
+    if (!frame) {
+        return;
+    }
+
+    CMatrix frameMat{ RwFrameGetMatrix(frame) };
+    const CVector savedPos = frameMat.GetPosition();
+    CDoor& trainDoor = m_aDoors[door];
+    CVector orientation{ 0.f, 0.f, 0.f };
+
+    const bool wasClosed = trainDoor.IsClosed();
+    if (wasClosed) {
+        RwFrameForAllObjects(frame, CVehicleModelInfo::ClearAtomicFlagCB, (void*)(eAtomicComponentFlag::ATOMIC_DONT_CULL));
+    }
+
+    trainDoor.Open(doorOpenRatio);
+
+    const auto AddQuietEvent = [&](float soundLevel) {
+        if (!ped) {
+            return;
+        }
+        CEventSoundQuiet event{ ped, soundLevel, (uint32)-1, CVector{ 0.f, 0.f, 0.f } };
+        GetEventGlobalGroup()->Add(&event, false);
+    };
+
+    if (wasClosed) {
+        if (!trainDoor.IsClosed()) {
+            RwFrameForAllObjects(frame, CVehicleModelInfo::SetAtomicFlagCB, (void*)(eAtomicComponentFlag::ATOMIC_DONT_CULL));
+            AddQuietEvent(60.f);
+        }
+    } else if (doorOpenRatio == 0.f) {
+        AddQuietEvent(120.f);
+    }
+
+    if (m_nModelIndex == MODEL_STREAKC) {
+        const float y = TrainStreakDoorYCpp(trainDoor.m_openAngle, trainDoor.m_closedAngle, doorOpenRatio);
+        frameMat.SetTranslate(CVector{ savedPos.x, y, savedPos.z });
+    } else {
+        orientation[trainDoor.m_axis] = trainDoor.m_angle;
+        TrainSetRotateAddPos(frameMat, orientation, savedPos);
+    }
+    frameMat.UpdateRW();
+}
+
+// 0x6F5930 (lote 200A, sin validar; thiscall, un argumento de pila (dword), `ret 4`, 128 bytes con una tabla de saltos): traduce el codigo de la puerta del script y salta (jmp) a la ranura 30 (GetDooorAngleOpenRatio, 0x6F59C0 aqui
+// por la vtable) con ECX = this y el resultado en ST0 sin tocarlo: 8 -> puerta 3 (DOOR_RIGHT_FRONT), 9 -> 5 (DOOR_RIGHT_REAR), 10 -> 2 (DOOR_LEFT_FRONT), 11 -> 4 (DOOR_LEFT_REAR); cualquier otro (18 incluido) -> 0.0f (el
+// registro con la constante de 0x858B50). Sin assert (el de CAutomobile no esta en el EXE).
+float CTrain::GetDooorAngleOpenRatioU32(uint32 door) {
+    switch (door) {
+    case 8:
+        return GetDooorAngleOpenRatio(DOOR_RIGHT_FRONT);
+    case 9:
+        return GetDooorAngleOpenRatio(DOOR_RIGHT_REAR);
+    case 10:
+        return GetDooorAngleOpenRatio(DOOR_LEFT_FRONT);
+    case 11:
+        return GetDooorAngleOpenRatio(DOOR_LEFT_REAR);
+    default:
+        return 0.0f;
+    }
+}
+
+// 0x6F59C0 (lote 200A, sin validar; thiscall, un argumento de pila (dword), `ret 4`, 22 bytes): CDoor::GetAngleOpenRatio (0x6F47E0) de m_aDoors[puerta] (+0x5D8 + 0x18 * puerta, SIN comprobar el limite); el resultado sale en ST0.
+float CTrain::GetDooorAngleOpenRatio(eDoors door) {
+    return m_aDoors.data()[door].GetAngleOpenRatio();
+}
+
+// 0x6F5EE0 (lote 200A, sin validar; thiscall, dos argumentos de pila, `ret 8`, 5 bytes: `mov al,1; ret 8`): siempre hay sitio para que el peaton salga del tren; no lee nada (solo AL es el resultado).
+bool CTrain::IsRoomForPedToLeaveCar(uint32 /*doorId*/, CVector* /*arg1*/) {
+    return true;
 }
 
 void CTrain::SetupModelNodes() {

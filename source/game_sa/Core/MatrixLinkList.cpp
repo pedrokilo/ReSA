@@ -25,6 +25,7 @@ auto& gMatrixList = StaticRef<CMatrixLinkList>(0xB74288);
 
 namespace {
 void __fastcall CMatrixLinkListDestructorBody(CMatrixLinkList* self, void* edx);
+__declspec(noinline) CMatrixLinkList* __fastcall CMatrixLinkListConstructorBody(CMatrixLinkList* self, void* edx); // 0x54F440 (lote 200A)
 }
 
 /**
@@ -36,6 +37,7 @@ void CMatrixLinkList::InjectHooks()
     RH_ScopedCategory("Core");
 
     RH_ScopedNamedGlobalInstall(CMatrixLinkListDestructorBody, "Destructor", 0x54EB70); // lote 161A (banco Fn161A)
+    RH_ScopedNamedGlobalInstall(CMatrixLinkListConstructorBody, "Constructor", 0x54F440); // lote 200A (sin validar)
     RH_ScopedInstall(Init, 0x54F0D0);
     RH_ScopedInstall(Shutdown, 0x54E990);
     RH_ScopedInstall(AddToList1, 0x54E9D0);
@@ -62,6 +64,18 @@ __declspec(noinline) void __fastcall CMatrixLinkListDestructorBody(CMatrixLinkLi
     self->m_allocatedListHead.Destructor();
     self->m_tail.Destructor();
     self->m_head.Destructor();
+}
+
+// 0x54F440 (lote 200A, sin validar; el listado decia CPlaceable; thiscall, sin argumentos, `ret`, 77 bytes, EAX = this; lo llama solo el inicializador estatico de gMatrixList, 0x84E305): constructor de CMatrixLinkList del EXE.
+// Con los constructores de CMatrix de los seis centinelas en linea el EXE solo escribe, con un registro puesto a cero (dword cada uno y en este orden), +0x40 y +0x44 de cada centinela (matriz enlazada y bandera de propiedad:
+// +0x40/+0x44, +0x94/+0x98, +0xE8/+0xEC, +0x13C/+0x140, +0x190/+0x194, +0x1E4/+0x1E8) y al final m_pObjects (+0x1F8). NO toca el resto de las matrices ni las listas. El constructor C++ de la DLL inicializa mas campos.
+__declspec(noinline) CMatrixLinkList* __fastcall CMatrixLinkListConstructorBody(CMatrixLinkList* self, void* /*edx*/) {
+    auto* const bytes = reinterpret_cast<uint8*>(self);
+    static constexpr uint32 kOffsets[] = { 0x40, 0x44, 0x94, 0x98, 0xE8, 0xEC, 0x13C, 0x140, 0x190, 0x194, 0x1E4, 0x1E8, 0x1F8 };
+    for (const uint32 offset : kOffsets) {
+        *reinterpret_cast<volatile uint32*>(bytes + offset) = 0;
+    }
+    return self;
 }
 } // namespace
 

@@ -191,6 +191,7 @@ CTaskComplexStuckInAir* __fastcall StuckInAirConstructorBody(CTaskComplexStuckIn
     *reinterpret_cast<uint32*>(self) = 0x870608;
     return self;
 }
+__declspec(noinline) void __fastcall ComplexStuckInAirDestructorBody(CTaskComplexStuckInAir* self, void* edx); // 0x67BA70, definida mas abajo
 } // namespace
 
 void CTaskComplexStuckInAir::InjectHooks() {
@@ -198,6 +199,7 @@ void CTaskComplexStuckInAir::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(ScalarDeletingDestructor, 0x67FA60);
     RH_ScopedNamedGlobalInstall(StuckInAirConstructorBody, "Constructor", 0x67BA40);
+    RH_ScopedNamedGlobalInstall(ComplexStuckInAirDestructorBody, "DestructorBody", 0x67BA70); // lote 200A (sin validar): el cuerpo ya existia sin enganchar (lote 128A)
 
     RH_ScopedGlobalInstall(CreateSubTask, 0x67BA80);
     RH_ScopedVMTInstall(Clone, 0x67C700);
@@ -208,7 +210,7 @@ void CTaskComplexStuckInAir::InjectHooks() {
 }
 
 namespace {
-// 0x67BA70 (lote 128A, banco Fn128A): cuerpo del destructor de CTaskComplexStuckInAir del EXE, sin hook propio (`mov dword [ecx],0x870608; jmp CTaskComplex::Destructor (0x61A3D0)`, thiscall sin argumentos). Funcion propia sin expansion
+// 0x67BA70 (lote 128A, banco Fn128A): cuerpo del destructor de CTaskComplexStuckInAir del EXE, enganchado desde el lote 200A (sin validar) (`mov dword [ecx],0x870608; jmp CTaskComplex::Destructor (0x61A3D0)`, thiscall sin argumentos). Funcion propia sin expansion
 // en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x67BA70` del EXE.
 __declspec(noinline) void __fastcall ComplexStuckInAirDestructorBody(CTaskComplexStuckInAir* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x870608;

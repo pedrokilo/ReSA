@@ -40,6 +40,7 @@ public:
         RH_ScopedNamedGlobalInstall(details::CPtrNodeSingleLink__operator_new, "OperatorNew", 0x00552380); // lote 173A (banco Fn173A): operator new de los nodos simples (salta a New)
         RH_ScopedNamedGlobalInstall(details::CPtrNodeSingleLink__operator_delete, "OperatorDelete", 0x00552390); // lote 173A (banco Fn173A): operator delete de los nodos simples
         RH_ScopedNamedGlobalInstall(details::CPtrListSingleLink__FlushExe, "Flush", 0x00552400); // lote 131A (banco Fn131A): Flush de listas simples (codigo de plantilla del EXE)
+        RH_ScopedNamedGlobalInstall(details::CPtrListSingleLink__FlushJumpExe, "FlushJump", 0x0043E1A0); // lote 200A (sin validar): `jmp 0x552400`
     }
 
 public:

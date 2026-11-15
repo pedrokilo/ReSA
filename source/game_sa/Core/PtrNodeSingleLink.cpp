@@ -50,4 +50,10 @@ void __fastcall CPtrListSingleLink__FlushExe(void* list, void* /*edx*/) {
         }
     } while (node);
 }
+
+// 0x43E1A0 (lote 200A, sin validar; el listado decia CPlaceable; thiscall, sin argumentos, 5 bytes: `jmp 0x552400`; solo lo alcanzan saltos desde las funciones de destruccion estatica del EXE (0x837730, 0x837810, 0x837818,
+// 0x83CC20, 0x83CCA0, ...), sin llamadores directos): salto puro al Flush de las listas simples (0x552400, CPtrListSingleLink__FlushExe, con hook); ECX (la cabeza de la lista) pasa intacto y no se toca nada mas.
+void __fastcall CPtrListSingleLink__FlushJumpExe(void* list, void* edx) {
+    CPtrListSingleLink__FlushExe(list, edx);
+}
 };

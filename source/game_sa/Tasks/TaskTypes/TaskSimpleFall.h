@@ -21,7 +21,7 @@ public:
     ~CTaskSimpleFall() override;
 
     eTaskType GetTaskType() const override;                         // 0x678300
-    CTask* Clone() const override { return new CTaskSimpleFall(m_nAnimId, m_nAnimGroup, m_nTotalDownTime); }
+    CTask* Clone() const override; // 0x67C180 (lote 200A, sin validar)
     bool ProcessPed(CPed* ped) override;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
 
