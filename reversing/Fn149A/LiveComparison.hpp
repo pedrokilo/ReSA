@@ -407,7 +407,7 @@ inline void Update() {
     const auto& K = kBodyFakes;
     env.stubs[1] = {F(0x61A3A0, K[1])};                                                                       // ~CTask (cuerpo de CTask::Destructor)
     env.stubs[2] = {Rt(1, K[2]), Del()};
-    env.stubs[3] = {H(0x48E900, Lote149ABody_CTaskSimpleCower(), K[3]), Del()};
+    env.stubs[3] = {H(0x48E900, Lote149ABody_CTaskSimpleCower(), K[3]), Del(), F(0x61A6F0, &FkBody<0x61A6F0>)};   // arreglo tras el pase final: 0x48E900 del EXE es `jmp 0x61A6F0` (cuerpo de ~CTaskSimpleAnim, que ahora tiene hook desde los lotes 150A/169A): su ruta tambien se apaga (el falso de 0x61A6F0 no llega a ejecutarse)
     env.stubs[6] = {F(0x61A3B0, K[6])};                                                                       // constructor de CTaskComplex
     env.stubs[7] = {H(0x63D100, Lote149ABody_CTaskComplexEnterAnyCarAsDriver(), K[7]), Del()};
     env.stubs[8] = {H(0x63DFA0, Lote149ABody_CTaskComplexEnterCar(), K[8]), Del()};

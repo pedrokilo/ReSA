@@ -374,7 +374,7 @@ CVehicle::CVehicle(eVehicleCreatedBy createdBy) : CPhysical(), m_vehicleAudio(),
     SetTypeVehicle();
 
     m_fRawSteerAngle = 0.0f;
-    m_GasPedal = 0.0f; // Como el original: tambien se pone a cero (0x494)
+    m_fSteerAngle = 0.0f; // Como el original: tambien se pone a cero (0x494); m_GasPedal (0x49C) NO se escribe (el EXE no lo toca)
     m_f2ndSteerAngle = 0.0f;
     m_nCurrentGear = 1;
     m_fGearChangeCount = 0.0f;

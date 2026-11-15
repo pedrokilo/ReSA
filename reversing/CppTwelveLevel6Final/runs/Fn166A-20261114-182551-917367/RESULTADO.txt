@@ -1,0 +1,3 @@
+APROBADO: Fn166A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn166a\20261114-182551-917367

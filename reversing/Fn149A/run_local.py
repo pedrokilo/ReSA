@@ -31,7 +31,7 @@ SLOTS = ()
 DLL_BODY_WITHOUT_HOOK = set()   # pase final: ~CTaskSimpleWaitForPizza (0x632B70) tiene hook desde el lote 171A
 DL, CD = (0x61A5B0, True), (0x8214BD, False)
 STUBBED = {n: [] for n in NAMES}
-STUBBED.update({NAMES[1]: [(0x61A3A0, True)], NAMES[2]: [(0x48E8A0, True), DL], NAMES[3]: [(0x48E900, True), DL], NAMES[6]: [(0x61A3B0, True)],
+STUBBED.update({NAMES[1]: [(0x61A3A0, True)], NAMES[2]: [(0x48E8A0, True), DL], NAMES[3]: [(0x48E900, True), DL, (0x61A6F0, True)], NAMES[6]: [(0x61A3B0, True)],
                 NAMES[7]: [(0x63D100, True), DL], NAMES[8]: [(0x63DFA0, True), DL], NAMES[9]: [(0x632A90, True), DL], NAMES[10]: [(0x632B70, True), DL],
                 NAMES[16]: [(0x5E0170, True)], NAMES[17]: [(0x535E90, True)], NAMES[18]: [(0x404180, True)], NAMES[21]: [CD], NAMES[22]: [(0x5F7540, True)]})
 REAL = {}

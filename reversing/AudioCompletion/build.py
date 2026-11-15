@@ -22,7 +22,9 @@ TARGETS = (
 GAME_SOURCE = 'source/game_sa/Game.cpp'
 sys.path.insert(0, str(HERE.parent))
 sys.path.insert(0, str(HERE))
-from ShutdownLists.build_isolated import ISOLATE
+# Arreglo tras el pase final de bancos viejos: ShutdownLists.build_isolated.ISOLATE sustituia tres fuentes (CustomBuildingRenderer.cpp, CustomBuildingDNPipeline.cpp, TaskSimpleClimb.cpp)
+# por revisiones del 30/09 que ya no compilan contra las cabeceras actuales (esos cambios estan integrados en main): no se aisla nada y se compila el arbol tal cual.
+ISOLATE = {}
 from runtime_runner import digest
 from instrument import instrument
 

@@ -43,7 +43,10 @@ inline void Update() {
     }
     // Cuerpos de la DLL de los colaboradores reconstruidos que la DLL llama directamente (se resuelven saltando los E9 de enlace incremental ANTES de crear parches).
     env.offRoute.reset(new HookRoute("RwHelper","GetAnimHierarchyFromFrameCallback",0x734A70,HookRoute::RegisteredTarget{}));
-    env.directDll=Resolve(reinterpret_cast<uintptr_t>(&GetAnimHierarchyFromFrameCallback));
+    env.directRaw=reinterpret_cast<uintptr_t>(&GetAnimHierarchyFromFrameCallback);
+    // Pase final: con el hook apagado el enlace incremental (ILT) de &GetAnimHierarchyFromFrameCallback ya no apunta a la DLL sino a 0x734A70 (el hook Simple intercambia los bytes), asi que el cuerpo de la DLL se toma
+    // de la ruta del hook, resuelta por HookRoute mientras el hook estaba encendido (misma via que el resto de rutas del banco).
+    env.directDll=env.offRoute->Body();
     env.dllRemoveAll=Resolve(std::bit_cast<uintptr_t>(&CPedGroup::RemoveAllFollowers));
     env.dllSetDefault=Resolve(std::bit_cast<uintptr_t>(&CDecision::SetDefault));
     env.dllFindSafehouse=Resolve(reinterpret_cast<uintptr_t>(&CGarages::FindSafeHouseIndexForGarageType));
