@@ -18,7 +18,7 @@ public:
     bool AffectsPed(CPed* ped) override;
     CEntity* GetSourceEntity() const override { return m_Vehicle ? m_Vehicle->m_pDriver : nullptr; }
     float GetLocalSoundLevel() override { return 100.0f; }
-    CEventEditableResponse* CloneEditable() const noexcept override { return new CEventPotentialGetRunOver(m_Vehicle); }
+    CEventEditableResponse* CloneEditable() const noexcept override; // 0x4B6F40 (lote 202A, sin validar)
 
 private:
     friend void InjectHooksMain();

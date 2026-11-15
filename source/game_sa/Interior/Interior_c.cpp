@@ -109,7 +109,7 @@ void Interior_c::InjectHooks() {
     RH_ScopedClass(Interior_c);
     RH_ScopedCategory("Interior");
 
-    //RH_ScopedInstall(Constructor, 0x5921D0, { .reversed = false });
+    RH_ScopedInstall(Constructor, 0x5921D0); // lote 202A (sin validar): el cuerpo ya existia (usado por InteriorManager_c::Constructor); ahora enganchado
     RH_ScopedInstall(Destructor, 0x591360); // lote 176A (sin validar): el EXE solo llama a dos destructores que son un `ret` (0x4A8DE0 sobre +0x5C y 0x4A8DC0)
 
     RH_ScopedInstall(Bedroom_AddTableItem, 0x593F10, { .reversed = true });
@@ -3006,6 +3006,8 @@ void Interior_c::FurnishShop(int32 a2) {
     return;
 }
 
+// 0x5921D0 (lote 202A, sin validar; el listado decia Interior_c; thiscall, sin argumentos, `ret`, 87 bytes con marco SEH que solo desenrolla): constructor de Interior_c del EXE. Base ListItem_c (0x4A8DB0: +0 y +4 a cero), lista m_list (+0x5C, 0x4A8DD0: tres dwords a cero)
+// y las palabras +0x3EC y +0x3F0 a 0xFFFF; no toca nada mas (el resto queda sin inicializar). Devuelve `this`.
 Interior_c* Interior_c::Constructor() {
     m_pPrev = nullptr;
     m_pNext = nullptr;

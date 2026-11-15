@@ -42,6 +42,7 @@ void CEventPotentialWalkIntoVehicle::InjectHooks()
     RH_ScopedVMTInstall(GetEventPriority, 0x4AE3B0);   // lote 139A: 29
     RH_ScopedVMTInstall(TakesPriorityOver, 0x4AE5C0);  // lote 139A: siempre true (`mov al,1; ret 4`)
     RH_ScopedVMTInstall(AffectsPed, 0x4AE420);
+    RH_ScopedVMTInstall(CloneEditable, 0x4B6FB0); // lote 202A (sin validar): ranura 16
 }
 
 // 0x4AE320
@@ -59,6 +60,16 @@ CEventPotentialWalkIntoVehicle::~CEventPotentialWalkIntoVehicle() {
 CEventPotentialWalkIntoVehicle* CEventPotentialWalkIntoVehicle::Constructor(CVehicle* vehicle, int32 moveState) {
     this->CEventPotentialWalkIntoVehicle::CEventPotentialWalkIntoVehicle(vehicle, moveState);
     return this;
+}
+
+// 0x4B6FB0 (lote 202A, sin validar; el listado decia CEventVehicleCollision; ranura 16 (CloneEditable) de la vtable 0x85AED0; thiscall, sin argumentos, `ret`, 101 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite)).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x1C bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x4AE320 (Constructor, con hook) con (vehiculo +0x14, estado de movimiento +0x18) y devuelve el evento nuevo.
+CEventPotentialWalkIntoVehicle* CEventPotentialWalkIntoVehicle::CloneEditable() const noexcept {
+    auto* const object = static_cast<CEventPotentialWalkIntoVehicle*>(CEvent::operator new(sizeof(CEventPotentialWalkIntoVehicle)));
+    if (!object) {
+        return nullptr;
+    }
+    return object->Constructor(m_vehicle, m_moveState);
 }
 
 // 0x4AE420

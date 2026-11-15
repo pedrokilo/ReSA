@@ -22,7 +22,7 @@ public:
     bool AffectsPed(CPed* ped) override;
     CEntity* GetSourceEntity() const override { return m_ped; }
     bool TakesPriorityOver(const CEvent& refEvent) override;
-    CEventPotentialWalkIntoPed* CloneEditable() const noexcept override { return new CEventPotentialWalkIntoPed(m_ped, m_targetPoint, m_moveState); }
+    CEventPotentialWalkIntoPed* CloneEditable() const noexcept override; // 0x4B7090 (lote 202A, sin validar)
 
 private:
     friend void InjectHooksMain();

@@ -10,12 +10,15 @@ public:
     CTaskSimplePlayHandSignalAnim(AnimationId animationId, float fBlendFactor, bool bFatHands, bool bHoldLastFrame);
     ~CTaskSimplePlayHandSignalAnim() override;
 
-    eTaskType GetTaskType() const override { return Type; } // 0x61AEA0;
-    CTask* Clone() const override { return new CTaskSimplePlayHandSignalAnim(m_PlayerIdlesAnimBlockId, m_AnimBlenDelta, m_DoUseFatHands, m_bHoldLastFrame); }
-    bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return CTaskSimpleAnim::MakeAbortable(ped, priority, event); }
+    eTaskType GetTaskType() const override; // 0x61AEA0 (lote 202A, sin validar)
+    CTask* Clone() const override;          // 0x61B980 (lote 202A, sin validar)
+    bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override; // 0x61AF50 (lote 202A, sin validar)
     bool ProcessPed(CPed* ped) override;
 
     void StartAnim(CPed* ped);
+
+    //! 0x61AEB0 (lote 202A, sin validar): cuerpo del destructor del EXE (vtable 0x86D5B8, libera las manos y sigue con 0x61A6F0); funcion propia sin expansion en linea
+    static void __fastcall DestructorBodyExe(CTaskSimplePlayHandSignalAnim* self, void* edx);
 
     static void InjectHooks();
 

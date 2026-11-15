@@ -49,6 +49,7 @@ void CEventBuildingCollision::InjectHooks()
     RH_ScopedNamedGlobalInstall(BuildingCollisionScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B5A20); // lote 190A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x4ACF00);
+    RH_ScopedVMTInstall(Clone, 0x4B6D40);                      // lote 202A (sin validar): ranura 4
     RH_ScopedVMTInstall(GetEventType, 0x4ACFB0);               // lote 149A (banco Fn149A)
     RH_ScopedVMTInstall(GetLifeTime, 0x4ACFC0);                // lote 149A (banco Fn149A)
     RH_ScopedVMTInstall(CanBeInterruptedBySameEvent, 0x4ACFD0); // lote 149A (banco Fn149A)
@@ -81,6 +82,17 @@ CEventBuildingCollision* CEventBuildingCollision::Constructor(int16 pieceType, f
 {
     this->CEventBuildingCollision::CEventBuildingCollision(pieceType, damageIntensity, building, collisionImpactVelocity, collisionPos, moveState);
     return this;
+}
+
+// 0x4B6D40 (lote 202A, sin validar; el listado decia CEventVehicleCollision; ranura 4 (Clone) de la vtable 0x85ACE8; thiscall, sin argumentos, `ret`, 121 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite)).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x30 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x4ACF00 (Constructor, con hook) con (tipo de pieza +0xC ampliado a cero, intensidad +0x10,
+// edificio +0x14, direccion de la normal +0x18, direccion de la posicion +0x24, estado +0xE con signo) y devuelve el evento nuevo.
+CEventBuildingCollision* CEventBuildingCollision::Clone() const noexcept {
+    auto* const object = static_cast<CEventBuildingCollision*>(CEvent::operator new(sizeof(CEventBuildingCollision)));
+    if (!object) {
+        return nullptr;
+    }
+    return object->Constructor(m_pieceType, m_damageIntensity, m_building, m_impactNormal, m_impactPos, m_moveState);
 }
 
 // 0x4ACFB0 (lote 149A, banco Fn149A; thiscall, `ret`, 6 bytes: `mov eax,6`): EVENT_BUILDING_COLLISION (6); no lee el objeto.

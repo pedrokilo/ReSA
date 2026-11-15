@@ -548,6 +548,7 @@
 #include "TaskSimplePlayerOnFire.h"
 #include "TaskComplexOnFire.h"
 #include "TaskSimpleBikeJacked.h"
+#include "TaskSimpleRunAnimLoopedMiddle.h" // lote 202A (sin validar)
 #include "TaskSimpleRunTimedAnim.h"
 #include "TaskSimpleSay.h"
 #include "TaskComplexEnterCar.h"
@@ -784,6 +785,7 @@ void InjectHooksMain() {
     CMatrixInjectHooksLote105A(); // Only operator*= 0x411A80.
     CMatrixInjectHooksLote166A(); // Only AddTranslation 0x46AE00.
     CMatrix::InjectHooksLote162A(); // Only Detach 0x59ACF0, CopyOnlyMatrix 0x59ADD0, Update 0x59BB60, UpdateMatrix 0x59AD20, operator+= 0x59ADF0 and Scale 0x459350.
+    CMatrix::InjectHooksLote202A(); // Only ConvertToEulerAngles 0x59A840 and ConvertFromEulerAngles 0x59AA40 (lote 202A, sin validar).
     CVector2D::InjectHooksLote162A(); // Only operator= 0x43E110.
     CColPointInjectHooksLote105A(); // Only CColPoint::operator= 0x40FC80.
     tColLightingInjectHooksLote116A(); // Only tColLighting::GetCurrentLighting 0x59F0C0.
@@ -1361,7 +1363,7 @@ void InjectHooksMain() {
         CTaskSimpleOnEscalator::InjectHooks(); // lote 171A (banco Fn171A)
         CTaskSimplePickUpBike::InjectHooks();
         CTaskSimplePlayerOnFire::InjectHooks();
-        // CTaskSimpleRunAnimLoopedMiddle::InjectHooks();
+        CTaskSimpleRunAnimLoopedMiddle::InjectHooks(); // lote 202A (sin validar): solo funciones sueltas por direccion
         CTaskSimpleRunTimedAnim::InjectHooks();
         CTaskSimpleSay::InjectHooks();
         CTaskSimpleSetCharDecisionMaker::InjectHooks();

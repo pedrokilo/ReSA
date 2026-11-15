@@ -48,8 +48,7 @@ void CMatrix::InjectHooks()
     // se instalan por CMatrixInjectHooksLote103A (lote 103A, banco Fn103A).
     // SetRotateX/Y/Z (0x59B060, 0x59B0A0, 0x59B0E0), RotateX/Y/Z (0x59B1E0, 0x59B2C0, 0x59B390), Reorthogonalise (0x59B6A0), CopyToRwMatrix (0x59B8B0) e Invert(in) (0x59BDD0)
     // se instalan por CMatrixInjectHooksLote101A (lote 101A, banco Fn101A).
-    RH_ScopedInstall(ConvertToEulerAngles, 0x59A840);
-    RH_ScopedInstall(ConvertFromEulerAngles, 0x59AA40);
+    // ConvertToEulerAngles (0x59A840) y ConvertFromEulerAngles (0x59AA40) se instalan por InjectHooksLote202A (lote 202A, sin validar).
     // operator*= (0x411A80) se instala por CMatrixInjectHooksLote105A (lote 105A, banco Fn105A).
     //RH_ScopedGlobalOverloadedInstall(operator*, "Vec", 0x59C890, CVector(*)(const CMatrix&, const CVector&)); // ver InjectHooksMultiplyVector
 }
@@ -76,6 +75,18 @@ void CMatrix::InjectHooksAttachAssign()
     RH_ScopedInstall(Attach, 0x59BD10);
     RH_ScopedInstall(AttachRW, 0x59BD90); // lote 154A (banco Fn154A)
     RH_ScopedInstall(operator=, 0x59BBC0);
+}
+
+// Lote 202A (sin validar): ConvertToEulerAngles (0x59A840) y ConvertFromEulerAngles (0x59AA40). Sus cuerpos (MatrixConvertToEulerCpp / MatrixConvertFromEulerCpp en X87Math.cpp, con las tablas de ejes 0x866D9C / 0x866D94 y el umbral 0x866D90)
+// ya existian y llevan evidencia historica del banco CppMatrixExact1; el lote 162A los dejo fuera de las listas activas por falta de un oraculo independiente exacto (fsin/fcos/fpatan de la x87), asi que NO tenian hook. Ahora se activan; se
+// revisaron instruccion por instruccion contra el desensamblado (ver reversing/PendienteValidar/202A.md).
+void CMatrix::InjectHooksLote202A()
+{
+    RH_ScopedClass(CMatrix);
+    RH_ScopedCategory("Core");
+
+    RH_ScopedInstall(ConvertToEulerAngles, 0x59A840);
+    RH_ScopedInstall(ConvertFromEulerAngles, 0x59AA40);
 }
 
 // Lote 162A (banco Fn162A): Detach (0x59ACF0), CopyOnlyMatrix (0x59ADD0), Update (0x59BB60), UpdateMatrix (0x59AD20), operator+= (0x59ADF0) y Scale (0x459350). ConvertToEulerAngles (0x59A840) y

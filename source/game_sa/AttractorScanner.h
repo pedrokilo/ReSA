@@ -11,6 +11,7 @@
 class C2dEffect;
 struct C2dEffectPedAttractor;
 class CPed;
+class CEntity;
 
 class CAttractorScanner {
 public:
@@ -48,6 +49,20 @@ public:
      * (tarea activa distinta de TASK_COMPLEX_USE_EFFECT), el efecto admite su modelo o su tipo de peaton (lista de usuarios de CScripted2dEffects) y CPedAttractorManager::IsApproachable lo acepta. Nulo si ninguno.
      */
     static CPed* FindClosestPedForEffect(C2dEffectPedAttractor* effect);
+
+    /**
+     * 0x5FFFD0 (lote 202A, sin validar; thiscall, tres argumentos de pila, `ret 0Ch`, 429 bytes con SEH que solo destruye la matriz local): evalua un efecto 2D de atractor (de una entidad, o de script con entidad nula) como candidato para el peaton: segun la lluvia
+     * (CWeather::Rain frente a 0.2) solo vale el tipo 4 (refugio) con lluvia y cualquier otro sin ella; la distancia al cuadrado entre el peaton y la posicion del efecto en el mundo debe ser estrictamente menor que la guardada para su tipo (field_68[tipo]); los
+     * efectos de script (tipo 7) ademas respetan su radio al cuadrado (CScripted2dEffects::ms_radii; radio negativo = sin limite); y CPedAttractorManager::HasEmptySlot e IsApproachable lo aceptan. Si lo aceptan guarda entidad, distancia y efecto en field_18, field_68 y field_40
+     * (indice = tipo, sin comprobar el rango).
+     */
+    void ScanEffect(C2dEffectPedAttractor* effect, CEntity* entity, CPed* ped);
+
+    /**
+     * 0x600180 (lote 202A, sin validar; thiscall, dos argumentos de pila, `ret 8`, 364 bytes): deja en *effect y *entity el mejor candidato guardado (ambos a nulo si no hay): si hay entidad guardada para el tipo 4 (refugio) gana esa; si no, el de menor distancia
+     * al cuadrado estricta (empezando en FLT_MAX) entre los diez tipos que tengan efecto no nulo, recorridos del 0 al 9 (los empates los gana el primero).
+     */
+    void GetBestEffect(C2dEffectPedAttractor** effect, CEntity** entity);
 };
 
 VALIDATE_SIZE(CAttractorScanner, 0x90);

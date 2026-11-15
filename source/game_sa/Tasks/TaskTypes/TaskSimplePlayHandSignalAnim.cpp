@@ -41,12 +41,28 @@ CTaskSimplePlayHandSignalAnim* __fastcall HandSignalConstructorBody(CTaskSimpleP
     bytes[0x18] = static_cast<uint8>(fatHands) != 0 ? 1 : 0;
     return self;
 }
+
+// 0x61BD80 (lote 202A, sin validar): destructor con borrado de CTaskSimplePlayHandSignalAnim del EXE (ranura 0 de su vtable 0x86D5B8; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x61AEB0; test byte [esp+8],1; je ..;
+// push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x61AEB0, con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas
+// esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskSimplePlayHandSignalAnim* __fastcall HandSignalScalarDeletingDestructor(CTaskSimplePlayHandSignalAnim* self, void* /*edx*/, uint8 flags) {
+    CTaskSimplePlayHandSignalAnim::DestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskSimplePlayHandSignalAnim::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimplePlayHandSignalAnim, 0x86D5B8, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(HandSignalConstructorBody, "Constructor", 0x61AE50);
+    RH_ScopedNamedGlobalInstall(DestructorBodyExe, "DestructorBody", 0x61AEB0);                            // lote 202A (sin validar)
+    RH_ScopedNamedGlobalInstall(HandSignalScalarDeletingDestructor, "ScalarDeletingDestructor", 0x61BD80); // lote 202A (sin validar)
+    RH_ScopedVMTInstall(GetTaskType, 0x61AEA0);    // lote 202A (sin validar): ranura 4
+    RH_ScopedVMTInstall(Clone, 0x61B980);          // lote 202A (sin validar): ranura 1
+    RH_ScopedVMTInstall(MakeAbortable, 0x61AF50);  // lote 202A (sin validar): ranura 6, `jmp 0x61A790`
 
     RH_ScopedVMTInstall(ProcessPed, 0x61BDA0);
     RH_ScopedInstall(StartAnim, 0x61AF60);
@@ -73,6 +89,53 @@ CTaskSimplePlayHandSignalAnim::~CTaskSimplePlayHandSignalAnim() {
         delete m_RightHand;
         --CObject::nNoTempObjects;
     }
+}
+
+// 0x61AEA0 (lote 202A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,1A9h`): TASK_SIMPLE_HANDSIGNAL_ANIM (425); no lee el objeto (ranura 4 de la vtable 0x86D5B8).
+eTaskType CTaskSimplePlayHandSignalAnim::GetTaskType() const {
+    return Type;
+}
+
+// 0x61AF50 (lote 202A, sin validar; 5 bytes: `jmp 0x61A790`; ranura 6 de la vtable 0x86D5B8): salto puro a CTaskSimpleAnim::MakeAbortable (0x61A790, con hook, `ret 0Ch` con tres argumentos de pila: ped, prioridad, evento): no toca los registros ni
+// la pila, asi que los tres argumentos pasan tal cual y el valor de retorno es el de esa funcion. Aqui es la llamada calificada (no virtual) a la base.
+bool CTaskSimplePlayHandSignalAnim::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
+    return CTaskSimpleAnim::MakeAbortable(ped, priority, event);
+}
+
+// 0x61B980 (lote 202A, sin validar; ranura 1 (Clone) de la vtable 0x86D5B8; thiscall, sin argumentos, `ret`, 118 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite)).
+// Como el original: CTask::operator new (0x61A5A0, con hook) con 0x24 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x61AE50 (HandSignalConstructorBody, con hook) con cuatro argumentos de pila: (identificador de animacion
+// +0x10, factor +0x14 (patron de bits tal cual), byte +0x18 ampliado a cero, bit 2 del byte +0xC desplazado a bit 0) y devuelve la tarea nueva (el constructor devuelve `this`). El constructor del EXE deja la vtable 0x86D5B8.
+CTask* CTaskSimplePlayHandSignalAnim::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskSimplePlayHandSignalAnim));
+    if (!memory) {
+        return nullptr;
+    }
+    const uint8* const bytes = reinterpret_cast<const uint8*>(this);
+    return HandSignalConstructorBody(
+        static_cast<CTaskSimplePlayHandSignalAnim*>(memory), nullptr,
+        *reinterpret_cast<const uint32*>(bytes + 0x10),
+        *reinterpret_cast<const uint32*>(bytes + 0x14),
+        uint32{ bytes[0x18] },
+        uint32{ (bytes[0xC] & 4u) >> 2 }
+    );
+}
+
+// 0x61AEB0 (lote 202A, sin validar; thiscall, sin argumentos de pila, `ret`, 146 bytes con marco SEH que solo desenrolla (se omite)): cuerpo del destructor de CTaskSimplePlayHandSignalAnim del EXE. Como el original: deja la vtable de la clase del EXE (0x86D5B8);
+// con la mano izquierda (+0x1C) no nula: CWorld::Remove (0x563280, con hook, cdecl un argumento), vuelve a leer +0x1C y, si no es nulo, llama al destructor con borrado de la mano (ranura 0, flag 1), y baja en uno CObject::nNoTempObjects (word en 0xBB4A70)
+// AUNQUE el puntero ya fuera nulo; lo mismo con la mano derecha (+0x20); y sigue con el cuerpo de ~CTaskSimpleAnim (0x61A6F0, con hook). Funcion propia sin expansion en linea para que el banco pueda sustituirla.
+__declspec(noinline) void __fastcall CTaskSimplePlayHandSignalAnim::DestructorBodyExe(CTaskSimplePlayHandSignalAnim* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86D5B8;
+    if (self->m_LeftHand) {
+        CWorld::Remove(self->m_LeftHand);
+        delete self->m_LeftHand;
+        --CObject::nNoTempObjects;
+    }
+    if (self->m_RightHand) {
+        CWorld::Remove(self->m_RightHand);
+        delete self->m_RightHand;
+        --CObject::nNoTempObjects;
+    }
+    CTaskSimpleAnim::DestructorBodyExe(self, nullptr);
 }
 
 // 0x61BDA0

@@ -30,11 +30,11 @@ public:
     ~CEventVehicleCollision() override;
 
     eEventType GetEventType() const override; // 0x4AC8F0 (lote 201A, sin validar)
-    int32 GetEventPriority() const override { return 58; }
-    int32 GetLifeTime() override { return 0; }
+    int32 GetEventPriority() const override; // 0x4AC910 (lote 202A, sin validar)
+    int32 GetLifeTime() override;            // 0x4AC900 (lote 202A, sin validar)
     CEvent* Clone() const noexcept override { return new CEventVehicleCollision(m_pieceType, m_fDamageIntensity, m_vehicle, m_impactNormal, m_impactPos, m_moveState, VEHICLE_EVADE_NONE); } // 0x4B6BC0
     bool AffectsPed(CPed* ped) override;
-    bool TakesPriorityOver(const CEvent& refEvent) override { return true; }
+    bool TakesPriorityOver(const CEvent& refEvent) override; // 0x4AC980 (lote 202A, sin validar)
 
 private:
     CEventVehicleCollision* Constructor(int16 pieceType, float damageIntensity, CVehicle* vehicle, const CVector& collisionImpactVelocity, const CVector& collisionPosition, int8 moveState, int16 evadeType);

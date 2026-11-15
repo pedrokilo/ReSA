@@ -50,6 +50,7 @@ void CEventPedCollisionWithPed::InjectHooks()
     RH_ScopedNamedGlobalInstall(CEventBody::PedCollisionWithPedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B5980); // lote 190A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x4AC990);
+    RH_ScopedVMTInstall(Clone, 0x4B6C40);            // lote 202A (sin validar): ranura 4
     RH_ScopedVMTInstall(GetEventType, 0x4ACA40);     // lote 137A (banco Fn137A)
     RH_ScopedVMTInstall(GetLifeTime, 0x4ACA50);      // lote 137A
     RH_ScopedVMTInstall(GetEventPriority, 0x4ACA60); // lote 137A
@@ -80,6 +81,17 @@ CEventPedCollisionWithPed* CEventPedCollisionWithPed::Constructor(int16 pieceTyp
 {
     this->CEventPedCollisionWithPed::CEventPedCollisionWithPed(pieceType, damageIntensity, victim, collisionImpactVelocity, collisionPos, moveState, victimMoveState);
     return this;
+}
+
+// 0x4B6C40 (lote 202A, sin validar; el listado decia CEventVehicleCollision; ranura 4 (Clone) de la vtable 0x85AC68; thiscall, sin argumentos, `ret`, 126 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite)).
+// Como el original: CEvent::operator new (pool de eventos, 0x4B5620 con hook) con 0x34 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x4AC990 (Constructor, con hook) con (tipo de pieza +0xC ampliado a cero,
+// intensidad +0x10, victima +0x14, direccion de la velocidad +0x18, direccion de la posicion +0x24, estado +0x30 con signo, estado de la victima +0x32 con signo) y devuelve el evento nuevo.
+CEventPedCollisionWithPed* CEventPedCollisionWithPed::Clone() const noexcept {
+    auto* const object = static_cast<CEventPedCollisionWithPed*>(CEvent::operator new(sizeof(CEventPedCollisionWithPed)));
+    if (!object) {
+        return nullptr;
+    }
+    return object->Constructor(m_pieceType, m_damageIntensity, m_victim, m_collisionImpactVelocity, m_collisionPos, m_movestate, m_victimMoveState);
 }
 
 // 0x4ACAD0

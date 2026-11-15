@@ -24,7 +24,7 @@ public:
     bool TakesPriorityOver(const CEvent& refEvent) override;
     int32 GetEventPriority() const override { return 60; };
     int32 GetLifeTime() override { return 0; };
-    CEventPedCollisionWithPed* Clone() const noexcept override { return new CEventPedCollisionWithPed(m_pieceType, m_damageIntensity, m_victim, m_collisionImpactVelocity, m_collisionPos, m_movestate, m_victimMoveState); };
+    CEventPedCollisionWithPed* Clone() const noexcept override; // 0x4B6C40 (lote 202A, sin validar)
     bool AffectsPed(CPed* ped) override;
     eMoveState GetVictimMoveState() const { return m_victimMoveState; }
     eMoveState GetMoveState() const { return m_movestate; }

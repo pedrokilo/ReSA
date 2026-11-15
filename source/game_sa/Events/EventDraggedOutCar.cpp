@@ -50,6 +50,7 @@ void CEventDraggedOutCar::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x4AD250);
     RH_ScopedVMTInstall(AffectsPed, 0x4AD3A0); // lote 149A (banco Fn149A)
+    RH_ScopedVMTInstall(CloneEditable, 0x4B6DC0); // lote 202A (sin validar): ranura 16
 }
 
 // 0x4AD250
@@ -84,7 +85,12 @@ bool CEventDraggedOutCar::AffectsPedGroup(CPedGroup* pedGroup) {
     return FindPlayerPed() == pedGroup->GetMembership().GetLeader();
 }
 
-// 0x4B6DC0
+// 0x4B6DC0 (lote 202A, sin validar; el listado decia CEventVehicleCollision; ranura 16 (CloneEditable) de la vtable 0x85AD30; thiscall, sin argumentos, `ret`, 107 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite)).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x20 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x4AD250 (Constructor, con hook) con (vehiculo +0x18, atracador +0x14, byte +0x1C ampliado a cero) y devuelve el evento nuevo.
 CEventEditableResponse* CEventDraggedOutCar::CloneEditable() const noexcept {
-    return new CEventDraggedOutCar(m_Vehicle, m_CarJacker, m_IsDriverSeat);
+    auto* const object = static_cast<CEventDraggedOutCar*>(CEvent::operator new(sizeof(CEventDraggedOutCar)));
+    if (!object) {
+        return nullptr;
+    }
+    return object->Constructor(m_Vehicle, m_CarJacker, m_IsDriverSeat);
 }

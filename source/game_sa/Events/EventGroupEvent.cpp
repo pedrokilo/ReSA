@@ -26,6 +26,7 @@ void CEventGroupEvent::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x4ADFD0);
     RH_ScopedInstall(Destructor, 0x4AE070);
+    RH_ScopedVMTInstall(Clone, 0x4B6EE0); // lote 202A (sin validar): ranura 4
     RH_ScopedInstall(BaseEventTakesPriorityOverBaseEvent, 0x4AE100);
 }
 
@@ -40,6 +41,18 @@ CEventGroupEvent::CEventGroupEvent(CPed* ped, CEvent* event) : CEvent() {
 CEventGroupEvent::~CEventGroupEvent() {
     CEntity::SafeCleanUpRef(m_ped);
     delete m_event;
+}
+
+// 0x4B6EE0 (lote 202A, sin validar; el listado decia CEventVehicleCollision; ranura 4 (Clone) de la vtable 0x85AE48; thiscall, sin argumentos, `ret`, 90 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite)).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x14 bytes; sin memoria devuelve nulo SIN clonar el evento interno; si no, llama a Clone (ranura 4, llamada virtual) del evento interno (+0x10) y luego al constructor 0x4ADFD0
+// (Constructor, con hook) con (peaton +0xC, el clon) y devuelve el evento nuevo. Orden observable: reserva, Clone del evento interno, constructor.
+CEvent* CEventGroupEvent::Clone() const noexcept {
+    auto* const object = static_cast<CEventGroupEvent*>(CEvent::operator new(sizeof(CEventGroupEvent)));
+    if (!object) {
+        return nullptr;
+    }
+    CEvent* const clonedEvent = m_event->Clone();
+    return object->Constructor(m_ped, clonedEvent);
 }
 
 // NOTSA, inlined

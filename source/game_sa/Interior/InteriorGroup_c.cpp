@@ -26,11 +26,21 @@ END GENERATED HOOK STATUS */
 #include "Tasks/TaskTypes/Interior/TaskInteriorBeInShop.h"
 #include "Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.h"
 
+namespace {
+// 0x597FE0 (lote 202A, sin validar; el listado decia Interior_c; thiscall, sin argumentos, `ret`, 12 bytes: `push esi; mov esi,ecx; call 0x4A8DB0 (enlaces anterior y siguiente a cero); mov eax,esi; pop esi; ret`): constructor de InteriorGroup_c del EXE.
+// Solo construye la base ListItem_c<InteriorGroup_c> (m_pPrev y m_pNext a cero), no toca el resto del objeto (0xBC bytes) y devuelve `this`. Lo usa el iterador de constructores de los 8 grupos de InteriorManager_c.
+__declspec(noinline) InteriorGroup_c* __fastcall InteriorGroupConstructorExe(InteriorGroup_c* self, void* /*edx*/) {
+    self->m_pPrev = nullptr;
+    self->m_pNext = nullptr;
+    return self;
+}
+} // namespace
+
 void InteriorGroup_c::InjectHooks() {
     RH_ScopedClass(InteriorGroup_c);
     RH_ScopedCategory("Interior");
 
-    //RH_ScopedInstall(Constructor, 0x597FE0, { .reversed = false });
+    RH_ScopedNamedGlobalInstall(InteriorGroupConstructorExe, "Constructor", 0x597FE0); // lote 202A (sin validar)
     //RH_ScopedInstall(Destructor, 0x597FF0, { .reversed = false });
 
     RH_ScopedInstall(Init, 0x5947E0);

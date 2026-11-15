@@ -29,7 +29,7 @@ public:
     bool CanBeInterruptedBySameEvent() override;                       // 0x4ACFD0
     int32 GetEventPriority() const override;                           // 0x4ACFE0
     int32 GetLifeTime() override;                                      // 0x4ACFC0
-    CEventBuildingCollision* Clone() const noexcept override { return new CEventBuildingCollision(m_pieceType, m_damageIntensity, m_building, m_impactNormal, m_impactPos, m_moveState); }
+    CEventBuildingCollision* Clone() const noexcept override;          // 0x4B6D40 (lote 202A, sin validar)
     bool AffectsPed(CPed* ped) override;
 
     static bool CanTreatBuildingAsObject(CBuilding* building);

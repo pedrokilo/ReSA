@@ -95,6 +95,7 @@ public:
     static void InjectHooksExactOps();        // Solo UpdateRW, UpdateRwMatrix, SetTranslate, SetRotateZOnly, Destructor, ConstructCopy y ConstructAttached (lote 97A)
     static void InjectHooksLote99A();         // Solo SetUnity, ResetOrientation, SetScale (2), SetTranslateOnly, SetRotate xyz, Invert(in, out) y la multiplicacion de matrices (lote 99A)
     static void InjectHooksLote162A();        // Solo Detach, CopyOnlyMatrix, Update, UpdateMatrix, operator+= y Scale (lote 162A)
+    static void InjectHooksLote202A();        // Solo ConvertToEulerAngles (0x59A840) y ConvertFromEulerAngles (0x59AA40) (lote 202A, sin validar)
     static void InjectHooksMultiplyVector(); // Solo operator*(CMatrix, CVector) 0x59C890 (el resto de CMatrix::InjectHooks sigue desactivado)
 
     auto& GetRight(this auto&& self) { return self.m_right; }

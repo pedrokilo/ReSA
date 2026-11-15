@@ -38,6 +38,7 @@ void CEventDeadPed::InjectHooks() {
     RH_ScopedNamedGlobalInstall(DeadPedDestructorBody, "Destructor", 0x4ADF70);
 
     RH_ScopedInstall(Constructor, 0x4ADEA0);
+    RH_ScopedVMTInstall(CloneEditable, 0x4B6E70); // lote 202A (sin validar): ranura 16
 }
 
 // 0x4ADEA0
@@ -79,8 +80,12 @@ bool CEventDeadPed::AffectsPed(CPed* ped) {
     return false;
 }
 
-// 0x4B6E70
+// 0x4B6E70 (lote 202A, sin validar; el listado decia CEventVehicleCollision; ranura 16 (CloneEditable) de la vtable 0x85AE00; thiscall, sin argumentos, `ret`, 107 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite)).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x20 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x4ADEA0 (Constructor, con hook) con (peaton +0x14, byte +0x18 ampliado a cero, hora de la muerte +0x1C) y devuelve el evento nuevo.
 CEventEditableResponse* CEventDeadPed::CloneEditable() const noexcept {
-    return new CEventDeadPed(m_ped, field_18, m_deathTimeInMs);
-
+    auto* const object = static_cast<CEventDeadPed*>(CEvent::operator new(sizeof(CEventDeadPed)));
+    if (!object) {
+        return nullptr;
+    }
+    return object->Constructor(m_ped, field_18, m_deathTimeInMs);
 }

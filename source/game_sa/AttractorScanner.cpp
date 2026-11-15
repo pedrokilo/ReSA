@@ -36,6 +36,8 @@ END GENERATED HOOK STATUS */
 #include "Models/ModelInfo.h"
 #include "PedAttractorManager.h"
 #include "Tasks/PedScriptedTaskRecord.h"
+#include "Weather.h"
+#include "Entity/Entity.h"
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
@@ -251,6 +253,97 @@ CPed* CAttractorScanner::FindClosestPedForEffect(C2dEffectPedAttractor* effect) 
 }
 #pragma float_control(pop)
 
+// 0x5FFFD0 (lote 202A, sin validar; thiscall, tres argumentos de pila (efecto, entidad, peaton), `ret 0Ch`, 429 bytes con marco SEH que solo destruye la matriz local; el EXE conserva EBX/EBP/ESI/EDI).
+// Orden del EXE (x87 a 24 bits, cada producto y suma redondeados a float, sin reordenar):
+//  1. Lluvia: con CWeather::Rain (0xC81324) MENOR o no ordenado con 0.2 (0x858CC4) solo sigue si el tipo (BYTE +0x34 del efecto, ampliado a cero) NO es 4; con lluvia mayor o igual solo sigue si el tipo es 4.
+//  2. Posicion del efecto: con entidad, CEntity::TransformFromObjectSpace (0x5334F0, con hook) de +0 del efecto; sin entidad, la copia tal cual.
+//  3. Distancia al cuadrado ((dz*dz + dy*dy) + dx*dx), con d = posicion del peaton (matriz +0x30 o, sin matriz, +4) menos la del efecto, guardada como float; si NO es estrictamente menor (comparacion ordenada) que field_68[tipo] sale. El indice no se acota.
+//  4. Tipo 7 (BYTE +0x34 igual a 7): radio = CScripted2dEffects::ms_radii[GetIndex(efecto)] (0x6F9F60 y tabla 0xC39EE0); con radio menor que 0 no hay limite; si no, sale cuando la distancia no es estrictamente menor que radio*radio (con NaN sale).
+//  5. CPedAttractorManager::GetPedAttractorManager (0x5EE190) y HasEmptySlot (0x5EBB00, efecto y entidad): si es falso sale SIN construir la matriz.
+//  6. Matriz local (el EXE solo pone a cero +0x40 y +0x44): con entidad, operator= (0x59BBC0) desde CPlaceable::GetMatrix (0x411990) de la entidad; sin entidad, SetScale(1.0f) (0x59AED0). CPedAttractorManager::IsApproachable (0x5EA220) con (efecto, matriz, 0, peaton):
+//     si es cierto guarda field_18[tipo] = entidad, field_68[tipo] = distancia y field_40[tipo] = efecto (en ese orden en el EXE). Despues destruye la matriz (0x59ACD0) por todas las salidas posteriores a su construccion.
+#pragma float_control(precise, on, push)
+void CAttractorScanner::ScanEffect(C2dEffectPedAttractor* effect, CEntity* entity, CPed* ped) {
+    const uint32 type = static_cast<uint8>(effect->m_nAttractorType);
+
+    // Como el original: `fcomp` + test ah,1 (C0): menor o no ordenado = no llueve lo bastante
+    if (!(CWeather::Rain >= std::bit_cast<float>(0x3E4CCCCDu))) { // 0x858CC4 (0.2f)
+        if (type == 4) {
+            return;
+        }
+    } else if (type != 4) {
+        return;
+    }
+
+    CVector effectPos;
+    if (entity) {
+        effectPos = entity->TransformFromObjectSpace(effect->m_Pos);
+    } else {
+        effectPos = effect->m_Pos;
+    }
+
+    const CVector& pedPos = ped->GetPosition();
+    const float dx = pedPos.x - effectPos.x;
+    const float dy = pedPos.y - effectPos.y;
+    const float dz = pedPos.z - effectPos.z;
+    const float distanceSq = (dz * dz + dy * dy) + dx * dx;
+
+    // Como el original: tipo sin acotar (el EXE indexa los tres arrays con el BYTE del tipo)
+    uint8* const base = reinterpret_cast<uint8*>(this);
+    int32& slotEntity   = *reinterpret_cast<int32*>(base + 0x18 + type * 4u);
+    int32& slotEffect   = *reinterpret_cast<int32*>(base + 0x40 + type * 4u);
+    int32& slotDistance = *reinterpret_cast<int32*>(base + 0x68 + type * 4u);
+    if (!(distanceSq < std::bit_cast<float>(slotDistance))) {
+        return;
+    }
+
+    if (type == 7) {
+        const float radius = CScripted2dEffects::ms_radii.data()[CScripted2dEffects::GetIndex(effect)];
+        if (!(radius < 0.0f) && !(distanceSq < radius * radius)) {
+            return;
+        }
+    }
+
+    if (!GetPedAttractorManager()->HasEmptySlot(effect, entity)) {
+        return;
+    }
+
+    CMatrix matrix{};
+    if (entity) {
+        matrix = entity->GetMatrix();
+    } else {
+        matrix.SetScale(1.0f);
+    }
+    if (CPedAttractorManager::IsApproachable(effect, matrix, 0, ped)) {
+        slotEntity   = static_cast<int32>(reinterpret_cast<uintptr_t>(entity));
+        slotDistance = std::bit_cast<int32>(distanceSq);
+        slotEffect   = static_cast<int32>(reinterpret_cast<uintptr_t>(effect));
+    }
+}
+
+// 0x600180 (lote 202A, sin validar; thiscall, dos argumentos de pila (punteros de salida), `ret 8`, 364 bytes): primero deja *effect y *entity a nulo (en ese orden). Si field_18[4] (entidad del tipo 4, refugio) no es nulo, *effect = field_40[4], *entity = field_18[4] y sale.
+// Si no, mejor = FLT_MAX (0x863A3C) y para i de 0 a 9: si field_68[i] es ESTRICTAMENTE menor que `mejor` (el primero compara FLT_MAX con field_68[0] y los demas el mejor ya elegido; comparacion ordenada: con NaN no entra) Y field_40[i] no es nulo,
+// mejor = field_68[i], *effect = field_40[i] y *entity = field_18[i].
+void CAttractorScanner::GetBestEffect(C2dEffectPedAttractor** outEffect, CEntity** outEntity) {
+    *outEffect = nullptr;
+    *outEntity = nullptr;
+    if (field_18[4]) {
+        *outEffect = reinterpret_cast<C2dEffectPedAttractor*>(static_cast<uintptr_t>(static_cast<uint32>(field_40[4])));
+        *outEntity = reinterpret_cast<CEntity*>(static_cast<uintptr_t>(static_cast<uint32>(field_18[4])));
+        return;
+    }
+    float best = std::bit_cast<float>(0x7F7FFFFFu); // 0x863A3C: FLT_MAX
+    for (int32 i = 0; i < 10; i++) {
+        const float distance = std::bit_cast<float>(field_68[i]);
+        if (best > distance && field_40[i]) {
+            best       = distance;
+            *outEffect = reinterpret_cast<C2dEffectPedAttractor*>(static_cast<uintptr_t>(static_cast<uint32>(field_40[i])));
+            *outEntity = reinterpret_cast<CEntity*>(static_cast<uintptr_t>(static_cast<uint32>(field_18[i])));
+        }
+    }
+}
+#pragma float_control(pop)
+
 // 0x6060A0
 void CAttractorScanner::ScanForAttractors(CPed& ped) {
     // Como el original: escaner apagado (byte +0) o peaton en vehiculo (bit 8 de +0x46C) no hacen nada
@@ -334,13 +427,13 @@ void CAttractorScanner::ScanForAttractors(CPed& ped) {
                 continue;
             }
         }
-        plugin::CallMethod<0x5FFFD0, CAttractorScanner*, C2dEffect*, int32, CPed*>(this, &CScripted2dEffects::ms_effects[i], 0, &ped);
+        ScanEffect(reinterpret_cast<C2dEffectPedAttractor*>(&CScripted2dEffects::ms_effects[i]), nullptr, &ped); // 0x5FFFD0
     }
 
     // Mejor candidato (0x600180: efecto y entidad por referencia). Sin efecto, o el mismo efecto y entidad que ya se usan, no hay evento
     C2dEffectPedAttractor* effect = nullptr;
     CEntity*               entity = nullptr;
-    plugin::CallMethod<0x600180, CAttractorScanner*, C2dEffectPedAttractor**, CEntity**>(this, &effect, &entity);
+    GetBestEffect(&effect, &entity); // 0x600180
     if (!effect) {
         return;
     }
@@ -376,4 +469,6 @@ void CAttractorScanner::InjectHooks() {
     RH_ScopedNamedGlobalInstall(FindAttractorInRange, "FindAttractorInRange", 0x6002F0); // lote 203A (sin validar)
     RH_ScopedInstall(ScanEntityList, 0x6034B0);        // lote 198A (sin validar)
     RH_ScopedInstall(FindClosestPedForEffect, 0x603570); // lote 198A (sin validar)
+    RH_ScopedInstall(ScanEffect, 0x5FFFD0);              // lote 202A (sin validar)
+    RH_ScopedInstall(GetBestEffect, 0x600180);           // lote 202A (sin validar)
 }

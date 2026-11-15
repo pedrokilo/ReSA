@@ -56,6 +56,24 @@ void CEventVehicleCollision::InjectHooks()
     RH_ScopedInstall(Constructor, 0x4AC840);
     RH_ScopedVMTInstall(Clone, 0x4B6BC0);
     RH_ScopedVMTInstall(AffectsPed, 0x4B2EE0);
+    RH_ScopedVMTInstall(GetLifeTime, 0x4AC900);        // lote 202A (sin validar): ranura 3
+    RH_ScopedVMTInstall(GetEventPriority, 0x4AC910);   // lote 202A (sin validar): ranura 2
+    RH_ScopedVMTInstall(TakesPriorityOver, 0x4AC980);  // lote 202A (sin validar): ranura 11
+}
+
+// 0x4AC900 (lote 202A, sin validar; thiscall, `ret`, 3 bytes: `xor eax,eax`): vida util 0; no lee el objeto (ranura 3 de la vtable 0x85AC28).
+int32 CEventVehicleCollision::GetLifeTime() {
+    return 0;
+}
+
+// 0x4AC910 (lote 202A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,3Ah`): prioridad 58; no lee el objeto (ranura 2).
+int32 CEventVehicleCollision::GetEventPriority() const {
+    return 58;
+}
+
+// 0x4AC980 (lote 202A, sin validar; thiscall, un argumento de pila, `ret 4`, 5 bytes: `mov al,1`): siempre verdadero (solo se define AL); no lee el objeto ni el evento dado (ranura 11).
+bool CEventVehicleCollision::TakesPriorityOver(const CEvent& /*refEvent*/) {
+    return true;
 }
 
 CEventVehicleCollision::CEventVehicleCollision(int16 pieceType, float damageIntensity, CVehicle* vehicle, const CVector& collisionImpactVelocity, const CVector& collisionPosition, int8 moveState, int16 evadeType)

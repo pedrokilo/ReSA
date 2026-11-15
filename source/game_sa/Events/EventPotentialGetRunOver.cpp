@@ -35,6 +35,7 @@ void CEventPotentialGetRunOver::InjectHooks() {
     RH_ScopedNamedGlobalInstall(PotentialGetRunOverDestructorBody, "Destructor", 0x4AE270);
 
     RH_ScopedInstall(Constructor, 0x4AE1A0);
+    RH_ScopedVMTInstall(CloneEditable, 0x4B6F40); // lote 202A (sin validar): ranura 16
 }
 
 // 0x4AE1A0
@@ -47,6 +48,16 @@ CEventPotentialGetRunOver::CEventPotentialGetRunOver(CVehicle* vehicle) {
 CEventPotentialGetRunOver* CEventPotentialGetRunOver::Constructor(CVehicle* vehicle) {
     this->CEventPotentialGetRunOver::CEventPotentialGetRunOver(vehicle);
     return this;
+}
+
+// 0x4B6F40 (lote 202A, sin validar; el listado decia CEventVehicleCollision; ranura 16 (CloneEditable) de la vtable 0x85AE88; thiscall, sin argumentos, `ret`, 97 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite)).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x18 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x4AE1A0 (Constructor, con hook) con el vehiculo (+0x14) y devuelve el evento nuevo.
+CEventEditableResponse* CEventPotentialGetRunOver::CloneEditable() const noexcept {
+    auto* const object = static_cast<CEventPotentialGetRunOver*>(CEvent::operator new(sizeof(CEventPotentialGetRunOver)));
+    if (!object) {
+        return nullptr;
+    }
+    return object->Constructor(m_Vehicle);
 }
 
 // 0x4AE270

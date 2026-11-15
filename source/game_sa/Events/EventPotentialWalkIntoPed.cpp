@@ -44,6 +44,7 @@ void CEventPotentialWalkIntoPed::InjectHooks()
     RH_ScopedVMTInstall(GetEventPriority, 0x4AE790); // lote 137A
     RH_ScopedVMTInstall(AffectsPed, 0x4AE800);
     RH_ScopedVMTInstall(TakesPriorityOver, 0x4AE950);
+    RH_ScopedVMTInstall(CloneEditable, 0x4B7090); // lote 202A (sin validar): ranura 16
 }
 
 // 0x4AE6E0
@@ -58,6 +59,17 @@ CEventPotentialWalkIntoPed::CEventPotentialWalkIntoPed(CPed* ped, const CVector&
 
 CEventPotentialWalkIntoPed::~CEventPotentialWalkIntoPed() {
     CEntity::SafeCleanUpRef(m_ped);
+}
+
+// 0x4B7090 (lote 202A, sin validar; el listado decia CEventVehicleCollision; ranura 16 (CloneEditable) de la vtable 0x85AF60; thiscall, sin argumentos, `ret`, 105 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite)).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x28 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x4AE6E0 (Constructor, con hook) con (peaton +0x20, direccion del punto destino +0x14, estado de movimiento +0x24)
+// y devuelve el evento nuevo.
+CEventPotentialWalkIntoPed* CEventPotentialWalkIntoPed::CloneEditable() const noexcept {
+    auto* const object = static_cast<CEventPotentialWalkIntoPed*>(CEvent::operator new(sizeof(CEventPotentialWalkIntoPed)));
+    if (!object) {
+        return nullptr;
+    }
+    return object->Constructor(m_ped, m_targetPoint, m_moveState);
 }
 
 // 0x4AE800
