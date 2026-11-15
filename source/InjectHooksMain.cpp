@@ -755,7 +755,6 @@ void InjectHooksMain() {
     CProtectionStub::InjectHooks();
     RwD3D9RasterDriver::InjectHooks();     // lote 224A (sin validar)
     LibJpegCompressEncode::InjectHooks();  // lote 230A (sin validar)
-    LibJpegCompress::InjectHooks();        // lote 230A (sin validar)
     LibJpegDecompress::InjectHooks();      // lote 233A (sin validar)
     D3D9RasterFormat::InjectHooks();       // lote 225A (sin validar)
     CPedSeatAttractor::InjectHooks();

@@ -11694,17 +11694,6 @@ LibJpegCompress,JpegAbort,0x005C6B50,1,0,0,S
 LibJpegCompress,JpegDestroy,0x005C6B90,1,0,0,S
 LibJpegCompress,JpegAllocQuantTable,0x005C6BB0,1,0,0,S
 LibJpegCompress,JpegAllocHuffTable,0x005C6BD0,1,0,0,S
-LibJpegCompress,jpeg_start_compress,0x005C26B0,1,0,0,S
-LibJpegCompress,jpeg_write_scanlines,0x005C2730,1,0,0,S
-LibJpegCompress,jinit_c_coef_controller,0x005C30D0,1,0,0,S
-LibJpegCompress,grayscale_convert,0x005C35F0,1,0,0,S
-LibJpegCompress,jinit_color_converter,0x005C3700,1,0,0,S
-LibJpegCompress,jinit_forward_dct,0x005C4380,1,0,0,S
-LibJpegCompress,jpeg_make_c_derived_tbl,0x005C43F0,1,0,0,S
-LibJpegCompress,jpeg_gen_optimal_table,0x005C4D50,1,0,0,S
-LibJpegCompress,jinit_huff_encoder,0x005C5210,1,0,0,S
-LibJpegCompress,jinit_compress_master,0x005C5260,1,0,0,S
-LibJpegCompress,jinit_c_main_controller,0x005C5420,1,0,0,S
 LibJpegDecompress,jpeg_make_d_derived_tbl,0x005C9790,1,0,0,S
 LibJpegDecompress,jpeg_fill_bit_buffer,0x005C9A60,1,0,0,S
 LibJpegDecompress,jpeg_huff_decode,0x005C9B80,1,0,0,S
