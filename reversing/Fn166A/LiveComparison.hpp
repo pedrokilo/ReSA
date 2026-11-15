@@ -458,7 +458,7 @@ inline void Update() {
     env.stubs[11] = {X(kTexDestroy, &FkTexDestroy)};
     env.stubs[16] = {F(kGetActive, &FkGetActive), F(kIsPlayer, &FkIsPlayer), F(kIsAlive, &FkIsAlive)};
     env.stubs[18] = {F(kBlend, &FkBlend), F(kSetFinish, &FkSetCb<0x4CEBE0>), F(kSetDelete, &FkSetCb<0x4CEBC0>)};
-    env.stubs[19] = {F(0x48E090, K[19]), Del()};
+    env.stubs[19] = {F(0x48E090, K[19]), Del(), F(0x61A6F0, &FkBody<0x61A6F0>)};   // arreglo tras el pase final: 0x48E090 del EXE es `jmp 0x61A6F0` (cuerpo de ~CTaskSimpleAnim, que ahora tiene hook desde los lotes 150A/169A): su ruta tambien se apaga (el falso de 0x61A6F0 no llega a ejecutarse)
     env.stubs[20] = {H(0x46AD70, reinterpret_cast<uintptr_t>(&CTaskComplexSeekEntityStandard::DestructorBodyExe), K[20]), Del()};
     env.stubs[23] = {F(0x46AF10, K[23]), Del(), F(0x61A3A0, &FkBody<0x61A3A0>)};   // 0x46AF10 del EXE es `jmp 0x61A3A0` (CTask::Destructor, con hook): su ruta tambien se apaga (el falso de 0x61A3A0 no llega a ejecutarse)
     for (unsigned f = 0; f < kFunctions; ++f) {
