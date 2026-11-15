@@ -238,6 +238,7 @@
 #include "Plugins/JPegCompressPlugin/LibJpegError.h"
 #include "Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.h"
 #include "Plugins/JPegCompressPlugin/LibJpegCompressApi.h"
+#include "Plugins/JPegCompressPlugin/LibJpegDecompressApi.h"
 #include "Attractors/PedTriggerScriptAttractor.h"
 #include "Attractors/PedLookAtAttractor.h"
 #include "Attractors/PedScriptedAttractor.h"
@@ -766,6 +767,7 @@ void InjectHooksMain() {
     LibJpegError::InjectHooks();                  // lote 235A (sin validar)
     LibJpegDecompressUpsample::InjectHooks();     // lote 235A (sin validar)
     LibJpegCompressApi::InjectHooks();            // lote 235A (sin validar)
+    LibJpegDecompressApi::InjectHooks();   // lote 236A (sin validar)
     D3D9RasterFormat::InjectHooks();       // lote 225A (sin validar)
     CPedSeatAttractor::InjectHooks();
     CPedStopAttractor::InjectHooks();
