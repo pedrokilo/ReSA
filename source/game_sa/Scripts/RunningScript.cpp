@@ -21,6 +21,9 @@ END GENERATED HOOK STATUS */
 #include "Tasks/TaskTypes/TaskSimpleFinishBrain.h"
 #include "Tasks/ScriptedBrainTaskStore.h"
 #include "Tasks/TaskTypes/TaskSimpleRunNamedAnim.h"
+#include "Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h"
+#include "Tasks/TaskTypes/TaskSimpleStandStill.h"
+#include "Garages.h"
 #include "Tasks/TaskTypes/TaskSimpleAffectSecondaryBehaviour.h"
 #include "Tasks/TaskSequences.h"
 #include "Tasks/TaskTypes/TaskSimpleHoldEntity.h"
@@ -139,6 +142,7 @@ void CRunningScript::InjectHooks() {
     RH_ScopedInstall(Process, 0x469F00);
     RH_ScopedInstall(ProcessCommands1200To1299, 0x48B590, { .stackArguments = 1 });
     RH_ScopedInstall(ProcessCommands1900To1999, 0x46B460, { .stackArguments = 1 });
+    RH_ScopedInstall(ProcessCommands800To899, 0x481300, { .stackArguments = 1 }); // lote 239A (sin validar)
     RH_ScopedOverloadedInstall(GivePedScriptedTask, "OG", 0x465C20, void(CRunningScript::*)(int32, CTask*, int32));
 }
 
@@ -2623,5 +2627,682 @@ OpcodeResult CRunningScript::ProcessCommands1900To1999(int32 command) {
 
     default: // 1977 (TASK_KILL_CHAR_ON_FOOT_PATROL) y fuera de 1900..1999: 0x46CBCF
         return OR_INTERRUPT;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Lote 239A (sin validar; el listado decia CTheScripts: es CRunningScript::ProcessCommands800To899, el despachador del EXE para los
+// comandos 801..899). Sin banco: la validacion par a par la hace el coordinador.
+// ---------------------------------------------------------------------------------------------------------------------------------
+namespace {
+// Cajas de colision de ROTATE_OBJECT (0x481DB2..0x4822E9) y SLIDE_OBJECT (0x48252B..0x482A1D): transforma cuatro esquinas de la caja del
+// modelo con la matriz (A = min, B = (max.x, min.y, max.z), C = (max.x, max.y, min.z), D = (min.x, max.y, max.z)), calcula el minimo y el
+// maximo de X e Y de las cuatro con las cadenas de comparacion del EXE (`(b < a) ? b : a` para el minimo y `(b > a) ? b : a` para el maximo,
+// que con NaN conservan el primer operando) y llama a CWorld::FindObjectsIntersectingAngledCollisionBox (0x568FF0) con maxCount = 2, sin
+// array de salida y solo vehiculos y peds. Devuelve el contador (int16, el EXE lo compara con signo).
+int16 ScriptObjectAngledBoxCount(CObject* obj, const CMatrix& matrix, const CVector& point) {
+    CColModel* const col = CModelInfo::ms_modelInfoPtrs[static_cast<int16>(obj->m_nModelIndex)]->GetColModel();
+    const CVector    bbMin = col->m_boundBox.m_vecMin;
+    const CVector    bbMax = col->m_boundBox.m_vecMax;
+
+    const CVector vA = matrix * CVector{ bbMin.x, bbMin.y, bbMin.z };
+    const CVector vB = matrix * CVector{ bbMax.x, bbMin.y, bbMax.z };
+    const CVector vC = matrix * CVector{ bbMax.x, bbMax.y, bbMin.z };
+    const CVector vD = matrix * CVector{ bbMin.x, bbMax.y, bbMax.z };
+
+    const auto minOf = [](float a, float b) { return (b < a) ? b : a; };
+    const auto maxOf = [](float a, float b) { return (b > a) ? b : a; };
+
+    const float minX = minOf(minOf(minOf(vA.x, vB.x), vC.x), vD.x);
+    const float maxX = maxOf(maxOf(maxOf(vA.x, vB.x), vC.x), vD.x);
+    const float minY = minOf(minOf(minOf(vA.y, vB.y), vC.y), vD.y);
+    const float maxY = maxOf(maxOf(maxOf(vA.y, vB.y), vC.y), vD.y);
+
+    int16 count{};
+    CWorld::FindObjectsIntersectingAngledCollisionBox(col->m_boundBox, matrix, point, minX, minY, maxX, maxY, &count, 2, nullptr, false, true, true, false, false);
+    return count;
+}
+
+// Un paso de SLIDE_OBJECT en un eje (0x4823D8..0x48251E): d = actual - destino; con d >= 0 (ordenado) resta la velocidad si d > velocidad y si no
+// llega al destino; con d < 0 (o NaN) suma la velocidad si -d > velocidad y si no llega al destino.
+float ScriptSlideStep(float current, float target, float speed) {
+    const float d = current - target;
+    if (d >= 0.0f) {
+        if (d > speed) {
+            return current - speed;
+        }
+        return target;
+    }
+    if (-d > speed) {
+        return speed + current;
+    }
+    return target;
+}
+} // namespace
+
+// 0x481300 (lote 239A, sin validar): despachador de los comandos 801..899 (indice = comando - 801, tabla de bytes 0x4836B8 y de saltos 0x483600).
+// thiscall con un argumento de pila (`ret 4`), AL = 0 (OR_CONTINUE) o 0xFF (OR_INTERRUPT: comando que no maneja). Los comandos 809, 812, 894 y 899
+// (y solo esos) devuelven 0 sin leer parametros; los demas sin caso devuelven -1. Cada caso recoge sus parametros con CollectParameters y los
+// lee de ScriptParams.
+OpcodeResult CRunningScript::ProcessCommands800To899(int32 commandId) {
+    switch (commandId) {
+    case COMMAND_EXPLODE_CHAR_HEAD: { // 0x48135B
+        CollectParameters(1);
+        CPed* const ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+        CPedDamageResponseCalculator calculator{ nullptr, 1000.0f, WEAPON_SNIPERRIFLE, PED_PIECE_HEAD, false };           // 0x4AD3F0
+        CEventDamage                  event{ nullptr, CTimer::GetTimeInMS(), WEAPON_SNIPERRIFLE, PED_PIECE_HEAD, 0, false, static_cast<bool>(ped->bInVehicle) }; // 0x4AD830
+        event.ComputeDamageResponseIfAffectsPed(ped, calculator, true); // AffectsPed (0x4B35A0) + ComputeDamageResponse (0x4B5AC0), o marca la respuesta como calculada
+        ped->GetEventGroup().Add(&event, false); // 0x4AB420
+        return OR_CONTINUE;
+    }
+    case COMMAND_ANCHOR_BOAT: { // 0x481435
+        CollectParameters(2);
+        auto* const boat = static_cast<CBoat*>(GetVehiclePool()->GetAtRef(ScriptParams[0].iParam));
+        boat->m_nBoatFlags.bLockedToXY = ScriptParams[1].iParam != 0; // byte +0x5AC, bit 2
+        return OR_CONTINUE;
+    }
+    case COMMAND_START_CAR_FIRE: { // 0x481479
+        CollectParameters(1);
+        CVehicle* const vehicle = GetVehiclePool()->GetAtRef(ScriptParams[0].iParam);
+        const CVector   pos     = vehicle->GetPosition();
+        ScriptParams[0].iParam  = gFireManager.StartScriptFire(pos, vehicle, 0.8f, 1, 0, 1); // 0x53A270
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+    case COMMAND_START_CHAR_FIRE: { // 0x4814E4
+        CollectParameters(1);
+        CPed* const   ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+        const CVector pos = ped->GetPosition();
+        ScriptParams[0].iParam = gFireManager.StartScriptFire(pos, ped, 0.8f, 1, 0, 1); // 0x53A270
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+    case COMMAND_GET_RANDOM_CAR_OF_TYPE_IN_AREA: { // 0x48150A
+        CollectParameters(5);
+        int32 result = -1;
+        auto* const pool = GetVehiclePool();
+        int32 i = pool->GetSize();
+        if (i != 0) {
+            do {
+                i--;
+                if (result != -1) {
+                    break;
+                }
+                CVehicle* const vehicle = pool->GetAt(i);
+                if (!vehicle) {
+                    continue;
+                }
+                if (vehicle->GetVehicleAppearance() != VEHICLE_APPEARANCE_AUTOMOBILE && vehicle->GetVehicleAppearance() != VEHICLE_APPEARANCE_BIKE) { // 0x6D1080 (la segunda llamada solo si la primera no da 1)
+                    continue;
+                }
+                if (vehicle->vehicleFlags.bIsLawEnforcer) { // byte +0x428, bit 0
+                    continue;
+                }
+                const int32 model = static_cast<int16>(vehicle->m_nModelIndex);
+                if (model != ScriptParams[4].iParam && ScriptParams[4].iParam >= 0) {
+                    continue;
+                }
+                if (!vehicle->CanBeDeleted()) { // 0x6D1180
+                    continue;
+                }
+                if (!vehicle->IsWithinArea(ScriptParams[0].fParam, ScriptParams[1].fParam, ScriptParams[2].fParam, ScriptParams[3].fParam)) { // 0x54F200
+                    continue;
+                }
+                result = pool->GetRef(vehicle);
+                vehicle->SetVehicleCreatedBy(MISSION_VEHICLE);
+                if (m_UsesMissionCleanup) {
+                    CTheScripts::MissionCleanUp.AddEntityToList(result, MISSION_CLEANUP_ENTITY_TYPE_VEHICLE);
+                }
+            } while (i != 0);
+        }
+        ScriptParams[0].iParam = result;
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_CAMERA_ZOOM: { // 0x481619
+        CollectParameters(1);
+        const int16 mode = static_cast<int16>(TheCamera.GetActiveCam().m_nMode);
+        if (mode == MODE_FOLLOWPED) {
+            TheCamera.SetZoomValueFollowPedScript(static_cast<int16>(ScriptParams[0].u16Param)); // 0x50C160
+        } else if (mode == MODE_CAM_ON_A_STRING) {
+            TheCamera.SetZoomValueCamStringScript(static_cast<int16>(ScriptParams[0].u16Param)); // 0x50C1B0
+        }
+        return OR_CONTINUE;
+    }
+    case COMMAND_CREATE_PICKUP_WITH_AMMO: { // 0x481678
+        CollectParameters(6);
+        int32 model = ScriptParams[0].iParam;
+        if (model < 0) {
+            model = CTheScripts::UsedObjectArray.data()[-model].nModelIndex;
+        }
+        float       z = ScriptParams[5].fParam;
+        const float x = ScriptParams[3].fParam;
+        const float y = ScriptParams[4].fParam;
+        if (z <= -100.0f) {
+            z = CWorld::FindGroundZForCoord(x, y) + 0.5f; // 0x569660
+        }
+        static_cast<void>(CPickups::GetActualPickupIndex(tPickupReference{ CollectNextParameterWithoutIncreasingPC() })); // 0x464250 + 0x4552A0 (el resultado no se usa)
+        ScriptParams[0].iParam = CPickups::GenerateNewOne_ExeAbi(CVector{ x, y, z }, static_cast<uint32>(model), static_cast<ePickupType>(ScriptParams[1].u8Param), ScriptParams[2].uParam, 0, 0, nullptr); // 0x456F20
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_PLAYER_NEVER_GETS_TIRED: { // 0x48175F
+        CollectParameters(2);
+        CWorld::Players[ScriptParams[0].iParam].m_bDoesNotGetTired = ScriptParams[1].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_PLAYER_FAST_RELOAD: { // 0x48178E
+        CollectParameters(2);
+        CWorld::Players[ScriptParams[0].iParam].m_bFastReload = ScriptParams[1].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_CHAR_BLEEDING: { // 0x4817BD
+        CollectParameters(2);
+        CPed* const ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+        ped->bPedIsBleeding = ScriptParams[1].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_FREE_RESPRAYS: { // 0x481808
+        CollectParameters(1);
+        CGarages::RespraysAreFree = ScriptParams[0].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_CHAR_VISIBLE: { // 0x481824
+        CollectParameters(2);
+        CPed* const ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+        if (ped == FindPlayerPed(-1)) {
+            gPlayerPedVisible = ScriptParams[1].iParam != 0;
+        }
+        ped->SetIsVisible(ScriptParams[1].iParam != 0);
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_CAR_VISIBLE: { // 0x481880
+        CollectParameters(2);
+        CVehicle* const vehicle = GetVehiclePool()->GetAtRef(ScriptParams[0].iParam);
+        vehicle->SetIsVisible(ScriptParams[1].iParam != 0);
+        return OR_CONTINUE;
+    }
+    case COMMAND_IS_AREA_OCCUPIED: { // 0x4818BB
+        CollectParameters(11);
+        float x1 = ScriptParams[0].fParam, x2 = ScriptParams[3].fParam;
+        if (x1 > x2) {
+            std::swap(x1, x2);
+        }
+        float y1 = ScriptParams[1].fParam, y2 = ScriptParams[4].fParam;
+        if (y1 > y2) {
+            std::swap(y1, y2);
+        }
+        float z1 = ScriptParams[2].fParam, z2 = ScriptParams[5].fParam;
+        if (z1 > z2) {
+            std::swap(z1, z2);
+        }
+        const CVector cornerMin{ x1, y1, z1 };
+        const CVector cornerMax{ x2, y2, z2 };
+        int16         count{};
+        CWorld::FindObjectsIntersectingCube(
+            cornerMin, cornerMax, &count, 2, nullptr,
+            ScriptParams[6].iParam != 0, ScriptParams[7].iParam != 0, ScriptParams[8].iParam != 0, ScriptParams[9].iParam != 0, ScriptParams[10].iParam != 0
+        ); // 0x568DD0
+        UpdateCompareFlag(count > 0);
+        return OR_CONTINUE;
+    }
+    case COMMAND_DISPLAY_TEXT: { // 0x481A08
+        CollectParameters(2);
+        char label[8];
+        ReadTextLabelFromScript(label, 8);
+        static_cast<void>(TheText.Get(label)); // 0x6A0050 (el resultado no se usa)
+        auto& line = CTheScripts::IntroTextLines.data()[CTheScripts::NumberOfIntroTextLinesThisFrame];
+        line.Pos.x = ScriptParams[0].fParam;
+        line.Pos.y = ScriptParams[1].fParam;
+        strncpy(line.GXTKey, label, 8); // 0x821F40
+        CTheScripts::NumberOfIntroTextLinesThisFrame++;
+        line.NumberToInsert1 = -1;
+        line.NumberToInsert2 = -1;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_TEXT_SCALE: { // 0x481AAE
+        CollectParameters(2);
+        auto& line   = CTheScripts::IntroTextLines.data()[CTheScripts::NumberOfIntroTextLinesThisFrame];
+        line.Scale.x = ScriptParams[0].fParam;
+        line.Scale.y = ScriptParams[1].fParam;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_TEXT_COLOUR: { // 0x481ADE
+        CollectParameters(4);
+        const CRGBA color{ ScriptParams[0].u8Param, ScriptParams[1].u8Param, ScriptParams[2].u8Param, ScriptParams[3].u8Param }; // 0x7170C0
+        auto&       line = CTheScripts::IntroTextLines.data()[CTheScripts::NumberOfIntroTextLinesThisFrame];
+        line.Color       = color;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_TEXT_JUSTIFY: { // 0x481B47
+        CollectParameters(1);
+        CTheScripts::IntroTextLines.data()[CTheScripts::NumberOfIntroTextLinesThisFrame].Justify = ScriptParams[0].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_TEXT_CENTRE: { // 0x481B84
+        CollectParameters(1);
+        CTheScripts::IntroTextLines.data()[CTheScripts::NumberOfIntroTextLinesThisFrame].IsCentered = ScriptParams[0].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_TEXT_WRAPX: { // 0x481BC1
+        CollectParameters(1);
+        CTheScripts::IntroTextLines.data()[CTheScripts::NumberOfIntroTextLinesThisFrame].WrapX = ScriptParams[0].fParam;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_TEXT_CENTRE_SIZE: { // 0x481BE5
+        CollectParameters(1);
+        CTheScripts::IntroTextLines.data()[CTheScripts::NumberOfIntroTextLinesThisFrame].CentreSize = ScriptParams[0].fParam;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_TEXT_BACKGROUND: { // 0x481C08
+        CollectParameters(1);
+        CTheScripts::IntroTextLines.data()[CTheScripts::NumberOfIntroTextLinesThisFrame].HasBg = ScriptParams[0].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_TEXT_PROPORTIONAL: { // 0x481C45
+        CollectParameters(1);
+        CTheScripts::IntroTextLines.data()[CTheScripts::NumberOfIntroTextLinesThisFrame].IsProportional = ScriptParams[0].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_TEXT_FONT: { // 0x481C82
+        CollectParameters(1);
+        CTheScripts::IntroTextLines.data()[CTheScripts::NumberOfIntroTextLinesThisFrame].FontStyle = static_cast<eFontStyle>(ScriptParams[0].iParam);
+        return OR_CONTINUE;
+    }
+    case COMMAND_ROTATE_OBJECT: { // 0x481CA5
+        CollectParameters(4);
+        CObject* const obj = GetObjectPool()->GetAtRef(ScriptParams[0].iParam);
+
+        float heading = obj->GetHeading() * 57.2957763671875f; // 0x441DB0, grados
+        if (heading < 0.0f) {
+            heading += 360.0f;
+        }
+        const float target = ScriptParams[1].fParam;
+        const float speed  = ScriptParams[2].fParam;
+        bool        result = false;
+
+        if (heading == target) {
+            UpdateCompareFlag(true);
+            return OR_CONTINUE;
+        }
+
+        float distCcw = target - heading;
+        float distCw  = heading - target;
+        if (distCcw < 0.0f) {
+            distCcw += 360.0f;
+        }
+        if (distCw < 0.0f) {
+            distCw += 360.0f;
+        }
+        float newAngle;
+        if (distCcw < distCw) {
+            newAngle = (distCcw < speed) ? target : speed + heading;
+        } else {
+            newAngle = (distCw < speed) ? target : heading - speed;
+        }
+
+        if (ScriptParams[3].iParam != 0) {
+            const CVector objPos = obj->GetPosition();
+            CMatrix       matrix;
+            matrix.SetRotateZ(newAngle * 0.01745329238474369f); // 0x59B0E0
+            matrix.GetPosition().x = matrix.GetPosition().x + objPos.x;
+            matrix.GetPosition().y = matrix.GetPosition().y + objPos.y;
+            matrix.GetPosition().z = matrix.GetPosition().z + objPos.z;
+            if (ScriptObjectAngledBoxCount(obj, matrix, objPos) > 0) {
+                UpdateCompareFlag(true);
+                return OR_CONTINUE;
+            }
+        }
+
+        obj->SetHeading(newAngle * 0.01745329238474369f); // 0x43E0C0
+        obj->UpdateRwMatrix();                            // 0x446F90
+        obj->UpdateRwFrame();                             // 0x532B00
+        if (newAngle == target) {
+            result = true;
+        }
+        UpdateCompareFlag(result);
+        return OR_CONTINUE;
+    }
+    case COMMAND_SLIDE_OBJECT: { // 0x482339
+        CollectParameters(8);
+        CObject* const obj = GetObjectPool()->GetAtRef(ScriptParams[0].iParam);
+        const CVector  cur = obj->GetPosition();
+        const float    tx = ScriptParams[1].fParam, ty = ScriptParams[2].fParam, tz = ScriptParams[3].fParam;
+
+        if (cur.x == tx && cur.y == ty && cur.z == tz) {
+            UpdateCompareFlag(true);
+            return OR_CONTINUE;
+        }
+
+        const float speedX = ScriptParams[4].fParam;
+        const float speedY = ScriptParams[5].fParam;
+        const float speedZ = ScriptParams[6].fParam;
+        // El EXE calcula las tres diferencias antes de los pasos (dx -> pila x87, dy -> [esp+38h], dz -> [esp+50h]); cada paso usa la suya
+        const CVector newPos{ ScriptSlideStep(cur.x, tx, speedX), ScriptSlideStep(cur.y, ty, speedY), ScriptSlideStep(cur.z, tz, speedZ) };
+
+        if (ScriptParams[7].iParam != 0) {
+            CMatrix matrix;
+            matrix = *obj->m_matrix; // 0x59BBC0
+            matrix.GetPosition() = newPos;
+            if (ScriptObjectAngledBoxCount(obj, matrix, newPos) > 0) {
+                UpdateCompareFlag(true);
+                return OR_CONTINUE;
+            }
+        }
+
+        obj->Teleport(newPos, false); // ranura 14 de la vtable (+0x38)
+        bool result = false;
+        if (newPos.x == tx && newPos.y == ty && newPos.z == tz) {
+            result = true;
+        }
+        UpdateCompareFlag(result);
+        return OR_CONTINUE;
+    }
+    case COMMAND_REMOVE_CHAR_ELEGANTLY: { // 0x482A96
+        CollectParameters(1);
+        CPed* const ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+        if (ped && ped->GetCreatedBy() == PED_MISSION) {
+            if (ped->bInVehicle && ped->m_pVehicle) {
+                CTheScripts::RemoveThisPed(ped); // 0x486240
+            } else {
+                ped->SetCharCreatedBy(PED_GAME); // 0x5E47E0
+                if (CPedGroup* const group = CPedGroups::GetPedsGroup(ped)) { // 0x5F7E80
+                    CPedGroupMembership& membership = group->GetMembership();
+                    if (membership.IsFollower(ped)) { // 0x5F69E0
+                        membership.RemoveMember(ped); // 0x5FB210
+                    }
+                }
+                CPopulation::ms_nTotalMissionPeds--;
+                ped->bFadeOut = true;
+                CWorld::RemoveReferencesToDeletedObject(ped); // 0x565510
+            }
+        }
+        if (m_UsesMissionCleanup) {
+            CTheScripts::MissionCleanUp.RemoveEntityFromList(ScriptParams[0].iParam, MISSION_CLEANUP_ENTITY_TYPE_PED);
+        }
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_CHAR_STAY_IN_SAME_PLACE: { // 0x482B4D
+        CollectParameters(2);
+        CPed* const ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+        ped->SetStayInSamePlace(ScriptParams[1].iParam != 0); // 0x481090
+        return OR_CONTINUE;
+    }
+    case COMMAND_IS_EXPLOSION_IN_AREA: { // 0x482B89
+        CollectParameters(7);
+        float x1 = ScriptParams[1].fParam, x2 = ScriptParams[4].fParam;
+        if (x1 > x2) {
+            std::swap(x1, x2);
+        }
+        float y1 = ScriptParams[2].fParam, y2 = ScriptParams[5].fParam;
+        if (y1 > y2) {
+            std::swap(y1, y2);
+        }
+        float z1 = ScriptParams[3].fParam, z2 = ScriptParams[6].fParam;
+        if (z1 > z2) {
+            std::swap(z1, z2);
+        }
+        bool result = false;
+        if (CExplosion::TestForExplosionInArea(static_cast<eExplosionType>(ScriptParams[0].iParam), x1, x2, y1, y2, z1, z2)) { // 0x736950
+            result = true;
+        }
+        UpdateCompareFlag(result);
+        return OR_CONTINUE;
+    }
+    case COMMAND_PLACE_OBJECT_RELATIVE_TO_CAR: { // 0x482C67
+        CollectParameters(5);
+        CObject* const  obj     = GetObjectPool()->GetAtRef(ScriptParams[0].iParam);
+        CVehicle* const vehicle = GetVehiclePool()->GetAtRef(ScriptParams[1].iParam);
+        const CVector   offset{ ScriptParams[2].fParam, ScriptParams[3].fParam, ScriptParams[4].fParam };
+        CPhysical::PlacePhysicalRelativeToOtherPhysical(vehicle, obj, offset); // 0x546DB0
+        return OR_CONTINUE;
+    }
+    case COMMAND_MAKE_OBJECT_TARGETTABLE: { // 0x482CDB
+        CollectParameters(2);
+        CObject* const obj    = GetObjectPool()->GetAtRef(ScriptParams[0].iParam);
+        CPed* const    player = CWorld::Players[CWorld::PlayerInFocus].m_pPed;
+        if (ScriptParams[1].iParam != 0) {
+            obj->SetObjectTargettable(true); // 0x59F300
+        } else {
+            obj->SetObjectTargettable(false);
+            CEntity** const target = &player->m_pTargetedObject; // +0x71C
+            if (obj == *target) {
+                if (*target) {
+                    (*target)->CleanUpOldReference(target); // 0x571A00
+                }
+                *target = nullptr;
+            }
+        }
+        return OR_CONTINUE;
+    }
+    case COMMAND_ADD_ARMOUR_TO_CHAR: { // 0x482D52
+        CollectParameters(2);
+        CPed* const ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+        // fild + fadd: la suma se redondea una sola vez a 24 bits (palabra de control del EXE)
+        ped->m_fArmour = static_cast<float>(static_cast<double>(ScriptParams[1].iParam) + static_cast<double>(ped->m_fArmour));
+        if (ped->IsPlayer()) { // 0x5DF8F0
+            const int32 slot      = CWorld::FindPlayerSlotWithPedPointer(ped); // 0x563FA0
+            const float maxArmour = static_cast<float>(CWorld::Players[slot].m_nMaxArmour);
+            ped->m_fArmour        = (maxArmour > ped->m_fArmour) ? ped->m_fArmour : maxArmour;
+        } else {
+            ped->m_fArmour = (ped->m_fArmour < 100.0f) ? ped->m_fArmour : 100.0f;
+        }
+        ped->m_fArmour = (ped->m_fArmour > 0.0f) ? ped->m_fArmour : 0.0f;
+        return OR_CONTINUE;
+    }
+    case COMMAND_OPEN_GARAGE: { // 0x482E1D
+        char label[8];
+        ReadTextLabelFromScript(label, 8);
+        const int16 garage = CGarages::GetGarageNumberByName(label); // 0x447680
+        if (garage >= 0) {
+            CGarages::aGarages[garage].OpenThisGarage(); // 0x447D50
+        }
+        return OR_CONTINUE;
+    }
+    case COMMAND_CLOSE_GARAGE: { // 0x482E60
+        char label[8];
+        ReadTextLabelFromScript(label, 8);
+        const int16 garage = CGarages::GetGarageNumberByName(label); // 0x447680
+        if (garage >= 0) {
+            CGarages::aGarages[garage].CloseThisGarage(); // 0x447D70
+        }
+        return OR_CONTINUE;
+    }
+    case COMMAND_WARP_CHAR_FROM_CAR_TO_COORD: { // 0x482EA3
+        CollectParameters(4);
+        CPed* const ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+        const float x   = ScriptParams[1].fParam;
+        const float y   = ScriptParams[2].fParam;
+        float       z   = ScriptParams[3].fParam;
+        if (z <= -100.0f) {
+            z = CWorld::FindGroundZForCoord(x, y); // 0x569660
+        }
+        ped->GetIntelligence()->FlushImmediately(true); // 0x601640
+        const float offsetZ = ped->GetDistanceFromCentreOfMassToBaseOfModel(); // 0x536BE0
+        z                   = offsetZ + z;
+        const CVector pos{ x, y, z };
+        ped->Teleport(pos, false); // ranura 14 de la vtable (+0x38)
+        CTheScripts::ClearSpaceForMissionEntity(pos, ped); // 0x486B00
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_VISIBILITY_OF_CLOSEST_OBJECT_OF_TYPE: { // 0x482F84
+        CollectParameters(6);
+        const float x = ScriptParams[0].fParam;
+        const float y = ScriptParams[1].fParam;
+        float       z = ScriptParams[2].fParam;
+        if (z <= -100.0f) {
+            z = CWorld::FindGroundZForCoord(x, y); // 0x569660
+        }
+        const float radius   = ScriptParams[3].fParam;
+        float       bestDist = radius + radius;
+        int32       model    = ScriptParams[4].iParam;
+        if (model < 0) {
+            model = CTheScripts::UsedObjectArray.data()[-model].nModelIndex;
+        }
+        CEntity* found[16];
+        int16    count{};
+        const CVector pos{ x, y, z };
+        CWorld::FindObjectsOfTypeInRange(static_cast<uint32>(model), pos, radius, true, &count, 16, found, true, false, false, true, true); // 0x564C70
+        if (count == 0) {
+            const CVector pos2{ x, y, z };
+            CWorld::FindLodOfTypeInRange(static_cast<uint32>(model), pos2, radius, true, &count, 16, found); // 0x564ED0
+        }
+        CEntity* closest = nullptr;
+        const int32 foundCount = count; // movsx
+        for (uint16 i = 0; i < foundCount; i++) {
+            CEntity* const entity = found[i];
+            const CVector& ePos   = entity->GetPosition();
+            const float    dz     = ePos.z - z;
+            const float    dy     = ePos.y - y;
+            const float    dx     = ePos.x - x;
+            const float    dist   = std::sqrt((dx * dx + dy * dy) + dz * dz);
+            if (dist < bestDist) {
+                bestDist = dist;
+                closest  = entity;
+            }
+        }
+        if (closest) {
+            if (ScriptParams[5].iParam != 0) {
+                const uint8 iplIndex = closest->GetIplIndex();
+                closest->m_nFlags |= 0x81u; // bIsVisible | bUsesCollision
+                if (iplIndex == 0) {
+                    uint16 slot      = 0;
+                    bool   foundSlot = false;
+                    do {
+                        if (foundSlot) {
+                            break;
+                        }
+                        if (CTheScripts::InvisibilitySettingArray.data()[slot] == closest) {
+                            foundSlot = true;
+                        } else {
+                            slot++;
+                        }
+                    } while (slot < 0x14);
+                    if (foundSlot) {
+                        CTheScripts::InvisibilitySettingArray.data()[slot] = nullptr;
+                    }
+                }
+            } else {
+                closest->m_nFlags &= 0xFFFFFF7Eu;
+                CTheScripts::AddToInvisibilitySwapArray(closest, false); // 0x481200
+            }
+        }
+        return OR_CONTINUE;
+    }
+    case COMMAND_HAS_CHAR_SPOTTED_CHAR: { // 0x4831A2
+        CollectParameters(2);
+        CPed* const ped    = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+        CPed* const target = GetPedPool()->GetAtRef(ScriptParams[1].iParam);
+        bool        result = false;
+        if (ped->OurPedCanSeeThisEntity(target, true)) { // 0x5E1660
+            result = true;
+        }
+        UpdateCompareFlag(result);
+        return OR_CONTINUE;
+    }
+    case COMMAND_HAS_OBJECT_BEEN_DAMAGED: { // 0x4831F8
+        CollectParameters(1);
+        CObject* const obj    = GetObjectPool()->GetAtRef(ScriptParams[0].iParam);
+        bool           result = false;
+        if (plugin::CallMethodAndReturn<bool, 0x46A2F0>(obj)) { // CEntity::IsInvisibleOrRenderDamaged (bandera de dano o invisible)
+            result = true;
+        }
+        UpdateCompareFlag(result);
+        return OR_CONTINUE;
+    }
+    case COMMAND_WARP_CHAR_INTO_CAR: { // 0x483239
+        CollectParameters(2);
+        CPed* const     ped     = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+        CVehicle* const vehicle = GetVehiclePool()->GetAtRef(ScriptParams[1].iParam);
+        ped->GetIntelligence()->FlushImmediately(false); // 0x601640
+        CTaskSimpleCarSetPedInAsDriver task{ vehicle, nullptr }; // 0x6470E0
+        task.m_bWarpingInToCar = true;
+        task.ProcessPed(ped); // 0x64B950; el destructor (0x647170) sale al terminar el caso
+        return OR_CONTINUE;
+    }
+    case COMMAND_PRINT_WITH_2_NUMBERS_BIG: { // 0x4832BB
+        char label[8];
+        ReadTextLabelFromScript(label, 8);
+        const GxtChar* const text = TheText.Get(label); // 0x6A0050
+        CollectParameters(4);
+        CMessages::AddBigMessageWithNumber(text, ScriptParams[2].uParam, static_cast<eMessageStyle>(ScriptParams[3].iParam - 1), ScriptParams[0].iParam, ScriptParams[1].iParam, -1, -1, -1, -1); // 0x69E5F0
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_CAMERA_BEHIND_PLAYER: // 0x48331B
+        TheCamera.SetCameraDirectlyBehindForFollowPed_CamOnAString(); // 0x50BD40
+        return OR_CONTINUE;
+    case COMMAND_CREATE_RANDOM_CHAR: { // 0x48332A
+        CollectParameters(3);
+        eModelID model{};
+        int32    pedType = 6;
+        uint16   tries   = 0;
+        while (pedType != 5 && tries < 5) {
+            model = CPopulation::ChooseCivilianOccupation(false, false, ANIM_GROUP_NONE, MODEL_INVALID, ePedStats::NONE, false, false, false, nullptr); // 0x612F90
+            CBaseModelInfo* const info = CModelInfo::ms_modelInfoPtrs[model];
+            if (info->GetRwObject()) {
+                pedType = static_cast<CPedModelInfo*>(info)->m_nPedType;
+            }
+            tries++;
+            if (pedType == 4) {
+                break;
+            }
+        }
+        if (!CModelInfo::ms_modelInfoPtrs[model]->GetRwObject()) {
+            pedType = static_cast<CPedModelInfo*>(CModelInfo::ms_modelInfoPtrs[7])->m_nPedType;
+            model   = static_cast<eModelID>(7);
+        }
+        void* const  pedMemory = CPed::operator new(0x79C); // 0x5E4720
+        CPed* const  ped       = pedMemory ? plugin::CallMethodAndReturn<CCivilianPed*, 0x5DDB70>(static_cast<CCivilianPed*>(pedMemory), static_cast<ePedType>(pedType), static_cast<uint32>(model)) : nullptr;
+        void* const  taskMemory = CTask::operator new(0x20); // 0x61A5A0
+        CTask* const task       = taskMemory ? ::new (taskMemory) CTaskSimpleStandStill(999999, true, false, 8.0f) : nullptr; // 0x62F310
+        reinterpret_cast<void(__thiscall*)(CTaskManager*, CTask*, ePrimaryTasks, bool)>(0x681AF0)(&ped->GetTaskManager(), task, TASK_PRIMARY_DEFAULT, false); // CTaskManager::SetTask
+        ped->SetCharCreatedBy(PED_MISSION); // 0x5E47E0
+        ped->bAllowMedicsToReviveMe = false; // bit 31 de las banderas (+0x46C)
+
+        const float px = ScriptParams[0].fParam;
+        const float py = ScriptParams[1].fParam;
+        float       pz = ScriptParams[2].fParam;
+        if (pz <= -100.0f) {
+            pz = CWorld::FindGroundZForCoord(px, py); // 0x569660
+        }
+        pz = pz + 1.0f;
+        const CVector pos{ px, py, pz };
+        ped->SetPosn(pos);           // 0x4241C0
+        ped->SetOrientation(0.0f, 0.0f, 0.0f); // 0x439A80
+        CTheScripts::ClearSpaceForMissionEntity(pos, ped); // 0x486B00
+        if (m_UsesMissionCleanup) {
+            ped->m_nFlags |= 0x40000u; // bIsStaticWaitingForCollision
+        }
+        CWorld::Add(ped); // 0x563220
+        CPopulation::ms_nTotalMissionPeds = CPopulation::ms_nTotalMissionPeds + 1;
+        ScriptParams[0].iParam = GetPedPool()->GetRef(ped); // 0x4442D0
+        StoreParameters(1);
+        if (m_UsesMissionCleanup) {
+            CTheScripts::MissionCleanUp.AddEntityToList(ScriptParams[0].iParam, MISSION_CLEANUP_ENTITY_TYPE_PED); // 0x4637E0
+        }
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_OBJECT_VELOCITY: { // 0x48352B
+        CollectParameters(4);
+        CObject* const obj = GetObjectPool()->GetAtRef(ScriptParams[0].iParam);
+        const float    vz  = ScriptParams[3].fParam * 0.02f;
+        const float    vy  = ScriptParams[2].fParam * 0.02f;
+        const float    vx  = ScriptParams[1].fParam * 0.02f;
+        obj->SetVelocity(CVector{ vx, vy, vz }); // 0x441130
+        return OR_CONTINUE;
+    }
+    case COMMAND_SET_OBJECT_COLLISION: { // 0x483580
+        CollectParameters(2);
+        CObject* const obj = GetObjectPool()->GetAtRef(ScriptParams[0].iParam);
+        obj->m_bUsesCollision = ScriptParams[1].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case COMMAND_HAS_RESPRAY_HAPPENED:  // 0x329
+    case COMMAND_SET_CAR_RAM_CAR:       // 0x32C
+    case COMMAND_IS_SNIPER_BULLET_IN_AREA: // 0x37E
+    case COMMAND_IS_ICECREAM_JINGLE_ON: // 0x383
+        return OR_CONTINUE; // 0x4835B1: no leen parametros
+    default:
+        return OR_INTERRUPT; // 0x4835CC
     }
 }
