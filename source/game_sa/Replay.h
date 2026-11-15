@@ -20,6 +20,8 @@ enum eReplayBufferStatus : uint8 {
 
 // Used for compressing angle values while recording replays.
 constexpr float HEADING_COMPRESS_VALUE = 40.764328f;
+// Constante de descompresion del EXE (0x859C44): no es el float mas cercano a 1/40.764328, por eso se fija por sus bits. La usan el paquete de peatones (Replay.cpp) y la extraccion de vehiculos (ReplayBlockType.cpp).
+constexpr float REPLAY_HEADING_DECOMPRESS = std::bit_cast<float>(0x3CC8F5C3u);
 
 constexpr auto NUM_REPLAY_BUFFERS = 8u;
 constexpr auto REPLAY_BUFFER_SIZE = 100'000u;

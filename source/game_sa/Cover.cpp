@@ -21,10 +21,15 @@ END GENERATED HOOK STATUS */
 #include "Cover.h"
 #include "X87Math.h"
 
+namespace {
+bool __fastcall ProcessedBuildingsIsMemberOfListExe(CPtrListDoubleLink<CBuilding*>* self, void* edx, CBuilding* item); // 0x5521D0 (lote 213A), definida mas abajo
+}
+
 void CCover::InjectHooks() {
     RH_ScopedClass(CCover);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedNamedGlobalInstall(ProcessedBuildingsIsMemberOfListExe, "ProcessedBuildingsIsMemberOfList", 0x5521D0); // lote 213A (sin validar)
     RH_ScopedInstall(Init, 0x698710);
     RH_ScopedInstall(RemoveCoverPointIfEntityLost, 0x698DB0);
     RH_ScopedInstall(RemoveCoverPointsForThisEntity, 0x698740);
@@ -44,6 +49,13 @@ void CCover::InjectHooks() {
 }
 
 namespace {
+// 0x5521D0 (lote 213A, sin validar; el listado decia CPools): CPtrListDoubleLink<CBuilding*>::IsMemberOfList, instancia fuera de linea del EXE (thiscall, un puntero de pila, `ret 4`, devuelve AL). Su unico llamador (0x699D26, en
+// CCover::Update) la llama con ECX = 0xC1A2B8 (CCover::m_ListOfProcessedBuildings). Recorre la lista desde la cabeza (+0) comparando el elemento (+0) de cada nodo y siguiendo el enlace siguiente (+4); lista vacia -> falso.
+// Es la plantilla de CPtrList (sin duplicar el bucle).
+bool __fastcall ProcessedBuildingsIsMemberOfListExe(CPtrListDoubleLink<CBuilding*>* self, void* /*edx*/, CBuilding* item) {
+    return self->IsMemberOfList(item);
+}
+
 // Como el original: el EXE accede directamente a los campos de cada CCoverPoint (0x1C bytes), sin pasar por
 // EntityRef (no limpia ni registra referencias salvo donde se indica).
 struct CoverPointRaw {

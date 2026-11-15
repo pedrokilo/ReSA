@@ -29,6 +29,15 @@ END GENERATED HOOK STATUS */
 #include "Skidmarks.h"
 #include "X87Math.h"
 
+namespace {
+void __fastcall ReplayStoreVehicleBlockExe(uint8* packet, void* edx, CVehicle* veh, int32 poolIdx); // 0x45B730 (lote 213A), definida mas abajo
+void __fastcall ReplayStoreBmxBlockExe(uint8* packet, void* edx, CVehicle* veh, int32 poolIdx);     // 0x45BF90 (lote 213A), definida mas abajo
+void __fastcall ReplayStoreBikeBlockExe(uint8* packet, void* edx, CVehicle* veh, int32 poolIdx);    // 0x45C070 (lote 213A), definida mas abajo
+void __fastcall ReplayExtractVehicleBlockExe(tReplayVehicleBlock* self, void* edx, CVehicle* veh, float interpolation); // 0x45BA90 (lote 213A), definida mas abajo
+void __fastcall ReplayExtractBmxBlockExe(tReplayBmxBlock* self, void* edx, CBmx* bmx, float interpolation);             // 0x45BFF0 (lote 213A), definida mas abajo
+void __fastcall ReplayExtractBikeBlockExe(tReplayBikeBlock* self, void* edx, CBike* bike, float interpolation);         // 0x45C0D0 (lote 213A), definida mas abajo
+}
+
 void CReplay::InjectHooks() {
     RH_ScopedClass(CReplay);
     RH_ScopedCategoryGlobal();
@@ -81,6 +90,14 @@ void CReplay::InjectHooks() {
     RH_ScopedInstall(StreamAllNecessaryCarsAndPeds, 0x45D4B0);
     RH_ScopedInstall(CreatePlayerPed, 0x45D540);
     RH_ScopedInstall(TriggerPlayback, 0x4600F0);
+
+    // Lote 213A (sin validar): escritura (0x45B730 coche, 0x45BF90 BMX, 0x45C070 moto) y lectura con interpolacion (0x45BA90 vehiculo, 0x45BFF0 BMX, 0x45C0D0 moto) de los paquetes de vehiculo del replay.
+    RH_ScopedNamedGlobalInstall(ReplayStoreVehicleBlockExe, "StoreVehicleBlock", 0x45B730);
+    RH_ScopedNamedGlobalInstall(ReplayExtractVehicleBlockExe, "ExtractVehicleBlock", 0x45BA90);
+    RH_ScopedNamedGlobalInstall(ReplayStoreBmxBlockExe, "StoreBmxBlock", 0x45BF90);
+    RH_ScopedNamedGlobalInstall(ReplayExtractBmxBlockExe, "ExtractBmxBlock", 0x45BFF0);
+    RH_ScopedNamedGlobalInstall(ReplayStoreBikeBlockExe, "StoreBikeBlock", 0x45C070);
+    RH_ScopedNamedGlobalInstall(ReplayExtractBikeBlockExe, "ExtractBikeBlock", 0x45C0D0);
 }
 
 namespace {
@@ -128,8 +145,6 @@ inline uint8* ReplayRecordPtr() {
 inline uint8* ReplayBufferPtr(uint32 slot) {
     return CReplay::Buffers.data()[slot].buffer.data();
 }
-
-constexpr float REPLAY_HEADING_DECOMPRESS = std::bit_cast<float>(0x3CC8F5C3u); // 0x859C44 (no es el float más cercano a 1/40.764328)
 
 // 0x45B730
 // Como el original: escribe directamente en el paquete del buffer y deja intactos el tipo, el relleno y,
@@ -228,6 +243,33 @@ void ReplayStoreTrainUpdate(uint8* p, CVehicle* veh, int32 poolIdx) {
     if (auto* next = ReplayAt<CVehicle*>(v, 0x5D4)) {
         ReplayAt<int32>(p, 0x44) = ReplayVehicleIndex(next) + 1;
     }
+}
+
+// Lote 213A (sin validar): puntos de entrada del EXE de las escrituras y lecturas de paquetes de vehiculo. Todos son thiscall con ECX = paquete, dos argumentos de pila y `ret 8`.
+// 0x45B730: (veh, poolIdx; solo se usa el byte bajo del indice) rellena el paquete de coche con ReplayStoreCarUpdate (0x45B730..0x45BA86, sin tocar el byte de tipo); 0x45BF90 (BMX, tipo 0x0F) y 0x45C070 (moto, tipo 2)
+// escriben el tipo y llaman a esa misma rutina, y despues los dos angulos de la moto (ReplayStoreBikeUpdate).
+void __fastcall ReplayStoreVehicleBlockExe(uint8* packet, void* /*edx*/, CVehicle* veh, int32 poolIdx) {
+    ReplayStoreCarUpdate(packet, veh, poolIdx);
+}
+void __fastcall ReplayStoreBmxBlockExe(uint8* packet, void* /*edx*/, CVehicle* veh, int32 poolIdx) {
+    ReplayStoreBikeUpdate(packet, veh, poolIdx, REPLAY_PACKET_BMX);
+}
+void __fastcall ReplayStoreBikeBlockExe(uint8* packet, void* /*edx*/, CVehicle* veh, int32 poolIdx) {
+    ReplayStoreBikeUpdate(packet, veh, poolIdx, REPLAY_PACKET_BIKE);
+}
+
+// 0x45BA90 (thiscall, ECX = paquete, vehiculo y factor float en la pila, `ret 8`): el EXE no hace nada si el vehiculo es nulo (se salta todo, incluido el marco SEH) y NO mira el tipo del paquete.
+// 0x45BFF0 (BMX) y 0x45C0D0 (moto): mismos bytes, llaman a 0x45BA90 y luego fijan los dos angulos del RideAnimData, BarSteerAngle y LeanAngle, y recalculan la matriz de inclinacion; sin comprobar nulos.
+void __fastcall ReplayExtractVehicleBlockExe(tReplayVehicleBlock* self, void* /*edx*/, CVehicle* veh, float interpolation) {
+    if (veh) {
+        self->ExtractVehicleUpdateData(*veh, interpolation);
+    }
+}
+void __fastcall ReplayExtractBmxBlockExe(tReplayBmxBlock* self, void* /*edx*/, CBmx* bmx, float interpolation) {
+    self->ExtractBmxUpdateData(*bmx, interpolation);
+}
+void __fastcall ReplayExtractBikeBlockExe(tReplayBikeBlock* self, void* /*edx*/, CBike* bike, float interpolation) {
+    self->ExtractBikeUpdateData(*bike, interpolation);
 }
 } // namespace
 

@@ -112,7 +112,6 @@ struct tReplayVehicleBlock : tReplayBlockBase {
     uint8 vehicleType;
     uint8 __pad[2];
 
-    static tReplayVehicleBlock MakeVehicleUpdateData(CVehicle& veh, int32 poolIdx);
     void ExtractVehicleUpdateData(CVehicle& veh, float interpolation);
 };
 
@@ -123,7 +122,6 @@ struct tReplayBikeBlock : tReplayVehicleBlock {
     uint8 steerAngle;
     uint8 __pad[2];
 
-    static tReplayBikeBlock MakeBikeUpdateData(CBike& bike, int32 poolIdx);
     void ExtractBikeUpdateData(CBike& bike, float interpolation);
 };
 
@@ -255,7 +253,6 @@ struct tReplayBmxBlock : tReplayVehicleBlock {
     int8 steerAngle;
     uint8 __pad[2];
 
-    static tReplayBmxBlock MakeBmxUpdateData(CBmx& bmx, int32 poolIdx);
     void ExtractBmxUpdateData(CBmx& bmx, float interpolation);
 };
 
@@ -283,7 +280,6 @@ struct tReplayTrainBlock : tReplayVehicleBlock {
     uint8 trackId;
     uint8 __pad[3];
 
-    static tReplayTrainBlock MakeTrainUpdateData(CTrain& train, int32 poolIdx);
     void ExtractTrainUpdateData(CTrain& train, float interpolation);
 };
 

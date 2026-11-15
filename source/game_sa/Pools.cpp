@@ -93,6 +93,11 @@ void* __fastcall TaskPoolConstructorExe(void* self, void* edx, int32 capacity, c
 void* __fastcall EventPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550960 (lote 212A), definida mas abajo
 void* __fastcall PointRoutePoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550A30 (lote 212A), definida mas abajo
 void* __fastcall PatrolRoutePoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550B00 (lote 212A), definida mas abajo
+void* __fastcall NodeRoutePoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550BD0 (lote 213A), definida mas abajo
+void* __fastcall TaskAllocatorPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550CA0 (lote 213A), definida mas abajo
+void* __fastcall PedIntelligencePoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550D70 (lote 213A), definida mas abajo
+void* __fastcall PedAttractorPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550E40 (lote 213A), definida mas abajo
+void* __fastcall PoolScalarDeletingDestructorExe(void* self, void* edx, uint32 deleteFlags); // 0x5512F0..0x5518F0 (lote 213A), definida mas abajo
 void __fastcall PoolDestructorBodyExe(void* poolPtr, void* edx); // 0x4049C0 (lote 129A), definida mas abajo
 void* __fastcall VehicleStructPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x5B8340 (lote 189A), definida mas abajo
 }
@@ -130,6 +135,32 @@ void CPools::InjectHooks() {
     RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "EventPoolDestructorBody", 0x5509C0);
     RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PointRoutePoolDestructorBody", 0x550A90);
     RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PatrolRoutePoolDestructorBody", 0x550B60);
+    // Lote 213A (sin validar): constructores y cuerpos de destructor de los cuatro ultimos pools (NodeRoute, TaskAllocator, PedIntelligence, PedAttractor) y los 17 destructores con borrado (uno por pool, en el orden de Initialise).
+    RH_ScopedNamedGlobalInstall(NodeRoutePoolConstructorExe, "NodeRoutePoolConstructor", 0x550BD0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "NodeRoutePoolDestructorBody", 0x550C30);
+    RH_ScopedNamedGlobalInstall(TaskAllocatorPoolConstructorExe, "TaskAllocatorPoolConstructor", 0x550CA0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "TaskAllocatorPoolDestructorBody", 0x550D00);
+    RH_ScopedNamedGlobalInstall(PedIntelligencePoolConstructorExe, "PedIntelligencePoolConstructor", 0x550D70);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PedIntelligencePoolDestructorBody", 0x550DD0);
+    RH_ScopedNamedGlobalInstall(PedAttractorPoolConstructorExe, "PedAttractorPoolConstructor", 0x550E40);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PedAttractorPoolDestructorBody", 0x550EA0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PtrNodeSingleLinkPoolScalarDeletingDestructor", 0x5512F0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PtrNodeDoubleLinkPoolScalarDeletingDestructor", 0x551350);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "EntryInfoNodePoolScalarDeletingDestructor", 0x5513B0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PedPoolScalarDeletingDestructor", 0x551410);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "VehiclePoolScalarDeletingDestructor", 0x551470);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "BuildingPoolScalarDeletingDestructor", 0x5514D0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "ObjectPoolScalarDeletingDestructor", 0x551530);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "DummyPoolScalarDeletingDestructor", 0x551590);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "ColModelPoolScalarDeletingDestructor", 0x5515F0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "TaskPoolScalarDeletingDestructor", 0x551650);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "EventPoolScalarDeletingDestructor", 0x5516B0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PointRoutePoolScalarDeletingDestructor", 0x551710);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PatrolRoutePoolScalarDeletingDestructor", 0x551770);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "NodeRoutePoolScalarDeletingDestructor", 0x5517D0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "TaskAllocatorPoolScalarDeletingDestructor", 0x551830);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PedIntelligencePoolScalarDeletingDestructor", 0x551890);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PedAttractorPoolScalarDeletingDestructor", 0x5518F0);
     RH_ScopedInstall(Initialise, 0x550F10);
     RH_ScopedInstall(ShutDown, 0x5519F0);
     RH_ScopedInstall(CheckBuildingAtomics, 0x550170);
@@ -282,6 +313,38 @@ void* __fastcall PointRoutePoolConstructorExe(void* self, void* /*edx*/, int32 c
 }
 void* __fastcall PatrolRoutePoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550B00
     ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x1a4);
+    return self;
+}
+
+// Lote 213A (sin validar): constructores de CPool fuera de linea de los cuatro ultimos pools de Initialise (0x550BD0, 0x550CA0, 0x550D70 y 0x550E40). Igual que los de 212A: thiscall, capacidad y nombre en la pila (el nombre no se
+// guarda), `ret 8`, devuelven `this`, cuerpo de ConstructPoolBody (0x5B8340) con el tamano de elemento 0x24 (lea [edi+edi*8] / shl 2), 0x20 (shl 5), 0x294 y 0xC4.
+void* __fastcall NodeRoutePoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550BD0
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x24);
+    return self;
+}
+void* __fastcall TaskAllocatorPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550CA0
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x20);
+    return self;
+}
+void* __fastcall PedIntelligencePoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550D70
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0x294);
+    return self;
+}
+void* __fastcall PedAttractorPoolConstructorExe(void* self, void* /*edx*/, int32 capacity, const char* /*name*/) { // 0x550E40
+    ConstructPoolBody(static_cast<uint8*>(self), capacity, 0xC4);
+    return self;
+}
+
+// 0x5512F0, 0x551350, 0x5513B0, 0x551410, 0x551470, 0x5514D0, 0x551530, 0x551590, 0x5515F0, 0x551650, 0x5516B0, 0x551710, 0x551770, 0x5517D0, 0x551830, 0x551890 y 0x5518F0 (lote 213A, sin validar; el listado decia 71 bytes,
+// son 86): destructores con borrado de CPool, uno por pool en el orden de Initialise (PtrNodeSingleLink ... PedAttractor; el orden es inferido: ningun llamador ni referencia las nombra, el EXE solo los trae fuera de linea).
+// Los 17 tienen los mismos bytes (comparados con las llamadas enmascaradas). thiscall, un argumento de pila (banderas, solo se lee el bit 0 del byte bajo; `ret 4`), devuelven `this`. Sin comprobar el puntero nulo: con tamano
+// (+8, con signo) > 0 y propietario (+0x10, byte) distinto de cero libera el almacenamiento (+0) y los estados (+4) con delete[] (0x8213AE); despues pone +0, +4, +8 y +0xC a cero (el propietario no se toca); y solo si el
+// bit 0 de las banderas esta puesto libera `this` con operator delete escalar (0x8214BD). Es PoolDestructorBodyExe mas el borrado condicional.
+void* __fastcall PoolScalarDeletingDestructorExe(void* self, void* /*edx*/, uint32 deleteFlags) {
+    PoolDestructorBodyExe(self, nullptr);
+    if (deleteFlags & 1) {
+        ::operator delete(self);
+    }
     return self;
 }
 
