@@ -1010,6 +1010,68 @@ void UserTracksLegacyVector::PushBack(tUserTracksInfo* const& value) {
     plugin::CallMethod<0x4F4320, UserTracksLegacyVector*, tUserTracksInfo**, uint32, tUserTracksInfo* const*>(this, last, 1, &value);
 }
 
+// 0x4F3940 (lote 208A, sin validar; cdecl, tres argumentos (origen, fin, destino) mas argumentos de relleno de la plantilla que no lee, `ret`, 37 bytes): std::uninitialized_copy de punteros de 4 bytes de
+// la STL de MSVC 6 de los vectores del gestor de user tracks. Con origen == fin devuelve el destino sin tocar nada; si no, por cada elemento escribe `*destino = *origen` solo si el destino NO es nulo
+// (new(puntero) T(valor)) y avanza SIEMPRE ambos; devuelve el final del destino (EAX). Mismo cuerpo que SArrayUninitCopyStride4 (0x5EAE10) de PedAttractor.cpp, que es una funcion anonima de ese archivo.
+static uint32* __cdecl UserTracksUninitCopy(const uint32* first, const uint32* last, uint32* dest) {
+    if (first == last) {
+        return dest;
+    }
+    do {
+        if (dest) {
+            *dest = *first;
+        }
+        ++first;
+        ++dest;
+    } while (first != last);
+    return dest;
+}
+
+// 0x4F39C0 (lote 208A, sin validar; thiscall, dos argumentos de pila (nuevo tamano, longitud actual), `ret 8`; el listado daba 85 bytes porque el EXE parte la funcion en tres trozos no contiguos: el cuerpo
+// 0x4F39C0..0x4F3A14, el handler de catch(...) 0x4F3A15 y la continuacion 0x4F3A3E..0x4F3AAA, mas el desenlace 0x4F3AAD): std::string::_Copy del EXE. Capacidad nueva = nuevoTamano | 0xF (si pasa de
+// 0xFFFFFFFE se queda en nuevoTamano) y se reservan capacidad + 1 bytes con el operator new DEL EXE (0x82119A). Si esa reserva lanza: capacidad = nuevoTamano y se reserva de nuevo; si tambien lanza se
+// hace _Tidy(true) en linea (libera el puntero si la capacidad >= 16 con operator delete del EXE 0x8214BD, capacidad = 0xF, tamano = 0, buf[0] = 0) y se relanza. Despues: si la longitud actual > 0 (sin signo) copia esa longitud desde
+// el bufer actual (puntero si capacidad >= 16, si no el bufer interno) con `rep movsd` + `rep movsb`; libera el bloque anterior si la capacidad actual >= 16; guarda el puntero nuevo en +4
+// (el EXE escribe antes buf[0] = 0, que el dword pisa), capacidad en +0x18, tamano (la longitud actual) en +0x14 y escribe el cero final en [capacidad >= 16 ? puntero nuevo : buf][longitud]. El EXE tiene el
+// handler de catch como funcion aparte (0x4F3A15) que no se puede enganchar: queda cubierto con este try/catch. Los marcos de SEH solo desenrollan.
+void UserTracksLegacyString::Reallocate(uint32 newSize, uint32 oldLength) {
+    uint32 newCapacity = newSize | 0xF;
+    if (newCapacity > 0xFFFFFFFEu) {
+        newCapacity = newSize;
+    }
+
+    char* newPtr;
+    try {
+        newPtr = ((char*(__cdecl*)(uint32))0x82119A)(newCapacity + 1);
+    } catch (...) {
+        newCapacity = newSize;
+        try {
+            newPtr = ((char*(__cdecl*)(uint32))0x82119A)(newCapacity + 1);
+        } catch (...) {
+            if (capacity >= 0x10) {
+                ((void(__cdecl*)(void*))0x8214BD)(ptr);
+            }
+            capacity = 0xF;
+            size     = 0;
+            buf[0]   = 0;
+            throw;
+        }
+    }
+
+    if (oldLength > 0) {
+        const char* const source = capacity >= 0x10 ? ptr : buf;
+        std::memcpy(newPtr, source, oldLength);
+    }
+    if (capacity >= 0x10) {
+        ((void(__cdecl*)(void*))0x8214BD)(ptr);
+    }
+    buf[0]   = 0;
+    ptr      = newPtr;
+    capacity = newCapacity;
+    size     = oldLength;
+    (newCapacity >= 0x10 ? newPtr : buf)[oldLength] = 0;
+}
+
 void CAEUserRadioTrackManager::InjectHooks() {
     RH_ScopedClass(CAEUserRadioTrackManager);
     RH_ScopedCategory("Audio/Managers");
@@ -1029,6 +1091,7 @@ void CAEUserRadioTrackManager::InjectHooks() {
     RH_ScopedOverloadedInstall(WriteUserTracksFile, "", 0x4f4690, int32 (CAEUserRadioTrackManager::*)(const char*, UserTracksLegacyVector&, FILE*, uint32&, int32));
     RH_ScopedInstall(WriteUserTracksThread, 0x4f4a20);
     RH_ScopedInstall(ScanUserTracks, 0x4f4ba0);
+    RH_ScopedGlobalInstall(UserTracksUninitCopy, 0x4F3940); // lote 208A (sin validar)
 
     {
         RH_ScopedClass(UserTracksLegacyVector);
@@ -1063,5 +1126,10 @@ void CAEUserRadioTrackManager::InjectHooks() {
         RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenD", 0x5ECBB0);
         RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenE", 0x5ECC30);
         RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenF", 0x5ECCB0);
+    }
+
+    {
+        RH_ScopedClass(UserTracksLegacyString);
+        RH_ScopedInstall(Reallocate, 0x4F39C0); // lote 208A (sin validar); 0x4F3A15 es su handler de catch (no enganchable)
     }
 }

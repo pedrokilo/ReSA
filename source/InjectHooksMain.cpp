@@ -265,6 +265,7 @@
 #include "ProcSurfaceInfo.h"
 #include "Pickup.h"
 #include "Pickups.h"
+#include "PhoneInfo.h"
 #include "PedIK.h"
 #include "HandShaker.h"
 #include "TempColModels.h"
@@ -1208,6 +1209,7 @@ void InjectHooksMain() {
     CPlaneBanners::InjectHooks();
     CPickup::InjectHooks();
     CPickups::InjectHooks();
+    CPhoneInfo::InjectHooks();
     CPedIK::InjectHooks();
 
     CCustomBuildingPipeline::InjectHooks();

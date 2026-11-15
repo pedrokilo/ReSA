@@ -70,6 +70,7 @@ public:
     void* Realloc(void* mem, uint32 nSize);
 
     HeapFreeBlockDesc* _JoinFreeBlocks(HeapFreeBlockDesc* desc);
+    HeapFreeBlockDesc* JoinAdjacentFreeBlocks(HeapFreeBlockDesc* desc); // 0x72E870 (lote 208A): une con los vecinos libres sin insertar el resultado
     bool IsHeapPointer(void* mem) { return mem >= m_FirstBlock && mem < m_LastBlock; }
     uint32 GetLargestFreeBlock() { return m_FreeListEnd.m_Prev->m_nSize; } // 0x72F370
     uint32 GetHeapSize() { return (uint8*)m_LastBlock - (uint8*)m_FirstBlock + sizeof(HeapBlockDesc); }

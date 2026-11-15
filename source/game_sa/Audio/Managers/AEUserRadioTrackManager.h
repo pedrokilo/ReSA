@@ -33,6 +33,21 @@ struct UserTracksLegacyVector {
 };
 VALIDATE_SIZE(UserTracksLegacyVector, 0x10);
 
+// std::string del ejecutable (disposicion de MSVC 2010: asignador en +0, bufer de 16 bytes o puntero en +4, tamano en +0x14 y capacidad en +0x18; 0x1C bytes). Solo se reconstruye la
+// reasignacion de la cadena del EXE (0x4F39C0, lote 208A); el resto de operaciones de la plantilla siguen en el EXE.
+struct UserTracksLegacyString {
+    uint32 allocator;
+    union {
+        char  buf[16];
+        char* ptr;
+    };
+    uint32 size;
+    uint32 capacity;
+
+    void Reallocate(uint32 newSize, uint32 oldLength); // 0x4F39C0
+};
+VALIDATE_SIZE(UserTracksLegacyString, 0x1C);
+
 /**
  * Gestor de la emisora de user tracks.
  *

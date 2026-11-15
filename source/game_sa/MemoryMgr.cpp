@@ -48,6 +48,7 @@ void CMemoryMgr::InjectHooks() {
     RH_ScopedOverloadedInstall(Realloc, "MemorySizeHint", 0x72F440, uint8*(*)(void*,uint32,uint32));
     RH_ScopedOverloadedInstall(MallocAlign, "SizeAlignHint", 0x72F4C0, uint8*(*)(uint32,uint32,uint32));
     RH_ScopedInstall(Free, 0x72F430);
+    RH_ScopedInstall(Init, 0x72F3B0); // lote 208A (sin validar): el EXE retail solo hace `ret`
     RH_ScopedOverloadedInstall(Calloc, "NumSizeHint", 0x72F460, uint8*(*)(uint32,uint32,uint32));
     RH_ScopedInstall(FreeAlign, 0x72F4F0);
     RH_ScopedInstall(PushMemId, 0x72F4A0);                                                  // lote 138A (banco Fn138A): el EXE retail no hace nada (`ret`)
@@ -56,7 +57,8 @@ void CMemoryMgr::InjectHooks() {
 
 }
 
-// 0x72F3B0
+// 0x72F3B0 (lote 208A, sin validar; cdecl, sin argumentos, `ret`, 1 byte; el listado lo atribuia a CCullZones): en el EXE retail no hace NADA (solo `ret`; lo llama el arranque en 0x53BB50). La
+// inicializacion de heaps de abajo es de consolas y solo se compila con MEMORY_MGR_USE_MEMORY_HEAP (no definido), con lo que el cuerpo queda vacio como el del EXE.
 void CMemoryMgr::Init() {
 #ifdef MEMORY_MGR_USE_MEMORY_HEAP
     // init main heap

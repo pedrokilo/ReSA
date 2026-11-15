@@ -36,9 +36,20 @@ static uint32 __fastcall PickupIsVisibleKeepEdx(CPickup* self, uint32 entryEdx) 
 }
 #pragma runtime_checks("", restore)
 
+namespace {
+// 0x454920 (lote 208A, sin validar; cdecl, un argumento de pila, `ret`, 28 bytes; el listado lo atribuia a CPathFind): `slot == 3 || slot == 4 || slot == 5`, es decir, las ranuras de arma
+// (CWeaponInfo::m_nSlot) cuyo recogido de otro arma del mismo tipo intercambia la municion (pistolas, escopetas, subfusiles). Comparaciones de 32 bits con signo (cmp/je); devuelve EAX = 0 o 1.
+// Solo lo llama CPickup::Update (0x457ABD y 0x457AD8, antes una lambda local sin hook).
+bool __cdecl PickupIsWeaponSlotExchangeable(int32 slot) {
+    return slot == 3 || slot == 4 || slot == 5;
+}
+} // namespace
+
 void CPickup::InjectHooks() {
     RH_ScopedClass(CPickup);
     RH_ScopedCategoryGlobal();
+
+    RH_ScopedNamedGlobalInstall(PickupIsWeaponSlotExchangeable, "IsWeaponSlotExchangeable", 0x454920); // lote 208A (sin validar)
 
     RH_ScopedInstall(ExtractAmmoFromPickup, 0x454BE0);
     RH_ScopedInstall(FindStringForTextIndex, 0x455540);
@@ -491,8 +502,8 @@ bool CPickup::Update(CPlayerPed* player, CVehicle* vehicle, int32 playerId) {
                 return false;
             }
 
-            const auto IsSlotExchangeable = [](int32 s) { // 0x454920
-                return s == 3 || s == 4 || s == 5;
+            const auto IsSlotExchangeable = [](int32 s) { // 0x454920 (PickupIsWeaponSlotExchangeable)
+                return PickupIsWeaponSlotExchangeable(s);
             };
             const auto lastLOSTime = *reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(player->GetPlayerData()) + 0x6C);
 

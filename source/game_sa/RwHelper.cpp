@@ -68,6 +68,7 @@ void RwHelperInjectHooks() {
     RH_ScopedGlobalInstall(RwTexDictionaryGtaStreamRead2, 0x731150);
     RH_ScopedGlobalInstall(RpClumpGtaStreamRead1, 0x72E570);
     RH_ScopedGlobalInstall(RpClumpGtaStreamRead2, 0x72E620);
+    RH_ScopedGlobalInstall(RpClumpGtaStreamReadAtOnce, 0x72E3A0); // lote 208A (sin validar)
     RH_ScopedGlobalInstall(RpClumpGtaCancelStream, 0x72E700);
     RH_ScopedGlobalInstall(SkinGetBonePositionsToTable, 0x735360);
     RH_ScopedGlobalInstall(RpGeometryReplaceOldMaterialWithNewMaterial, 0x734DE0);

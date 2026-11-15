@@ -30,3 +30,6 @@ extern bool RpClumpGtaStreamRead1(RwStream* stream);
 
 // 0x72E620
 RpClump* RpClumpGtaStreamRead2(RwStream* stream);
+
+// 0x72E3A0 (lote 208A): lectura de un clump de GTA en una sola fase (sin llamadores en el EXE)
+RpClump* RpClumpGtaStreamReadAtOnce(RwStream* stream);

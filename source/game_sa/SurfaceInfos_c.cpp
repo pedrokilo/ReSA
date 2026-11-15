@@ -29,6 +29,8 @@ void SurfaceInfos_c::InjectHooks()
     RH_ScopedInstall(GetSurfaceIdFromName, 0x55D220);
     RH_ScopedInstall(LoadAdhesiveLimits, 0x55D0E0); // lote 177A (sin validar): el listado lo atribuia a CStats; es SurfaceInfos_c::LoadAdhesiveLimits (lee data\surface.dat)
     RH_ScopedInstall(Init, 0x55F420);
+    RH_ScopedInstall(LoadSurfaceInfos, 0x55EB90);      // lote 208A (sin validar): revisado instruccion por instruccion (bits y orden de campos de +0x94/+0x98, cadenas, x10 y x100 con _ftol2); cuerpo ya existente, sin hook
+    RH_ScopedInstall(LoadSurfaceAudioInfos, 0x55F2B0); // lote 208A (sin validar): idem (bits 10..18 de +0x98)
 
     RH_ScopedInstall(GetAdhesionGroup, 0x55E5C0);
     RH_ScopedInstall(GetTyreGrip, 0x55E5E0);

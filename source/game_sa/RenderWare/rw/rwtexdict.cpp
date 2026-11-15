@@ -408,6 +408,104 @@ RpClump* RpClumpGtaStreamRead2(RwStream* stream) {
     return clump;
 }
 
+// 0x72E080 (lote 208A, sin validar; convencion de registros propia: EBX = stream, EDI = lista, un solo llamador, 0x72E46E dentro de 0x72E3A0, por lo que NO se engancha y va como funcion privada): lectura
+// de la lista de geometrias en una sola fase. Chunk STRUCT y lectura de un contador de 4 bytes (si no lee 4: nulo); numGeometries = contador (aunque no sea positivo); con contador > 0 reserva
+// contador * 4 bytes (CMemoryMgr::Malloc 0x72F420 con pista 0; el puntero se guarda aunque sea nulo y entonces devuelve nulo) SIN ponerlos a cero (a diferencia de 0x72E140); con contador <= 0 el vector queda
+// nulo y devuelve la lista. Despues, por cada geometria (el contador se conserva en la pila, no se relee): chunk GEOMETRY y RpGeometryStreamRead guardada en el vector ANTES de comprobarla; si alguna falla,
+// nulo sin liberar nada. No usa 0x8D607C.
+static GtaGeometryList* RpClumpGtaGeometryListStreamReadAll(RwStream* stream, GtaGeometryList* list) {
+    RwUInt32 length;
+    RwUInt32 version;
+    if (!RwStreamFindChunk(stream, rwID_STRUCT, &length, &version)) {
+        return nullptr;
+    }
+    int32 count;
+    if (RwStreamRead(stream, &count, sizeof(count)) != sizeof(count)) {
+        return nullptr;
+    }
+    list->numGeometries = count;
+    if (count > 0) {
+        list->geometries = static_cast<RpGeometry**>(CMemoryMgr::Malloc(static_cast<uint32>(count) * sizeof(RpGeometry*), 0));
+        if (!list->geometries) {
+            return nullptr;
+        }
+    } else {
+        list->geometries = nullptr;
+    }
+    for (int32 i = 0; i < count; ++i) {
+        if (!RwStreamFindChunk(stream, rwID_GEOMETRY, nullptr, &version)) {
+            return nullptr;
+        }
+        RpGeometry* const geometry = RpGeometryStreamRead(stream);
+        list->geometries[i]        = geometry;
+        if (!geometry) {
+            return nullptr;
+        }
+    }
+    return list;
+}
+
+// 0x72E3A0 (lote 208A, sin validar; cdecl, un argumento de pila, `ret`, 455 bytes; funcion sin llamadores en el EXE, probablemente muerta): lectura de un clump de GTA en una sola fase (las otras dos son
+// 0x72E570/0x72E620), con su estado en la pila y no en los globales. Chunk STRUCT y lectura de 12 bytes en la cabecera local (atomicos, luces, camaras; si no lee 12: nulo); RpClumpCreate (nulo -> nulo);
+// chunk FRAMELIST (si falta: nulo SIN destruir el clump, que se pierde, como el EXE) y _rwFrameListStreamRead (si falla: se destruye el clump y nulo); chunk GEOMETRYLIST (si falta: se libera la lista de frames,
+// se destruye el clump y nulo) y la lista de geometrias en una fase (0x72E080; si falla: lista de frames y clump, sin tocar las geometrias ya leidas); clump->object.parent (+4) = frames[0]; y por cada
+// atomico de la cabecera (el contador se relee de la pila en cada vuelta): chunk ATOMIC + atomico (0x72E270) + RpClumpAddAtomic; un fallo destruye la lista de geometrias (0x72E360), libera la lista de frames,
+// destruye el clump y devuelve nulo. Con exito destruye la lista de geometrias, libera la lista de frames y devuelve el clump.
+RpClump* RpClumpGtaStreamReadAtOnce(RwStream* stream) {
+    RwUInt32 length;
+    RwUInt32 version;
+    if (!RwStreamFindChunk(stream, rwID_STRUCT, &length, &version)) {
+        return nullptr;
+    }
+    GtaClumpHeader header; // Como el original: sin inicializar, la lectura lo rellena
+    if (RwStreamRead(stream, &header, sizeof(header)) != sizeof(header)) {
+        return nullptr;
+    }
+    RpClump* const clump = RpClumpCreate();
+    if (!clump) {
+        return nullptr;
+    }
+    if (!RwStreamFindChunk(stream, rwID_FRAMELIST, nullptr, &version)) {
+        return nullptr;
+    }
+    rwFrameList frameList; // Como el original: sin inicializar, _rwFrameListStreamRead la rellena
+    if (!_rwFrameListStreamRead(stream, &frameList)) {
+        RpClumpDestroy(clump);
+        return nullptr;
+    }
+    GtaGeometryList geometryList; // Como el original: sin inicializar, la lectura la rellena
+    if (!RwStreamFindChunk(stream, rwID_GEOMETRYLIST, nullptr, &version)) {
+        _rwFrameListDeinitialize(&frameList);
+        RpClumpDestroy(clump);
+        return nullptr;
+    }
+    if (!RpClumpGtaGeometryListStreamReadAll(stream, &geometryList)) {
+        _rwFrameListDeinitialize(&frameList);
+        RpClumpDestroy(clump);
+        return nullptr;
+    }
+    clump->object.parent = frameList.frames[0];
+    for (int32 i = 0; i < header.numAtomics; ++i) {
+        if (!RwStreamFindChunk(stream, rwID_ATOMIC, nullptr, &version)) {
+            RpClumpGtaGeometryListDestroy(geometryList);
+            _rwFrameListDeinitialize(&frameList);
+            RpClumpDestroy(clump);
+            return nullptr;
+        }
+        RpAtomic* const atomic = RpClumpGtaAtomicStreamRead(stream, &geometryList, &frameList);
+        if (!atomic) {
+            RpClumpGtaGeometryListDestroy(geometryList);
+            _rwFrameListDeinitialize(&frameList);
+            RpClumpDestroy(clump);
+            return nullptr;
+        }
+        RpClumpAddAtomic(clump, atomic);
+    }
+    RpClumpGtaGeometryListDestroy(geometryList);
+    _rwFrameListDeinitialize(&frameList);
+    return clump;
+}
+
 // 0x72E700: cancela una lectura en curso: libera la lista de geometrias y la de frames y pone a 0 el contador de frames (0xC87AF8).
 void RpClumpGtaCancelStream() {
     RpClumpGtaGeometryListDestroy(s_clumpGeometryList);

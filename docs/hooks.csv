@@ -11156,6 +11156,8 @@ CPathFind,RecordNodesClosestToCoors,0x0044FA30,1,0,1,S
 CPathFind,RecordNodesInCircle,0x0044FB60,1,0,1,S
 CPathFind,FindNodePairClosestToCoors,0x0044FEE0,1,0,1,S
 CPathFind,Find2NodesForCarCreation,0x00452090,1,0,1,S
+CPhoneInfo,Constructor,0x004541E0,1,0,0,S
+CPhoneInfo,PhoneAnimFinishCallback,0x00453F40,1,0,0,S
 CPickup,IsWeaponSlotExchangeable,0x00454920,1,0,0,S
 SurfaceInfos_c,LoadSurfaceInfos,0x0055EB90,1,0,0,S
 SurfaceInfos_c,LoadSurfaceAudioInfos,0x0055F2B0,1,0,0,S
@@ -12437,3 +12439,4 @@ RwCore,_rxPipelineReqsAddOrUpdate,0x0080F4B0,1,0,0,S
 RwCore,_rxIoSpecFindCluster,0x0080F540,1,0,0,S
 RwCore,_rxPipelineReqsRelease,0x0080F570,1,0,0,S
 RwCore,_rxPipelineUnlockPropagateForced,0x0080F690,1,0,0,S
+UserTracksLegacyString,Reallocate,0x004F39C0,1,0,0,S

@@ -98,37 +98,8 @@ struct CZoneDef {
         m_maxZ = (int16)(int64)(maxZ);
     }
 
-    // 0x72D850
-    // Como el original: NaN falla todas las pruebas (fcomp + test ah,5/41h/1), las longitudes al cuadrado
-    // son enteros de 32 bits (imul) y se comparan exactos (fild) con el producto escalar en float.
-    [[nodiscard]] bool IsPointWithin(const CVector& point) const {
-        if (!((float)m_minZ < point.z) || !((float)m_maxZ > point.z)) {
-            return false;
-        }
-
-        const float dx = point.x - (float)m_cornerX;
-        const float dy = point.y - (float)m_cornerY;
-
-        const float dot1 = (float)m_vec1X * dx + (float)m_vec1Y * dy;
-        if (!(dot1 >= 0.0f)) {
-            return false;
-        }
-        const int32 len1 = (int32)((uint32)(m_vec1X * m_vec1X) + (uint32)(m_vec1Y * m_vec1Y));
-        if (!((double)dot1 <= (double)len1)) {
-            return false;
-        }
-
-        const float dot2 = (float)m_vec2X * dx + (float)m_vec2Y * dy;
-        if (!(dot2 >= 0.0f)) {
-            return false;
-        }
-        const int32 len2 = (int32)((uint32)(m_vec2X * m_vec2X) + (uint32)(m_vec2Y * m_vec2Y));
-        if (!((double)dot2 <= (double)len2)) {
-            return false;
-        }
-
-        return true;
-    }
+    // 0x72D850 (lote 208A, sin validar; thiscall con el CVector POR VALOR en la pila, `ret 0Ch`; antes en linea con const&): el cuerpo esta en CullZones.cpp
+    [[nodiscard]] bool IsPointWithin(CVector point) const;
 
     // 0x72D6D0
     // Como el original: centro de la zona; x = (vec2X + vec1X) * 0.5 + esquinaX, y = (vec2Y + vec1Y) * 0.5 + esquinaY, z = (minZ + maxZ) * 0.5. Devuelve out (EAX).

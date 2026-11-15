@@ -63,7 +63,43 @@ void CCullZones::InjectHooks() {
         RH_ScopedCategoryGlobal();
 
         RH_ScopedInstall(GetCenter, 0x72D6D0);
+        RH_ScopedInstall(IsPointWithin, 0x72D850); // lote 208A (sin validar)
     }
+}
+
+// 0x72D850 (lote 208A, sin validar; thiscall, ECX = zona, el punto (x, y, z) POR VALOR en la pila, `ret 0Ch`, 273 bytes): `true` si el punto esta dentro del prisma orientado de la zona.
+// Orden y operaciones del EXE: (1) z: `(float)minZ < z` (fild de la palabra con signo, fcomp, `test ah,5; jp`: solo entra con minZ < z; NaN falla) y `(float)maxZ > z` (`test ah,41h; jne`: NaN falla);
+// (2) dx = x - esquinaX y dy = y - esquinaY, cada uno restado en x87 y GUARDADO como float (fsubr + fstp dword; el EXE reutiliza el hueco de x para dy); (3) producto escalar con el primer vector:
+// vec1X * dx + vec1Y * dy (fild exacto de cada componente, fmul por el float, faddp) y se exige `dot1 >= 0` (fcom con 0 en 0x858B50, `test ah,1; jne`: negativo o NaN fallan; el producto se compara
+// en 80 bits, con la precision de 24 bits que fija el juego); (4) la longitud al cuadrado es un ENTERO de 32 bits (imul + add de 32 bits, con envoltura) y se compara con fild exacto: `dot1 <= len1`
+// (`fcompp; test ah,41h; jp`: NaN falla); (5) lo mismo con el segundo vector (+8, +0xA). Sin colaboradores; solo escribe EAX/ECX/EDX (ESI se guarda).
+bool CZoneDef::IsPointWithin(CVector point) const {
+    if (!((float)m_minZ < point.z) || !((float)m_maxZ > point.z)) {
+        return false;
+    }
+
+    const float dx = point.x - (float)m_cornerX;
+    const float dy = point.y - (float)m_cornerY;
+
+    const float dot1 = (float)m_vec1X * dx + (float)m_vec1Y * dy;
+    if (!(dot1 >= 0.0f)) {
+        return false;
+    }
+    const int32 len1 = (int32)((uint32)(m_vec1X * m_vec1X) + (uint32)(m_vec1Y * m_vec1Y));
+    if (!((double)dot1 <= (double)len1)) {
+        return false;
+    }
+
+    const float dot2 = (float)m_vec2X * dx + (float)m_vec2Y * dy;
+    if (!(dot2 >= 0.0f)) {
+        return false;
+    }
+    const int32 len2 = (int32)((uint32)(m_vec2X * m_vec2X) + (uint32)(m_vec2Y * m_vec2Y));
+    if (!((double)dot2 <= (double)len2)) {
+        return false;
+    }
+
+    return true;
 }
 
 // 0x72D6D0
