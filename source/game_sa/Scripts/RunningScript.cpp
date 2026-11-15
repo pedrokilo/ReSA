@@ -26,6 +26,33 @@ END GENERATED HOOK STATUS */
 #include "Tasks/TaskTypes/TaskSimpleHoldEntity.h"
 #include "Tasks/PedScriptedTaskRecord.h"
 #include "ShotInfo.h"
+#include "Tasks/TaskTypes/TaskSimpleDuckToggle.h"
+#include "Tasks/TaskTypes/TaskComplexUseSwatRope.h"
+#include "Tasks/TaskTypes/TaskSimpleStandStill.h"
+#include "Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h"
+#include "Tasks/TaskTypes/TaskComplexClimb.h"
+#include "Tasks/TaskTypes/TaskComplexSeekEntityAiming.h"
+#include "Tasks/TaskTypes/TaskSimpleJetPack.h"
+#include "Tasks/TaskTypes/TaskSimpleSetCharDecisionMaker.h"
+#include "Tasks/TaskTypes/TaskComplexGoPickUpEntity.h"
+#include "Tasks/TaskTypes/TaskComplexKillPedOnFoot.h"
+#include "Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.h"
+#include "Tasks/TaskTypes/TaskSimpleSlideToCoord.h"
+#include "Tasks/TaskComplexUseSequence.h"
+#include "Tasks/TaskComplexSequence.h"
+#include "Ropes.h"
+#include "UserDisplay.h"
+#include "OnscreenTimer.h"
+#include "TagManager.h"
+#include "VehicleRecording.h"
+#include "WaterLevel.h"
+#include "Shopping.h"
+#include "Radar.h"
+#include "Coronas.h"
+#include "SetPieces.h"
+#include "RoadBlocks.h"
+#include "Population.h"
+#include "ScriptResourceManager.h"
 
 #include "RunningScript.h"
 #include "TheScripts.h"
@@ -110,6 +137,8 @@ void CRunningScript::InjectHooks() {
     RH_ScopedInstall(UpdatePC, 0x464DA0, { .stackArguments = 1 });
     RH_ScopedInstall(ProcessOneCommand, 0x469EB0);
     RH_ScopedInstall(Process, 0x469F00);
+    RH_ScopedInstall(ProcessCommands1200To1299, 0x48B590, { .stackArguments = 1 });
+    RH_ScopedInstall(ProcessCommands1900To1999, 0x46B460, { .stackArguments = 1 });
     RH_ScopedOverloadedInstall(GivePedScriptedTask, "OG", 0x465C20, void(CRunningScript::*)(int32, CTask*, int32));
 }
 
@@ -1250,4 +1279,1349 @@ void CRunningScript::ResetIP() {
     assert(m_StackDepth > 0); // Original bug...
     m_StackDepth = 0;
     m_IP         = m_IPStack[0];
+}
+
+// Lote 237A: desplazamientos del EXE que usan ProcessCommands1200To1299 / 1900To1999 (comprobados contra el desensamblado de 0x48B590 y 0x46B460).
+static_assert(offsetof(CVehicle, m_pHandlingData) == 0x384);
+static_assert(offsetof(tHandlingData, m_nModelFlags) == 0xCC);
+static_assert(offsetof(CVehicle, m_vecMoveSpeed) == 0x44);
+static_assert(offsetof(CVehicle, vehicleFlags) == 0x428);
+static_assert(offsetof(CVehicle, m_nVehicleType) == 0x590);
+static_assert(offsetof(CVehicle, m_autoPilot) + offsetof(CAutoPilot, m_nCarMission) == 0x3BA);
+static_assert(offsetof(CVehicle, m_autoPilot) + offsetof(CAutoPilot, m_nCruiseSpeed) == 0x3D0);
+static_assert(offsetof(CVehicle, m_autoPilot) + offsetof(CAutoPilot, m_ucHeliTargetDist) == 0x3D8);
+static_assert(offsetof(CVehicle, m_autoPilot) + offsetof(CAutoPilot, m_ucHeliSpeedMult) == 0x3D9);
+static_assert(offsetof(CVehicle, m_autoPilot) + offsetof(CAutoPilot, m_TargetEntity) == 0x41C);
+static_assert(offsetof(CHeli, m_fMinAltitude) == 0x9B0);
+static_assert(offsetof(CPedIntelligence, m_TaskMgr) == 0x4);
+static_assert(offsetof(CTaskComplexUseSequence, m_nSequenceIndex) == 0xC);
+static_assert(offsetof(CTaskComplexUseSequence, m_nCurrentTaskIndex) == 0x10);
+static_assert(offsetof(CTaskComplexUseSequence, m_nEndTaskIndex) == 0x14);
+static_assert(offsetof(CVehicleModelInfo, m_nPlateType) == 0x31);
+static_assert(offsetof(CVehicle, m_pTowingVehicle) == 0x4C4);
+static_assert(offsetof(CVehicle, m_pVehicleBeingTowed) == 0x4C8);
+static_assert(offsetof(CVehicle, m_autoPilot) + offsetof(CAutoPilot, m_nStraightLineDistance) == 0x3DD);
+static_assert(offsetof(CAutomobile, m_fHeliRotorSpeed) == 0x84C);
+static_assert(offsetof(CPed, m_aWeapons) == 0x5A0);
+static_assert(offsetof(CPed, m_fArmour) == 0x548);
+static_assert(offsetof(CPed, m_pVehicle) == 0x58C);
+static_assert(offsetof(CPed, m_acquaintance) == 0x4E0);
+static_assert(offsetof(CPhysical, m_nNumEntitiesCollided) == 0xB9);
+static_assert(offsetof(CPhysical, m_pEntityIgnoredCollision) == 0x128);
+static_assert(offsetof(CPlayerInfo, m_PlayerData) == 0x4);
+static_assert(offsetof(CPlayerPedData, m_pPedClothesDesc) == 0x4);
+static_assert(offsetof(CPlayerPedData, m_nPlayerGroup) == 0x38);
+static_assert(offsetof(CPlayerInfo, m_nBestCarTwoWheelsTimeMs) == 0x118);
+static_assert(offsetof(CPlayerInfo, m_fBestBikeStoppieDistM) == 0x12C);
+static_assert(offsetof(CPlayerInfo, m_bCanDoDriveBy) == 0x153);
+static_assert(sizeof(CPlayerInfo) == 0x190);
+static_assert(offsetof(CPedClothesDesc, m_anTextureKeys) == 0x28);
+static_assert(offsetof(CZone, m_ZoneInfoIndex) == 0x1C);
+static_assert(sizeof(CZoneInfo) == 0x11);
+static_assert(offsetof(CPedGroup, m_groupIntelligence) == 0x30);
+static_assert(sizeof(CPedGroup) == 0x2D4);
+static_assert(offsetof(CPad, bDisablePlayerEnterCar) == 0x119);
+static_assert(offsetof(CRunningScript, m_IsTextBlockOverride) == 0xC8);
+static_assert(offsetof(CRunningScript, m_UsesMissionCleanup) == 0xC6);
+static_assert(offsetof(tBeatInfo, IsBeatInfoPresent) == 0xA0);
+static_assert(offsetof(tMessage, Text) == 0x0);
+static_assert(offsetof(tBeatInfo, BeatNumber) == 0xA8);
+static_assert(offsetof(CWeaponInfo, m_nModelId1) == 0xC);
+static_assert(offsetof(CWeaponInfo, m_nSlot) == 0x14);
+static_assert(offsetof(CAnimBlock, IsLoaded) == 0x10);
+static_assert(sizeof(CTaskSimpleDuckToggle) == 0xC);
+static_assert(sizeof(CTaskComplexUseSwatRope) == 0x1C);
+static_assert(sizeof(CTaskSimpleStandStill) == 0x20);
+static_assert(sizeof(CTaskComplexSeekEntityStandard) == 0x4C);
+static_assert(sizeof(CTaskComplexClimb) == 0x14);
+static_assert(sizeof(CTaskComplexUseSequence) == 0x1C);
+static_assert(sizeof(CTaskComplexSeekEntityAiming) == 0x18);
+static_assert(sizeof(CTaskComplexKillPedOnFoot) == 0x38);
+static_assert(sizeof(CTaskSimpleJetPack) == 0x70);
+static_assert(sizeof(CTaskSimpleSetCharDecisionMaker) == 0xC);
+static_assert(sizeof(CTaskComplexGoPickUpEntity) == 0x34);
+static_assert(sizeof(CTaskComplexSequence) == 0x40);
+static_assert(sizeof(CTaskComplexGoToPointAndStandStill) == 0x28);
+static_assert(sizeof(CTaskSimpleSlideToCoord) == 0x80);
+
+namespace {
+//! Campo por desplazamiento de un objeto del EXE (solo donde el miembro nombrado no esta en las cabeceras)
+template<typename T>
+T& RawField(void* object, size_t offset) {
+    return *reinterpret_cast<T*>(static_cast<uint8*>(object) + offset);
+}
+} // namespace
+
+// 0x48B590 (lote 237A, sin validar; el listado decia CRunningScript, 5816 bytes: es CRunningScript::ProcessCommands1200To1299, el manejador original de los comandos de script 1200..1299; ocupa la ranura 12 de
+// s_OriginalCommandHandlerTable (0x8A6198) y lo llama ProcessOneCommand con la ranura command / 100 cuando el comando no tiene manejador propio). Thiscall con un argumento de pila (`ret 4`). Prologo SEH (marco con
+// manejador 0x8384BA): solo protege los tres `new` de tareas (estados 0, 1 y 2; el destructor de desenrollado es operator delete), sin objetos con destructor: en C++ no hace falta. Devuelve OR_INTERRUPT (-1) para
+// los comandos sin caso (el EXE sale por 0x48CC3D) y OR_CONTINUE (0) en el resto, incluidos los siete comandos que el EXE deja vacios sin leer parametros (1212, 1214, 1215, 1223, 1269, 1287, 1291).
+// Locales del EXE: dos palabras de area de nodo inicializadas a 0xFFFF (1209, la unica que las usa).
+// Cada caso replica el orden de colaboradores del desensamblado (CollectParameters / GetPointerToScriptVariable / lecturas de etiqueta / reservas de tarea) y las comparaciones x87 con -100.0 (jp tras test ah,41h:
+// la rama se toma con z <= -100.0, y con NaN no).
+OpcodeResult CRunningScript::ProcessCommands1200To1299(int32 command) {
+    auto& sp = ScriptParams;
+
+    constexpr float MIN_GROUND_Z = -100.0f; // 0x859014
+
+    switch (command) {
+    // 1200..1207: comparaciones de entero con variable (global = tipo 2, local = tipo 1); en las variantes "constante > variable" el EXE lee primero el parametro y luego la variable
+    case 1200: { // IS_INT_VAR_GREATER_THAN_CONSTANT
+        auto* var = GetPointerToScriptVariable(VAR_GLOBAL);
+        CollectParameters(1);
+        UpdateCompareFlag(var->iParam > sp[0].iParam);
+        return OR_CONTINUE;
+    }
+    case 1201: { // IS_INT_LVAR_GREATER_THAN_CONSTANT
+        auto* var = GetPointerToScriptVariable(VAR_LOCAL);
+        CollectParameters(1);
+        UpdateCompareFlag(var->iParam > sp[0].iParam);
+        return OR_CONTINUE;
+    }
+    case 1202: { // IS_CONSTANT_GREATER_THAN_INT_VAR
+        CollectParameters(1);
+        auto* var = GetPointerToScriptVariable(VAR_GLOBAL);
+        UpdateCompareFlag(sp[0].iParam > var->iParam);
+        return OR_CONTINUE;
+    }
+    case 1203: { // IS_CONSTANT_GREATER_THAN_INT_LVAR
+        CollectParameters(1);
+        auto* var = GetPointerToScriptVariable(VAR_LOCAL);
+        UpdateCompareFlag(sp[0].iParam > var->iParam);
+        return OR_CONTINUE;
+    }
+    case 1204: { // IS_INT_VAR_GREATER_OR_EQUAL_TO_CONSTANT
+        auto* var = GetPointerToScriptVariable(VAR_GLOBAL);
+        CollectParameters(1);
+        UpdateCompareFlag(var->iParam >= sp[0].iParam);
+        return OR_CONTINUE;
+    }
+    case 1205: { // IS_INT_LVAR_GREATER_OR_EQUAL_TO_CONSTANT
+        auto* var = GetPointerToScriptVariable(VAR_LOCAL);
+        CollectParameters(1);
+        UpdateCompareFlag(var->iParam >= sp[0].iParam);
+        return OR_CONTINUE;
+    }
+    case 1206: { // IS_CONSTANT_GREATER_OR_EQUAL_TO_INT_VAR
+        CollectParameters(1);
+        auto* var = GetPointerToScriptVariable(VAR_GLOBAL);
+        UpdateCompareFlag(sp[0].iParam >= var->iParam);
+        return OR_CONTINUE;
+    }
+    case 1207: { // IS_CONSTANT_GREATER_OR_EQUAL_TO_INT_LVAR
+        CollectParameters(1);
+        auto* var = GetPointerToScriptVariable(VAR_LOCAL);
+        UpdateCompareFlag(sp[0].iParam >= var->iParam);
+        return OR_CONTINUE;
+    }
+
+    case 1208: { // GET_CHAR_WEAPON_IN_SLOT: el EXE direcciona ped + 0x584 + ranura * 0x1C (= m_aWeapons[ranura - 1]); lee tipo (+0) y municion total (+0xC)
+        CollectParameters(2);
+        auto*        ped    = GetPedPool()->GetAtRef(sp[0].iParam);
+        const auto&  weapon = *(ped->m_aWeapons.data() + (sp[1].iParam - 1));
+        const auto   type   = weapon.m_Type;
+        sp[0].iParam        = type;
+        sp[1].iParam        = weapon.m_TotalAmmo;
+        sp[2].iParam        = CPickups::ModelForWeapon(type);
+        StoreParameters(3);
+        return OR_CONTINUE;
+    }
+
+    case 1209: { // GET_CLOSEST_STRAIGHT_ROAD
+        CollectParameters(5);
+        CNodeAddress nodeA{ 0xFFFF, 0 }, nodeB{ 0xFFFF, 0 };
+        float        heading{};
+        ThePaths.FindNodePairClosestToCoors(CVector{ sp[0].fParam, sp[1].fParam, sp[2].fParam }, 0, &nodeA, &nodeB, &heading, sp[3].fParam, sp[4].fParam, true, true, 0);
+        bool found = false;
+        if (nodeA.m_wAreaId != 0xFFFF) {
+            const CVector first = ThePaths.FindNodeCoorsForScript(nodeA, nullptr);
+            sp[0].fParam        = first.x;
+            sp[1].fParam        = first.y;
+            sp[2].fParam        = first.z;
+            bool foundSecond{};
+            const CVector second = ThePaths.FindNodeCoorsForScript(nodeB, &foundSecond);
+            if (foundSecond) {
+                sp[5].fParam = second.z;
+                sp[3].fParam = second.x;
+                sp[4].fParam = second.y;
+                found        = true;
+            }
+        }
+        if (!found) {
+            sp[0].iParam = sp[1].iParam = sp[2].iParam = sp[3].iParam = sp[4].iParam = sp[5].iParam = 0;
+            heading                                                                                    = 0.0f;
+        }
+        sp[6].fParam = heading;
+        StoreParameters(7);
+        UpdateCompareFlag(found);
+        return OR_CONTINUE;
+    }
+
+    case 1210: { // SET_CAR_FORWARD_SPEED: velocidad = adelante * (parametro * 0.016666668 [0x859044]); un helicoptero (flag de modelo 0x2000000) con +0x590 == 0 recibe la velocidad del rotor 0.22
+        CollectParameters(2);
+        auto* veh = GetVehiclePool()->GetAtRef(sp[0].iParam);
+        const float scaledSpeed = sp[1].fParam * 0.016666668f;
+        veh->m_vecMoveSpeed = veh->GetMatrix().GetForward() * scaledSpeed;
+        if ((veh->m_pHandlingData->m_nModelFlags & VEHICLE_HANDLING_MODEL_IS_HELI) && veh->m_nVehicleType == VEHICLE_TYPE_AUTOMOBILE) {
+            static_cast<CAutomobile*>(veh)->m_fHeliRotorSpeed = 0.22f; // 0x3E6147AE
+        }
+        return OR_CONTINUE;
+    }
+
+    case 1211: { // SET_AREA_VISIBLE
+        CollectParameters(1);
+        CGame::currArea = (eAreaCodes)sp[0].iParam;
+        CStreaming::RemoveBuildingsNotInArea((eAreaCodes)sp[0].iParam);
+        return OR_CONTINUE;
+    }
+
+    case 1213: { // MARK_CAR_AS_CONVOY_CAR
+        CollectParameters(2);
+        auto* veh                     = GetVehiclePool()->GetAtRef(sp[0].iParam);
+        veh->vehicleFlags.bPartOfConvoy = sp[1].iParam != 0;
+        return OR_CONTINUE;
+    }
+
+    case 1216: { // CREATE_SCRIPT_ROADBLOCK
+        CollectParameters(7);
+        CRoadBlocks::RegisterScriptRoadBlock(CVector{ sp[0].fParam, sp[1].fParam, sp[2].fParam }, CVector{ sp[3].fParam, sp[4].fParam, sp[5].fParam }, sp[6].iParam != 0);
+        return OR_CONTINUE;
+    }
+    case 1217: // CLEAR_ALL_SCRIPT_ROADBLOCKS
+        CRoadBlocks::ClearScriptRoadBlocks();
+        return OR_CONTINUE;
+
+    case 1220: { // GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS: Multiply3x3(matriz del ped, desplazamiento) + posicion (matriz + 0x30, o +4 si no hay matriz)
+        CollectParameters(4);
+        auto*   ped    = GetPedPool()->GetAtRef(sp[0].iParam);
+        const CVector input{ sp[1].fParam, sp[2].fParam, sp[3].fParam };
+        CVector       offset;
+        Multiply3x3Exe(&offset, ped->m_matrix, &input);
+        offset += ped->GetPosition();
+        sp[0].fParam = offset.x;
+        sp[1].fParam = offset.y;
+        sp[2].fParam = offset.z;
+        StoreParameters(3);
+        return OR_CONTINUE;
+    }
+
+    case 1221: { // HAS_CHAR_BEEN_PHOTOGRAPHED: consume el bit (bHasBeenPhotographed) si estaba puesto
+        CollectParameters(1);
+        auto* ped    = GetPedPool()->GetAtRef(sp[0].iParam);
+        bool  result = false;
+        if (ped && ped->bHasBeenPhotographed) {
+            ped->bHasBeenPhotographed = false;
+            result                    = true;
+        }
+        UpdateCompareFlag(result);
+        return OR_CONTINUE;
+    }
+
+    case 1224: { // IS_CHAR_IN_FLYING_VEHICLE: apariencia 5 (helicoptero) o 3 (avion); GetVehicleAppearance se llama otra vez si la primera no es 5
+        CollectParameters(1);
+        auto* ped    = GetPedPool()->GetAtRef(sp[0].iParam);
+        bool  result = false;
+        if (ped->bInVehicle) {
+            if (ped->m_pVehicle->GetVehicleAppearance() == 5 || ped->m_pVehicle->GetVehicleAppearance() == 3) {
+                result = true;
+            }
+        }
+        UpdateCompareFlag(result);
+        return OR_CONTINUE;
+    }
+
+    case 1230: { // ADD_SHORT_RANGE_SPRITE_BLIP_FOR_COORD
+        CollectParameters(4);
+        float z = sp[2].fParam;
+        if (z <= MIN_GROUND_Z) {
+            z = CWorld::FindGroundZForCoord(sp[0].fParam, sp[1].fParam);
+        }
+        (void)CRadar::GetActualBlipArrayIndex(CollectNextParameterWithoutIncreasingPC()); // el EXE descarta el resultado
+        const auto blip = CRadar::SetShortRangeCoordBlip(BLIP_COORD, CVector{ sp[0].fParam, sp[1].fParam, z }, (eBlipColour)5, (eBlipDisplay)3, m_szName);
+        CRadar::SetBlipSprite(blip, (eRadarSprite)sp[3].iParam);
+        sp[0].iParam = blip;
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+
+    case 1232: { // SET_HELI_ORIENTATION: angulo = (param + 90.0) * 0.017453292 normalizado a [0, 2*pi]
+        CollectParameters(2);
+        auto*       veh   = GetVehiclePool()->GetAtRef(sp[0].iParam);
+        float       angle = (sp[1].fParam + 90.0f) * 0.017453292f; // 0x85991C, 0x8595EC
+        constexpr float TWO_PI = 6.2831855f;                      // 0x858CBC
+        if (angle < 0.0f) {
+            do {
+                angle += TWO_PI;
+            } while (angle < 0.0f);
+        }
+        if (angle > TWO_PI) {
+            do {
+                angle -= TWO_PI;
+            } while (angle > TWO_PI);
+        }
+        static_cast<CAutomobile*>(veh)->SetHeliOrientation(angle);
+        return OR_CONTINUE;
+    }
+    case 1233: { // CLEAR_HELI_ORIENTATION
+        CollectParameters(1);
+        static_cast<CAutomobile*>(GetVehiclePool()->GetAtRef(sp[0].iParam))->ClearHeliOrientation();
+        return OR_CONTINUE;
+    }
+    case 1234: { // PLANE_GOTO_COORDS
+        CollectParameters(6);
+        auto* veh = GetVehiclePool()->GetAtRef(sp[0].iParam);
+        static_cast<CAutomobile*>(veh)->TellPlaneToGoToCoors(sp[1].fParam, sp[2].fParam, sp[3].fParam, sp[4].fParam, sp[5].fParam);
+        return OR_CONTINUE;
+    }
+
+    case 1235: { // GET_NTH_CLOSEST_CAR_NODE
+        CollectParameters(4);
+        float z = sp[2].fParam;
+        if (z <= MIN_GROUND_Z) {
+            z = CWorld::FindGroundZForCoord(sp[0].fParam, sp[1].fParam);
+        }
+        const CNodeAddress addr = ThePaths.FindNthNodeClosestToCoors(CVector{ sp[0].fParam, sp[1].fParam, z }, 0, std::bit_cast<float>(0x497423FEu), false, true, sp[3].iParam - 1, false, false, nullptr);
+        bool       found{};
+        const auto pos = ThePaths.FindNodeCoorsForScript(addr, &found);
+        if (found) {
+            sp[0].fParam = pos.x;
+            sp[1].fParam = pos.y;
+            sp[2].fParam = pos.z;
+        } else {
+            sp[0].iParam = 0;
+            sp[1].iParam = 0;
+            sp[2].iParam = 0;
+        }
+        StoreParameters(3);
+        UpdateCompareFlag(found);
+        return OR_CONTINUE;
+    }
+
+    case 1237: { // DRAW_WEAPONSHOP_CORONA: el identificador de la corona es (this + m_IP) como en HighlightImportantArea
+        CollectParameters(9);
+        float z = sp[2].fParam;
+        if (z <= MIN_GROUND_Z) {
+            z = CWorld::FindGroundZForCoord(sp[0].fParam, sp[1].fParam);
+        }
+        const CVector pos{ sp[0].fParam, sp[1].fParam, z };
+        CCoronas::RegisterCorona(
+            uint32(reinterpret_cast<uintptr_t>(this) + reinterpret_cast<uintptr_t>(m_IP)),
+            nullptr,
+            sp[6].u8Param, sp[7].u8Param, sp[8].u8Param, 255,
+            pos, sp[3].fParam, 150.0f,
+            (eCoronaType)sp[4].u8Param, (eCoronaFlareType)sp[5].u8Param, (eCoronaReflType)1, (eCoronaLOSCheck)0, (eCoronaTrail)0,
+            0.0f, false,
+            0.2f, false,
+            15.0f, false, false
+        );
+        return OR_CONTINUE;
+    }
+
+    case 1238: // SET_ENABLE_RC_DETONATE_ON_CONTACT
+        CollectParameters(1);
+        CVehicle::bDisableRemoteDetonationOnContact = sp[0].iParam == 0;
+        return OR_CONTINUE;
+
+    case 1239: { // FREEZE_CHAR_POSITION (bit 0x2000 de las banderas fisicas)
+        CollectParameters(2);
+        auto* ped                           = GetPedPool()->GetAtRef(sp[0].iParam);
+        ped->physicalFlags.bDontApplySpeed = sp[1].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case 1240: { // SET_CHAR_DROWNS_IN_WATER (bit 0x100000 de las banderas del ped, segunda palabra)
+        CollectParameters(2);
+        auto* ped              = GetPedPool()->GetAtRef(sp[0].iParam);
+        ped->bDrownsInWater    = sp[1].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case 1241: { // SET_OBJECT_RECORDS_COLLISIONS (bit 0x10000000 de las banderas fisicas)
+        CollectParameters(2);
+        auto* object                               = GetObjectPool()->GetAtRef(sp[0].iParam);
+        object->physicalFlags.bCanBeCollidedWith = sp[1].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case 1242: { // HAS_OBJECT_COLLIDED_WITH_ANYTHING
+        CollectParameters(1);
+        auto* object = GetObjectPool()->GetAtRef(sp[0].iParam);
+        UpdateCompareFlag(object->m_nNumEntitiesCollided != 0);
+        return OR_CONTINUE;
+    }
+    case 1243: // REMOVE_RC_BUGGY
+        CWorld::Players[CWorld::PlayerInFocus].BlowUpRCBuggy(false);
+        return OR_CONTINUE;
+
+    case 1245: { // GET_CHAR_ARMOUR (float -> entero truncado)
+        CollectParameters(1);
+        auto* ped    = GetPedPool()->GetAtRef(sp[0].iParam);
+        sp[0].iParam = (int32)ped->m_fArmour;
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+    case 1247: { // SET_HELI_STABILISER (bit 0x10 del byte +0x42B = bHeliMinimumTilt)
+        CollectParameters(2);
+        auto* veh                           = GetVehiclePool()->GetAtRef(sp[0].iParam);
+        veh->vehicleFlags.bHeliMinimumTilt = sp[1].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case 1248: { // SET_CAR_STRAIGHT_LINE_DISTANCE
+        CollectParameters(2);
+        auto* veh                                  = GetVehiclePool()->GetAtRef(sp[0].iParam);
+        veh->m_autoPilot.m_nStraightLineDistance = sp[1].u8Param;
+        return OR_CONTINUE;
+    }
+    case 1249: { // POP_CAR_BOOT
+        CollectParameters(1);
+        static_cast<CAutomobile*>(GetVehiclePool()->GetAtRef(sp[0].iParam))->PopBoot();
+        return OR_CONTINUE;
+    }
+    case 1250: // SHUT_PLAYER_UP: el EXE solo lee los dos parametros
+        CollectParameters(2);
+        return OR_CONTINUE;
+    case 1251: // SET_PLAYER_MOOD
+        CollectParameters(3);
+        CAEPedSpeechAudioEntity::SetCJMood((eCJMood)sp[1].u16Param, sp[2].uParam, -1, -1, -1);
+        return OR_CONTINUE;
+    case 1252: { // REQUEST_COLLISION: el EXE pasa un CVector (x, y, 0) y el area actual
+        CollectParameters(2);
+        const CVector pos{ sp[0].fParam, sp[1].fParam, 0.0f };
+        CColStore::RequestCollision(pos, (eAreaCodes)(int32)CGame::currArea);
+        return OR_CONTINUE;
+    }
+    case 1253: // LOCATE_OBJECT_2D
+    case 1254: // LOCATE_OBJECT_3D
+        LocateObjectCommand(command);
+        return OR_CONTINUE;
+    case 1255: { // IS_OBJECT_IN_WATER (bit 8 de las banderas fisicas)
+        CollectParameters(1);
+        auto* object = GetObjectPool()->GetAtRef(sp[0].iParam);
+        UpdateCompareFlag(object && object->physicalFlags.bSubmergedInWater);
+        return OR_CONTINUE;
+    }
+    case 1257: // IS_OBJECT_IN_AREA_2D
+    case 1258: // IS_OBJECT_IN_AREA_3D
+        ObjectInAreaCheckCommand(command);
+        return OR_CONTINUE;
+    case 1259: { // TASK_TOGGLE_DUCK
+        CollectParameters(2);
+        CTask* task = nullptr;
+        if (auto* memory = CTask::operator new(sizeof(CTaskSimpleDuckToggle))) {
+            task = ::new (memory) CTaskSimpleDuckToggle((CTaskSimpleDuckToggle::eMode)sp[1].iParam);
+        }
+        GivePedScriptedTask(sp[0].iParam, task, command);
+        return OR_CONTINUE;
+    }
+
+    case 1261: { // REQUEST_ANIMATION
+        char name[16]{};
+        ReadTextLabelFromScript(name, 16);
+        const auto block = CAnimManager::GetAnimationBlockIndex(name);
+        CStreaming::RequestModel((eModelID)(block + 0x63E7), STREAMING_MISSION_REQUIRED);
+        CTheScripts::ScriptResourceManager.AddToResourceManager(block, RESOURCE_TYPE_ANIMATION, this);
+        return OR_CONTINUE;
+    }
+    case 1262: { // HAS_ANIMATION_LOADED
+        char name[16]{};
+        ReadTextLabelFromScript(name, 16);
+        UpdateCompareFlag(CAnimManager::GetAnimationBlock(name)->IsLoaded == 1);
+        return OR_CONTINUE;
+    }
+    case 1263: { // REMOVE_ANIMATION
+        char name[16]{};
+        ReadTextLabelFromScript(name, 16);
+        const auto block = CAnimManager::GetAnimationBlockIndex(name);
+        if (CTheScripts::ScriptResourceManager.RemoveFromResourceManager(block, RESOURCE_TYPE_ANIMATION, this)) {
+            CStreaming::SetMissionDoesntRequireAnim(block);
+        }
+        return OR_CONTINUE;
+    }
+    case 1264: { // IS_CHAR_WAITING_FOR_WORLD_COLLISION
+        CollectParameters(1);
+        auto* ped = GetPedPool()->GetAtRef(sp[0].iParam);
+        UpdateCompareFlag(ped->m_bIsStaticWaitingForCollision);
+        return OR_CONTINUE;
+    }
+    case 1265: { // IS_CAR_WAITING_FOR_WORLD_COLLISION
+        CollectParameters(1);
+        auto* veh = GetVehiclePool()->GetAtRef(sp[0].iParam);
+        UpdateCompareFlag(veh->m_bIsStaticWaitingForCollision);
+        return OR_CONTINUE;
+    }
+
+    case 1268: { // ATTACH_CHAR_TO_OBJECT: primero se resuelve el objeto y luego el ped
+        CollectParameters(8);
+        const float rotationLimit = sp[6].fParam * 0.017453292f; // 0x8595EC
+        auto*       object        = GetObjectPool()->GetAtRef(sp[1].iParam);
+        auto*       ped           = GetPedPool()->GetAtRef(sp[0].iParam);
+        ped->AttachPedToEntity(object, CVector{ sp[2].fParam, sp[3].fParam, sp[4].fParam }, sp[5].u16Param, rotationLimit, (eWeaponType)sp[7].iParam);
+        return OR_CONTINUE;
+    }
+
+    case 1271: { // DISPLAY_NTH_ONSCREEN_COUNTER_WITH_STRING: el indice de la variable se lee ANTES de los parametros; CText::Get se llama y su resultado se descarta
+        const auto varId = GetIndexOfGlobalVariable();
+        CollectParameters(2);
+        char label[16]{};
+        ReadTextLabelFromScript(label, 8);
+        (void)TheText.Get(label); // el resultado se descarta (el EXE llama a CText::Get y no usa el texto traducido)
+        CUserDisplay::OnscnTimer.AddCounter(varId, (eOnscreenCounter)sp[0].u16Param, label, (uint16)(sp[1].iParam - 1));
+        return OR_CONTINUE;
+    }
+
+    case 1272: { // ADD_SET_PIECE
+        CollectParameters(13);
+        CSetPieces::AddOne(
+            (eSetPieceType)sp[0].u8Param,
+            CVector2D{ sp[1].fParam, sp[2].fParam },
+            CVector2D{ sp[3].fParam, sp[4].fParam },
+            CVector2D{ sp[5].fParam, sp[6].fParam },
+            CVector2D{ sp[7].fParam, sp[8].fParam },
+            CVector2D{ sp[9].fParam, sp[10].fParam },
+            CVector2D{ sp[11].fParam, sp[12].fParam }
+        );
+        return OR_CONTINUE;
+    }
+
+    case 1273: // SET_EXTRA_COLOURS
+        CollectParameters(2);
+        CTimeCycle::StartExtraColour(sp[0].iParam - 1, sp[1].iParam != 0);
+        return OR_CONTINUE;
+    case 1274: // CLEAR_EXTRA_COLOURS
+        CollectParameters(1);
+        CTimeCycle::StopExtraColour(sp[0].iParam != 0);
+        return OR_CONTINUE;
+
+    case 1276: { // GET_WHEELIE_STATS: devuelve los seis mejores registros del jugador y los pone a cero
+        CollectParameters(1);
+        auto& info   = CWorld::Players[sp[0].iParam];
+        sp[0].uParam = info.m_nBestCarTwoWheelsTimeMs;
+        sp[1].fParam = info.m_fBestCarTwoWheelsDistM;
+        sp[2].uParam = info.m_nBestBikeWheelieTimeMs;
+        sp[3].fParam = info.m_fBestBikeWheelieDistM;
+        sp[4].uParam = info.m_nBestBikeStoppieTimeMs;
+        sp[5].fParam = info.m_fBestBikeStoppieDistM;
+        StoreParameters(6);
+        info.m_nBestCarTwoWheelsTimeMs = 0;
+        info.m_fBestCarTwoWheelsDistM  = 0.0f;
+        info.m_nBestBikeWheelieTimeMs  = 0;
+        info.m_fBestBikeWheelieDistM   = 0.0f;
+        info.m_nBestBikeStoppieTimeMs  = 0;
+        info.m_fBestBikeStoppieDistM   = 0.0f;
+        return OR_CONTINUE;
+    }
+
+    case 1278: { // BURST_CAR_TYRE: en motos (+0x590 == 9) el segundo parametro 2 pasa a 0 y 3 a 1 (se escribe de vuelta en el parametro); la llamada es la virtual de la ranura 0xB0
+        CollectParameters(2);
+        auto* veh = GetVehiclePool()->GetAtRef(sp[0].iParam);
+        if (veh->m_nVehicleType == VEHICLE_TYPE_BIKE) {
+            int32 tyre = sp[1].iParam;
+            if (tyre == 2) {
+                tyre            = 0;
+                sp[1].iParam    = tyre;
+            } else if (tyre == 3) {
+                tyre            = 1;
+                sp[1].iParam    = tyre;
+            }
+            veh->BurstTyre((uint8)tyre, true);
+        } else {
+            veh->BurstTyre(sp[1].u8Param, true);
+        }
+        return OR_CONTINUE;
+    }
+
+    case 1280: { // IS_PLAYER_WEARING: la clave se lee ANTES de la etiqueta (+0x28 = m_anTextureKeys)
+        CollectParameters(2);
+        const auto key = CWorld::Players[sp[0].iParam].m_PlayerData.m_pPedClothesDesc->m_anTextureKeys[sp[1].iParam];
+        char       label[16]{};
+        ReadTextLabelFromScript(label, 16);
+        UpdateCompareFlag(key == CKeyGen::GetUppercaseKey(label));
+        return OR_CONTINUE;
+    }
+    case 1281: { // SET_PLAYER_CAN_DO_DRIVE_BY
+        CollectParameters(2);
+        CWorld::Players[sp[0].iParam].m_bCanDoDriveBy = sp[1].iParam != 0;
+        return OR_CONTINUE;
+    }
+
+    case 1283: { // CREATE_SWAT_ROPE
+        CollectParameters(5);
+        const CVector ropePos{ sp[2].fParam, sp[3].fParam, sp[4].fParam };
+        const auto    pedType    = sp[0].iParam;
+        const auto    modelIndex = sp[1].iParam;
+        const auto    ropeId     = CRopes::CreateRopeForSwatPed(ropePos);
+        auto*         ped        = CPopulation::AddPed((ePedType)pedType, (eModelID)modelIndex, ropePos, true);
+        {
+            CTask* task = nullptr;
+            if (auto* memory = CTask::operator new(sizeof(CTaskComplexUseSwatRope))) {
+                task = ::new (memory) CTaskComplexUseSwatRope((uint32)ropeId);
+            }
+            ped->GetIntelligence()->m_TaskMgr.SetTask(task, TASK_PRIMARY_PRIMARY, false);
+            CPedScriptedTaskRecord::ms_scriptedTasks[CPedScriptedTaskRecord::GetVacantSlot()].Set(ped, command, task);
+        }
+        ped->SetCharCreatedBy(PED_MISSION);
+        ped->bAllowMedicsToReviveMe = false; // and 0x7FFFFFFF sobre la primera palabra de banderas
+        {
+            CTask* task = nullptr;
+            if (auto* memory = CTask::operator new(sizeof(CTaskSimpleStandStill))) {
+                task = ::new (memory) CTaskSimpleStandStill(999999, true, false, 8.0f);
+            }
+            ped->GetIntelligence()->m_TaskMgr.SetTask(task, TASK_PRIMARY_DEFAULT, false);
+        }
+        // El EXE pasa aqui un CVector local que ESTE caso nunca escribe (pila sin inicializar, +0x6C): no hay valor fiel que reproducir.
+        CVector uninitializedPos;
+        CTheScripts::ClearSpaceForMissionEntity(uninitializedPos, ped);
+        if (m_UsesMissionCleanup) {
+            ped->m_bIsStaticWaitingForCollision = true;
+        }
+        CPopulation::ms_nTotalMissionPeds++;
+        sp[0].iParam = GetPedPool()->GetRef(ped);
+        StoreParameters(1);
+        if (m_UsesMissionCleanup) {
+            CTheScripts::MissionCleanUp.AddEntityToList(sp[0].iParam, MISSION_CLEANUP_ENTITY_TYPE_PED);
+        }
+        return OR_CONTINUE;
+    }
+
+    case 1286: // SET_CAR_MODEL_COMPONENTS (0x8A6458 / 0x8A6459)
+        CollectParameters(3);
+        CVehicleModelInfo::ms_compsToUse[0] = sp[1].i8Param;
+        CVehicleModelInfo::ms_compsToUse[1] = sp[2].i8Param;
+        return OR_CONTINUE;
+    case 1288: { // CLOSE_ALL_CAR_DOORS
+        CollectParameters(1);
+        static_cast<CAutomobile*>(GetVehiclePool()->GetAtRef(sp[0].iParam))->CloseAllDoors();
+        return OR_CONTINUE;
+    }
+
+    case 1289: { // GET_DISTANCE_BETWEEN_COORDS_2D: sqrt(dy * dy + dx * dx) con dx = x1 - x2, dy = y1 - y2
+        CollectParameters(4);
+        const float dx = sp[0].fParam - sp[2].fParam;
+        const float dy = sp[1].fParam - sp[3].fParam;
+        sp[0].fParam   = std::sqrt(dy * dy + dx * dx);
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+    case 1290: { // GET_DISTANCE_BETWEEN_COORDS_3D: CVector::Magnitude de (x1 - x2, y1 - y2, z1 - z2)
+        CollectParameters(6);
+        const CVector delta{ sp[0].fParam - sp[3].fParam, sp[1].fParam - sp[4].fParam, sp[2].fParam - sp[5].fParam };
+        sp[0].fParam = delta.Magnitude();
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+
+    case 1294: { // SORT_OUT_OBJECT_COLLISION_WITH_CAR: se resuelve primero el vehiculo (parametro 1) y luego el objeto (parametro 0); escritura directa (+0x128 = m_pEntityIgnoredCollision)
+        CollectParameters(2);
+        auto* veh                          = GetVehiclePool()->GetAtRef(sp[1].iParam);
+        auto* object                       = GetObjectPool()->GetAtRef(sp[0].iParam);
+        object->m_pEntityIgnoredCollision = veh;
+        return OR_CONTINUE;
+    }
+    case 1295: // GET_MAX_WANTED_LEVEL
+        sp[0].iParam = (int32)CWanted::MaximumWantedLevel;
+        StoreParameters(1);
+        return OR_CONTINUE;
+
+    case 1298: { // PRINT_HELP_FOREVER
+        char label[16]{};
+        ReadTextLabelFromScript(label, 8);
+        const auto* text = TheText.Get(label);
+        if (CTheScripts::bDisplayNonMiniGameHelpMessages || m_IsTextBlockOverride || !CTheScripts::bMiniGameInProgress) {
+            CHud::SetHelpMessage(text, false, true, false);
+            if (CTheScripts::bAddNextMessageToPreviousBriefs) {
+                CMessages::AddToPreviousBriefArray(text, -1, -1, -1, -1, -1, -1, nullptr);
+            }
+        }
+        CTheScripts::bAddNextMessageToPreviousBriefs = true;
+        return OR_CONTINUE;
+    }
+    case 1299: { // PRINT_HELP_FOREVER_WITH_NUMBER
+        char label[16]{};
+        ReadTextLabelFromScript(label, 8);
+        const auto* text = TheText.Get(label);
+        CollectParameters(1);
+        if (CTheScripts::bDisplayNonMiniGameHelpMessages || m_IsTextBlockOverride || !CTheScripts::bMiniGameInProgress) {
+            CHud::SetHelpMessageWithNumber(text, sp[0].iParam, false, true);
+        }
+        return OR_CONTINUE;
+    }
+
+    case 1212: // SET_CUTSCENE_ANIM_TO_LOOP: el EXE no hace nada (ni lee parametros)
+    case 1214: // RESET_HAVOC_CAUSED_BY_PLAYER
+    case 1215: // GET_HAVOC_CAUSED_BY_PLAYER
+    case 1223: // SWITCH_SECURITY_CAMERA
+    case 1269: // SET_CHAR_AS_PLAYER_FRIEND
+    case 1287: // SWITCH_LIFT_CAMERA
+    case 1291: // POP_CAR_BOOT_USING_PHYSICS
+        return OR_CONTINUE;
+
+    default:
+        return OR_INTERRUPT;
+    }
+}
+
+// 0x46B460 (lote 237A, sin validar; el listado decia CScriptsForBrains, 6028 bytes: es CRunningScript::ProcessCommands1900To1999, el manejador original de los comandos de script 1900..1999; ranura 19 de
+// s_OriginalCommandHandlerTable (0x8A6168 + 19 * 4 = 0x46B460)). Thiscall con un argumento de pila (`ret 4`). Prologo SEH como el de ProcessCommands1200To1299: solo protege los `new` de tareas (y los CMatrix locales
+// de los comandos 1988 y 1990: sus destructores se ejecutan en C++ al salir del bloque). Salta con una tabla directa de 100 entradas (0x46CBEC): 30 comandos van a 0x46CBCB (devuelven 0 sin hacer nada y SIN leer
+// parametros) y el 1977 y los fuera de rango a 0x46CBCF (OR_INTERRUPT, -1).
+// Cada caso replica el orden de colaboradores del desensamblado. Los indices que vienen del script (zonas, armas, claves de ropa) se calculan con aritmetica de punteros como el EXE, sin la comprobacion de rango
+// de std::array (en depuracion abortaria donde el EXE solo lee memoria).
+OpcodeResult CRunningScript::ProcessCommands1900To1999(int32 command) {
+    auto& sp = ScriptParams;
+
+    // 0x46BDCB: cola compartida de GRAB_ENTITY_ON_WINCH y GRAB_ENTITY_ON_ROPE_FOR_OBJECT; los tres parametros se ponen antes a -1 y solo se rellena el que corresponde al tipo de la entidad
+    const auto StoreGrabbedEntity = [&](CEntity* entity) {
+        if (entity) {
+            switch (entity->GetType()) {
+            case ENTITY_TYPE_VEHICLE:
+                sp[0].iParam = GetVehiclePool()->GetRef(static_cast<CVehicle*>(entity));
+                break;
+            case ENTITY_TYPE_PED:
+                sp[1].iParam = GetPedPool()->GetRef(static_cast<CPed*>(entity));
+                break;
+            case ENTITY_TYPE_OBJECT:
+                sp[2].iParam = GetObjectPool()->GetRef(static_cast<CObject*>(entity));
+                break;
+            default:
+                break;
+            }
+        }
+        StoreParameters(3);
+    };
+
+    switch (command) {
+    case 1900: { // SET_ZONE_GANG_STRENGTH
+        char label[16]{};
+        ReadTextLabelFromScript(label, 8);
+        CollectParameters(2);
+        const auto zone = CTheZones::FindZoneByLabel(label, (eZoneType)2);
+        if (zone >= 0) {
+            const auto zoneInfo = (CTheZones::NavigationZoneArray.data() + zone)->m_ZoneInfoIndex;
+            (CTheZones::ZoneInfoArray.data() + zoneInfo)->GangStrength[sp[0].iParam] = sp[1].u8Param;
+        }
+        return OR_CONTINUE;
+    }
+    case 1901: { // GET_ZONE_GANG_STRENGTH: el EXE NO comprueba que la zona exista (indice -1 lee memoria anterior a la tabla)
+        char label[16]{};
+        ReadTextLabelFromScript(label, 8);
+        CollectParameters(1);
+        const auto zone     = CTheZones::FindZoneByLabel(label, (eZoneType)2);
+        const auto zoneInfo = (CTheZones::NavigationZoneArray.data() + zone)->m_ZoneInfoIndex;
+        sp[0].iParam        = (CTheZones::ZoneInfoArray.data() + zoneInfo)->GangStrength[sp[0].iParam];
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+    case 1903: // IS_MESSAGE_BEING_DISPLAYED: primer mensaje breve con texto
+        UpdateCompareFlag(CMessages::BriefMessages[0].Text != nullptr);
+        return OR_CONTINUE;
+    case 1904: { // SET_CHAR_IS_TARGET_PRIORITY (bit 0x20000000 de la segunda palabra de banderas del ped)
+        CollectParameters(2);
+        auto* ped                         = GetPedPool()->GetAtRef(sp[0].iParam);
+        ped->bThisPedIsATargetPriority    = sp[1].iParam != 0;
+        return OR_CONTINUE;
+    }
+    case 1905: { // CUSTOM_PLATE_DESIGN_FOR_NEXT_CAR: solo si el modelo existe, es de vehiculo (tipo 6) y tiene objeto RenderWare (+0x24)
+        CollectParameters(2);
+        auto* modelInfo = *(CModelInfo::ms_modelInfoPtrs + sp[0].iParam);
+        if (modelInfo && (int32)modelInfo->GetModelType() == 6 && RawField<void*>(modelInfo, 0x24)) { // +0x24 = m_pRwObject
+            static_cast<CVehicleModelInfo*>(modelInfo)->m_nPlateType = sp[1].u8Param;
+        }
+        return OR_CONTINUE;
+    }
+    case 1906: { // TASK_GOTO_CAR
+        CollectParameters(4);
+        const auto pedHandle    = sp[0].iParam;
+        const auto targetRadius = sp[3].fParam;
+        auto*      veh          = GetVehiclePool()->GetAtRef(sp[1].iParam);
+        int32      seekInterval = sp[2].iParam;
+        if (seekInterval < 0) {
+            seekInterval = 50000;
+        }
+        CTask* task = nullptr;
+        if (auto* memory = CTask::operator new(sizeof(CTaskComplexSeekEntityStandard))) {
+            task = ::new (memory) CTaskComplexSeekEntityStandard(veh, seekInterval, 1000, targetRadius, 2.0f, 2.0f, true, true); // 0x859E30 / 0x859E34 = 2.0
+        }
+        GivePedScriptedTask(pedHandle, task, command);
+        return OR_CONTINUE;
+    }
+    case 1910: { // REQUEST_IPL
+        char name[24]{};
+        ReadTextLabelFromScript(name, 18);
+        CIplStore::RequestIplAndIgnore(CIplStore::FindIplSlot(name));
+        return OR_CONTINUE;
+    }
+    case 1911: { // REMOVE_IPL
+        char name[24]{};
+        ReadTextLabelFromScript(name, 18);
+        CIplStore::RemoveIplAndIgnore(CIplStore::FindIplSlot(name));
+        return OR_CONTINUE;
+    }
+    case 1912: { // REMOVE_IPL_DISCREETLY
+        char name[24]{};
+        ReadTextLabelFromScript(name, 18);
+        CIplStore::RemoveIplWhenFarAway(CIplStore::FindIplSlot(name));
+        return OR_CONTINUE;
+    }
+    case 1914: { // SET_CHAR_RELATIONSHIP
+        CollectParameters(3);
+        auto* ped = GetPedPool()->GetAtRef(sp[0].iParam);
+        ped->m_acquaintance.SetAsAcquaintance((AcquaintanceId)sp[1].iParam, CPedType::GetPedFlag((ePedType)sp[2].iParam));
+        return OR_CONTINUE;
+    }
+    case 1915: { // CLEAR_CHAR_RELATIONSHIP
+        CollectParameters(3);
+        auto* ped = GetPedPool()->GetAtRef(sp[0].iParam);
+        ped->m_acquaintance.ClearAsAcquaintance((AcquaintanceId)sp[1].iParam, CPedType::GetPedFlag((ePedType)sp[2].iParam));
+        return OR_CONTINUE;
+    }
+    case 1916: { // CLEAR_ALL_CHAR_RELATIONSHIPS
+        CollectParameters(2);
+        auto* ped = GetPedPool()->GetAtRef(sp[0].iParam);
+        ped->m_acquaintance.ClearAcquaintances((AcquaintanceId)sp[1].iParam);
+        return OR_CONTINUE;
+    }
+    case 1917: { // GET_CAR_PITCH: grados normalizados a [0, 360]
+        CollectParameters(1);
+        auto*       veh   = GetVehiclePool()->GetAtRef(sp[0].iParam);
+        float       pitch = static_cast<CAutomobile*>(veh)->GetCarPitch() * 57.29578f; // 0x859878
+        constexpr float FULL_TURN = 360.0f;                                            // 0x859E2C
+        if (pitch < 0.0f) {
+            pitch += FULL_TURN;
+        }
+        if (pitch > FULL_TURN) {
+            pitch -= FULL_TURN;
+        }
+        sp[0].fParam = pitch;
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+    case 1918: // GET_AREA_VISIBLE
+        sp[0].iParam = CGame::currArea;
+        StoreParameters(1);
+        return OR_CONTINUE;
+    case 1920: { // HELI_KEEP_ENTITY_IN_VIEW (autopiloto: mision +0x3BA, velocidad de crucero +0x3D0, distancia al objetivo +0x3D8, objetivo +0x41C; CHeli::m_fMinAltitude +0x9B0): el objetivo es el vehiculo (parametro 2, si >= 0) o, si no, el ped (parametro 1, si >= 0); RegisterReference se llama aunque sea nulo, como el EXE
+        CollectParameters(5);
+        auto*    heli   = GetVehiclePool()->GetAtRef(sp[0].iParam);
+        CEntity* target = nullptr;
+        if (sp[1].iParam >= 0) {
+            target = GetPedPool()->GetAtRef(sp[1].iParam);
+        }
+        if (sp[2].iParam >= 0) {
+            target = GetVehiclePool()->GetAtRef(sp[2].iParam);
+        }
+        const uint32 distance = sp[3].uParam; // float del parametro 3
+        const uint32 altitude = sp[4].uParam; // float del parametro 4 (dword sin convertir)
+        auto& mission = heli->m_autoPilot.m_nCarMission;
+        if ((uint8)mission != 0x39 && (uint8)mission != 0x3A) {
+            mission = (eCarMission)0x33;
+        }
+        auto& targetRef = RawField<CEntity*>(&heli->m_autoPilot.m_TargetEntity, 0); // CEntity** para las referencias (el campo es un CVehicle*)
+        if (targetRef) {
+            targetRef->CleanUpOldReference(&targetRef);
+        }
+        targetRef = target;
+        target->RegisterReference(&targetRef);
+        static_cast<CHeli*>(heli)->m_fMinAltitude = std::bit_cast<float>(altitude);
+        heli->m_autoPilot.m_nCruiseSpeed          = 100;
+        heli->m_autoPilot.m_ucHeliTargetDist      = (uint8)(int32)std::bit_cast<float>(distance);
+        return OR_CONTINUE;
+    }
+    case 1921: // GET_WEAPONTYPE_MODEL
+        CollectParameters(1);
+        sp[0].iParam = CWeaponInfo::GetWeaponInfo((eWeaponType)sp[0].iParam, eWeaponSkill::STD)->m_nModelId1;
+        StoreParameters(1);
+        return OR_CONTINUE;
+    case 1922: // GET_WEAPONTYPE_SLOT
+        CollectParameters(1);
+        sp[0].iParam = CWeaponInfo::GetWeaponInfo((eWeaponType)sp[0].iParam, eWeaponSkill::STD)->m_nSlot;
+        StoreParameters(1);
+        return OR_CONTINUE;
+    case 1923: // GET_SHOPPING_EXTRA_INFO
+        CollectParameters(2);
+        sp[0].iParam = CShopping::GetExtraInfo(sp[0].uParam, sp[1].iParam);
+        StoreParameters(1);
+        return OR_CONTINUE;
+    case 1924: // GIVE_PLAYER_CLOTHES
+        CollectParameters(4);
+        CWorld::Players[sp[0].iParam].m_PlayerData.m_pPedClothesDesc->SetTextureAndModel(sp[1].uParam, sp[2].uParam, (eClothesTexturePart)sp[3].iParam);
+        return OR_CONTINUE;
+    case 1926: { // GET_NUMBER_OF_FIRES_IN_AREA: cada eje se ordena (intercambio solo si el primero es estrictamente mayor)
+        CollectParameters(6);
+        float x1 = sp[0].fParam, y1 = sp[1].fParam, z1 = sp[2].fParam;
+        float x2 = sp[3].fParam, y2 = sp[4].fParam, z2 = sp[5].fParam;
+        if (x1 > x2) {
+            std::swap(x1, x2);
+        }
+        if (y1 > y2) {
+            std::swap(y1, y2);
+        }
+        if (z1 > z2) {
+            std::swap(z1, z2);
+        }
+        sp[0].iParam = gFireManager.GetNumFiresInArea(x1, y1, z1, x2, y2, z2);
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+    case 1928: { // ATTACH_WINCH_TO_HELI
+        CollectParameters(2);
+        GetVehiclePool()->GetAtRef(sp[0].iParam)->InitWinch(sp[1].iParam);
+        return OR_CONTINUE;
+    }
+    case 1929: { // RELEASE_ENTITY_FROM_WINCH
+        CollectParameters(1);
+        GetVehiclePool()->GetAtRef(sp[0].iParam)->ReleasePickedUpEntityWithWinch();
+        return OR_CONTINUE;
+    }
+    case 1930: { // GET_TRAIN_CARRIAGE
+        CollectParameters(2);
+        auto* train    = static_cast<CTrain*>(GetVehiclePool()->GetAtRef(sp[0].iParam));
+        auto* carriage = CTrain::FindCarriage(train, sp[1].u8Param);
+        sp[0].iParam   = carriage ? GetVehiclePool()->GetRef(carriage) : -1;
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+    case 1931: { // GRAB_ENTITY_ON_WINCH
+        CollectParameters(1);
+        auto* veh = GetVehiclePool()->GetAtRef(sp[0].iParam);
+        sp[0].iParam = sp[1].iParam = sp[2].iParam = -1;
+        StoreGrabbedEntity(veh->QueryPickedUpEntityWithWinch());
+        return OR_CONTINUE;
+    }
+    case 1932: { // GET_NAME_OF_ITEM: copia 8 caracteres de la etiqueta a la variable global
+        CollectParameters(1);
+        const auto* nameTag = CShopping::GetNameTag(sp[0].uParam);
+        std::strncpy(reinterpret_cast<char*>(GetPointerToScriptVariable(VAR_GLOBAL)), nameTag, 8);
+        return OR_CONTINUE;
+    }
+    case 1935: { // TASK_CLIMB: el byte +0x10 de la tarea se escribe tambien con la reserva fallida (bug del EXE)
+        CollectParameters(2);
+        const bool flag = sp[1].iParam != 0;
+        CTask*     task = nullptr;
+        if (auto* memory = CTask::operator new(sizeof(CTaskComplexClimb))) {
+            task = ::new (memory) CTaskComplexClimb();
+        }
+        RawField<uint8>(task, 0x10) = flag;
+        GivePedScriptedTask(sp[0].iParam, task, command);
+        return OR_CONTINUE;
+    }
+    case 1936: // BUY_ITEM
+        CollectParameters(1);
+        CShopping::Buy(sp[0].uParam, 0);
+        return OR_CONTINUE;
+    case 1938: { // CLEAR_CHAR_TASKS_IMMEDIATELY
+        CollectParameters(1);
+        GetPedPool()->GetAtRef(sp[0].iParam)->GetIntelligence()->FlushImmediately(true);
+        return OR_CONTINUE;
+    }
+    case 1939: // STORE_CLOTHES_STATE
+        CShopping::StoreClothesState();
+        return OR_CONTINUE;
+    case 1940: // RESTORE_CLOTHES_STATE
+        CShopping::RestoreClothesState();
+        return OR_CONTINUE;
+    case 1942: { // GET_ROPE_HEIGHT_FOR_OBJECT
+        CollectParameters(1);
+        sp[0].fParam = GetObjectPool()->GetAtRef(sp[0].iParam)->GetRopeHeight();
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+    case 1943: { // SET_ROPE_HEIGHT_FOR_OBJECT
+        CollectParameters(2);
+        GetObjectPool()->GetAtRef(sp[0].iParam)->SetRopeHeight(sp[1].fParam);
+        return OR_CONTINUE;
+    }
+    case 1944: { // GRAB_ENTITY_ON_ROPE_FOR_OBJECT
+        CollectParameters(1);
+        auto* object = GetObjectPool()->GetAtRef(sp[0].iParam);
+        sp[0].iParam = sp[1].iParam = sp[2].iParam = -1;
+        StoreGrabbedEntity(object->GetObjectCarriedWithRope());
+        return OR_CONTINUE;
+    }
+    case 1945: { // RELEASE_ENTITY_FROM_ROPE_FOR_OBJECT
+        CollectParameters(1);
+        GetObjectPool()->GetAtRef(sp[0].iParam)->ReleaseObjectCarriedWithRope();
+        return OR_CONTINUE;
+    }
+    case 1949: // PLAYER_ENTERED_DOCK_CRANE
+        CRopes::PlayerControlsCrane      = (eControlledCrane)1;
+        CWaterLevel::m_bWaterFogScript   = false;
+        return OR_CONTINUE;
+    case 1950: // PLAYER_ENTERED_BUILDINGSITE_CRANE
+        CRopes::PlayerControlsCrane      = (eControlledCrane)2;
+        CWaterLevel::m_bWaterFogScript   = false;
+        return OR_CONTINUE;
+    case 1951: // PLAYER_LEFT_CRANE
+        CRopes::PlayerControlsCrane      = (eControlledCrane)0;
+        CWaterLevel::m_bWaterFogScript   = true;
+        return OR_CONTINUE;
+    case 1952: { // PERFORM_SEQUENCE_TASK_FROM_PROGRESS: los campos +0x14 y +0x10 se escriben tambien con la reserva fallida
+        CollectParameters(4);
+        const auto sequence = CTheScripts::GetActualScriptThingIndex(sp[1].iParam, SCRIPT_THING_SEQUENCE_TASK);
+        if (sequence < 0 || sequence >= 64) {
+            return OR_CONTINUE;
+        }
+        CTask* task = nullptr;
+        if (auto* memory = CTask::operator new(sizeof(CTaskComplexUseSequence))) {
+            task = ::new (memory) CTaskComplexUseSequence(sequence);
+        }
+        // +0x14 = m_nEndTaskIndex, +0x10 = m_nCurrentTaskIndex (se escriben aunque la reserva haya fallado, como el EXE)
+        static_cast<CTaskComplexUseSequence*>(task)->m_nEndTaskIndex     = sp[3].iParam;
+        static_cast<CTaskComplexUseSequence*>(task)->m_nCurrentTaskIndex = sp[2].iParam;
+        GivePedScriptedTask(sp[0].iParam, task, command);
+        return OR_CONTINUE;
+    }
+    case 1953: // SET_NEXT_DESIRED_MOVE_STATE
+        CollectParameters(1);
+        StaticRef<int32>(0x8D237C) = sp[0].iParam;
+        return OR_CONTINUE;
+    case 1955: { // TASK_GOTO_CHAR_AIMING
+        CollectParameters(4);
+        const auto pedHandle = sp[0].iParam;
+        auto*      target    = GetPedPool()->GetAtRef(sp[1].iParam);
+        CTask*     task      = nullptr;
+        if (auto* memory = CTask::operator new(sizeof(CTaskComplexSeekEntityAiming))) {
+            task = ::new (memory) CTaskComplexSeekEntityAiming(target, sp[2].fParam, sp[3].fParam);
+        }
+        GivePedScriptedTask(pedHandle, task, command);
+        return OR_CONTINUE;
+    }
+    case 1956: { // GET_SEQUENCE_PROGRESS_RECURSIVE: progreso de la tarea primaria (+0x10) y, si su subtarea es una secuencia (tipo 0x113), el de esa (+0x10)
+        CollectParameters(1);
+        auto* ped      = GetPedPool()->GetAtRef(sp[0].iParam);
+        int32 progress = -1;
+        int32 subProgress = -1;
+        if (CPedScriptedTaskRecord::GetStatus(ped, 0x618) != (eScriptedTaskStatus)0) {
+            auto* task = ped->GetIntelligence()->m_TaskMgr.GetTaskPrimary(TASK_PRIMARY_PRIMARY);
+            progress   = RawField<int32>(task, 0x10);
+            auto* sub  = task->GetSubTask();
+            if (sub && (int32)sub->GetTaskType() == 0x113) {
+                subProgress = RawField<int32>(sub, 0x10);
+            }
+        }
+        sp[0].iParam = progress;
+        sp[1].iParam = subProgress;
+        StoreParameters(2);
+        return OR_CONTINUE;
+    }
+    case 1957: { // TASK_KILL_CHAR_ON_FOOT_TIMED
+        CollectParameters(3);
+        const auto pedHandle = sp[0].iParam;
+        const auto time      = sp[2].iParam;
+        auto*      target    = GetPedPool()->GetAtRef(sp[1].iParam);
+        CTask*     task      = nullptr;
+        if (auto* memory = CTask::operator new(sizeof(CTaskComplexKillPedOnFoot))) {
+            task = ::new (memory) CTaskComplexKillPedOnFoot(target, time, 0, 0, 0, 1);
+        }
+        GivePedScriptedTask(pedHandle, task, command);
+        return OR_CONTINUE;
+    }
+    case 1958: { // GET_NEAREST_TAG_POSITION: sin marca, (-4000, -4000, -4000)
+        CollectParameters(3);
+        const CVector from{ sp[0].fParam, sp[1].fParam, sp[2].fParam };
+        if (auto* tag = CTagManager::GetNearestTag(from)) {
+            const CVector pos = tag->GetPosition();
+            sp[0].fParam    = pos.x;
+            sp[1].fParam    = pos.y;
+            sp[2].fParam    = pos.z;
+        } else {
+            sp[0].uParam = sp[1].uParam = sp[2].uParam = 0xC57A0000u; // -4000.0f
+        }
+        StoreParameters(3);
+        return OR_CONTINUE;
+    }
+    case 1959: { // TASK_JETPACK
+        CollectParameters(1);
+        const auto pedHandle = sp[0].iParam;
+        CTask*     task      = nullptr;
+        if (auto* memory = CTask::operator new(sizeof(CTaskSimpleJetPack))) {
+            task = ::new (memory) CTaskSimpleJetPack(nullptr, 10.0f, 0, nullptr);
+        }
+        GivePedScriptedTask(pedHandle, task, command);
+        return OR_CONTINUE;
+    }
+    case 1960: // SET_AREA51_SAM_SITE
+        CollectParameters(1);
+        CObject::bArea51SamSiteDisabled = sp[0].iParam == 0;
+        return OR_CONTINUE;
+    case 1961: { // IS_CHAR_IN_ANY_SEARCHLIGHT: el parametro 0 se pone a -1 antes de la consulta y se guarda siempre
+        CollectParameters(1);
+        auto* ped    = GetPedPool()->GetAtRef(sp[0].iParam);
+        bool  result = false;
+        int32 index{};
+        sp[0].iParam = -1;
+        if (CTheScripts::IsEntityWithinAnySearchLight(ped, &index)) {
+            sp[0].iParam = index;
+            result       = true;
+        }
+        StoreParameters(1);
+        UpdateCompareFlag(result);
+        return OR_CONTINUE;
+    }
+    case 1963: { // IS_TRAILER_ATTACHED_TO_CAB: sin remolque el EXE desreferencia la cabina sin comprobarla
+        CollectParameters(2);
+        auto* trailer = sp[0].iParam == -1 ? nullptr : GetVehiclePool()->GetAtRef(sp[0].iParam);
+        auto* cab     = sp[1].iParam == -1 ? nullptr : GetVehiclePool()->GetAtRef(sp[1].iParam);
+        bool  result  = false;
+        if (trailer) {
+            if (cab) {
+                result = trailer->m_pTowingVehicle == cab;
+            } else {
+                result = trailer->m_pTowingVehicle != nullptr;
+            }
+        } else {
+            result = cab->m_pVehicleBeingTowed != nullptr;
+        }
+        UpdateCompareFlag(result);
+        return OR_CONTINUE;
+    }
+    case 1964: { // DETACH_TRAILER_FROM_CAB (virtual de la ranura 0xF8 = BreakTowLink)
+        CollectParameters(2);
+        auto* trailer = sp[0].iParam == -1 ? nullptr : GetVehiclePool()->GetAtRef(sp[0].iParam);
+        auto* cab     = sp[1].iParam == -1 ? nullptr : GetVehiclePool()->GetAtRef(sp[1].iParam);
+        if (trailer) {
+            trailer->BreakTowLink();
+        } else if (auto* towed = cab->m_pVehicleBeingTowed) {
+            towed->BreakTowLink();
+        }
+        return OR_CONTINUE;
+    }
+    case 1967: { // GET_PLAYER_GROUP
+        CollectParameters(1);
+        const auto group = CWorld::Players[sp[0].iParam].m_pPed->GetPlayerData()->m_nPlayerGroup;
+        sp[0].iParam     = CTheScripts::GetUniqueScriptThingIndex(group, SCRIPT_THING_PED_GROUP);
+        StoreParameters(1);
+        return OR_CONTINUE;
+    }
+    case 1968: { // GET_LOADED_SHOP: copia 8 caracteres de la tienda cargada, los pasa a mayusculas y los copia a la variable global
+        char name[16]{};
+        std::strncpy(name, StaticRef<char[24]>(0xA9A7D8), 8); // CShopping::ms_shopLoaded (privado)
+        MakeUpperCase(name);
+        std::strncpy(reinterpret_cast<char*>(GetPointerToScriptVariable(VAR_GLOBAL)), name, 8);
+        return OR_CONTINUE;
+    }
+    case 1969: { // GET_BEAT_PROXIMITY: ventana de pulsos de la pista; con 0 se elige entre las ranuras 9 y 10 la de mayor valor absoluto
+        CollectParameters(1);
+        const auto abs32 = [](int32 v) { const int32 mask = v >> 31; return (v ^ mask) - mask; };
+        auto*      info  = AudioEngine.GetBeatInfo();
+        auto*      beat  = reinterpret_cast<const int32*>(info->BeatWindow); // pares (a, b) de 8 bytes
+        if (sp[0].iParam != 0) {
+            const int32 slot = sp[0].iParam < 0 ? sp[0].iParam + 10 : sp[0].iParam + 9;
+            if (info->IsBeatInfoPresent) {
+                sp[0].iParam = beat[slot * 2];
+                sp[1].iParam = beat[slot * 2 + 1];
+                sp[2].iParam = info->BeatNumber;
+                StoreParameters(3);
+                return OR_CONTINUE;
+            }
+        } else if (info->IsBeatInfoPresent) {
+            const int32 nextA = beat[10 * 2];
+            const int32 prevA = beat[9 * 2];
+            if (nextA && info->BeatNumber && abs32(nextA) > abs32(prevA)) {
+                sp[0].iParam = prevA;
+                sp[1].iParam = beat[9 * 2 + 1];
+                sp[2].iParam = info->BeatNumber - 1;
+            } else {
+                sp[0].iParam = nextA;
+                sp[1].iParam = beat[10 * 2 + 1];
+                sp[2].iParam = info->BeatNumber;
+            }
+            StoreParameters(3);
+            return OR_CONTINUE;
+        }
+        sp[0].iParam = sp[1].iParam = sp[2].iParam = -1;
+        StoreParameters(3);
+        return OR_CONTINUE;
+    }
+    case 1971: { // SET_GROUP_DEFAULT_TASK_ALLOCATOR (el grupo empieza en 0xC09950 = ms_groups + 0x30, m_groupIntelligence)
+        CollectParameters(2);
+        const auto group = CTheScripts::GetActualScriptThingIndex(sp[0].iParam, SCRIPT_THING_PED_GROUP);
+        if (group >= 0 && group < 8) {
+            CPedGroups::ms_groups[group].m_groupIntelligence.SetDefaultTaskAllocatorType((ePedGroupDefaultTaskAllocatorType)sp[1].iParam);
+        }
+        return OR_CONTINUE;
+    }
+    case 1972: { // SET_PLAYER_GROUP_RECRUITMENT (bit 8 de la palabra +0x34 de los datos del jugador)
+        CollectParameters(2);
+        auto& flags = RawField<uint32>(CWorld::Players[sp[0].iParam].m_pPed->GetPlayerData(), 0x34);
+        if (sp[1].iParam != 0) {
+            flags &= 0xFFFFFEFFu;
+        } else {
+            flags |= 0x100u;
+        }
+        return OR_CONTINUE;
+    }
+    case 1979: { // ACTIVATE_HELI_SPEED_CHEAT
+        CollectParameters(2);
+        GetVehiclePool()->GetAtRef(sp[0].iParam)->m_autoPilot.m_ucHeliSpeedMult = sp[1].u8Param;
+        return OR_CONTINUE;
+    }
+    case 1980: { // TASK_SET_CHAR_DECISION_MAKER
+        CollectParameters(2);
+        const auto pedHandle = sp[0].iParam;
+        int32      decisionMaker = -1;
+        if (sp[1].iParam != -1) {
+            decisionMaker = CTheScripts::GetActualScriptThingIndex(sp[1].iParam, SCRIPT_THING_DECISION_MAKER);
+        }
+        if (pedHandle != -1) {
+            GetPedPool()->GetAtRef(pedHandle)->GetIntelligence()->SetPedDecisionMakerType(decisionMaker);
+            return OR_CONTINUE;
+        }
+        CTask* task = nullptr;
+        if (auto* memory = CTask::operator new(sizeof(CTaskSimpleSetCharDecisionMaker))) {
+            task = ::new (memory) CTaskSimpleSetCharDecisionMaker((uint32)decisionMaker);
+        }
+        GivePedScriptedTask(-1, task, command);
+        return OR_CONTINUE;
+    }
+    case 1981: { // DELETE_MISSION_TRAIN
+        CollectParameters(1);
+        if (auto* train = static_cast<CTrain*>(GetVehiclePool()->GetAtRef(sp[0].iParam))) {
+            CTrain::RemoveOneMissionTrain(train);
+        }
+        return OR_CONTINUE;
+    }
+    case 1982: { // MARK_MISSION_TRAIN_AS_NO_LONGER_NEEDED
+        CollectParameters(1);
+        if (auto* train = static_cast<CTrain*>(GetVehiclePool()->GetAtRef(sp[0].iParam))) {
+            CTrain::ReleaseOneMissionTrain(train);
+        }
+        return OR_CONTINUE;
+    }
+    case 1983: // SET_BLIP_ALWAYS_DISPLAY_ON_ZOOMED_RADAR (el segundo parametro se pasa como byte)
+        CollectParameters(2);
+        CRadar::SetBlipAlwaysDisplayInZoom(sp[0].iParam, sp[1].u8Param != 0);
+        return OR_CONTINUE;
+    case 1984: // REQUEST_CAR_RECORDING
+        CollectParameters(1);
+        CVehicleRecording::RequestRecordingFile(sp[0].iParam);
+        return OR_CONTINUE;
+    case 1985: // HAS_CAR_RECORDING_BEEN_LOADED
+        CollectParameters(1);
+        UpdateCompareFlag(CVehicleRecording::HasRecordingFileBeenLoaded(sp[0].iParam));
+        return OR_CONTINUE;
+    case 1987: { // GET_OBJECT_QUATERNION: x, y, z, w en los parametros 0..3
+        CollectParameters(1);
+        auto*       object = GetObjectPool()->GetAtRef(sp[0].iParam);
+        CQuaternion quat;
+        quat.Set(*object->GetModellingMatrix());
+        sp[0].fParam = quat.x;
+        sp[1].fParam = quat.y;
+        sp[2].fParam = quat.z;
+        sp[3].fParam = quat.w;
+        StoreParameters(4);
+        return OR_CONTINUE;
+    }
+    case 1989: { // GET_VEHICLE_QUATERNION
+        CollectParameters(1);
+        auto*       veh = GetVehiclePool()->GetAtRef(sp[0].iParam);
+        CQuaternion quat;
+        quat.Set(*veh->GetModellingMatrix());
+        sp[0].fParam = quat.x;
+        sp[1].fParam = quat.y;
+        sp[2].fParam = quat.z;
+        sp[3].fParam = quat.w;
+        StoreParameters(4);
+        return OR_CONTINUE;
+    }
+    case 1988: // SET_OBJECT_QUATERNION
+    case 1990: { // SET_VEHICLE_QUATERNION: matriz de rotacion RenderWare (sin inicializar salvo lo que escribe Get) -> CMatrix enlazado -> SetMatrix; luego se restaura la posicion
+        CollectParameters(5);
+        CPhysical* entity = command == 1988
+            ? static_cast<CPhysical*>(GetObjectPool()->GetAtRef(sp[0].iParam))
+            : static_cast<CPhysical*>(GetVehiclePool()->GetAtRef(sp[0].iParam));
+        CQuaternion quat{ sp[1].fParam, sp[2].fParam, sp[3].fParam, sp[4].fParam };
+        RwMatrix    rotation;
+        quat.Get(&rotation);
+        const CVector position = entity->GetPosition();
+        {
+            CMatrix matrix(&rotation, false);
+            entity->SetMatrix(matrix);
+        }
+        entity->SetPosn(position);
+        return OR_CONTINUE;
+    }
+    case 1991: { // SET_MISSION_TRAIN_COORDINATES
+        CollectParameters(4);
+        CTrain::SetNewTrainPosition(static_cast<CTrain*>(GetVehiclePool()->GetAtRef(sp[0].iParam)), CVector{ sp[1].fParam, sp[2].fParam, sp[3].fParam });
+        return OR_CONTINUE;
+    }
+    case 1993: { // TASK_COMPLEX_PICKUP_OBJECT (animGroup 0x51)
+        CollectParameters(2);
+        auto*  object = GetObjectPool()->GetAtRef(sp[1].iParam);
+        CTask* task   = nullptr;
+        if (auto* memory = CTask::operator new(sizeof(CTaskComplexGoPickUpEntity))) {
+            task = ::new (memory) CTaskComplexGoPickUpEntity(object, 0x51);
+        }
+        GivePedScriptedTask(sp[0].iParam, task, command);
+        return OR_CONTINUE;
+    }
+    case 1995: { // LISTEN_TO_PLAYER_GROUP_COMMANDS (bit 0x20 de la tercera palabra de banderas del ped)
+        CollectParameters(2);
+        auto* ped                                  = GetPedPool()->GetAtRef(sp[0].iParam);
+        ped->bDoesntListenToPlayerGroupCommands = sp[1].iParam == 0;
+        return OR_CONTINUE;
+    }
+    case 1996: // SET_PLAYER_ENTER_CAR_BUTTON
+        CollectParameters(2);
+        CPad::GetPad(sp[0].iParam)->bDisablePlayerEnterCar = sp[1].iParam == 0;
+        return OR_CONTINUE;
+    case 1997: { // TASK_CHAR_SLIDE_TO_COORD: secuencia (ir al punto + deslizarse); el rumbo se pasa a radianes y un tiempo de mezcla negativo pasa a 0.1
+        CollectParameters(6);
+        const float   heading = sp[4].fParam * 0.017453292f; // 0x8595EC
+        float         blend   = sp[5].fParam;
+        if (blend < 0.0f) {
+            blend = 0.1f; // 0x3DCCCCCD
+        }
+        const CVector target{ sp[1].fParam, sp[2].fParam, sp[3].fParam };
+        const auto    pedHandle = sp[0].iParam;
+        CTaskComplexSequence* sequence = nullptr;
+        if (auto* memory = CTask::operator new(sizeof(CTaskComplexSequence))) {
+            sequence = ::new (memory) CTaskComplexSequence();
+        }
+        CTask* goTo = nullptr;
+        if (auto* memory = CTask::operator new(sizeof(CTaskComplexGoToPointAndStandStill))) {
+            goTo = ::new (memory) CTaskComplexGoToPointAndStandStill((eMoveState)4, target, 0.5f, 2.0f, false, false); // 0x86FC84 / 0x86FC88
+        }
+        sequence->AddTask(goTo);
+        CTask* slide = nullptr;
+        if (auto* memory = CTask::operator new(sizeof(CTaskSimpleSlideToCoord))) {
+            slide = ::new (memory) CTaskSimpleSlideToCoord(target, heading, blend);
+        }
+        sequence->AddTask(slide);
+        GivePedScriptedTask(pedHandle, sequence, command);
+        return OR_CONTINUE;
+    }
+
+    case 1902: // sin accion en el EXE (0x46CBCB): ni leen parametros
+    case 1907:
+    case 1908:
+    case 1909:
+    case 1913:
+    case 1919:
+    case 1925:
+    case 1927:
+    case 1933:
+    case 1934:
+    case 1937:
+    case 1941:
+    case 1946:
+    case 1947:
+    case 1948:
+    case 1954:
+    case 1962:
+    case 1965:
+    case 1966:
+    case 1970:
+    case 1973:
+    case 1974:
+    case 1975:
+    case 1976:
+    case 1978:
+    case 1986:
+    case 1992:
+    case 1994:
+    case 1998:
+    case 1999:
+        return OR_CONTINUE;
+
+    default: // 1977 (TASK_KILL_CHAR_ON_FOOT_PATROL) y fuera de 1900..1999: 0x46CBCF
+        return OR_INTERRUPT;
+    }
 }

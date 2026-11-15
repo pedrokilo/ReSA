@@ -11765,3 +11765,5 @@ LibJpegDecompressApi,jpeg_CreateDecompress,0x005CFD20,1,0,0,S
 LibJpegDecompressApi,jpeg_consume_input,0x005CFFB0,1,0,0,S
 LibJpegDecompressApi,jpeg_finish_decompress,0x005D0110,1,0,0,S
 LibJpegDecompressApi,jpeg_read_header,0x005D01D0,1,0,0,S
+CRunningScript,ProcessCommands1200To1299,0x0048B590,1,0,0,S
+CRunningScript,ProcessCommands1900To1999,0x0046B460,1,0,0,S
