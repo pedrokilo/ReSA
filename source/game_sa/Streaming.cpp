@@ -5,11 +5,20 @@
  * Conteos por clase/grupo completo, no solo por este archivo.
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
- * ESTADO: CStreaming
- * Reconstrucción: COMPLETA — 95/95 funciones reconstruidas.
+ * ESTADO: CLinkList<CEntity*>
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 95/95 entradas.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ *
+ * ESTADO: CStreaming
+ * Reconstrucción: COMPLETA — 108/108 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 108/108 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.

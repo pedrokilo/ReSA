@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (14/11/2026). Total: **1,294** funciones en 77 clases/módulos (rango 0x401000–0x74FFFF): 1,272 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (15/11/2026). Total: **1,178** funciones en 71 clases/módulos (rango 0x401000–0x74FFFF): 1,156 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,16 +10,15 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
+| CCam | 1 | 12 |
+| CTaskComplexSunbathe | 3 | 90 |
 | CAudioZones | 1 | 139 |
-| CStencilShadows | 2 | 164 |
+| CEventSeenCop | 6 | 164 |
 | IKChain_c | 2 | 205 |
 | CWaterLevel | 1 | 208 |
 | WaterCreature_c | 2 | 211 |
+| CTaskSimpleBeHit | 3 | 217 |
 | CTaskComplexGotoDoorAndOpen | 6 | 388 |
-| CPedAttractorPool | 12 | 530 |
-| CStreaming | 17 | 535 |
-| CTaskComplexRoadRage | 9 | 585 |
-| CEventEditableResponse | 14 | 607 |
 | Rs | 4 | 661 |
 | CEntryExitManager | 11 | 675 |
 | CTaskComplexFallAndGetUp | 13 | 719 |
@@ -31,21 +30,16 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTrafficLights | 5 | 770 |
 | CTaskComplexWaitForPed | 6 | 772 |
 | CTaskComplexWander | 4 | 797 |
+| CPed | 2 | 804 |
 | CModelInfo | 22 | 814 |
 | CTaskComplexInvestigateDisturbance | 7 | 858 |
 | CVehicle | 33 | 861 |
 | CVehicleSaveStructure | 4 | 874 |
 | Ps | 6 | 876 |
 | CPad | 11 | 895 |
-| CEventSeenCop | 35 | 902 |
-| CTaskComplexSunbathe | 6 | 935 |
 | CEntityScanner | 5 | 958 |
 | CTaskComplexMedicTreatInjuredPed | 13 | 974 |
 | CTaskComplexGoToPointAndStandStill | 8 | 977 |
-| CTaskSimpleBeHit | 8 | 1022 |
-| CEventVehicleHitAndRun | 15 | 1037 |
-| CPed | 6 | 1046 |
-| CCam | 7 | 1059 |
 | CTaskComplexStuckInAir | 11 | 1075 |
 | CTrain | 6 | 1076 |
 | CTaskComplexSeekEntityAnyMeansXYOffset | 4 | 1138 |
@@ -87,7 +81,21 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (77 clases / módulos)** | **1,294** | **205,916** |
+| **TOTAL (71 clases / módulos)** | **1,178** | **198,781** |
+
+## CCam (1)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x005B2AB0 | 12 | D |  | 0 | 0 |  | baja |
+
+## CTaskComplexSunbathe (3)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00638590 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x006385B0 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x00639E20 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CAudioZones (1)
 
@@ -95,12 +103,16 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x00509230 | 139 | D |  | 0 | 0 |  | baja |
 
-## CStencilShadows (2)
+## CEventSeenCop (6)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x00710BA0 | 30 | A |  | 1 | 1 |  | alta |
-| 0x00711280 | 134 | A |  | 3 | 3 |  | baja |
+| 0x005FF3B0 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x005FF3A0 | 11 | C |  | 2 | 0 |  | baja |
+| 0x005FF460 | 11 | A |  | 3 | 1 |  | baja |
+| 0x005FF440 | 18 | D |  | 0 | 0 |  | baja |
+| 0x005FF420 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x005FF3C0 | 88 | B |  | 0 | 0 | sí | baja |
 
 ## IKChain_c (2)
 
@@ -122,6 +134,14 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006E3EB0 | 105 | C |  | 1 | 0 |  | baja |
 | 0x006E3F20 | 106 | C |  | 1 | 0 |  | baja |
 
+## CTaskSimpleBeHit (3)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00620B80 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x00620B90 | 90 | C |  | 1 | 0 |  | baja |
+| 0x00620B00 | 121 | A |  | 1 | 1 |  | baja |
+
 ## CTaskComplexGotoDoorAndOpen (6)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -132,78 +152,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0066C3E0 | 86 | A |  | 3 | 1 |  | baja |
 | 0x0066C450 | 106 | C |  | 3 | 0 |  | baja |
 | 0x0066C280 | 151 | D |  | 0 | 0 |  | baja |
-
-## CPedAttractorPool (12)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005EAAA0 | 30 | A |  | 1 | 0 |  | baja |
-| 0x005EAAF0 | 30 | A |  | 1 | 0 |  | baja |
-| 0x005EAB10 | 30 | A |  | 1 | 0 |  | baja |
-| 0x005EAE10 | 37 | A |  | 3 | 0 |  | baja |
-| 0x005EAE70 | 37 | A |  | 3 | 0 |  | baja |
-| 0x005EAEE0 | 37 | A |  | 3 | 0 |  | baja |
-| 0x005EAAC0 | 41 | A |  | 1 | 0 |  | baja |
-| 0x005EAE40 | 48 | A |  | 3 | 0 |  | baja |
-| 0x005EAEA0 | 57 | A |  | 3 | 0 |  | baja |
-| 0x005EACC0 | 59 | A |  | 1 | 0 |  | baja |
-| 0x005EAB80 | 62 | A |  | 1 | 1 |  | baja |
-| 0x005EAC50 | 62 | A |  | 1 | 0 |  | baja |
-
-## CStreaming (17)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00407AC0 | 1 | A |  | 2 | 2 |  | alta |
-| 0x00407BE0 | 1 | A |  | 10 | 10 |  | alta |
-| 0x00407BF0 | 1 | A |  | 10 | 10 |  | alta |
-| 0x00407F20 | 1 | A |  | 2 | 2 |  | alta |
-| 0x00407A30 | 10 | A |  | 4 | 4 |  | alta |
-| 0x004096C0 | 11 | A |  | 1 | 1 |  | alta |
-| 0x00407D30 | 13 | A |  | 1 | 1 |  | alta |
-| 0x00407DC0 | 13 | A |  | 1 | 1 |  | alta |
-| 0x00407A10 | 17 | A |  | 1 | 1 |  | alta |
-| 0x0040B490 | 18 | A |  | 2 | 1 |  | alta |
-| 0x0040C1C0 | 18 | C |  | 1 | 0 |  | alta |
-| 0x00407800 | 20 | C |  | 1 | 0 |  | alta |
-| 0x00407670 | 27 | D |  | 0 | 0 |  | alta |
-| 0x004082A0 | 31 | A |  | 6 | 1 |  | baja |
-| 0x00408230 | 64 | A |  | 3 | 3 |  | baja |
-| 0x005B8340 | 94 | A |  | 1 | 1 |  | baja |
-| 0x0040C450 | 195 | A |  | 3 | 3 |  | alta |
-
-## CTaskComplexRoadRage (9)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006221B0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00622230 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x006221C0 | 11 | C |  | 1 | 0 |  | baja |
-| 0x006293A0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00629550 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00622180 | 41 | D |  | 0 | 0 |  | baja |
-| 0x006221D0 | 89 | C |  | 2 | 0 |  | baja |
-| 0x006293C0 | 178 | B |  | 0 | 0 | sí | baja |
-| 0x00629480 | 194 | B |  | 0 | 0 | sí | baja |
-
-## CEventEditableResponse (14)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00420F00 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x00420F20 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x00420F10 | 4 | B |  | 0 | 0 | sí | baja |
-| 0x00420F40 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00420FD0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00420F30 | 11 | C |  | 14 | 0 |  | baja |
-| 0x00420FB0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x004B58E0 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B5930 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B5980 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B59D0 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B5A20 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B5A70 | 76 | D |  | 0 | 0 |  | baja |
-| 0x00420F50 | 88 | B |  | 0 | 0 | sí | baja |
 
 ## Rs (4)
 
@@ -357,6 +305,13 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00669FF0 | 265 | A |  | 1 | 1 |  | baja |
 | 0x00673EF0 | 448 | D |  | 0 | 0 |  | alta |
 
+## CPed (2)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x005E3630 | 400 | A |  | 1 | 1 |  | alta |
+| 0x005E37C0 | 404 | A |  | 1 | 1 |  | alta |
+
 ## CModelInfo (22)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -470,57 +425,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00747020 | 158 | D |  | 0 | 0 |  | baja |
 | 0x00746D80 | 322 | A |  | 2 | 2 |  | baja |
 
-## CEventSeenCop (35)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005FF780 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x005FF850 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x005FF860 | 5 | A |  | 2 | 1 |  | baja |
-| 0x005FF3B0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005FF770 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005FF840 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005FF870 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005FF880 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005FF890 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005FF8A0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005FF7E0 | 7 | B |  | 0 | 0 | sí | baja |
-| 0x005FF3A0 | 11 | C |  | 2 | 0 |  | baja |
-| 0x005FF460 | 11 | C |  | 3 | 0 |  | baja |
-| 0x005FF520 | 11 | C |  | 5 | 0 |  | baja |
-| 0x005FF5E0 | 11 | C |  | 2 | 0 |  | baja |
-| 0x005FF6A0 | 11 | C |  | 3 | 0 |  | baja |
-| 0x005FF760 | 11 | C |  | 2 | 0 |  | baja |
-| 0x005FF440 | 18 | D |  | 0 | 0 |  | baja |
-| 0x005FF500 | 18 | D |  | 0 | 0 |  | baja |
-| 0x005FF5C0 | 18 | D |  | 0 | 0 |  | baja |
-| 0x005FF680 | 18 | D |  | 0 | 0 |  | baja |
-| 0x005FF740 | 18 | D |  | 0 | 0 |  | baja |
-| 0x005FF820 | 18 | D |  | 0 | 0 |  | baja |
-| 0x005FF420 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x005FF4E0 | 30 | D |  | 0 | 0 |  | baja |
-| 0x005FF5A0 | 30 | D |  | 0 | 0 |  | baja |
-| 0x005FF660 | 30 | D |  | 0 | 0 |  | baja |
-| 0x005FF720 | 30 | D |  | 0 | 0 |  | baja |
-| 0x005FF7F0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x005FF490 | 80 | D |  | 0 | 0 |  | baja |
-| 0x005FF550 | 80 | D |  | 0 | 0 |  | baja |
-| 0x005FF610 | 80 | D |  | 0 | 0 |  | baja |
-| 0x005FF6D0 | 80 | D |  | 0 | 0 |  | baja |
-| 0x005FF790 | 80 | B |  | 0 | 0 | sí | baja |
-| 0x005FF3C0 | 88 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexSunbathe (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00638570 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00638590 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006385B0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00639E20 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00632190 | 90 | A |  | 4 | 3 |  | baja |
-| 0x00638290 | 725 | A |  | 12 | 12 |  | baja |
-
 ## CEntityScanner (5)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -561,62 +465,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0046FEE0 | 61 | A |  | 2 | 2 |  | baja |
 | 0x00668250 | 116 | A |  | 2 | 1 |  | alta |
 | 0x006682D0 | 661 | A |  | 8 | 8 |  | alta |
-
-## CTaskSimpleBeHit (8)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00620B80 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00620E00 | 41 | B |  | 0 | 0 | sí | baja |
-| 0x00620BF0 | 64 | B |  | 0 | 0 | sí | baja |
-| 0x00620B90 | 90 | C |  | 1 | 0 |  | baja |
-| 0x00623300 | 112 | B |  | 0 | 0 | sí | baja |
-| 0x00620B00 | 121 | C |  | 1 | 0 |  | baja |
-| 0x00623370 | 137 | B |  | 0 | 0 | sí | baja |
-| 0x00620C30 | 451 | C |  | 4 | 0 |  | baja |
-
-## CEventVehicleHitAndRun (15)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AEA10 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004AEA00 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004AEA40 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004AEA30 | 7 | B |  | 0 | 0 | sí | baja |
-| 0x004AEA20 | 12 | B |  | 0 | 0 | sí | baja |
-| 0x004AEDC0 | 35 | D |  | 0 | 0 |  | baja |
-| 0x004AF100 | 35 | D |  | 0 | 0 |  | baja |
-| 0x004AEC00 | 65 | D |  | 0 | 0 |  | baja |
-| 0x004B7280 | 97 | D |  | 0 | 0 |  | baja |
-| 0x004B72F0 | 97 | D |  | 0 | 0 |  | baja |
-| 0x004B7360 | 97 | D |  | 0 | 0 |  | baja |
-| 0x004B73D0 | 97 | D |  | 0 | 0 |  | baja |
-| 0x004B7210 | 103 | D |  | 0 | 0 |  | baja |
-| 0x004B7170 | 105 | D |  | 0 | 0 |  | baja |
-| 0x004AEF00 | 272 | D |  | 0 | 0 |  | baja |
-
-## CPed (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005E88E0 | 43 | A |  | 1 | 1 |  | alta |
-| 0x005E47A0 | 49 | C |  | 3 | 0 |  | alta |
-| 0x005E0540 | 74 | A |  | 1 | 1 |  | baja |
-| 0x005E8C80 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x005E3630 | 400 | A |  | 1 | 1 |  | alta |
-| 0x005E37C0 | 404 | A |  | 1 | 1 |  | alta |
-
-## CCam (7)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00517760 | 12 | D |  | 0 | 0 |  | baja |
-| 0x005B2AB0 | 12 | D |  | 0 | 0 |  | baja |
-| 0x00517740 | 23 | D |  | 0 | 0 |  | baja |
-| 0x00514010 | 27 | D |  | 0 | 0 |  | baja |
-| 0x00513220 | 164 | A |  | 3 | 3 |  | alta |
-| 0x0050A870 | 253 | C |  | 2 | 0 |  | baja |
-| 0x005132D0 | 568 | A |  | 4 | 4 |  | alta |
 
 ## CTaskComplexStuckInAir (11)
 
@@ -662,7 +510,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0043E1A0 | 5 | C |  | 5 | 0 |  | baja |
 | 0x00411BF0 | 10 | A |  | 2 | 2 |  | baja |
 | 0x00411A30 | 35 | A |  | 2 | 1 |  | baja |
-| 0x0054F490 | 36 | A |  | 5 | 1 |  | alta |
+| 0x0054F490 | 36 | A |  | 5 | 2 |  | alta |
 | 0x0054F5D0 | 53 | B |  | 0 | 0 | sí | alta |
 | 0x0054FA10 | 54 | D |  | 0 | 0 |  | baja |
 | 0x0054FA60 | 54 | D |  | 0 | 0 |  | baja |

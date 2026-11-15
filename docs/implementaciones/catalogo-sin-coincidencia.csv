@@ -27,3 +27,5 @@ CAEAudioEntity,Destructor-5,0x00506C40,1,0,1,S,hooks.csv
 CAudioZones,TextBufferClear-2,0x00509140,1,0,1,S,hooks.csv
 CLinkList<CAnimBlendHierarchy*>,Insert-Data,0x004D40C0,1,0,1,S,hooks.csv
 CLinkList<CPed*>,Clear,0x0053E8D0,1,0,1,S,hooks.csv
+CLinkList<CEntity*>,Insert-Data,0x00408230,1,0,1,S,hooks.csv
+CPed,operator delete-poolRef,0x005E47A0,1,0,1,S,hooks.csv

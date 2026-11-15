@@ -1,6 +1,11 @@
 catalog_identity,catalog_address,catalog,reversed,validated,file,line,language,via
+CPedAttractor::SArrayFillStride4B,0x005EAAF0,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,41,C++,plantilla genérica
+CPedAttractor::SArrayFillStride4C,0x005EAB10,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,41,C++,plantilla genérica
+CPedAttractor::SArrayUninitCopyStride4B,0x005EAE70,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,54,C++,plantilla genérica
+CPedAttractor::SArrayUninitCopyStride4C,0x005EAEE0,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,54,C++,plantilla genérica
 CLinkList<CAnimBlendHierarchy*>::Shutdown,0x004D40A0,hooks.csv,1,1,source/game_sa/Core/LinkList.h,41,C++,plantilla genérica
 CObjectPool::GetAt,0x00404870,hooks.csv,1,1,source/game_sa/Core/Pool.h,164,C++,plantilla heredada
+CPedPool::GetAt,0x004082A0,hooks.csv,1,1,source/game_sa/Core/Pool.h,164,C++,plantilla heredada
 CVehiclePool::GetAtRef,0x004048E0,hooks.csv,1,1,source/game_sa/Core/Pool.h,269,C++,plantilla heredada
 CTaskComplexSeekEntityRadiusAngleOffset::CreateSubTask,0x00496270,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,146,C++,plantilla heredada
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::CreateSubTask,0x00665270,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,146,C++,plantilla genérica

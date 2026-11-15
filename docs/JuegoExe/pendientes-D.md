@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 14/11/2026 (Ciudad de México):** 906 grupos / 10590 funciones reconstruidas; 10590 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 15/11/2026 (Ciudad de México):** 912 grupos / 10706 funciones reconstruidas; 10706 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo D: Falta: sin llamadas ni vtable (¿muerto o por puntero?)
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-274 funciones, 52,339 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+245 funciones, 50,600 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -25,7 +25,6 @@
 | `0x0044FB60` | 374 | CPathFind | alta | 0 (0) |  |
 | `0x00749520` | 372 | Win | baja | 0 (0) |  |
 | `0x005CCB50` | 318 | FxEmitterBP_c | baja | 0 (0) |  |
-| `0x004AEF00` | 272 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x00747DB0` | 255 | Win | baja | 0 (0) |  |
 | `0x0061B890` | 226 | CTaskSimpleRunTimedAnim | baja | 0 (0) |  |
 | `0x005C6100` | 224 | FxEmitterBP_c | baja | 0 (0) |  |
@@ -49,17 +48,11 @@
 | `0x00678A10` | 110 | CTaskComplexFallAndGetUp | baja | 0 (0) |  |
 | `0x004B6DC0` | 107 | CEventVehicleCollision | baja | 0 (0) |  |
 | `0x004B6E70` | 107 | CEventVehicleCollision | baja | 0 (0) |  |
-| `0x004B7170` | 105 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x005C88F0` | 105 | FxEmitterBP_c | baja | 0 (0) |  |
 | `0x005CEF30` | 104 | FxEmitterBP_c | baja | 0 (0) |  |
 | `0x005CEFA0` | 104 | FxEmitterBP_c | baja | 0 (0) |  |
-| `0x004B7210` | 103 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x004F4230` | 101 | CAEUserRadioTrackManager | alta | 0 (0) |  |
 | `0x004B6F40` | 97 | CEventVehicleCollision | baja | 0 (0) |  |
-| `0x004B7280` | 97 | CEventVehicleHitAndRun | baja | 0 (0) |  |
-| `0x004B72F0` | 97 | CEventVehicleHitAndRun | baja | 0 (0) |  |
-| `0x004B7360` | 97 | CEventVehicleHitAndRun | baja | 0 (0) |  |
-| `0x004B73D0` | 97 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x004B7960` | 97 | CEventVehicleOnFire | baja | 0 (0) |  |
 | `0x005C35F0` | 97 | FxEmitterBP_c | baja | 0 (0) |  |
 | `0x004C6B70` | 92 | CModelInfo | baja | 0 (0) |  |
@@ -69,11 +62,6 @@
 | `0x004CA540` | 85 | CWeaponModelInfo | baja | 0 (0) |  |
 | `0x00453F40` | 81 | CPathFind | baja | 0 (0) |  |
 | `0x005CD6B0` | 80 | FxEmitterBP_c | baja | 0 (0) |  |
-| `0x005FF490` | 80 | CEventSeenCop | baja | 0 (0) |  |
-| `0x005FF550` | 80 | CEventSeenCop | baja | 0 (0) |  |
-| `0x005FF610` | 80 | CEventSeenCop | baja | 0 (0) |  |
-| `0x005FF6D0` | 80 | CEventSeenCop | baja | 0 (0) |  |
-| `0x004B5A70` | 76 | CEventEditableResponse | baja | 0 (0) |  |
 | `0x004B5E00` | 76 | CEventDamage | baja | 0 (0) |  |
 | `0x004B5E50` | 76 | CEventDamage | baja | 0 (0) |  |
 | `0x004B5EA0` | 76 | CEventDamage | baja | 0 (0) |  |
@@ -122,7 +110,6 @@
 | `0x005D9510` | 71 | CCustomCarEnvMapPipeline | baja | 0 (0) |  |
 | `0x005C60B0` | 70 | FxEmitterBP_c | baja | 0 (0) |  |
 | `0x004AE2D0` | 69 | CEventDamage | baja | 0 (0) |  |
-| `0x004AEC00` | 65 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x006D0BC0` | 62 | CVehicle | alta | 0 (0) |  |
 | `0x00749160` | 62 | Win | baja | 0 (0) |  |
 | `0x0074D810` | 62 | Win | baja | 0 (0) |  |
@@ -184,7 +171,6 @@
 | `0x00659870` | 43 | CTaskComplexUseWaterCannon | baja | 0 (0) |  |
 | `0x0061FE30` | 42 | CTaskSimpleThrowControl | baja | 0 (0) |  |
 | `0x005C5910` | 41 | FxEmitterBP_c | baja | 0 (0) |  |
-| `0x00622180` | 41 | CTaskComplexRoadRage | baja | 0 (0) |  |
 | `0x004D6270` | 40 | RpAnimBlend | alta | 0 (0) |  |
 | `0x005C69E0` | 40 | FxEmitterBP_c | baja | 0 (0) |  |
 | `0x004D6340` | 39 | RpAnimBlend | alta | 0 (0) |  |
@@ -196,23 +182,16 @@
 | `0x005EC3B0` | 39 | CPedAttractorManager | baja | 0 (0) |  |
 | `0x005EC3E0` | 39 | CPedAttractorManager | baja | 0 (0) |  |
 | `0x005EC820` | 39 | CPedAttractor | baja | 0 (0) |  |
-| `0x004AEDC0` | 35 | CEventVehicleHitAndRun | baja | 0 (0) |  |
-| `0x004AF100` | 35 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x006789D0` | 34 | CTaskComplexFallAndGetUp | baja | 0 (0) |  |
 | `0x004634D0` | 32 | CEntity | baja | 0 (0) |  |
 | `0x004F3A15` | 32 | CAEUserRadioTrackManager | alta | 0 (0) |  |
 | `0x00749D20` | 32 | Win | baja | 0 (0) |  |
-| `0x005FF4E0` | 30 | CEventSeenCop | baja | 0 (0) |  |
-| `0x005FF5A0` | 30 | CEventSeenCop | baja | 0 (0) |  |
-| `0x005FF660` | 30 | CEventSeenCop | baja | 0 (0) |  |
-| `0x005FF720` | 30 | CEventSeenCop | baja | 0 (0) |  |
 | `0x0061BC80` | 30 | CTaskSimpleRunTimedAnim | baja | 0 (0) |  |
 | `0x00659DE0` | 30 | CTaskComplexUseWaterCannon | baja | 0 (0) |  |
 | `0x0066BA70` | 30 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) |  |
 | `0x0066CB90` | 30 | CTaskComplexInvestigateDisturbance | baja | 0 (0) |  |
 | `0x006712C0` | 30 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) |  |
 | `0x00676D10` | 30 | CTaskInteriorUseInfo | baja | 0 (0) |  |
-| `0x00407670` | 27 | CStreaming | alta | 0 (0) |  |
 | `0x004A6A70` | 27 | FxInfoManager_c | alta | 0 (0) |  |
 | `0x004A6AE0` | 27 | FxInfoManager_c | alta | 0 (0) |  |
 | `0x004A6B50` | 27 | FxInfoManager_c | alta | 0 (0) |  |
@@ -252,25 +231,17 @@
 | `0x004D5F20` | 27 | RpAnimBlend | alta | 0 (0) |  |
 | `0x004F3D60` | 27 | CAEUserRadioTrackManager | alta | 0 (0) |  |
 | `0x004F4110` | 27 | CAEUserRadioTrackManager | alta | 0 (0) |  |
-| `0x00514010` | 27 | CCam | baja | 0 (0) |  |
 | `0x004D6430` | 26 | RpAnimBlend | alta | 0 (0) |  |
 | `0x0061FC20` | 26 | CTaskSimpleThrowControl | baja | 0 (0) |  |
 | `0x004C57A0` | 25 | CWeaponModelInfo | baja | 0 (0) |  |
 | `0x005A44A0` | 24 | CClothesBuilder | alta | 0 (0) |  |
-| `0x00517740` | 23 | CCam | baja | 0 (0) |  |
 | `0x005C62D0` | 20 | FxEmitterBP_c | baja | 0 (0) |  |
 | `0x004A1920` | 18 | FxEmitterBP_c | alta | 0 (0) |  |
 | `0x005FF440` | 18 | CEventSeenCop | baja | 0 (0) |  |
-| `0x005FF500` | 18 | CEventSeenCop | baja | 0 (0) |  |
-| `0x005FF5C0` | 18 | CEventSeenCop | baja | 0 (0) |  |
-| `0x005FF680` | 18 | CEventSeenCop | baja | 0 (0) |  |
-| `0x005FF740` | 18 | CEventSeenCop | baja | 0 (0) |  |
-| `0x005FF820` | 18 | CEventSeenCop | baja | 0 (0) |  |
 | `0x004032A4` | 15 | CEntity | baja | 0 (0) |  |
 | `0x005D28D0` | 15 | CObject | baja | 0 (0) |  |
 | `0x004F3D50` | 14 | CAEUserRadioTrackManager | alta | 0 (0) |  |
 | `0x004A9090` | 12 | FxInfoManager_c | baja | 0 (0) |  |
-| `0x00517760` | 12 | CCam | baja | 0 (0) |  |
 | `0x00597FE0` | 12 | Interior_c | baja | 0 (0) |  |
 | `0x005B2AB0` | 12 | CCam | baja | 0 (0) |  |
 | `0x004C6B10` | 11 | CModelInfo | baja | 0 (0) |  |

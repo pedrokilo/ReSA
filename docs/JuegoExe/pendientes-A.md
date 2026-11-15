@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 14/11/2026 (Ciudad de México):** 906 grupos / 10590 funciones reconstruidas; 10590 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 15/11/2026 (Ciudad de México):** 912 grupos / 10706 funciones reconstruidas; 10706 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-438 funciones, 74,786 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+405 funciones, 72,085 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -16,7 +16,6 @@
 | `0x004A8DD0` | 13 | FxInfoManager_c | baja | 20 (14) |  |
 | `0x004A8DB0` | 16 | FxInfoManager_c | baja | 15 (13) |  |
 | `0x004A8DE0` | 1 | FxInfoManager_c | baja | 35 (13) |  |
-| `0x00638290` | 725 | CTaskComplexSunbathe | baja | 12 (12) |  |
 | `0x00749E60` | 258 | Win | baja | 17 (12) |  |
 | `0x0074A490` | 37 | Win | baja | 16 (12) |  |
 | `0x00619440` | 5 | Rs | alta | 12 (12) |  |
@@ -32,8 +31,6 @@
 | `0x005EB690` | 93 | CPedAttractor | baja | 10 (10) |  |
 | `0x005EB640` | 75 | CPedAttractor | baja | 10 (10) |  |
 | `0x005EB5F0` | 67 | CPedAttractor | baja | 10 (10) |  |
-| `0x00407BE0` | 1 | CStreaming | alta | 10 (10) |  |
-| `0x00407BF0` | 1 | CStreaming | alta | 10 (10) |  |
 | `0x00749B20` | 65 | Win | baja | 9 (9) |  |
 | `0x004C6200` | 5 | CModelInfo | alta | 9 (9) |  |
 | `0x006682D0` | 661 | CTaskComplexGoToPointAndStandStill | alta | 8 (8) |  |
@@ -51,7 +48,6 @@
 | `0x007469A0` | 109 | Win | baja | 6 (5) |  |
 | `0x005A2CB0` | 59 | CObject | baja | 5 (5) |  |
 | `0x005335E0` | 47 | CEntity | alta | 5 (5) |  |
-| `0x005132D0` | 568 | CCam | alta | 4 (4) |  |
 | `0x0072D850` | 273 | CCullZones | alta | 4 (4) |  |
 | `0x004654B0` | 226 | CTheScripts | baja | 22 (4) |  |
 | `0x00541DD0` | 113 | CPad | baja | 5 (4) |  |
@@ -62,22 +58,16 @@
 | `0x00441130` | 54 | CEntryExitManager | baja | 8 (4) |  |
 | `0x00552C90` | 49 | CQuadTreeNode<T> | alta | 7 (4) |  |
 | `0x00403E00` | 32 | CEntity | baja | 4 (4) |  |
-| `0x00407A30` | 10 | CStreaming | alta | 4 (4) |  |
 | `0x004A8DC0` | 1 | FxInfoManager_c | baja | 18 (4) |  |
 | `0x0045BA90` | 1236 | CReplay | alta | 6 (3) |  |
 | `0x0045B730` | 857 | CReplay | alta | 6 (3) |  |
 | `0x0045DEF0` | 763 | CReplay | alta | 3 (3) |  |
 | `0x006A3BD0` | 646 | CAutomobile | alta | 3 (3) |  |
 | `0x0074CA90` | 543 | Win | baja | 4 (3) |  |
-| `0x0040C450` | 195 | CStreaming | alta | 3 (3) |  |
 | `0x0074CCC0` | 165 | Win | baja | 23 (3) |  |
-| `0x00513220` | 164 | CCam | alta | 3 (3) |  |
-| `0x00711280` | 134 | CStencilShadows | baja | 3 (3) |  |
 | `0x005D9260` | 104 | CCustomCarEnvMapPipeline | baja | 3 (3) |  |
-| `0x00632190` | 90 | CTaskComplexSunbathe | baja | 4 (3) |  |
 | `0x00533610` | 81 | CEntity | alta | 3 (3) |  |
 | `0x004A9010` | 67 | FxInfoManager_c | baja | 3 (3) |  |
-| `0x00408230` | 64 | CStreaming | baja | 3 (3) |  |
 | `0x00552830` | 63 | CQuadTreeNode<T> | alta | 3 (3) |  |
 | `0x0072E360` | 60 | CCullZones | baja | 6 (3) |  |
 | `0x0074BDA0` | 39 | Win | baja | 7 (3) |  |
@@ -115,14 +105,13 @@
 | `0x005404F0` | 45 | CPad | alta | 2 (2) |  |
 | `0x0074DBF0` | 39 | Win | baja | 5 (2) |  |
 | `0x004F4CE0` | 36 | CAEUserRadioTrackManager | baja | 2 (2) |  |
+| `0x0054F490` | 36 | CPlaceable | alta | 5 (2) |  |
 | `0x00533020` | 35 | CEntity | alta | 2 (2) | sí |
 | `0x0074DC20` | 34 | Win | baja | 5 (2) |  |
 | `0x00454920` | 28 | CPathFind | baja | 2 (2) |  |
 | `0x00411BF0` | 10 | CPlaceable | baja | 2 (2) |  |
 | `0x0049E650` | 10 | CTrafficLights | baja | 2 (2) |  |
 | `0x00745A70` | 5 | Ps | baja | 2 (2) |  |
-| `0x00407AC0` | 1 | CStreaming | alta | 2 (2) |  |
-| `0x00407F20` | 1 | CStreaming | alta | 2 (2) |  |
 | `0x0055EB90` | 1814 | SurfaceInfos_c | alta | 1 (1) |  |
 | `0x004D1680` | 971 | RpAnimBlend | alta | 2 (1) |  |
 | `0x0074F760` | 923 | Win | baja | 1 (1) |  |
@@ -183,6 +172,7 @@
 | `0x005EE370` | 136 | CPedAttractorManager | baja | 1 (1) |  |
 | `0x00748F70` | 134 | Win | baja | 1 (1) |  |
 | `0x00658C30` | 129 | CTaskComplexMedicTreatInjuredPed | alta | 1 (1) |  |
+| `0x00620B00` | 121 | CTaskSimpleBeHit | baja | 1 (1) |  |
 | `0x004D66A0` | 118 | RpAnimBlend | alta | 1 (1) |  |
 | `0x005D8C50` | 118 | CCustomCarEnvMapPipeline | alta | 1 (1) |  |
 | `0x00422F80` | 117 | CCarCtrl | alta | 1 (1) |  |
@@ -232,7 +222,6 @@
 | `0x00550B00` | 94 | CPools | alta | 1 (1) |  |
 | `0x00550D70` | 94 | CPools | alta | 1 (1) |  |
 | `0x00550E40` | 94 | CPools | alta | 1 (1) |  |
-| `0x005B8340` | 94 | CStreaming | baja | 1 (1) |  |
 | `0x00550180` | 93 | CPools | alta | 1 (1) |  |
 | `0x005D9300` | 93 | CCustomCarEnvMapPipeline | baja | 1 (1) |  |
 | `0x00550250` | 92 | CPools | alta | 1 (1) |  |
@@ -261,11 +250,9 @@
 | `0x0072E220` | 79 | CCullZones | baja | 1 (1) |  |
 | `0x005D8980` | 77 | CCustomCarEnvMapPipeline | alta | 1 (1) |  |
 | `0x0059F610` | 74 | CObject | alta | 1 (1) |  |
-| `0x005E0540` | 74 | CPed | baja | 1 (1) |  |
 | `0x006D5DD0` | 74 | CVehicle | alta | 1 (1) |  |
 | `0x004D6450` | 73 | RpAnimBlend | alta | 1 (1) |  |
 | `0x006198C0` | 65 | Rs | alta | 1 (1) |  |
-| `0x005EAB80` | 62 | CPedAttractorPool | baja | 1 (1) |  |
 | `0x005FFF30` | 55 | CEntityScanner | baja | 1 (1) |  |
 | `0x004650A0` | 54 | CTheScripts | baja | 1 (1) |  |
 | `0x00533670` | 54 | CEntity | alta | 1 (1) |  |
@@ -274,29 +261,21 @@
 | `0x005EC220` | 49 | CPedAttractorManager | baja | 1 (1) |  |
 | `0x00606010` | 49 | CPedIntelligencePool | baja | 1 (1) |  |
 | `0x005D9180` | 48 | CCustomCarEnvMapPipeline | baja | 1 (1) |  |
-| `0x005E88E0` | 43 | CPed | alta | 1 (1) |  |
 | `0x00465040` | 41 | CTheScripts | baja | 98 (1) |  |
 | `0x00465070` | 40 | CTheScripts | baja | 5 (1) |  |
 | `0x005521D0` | 37 | CPools | baja | 1 (1) |  |
-| `0x0054F490` | 36 | CPlaceable | alta | 5 (1) |  |
 | `0x00411A30` | 35 | CPlaceable | baja | 2 (1) |  |
 | `0x004F3B30` | 35 | CAEUserRadioTrackManager | alta | 3 (1) |  |
 | `0x005EB310` | 35 | CPedAttractor | alta | 4 (1) |  |
 | `0x0074BE00` | 34 | Win | baja | 4 (1) |  |
 | `0x0074BE70` | 34 | Win | baja | 1 (1) |  |
 | `0x00747000` | 32 | CPad | baja | 1 (1) |  |
-| `0x004082A0` | 31 | CStreaming | baja | 6 (1) |  |
-| `0x00710BA0` | 30 | CStencilShadows | alta | 1 (1) |  |
 | `0x004410E0` | 23 | CEntryExitManager | baja | 1 (1) |  |
 | `0x00541E90` | 23 | CPad | baja | 1 (1) |  |
 | `0x005DAAC0` | 21 | CCustomCarEnvMapPipeline | baja | 1 (1) |  |
-| `0x0040B490` | 18 | CStreaming | alta | 2 (1) |  |
 | `0x004A1900` | 18 | FxEmitterBP_c | alta | 1 (1) |  |
-| `0x00407A10` | 17 | CStreaming | alta | 1 (1) |  |
-| `0x00407D30` | 13 | CStreaming | alta | 1 (1) |  |
-| `0x00407DC0` | 13 | CStreaming | alta | 1 (1) |  |
 | `0x004F4CA0` | 12 | CAEUserRadioTrackManager | baja | 1 (1) |  |
-| `0x004096C0` | 11 | CStreaming | alta | 1 (1) |  |
+| `0x005FF460` | 11 | CEventSeenCop | baja | 3 (1) |  |
 | `0x006597B0` | 11 | CTaskComplexUseWaterCannon | alta | 1 (1) |  |
 | `0x00668240` | 11 | CTaskComplexGoToPointAndStandStill | alta | 1 (1) |  |
 | `0x00678790` | 11 | CTaskComplexFallAndGetUp | alta | 1 (1) |  |
@@ -307,7 +286,6 @@
 | `0x0048DE60` | 5 | CRunningScript | baja | 1 (1) |  |
 | `0x00541E50` | 5 | CPad | baja | 1 (1) |  |
 | `0x005CFA30` | 5 | FxEmitterBP_c | baja | 1 (1) |  |
-| `0x005FF860` | 5 | CEventSeenCop | baja | 2 (1) |  |
 | `0x0044D2C0` | 3 | CPathFind | alta | 1 (1) |  |
 | `0x0044D2D0` | 3 | CPathFind | alta | 1 (1) |  |
 | `0x0044D2E0` | 3 | CPathFind | alta | 1 (1) |  |
@@ -396,10 +374,7 @@
 | `0x005C5210` | 66 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CA840` | 65 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CA260` | 63 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x005EAC50` | 62 | CPedAttractorPool | baja | 1 (0) |  |
-| `0x005EACC0` | 59 | CPedAttractorPool | baja | 1 (0) |  |
 | `0x004F4170` | 57 | CAEUserRadioTrackManager | alta | 2 (0) |  |
-| `0x005EAEA0` | 57 | CPedAttractorPool | baja | 3 (0) |  |
 | `0x005C6B50` | 56 | FxEmitterBP_c | baja | 3 (0) |  |
 | `0x005EB340` | 55 | CPedAttractor | alta | 3 (0) |  |
 | `0x0074EA40` | 55 | Win | baja | 1 (0) |  |
@@ -408,11 +383,9 @@
 | `0x005EB1E0` | 50 | CPedAttractor | alta | 1 (0) |  |
 | `0x005EB220` | 50 | CPedAttractor | alta | 1 (0) |  |
 | `0x005CCCC0` | 48 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x005EAE40` | 48 | CPedAttractorPool | baja | 3 (0) |  |
 | `0x005EB2E0` | 46 | CPedAttractor | alta | 3 (0) |  |
 | `0x005EC0E0` | 42 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x005EC140` | 42 | CPedAttractorManager | baja | 1 (0) |  |
-| `0x005EAAC0` | 41 | CPedAttractorPool | baja | 1 (0) |  |
 | `0x004F3B00` | 40 | CAEUserRadioTrackManager | alta | 1 (0) |  |
 | `0x004F3CE0` | 40 | CAEUserRadioTrackManager | alta | 2 (0) |  |
 | `0x005EB140` | 40 | CPedAttractor | alta | 1 (0) |  |
@@ -428,15 +401,9 @@
 | `0x005EC110` | 39 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x005EC1B0` | 39 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x004F3940` | 37 | CAEUserRadioTrackManager | alta | 3 (0) |  |
-| `0x005EAE10` | 37 | CPedAttractorPool | baja | 3 (0) |  |
-| `0x005EAE70` | 37 | CPedAttractorPool | baja | 3 (0) |  |
-| `0x005EAEE0` | 37 | CPedAttractorPool | baja | 3 (0) |  |
 | `0x005EB2A0` | 35 | CPedAttractor | alta | 3 (0) |  |
 | `0x005EB390` | 35 | CPedAttractor | alta | 3 (0) |  |
 | `0x004F3AE0` | 30 | CAEUserRadioTrackManager | alta | 1 (0) |  |
-| `0x005EAAA0` | 30 | CPedAttractorPool | baja | 1 (0) |  |
-| `0x005EAAF0` | 30 | CPedAttractorPool | baja | 1 (0) |  |
-| `0x005EAB10` | 30 | CPedAttractorPool | baja | 1 (0) |  |
 | `0x005C6BB0` | 28 | FxEmitterBP_c | baja | 2 (0) |  |
 | `0x005C6BD0` | 28 | FxEmitterBP_c | baja | 4 (0) |  |
 | `0x005CF8A0` | 24 | FxEmitterBP_c | baja | 3 (0) |  |
