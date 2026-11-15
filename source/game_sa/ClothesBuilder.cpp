@@ -32,6 +32,35 @@ auto& ms_ratiosHaveChanged  = StaticRef<bool>(0x8D0AA4);
 auto& ms_geometryHasChanged = StaticRef<bool>(0x8D0AA5);
 auto& ms_textureHasChanged  = StaticRef<bool>(0x8D0AA6);
 
+// 0x5A44A0 (lote 203A, sin validar; cdecl, dos argumentos de pila (la textura y un dato sin usar), `ret`, 24 bytes): callback de RwTexDictionaryForAllTextures. Como el original: saca la textura de su diccionario (RwTexDictionaryRemoveTexture 0x7F39C0)
+// y despues la destruye (RwTextureDestroy 0x7F3820); devuelve la textura (el valor que sigue la iteracion). Es el lambda que CreateSkinnedClump llevaba en linea.
+static RwTexture* DestroyTextureCB(RwTexture* texture, void* /*data*/) {
+    RwTexDictionaryRemoveTexture(texture);
+    RwTextureDestroy(texture);
+    return texture;
+}
+
+namespace {
+// Contexto del EXE de GetAtomicWithName (0x5A4810): nombre buscado en +0 y atomico encontrado en +4 (nulo si no hay).
+struct tAtomicNameSearch {
+    const char* name;
+    RpAtomic*   atomic;
+};
+} // namespace
+
+// 0x5A47E0 (lote 203A, sin validar; cdecl, dos argumentos de pila (el atomico y el contexto), `ret`, 46 bytes): callback de RpClumpForAllAtomics de GetAtomicWithName. Como el original: nombre del nodo del marco del atomico (GetFrameNodeName 0x72FB30
+// sobre el marco +4 del atomico, que se evalua ANTES de leer el nombre buscado) y comparacion sin mayusculas (_stricmp 0x8229B6, con el nombre buscado como primer argumento). Con coincidencia (cero) guarda el atomico en +4 del contexto y devuelve NULO (detiene
+// la iteracion en la PRIMERA coincidencia); si no, devuelve el atomico (sigue).
+static RpAtomic* GetAtomicWithNameCB(RpAtomic* atomic, void* data) {
+    auto* const ctx = static_cast<tAtomicNameSearch*>(data);
+    const char* const nodeName = GetFrameNodeName(RpAtomicGetFrame(atomic));
+    if (_stricmp(ctx->name, nodeName) == 0) {
+        ctx->atomic = atomic;
+        return nullptr;
+    }
+    return atomic;
+}
+
 void CClothesBuilder::InjectHooks() {
     RH_ScopedClass(CClothesBuilder);
     RH_ScopedCategoryGlobal();
@@ -39,10 +68,11 @@ void CClothesBuilder::InjectHooks() {
     RH_ScopedInstall(LoadCdDirectory, 0x5A4190);
     RH_ScopedInstall(RequestGeometry, 0x5A41C0);
     RH_ScopedInstall(RequestTexture, 0x5A4220);
-    //RH_ScopedInstall(nullptr, 0x5A42B0, { .reversed = false }); 
+    //RH_ScopedInstall(nullptr, 0x5A42B0, { .reversed = false }); // lote 203A: saltada (usercall: EAX, ESI, EDI y EBX de entrada), ver reversing/PendienteValidar/203A.md
     //RH_ScopedInstall(nullptr, 0x5A4380, { .reversed = false }); AtomicInstanceCB
     //RH_ScopedInstall(nullptr, 0x5A43A0, { .reversed = false });
-    //RH_ScopedInstall(nullptr, 0x5A44A0, { .reversed = false }); DestroyTextureCB
+    RH_ScopedNamedGlobalInstall(DestroyTextureCB, "DestroyTextureCB", 0x5A44A0); // lote 203A (sin validar)
+    RH_ScopedNamedGlobalInstall(GetAtomicWithNameCB, "GetAtomicWithNameCB", 0x5A47E0); // lote 203A (sin validar)
     RH_ScopedInstall(PreprocessClothesDesc, 0x5A44C0);
     RH_ScopedInstall(ReleaseGeometry, 0x5A47B0);
     RH_ScopedGlobalInstall(GetAtomicWithName, 0x5A4810);
@@ -178,18 +208,8 @@ void CClothesBuilder::ReleaseGeometry(int32 numToRelease) {
 
 // 0x5A4810
 RpAtomic* GetAtomicWithName(RpClump* clump, const char* name) {
-    struct Context {
-        notsa::ci_string_view name{};
-        RpAtomic*             atomic{};
-    } c{name};
-    RpClumpForAllAtomics(clump, [](RpAtomic* a, void* data) -> RpAtomic* { // 0x5A47E0
-        auto& ctx = *static_cast<Context*>(data);
-        if (ctx.name == GetFrameNodeName(RpAtomicGetFrame(a))) {
-            ctx.atomic = a;
-            return nullptr; // Como el original (0x5A4801 jne no tomado -> eax=0): detiene la iteracion en la PRIMERA coincidencia
-        }
-        return a;
-    }, &c);
+    tAtomicNameSearch c{name, nullptr};
+    RpClumpForAllAtomics(clump, GetAtomicWithNameCB, &c); // 0x5A47E0
     return c.atomic;
 }
 
@@ -872,11 +892,7 @@ RpClump* CClothesBuilder::CreateSkinnedClump(RpClump* bones, RwTexDictionary* di
     }
 
     if ((ms_textureHasChanged || ms_ratiosHaveChanged) && !bCutscenePlayer) {
-        RwTexDictionaryForAllTextures(dict, [](RwTexture* t, void* data) {
-            RwTexDictionaryRemoveTexture(t);
-            RwTextureDestroy(t);
-            return t;
-        }, nullptr);
+        RwTexDictionaryForAllTextures(dict, DestroyTextureCB, nullptr); // 0x5A44A0
         ConstructTextures(dict, dscr.m_anTextureKeys.data(), rNormal, rFatness, rMuscle);
     }
 

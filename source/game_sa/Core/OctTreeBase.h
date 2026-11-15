@@ -14,6 +14,8 @@ public:
     bool32 m_bHasTransparentPixels;
 
 public:
+    static void InjectHooks();
+
     COctTreeBase() = default;  // 0x5A7570
     ~COctTreeBase() = default; // 0x856690
 

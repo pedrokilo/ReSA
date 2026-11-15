@@ -67,6 +67,70 @@ static __declspec(noinline) int32 AttractorSectorCell(float coordinate, bool use
     return static_cast<int32>(static_cast<int64>(cell));
 }
 
+// 0x6002F0 (lote 203A, sin validar; el listado decia CAttractorScanner; la usan dos comandos de script del EXE, 0x474D10 y 0x476993; cdecl, nueve argumentos de pila, el llamador limpia, `ret`, 480 bytes; no usa `this`): busca, entre los edificios y los
+// objetos a menos de `radio` de `punto`, el efecto 2D de atractor mas cercano que cumpla los filtros y devuelve si encontro alguno. Argumentos en orden de pila: 1 punto (puntero a CVector), 2 radio (float), 3 indice de modelo (-1 = cualquiera), 4 tipo de atractor
+// (se compara el BYTE +0x34 del efecto, ampliado a cero, con los 32 bits del argumento), 5 nombre de script (nulo = cualquiera), 6 exigir hueco libre (BYTE), 7 efecto a excluir (nulo = ninguno), 8 salida: efecto, 9 salida: entidad.
+// Orden del EXE: 1) *efecto y *entidad a nulo (en ese orden) ANTES de buscar; 2) CWorld::FindObjectsInRange (0x564A20, con hook) con (punto, radio, false, &contador (que arranca en 0xFFFF), 0x400, lista local, edificios = true, vehiculos = false, peatones = false,
+// objetos = true, ficticios = false); 3) por cada entidad de la lista (el contador, un int16 CON SIGNO, se relee en cada vuelta): si el indice de modelo pedido no es -1 y no coincide con el de la entidad (+0x22 con signo de 16 bits) se salta; se toma el
+// modelo de CModelInfo::ms_modelInfoPtrs[indice con signo] SIN comprobar nulo; para cada efecto (0 .. +0xD del modelo, un BYTE que se relee en cada vuelta, CBaseModelInfo::Get2dEffect 0x4C4C70): se salta si es el excluido, si su tipo (BYTE +0xC) no es 3 (atractor),
+// si el tipo de atractor no coincide, si hay nombre y _stricmp (0x8229B6) con el nombre del efecto (+0x38) no da cero, o si se exige hueco libre y CPedAttractorManager::HasEmptySlot (0x5EBB00, con GetPedAttractorManager 0x5EE190) con (efecto, entidad) es falso;
+// 4) posicion del efecto en el mundo (CEntity::TransformFromObjectSpace 0x5334F0, con hook) y distancia al cuadrado ((dz*dz + dy*dy) + dx*dx, con d = punto menos efecto, x87 a 24 bits) contra la mejor (empieza en 1e8 = 0x4CBEBC20): solo si es ESTRICTAMENTE
+// menor (comparacion ordenada: con NaN no entra) guarda la distancia y escribe efecto y entidad en las salidas.
+#pragma float_control(precise, on, push)
+static bool FindAttractorInRange(const CVector& point, float radius, int32 modelIndex, int32 attractorType, const char* name, bool requireFreeSlot, C2dEffectPedAttractor* exclude, C2dEffectPedAttractor** outEffect, CEntity** outEntity) {
+    *outEffect = nullptr;
+    *outEntity = nullptr;
+
+    CEntity* entities[1024];
+    int16    count = -1;
+    CWorld::FindObjectsInRange(point, radius, false, &count, 1024, entities, true, false, false, true, false);
+
+    bool  found          = false;
+    float bestDistanceSq = std::bit_cast<float>(0x4CBEBC20u);
+    for (int32 i = 0; i < count; i++) {
+        CEntity* const entity      = entities[i];
+        const int32    entityModel = static_cast<int16>(entity->m_nModelIndex);
+        if (modelIndex != -1 && modelIndex != entityModel) {
+            continue;
+        }
+
+        const CBaseModelInfo* const modelInfo = CModelInfo::ms_modelInfoPtrs[entityModel];
+        for (int32 j = 0; j < modelInfo->m_n2dfxCount; j++) {
+            C2dEffect* const effect    = modelInfo->Get2dEffect(j);
+            auto* const      attractor = reinterpret_cast<C2dEffectPedAttractor*>(effect);
+            if (exclude && exclude == attractor) {
+                continue;
+            }
+            if (*reinterpret_cast<const uint8*>(&effect->m_Type) != 3) { // BYTE +0xC (EFFECT_ATTRACTOR)
+                continue;
+            }
+            if (static_cast<int32>(*reinterpret_cast<const uint8*>(&attractor->m_nAttractorType)) != attractorType) { // BYTE +0x34 ampliado a cero
+                continue;
+            }
+            if (name && _stricmp(name, attractor->m_szScriptName) != 0) {
+                continue;
+            }
+            if (requireFreeSlot && !GetPedAttractorManager()->HasEmptySlot(attractor, entity)) {
+                continue;
+            }
+
+            const CVector effectPos = entity->TransformFromObjectSpace(attractor->m_Pos);
+            const float dx = point.x - effectPos.x;
+            const float dy = point.y - effectPos.y;
+            const float dz = point.z - effectPos.z;
+            const float distanceSq = (dz * dz + dy * dy) + dx * dx;
+            if (distanceSq < bestDistanceSq) {
+                bestDistanceSq = distanceSq;
+                *outEffect     = attractor;
+                *outEntity     = entity;
+                found          = true;
+            }
+        }
+    }
+    return found;
+}
+#pragma float_control(pop)
+
 // 0x6060A0
 void CAttractorScanner::ScanForAttractors(CPed& ped) {
     // Como el original: escaner apagado (byte +0) o peaton en vehiculo (bit 8 de +0x46C) no hacen nada
@@ -189,4 +253,5 @@ void CAttractorScanner::InjectHooks() {
     RH_ScopedCategoryGlobal();
     RH_ScopedInstall(Clear, 0x5FFF90);
     RH_ScopedInstall(ScanForAttractors, 0x6060A0);
+    RH_ScopedNamedGlobalInstall(FindAttractorInRange, "FindAttractorInRange", 0x6002F0); // lote 203A (sin validar)
 }

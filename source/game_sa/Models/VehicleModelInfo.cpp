@@ -51,6 +51,74 @@ auto& fRearDoubleWheelOffsetFactor = StaticRef<float>(0x8A7784);
 // clases intermedias y solo deja la vtable de CBaseModelInfo; no toca nada mas. Lo pasan a los iteradores de vectores del almacen de vehiculos (CStore de 212 elementos de 0x308 bytes, 0x4C5F51 y 0x4C6375).
 __declspec(noinline) static void __fastcall VehicleModelInfoDestructorBody(CVehicleModelInfo* self, void* /*edx*/) { *reinterpret_cast<uint32*>(self) = 0x85BB9C; }
 
+namespace CBaseModelInfoBody {
+CBaseModelInfo* __fastcall Constructor(CBaseModelInfo* self, void* edx); // BaseModelInfo.cpp: 0x4C4A60
+}
+
+namespace {
+using CVehicleStructure = CVehicleModelInfo::CVehicleStructure;
+
+// 0x4C75E0 (lote 203A, sin validar; thiscall, sin argumentos de pila, `ret`, 75 bytes): constructor de CVehicleModelInfo del EXE. Llama al cuerpo del constructor de CBaseModelInfo (0x4C4A60, con hook; sin pasar por el de CClumpModelInfo), y despues:
+// estructura de vehiculo (+0x5C) a nulo, contador de colores (BYTE +0x2D0) a cero, banderas (BYTE +0x4E) a cero, vtable de CVehicleModelInfo del EXE (0x85C5C8; la de la DLL no vale: el EXE despacha por la suya), indice del bloque de animaciones (+0x304) a -1,
+// las 18 mejoras (+0x2D6, nueve dwords) y los 4 remaps de TXD (+0x2FA y +0x2FE) a -1. Devuelve `this`. Lo llaman los iteradores de constructores de vectores del EXE.
+CVehicleModelInfo* __fastcall VehicleModelInfoConstructorExe(CVehicleModelInfo* self, void* /*edx*/) {
+    CBaseModelInfoBody::Constructor(self, nullptr);
+    self->m_pVehicleStruct = nullptr;
+    self->m_nNumColorVariations = 0;
+    self->m_nFlags = 0;
+    *reinterpret_cast<uint32*>(self) = 0x85C5C8;
+    self->m_nAnimBlockIndex = static_cast<uint32>(-1);
+    std::ranges::fill(self->m_anUpgrades, static_cast<int16>(-1));
+    std::ranges::fill(self->m_anRemapTxds, static_cast<int16>(-1));
+    return self;
+}
+
+// 0x4C8E10 (lote 203A, sin validar; ranura 0 de la vtable 0x85C5C8; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x4C5920; test byte [esp+8],1; je ..; push esi; call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`).
+// Como el original: destruye con el cuerpo de la clase (0x4C5920, con hook), libera `this` con operator delete (0x8214BD, CRT) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CVehicleModelInfo* __fastcall VehicleModelInfoScalarDeletingDestructor(CVehicleModelInfo* self, void* /*edx*/, uint8 flags) {
+    VehicleModelInfoDestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
+// 0x4C7410 (lote 203A, sin validar; thiscall, sin argumentos de pila, `ret`, 85 bytes): destructor de CVehicleStructure (0x314 bytes) del EXE. El contador de extras es un BYTE CON SIGNO (+0x30C: `test al, al; jle`, y se relee con `movsx` en cada vuelta): para cada
+// extra de +0x2F4, lee el marco del atomico (+4 del atomico) ANTES de destruir el atomico (RpAtomicDestroy 0x749DC0) y despues destruye el marco (RwFrameDestroy 0x7F05A0, sin comprobar nulos). Al final destruye las 18 mejoras de +0xB4 con el iterador de
+// destructores de vectores del EXE (0x821E02, tamano 0x20, cuerpo 0x4C7400 que no hace nada). Cuerpo identico al destructor de la DLL.
+void __fastcall VehicleStructureDestructorExe(CVehicleStructure* self, void* /*edx*/) {
+    std::destroy_at(self);
+}
+
+// 0x4C8D60 (lote 203A, sin validar; thiscall, sin argumentos de pila, `ret`, 161 bytes): constructor de CVehicleStructure del EXE. Construye las 18 mejoras de +0xB4 con el iterador de constructores de vectores (0x821D30; el constructor 0x4C73F0 no escribe nada),
+// pone a cero los 15 dummies (+0, vectores de 12 bytes), el identificador del padre de cada mejora (+0xD0 + 0x20 * i) a -1, los 6 extras (+0x2F4), el contador (BYTE +0x30C) y la mascara de componentes dañables (+0x310). Devuelve `this`.
+CVehicleStructure* __fastcall VehicleStructureConstructorExe(CVehicleStructure* self, void* /*edx*/) {
+    return std::construct_at(self);
+}
+
+// 0x4C94C0 (lote 203A, sin validar; thiscall, sin argumentos de pila, `ret`, 106 bytes): CPool<CVehicleStructure>::New del EXE (el pool vive en el puntero global 0xB4E680; SetClump 0x4C95C0 lo llama con ECX = ese puntero). Busca desde cursor + 1 (una sola vuelta
+// completa), marca la ranura como usada, suma 1 a su identificador de 7 bits y devuelve datos + indice * 0x314; sin hueco devuelve nulo con el cursor a 0. No toca el objeto.
+CVehicleStructure* __fastcall VehicleStructurePoolNewExe(CPool<CVehicleStructure>* pool, void* /*edx*/) {
+    return pool->New();
+}
+
+// 0x4C9580 (lote 203A, sin validar; cdecl, un argumento de pila, `ret`, 49 bytes): CVehicleStructure::operator delete del EXE. Con el pool del puntero global 0xB4E680: indice = (puntero - datos) / 0x314; estado |= 0x80; cursor = min(cursor, indice) con signo;
+// sin comprobar nulo ni el rango.
+void __cdecl VehicleStructureOperatorDeleteExe(void* data) {
+    CVehicleStructure::operator delete(data);
+}
+
+// 0x4C9840 (lote 203A, sin validar; thiscall, un argumento de pila, `ret 4`, 76 bytes): destructor con borrado de CVehicleStructure del EXE (no es de una vtable). Como el original: destruye con el cuerpo de la clase (0x4C7410, con hook) y, con el bit 0 del BYTE de
+// banderas puesto, libera la ranura de `this` en el pool global 0xB4E680 EN LINEA (mismas escrituras que 0x4C9580); devuelve `this`.
+CVehicleStructure* __fastcall VehicleStructureScalarDeletingDestructorExe(CVehicleStructure* self, void* /*edx*/, uint8 flags) {
+    VehicleStructureDestructorExe(self, nullptr);
+    if (flags & 1) {
+        CVehicleStructure::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 /**
  * Registra las operaciones de configuración, extras, materiales y upgrades de vehículos.
  */
@@ -60,6 +128,18 @@ void CVehicleModelInfo::InjectHooks()
     RH_ScopedCategory("Models");
 
     RH_ScopedNamedGlobalInstall(VehicleModelInfoDestructorBody, "DestructorBody", 0x4C5920); // lote 143A (banco Fn143A)
+    RH_ScopedNamedGlobalInstall(VehicleModelInfoConstructorExe, "Constructor", 0x4C75E0); // lote 203A (sin validar)
+    RH_ScopedNamedGlobalInstall(VehicleModelInfoScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4C8E10); // lote 203A (sin validar)
+
+    { // CVehicleStructure (lote 203A, sin validar)
+        RH_ScopedClass(CVehicleStructure);
+
+        RH_ScopedNamedGlobalInstall(VehicleStructureDestructorExe, "Destructor", 0x4C7410);
+        RH_ScopedNamedGlobalInstall(VehicleStructureConstructorExe, "Constructor", 0x4C8D60);
+        RH_ScopedNamedGlobalInstall(VehicleStructurePoolNewExe, "PoolNew", 0x4C94C0);
+        RH_ScopedNamedGlobalInstall(VehicleStructureOperatorDeleteExe, "OperatorDelete", 0x4C9580);
+        RH_ScopedNamedGlobalInstall(VehicleStructureScalarDeletingDestructorExe, "ScalarDeletingDestructor", 0x4C9840);
+    }
 
     { // ClinkedUpgradeList
         RH_ScopedClass(CLinkedUpgradeList);

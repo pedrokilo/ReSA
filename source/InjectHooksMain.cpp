@@ -139,6 +139,8 @@
 #include "PedPlacement.h"
 #include "UpsideDownCarCheck.h"
 #include "PedClothesDesc.h"
+#include "OctTree.h"
+#include "OctTreeBase.h"
 #include "WaterCannon.h"
 #include "EntryExitManager.h"
 #include "ObjectSaveStructure.h"
@@ -465,6 +467,7 @@
 #include "TaskComplexBeInGroup.h"
 #include "Tasks/TaskTypes/TaskComplexBeCop.h"
 #include "TaskComplexAvoidOtherPedWhileWandering.h"
+#include "TaskComplexAvoidEntity.h"
 #include "TaskComplexArrestPed.h"
 #include "TaskComplexEnterAnyCarAsDriver.h"
 #include "TaskSimpleSetKindaStayInSamePlace.h"
@@ -722,6 +725,8 @@ void InjectHooksMain() {
     CFire::InjectHooks();
     CExplosion::InjectHooks();
     CClothesBuilder::InjectHooks();
+    COctTree::InjectHooks();     // lote 203A (sin validar)
+    COctTreeBase::InjectHooks(); // lote 203A (sin validar)
     CClothes::InjectHooks();
     CBulletInfo::InjectHooks();
     CRestart::InjectHooks();
@@ -1488,6 +1493,7 @@ void InjectHooksMain() {
         CTaskComplexBeInGroup::InjectHooks();
         CTaskComplexBeCop::InjectHooks();
         CTaskComplexAvoidOtherPedWhileWandering::InjectHooks();
+        CTaskComplexAvoidEntity::InjectHooks(); // lote 203A (sin validar)
         CTaskComplexArrestPed::InjectHooks();
 
         const auto EntitySeekPosCalculators = [] {

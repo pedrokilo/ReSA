@@ -25,6 +25,8 @@ public:
     static inline auto& ms_octTreePool = StaticRef<COctTreePool>(0xBC12E4);
 
 public:
+    static void InjectHooks();
+
     COctTree();
     ~COctTree();
 
