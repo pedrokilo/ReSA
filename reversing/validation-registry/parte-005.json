@@ -37242,7 +37242,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CPedDamageResponseCalculator::IsBleedingWeapon"
@@ -37312,7 +37312,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CEventDamage::ScalarDeletingDestructor"
@@ -37382,7 +37382,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::UpdateGenericWaterCannonSound"
@@ -37452,7 +37452,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "FurnitureManager_c::Constructor"
@@ -37522,7 +37522,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "FurnitureManager_c::Destructor"
@@ -37592,7 +37592,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "Interior_c::Destructor"
@@ -37662,7 +37662,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::ComputeTarget"
@@ -37732,7 +37732,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsPassenger::Constructor"
@@ -37802,7 +37802,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsPassenger::ScalarDeletingDestructor"
@@ -37872,7 +37872,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskComplexHitPedWithCar::HitKillsPed"
@@ -37942,7 +37942,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleKillPedWithCar::ScalarDeletingDestructor"
@@ -38012,7 +38012,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleKillPedWithCar::ShakePadIfPlayerVehicle"
@@ -38082,7 +38082,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundCar::ScalarDeletingDestructor"
@@ -38152,7 +38152,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitInChair::GetTaskType"
@@ -38222,7 +38222,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitInChair::Destructor"
@@ -38292,7 +38292,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitInChair::Clone"
@@ -38362,7 +38362,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitInChair::MakeAbortable"
@@ -38432,7 +38432,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleHoldEntity::GetTaskType"
@@ -38503,7 +38503,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleHoldEntity::Destructor"
@@ -38573,7 +38573,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePickUpEntity::ScalarDeletingDestructor"
@@ -38643,7 +38643,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePutDownEntity::ScalarDeletingDestructor"
@@ -38713,7 +38713,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoPickUpEntity::ScalarDeletingDestructor"
@@ -38783,7 +38783,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDuck::ScalarDeletingDestructor"
@@ -38853,7 +38853,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::DestructorBody"
@@ -38923,7 +38923,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "Input::HandlePadButtonDown"
@@ -38993,7 +38993,7 @@
       },
       "evidence": {
         "path": "reversing/Fn176A/validation-summary.json",
-        "sha256": "f45101b772b379b23e0952793eeb5c6b3c23866e2c71b8cb7afd91e4e04a3622",
+        "sha256": "fdf772721cd40da5bb1dfd9bc1deed326cd555584f16ac7651d797db0f86defa",
         "passed_path": [
           "covered_functions",
           "Input::HandlePadButtonUp"

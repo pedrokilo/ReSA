@@ -924,7 +924,7 @@
       },
       "evidence": {
         "path": "reversing/AudioCompletion/validation-summary.json",
-        "sha256": "2e0fbe1f3d63be98cc16ed8e72952c4b2617470d56eea5aea0d38b1f37fb7910",
+        "sha256": "c72b7770d3fe5fad2ed6900f473cdd3f6b0170ac7f1bc65fb274b94d81b85c9a",
         "passed_path": [
           "covered_functions",
           "UpdateAmbienceTrackAndVolume"
@@ -950,7 +950,7 @@
       },
       "evidence": {
         "path": "reversing/AudioCompletion/validation-summary.json",
-        "sha256": "2e0fbe1f3d63be98cc16ed8e72952c4b2617470d56eea5aea0d38b1f37fb7910",
+        "sha256": "c72b7770d3fe5fad2ed6900f473cdd3f6b0170ac7f1bc65fb274b94d81b85c9a",
         "passed_path": [
           "covered_functions",
           "AddAudioEvent"
@@ -976,7 +976,7 @@
       },
       "evidence": {
         "path": "reversing/AudioCompletion/validation-summary.json",
-        "sha256": "2e0fbe1f3d63be98cc16ed8e72952c4b2617470d56eea5aea0d38b1f37fb7910",
+        "sha256": "c72b7770d3fe5fad2ed6900f473cdd3f6b0170ac7f1bc65fb274b94d81b85c9a",
         "passed_path": [
           "covered_functions",
           "SetAudioBuffer"
