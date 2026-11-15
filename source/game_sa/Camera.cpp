@@ -135,6 +135,15 @@ CCamera* __fastcall CameraScalarDeletingDestructor(CCamera* self, void* /*edx*/,
     }
     return self;
 }
+
+// 0x4748A0 / 0x474870 (lote 223A, sin validar): envolturas de los hooks. Los llamadores del EXE (0x476F62 y 0x476F82) hacen `push eax` con el EAX completo (el EXE devuelve 0 o 1 en EAX entero): se devuelve
+// un entero de 32 bits y no un bool (que solo fija AL) para no dejar basura en los 24 bits altos.
+__declspec(noinline) uint32 __fastcall CameraVectorMoveRunningExe(const CCamera* self, void* /*edx*/) {
+    return self->VectorMoveRunning() ? 1u : 0u;
+}
+__declspec(noinline) uint32 __fastcall CameraVectorTrackRunningExe(const CCamera* self, void* /*edx*/) {
+    return self->VectorTrackRunning() ? 1u : 0u;
+}
 } // namespace
 
 void CCamera::InjectHooks() {
@@ -143,6 +152,8 @@ void CCamera::InjectHooks() {
     RH_ScopedNamedGlobalInstall(CameraDestructorBody, "DestructorBody", 0x50A870);                         // lote 199A (sin validar)
     RH_ScopedNamedGlobalInstall(CameraScalarDeletingDestructor, "ScalarDeletingDestructor", 0x514010); // lote 199A (sin validar)
     RH_ScopedInstall(IsActiveCamUnderWater, 0x50B830);
+    RH_ScopedNamedGlobalInstall(CameraVectorMoveRunningExe, "VectorMoveRunning", 0x4748A0); // lote 223A (sin validar)
+    RH_ScopedNamedGlobalInstall(CameraVectorTrackRunningExe, "VectorTrackRunning", 0x474870); // lote 223A (sin validar)
 
     RH_ScopedOverloadedInstall(IsSphereVisible, "matrix", 0x420C40, bool(CCamera::*)(const CVector&,float,RwMatrix*));
     RH_ScopedOverloadedInstall(IsSphereVisible, "mirror", 0x420D40, bool(CCamera::*)(const CVector&,float));
@@ -2840,14 +2851,18 @@ void CCamera::DrawBordersForWideScreen() {
     CSprite2d::DrawRect(lower, CRGBA{ 0, 0, 0, 255 });
 }
 
-// 0x4748A0
+// 0x4748A0 (lote 223A, sin validar; el listado decia CTheScripts): thiscall (ECX = TheCamera), sin argumentos de pila, `ret`, 46 bytes. `fild dword [0xB7CB84]` (tiempo del juego con signo; si es negativo,
+// `fadd dword [0x858C54]` = 2^32) y `fcomp dword [ecx+0xCC0]` (m_fMoveLinearEndTime) con `test ah,41h; jp`: devuelve 1 solo si tiempo <= fin (ordenado; con NaN, 0). La comparacion es de la x87 (el
+// entero entra exacto), no la de un entero convertido a float; ver Wv223TimeNotAfterCpp. Llamador del EXE: 0x476F62 (comando de script de la camara).
 bool CCamera::VectorMoveRunning() const {
-    return CTimer::m_snTimeInMilliseconds <= m_fMoveLinearEndTime;
+    static_assert(offsetof(CCamera, m_fMoveLinearEndTime) == 0xCC0);
+    return Wv223TimeNotAfterCpp(static_cast<int>(CTimer::m_snTimeInMilliseconds), m_fMoveLinearEndTime);
 }
 
-// 0x474891
+// 0x474870 (lote 223A, sin validar; el listado decia CTheScripts; el comentario anterior decia 0x474891): igual que VectorMoveRunning con m_fTrackLinearEndTime (+0xC60). Llamador del EXE: 0x476F82.
 bool CCamera::VectorTrackRunning() const {
-    return CTimer::m_snTimeInMilliseconds <= m_fTrackLinearEndTime;
+    static_assert(offsetof(CCamera, m_fTrackLinearEndTime) == 0xC60);
+    return Wv223TimeNotAfterCpp(static_cast<int>(CTimer::m_snTimeInMilliseconds), m_fTrackLinearEndTime);
 }
 
 // 0x514950

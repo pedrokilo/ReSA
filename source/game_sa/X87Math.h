@@ -2386,3 +2386,11 @@ int __cdecl BeHitMovingUnconsciousPlayerCpp(float totalTime, int timeMs);
 int __cdecl BeHitMovingUnconsciousPedCpp(int remainder, float totalTime, int timeMs);
 // Jugador con la animacion 0x6E o 0x6F: (((totalTime * 1000.0f) + tiempo) - currentTime * 1000.0f) + 100.0f.
 int __cdecl BeHitMovingUnconsciousRemainingCpp(float totalTime, float currentTime, int timeMs);
+
+// Lote 223A (sin validar).
+// CCamera::VectorTrackRunning (0x474870) y CCamera::VectorMoveRunning (0x4748A0): `fild dword [0xB7CB84]` (tiempo del juego con signo, exacto) y, si es negativo, `fadd dword [0x858C54]` (2^32 como float, un redondeo
+// a 24 bits); `fcomp dword [this + fin]; fnstsw ax; test ah,41h; jp ..`: verdadero solo si tiempo <= fin, comparacion ordenada (con NaN es falso). `timeMs` es el entero con signo del tiempo.
+bool __cdecl Wv223TimeNotAfterCpp(int timeMs, float endTime);
+// CTheScripts::MoveSearchLightBetweenTwoPoints (0x493360): `target` = los dos primeros floats del objetivo del foco (+0x14, +0x18). Con la x87 (24 bits, sin guardados intermedios): a = target.x - x1, b = target.y - y1,
+// primera = b*b + a*a; c = target.x - x2, d = target.y - y2, segunda = d*d + c*c; `fcompp; test ah,41h; jp ..` -> verdadero solo si primera <= segunda (ordenado; con NaN es falso). Se avanza hacia el primer punto si es verdadero.
+bool __cdecl Wv223SearchLightFirstPointNotFartherCpp(const float* target, float x1, float y1, float x2, float y2);

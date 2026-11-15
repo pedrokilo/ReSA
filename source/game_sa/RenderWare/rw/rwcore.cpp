@@ -81,6 +81,497 @@ constexpr size_t kSlotSetDepthStencilSurface = 39;      // IDirect3DDevice9::Set
 constexpr size_t kSlotCreatePixelShader = 106;          // IDirect3DDevice9::CreatePixelShader (+0x1A8)
 } // namespace
 
+// --- Lote 223A (sin validar): plugin de raster del controlador D3D9 de RenderWare (0x4C9990..0x4CA5A0; el listado las atribuia a CWeaponModelInfo) ---
+// La extension D3D9 del raster (plugin 0x40C, 0x24 bytes) cuelga en raster + _RwD3D9RasterExtOffset (0xB4E9E0); es la misma `_rwD3D9RasterExt` de WindowedMode.cpp. En las camaras, `texture` guarda la superficie.
+// Los bytes +9 y +0xA llevan dos campos de cuatro bits cada uno (cube/face y automipmapgen/compressed, el primero en el nibble bajo).
+namespace {
+struct D3D9RasterExtLayout {
+    void*  texture;        // +0x00
+    void*  palette;        // +0x04
+    uint8  alpha;          // +0x08
+    uint8  cubeFace;       // +0x09: nibble bajo = cube, alto = face
+    uint8  mipFlags;       // +0x0A: nibble bajo = automipmapgen, alto = compressed
+    uint8  lockedMipLevel; // +0x0B
+    void*  lockedSurface;  // +0x0C
+    int32  lockedPitch;    // +0x10 (D3DLOCKED_RECT.Pitch)
+    void*  lockedBits;     // +0x14 (D3DLOCKED_RECT.pBits)
+    uint32 d3dFormat;      // +0x18
+    void*  swapChain;      // +0x1C
+    void*  window;         // +0x20
+};
+static_assert(sizeof(D3D9RasterExtLayout) == 0x24 && offsetof(D3D9RasterExtLayout, alpha) == 0x08 && offsetof(D3D9RasterExtLayout, lockedSurface) == 0x0C
+           && offsetof(D3D9RasterExtLayout, lockedPitch) == 0x10 && offsetof(D3D9RasterExtLayout, lockedBits) == 0x14 && offsetof(D3D9RasterExtLayout, swapChain) == 0x1C);
+
+struct D3D9FormatInfoLayout { // elemento de la tabla 0xB4E7E0 (indexada por D3DFORMAT, 4 bytes por entrada)
+    uint8  alpha;             // +0
+    uint8  depth;             // +1
+    uint16 rwFormat;          // +2
+};
+static_assert(sizeof(D3D9FormatInfoLayout) == 4);
+
+auto& D3D9RasterExtOffset = StaticRef<RwInt32>(0xB4E9E0);
+auto& D3D9RenderSurface   = StaticRef<void*>(0xC97C30); // _RwD3D9RenderSurface
+
+D3D9RasterExtLayout& D3D9RasterExt(const RwRaster* raster) {
+    return *reinterpret_cast<D3D9RasterExtLayout*>(reinterpret_cast<uint8*>(const_cast<RwRaster*>(raster)) + D3D9RasterExtOffset);
+}
+
+// Ranuras de las tablas virtuales de D3D9 que usa este grupo (desplazamiento / 4).
+constexpr size_t kSlotSurfaceGetDesc               = 12;  // IDirect3DSurface9::GetDesc (+0x30)
+constexpr size_t kSlotSurfaceLockRect              = 13;  // IDirect3DSurface9::LockRect (+0x34)
+constexpr size_t kSlotSurfaceUnlockRect            = 14;  // IDirect3DSurface9::UnlockRect (+0x38)
+constexpr size_t kSlotTextureGetSurfaceLevel       = 18;  // IDirect3DTexture9::GetSurfaceLevel y IDirect3DCubeTexture9::GetCubeMapSurface (+0x48)
+constexpr size_t kSlotDeviceUpdateSurface          = 30;  // IDirect3DDevice9::UpdateSurface (+0x78)
+constexpr size_t kSlotDeviceGetRenderTargetData    = 32;  // IDirect3DDevice9::GetRenderTargetData (+0x80)
+constexpr size_t kSlotDeviceCreateOffscreenSurface = 36;  // IDirect3DDevice9::CreateOffscreenPlainSurface (+0x90)
+constexpr size_t kSlotDeviceSetPaletteEntries      = 71;  // IDirect3DDevice9::SetPaletteEntries (+0x11C)
+
+struct D3D9Rect  { int32 left, top, right, bottom; };
+struct D3D9Point { int32 x, y; };
+
+// IDirect3DTexture9::GetSurfaceLevel o, si el nibble bajo del byte +9 de la extension (cubo) no es cero, IDirect3DCubeTexture9::GetCubeMapSurface con la cara del nibble alto.
+int32 D3D9GetTextureSurface(void* texture, uint8 cubeFace, uint32 level, void** surface) {
+    if ((cubeFace & 0x0Fu) != 0) {
+        return ComCall<kSlotTextureGetSurfaceLevel, int32>(texture, static_cast<uint32>(cubeFace >> 4), level, surface);
+    }
+    return ComCall<kSlotTextureGetSurfaceLevel, int32>(texture, level, surface);
+}
+
+// 0x4C9990 (lote 223A, sin validar; el listado decia CWeaponModelInfo): destruye los recursos D3D9 de una cabecera de instancia de malla del pipeline D3D9 de RenderWare (RxD3D9ResEntryHeader; cdecl, un argumento de pila,
+// `ret`, 202 bytes; llamadores: 0x763A80 y 0x7641C0, ambos dentro del bloque de instanciacion). Como el original, en este orden: (1) si el objeto asociado (+0xC) no es nulo y su primer byte no es 0xFF, y el byte +0x36 de
+// alguno de los dos flujos (+0x36 y +0x46: `managed`) es cero, quita la geometria dinamica con 0x74E9E0 (con el propio objeto si su tipo es 8; con [objeto + 0x18] si es 1; con otro tipo no hace nada); (2) si el bufer de
+// indices (+0x20) no es nulo, lo destruye con 0x730D30 y lo pone a cero; (3) si la declaracion de vertices (+0x4C) no es nula, la destruye con 0x7FAC10 y la pone a cero; (4) para los dos flujos de 0x10 bytes desde +0x28
+// (bufer, desplazamiento, paso, banderas de 16 bits, `managed`, `libre`): con bufer no nulo, si `managed` (+0xE) es distinto de cero llama a 0x7F56A0(paso, [header + 0x54] * paso, bufer, desplazamiento); si no, y si el
+// desplazamiento y `libre` (+0xF) son cero, llama a 0x7F5AE0(bufer); y pone el bufer a cero. Despues (con o sin bufer) ceros en desplazamiento, paso, banderas y los dos bytes.
+__declspec(noinline) void __cdecl RxD3D9ResEntryHeaderDestroyExe(uint8* header) {
+    uint8* const owner = *reinterpret_cast<uint8**>(header + 0x0C);
+    if (owner != nullptr) {
+        const uint8 ownerType = *owner;
+        if (ownerType != 0xFF) {
+            for (uint32 i = 0; i < 2; ++i) {
+                if (header[0x36 + 0x10 * i] == 0) {
+                    if (ownerType == 8) {
+                        reinterpret_cast<void(__cdecl*)(void*)>(0x74E9E0)(owner);
+                    } else if (ownerType == 1) {
+                        reinterpret_cast<void(__cdecl*)(void*)>(0x74E9E0)(*reinterpret_cast<void**>(owner + 0x18));
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    if (void* const indexBuffer = *reinterpret_cast<void**>(header + 0x20)) {
+        reinterpret_cast<void(__cdecl*)(void*)>(0x730D30)(indexBuffer);
+        *reinterpret_cast<void**>(header + 0x20) = nullptr;
+    }
+    if (void* const declaration = *reinterpret_cast<void**>(header + 0x4C)) {
+        reinterpret_cast<void(__cdecl*)(void*)>(0x7FAC10)(declaration);
+        *reinterpret_cast<void**>(header + 0x4C) = nullptr;
+    }
+    for (uint32 i = 0; i < 2; ++i) {
+        uint8* const stream = header + 0x28 + 0x10 * i;
+        if (void* const vertexBuffer = *reinterpret_cast<void**>(stream)) {
+            if (stream[0x0E] != 0) {
+                const uint32 offset = *reinterpret_cast<uint32*>(stream + 4);
+                const uint32 stride = *reinterpret_cast<uint32*>(stream + 8);
+                reinterpret_cast<void(__cdecl*)(uint32, uint32, void*, uint32)>(0x7F56A0)(stride, *reinterpret_cast<uint32*>(header + 0x54) * stride, vertexBuffer, offset);
+            } else if (*reinterpret_cast<uint32*>(stream + 4) == 0 && stream[0x0F] == 0) {
+                reinterpret_cast<void(__cdecl*)(void*)>(0x7F5AE0)(vertexBuffer);
+            }
+            *reinterpret_cast<void**>(stream) = nullptr;
+        }
+        *reinterpret_cast<uint32*>(stream + 4) = 0;
+        *reinterpret_cast<uint32*>(stream + 8) = 0;
+        *reinterpret_cast<uint16*>(stream + 0x0C) = 0;
+        stream[0x0E] = 0;
+        stream[0x0F] = 0;
+    }
+}
+
+// 0x4C9AB0 (lote 223A, sin validar; el listado decia CWeaponModelInfo): registro del plugin de raster D3D9 (_rwD3D9RasterPluginAttach; cdecl, sin argumentos, `ret`, 967 bytes; se llega por el salto 0x7F5F60). Como el
+// original: desplazamiento = RwRasterRegisterPlugin(0x24, 0x40C, constructor 0x4C9A60, destructor 0x4C9A80, sin copia) (0x7FB0B0, con hook), guardado SIEMPRE en 0xB4E9E0; si es negativo devuelve 0. Si no: pone a
+// cero 0x80 dwords desde 0xB4E7E0 (la tabla de formatos de pixel por D3DFORMAT, 4 bytes por entrada: alfa, profundidad y formato RW de 16 bits) y escribe las entradas de los formatos conocidos; devuelve 1. Las
+// 138 escrituras (bytes y palabras, en el orden del EXE) salen del desensamblado con bl = 0, al = 1, cl = 0x20, dl = 0x10, di = 0x700 y si = 0x900 como en el original.
+__declspec(noinline) RwBool __cdecl D3D9RasterPluginAttachExe() {
+    const RwInt32 offset = RwRasterRegisterPlugin(0x24, 0x40C, reinterpret_cast<RwPluginObjectConstructor>(0x4C9A60), reinterpret_cast<RwPluginObjectDestructor>(0x4C9A80), nullptr);
+    D3D9RasterExtOffset = offset;
+    if (offset < 0) {
+        return 0;
+    }
+    auto* const fmt = reinterpret_cast<D3D9FormatInfoLayout*>(0xB4E7E0);
+    std::memset(fmt, 0, 0x80 * 4);
+    fmt[20].alpha = 0;
+    fmt[20].depth = 24;
+    fmt[20].rwFormat = 0x0;
+    fmt[21].alpha = 1;
+    fmt[21].depth = 32;
+    fmt[21].rwFormat = 0x500;
+    fmt[22].alpha = 0;
+    fmt[22].depth = 32;
+    fmt[22].rwFormat = 0x600;
+    fmt[23].alpha = 0;
+    fmt[23].depth = 16;
+    fmt[23].rwFormat = 0x200;
+    fmt[24].alpha = 0;
+    fmt[24].depth = 16;
+    fmt[24].rwFormat = 0xA00;
+    fmt[25].alpha = 1;
+    fmt[25].depth = 16;
+    fmt[25].rwFormat = 0x100;
+    fmt[26].alpha = 1;
+    fmt[26].depth = 16;
+    fmt[26].rwFormat = 0x300;
+    fmt[27].alpha = 0;
+    fmt[27].depth = 8;
+    fmt[27].rwFormat = 0x0;
+    fmt[28].alpha = 1;
+    fmt[28].depth = 8;
+    fmt[28].rwFormat = 0x0;
+    fmt[29].alpha = 1;
+    fmt[29].depth = 16;
+    fmt[29].rwFormat = 0x0;
+    fmt[30].alpha = 0;
+    fmt[30].depth = 16;
+    fmt[30].rwFormat = 0x0;
+    fmt[31].alpha = 1;
+    fmt[31].depth = 32;
+    fmt[31].rwFormat = 0x0;
+    fmt[32].alpha = 1;
+    fmt[32].depth = 32;
+    fmt[32].rwFormat = 0x0;
+    fmt[33].alpha = 0;
+    fmt[33].depth = 32;
+    fmt[33].rwFormat = 0x0;
+    fmt[34].alpha = 0;
+    fmt[34].depth = 32;
+    fmt[34].rwFormat = 0x0;
+    fmt[35].alpha = 1;
+    fmt[35].depth = 32;
+    fmt[35].rwFormat = 0x0;
+    fmt[36].alpha = 1;
+    fmt[36].depth = 64;
+    fmt[36].rwFormat = 0x0;
+    fmt[40].alpha = 1;
+    fmt[40].depth = 16;
+    fmt[40].rwFormat = 0x0;
+    fmt[41].alpha = 0;
+    fmt[41].depth = 8;
+    fmt[41].rwFormat = 0x2000;
+    fmt[50].alpha = 0;
+    fmt[50].depth = 8;
+    fmt[50].rwFormat = 0x400;
+    fmt[51].alpha = 1;
+    fmt[51].depth = 16;
+    fmt[51].rwFormat = 0x0;
+    fmt[52].alpha = 1;
+    fmt[52].depth = 8;
+    fmt[52].rwFormat = 0x0;
+    fmt[60].alpha = 0;
+    fmt[60].depth = 16;
+    fmt[60].rwFormat = 0x0;
+    fmt[61].alpha = 0;
+    fmt[61].depth = 16;
+    fmt[61].rwFormat = 0x0;
+    fmt[70].rwFormat = 0x700;
+    fmt[73].rwFormat = 0x700;
+    fmt[80].rwFormat = 0x700;
+    fmt[71].rwFormat = 0x900;
+    fmt[75].rwFormat = 0x900;
+    fmt[77].rwFormat = 0x900;
+    fmt[79].rwFormat = 0x900;
+    fmt[82].rwFormat = 0x900;
+    fmt[83].rwFormat = 0x900;
+    fmt[62].alpha = 0;
+    fmt[62].rwFormat = 0x0;
+    fmt[63].alpha = 0;
+    fmt[63].rwFormat = 0x0;
+    fmt[64].alpha = 0;
+    fmt[64].rwFormat = 0x0;
+    fmt[67].rwFormat = 0x0;
+    fmt[70].alpha = 0;
+    fmt[71].alpha = 0;
+    fmt[73].alpha = 0;
+    fmt[75].alpha = 0;
+    fmt[77].alpha = 0;
+    fmt[79].alpha = 0;
+    fmt[80].alpha = 0;
+    fmt[82].alpha = 0;
+    fmt[83].alpha = 0;
+    fmt[81].alpha = 0;
+    fmt[81].rwFormat = 0x0;
+    fmt[110].alpha = 0;
+    fmt[110].rwFormat = 0x0;
+    fmt[111].alpha = 0;
+    fmt[111].rwFormat = 0x0;
+    fmt[112].alpha = 0;
+    fmt[112].rwFormat = 0x0;
+    fmt[113].rwFormat = 0x0;
+    fmt[114].alpha = 0;
+    fmt[114].rwFormat = 0x0;
+    fmt[115].alpha = 0;
+    fmt[115].rwFormat = 0x0;
+    fmt[116].rwFormat = 0x0;
+    fmt[117].alpha = 0;
+    fmt[117].rwFormat = 0x0;
+    fmt[62].depth = 32;
+    fmt[63].depth = 32;
+    fmt[64].depth = 32;
+    fmt[67].alpha = 1;
+    fmt[67].depth = 32;
+    fmt[70].depth = 16;
+    fmt[71].depth = 32;
+    fmt[73].depth = 16;
+    fmt[75].depth = 32;
+    fmt[77].depth = 32;
+    fmt[79].depth = 32;
+    fmt[80].depth = 16;
+    fmt[82].depth = 32;
+    fmt[83].depth = 32;
+    fmt[81].depth = 16;
+    fmt[110].depth = 64;
+    fmt[111].depth = 16;
+    fmt[112].depth = 32;
+    fmt[113].alpha = 1;
+    fmt[113].depth = 64;
+    fmt[114].depth = 32;
+    fmt[115].depth = 64;
+    fmt[116].alpha = 1;
+    fmt[116].depth = 128;
+    fmt[117].depth = 16;
+    return 1;
+}
+
+// 0x4C9EA0 (lote 223A, sin validar; el listado decia CWeaponModelInfo): la textura tiene alfa (_rwD3D9TextureHasAlpha; cdecl, un argumento de pila (RwTexture*), `ret`, 25 bytes; llamadores: 0x813B09, 0x813B1A,
+// 0x81447C y 0x814605). Como el original: raster = *(RwRaster**)textura (el primer campo); si es nulo devuelve 0; si no, el byte de alfa (+8) de la extension del raster (movzx).
+__declspec(noinline) RwInt32 __cdecl D3D9TextureHasAlphaExe(const RwTexture* texture) {
+    const RwRaster* const raster = *reinterpret_cast<const RwRaster* const*>(texture);
+    if (raster == nullptr) {
+        return 0;
+    }
+    return D3D9RasterExt(raster).alpha;
+}
+
+// 0x4C9F70 (lote 223A, sin validar; el listado decia CWeaponModelInfo): campo `cube` de la extension del raster (_rwD3D9RasterIsCubeRaster; cdecl, un argumento de pila (RwRaster*), `ret`, 19 bytes; llamador: 0x814291):
+// el nibble bajo del byte +9 (`movzx; and eax,0Fh`).
+__declspec(noinline) RwInt32 __cdecl D3D9RasterIsCubeRasterExe(const RwRaster* raster) {
+    return D3D9RasterExt(raster).cubeFace & 0x0F;
+}
+
+// 0x4C9F90 (lote 223A, sin validar; el listado decia CWeaponModelInfo): bloqueo de un raster D3D9 (_rwD3D9RasterLock; cdecl, tres argumentos de pila (RwUInt8** pixeles, RwRaster*, modo), `ret`, 744 bytes; el modo lleva en
+// el byte 1 el nivel de mip y en los bits 0 y 1 escritura y lectura). Como el original: si el raster ya tiene pixeles (+4) devuelve 0; raster superior = cadena de padres hasta uno que sea su propio padre; banderas de
+// LockRect = 0x800 con escritura (si no, 0x8810); tipo (cType & 7): 0 y 4 (normal, textura): superficie del nivel (cubo: cara del nibble alto) de la textura del raster superior directamente en la extension (+0xC) y
+// LockRect sobre ella (rectangulo propio si el raster es un sub-raster, calculado con los desplazamientos de 16 bits +0x1C/+0x1E); 2 y 5 (camara, textura de camara): superficie de origen (camara: la de la extension
+// del superior si tiene cadena de intercambio, si no la 0xC97C30; textura de camara: nivel de la textura), GetDesc, CreateOffscreenPlainSurface (pool SYSTEMMEM) del mismo tamano y formato en la extension, con
+// lectura GetRenderTargetData y LockRect; la de origen se libera en el tipo 5 (con o sin exito) y si el LockRect falla se libera la de sistema; 1, 3 y mayores de 5 devuelven 0. Un fallo de COM (HRESULT < 0)
+// devuelve 0 sin tocar el raster. En el exito: bits 1 (lectura) y 2 (escritura) de privateFlags, pixeles (+4) = bits del bloqueo, tamano y paso originales (+0x28, +0x2C) y el nuevo (ancho y alto desplazados por el
+// nivel de mip, minimo 1; el paso del bloqueo en +0x18), nivel bloqueado (+0xB de la extension) y *pixeles = pixeles; devuelve 1.
+__declspec(noinline) RwBool __cdecl D3D9RasterLockExe(RwUInt8** pixelsOut, RwRaster* raster, RwInt32 lockMode) {
+    if (raster->cpPixels != nullptr) {
+        return 0;
+    }
+    D3D9RasterExtLayout& ext = D3D9RasterExt(raster);
+    RwRaster* top = raster->parent;
+    while (top->parent != top) {
+        top = top->parent;
+    }
+    const uint8  mip       = static_cast<uint8>(lockMode >> 8);
+    const bool   write     = (lockMode & 1) != 0;
+    const uint32 lockFlags = write ? 0x800u : 0x8810u;
+    const uint32 typeIndex = raster->cType & 7u;
+    if (typeIndex > 5) {
+        return 0;
+    }
+    D3D9RasterExtLayout& topExt = D3D9RasterExt(top);
+
+    const auto LockSurface = [&](void* surface) -> int32 {
+        if (top == raster) {
+            return ComCall<kSlotSurfaceLockRect, int32>(surface, &ext.lockedPitch, static_cast<const void*>(nullptr), lockFlags);
+        }
+        D3D9Rect rect;
+        rect.left   = raster->nOffsetX;
+        rect.top    = raster->nOffsetY;
+        rect.right  = raster->width + rect.left;
+        rect.bottom = raster->height + rect.top;
+        return ComCall<kSlotSurfaceLockRect, int32>(surface, &ext.lockedPitch, static_cast<const void*>(&rect), lockFlags);
+    };
+
+    if (typeIndex == 0 || typeIndex == 4) {
+        if (D3D9GetTextureSurface(topExt.texture, topExt.cubeFace, mip, &ext.lockedSurface) < 0) {
+            return 0;
+        }
+        if (LockSurface(ext.lockedSurface) < 0) {
+            return 0;
+        }
+        if ((lockMode & 2) != 0) {
+            raster->privateFlags |= 2;
+        }
+        if (write) {
+            raster->privateFlags |= 4;
+        }
+    } else {
+        void* source;
+        if (typeIndex == 5) {
+            source = nullptr;
+            if (D3D9GetTextureSurface(topExt.texture, topExt.cubeFace, mip, &source) < 0) {
+                return 0;
+            }
+        } else {
+            source = (topExt.swapChain != nullptr) ? topExt.texture : D3D9RenderSurface;
+        }
+        uint32 desc[8]; // D3DSURFACE_DESC: Format, Type, Usage, Pool, MultiSampleType, MultiSampleQuality, Width, Height
+        ComCall<kSlotSurfaceGetDesc, int32>(source, desc);
+        int32 result = ComCall<kSlotDeviceCreateOffscreenSurface, int32>(D3D9Device, desc[6], desc[7], desc[0], 2u, &ext.lockedSurface, static_cast<void*>(nullptr));
+        if (result >= 0) {
+            const bool read = (lockMode & 2) != 0;
+            if (read) {
+                ComCall<kSlotDeviceGetRenderTargetData, int32>(D3D9Device, source, ext.lockedSurface);
+            }
+            result = LockSurface(ext.lockedSurface);
+            if (result >= 0) {
+                if (read) {
+                    raster->privateFlags |= 2;
+                }
+                if (write) {
+                    raster->privateFlags |= 4;
+                }
+            } else {
+                ComCall<kSlotRelease, ULONG>(ext.lockedSurface);
+            }
+        }
+        if ((raster->cType & 7u) == 5) {
+            ComCall<kSlotRelease, ULONG>(source);
+        }
+        if (result < 0) {
+            return 0;
+        }
+    }
+
+    raster->cpPixels       = static_cast<RwUInt8*>(ext.lockedBits);
+    const RwInt32 height   = raster->height;
+    raster->originalWidth  = raster->width;
+    const RwInt32 width    = raster->width >> (mip & 31u);
+    raster->originalHeight = height;
+    const RwInt32 newHeight = height >> (mip & 31u);
+    raster->width  = width;
+    raster->height = newHeight;
+    if (width == 0) {
+        raster->width = 1;
+    }
+    if (newHeight == 0) {
+        raster->height = 1;
+    }
+    raster->stride = ext.lockedPitch;
+    ext.lockedMipLevel = mip;
+    *pixelsOut = raster->cpPixels;
+    return 1;
+}
+
+// 0x4CA290 (lote 223A, sin validar; el listado decia CWeaponModelInfo): desbloqueo de un raster D3D9 (_rwD3D9RasterUnlock; cdecl, dos argumentos de pila (el primero no se lee; el raster), `ret`, 559 bytes). Como el
+// original: sin pixeles (+4) devuelve 0; tipo (cType & 7) 0 y 4: UnlockRect y Release de la superficie bloqueada (+0xC de la extension), tamano y paso originales de vuelta (+0xC, +0x10 desde +0x28, +0x2C; paso 0 y pixeles
+// 0), y si estaba bloqueado para escribir (bit 2 de privateFlags), el formato tiene mipmap automatico (bit 0x10 de cFormat), el nivel bloqueado es 0 y automipmapgen es 0, se marca el nivel como 0xFF y se generan los
+// mipmaps del raster superior (0x7F3CD0, con hook; sin imagen) -- los bits 1 y 2 de privateFlags se apagan en todos los casos; tipos 2 y 5: tamano, paso y pixeles igual, UnlockRect y, sin bit de escritura,
+// Release; con escritura, el superior copia su superficie con UpdateSurface (rectangulo y punto propios si es un sub-raster) a la de la textura (tipo 5: nivel/cara bloqueados) o a la superficie de la camara
+// (ext. del superior con cadena de intercambio, si no 0xC97C30); un HRESULT negativo del GetSurface se salta la copia y la liberacion de la de destino; despues Release de la de sistema, bits de privateFlags
+// apagados y, solo en el tipo 5 con mipmap automatico y nivel 0, nivel = 0xFF y mipmaps del superior. Los tipos 1, 3 y mayores de 5 devuelven 0. Devuelve 1 en los demas casos.
+__declspec(noinline) RwBool __cdecl D3D9RasterUnlockExe(void* /*unused*/, RwRaster* raster) {
+    if (raster->cpPixels == nullptr) {
+        return 0;
+    }
+    D3D9RasterExtLayout& ext = D3D9RasterExt(raster);
+    const uint32 typeIndex = raster->cType & 7u;
+    if (typeIndex > 5) {
+        return 0;
+    }
+    if (typeIndex == 0 || typeIndex == 4) {
+        ComCall<kSlotSurfaceUnlockRect, int32>(ext.lockedSurface);
+        ComCall<kSlotRelease, ULONG>(ext.lockedSurface);
+        raster->width  = raster->originalWidth;
+        raster->height = raster->originalHeight;
+        const uint8 privateFlags = raster->privateFlags;
+        raster->stride   = 0;
+        raster->cpPixels = nullptr;
+        if ((privateFlags & 4) != 0 && (raster->cFormat & 0x10) != 0 && ext.lockedMipLevel == 0 && (ext.mipFlags & 0x0Fu) == 0) {
+            raster->privateFlags = privateFlags & 0xF9;
+            ext.lockedMipLevel   = 0xFF;
+            RwRaster* top = raster->parent;
+            while (top->parent != top) {
+                top = top->parent;
+            }
+            RwTextureRasterGenerateMipmaps(top, nullptr);
+            return 1;
+        }
+        raster->privateFlags = privateFlags & 0xF9;
+        return 1;
+    }
+
+    // tipos 2 y 5
+    raster->width    = raster->originalWidth;
+    raster->height   = raster->originalHeight;
+    raster->stride   = 0;
+    raster->cpPixels = nullptr;
+    ComCall<kSlotSurfaceUnlockRect, int32>(ext.lockedSurface);
+    if ((raster->privateFlags & 4) == 0) {
+        ComCall<kSlotRelease, ULONG>(ext.lockedSurface);
+        raster->privateFlags &= 0xF9;
+        return 1;
+    }
+    RwRaster* top = raster->parent;
+    while (top->parent != top) {
+        top = top->parent;
+    }
+    D3D9RasterExtLayout& topExt = D3D9RasterExt(top);
+    void* destination = nullptr;
+    int32 result      = 0;
+    if ((raster->cType & 7u) == 5) {
+        result = D3D9GetTextureSurface(topExt.texture, topExt.cubeFace, ext.lockedMipLevel, &destination);
+    } else {
+        destination = (topExt.swapChain != nullptr) ? topExt.texture : D3D9RenderSurface;
+    }
+    if (result >= 0) {
+        if (top == raster) {
+            ComCall<kSlotDeviceUpdateSurface, int32>(D3D9Device, ext.lockedSurface, static_cast<const void*>(nullptr), destination, static_cast<const void*>(nullptr));
+        } else {
+            D3D9Rect rect;
+            D3D9Point point;
+            rect.left    = raster->nOffsetX;
+            rect.top     = raster->nOffsetY;
+            rect.right   = raster->width + rect.left;
+            rect.bottom  = raster->height + rect.top;
+            point.x      = rect.left;
+            point.y      = rect.top;
+            ComCall<kSlotDeviceUpdateSurface, int32>(D3D9Device, ext.lockedSurface, static_cast<const void*>(&rect), destination, static_cast<const void*>(&point));
+        }
+        if ((raster->cType & 7u) == 5) {
+            ComCall<kSlotRelease, ULONG>(destination);
+        }
+    }
+    ComCall<kSlotRelease, ULONG>(ext.lockedSurface);
+    raster->privateFlags &= 0xF9;
+    if ((raster->cType & 7u) == 5 && (raster->cFormat & 0x10) != 0 && ext.lockedMipLevel == 0) {
+        ext.lockedMipLevel = 0xFF;
+        RwTextureRasterGenerateMipmaps(top, nullptr);
+    }
+    return 1;
+}
+
+// 0x4CA540 (lote 223A, sin validar; el listado decia CWeaponModelInfo): desbloqueo de la paleta de un raster D3D9 (_rwD3D9RasterPaletteUnlock o equivalente; cdecl, dos argumentos de pila (el primero no se lee; el
+// raster), `ret`, 85 bytes). Como el original: solo vale para el tipo 0 y los tipos 4 y 5 (cType & 7; si no, devuelve 0); si el bit 4 de privateFlags esta puesto, SetPaletteEntries del dispositivo (0xC97C28, ranura 0x11C)
+// con el numero de paleta ([paleta + 0x400]) y los 256 PALETTEENTRY de la paleta de la extension (+4); apaga los bits 3 y 4 de privateFlags, pone la paleta del raster (+8) a cero y devuelve 1.
+__declspec(noinline) RwBool __cdecl D3D9RasterPaletteUnlockExe(void* /*unused*/, RwRaster* raster) {
+    const uint32 typeIndex = raster->cType & 7u;
+    if (typeIndex != 0 && !(typeIndex > 3 && typeIndex <= 5)) {
+        return 0;
+    }
+    if ((raster->privateFlags & 0x10) != 0) {
+        uint8* const palette = static_cast<uint8*>(D3D9RasterExt(raster).palette);
+        ComCall<kSlotDeviceSetPaletteEntries, int32>(D3D9Device, *reinterpret_cast<uint32*>(palette + 0x400), static_cast<const void*>(palette));
+    }
+    raster->privateFlags &= 0xE7;
+    raster->palette = nullptr;
+    return 1;
+}
+} // namespace
+
 // Biblioteca RenderWare / controlador D3D9 (reconstruidas en C++, banco Dependencies25D); registro propio para no compartir lista con otros grupos.
 void RwCoreInjectHooks25d() {
     RH_ScopedCategory("Renderware");
@@ -95,6 +586,13 @@ void RwCoreInjectHooks25d() {
     RH_ScopedGlobalInstall(RwD3D9DynamicVertexBufferUnlock, 0x7F5C90);
     RH_ScopedGlobalInstall(_rwD3D9SetDepthStencilSurface, 0x7F5EF0);
     RH_ScopedGlobalInstall(_rwDeviceRegisterPlugin, 0x7F5F60);
+    RH_ScopedNamedGlobalInstall(RxD3D9ResEntryHeaderDestroyExe, "RxD3D9ResEntryHeaderDestroy", 0x4C9990); // lote 223A (sin validar)
+    RH_ScopedNamedGlobalInstall(D3D9RasterPluginAttachExe, "_rwD3D9RasterPluginAttach", 0x4C9AB0); // lote 223A (sin validar)
+    RH_ScopedNamedGlobalInstall(D3D9TextureHasAlphaExe, "_rwD3D9TextureHasAlpha", 0x4C9EA0); // lote 223A (sin validar)
+    RH_ScopedNamedGlobalInstall(D3D9RasterIsCubeRasterExe, "_rwD3D9RasterIsCubeRaster", 0x4C9F70); // lote 223A (sin validar)
+    RH_ScopedNamedGlobalInstall(D3D9RasterLockExe, "_rwD3D9RasterLock", 0x4C9F90); // lote 223A (sin validar)
+    RH_ScopedNamedGlobalInstall(D3D9RasterUnlockExe, "_rwD3D9RasterUnlock", 0x4CA290); // lote 223A (sin validar)
+    RH_ScopedNamedGlobalInstall(D3D9RasterPaletteUnlockExe, "_rwD3D9RasterPaletteUnlock", 0x4CA540); // lote 223A (sin validar)
     RH_ScopedGlobalInstall(RwD3D9DeleteVertexShader, 0x7FAC90);
     RH_ScopedGlobalInstall(RwD3D9CreatePixelShader, 0x7FACC0);
     RH_ScopedGlobalInstall(RwD3D9DeletePixelShader, 0x7FACF0);

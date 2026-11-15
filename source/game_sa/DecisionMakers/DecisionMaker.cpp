@@ -38,6 +38,21 @@ __declspec(noinline) void __fastcall DecisionMakerSetDefaultExe(CDecisionMaker* 
         self->m_aDecisions[i].SetDefault();
     }
 }
+
+// 0x4650A0 (lote 223A, sin validar; el listado decia CTheScripts): constructor de CDecisionMaker del EXE (thiscall, ECX = this = primera CDecision, sin argumentos de pila, `ret`, 54 bytes: `push ebx; push esi; mov ebx,ecx;
+// push edi; mov esi,ebx; mov edi,29h; ..: mov ecx,esi; call 0x6040C0; add esi,3Ch; dec edi; jne ..; mov esi,ebx; mov edi,29h; ..: mov ecx,esi; call 0x600530; add esi,3Ch; dec edi; jne ..; ..; mov eax,ebx; pop ebx; ret`).
+// Como el original: primer bucle de 41 decisiones (0x3C bytes, en orden creciente) con el constructor de CDecision (0x6040C0, con hook; en C++ ya incluye un SetDefault) y segundo bucle de 41 CDecision::SetDefault (0x600530,
+// con hook) sobre las mismas; devuelve `this` en EAX. Llamador del EXE: 0x607D3A (CDecisionMakerTypesFileLoader::LoadDecisionMaker, que construye un decision maker temporal).
+__declspec(noinline) CDecisionMaker* __fastcall DecisionMakerConstructorExe(CDecisionMaker* self, void* /*edx*/) {
+    static_assert(DM_TOTAL_NUM_EVENTS == 0x29 && sizeof(CDecision) == 0x3C);
+    for (size_t i = 0; i < self->m_aDecisions.size(); ++i) {
+        self->m_aDecisions[i].Constructor();
+    }
+    for (size_t i = 0; i < self->m_aDecisions.size(); ++i) {
+        self->m_aDecisions[i].SetDefault();
+    }
+    return self;
+}
 } // namespace
 
 void CDecisionMaker::InjectHooks() {
@@ -48,6 +63,7 @@ void CDecisionMaker::InjectHooks() {
     RH_ScopedInstall(From, 0x5BA020); // lote 144A (banco Fn144A)
     RH_ScopedNamedGlobalInstall(DecisionMakerAssignExe, "operator=", 0x5BD4E0); // lote 181A (sin validar)
     RH_ScopedNamedGlobalInstall(DecisionMakerSetDefaultExe, "SetDefault", 0x4634D0); // lote 222A (sin validar)
+    RH_ScopedNamedGlobalInstall(DecisionMakerConstructorExe, "Constructor", 0x4650A0); // lote 223A (sin validar)
 }
 
 // 0x4650A0

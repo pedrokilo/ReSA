@@ -20,6 +20,15 @@ END GENERATED HOOK STATUS */
 
 #include "EntryInfoList.h"
 
+namespace {
+// 0x542080 (lote 223A, sin validar; el listado decia CEntity): destructor de la lista de colision que CPhysical lleva en +0xB0 (thiscall, ECX = la lista, sin argumentos de pila, `ret`, 5 bytes: `jmp 0x536E10`).
+// Es el salto puro a CEntryInfoList::Flush (0x536E10, con hook); solo lo alcanzan los manejadores de desenrollado de excepciones del EXE (0x83C968 y 0x83C988: `mov ecx,[ebp-..]; add ecx,0xB0; jmp 0x542080`).
+// Como el original, no escribe nada mas y deja en EAX lo que deje Flush.
+__declspec(noinline) void __fastcall EntryInfoListDestructorExe(CEntryInfoList* self, void* /*edx*/) {
+    self->Flush();
+}
+} // namespace
+
 /**
  * Registra la operación de vaciado de la lista de CEntryInfoNode.
  */
@@ -29,6 +38,7 @@ void CEntryInfoList::InjectHooks()
     RH_ScopedCategory("Core");
 
     RH_ScopedInstall(Flush, 0x536E10);
+    RH_ScopedNamedGlobalInstall(EntryInfoListDestructorExe, "Destructor", 0x542080); // lote 223A (sin validar)
 }
 
 /**

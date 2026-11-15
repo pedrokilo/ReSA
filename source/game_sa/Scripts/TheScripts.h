@@ -499,6 +499,7 @@ public:
     static void CleanUpThisPed(CPed* ped);
     static void CleanUpThisVehicle(CVehicle* vehicle);
     static void ClearAllSuppressedCarModels();
+    static void RemoveFromSuppressedCarModels(eModelID carModelId); // 0x46A7E0
     static void ClearAllVehicleModelsBlockedByScript();
     static void ClearSpaceForMissionEntity(const CVector& pos, CEntity* entity);
     static void DoScriptSetupAfterPoolsHaveLoaded();

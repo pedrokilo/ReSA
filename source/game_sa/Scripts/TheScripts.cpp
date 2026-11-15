@@ -32,6 +32,8 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexLeaveAnyCar.h"
 #include "TaskComplexWander.h"
 
+#include <bit>
+
 #include "extensions/File.hpp"
 #include "X87Math.h"
 
@@ -101,6 +103,114 @@ __declspec(noinline) void* __fastcall ScriptTextPairSet(void* self, void* /*edx*
     } while (character != 0);
     return self;
 }
+
+// Acceso crudo (sin comprobaciones) a un campo del foco de script (tScriptSearchlight, 0x7C bytes en 0xA94D68) por desplazamiento, como el EXE.
+template<typename T> T& SearchLightRaw(tScriptSearchlight* light, uintptr_t offset) { return *reinterpret_cast<T*>(reinterpret_cast<uint8*>(light) + offset); }
+
+// Como el EXE al cambiar de orden un foco: la referencia a la entidad que sigue (+0x48) se libera con CleanUpOldReference (0x571A00, con hook; ECX = la entidad, un argumento = la direccion de la referencia) solo si no
+// es nula, y despues se pone a cero.
+void SearchLightClearFollowing(tScriptSearchlight* light) {
+    CEntity** const ref = &SearchLightRaw<CEntity*>(light, 0x48);
+    if (CEntity* const entity = *ref) {
+        entity->CleanUpOldReference(ref);
+    }
+    *ref = nullptr;
+}
+
+// 0x493360 (lote 223A, sin validar; el listado decia CTheScripts y lo es): CTheScripts::MoveSearchLightBetweenTwoPoints del EXE (cdecl, ocho argumentos de pila (referencia del foco, x1, y1, z1, x2, y2, z2, velocidad), `ret`,
+// 185 bytes; llamador: 0x4975D6, comando de script). Como el original: indice = GetActualScriptThingIndex(referencia, SCRIPT_THING_SEARCH_LIGHT = 2) (0x4839A0, con hook); negativo -> nada. Si no: foco = 0xA94D68 + indice * 0x7C
+// (sin comprobar el rango); la x87 (24 bits) compara la distancia al cuadrado del objetivo del foco (+0x14, +0x18) al primer punto contra la del segundo (`fcompp; test ah,41h; jp`: primera <= segunda ordenado -> estado 0x81;
+// si no, 0x82; ver Wv223SearchLightFirstPointNotFartherCpp). Se copian como dwords crudos x1, y1, z1 a +0x28..+0x30 y x2, y2, z2 a +0x34..+0x3C, se escribe el byte de estado en +3 (bit 7 puesto), la velocidad (dword crudo) en
+// +0x40 y se libera la entidad a la que seguia (+0x48). Los argumentos float se declaran uint32 (misma pila): la copia no pasa por la x87.
+__declspec(noinline) void __cdecl MoveSearchLightBetweenTwoPointsExe(int32 handle, uint32 x1, uint32 y1, uint32 z1, uint32 x2, uint32 y2, uint32 z2, uint32 speed) {
+    const int32 index = CTheScripts::GetActualScriptThingIndex(handle, SCRIPT_THING_SEARCH_LIGHT);
+    if (index < 0) {
+        return;
+    }
+    tScriptSearchlight* const light = &CTheScripts::ScriptSearchLightArray.data()[index];
+    const bool firstNotFarther = Wv223SearchLightFirstPointNotFartherCpp(&light->m_Target.x, std::bit_cast<float>(x1), std::bit_cast<float>(y1), std::bit_cast<float>(x2), std::bit_cast<float>(y2));
+    SearchLightRaw<uint32>(light, 0x28) = x1;
+    SearchLightRaw<uint32>(light, 0x2C) = y1;
+    SearchLightRaw<uint32>(light, 0x30) = z1;
+    SearchLightRaw<uint32>(light, 0x34) = x2;
+    SearchLightRaw<uint32>(light, 0x38) = y2;
+    SearchLightRaw<uint32>(light, 0x3C) = z2;
+    SearchLightRaw<uint8>(light, 3) = firstNotFarther ? 0x81 : 0x82;
+    SearchLightRaw<uint32>(light, 0x40) = speed;
+    SearchLightClearFollowing(light);
+}
+
+// 0x493420 (lote 223A, sin validar; el listado decia CTheScripts y lo es): CTheScripts::MoveSearchLightToEntity del EXE (cdecl, tres argumentos de pila (referencia del foco, entidad, velocidad), `ret`, 88 bytes; llamadores:
+// 0x497647 y 0x497969, comandos de script). Como el original: indice = GetActualScriptThingIndex(referencia, 2); negativo -> nada. Si no: byte de estado +3 = 0x83, seis dwords a cero en +0x28..+0x3C, velocidad (dword crudo)
+// en +0x40, se libera la entidad a la que seguia (+0x48, si no es nula) y se guarda la nueva en +0x48 ANTES de llamar a CEntity::RegisterReference (0x571B70, con hook; ECX = la entidad, un argumento = la direccion de la
+// referencia). Con entidad nula el EXE llama igualmente con ECX = 0.
+__declspec(noinline) void __cdecl MoveSearchLightToEntityExe(int32 handle, CEntity* entity, uint32 speed) {
+    const int32 index = CTheScripts::GetActualScriptThingIndex(handle, SCRIPT_THING_SEARCH_LIGHT);
+    if (index < 0) {
+        return;
+    }
+    tScriptSearchlight* const light = &CTheScripts::ScriptSearchLightArray.data()[index];
+    SearchLightRaw<uint8>(light, 3) = 0x83;
+    SearchLightRaw<uint32>(light, 0x28) = 0;
+    SearchLightRaw<uint32>(light, 0x2C) = 0;
+    SearchLightRaw<uint32>(light, 0x30) = 0;
+    SearchLightRaw<uint32>(light, 0x34) = 0;
+    SearchLightRaw<uint32>(light, 0x38) = 0;
+    SearchLightRaw<uint32>(light, 0x3C) = 0;
+    SearchLightRaw<uint32>(light, 0x40) = speed;
+    CEntity** const ref = &SearchLightRaw<CEntity*>(light, 0x48);
+    if (CEntity* const previous = *ref) {
+        previous->CleanUpOldReference(ref);
+    }
+    *ref = entity;
+    entity->RegisterReference(ref);
+}
+
+// 0x493480 (lote 223A, sin validar; el listado decia CTheScripts y lo es): CTheScripts::MoveSearchLightToPointAndStop del EXE (cdecl, cinco argumentos de pila (referencia del foco, x, y, z, velocidad), `ret`, 105 bytes;
+// llamador: 0x49760F, comando de script). Como el original: indice = GetActualScriptThingIndex(referencia, 2); negativo -> nada. Si no: x, y, z (dwords crudos) a +0x28, +0x2C, +0x30, ceros en +0x34..+0x3C, byte de
+// estado +3 = 0x84, velocidad (dword crudo) en +0x40 y se libera la entidad a la que seguia (+0x48).
+__declspec(noinline) void __cdecl MoveSearchLightToPointAndStopExe(int32 handle, uint32 x, uint32 y, uint32 z, uint32 speed) {
+    const int32 index = CTheScripts::GetActualScriptThingIndex(handle, SCRIPT_THING_SEARCH_LIGHT);
+    if (index < 0) {
+        return;
+    }
+    tScriptSearchlight* const light = &CTheScripts::ScriptSearchLightArray.data()[index];
+    SearchLightRaw<uint32>(light, 0x28) = x;
+    SearchLightRaw<uint32>(light, 0x2C) = y;
+    SearchLightRaw<uint32>(light, 0x30) = z;
+    SearchLightRaw<uint32>(light, 0x34) = 0;
+    SearchLightRaw<uint32>(light, 0x38) = 0;
+    SearchLightRaw<uint32>(light, 0x3C) = 0;
+    SearchLightRaw<uint8>(light, 3) = 0x84;
+    SearchLightRaw<uint32>(light, 0x40) = speed;
+    SearchLightClearFollowing(light);
+}
+
+// 0x465040 (lote 223A, sin validar; el listado decia CTheScripts): CPool<CObject>::GetAt(ref) del EXE (thiscall, ECX = pool de objetos (+0 = objetos, +4 = bytes de banderas), un argumento de pila, `ret 4`, 41 bytes;
+// llamadores: 0x4698D8 y varios comandos de script de 0x46B460). Como el original: ranura = ref >> 8 (aritmetico, sin comprobar el rango); si el byte de banderas de la ranura (completo, incluido el bit de libre)
+// es igual al byte bajo de la referencia devuelve objetos + ranura * 0x19C (CObject); si no, nulo.
+__declspec(noinline) void* __fastcall ObjectPoolGetAtExe(void* pool, void* /*edx*/, int32 ref) {
+    const uint8* const flags = *reinterpret_cast<const uint8* const*>(static_cast<const uint8*>(pool) + 4);
+    const int32 slot = ref >> 8;
+    if (flags[slot] != static_cast<uint8>(ref)) {
+        return nullptr;
+    }
+    return *reinterpret_cast<uint8* const*>(pool) + slot * 0x19C;
+}
+
+// 0x465070 (lote 223A, sin validar; el listado decia CTheScripts): CPool<CObject>::GetRef(objeto) del EXE (thiscall, ECX = pool de objetos, un argumento de pila (puntero al objeto), `ret 4`, 40 bytes; llamadores:
+// 0x469887, 0x46BDF5, 0x471706, 0x47F5FA y 0x73996C). Como el original: ranura = (puntero - objetos) / 0x19C (division con signo de 32 bits) y devuelve (ranura << 8) + byte de banderas de la ranura (sin comprobar nada).
+__declspec(noinline) int32 __fastcall ObjectPoolGetRefExe(void* pool, void* /*edx*/, void* object) {
+    const uint32 objects = *reinterpret_cast<const uint32*>(pool);
+    const uint8* const flags = *reinterpret_cast<const uint8* const*>(static_cast<const uint8*>(pool) + 4);
+    const int32 slot = static_cast<int32>(reinterpret_cast<uint32>(object) - objects) / 0x19C;
+    return static_cast<int32>(flags[slot]) + (slot << 8);
+}
+
+// 0x486AE0 (lote 223A, sin validar; el listado decia CTheScripts): rutina vacia cdecl del EXE (seis argumentos de pila que el llamador retira con `add esp,0x18`, `ret`, 1 byte). Su unico llamador es 0x4808FC (el
+// comando de script de area 3D con la bandera de dibujo: `push` de las seis coordenadas de la caja y `call`), es decir el dibujo de depuracion de una caja, que en la version de venta no hace nada. No toca registros.
+__declspec(noinline) void __cdecl ScriptDebugBoxStubExe(uint32 /*x1*/, uint32 /*y1*/, uint32 /*z1*/, uint32 /*x2*/, uint32 /*y2*/, uint32 /*z2*/) {
+}
 } // namespace
 
 void CTheScripts::InjectHooks() {
@@ -117,6 +227,13 @@ void CTheScripts::InjectHooks() {
     RH_ScopedInstall(Init, 0x468D50);
     RH_ScopedNamedGlobalInstall(ScriptEntryListAdd, "ScriptEntryListAdd", 0x46AE80); // lote 166A (banco Fn166A)
     RH_ScopedNamedGlobalInstall(ScriptTextPairSet, "ScriptTextPairSet", 0x46A340); // lote 222A (sin validar)
+    RH_ScopedNamedGlobalInstall(ObjectPoolGetAtExe, "ObjectPoolGetAt", 0x465040); // lote 223A (sin validar)
+    RH_ScopedNamedGlobalInstall(ObjectPoolGetRefExe, "ObjectPoolGetRef", 0x465070); // lote 223A (sin validar)
+    RH_ScopedNamedGlobalInstall(MoveSearchLightBetweenTwoPointsExe, "MoveSearchLightBetweenTwoPoints", 0x493360); // lote 223A (sin validar)
+    RH_ScopedNamedGlobalInstall(MoveSearchLightToEntityExe, "MoveSearchLightToEntity", 0x493420); // lote 223A (sin validar)
+    RH_ScopedNamedGlobalInstall(MoveSearchLightToPointAndStopExe, "MoveSearchLightToPointAndStop", 0x493480); // lote 223A (sin validar)
+    RH_ScopedNamedGlobalInstall(ScriptDebugBoxStubExe, "ScriptDebugBoxStub", 0x486AE0); // lote 223A (sin validar)
+    RH_ScopedInstall(RemoveFromSuppressedCarModels, 0x46A7E0); // lote 223A (sin validar)
     RH_ScopedInstall(IsPointWithinSearchLight, 0x493280);
     RH_ScopedInstall(IsEntityWithinAnySearchLight, 0x493960); // lote 221A (sin validar); el listado decia CTaskComplexSeekEntityRadiusAngleOffset
     RH_ScopedInstall(InitialiseAllConnectLodObjects, 0x470960);
@@ -902,6 +1019,16 @@ void CTheScripts::ClearAllVehicleModelsBlockedByScript() {
 // 0x46A7C0
 void CTheScripts::ClearAllSuppressedCarModels() {
     rng::fill(SuppressedVehicleModels, MODEL_INVALID);
+}
+
+// 0x46A7E0 (lote 223A, sin validar; el listado decia CTheScripts y lo es; cdecl, un argumento de pila (modelo), `ret`, 33 bytes; llamador: 0x46DDA5, comando de script): quita un modelo de la lista de coches suprimidos.
+// Como el original: recorre las 40 ranuras de SuppressedVehicleModels (0xA44940, enteros de 32 bits) en orden y pone a -1 cada una cuyo valor sea igual al modelo (sin parar en la primera).
+void CTheScripts::RemoveFromSuppressedCarModels(eModelID carModelId) {
+    for (auto& model : SuppressedVehicleModels) {
+        if (model == carModelId) {
+            model = MODEL_INVALID;
+        }
+    }
 }
 
 // 0x486B00

@@ -24,6 +24,22 @@ namespace CColModelBody {
 void __fastcall DestructorExe(CColModel* self, void* edx); // Collision/ColModel.cpp: 0x40F700
 }
 
+namespace CBaseModelInfoBody {
+CBaseModelInfo* __fastcall Constructor(CBaseModelInfo* self, void* edx); // BaseModelInfo.cpp: 0x4C4A60
+}
+
+// 0x4C57A0 (lote 223A, sin validar; el listado decia CWeaponModelInfo; la clase sale de la vtable 0x85BDC0 y del campo +0x34): constructor de CPedModelInfo del EXE (thiscall, sin argumentos de pila, `ret`, 25 bytes: `push esi;
+// mov esi,ecx; call 0x4C4A60; mov [esi],0x85BDC0; mov [esi+0x34],0; mov eax,esi; pop esi; ret`). Como el original: llama al cuerpo del constructor de CBaseModelInfo (0x4C4A60, con hook; no al de CClumpModelInfo), deja la
+// vtable de CPedModelInfo del EXE (0x85BDC0), pone a cero el modelo de colision de impactos (+0x34) y devuelve `this`. Lo pasa el inicializador estatico del almacen de peatones (ModelInfo.cpp, 0x4C67D0) al iterador de
+// constructores de vectores. Funcion propia sin expansion en linea.
+__declspec(noinline) static CPedModelInfo* __fastcall PedModelInfoConstructorBody(CPedModelInfo* self, void* /*edx*/) {
+    static_assert(offsetof(CPedModelInfo, m_pHitColModel) == 0x34);
+    CBaseModelInfoBody::Constructor(self, nullptr);
+    *reinterpret_cast<uint32*>(self) = 0x85BDC0;
+    self->m_pHitColModel = nullptr;
+    return self;
+}
+
 // 0x4C62F0 (lote 194A, sin validar; el listado decia CModelInfo; thiscall, sin argumentos de pila, `ret`, 90 bytes con marco SEH que solo desenrolla): cuerpo del destructor de CPedModelInfo del EXE (lo pasa a los
 // iteradores de vectores del almacen de peatones `push 0x4C62F0` en 0x4C67D1 y 0x4C6391, y lo llama el destructor con borrado 0x4C6350). Como el original: vtable de CPedModelInfo (0x85BDC0); si el modelo de
 // colision de impactos (+0x34) no es nulo, destructor de CColModel (0x40F700, con hook) y CColModel::operator delete (0x40FC40, con hook); vtable de CBaseModelInfo (0x85BB9C). Funcion propia sin expansion en linea.
@@ -54,6 +70,7 @@ static CPedModelInfo* __fastcall PedModelInfoScalarDeletingDestructor(CPedModelI
 void CPedModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CPedModelInfo, 0x85BDC0, 17);
     RH_ScopedCategory("Models");
+    RH_ScopedNamedGlobalInstall(PedModelInfoConstructorBody, "ConstructorBody", 0x4C57A0); // lote 223A (sin validar)
     RH_ScopedNamedGlobalInstall(PedModelInfoDestructorBody, "DestructorBody", 0x4C62F0); // lote 194A (sin validar)
     RH_ScopedNamedGlobalInstall(PedModelInfoScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4C6350); // lote 194A (sin validar)
 

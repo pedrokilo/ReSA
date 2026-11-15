@@ -78,6 +78,7 @@ void CMissionCleanup::InjectHooks() {
     RH_ScopedInstall(Process, 0x468560);
     RH_ScopedOverloadedInstall(AddEntityToList, "handle", 0x4637E0, void(CMissionCleanup::*)(int32, MissionCleanUpEntityType));
     RH_ScopedInstall(CheckIfCollisionHasLoadedForMissionObjects, 0x4652D0);
+    RH_ScopedOverloadedInstall(RemoveEntityFromList, "handle", 0x4654B0, void(CMissionCleanup::*)(int32, MissionCleanUpEntityType)); // lote 223A (sin validar)
 }
 
 namespace {
@@ -414,51 +415,39 @@ void CMissionCleanup::AddEntityToList(int32 handle, MissionCleanUpEntityType typ
 /* Remotes entity from list
  * @addr 0x4654B0
  */
+// 0x4654B0 (lote 223A, sin validar; reescrita contra el desensamblado; thiscall, dos argumentos de pila (handle, tipo), `ret 8`, 226 bytes; llamadores: 0x4677C8, 0x467B69, 0x468CA3 (Process), 0x46951F, 0x469916, 0x45AEE4...).
+// Como el original: recorre las 75 entradas en orden (+0 = tipo en un byte, +4 = handle); una entrada coincide si su tipo (byte) es igual al BYTE bajo del tipo pedido y su handle igual al pedido. Para tipos 1 (vehiculo,
+// pool 0xB74494, 0xA18 bytes), 2 (peaton, 0xB74490, 0x7C4) y 3 (objeto, 0xB7449C, 0x19C): entidad = handle del pool (compara el byte de banderas completo con el byte bajo del handle, sin comprobar el rango; nula si no
+// coincide); si existe y tiene el bit 0x40000 (esperando colision) de las banderas (+0x1C), lo apaga (escritura previa a la llamada) y, si la entidad no es estatica (el predicado 0x4633E0: bit 2 o bit 0x40000 de
+// las banderas releidas), la pasa a la lista de movimiento (CPhysical::AddToMovingList, 0x542800, con hook). Con tipo 0 o mayor que 3 no se toca ninguna entidad. En todos los casos coincidentes se vacia la entrada
+// (handle = 0 y despues tipo = 0) y se decrementa el contador de bytes (+0x258) sin mas comprobaciones (con tipo 0 y handle 0 tambien cuenta).
 void CMissionCleanup::RemoveEntityFromList(int32 handle, MissionCleanUpEntityType type) {
+    static_assert(NUM_MISSION_CLEANUP_OBJECTS == 0x4B);
     for (auto& entity : m_Objects) {
-        if (entity.type != type || entity.handle != handle) {
+        const uint8 entityType = static_cast<uint8>(entity.type);
+        if (entityType != static_cast<uint8>(type) || entity.handle != handle) {
             continue;
         }
 
-        switch (entity.type) {
-        case MissionCleanUpEntityType::MISSION_CLEANUP_ENTITY_TYPE_VEHICLE: {
-            auto* veh = GetVehiclePool()->GetAtRef(entity.handle);
-
-            if (veh && veh->m_bIsStaticWaitingForCollision) {
-                veh->m_bIsStaticWaitingForCollision = false;
-                if (!veh->GetIsStatic()) {
-                    veh->AddToMovingList();
+        void* ent = nullptr;
+        switch (entityType) {
+        case MissionCleanUpEntityType::MISSION_CLEANUP_ENTITY_TYPE_VEHICLE: ent = PoolEntity(kVehiclePool, entity.handle, 0xA18); break;
+        case MissionCleanUpEntityType::MISSION_CLEANUP_ENTITY_TYPE_PED:     ent = PoolEntity(kPedPool, entity.handle, 0x7C4); break;
+        case MissionCleanUpEntityType::MISSION_CLEANUP_ENTITY_TYPE_OBJECT:  ent = PoolEntity(kObjectPool, entity.handle, 0x19C); break;
+        default: break;
+        }
+        if (ent) {
+            uint32& flags = RawAt<uint32>(ent, 0x1C);
+            if ((flags & 0x40000u) != 0) {
+                flags &= 0xFFFBFFFFu;
+                if ((flags & 4u) == 0 && (flags & 0x40000u) == 0) { // 0x4633E0: falso si ni el bit 2 ni el 0x40000 estan puestos
+                    static_cast<CPhysical*>(ent)->AddToMovingList();
                 }
             }
-            break;
-        }
-        case MissionCleanUpEntityType::MISSION_CLEANUP_ENTITY_TYPE_PED: {
-            auto* ped = GetPedPool()->GetAtRef(entity.handle);
-
-            if (ped && ped->m_bIsStaticWaitingForCollision) {
-                ped->m_bIsStaticWaitingForCollision = false;
-                if (!ped->GetIsStatic()) {
-                    ped->AddToMovingList();
-                }
-            }
-            break;
-        }
-        case MissionCleanUpEntityType::MISSION_CLEANUP_ENTITY_TYPE_OBJECT: {
-            auto* obj = GetObjectPool()->GetAtRef(entity.handle);
-
-            if (obj && obj->m_bIsStaticWaitingForCollision) {
-                obj->m_bIsStaticWaitingForCollision = false;
-                if (!obj->GetIsStatic()) {
-                    obj->AddToMovingList();
-                }
-            }
-            break;
-        }
-        default:
-            break;
         }
 
-        entity = tMissionCleanupEntity();
+        entity.handle = 0;
+        entity.type   = 0;
         --m_Count;
     }
 }

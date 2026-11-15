@@ -19115,3 +19115,26 @@ __declspec(noinline) int __cdecl BeHitMovingUnconsciousRemainingCpp(float totalT
     return static_cast<int>(static_cast<long long>(result));
 }
 #pragma float_control(pop)
+
+// --- Lote 223A (sin validar) ---
+#pragma float_control(precise, on, push)
+// CCamera::VectorTrackRunning (0x474870) / VectorMoveRunning (0x4748A0): ver X87Math.h. El tiempo entra con `fild` (entero con signo, exacto) y, si es negativo (`test eax,eax; jge`), se le suma 2^32 como float
+// (0x858C54); `fcomp [fin]` + `test ah,41h; jp` devuelve 1 solo si exactamente uno de C0 (menor) y C3 (igual) esta puesto, es decir tiempo <= fin ordenado; no ordenado (NaN) pone C0, C2 y C3 y devuelve 0.
+__declspec(noinline) bool __cdecl Wv223TimeNotAfterCpp(int timeMs, float endTime) {
+    double t = double(timeMs);
+    if (timeMs < 0) {
+        t += double(4294967296.0f); // 0x858C54
+    }
+    return t <= double(endTime);
+}
+// CTheScripts::MoveSearchLightBetweenTwoPoints (0x493360, 0x493389..0x4933EE): ver X87Math.h.
+__declspec(noinline) bool __cdecl Wv223SearchLightFirstPointNotFartherCpp(const float* target, float x1, float y1, float x2, float y2) {
+    const double a      = double(target[0]) - double(x1);
+    const double b      = double(target[1]) - double(y1);
+    const double first  = b * b + a * a;
+    const double c      = double(target[0]) - double(x2);
+    const double d      = double(target[1]) - double(y2);
+    const double second = d * d + c * c;
+    return first <= second;
+}
+#pragma float_control(pop)

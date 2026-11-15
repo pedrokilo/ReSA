@@ -20,11 +20,22 @@ END GENERATED HOOK STATUS */
 
 #include "ScriptsForBrains.h"
 
+namespace {
+// 0x46B260 (lote 223A, sin validar; el listado decia CTheScripts): constructor de CScriptsForBrains del EXE (thiscall, ECX = this, sin argumentos de pila, `ret`, 12 bytes: `push esi; mov esi,ecx; call 0x46A8C0;
+// mov eax,esi; pop esi; ret`). Como el original: llama a Init (0x46A8C0, con hook: pone a su valor inicial los 70 registros de 0x14 bytes) y devuelve `this`. Lo llama el inicializador estatico de
+// CTheScripts::ScriptsForBrains (0x84A745).
+__declspec(noinline) CScriptsForBrains* __fastcall ScriptsForBrainsConstructorExe(CScriptsForBrains* self, void* /*edx*/) {
+    self->Init();
+    return self;
+}
+} // namespace
+
 void CScriptsForBrains::InjectHooks() {
     RH_ScopedClass(CScriptsForBrains);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Init, 0x46A8C0);
+    RH_ScopedNamedGlobalInstall(ScriptsForBrainsConstructorExe, "Constructor", 0x46B260); // lote 223A (sin validar)
     RH_ScopedInstall(CheckIfNewEntityNeedsScript, 0x46FF20);
     RH_ScopedInstall(MarkAttractorScriptBrainWithThisNameAsNoLongerNeeded, 0x46AAE0);
     RH_ScopedInstall(SwitchAllObjectBrainsWithThisID, 0x46A900); // lote 215A (sin validar)
