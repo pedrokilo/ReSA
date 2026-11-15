@@ -32,7 +32,7 @@ void CVector2D::InjectHooks() {
     RH_ScopedCategory("Core");
 
     //RH_ScopedInstall(Magnitude, 0x420860); - se instala (como copia fuera de linea con la x87 exacta) en CVector::InjectHooksExactMath, lote 124A
-    //RH_ScopedInstall(Normalise, 0x44E480); - Added extra parameter, must unhook
+    //RH_ScopedInstall(Normalise, 0x44E480); - Added extra parameter, must unhook; el EXE se engancha con una version exacta fuera de linea en CVector::InjectHooksExactMath (lote 207A, sin validar)
     // operator= (0x43E110) se instala por InjectHooksLote162A (banco Fn162A).
 }
 

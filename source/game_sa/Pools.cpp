@@ -61,6 +61,23 @@ uint32 CPedPool::GetRef(const CPed* ped) {
 }
 #pragma runtime_checks("", restore)
 
+// 0x424160 (lote 207A, sin validar)
+// Como el original: indice = (puntero - almacenamiento) / 0xA18 con division con signo (multiplicacion por 0x6572EC3, sar 6 y correccion del signo); resultado = (indice << 8) + banderas[indice].
+// Deja ECX = tabla de banderas y EDX = indice << 8 (igual que CPedPool::GetRef 0x4442D0).
+#pragma runtime_checks("", off)
+uint32 CVehiclePool::GetRef(const CVehicle* vehicle) {
+    const uintptr_t storage = *reinterpret_cast<const uintptr_t*>(this);          // primer miembro del pool
+    const uintptr_t flags   = *(reinterpret_cast<const uintptr_t*>(this) + 1);    // segundo: tabla de banderas
+    const int32     diff    = static_cast<int32>(reinterpret_cast<uintptr_t>(vehicle) - storage);
+    const int32     high    = static_cast<int32>((static_cast<int64>(0x6572EC3) * diff) >> 32);
+    const int32     shifted = high >> 6;
+    const int32     index   = shifted + static_cast<int32>(static_cast<uint32>(shifted) >> 31);
+    const uint32    byteFlag = *reinterpret_cast<const uint8*>(flags + static_cast<uintptr_t>(static_cast<uint32>(index)));
+    const uint32    shiftedIndex = static_cast<uint32>(index) << 8;
+    return ResidueRegsCpp(static_cast<uint32>(flags), shiftedIndex, byteFlag + shiftedIndex);
+}
+#pragma runtime_checks("", restore)
+
 auto& ms_pPedPool               = StaticRef<CPedPool*>(0xB74490);
 auto& ms_pVehiclePool           = StaticRef<CVehiclePool*>(0xB74494);
 auto& ms_pBuildingPool          = StaticRef<CBuildingPool*>(0xB74498);

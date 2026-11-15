@@ -90,6 +90,17 @@ void __fastcall UseGogglesDestructorBody(CTaskComplexUseGoggles* self, void* /*e
     *reinterpret_cast<uint32*>(self) = 0x86E4A8;
     CTaskComplexBody::Destructor(self, nullptr);
 }
+
+// 0x639680 (lote 207A, sin validar; el listado decia CTaskComplexUseClosestFreeScriptedAttractor): destructor con borrado de CTaskComplexUseGoggles del EXE (ranura 0 de su vtable 0x86E4A8; thiscall, un argumento de pila, `ret 4`,
+// 30 bytes: `push esi; mov esi,ecx; call 0x634F20; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). El cuerpo es 0x634F20 (UseGogglesDestructorBody, con hook). Como el original:
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexUseGoggles* __fastcall UseGogglesScalarDeletingDestructor(CTaskComplexUseGoggles* self, void* /*edx*/, uint8 flags) {
+    UseGogglesDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexUseGoggles::InjectHooks() {
@@ -97,6 +108,7 @@ void CTaskComplexUseGoggles::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(UseGogglesConstructorBody, "Constructor", 0x634EF0);
     RH_ScopedNamedGlobalInstall(UseGogglesDestructorBody, "Destructor", 0x634F20);
+    RH_ScopedNamedGlobalInstall(UseGogglesScalarDeletingDestructor, "ScalarDeletingDestructor", 0x639680); // lote 207A (sin validar)
 
     RH_ScopedVMTInstall(Clone, 0x637060);
     RH_ScopedVMTInstall(GetTaskType, 0x634F10);

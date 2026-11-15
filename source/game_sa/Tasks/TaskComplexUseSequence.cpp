@@ -20,10 +20,29 @@ END GENERATED HOOK STATUS */
 
 #include "TaskComplexUseSequence.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
 namespace {
-// 0x6396C0 (lote 145A, banco Fn145A): cuerpo del destructor de CTaskComplexUseSequence del EXE (sin hook propio; vtable 0x86E518). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
-// el destructor con borrado como el `call 0x6396C0` del EXE.
-__declspec(noinline) void __fastcall CTaskComplexUseSequenceDestructorBody(CTaskComplexUseSequence* self, void* /*edx*/) { self->CTaskComplexUseSequence::~CTaskComplexUseSequence(); }
+// 0x6396C0 (lote 145A, banco Fn145A; lote 207A, sin validar: ahora con hook y cuerpo exacto): cuerpo del destructor de CTaskComplexUseSequence del EXE (thiscall, sin argumentos de pila, `ret`, 108 bytes con marco SEH que solo
+// desenrolla; vtable 0x86E518). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado (0x639F90) como el `call 0x6396C0` del EXE. Como el original: deja la vtable del
+// EXE (0x86E518, +0); con indice de secuencia (+0xC) distinto de -1 resta una referencia a ms_taskSequence[indice] (0xC178F0 + indice * 0x40, `dec dword [+0x3C]`) y, si eso la deja a cero (era 1) y la secuencia tiene la
+// bandera de vaciado (+0x38), la baja y vacia la secuencia (CTaskComplexSequence::Flush, 0x632C10); despues sigue con el cuerpo de ~CTaskComplex (0x61A3D0, con hook). La llamada (antes `~CTaskComplexUseSequence` de C++) no
+// cambia el resultado para el destructor con borrado, que libera el objeto a continuacion.
+__declspec(noinline) void __fastcall CTaskComplexUseSequenceDestructorBody(CTaskComplexUseSequence* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86E518;
+    if (self->m_nSequenceIndex != -1) {
+        CTaskComplexSequence* const sequence = &CTaskSequences::ms_taskSequence[self->m_nSequenceIndex];
+        const bool finalReference = sequence->m_RefCnt == 1;
+        sequence->m_RefCnt--;
+        if (finalReference && sequence->m_bFlushTasks) {
+            sequence->m_bFlushTasks = false;
+            sequence->Flush();
+        }
+    }
+    CTaskComplexBody::Destructor(self, nullptr);
+}
 
 // 0x639F90 (lote 145A, banco Fn145A): destructor con borrado de CTaskComplexUseSequence del EXE (ranura 0 de su vtable 0x86E518; thiscall, un argumento de pila, `ret 4`, 30 bytes:
 // `push esi; mov esi,ecx; call 0x6396C0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
@@ -43,6 +62,7 @@ void CTaskComplexUseSequence::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexUseSequence, 0x86e518, 11);
     RH_ScopedCategory("Tasks");
     RH_ScopedNamedGlobalInstall(CTaskComplexUseSequenceScalarDeletingDestructor, "ScalarDeletingDestructor", 0x639F90); // lote 145A (banco Fn145A)
+    RH_ScopedNamedGlobalInstall(CTaskComplexUseSequenceDestructorBody, "Destructor", 0x6396C0); // lote 207A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x635450);
     RH_ScopedVMTInstall(GetTaskType, 0x635490); // lote 147A (banco Fn147A): retorno de constante (TASK_COMPLEX_USE_SEQUENCE = 275)

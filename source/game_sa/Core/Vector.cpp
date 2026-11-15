@@ -56,6 +56,23 @@ static double __fastcall Vector2DMagnitudeExe(const CVector2D* self, void* /*edx
     return sqrt((double)self->x * self->x + (double)self->y * self->y);
 }
 
+// 0x44E480 (lote 207A, sin validar; el listado decia CPathFind: es CVector2D::Normalise del EXE, sin el argumento de salida de la version de la DLL; thiscall, sin argumentos de pila, `ret`, 62 bytes; llamadores 0x4505E0,
+// 0x477DA0, 0x487F60, 0x4883F0, 0x4B3A60, 0x4B3FC0, 0x5E1B10, 0x625C70, 0x66D710, 0x683AD0 y 0x6DAF00): suma = x*x + y*y en la x87 (24 bits de mantisa, exponente ampliado, sin guardar como float); si suma <= 0 solo pone
+// x = 1.0f (y intacta); si no (tambien con NaN, `fcom` + `test ah,41h; jp`), inverso = 1.0 / sqrt(suma) en el registro y x = inverso * x, y = inverso * y guardados como float (x se escribe antes de leer y). ECX y EDX no se tocan.
+static void __fastcall Vector2DNormaliseExe(CVector2D* self, void* /*edx*/)
+{
+    const double sumSquares = (double)self->x * self->x + (double)self->y * self->y;
+    if (sumSquares <= 0.0)
+    {
+        self->x = 1.0F;
+        return;
+    }
+
+    const double reciprocal = 1.0 / sqrt(sumSquares);
+    self->x = float(reciprocal * self->x);
+    self->y = float(reciprocal * self->y);
+}
+
 void CVector::InjectHooks()
 {
     RH_ScopedClass(CVector);
@@ -89,6 +106,7 @@ void CVector::InjectHooksExactMath()
         RH_ScopedCategory("Core");
 
         RH_ScopedNamedGlobalInstall(Vector2DMagnitudeExe, "Magnitude", 0x420860);
+        RH_ScopedNamedGlobalInstall(Vector2DNormaliseExe, "Normalise", 0x44E480); // lote 207A (sin validar)
     }
 }
 

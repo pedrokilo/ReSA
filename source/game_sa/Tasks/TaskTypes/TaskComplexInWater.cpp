@@ -24,12 +24,27 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleGoToPoint.h"
 #include "TaskSimpleRunAnim.h"
 
+namespace {
+// 0x6396A0 (lote 207A, sin validar; el listado decia CTaskComplexUseClosestFreeScriptedAttractor): destructor con borrado de CTaskComplexInWater del EXE (ranura 0 de su vtable 0x86E4EC; thiscall, un argumento de pila, `ret 4`,
+// 30 bytes: `push esi; mov esi,ecx; call 0x635100; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). El cuerpo es 0x635100 (CTaskComplexInWater::Destructor, con hook: el destructor
+// de C++ de la clase). Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede
+// nombrar la ranura 0).
+CTaskComplexInWater* __fastcall InWaterScalarDeletingDestructor(CTaskComplexInWater* self, void* /*edx*/, uint8 flags) {
+    self->CTaskComplexInWater::~CTaskComplexInWater();
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskComplexInWater::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexInWater, 0x86e4ec, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x6350D0);
     RH_ScopedInstall(Destructor, 0x635100);
+    RH_ScopedNamedGlobalInstall(InWaterScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6396A0); // lote 207A (sin validar)
 
     RH_ScopedVMTInstall(Clone, 0x6370B0);
     RH_ScopedVMTInstall(GetTaskType, 0x6350F0);

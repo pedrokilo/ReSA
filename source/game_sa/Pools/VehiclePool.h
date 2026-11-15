@@ -46,10 +46,16 @@ public:
         // calcula el almacenamiento). Mismo cuerpo que CPool<CObject>::CreateAtRef (0x59F610): ranura = ref >> 8 (con signo); borra el bit 0x80 del estado y deja los 7 bits bajos iguales a los de la
         // referencia; cursor (+0xC) = 0 y avanza mientras el estado de la ranura tenga el bit 0x80 apagado. No comprueba que la ranura estuviera libre ni que este en rango.
         RH_ScopedInstall(CreateAtRef, 0x006D5DD0);
+        // Lote 207A (sin validar; el listado decia CCarCtrl): CPool<CVehicle, CHeli>::GetRef (thiscall, un argumento de pila, `ret 4`, 40 bytes; llamadores 0x46B460, 0x481300 y 0x496E00). Mismo cuerpo que CPedPool::GetRef
+        // (0x4442D0) con el elemento de 0xA18 bytes: indice = (puntero - almacenamiento) / 0xA18 con division con signo (multiplicacion por 0x6572EC3, sar 6 y correccion del signo); resultado = (indice << 8) + banderas[indice].
+        RH_ScopedInstall(GetRef, 0x424160);
     }
 
 public:
     using CPool::CPool;
+
+    // 0x424160: el EXE deja ECX = tabla de banderas y EDX = indice << 8; GetRef devuelve EDX:EAX con ResidueRegsCpp
+    uint32 GetRef(const CVehicle*);
 
     // 0x6E2A50
     // Como el original: busca a partir de m_nFirstFree+1 (con una sola vuelta; si el pool está lleno deja

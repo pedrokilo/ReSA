@@ -279,7 +279,8 @@ public:
     */
     bool These2NodesAreAdjacent(CNodeAddress nodeAddress1, CNodeAddress nodeAddress2);
 
-    void RecordNodesInCircle(const CVector& center, float radius, uint8 nodeType, int maxNum, CNodeAddress* outAddresses, bool bLowTraffic, bool a8, bool bUnkn, bool maxNumNodes, bool bUnused);
+    // 0x44FB60 (lote 207A): devuelve en EAX el numero de nodos guardados; `bBoats` es el argumento 8 como byte completo (ver PathFind.cpp)
+    int32 RecordNodesInCircle(const CVector& center, float radius, uint8 nodeType, int32 maxNum, CNodeAddress* outAddresses, bool bLowTraffic, bool a8, uint8 bBoats, bool maxNumNodes, bool bUnused);
 
     /*
     * @brief Find the node closest to `pos` favoring the direction `dir`
@@ -289,7 +290,8 @@ public:
     * @param dir The direction, doesn't need to be unit length (eg.: normalized), it is normalized by the function
     */
     CNodeAddress FindNodeClosestToCoorsFavourDirection(CVector pos, ePathType nodeType, CVector2D dir); // "dir" was 2 floats originally
-    void FindNodePairClosestToCoors(CVector pos, uint8 nodeType, CNodeAddress* outFirst, CNodeAddress* outSecond, float* outDist, float minDist, float maxDist, bool bLowTraffic, bool bUnused, bool bBoats);
+    // 0x44FEE0 (lote 207A): `outHeading` es el rumbo en grados del par (el listado lo llamaba outDist); `bBoats` es el argumento 12 como byte completo (ver PathFind.cpp)
+    void FindNodePairClosestToCoors(CVector pos, uint8 nodeType, CNodeAddress* outFirst, CNodeAddress* outSecond, float* outHeading, float minLinkLength, float maxScore, bool bLowTraffic, bool bUnused, uint8 bBoats);
     float FindNodeOrientationForCarPlacement(CNodeAddress address);
     float FindNodeOrientationForCarPlacementFacingDestination(CNodeAddress address, float dirX, float dirY, bool bUnkn) { return 0.0f; } /*noop, not in PC idb, unused in mobile*/
     static void AllocatePathFindInfoMem() { /*noop 0x44D2B0*/ }
@@ -321,7 +323,9 @@ public:
     CNodeAddress FindNodeClosestToCoors(CVector pos, ePathType nodeType = PATH_TYPE_PED, float maxDistance = 999999.88f, uint16 unk2 = 1, int32 unk3 = 0, uint16 unk4 = 0,
                                          uint16 bBoatsOnly = 0, int32 unk6 = 0);
     void MarkRoadNodeAsDontWander(float x, float y, float z);
-    void RecordNodesClosestToCoors(CVector pos, uint8 nodeType, int count, CNodeAddress* outAddresses, float maxDist, bool, bool, bool, bool);
+    // 0x44FA30 (lote 207A): como FindNthNodeClosestToCoors pero guarda cada nodo hallado en outAddresses
+    void RecordNodesClosestToCoors(CVector pos, uint8 nodeType, int32 count, CNodeAddress* outAddresses, float maxDist, bool bLowTraffic, bool bUnkn, bool bBoatsOnly, bool bIgnoreInterior);
+    // 0x452090 (lote 207A)
     void Find2NodesForCarCreation(CVector pos, CNodeAddress* outAddress1, CNodeAddress* outAddress2, bool bLowTraffic);
     CNodeAddress FindNthNodeClosestToCoors(CVector pos, uint8 nodeType, float maxDistance, bool bLowTraffic, bool bUnkn, int nthNode, bool bBoatsOnly, bool bIgnoreInterior,
                                            CNodeAddress* outNode);

@@ -32,6 +32,10 @@ public:
     // Lote 206A (sin validar): crean las subtareas de CreateNextSubTask como el EXE: CTask::operator new (0x61A5A0) y, solo si hay memoria, el cuerpo enganchado del constructor (0x61A900 de CTaskSimpleRunAnim, 0x48E750 de CTaskSimplePause); nulo si el pool esta agotado
     static CTask* NewPhoneAnimTask(int32 animId, int32 taskType, uintptr_t exeNameAddress);
     static CTask* NewPhonePauseTask(int32 timeMs);
+    // Lote 207A (sin validar). La clase sigue abstracta (faltan GetTaskType 0x6348D0, MakeAbortable 0x634930 y CreateNextSubTask 0x634A60); estas tres entran en la vtable.
+    CTask* Clone() const override;                 // 0x636FD0
+    CTask* CreateFirstSubTask(CPed* ped) override; // 0x634C10
+    CTask* ControlSubTask(CPed* ped) override;     // 0x634D60
 };
 
 VALIDATE_SIZE(CTaskComplexUseMobilePhone, 0x20);

@@ -19075,6 +19075,115 @@ __declspec(noinline) float __cdecl TrainStreakDoorYCpp(float openAngle, float cl
 __declspec(noinline) float __cdecl TrainAddPosCpp(float position, float saved) {
     return float(double(position) + double(saved));
 }
+
+// --- Lote 207A (sin validar) ---
+// Tramos x87 de 24 bits de mantisa y exponente ampliado (palabra de control del juego): lo que el EXE deja en un registro se calcula como double (cada operacion ya redondea a 24 bits) y lo que
+// guarda con fstp dword se guarda como `volatile float`. Cada funcion cita las direcciones del EXE que reproduce. El seno y el coseno salen de CcAirFsin / CcAirFcos (fsin / fcos sin redondear a float).
+#pragma float_control(precise, on, push)
+// 0x421A50 (funcion de barrido de CCarCtrl::WeaveForOtherCar, prologo 0x421A53..0x421A8B): velocidad relativa por 100 = ((vx - cos(angulo) * velocidad) * 100.0f, (vy - sin(angulo) * velocidad) * 100.0f)
+// (`fld angulo; fcos; fmul [velocidad]; fsubr [vx]` y `fld angulo; fsin; fmul [velocidad]; fsubr [vy]`; despues `fxch; fmul [0x858628]` y `fstp` de cada una). El coseno y el seno entran sin redondear
+// a float en el producto. out[0] = x, out[1] = y.
+__declspec(noinline) void __cdecl Wv207SweepVelocityCpp(float angle, float velocityX, float velocityY, float speed, float* out) {
+    const double cosine = CcAirFcos(double(angle));
+    const double x      = double(velocityX) - cosine * double(speed);
+    const double sine   = CcAirFsin(double(angle));
+    const double y      = double(velocityY) - sine * double(speed);
+    volatile float fx = float(x * 100.0f); // 0x858628
+    volatile float fy = float(y * 100.0f);
+    out[0] = fx;
+    out[1] = fy;
+}
+
+// 0x422E10 (sonda de altitud del avion, 0x422E71..0x422F38): extremo del rayo. `dir` = la direccion horizontal ya normalizada (x, y, z; el EXE la guarda en la pila tras CVector::Normalise 0x59C910),
+// `elevation` = el angulo de la ranura de la tabla 0x8A5B2C y `start` = el origen (3 floats). Secuencia del EXE (todo en la x87): fsin(elevacion) se queda en el registro, 0.0f * sen (0x858B50) se guarda
+// como float, sen se guarda como float, fcos(elevacion) queda en el registro; despues dy = dir.y * cos y dz = cos * dir.z se guardan como float, dx = dir.x * cos queda en el registro;
+// ex = dx + (0 * sen guardado) se guarda, ey = dy + (0 * sen, registro) y ez = dz + sen guardado quedan en el registro; fx = ex * 200.0f (0x858A48) se guarda, fy = ey * 200.0f se guarda, fz = ez * 200.0f
+// queda en el registro; el extremo es (fx + start.x, fy + start.y, fz + start.z) con cada suma redondeada y guardada como float.
+__declspec(noinline) void __cdecl Wv207ProbeEndCpp(float elevation, const float* dir, const float* start, float* end) {
+    const double sine = CcAirFsin(double(elevation));
+    const volatile float zero = 0.0f; // 0.0f * sen no se elimina: con sen NaN o infinito da NaN, y el signo del cero sigue al de sen
+    const double zeroTimesSine = double(zero) * sine;
+    volatile float zeroStored = float(zeroTimesSine);
+    volatile float sineStored = float(sine);
+    const double cosine = CcAirFcos(double(elevation));
+    const double dxReg  = double(dir[0]) * cosine;
+    volatile float dy   = float(double(dir[1]) * cosine);
+    volatile float dz   = float(cosine * double(dir[2]));
+    volatile float ex   = float(dxReg + double(zeroStored));
+    const double eyReg  = double(float(dy)) + zeroTimesSine;
+    const double ezReg  = double(float(dz)) + double(float(sineStored));
+    volatile float fx   = float(double(float(ex)) * 200.0f);
+    volatile float fy   = float(eyReg * 200.0f);
+    const double fzReg  = ezReg * 200.0f;
+    volatile float endX = float(double(float(fx)) + double(start[0]));
+    volatile float endY = float(double(float(fy)) + double(start[1]));
+    volatile float endZ = float(fzReg + double(start[2]));
+    end[0] = endX;
+    end[1] = endY;
+    end[2] = endZ;
+}
+
+// 0x44FB60 (CPathFind::RecordNodesInCircle, 0x44FBC1..0x44FBCF): radio al cuadrado, `fld [radio]; fmul [radio]; fstp [r2]`
+__declspec(noinline) float __cdecl Wv207SquareCpp(float radius) {
+    volatile float squared = float(double(radius) * double(radius));
+    return squared;
+}
+
+// 0x44FB60 (CPathFind::RecordNodesInCircle, 0x44FC1A..0x44FC91): el nodo (enteros de 16 bits xr, yr, zr; coordenada = entero * 0.125f, exacta) esta dentro del circulo. x e y quedan en la pila de la x87,
+// z se guarda como float; dx = centro.x - x se guarda como float, dy = centro.y - y y dz = centro.z - z quedan en el registro; suma = ((dz*dz + dy*dy) + dx*dx) (dx releido del float guardado) y es dentro
+// solo si suma < r2 (`fcomp [r2]; test ah,5; jp fuera`: ordenado, con NaN o igual queda fuera). `center` = 3 floats.
+__declspec(noinline) bool __cdecl Wv207InCircleCpp(const float* center, int xr, int yr, int zr, float radiusSquared) {
+    const double x = double(xr) * 0.125f;
+    const double y = double(yr) * 0.125f;
+    volatile float zStored = float(double(zr) * 0.125f);
+    volatile float dxStored = float(double(center[0]) - x);
+    const double dy = double(center[1]) - y;
+    const double dz = double(center[2]) - double(float(zStored));
+    const double dxl = double(float(dxStored));
+    const double sum = (dz * dz + dy * dy) + dxl * dxl;
+    return sum < double(radiusSquared);
+}
+
+// 0x44FEE0 (CPathFind::FindNodePairClosestToCoors, 0x44FFA5..0x450023): puntuacion del nodo = ((|z - pos.z| * 3.0f) + |y - pos.y|) + |x - pos.x| con x, y, z = entero de 16 bits * 0.125f (exactos), cada operacion
+// a 24 bits, |dx| y la puntuacion final guardados tambien como float (la comparacion usa el registro). Devuelve true si puntuacion < mejor (`fcomp st(1); test ah,5; jp saltar`: ordenado, con NaN o igual se salta);
+// *outScore recibe la puntuacion guardada como float. `pos` = 3 floats.
+__declspec(noinline) bool __cdecl Wv207PairScoreCpp(int xr, int yr, int zr, const float* pos, float best, float* outScore) {
+    const double x = double(xr) * 0.125f;
+    const double y = double(yr) * 0.125f;
+    const double z = double(zr) * 0.125f;
+    const double dzAbs = fabs(z - double(pos[2])) * 3.0f; // 0x858B3C
+    const double dyAbs = fabs(y - double(pos[1]));
+    const double partial = dzAbs + dyAbs;
+    const double dxAbs = fabs(x - double(pos[0]));
+    const double score = partial + dxAbs;
+    volatile float stored = float(score);
+    *outScore = stored;
+    return score < double(best);
+}
+
+// 0x44FEE0 (0x45002E..0x450125): el enlace (nodo propio nodeX/nodeY/nodeZ ya en float exacto, nodo enlazado en enteros de 16 bits lxr, lyr, lzr * 0.125f) es MAS LARGO que minLength. dx = nodeX - lx se guarda
+// como float; dy = nodeY - ly y dz = nodeZ - lz quedan en el registro (lz se guarda como float: exacto); longitud = sqrt((dz*dz + dy*dy) + dx*dx) con dx releido del float guardado. Es "mayor" solo si el
+// resultado es mayor ordenado (`fcomp [min]; test ah,41h; jne saltar`: con NaN, igual o menor se salta).
+static __declspec(noinline) double Wv207SqrtDbl(double value) { return sqrt(value); }
+__declspec(noinline) bool __cdecl Wv207PairLinkLongerCpp(float nodeX, float nodeY, float nodeZ, int lxr, int lyr, int lzr, float minLength) {
+    const double lx = double(lxr) * 0.125f;
+    const double ly = double(lyr) * 0.125f;
+    volatile float lzStored = float(double(lzr) * 0.125f);
+    volatile float dxStored = float(double(nodeX) - lx);
+    const double dy = double(nodeY) - ly;
+    const double dz = double(nodeZ) - double(float(lzStored));
+    const double dxl = double(float(dxStored));
+    const double sum = (dz * dz + dy * dy) + dxl * dxl;
+    const double length = Wv207SqrtDbl(sum);
+    return length > double(minLength);
+}
+
+// 0x44FEE0 (0x4502C4..0x4502E0): rumbo en grados del par = atan2(-nx, ny) * 57.2957763671875 (0x859878), `fld [nx]; fchs; fld [ny]; fpatan; fmul`: el fpatan no se redondea, el producto se redondea a 24 bits y se
+// guarda como float. (nx, ny) es el vector (primero - segundo) ya normalizado.
+__declspec(noinline) float __cdecl Wv207PairHeadingCpp(float nx, float ny) {
+    volatile float heading = float(atan2(-double(nx), double(ny)) * 57.2957763671875f);
+    return heading;
+}
 #pragma float_control(pop)
 
 // --- Lote 206A (sin validar) ---

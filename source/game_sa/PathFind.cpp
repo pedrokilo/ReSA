@@ -53,6 +53,13 @@ bool __cdecl PathFind93BadStartDotNegativeCpp(const float* node0, const float* n
 bool __cdecl PathFind93RegionScoreCpp(const float* node, const float* pos, const float* outDist, float* scoreStored);                    // FindNodeClosestInRegion: puntuacion < *outDist
 bool __cdecl PathFind93RegionTotalCpp(float linkDistance, float scoreStored, float* outDist);                                          // FindNodeClosestInRegion: puntuacion total < *outDist (la guarda)
 
+// Ayudantes x87 del lote 207A (sin validar; definidos al final de X87Math.cpp; declarados aqui para no recompilar todo el proyecto al tocar X87Math.h).
+float __cdecl Wv207SquareCpp(float radius);                                                                                              // RecordNodesInCircle: radio al cuadrado
+bool __cdecl Wv207InCircleCpp(const float* center, int xr, int yr, int zr, float radiusSquared);                                         // RecordNodesInCircle: nodo dentro del circulo
+bool __cdecl Wv207PairScoreCpp(int xr, int yr, int zr, const float* pos, float best, float* outScore);                                   // FindNodePairClosestToCoors: puntuacion < mejor
+bool __cdecl Wv207PairLinkLongerCpp(float nodeX, float nodeY, float nodeZ, int lxr, int lyr, int lzr, float minLength);                 // FindNodePairClosestToCoors: enlace mas largo que el minimo
+float __cdecl Wv207PairHeadingCpp(float nx, float ny);                                                                                   // FindNodePairClosestToCoors: rumbo en grados
+
 // 0x44EFC0
 // Como el original (130 instrucciones, 0x44EFC0..0x44F186): recorre las 64 areas del mapa y, por cada nodo de vehiculos a menos de 80 unidades
 // de (x, y) (|p - c| < 80 estricto y ordenado: un NaN lo descarta), suma la longitud de cada enlace por los carriles propios (bits 0..2 del byte
@@ -211,7 +218,7 @@ void CPathFind::InjectHooks() {
     RH_ScopedInstall(IsWaterNodeNearby, 0x450DE0);
     RH_ScopedInstall(CountNeighboursToBeSwitchedOff, 0x4504F0);
     RH_ScopedInstall(FindNodeOrientationForCarPlacement, 0x450320);
-    //RH_ScopedInstall(FindNodePairClosestToCoors, 0x44FEE0);
+    RH_ScopedInstall(FindNodePairClosestToCoors, 0x44FEE0); // lote 207A (sin validar)
     RH_ScopedInstall(FindNodeClosestToCoorsFavourDirection, 0x44FCE0);
     RH_ScopedInstall(FindNodeClosestToCoors, 0x44F460);
     RH_ScopedInstall(MarkRoadNodeAsDontWander, 0x450560);
@@ -224,7 +231,7 @@ void CPathFind::InjectHooks() {
     RH_ScopedInstall(ComputeRoute, 0x452760);
     RH_ScopedInstall(CompleteNewInterior, 0x452270);
     RH_ScopedInstall(SwitchOffNodeAndNeighbours, 0x452160);
-    //RH_ScopedInstall(Find2NodesForCarCreation, 0x452090);
+    RH_ScopedInstall(Find2NodesForCarCreation, 0x452090); // lote 207A (sin validar)
     //RH_ScopedInstall(TestCoorsCloseness, 0x452000);
     RH_ScopedInstall(FindNextNodeWandering, 0x451B70);
     RH_ScopedInstall(DoPathSearch, 0x4515D0);
@@ -232,6 +239,16 @@ void CPathFind::InjectHooks() {
     RH_ScopedInstall(FindLinkBetweenNodes, 0x451350);
     RH_ScopedInstall(ReturnInteriorNodeIndex, 0x451300);
     RH_ScopedInstall(FindNthNodeClosestToCoors, 0x44F8C0);
+    // Lote 207A (sin validar): RecordNodesClosestToCoors 0x44FA30, RecordNodesInCircle 0x44FB60 y las funciones vacias del EXE (PreparePathData 0x44D0E0, AllocatePathFindInfoMem 0x44D2B0,
+    // StoreNodeInfoCar 0x44D2C0, StoreNodeInfoPed 0x44D2D0, StoreDetachedNodeInfoPed 0x44D2E0 y StoreDetachedNodeInfoCar 0x44D2F0).
+    RH_ScopedInstall(RecordNodesClosestToCoors, 0x44FA30);
+    RH_ScopedInstall(RecordNodesInCircle, 0x44FB60);
+    RH_ScopedInstall(PreparePathData, 0x44D0E0);
+    RH_ScopedInstall(AllocatePathFindInfoMem, 0x44D2B0);
+    RH_ScopedInstall(StoreNodeInfoCar, 0x44D2C0);
+    RH_ScopedInstall(StoreNodeInfoPed, 0x44D2D0);
+    RH_ScopedInstall(StoreDetachedNodeInfoPed, 0x44D2E0);
+    RH_ScopedInstall(StoreDetachedNodeInfoCar, 0x44D2F0);
     RH_ScopedInstall(FindNodeClosestInRegion, 0x44F2C0);
     RH_ScopedInstall(CalcDistToAnyConnectingLinks, 0x44F190);
     RH_ScopedInstall(RemoveBadStartNode, 0x44E4F0);
@@ -701,6 +718,227 @@ CNodeAddress CPathFind::FindNthNodeClosestToCoors(CVector pos, uint8 nodeType, f
     }
 
     return FindNodeClosestToCoors(pos, (ePathType)nodeType, maxDistance, (uint16)bLowTraffic, (int32)bUnkn, 1, (uint16)bBoatsOnly, 0);
+}
+
+// 0x44FA30 (lote 207A, sin validar; el listado no la nombraba: es CPathFind::RecordNodesClosestToCoors, la llama Find2NodesForCarCreation 0x452090; thiscall, 11 argumentos de pila, `ret 2Ch`, 285 bytes): como
+// FindNthNodeClosestToCoors (0x44F8C0) pero guarda cada nodo hallado en outAddresses. Primero limpia en todas las areas (0..71) la marca (bit 1 del byte +0x19) de los nodos del tipo pedido (sin nodeType 0 ni 1 el EXE
+// compara dos registros con el mismo valor y no limpia nada); despues, `count` veces (con count <= 0 no hace nada) busca el nodo mas cercano a pos con 0x44F460 (unk4 = 1; las cuatro banderas se pasan como dwords
+// y FindNodeClosestToCoors solo mira sus bytes bajos), y si el area del hallado es 0xFFFF termina SIN escribirlo; si no, marca el nodo (bit 1 del byte +0x19 en `this`), lo guarda con el cursor y avanza una posicion.
+void CPathFind::RecordNodesClosestToCoors(CVector pos, uint8 nodeType, int32 count, CNodeAddress* outAddresses, float maxDist, bool bLowTraffic, bool bUnkn, bool bBoatsOnly, bool bIgnoreInterior) {
+    for (int32 areaId = 0; areaId < NUM_PATH_MAP_AREAS + NUM_PATH_INTERIOR_AREAS; areaId++) {
+        if (!m_pPathNodes[areaId]) {
+            continue;
+        }
+        int32 first, last;
+        if (nodeType == PATH_TYPE_VEH) {
+            first = 0;
+            last  = (int32)m_anNumVehicleNodes[areaId];
+        } else if (nodeType == PATH_TYPE_PED) {
+            first = (int32)m_anNumVehicleNodes[areaId];
+            last  = (int32)m_anNumNodes[areaId];
+        } else {
+            continue;
+        }
+        for (int32 i = first; i < last; i++) {
+            reinterpret_cast<uint8*>(&m_pPathNodes[areaId][i])[0x19] &= 0xFD;
+        }
+    }
+
+    if (count <= 0) {
+        return;
+    }
+    CNodeAddress* cursor = outAddresses;
+    do {
+        const CNodeAddress found = FindNodeClosestToCoors(pos, (ePathType)nodeType, maxDist, (uint16)bLowTraffic, (int32)bUnkn, 1, (uint16)bBoatsOnly, (int32)bIgnoreInterior);
+        if (found.m_wAreaId == 0xFFFF) {
+            return;
+        }
+        reinterpret_cast<uint8*>(&m_pPathNodes[found.m_wAreaId][found.m_wNodeId])[0x19] |= 2;
+        *cursor = found;
+        count--;
+        cursor++;
+    } while (count > 0);
+}
+
+// 0x44FB60 (lote 207A, sin validar; el listado no la nombraba: es CPathFind::RecordNodesInCircle; thiscall, 10 argumentos de pila, `ret 28h`, resultado en EAX = numero de nodos guardados, 374 bytes, sin llamadores):
+// guarda en outAddresses los nodos del tipo pedido (0 = vehiculos, 1 = peatones; con otro valor el EXE recorre desde un valor de pila sin inicializar hasta el argumento 9, aqui no se recorre nada) cuya posicion cae a
+// menos de `radius` de `center` (suma de cuadrados ordenada < radio^2, ver Wv207InCircleCpp). Filtros por nodo, en este orden: con bLowTraffic se salta el nodo con el bit 5 del byte +0x18; con el byte `bBoats` distinto de cero
+// se salta el nodo con el bit 1 del byte +0x19; y el byte bBoats (completo, no como bool) debe ser igual al bit 7 del byte +0x18 (nodo de agua). El argumento 7 y los dos ultimos no se usan (el 9 es solo el hueco de pila
+// donde el EXE guarda el limite del recorrido). Tras evaluar el circulo de cada nodo que pasa los filtros (este dentro o no) se sale si el contador es igual a maxNum (con signo, sin acotar: con maxNum <= 0 no se sale
+// hasta que el contador lo iguale, y 0 sale con el primer nodo evaluado). Cada nodo se guarda como area (palabra baja del area del recorrido) y numero de nodo dentro del area (palabra baja del indice).
+int32 CPathFind::RecordNodesInCircle(const CVector& center, float radius, uint8 nodeType, int32 maxNum, CNodeAddress* outAddresses, bool bLowTraffic, bool /*a8*/, uint8 bBoats, bool /*maxNumNodes*/, bool /*bUnused*/) {
+    const float radiusSquared = Wv207SquareCpp(radius);
+    int32       found         = 0;
+    for (int32 areaId = 0; areaId < NUM_PATH_MAP_AREAS + NUM_PATH_INTERIOR_AREAS; areaId++) {
+        CPathNode* const nodes = m_pPathNodes[areaId];
+        if (!nodes) {
+            continue;
+        }
+        int32 first, last;
+        if (nodeType == PATH_TYPE_VEH) {
+            first = 0;
+            last  = (int32)m_anNumVehicleNodes[areaId];
+        } else if (nodeType == PATH_TYPE_PED) {
+            first = (int32)m_anNumVehicleNodes[areaId];
+            last  = (int32)m_anNumNodes[areaId];
+        } else {
+            continue;
+        }
+        for (int32 i = first; i < last; i++) {
+            const uint8* const raw = reinterpret_cast<const uint8*>(&nodes[i]);
+            if (bLowTraffic && (raw[0x18] & 0x20)) {
+                continue;
+            }
+            if (bBoats != 0 && (raw[0x19] & 2)) {
+                continue;
+            }
+            if (bBoats != (raw[0x18] >> 7)) {
+                continue;
+            }
+            const int32 xr = *reinterpret_cast<const int16*>(raw + 0x8);
+            const int32 yr = *reinterpret_cast<const int16*>(raw + 0xA);
+            const int32 zr = *reinterpret_cast<const int16*>(raw + 0xC);
+            if (Wv207InCircleCpp(&center.x, xr, yr, zr, radiusSquared)) {
+                outAddresses[found] = CNodeAddress{ (uint16)areaId, (uint16)i };
+                found++;
+            }
+            if (found == maxNum) {
+                return found;
+            }
+        }
+    }
+    return found;
+}
+
+// 0x44FEE0 (lote 207A, sin validar; el listado no la nombraba: es CPathFind::FindNodePairClosestToCoors, la llama 0x48B590 (script); thiscall, 12 argumentos de pila, `ret 30h`, 1077 bytes): busca el par de nodos
+// enlazados (nodo, enlace) cuyo nodo esta mas cerca de pos y cuyo enlace es mas largo que minLinkLength. Recorre las 72 areas con nodos del tipo pedido (0 = vehiculos, 1 = peatones; con otro valor el EXE usa un
+// inicio sin inicializar y el argumento 12 como fin: aqui no se recorre nada). Por nodo: con bLowTraffic se salta el del bit 5 del byte +0x18; el byte bBoats (completo) debe ser igual al bit 7 del byte +0x18; la puntuacion
+// ((|z - pos.z| * 3.0f + |y - pos.y|) + |x - pos.x|) debe ser menor que la mejor (arranca en 10000.0f, 0x859AA4; Wv207PairScoreCpp). Si el nodo tiene al menos un enlace (nibble bajo del byte +0x18), se recorren sus
+// enlaces (areas SIN acotar: el EXE indexa m_pPathNodes con la palabra del area; un area sin nodos se salta) y cada uno que pase los dos filtros anteriores (bit 5 y agua) y sea MAS LARGO que minLinkLength
+// (Wv207PairLinkLongerCpp) pasa a ser el mejor: la puntuacion guardada (float) sustituye a la mejor y se anotan area del recorrido, indice del nodo y direccion del enlace (dword). Al final, si la mejor es menor que
+// maxScore (ordenada; argumento 9), escribe el primero y el segundo en outFirst / outSecond, y el rumbo en grados atan2(-nx, ny) del vector (primero - segundo) normalizado con CVector::Normalise (0x59C910; z = 0) en
+// *outHeading (argumento 7; el listado de la cabecera lo llamaba outDist); si no, pone las areas de ambos a 0xFFFF (solo la palabra del area) y *outHeading = 0. Sin ningun candidato y con 10000.0f < maxScore el EXE
+// escribe un par con areas 0xFFFF y palabras de nodo sin inicializar y calcula el rumbo con el area 0xFFFF sin comprobar (aqui las palabras de nodo son 0xFFFF y 0: comportamiento indefinido en el EXE).
+void CPathFind::FindNodePairClosestToCoors(CVector pos, uint8 nodeType, CNodeAddress* outFirst, CNodeAddress* outSecond, float* outHeading, float minLinkLength, float maxScore, bool bLowTraffic, bool /*bUnused*/, uint8 bBoats) {
+    float        best       = std::bit_cast<float>(0x461C4000u); // 10000.0f (0x859AA4)
+    CNodeAddress bestFirst  = CNodeAddress{ 0xFFFF, 0 };
+    CNodeAddress bestSecond = CNodeAddress{ 0xFFFF, 0 };
+
+    for (int32 areaId = 0; areaId < NUM_PATH_MAP_AREAS + NUM_PATH_INTERIOR_AREAS; areaId++) {
+        CPathNode* const nodes = m_pPathNodes[areaId];
+        if (!nodes) {
+            continue;
+        }
+        int32 first, last;
+        if (nodeType == PATH_TYPE_VEH) {
+            first = 0;
+            last  = (int32)m_anNumVehicleNodes[areaId];
+        } else if (nodeType == PATH_TYPE_PED) {
+            first = (int32)m_anNumVehicleNodes[areaId];
+            last  = (int32)m_anNumNodes[areaId];
+        } else {
+            continue;
+        }
+        for (int32 i = first; i < last; i++) {
+            const uint8* const raw = reinterpret_cast<const uint8*>(&nodes[i]);
+            if (bLowTraffic && (raw[0x18] & 0x20)) {
+                continue;
+            }
+            if (bBoats != (raw[0x18] >> 7)) {
+                continue;
+            }
+            const int32 xr = *reinterpret_cast<const int16*>(raw + 0x8);
+            const int32 yr = *reinterpret_cast<const int16*>(raw + 0xA);
+            const int32 zr = *reinterpret_cast<const int16*>(raw + 0xC);
+            float       score;
+            if (!Wv207PairScoreCpp(xr, yr, zr, &pos.x, best, &score)) {
+                continue;
+            }
+            const int32 numLinks = raw[0x18] & 0xF;
+            if (numLinks <= 0) {
+                continue;
+            }
+            const float         nodeX = (float)xr * 0.125f; // exactos (entero de 16 bits * 0.125f)
+            const float         nodeY = (float)yr * 0.125f;
+            const float         nodeZ = (float)zr * 0.125f;
+            const CNodeAddress* link  = m_pNodeLinks[areaId] + *reinterpret_cast<const int16*>(raw + 0x10);
+            for (int32 l = 0; l < numLinks; l++, link++) {
+                const CNodeAddress linked = *link;
+                // Como el original (0x450050..0x450060): el area del enlace indexa m_pPathNodes sin acotar (hasta 0xFFFF)
+                const CPathNode* const linkedNodes = *(reinterpret_cast<CPathNode* const*>(m_pPathNodes) + linked.m_wAreaId);
+                if (!linkedNodes) {
+                    continue;
+                }
+                const uint8* const lraw = reinterpret_cast<const uint8*>(linkedNodes) + static_cast<uint32>(linked.m_wNodeId) * sizeof(CPathNode);
+                if (bLowTraffic && (lraw[0x18] & 0x20)) {
+                    continue;
+                }
+                if (bBoats != (lraw[0x18] >> 7)) {
+                    continue;
+                }
+                const int32 lxr = *reinterpret_cast<const int16*>(lraw + 0x8);
+                const int32 lyr = *reinterpret_cast<const int16*>(lraw + 0xA);
+                const int32 lzr = *reinterpret_cast<const int16*>(lraw + 0xC);
+                if (!Wv207PairLinkLongerCpp(nodeX, nodeY, nodeZ, lxr, lyr, lzr, minLinkLength)) {
+                    continue;
+                }
+                best       = score;
+                bestFirst  = CNodeAddress{ (uint16)areaId, (uint16)i };
+                bestSecond = linked;
+            }
+        }
+    }
+
+    if (!(best < maxScore)) {
+        outFirst->m_wAreaId  = 0xFFFF;
+        outSecond->m_wAreaId = 0xFFFF;
+        *reinterpret_cast<uint32*>(outHeading) = 0;
+        return;
+    }
+
+    *outFirst  = bestFirst;
+    *outSecond = bestSecond;
+
+    const uint8* const secondRaw = reinterpret_cast<const uint8*>(*(reinterpret_cast<CPathNode* const*>(m_pPathNodes) + bestSecond.m_wAreaId)) + static_cast<uint32>(bestSecond.m_wNodeId) * sizeof(CPathNode);
+    const uint8* const firstRaw  = reinterpret_cast<const uint8*>(*(reinterpret_cast<CPathNode* const*>(m_pPathNodes) + bestFirst.m_wAreaId)) + static_cast<uint32>(bestFirst.m_wNodeId) * sizeof(CPathNode);
+    const float        x2        = (float)*reinterpret_cast<const int16*>(secondRaw + 0x8) * 0.125f;
+    const float        y2        = (float)*reinterpret_cast<const int16*>(secondRaw + 0xA) * 0.125f;
+    const float        x1        = (float)*reinterpret_cast<const int16*>(firstRaw + 0x8) * 0.125f;
+    const float        y1        = (float)*reinterpret_cast<const int16*>(firstRaw + 0xA) * 0.125f;
+    CVector            direction{ x1 - x2, y1 - y2, 0.0f }; // exactos: multiplos de 0.125 con 16 bits; la z del EXE se pone a 0 tras calcularla
+    direction.Normalise();
+    *outHeading = Wv207PairHeadingCpp(direction.x, direction.y);
+}
+
+// 0x452090 (lote 207A, sin validar; el listado no la nombraba: es CPathFind::Find2NodesForCarCreation, la llama CCarCtrl::GenerateCarCreationCoors2 0x424210; thiscall, `ret 18h`, 190 bytes): pide los cuatro nodos de
+// vehiculos mas cercanos a pos (RecordNodesClosestToCoors 0x44FA30 con nodeType 0, count 4, maxDist 999999.875f = 0x497423FE, bLowTraffic, bUnkn = false, bBoatsOnly = false, bIgnoreInterior = true) en una tabla local
+// de cuatro direcciones cuya palabra de area arranca en 0xFFFF (el EXE solo escribe esa palabra; la del nodo queda con basura). Si la primera no tiene area, pone solo la palabra de area (0xFFFF) de first y de second y sale. Si la tiene,
+// first = esa direccion completa y second = la primera de las otras tres con area valida que NO es adyacente a la primera (These2NodesAreAdjacent sobre ThePaths, 0x96F050, no sobre this); si todas lo son o no hay ninguna, second no se toca.
+void CPathFind::Find2NodesForCarCreation(CVector pos, CNodeAddress* outAddress1, CNodeAddress* outAddress2, bool bLowTraffic) {
+    CNodeAddress closest[4];
+    for (auto& address : closest) {
+        address.m_wAreaId = 0xFFFF;
+    }
+
+    RecordNodesClosestToCoors(pos, PATH_TYPE_VEH, 4, closest, std::bit_cast<float>(0x497423FEu), bLowTraffic, false, false, true);
+
+    const CNodeAddress firstNode = closest[0];
+    if (firstNode.m_wAreaId == 0xFFFF) {
+        outAddress1->m_wAreaId = firstNode.m_wAreaId;
+        outAddress2->m_wAreaId = firstNode.m_wAreaId;
+        return;
+    }
+
+    *outAddress1 = firstNode;
+    for (int32 i = 1; i < 4; i++) {
+        if (closest[i].m_wAreaId == 0xFFFF) {
+            continue;
+        }
+        if (!ThePaths.These2NodesAreAdjacent(firstNode, closest[i])) {
+            *outAddress2 = closest[i];
+            return;
+        }
+    }
 }
 
 // 0x451B70 (verificada contra el desensamblado, lote 62): elige el siguiente nodo al que ir "deambulando" desde originAddress (si no es valido, o si pos esta a mas de max(7, anchura del nodo) de el, se busca el nodo mas

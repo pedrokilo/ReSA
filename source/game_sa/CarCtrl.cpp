@@ -97,6 +97,12 @@ static void CarCtrlAirExeBoatSpecial(CVehicle* boat) { reinterpret_cast<void(__t
 bool Native_00424100(float, float) { return false; }
 #pragma optimize("", on)
 
+// Lote 207A (sin validar): funciones sueltas del EXE atribuidas por el listado a CCarCtrl; se definen junto a FlyAIPlaneInCertainDirection.
+static bool WeaveForOtherCarSweepOverlaps(float angle, const CVector* p1, const CVector* p2, const CVector* p3, const CVector* p4, const CVector* p5, const CVector* p6, const CVector* p7, const CVector* p8,
+                                          float velocityX, float velocityY, float speed, uint32 flagArgument);
+static bool FlyAIPlaneProbeGround(CPhysical* plane, float elevation, float heading, float* outZ);
+static float FlyAIPlaneClearanceAhead(CPhysical* plane, float heading);
+
 void CCarCtrl::InjectHooks()
 {
     RH_ScopedClass(CCarCtrl);
@@ -224,6 +230,10 @@ void CCarCtrl::InjectHooks()
     RH_ScopedInstall(TestCollisionBetween2MovingRects_OnlyFrontBumper, 0x425F70);
     RH_ScopedInstall(SlowCarDownForOtherCar, 0x42D0E0);
     RH_ScopedInstall(WeaveForOtherCar, 0x426350);
+    // Lote 207A (sin validar): funciones sueltas del EXE que el listado atribuia a CCarCtrl (nombres propios; ver reversing/PendienteValidar/207A.md)
+    RH_ScopedGlobalInstall(WeaveForOtherCarSweepOverlaps, 0x421A50);
+    RH_ScopedGlobalInstall(FlyAIPlaneProbeGround, 0x422E10);
+    RH_ScopedGlobalInstall(FlyAIPlaneClearanceAhead, 0x422F80);
     RH_ScopedInstall(WeaveForObject, 0x426BC0);
     RH_ScopedInstall(WeaveForPed, 0x426970);
     RH_ScopedInstall(SlowCarDownForCarsSectorList<CPtrListDoubleLink<CVehicle*>>, 0x432420);
@@ -1626,6 +1636,135 @@ void CCarCtrl::FlyAIHeliToTarget_FixedOrientation(CHeli* heli, float Orientation
     heli->m_fSteeringUpDown = out[6];
 }
 
+// Ayudantes x87 del lote 207A (sin validar), definidos al final de X87Math.cpp; declarados aqui para no recompilar todo el proyecto al tocar X87Math.h.
+void __cdecl Wv207SweepVelocityCpp(float angle, float velocityX, float velocityY, float speed, float* out);   // 0x421A50: velocidad relativa por 100
+void __cdecl Wv207ProbeEndCpp(float elevation, const float* dir, const float* start, float* end);              // 0x422E10: extremo del rayo de la sonda
+
+// 0x421A50 (lote 207A, sin validar; el listado decia CCarCtrl y es el barrido de CCarCtrl::WeaveForOtherCar, que lo llama dos veces desde 0x426896 y 0x426919; cdecl, 13 argumentos en la pila, `ret`, resultado en AL,
+// 1418 bytes): comprueba si el rectangulo B (esquina p5 y lados p6, esquina p7 y lados p8) barrido por la velocidad relativa corta el rectangulo A (esquina p1 y lado p2, esquina p3 y lado p4) con 16 llamadas
+// a CCollision::Test2DLineAgainst2DLine (0x4138D0; segmentos como origen + vector). Velocidad relativa V = ((vx - cos(angulo) * velocidad) * 100.0f, (vy - sin(angulo) * velocidad) * 100.0f) (Wv207SweepVelocityCpp).
+// Con el byte bajo de `flagArgument` distinto de cero se intercambian los dos rectangulos (A <-> B) y se niega V. Despues, para cada una de las dos esquinas de B (p5 y p7), se construyen los cuatro segmentos
+// esquina -> esquina + lado (P), P -> esquina + V (Q0: NO P + V, como el EXE), Q0 -> P + V (Q1) y Q1 -> esquina, y se prueba cada uno primero contra el lado de la esquina de A (a1, a2) y despues contra (a3, a4):
+// el orden es [A12: e1..e4], [A34: e1..e4] para la primera esquina y lo mismo para la segunda (la segunda con P = p7 + p8 sumado con CVector 0x40FE30). Corta en el primer verdadero; si ninguno, devuelve el ultimo.
+// Todas las operaciones son sumas y restas de floats guardados (24 bits en el x87 = float del SSE de la DLL). Argumentos reales: el 13 es un dword de pila cuyo byte bajo es la bandera (los tres altos son basura).
+static bool WeaveForOtherCarSweepOverlaps(float angle, const CVector* p1, const CVector* p2, const CVector* p3, const CVector* p4, const CVector* p5, const CVector* p6, const CVector* p7, const CVector* p8,
+                                          float velocityX, float velocityY, float speed, uint32 flagArgument) {
+    float velocity[2];
+    Wv207SweepVelocityCpp(angle, velocityX, velocityY, speed, velocity);
+    float vx = velocity[0];
+    float vy = velocity[1];
+
+    const CVector* a1 = p1;
+    const CVector* a2 = p2;
+    const CVector* a3 = p3;
+    const CVector* a4 = p4;
+    const CVector* b1 = p5;
+    const CVector* b2 = p6;
+    const CVector* b3 = p7;
+    const CVector* b4 = p8;
+    if ((flagArgument & 0xFFu) != 0) { // `test al,al` sobre el byte bajo del argumento 13
+        vx = -vx; // fchs
+        vy = -vy;
+        std::swap(a1, b1);
+        std::swap(a2, b2);
+        std::swap(a3, b3);
+        std::swap(a4, b4);
+    }
+
+    const auto test = [](const CVector* origin, const CVector* side, float startX, float startY, float deltaX, float deltaY) {
+        return CCollision::Test2DLineAgainst2DLine(origin->x, origin->y, side->x, side->y, startX, startY, deltaX, deltaY);
+    };
+
+    // Primera esquina de B (b1) y su lado (b2)
+    {
+        const float cx  = b1->x;
+        const float cy  = b1->y;
+        const float px  = b2->x + cx;
+        const float py  = cy + b2->y;
+        const float q0x = vx + cx;
+        const float q0y = vy + cy;
+        const float q1x = px + vx;
+        const float q1y = py + vy;
+        if (test(a1, a2, cx, cy, px - cx, py - cy) || test(a1, a2, px, py, q0x - px, q0y - py) || test(a1, a2, q0x, q0y, q1x - q0x, q1y - q0y) || test(a1, a2, q1x, q1y, cx - q1x, cy - q1y)) {
+            return true;
+        }
+        if (test(a3, a4, cx, cy, px - cx, py - cy) || test(a3, a4, px, py, q0x - px, q0y - py) || test(a3, a4, q0x, q0y, q1x - q0x, q1y - q0y) || test(a3, a4, q1x, q1y, cx - q1x, cy - q1y)) {
+            return true;
+        }
+    }
+
+    // Segunda esquina de B (b3) y su lado (b4): P = b3 + b4 (CVector 0x40FE30; solo se usan x e y)
+    const float cx  = b3->x;
+    const float cy  = b3->y;
+    const float px  = b3->x + b4->x;
+    const float py  = b3->y + b4->y;
+    const float q2x = vx + cx; // [esp+40h]: esquina + V
+    const float q2y = vy + cy;
+    const float q3x = vx + px; // [esp+34h]: P + V
+    const float q3y = vy + py;
+    if (test(a1, a2, cx, cy, px - cx, py - cy) || test(a1, a2, px, py, q2x - px, q2y - py) || test(a1, a2, q2x, q2y, q3x - q2x, q3y - q2y) || test(a1, a2, q3x, q3y, cx - q3x, cy - q3y)) {
+        return true;
+    }
+    if (test(a3, a4, cx, cy, px - cx, py - cy) || test(a3, a4, px, py, q2x - px, q2y - py) || test(a3, a4, q2x, q2y, q3x - q2x, q3y - q2y)) {
+        return true;
+    }
+    return test(a3, a4, q3x, q3y, cx - q3x, cy - q3y); // `test al,al; setne al`
+}
+
+// 0x422E10 (lote 207A, sin validar; el listado decia CCarCtrl; sonda de altitud de FlyAIPlaneInCertainDirection: la llama 0x422F80 seis veces; cdecl, 4 argumentos, `ret`, resultado en AL, 353 bytes): lanza un rayo
+// desde (posicion + velocidad x 50.0f) con la direccion horizontal (cos(rumbo), sen(rumbo), 0) normalizada (CVector::Normalise 0x59C910) multiplicada por cos(elevacion) mas (0, 0, sen(elevacion)), de longitud 200.0f
+// (Wv207ProbeEndCpp), contra los edificios (CWorld::ProcessLineOfSight 0x56BA00: solo el argumento 5 y el 12 a verdadero). Si choca, escribe la z del punto de choque en *outZ y devuelve true; si no, false.
+// La entidad lee m_matrix y, si es nula, la posicion compacta (+4). Orden del EXE: la direccion se calcula (coseno antes que seno) antes del rayo.
+static bool FlyAIPlaneProbeGround(CPhysical* plane, float elevation, float heading, float* outZ) {
+    const CVector& position = plane->GetPosition();
+    const CVector  velocity = plane->m_vecMoveSpeed;
+    const float    scaledX  = velocity.x * 50.0f; // 0x858B40
+    const float    scaledY  = velocity.y * 50.0f;
+    const float    scaledZ  = velocity.z * 50.0f;
+    CVector start;
+    start.z = scaledZ + position.z;
+    start.y = scaledY + position.y;
+    start.x = scaledX + position.x;
+
+    CVector direction;
+    direction.z = 0.0f;
+    direction.x = TrigSimpleCosCpp(heading);
+    direction.y = TrigSimpleSinCpp(heading);
+    direction.Normalise();
+
+    CVector end;
+    Wv207ProbeEndCpp(elevation, &direction.x, &start.x, &end.x);
+
+    CColPoint colPoint;
+    CEntity*  entity;
+    if (!CWorld::ProcessLineOfSight(start, end, colPoint, entity, true, false, false, false, false, false, false, true)) {
+        return false;
+    }
+    *outZ = colPoint.m_vecPoint.z;
+    return true;
+}
+
+// 0x422F80 (lote 207A, sin validar; el listado decia CCarCtrl; cdecl, 2 argumentos, `ret`, resultado float en ST0, 117 bytes; lo llama FlyAIPlaneInCertainDirection desde 0x42308C y 0x4230F7): recorre la tabla de seis
+// elevaciones del EXE (0x8A5B2C..0x8A5B44: pi/30, pi/60, 0.0, -pi/9, -2pi/9, -pi/3) con la sonda 0x422E10 para el rumbo dado: si la PRIMERA acierta devuelve 100000.0f (0x858EF8) sin mirar las demas; si no,
+// el resultado es la z mas alta de las que aciertan (el maximo arranca en 0.0f y se sustituye cuando !(maximo > z): `fcomp; test ah,41h; je`, un NaN lo sustituye).
+static float FlyAIPlaneClearanceAhead(CPhysical* plane, float heading) {
+    const float* const table = reinterpret_cast<const float*>(0x8A5B2C);
+    float maximum = 0.0f;
+    float probeZ;
+    for (const float* entry = table; entry < table + 6; ++entry) {
+        if (!FlyAIPlaneProbeGround(plane, *entry, heading, &probeZ)) {
+            continue;
+        }
+        if (entry == table) {
+            return std::bit_cast<float>(0x47C35000u); // 100000.0f (0x858EF8)
+        }
+        if (!(maximum > probeZ)) {
+            maximum = probeZ;
+        }
+    }
+    return maximum;
+}
+
 // 0x423000
 void CCarCtrl::FlyAIPlaneInCertainDirection(CPlane* pPlane) {
     // Como el original. Una vez por segundo de reloj (con la semilla del avion) sondea rumbos alternativos con la funcion 0x422F80 del EXE (dos pasadas sobre 19 candidatos a +-15 grados) y fija
@@ -1666,7 +1805,7 @@ void CCarCtrl::FlyAIPlaneInCertainDirection(CPlane* pPlane) {
                 if (pass == 0 ? !inRange : inRange != 0) {
                     continue;
                 }
-                const float clearance = reinterpret_cast<float(__cdecl*)(CPlane*, float)>(0x422F80)(plane, t);
+                const float clearance = FlyAIPlaneClearanceAhead(plane, t); // 0x422F80 (lote 207A: ya reconstruida)
                 if (!(clearance < 150.0f)) {
                     continue;
                 }
@@ -1716,9 +1855,9 @@ void CCarCtrl::FlyAIPlaneInCertainDirection(CPlane* pPlane) {
     }
 }
 
-// 0x452090 (CPathFind::Find2NodesForCarCreation, thiscall, `ret 0x18`) sin reconstruir: se llama por direccion
+// 0x452090 (CPathFind::Find2NodesForCarCreation, thiscall, `ret 0x18`): reconstruida en el lote 207A (sin validar); antes se llamaba por direccion
 static void CarCtrlGc2Find2Nodes(const CVector& pos, CNodeAddress* first, CNodeAddress* second, bool lowTraffic) {
-    reinterpret_cast<void(__thiscall*)(CPathFind*, CVector, CNodeAddress*, CNodeAddress*, bool)>(0x452090)(&ThePaths, pos, first, second, lowTraffic);
+    ThePaths.Find2NodesForCarCreation(pos, first, second, lowTraffic);
 }
 
 // 0x424210
@@ -7368,8 +7507,8 @@ void CCarCtrl::WeaveForOtherCar(CEntity* entity, CVehicle* vehicle, float* arg3,
     const float entitySpeedX = entity->AsPhysical()->m_vecMoveSpeed.x;
     const float entitySpeedY = entity->AsPhysical()->m_vecMoveSpeed.y;
 
-    using SweepTest = bool(__cdecl*)(float, const CVector*, const CVector*, const CVector*, const CVector*, const CVector*, const CVector*, const CVector*, const CVector*, float, float, float, uint32);
-    const auto sweepTest = reinterpret_cast<SweepTest>(0x421A50);
+    // 0x421A50 (barrido): reconstruido en el lote 207A (sin validar); antes se llamaba por direccion
+    const auto sweepTest = &WeaveForOtherCarSweepOverlaps;
     for (int32 step = 0; step < 8;) {
         if (!sweepTest(*arg3, &vehicleCorner1, &vehicleSide1, &vehicleCorner2, &vehicleSide2, &entityCorner1, &entitySide1, &entityCorner2, &entitySide2, entitySpeedX, entitySpeedY, speed, flagArgument)) {
             break;
