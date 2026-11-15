@@ -1453,8 +1453,9 @@ void _rwD3D9SetStreams(const RxD3D9VertexStream* streams, RwBool useOffsets) {
     plugin::CallAndReturn<void, 0x7FA090>(streams, useOffsets);
 }
 
+// 0x7FAD20 (mov eax, 0C9BF00h; ret): devuelve la direccion fija del D3DCAPS9 de RenderWare (_RwD3D9DeviceCaps). Lote R1A (sin validar).
 const void* RwD3D9GetCaps() { // D3DCAPS9*
-   return ((const void*(__cdecl *)(void))0x7FAD20)();
+   return reinterpret_cast<const void*>(0xC9BF00);
 }
 
 RwBool RwD3D9CameraIsSphereFullyInsideFrustum(const void* camera, const void* sphere) {
@@ -1478,8 +1479,18 @@ void _rwD3D9DeviceSetRestoreCallback(rwD3D9DeviceRestoreCallBack callback) {
    ((void(__cdecl *)(rwD3D9DeviceRestoreCallBack))0x7FAE20)(callback);
 }
 
+// 0x7FAE30 (mov eax, [0C980B0h]; ret): devuelve el puntero de la funcion de restauracion guardado por _rwD3D9DeviceSetRestoreCallback. Lote R1A (sin validar).
 rwD3D9DeviceRestoreCallBack _rwD3D9DeviceGetRestoreCallback() {
-   return ((rwD3D9DeviceRestoreCallBack(__cdecl *)(void))0x7FAE30)();
+   return StaticRef<rwD3D9DeviceRestoreCallBack>(0xC980B0);
+}
+
+// Funciones del controlador D3D9 de RenderWare de tamano trivial (lote R1A, sin validar).
+void RwD3D9InjectHooksR1A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwD3D9");
+
+    RH_ScopedGlobalInstall(RwD3D9GetCaps, 0x7FAD20);
+    RH_ScopedGlobalInstall(_rwD3D9DeviceGetRestoreCallback, 0x7FAE30);
 }
 
 RwImage* RwImageResample(RwImage* dstImage, const RwImage* srcImage) {

@@ -53,6 +53,7 @@ struct RwResEntrySA : RwResEntry {
 void RwCoreInjectHooks();
 void RwPlCoreInjectHooks();
 void RwCoreInjectHooks25d();   // grupo g25d (biblioteca RenderWare / driver D3D9)
+void RwD3D9InjectHooksR1A();     // lote R1A (sin validar): RwD3D9GetCaps y _rwD3D9DeviceGetRestoreCallback
 void RwPlCoreInjectHooks25d();
 
 template<typename T>

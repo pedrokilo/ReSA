@@ -11776,3 +11776,15 @@ WaterCreatureManager_c,Constructor,0x006E3EB0,1,0,0,S
 WaterCreatureManager_c,Destructor,0x006E3F20,1,0,0,S
 CWaterLevel,IsPointInCameraDepthRange,0x006E67A0,1,0,0,S
 CAudioZones,BugstarWriteScreenShotEntry,0x00509230,1,0,0,S
+RtDict,RtDictSchemaInit,0x007CED40,1,0,0,S
+RtDict,RtDictSchemaSetCurrentDict,0x007CEEF0,1,0,0,S
+RtDict,_rtDictDestruct,0x007CEF60,1,0,0,S
+RtDict,RtDictFindNamedEntry,0x007CEFE0,1,0,0,S
+RtDict,RtDictForAllEntries,0x007CF060,1,0,0,S
+RtDict,RtDictRemoveEntry,0x007CF0C0,1,0,0,S
+RtDict,RtDictDestroy,0x007CF130,1,0,0,S
+RtDict,RtDictSchemaStreamReadDict,0x007CF240,1,0,0,S
+RtDict,RtDictStreamWrite,0x007CF490,1,0,0,S
+RtDict,RtDictSchemaForAllDictionaries,0x007CF5B0,1,0,0,S
+RwD3D9,RwD3D9GetCaps,0x007FAD20,1,0,0,S
+RwD3D9,_rwD3D9DeviceGetRestoreCallback,0x007FAE30,1,0,0,S
