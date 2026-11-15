@@ -1,6 +1,7 @@
 #include "StdInc.h"
 
 #include "OctTree.h"
+#include "PoolRaw.h"
 auto& gpTmpOctTree = StaticRef<COctTree*>(0xBC12D8);
 
 // Lote 203A (sin validar). Funciones del EXE de COctTree (arbol de octantes de la paleta de texturas; objetos de 0x28 bytes en el pool 0xBC12E4). Disposicion: +0 vtable (0x867170 para COctTree, 0x867178 para COctTreeBase),
@@ -25,7 +26,7 @@ void ReleaseChildren(COctTree* self) {
         if (COctTree* const elem = COctTree::ms_octTreePool.GetAt(child)) {
             SetExeVtable(elem);
             elem->empty();
-            COctTree::ms_octTreePool.Delete(elem);
+            notsa::pool_raw::ReleaseSlot(&COctTree::ms_octTreePool, elem, sizeof(COctTree)); // sin las comprobaciones de CPool::Delete (ver PoolRaw.h)
         }
         child = -1;
     }
@@ -45,7 +46,7 @@ COctTree* __fastcall OctTreeScalarDeletingDestructorExe(COctTree* self, void* /*
     SetExeVtable(self);
     self->empty();
     if (flags & 1) {
-        COctTree::ms_octTreePool.Delete(self);
+        notsa::pool_raw::ReleaseSlot(&COctTree::ms_octTreePool, self, sizeof(COctTree));
     }
     return self;
 }
@@ -108,7 +109,7 @@ COctTree* __fastcall OctTreePoolNewExe(COctTreePool* pool, void* /*edx*/) {
 
 // 0x5A73C0 (thiscall, un argumento de pila, `ret 4`, 49 bytes): CPool<COctTree>::Delete del EXE: indice = (puntero - datos) / 0x28; estado |= 0x80; cursor = min(cursor, indice) con signo; sin comprobar nulo ni el rango.
 void __fastcall OctTreePoolDeleteExe(COctTreePool* pool, void* /*edx*/, COctTree* obj) {
-    pool->Delete(obj);
+    notsa::pool_raw::ReleaseSlot(pool, obj, sizeof(COctTree));
 }
 
 // 0x5A6E60 y 0x5A72B0 (thiscall, sin argumentos de pila, `ret`, 54 bytes cada una, sin llamadores ni referencias: copias muertas de la plantilla CPool<T>::Flush; la misma que el codigo en linea de ShutdownPool 0x5A6F70 pero con el cursor y el

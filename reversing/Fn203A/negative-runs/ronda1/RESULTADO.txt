@@ -1,0 +1,3 @@
+FALLO: Fn203A
+Diferencia en COctTree::Constructor 1
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn203a\20261115-155909-751326

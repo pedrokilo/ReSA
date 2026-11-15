@@ -36,6 +36,7 @@ END GENERATED HOOK STATUS */
 
 #include "VehicleModelInfo.h"
 #include "CustomCarPlateMgr.h"
+#include "Core/PoolRaw.h"
 #include "LoadingScreen.h"
 #include "CarFXRenderer.h"
 
@@ -105,7 +106,7 @@ CVehicleStructure* __fastcall VehicleStructurePoolNewExe(CPool<CVehicleStructure
 // 0x4C9580 (lote 203A, sin validar; cdecl, un argumento de pila, `ret`, 49 bytes): CVehicleStructure::operator delete del EXE. Con el pool del puntero global 0xB4E680: indice = (puntero - datos) / 0x314; estado |= 0x80; cursor = min(cursor, indice) con signo;
 // sin comprobar nulo ni el rango.
 void __cdecl VehicleStructureOperatorDeleteExe(void* data) {
-    CVehicleStructure::operator delete(data);
+    notsa::pool_raw::ReleaseSlot(CVehicleStructure::m_pInfoPool, data, sizeof(CVehicleStructure)); // sin las comprobaciones de CPool::Delete (ver PoolRaw.h)
 }
 
 // 0x4C9840 (lote 203A, sin validar; thiscall, un argumento de pila, `ret 4`, 76 bytes): destructor con borrado de CVehicleStructure del EXE (no es de una vtable). Como el original: destruye con el cuerpo de la clase (0x4C7410, con hook) y, con el bit 0 del BYTE de
@@ -113,7 +114,7 @@ void __cdecl VehicleStructureOperatorDeleteExe(void* data) {
 CVehicleStructure* __fastcall VehicleStructureScalarDeletingDestructorExe(CVehicleStructure* self, void* /*edx*/, uint8 flags) {
     VehicleStructureDestructorExe(self, nullptr);
     if (flags & 1) {
-        CVehicleStructure::operator delete(self);
+        notsa::pool_raw::ReleaseSlot(CVehicleStructure::m_pInfoPool, self, sizeof(CVehicleStructure));
     }
     return self;
 }

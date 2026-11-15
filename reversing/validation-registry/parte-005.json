@@ -56249,6 +56249,1156 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre main 9acc2209e0 con el lote 199A (cherry-pick de 16fc4bca8b sin lo de los lotes 189A, 193A, 198A que arrastraba esa rama: CPool<CPed>::GetAt, el cuerpo del destructor, constructor, GetTaskType, CreateNextSubTask y CreateFirstSubTask de CTaskComplexReactToAttack y CPed::SetKindaStayInSamePlace quedan fuera; el constructor 0x620B00 corre como codigo real del EXE y la DLL lo llama por su direccion; ver artifacts/build-manifest.json). 30 funciones del EXE sin hook de clases de tareas, eventos, peds, camaras y pools (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, pools reales, ranuras de pool fuera de rango, ranuras ocupadas o dobles liberaciones (la plantilla de la DLL afirma), memoria agotada en CTaskComplexKillPedOnFoot::Clone (el EXE falla), posiciones de jugador de mas de 2^60 o con NaN/infinitos y angulos NaN/infinitos o de mas de 2^14 en la geometria de la camara de dos jugadores (x87 de exponente ampliado), y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn199A/README.md"
+    },
+    {
+      "hook": {
+        "class": "COctTree",
+        "fn_name": "Constructor",
+        "address": "0x005A6DB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "COctTree::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "COctTree",
+        "fn_name": "PoolFlush5A6E60",
+        "address": "0x005A6E60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "COctTree::PoolFlush5A6E60"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "COctTree",
+        "fn_name": "empty",
+        "address": "0x005A6FC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "COctTree::empty"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "COctTree",
+        "fn_name": "PoolFlush5A72B0",
+        "address": "0x005A72B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "COctTree::PoolFlush5A72B0"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "COctTree",
+        "fn_name": "PoolNew",
+        "address": "0x005A7350",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "COctTree::PoolNew"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "COctTree",
+        "fn_name": "PoolDelete",
+        "address": "0x005A73C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "COctTree::PoolDelete"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "COctTree",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x005A7490",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "COctTree::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "COctTree",
+        "fn_name": "RemoveChildren",
+        "address": "0x005A74F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "COctTree::RemoveChildren"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "COctTree",
+        "fn_name": "InsertTree",
+        "address": "0x005A75B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "COctTree::InsertTree"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "COctTreeBase",
+        "fn_name": "Constructor",
+        "address": "0x005A7570",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "COctTreeBase::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClothesBuilder",
+        "fn_name": "DestroyTextureCB",
+        "address": "0x005A44A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CClothesBuilder::DestroyTextureCB"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClothesBuilder",
+        "fn_name": "GetAtomicWithNameCB",
+        "address": "0x005A47E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CClothesBuilder::GetAtomicWithNameCB"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAttractorScanner",
+        "fn_name": "FindAttractorInRange",
+        "address": "0x006002F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CAttractorScanner::FindAttractorInRange"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicleModelInfo",
+        "fn_name": "Constructor",
+        "address": "0x004C75E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CVehicleModelInfo::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicleModelInfo",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x004C8E10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CVehicleModelInfo::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicleStructure",
+        "fn_name": "Destructor",
+        "address": "0x004C7410",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CVehicleStructure::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicleStructure",
+        "fn_name": "Constructor",
+        "address": "0x004C8D60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CVehicleStructure::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicleStructure",
+        "fn_name": "PoolNew",
+        "address": "0x004C94C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CVehicleStructure::PoolNew"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicleStructure",
+        "fn_name": "OperatorDelete",
+        "address": "0x004C9580",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CVehicleStructure::OperatorDelete"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicleStructure",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x004C9840",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CVehicleStructure::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexAvoidEntity",
+        "fn_name": "Constructor",
+        "address": "0x0066AA20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexAvoidEntity::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexAvoidEntity",
+        "fn_name": "GetTaskType",
+        "address": "0x0066AAD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexAvoidEntity::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexAvoidEntity",
+        "fn_name": "DestructorBody",
+        "address": "0x0066AAE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn203A/validation-summary.json",
+        "sha256": "8b32ea94f4288cc9ef7d63295578d47be8de33c50c4f928dfecb80d28822c2b9",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexAvoidEntity::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "b7f837a2554c9d8e1a71777732119bdc04c1728e9f30c65759dc274b0fd41f77",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Core/OctTree.cpp": "8e66d7b595d40dea920e60f61b6ecfa04878ca11bd0b6ea789ee4ecab99e2378",
+        "source/game_sa/Core/OctTree.h": "c28e10b0571076fac5cbee7817e687e2827eb50cb04e03d38461fad85ee5ae0a",
+        "source/game_sa/Core/OctTreeBase.cpp": "107aba2526da596eb677053e0f70c59019714dd088d17cfd4b7d797592d36f15",
+        "source/game_sa/Core/OctTreeBase.h": "51a968955d61158cf03d303cd7123824b6e0c521ac61a3edbbb75ef039c93570",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/Core/PoolRaw.h": "24a8e86b5a5c8e5e59b0f27a0b1ee8a58688e12066a3514d888effcae1d31a13",
+        "source/game_sa/ClothesBuilder.cpp": "32f7162217793ab75fcf94a4214e3557a2ea4f3364cb745087c9cde340ff0702",
+        "source/game_sa/AttractorScanner.cpp": "5bacd8d67d0946da8eb07a21c4e08ab743575b78a348ad99315d48958757ca63",
+        "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "b1fd5671498efe29117d87164faf4c36fa15e0b086ec3f018c17ef12a1fe7eaf",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp": "7effce8bbf78ea9355ab1303108c77a8ca48cd453fd29fac9ce18d85fea98e6d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h": "3de0a9397e273a79acad06614d6a5f12d0a5fc2503cfaece631e2abeb142d2c9",
+        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
+        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn203A/LiveComparison.hpp": "236c572af9e98c84bd2a09523a232f2e18494a779719d2011bbaed2b76933705",
+        "reversing/Fn203A/Core.hpp": "b97653ec71df172d46a4cde939a1b94eb23323d0aeeb36d0b09289abc84829a9",
+        "reversing/Fn203A/Fixtures.hpp": "860d0e405033d7b30fc5e70b61f39a69dc27af1706396703267d35563b4d480c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 9acc2209e0 con los cambios del lote (cherry-pick de a3b7641906 y las correcciones del banco; ver artifacts/build-manifest.json). 23 funciones del EXE de COctTree/COctTreeBase (arbol de octantes de paleta), dos callbacks de CClothesBuilder, FindAttractorInRange (CAttractorScanner), CVehicleModelInfo (constructor y destructor con borrado), CVehicleStructure (destructor, constructor, CPool::New, operator delete y destructor con borrado) y CTaskComplexAvoidEntity (constructor, GetTaskType y cuerpo del destructor); clases por desensamblado. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); las 23 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, hijos de COctTree con ranura libre en InsertTree (el EXE desreferencia nulo), ciclos entre hijos, indices de hijo fuera del pool, cursores de pool fuera de [-1, capacidad), punteros de pool fuera del pool al liberar, contador de extras de CVehicleStructure por encima de 6, pools y objetos reales construidos por el EXE, objetos RenderWare reales, el _stricmp del CRT del EXE (la DLL usa el suyo), y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn203A/README.md"
     }
   ]
 }
