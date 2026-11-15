@@ -663,6 +663,7 @@
 // Hooks de biblioteca del grupo g25b (RenderWare SDK / controlador D3D9); el sufijo evita colisiones con otros registradores.
 void RwCoreInjectHooks25b();
 void RpWorldInjectHooks25b();
+void RpWorldInjectHooks227A();
 void RpAnisotInjectHooks();
 void CMatrixInjectHooksLote101A(); // Matrix.cpp (lote 101A)
 void CMatrixInjectHooksLote103A(); // Matrix.cpp (lote 103A)
@@ -731,6 +732,7 @@ void InjectHooksMain() {
     CShadows::InjectHooks();
     RwCoreInjectHooks25b();
     RpWorldInjectHooks25b();
+    RpWorldInjectHooks227A();
     RpAnisotInjectHooks();
     CCam::InjectHooks();
     CCarAI::InjectHooks();

@@ -1003,6 +1003,337 @@ RpAtomic* RpAtomicSetFrame(RpAtomic* atomic, RwFrame* frame) {
     return atomic;
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
+// Lote 227A (sin validar): RpClump (creacion, clonado, destruccion, listas de atomicos/luces, lectura de flujo) y los
+// registros de plugins de RpAtomic/RpClump. Todo el codigo sigue el desensamblado del EXE (0x749F70..0x74BE70).
+// ---------------------------------------------------------------------------------------------------------------------
+namespace {
+
+// Registro de plugins de RpClump y desplazamientos de plugin que dejan RpWorldPluginAttach (0x74FDxx) / clumpModule en el EXE.
+static auto& s_clumpTKList       = StaticRef<RwPluginRegistry>(0x8D6264);
+static auto& s_clumpModuleOffset = StaticRef<RwInt32>(0xC924AC);  // clumpModule.globalsOffset (globales del modulo dentro de RwEngineInstance)
+static auto& s_cameraClumpOffset = StaticRef<RwInt32>(0xC924D8);  // desplazamiento del enlace de clump dentro de RwCamera
+static auto& s_lightClumpOffset  = StaticRef<RwInt32>(0xC924DC);  // desplazamiento del enlace de clump dentro de RpLight
+static auto& s_atomicRightsPluginID  = StaticRef<RwUInt32>(0xC924A8); // plugin cuyos derechos se invocan tras leer un atomico
+static auto& s_atomicRightsExtraData = StaticRef<RwUInt32>(0xC92480);
+
+constexpr RwUInt32 kClumpAllocHint = 0x30010;
+constexpr RwUInt32 kGeomListAllocHint = 0x3000F;
+constexpr RwUInt32 kStreamVersionMin = 0x34000;
+constexpr RwUInt32 kStreamVersionMax = 0x36003;
+
+// Identificadores de chunk (rwID_*) y codigos de error que usa el EXE en esta zona.
+constexpr RwUInt32 kChunkStruct = 0x01, kChunkCamera = 0x05, kChunkFrameList = 0x0E, kChunkGeometry = 0x0F;
+constexpr RwUInt32 kChunkLight = 0x12, kChunkAtomic = 0x14, kChunkGeometryList = 0x1A;
+constexpr RwInt32 kErrBadVersion = static_cast<RwInt32>(0x80000004);
+constexpr RwInt32 kErrNoMem      = static_cast<RwInt32>(0x80000013);
+constexpr RwInt32 kErrRead       = static_cast<RwInt32>(0x8000001A);
+constexpr RwInt32 kErrCloneAtomicWithoutFrame = 5;
+constexpr RwInt32 kErrorPluginID = 2; // rwPLUGIN_ID del modulo world en las estructuras RwError del EXE
+
+// Funciones del EXE que se llaman por direccion fija (aun sin reconstruir en este lote).
+RpClumpCallBack DefaultClumpCallBack() { return reinterpret_cast<RpClumpCallBack>(static_cast<uintptr_t>(0x74A260)); }       // devuelve su primer argumento
+RwCameraCallBack ClumpCameraDestroyCallBack() { return reinterpret_cast<RwCameraCallBack>(static_cast<uintptr_t>(0x74A200)); } // quita la camara de la lista del clump y la destruye
+
+// Globales del modulo de clump dentro de RwEngineInstance (+globalsOffset): listas libres de atomicos (+0) y de clumps (+4).
+struct ClumpModuleGlobals {
+    RwFreeList* atomicFreeList;
+    RwFreeList* clumpFreeList;
+};
+inline ClumpModuleGlobals& ClumpGlobals() {
+    return *reinterpret_cast<ClumpModuleGlobals*>(reinterpret_cast<uintptr_t>(RwEngineInstance) + static_cast<uintptr_t>(s_clumpModuleOffset));
+}
+
+// RwFreeListAlloc / RwFreeListFree del motor: [RwEngineInstance + 0x144] y [+ 0x148], cdecl, (lista, puntero).
+static_assert(offsetof(RwGlobals, memoryAlloc) == 0x144);
+static_assert(offsetof(RwGlobals, memoryFree) == 0x148);
+inline void* FreeListAlloc(RwFreeList* freeList, RwUInt32 hint) {
+    return RwEngineInstance->memoryAlloc(freeList, hint);
+}
+inline void FreeListFree(RwFreeList* freeList, void* memory) {
+    RwEngineInstance->memoryFree(freeList, memory);
+}
+
+// RWERROR((codigo)) del EXE: estructura {pluginID 2, _rwerror(codigo)} y RwErrorSet.
+inline void RaiseRwError(RwInt32 code) {
+    RwError error;
+    error.pluginID = kErrorPluginID;
+    error.errorCode = _rwerror(code);
+    RwErrorSet(&error);
+}
+
+// Lista de geometrias que se carga junto con un clump (_rpGeometryList del SDK).
+struct RpGeometryList {
+    RpGeometry** geometries;
+    RwInt32      numGeoms;
+};
+
+// Datos del enlace de clump que un plugin guarda dentro de una luz o una camara: {clump, enlace de lista}.
+struct ClumpListEntry {
+    RpClump* clump;
+    RwLLLink link;
+};
+static_assert(offsetof(ClumpListEntry, link) == 4);
+static_assert(offsetof(RpAtomic, inClumpLink) == 0x40);
+static_assert(offsetof(RpAtomic, clump) == 0x3C);
+static_assert(offsetof(RpAtomic, repEntry) == 0x14);
+static_assert(offsetof(RpAtomic, geometry) == 0x18);
+static_assert(offsetof(RpAtomic, boundingSphere) == 0x1C);
+static_assert(offsetof(RpGeometry, morphTarget) == 0x5C);
+static_assert(offsetof(RpMorphTarget, boundingSphere) == 4);
+static_assert(offsetof(RpClump, atomicList) == 0x08);
+static_assert(offsetof(RpClump, lightList) == 0x10);
+static_assert(offsetof(RpClump, cameraList) == 0x18);
+static_assert(offsetof(RpClump, callback) == 0x28);
+static_assert(offsetof(RwFrame, root) == 0xA0);
+
+inline ClumpListEntry* ListEntryOf(void* object, RwInt32 pluginOffset) {
+    return reinterpret_cast<ClumpListEntry*>(reinterpret_cast<uintptr_t>(object) + static_cast<uintptr_t>(pluginOffset));
+}
+// Objeto (luz o camara) al que pertenece un enlace de la lista del clump: enlace - desplazamiento - 4.
+inline void* ObjectOfListLink(RwLLLink* link, RwInt32 pluginOffset) {
+    return reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(link) - static_cast<uintptr_t>(pluginOffset) - offsetof(ClumpListEntry, link));
+}
+
+// Saca el enlace de su lista y pone a cero prev, next y clump (en ese orden), como el EXE.
+inline void UnlinkListEntry(ClumpListEntry* entry) {
+    RwLLLink* const prev = entry->link.prev;
+    prev->next = entry->link.next;
+    entry->link.next->prev = entry->link.prev;
+    entry->link.prev = nullptr;
+    entry->link.next = nullptr;
+    entry->clump = nullptr;
+}
+
+// Inserta el enlace al principio de la lista (la lista se relee tras tocar el enlace, como en el EXE).
+inline void AttachListEntry(ClumpListEntry* entry, RpClump* clump, RwLinkList* list) {
+    RwLLLink* const head = &list->link;
+    RwLLLink* const first = head->next;
+    entry->link.prev = head;
+    entry->link.next = first;
+    head->next->prev = &entry->link;
+    head->next = &entry->link;
+    entry->clump = clump;
+}
+
+// Cuerpo comun de "destruir el almacenamiento de un atomico" (0x74BCC0, el bucle de 0x74A310 y las salidas de error de 0x74B060):
+// destructores de plugins, entrada de recursos, geometria (con actualizacion del marco si esta en un mundo), marco y memoria.
+void DestroyAtomicStorage(RpAtomic* atomic) {
+    _rwPluginRegistryDeInitObject(&s_atomicTKList, atomic);
+    if (atomic->repEntry) {
+        RwResourcesFreeResEntry(atomic->repEntry);
+    }
+    if (atomic->geometry) {
+        RpGeometryDestroy(atomic->geometry);
+        RwFrame* const frame = static_cast<RwFrame*>(atomic->object.object.parent);
+        atomic->geometry = nullptr;
+        if (frame && RpAtomicGetWorld(atomic)) {
+            RwFrameUpdateObjects(frame);
+        }
+    }
+    _rwObjectHasFrameReleaseFrame(atomic);
+    FreeListFree(ClumpGlobals().atomicFreeList, atomic);
+}
+
+// Bucle de RpAtomicDestroy sobre la lista de atomicos de un clump (copiado tal cual en las salidas de error de 0x749F70 y 0x74B420):
+// lee el siguiente enlace antes de destruir; corta si el atomico (enlace - 0x40) es nulo o si no queda mas lista.
+void DestroyClumpAtomicsWithRpAtomicDestroy(RpClump* clump) {
+    RwLLLink* const end = &clump->atomicList.link;
+    RwLLLink* link = end->next;
+    if (link == end) {
+        return;
+    }
+    for (;;) {
+        RwLLLink* const next = link->next;
+        RpAtomic* const atomic = rwLLLinkGetData(link, RpAtomic, inClumpLink);
+        RpAtomicDestroy(atomic);
+        if (!atomic) {
+            break;
+        }
+        if (next == end) {
+            break;
+        }
+        link = next;
+    }
+}
+
+// Final comun de las salidas de error de 0x749F70: quita las camaras con el callback del EXE (0x74A200), destruye el marco
+// raiz (si hay) y devuelve el clump a su lista libre.
+void FreeClumpCamerasFrameAndMemory(RpClump* clump) {
+    RpClumpForAllCameras(clump, ClumpCameraDestroyCallBack(), nullptr);
+    if (clump->object.parent) {
+        RwFrameDestroyHierarchy(static_cast<RwFrame*>(clump->object.parent));
+    }
+    FreeListFree(ClumpGlobals().clumpFreeList, clump);
+}
+
+// 0x74A1C0: callback de RpClumpForAllLights; quita el enlace de la luz de la lista del clump, lo pone a cero y destruye la luz.
+RpLight* ClumpLightDestroyCallBack(RpLight* light, void* /*data*/) {
+    UnlinkListEntry(ListEntryOf(light, s_lightClumpOffset));
+    RpLightDestroy(light);
+    return light;
+}
+
+// 0x74BCC0: callback de RpClumpForAllAtomics que libera el atomico (sin sacarlo de la lista del clump).
+RpAtomic* ClumpAtomicDestroyCallBack(RpAtomic* atomic, void* /*data*/) {
+    DestroyAtomicStorage(atomic);
+    return atomic;
+}
+
+// 0x74AE50 (_rpGeometryListDeinitialize): destruye las geometrias de la lista y libera el vector con rwfree del motor.
+RpGeometryList* _rpGeometryListDeinitialize(RpGeometryList* geomList) {
+    for (RwInt32 i = 0; i < geomList->numGeoms; ++i) {
+        RpGeometryDestroy(geomList->geometries[i]);
+    }
+    if (geomList->geometries) {
+        RwFree(geomList->geometries);
+        geomList->geometries = nullptr;
+    }
+    return geomList;
+}
+
+// Tras fallar una lectura del atomico: libera el atomico y notifica el error.
+void AtomicReadFailure(RpAtomic* atomic, RwInt32 errorCode) {
+    DestroyAtomicStorage(atomic);
+    RaiseRwError(errorCode);
+}
+
+// Copia la esfera envolvente del primer morph target de la geometria al atomico (16 bytes, como cuatro dwords del EXE).
+inline void CopyMorphTargetSphereToAtomic(RpAtomic* atomic, const RpGeometry* geometry) {
+    std::memcpy(&atomic->boundingSphere, &geometry->morphTarget[0].boundingSphere, sizeof(RwSphere));
+}
+
+// Marca el marco del atomico como actualizable si el atomico esta en un mundo.
+inline void UpdateAtomicFrameIfInWorld(RpAtomic* atomic) {
+    RwFrame* const frame = static_cast<RwFrame*>(atomic->object.object.parent);
+    if (frame && RpAtomicGetWorld(atomic)) {
+        RwFrameUpdateObjects(frame);
+    }
+}
+
+// 0x74B060: lee un atomico del flujo (chunk estructura) y resuelve su marco y su geometria con las listas ya leidas del clump;
+// sin lista de geometrias lee la geometria del propio flujo. Cdecl (flujo, lista de marcos, lista de geometrias).
+RpAtomic* ClumpAtomicStreamRead(RwStream* stream, rwFrameList* frameList, RpGeometryList* geomList) {
+    RwUInt32 length;
+    RwUInt32 version;
+    if (!RwStreamFindChunk(stream, kChunkStruct, &length, &version)) {
+        RaiseRwError(kErrRead);
+        return nullptr;
+    }
+    if (version < kStreamVersionMin || version > kStreamVersionMax) {
+        RaiseRwError(kErrBadVersion);
+        return nullptr;
+    }
+    struct AtomicChunk {
+        RwInt32 frameIndex;
+        RwInt32 geomIndex;
+        RwInt32 flags;
+        RwInt32 unused;
+    } chunk = {};
+    if (RwStreamRead(stream, &chunk, length) != length) {
+        RaiseRwError(kErrRead);
+        return nullptr;
+    }
+
+    RpAtomic* const atomic = RpAtomicCreate();
+    if (!atomic) {
+        return nullptr;
+    }
+    atomic->object.object.flags = static_cast<RwUInt8>(chunk.flags);
+
+    if (frameList->numFrames) {
+        _rwObjectHasFrameSetFrame(atomic, frameList->frames[chunk.frameIndex]);
+        atomic->object.object.privateFlags |= rpATOMICPRIVATEWORLDBOUNDDIRTY;
+    }
+
+    if (geomList->numGeoms) {
+        RpGeometry* const geometry = geomList->geometries[chunk.geomIndex];
+        if (geometry != atomic->geometry) {
+            if (geometry) {
+                ++geometry->refCount; // RpGeometryAddRef (0x74CCB0: inc word ptr [geometry+0xE])
+            }
+            if (atomic->geometry) {
+                RpGeometryDestroy(atomic->geometry);
+            }
+            atomic->geometry = geometry;
+            if (geometry) {
+                CopyMorphTargetSphereToAtomic(atomic, geometry);
+            }
+            UpdateAtomicFrameIfInWorld(atomic);
+        }
+    } else {
+        RwUInt32 geometryVersion;
+        if (!RwStreamFindChunk(stream, kChunkGeometry, nullptr, &geometryVersion)) {
+            AtomicReadFailure(atomic, kErrRead);
+            return nullptr;
+        }
+        if (geometryVersion < kStreamVersionMin || geometryVersion > kStreamVersionMax) {
+            AtomicReadFailure(atomic, kErrBadVersion);
+            return nullptr;
+        }
+        RpGeometry* const geometry = RpGeometryStreamRead(stream);
+        if (!geometry) {
+            AtomicReadFailure(atomic, kErrRead);
+            return nullptr;
+        }
+        if (geometry != atomic->geometry) {
+            ++geometry->refCount; // RpGeometryAddRef
+            if (atomic->geometry) {
+                RpGeometryDestroy(atomic->geometry);
+            }
+            atomic->geometry = geometry;
+            CopyMorphTargetSphereToAtomic(atomic, geometry);
+            UpdateAtomicFrameIfInWorld(atomic);
+        }
+        RpGeometryDestroy(geometry); // suelta la referencia que dio la lectura
+    }
+
+    s_atomicRightsPluginID = 0;
+    s_atomicRightsExtraData = 0;
+    if (!_rwPluginRegistryReadDataChunks(&s_atomicTKList, stream, atomic)) {
+        RaiseRwError(kErrRead); // el EXE no libera el atomico en este camino
+        return nullptr;
+    }
+    if (s_atomicRightsPluginID) {
+        _rwPluginRegistryInvokeRights(&s_atomicTKList, s_atomicRightsPluginID, atomic, s_atomicRightsExtraData);
+    }
+    return atomic;
+}
+
+// Salidas de error de 0x74B420. "Cola 1" (0x74B527): luces y camaras del clump, marco raiz, memoria del clump y error de lectura.
+void ClumpReadFailTail(RpClump* clump) {
+    RpClumpForAllLights(clump, ClumpLightDestroyCallBack, nullptr);
+    RpClumpForAllCameras(clump, ClumpCameraDestroyCallBack(), nullptr);
+    if (clump->object.parent) {
+        RwFrameDestroyHierarchy(static_cast<RwFrame*>(clump->object.parent));
+    }
+    FreeListFree(ClumpGlobals().clumpFreeList, clump);
+    RaiseRwError(kErrRead);
+}
+
+// Fallo antes de leer la lista de marcos (o con ella ya liberada): destructores de plugins del clump y atomicos con RpAtomicDestroy.
+void ClumpReadAbortBeforeFrames(RpClump* clump) {
+    _rwPluginRegistryDeInitObject(&s_clumpTKList, clump);
+    DestroyClumpAtomicsWithRpAtomicDestroy(clump);
+    ClumpReadFailTail(clump);
+}
+
+// Fallo con la lista de marcos ya leida y la de geometrias liberada o inexistente (0x74B7DE / 0x74BBF5): atomicos con el callback del EXE.
+void ClumpReadAbortWithFrames(RpClump* clump, rwFrameList* frameList) {
+    _rwFrameListDeinitialize(frameList);
+    _rwPluginRegistryDeInitObject(&s_clumpTKList, clump);
+    RpClumpForAllAtomics(clump, ClumpAtomicDestroyCallBack, nullptr);
+    ClumpReadFailTail(clump);
+}
+
+// Fallo con la lista de geometrias ya creada: se libera antes de la salida comun.
+void ClumpReadAbortWithGeometries(RpClump* clump, rwFrameList* frameList, RpGeometryList* geomList) {
+    _rpGeometryListDeinitialize(geomList);
+    ClumpReadAbortWithFrames(clump, frameList);
+}
+
+} // namespace
+
 RpClump* RpClumpCreateSpace(const RwV3d* position, RwReal radius) {
     return ((RpClump*(__cdecl *)(const RwV3d*, RwReal))0x749970)(position, radius);
 }
@@ -1025,16 +1356,31 @@ RpClump* RpClumpRender(RpClump* clump) {
     return result;
 }
 
+// 0x74A4C0: saca el atomico de la lista del clump (el enlace no se pone a cero) y anula atomic->clump; devuelve el clump.
 RpClump* RpClumpRemoveAtomic(RpClump* clump, RpAtomic* atomic) {
-    return ((RpClump*(__cdecl *)(RpClump*, RpAtomic*))0x74A4C0)(clump, atomic);
+    RwLLLink* const prev = atomic->inClumpLink.prev;
+    prev->next = atomic->inClumpLink.next;
+    atomic->inClumpLink.next->prev = atomic->inClumpLink.prev;
+    atomic->clump = nullptr;
+    return clump;
 }
 
+// 0x74A490: inserta el atomico al principio de la lista del clump y le asigna el clump; devuelve el clump.
 RpClump* RpClumpAddAtomic(RpClump* clump, RpAtomic* atomic) {
-    return ((RpClump*(__cdecl *)(RpClump*, RpAtomic*))0x74A490)(clump, atomic);
+    RwLLLink* const head = &clump->atomicList.link;
+    RwLLLink* const first = head->next;
+    atomic->inClumpLink.prev = head;
+    atomic->inClumpLink.next = first;
+    head->next->prev = &atomic->inClumpLink;
+    head->next = &atomic->inClumpLink;
+    atomic->clump = clump;
+    return clump;
 }
 
+// 0x74A520: saca la luz de la lista del clump (enlace dentro de la luz, en el desplazamiento del plugin 0xC924DC) y lo pone a cero.
 RpClump* RpClumpRemoveLight(RpClump* clump, RpLight* light) {
-    return ((RpClump*(__cdecl *)(RpClump*, RpLight*))0x74A520)(clump, light);
+    UnlinkListEntry(ListEntryOf(light, s_lightClumpOffset));
+    return clump;
 }
 
 RpClump* RpClumpAddLight(RpClump* clump, RpLight* light) {
@@ -1049,16 +1395,197 @@ RpClump* RpClumpAddCamera(RpClump* clump, RwCamera* camera) {
     return ((RpClump*(__cdecl *)(RpClump*, RwCamera*))0x74A550)(clump, camera);
 }
 
+// 0x74A310: destruye el clump: destructores de plugins, atomicos (almacenamiento propio, sin sacarlos de la lista), luces y camaras
+// (sacan su enlace, lo ponen a cero y se destruyen), marco raiz y memoria del clump. Devuelve 1.
 RwBool RpClumpDestroy(RpClump* clump) {
-    return ((RwBool(__cdecl *)(RpClump*))0x74A310)(clump);
+    _rwPluginRegistryDeInitObject(&s_clumpTKList, clump);
+
+    RwLLLink* const atomicEnd = &clump->atomicList.link;
+    RwLLLink* link = atomicEnd->next;
+    if (link != atomicEnd) {
+        for (;;) {
+            RwLLLink* const next = link->next;
+            DestroyAtomicStorage(rwLLLinkGetData(link, RpAtomic, inClumpLink));
+            if (next == atomicEnd) {
+                break;
+            }
+            link = next;
+        }
+    }
+
+    RwLLLink* const lightEnd = &clump->lightList.link;
+    link = lightEnd->next;
+    if (link != lightEnd) {
+        for (;;) {
+            RwLLLink* const next = link->next;
+            const RwInt32 offset = s_lightClumpOffset;
+            RpLight* const light = static_cast<RpLight*>(ObjectOfListLink(link, offset));
+            UnlinkListEntry(ListEntryOf(light, offset));
+            RpLightDestroy(light);
+            if (!light) {
+                break;
+            }
+            if (next == lightEnd) {
+                break;
+            }
+            link = next;
+        }
+    }
+
+    RwLLLink* const cameraEnd = &clump->cameraList.link;
+    link = cameraEnd->next;
+    if (link != cameraEnd) {
+        for (;;) {
+            RwLLLink* const next = link->next;
+            const RwInt32 offset = s_cameraClumpOffset;
+            RwCamera* const camera = static_cast<RwCamera*>(ObjectOfListLink(link, offset));
+            UnlinkListEntry(ListEntryOf(camera, offset));
+            RwCameraDestroy(camera);
+            if (!camera) {
+                break;
+            }
+            if (next == cameraEnd) {
+                break;
+            }
+            link = next;
+        }
+    }
+
+    if (clump->object.parent) {
+        RwFrameDestroyHierarchy(static_cast<RwFrame*>(clump->object.parent));
+    }
+    FreeListFree(ClumpGlobals().clumpFreeList, clump);
+    return TRUE;
 }
 
+// 0x74A290: reserva un clump de la lista libre del modulo (pista 0x30010) y lo deja vacio: listas de atomicos, luces y camaras
+// vacias, tipo rpCLUMP (2), sin marco, callback por defecto (0x74A260) y plugins inicializados. Devuelve nulo si no hay memoria.
 RpClump* RpClumpCreate(void) {
-    return ((RpClump*(__cdecl *)(void))0x74A290)();
+    RpClump* const clump = static_cast<RpClump*>(FreeListAlloc(ClumpGlobals().clumpFreeList, kClumpAllocHint));
+    if (!clump) {
+        return nullptr;
+    }
+    clump->atomicList.link.prev = &clump->atomicList.link;
+    clump->atomicList.link.next = &clump->atomicList.link;
+    clump->lightList.link.prev = &clump->lightList.link;
+    clump->object.type = rpCLUMP;
+    clump->lightList.link.next = &clump->lightList.link;
+    clump->object.subType = 0;
+    clump->object.flags = 0;
+    clump->object.privateFlags = 0;
+    clump->object.parent = nullptr;
+    clump->cameraList.link.next = &clump->cameraList.link;
+    clump->cameraList.link.prev = &clump->cameraList.link;
+    clump->inWorldLink.prev = nullptr;
+    clump->inWorldLink.next = nullptr;
+    clump->callback = DefaultClumpCallBack();
+    _rwPluginRegistryInitObject(&s_clumpTKList, clump);
+    return clump;
 }
 
+// 0x749F70: clona el clump. Crea el clump, clona la jerarquia de marcos (_rwFrameCloneAndLinkClones deja en frame->root el clon),
+// clona cada atomico (RpAtomicClone) asignandole el marco clon y lo anade; al final purga los enlaces temporales de clones
+// (_rwFramePurgeClone) y copia callback y datos de plugins. Si algo falla destruye el clump nuevo y devuelve nulo.
 RpClump* RpClumpClone(RpClump* clump) {
-    return ((RpClump*(__cdecl *)(RpClump*))0x749F70)(clump);
+    RpClump* const newClump = RpClumpCreate();
+    if (!newClump) {
+        return nullptr;
+    }
+
+    newClump->object.parent = _rwFrameCloneAndLinkClones(static_cast<RwFrame*>(clump->object.parent));
+    if (!newClump->object.parent) {
+        // Sin marco clonado: se deshace el clump nuevo (las listas estan vacias, pero el EXE recorre igualmente atomicos y luces).
+        _rwPluginRegistryDeInitObject(&s_clumpTKList, newClump);
+        DestroyClumpAtomicsWithRpAtomicDestroy(newClump);
+
+        RwLLLink* const lightEnd = &newClump->lightList.link;
+        RwLLLink* link = lightEnd->next;
+        if (link != lightEnd) {
+            for (;;) {
+                RwLLLink* const next = link->next;
+                const RwInt32 offset = s_lightClumpOffset;
+                RpLight* const light = static_cast<RpLight*>(ObjectOfListLink(link, offset));
+                RpClump* const owner = ListEntryOf(light, offset)->clump;
+                RpClumpRemoveLight(owner, light);
+                RpLightDestroy(light);
+                if (!light) {
+                    break;
+                }
+                if (next == lightEnd) {
+                    break;
+                }
+                link = next;
+            }
+        }
+        FreeClumpCamerasFrameAndMemory(newClump);
+        return nullptr;
+    }
+
+    bool success = true;
+    RwLLLink* const atomicEnd = &clump->atomicList.link;
+    RwLLLink* link = atomicEnd->next;
+    if (link != atomicEnd) {
+        for (;;) {
+            RwLLLink* const next = link->next;
+            RpAtomic* const sourceAtomic = rwLLLinkGetData(link, RpAtomic, inClumpLink);
+            RpAtomic* const clonedAtomic = RpAtomicClone(sourceAtomic);
+            if (!clonedAtomic) {
+                success = false;
+                break;
+            }
+            RwFrame* const sourceFrame = static_cast<RwFrame*>(sourceAtomic->object.object.parent);
+            if (!sourceFrame) {
+                // Atomico sin marco: el clon se libera y se notifica el error 5; el EXE deja la bandera de exito y corta el bucle.
+                _rwPluginRegistryDeInitObject(&s_atomicTKList, clonedAtomic);
+                if (clonedAtomic->repEntry) {
+                    RwResourcesFreeResEntry(clonedAtomic->repEntry);
+                }
+                RpAtomicSetGeometry(clonedAtomic, nullptr, 0);
+                _rwObjectHasFrameReleaseFrame(clonedAtomic);
+                FreeListFree(ClumpGlobals().atomicFreeList, clonedAtomic);
+                RaiseRwError(kErrCloneAtomicWithoutFrame);
+                break;
+            }
+            _rwObjectHasFrameSetFrame(clonedAtomic, sourceFrame->root);
+            clonedAtomic->object.object.privateFlags |= rpATOMICPRIVATEWORLDBOUNDDIRTY;
+            RpClumpAddAtomic(newClump, clonedAtomic);
+            if (next == atomicEnd) {
+                break;
+            }
+            link = next;
+        }
+    }
+
+    _rwFramePurgeClone(static_cast<RwFrame*>(clump->object.parent));
+
+    if (success) {
+        newClump->callback = clump->callback;
+        _rwPluginRegistryCopyObject(&s_clumpTKList, newClump, clump);
+        return newClump;
+    }
+
+    // Fallo al clonar un atomico: se deshace el clump nuevo (las luces con el callback 0x74A1C0, las camaras con 0x74A200).
+    _rwPluginRegistryDeInitObject(&s_clumpTKList, newClump);
+    DestroyClumpAtomicsWithRpAtomicDestroy(newClump);
+
+    RwLLLink* const lightEnd = &newClump->lightList.link;
+    link = lightEnd->next;
+    if (link != lightEnd) {
+        for (;;) {
+            RwLLLink* const next = link->next;
+            const RwInt32 offset = s_lightClumpOffset;
+            RpLight* const light = static_cast<RpLight*>(ObjectOfListLink(link, offset));
+            if (!ClumpLightDestroyCallBack(light, nullptr)) {
+                break;
+            }
+            if (next == lightEnd) {
+                break;
+            }
+            link = next;
+        }
+    }
+    FreeClumpCamerasFrameAndMemory(newClump);
+    return nullptr;
 }
 
 // 0x749DC0
@@ -1243,8 +1770,155 @@ RwUInt32 RpClumpStreamGetSize(RpClump* clump) {
     return ((RwUInt32(__cdecl *)(RpClump*))0x74A5E0)(clump);
 }
 
+// 0x74B420: lee un clump del flujo: chunk estructura (version 0x34000..0x36003, 12 bytes con numAtomics/numLights/numCameras),
+// lista de marcos, lista de geometrias, atomicos, luces y camaras (cada luz/camara con su indice de marco) y datos de plugins.
+// Cada fallo deshace lo ya creado en el orden del EXE y deja el error de RenderWare (0x8000001A, o 0x80000004 por version).
 RpClump* RpClumpStreamRead(RwStream* stream) {
-    return ((RpClump*(__cdecl *)(RwStream*))0x74B420)(stream);
+    RwUInt32 length;
+    RwUInt32 version;
+    if (!RwStreamFindChunk(stream, kChunkStruct, &length, &version)) {
+        RaiseRwError(kErrRead);
+        return nullptr;
+    }
+    if (version < kStreamVersionMin || version > kStreamVersionMax) {
+        RaiseRwError(kErrBadVersion);
+        return nullptr;
+    }
+    RpClumpChunkInfo info;
+    if (RwStreamRead(stream, &info, 12) != 12) {
+        RaiseRwError(kErrRead);
+        return nullptr;
+    }
+
+    RpClump* const clump = RpClumpCreate();
+    if (!clump) {
+        return nullptr;
+    }
+
+    // Lista de marcos.
+    RwUInt32 chunkVersion;
+    rwFrameList frameList;
+    if (!RwStreamFindChunk(stream, kChunkFrameList, nullptr, &chunkVersion)) {
+        ClumpReadAbortBeforeFrames(clump);
+        return nullptr;
+    }
+    if (!_rwFrameListStreamRead(stream, &frameList)) {
+        ClumpReadAbortBeforeFrames(clump);
+        return nullptr;
+    }
+    clump->object.parent = frameList.frames[0];
+    if (!RwStreamFindChunk(stream, kChunkGeometryList, nullptr, &chunkVersion)) {
+        _rwFrameListDeinitialize(&frameList);
+        ClumpReadAbortBeforeFrames(clump);
+        return nullptr;
+    }
+
+    // Lista de geometrias (chunk estructura con el numero de geometrias y despues cada geometria).
+    RpGeometryList geomList;
+    RwUInt32 geomListLength;
+    RwUInt32 geomListVersion;
+    if (!RwStreamFindChunk(stream, kChunkStruct, &geomListLength, &geomListVersion)) {
+        ClumpReadAbortWithFrames(clump, &frameList);
+        return nullptr;
+    }
+    if (geomListVersion < kStreamVersionMin || geomListVersion > kStreamVersionMax) {
+        RaiseRwError(kErrBadVersion);
+        ClumpReadAbortWithFrames(clump, &frameList);
+        return nullptr;
+    }
+    RwInt32 count;
+    if (RwStreamRead(stream, &count, 4) != 4) {
+        ClumpReadAbortWithFrames(clump, &frameList);
+        return nullptr;
+    }
+    geomList.numGeoms = 0;
+    if (count > 0) {
+        geomList.geometries = static_cast<RpGeometry**>(RwMalloc(static_cast<size_t>(count) * sizeof(RpGeometry*), kGeomListAllocHint));
+        if (!geomList.geometries) {
+            RwUInt32 requested = static_cast<RwUInt32>(count) * sizeof(RpGeometry*);
+            RwError error;
+            error.pluginID = kErrorPluginID;
+            error.errorCode = _rwerror(kErrNoMem, requested);
+            RwErrorSet(&error);
+            ClumpReadAbortWithFrames(clump, &frameList);
+            return nullptr;
+        }
+    } else {
+        geomList.geometries = nullptr;
+    }
+    for (RwInt32 i = 0; i < count; ++i) {
+        RwUInt32 geometryVersion;
+        if (!RwStreamFindChunk(stream, kChunkGeometry, nullptr, &geometryVersion)) {
+            ClumpReadAbortWithGeometries(clump, &frameList, &geomList);
+            return nullptr;
+        }
+        if (geometryVersion < kStreamVersionMin || geometryVersion > kStreamVersionMax) {
+            ClumpReadAbortWithGeometries(clump, &frameList, &geomList);
+            return nullptr;
+        }
+        geomList.geometries[i] = RpGeometryStreamRead(stream);
+        if (!geomList.geometries[i]) {
+            ClumpReadAbortWithGeometries(clump, &frameList, &geomList);
+            return nullptr;
+        }
+        ++geomList.numGeoms;
+    }
+
+    // Atomicos.
+    for (RwInt32 i = 0; i < info.numAtomics; ++i) {
+        RpAtomic* atomic = nullptr;
+        if (RwStreamFindChunk(stream, kChunkAtomic, nullptr, &chunkVersion)) {
+            atomic = ClumpAtomicStreamRead(stream, &frameList, &geomList);
+        }
+        if (!atomic) {
+            ClumpReadAbortWithGeometries(clump, &frameList, &geomList);
+            return nullptr;
+        }
+        RpClumpAddAtomic(clump, atomic);
+    }
+
+    // Luces: chunk estructura con el indice de marco, chunk de luz y enlace en la lista del clump.
+    for (RwInt32 i = 0; i < info.numLights; ++i) {
+        RwInt32 frameIndex;
+        RpLight* light = nullptr;
+        if (RwStreamFindChunk(stream, kChunkStruct, nullptr, nullptr) &&
+            RwStreamReadInt32(stream, &frameIndex, 4) &&
+            RwStreamFindChunk(stream, kChunkLight, nullptr, nullptr)) {
+            light = RpLightStreamRead(stream);
+        }
+        if (!light) {
+            ClumpReadAbortWithGeometries(clump, &frameList, &geomList);
+            return nullptr;
+        }
+        _rwObjectHasFrameSetFrame(light, frameList.frames[frameIndex]);
+        AttachListEntry(ListEntryOf(light, s_lightClumpOffset), clump, &clump->lightList);
+    }
+
+    // Camaras: igual que las luces con la lista de camaras del clump.
+    for (RwInt32 i = 0; i < info.numCameras; ++i) {
+        RwInt32 frameIndex;
+        RwCamera* camera = nullptr;
+        if (RwStreamFindChunk(stream, kChunkStruct, nullptr, nullptr) &&
+            RwStreamReadInt32(stream, &frameIndex, 4) &&
+            RwStreamFindChunk(stream, kChunkCamera, nullptr, nullptr)) {
+            camera = RwCameraStreamRead(stream);
+        }
+        if (!camera) {
+            ClumpReadAbortWithGeometries(clump, &frameList, &geomList);
+            return nullptr;
+        }
+        _rwObjectHasFrameSetFrame(camera, frameList.frames[frameIndex]);
+        AttachListEntry(ListEntryOf(camera, s_cameraClumpOffset), clump, &clump->cameraList);
+    }
+
+    _rpGeometryListDeinitialize(&geomList);
+    _rwFrameListDeinitialize(&frameList);
+    if (!_rwPluginRegistryReadDataChunks(&s_clumpTKList, stream, clump)) {
+        RpClumpDestroy(clump);
+        RaiseRwError(kErrRead);
+        return nullptr;
+    }
+    return clump;
 }
 
 RpClump* RpClumpStreamWrite(RpClump* clump, RwStream* stream) {
@@ -1255,16 +1929,19 @@ RpClumpChunkInfo* _rpClumpChunkInfoRead(RwStream* stream, RpClumpChunkInfo* clum
     return ((RpClumpChunkInfo*(__cdecl *)(RwStream*, RpClumpChunkInfo*, RwInt32*))0x74BD40)(stream, clumpChunkInfo, bytesRead);
 }
 
+// 0x74BDA0: registra el plugin en la lista de RpAtomic (0x8D624C) con _rwPluginRegistryAddPlugin.
 RwInt32 RpAtomicRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
-    return ((RwInt32(__cdecl *)(RwInt32, RwUInt32, RwPluginObjectConstructor, RwPluginObjectDestructor, RwPluginObjectCopy))0x74BDA0)(size, pluginID, constructCB, destructCB, copyCB);
+    return _rwPluginRegistryAddPlugin(&s_atomicTKList, size, pluginID, constructCB, destructCB, copyCB);
 }
 
+// 0x74BDD0: igual sobre la lista de RpClump (0x8D6264).
 RwInt32 RpClumpRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
-    return ((RwInt32(__cdecl *)(RwInt32, RwUInt32, RwPluginObjectConstructor, RwPluginObjectDestructor, RwPluginObjectCopy))0x74BDD0)(size, pluginID, constructCB, destructCB, copyCB);
+    return _rwPluginRegistryAddPlugin(&s_clumpTKList, size, pluginID, constructCB, destructCB, copyCB);
 }
 
+// 0x74BE00: callbacks de flujo (_rwPluginRegistryAddPluginStream) sobre la lista de RpAtomic.
 RwInt32 RpAtomicRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkReadCallBack, RwPluginDataChunkWriteCallBack, RwPluginDataChunkGetSizeCallBack))0x74BE00)(pluginID, readCB, writeCB, getSizeCB);
+    return _rwPluginRegistryAddPluginStream(&s_atomicTKList, pluginID, readCB, writeCB, getSizeCB);
 }
 
 // 0x74BE30
@@ -1277,8 +1954,9 @@ RwInt32 RpAtomicSetStreamRightsCallBack(RwUInt32 pluginID, RwPluginDataChunkRigh
     return _rwPluginRegistryAddPlgnStrmRightsCB(&s_atomicTKList, pluginID, rightsCB);
 }
 
+// 0x74BE70: igual sobre la lista de RpClump.
 RwInt32 RpClumpRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkReadCallBack, RwPluginDataChunkWriteCallBack, RwPluginDataChunkGetSizeCallBack))0x74BE70)(pluginID, readCB, writeCB, getSizeCB);
+    return _rwPluginRegistryAddPluginStream(&s_clumpTKList, pluginID, readCB, writeCB, getSizeCB);
 }
 
 RwInt32 RpClumpSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
@@ -1729,4 +2407,26 @@ _rwD3D9EnableClippingIfNeeded(void *object,
     RwD3D9SetRenderState(D3DRS_CLIPPING, (fullyInsideFrustum == FALSE));
 
     RWRETURNVOID();
+}
+
+// Registro de los hooks del lote 227A (RpClump y registros de plugins de RpAtomic/RpClump), sin validar.
+void RpWorldInjectHooks227A() {
+    RH_ScopedCategory("Plugins");
+    RH_ScopedNamespaceName("RpWorld");
+
+    RH_ScopedGlobalInstall(RpClumpClone, 0x749F70);
+    RH_ScopedGlobalInstall(ClumpLightDestroyCallBack, 0x74A1C0);
+    RH_ScopedGlobalInstall(RpClumpCreate, 0x74A290);
+    RH_ScopedGlobalInstall(RpClumpDestroy, 0x74A310);
+    RH_ScopedGlobalInstall(RpClumpAddAtomic, 0x74A490);
+    RH_ScopedGlobalInstall(RpClumpRemoveAtomic, 0x74A4C0);
+    RH_ScopedGlobalInstall(RpClumpRemoveLight, 0x74A520);
+    RH_ScopedGlobalInstall(_rpGeometryListDeinitialize, 0x74AE50);
+    RH_ScopedGlobalInstall(ClumpAtomicStreamRead, 0x74B060);
+    RH_ScopedGlobalInstall(RpClumpStreamRead, 0x74B420);
+    RH_ScopedGlobalInstall(ClumpAtomicDestroyCallBack, 0x74BCC0);
+    RH_ScopedGlobalInstall(RpAtomicRegisterPlugin, 0x74BDA0);
+    RH_ScopedGlobalInstall(RpClumpRegisterPlugin, 0x74BDD0);
+    RH_ScopedGlobalInstall(RpAtomicRegisterPluginStream, 0x74BE00);
+    RH_ScopedGlobalInstall(RpClumpRegisterPluginStream, 0x74BE70);
 }
