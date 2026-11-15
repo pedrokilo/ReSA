@@ -1817,8 +1817,6 @@ static auto& s_atomicRightsExtraData = StaticRef<RwUInt32>(0xC92480);
 
 constexpr RwUInt32 kClumpAllocHint = 0x30010;
 constexpr RwUInt32 kGeomListAllocHint = 0x3000F;
-constexpr RwUInt32 kStreamVersionMin = 0x34000;
-constexpr RwUInt32 kStreamVersionMax = 0x36003;
 
 // Identificadores de chunk (rwID_*) y codigos de error que usa el EXE en esta zona.
 constexpr RwUInt32 kChunkStruct = 0x01, kChunkCamera = 0x05, kChunkFrameList = 0x0E, kChunkGeometry = 0x0F;
@@ -1852,13 +1850,6 @@ inline void FreeListFree(RwFreeList* freeList, void* memory) {
     RwEngineInstance->memoryFree(freeList, memory);
 }
 
-// RWERROR((codigo)) del EXE: estructura {pluginID 2, _rwerror(codigo)} y RwErrorSet.
-inline void RaiseRwError(RwInt32 code) {
-    RwError error;
-    error.pluginID = kErrorPluginID;
-    error.errorCode = _rwerror(code);
-    RwErrorSet(&error);
-}
 
 // Lista de geometrias que se carga junto con un clump (_rpGeometryList del SDK).
 struct RpGeometryList {
