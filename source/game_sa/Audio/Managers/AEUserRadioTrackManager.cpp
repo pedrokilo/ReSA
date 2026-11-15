@@ -1038,5 +1038,12 @@ void CAEUserRadioTrackManager::InjectHooks() {
         RH_ScopedNamedGlobalInstall(RuntimeErrorDestructorBody, "DestructorBodyB", 0x4F4130);
         RH_ScopedNamedGlobalInstall(RuntimeErrorCopy, "CopyConstructor", 0x4F4230);
         RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlen", 0x4F41B0);
+        // Lote 219A (sin validar): cinco instancias gemelas de vector::_Xlen junto a los vectores de CPedAttractor y de CPedAttractorManager (0x5ECAB0, 0x5ECB30, 0x5ECBB0, 0x5ECC30, 0x5ECCB0; el listado decia CPedAttractorManager).
+        // Mismo texto (0x860AB0), mismas llamadas (0x4F3F60, 0x4F4090, vtable 0x887D68, ThrowInfo 0x893634, _CxxThrowException 0x822D5D); solo cambia la direccion de la tabla SEH. Mismo cuerpo C++ que la de arriba.
+        RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenB", 0x5ECAB0);
+        RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenC", 0x5ECB30);
+        RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenD", 0x5ECBB0);
+        RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenE", 0x5ECC30);
+        RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenF", 0x5ECCB0);
     }
 }

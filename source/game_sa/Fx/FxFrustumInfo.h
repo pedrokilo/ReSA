@@ -16,6 +16,9 @@ public:
 
     static void InjectHooks();
 
+    // 0x4A9090 (lote 219A, sin validar): constructor del EXE; solo llama al de la esfera (0x4A9F70, que anula m_nNumPlanesPassed); planos y centro/radio quedan sin escribir. Devuelve this.
+    FxFrustumInfo_c* Constructor();
+
     // 0x4AA030: el EXE devuelve EAX = 0/1, deja EDX = la esfera y conserva ECX = this (sus llamadores lo usan).
     // IsCollisionRegs deja esos registros con ResidueRegsCpp; IsCollision es la forma normal para el resto del codigo.
     uint32 IsCollisionRegs(FxSphere_c& sphere);

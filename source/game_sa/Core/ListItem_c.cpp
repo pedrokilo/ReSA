@@ -16,6 +16,10 @@ __declspec(noinline) ListItemLinksExe* __fastcall ListItemConstructorExe(ListIte
     links->next = nullptr;
     return self;
 }
+
+// 0x4A8DC0 (lote 219A, sin validar; el listado decia FxInfoManager_c; thiscall, `ret`, 1 byte): destructor de la base ListItem_c<T> del EXE (0x49EA70 y otros son `jmp 0x4A8DC0`). No hace nada: no toca los enlaces.
+void __fastcall ListItemDestructorExe(ListItemLinksExe* /*self*/, void* /*edx*/) {
+}
 } // namespace
 
 void ListItemInjectHooksLote218A() {
@@ -23,4 +27,5 @@ void ListItemInjectHooksLote218A() {
     RH_ScopedCategory("Core");
 
     RH_ScopedNamedGlobalInstall(ListItemConstructorExe, "Constructor", 0x4A8DB0);
+    RH_ScopedNamedGlobalInstall(ListItemDestructorExe, "Destructor", 0x4A8DC0); // lote 219A (sin validar)
 }

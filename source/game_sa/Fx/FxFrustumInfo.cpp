@@ -24,6 +24,14 @@ void FxFrustumInfo_c::InjectHooks() {
     RH_ScopedClass(FxFrustumInfo_c);
     RH_ScopedCategory("Fx");
     RH_ScopedNamedInstall(IsCollisionRegs, "IsCollision", 0x4AA030);
+    RH_ScopedInstall(Constructor, 0x4A9090); // lote 219A (sin validar)
+}
+
+// 0x4A9090 (lote 219A, sin validar; el listado decia FxInfoManager_c; thiscall sin argumentos de pila, `ret`, 12 bytes: `push esi; mov esi,ecx; call 0x4A9F70; mov eax,esi; pop esi; ret`): constructor de FxFrustumInfo_c del EXE.
+// La esfera esta en +0 (misma direccion que this), asi que el EXE le pasa ECX tal cual. Solo se anula m_nNumPlanesPassed (+0x10; FxSphere_c::Constructor, 0x4A9F70); centro, radio y los cuatro planos no se escriben.
+FxFrustumInfo_c* FxFrustumInfo_c::Constructor() {
+    m_Sphere.Constructor();
+    return this;
 }
 
 // 0x4AA030

@@ -299,6 +299,206 @@ uint32* __stdcall SArrayFillNReturnEndStride4(uint32* dest, uint32 count, const 
     return dest + count;
 }
 
+// Lote 219A (sin validar; el listado atribuia estas funciones a CPedAttractorManager): mas instancias de la STL de MSVC 6 junto a los vectores de CPedAttractor y de CPedAttractorManager (0x5EC040..0x5ED4B0 son plantillas de
+// std::vector, no metodos de la clase). Mismas convenciones que arriba. Las tres variantes de `fill_n que devuelve el final` (0x5EC070, 0x5EC110, 0x5EC1B0) son del mismo cuerpo que 0x4F3D80 y los nueve vaciados (0x5EC040,
+// 0x5EC0B0, 0x5EC180, 0x5EC1F0, 0x5EC260, 0x5EC2D0, 0x5EC340, 0x5EC3B0, 0x5EC3E0) del mismo cuerpo que 0x5EC820: se enganchan con las funciones C++ de esos (comprobado instruccion por instruccion contra el desensamblado, salvo
+// destinos de llamada y la direccion del manejador SEH).
+// Disposicion de un vector de la STL de MSVC 6 (como SArray): asignador (+0, sin leer), inicio (+4), fin (+8) y limite de capacidad (+0xC).
+template<typename T>
+struct SArrayRaw {
+    void* allocator;
+    T*    first;
+    T*    last;
+    T*    end;
+};
+
+// 0x5EC0E0 (42 bytes) y 0x5EC140 (42 bytes), thiscall con ECX sin leer, tres argumentos de pila, `ret 0Ch`: igual que 0x5EC070 pero con elementos de 20 y de 12 bytes. Llaman a uninitialized_fill_n (0x5EB2E0 / 0x5EB340) y
+// devuelven destino + cantidad * tamano (EAX = EDI + (ESI * 5) * 4, o EDI + (ESI * 3) * 4), con la cantidad SIN signo y la aritmetica de punteros del EXE (envuelve a 32 bits).
+SArrayElem20* __stdcall SArrayFillNReturnEndStride20(SArrayElem20* dest, uint32 count, const SArrayElem20* value) {
+    SArrayFillNStride20(dest, count, value);
+    return dest + count;
+}
+SArrayElem12* __stdcall SArrayFillNReturnEndStride12(SArrayElem12* dest, uint32 count, const SArrayElem12* value) {
+    SArrayFillNStride12(dest, count, value);
+    return dest + count;
+}
+
+// 0x5EC220 (49 bytes, thiscall con (salida, posicion) en la pila, `ret 8`): std::vector<T*>::erase(posicion) de elementos de 4 bytes (la devolucion del iterador por puntero de salida es la de la STL de MSVC 6).
+// Como el original: el fin se lee UNA vez antes del bucle; con posicion + 1 != fin copia hacia delante cada elemento sobre el anterior (do-while: con posicion == fin no termina, igual que el EXE); despues el fin (+8) baja 4 bytes
+// (releido) y se escribe `*salida = posicion`. Devuelve la salida (EAX). No comprueba rango ni destruye nada.
+uint32** __fastcall SArrayEraseStride4(SArrayRaw<uint32>* self, void* /*edx*/, uint32** out, uint32* where) {
+    uint32* const last = self->last;
+    uint32* src        = where + 1;
+    if (src != last) {
+        do {
+            src[-1] = *src;
+            ++src;
+        } while (src != last);
+    }
+    self->last = reinterpret_cast<uint32*>(reinterpret_cast<uint32>(self->last) - 4);
+    *out       = where;
+    return out;
+}
+
+// Direcciones de los colaboradores de cada instancia de insert(posicion, n, valor) de elementos de 4 bytes (todas son plantillas de la STL ya reconstruidas arriba, con hook; se llaman por direccion fija igual que en el EXE
+// para que el registro de llamadas de los bancos las vea). A: 0x5ECF10; B: 0x5ED4B0 (y la de CAEUserRadioTrackManager, 0x4F4320, tiene el mismo cuerpo con otros colaboradores).
+struct SArrayInsertInstanceA {
+    static constexpr unsigned kUninitCopy = 0x5EAE10; // uninitialized_copy (cdecl: origen, fin, destino)
+    static constexpr unsigned kFillN      = 0x5EB2A0; // uninitialized_fill_n (cdecl: destino, n, &valor)
+    static constexpr unsigned kCopyWrap   = 0x5EB930; // envoltorio stdcall de uninitialized_copy
+    static constexpr unsigned kFillNEnd   = 0x5EC070; // fill_n que devuelve el final (stdcall)
+    static constexpr unsigned kCopyBack   = 0x5EB140; // copy_backward (cdecl: salida, inicio, fin, finDestino)
+    static constexpr unsigned kFill       = 0x5EAAA0; // fill (cdecl: inicio, fin, &valor)
+    static constexpr unsigned kXlen       = 0x5ECAB0; // vector::_Xlen
+};
+struct SArrayInsertInstanceB {
+    static constexpr unsigned kUninitCopy = 0x5EAE70;
+    static constexpr unsigned kFillN      = 0x5EB310;
+    static constexpr unsigned kCopyWrap   = 0x5EB990;
+    static constexpr unsigned kFillNEnd   = 0x5EC110;
+    static constexpr unsigned kCopyBack   = 0x5EB1B0;
+    static constexpr unsigned kFill       = 0x5EAAF0;
+    static constexpr unsigned kXlen       = 0x5ECBB0;
+};
+
+// 0x5ECF10 y 0x5ED4B0 (lote 219A, sin validar; 645 bytes cada una con marco SEH que solo libera el bloque nuevo si una copia lanzara: omitido; thiscall con (posicion, cantidad, const T&), `ret 0Ch`): std::vector<T*>::insert(pos, n, valor)
+// de MSVC 6/9 (vector de punteros de 4 bytes), mismo cuerpo que 0x4F4320 (UserTracksLegacyVector::Insert, lote 209A) con los colaboradores de cada instancia. Como el original:
+//  - El valor se copia a una variable local al entrar (su direccion es el argumento de relleno de las llamadas). capacidad = inicio ? (limite - inicio) >> 2 : 0 (desplazamiento con signo). Con n == 0 no hace nada.
+//  - tamano = inicio ? (fin - inicio) >> 2 : 0; si (0x3FFFFFFF - tamano) < n (sin signo): vector::_Xlen (no vuelve).
+//  - Capacidad insuficiente (capacidad < tamano + n, sin signo): nueva = (0x3FFFFFFF - capacidad / 2 < capacidad) ? 0 : capacidad + capacidad / 2; si es menor que tamano + n, la nueva es tamano + n; reserva nueva * 4 con operator new (0x82119A);
+//    copia [inicio, pos) (uninitialized_copy), rellena n con el valor (fill_n), copia [pos, fin) detras, libera el bloque viejo (0x8214BD) y coloca inicio, fin = inicio + (n + tamano anterior) y limite = inicio + nueva * 4.
+//  - Con capacidad: si hay menos de n elementos tras pos, copia la cola a pos + n, rellena n - cola desde el fin (fill_n que devuelve el final), fin += n y rellena [pos, fin anterior); si no, copia los ultimos n a fin, fin = su retorno,
+//    copia hacia atras [pos, fin anterior - n) hasta fin anterior y rellena [pos, pos + n).
+template<typename Inst>
+void __fastcall SArrayInsertNStride4(SArrayRaw<uint32>* self, void* /*edx*/, uint32* pos, uint32 count, const uint32* value) {
+    using Self = SArrayRaw<uint32>*;
+    const auto ElementsBetween = [](const uint32* upper, const uint32* lower) -> uint32 {
+        return static_cast<uint32>(static_cast<int32>(reinterpret_cast<uint32>(upper) - reinterpret_cast<uint32>(lower)) >> 2);
+    };
+    const auto Advance = [](uint32* base, uint32 elements) -> uint32* { // aritmetica de punteros de 32 bits del EXE (elementos * 4, con envoltura)
+        return reinterpret_cast<uint32*>(reinterpret_cast<uint32>(base) + elements * 4);
+    };
+
+    uint32 valueSlot = *value;
+    const uint32 capacity = self->first ? ElementsBetween(self->end, self->first) : 0;
+    if (count == 0) {
+        return;
+    }
+    uint32 size = self->first ? ElementsBetween(self->last, self->first) : 0;
+    if (0x3FFFFFFFu - size < count) {
+        plugin::CallMethod<Inst::kXlen, Self>(self);
+        return;
+    }
+    size = self->first ? ElementsBetween(self->last, self->first) : 0;
+    if (capacity < size + count) {
+        const uint32 half = capacity >> 1;
+        uint32 newCapacity = (0x3FFFFFFFu - half < capacity) ? 0 : capacity + half;
+        const uint32 needed = (self->first ? ElementsBetween(self->last, self->first) : 0) + count;
+        if (newCapacity < needed) {
+            newCapacity = needed;
+        }
+        const uint32 bytes = newCapacity << 2;
+        uint32* const block = static_cast<uint32*>(::operator new(bytes));
+        uint32* const afterPrefix = plugin::CallAndReturn<uint32*, Inst::kUninitCopy, uint32*, uint32*, uint32*>(self->first, pos, block);
+        plugin::Call<Inst::kFillN, uint32*, uint32, const uint32*>(afterPrefix, count, &valueSlot);
+        plugin::CallAndReturn<uint32*, Inst::kUninitCopy, uint32*, uint32*, uint32*>(pos, self->last, Advance(afterPrefix, count));
+        const uint32 newSize = count + (self->first ? ElementsBetween(self->last, self->first) : 0);
+        if (self->first) {
+            ::operator delete(self->first);
+        }
+        const uint32 newEnd = bytes + reinterpret_cast<uint32>(block);
+        uint32* const newLast = Advance(block, newSize);
+        self->end   = reinterpret_cast<uint32*>(newEnd);
+        self->last  = newLast;
+        self->first = block;
+        return;
+    }
+
+    uint32* const oldLast = self->last;
+    const uint32 bytes = count << 2;
+    if (ElementsBetween(oldLast, pos) < count) {
+        plugin::CallMethodAndReturn<uint32*, Inst::kCopyWrap, Self, uint32*, uint32*, uint32*>(self, pos, oldLast, Advance(pos, count));
+        const uint32 tail = ElementsBetween(self->last, pos);
+        plugin::CallMethodAndReturn<uint32*, Inst::kFillNEnd, Self, uint32*, uint32, const uint32*>(self, self->last, count - tail, &valueSlot);
+        self->last = reinterpret_cast<uint32*>(reinterpret_cast<uint32>(self->last) + bytes);
+        plugin::Call<Inst::kFill, uint32*, uint32*, const uint32*>(pos, oldLast, &valueSlot);
+    } else {
+        uint32* const lastN = reinterpret_cast<uint32*>(reinterpret_cast<uint32>(oldLast) - bytes);
+        self->last = plugin::CallMethodAndReturn<uint32*, Inst::kCopyWrap, Self, uint32*, uint32*, uint32*>(self, lastN, oldLast, oldLast);
+        uint32* scratch;
+        plugin::Call<Inst::kCopyBack, uint32**, uint32*, uint32*, uint32*>(&scratch, pos, lastN, oldLast);
+        plugin::Call<Inst::kFill, uint32*, uint32*, const uint32*>(pos, Advance(pos, count), &valueSlot);
+    }
+}
+
+// 0x5ED1B0 (lote 219A, sin validar; 739 bytes con marco SEH que solo libera el bloque nuevo si una copia lanzara: omitido; thiscall con (posicion, cantidad, const T&), `ret 0Ch`): std::vector<CPedTaskPair>::insert(pos, n, valor)
+// (elementos de 20 bytes; vector m_PedTaskPairs de CPedAttractor). Mismo esquema que el de 4 bytes, con estas diferencias del EXE:
+//  - El valor (20 bytes, `rep movsd`) se copia a una variable local al entrar, ANTES de comprobar n == 0; su direccion es el argumento de relleno.
+//  - Los tamanos son cocientes CON signo entre 20 (imul 0x66666667; sar 3 y suma del signo) y el maximo es 0xCCCCCCC (0xFFFFFFFF / 20); vector::_Xlen es 0x5ECB30.
+//  - Si la nueva capacidad no alcanza tamano + n, se toma `size()` (0x5E9800, llamada al EXE) + n, no una resta en linea.
+//  - Colaboradores: uninitialized_copy 0x5EAE40, fill_n 0x5EB2E0, envoltorio de copia 0x5EB960, fill_n que devuelve el final 0x5EC0E0, envoltorio de copy_backward 0x5EB170 (salida por puntero) y fill 0x5EAAC0.
+void __fastcall SArrayInsertNStride20(SArrayRaw<SArrayElem20>* self, void* /*edx*/, SArrayElem20* pos, uint32 count, const SArrayElem20* value) {
+    using Elem = SArrayElem20;
+    using Self = SArrayRaw<Elem>*;
+    const auto ElementsBetween = [](const Elem* upper, const Elem* lower) -> uint32 {
+        return static_cast<uint32>(static_cast<int32>(reinterpret_cast<uint32>(upper) - reinterpret_cast<uint32>(lower)) / 20);
+    };
+    const auto Advance = [](Elem* base, uint32 elements) -> Elem* { // aritmetica de punteros de 32 bits del EXE (elementos * 20, con envoltura)
+        return reinterpret_cast<Elem*>(reinterpret_cast<uint32>(base) + elements * 20);
+    };
+
+    Elem valueLocal = *value;
+    const uint32 capacity = self->first ? ElementsBetween(self->end, self->first) : 0;
+    if (count == 0) {
+        return;
+    }
+    uint32 size = self->first ? ElementsBetween(self->last, self->first) : 0;
+    if (0xCCCCCCCu - size < count) {
+        plugin::CallMethod<0x5ECB30, Self>(self);
+        return;
+    }
+    size = self->first ? ElementsBetween(self->last, self->first) : 0;
+    if (capacity < size + count) {
+        const uint32 half = capacity >> 1;
+        uint32 newCapacity = (0xCCCCCCCu - half < capacity) ? 0 : capacity + half;
+        const uint32 needed = (self->first ? ElementsBetween(self->last, self->first) : 0) + count;
+        if (newCapacity < needed) {
+            newCapacity = static_cast<uint32>(plugin::CallMethodAndReturn<int32, 0x5E9800, Self>(self)) + count;
+        }
+        const uint32 bytes = newCapacity * 20;
+        Elem* const block = static_cast<Elem*>(::operator new(bytes));
+        Elem* const afterPrefix = plugin::CallAndReturn<Elem*, 0x5EAE40, Elem*, Elem*, Elem*>(self->first, pos, block);
+        plugin::Call<0x5EB2E0, Elem*, uint32, const Elem*>(afterPrefix, count, &valueLocal);
+        plugin::CallAndReturn<Elem*, 0x5EAE40, Elem*, Elem*, Elem*>(pos, self->last, Advance(afterPrefix, count));
+        const uint32 newSize = count + (self->first ? ElementsBetween(self->last, self->first) : 0);
+        if (self->first) {
+            ::operator delete(self->first);
+        }
+        const uint32 newEnd = bytes + reinterpret_cast<uint32>(block);
+        Elem* const newLast = Advance(block, newSize);
+        self->end   = reinterpret_cast<Elem*>(newEnd);
+        self->last  = newLast;
+        self->first = block;
+        return;
+    }
+
+    Elem* const oldLast = self->last;
+    const uint32 bytes = count * 20;
+    if (ElementsBetween(oldLast, pos) < count) {
+        plugin::CallMethodAndReturn<Elem*, 0x5EB960, Self, Elem*, Elem*, Elem*>(self, pos, oldLast, Advance(pos, count));
+        const uint32 tail = ElementsBetween(self->last, pos);
+        plugin::CallMethodAndReturn<Elem*, 0x5EC0E0, Self, Elem*, uint32, const Elem*>(self, self->last, count - tail, &valueLocal);
+        self->last = reinterpret_cast<Elem*>(reinterpret_cast<uint32>(self->last) + bytes);
+        plugin::Call<0x5EAAC0, Elem*, Elem*, const Elem*>(pos, reinterpret_cast<Elem*>(reinterpret_cast<uint32>(self->last) - bytes), &valueLocal);
+    } else {
+        Elem* const lastN = reinterpret_cast<Elem*>(reinterpret_cast<uint32>(oldLast) - bytes);
+        self->last = plugin::CallMethodAndReturn<Elem*, 0x5EB960, Self, Elem*, Elem*, Elem*>(self, lastN, oldLast, oldLast);
+        Elem* scratch = lastN; // el EXE usa como salida la variable donde dejo lastN (la funcion la sobrescribe y nadie la lee)
+        plugin::Call<0x5EB170, Elem**, Elem*, Elem*, Elem*>(&scratch, pos, lastN, oldLast);
+        plugin::Call<0x5EAAC0, Elem*, Elem*, const Elem*>(pos, Advance(pos, count), &valueLocal);
+    }
+}
+
 // Lote 206A (sin validar): envolturas stdcall de std::uninitialized_copy (0x5EB930, 0x5EB960, 0x5EB990, 0x5EB9D0 y 0x5EBA00; `ret 0Ch`, tres argumentos de pila (origen, fin, destino)). Cada una reserva en la pila un marco
 // de 0x14 bytes con los tres argumentos y un hueco sin inicializar (el ECX de entrada, basura), llama a la funcion cdecl de la tabla de 189A (0x5EAE10 / 0x5EAE40 / 0x5EAE70 / 0x5EAEA0 / 0x5EAEE0), la limpia con
 // `add esp, 14h` y devuelve su EAX (el final del destino). No usan `this`. Las tres de elemento de 4 bytes (0x5EB930, 0x5EB990 y 0x5EBA00) comparten cuerpo, como las funciones de 189A.
@@ -583,6 +783,27 @@ void CPedAttractor::InjectHooks() {
     RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride4, "SArrayFillNReturnEndStride4", 0x4F3D80);
     RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4B", 0x4F3F30);
     RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4C", 0x4F4030);
+
+    // Lote 219A (sin validar): instancias de las mismas plantillas junto a los vectores de CPedAttractor y de CPedAttractorManager (0x5EC040..0x5ED4B0; el listado las atribuia a CPedAttractorManager). Vaciados de vector,
+    // fill_n que devuelven el final, erase y los tres insert(pos, n, valor); mismas funciones C++ para los cuerpos identicos (ver arriba). 0x5ED0A3 y 0x5ED388 (9 bytes) son manejadores catch de 0x5ECF10 y 0x5ED1B0 (no enganchables).
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4D", 0x5EC040);
+    RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride4, "SArrayFillNReturnEndStride4B", 0x5EC070);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4E", 0x5EC0B0);
+    RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride20, "SArrayFillNReturnEndStride20", 0x5EC0E0);
+    RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride4, "SArrayFillNReturnEndStride4C", 0x5EC110);
+    RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride12, "SArrayFillNReturnEndStride12", 0x5EC140);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4F", 0x5EC180);
+    RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride4, "SArrayFillNReturnEndStride4D", 0x5EC1B0);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4G", 0x5EC1F0);
+    RH_ScopedNamedGlobalInstall(SArrayEraseStride4, "SArrayEraseStride4", 0x5EC220);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4H", 0x5EC260);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4I", 0x5EC2D0);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4J", 0x5EC340);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4K", 0x5EC3B0);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4L", 0x5EC3E0);
+    RH_ScopedNamedGlobalInstall(SArrayInsertNStride4<SArrayInsertInstanceA>, "SArrayInsertNStride4A", 0x5ECF10);
+    RH_ScopedNamedGlobalInstall(SArrayInsertNStride20, "SArrayInsertNStride20", 0x5ED1B0);
+    RH_ScopedNamedGlobalInstall(SArrayInsertNStride4<SArrayInsertInstanceB>, "SArrayInsertNStride4B", 0x5ED4B0);
 
     RH_ScopedInstall(operator delete, 0x5EAFE0); // lote 205A (sin validar)
     RH_ScopedInstall(Constructor, 0x5EDFB0);
