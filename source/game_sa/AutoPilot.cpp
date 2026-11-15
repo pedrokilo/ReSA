@@ -22,6 +22,20 @@ END GENERATED HOOK STATUS */
 #include "Curves.h"
 #include "Timer.h"
 
+namespace {
+// 0x463490 (lote 222A, sin validar; el listado decia CEntity; thiscall sobre el CAutoPilot (+0x390 del CVehicle), un argumento de pila leido como BYTE, `ret 4`, 21 bytes: `mov al,[ecx+2Ah]; cmp al,39h; je ..;
+// cmp al,3Ah; je ..; mov al,[esp+4]; mov [ecx+2Ah],al; ret 4`): cambia la mision (m_nCarMission, +0x2A) SALVO que la actual sea MISSION_PLANE_CRASH_AND_BURN (0x39) o MISSION_HELI_CRASH_AND_BURN (0x3A): en
+// esos casos no escribe nada. Del argumento solo cuenta el byte bajo. Llamador del EXE: 0x467EEC (comando de script sobre el piloto automatico de un vehiculo del pool); no lee EAX/ECX/EDX despues.
+static_assert(offsetof(CAutoPilot, m_nCarMission) == 0x2A);
+__declspec(noinline) void __fastcall AutoPilotSetCarMissionUnlessCrashAndBurn(CAutoPilot* self, void* /*edx*/, uint32 mission) {
+    uint8* const current = reinterpret_cast<uint8*>(self) + 0x2A;
+    if (*current == 0x39u || *current == 0x3Au) {
+        return;
+    }
+    *current = uint8(mission);
+}
+} // namespace
+
 void CAutoPilot::InjectHooks() {
     RH_ScopedClass(CAutoPilot);
     RH_ScopedCategoryGlobal();
@@ -29,6 +43,7 @@ void CAutoPilot::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x6D5E20); // lote 195A (sin validar)
     RH_ScopedInstall(RemoveOnePathNode, 0x41B950);
     RH_ScopedInstall(ModifySpeed, 0x41B980);
+    RH_ScopedNamedGlobalInstall(AutoPilotSetCarMissionUnlessCrashAndBurn, "SetCarMissionUnlessCrashAndBurn", 0x463490); // lote 222A (sin validar)
 }
 
 // 0x6D5E20 (lote 195A, sin validar): constructor de CAutoPilot del EXE (thiscall, sin argumentos de pila, `ret`, 227 bytes; lo llama el constructor de CVehicle 0x6D5F10). Escribe SOLO estos campos, en el

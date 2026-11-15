@@ -81,6 +81,26 @@ __declspec(noinline) bool __fastcall ScriptEntryListAdd(void* self, void* /*edx*
     *count = *count + 1;
     return true;
 }
+
+// 0x46A340 (lote 222A, sin validar; el listado decia CEntity): rellena el par de textos de los comandos de script del EXE (thiscall, ECX = destino, dos punteros a texto en la pila, `ret 8`, 49 bytes; es el mismo
+// formato que lee ScriptEntryListAdd: primera cadena en +0 y segunda en +0x18; llamador del EXE: 0x46E9AB, el comando que lee dos etiquetas de texto de 0x18 y 0x10 bytes). Como el original: copia la primera cadena
+// (byte a byte hasta el cero INCLUIDO, sin limite) a this+0 y despues la segunda a this+0x18 (sin limite: pueden desbordar y solapar). Devuelve this en EAX (el EXE no lo toca). Accesos volatiles: fijan el orden.
+__declspec(noinline) void* __fastcall ScriptTextPairSet(void* self, void* /*edx*/, const char* first, const char* second) {
+    uint8 character;
+    const volatile uint8* source = reinterpret_cast<const volatile uint8*>(first);
+    volatile uint8* target       = static_cast<uint8*>(self);
+    do {
+        character = *source++;
+        *target++ = character;
+    } while (character != 0);
+    source = reinterpret_cast<const volatile uint8*>(second);
+    target = static_cast<uint8*>(self) + 0x18;
+    do {
+        character = *source++;
+        *target++ = character;
+    } while (character != 0);
+    return self;
+}
 } // namespace
 
 void CTheScripts::InjectHooks() {
@@ -96,6 +116,7 @@ void CTheScripts::InjectHooks() {
 
     RH_ScopedInstall(Init, 0x468D50);
     RH_ScopedNamedGlobalInstall(ScriptEntryListAdd, "ScriptEntryListAdd", 0x46AE80); // lote 166A (banco Fn166A)
+    RH_ScopedNamedGlobalInstall(ScriptTextPairSet, "ScriptTextPairSet", 0x46A340); // lote 222A (sin validar)
     RH_ScopedInstall(IsPointWithinSearchLight, 0x493280);
     RH_ScopedInstall(IsEntityWithinAnySearchLight, 0x493960); // lote 221A (sin validar); el listado decia CTaskComplexSeekEntityRadiusAngleOffset
     RH_ScopedInstall(InitialiseAllConnectLodObjects, 0x470960);

@@ -14,6 +14,8 @@ void* CPtrNodeSingleLink__operator_new(size_t sz);
 void  CPtrNodeSingleLink__operator_delete(void* data); // 0x552390 (lote 173A, banco Fn173A)
 void __fastcall CPtrListSingleLink__FlushExe(void* list, void* edx); // 0x552400 (lote 131A, banco Fn131A)
 void __fastcall CPtrListSingleLink__FlushJumpExe(void* list, void* edx); // 0x43E1A0 (lote 200A, sin validar): `jmp 0x552400`
+void* __fastcall CPtrListSingleLink__AddItemExe(void* list, void* edx, void* item); // 0x5335E0 (lote 222A, sin validar)
+void __fastcall CPtrListSingleLink__RemoveItemExe(void* list, void* edx, void* item); // 0x533610 (lote 222A, sin validar)
 };
 
 template<typename TItemType>

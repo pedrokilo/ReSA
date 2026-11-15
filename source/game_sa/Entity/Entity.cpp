@@ -62,6 +62,25 @@ static bool __fastcall EntityIsInCurrentAreaExe(const CEntity* self, void* /*edx
     return area == static_cast<uint32>(CGame::GetCurrentAreaCode()) || area == 0x0Du;
 }
 
+// 0x46A2F0 (lote 222A, sin validar; el listado decia CEntity y lo es: solo lee las banderas): predicado de las banderas del EXE (thiscall, sin argumentos de pila, `ret`, 18 bytes: `mov eax,[ecx+1Ch]; test ah,2;
+// jne ..; test al,al; jns ..; xor al,al; ret; ..: mov al,1; ret`). Lee las banderas (+0x1C, DWORD) UNA vez y devuelve verdadero si el bit 9 (m_bRenderDamaged) esta puesto o si el bit 7 (m_bIsVisible) esta
+// apagado (la prueba de AL es de signo: bit 7); falso en otro caso. Llamadores del EXE: 0x46D634 y 0x48321A (comandos de script sobre objetos).
+static bool __fastcall EntityIsInvisibleOrRenderDamagedExe(const CEntity* self, void* /*edx*/) {
+    const uint32 flags = *reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(self) + 0x1C);
+    return (flags & 0x200u) != 0 || (flags & 0x80u) == 0;
+}
+
+// 0x536C20 (lote 222A, sin validar; el listado decia CEntity y lo es): destructor con borrado de CEntity del EXE (ranura 0 de su vtable 0x863928; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi;
+// mov esi,ecx; call 0x535E90; test byte [esp+8],1; je ..; push esi; call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con CEntity::~CEntity (0x535E90, con hook; no escribe la
+// vtable), libera `this` con operator delete (0x8214BD, CRT, sin hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+static CEntity* __fastcall EntityScalarDeletingDestructorExe(CEntity* self, void* /*edx*/, uint8 flags) {
+    self->Destructor();
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
 /**
  * Registra el ciclo de vida, streaming, referencias, render y efectos comunes de CEntity.
  */
@@ -73,9 +92,11 @@ void CEntity::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x535E90);
     RH_ScopedNamedGlobalInstall(EntityGetStatusExe, "GetStatus", 0x4043E0); // lote 150A (banco Fn150A)
     RH_ScopedNamedGlobalInstall(EntityIsInCurrentAreaExe, "IsInCurrentArea", 0x407000); // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(EntityIsInvisibleOrRenderDamagedExe, "IsInvisibleOrRenderDamaged", 0x46A2F0); // lote 222A (sin validar)
+    RH_ScopedNamedGlobalInstall(EntityScalarDeletingDestructorExe, "ScalarDeletingDestructor", 0x536C20); // lote 222A (sin validar)
     RH_ScopedNamedGlobalInstall(EntityGetModelIndexExe, "GetModelIndex", 0x404420); // lote 150A (banco Fn150A)
 
-    //RH_ScopedOverloadedInstall(Add, "void", 0x533020, void(CEntity::*)());
+    RH_ScopedVMTOverloadedInstall(Add, "void", 0x533020, void(CEntity::*)()); // lote 222A (sin validar): virtual (hueco 2); el cuerpo llama a GetBoundRect (hueco 9) y a Add(rect) (hueco 1) por la vtable
     RH_ScopedVMTOverloadedInstall(Add, "rect", 0x5347D0, void(CEntity::*)(const CRect&)); // Como el original: virtual (hueco 1); un hook plano entra en bucle
     RH_ScopedVMTInstall(Remove, 0x534AE0);
     RH_ScopedVMTInstall(SetIsStatic, 0x403E20);

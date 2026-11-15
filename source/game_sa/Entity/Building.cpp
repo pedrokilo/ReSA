@@ -40,6 +40,19 @@ CBuilding* __fastcall BuildingScalarDeletingDestructor(CBuilding* self, void* /*
     }
     return self;
 }
+
+// 0x403E00 (lote 222A, sin validar; el listado decia CEntity): cuerpo del constructor de CBuilding del EXE (thiscall, sin argumentos de pila, `ret`, 32 bytes: `push esi; mov esi,ecx; call 0x532A90; mov al,[esi+0x36];
+// and al,0xF9; or al,1; mov [esi+0x36],al; or dword [esi+0x1C],1; mov dword [esi],0x8585C8; mov eax,esi; pop esi; ret`). Base CEntity (0x532A90, con hook), tipo del byte +0x36 = edificio (bits 1 y 2 a cero, bit 0
+// a uno, resto intacto), enciende el bit 0 de las banderas (+0x1C, DWORD: usa colision) y deja la vtable de CBuilding del EXE (0x8585C8; la de la DLL no vale: los constructores de las subclases del EXE la
+// sobrescriben); devuelve this. Lo llama CAnimatedBuilding (0x537A10).
+__declspec(noinline) CBuilding* __fastcall BuildingConstructorBody(CBuilding* self, void* /*edx*/) {
+    static_cast<CEntity*>(self)->Constructor();
+    uint8* const type = reinterpret_cast<uint8*>(self) + 0x36;
+    *type             = uint8((*type & 0xF9u) | 1u);
+    *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(self) + 0x1C) |= 1u;
+    *reinterpret_cast<uint32*>(self) = 0x8585C8;
+    return self;
+}
 } // namespace
 
 uintptr_t Lote149ABuildingEntityDestructor() { return reinterpret_cast<uintptr_t>(&BuildingEntityDestructor); } // para el banco Fn149A
@@ -53,6 +66,7 @@ void CBuilding::InjectHooks()
     RH_ScopedCategory("Entity");
     RH_ScopedNamedGlobalInstall(BuildingDestructorBody, "DestructorBody", 0x404180);                       // lote 149A (banco Fn149A)
     RH_ScopedNamedGlobalInstall(BuildingScalarDeletingDestructor, "ScalarDeletingDestructor", 0x404130);   // lote 149A (banco Fn149A)
+    RH_ScopedNamedGlobalInstall(BuildingConstructorBody, "Constructor", 0x403E00);                         // lote 222A (sin validar)
 
     RH_ScopedInstall(ReplaceWithNewModel, 0x403EC0);
     RH_ScopedInstall(operator new, 0x404090);    // lote 146A (banco Fn146A)

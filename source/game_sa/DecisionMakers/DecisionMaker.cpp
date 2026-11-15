@@ -28,6 +28,16 @@ __declspec(noinline) CDecisionMaker* __fastcall DecisionMakerAssignExe(CDecision
     self->From(*source);
     return self;
 }
+
+// 0x4634D0 (lote 222A, sin validar; el listado decia CEntity): pone por defecto un decision maker del EXE (thiscall, ECX = this = primera CDecision, sin argumentos de pila, `ret`, 32 bytes: `push esi; push edi;
+// mov esi,ecx; mov edi,29h; ..: mov ecx,esi; call 0x600530; add esi,3Ch; dec edi; jne ..; pop edi; pop esi; ret`). Para cada una de las 41 decisiones (0x3C bytes, en orden creciente) llama a CDecision::SetDefault
+// (0x600530, con hook) con ECX = la decision. Es el mismo bucle que el constructor 0x4650A0 trae en linea; sin llamadores directos en el EXE. No devuelve nada (EAX es el de la ultima llamada).
+__declspec(noinline) void __fastcall DecisionMakerSetDefaultExe(CDecisionMaker* self, void* /*edx*/) {
+    static_assert(DM_TOTAL_NUM_EVENTS == 0x29 && sizeof(CDecision) == 0x3C);
+    for (size_t i = 0; i < self->m_aDecisions.size(); ++i) {
+        self->m_aDecisions[i].SetDefault();
+    }
+}
 } // namespace
 
 void CDecisionMaker::InjectHooks() {
@@ -37,6 +47,7 @@ void CDecisionMaker::InjectHooks() {
     RH_ScopedInstall(MakeDecision, 0x606060);
     RH_ScopedInstall(From, 0x5BA020); // lote 144A (banco Fn144A)
     RH_ScopedNamedGlobalInstall(DecisionMakerAssignExe, "operator=", 0x5BD4E0); // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(DecisionMakerSetDefaultExe, "SetDefault", 0x4634D0); // lote 222A (sin validar)
 }
 
 // 0x4650A0

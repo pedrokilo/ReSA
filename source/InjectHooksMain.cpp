@@ -230,6 +230,7 @@
 #include "Attractors/PedSeatAttractor.h"
 #include "Attractors/PedStopAttractor.h"
 #include "Attractors/PedPizzaAttractor.h"
+#include "ProtectionStub.h"
 #include "Attractors/PedTriggerScriptAttractor.h"
 #include "Attractors/PedLookAtAttractor.h"
 #include "Attractors/PedScriptedAttractor.h"
@@ -737,6 +738,7 @@ void InjectHooksMain() {
     CPedAttractor::InjectHooks();
     CPedShelterAttractor::InjectHooks();
     CPedATMAttractor::InjectHooks();
+    CProtectionStub::InjectHooks();
     CPedSeatAttractor::InjectHooks();
     CPedStopAttractor::InjectHooks();
     CPedPizzaAttractor::InjectHooks();

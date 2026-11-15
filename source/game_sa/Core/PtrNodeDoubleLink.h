@@ -14,6 +14,8 @@ void* CPtrNodeDoubleLink__operator_new(size_t sz);
 void  CPtrNodeDoubleLink__operator_delete(void* data); // 0x5523D0 (lote 173A, banco Fn173A)
 void __fastcall CPtrListDoubleLink__FlushExe(void* list, void* edx); // 0x552470 (lote 131A, banco Fn131A)
 void __fastcall CPtrNodeDoubleLink__AddToListExe(void* node, void* edx, void** head); // 0x5329A0 (lote 150A, banco Fn150A)
+void* __fastcall CPtrListDoubleLink__AddItemExe(void* list, void* edx, void* item); // 0x533670 (lote 222A, sin validar)
+void __fastcall CPtrListDoubleLink__RemoveItemExe(void* list, void* edx, void* item); // 0x5336B0 (lote 222A, sin validar)
 };
 
 template<typename TItemType>
