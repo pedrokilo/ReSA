@@ -2,10 +2,24 @@
 
 #include "FxInfoJitter.h"
 
+// Lote 216A (sin validar): ver reversing/PendienteValidar/216A.md
+void FxInfoJitter_c::InjectHooks() {
+    RH_ScopedClass(FxInfoJitter_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Constructor, 0x004A5B20);
+}
+
 // 0x4A5B20
 FxInfoJitter_c::FxInfoJitter_c() : FxInfo_c() {
     m_nType = FX_INFO_JITTER_DATA;
     m_InterpInfo.Allocate(1);
+}
+
+// 0x4A5B20 (lote 216A, sin validar): constructor del EXE (thiscall, devuelve this; con SEH propio del compilador). Llama al constructor C++ de arriba, que reproduce las escrituras del EXE.
+FxInfoJitter_c* FxInfoJitter_c::Constructor() {
+    this->FxInfoJitter_c::FxInfoJitter_c();
+    return this;
 }
 
 // 0x4A5B90

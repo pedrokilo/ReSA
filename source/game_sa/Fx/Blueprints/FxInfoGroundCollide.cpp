@@ -2,10 +2,24 @@
 
 #include "FxInfoGroundCollide.h"
 
+// Lote 216A (sin validar): ver reversing/PendienteValidar/216A.md
+void FxInfoGroundCollide_c::InjectHooks() {
+    RH_ScopedClass(FxInfoGroundCollide_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Constructor, 0x004A5980);
+}
+
 // 0x4A5980
 FxInfoGroundCollide_c::FxInfoGroundCollide_c() : FxInfo_c() {
     m_nType = FX_INFO_GROUNDCOLLIDE_DATA;
     m_InterpInfo.Allocate(3);
+}
+
+// 0x4A5980 (lote 216A, sin validar): constructor del EXE (thiscall, devuelve this; con SEH propio del compilador). Llama al constructor C++ de arriba, que reproduce las escrituras del EXE.
+FxInfoGroundCollide_c* FxInfoGroundCollide_c::Constructor() {
+    this->FxInfoGroundCollide_c::FxInfoGroundCollide_c();
+    return this;
 }
 
 // 0x4A59F0

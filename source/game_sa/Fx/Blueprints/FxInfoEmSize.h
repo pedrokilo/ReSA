@@ -8,9 +8,14 @@ protected:
     FxInterpInfo32_c m_InterpInfo;
 
 public:
+    static void InjectHooks();
+
     FxInfoEmSize_c();
     ~FxInfoEmSize_c() override = default;
 
     void Load(FILESTREAM file, int32 version) override;
     void GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) override;
+private:
+    void Destructor(); // 0x4A6B00 (lote 216A)
+    FxInfoEmSize_c* ScalarDeletingDestructor(uint8 flags); // 0x4A6AE0 (lote 216A)
 };

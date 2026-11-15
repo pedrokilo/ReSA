@@ -3,10 +3,24 @@
 #include "FxInfoFlat.h"
 #include "FxManager.h"
 
+// Lote 216A (sin validar): ver reversing/PendienteValidar/216A.md
+void FxInfoFlat_c::InjectHooks() {
+    RH_ScopedClass(FxInfoFlat_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Constructor, 0x004A6320);
+}
+
 // 0x4A6320
 FxInfoFlat_c::FxInfoFlat_c() : FxInfo_c(), m_InterpInfo() {
     m_nType = FX_INFO_FLAT_DATA;
     m_InterpInfo.Allocate(9);
+}
+
+// 0x4A6320 (lote 216A, sin validar): constructor del EXE (thiscall, devuelve this; con SEH propio del compilador). Llama al constructor C++ de arriba, que reproduce las escrituras del EXE.
+FxInfoFlat_c* FxInfoFlat_c::Constructor() {
+    this->FxInfoFlat_c::FxInfoFlat_c();
+    return this;
 }
 
 // 0x4A6390

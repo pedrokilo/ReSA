@@ -3,10 +3,24 @@
 #include "FxInfoWind.h"
 #include "MovementInfo.h"
 
+// Lote 216A (sin validar): ver reversing/PendienteValidar/216A.md
+void FxInfoWind_c::InjectHooks() {
+    RH_ScopedClass(FxInfoWind_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Constructor, 0x004A5A10);
+}
+
 // 0x4A5A10
 FxInfoWind_c::FxInfoWind_c() : FxInfo_c() {
     m_nType = FX_INFO_WIND_DATA;
     m_InterpInfo.Allocate(1);
+}
+
+// 0x4A5A10 (lote 216A, sin validar): constructor del EXE (thiscall, devuelve this; con SEH propio del compilador). Llama al constructor C++ de arriba, que reproduce las escrituras del EXE.
+FxInfoWind_c* FxInfoWind_c::Constructor() {
+    this->FxInfoWind_c::FxInfoWind_c();
+    return this;
 }
 
 // 0x4A5A80

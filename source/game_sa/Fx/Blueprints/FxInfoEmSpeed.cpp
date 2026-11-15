@@ -3,10 +3,33 @@
 #include "FxInfoEmSpeed.h"
 #include "FxManager.h"
 
+// Lote 216A (sin validar): ver reversing/PendienteValidar/216A.md
+void FxInfoEmSpeed_c::InjectHooks() {
+    RH_ScopedClass(FxInfoEmSpeed_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Destructor, 0x004A6B70);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x004A6B50);
+}
+
 // 0x4A4D00
 FxInfoEmSpeed_c::FxInfoEmSpeed_c() : FxInfo_c(), m_InterpInfo() {
     m_nType = FX_INFO_EMSPEED_DATA;
     m_InterpInfo.Allocate(2);
+}
+
+// 0x4A6B70 (lote 216A, sin validar): cuerpo del destructor (thiscall): destruye el interp de +8 (deja su vtable base) y pone la vtable base de FxInfo_c (0x85A7DC). Solo lo llama el destructor con borrado 0x4A6B50.
+__declspec(noinline) void FxInfoEmSpeed_c::Destructor() {
+    this->FxInfoEmSpeed_c::~FxInfoEmSpeed_c();
+}
+
+// 0x4A6B50 (lote 216A, sin validar): destructor con borrado (ranura 0 de la vtable; thiscall, un argumento de pila, `ret 4`): `push esi; mov esi,ecx; call 0x4A6B70; test byte [esp+8],1; je ..; push esi; call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`. Libera this solo si el bit 0 del BYTE de banderas esta puesto y devuelve this.
+FxInfoEmSpeed_c* FxInfoEmSpeed_c::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        ::operator delete(this);
+    }
+    return this;
 }
 
 // 0x4A4D70

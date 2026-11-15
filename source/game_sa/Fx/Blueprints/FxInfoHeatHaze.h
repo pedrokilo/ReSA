@@ -8,9 +8,13 @@ protected:
     FxInterpInfo255_c m_InterpInfo;
 
 public:
+    static void InjectHooks();
+
     FxInfoHeatHaze_c();
     ~FxInfoHeatHaze_c() override = default;
 
     void Load(FILESTREAM file, int32 version) override;
     void GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) override;
+private:
+    FxInfoHeatHaze_c* Constructor(); // 0x4A61A0 (lote 216A)
 };

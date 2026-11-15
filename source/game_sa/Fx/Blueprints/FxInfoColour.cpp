@@ -2,10 +2,24 @@
 
 #include "FxInfoColour.h"
 
+// Lote 216A (sin validar): ver reversing/PendienteValidar/216A.md
+void FxInfoColour_c::InjectHooks() {
+    RH_ScopedClass(FxInfoColour_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Constructor, 0x004A5EA0);
+}
+
 // 0x4A5EA0
 FxInfoColour_c::FxInfoColour_c() : FxInfo_c() {
     m_nType = FX_INFO_COLOUR_DATA;
     m_InterpInfo.Allocate(4);
+}
+
+// 0x4A5EA0 (lote 216A, sin validar): constructor del EXE (thiscall, devuelve this; con SEH propio del compilador). Llama al constructor C++ de arriba, que reproduce las escrituras del EXE.
+FxInfoColour_c* FxInfoColour_c::Constructor() {
+    this->FxInfoColour_c::FxInfoColour_c();
+    return this;
 }
 
 // 0x4A5F10

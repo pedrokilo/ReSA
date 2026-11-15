@@ -8,9 +8,13 @@ protected:
     FxInterpInfo32_c m_InterpInfo;
 
 public:
+    static void InjectHooks();
+
     FxInfoSize_c();
     ~FxInfoSize_c() override = default; // 0x4A7650
 
     void Load(FILESTREAM file, int32 version) override;
     void GetValue(float currentTime, float delta, float totalTime, float length, bool useConst, void* info) override;
+private:
+    FxInfoSize_c* Constructor(); // 0x4A5FA0 (lote 216A)
 };

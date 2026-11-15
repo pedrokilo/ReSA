@@ -2,10 +2,24 @@
 
 #include "FxInfoSmoke.h"
 
+// Lote 216A (sin validar): ver reversing/PendienteValidar/216A.md
+void FxInfoSmoke_c::InjectHooks() {
+    RH_ScopedClass(FxInfoSmoke_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Constructor, 0x004A68E0);
+}
+
 // 0x4A68E0
 FxInfoSmoke_c::FxInfoSmoke_c() : FxInfo_c() {
     m_nType = FX_INFO_SMOKE_DATA;
     m_InterpInfo.Allocate(8);
+}
+
+// 0x4A68E0 (lote 216A, sin validar): constructor del EXE (thiscall, devuelve this; con SEH propio del compilador). Llama al constructor C++ de arriba, que reproduce las escrituras del EXE.
+FxInfoSmoke_c* FxInfoSmoke_c::Constructor() {
+    this->FxInfoSmoke_c::FxInfoSmoke_c();
+    return this;
 }
 
 // 0x4A6950

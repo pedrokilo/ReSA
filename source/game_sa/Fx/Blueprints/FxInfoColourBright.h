@@ -8,9 +8,13 @@ protected:
     FxInterpInfoU255_c m_InterpInfo;
 
 public:
+    static void InjectHooks();
+
     FxInfoColourBright_c();
     ~FxInfoColourBright_c() override = default; // 0x4A7A40
 
     void Load(FILESTREAM file, int32 version) override;
     void GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) override;
+private:
+    FxInfoColourBright_c* Constructor(); // 0x4A67D0 (lote 216A)
 };

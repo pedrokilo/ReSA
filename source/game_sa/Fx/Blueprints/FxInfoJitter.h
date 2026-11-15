@@ -8,9 +8,13 @@ protected:
     FxInterpInfo32_c m_InterpInfo;
 
 public:
+    static void InjectHooks();
+
     FxInfoJitter_c();
     ~FxInfoJitter_c() override = default;
 
     void Load(FILESTREAM file, int32 version) override;
     void GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) override;
+private:
+    FxInfoJitter_c* Constructor(); // 0x4A5B20 (lote 216A)
 };

@@ -18,6 +18,32 @@
 #include "MBlur.h"
 #include "Rubbish.h"
 #include "PlaneBanners.h"
+// Lote 216A (sin validar): constructores y destructores de los FxInfo*_c
+#include "FxInfoGroundCollide.h"
+#include "FxInfoWind.h"
+#include "FxInfoJitter.h"
+#include "FxInfoRotSpeed.h"
+#include "FxInfoFloat.h"
+#include "FxInfoUnderwater.h"
+#include "FxInfoColour.h"
+#include "FxInfoSize.h"
+#include "FxInfoSpriteRect.h"
+#include "FxInfoHeatHaze.h"
+#include "FxInfoTrail.h"
+#include "FxInfoFlat.h"
+#include "FxInfoDir.h"
+#include "FxInfoAnimTexture.h"
+#include "FxInfoColourRange.h"
+#include "FxInfoSelfLit.h"
+#include "FxInfoColourBright.h"
+#include "FxInfoSmoke.h"
+#include "FxInfoEmRate.h"
+#include "FxInfoEmSize.h"
+#include "FxInfoEmSpeed.h"
+#include "FxInfoEmDir.h"
+#include "FxInfoEmAngle.h"
+#include "FxInfoEmLife.h"
+#include "FxInfoEmPos.h"
 
 #include <extensions/CommandLine.h>
 
@@ -1623,6 +1649,31 @@ void InjectHooksMain() {
         FxPrim_c::InjectHooks();
         FxMemoryPool_c::InjectHooks();
         FxInfoManager_c::InjectHooks();
+        FxInfoGroundCollide_c::InjectHooks();
+        FxInfoWind_c::InjectHooks();
+        FxInfoJitter_c::InjectHooks();
+        FxInfoRotSpeed_c::InjectHooks();
+        FxInfoFloat_c::InjectHooks();
+        FxInfoUnderwater_c::InjectHooks();
+        FxInfoColour_c::InjectHooks();
+        FxInfoSize_c::InjectHooks();
+        FxInfoSpriteRect_c::InjectHooks();
+        FxInfoHeatHaze_c::InjectHooks();
+        FxInfoTrail_c::InjectHooks();
+        FxInfoFlat_c::InjectHooks();
+        FxInfoDir_c::InjectHooks();
+        FxInfoAnimTexture_c::InjectHooks();
+        FxInfoColourRange_c::InjectHooks();
+        FxInfoSelfLit_c::InjectHooks();
+        FxInfoColourBright_c::InjectHooks();
+        FxInfoSmoke_c::InjectHooks();
+        FxInfoEmRate_c::InjectHooks();
+        FxInfoEmSize_c::InjectHooks();
+        FxInfoEmSpeed_c::InjectHooks();
+        FxInfoEmDir_c::InjectHooks();
+        FxInfoEmAngle_c::InjectHooks();
+        FxInfoEmLife_c::InjectHooks();
+        FxInfoEmPos_c::InjectHooks();
         FxInterpInfoFloat_c::InjectHooks();
         FxInterpInfoU255_c::InjectHooks();
         FxInterpInfo32_c::InjectHooks();

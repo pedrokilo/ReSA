@@ -3,10 +3,24 @@
 #include "FxInfoSize.h"
 #include "RenderInfo.h"
 
+// Lote 216A (sin validar): ver reversing/PendienteValidar/216A.md
+void FxInfoSize_c::InjectHooks() {
+    RH_ScopedClass(FxInfoSize_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Constructor, 0x004A5FA0);
+}
+
 // 0x4A5FA0
 FxInfoSize_c::FxInfoSize_c() : FxInfo_c(), m_InterpInfo() {
     m_nType = FX_INFO_SIZE_DATA;
     m_InterpInfo.Allocate(4);
+}
+
+// 0x4A5FA0 (lote 216A, sin validar): constructor del EXE (thiscall, devuelve this; con SEH propio del compilador). Llama al constructor C++ de arriba, que reproduce las escrituras del EXE.
+FxInfoSize_c* FxInfoSize_c::Constructor() {
+    this->FxInfoSize_c::FxInfoSize_c();
+    return this;
 }
 
 // 0x4A6010

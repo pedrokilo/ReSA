@@ -2,10 +2,24 @@
 
 #include "FxInfoDir.h"
 
+// Lote 216A (sin validar): ver reversing/PendienteValidar/216A.md
+void FxInfoDir_c::InjectHooks() {
+    RH_ScopedClass(FxInfoDir_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Constructor, 0x004A6440);
+}
+
 // 0x4A6440
 FxInfoDir_c::FxInfoDir_c() : FxInfo_c() {
     m_nType = FX_INFO_DIR_DATA;
     m_InterpInfo.Allocate(3);
+}
+
+// 0x4A6440 (lote 216A, sin validar): constructor del EXE (thiscall, devuelve this; con SEH propio del compilador). Llama al constructor C++ de arriba, que reproduce las escrituras del EXE.
+FxInfoDir_c* FxInfoDir_c::Constructor() {
+    this->FxInfoDir_c::FxInfoDir_c();
+    return this;
 }
 
 // 0x4A64B0
