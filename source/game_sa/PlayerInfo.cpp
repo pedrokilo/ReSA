@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 
 #include "PlayerInfo.h"
+#include "PlayerInfoSaveStructure.h"
 #include "FireManager.h"
 #include "MenuSystem.h"
 #include "Hud.h"

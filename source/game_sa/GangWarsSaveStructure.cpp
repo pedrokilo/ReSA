@@ -2,7 +2,17 @@
 
 #include "GangWarsSaveStructure.h"
 
-// 0x5D2620
+void CGangWarsSaveStructure::InjectHooks() {
+    RH_ScopedClass(CGangWarsSaveStructure);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(Construct, 0x5D2620); // lote 196A (sin validar)
+    RH_ScopedInstall(Extract, 0x5D2740);   // lote 196A (sin validar)
+}
+
+// 0x5D2620 (lote 196A, sin validar; thiscall, sin argumentos de pila, `ret`, 282 bytes): copia los estados estaticos de CGangWars (0x96AB44..0x96ABD0) a la estructura de guardado (0x58 bytes). Los indices de zona se buscan
+// con un bucle sobre los arrays del EXE (informacion de zonas: base 0xBA1DF0, pasos de 0x11, contador WORD 0xBA1DE8; zonas de navegacion: base 0xBA3798, pasos de 0x20, contador WORD 0xBA3794) y valen -1 si el puntero es
+// nulo o no esta. El EXE lee los contadores como WORD SIN signo (movzx).
 void CGangWarsSaveStructure::Construct() {
     bGangWarsActive = CGangWars::bGangWarsActive;
     State = CGangWars::State;
@@ -10,7 +20,7 @@ void CGangWarsSaveStructure::Construct() {
     GangWarZoneInfoIndex = -1;
 
     if (CGangWars::pZoneInfoToFightOver) {
-        for (auto i = 0; i < CTheZones::TotalNumberOfZoneInfos; i++) {
+        for (auto i = 0; i < static_cast<uint16>(CTheZones::TotalNumberOfZoneInfos); i++) {
             if (CGangWars::pZoneInfoToFightOver == &CTheZones::ZoneInfoArray[i]) {
                 GangWarZoneInfoIndex = i;
                 break;
@@ -21,7 +31,7 @@ void CGangWarsSaveStructure::Construct() {
     // Como el original (0x5D2671): el indice de zona de navegacion se pone a -1 siempre, y su bucle depende de pZoneToFightOver (0x96AB88), no de pZoneInfoToFightOver.
     GangWarNavigationZoneIndex = (uint32)-1;
     if (CGangWars::pZoneToFightOver) {
-        for (auto i = 0; i < CTheZones::TotalNumberOfNavigationZones; i++) {
+        for (auto i = 0; i < static_cast<uint16>(CTheZones::TotalNumberOfNavigationZones); i++) {
             if (CGangWars::pZoneToFightOver == &CTheZones::NavigationZoneArray[i]) {
                 GangWarNavigationZoneIndex = i;
                 break;
@@ -44,7 +54,7 @@ void CGangWarsSaveStructure::Construct() {
     Difficulty = CGangWars::Difficulty;
 }
 
-// 0x5D2740
+// 0x5D2740 (lote 196A, sin validar; thiscall, `ret`, 234 bytes): inversa de Construct. Un indice -1 (comparado como DWORD) deja el puntero a nulo; si no, base + indice * 0x11 (informacion de zona) o * 0x20 (zona de navegacion).
 void CGangWarsSaveStructure::Extract() const {
     CGangWars::bGangWarsActive = bGangWarsActive;
     CGangWars::State = State;

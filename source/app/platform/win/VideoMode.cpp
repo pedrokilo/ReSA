@@ -90,6 +90,12 @@ char** GetVideoModeList() {
     return gVideoModes;
 }
 
+// 0x745A70 (lote 196A, sin validar; cdecl, sin argumentos, 5 bytes: `jmp 0x7F2CC0`; _psGetNumVideModes del esqueleto de RenderWare): salto directo a RwEngineGetNumVideoModes (0x7F2CC0, no enganchada) con la misma pila,
+// asi que devuelve su resultado (EAX) sin tocar nada mas. Lo llaman 0x57CFDF y 0x57D047 (MenuManager).
+RwInt32 GetNumVideoModes() {
+    return RwEngineGetNumVideoModes();
+}
+
 // 0x745A80
 bool FreeVideoModeList() {
     auto numVidModes = RwEngineGetNumVideoModes();
@@ -128,6 +134,7 @@ void VideoModeInjectHooks() {
 
     RH_ScopedGlobalInstall(GetVideoModeList, 0x745AF0);
     RH_ScopedGlobalInstall(FreeVideoModeList, 0x745A80);
+    RH_ScopedGlobalInstall(GetNumVideoModes, 0x745A70); // lote 196A (sin validar)
     RH_ScopedGlobalInstall(SetVideoMode, 0x745C70);
     RH_ScopedGlobalInstall(IsVideoModeExclusive, 0x745CA0);
 }

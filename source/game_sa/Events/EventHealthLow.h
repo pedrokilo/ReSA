@@ -21,5 +21,6 @@ public:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    CEventHealthLow* Constructor(); // 0x5FF440 (lote 196A, sin validar)
 };
 VALIDATE_SIZE(CEventHealthLow, 0x14);

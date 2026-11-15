@@ -206,6 +206,13 @@ __declspec(noinline) void __fastcall MatrixAddTranslationExe(CMatrix* self, void
 __declspec(noinline) void __fastcall MatrixScaleAllExe(CMatrix* self, void* /*edx*/, float factor) {
     MatrixScaleAllCpp(&self->GetRight().x, factor);
 }
+
+// 0x541E90 (lote 196A, sin validar; el listado decia CPad: es la sobrecarga de CMatrix::Rotate con el vector por PUNTERO; thiscall, un puntero de pila, `ret 4`, 23 bytes): lee x, y, z del vector apuntado, los pone
+// por valor en la pila (z, y, x: el vector de 12 bytes de la sobrecarga por valor) y llama a CMatrix::Rotate(CVector) del EXE (0x59B460, con hook) con la MISMA matriz (ECX = this); no devuelve nada. Solo la llama
+// el EXE desde 0x54715B. No hay x87 propio: la rotacion es la de 0x59B460.
+__declspec(noinline) void __fastcall MatrixRotateByPointerExe(CMatrix* self, void* /*edx*/, const CVector* rotation) {
+    self->Rotate(CVector{rotation->x, rotation->y, rotation->z});
+}
 } // namespace
 
 // Lote 166A (banco Fn166A): 0x46AE00. Funcion libre para no tocar Matrix.h; se llama desde InjectHooksMain.cpp junto a las demas listas activas.
@@ -216,6 +223,7 @@ void CMatrixInjectHooksLote166A()
 
     RH_ScopedNamedGlobalInstall(MatrixAddTranslationExe, "AddTranslation", 0x46AE00);
     RH_ScopedNamedGlobalInstall(MatrixScaleAllExe, "ScaleAll", 0x45AF40); // lote 181A (sin validar)
+    RH_ScopedNamedGlobalInstall(MatrixRotateByPointerExe, "RotateByPointer", 0x541E90); // lote 196A (sin validar)
 }
 
 CMatrix::CMatrix(const CMatrix& matrix) {

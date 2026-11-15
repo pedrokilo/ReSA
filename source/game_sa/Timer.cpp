@@ -50,6 +50,7 @@ void CTimer::InjectHooks()
     RH_ScopedInstall(GetIsSlowMotionActive, 0x561AD0);
     RH_ScopedInstall(UpdateVariables, 0x5618D0);
     RH_ScopedInstall(Update, 0x561B10);
+    RH_ScopedInstall(UpdateTimeStep, 0x541F40); // lote 196A (sin validar)
     RH_ScopedGlobalInstall(GetMillisecondTime, 0x5617C0);
     RH_ScopedNamedGlobalInstall(GetTimeStepCopy, "GetTimeStepCopy", 0x41BD50); // lote 140A (banco Fn140A)
     RH_ScopedGlobalInstall(GetOSWPerformanceTime, 0x5617A0); // lote 124A (banco Fn124A): oswrapper_win.cpp; el listado de pendientes decia CTimeCycle (la clase real es CTimer: es el temporizador que elige CTimer::Initialise)
@@ -275,4 +276,10 @@ void CTimer::Update() {
 
     UpdateVariables(fTimeDelta);
     m_FrameCounter++;
+}
+
+// 0x541F40 (lote 196A, sin validar; el listado decia CPad: es CTimer::UpdateTimeStep; cdecl, un float de pila, `ret`, 38 bytes): ms_fTimeStep (0xB7CB5C) = max(paso, 0.00001f). `fld [arg]; fcomp [0x858C14]` (9.99999974e-06f)
+// sin aritmetica: si el paso es MAYOR (o no ordenado: NaN) se guarda el paso tal cual (mismos bits); si es menor o igual se guarda la constante 0x3727C5AC. Lo llaman 0x547D8C, 0x547ED3, 0x547FBA, 0x54820C, 0x548233 y 0x548257.
+void CTimer::UpdateTimeStep(float ts) {
+    ms_fTimeStep = std::max(ts, 0.00001f);
 }

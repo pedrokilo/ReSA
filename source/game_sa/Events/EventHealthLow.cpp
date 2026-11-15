@@ -25,7 +25,7 @@ void __fastcall EditableResponseDestructorBody(CEventEditableResponse* self, voi
 }
 
 namespace {
-// 0x5FF460 (lote 196A, sin validar; aqui SIN hook: lo valida el lote 196A): cuerpo del destructor de CEventHealthLow del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],86CBA0h; jmp 0x4AC480`). Deja la vtable de la clase del EXE (0x86CBA0)
+// 0x5FF460 (lote 196A, sin validar): cuerpo del destructor de CEventHealthLow del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],86CBA0h; jmp 0x4AC480`). Deja la vtable de la clase del EXE (0x86CBA0)
 // y sigue con el cuerpo de ~CEventEditableResponse (0x4AC480, con hook, que deja la vtable de CEvent). Funcion propia sin expansion en linea; la llama el destructor con borrado del EXE (0x5FF4E3) y la alcanzan por salto
 // los desenrollados SEH de 0x83E72B y 0x83E743.
 __declspec(noinline) void __fastcall HealthLowDestructorBody(CEventHealthLow* self, void* /*edx*/) {
@@ -50,9 +50,20 @@ void CEventHealthLow::InjectHooks()
     RH_ScopedVirtualClass(CEventHealthLow, 0x86CBA0, 17);
     RH_ScopedCategory("Events");
 
+    RH_ScopedInstall(Constructor, 0x5FF440);                                                    // lote 196A (sin validar)
+    RH_ScopedNamedGlobalInstall(HealthLowDestructorBody, "DestructorBody", 0x5FF460);           // lote 196A (sin validar)
     RH_ScopedNamedGlobalInstall(HealthLowScalarDeletingDestructor, "ScalarDeletingDestructor", 0x5FF4E0); // lote 197A (sin validar)
     RH_ScopedVMTInstall(CloneEditable, 0x5FF490);                                               // lote 197A (sin validar)
 }
+
+// 0x5FF440 (lote 196A, sin validar; el listado decia CEventSeenCop: es CEventHealthLow, evento 53; thiscall, sin argumentos de pila, `ret`, 18 bytes: `push esi; mov esi,ecx; call 0x4AC450; mov [esi],86CBA0h;
+// mov eax,esi; pop esi; ret`). Constructor de CEventEditableResponse (0x4AC450, con hook) y vtable de la clase del EXE (0x86CBA0); devuelve this.
+CEventHealthLow* CEventHealthLow::Constructor() {
+    this->CEventHealthLow::CEventHealthLow();
+    return this;
+
+}
+
 
 // 0x5FF490 (lote 197A, sin validar; thiscall, sin argumentos, `ret`, 80 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 16 de la vtable 0x86CBA0).
 // Como el original: CEvent::operator new (0x4B5620, con hook) con 0x14 bytes; sin memoria devuelve nulo (EAX = 0); si no, CEventEditableResponse::CEventEditableResponse (0x4AC450, con hook; ECX = memoria),
@@ -65,4 +76,5 @@ CEventEditableResponse* CEventHealthLow::CloneEditable() const noexcept {
     static_cast<CEventEditableResponse*>(memory)->Constructor();
     *reinterpret_cast<uint32*>(memory) = 0x86CBA0;
     return static_cast<CEventHealthLow*>(memory);
+
 }

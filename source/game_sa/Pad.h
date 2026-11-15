@@ -140,6 +140,7 @@ public:
 
     void Update(int32 pad);
     static void UpdatePads();
+    static void UpdatePadsThunk(); // 0x541E50 (lote 196A, sin validar): salto a UpdatePads (0x541DD0)
     void UpdateMouse();
     HRESULT GetMouseState(DIMOUSESTATE2* dm);
     static void ProcessPad(ePadID padID);
@@ -149,7 +150,7 @@ public:
     void SetTouched();
     [[nodiscard]] uint32 GetTouchedTimeDelta() const;
 
-    void SetDrunkInputDelay(int32 delay) { DrunkDrivingBufferUsed = delay; } // 0x53F910
+    void SetDrunkInputDelay(int32 delay); // 0x53F910 (lote 196A, sin validar)
 
     void StartShake(int16 time, uint8 frequency, uint32 arg2);
     void StartShake_Distance(int16 time, uint8 frequency, CVector pos);
@@ -365,7 +366,7 @@ public:
     static bool GetAnaloguePadRight();
     static bool GetAnaloguePadDown();
     bool sub_540530() const noexcept;
-    bool sub_5404F0() const noexcept { return Mode != 1 ? 0 : IsDPadDownPressed(); } // 0x5404F0
+    bool sub_5404F0() const noexcept; // 0x5404F0 (lote 196A, sin validar)
     bool IsPhaseEqual11() const noexcept { return Phase == 11; } // 0x53FB60
 
     static void SetCurrentPad(int8 pad) { padNumber = pad; } // 0x53ED70

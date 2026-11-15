@@ -592,6 +592,35 @@ RwBool psSelectDevice() {
     return TRUE;
 }
 
+// 0x7457C0 (lote 196A, sin validar; cdecl, sin argumentos, `ret`, 44 bytes con marco EBP; codigo muerto: sin llamadores ni referencias en el EXE): devuelve el EDX de CPUID(0x80000001) (caracteristicas extendidas) si la hoja
+// extendida maxima (EAX de CPUID(0x80000000), comparada SIN signo) es MAYOR que 0x80000000; si no, 0. EBX se conserva (push/pop).
+static uint32 GetCpuExtendedFeatures() {
+    int regs[4];
+    __cpuid(regs, 0x80000000);
+    uint32 features = 0;
+    if (static_cast<uint32>(regs[0]) > 0x80000000u) {
+        __cpuid(regs, 0x80000001);
+        features = static_cast<uint32>(regs[3]);
+    }
+    return features;
+}
+
+// 0x7457F0 (lote 196A, sin validar; cdecl, sin argumentos, `ret`, 73 bytes con marco EBP; codigo muerto: sin llamadores ni referencias en el EXE; es la version suelta del bloque en linea de psInitialize): ejecuta CPUID(1),
+// CPUID(0x80000000) y, si la hoja extendida maxima es mayor (sin signo) que 0x80000000, CPUID(0x80000001) (los EDX solo llenan una variable local sin uso) y por ultimo CPUID(0): guarda EBX, EDX y ECX (fabricante) en los
+// tres DWORD de 0x8D6238 SIN terminador. El EAX que deja es el de CPUID(0) (hoja maxima); ningun llamador lo lee.
+static void GetCpuFeaturesAndVendor() {
+    int regs[4];
+    __cpuid(regs, 1);
+    __cpuid(regs, 0x80000000);
+    if (static_cast<uint32>(regs[0]) > 0x80000000u) {
+        __cpuid(regs, 0x80000001);
+    }
+    __cpuid(regs, 0);
+    std::memcpy(gCpuVendor.data(), &regs[1], 4);
+    std::memcpy(gCpuVendor.data() + 4, &regs[3], 4);
+    std::memcpy(gCpuVendor.data() + 8, &regs[2], 4);
+}
+
 void WinPsInjectHooks() {
     RH_ScopedCategory("Win");
     RH_ScopedNamespaceName("Ps");
@@ -620,4 +649,6 @@ void WinPsInjectHooks() {
     RH_ScopedGlobalInstall(CheckDirectSound, 0x745840);
     RH_ScopedGlobalInstall(GetVideoMemInfo, 0x7455E0);
     RH_ScopedGlobalInstall(GetDXVersion, 0x745650);
+    RH_ScopedGlobalInstall(GetCpuExtendedFeatures, 0x7457C0); // lote 196A (sin validar)
+    RH_ScopedGlobalInstall(GetCpuFeaturesAndVendor, 0x7457F0); // lote 196A (sin validar)
 }

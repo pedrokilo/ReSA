@@ -218,6 +218,18 @@ static void __fastcall VehStubPlayCarHorn(CVehicle* /*self*/, void* /*edx*/) {} 
 static float __fastcall VehStubGetDooorAngleOpenRatio(CVehicle* /*self*/, void* /*edx*/, eDoors /*door*/) { return 0.0F; }                                  // 0x6D56B0 (+0x858B50 = 0.0f)
 static float __fastcall VehStubFindWheelWidth(CVehicle* /*self*/, void* /*edx*/, bool /*bRear*/) { return 0.25F; }                                          // 0x6D3D50 (+0x858C84 = 0.25f)
 
+// 0x6E38A0 (lote 196A, sin validar): destructor con borrado de CVehicle del EXE (ranura 0 de la vtable 0x871E80; thiscall, un argumento de pila, `ret 4`, 76 bytes: `push esi; push edi; mov edi,ecx;
+// call 0x6E2B40; test byte [esp+0Ch],1; je ..;` y, con el bit 0 del BYTE de banderas, el borrado del almacen de vehiculos EN LINEA (0xB74494: indice = (this - base) / 0xA18 con signo, marca el hueco
+// libre (bit 7 del mapa) y baja el cursor si el indice es menor) SIN pasar por 0x6E2D90; devuelve `this`). Destruye con el cuerpo de CVehicle del EXE (0x6E2B40, con hook). Se engancha como S
+// (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+static CVehicle* __fastcall VehicleScalarDeletingDestructor(CVehicle* self, void* /*edx*/, uint8 flags) {
+    self->CVehicle::~CVehicle();
+    if (flags & 1) {
+        GetVehiclePool()->Delete(self);
+    }
+    return self;
+}
+
 void CVehicle::InjectHooks() {
     RH_ScopedVirtualClass(CVehicle, 0x871e80, 66);
     RH_ScopedCategory("Vehicle");
@@ -228,6 +240,9 @@ void CVehicle::InjectHooks() {
     RH_ScopedOverloadedInstall(operator new, "poolRef", 0x6E2D60, void* (*)(unsigned, int32));
     RH_ScopedInstall(Constructor, 0x6D5F10);
     RH_ScopedInstall(Destructor, 0x6E2B40);
+    RH_ScopedNamedGlobalInstall(VehicleScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6E38A0); // lote 196A (sin validar)
+    RH_ScopedOverloadedInstall(operator delete, "anon", 0x6E2D90, void (*)(void*));                       // lote 196A (sin validar)
+    RH_ScopedOverloadedInstall(operator delete, "poolRef", 0x6E2DD0, void (*)(void*, int32));             // lote 196A (sin validar)
 
     RH_ScopedVMTInstall(SetModelIndex, 0x6D6A40);
     RH_ScopedVMTInstall(DeleteRwObject, 0x6D6410);
@@ -239,6 +254,8 @@ void CVehicle::InjectHooks() {
     RH_ScopedVMTInstall(Render, 0x6D0E60);
     RH_ScopedVMTInstall(ProcessOpenDoor, 0x6D56C0);
     RH_ScopedVMTInstall(GetHeightAboveRoad, 0x6D63F0);
+    RH_ScopedVMTInstall(GetNumContactWheels, 0x6D63D0); // lote 196A (sin validar)
+    RH_ScopedVMTInstall(VehicleDamage, 0x6D63E0);       // lote 196A (sin validar)
     RH_ScopedVMTInstall(CanPedStepOutCar, 0x6D1F30);
     RH_ScopedVMTInstall(CanPedJumpOutCar, 0x6D2030);
     RH_ScopedVMTInstall(GetTowHitchPos, 0x6DFB70);
@@ -618,6 +635,8 @@ __declspec(safebuffers) void* CVehicle::operator new(unsigned size) {
 }
 #pragma runtime_checks("", restore)
 
+// 0x6E2D90 (lote 196A, sin validar; cdecl, un puntero de pila, `ret`, 49 bytes): borrado en linea del almacen de vehiculos (0xB74494): indice = (puntero - base) / 0xA18 con signo (division por
+// multiplicacion magica), marca el hueco como libre (`or byte [mapa + indice], 80h`) y, si el indice es menor que el cursor de huecos libres (+0xC, comparacion con signo), lo baja. Sin comprobar nulo ni rango.
 void CVehicle::operator delete(void* data) {
     GetVehiclePool()->Delete(static_cast<CVehicle*>(data));
 }
@@ -626,8 +645,19 @@ void* CVehicle::operator new(unsigned size, int32 poolRef) {
     return GetVehiclePool()->NewAt(poolRef);
 }
 
+// 0x6E2DD0 (lote 196A, sin validar; cdecl, `ret`, 49 bytes): copia exacta de 0x6E2D90; el segundo argumento (la referencia del almacen) ni se lee. Lo llama el EXE desde los marcos de desenrollado de
+// los constructores con colocacion en una referencia (0x837A98..0x837B42, 0x83D5F8..0x83D691).
 void CVehicle::operator delete(void* data, int32 poolRef) {
     GetVehiclePool()->Delete(static_cast<CVehicle*>(data));
+}
+
+// 0x6D63D0 (lote 196A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,4`): ranura 55 de la vtable 0x871E80; cuatro ruedas en contacto para los vehiculos que no la sustituyen. No lee el objeto.
+int32 CVehicle::GetNumContactWheels() {
+    return 4;
+}
+
+// 0x6D63E0 (lote 196A, sin validar; thiscall, seis argumentos de pila, `ret 18h`, 3 bytes): ranura 56 de la vtable 0x871E80; no hace nada.
+void CVehicle::VehicleDamage(float /*damageIntensity*/, eVehicleCollisionComponent /*collisionComponent*/, CEntity* /*damager*/, CVector* /*vecCollisionCoors*/, CVector* /*vecCollisionDirection*/, eWeaponType /*weapon*/) {
 }
 
 // 0x6D6A40

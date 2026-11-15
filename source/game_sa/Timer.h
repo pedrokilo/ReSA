@@ -80,7 +80,7 @@ public:
 
     static float  GetTimeStep() { return ms_fTimeStep; }
     static void   SetTimeStep(float ts) { ms_fTimeStep = ts; }
-    static void   UpdateTimeStep(float ts) { ms_fTimeStep = std::max(ts, 0.00001f); }
+    static void   UpdateTimeStep(float ts); // 0x541F40 (lote 196A, sin validar; el listado decia CPad)
     static float  GetTimeStepInSeconds() { return ms_fTimeStep / TIMESTEP_PER_SECOND; }
     static float  GetTimeStepInMS() { return GetTimeStepInSeconds() * 1000.0f; } // pattern: CTimer::ms_fTimeStep * 0.02f * 1000.0f
 

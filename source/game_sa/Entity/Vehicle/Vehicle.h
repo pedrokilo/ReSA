@@ -499,8 +499,8 @@ public:
     virtual void DoBurstAndSoftGroundRatios() { /* Do nothing */ }
     virtual float GetHeightAboveRoad();
     virtual void PlayCarHorn() { /* Do nothing */ }
-    virtual int32 GetNumContactWheels() { return 4; }
-    virtual void VehicleDamage(float damageIntensity, eVehicleCollisionComponent collisionComponent, CEntity* damager, CVector* vecCollisionCoors, CVector* vecCollisionDirection, eWeaponType weapon) { /* Do nothing */ }
+    virtual int32 GetNumContactWheels(); // 0x6D63D0 (lote 196A, sin validar)
+    virtual void VehicleDamage(float damageIntensity, eVehicleCollisionComponent collisionComponent, CEntity* damager, CVector* vecCollisionCoors, CVector* vecCollisionDirection, eWeaponType weapon); // 0x6D63E0 (lote 196A, sin validar)
     virtual bool CanPedStepOutCar(bool bIgnoreSpeedUpright = false) const;
     virtual bool CanPedJumpOutCar(CPed* ped);
     virtual bool GetTowHitchPos(CVector& outPos, bool bCheckModelInfo, CVehicle* vehicle);

@@ -133,6 +133,10 @@ void CPad::InjectHooks() {
     RH_ScopedInstall(StartShake_Distance, 0x53F9A0);
     RH_ScopedInstall(StartShake_Train, 0x53FA70); 
     RH_ScopedInstall(StopShaking, 0x53FB50);
+    RH_ScopedInstall(StopPadsShaking, 0x541D70);         // lote 196A (sin validar)
+    RH_ScopedInstall(SetDrunkInputDelay, 0x53F910);      // lote 196A (sin validar)
+    RH_ScopedInstall(sub_5404F0, 0x5404F0);              // lote 196A (sin validar)
+    RH_ScopedInstall(UpdatePadsThunk, 0x541E50);         // lote 196A (sin validar)
     RH_ScopedInstall(GetCarGunLeftRight, 0x53FC50);
     RH_ScopedInstall(GetCarGunUpDown, 0x53FC10);
     RH_ScopedInstall(GetSteeringLeftRight, 0x53FB80);
@@ -648,11 +652,28 @@ void CPad::StartShake_Train(CVector2D point) {
     }
 }
 
-// 0x541D70
+// 0x541D70 (lote 196A, sin validar; cdecl, sin argumentos, `ret`, 1 byte): el EXE no hace nada (el bucle sobre los mandos que llamaba a StopShaking, otro `ret 4` vacio, no se compilo). Lo llaman
+// 0x4076C1 (CStreaming), 0x56E8A4, 0x5745D0 y 0x748DF2.
 void CPad::StopPadsShaking() {
-    for (auto i = 0u; i < std::size(Pads); i++) {
-        GetPad(i)->StopShaking(i);
+}
+
+// 0x53F910 (lote 196A, sin validar; thiscall, un argumento de pila, `ret 4`, 10 bytes): guarda el retardo de la conduccion ebria (+0x74, DrunkDrivingBufferUsed) tal cual (con signo, 32 bits).
+void CPad::SetDrunkInputDelay(int32 delay) {
+    DrunkDrivingBufferUsed = delay;
+}
+
+// 0x5404F0 (lote 196A, sin validar; thiscall, `ret`, 45 bytes con tabla de saltos sobre el WORD Mode (+0x10A)): solo el modo 1 (cualquier otro valor, incluidos 0, 2, 3 y mayores de 3, devuelve falso) lee
+// la cruceta abajo: nueva (+0x12) distinta de cero y anterior (+0x42) cero, como BUTTON_IS_PRESSED(DPadDown). Devuelve el BYTE AL. Lo llaman 0x528181 y 0x528D3A.
+bool CPad::sub_5404F0() const noexcept {
+    if (Mode != 1) {
+        return false;
     }
+    return IsDPadDownPressed();
+}
+
+// 0x541E50 (lote 196A, sin validar; thiscall/cdecl sin argumentos, 5 bytes: `jmp 0x541DD0`): salto directo a CPad::UpdatePads, sin tocar la pila ni los registros antes. Su unico llamador del EXE es 0x5D171F.
+void CPad::UpdatePadsThunk() {
+    UpdatePads();
 }
 
 // 0x53FB50

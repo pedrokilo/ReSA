@@ -56,6 +56,15 @@ bool Initialise() {
     return true;
 }
 
+// 0x747000 (lote 196A, sin validar; cdecl, sin argumentos, `ret`, 32 bytes): libera la interfaz de DirectInput de la plataforma (+0x18 de psGlobal, diInterface) con IUnknown::Release (ranura 2) si no es nula y la
+// pone a nula (se vuelve a leer psGlobal tras la llamada). No toca el raton ni los mandos. Su unico llamador del EXE es 0x74803B (salida de WinMain).
+void InputShutdown() {
+    if (const auto ifc = PSGLOBAL(diInterface)) {
+        ifc->Release();
+        PSGLOBAL(diInterface) = nullptr;
+    }
+}
+
 HRESULT ReleaseInput() {
     if (const auto ifc = PSGLOBAL(diInterface)) {
         return ifc->Release();
@@ -352,6 +361,7 @@ void InjectHooks() {
     RH_ScopedGlobalInstall(EnumDevicesCallback, 0x747020);
     RH_ScopedGlobalInstall(diPadSetRanges, 0x746D80);
     RH_ScopedGlobalInstall(GetMouseSetUpExe, 0x53F2D0);
+    RH_ScopedGlobalInstall(InputShutdown, 0x747000); // lote 196A (sin validar)
 }
 
 bool IsKeyPressed(unsigned int keyCode) {

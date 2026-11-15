@@ -145,6 +145,8 @@
 #include "WaterCannon.h"
 #include "EntryExitManager.h"
 #include "ObjectSaveStructure.h"
+#include "PlayerInfoSaveStructure.h"
+#include "GangWarsSaveStructure.h"
 #include "PedStats.h"
 #include "TrafficLights.h"
 #include "CurrentVehicle.h"
@@ -925,6 +927,7 @@ void InjectHooksMain() {
     CIdleCam::InjectHooks();
     CMessages::InjectHooks();
     CGangWars::InjectHooks();
+    CGangWarsSaveStructure::InjectHooks(); // lote 196A (sin validar): Construct 0x5D2620 y Extract 0x5D2740
     CPlayerPedData::InjectHooks();
     CTimeCycle::InjectHooks();
     CColourSet::InjectHooks();
@@ -955,6 +958,7 @@ void InjectHooksMain() {
     CInformGroupEventQueue::InjectHooks();
     CGangs::InjectHooks();
     CPlayerInfo::InjectHooks();
+    CPlayerInfoSaveStructure::InjectHooks(); // lote 196A (sin validar): Construct 0x5D24B0 y Extract 0x5D2560
     CReplay::InjectHooks();
     CWinsockLink::InjectHooks();
     CDarkel::InjectHooks();
@@ -1521,7 +1525,7 @@ void InjectHooksMain() {
         CEventPassObject::InjectHooks();
         CEventLeanOnVehicle::InjectHooks();
         CEventSeenCop::InjectHooks();
-        CEventHealthLow::InjectHooks(); // lote 197A (sin validar): CloneEditable y destructor con borrado
+        CEventHealthLow::InjectHooks(); // lotes 196A y 197A (sin validar): constructor, cuerpo del destructor, CloneEditable y destructor con borrado
         CEventHealthReallyLow::InjectHooks(); // lote 197A (sin validar)
         CEventLowAngerAtPlayer::InjectHooks(); // lote 197A (sin validar)
         CEventHighAngerAtPlayer::InjectHooks(); // lote 197A (sin validar)

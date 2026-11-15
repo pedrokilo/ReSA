@@ -50,6 +50,7 @@ static inline auto& gCurrentVideoMode = StaticRef<int32>(0x8D6220);
 void VideoModeInjectHooks();
 
 extern char** GetVideoModeList();
+extern RwInt32 GetNumVideoModes(); // 0x745A70 (lote 196A, sin validar)
 extern bool FreeVideoModeList();
 extern void SetVideoMode(int32 mode);
 extern bool IsVideoModeExclusive();

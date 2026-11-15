@@ -30,7 +30,9 @@ public:
     float            Difficulty;
 
 public:
-     void Construct();
-     void Extract() const;
+    static void InjectHooks();
+
+    void Construct();       // 0x5D2620
+    void Extract() const;   // 0x5D2740
 };
 VALIDATE_SIZE(CGangWarsSaveStructure, 0x58);

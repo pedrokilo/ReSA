@@ -7,6 +7,7 @@ namespace WinInput {
 
 void diMouseInit(bool exclusive);
 void diPadInit();
+void InputShutdown(); // 0x747000 (lote 196A, sin validar)
 int32 diPadEnumerate();
 
 BOOL CALLBACK EnumDevicesCallback(LPCDIDEVICEINSTANCEA pInst, LPVOID);
