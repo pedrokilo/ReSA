@@ -39,6 +39,7 @@ void CBoundingBox::InjectHooks() {
 
     RH_ScopedInstall(IsPointWithin, 0x49C300); // Lote 116A, banco Fn116A
     RH_ScopedInstall(Constructor, 0x40FAF0);   // Lote 130A, banco Fn130A
+    RH_ScopedInstall(SetMinMax, 0x470100);     // Lote 198A (sin validar)
     RH_ScopedNamedGlobalInstall(BoundingBoxConstructorAlias537550, "ConstructorAlias537550", 0x537550); // lote 159A (banco Fn159A)
     RH_ScopedNamedGlobalInstall(BoundingBoxConstructorAlias537560, "ConstructorAlias537560", 0x537560); // lote 159A (banco Fn159A)
     RH_ScopedNamedGlobalInstall(BoundingBoxConstructorAlias537570, "ConstructorAlias537570", 0x537570); // lote 159A (banco Fn159A)
@@ -67,8 +68,9 @@ bool CBoundingBox::IsPointWithin(const CVector& point) const {
         && point.z <= m_vecMax.z;
 }
 
-// 0x470100
-void CBoundingBox::SetMinMax(CVector min, CVector max) {
+// 0x470100 (lote 198A, sin validar; thiscall, seis argumentos float por valor en la pila (los dos CVector), `ret 18h`, 48 bytes): copia los tres dwords de `min` a +0, +4, +8 y los de `max` a +0xC, +0x10, +0x14 (sin x87) y devuelve this en EAX.
+CBoundingBox* CBoundingBox::SetMinMax(CVector min, CVector max) {
     m_vecMin = min;
     m_vecMax = max;
+    return this;
 }

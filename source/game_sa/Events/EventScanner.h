@@ -37,6 +37,7 @@ public:
     int32 ScanEntities(CPed& ped, int32 priority, CEntity** entities, int32 count, int32* outA, int32* outB); // 0x607A90 (hook ScanEntities; la llama ScanForPedAcquaintances)
     int32 FindAcquaintance(CPed& ped, int32 priority, int32 current, CPed* candidate, int32* outA, int32* outB); // 0x607560 (hook S, banco Fn607B: la llama ScanEntities)
     static bool CanJoinRiotAgainst(CPed* ped, CPed* other); // 0x603AF0 (hook S, cdecl, banco Fn607B: la llaman ScanEntities y FindAcquaintance)
+    bool CanScanPed(CPed* ped); // 0x603A30 (lote 198A, sin validar): decide si este escaner puede actuar sobre el peaton; la llama ScanForPedAcquaintances
 };
 
 class CVehiclePotentialCollisionScanner {

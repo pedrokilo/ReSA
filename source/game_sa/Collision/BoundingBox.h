@@ -19,7 +19,7 @@ public:
     CBoundingBox* Constructor(); // 0x40FAF0 (lote 130A, banco Fn130A): constructor por defecto del EXE (min = (1,1,1), max = (-1,-1,-1)), thiscall sin argumentos, devuelve this
 
     [[nodiscard]] bool IsPointWithin(const CVector& point) const;
-    inline void SetMinMax(CVector min, CVector max);
+    CBoundingBox* SetMinMax(CVector min, CVector max); // 0x470100 (lote 198A, sin validar): thiscall, seis floats por valor (min, max) en la pila, `ret 18h`, devuelve this
 };
 
 VALIDATE_SIZE(CBoundingBox, 0x18);

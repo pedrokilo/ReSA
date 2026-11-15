@@ -74,6 +74,14 @@ CPed* __fastcall PedScalarDeletingDestructor(CPed* self, void* /*edx*/, uint8 fl
     }
     return self;
 }
+
+// 0x470070 (lote 198A, sin validar; el listado decia CTaskComplexGoToPointAndStandStill: es un metodo de CPed con el peaton en ECX; lo llaman dos veces el comando de script de las tareas de quedarse en el sitio, 0x473C1E y 0x473C2C; thiscall,
+// un argumento de pila, `ret 4`, 32 bytes): pone el bit 22 (0x400000, bKindaStayInSamePlace) de la palabra de banderas +0x46C con el bit 0 del BYTE del argumento (`movzx eax,[arg]; shl eax,16h; xor eax,flags; and eax,400000h; xor flags,eax`):
+// el byte NO se normaliza (con 2 el bit queda a cero). Lee y escribe la palabra completa. No devuelve nada util (EAX queda con la mascara).
+void __fastcall PedSetKindaStayInSamePlace(CPed* self, void* /*edx*/, uint8 state) {
+    uint32& flags = *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(self) + 0x46C);
+    flags ^= ((static_cast<uint32>(state) << 22) ^ flags) & 0x400000u;
+}
 } // namespace
 
 void CPed::InjectHooks() {
@@ -238,6 +246,7 @@ void CPed::InjectHooks() {
     RH_ScopedGlobalInstall(SayJacked, 0x6497A0);
     RH_ScopedGlobalInstall(IsPedPointerValid, 0x5E8A30);
     RH_ScopedGlobalInstall(SayJacking, 0x6497F0);
+    RH_ScopedNamedGlobalInstall(PedSetKindaStayInSamePlace, "SetKindaStayInSamePlace", 0x470070); // lote 198A (sin validar)
 }
 
 // 0x5E8030

@@ -47,7 +47,21 @@ CTaskComplexGoToPointAndStandStill* __fastcall GoToPointAndStandStillScalarDelet
     }
     return self;
 }
+
+// 0x668240 (lote 198A, sin validar; thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],0x86FDA8; jmp 0x61A3D0`): copia exacta del cuerpo 0x668630 (la que llama el destructor con borrado 0x66DB80 de la ranura 0 de la vtable
+// 0x86FDA8). Deja la vtable de la clase del EXE (0x86FDA8) y sigue con ~CTaskComplex (0x61A3D0, con hook). No tiene mas llamadores propios. Funcion aparte (con su propia direccion) para que el banco la pueda sustituir.
+__declspec(noinline) void __fastcall GoToPointAndStandStillDestructorBodyCopy(CTaskComplexGoToPointAndStandStill* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86FDA8;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+
+static_assert(offsetof(CPed, m_vecAnimMovingShiftLocal) + sizeof(float) == 0x4DC); // velocidad local de la animacion en Y, leida por CreateSubTask (0x6682D0, `fld [ped+0x4DC]`)
 } // namespace
+
+// Cuerpo del destructor 0x668630 (el de la clase del EXE, vtable 0x86FDA8) para quien lo llama por separado: el destructor con borrado de CTaskComplexGoToPointAndStandStillTimed (0x66DC70, TaskComplexGoToPointAndStandStillTimed.cpp).
+void GoToPointAndStandStillExeDestructorBody(CTaskComplexGoToPointAndStandStill* self) {
+    GoToPointAndStandStillDestructorBody(self, nullptr);
+}
 
 uintptr_t Lote146AGoToPointDestructorBody() { return reinterpret_cast<uintptr_t>(&GoToPointAndStandStillDestructorBody); } // para el banco Fn146A
 
@@ -56,6 +70,9 @@ void CTaskComplexGoToPointAndStandStill::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(GoToPointAndStandStillDestructorBody, "Destructor", 0x668630); // lote 141A (banco Fn141A)
     RH_ScopedNamedGlobalInstall(GoToPointAndStandStillScalarDeletingDestructor, "ScalarDeletingDestructor", 0x66DB80); // lote 146A (banco Fn146A)
+    RH_ScopedNamedGlobalInstall(GoToPointAndStandStillDestructorBodyCopy, "DestructorBodyCopy", 0x668240); // lote 198A (sin validar)
+    RH_ScopedInstall(SelectMoveState, 0x668250); // lote 198A (sin validar)
+    RH_ScopedInstall(CreateSubTask, 0x6682D0);   // lote 198A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x668120);
 
@@ -157,15 +174,26 @@ void CTaskComplexGoToPointAndStandStill::GoToPoint(const CVector& targetPoint, f
     }
 }
 
-// 0x668250
+// 0x668250 (lote 198A, sin validar; thiscall con la tarea como `this` sin usar, cuatro argumentos de pila, `ret 10h`, 116 bytes): distancia 2D al cuadrado (ped - destino) = dx*dx + dy*dy (x87, 24 bits: cada producto y la suma se redondean a float)
+// y dos comparaciones ordenadas (`fcompp; test ah,5; jp`: solo se toma la rama de "menor" si la comparacion es ordenada y menor; con NaN gana la rama contraria): dist < radio^2 -> PEDMOVE_WALK; si no, dist < radioCorrer^2 -> PEDMOVE_RUN; si no,
+// PEDMOVE_SPRINT (con NaN en la distancia: SPRINT). Escribe solo m_moveState (+8) de la subtarea. Los cuadrados se calculan como float*float.
 void CTaskComplexGoToPointAndStandStill::SelectMoveState(CTaskSimpleGoToPoint* gotoPointTask, CPed* ped, float fMoveStateRadius, float fRunOrSprintRadius) {
-    const float dist2DSq = DistanceBetweenPointsSquared2D(gotoPointTask->m_vecTargetPoint, ped->GetPosition());
-    gotoPointTask->m_moveState = dist2DSq >= sq(fMoveStateRadius)
-        ? dist2DSq >= sq(fRunOrSprintRadius) ? PEDMOVE_SPRINT : PEDMOVE_RUN
-        : PEDMOVE_WALK;
+    const CVector& pedPos = ped->GetPosition();
+    const float dx = pedPos.x - gotoPointTask->m_vecTargetPoint.x;
+    const float dy = pedPos.y - gotoPointTask->m_vecTargetPoint.y;
+    const float dist2DSq = dx * dx + dy * dy;
+    if (dist2DSq < fMoveStateRadius * fMoveStateRadius) {
+        gotoPointTask->m_moveState = PEDMOVE_WALK;
+    } else if (dist2DSq < fRunOrSprintRadius * fRunOrSprintRadius) {
+        gotoPointTask->m_moveState = PEDMOVE_RUN;
+    } else {
+        gotoPointTask->m_moveState = PEDMOVE_SPRINT;
+    }
 }
 
-// 0x6682D0
+// 0x6682D0 (lote 198A, sin validar; thiscall, dos argumentos de pila, `ret 8`, con SEH que solo libera la memoria si el constructor lanzara): tipos 0x516 (TASK_FINISHED) y cualquier otro no listado -> nulo (el EXE no tiene rama de error).
+// TASK_SIMPLE_STAND_STILL con bStopExactly y subtarea GO_TO_POINT: velocidad de mezcla segun la velocidad local Y de la animacion; las comparaciones del EXE son `fcomp; test ah,5/41h; jp/jne`: shiftY < 0.01 (ordenada) -> 8.0f; si no, dot <= 0.01 o NaN
+// -> 16.0f; si no, 50 / ((dot / (shiftY * 0.5) - 1) * paso), y solo si es MAYOR que 16.0 (ordenada) se recorta a 16.0f.
 CTask* CTaskComplexGoToPointAndStandStill::CreateSubTask(eTaskType taskType, CPed* ped) {
     switch (taskType) {
     case TASK_FINISHED:
@@ -193,16 +221,20 @@ CTask* CTaskComplexGoToPointAndStandStill::CreateSubTask(eTaskType taskType, CPe
             CVector vecDistance = m_vecTargetPoint - ped->GetPosition();
             float   fDotProduct = DotProduct(&vecDistance, &ped->GetForward());
             float   fBlendDelta = 8.0f;
-            if (ped->m_vecAnimMovingShiftLocal.y >= 0.01f) {
-                fBlendDelta = 50.0f / ((fDotProduct / (ped->m_vecAnimMovingShiftLocal.y * 0.5f) - 1.0f) * CTimer::GetTimeStep());
-                if (fDotProduct <= 0.01f || fBlendDelta > 16.0f)
+            if (!(ped->m_vecAnimMovingShiftLocal.y < 0.01f)) { // Como el original: con NaN entra aqui (el EXE solo salta con "menor" ordenado)
+                if (!(fDotProduct > 0.01f)) {
                     fBlendDelta = 16.0f;
+                } else {
+                    fBlendDelta = 50.0f / ((fDotProduct / (ped->m_vecAnimMovingShiftLocal.y * 0.5f) - 1.0f) * CTimer::GetTimeStep());
+                    if (fBlendDelta > 16.0f)
+                        fBlendDelta = 16.0f;
+                }
             }
             return new CTaskSimpleStandStill(2000, false, true, fBlendDelta);
         }
         return new CTaskSimpleStandStill(1, false, false, 8.0f);
     }
     default:
-        NOTSA_UNREACHABLE("Invalid TaskType ({})", taskType);
+        return nullptr; // Como el original: TASK_FINISHED y cualquier otro tipo devuelven nulo
     }
 }

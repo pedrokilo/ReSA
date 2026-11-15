@@ -26,9 +26,12 @@ void CVehicleScannerInjectHooksLote109A() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(GetClosestVehicleInRange, 0x5FFEE0);
+    RH_ScopedInstall(ScanForVehiclesInRange, 0x5FFE60); // lote 198A (sin validar)
 }
 
-// 0x5FFE60
+// 0x5FFE60 (lote 198A, sin validar; thiscall, un argumento de pila (el peaton), `ret 4`, 113 bytes): sin vida (CPed::IsAlive 0x5E0170) no hace nada. Con vehiculo (+0x58C) Y en vehiculo (bit 8 de +0x46C): si el peaton es de mision (byte +0x484 == 2)
+// primero CEntityScanner::ScanForEntitiesInRange (0x5FFA20, llamada directa, lista 0 = vehiculos); despues SIEMPRE cambia el vehiculo mas cercano (+0x4C): CleanUpOldReference del anterior si no es nulo, +0x4C = vehiculo del peaton y RegisterReference
+// de la direccion de +0x4C. Si no (sin vehiculo o a pie) solo el escaneo de la lista 0 (que incluye la limpieza del escaner). No devuelve nada.
 void CVehicleScanner::ScanForVehiclesInRange(const CPed& ped) {
     if (!ped.IsAlive())
         return;

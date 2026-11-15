@@ -93,6 +93,8 @@ END GENERATED HOOK STATUS */
 #include "GameLogic.h"
 #include "PedGroup.h"
 #include "PedGroups.h"
+#include "Events/EventEditableResponse.h"
+#include "Tasks/PedScriptedTaskRecord.h"
 #include "PedIntelligence.h"
 #include "PedType.h"
 #include "X87Math.h"
@@ -111,6 +113,7 @@ void CPedAcquaintanceScanner::InjectHooks() {
     RH_ScopedInstall(ScanForPedAcquaintances, 0x607D80);
     RH_ScopedInstall(ScanEntities, 0x607A90); // caso 607A90 (banco Fn607A)
     RH_ScopedInstall(CanJoinRiotAgainst, 0x603AF0); // caso COLAB-607A (banco Fn607B)
+    RH_ScopedInstall(CanScanPed, 0x603A30); // lote 198A (sin validar)
     RH_ScopedInstall(FindAcquaintance, 0x607560); // caso COLAB-607A (banco Fn607B)
 }
 
@@ -517,14 +520,53 @@ void CPedAcquaintanceScanner::ScanForPedAcquaintances(CPed& ped, CEntity** entit
     m_timer.m_nInterval  = interval;
     m_timer.m_bStarted   = true;
 
-    // 0x603A30: decide si este escaner puede actuar sobre el peaton (aun por direccion); 0x607A90 (ScanEntities) hace el escaneo.
+    // 0x603A30 (CanScanPed): decide si este escaner puede actuar sobre el peaton; 0x607A90 (ScanEntities) hace el escaneo.
     // El EXE le pasa dos punteros a variables locales que valen 0 y -1 (el escaneo las rellena; esta funcion no las lee).
-    if (!plugin::CallMethodAndReturn<bool, 0x603A30>(this, &ped)) {
+    if (!CanScanPed(&ped)) {
         return;
     }
     int32 outA = 0;
     int32 outB = -1;
     ScanEntities(ped, -1, entities, count, &outA, &outB);
+}
+
+// 0x603A30 (lote 198A, sin validar; thiscall, un argumento de pila (el peaton), `ret 4`, 187 bytes; devuelve AL = 0 o 1): el listado de entrada no la atribuia a esta clase; `this` es el CPedAcquaintanceScanner (bytes +0xC, +0xD y +0xE =
+// m_bScanAllowedScriptPed / InVehicle / ScriptedTask) y el unico llamador es ScanForPedAcquaintances (0x607D80).
+//  1. Peaton muerto (CPed::IsAlive 0x5E0170) -> falso.
+//  2. `permitido`: verdadero si el peaton NO es de mision (byte +0x484 distinto de 2) o el escaner de peatones de script esta activo (+0xC). Si es de mision y no hay script: permitido = (peaton en vehiculo (bit 8 de +0x46C) Y +0xD); y
+//     SIEMPRE se consulta CPedScriptedTaskRecord::GetStatus(ped) (0x608750, que devuelve 0 o 1): si es distinto de cero Y +0xE, permitido pasa a verdadero; si sigue sin permitido -> falso.
+//  3. Evento actual del historial de eventos del peaton (inteligencia +0x38, CEventHandlerHistory::GetCurrentEvent 0x4B8CA0): sin evento, o de tipo distinto de EVENT_ACQUAINTANCE_PED_HATE (0x24), -> verdadero.
+//  4. Con ese evento: si el contador de decision-maker de la inteligencia (+0xC4, m_nDmNumPedsToScan) es cero -> falso; si CEventEditableResponse::ComputeResponseTaskOfType (0x4B5730) con TASK_SIMPLE_INFORM_RESPECTED_FRIENDS (0x6A4) es falso
+//     -> falso; si CPedIntelligence::FindRespectedFriendInInformRange (0x600CF0) es falso -> falso; si no, verdadero.
+bool CPedAcquaintanceScanner::CanScanPed(CPed* ped) {
+    if (!ped->IsAlive()) {
+        return false;
+    }
+
+    if (ped->GetCreatedBy() != PED_MISSION || m_bScanAllowedScriptPed) {
+        // permitido
+    } else {
+        bool allowed = ped->bInVehicle && m_bScanAllowedInVehicle;
+        if (CPedScriptedTaskRecord::GetStatus(ped) != eScriptedTaskStatus::EVENT_ASSOCIATED && m_bScanAllowedScriptedTask) {
+            allowed = true;
+        }
+        if (!allowed) {
+            return false;
+        }
+    }
+
+    CPedIntelligence* const intelligence = ped->GetIntelligence();
+    CEvent* const currentEvent = intelligence->GetEventHandler().GetHistory().GetCurrentEvent();
+    if (!currentEvent || currentEvent->GetEventType() != EVENT_ACQUAINTANCE_PED_HATE) {
+        return true;
+    }
+    if (!intelligence->m_nDmNumPedsToScan) {
+        return false;
+    }
+    if (!static_cast<CEventEditableResponse*>(currentEvent)->ComputeResponseTaskOfType(ped, TASK_SIMPLE_INFORM_RESPECTED_FRIENDS)) {
+        return false;
+    }
+    return intelligence->FindRespectedFriendInInformRange();
 }
 
 // 0x607A90: escaneo de entidades (caso 607A90, banco Fn607A). Thiscall con seis argumentos de pila (`ret 18h`); el unico llamador del EXE es ScanForPedAcquaintances. Devuelve el numero de candidatos que

@@ -30,12 +30,26 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexSunbathe.h"
 #include "InterestingEvents.h"
 
+namespace {
+// 0x6385B0 (lote 198A, sin validar; el listado decia CTaskComplexSunbathe: es la ranura 0 de la vtable 0x86E134 de CTaskComplexUseAttractor; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x632720;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x632720, con hook: el destructor de C++), libera `this` con CTask::operator delete
+// (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexUseAttractor* __fastcall UseAttractorScalarDeletingDestructor(CTaskComplexUseAttractor* self, void* /*edx*/, uint8 flags) {
+    self->CTaskComplexUseAttractor::~CTaskComplexUseAttractor();
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskComplexUseAttractor::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexUseAttractor, 0x86e134, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x6326F0);
     RH_ScopedInstall(Destructor, 0x632720);
+    RH_ScopedNamedGlobalInstall(UseAttractorScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6385B0); // lote 198A (sin validar)
 
     RH_ScopedVMTInstall(Clone, 0x6369B0);
     RH_ScopedVMTInstall(GetTaskType, 0x632710);

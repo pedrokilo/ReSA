@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 
 namespace CTaskComplexBody {
 void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
 }
 
 namespace CTaskSimpleBody {
@@ -138,6 +139,29 @@ __declspec(noinline) void __fastcall ReactToAttackDestructorBody(CTaskComplexRea
     CTaskComplexBody::Destructor(self, nullptr);
 }
 
+// 0x620B00 (lote 198A, sin validar; el listado decia CTaskSimpleBeHit: es el constructor de CTaskComplexReactToAttack, 0x24 bytes, que llama el Clone 0x623300; thiscall, cinco argumentos de pila, `ret 14h`, 121 bytes con SEH que solo desenrolla y
+// aqui se omite). Como el original: ~CTaskComplex (0x61A3B0, con hook: vtable de la base y subtarea nula); +0x18 = arg3, +0x10 = arg1 (tipo de arma), +0x1C = arg4, vtable de la clase del EXE (0x86D868), bytes +0xC y +0xD a cero, +0x14 = arg2 (agresor),
+// +0x20 = arg5; y SOLO si el agresor no es nulo, CEntity::RegisterReference (0x571B70, con hook) con ECX = el agresor y la direccion de +0x14. Devuelve `this`. Los significados de arg3, arg4 y arg5 se deducen de CreateFirstSubTask (arg5 = estado +0x20 que se
+// compara con 3; arg4 = +0x1C); se llevan tal cual. La clase no tiene campos declarados: las escrituras son por desplazamiento.
+CTaskComplexReactToAttack* __fastcall ReactToAttackConstructor(CTaskComplexReactToAttack* self, void* /*edx*/, int32 weaponType, CEntity* attacker, int32 arg3, int32 arg4, int32 arg5) {
+    CTaskComplexBody::Constructor(self, nullptr);
+    FieldAt<int32>(self, 0x18) = arg3;
+    FieldAt<int32>(self, 0x10) = weaponType;
+    FieldAt<int32>(self, 0x1C) = arg4;
+    *reinterpret_cast<uint32*>(self) = 0x86D868;
+    FieldAt<uint8>(self, 0xC) = 0;
+    FieldAt<uint8>(self, 0xD) = 0;
+    FieldAt<CEntity*>(self, 0x14) = attacker;
+    FieldAt<int32>(self, 0x20) = arg5;
+    CEntity::SafeRegisterRef(FieldAt<CEntity*>(self, 0x14));
+    return self;
+}
+
+// 0x620B80 (lote 198A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,0x3EE`): TASK_COMPLEX_REACT_TO_ATTACK (1006); no lee el objeto (ranura 4 de la vtable 0x86D868). Se engancha como S: la clase es abstracta aqui y no tiene vtable propia que buscar.
+eTaskType __fastcall ReactToAttackGetTaskType(CTaskComplexReactToAttack* /*self*/, void* /*edx*/) {
+    return TASK_COMPLEX_REACT_TO_ATTACK;
+}
+
 // 0x625C00 (lote 193A, sin validar; el listado decia CTaskComplexReactToAttack: es la ranura 0 de la vtable 0x86D868; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x620B90; test byte [esp+8],1; je ..;
 // push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo (0x620B90, ReactToAttackDestructorBody), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
 // del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (clase sin reconstruir: sin vtable exportada).
@@ -222,5 +246,7 @@ void CTaskComplexReactToAttack::InjectHooks() {
     RH_ScopedNamedGlobalInstall(ReactToAttackScalarDeletingDestructor, "ScalarDeletingDestructor", 0x625C00); // lote 193A (sin validar)
     RH_ScopedNamedGlobalInstall(ReactToAttackCreateNextSubTask, "CreateNextSubTask", 0x625C20); // lote 193A (sin validar)
     RH_ScopedNamedGlobalInstall(ReactToAttackCreateFirstSubTask, "CreateFirstSubTask", 0x625C70); // lote 193A (sin validar)
+    RH_ScopedNamedGlobalInstall(ReactToAttackConstructor, "Constructor", 0x620B00); // lote 198A (sin validar)
+    RH_ScopedNamedGlobalInstall(ReactToAttackGetTaskType, "GetTaskType", 0x620B80); // lote 198A (sin validar)
     // TODO: instalar las funciones conforme se reconstruyan.
 }

@@ -2,6 +2,7 @@
 #include "ModelInfoAccelerator.h"
 #include "PatrolRoute.h"
 #include "AttractorScanner.h"
+#include "ObjectScanner.h"
 #include "Events/EventSource.h"
 #include "Events/EventPotentialGetRunOver.h"
 #include "Events/EventRevived.h"
@@ -522,6 +523,7 @@
 #include "TaskSimpleDuckToggle.h"
 #include "TaskSimpleDuckWhileShotsWhizzing.h"
 #include "TaskSimpleBeHitWhileMoving.h"
+#include "TaskComplexPresentIDToCop.h"
 #include "TaskComplexExtinguishFireOnFoot.h"
 #include "TaskSimpleBeKickedOnGround.h"
 #include "TaskSimpleThrowControl.h"
@@ -789,7 +791,7 @@ void InjectHooksMain() {
     TListInjectHooksLote105A(); // Only TList_c AddItem 0x4A8DF0, RemoveAll 0x4A8EB0 and GetNumItems 0x4A8EC0.
     RuntimeHelpersInjectHooksLote105A(); // Only the vector constructor iterator 0x403D60.
     CPedScannerInjectHooksLote109A(); // Only CPedScanner::GetClosestPedInRange 0x5FFF20.
-    CVehicleScannerInjectHooksLote109A(); // Only CVehicleScanner::GetClosestVehicleInRange 0x5FFEE0.
+    CVehicleScannerInjectHooksLote109A(); // Only CVehicleScanner::GetClosestVehicleInRange 0x5FFEE0 y (lote 198A, sin validar) ScanForVehiclesInRange 0x5FFE60.
     CPointRouteInjectHooksLote109A(); // Only CPointRoute operator new 0x41B7C0 and operator delete 0x41B7D0.
     CMatrixLink::InjectHooks();
     CMatrixLinkList::InjectHooks();
@@ -844,6 +846,7 @@ void InjectHooksMain() {
     CPed::InjectHooks();
     CPedSaveStructure::InjectHooks();
     CAttractorScanner::InjectHooks();
+    CObjectScanner::InjectHooks(); // lote 198A (sin validar): solo CObjectScanner::ScanForObjectsInRange 0x5FFF30
     CMentalState::InjectHooks();
     CEventScanner::InjectHooks();
     CVehiclePotentialCollisionScanner::InjectHooks();
@@ -1252,7 +1255,7 @@ void InjectHooksMain() {
         CTaskComplexOpenDriverDoor::InjectHooks();
         CTaskComplexOpenPassengerDoor::InjectHooks();
         CTaskComplexPassObject::InjectHooks();
-        // CTaskComplexPresentIDToCop::InjectHooks();
+        CTaskComplexPresentIDToCop::InjectHooks(); // lote 198A (sin validar): clase reconstruida (constructor, cuerpo del destructor, destructor con borrado, GetTaskType, Clone, CreateSubTask, ComputeHeading y las tres virtuales de subtareas)
         CTaskComplexReactToAttack::InjectHooks(); // lote 199A (sin validar): MakeAbortable, CreateSubTask, ControlSubTask y Clone; lote 193A (sin validar): cuerpo del destructor, destructor con borrado, CreateNextSubTask y CreateFirstSubTask
         CTaskComplexReactToGunAimedAt::InjectHooks();
         CTaskComplexRoadRage::InjectHooks();

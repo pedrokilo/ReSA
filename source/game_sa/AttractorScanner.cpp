@@ -31,6 +31,11 @@ END GENERATED HOOK STATUS */
 #include "Scripts/Scripted2dEffects.h"
 #include "World.h"
 #include "Timer.h"
+#include "Pools/Pools.h"
+#include "Entity/Object/Object.h"
+#include "Models/ModelInfo.h"
+#include "PedAttractorManager.h"
+#include "Tasks/PedScriptedTaskRecord.h"
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
@@ -52,6 +57,17 @@ uint64 CAttractorScanner::Clear() {
     // El EXE sale del bucle con EAX apuntando tras field_68 y EDX = 10; se devuelven en EDX:EAX (ver AttractorScanner.h).
     return (uint64{10} << 32) | static_cast<uint32>(reinterpret_cast<uintptr_t>(&field_68[10]));
 }
+
+namespace {
+// Vista de una lista de punteros del juego (CPtrListSingleLink / CPtrListDoubleLink): el objeto de la lista empieza por el puntero al primer nodo y cada nodo por el elemento y el siguiente.
+struct tPtrNodeView {
+    CEntity*      Item;
+    tPtrNodeView* Next;
+};
+struct tPtrListView {
+    tPtrNodeView* First;
+};
+} // namespace
 
 // Celda del mapa de sectores de una coordenada: ftol(floor((coordenada -+ 15.0) * 0.02 + 60.0)) como el EXE (0x6060A0..0x6062FE): fld coordenada, fsub/fadd 15.0 (0x86C52C), fmul 0.02 (0x858B38),
 // fadd 60.0 (0x858B34) a 24 bits (cada operacion se redondea a float), fstp qword, floor del CRT (0x8219F0) y _ftol2 (0x821B40): palabra baja de la conversion de 64 bits (0 con NaN, infinito o |valor| >= 2^63).
@@ -131,6 +147,110 @@ static bool FindAttractorInRange(const CVector& point, float radius, int32 model
 }
 #pragma float_control(pop)
 
+// 0x6034B0 (lote 198A, sin validar; thiscall, dos argumentos de pila (la lista y el peaton), `ret 8`, 181 bytes; el EXE conserva EBX/EBP/ESI/EDI): recorre la lista; el siguiente nodo se lee ANTES de procesar la entidad. Por cada entidad:
+//  - Si es un objeto (tipo 4 en los 3 bits bajos del byte +0x36): `habilitarDesactivados` = bit 24 de las banderas del objeto (+0x140); se descarta si NO es estatica (bit 2 de +0x1C) NI estatica esperando colision (bit 18) y tambien si esta explotado (bit 6 de +0x140).
+//    `habilitarDesactivados` (BL) solo se actualiza con objetos y se conserva de una entidad a la siguiente (los edificios usan el valor del ultimo objeto, 0 al empezar).
+//  - Modelo = CModelInfo::ms_modelInfoPtrs[indice con signo de 16 bits de +0x22] (sin comprobar nulo). Para i de 0 a n2dfx-1 (el contador, byte +0xD, se relee en cada vuelta; sin efectos no entra): CBaseModelInfo::Get2dEffect (0x4C4C70); si es de tipo
+//    atractor (3) y (bit 0 de +0x37 apagado o `habilitarDesactivados`), llama a 0x5FFFD0(efecto, entidad, peaton) (por direccion).
+void CAttractorScanner::ScanEntityList(const void* list, CPed* ped) {
+    bool enableDisabledAttractors = false;
+    const tPtrNodeView* node = static_cast<const tPtrListView*>(list)->First;
+    while (node) {
+        CEntity* const entity = node->Item;
+        node = node->Next;
+
+        if (entity->GetType() == ENTITY_TYPE_OBJECT) {
+            const auto* const object = static_cast<const CObject*>(entity);
+            enableDisabledAttractors = object->objectFlags.bEnableDisabledAttractors;
+            if (!entity->m_bIsStatic && !entity->m_bIsStaticWaitingForCollision) {
+                continue;
+            }
+            if (object->objectFlags.bIsExploded) {
+                continue;
+            }
+        }
+
+        const CBaseModelInfo* const modelInfo = CModelInfo::ms_modelInfoPtrs[static_cast<int16>(entity->m_nModelIndex)];
+        for (int32 i = 0; i < modelInfo->m_n2dfxCount; i++) {
+            C2dEffect* const effect = modelInfo->Get2dEffect(i);
+            if (effect->m_Type != EFFECT_ATTRACTOR) {
+                continue;
+            }
+            if ((effect->pedAttractor.m_nFlags & 1) && !enableDisabledAttractors) {
+                continue;
+            }
+            plugin::CallMethod<0x5FFFD0, CAttractorScanner*, C2dEffect*, CEntity*, CPed*>(this, effect, entity, ped);
+        }
+    }
+}
+
+// Orden de operaciones del EXE (0x60361B..0x60363B, x87 a 24 bits): dx, dy y dz se calculan como (efecto - peaton) y la distancia al cuadrado como ((dz*dz + dy*dy) + dx*dx), cada producto y suma redondeados a float, sin reordenar.
+#pragma float_control(precise, on, push)
+// 0x603570 (lote 198A, sin validar; cdecl, un argumento de pila (el efecto), `ret` sin limpiar, 422 bytes con SEH que solo destruye la matriz local y aqui se omite): recorre el pool de peatones del ultimo indice al primero; salta los huecos libres (bit 7 del byte del
+// mapa) y a los que tienen la tarea activa TASK_COMPLEX_USE_EFFECT (CTaskManager::GetActiveTask 0x681720). Distancia al cuadrado ((dz*dz + dy*dy) + dx*dx) entre el efecto y la posicion del peaton (matriz +0x30 o, sin matriz, +4), guardada como float; solo
+// sigue si es ESTRICTAMENTE menor (comparacion ordenada) que la mejor (FLT_MAX = 0x7F7FFFFF al empezar). Lista de usuarios del efecto (CScripted2dEffects::GetIndex 0x6F9F60, tabla de 0x24 bytes en 0xC3A200): sin lista (byte +0x20 a cero) vale cualquiera; con lista,
+// el modelo del peaton (con signo de 16 bits) debe estar en las cuatro primeras entradas o el tipo de peaton (+0x598) en el par -2/tipo (la logica de IsPedTypeAllowed 0x5FE960). Despues, con una matriz local (+0x40 y +0x44 a cero y CMatrix::SetScale(1.0f) 0x59AED0),
+// CPedAttractorManager::IsApproachable (0x5EA220, cdecl, efecto, matriz, 0, peaton): si es cierto, mejor = esta distancia y este peaton. Devuelve el mejor peaton (nulo si ninguno).
+CPed* CAttractorScanner::FindClosestPedForEffect(C2dEffectPedAttractor* effect) {
+    float bestDistanceSq = std::bit_cast<float>(0x7F7FFFFFu);
+    CPed* bestPed = nullptr;
+
+    auto* const pool = GetPedPool();
+    for (int32 i = pool->GetSize(); i > 0;) {
+        i--;
+        CPed* const ped = pool->GetAt(i);
+        if (!ped) {
+            continue;
+        }
+
+        const CTask* const activeTask = ped->GetIntelligence()->GetTaskManager().GetActiveTask();
+        if (activeTask && activeTask->GetTaskType() == TASK_COMPLEX_USE_EFFECT) {
+            continue;
+        }
+
+        const CVector& pedPos = ped->GetPosition();
+        const float dx = effect->m_Pos.x - pedPos.x;
+        const float dy = effect->m_Pos.y - pedPos.y;
+        const float dz = effect->m_Pos.z - pedPos.z;
+        const float distanceSq = (dz * dz + dy * dy) + dx * dx;
+        if (!(distanceSq < bestDistanceSq)) {
+            continue;
+        }
+
+        const tUserList& userList = CScripted2dEffects::ms_userLists[CScripted2dEffects::GetIndex(effect)];
+        if (*reinterpret_cast<const uint8*>(&userList.m_bUseList)) { // byte (puede traer basura distinta de 0 y 1)
+            const int32 model = static_cast<int16>(ped->m_nModelIndex);
+            bool allowed = false;
+            for (size_t j = 0; j < userList.m_UserTypes.size(); j++) {
+                if (model == userList.m_UserTypes[j]) {
+                    allowed = true;
+                    break;
+                }
+            }
+            if (!allowed) {
+                for (size_t j = 0; j < userList.m_UserTypes.size(); j++) {
+                    if (userList.m_UserTypes[j] == -2 && userList.m_UserTypesByPedType[j] == static_cast<int32>(ped->m_nPedType)) {
+                        allowed = true;
+                        break;
+                    }
+                }
+            }
+            if (!allowed) {
+                continue;
+            }
+        }
+
+        CMatrix matrix{}; // el EXE solo escribe +0x40 y +0x44 (a cero) y SetScale(1.0f)
+        matrix.SetScale(1.0f);
+        if (CPedAttractorManager::IsApproachable(effect, matrix, 0, ped)) {
+            bestDistanceSq = distanceSq;
+            bestPed = ped;
+        }
+    }
+    return bestPed;
+}
+#pragma float_control(pop)
+
 // 0x6060A0
 void CAttractorScanner::ScanForAttractors(CPed& ped) {
     // Como el original: escaner apagado (byte +0) o peaton en vehiculo (bit 8 de +0x46C) no hacen nada
@@ -190,8 +310,8 @@ void CAttractorScanner::ScanForAttractors(CPed& ped) {
         for (int32 x = minX; x <= maxX; x++) {
             const int32 clampedY = std::min(std::max(y, 0), 119);
             const int32 clampedX = std::min(std::max(x, 0), 119);
-            plugin::CallMethod<0x6034B0, CAttractorScanner*, void*, CPed*>(this, &sectors[clampedY * MAX_SECTORS_X + clampedX].Buildings, &ped);
-            plugin::CallMethod<0x6034B0, CAttractorScanner*, void*, CPed*>(this, &repeatSectors[((y & 15) << 4) + (x & 15)].Objects, &ped);
+            ScanEntityList(&sectors[clampedY * MAX_SECTORS_X + clampedX].Buildings, &ped);          // 0x6034B0
+            ScanEntityList(&repeatSectors[((y & 15) << 4) + (x & 15)].Objects, &ped);               // 0x6034B0
         }
     }
 
@@ -230,7 +350,7 @@ void CAttractorScanner::ScanForAttractors(CPed& ped) {
     }
     // Tipo 7 (PED_ATTRACTOR_SCRIPTED): solo si 0x603570 devuelve este mismo peaton, con CEventScriptedAttractor; el resto, CEventAttractor. El efecto en uso solo cambia si el grupo acepta el evento
     if (effect->m_nAttractorType == PED_ATTRACTOR_SCRIPTED) {
-        if (plugin::CallAndReturn<CPed*, 0x603570, C2dEffectPedAttractor*>(effect) != &ped) {
+        if (FindClosestPedForEffect(effect) != &ped) { // 0x603570
             return;
         }
         CEventScriptedAttractor event(effect, entity);
@@ -254,4 +374,6 @@ void CAttractorScanner::InjectHooks() {
     RH_ScopedInstall(Clear, 0x5FFF90);
     RH_ScopedInstall(ScanForAttractors, 0x6060A0);
     RH_ScopedNamedGlobalInstall(FindAttractorInRange, "FindAttractorInRange", 0x6002F0); // lote 203A (sin validar)
+    RH_ScopedInstall(ScanEntityList, 0x6034B0);        // lote 198A (sin validar)
+    RH_ScopedInstall(FindClosestPedForEffect, 0x603570); // lote 198A (sin validar)
 }

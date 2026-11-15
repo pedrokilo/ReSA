@@ -369,6 +369,7 @@ public:
     static void RetryLoadFile(int32 channelId);
     static void SetLoadVehiclesInLoadScene(bool bEnable);
     static void SetMissionDoesntRequireAnim(int32 slot);
+    static void SetMissionDoesntRequireStreamedScript(int32 scriptIndex); // 0x4700E0 (lote 198A, sin validar)
     static void SetMissionDoesntRequireModel(int32 modelId);
     static void SetMissionDoesntRequireSpecialChar(int32 slot);
     static void SetModelIsDeletable(int32 modelId); // 0x409C10 (1 argumento en el EXE: un segundo parametro leeria basura de la pila)

@@ -33,10 +33,24 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexGoToPointAndStandStill.h"
 #include "InterestingEvents.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
 namespace {
-// 0x658C30 (lote 143A, banco Fn143A): cuerpo del destructor de CTaskComplexMedicTreatInjuredPed del EXE (vtable 0x86F518, marco SEH; sin hook propio: el destructor de la clase es el escrito en este archivo). Funcion
-// propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x658C30` del EXE.
-__declspec(noinline) void __fastcall MedicTreatInjuredPedDestructorBody(CTaskComplexMedicTreatInjuredPed* self, void* /*edx*/) { self->CTaskComplexMedicTreatInjuredPed::~CTaskComplexMedicTreatInjuredPed(); }
+// 0x658C30 (lote 143A, banco Fn143A; con hook propio desde el lote 198A, sin validar): cuerpo del destructor de CTaskComplexMedicTreatInjuredPed del EXE (thiscall, sin argumentos de pila, `ret`, 129 bytes con marco SEH que solo
+// desenrolla y aqui se omite; vtable 0x86F518). Como el original: deja la vtable de la clase del EXE (0x86F518); si hay accidente (+0x18) con peaton (primer dword del accidente) y no revivido (byte +5), pone a cero el byte +4
+// (tratado); libera con CEntity::CleanUpOldReference (0x571A00, con hook) la referencia no nula al vehiculo (+0xC) y la no nula al companero (+0x10), en ese orden; y sigue con ~CTaskComplex (0x61A3D0, con hook). El destructor generado
+// por el compilador dejaria la vtable de la DLL. Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x658C30` del EXE.
+__declspec(noinline) void __fastcall MedicTreatInjuredPedDestructorBody(CTaskComplexMedicTreatInjuredPed* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86F518;
+    if (self->m_pAccident && self->m_pAccident->m_pPed && !self->m_pAccident->m_bIsRevived) {
+        self->m_pAccident->m_bIsTreated = false;
+    }
+    CEntity::SafeCleanUpRef(self->m_pVehicle);
+    CEntity::SafeCleanUpRef(self->m_pPartnerMedic);
+    CTaskComplexBody::Destructor(self, nullptr);
+}
 
 // 0x659FC0 (lote 143A, banco Fn143A): destructor con borrado de CTaskComplexMedicTreatInjuredPed del EXE (ranura 0 de su vtable 0x86F518; thiscall, un argumento de pila, `ret 4`, 30 bytes:
 // `push esi; mov esi,ecx; call 0x658C30; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x658C30,
@@ -56,6 +70,8 @@ void CTaskComplexMedicTreatInjuredPed::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexMedicTreatInjuredPed, 0x86F518, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(MedicTreatInjuredPedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x659FC0); // lote 143A (banco Fn143A)
+    RH_ScopedNamedGlobalInstall(MedicTreatInjuredPedDestructorBody, "DestructorBody", 0x658C30); // lote 198A (sin validar)
+    RH_ScopedVMTInstall(GetTaskType, 0x658C20); // lote 198A (sin validar): retorno de constante (TASK_COMPLEX_MEDIC_TREAT_INJURED_PED = 100)
     RH_ScopedInstall(Constructor, 0x658BA0);
     RH_ScopedInstall(CreateSubTask, 0x658DB0);
     RH_ScopedInstall(CreateDealWithNextAccidentTask, 0x65A020);

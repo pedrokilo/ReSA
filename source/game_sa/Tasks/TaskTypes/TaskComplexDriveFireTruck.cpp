@@ -41,6 +41,17 @@ __declspec(noinline) void __fastcall CTaskComplexDriveFireTruckDestructorBodyExe
     CEntity::SafeCleanUpRef(self->m_pPartnerFireman);
     CTaskComplexBody::Destructor(self, nullptr);
 }
+
+// 0x65A220 (lote 198A, sin validar; el listado decia CTaskComplexMedicTreatInjuredPed: es la ranura 0 de la vtable 0x86F570 de CTaskComplexDriveFireTruck; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx;
+// call 0x6593A0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6593A0, con hook), libera `this` con CTask::operator delete
+// (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexDriveFireTruck* __fastcall CTaskComplexDriveFireTruckScalarDeletingDestructor(CTaskComplexDriveFireTruck* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexDriveFireTruckDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 // 0x659390 (lote 170A, banco Fn170A; thiscall, `ret`, 6 bytes: `mov eax,6Bh`): TASK_COMPLEX_DRIVE_FIRE_TRUCK (107); no lee el objeto (ranura 4 de la vtable 0x86F570).
@@ -52,6 +63,7 @@ void CTaskComplexDriveFireTruck::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexDriveFireTruck, 0x86F570, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskComplexDriveFireTruckDestructorBodyExe, "DestructorBody", 0x6593A0); // lote 170A (banco Fn170A)
+    RH_ScopedNamedGlobalInstall(CTaskComplexDriveFireTruckScalarDeletingDestructor, "ScalarDeletingDestructor", 0x65A220); // lote 198A (sin validar)
     RH_ScopedVMTInstall(GetTaskType, 0x659390); // lote 170A (banco Fn170A): retorno de constante
     RH_ScopedInstall(Constructor, 0x659310);
     RH_ScopedInstall(CreateSubTask, 0x65A240);

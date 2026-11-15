@@ -33,12 +33,24 @@ void __fastcall SequenceDestructorBody(CTaskComplexSequence* self, void* /*edx*/
     self->Flush();
     CTaskComplexBody::Destructor(self, nullptr);
 }
+
+// 0x639E20 (lote 198A, sin validar; el listado decia CTaskComplexSunbathe: es la ranura 0 de la vtable 0x86E200 de CTaskComplexSequence; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6389F0;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6389F0, SequenceDestructorBody, con hook), libera `this` con CTask::operator delete
+// (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexSequence* __fastcall SequenceScalarDeletingDestructor(CTaskComplexSequence* self, void* /*edx*/, uint8 flags) {
+    SequenceDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexSequence::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexSequence, 0x86e200, 11);
     RH_ScopedCategory("Tasks");
     RH_ScopedNamedGlobalInstall(SequenceDestructorBody, "Destructor", 0x6389F0);
+    RH_ScopedNamedGlobalInstall(SequenceScalarDeletingDestructor, "ScalarDeletingDestructor", 0x639E20); // lote 198A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x632BD0);
 

@@ -166,6 +166,7 @@ void CStreaming::InjectHooks() {
     RH_ScopedInstall(StartRenderEntities, 0x4096C0);
     RH_ScopedInstall(SetMissionDoesntRequireSpecialChar, 0x40B490);
     RH_ScopedInstall(RemoveStreamedScriptModel, 0x40C1C0);
+    RH_ScopedInstall(SetMissionDoesntRequireStreamedScript, 0x4700E0); // lote 198A (sin validar)
     RH_ScopedOverloadedInstall(ProcessEntitiesInSectorList<CPtrListSingleLink<CEntity*>>, "Simple", 0x40C450, void(*)(CPtrListSingleLink<CEntity*>&, int32));
 
     // Instancia de la plantilla CLinkList<CEntity*> (ms_rwObjectInstances, 0x9654F0) que el EXE tiene fuera de linea: mismas instrucciones, byte a byte, que 0x4161F0 (CLinkList<CCollisionData*>, lote 148A) y 0x4D40C0
@@ -2588,6 +2589,12 @@ void CStreaming::RemoveUnusedModelsInLoadedList() {
 // La llama el comando REMOVE_STREAMED_SCRIPT (0x4766EB).
 void CStreaming::RemoveStreamedScriptModel(int32 scriptIndex) {
     RemoveModel(SCMToModelId(scriptIndex));
+}
+
+// 0x4700E0 (lote 198A, sin validar; el listado decia CTaskComplexGoToPointAndStandStill: es un metodo estatico de CStreaming): cdecl, un argumento de pila; suma 0x6676 (RESOURCE_ID_SCM = 26230) al indice del script en streaming y salta (`jmp`, cola) a
+// SetMissionDoesntRequireModel (0x409C90, con hook). La llama el comando MARK_STREAMED_SCRIPT_AS_NO_LONGER_NEEDED (0x4766AF).
+void CStreaming::SetMissionDoesntRequireStreamedScript(int32 scriptIndex) {
+    SetMissionDoesntRequireModel(SCMToModelId(scriptIndex));
 }
 
 // 0x40C180
