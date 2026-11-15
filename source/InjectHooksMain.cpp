@@ -664,6 +664,7 @@
 void RwCoreInjectHooks25b();
 void RpWorldInjectHooks25b();
 void RpWorldInjectHooks227A();
+void RpWorldInjectHooks228A(); // rpworld.cpp (lote 228A)
 void RpAnisotInjectHooks();
 void CMatrixInjectHooksLote101A(); // Matrix.cpp (lote 101A)
 void CMatrixInjectHooksLote103A(); // Matrix.cpp (lote 103A)
@@ -733,6 +734,7 @@ void InjectHooksMain() {
     RwCoreInjectHooks25b();
     RpWorldInjectHooks25b();
     RpWorldInjectHooks227A();
+    RpWorldInjectHooks228A();
     RpAnisotInjectHooks();
     CCam::InjectHooks();
     CCarAI::InjectHooks();

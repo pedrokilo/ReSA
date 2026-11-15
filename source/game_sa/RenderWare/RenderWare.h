@@ -41,10 +41,6 @@ inline _D3DMATRIX *GetD3DProjTransform() {
     return reinterpret_cast<_D3DMATRIX *>(0x8E2458);
 }
 
-inline void _rpMaterialSetDefaultSurfaceProperties(RwSurfaceProperties *surfProps) {
-    ((void(__cdecl *)(RwSurfaceProperties*))0x74D870)(surfProps);
-}
-
 #define RWRSTATE(a) (reinterpret_cast<void *>(a))
 #define PSGLOBAL(var) (((psGlobalType *)(RsGlobal.ps))->var)
 

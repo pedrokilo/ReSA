@@ -2447,6 +2447,11 @@ RpGeometry* RpGeometryUnlock(RpGeometry* geometry); // 0x74C800
 const RpGeometry* RpGeometryForAllMeshes(const RpGeometry* geometry, RpMeshCallBack fpCallBack, void* data); // 0x74CA60
 RpGeometry* RpGeometryCreate(RwInt32 numVert, RwInt32 numTriangles, RwUInt32 format); // 0x74CA90
 RwBool RpGeometryDestroy(RpGeometry* geometry); // 0x74CCC0
+RpGeometry* RpGeometryAddRef(RpGeometry* geometry); // 0x74CCB0
+RwBool _rpGeometryDestroyUnreferenced(RpGeometry* geometry); // 0x74D6D0
+RwStream* _rpMaterialRightsStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x74D7D0
+RwStream* _rpMaterialRightsStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x74D810
+void _rpMaterialSetDefaultSurfaceProperties(RwSurfaceProperties* surfProps); // 0x74D870
 RwInt32 RpGeometryRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB); // 0x74CD70
 RwInt32 RpGeometryRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB); // 0x74CDA0
 RwInt32 RpGeometrySetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB); // 0x74CDD0

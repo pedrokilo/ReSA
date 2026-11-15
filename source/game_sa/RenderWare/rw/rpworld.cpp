@@ -26,6 +26,60 @@ namespace {
 constexpr uintptr_t kWorldSectorPluginRegistry   = 0x8D736C; // RpWorldSector: lista de plugins
 constexpr uintptr_t kD3D9WorldSectorAllInOneNode = 0x8D63B8; // RxNodeDefinition estatica de D3D9WorldSectorAllInOne
 constexpr RwUInt32  kMeshHeaderMemoryHint        = 0x30502;  // rwMEMHINTDUR_GLOBAL | 0x0502
+constexpr RwUInt32  kGeometryMemoryHint          = 0x3000F;  // RpGeometry y su bloque de morph targets
+constexpr RwUInt32  kGeometryTempListHint        = 0x10006;  // lista temporal de texturas de RpGeometryUnlock
+constexpr RwUInt32  kGeometryTempRasterHint      = 0x10503;  // listas temporales de rasters y tuberias de RpGeometryUnlock
+constexpr RwInt32   kErrorBadVersion             = static_cast<RwInt32>(0x80000004);
+constexpr RwInt32   kErrorNoMemory               = static_cast<RwInt32>(0x80000013);
+constexpr RwUInt32  kStreamVersionMin            = 0x34000;
+constexpr RwUInt32  kStreamVersionMax            = 0x36003;
+}
+
+// Registro de plugins de RpMaterial y estado global del modulo de materiales (.data del EXE).
+static auto& s_materialTKList          = StaticRef<RwPluginRegistry>(0x8D62A4);
+static auto& s_defaultSurfaceProps     = StaticRef<RwSurfaceProperties>(0x8D62BC); // ambiente, especular, difusa
+static auto& s_materialGlobalsOffset   = StaticRef<RwInt32>(0xC92514);             // desplazamiento en RwEngineInstance de la lista libre de materiales
+static auto& s_materialRightsId        = StaticRef<RwInt32>(0xC92510);             // lectura del plugin 0x1F (derechos de render): identificador
+static auto& s_materialRightsExtraData = StaticRef<RwInt32>(0xC924E8);             // lectura del plugin 0x1F: datos extra
+
+static_assert(offsetof(RwGlobals, memoryFuncs) + offsetof(RwMemoryFunctions, rwfree) == 0x138);
+static_assert(offsetof(RwGlobals, memoryFuncs) + offsetof(RwMemoryFunctions, rwrealloc) == 0x13C);
+static_assert(offsetof(RwGlobals, memoryAlloc) == 0x144 && offsetof(RwGlobals, memoryFree) == 0x148);
+static_assert(offsetof(RpGeometry, flags) == 0x08 && offsetof(RpGeometry, lockedSinceLastInst) == 0x0C && offsetof(RpGeometry, refCount) == 0x0E);
+static_assert(offsetof(RpGeometry, numTriangles) == 0x10 && offsetof(RpGeometry, numVertices) == 0x14 && offsetof(RpGeometry, numMorphTargets) == 0x18 && offsetof(RpGeometry, numTexCoordSets) == 0x1C);
+static_assert(offsetof(RpGeometry, matList) == 0x20 && offsetof(RpGeometry, triangles) == 0x2C && offsetof(RpGeometry, preLitLum) == 0x30 && offsetof(RpGeometry, texCoords) == 0x34);
+static_assert(offsetof(RpGeometry, mesh) == 0x54 && offsetof(RpGeometry, repEntry) == 0x58 && offsetof(RpGeometry, morphTarget) == 0x5C);
+static_assert(sizeof(RpMorphTarget) == 0x1C && offsetof(RpMorphTarget, verts) == 0x14 && offsetof(RpMorphTarget, normals) == 0x18);
+static_assert(sizeof(RpTriangle) == 8 && sizeof(RpGeometryChunkInfo) == 0x10 && sizeof(RpMaterialChunkInfo) == 0x1C);
+static_assert(offsetof(RpMaterial, pipeline) == 0x08 && offsetof(RpMaterial, surfaceProps) == 0x0C && offsetof(RpMaterial, refCount) == 0x18);
+static_assert(offsetof(RwTexture, refCount) == 0x54 && offsetof(RxPipeline, pluginId) == 0x2C && offsetof(RxPipeline, pluginData) == 0x30);
+
+namespace {
+// RWERROR((codigo [, argumento])) del SDK: RwError { pluginID = 2 (literal del EXE), errorCode = _rwerror(codigo [, argumento]) }; _rwerror (0x8088D0) devuelve su primer argumento y
+// RwErrorSet (0x808820) guarda el error. Se llama a _rwerror por direccion para conservar la secuencia de colaboradores del EXE.
+void RaiseRwError(RwInt32 code) {
+    RwError error;
+    error.pluginID  = 2;
+    error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(code);
+    RwErrorSet(&error);
+}
+
+void RaiseRwError(RwInt32 code, RwUInt32 argument) {
+    RwError error;
+    error.pluginID  = 2;
+    error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(code, argument);
+    RwErrorSet(&error);
+}
+
+// RwSqrt del SDK (0x7EDB30): raiz cuadrada por tabla de RenderWare; recibe el float por la pila y lo devuelve en ST0. No esta reconstruida: se llama por direccion fija.
+RwReal RwSqrtFromExe(RwReal value) {
+    return reinterpret_cast<RwReal(__cdecl*)(RwReal)>(0x7EDB30)(value);
+}
+
+// Lista libre de RpMaterial: puntero guardado en RwEngineInstance + globalsOffset del modulo de materiales (0xC92514).
+RwFreeList*& MaterialFreeList() {
+    return *reinterpret_cast<RwFreeList**>(reinterpret_cast<uint8_t*>(static_cast<RwGlobals*>(RwEngineInstance)) + s_materialGlobalsOffset);
+}
 }
 
 void RpWorldInjectHooks() {
@@ -172,28 +226,66 @@ void RpMaterialSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPre
     ((void(__cdecl *)(RwInt32, RwInt32))0x74D8C0)(blockSize, numBlocksToPrealloc);
 }
 
+// 0x74D990
+// Pide un RpMaterial a la lista libre (pista 0x30007; solo comprueba nulo), pone refCount = 1, color blanco, sin textura ni tuberia, las propiedades de superficie por defecto
+// (0x8D62BC..C4) y llama a _rwPluginRegistryInitObject sobre el registro de materiales (0x8D62A4). El campo pad (+0x1A) no se escribe.
 RpMaterial* RpMaterialCreate() {
-    return ((RpMaterial*(__cdecl *)(void))0x74D990)();
+    RpMaterial* material = static_cast<RpMaterial*>(RwFreeListAlloc(MaterialFreeList(), 0x30007));
+    if (!material) {
+        return nullptr;
+    }
+    material->refCount = 1;
+    material->color = { 0xFF, 0xFF, 0xFF, 0xFF };
+    material->texture = nullptr;
+    material->pipeline = nullptr;
+    material->surfaceProps = s_defaultSurfaceProps;
+    _rwPluginRegistryInitObject(&s_materialTKList, material);
+    return material;
 }
 
+// 0x74DA20
+// Con refCount == 1 (comparacion exacta de 16 bits): DeInitObject del registro, RwTextureDestroy de la textura si la hay, textura = nula y se devuelve el bloque a la lista libre; con
+// cualquier otro valor solo se resta uno (un 0 pasa a -1). Devuelve siempre TRUE.
 RwBool RpMaterialDestroy(RpMaterial* material) {
-    return ((RwBool(__cdecl *)(RpMaterial*))0x74DA20)(material);
+    const RwInt16 refCount = material->refCount;
+    if (refCount == 1) {
+        _rwPluginRegistryDeInitObject(&s_materialTKList, material);
+        if (material->texture) {
+            RwTextureDestroy(material->texture);
+        }
+        material->texture = nullptr;
+        RwFreeListFree(MaterialFreeList(), material);
+        return TRUE;
+    }
+    material->refCount = static_cast<RwInt16>(refCount - 1);
+    return TRUE;
 }
 
 RpMaterial* RpMaterialClone(RpMaterial* material) {
     return ((RpMaterial*(__cdecl *)(RpMaterial*))0x74DA80)(material);
 }
 
+// 0x74DBC0
+// Suma una referencia a la textura nueva (si no es nula; refCount de 32 bits en +0x54) ANTES de soltar la anterior (RwTextureDestroy si la habia) y la guarda. Devuelve el material.
 RpMaterial* RpMaterialSetTexture(RpMaterial* material, RwTexture* texture) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*, RwTexture*))0x74DBC0)(material, texture);
+    if (texture) {
+        ++texture->refCount;
+    }
+    if (material->texture) {
+        RwTextureDestroy(material->texture);
+    }
+    material->texture = texture;
+    return material;
 }
 
+// 0x74DBF0: _rwPluginRegistryAddPlugin sobre el registro de materiales (0x8D62A4).
 RwInt32 RpMaterialRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
-    return ((RwInt32(__cdecl *)(RwInt32, RwUInt32, RwPluginObjectConstructor, RwPluginObjectDestructor, RwPluginObjectCopy))0x74DBF0)(size, pluginID, constructCB, destructCB, copyCB);
+    return _rwPluginRegistryAddPlugin(&s_materialTKList, size, pluginID, constructCB, destructCB, copyCB);
 }
 
+// 0x74DC20: _rwPluginRegistryAddPluginStream sobre el registro de materiales.
 RwInt32 RpMaterialRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkReadCallBack, RwPluginDataChunkWriteCallBack, RwPluginDataChunkGetSizeCallBack))0x74DC20)(pluginID, readCB, writeCB, getSizeCB);
+    return _rwPluginRegistryAddPluginStream(&s_materialTKList, pluginID, readCB, writeCB, getSizeCB);
 }
 
 RwInt32 RpMaterialSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
@@ -216,8 +308,119 @@ RwUInt32 RpMaterialStreamGetSize(const RpMaterial* material) {
     return ((RwUInt32(__cdecl *)(const RpMaterial*))0x74E010)(material);
 }
 
+// 0x74DD30
+// Lee un RpMaterial. Busca el chunk STRUCT (1) y comprueba la version (0x34000..0x36003, si no error 0x80000004); lee `longitud` bytes (la del chunk, sin limitar a 28) sobre un
+// RpMaterialChunkInfo puesto a cero; pide el material a la lista libre y lo inicializa como RpMaterialCreate (color blanco, refCount 1, propiedades por defecto) y llama a InitObject ANTES de
+// copiar color y propiedades del chunk. Si `textured`, busca el chunk TEXTURE (6) y llama a RwTextureStreamRead sin comprobar el resultado. Despues lee los datos de plugins (con las
+// variables de derechos 0xC92510/0xC924E8 a cero) y, si el plugin de derechos dejo un id, invoca _rwPluginRegistryInvokeRights. Los fallos tras crear el material lo destruyen
+// (refCount 1) o solo restan una referencia; devuelve nulo.
 RpMaterial* RpMaterialStreamRead(RwStream* stream) {
-    return ((RpMaterial*(__cdecl *)(RwStream*))0x74DD30)(stream);
+    RwUInt32 version;
+    RwUInt32 length;
+    if (!RwStreamFindChunk(stream, rwID_STRUCT, &length, &version)) {
+        return nullptr;
+    }
+    if (version < kStreamVersionMin || version > kStreamVersionMax) {
+        RaiseRwError(kErrorBadVersion);
+        return nullptr;
+    }
+    RpMaterialChunkInfo chunkInfo{};
+    if (RwStreamRead(stream, &chunkInfo, length) != length) {
+        return nullptr;
+    }
+    RpMaterial* material = static_cast<RpMaterial*>(RwFreeListAlloc(MaterialFreeList(), 0x30007));
+    if (!material) {
+        return nullptr;
+    }
+    material->refCount = 1;
+    material->color = { 0xFF, 0xFF, 0xFF, 0xFF };
+    material->texture = nullptr;
+    material->pipeline = nullptr;
+    material->surfaceProps = s_defaultSurfaceProps;
+    _rwPluginRegistryInitObject(&s_materialTKList, material);
+    material->color = chunkInfo.color;
+    material->surfaceProps = chunkInfo.surfaceProps;
+    material->texture = nullptr;
+
+    // Cierre de fallo comun: con refCount == 1 se destruye el material; con otro valor solo se resta uno.
+    const auto destroyOrRelease = [material]() {
+        const RwInt16 refCount = material->refCount;
+        if (refCount != 1) {
+            material->refCount = static_cast<RwInt16>(refCount - 1);
+            return;
+        }
+        _rwPluginRegistryDeInitObject(&s_materialTKList, material);
+        if (material->texture) {
+            RwTextureDestroy(material->texture);
+        }
+        material->texture = nullptr;
+        RwFreeListFree(MaterialFreeList(), material);
+    };
+
+    if (chunkInfo.textured) {
+        if (!RwStreamFindChunk(stream, rwID_TEXTURE, nullptr, &version)) {
+            destroyOrRelease();
+            return nullptr;
+        }
+        if (version < kStreamVersionMin || version > kStreamVersionMax) {
+            destroyOrRelease();
+            RaiseRwError(kErrorBadVersion);
+            return nullptr;
+        }
+        material->texture = RwTextureStreamRead(stream);
+    }
+    s_materialRightsId = 0;
+    s_materialRightsExtraData = 0;
+    if (!_rwPluginRegistryReadDataChunks(&s_materialTKList, stream, material)) {
+        destroyOrRelease();
+        return nullptr;
+    }
+    if (s_materialRightsId) {
+        _rwPluginRegistryInvokeRights(&s_materialTKList, s_materialRightsId, material, s_materialRightsExtraData);
+    }
+    return material;
+}
+
+// 0x74D870
+// Fija las propiedades de superficie por defecto (0x8D62BC: ambiente, 0x8D62C0: especular, 0x8D62C4: difusa). Con nulo escribe 1.0 en los tres, en el orden ambiente, difusa, especular.
+// Copia los dwords tal cual (sin pasar por el FPU).
+void _rpMaterialSetDefaultSurfaceProperties(RwSurfaceProperties* surfProps) {
+    auto* const target = reinterpret_cast<RwUInt32*>(&s_defaultSurfaceProps);
+    if (!surfProps) {
+        constexpr RwUInt32 kOne = 0x3F800000; // 1.0f
+        target[0] = kOne;
+        target[2] = kOne;
+        target[1] = kOne;
+        return;
+    }
+    const auto* const source = reinterpret_cast<const RwUInt32*>(surfProps);
+    target[0] = source[0];
+    target[1] = source[1];
+    target[2] = source[2];
+}
+
+// 0x74D7D0
+// Lectura del plugin 0x1F de RpMaterial (derechos de render): RwStreamReadInt32 de 4 bytes a 0xC92510 y, si la longitud del chunk es exactamente 8, otros 4 a 0xC924E8. Devuelve el flujo
+// o nulo si falla una lectura. No usa `object`.
+RwStream* _rpMaterialRightsStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    if (!RwStreamReadInt32(stream, &s_materialRightsId, 4)) {
+        return nullptr;
+    }
+    if (binaryLength == 8 && !RwStreamReadInt32(stream, &s_materialRightsExtraData, 4)) {
+        return nullptr;
+    }
+    return stream;
+}
+
+// 0x74D810
+// Escritura del plugin 0x1F: escribe con RwStreamWriteInt32 (4 bytes cada uno) pipeline->pluginId (+0x2C) y pipeline->pluginData (+0x30), donde pipeline es el campo +8 del material (se
+// relee en cada llamada). Devuelve el flujo, o nulo si falla cualquier escritura.
+RwStream* _rpMaterialRightsStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    const auto* const material = static_cast<const RpMaterial*>(object);
+    if (!RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&material->pipeline->pluginId), 4)) {
+        return nullptr;
+    }
+    return RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&material->pipeline->pluginData), 4) ? stream : nullptr;
 }
 
 const RpMaterial* RpMaterialStreamWrite(const RpMaterial* material, RwStream* stream) {
@@ -286,6 +489,35 @@ void RpWorldInjectHooks25b() {
     RH_ScopedGlobalInstall(RpD3D9GeometryGetUsageFlags, 0x7588D0);
     RH_ScopedGlobalInstall(RpD3D9WorldSectorSetUsageFlags, 0x7588E0);
     RH_ScopedGlobalInstall(RpD3D9WorldSectorGetUsageFlags, 0x758900);
+}
+
+// Registro de los hooks del lote 228A (sin validar): geometrias y materiales del SDK de RenderWare (bageomet.c / bamateri.c).
+void RpWorldInjectHooks228A() {
+    RH_ScopedCategory("Plugins");
+    RH_ScopedNamespaceName("RpWorld");
+
+    RH_ScopedGlobalInstall(RpMorphTargetCalcBoundingSphere, 0x74C200);
+    RH_ScopedGlobalInstall(RpGeometryAddMorphTargets, 0x74C310);
+    RH_ScopedGlobalInstall(RpGeometryTriangleSetVertexIndices, 0x74C690);
+    RH_ScopedGlobalInstall(RpGeometryTriangleSetMaterial, 0x74C6C0);
+    RH_ScopedGlobalInstall(RpGeometryLock, 0x74C7D0);
+    RH_ScopedGlobalInstall(RpGeometryUnlock, 0x74C800);
+    RH_ScopedGlobalInstall(RpGeometryCreate, 0x74CA90);
+    RH_ScopedGlobalInstall(RpGeometryAddRef, 0x74CCB0);
+    RH_ScopedGlobalInstall(RpGeometryDestroy, 0x74CCC0);
+    RH_ScopedGlobalInstall(RpGeometryRegisterPlugin, 0x74CD70);
+    RH_ScopedGlobalInstall(RpGeometryRegisterPluginStream, 0x74CDA0);
+    RH_ScopedGlobalInstall(RpGeometryStreamRead, 0x74D190);
+    RH_ScopedGlobalInstall(_rpGeometryDestroyUnreferenced, 0x74D6D0);
+    RH_ScopedGlobalInstall(_rpMaterialRightsStreamRead, 0x74D7D0);
+    RH_ScopedGlobalInstall(_rpMaterialRightsStreamWrite, 0x74D810);
+    RH_ScopedGlobalInstall(_rpMaterialSetDefaultSurfaceProperties, 0x74D870);
+    RH_ScopedGlobalInstall(RpMaterialCreate, 0x74D990);
+    RH_ScopedGlobalInstall(RpMaterialDestroy, 0x74DA20);
+    RH_ScopedGlobalInstall(RpMaterialSetTexture, 0x74DBC0);
+    RH_ScopedGlobalInstall(RpMaterialRegisterPlugin, 0x74DBF0);
+    RH_ScopedGlobalInstall(RpMaterialRegisterPluginStream, 0x74DC20);
+    RH_ScopedGlobalInstall(RpMaterialStreamRead, 0x74DD30);
 }
 
 // 0x74E1B0
@@ -479,12 +711,126 @@ RpGeometry* RpGeometryCreateSpace(RwReal radius) {
     return ((RpGeometry*(__cdecl *)(RwReal))0x74C130)(radius);
 }
 
+// 0x74C200
+// Esfera envolvente de un morph target. RwBBoxCalculate (0x808F60) da la caja de los vertices; el centro es (sup + inf) * 0.5 por eje (float de 24 bits en el EXE, igual que float aqui);
+// el radio al cuadrado es el maximo de (dx*dx + dy*dy) + dz*dz sobre los vertices (la actualizacion es `>` estricto: con NaN no cambia); si es > 0 se sustituye por RwSqrt (0x7EDB30,
+// por direccion) y el radio final es ese valor por 1.001 (constante 0x872490). Escribe centro x, y, z y radio en ese orden y devuelve el morph target.
 const RpMorphTarget* RpMorphTargetCalcBoundingSphere(const RpMorphTarget* morphTarget, RwSphere* boundingSphere) {
-    return ((const RpMorphTarget*(__cdecl *)(const RpMorphTarget*, RwSphere*))0x74C200)(morphTarget, boundingSphere);
+    RwBBox bbox;
+    RwReal radiusSq = 0.0f;
+    const RwUInt32 numVertices = static_cast<RwUInt32>(morphTarget->parentGeom->numVertices);
+    const RwV3d* const verts = morphTarget->verts;
+    RwBBoxCalculate(&bbox, verts, static_cast<RwInt32>(numVertices));
+
+    const RwReal sumX = bbox.sup.x + bbox.inf.x;
+    const RwReal sumY = bbox.sup.y + bbox.inf.y;
+    const RwReal sumZ = bbox.sup.z + bbox.inf.z;
+    RwV3d center;
+    center.x = sumX * 0.5f;
+    center.y = sumY * 0.5f;
+    center.z = sumZ * 0.5f; // el EXE guarda la suma de z (fstp) y la recarga antes de multiplicar; con 24 bits no cambia el valor
+
+    if (numVertices != 0) {
+        RwUInt32 remaining = numVertices;
+        const RwV3d* vertex = verts;
+        do {
+            const RwReal dx = vertex->x - center.x;
+            const RwReal dy = vertex->y - center.y;
+            const RwReal dz = vertex->z - center.z;
+            const RwReal distanceSq = (dx * dx + dy * dy) + dz * dz;
+            if (distanceSq > radiusSq) {
+                radiusSq = distanceSq;
+            }
+            ++vertex;
+        } while (--remaining != 0);
+    }
+    if (radiusSq > 0.0f) {
+        radiusSq = RwSqrtFromExe(radiusSq);
+    }
+    boundingSphere->center.x = center.x;
+    boundingSphere->center.y = center.y;
+    boundingSphere->center.z = center.z;
+    boundingSphere->radius = radiusSq * 1.001f;
+    return morphTarget;
 }
 
+// 0x74C310
+// Reserva `mtcount` morph targets mas. Tamano de cada uno: 0x1C de cabecera + (numVertices * 12 de posiciones) + otro tanto de normales si el geometry tiene rpGEOMETRYNORMALS; con
+// rpGEOMETRYNATIVE solo la cabecera. Un bloque nuevo se pide con RwMalloc y uno existente con RwRealloc (pista 0x3000F); si falla pone el error 0x80000013 (con el tamano) y devuelve -1.
+// Tras un realloc, los datos de vertices existentes (bytes tras las cabeceras) se desplazan hacia arriba mtcount * 0x1C bytes, copiando hacia atras byte a byte. Despues reparte los punteros
+// de verts/normales de todos los morph targets y deja los nuevos con esfera a cero y parentGeom = geometry. Devuelve numMorphTargets - mtcount.
 RwInt32 RpGeometryAddMorphTargets(RpGeometry* geometry, RwInt32 mtcount) {
-    return ((RwInt32(__cdecl *)(RpGeometry*, RwInt32))0x74C310)(geometry, mtcount);
+    const RwUInt32 geometryFlags = geometry->flags;
+    RwInt32 morphTargetSize;
+    if (geometryFlags & rpGEOMETRYNATIVE) {
+        morphTargetSize = 0x1C;
+    } else {
+        const RwInt32 vertexBytes = geometry->numVertices * 12;
+        morphTargetSize = vertexBytes + 0x1C;
+        if (geometryFlags & rpGEOMETRYNORMALS) {
+            morphTargetSize += vertexBytes;
+        }
+    }
+    const RwInt32 totalSize = (geometry->numMorphTargets + mtcount) * morphTargetSize;
+    RpMorphTarget* const oldBlock = geometry->morphTarget;
+    RpMorphTarget* block;
+    if (oldBlock) {
+        block = static_cast<RpMorphTarget*>(RwRealloc(oldBlock, totalSize, kGeometryMemoryHint));
+    } else {
+        block = static_cast<RpMorphTarget*>(RwMalloc(totalSize, kGeometryMemoryHint));
+    }
+    if (!block) {
+        RaiseRwError(kErrorNoMemory, static_cast<RwUInt32>(totalSize));
+        return -1;
+    }
+    if (oldBlock) {
+        const RwInt32 oldCount = geometry->numMorphTargets;
+        RwInt32 dataBytes = (morphTargetSize - 0x1C) * oldCount;
+        uint8_t* source = reinterpret_cast<uint8_t*>(block) + oldCount * morphTargetSize - 1;
+        uint8_t* destination = source + mtcount * 0x1C;
+        while (dataBytes != 0) {
+            *destination = *source;
+            --destination;
+            --source;
+            --dataBytes;
+        }
+    }
+
+    const RwInt32 newCount = geometry->numMorphTargets + mtcount;
+    geometry->numMorphTargets = newCount;
+    geometry->morphTarget = block;
+    uint8_t* dataCursor = reinterpret_cast<uint8_t*>(block) + newCount * 0x1C;
+    if (newCount > 0) {
+        RwInt32 index = 0;
+        do {
+            RpMorphTarget* const target = &geometry->morphTarget[index];
+            target->verts = nullptr;
+            target->normals = nullptr;
+            if (!(geometry->flags & rpGEOMETRYNATIVE) && geometry->numVertices != 0) {
+                target->verts = reinterpret_cast<RwV3d*>(dataCursor);
+                dataCursor += geometry->numVertices * 12;
+                if (geometry->flags & rpGEOMETRYNORMALS) {
+                    target->normals = reinterpret_cast<RwV3d*>(dataCursor);
+                    dataCursor += geometry->numVertices * 12;
+                }
+            }
+            ++index;
+        } while (index < geometry->numMorphTargets);
+    }
+
+    RwInt32 first = geometry->numMorphTargets - mtcount;
+    if (first < geometry->numMorphTargets) {
+        do {
+            RpMorphTarget* const target = &geometry->morphTarget[first];
+            target->boundingSphere.center.x = 0.0f;
+            target->boundingSphere.center.y = 0.0f;
+            target->boundingSphere.center.z = 0.0f;
+            target->boundingSphere.radius = 0.0f;
+            target->parentGeom = geometry;
+            ++first;
+        } while (first < geometry->numMorphTargets);
+    }
+    return geometry->numMorphTargets - mtcount;
 }
 
 RwInt32 RpGeometryAddMorphTarget(RpGeometry* geometry) {
@@ -495,12 +841,31 @@ RpGeometry* RpGeometryRemoveMorphTarget(RpGeometry* geometry, RwInt32 morphTarge
     return ((RpGeometry*(__cdecl *)(RpGeometry*, RwInt32))0x74C4E0)(geometry, morphTarget);
 }
 
+// 0x74C690: escribe los tres indices (16 bits) en el orden 0, 1, 2 y devuelve el geometry.
 const RpGeometry* RpGeometryTriangleSetVertexIndices(const RpGeometry* geometry, RpTriangle* triangle, RwUInt16 vert1, RwUInt16 vert2, RwUInt16 vert3) {
-    return ((const RpGeometry*(__cdecl *)(const RpGeometry*, RpTriangle*, RwUInt16, RwUInt16, RwUInt16))0x74C690)(geometry, triangle, vert1, vert2, vert3);
+    triangle->vertIndex[0] = vert1;
+    triangle->vertIndex[1] = vert2;
+    triangle->vertIndex[2] = vert3;
+    return geometry;
 }
 
+// 0x74C6C0
+// Con material nulo pone matIndex = 0xFFFF. Si no, busca el material en la lista (_rpMaterialListFindMaterialIndex) y, si no esta (< 0), lo anade (_rpMaterialListAppendMaterial, 0x74E350;
+// si falla con < 0 devuelve nulo sin tocar el triangulo); matIndex recibe los 16 bits bajos del indice. Devuelve el geometry.
 RpGeometry* RpGeometryTriangleSetMaterial(RpGeometry* geometry, RpTriangle* triangle, RpMaterial* material) {
-    return ((RpGeometry*(__cdecl *)(RpGeometry*, RpTriangle*, RpMaterial*))0x74C6C0)(geometry, triangle, material);
+    if (!material) {
+        triangle->matIndex = 0xFFFF;
+        return geometry;
+    }
+    RwInt32 index = _rpMaterialListFindMaterialIndex(&geometry->matList, material);
+    if (index < 0) {
+        index = _rpMaterialListAppendMaterial(&geometry->matList, material);
+        if (index < 0) {
+            return nullptr;
+        }
+    }
+    triangle->matIndex = static_cast<RwUInt16>(index);
+    return geometry;
 }
 
 const RpGeometry* RpGeometryTriangleGetVertexIndices(const RpGeometry* geometry, const RpTriangle* triangle, RwUInt16* vert1, RwUInt16* vert2, RwUInt16* vert3) {
@@ -529,32 +894,260 @@ RpGeometry* RpGeometryForAllMaterials(RpGeometry* geometry, RpMaterialCallBack f
     return geometry;
 }
 
+// 0x74C7D0
+// lockedSinceLastInst |= (16 bits bajos de lockMode). Si el modo incluye rpGEOMETRYLOCKPOLYGONS (bit 0) y hay malla (+0x54) la destruye (_rpMeshDestroy, 0x758BC0) y la pone a nulo.
 RpGeometry* RpGeometryLock(RpGeometry* geometry, RwInt32 lockMode) {
-    return ((RpGeometry*(__cdecl *)(RpGeometry*, RwInt32))0x74C7D0)(geometry, lockMode);
+    geometry->lockedSinceLastInst |= static_cast<RwUInt16>(lockMode);
+    if (lockMode & rpGEOMETRYLOCKPOLYGONS) {
+        if (geometry->mesh) {
+            _rpMeshDestroy(geometry->mesh);
+            geometry->mesh = nullptr;
+        }
+    }
+    return geometry;
 }
 
+// 0x74C800
+// Si el geometry ya tiene malla devuelve el geometry sin mas. Si no: _rpBuildMeshCreate(numTriangles) (nulo -> nulo); con materiales (> 0) pide tres listas de numMateriales punteros
+// (texturas con pista 0x10006, rasters y tuberias con 0x10503; sin comprobar nulo) y por cada triangulo busca (indices de 16 bits, busqueda lineal, alta al final) la textura del material,
+// su raster (nulo sin textura) y su tuberia, y llama a _rpBuildMeshAddTriangle (0x758C00) con (malla, material, v0, v1, v2, matIndex, indiceTextura, indiceRaster, indiceTuberia); libera las
+// tres listas (texturas, rasters, tuberias). Luego _rpMeshOptimise(malla, rpGEOMETRYTRISTRIP ? 1 : 0): con exito guarda la malla en el geometry; si no, _rpBuildMeshDestroy y nulo.
 RpGeometry* RpGeometryUnlock(RpGeometry* geometry) {
-    return ((RpGeometry*(__cdecl *)(RpGeometry*))0x74C800)(geometry);
+    RwUInt32 numTextures = 0;
+    RwUInt32 numRasters = 0;
+    RwUInt32 numPipelines = 0;
+    if (geometry->mesh) {
+        return geometry;
+    }
+    RpBuildMesh* const buildMesh = _rpBuildMeshCreate(geometry->numTriangles);
+    if (!buildMesh) {
+        return nullptr;
+    }
+    if (geometry->matList.numMaterials > 0) {
+        const RwUInt32 listBytes = static_cast<RwUInt32>(geometry->matList.numMaterials) * 4;
+        void** const textures = static_cast<void**>(RwMalloc(listBytes, kGeometryTempListHint));
+        void** const rasters = static_cast<void**>(RwMalloc(listBytes, kGeometryTempRasterHint));
+        void** const pipelines = static_cast<void**>(RwMalloc(listBytes, kGeometryTempRasterHint));
+        if (geometry->numTriangles > 0) {
+            RwInt32 triangleIndex = 0;
+            do {
+                const RpTriangle* const triangle = &geometry->triangles[triangleIndex];
+                const RwUInt16 matIndex = triangle->matIndex;
+                RpMaterial* const material = _rpMaterialListGetMaterial(&geometry->matList, matIndex);
+                RwTexture* const texture = material->texture;
+
+                RwUInt16 textureIndex = 0;
+                if (static_cast<RwUInt16>(numTextures) != 0) {
+                    do {
+                        if (textures[textureIndex] == texture) {
+                            break;
+                        }
+                        ++textureIndex;
+                    } while (textureIndex < static_cast<RwUInt16>(numTextures));
+                }
+                if (textureIndex == static_cast<RwUInt16>(numTextures)) {
+                    textures[textureIndex] = texture;
+                    numTextures = numTextures + 1;
+                }
+
+                RwRaster* const raster = texture ? texture->raster : nullptr;
+                RwUInt16 rasterIndex = 0;
+                if (static_cast<RwUInt16>(numRasters) != 0) {
+                    do {
+                        if (rasters[rasterIndex] == raster) {
+                            break;
+                        }
+                        ++rasterIndex;
+                    } while (rasterIndex < static_cast<RwUInt16>(numRasters));
+                }
+                if (rasterIndex == static_cast<RwUInt16>(numRasters)) {
+                    rasters[rasterIndex] = raster;
+                    numRasters = numRasters + 1;
+                }
+
+                RxPipeline* const pipeline = material->pipeline;
+                RwUInt16 pipelineIndex = 0;
+                if (static_cast<RwUInt16>(numPipelines) != 0) {
+                    do {
+                        if (pipelines[pipelineIndex] == pipeline) {
+                            break;
+                        }
+                        ++pipelineIndex;
+                    } while (pipelineIndex < static_cast<RwUInt16>(numPipelines));
+                }
+                if (pipelineIndex == static_cast<RwUInt16>(numPipelines)) {
+                    pipelines[pipelineIndex] = pipeline;
+                    numPipelines = numPipelines + 1;
+                }
+
+                _rpBuildMeshAddTriangle(buildMesh, material, triangle->vertIndex[0], triangle->vertIndex[1], triangle->vertIndex[2], triangle->matIndex, textureIndex, rasterIndex, pipelineIndex);
+                ++triangleIndex;
+            } while (triangleIndex < geometry->numTriangles);
+        }
+        RwFree(textures);
+        RwFree(rasters);
+        RwFree(pipelines);
+    }
+    RpMeshHeader* const mesh = _rpMeshOptimise(buildMesh, (geometry->flags & rpGEOMETRYTRISTRIP) ? 1 : 0);
+    if (mesh) {
+        geometry->mesh = mesh;
+        return geometry;
+    }
+    _rpBuildMeshDestroy(buildMesh);
+    return nullptr;
 }
 
 const RpGeometry* RpGeometryForAllMeshes(const RpGeometry* geometry, RpMeshCallBack fpCallBack, void* data) {
     return ((const RpGeometry*(__cdecl *)(const RpGeometry*, RpMeshCallBack, void*))0x74CA60)(geometry, fpCallBack, data);
 }
 
+// 0x74CA90
+// numVert < 0 o numTriangles < 0 devuelven nulo en silencio; numVert >= 0x10000 pone el error literal 6 (pluginID 2) y devuelve nulo. Numero de juegos de coordenadas de textura: el byte 2 del
+// formato si no es cero; si no, 2 con el bit 7 del byte bajo, y si no el bit 2 (rpGEOMETRYTEXTURED). El formato efectivo es (byte bajo & 0x7B) | (1 juego: 0x04; mas de uno: 0x80). Tamano del
+// bloque: sizeOfStruct del registro de plugins (0x8D628C) y, si no es nativo, + 4 por vertice con prelit, + 8 por vertice y juego, + 8 por triangulo (RwMalloc, pista 0x3000F; sin memoria o
+// lista de materiales sin inicializar -> nulo, el bloque no se libera). Deja el objeto con tipo 8, refCount 1, flags = (formato & 0x0F000000) | formato efectivo, punteros de datos repartidos
+// tras la estructura (prelit, coordenadas, triangulos con matIndex = 0xFFFF) y un morph target (RpGeometryAddMorphTargets(geometry, 1); si falla se libera todo y devuelve nulo).
 RpGeometry* RpGeometryCreate(RwInt32 numVert, RwInt32 numTriangles, RwUInt32 format) {
-    return ((RpGeometry*(__cdecl *)(RwInt32, RwInt32, RwUInt32))0x74CA90)(numVert, numTriangles, format);
+    if (numVert < 0) {
+        return nullptr;
+    }
+    if (numVert >= 0x10000) {
+        RaiseRwError(6);
+        return nullptr;
+    }
+    if (numTriangles < 0) {
+        return nullptr;
+    }
+    RwUInt32 allocSize = static_cast<RwUInt32>(geometryTKList.sizeOfStruct);
+    RwUInt32 numTexCoordSets;
+    if (format & 0xFF0000) {
+        numTexCoordSets = (format >> 16) & 0xFF;
+    } else if (static_cast<RwInt8>(format) < 0) {
+        numTexCoordSets = 2;
+    } else {
+        numTexCoordSets = (format >> 2) & 1;
+    }
+    RwUInt32 texturedFlag;
+    if (numTexCoordSets == 1) {
+        texturedFlag = rpGEOMETRYTEXTURED;
+    } else {
+        texturedFlag = (1u < numTexCoordSets) ? rpGEOMETRYTEXTURED2 : 0u;
+    }
+    const RwUInt32 effectiveFormat = ((format & 0xFF) & 0x7B) | texturedFlag;
+    const RwUInt32 nativeFormat = format & rpGEOMETRYNATIVE;
+    if (!nativeFormat) {
+        if (effectiveFormat & rpGEOMETRYPRELIT) {
+            allocSize += static_cast<RwUInt32>(numVert) * 4;
+        }
+        if (numTexCoordSets > 0) {
+            allocSize += numTexCoordSets * static_cast<RwUInt32>(numVert) * 8;
+        }
+        allocSize += static_cast<RwUInt32>(numTriangles) * 8;
+    }
+    RpGeometry* const geometry = static_cast<RpGeometry*>(RwMalloc(allocSize, kGeometryMemoryHint));
+    if (!geometry) {
+        return nullptr;
+    }
+    if (!_rpMaterialListInitialize(&geometry->matList)) {
+        return nullptr;
+    }
+    geometry->morphTarget = nullptr;
+    geometry->numMorphTargets = 0;
+    geometry->object.parent = nullptr;
+    geometry->repEntry = nullptr;
+    geometry->lockedSinceLastInst = 0;
+    geometry->mesh = nullptr;
+    geometry->object.type = 8;
+    geometry->object.subType = 0;
+    geometry->object.flags = 0;
+    geometry->object.privateFlags = 0;
+    geometry->refCount = 1;
+    geometry->numTexCoordSets = static_cast<RwInt32>(numTexCoordSets);
+    for (RwInt32 i = 0; i < rwMAXTEXTURECOORDS; ++i) {
+        geometry->texCoords[i] = nullptr;
+    }
+    geometry->preLitLum = nullptr;
+    geometry->triangles = nullptr;
+    geometry->numTriangles = numTriangles;
+    geometry->flags = (format & rpGEOMETRYNATIVEFLAGSMASK) | effectiveFormat;
+    geometry->numVertices = numVert;
+    if (!nativeFormat) {
+        uint8_t* cursor = reinterpret_cast<uint8_t*>(geometry) + geometryTKList.sizeOfStruct;
+        if ((effectiveFormat & rpGEOMETRYPRELIT) && numVert != 0) {
+            geometry->preLitLum = reinterpret_cast<RwRGBA*>(cursor);
+            cursor += static_cast<RwUInt32>(numVert) * 4;
+        }
+        if (numTexCoordSets > 0 && numVert != 0) {
+            // Sin limite de 8 como el EXE (bucle por puntero sobre texCoords[0] y siguientes).
+            void** slot = reinterpret_cast<void**>(&geometry->texCoords[0]);
+            for (RwUInt32 n = numTexCoordSets; n != 0; --n) {
+                *slot = cursor;
+                cursor += static_cast<RwUInt32>(numVert) * 8;
+                ++slot;
+            }
+        }
+        if (numTriangles != 0) {
+            geometry->triangles = reinterpret_cast<RpTriangle*>(cursor);
+            for (RwInt32 i = 0; i < numTriangles; ++i) {
+                geometry->triangles[i].matIndex = 0xFFFF;
+            }
+        }
+    }
+    if (RpGeometryAddMorphTargets(geometry, 1) < 0) {
+        _rpMaterialListDeinitialize(&geometry->matList);
+        RwFree(geometry);
+        return nullptr;
+    }
+    _rwPluginRegistryInitObject(&geometryTKList, geometry);
+    return geometry;
 }
 
+// 0x74CCB0: suma una referencia (refCount de 16 bits en +0x0E) y devuelve el geometry.
+RpGeometry* RpGeometryAddRef(RpGeometry* geometry) {
+    ++geometry->refCount;
+    return geometry;
+}
+
+// 0x74CCC0
+// Con refCount > 1 (con signo) solo resta uno y devuelve TRUE. Si no: libera la entrada de recursos (RwResourcesFreeResEntry, si hay), marca lockedSinceLastInst |= 0xFFF, destruye la malla
+// (_rpMeshDestroy) si la hay, DeInitObject del registro de geometrias (0x8D628C), libera el bloque de morph targets, deinicializa la lista de materiales, resta uno al refCount y libera el
+// geometry. Devuelve TRUE.
 RwBool RpGeometryDestroy(RpGeometry* geometry) {
-    return ((RwBool(__cdecl *)(RpGeometry*))0x74CCC0)(geometry);
+    const RwInt16 refCount = geometry->refCount;
+    if (static_cast<RwInt32>(refCount) - 1 > 0) {
+        geometry->refCount = static_cast<RwInt16>(refCount - 1);
+        return TRUE;
+    }
+    if (geometry->repEntry) {
+        RwResourcesFreeResEntry(geometry->repEntry);
+    }
+    RpMeshHeader* const mesh = geometry->mesh;
+    const RwInt16 refCountAgain = geometry->refCount;
+    geometry->lockedSinceLastInst |= rpGEOMETRYLOCKALL;
+    geometry->refCount = refCountAgain;
+    if (mesh) {
+        _rpMeshDestroy(mesh);
+        geometry->mesh = nullptr;
+    }
+    _rwPluginRegistryDeInitObject(&geometryTKList, geometry);
+    if (geometry->morphTarget) {
+        RwFree(geometry->morphTarget);
+        geometry->morphTarget = nullptr;
+    }
+    _rpMaterialListDeinitialize(&geometry->matList);
+    --geometry->refCount;
+    RwFree(geometry);
+    return TRUE;
 }
 
+// 0x74CD70: _rwPluginRegistryAddPlugin sobre el registro de geometrias (0x8D628C).
 RwInt32 RpGeometryRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
-    return ((RwInt32(__cdecl *)(RwInt32, RwUInt32, RwPluginObjectConstructor, RwPluginObjectDestructor, RwPluginObjectCopy))0x74CD70)(size, pluginID, constructCB, destructCB, copyCB);
+    return _rwPluginRegistryAddPlugin(&geometryTKList, size, pluginID, constructCB, destructCB, copyCB);
 }
 
+// 0x74CDA0: _rwPluginRegistryAddPluginStream sobre el registro de geometrias.
 RwInt32 RpGeometryRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkReadCallBack, RwPluginDataChunkWriteCallBack, RwPluginDataChunkGetSizeCallBack))0x74CDA0)(pluginID, readCB, writeCB, getSizeCB);
+    return _rwPluginRegistryAddPluginStream(&geometryTKList, pluginID, readCB, writeCB, getSizeCB);
 }
 
 RwInt32 RpGeometrySetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
@@ -577,8 +1170,214 @@ const RpGeometry* RpGeometryStreamWrite(const RpGeometry* geometry, RwStream* st
     return ((const RpGeometry*(__cdecl *)(const RpGeometry*, RwStream*))0x74CED0)(geometry, stream);
 }
 
+// 0x74D6D0
+// Cola de destruccion de un geometry ya sin referencias: suma uno al refCount, marca lockedSinceLastInst |= 0xFFF, destruye la malla (si la hay; el puntero se lee antes de sumar), DeInitObject
+// del registro de geometrias, libera el bloque de morph targets, deinicializa la lista de materiales, resta uno y libera el geometry. Devuelve TRUE. No toca la entrada de recursos.
+RwBool _rpGeometryDestroyUnreferenced(RpGeometry* geometry) {
+    RpMeshHeader* const mesh = geometry->mesh;
+    ++geometry->refCount;
+    geometry->lockedSinceLastInst |= rpGEOMETRYLOCKALL;
+    if (mesh) {
+        _rpMeshDestroy(mesh);
+        geometry->mesh = nullptr;
+    }
+    _rwPluginRegistryDeInitObject(&geometryTKList, geometry);
+    if (geometry->morphTarget) {
+        RwFree(geometry->morphTarget);
+        geometry->morphTarget = nullptr;
+    }
+    _rpMaterialListDeinitialize(&geometry->matList);
+    --geometry->refCount;
+    RwFree(geometry);
+    return TRUE;
+}
+
+namespace {
+// Fallo de lectura de los datos del geometry (0x74D522 / 0x74D3AC / 0x74D600): con refCount > 1 (con signo) solo resta uno; si no, libera la entrada de recursos, RpGeometryLock(todo),
+// DeInitObject, libera los morph targets, deinicializa la lista de materiales, resta uno y libera el geometry.
+void GeometryStreamReadAbort(RpGeometry* geometry) {
+    const RwInt16 refCount = geometry->refCount;
+    if (static_cast<RwInt32>(refCount) - 1 > 0) {
+        geometry->refCount = static_cast<RwInt16>(refCount - 1);
+        return;
+    }
+    if (geometry->repEntry) {
+        RwResourcesFreeResEntry(geometry->repEntry);
+    }
+    const RwInt16 refCountAgain = geometry->refCount;
+    geometry->refCount = refCountAgain;
+    RpGeometryLock(geometry, rpGEOMETRYLOCKALL);
+    _rwPluginRegistryDeInitObject(&geometryTKList, geometry);
+    if (geometry->morphTarget) {
+        RwFree(geometry->morphTarget);
+        geometry->morphTarget = nullptr;
+    }
+    _rpMaterialListDeinitialize(&geometry->matList);
+    --geometry->refCount;
+    RwFree(geometry);
+}
+
+// Fallo tras leer los datos (lista de materiales, plugins o RpGeometryUnlock; 0x74D5B4 / 0x74D5BE): con refCount > 1 solo resta uno; si no, libera la entrada de recursos, resta uno y
+// llama a 0x74D6D0 (que lo suma otra vez antes de destruir).
+void GeometryStreamReadRelease(RpGeometry* geometry) {
+    const RwInt16 refCount = geometry->refCount;
+    if (static_cast<RwInt32>(refCount) - 1 > 0) {
+        geometry->refCount = static_cast<RwInt16>(refCount - 1);
+        return;
+    }
+    if (geometry->repEntry) {
+        RwResourcesFreeResEntry(geometry->repEntry);
+    }
+    --geometry->refCount;
+    _rpGeometryDestroyUnreferenced(geometry);
+}
+
+// Cabecera por morph target del flujo: esfera (16 bytes) y dos indicadores de si siguen vertices y normales.
+struct GeometryMorphTargetChunk {
+    RwSphere sphere;
+    RwInt32  hasVertices;
+    RwInt32  hasNormals;
+};
+static_assert(sizeof(GeometryMorphTargetChunk) == 0x18);
+}
+
+// 0x74D190
+// Lee un RpGeometry. Chunk STRUCT con version 0x34000..0x36003 (si no, error 0x80000004 y nulo); 16 bytes de RpGeometryChunkInfo (y, solo con version 0x34000, 12 bytes de propiedades de
+// superficie; cualquier lectura corta devuelve nulo sin error). RpGeometryCreate(numVertices, numTriangles, formato) y, con mas de un morph target, RpGeometryAddMorphTargets(n - 1).
+// Si no es nativo y tiene vertices: prelit (si el formato leido tiene el bit 8; 4 bytes por vertice), coordenadas (RwStreamReadReal, 8 bytes por vertice y juego) y triangulos (8 bytes cada
+// uno, con las palabras reordenadas (w0, w1, w2, w3) -> (w1, w0, w3, w2)). Luego por cada morph target: 24 bytes de cabecera (esfera + hasVertices + hasNormals), y vertices y normales:
+// con ambos se lee un solo bloque de numVertices * 24 bytes sobre `verts`, solo vertices numVertices * 12, solo normales numVertices * 12 sobre `normals`. Despues el chunk MATLIST (8; sin
+// encontrarlo devuelve nulo sin liberar nada), con version 0x34000 las propiedades por defecto de materiales, _rpMaterialListStreamRead, los datos de plugins y RpGeometryUnlock.
 RpGeometry* RpGeometryStreamRead(RwStream* stream) {
-    return ((RpGeometry*(__cdecl *)(RwStream*))0x74D190)(stream);
+    RwUInt32 version;
+    RpGeometryChunkInfo chunkInfo;
+    RwSurfaceProperties surfaceProps;
+
+    if (!RwStreamFindChunk(stream, rwID_STRUCT, nullptr, &version)) {
+        return nullptr;
+    }
+    if (version < kStreamVersionMin || version > kStreamVersionMax) {
+        RaiseRwError(kErrorBadVersion);
+        return nullptr;
+    }
+    if (version < kStreamVersionMin + 1) {
+        if (RwStreamRead(stream, &chunkInfo, 0x10) != 0x10) {
+            return nullptr;
+        }
+        if (RwStreamRead(stream, &surfaceProps, 0xC) != 0xC) {
+            return nullptr;
+        }
+    } else if (RwStreamRead(stream, &chunkInfo, 0x10) != 0x10) {
+        return nullptr;
+    }
+
+    RpGeometry* const geometry = RpGeometryCreate(chunkInfo.numVertices, chunkInfo.numTriangles, chunkInfo.format);
+    if (!geometry) {
+        return nullptr;
+    }
+    if (chunkInfo.numMorphTargets > 1) {
+        if (RpGeometryAddMorphTargets(geometry, chunkInfo.numMorphTargets - 1) < 0) {
+            GeometryStreamReadAbort(geometry);
+            return nullptr;
+        }
+    }
+
+    if (!(geometry->flags & rpGEOMETRYNATIVE) && geometry->numVertices != 0) {
+        if (chunkInfo.format & rpGEOMETRYPRELIT) {
+            const RwUInt32 preLitBytes = static_cast<RwUInt32>(geometry->numVertices) * 4;
+            if (RwStreamRead(stream, geometry->preLitLum, preLitBytes) != preLitBytes) {
+                GeometryStreamReadAbort(geometry);
+                return nullptr;
+            }
+        }
+        if (geometry->numTexCoordSets > 0) {
+            const RwUInt32 texCoordBytes = static_cast<RwUInt32>(geometry->numVertices) * 8;
+            for (RwInt32 set = 0; set < geometry->numTexCoordSets; ++set) {
+                if (!RwStreamReadReal(stream, reinterpret_cast<RwReal*>(geometry->texCoords[set]), texCoordBytes)) {
+                    GeometryStreamReadAbort(geometry);
+                    return nullptr;
+                }
+            }
+        }
+        if (geometry->numTriangles != 0) {
+            const RwUInt32 triangleBytes = static_cast<RwUInt32>(geometry->numTriangles) * 8;
+            if (RwStreamRead(stream, geometry->triangles, triangleBytes) != triangleBytes) {
+                GeometryStreamReadAbort(geometry);
+                return nullptr;
+            }
+            RwUInt16* word = reinterpret_cast<RwUInt16*>(geometry->triangles);
+            RwUInt32 remaining = static_cast<RwUInt32>(geometry->numTriangles);
+            do {
+                const RwUInt16 first = word[0];
+                word[0] = word[1];
+                const RwUInt16 fourth = word[3];
+                word[1] = first;
+                const RwUInt16 third = word[2];
+                word[2] = fourth;
+                word[3] = third;
+                word += 4;
+            } while (--remaining != 0);
+        }
+    }
+
+    if (geometry->numMorphTargets > 0) {
+        RwInt32 index = 0;
+        do {
+            RpMorphTarget* const target = &geometry->morphTarget[index];
+            GeometryMorphTargetChunk morphChunk;
+            if (RwStreamRead(stream, &morphChunk, sizeof(morphChunk)) != sizeof(morphChunk)) {
+                GeometryStreamReadAbort(geometry);
+                return nullptr;
+            }
+            target->boundingSphere.center.x = morphChunk.sphere.center.x;
+            target->boundingSphere.center.y = morphChunk.sphere.center.y;
+            target->boundingSphere.center.z = morphChunk.sphere.center.z;
+            target->boundingSphere.radius = morphChunk.sphere.radius;
+            if (morphChunk.hasVertices) {
+                const RwUInt32 vertexBytes = static_cast<RwUInt32>(geometry->numVertices) * 12;
+                const RwUInt32 bytes = morphChunk.hasNormals ? vertexBytes * 2 : vertexBytes;
+                if (!RwStreamReadReal(stream, reinterpret_cast<RwReal*>(target->verts), bytes)) {
+                    GeometryStreamReadAbort(geometry);
+                    return nullptr;
+                }
+            } else if (morphChunk.hasNormals) {
+                const RwUInt32 vertexBytes = static_cast<RwUInt32>(geometry->numVertices) * 12;
+                if (!RwStreamReadReal(stream, reinterpret_cast<RwReal*>(target->normals), vertexBytes)) {
+                    GeometryStreamReadAbort(geometry);
+                    return nullptr;
+                }
+            }
+            ++index;
+        } while (index < geometry->numMorphTargets);
+    }
+
+    if (!RwStreamFindChunk(stream, rwID_MATLIST, nullptr, &version)) {
+        return nullptr;
+    }
+    if (version < kStreamVersionMin || version > kStreamVersionMax) {
+        GeometryStreamReadAbort(geometry);
+        RaiseRwError(kErrorBadVersion);
+        return nullptr;
+    }
+    if (version < kStreamVersionMin + 1) {
+        _rpMaterialSetDefaultSurfaceProperties(&surfaceProps);
+    }
+    if (!_rpMaterialListStreamRead(stream, &geometry->matList)) {
+        GeometryStreamReadRelease(geometry);
+        return nullptr;
+    }
+    if (version < kStreamVersionMin + 1) {
+        _rpMaterialSetDefaultSurfaceProperties(nullptr);
+    }
+    if (!_rwPluginRegistryReadDataChunks(&geometryTKList, stream, geometry)) {
+        GeometryStreamReadRelease(geometry);
+        return nullptr;
+    }
+    if (!RpGeometryUnlock(geometry)) {
+        GeometryStreamReadRelease(geometry);
+        return nullptr;
+    }
+    return geometry;
 }
 
 RpGeometryChunkInfo* _rpGeometryChunkInfoRead(RwStream* stream, RpGeometryChunkInfo* geometryChunkInfo, RwInt32* bytesRead) {
