@@ -27,13 +27,37 @@ END GENERATED HOOK STATUS */
 #include "Weather.h"
 #include "X87Math.h"
 
+namespace {
+// 0x4A1920 (lote 230A, sin validar; thiscall, sin argumentos de pila, `ret`, 18 bytes: `push esi; mov esi,ecx; call 4A9F20; mov [esi],85A7A4h; mov eax,esi; pop esi; ret`; el listado decia FxEmitterBP_c):
+// cuerpo del constructor de FxEmitter_c del EXE. Llama al constructor de FxPrim_c (0x4A9F20, con hook), deja la vtable de la clase del EXE (0x85A7A4; el constructor generado dejaria la de la DLL) y devuelve this.
+// No escribe m_fEmissionIntensity (+0x10).
+__declspec(noinline) FxEmitter_c* __fastcall FxEmitterConstructorBody(FxEmitter_c* self, void* /*edx*/) {
+    reinterpret_cast<void*(__thiscall*)(void*)>(0x4A9F20)(self);
+    *reinterpret_cast<uint32*>(self) = 0x85A7A4;
+    return self;
+}
+
+// 0x4A2B90 (lote 230A, sin validar; destructor con borrado de FxEmitter_c del EXE, ranura 0 de su vtable 0x85A7A4; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 4A2BB0;
+// test byte [esp+8],1; je ..; push esi; call 8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: llama a 0x4A2BB0 (un `jmp 4A9F40`, el cuerpo del destructor de FxPrim_c; no se engancha: salto
+// puro, se llama por su direccion), libera `this` con el operator delete del EXE (0x8214BD, CRT, cdecl) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+__declspec(noinline) FxEmitter_c* __fastcall FxEmitterScalarDeletingDestructor(FxEmitter_c* self, void* /*edx*/, uint8 flags) {
+    reinterpret_cast<void(__thiscall*)(void*)>(0x4A2BB0)(self);
+    if (flags & 1) {
+        reinterpret_cast<void(__cdecl*)(void*)>(0x8214BD)(self);
+    }
+    return self;
+}
+} // namespace
+
 void FxEmitter_c::InjectHooks() {
     RH_ScopedVirtualClass(FxEmitter_c, 0x85A7A4, 6);
     RH_ScopedCategory("Fx");
 
-    // RH_ScopedInstall(Init_Reversed, 0x4A2550);
-    // RH_ScopedInstall(Update_Reversed, 0x4A4460); // bad
-    // RH_ScopedInstall(Reset_Reversed, 0x4A2570);
+    RH_ScopedNamedGlobalInstall(FxEmitterConstructorBody, "ConstructorBody", 0x4A1920);                     // lote 230A (sin validar)
+    RH_ScopedNamedGlobalInstall(FxEmitterScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4A2B90);   // lote 230A (sin validar)
+    RH_ScopedVMTInstall(Init, 0x4A2550);   // lote 230A (sin validar)
+    RH_ScopedVMTInstall(Update, 0x4A4460); // lote 230A (sin validar)
+    RH_ScopedVMTInstall(Reset, 0x4A2570);  // lote 230A (sin validar)
     // La entrada 0x4A3EA0 es la sobrecarga con vector de posicion (vtable +0x14); la de matriz es 0x4A4050 (+0x10).
     RH_ScopedVMTOverloadedInstall(AddParticle, "vector", 0x4A3EA0, void(FxEmitter_c::*)(const CVector&, const CVector&, float, const FxPrtMult_c&, float, float, bool));
     RH_ScopedVMTOverloadedInstall(AddParticle, "matrix", 0x4A4050, void(FxEmitter_c::*)(const RwMatrix&, const CVector&, float, const FxPrtMult_c&, float, float, bool));
@@ -42,7 +66,7 @@ void FxEmitter_c::InjectHooks() {
 }
 
 
-// 0x4A2550
+// 0x4A2550 (lote 230A, sin validar; vtable +0x04, thiscall, dos argumentos de pila, `ret 8`, 26 bytes): m_PrimBP (+4) y m_System (+8) desde los argumentos, m_fEmissionIntensity (+0x10) a cero y devuelve true.
 bool FxEmitter_c::Init(FxPrimBP_c* primBP, FxSystem_c* system) {
     m_PrimBP             = primBP;
     m_System             = system;
@@ -50,14 +74,15 @@ bool FxEmitter_c::Init(FxPrimBP_c* primBP, FxSystem_c* system) {
     return true;
 }
 
-// 0x4A4460
+// 0x4A4460 (lote 230A, sin validar; vtable +0x08, thiscall, dos argumentos de pila, `ret 8`, 24 bytes): si el BYTE m_bEnabled (+0xC) no es cero y el bit 3 del byte +0x62 del sistema (m_stopParticleCreation) esta
+// a cero, el EXE salta (`jmp 4A41E0`) a CreateParticles con los mismos dos argumentos; si no, vuelve sin hacer nada (EAX sin definir; el contrato es void). El bit se lee del byte del EXE (+0x62, mascara 8).
 void FxEmitter_c::Update(float currentTime, float deltaTime) {
-    if (m_bEnabled && !m_System->m_stopParticleCreation) {
+    if (m_bEnabled && !(reinterpret_cast<const uint8*>(m_System)[0x62] & 8)) {
         CreateParticles(currentTime, deltaTime);
     }
 }
 
-// 0x4A2570
+// 0x4A2570 (lote 230A, sin validar; vtable +0x0C, thiscall, sin argumentos, `ret`, 8 bytes): m_fEmissionIntensity (+0x10) = 0.
 void FxEmitter_c::Reset() {
     m_fEmissionIntensity = 0.0f;
 }

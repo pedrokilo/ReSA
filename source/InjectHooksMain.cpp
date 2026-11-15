@@ -232,6 +232,7 @@
 #include "Attractors/PedPizzaAttractor.h"
 #include "ProtectionStub.h"
 #include "RenderWare/D3D9RasterDriver.h"
+#include "Plugins/JPegCompressPlugin/LibJpegCompress.h"
 #include "Attractors/PedTriggerScriptAttractor.h"
 #include "Attractors/PedLookAtAttractor.h"
 #include "Attractors/PedScriptedAttractor.h"
@@ -666,6 +667,7 @@ void RpWorldInjectHooks25b();
 void RpWorldInjectHooks227A();
 void RpWorldInjectHooks228A(); // rpworld.cpp (lote 228A)
 void RpWorldInjectHooks229A();
+void RpWorldInjectHooks230A();
 void RpAnisotInjectHooks();
 void CMatrixInjectHooksLote101A(); // Matrix.cpp (lote 101A)
 void CMatrixInjectHooksLote103A(); // Matrix.cpp (lote 103A)
@@ -737,6 +739,7 @@ void InjectHooksMain() {
     RpWorldInjectHooks227A();
     RpWorldInjectHooks228A();
     RpWorldInjectHooks229A();
+    RpWorldInjectHooks230A();
     RpAnisotInjectHooks();
     CCam::InjectHooks();
     CCarAI::InjectHooks();
@@ -748,6 +751,7 @@ void InjectHooksMain() {
     CPedATMAttractor::InjectHooks();
     CProtectionStub::InjectHooks();
     RwD3D9RasterDriver::InjectHooks();     // lote 224A (sin validar)
+    LibJpegCompress::InjectHooks();        // lote 230A (sin validar)
     D3D9RasterFormat::InjectHooks();       // lote 225A (sin validar)
     CPedSeatAttractor::InjectHooks();
     CPedStopAttractor::InjectHooks();
@@ -1681,6 +1685,7 @@ void InjectHooksMain() {
         FxPrim_c::InjectHooks();
         FxMemoryPool_c::InjectHooks();
         FxInfoManager_c::InjectHooks();
+        FxInfo_c::InjectHooks(); // lote 230A (sin validar)
         FxInfoGroundCollide_c::InjectHooks();
         FxInfoWind_c::InjectHooks();
         FxInfoJitter_c::InjectHooks();

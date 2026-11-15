@@ -13,6 +13,8 @@ protected:
     bool        m_bTimeModeParticle;
 
 public:
+    static void InjectHooks();
+
     FxInfo_c() = default;    // 0x4A4B30
     virtual ~FxInfo_c() = 0; // 0x4A4940
     virtual void Load(FILESTREAM file, int32 version) = 0;

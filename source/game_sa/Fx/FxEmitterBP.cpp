@@ -33,10 +33,43 @@ END GENERATED HOOK STATUS */
 #include "Particle.h"
 #include "FxTools.h"
 
+namespace {
+// 0x4A1900 (lote 230A, sin validar; cdecl, un argumento de pila, `ret`, 18 bytes: `mov eax,[esp+4]; push 4; push eax; mov ecx,0A9AF2Ch; call 4A9CA0; ret`; el listado decia FxEmitterBP_c): operator new de
+// FxEmitterBP_c. Reserva `size` bytes con alineacion 4 en la arena FX (FxMemoryPool_c::GetMem, 0x4A9CA0, con hook) del FxManager_c del EXE (0xA9AE80; la arena esta en +0xAC = 0xA9AF2C) y devuelve el puntero.
+// No lo llama ningun otro hook de este archivo (FxSystemBP_c::Load pide la memoria directamente con GetMem(0x40, 4)).
+static_assert(offsetof(FxManager_c, m_Pool) == 0xAC);
+__declspec(noinline) void* __cdecl FxEmitterBPOperatorNew(int32 size) {
+    return g_fxMan.GetMemPool().GetMem(size, 4);
+}
+
+// 0x4A18F0 (lote 230A, sin validar; thiscall, sin argumentos de pila, 11 bytes: `mov [ecx],85A788h; jmp 4A9D20`; el listado decia FxEmitterBP_c): cuerpo del destructor de FxEmitterBP_c del EXE. Deja la vtable de la
+// clase del EXE (0x85A788; el destructor generado por el compilador dejaria la de la DLL) y alcanza el cuerpo del destructor de FxPrimBP_c (0x4A9D20, con hook) con un salto: aqui es una llamada seguida de `ret`
+// (FxPrimBP_c::DestructorBody no devuelve nada util y ningun llamador lee EAX).
+__declspec(noinline) void __fastcall FxEmitterBPDestructorBody(FxEmitterBP_c* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85A788;
+    reinterpret_cast<void(__thiscall*)(void*)>(0x4A9D20)(self);
+}
+
+// 0x4A2B20 (lote 230A, sin validar; destructor con borrado de FxEmitterBP_c del EXE, ranura 0 de su vtable 0x85A788; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 4A18F0;
+// test byte [esp+8],1; je ..; push esi; call 8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo (0x4A18F0), libera `this` con el operator delete del EXE (0x8214BD, CRT,
+// cdecl) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+__declspec(noinline) FxEmitterBP_c* __fastcall FxEmitterBPScalarDeletingDestructor(FxEmitterBP_c* self, void* /*edx*/, uint8 flags) {
+    FxEmitterBPDestructorBody(self, nullptr);
+    if (flags & 1) {
+        reinterpret_cast<void(__cdecl*)(void*)>(0x8214BD)(self);
+    }
+    return self;
+}
+} // namespace
+
 void FxEmitterBP_c::InjectHooks() {
     RH_ScopedVirtualClass(FxEmitterBP_c, 0x85A788, 7);
     RH_ScopedCategory("Fx");
 
+    RH_ScopedNamedGlobalInstall(FxEmitterBPOperatorNew, "OperatorNew", 0x4A1900);                           // lote 230A (sin validar)
+    RH_ScopedNamedGlobalInstall(FxEmitterBPDestructorBody, "DestructorBody", 0x4A18F0);                     // lote 230A (sin validar)
+    RH_ScopedNamedGlobalInstall(FxEmitterBPScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4A2B20); // lote 230A (sin validar)
+    RH_ScopedInstall(IsFxInfoPresent, 0x4A24D0); // lote 230A (sin validar)
     RH_ScopedInstall(Constructor, 0x4A18D0);
     RH_ScopedInstall(RenderHeatHaze, 0x4A1940);
     RH_ScopedInstall(UpdateParticle, 0x4A21D0);

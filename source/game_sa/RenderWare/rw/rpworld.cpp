@@ -1789,6 +1789,7 @@ RpAtomic* RpAtomicSetFrame(RpAtomic* atomic, RwFrame* frame) {
 namespace {
 
 // Registro de plugins de RpClump y desplazamientos de plugin que dejan RpWorldPluginAttach (0x74FDxx) / clumpModule en el EXE.
+// (s_clumpTKList, 0x8D6264, ya esta definido arriba por el lote 226A: la segunda definicion de 227A hacia el simbolo ambiguo y no compilaba al unir ambos lotes; se usa la de 226A.)
 static auto& s_clumpModuleOffset = StaticRef<RwInt32>(0xC924AC);  // clumpModule.globalsOffset (globales del modulo dentro de RwEngineInstance)
 static auto& s_cameraClumpOffset = StaticRef<RwInt32>(0xC924D8);  // desplazamiento del enlace de clump dentro de RwCamera
 static auto& s_lightClumpOffset  = StaticRef<RwInt32>(0xC924DC);  // desplazamiento del enlace de clump dentro de RpLight
@@ -2781,8 +2782,31 @@ void _rpWorldUnregisterWorld(RpWorld* world) {
     ((void(__cdecl *)(RpWorld*))0x74F140)(world);
 }
 
+// 0x74FDA0 (lote 230A, sin validar; cdecl sin argumentos; el listado decia Win): registra los ocho plugins de motor del modulo RpWorld con RwEngineRegisterPlugin (0x7F2BB0), en este orden y con las
+// rutinas del EXE por direccion fija (tamano, id, constructor, destructor): (4, 0x501, 0x74D8E0, 0x74D950), (0x30, 0x502, 0x758970, 0x758940), (4, 0x503, 0x74BFA0, 0x74BFC0), (8, 0x504, 0x749760, 0x749480),
+// (4, 0x505, 0x752270, 0x7521B0), (0, 0x50A, 0x761C30, 0x761C40), (0xC, 0x507, 0x74FEE0, 0x74FE90) y (0, 0x50B, 0x7637E0, 0x7637D0). Los resultados se acumulan con OR (el EXE no corta al primer fallo): si el
+// OR es negativo devuelve 0; si no, 0x750050 (registro del plugin de sectores, id 0x509), ClumpPluginAttach (0x749830) y 0x74EA40, cada uno cortando con 0 si devuelve 0; el resultado final es (0x74EA40() != 0).
 RwBool RpWorldPluginAttach() {
-    return ((RwBool(__cdecl *)(void))0x74FDA0)();
+    const auto ctor = [](uintptr_t address) { return reinterpret_cast<RwPluginObjectConstructor>(address); };
+    const auto dtor = [](uintptr_t address) { return reinterpret_cast<RwPluginObjectDestructor>(address); };
+    RwInt32 status = RwEngineRegisterPlugin(4, 0x501, ctor(0x74D8E0), dtor(0x74D950));
+    status |= RwEngineRegisterPlugin(0x30, 0x502, ctor(0x758970), dtor(0x758940));
+    status |= RwEngineRegisterPlugin(4, 0x503, ctor(0x74BFA0), dtor(0x74BFC0));
+    status |= RwEngineRegisterPlugin(8, 0x504, ctor(0x749760), dtor(0x749480));
+    status |= RwEngineRegisterPlugin(4, 0x505, ctor(0x752270), dtor(0x7521B0));
+    status |= RwEngineRegisterPlugin(0, 0x50A, ctor(0x761C30), dtor(0x761C40));
+    status |= RwEngineRegisterPlugin(0xC, 0x507, ctor(0x74FEE0), dtor(0x74FE90));
+    status |= RwEngineRegisterPlugin(0, 0x50B, ctor(0x7637E0), dtor(0x7637D0));
+    if (status < 0) {
+        return FALSE;
+    }
+    if (!reinterpret_cast<RwBool(__cdecl*)()>(0x750050)()) {
+        return FALSE;
+    }
+    if (!ClumpPluginAttach()) {
+        return FALSE;
+    }
+    return reinterpret_cast<RwBool(__cdecl*)()>(0x74EA40)() != 0;
 }
 
 RpWorld* RpWorldForAllClumps(RpWorld* world, RpClumpCallBack fpCallBack, void* data) {
@@ -4061,4 +4085,48 @@ void RpWorldInjectHooks229A() {
     RH_ScopedGlobalInstall(RpWorldCreate, 0x74F760);
     RH_ScopedGlobalInstall(RpWorldForAllMaterials, 0x74FBC0);
     RH_ScopedGlobalInstall(RpWorldForAllWorldSectors, 0x74FC70);
+}
+
+// Lote 230A (sin validar): destruccion de los nodos de enlace (tie) entre sectores del mundo y atomos/luces. Cada nodo es 0x18 bytes: un enlace {next, prev} en +0x00, un puntero en +0x08 (atomo o luz),
+// un segundo enlace en +0x0C y un puntero en +0x14 (sector). Las listas libres cuelgan de RwEngineInstance + [0xC9259C]: RpTie en +0 y RpLightTie en +4.
+static auto& s_tieModuleOffset = StaticRef<RwInt32>(0xC9259C);
+struct TieModuleGlobals {
+    RwFreeList* tieFreeList;
+    RwFreeList* lightTieFreeList;
+};
+static TieModuleGlobals& TieGlobals() {
+    return *reinterpret_cast<TieModuleGlobals*>(reinterpret_cast<uintptr_t>(RwEngineInstance) + static_cast<uintptr_t>(s_tieModuleOffset));
+}
+
+// Desenlaza primero el segundo enlace (+0x0C: anterior->siguiente = siguiente, siguiente->anterior = anterior) y despues el primero (+0x00), como el EXE.
+static void TieUnlinkBoth(RwLLLink* first, RwLLLink* second) {
+    rwLinkListRemoveLLLink(second);
+    rwLinkListRemoveLLLink(first);
+}
+
+// 0x74FFA0 (cdecl, un argumento, 68 bytes; el listado decia Win): destruccion de un RpLightTie. Desenlaza sin comprobar los punteros y libera el nodo en la lista libre de +4; devuelve 1.
+static RwBool _rpLightTieDestroy(RpLightTie* tie) {
+    TieUnlinkBoth(&tie->lightInWorldSector, &tie->WorldSectorInLight);
+    FreeListFree(TieGlobals().lightTieFreeList, tie);
+    return TRUE;
+}
+
+// 0x74FFF0 (cdecl, un argumento, 81 bytes; el listado decia Win): destruccion de un RpTie. Solo actua si el atomo (+0x08) Y el sector (+0x14) no son nulos (si falta uno no desenlaza ni libera); entonces
+// desenlaza igual que _rpLightTieDestroy y libera el nodo en la lista libre de +0. Devuelve 1 siempre.
+static RwBool _rpTieDestroy(RpTie* tie) {
+    if (tie->apAtom && tie->worldSector) {
+        TieUnlinkBoth(&tie->lAtomicInWorldSector, &tie->lWorldSectorInAtomic);
+        FreeListFree(TieGlobals().tieFreeList, tie);
+    }
+    return TRUE;
+}
+
+// Registro de los hooks del lote 230A de RpWorld (sin validar).
+void RpWorldInjectHooks230A() {
+    RH_ScopedCategory("Plugins");
+    RH_ScopedNamespaceName("RpWorld");
+
+    RH_ScopedGlobalInstall(RpWorldPluginAttach, 0x74FDA0);
+    RH_ScopedGlobalInstall(_rpLightTieDestroy, 0x74FFA0);
+    RH_ScopedGlobalInstall(_rpTieDestroy, 0x74FFF0);
 }

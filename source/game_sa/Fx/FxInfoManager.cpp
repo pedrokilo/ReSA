@@ -65,10 +65,18 @@ END GENERATED HOOK STATUS */
 /**
  * Registra la creación y procesamiento de los distintos bloques FxInfo.
  */
+namespace {
+// 0x4A4950 (lote 230A, sin validar; thiscall, sin argumentos de pila, `ret`, 1 byte; el listado lo atribuia a FxEmitterBP_c): destructor de FxInfoManager_c del EXE. Es un `ret` vacio: no escribe nada,
+// no toca los arrays de FxInfo (viven en la arena FX) ni devuelve nada util. Lo llama el cuerpo del destructor de FxPrimBP_c del EXE (0x4A9D99 dentro de 0x4A9D20).
+__declspec(noinline) void __fastcall FxInfoManagerDestructorBody(FxInfoManager_c* /*self*/, void* /*edx*/) {
+}
+} // namespace
+
 void FxInfoManager_c::InjectHooks() {
     RH_ScopedClass(FxInfoManager_c);
     RH_ScopedCategory("Fx");
 
+    RH_ScopedNamedGlobalInstall(FxInfoManagerDestructorBody, "DestructorBody", 0x4A4950); // lote 230A (sin validar)
     RH_ScopedInstall(AddFxInfo, 0x4A7B00);
     RH_ScopedInstall(Load, 0x5C0B70);
     RH_ScopedInstall(ProcessEmissionInfo, 0x4A4960);
