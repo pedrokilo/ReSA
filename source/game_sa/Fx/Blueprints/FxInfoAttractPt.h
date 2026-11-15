@@ -8,8 +8,12 @@ protected:
     FxInterpInfo32_c m_InterpInfo;
 
 public:
+    static void InjectHooks();
+
     FxInfoAttractPt_c();
     ~FxInfoAttractPt_c() override = default; // 0x4A6FD0
+    void DestructorBody(); // 0x4A6FD0 (lote 217A, sin validar): cuerpo del destructor del EXE
+    FxInfoAttractPt_c* ScalarDeletingDestructor(uint8 flags); // 0x4A6FB0 (lote 217A, sin validar): ranura 0 de la vtable del EXE, `ret 4`
 
     void Load(FILESTREAM file, int32 version) override;
     void GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) override;

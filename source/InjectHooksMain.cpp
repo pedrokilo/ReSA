@@ -120,6 +120,23 @@
 #include "FxInterpInfoU255.h"
 #include "FxInterpInfo32.h"
 #include "FxInterpInfo255.h"
+#include "FxInfoEmPos.h"
+#include "FxInfoEmWeather.h"
+#include "FxInfoEmRotation.h"
+#include "FxInfoNoise.h"
+#include "FxInfoForce.h"
+#include "FxInfoFriction.h"
+#include "FxInfoAttractPt.h"
+#include "FxInfoAttractLine.h"
+#include "FxInfoGroundCollide.h"
+#include "FxInfoWind.h"
+#include "FxInfoJitter.h"
+#include "FxInfoRotSpeed.h"
+#include "FxInfoFloat.h"
+#include "FxInfoUnderwater.h"
+#include "FxInfoColour.h"
+#include "FxInfoSize.h"
+#include "FxInfoSpriteRect.h"
 #include "FxEmitter.h"
 #include "Fx.h"
 
@@ -1678,6 +1695,23 @@ void InjectHooksMain() {
         FxInterpInfoU255_c::InjectHooks();
         FxInterpInfo32_c::InjectHooks();
         FxInterpInfo255_c::InjectHooks();
+        FxInfoEmPos_c::InjectHooks();
+        FxInfoEmWeather_c::InjectHooks();
+        FxInfoEmRotation_c::InjectHooks();
+        FxInfoNoise_c::InjectHooks();
+        FxInfoForce_c::InjectHooks();
+        FxInfoFriction_c::InjectHooks();
+        FxInfoAttractPt_c::InjectHooks();
+        FxInfoAttractLine_c::InjectHooks();
+        FxInfoGroundCollide_c::InjectHooks();
+        FxInfoWind_c::InjectHooks();
+        FxInfoJitter_c::InjectHooks();
+        FxInfoRotSpeed_c::InjectHooks();
+        FxInfoFloat_c::InjectHooks();
+        FxInfoUnderwater_c::InjectHooks();
+        FxInfoColour_c::InjectHooks();
+        FxInfoSize_c::InjectHooks();
+        FxInfoSpriteRect_c::InjectHooks();
         FxManager_c::InjectHooks();
         // ReversibleHooks::Install("FxFrustumInfo_c", "IsCollision", 0x4AA030, &FxFrustumInfo_c::IsCollision);
         FxEmitterPrt_c::InjectHooks();

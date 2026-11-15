@@ -12,6 +12,7 @@ public:
 
     FxInfoEmPos_c();
     ~FxInfoEmPos_c() override = default; // 0x4A6D30
+    void DestructorBody(); // 0x4A6D30 (lote 217A, sin validar): cuerpo del destructor del EXE
 
     void Load(FILESTREAM file, int32 version) override;
     void GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) override;

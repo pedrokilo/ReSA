@@ -43,3 +43,19 @@ void FxInfoEmPos_c::GetValue(float currentTime, float mult, float totalTime, flo
 
     static_cast<EmissionInfo_t*>(info)->m_Pos = *(CVector*)&values[0];
 }
+
+// Lote 217A (sin validar): ver reversing/PendienteValidar/217A.md
+void FxInfoEmPos_c::InjectHooks() {
+    RH_ScopedClass(FxInfoEmPos_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(DestructorBody, 0x4A6D30);
+}
+
+// 0x4A6D30 (67 bytes con marco SEH que solo desenrolla y aqui se omite; thiscall sin argumentos, `ret`): cuerpo del destructor de FxInfoEmPos_c del EXE. Como el original: destruye el miembro +8
+// (FxInterpInfoFloat_c, 0x4A8460: solo deja la vtable de FxInterpInfo_c, 0x85A968) y despues deja la vtable de la base FxInfo_c (0x85A7DC). El destructor generado por el compilador dejaria vtables propias
+// de la DLL; aqui se escriben las del EXE.
+void FxInfoEmPos_c::DestructorBody() {
+    *reinterpret_cast<uint32*>(&m_InterpInfo) = 0x85A968;
+    *reinterpret_cast<uint32*>(this)          = 0x85A7DC;
+}

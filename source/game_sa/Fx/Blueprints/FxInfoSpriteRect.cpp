@@ -42,3 +42,23 @@ void FxInfoSpriteRect_c::GetValue(float currentTime, float mult, float totalTime
     render.m_fSpriteLeft   = values[2];
     render.m_fSpriteRight  = values[3];
 }
+
+// Lote 217A (sin validar): ver reversing/PendienteValidar/217A.md
+void FxInfoSpriteRect_c::InjectHooks() {
+    RH_ScopedClass(FxInfoSpriteRect_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A76A0);
+}
+
+
+// 0x4A76A0 (27 bytes, thiscall, un argumento de pila, `ret 4`): destructor con borrado de FxInfoSpriteRect_c del EXE (ranura 0 de su vtable). `push esi; mov esi,ecx; call 0x4A76C0; test byte [esp+8],1; je ..;
+// push esi; call 0x8214BD (operator delete); add esp,4; mov eax,esi; pop esi; ret 4`: destruye con el cuerpo, libera `this` solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+// Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor virtual).
+FxInfoSpriteRect_c* FxInfoSpriteRect_c::ScalarDeletingDestructor(uint8 flags) {
+    reinterpret_cast<void(__thiscall*)(void*)>(0x4A76C0)(this); // cuerpo del destructor del EXE (0x4A76C0, fuera de este lote: llamada al EXE por direccion fija)
+    if (flags & 1) {
+        ::operator delete(this);
+    }
+    return this;
+}
