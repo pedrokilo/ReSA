@@ -40,6 +40,9 @@ public: // Envoltura del cuerpo 0x632270 (con hook): la llaman los cuerpos recon
         return this;
     }
 
+public: // Destructor con borrado (ranura 0 de la vtable 0x86E0D8)
+    CTaskComplexUseEffect* ScalarDeletingDestructor(uint8 flags); // 0x638570 (lote 197A, sin validar; el listado decia CTaskComplexSunbathe)
+
 public:
     C2dEffectPedAttractor* m_2dFx{};
     CEntity*               m_Entity{};

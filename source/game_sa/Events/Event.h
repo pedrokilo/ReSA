@@ -56,6 +56,7 @@ public: // Casting.hpp support //
 
 private:
     friend void InjectHooksMain();
+    friend class CEventOnFire; // lote 197A (sin validar): su constructor del EXE (0x5FF740) y su Clone (0x5FF790) llaman al cuerpo enganchado Constructor (0x4ABFC0)
     friend class CEventEscalator; // lote 151A (banco Fn151A): su Clone del EXE (0x602B90) llama al cuerpo enganchado Constructor (0x4ABFC0)
     friend class CEventLeaderQuitEnteringCarAsDriver; // lote 156A (banco Fn156A): su Clone del EXE (0x63A150) llama al cuerpo enganchado Constructor (0x4ABFC0)
     friend class CEventCreatePartnerTask; // lote 177A: su constructor del EXE (0x5F6190) llama al cuerpo enganchado Constructor (0x4ABFC0)

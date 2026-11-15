@@ -562,6 +562,10 @@
 #include "EventCopCarBeingStolen.h"
 #include "EventDanger.h"
 #include "EventSeenCop.h"
+#include "EventHealthLow.h"
+#include "EventHealthReallyLow.h"
+#include "EventLowAngerAtPlayer.h"
+#include "EventHighAngerAtPlayer.h"
 #include "EventScriptedAttractor.h"
 #include "EventStuckInAir.h"
 #include "EventInteriorUseInfo.h"
@@ -1502,6 +1506,10 @@ void InjectHooksMain() {
         CEventPassObject::InjectHooks();
         CEventLeanOnVehicle::InjectHooks();
         CEventSeenCop::InjectHooks();
+        CEventHealthLow::InjectHooks(); // lote 197A (sin validar): CloneEditable y destructor con borrado
+        CEventHealthReallyLow::InjectHooks(); // lote 197A (sin validar)
+        CEventLowAngerAtPlayer::InjectHooks(); // lote 197A (sin validar)
+        CEventHighAngerAtPlayer::InjectHooks(); // lote 197A (sin validar)
         CEventOnFire::InjectHooks();
         CEventRevived::InjectHooks();
         CEventHandlerHistory::InjectHooks();
@@ -1572,7 +1580,6 @@ void InjectHooksMain() {
         CEventAcquaintancePedLike::InjectHooks();
         CEventAcquaintancePedDislike::InjectHooks();
         CEventInteriorUseInfo::InjectHooks();
-        // + CEventLowAngerAtPlayer
         CEventPedEnteredMyVehicle::InjectHooks();
         CEventPotentialGetRunOver::InjectHooks();
         // + CEventPotentialWalkIntoBuilding::InjectHooks();

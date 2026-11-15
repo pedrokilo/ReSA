@@ -39,6 +39,23 @@ int32 CanSunbathe() {
 }
 
 
+// 0x632190 (lote 197A, sin validar; cdecl, sin argumentos, `ret`, 90 bytes; el listado lo atribuia a CTaskComplexSunbathe y no es metodo: es una funcion libre; devuelve solo AL): "se pueden cargar las animaciones de
+// tomar el sol". Lee el peaton del jugador en foco (PlayerInFocus BYTE en 0xB7CD74, CPlayerInfo de 0x190 bytes desde 0xB7CD98, CPed* en +0). Solo si ese peaton va en vehiculo (bit 8 de +0x46C = bInVehicle) Y tiene
+// vehiculo (+0x58C) mira la velocidad (+0x44/+0x48/+0x4C): cuadrado de la magnitud sumado como el EXE, (x*x + y*y) + z*z, con todo en float (el EXE carga los tres con fld dword y redondea a 24 bits cada operacion,
+// igual que el float de C++), comparado con la constante del EXE 0x863244 = 0x3D23D70B (0.0400000028, NO el float 0.04f = 0x3D23D70A): devuelve falso solo si es ESTRICTAMENTE mayor (con NaN, fcomp deja C0=C3=1 y
+// el EXE devuelve verdadero, igual que `>` falso de C++). En cualquier otro caso devuelve verdadero. Colaboradores: ninguno.
+bool ShouldLoadSunbatheAnims() {
+    const CPed* const player = CWorld::Players[CWorld::PlayerInFocus].m_pPed;
+    if (player->bInVehicle && player->m_pVehicle) {
+        const CVector& v = player->m_pVehicle->m_vecMoveSpeed;
+        const float squaredSpeed = (v.x * v.x + v.y * v.y) + v.z * v.z;
+        if (squaredSpeed > std::bit_cast<float>(uint32{0x3D23D70B})) {
+            return false;
+        }
+    }
+    return true;
+}
+
 // 0x62F2D0 (lote 152A, banco Fn152A; cdecl, un argumento de pila de 32 bits del que solo se lee la PALABRA baja, `ret`, 49 bytes; el listado lo atribuia a CTaskComplexLeaveCarAndDie): el tiempo es "muy soleado"
 // (EXTRASUNNY de LA, SMOG LA, SF, VEGAS, COUNTRYSIDE o DESERT: 0, 2, 6, 11, 13 o 17). Devuelve solo AL (el EXE hace `xor al,al` con falso y `mov eax,1` con verdadero); lo llama CanSunbathe (0x632140).
 bool IsExtraSunnyWeather(int16 weather) {
@@ -55,14 +72,6 @@ bool SunbatheWeatherAllows() {
     case 0: case 2: case 13: case 6: case 11: case 17: return true;
     default: return false;
     }
-}
-bool SunbatheShouldLoad() {
-    const auto* player = CWorld::Players[CWorld::PlayerInFocus].m_pPed;
-    if (player->bInVehicle && player->m_pVehicle) {
-        const auto& v = player->m_pVehicle->m_vecMoveSpeed;
-        if ((v.x*v.x + v.y*v.y) + v.z*v.z > std::bit_cast<float>(uint32{0x3D23D70B})) return false;
-    }
-    return true;
 }
 }
 
@@ -98,9 +107,9 @@ void CTaskComplexSunbathe::InjectHooks() {
         RH_ScopedGlobalInstall(CanSunbathe, 0x632140);
         RH_ScopedGlobalInstall(IsExtraSunnyWeather, 0x62F2D0); // lote 152A (banco Fn152A)
     }
-    //RH_ScopedGlobalInstall(ShouldLoadSunbatheAnims, 0x632190, { .reversed = false });
+    RH_ScopedGlobalInstall(ShouldLoadSunbatheAnims, 0x632190); // lote 197A (sin validar)
 
-    //RH_ScopedInstall(CreateSubTask, 0x638290, { .reversed = false });
+    RH_ScopedInstall(CreateSubTask, 0x638290); // lote 197A (sin validar)
 
     RH_ScopedVMTInstall(Clone, 0x6366A0);
     RH_ScopedVMTInstall(GetTaskType, 0x632040);
@@ -171,7 +180,7 @@ CTask* CTaskComplexSunbathe::CreateNextSubTask(CPed* ped) {
     case static_cast<eTaskType>(0xCA):
         if (!m_bBathing) {
             if (m_pSunbatheAnimBlock->IsLoaded && m_pBeachAnimBlock->IsLoaded) return create(0x1AC);
-        } else if (SunbatheShouldLoad() && m_pSunbatheAnimBlock->IsLoaded) return create(0x1AE);
+        } else if (ShouldLoadSunbatheAnims() && m_pSunbatheAnimBlock->IsLoaded) return create(0x1AE);
         return create(0x516);
     case static_cast<eTaskType>(0x1A2):
         if (!m_pSunbatheAnimBlock->IsLoaded) return create(0xCA);
@@ -202,7 +211,7 @@ CTask* CTaskComplexSunbathe::CreateFirstSubTask(CPed* ped) {
     if (!m_pBeachAnimBlock->IsLoaded) CStreaming::RequestModel(IFPToModelId(m_BeachAnimBlockIndex), STREAMING_KEEP_IN_MEMORY);
     if (!m_pSunbatheAnimBlock->IsLoaded) CStreaming::RequestModel(IFPToModelId(m_SunbatheAnimBlockIndex), STREAMING_KEEP_IN_MEMORY);
     m_bBathing = false;
-    const bool load = SunbatheShouldLoad();
+    const bool load = ShouldLoadSunbatheAnims();
     if (m_bStartStanding && load) {
         if (!m_pTowel && m_pSunbatheAnimBlock->IsLoaded) return CreateSubTask(static_cast<eTaskType>(0x1AC), ped);
         return CreateSubTask(static_cast<eTaskType>(0xCA), ped);
@@ -226,7 +235,7 @@ CTask* CTaskComplexSunbathe::ControlSubTask(CPed* ped) {
         if (m_pBeachAnimBlock->IsLoaded) { CAnimManager::AddAnimBlockRef(m_BeachAnimBlockIndex); m_bBeachAnimsReferenced = true; }
         else CStreaming::RequestModel(IFPToModelId(m_BeachAnimBlockIndex), STREAMING_KEEP_IN_MEMORY);
     }
-    if (!m_bSunbatheAnimsReferenced && SunbatheShouldLoad()) {
+    if (!m_bSunbatheAnimsReferenced && ShouldLoadSunbatheAnims()) {
         if (m_pSunbatheAnimBlock->IsLoaded) { CAnimManager::AddAnimBlockRef(m_SunbatheAnimBlockIndex); m_bSunbatheAnimsReferenced = true; }
         else CStreaming::RequestModel(IFPToModelId(m_SunbatheAnimBlockIndex), STREAMING_KEEP_IN_MEMORY);
     }
@@ -241,30 +250,73 @@ CTask* CTaskComplexSunbathe::ControlSubTask(CPed* ped) {
     return m_pSubTask;
 }
 
-CTask* CTaskComplexSunbathe::CreateSubTask(eTaskType type, CPed* ped) {
-    if (m_pSubTask && m_pSubTask->GetTaskType() == type) return m_pSubTask;
-    const auto anim = [&](int id, bool hold, const char* name) -> CTask* {
-        return new CTaskSimpleRunAnim(static_cast<AssocGroupId>(0x30), static_cast<AnimationId>(id), 4.f, int(type), name, hold);
+// 0x638290 (lote 197A, sin validar; thiscall, dos argumentos de pila (tipo de tarea y peaton; el peaton no se lee), `ret 8`, 725 bytes con marco SEH que solo libera la memoria si un constructor lanza (se omite)).
+// Crea la subtarea de tipo `type`. Si ya hay subtarea (+8) y su GetTaskType (ranura 4) coincide, la devuelve sin crear nada. Tipos: 0xCA pausa (CTaskSimplePause 0x18 bytes), 0x1A2 animacion temporizada
+// (CTaskSimpleRunTimedAnim 0x34), 0x1AC/0x1AD/0x1AE animaciones (CTaskSimpleRunAnim 0x20); cualquier otro (incluido 0x516) devuelve nulo. Cada tarea: CTask::operator new (0x61A5A0) y, si hay memoria, constructor
+// del EXE; sin memoria devuelve nulo. El ORDEN de los efectos laterales es el del EXE: en 0xCA primero se reserva y despues se pide el azar (solo con memoria); en 0x1A2 y 0x1AD el azar se pide ANTES de reservar.
+CTask* CTaskComplexSunbathe::CreateSubTask(eTaskType type, CPed* /*ped*/) {
+    if (m_pSubTask && m_pSubTask->GetTaskType() == type) {
+        return m_pSubTask;
+    }
+
+    // Reserva con CTask::operator new y construye solo con memoria (el EXE devuelve nulo sin memoria); los argumentos ya estan evaluados.
+    const auto RunAnim = [&](AnimationId animId, const char* name, bool holdLastFrame) -> CTask* {
+        void* const memory = CTask::operator new(sizeof(CTaskSimpleRunAnim));
+        // Como el EXE (0x61A900, con hook): el constructor enganchado y su EAX como resultado
+        return memory
+            ? static_cast<CTaskSimpleRunAnim*>(memory)->Constructor2(static_cast<AssocGroupId>(0x30), animId, 4.0f, static_cast<int32>(type), name, holdLastFrame)
+            : nullptr;
     };
-    switch (type) {
-    case static_cast<eTaskType>(0xCA): {
-        const bool wait = (!m_pSunbatheAnimBlock->IsLoaded && SunbatheShouldLoad()) || !m_pBeachAnimBlock->IsLoaded;
-        auto* storage = CTask::operator new(sizeof(CTaskSimplePause));
-        return storage ? ::new (storage) CTaskSimplePause(wait ? 10000 : CGeneral::GetRandomIntInRange(1000, 5000)) : nullptr;
+
+    switch (static_cast<int32>(type)) {
+    case 0xCA: { // pausa: espera de 10 s si falta algun bloque de animaciones necesario; si no, entre 1 y 5 s
+        // Como el EXE: !(bloque de tomar el sol cargado) && ShouldLoad..., o !(bloque de playa cargado)
+        const bool mustWait = (!m_pSunbatheAnimBlock->IsLoaded && ShouldLoadSunbatheAnims()) || !m_pBeachAnimBlock->IsLoaded;
+        void* const memory = CTask::operator new(sizeof(CTaskSimplePause));
+        if (!memory) {
+            return nullptr;
+        }
+        const int32 durationMs = mustWait ? 10000 : CGeneral::GetRandomIntInRange(1000, 5000);
+        return static_cast<CTaskSimplePause*>(memory)->Constructor(durationMs); // 0x48E750 (con hook): su EAX como resultado
     }
-    case static_cast<eTaskType>(0x1A2): {
-        const auto remaining = [&]() { return m_BathingTimer.m_bStarted ? int32(m_BathingTimer.m_nStartTime + m_BathingTimer.m_nInterval - CTimer::GetTimeInMS()) : 0; };
-        int duration;
-        if (!m_pSunbatheAnimBlock->IsLoaded || (m_SunbatherType != 0 && m_SunbatherType != 2)) duration = remaining() + 1000;
-        else duration = CGeneral::GetRandomIntInRange(3000, remaining() + 1000 < 12001 ? remaining() + 1000 : 12000);
-        return new CTaskSimpleRunTimedAnim(static_cast<AssocGroupId>(0x2F), static_cast<AnimationId>(int(m_SunbatherType) + 0xEF), 4.f, -4.f, duration, type, "sunbathe", true);
+    case 0x1A2: { // tomar el sol: animacion temporizada
+        const bool isSunbatheType = m_SunbatherType == SUNBATHER_MALE_1 || m_SunbatherType == SUNBATHER_FEMALE_1;
+        int32 durationMs;
+        if (m_pSunbatheAnimBlock->IsLoaded && isSunbatheType) {
+            // Como el EXE: tiempo restante + 1000 (suma de 32 bits), tope 12000 (comparacion con signo) y azar entre 3000 y ese valor;
+            // el EXE llama a GetTimeLeft (0x62EB80) una segunda vez cuando no supera el tope
+            int32 maxMs = static_cast<int32>(static_cast<uint32>(m_BathingTimer.GetTimeLeft()) + 1000u);
+            if (maxMs > 12000) {
+                maxMs = 12000;
+            } else {
+                maxMs = static_cast<int32>(static_cast<uint32>(m_BathingTimer.GetTimeLeft()) + 1000u);
+            }
+            durationMs = CGeneral::GetRandomIntInRange(3000, maxMs);
+        } else {
+            durationMs = static_cast<int32>(static_cast<uint32>(m_BathingTimer.GetTimeLeft()) + 1000u);
+        }
+        const auto animId = static_cast<AnimationId>(static_cast<int32>(m_SunbatherType) + 0xEF);
+        void* const memory = CTask::operator new(sizeof(CTaskSimpleRunTimedAnim));
+        return memory
+            ? static_cast<CTaskSimpleRunTimedAnim*>(memory)->Constructor(static_cast<AssocGroupId>(0x2F), animId, 4.0f, -4.0f, static_cast<uint32>(durationMs), static_cast<eTaskType>(0x1A2), reinterpret_cast<const char*>(0x86E098) /*"sunbathe"*/, true) // 0x61ABE0 (con hook): su EAX como resultado
+            : nullptr;
     }
-    case static_cast<eTaskType>(0x1AC): return anim(int(m_SunbatherType) + 0xF4, true, "start sunbathing");
-    case static_cast<eTaskType>(0x1AD): {
-        const int id = m_SunbatherType == 0 ? CGeneral::GetRandomIntInRange(0, 3) + 0xFE : m_SunbatherType == 2 ? CGeneral::GetRandomIntInRange(0, 3) + 0x101 : 0x1AD;
-        return anim(id, true, "idle sunbathing");
+    case 0x1AC: // empezar a tomar el sol
+        return RunAnim(static_cast<AnimationId>(static_cast<int32>(m_SunbatherType) + 0xF4), reinterpret_cast<const char*>(0x86E654) /*"start sunbathing"*/, true);
+    case 0x1AD: { // reposo: tipos 0 y 2 eligen una de tres animaciones al azar; los demas usan el propio valor del tipo de tarea (0x1AD) como animacion, como el EXE
+        int32 animId;
+        if (m_SunbatherType == SUNBATHER_MALE_1) {
+            animId = CGeneral::GetRandomIntInRange(0, 3) + 0xFE;
+        } else if (m_SunbatherType == SUNBATHER_FEMALE_1) {
+            animId = CGeneral::GetRandomIntInRange(0, 3) + 0x101;
+        } else {
+            animId = static_cast<int32>(type);
+        }
+        return RunAnim(static_cast<AnimationId>(animId), reinterpret_cast<const char*>(0x86E644) /*"idle sunbathing"*/, true);
     }
-    case static_cast<eTaskType>(0x1AE): return anim(int(m_SunbatherType) + 0xF9, false, "stop sunbathing");
-    default: return nullptr;
+    case 0x1AE: // dejar de tomar el sol (sin mantener el ultimo fotograma)
+        return RunAnim(static_cast<AnimationId>(static_cast<int32>(m_SunbatherType) + 0xF9), reinterpret_cast<const char*>(0x86E634) /*"stop sunbathing"*/, false);
+    default: // incluye 0x516
+        return nullptr;
     }
 }

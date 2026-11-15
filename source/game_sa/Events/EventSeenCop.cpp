@@ -26,6 +26,7 @@ void CEventSeenCop::InjectHooks()
     RH_ScopedCategory("Events");
 
     RH_ScopedInstall(Constructor1, 0x5FF380);
+    RH_ScopedVMTInstall(GetEventPriority, 0x5FF880);                                                       // lote 197A (sin validar): retorno de constante
 }
 
 // 0x5FF380
@@ -35,3 +36,7 @@ CEventSeenCop* CEventSeenCop::Constructor1(CPed* cop)
     return this;
 }
 
+// 0x5FF880 (lote 197A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,15h`): prioridad 21; no lee el objeto (ranura 2 de la vtable 0x86CB58).
+int32 CEventSeenCop::GetEventPriority() const {
+    return 21;
+}

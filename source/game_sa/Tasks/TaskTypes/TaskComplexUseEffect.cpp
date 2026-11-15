@@ -31,6 +31,7 @@ void CTaskComplexUseEffect::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x6321F0);
     RH_ScopedInstall(Destructor, 0x632270);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x638570); // lote 197A (sin validar)
 
     RH_ScopedVMTInstall(Clone, 0x636710);
     RH_ScopedVMTInstall(GetTaskType, 0x632260);
@@ -123,4 +124,16 @@ CTask* CTaskComplexUseEffect::ControlSubTask(CPed* ped) {
     return m_PedAttractor
         ? m_PedAttractor->GetTaskForPed(ped)
         : CreateFirstSubTask(ped);
+}
+
+// 0x638570 (lote 197A, sin validar; el listado decia CTaskComplexSunbathe: es el destructor con borrado de CTaskComplexUseEffect, ranura 0 de su vtable 0x86E0D8, que escribe 0x86E0D8 al inicio de 0x632270):
+// thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x632270; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`.
+// Como el original: destruye con el cuerpo de la clase (0x632270, con hook, envoltura Destructor()), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0
+// del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexUseEffect* CTaskComplexUseEffect::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

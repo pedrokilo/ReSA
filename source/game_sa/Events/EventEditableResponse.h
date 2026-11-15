@@ -29,6 +29,10 @@ public:
 
 private:
     friend void InjectHooksMain();
+    friend class CEventHealthLow; // lote 197A (sin validar): su CloneEditable del EXE (0x5FF490) llama al cuerpo enganchado Constructor (0x4AC450)
+    friend class CEventHealthReallyLow; // lote 197A (sin validar): constructor 0x5FF500 y CloneEditable 0x5FF550
+    friend class CEventLowAngerAtPlayer; // lote 197A (sin validar): constructor 0x5FF5C0 y CloneEditable 0x5FF610
+    friend class CEventHighAngerAtPlayer; // lote 197A (sin validar): constructor 0x5FF680 y CloneEditable 0x5FF6D0
     friend class CEventLeaderExitedCarAsDriver; // lote 156A (banco Fn156A): su CloneEditable del EXE (0x4B8340) llama al cuerpo enganchado Constructor (0x4AC450)
     static void InjectHooks();
 

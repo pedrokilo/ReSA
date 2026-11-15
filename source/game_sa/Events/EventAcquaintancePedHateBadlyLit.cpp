@@ -52,6 +52,7 @@ void CEventAcquaintancePedHateBadlyLit::InjectHooks()
     RH_ScopedNamedGlobalInstall(HateBadlyLitDestructorBody, "DestructorBody", 0x5FF2C0);                           // lote 178A (sin validar)
     RH_ScopedNamedGlobalInstall(HateBadlyLitScalarDeletingDestructor, "ScalarDeletingDestructor", 0x5FF360);       // lote 178A (sin validar)
     RH_ScopedInstall(Constructor, 0x5FF250);
+    RH_ScopedVMTInstall(GetEventPriority, 0x5FF8A0);                // lote 197A (sin validar): retorno de constante
     RH_ScopedVMTInstall(GetEventType, 0x5FF2D0);                    // lote 178A (sin validar): retorno de constante
     RH_ScopedVMTInstall(CloneEditable, 0x5FF2E0);                   // lote 178A (sin validar)
     RH_ScopedVMTInstall(CanBeInterruptedBySameEvent, 0x5FF350);     // lote 178A (sin validar): siempre verdadero
@@ -118,3 +119,8 @@ bool CEventAcquaintancePedHateBadlyLit::AffectsPed(CPed* ped)
     return false;
 }
 
+
+// 0x5FF8A0 (lote 197A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,19h`): prioridad 25; no lee el objeto (ranura 2 de la vtable 0x86CB10).
+int32 CEventAcquaintancePedHateBadlyLit::GetEventPriority() const {
+    return 25;
+}

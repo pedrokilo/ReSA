@@ -9,15 +9,17 @@ public:
     CEventOnFire() = default;
     ~CEventOnFire() override = default;
 
-    eEventType GetEventType() const override { return EVENT_ON_FIRE; }
-    int32 GetEventPriority() const override { return 66; }
-    int32 GetLifeTime() override { return 0; }
-    CEventOnFire* Clone() const noexcept override { return new CEventOnFire(); }
+    eEventType GetEventType() const override; // 0x5FF770 (lote 197A, sin validar)
+    int32 GetEventPriority() const override; // 0x5FF890 (lote 197A, sin validar)
+    int32 GetLifeTime() override; // 0x5FF780 (lote 197A, sin validar)
+    CEventOnFire* Clone() const noexcept override; // 0x5FF790 (lote 197A, sin validar)
     bool AffectsPed(CPed* ped) override;
-    float GetLocalSoundLevel() override { return 60.0f; }
+    float GetLocalSoundLevel() override; // 0x5FF7E0 (lote 197A, sin validar)
 
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+
+    CEventOnFire* Constructor(); // 0x5FF740 (lote 197A, sin validar)
 };
 VALIDATE_SIZE(CEventOnFire, 0xC);

@@ -51,6 +51,11 @@ void CEventEscalator::InjectHooks() {
     RH_ScopedCategory("Events");
 
     RH_ScopedNamedGlobalInstall(EscalatorScalarDeletingDestructor, "ScalarDeletingDestructor", 0x602BE0); // lote 151A (banco Fn151A)
+    RH_ScopedNamedGlobalInstall(EscalatorDestructorBody, "DestructorBody", 0x5FF860); // lote 197A (sin validar): salto puro a 0x4AC010
+    RH_ScopedInstall(Constructor, 0x5FF820); // lote 197A (sin validar)
+    RH_ScopedVMTInstall(GetEventType, 0x5FF840); // lote 197A (sin validar): retorno de constante
+    RH_ScopedVMTInstall(GetLifeTime, 0x5FF850); // lote 197A (sin validar): retorno de constante
+    RH_ScopedVMTInstall(GetEventPriority, 0x5FF870); // lote 197A (sin validar): retorno de constante
     RH_ScopedVMTInstall(Clone, 0x602B90); // lote 151A (banco Fn151A)
     RH_ScopedVMTInstall(AffectsPed, 0x4B2580);
     RH_ScopedVMTInstall(TakesPriorityOver, 0x4B25E0);
@@ -85,4 +90,26 @@ bool CEventEscalator::AffectsPed(CPed* ped) {
             return true;
     }
     return false;
+}
+// 0x5FF820 (lote 197A, sin validar; thiscall, sin argumentos de pila, `ret`, 18 bytes: `push esi; mov esi,ecx; call 0x4ABFC0; mov [esi],86CD00h; mov eax,esi; pop esi; ret`). Constructor de CEvent
+// (0x4ABFC0, con hook) y vtable de la clase del EXE (0x86CD00); devuelve this.
+CEventEscalator* CEventEscalator::Constructor() {
+    static_cast<CEvent*>(this)->Constructor();
+    *reinterpret_cast<uint32*>(this) = 0x86CD00;
+    return this;
+}
+
+// 0x5FF840 (lote 197A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,4Ah`): EVENT_ON_ESCALATOR (74); no lee el objeto (ranura 1 de la vtable 0x86CD00).
+eEventType CEventEscalator::GetEventType() const {
+    return EVENT_ON_ESCALATOR;
+}
+
+// 0x5FF870 (lote 197A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,38h`): prioridad 56; no lee el objeto (ranura 2).
+int32 CEventEscalator::GetEventPriority() const {
+    return 56;
+}
+
+// 0x5FF850 (lote 197A, sin validar; thiscall, `ret`, 3 bytes: `xor eax,eax`): vida util 0; no lee el objeto (ranura 3).
+int32 CEventEscalator::GetLifeTime() {
+    return 0;
 }

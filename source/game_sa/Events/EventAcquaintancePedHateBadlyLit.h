@@ -17,7 +17,7 @@ public:
     ~CEventAcquaintancePedHateBadlyLit() override = default;
 
     eEventType GetEventType() const override; // 0x5FF2D0 (lote 178A, sin validar)
-    int32 GetEventPriority() const override { return 25; }
+    int32 GetEventPriority() const override; // 0x5FF8A0 (lote 197A, sin validar)
     bool AffectsPed(CPed* ped) override;
     bool CanBeInterruptedBySameEvent() override; // 0x5FF350 (lote 178A, sin validar)
     CEventEditableResponse* CloneEditable() const noexcept override; // 0x5FF2E0 (lote 178A, sin validar)
