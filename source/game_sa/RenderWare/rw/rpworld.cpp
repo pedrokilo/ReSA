@@ -304,10 +304,6 @@ RwBool RpMaterialValidatePlugins(const RpMaterial* material) {
     return ((RwBool(__cdecl *)(const RpMaterial*))0x74DCB0)(material);
 }
 
-RwUInt32 RpMaterialStreamGetSize(const RpMaterial* material) {
-    return ((RwUInt32(__cdecl *)(const RpMaterial*))0x74E010)(material);
-}
-
 // 0x74DD30
 // Lee un RpMaterial. Busca el chunk STRUCT (1) y comprueba la version (0x34000..0x36003, si no error 0x80000004); lee `longitud` bytes (la del chunk, sin limitar a 28) sobre un
 // RpMaterialChunkInfo puesto a cero; pide el material a la lista libre y lo inicializa como RpMaterialCreate (color blanco, refCount 1, propiedades por defecto) y llama a InitObject ANTES de
@@ -528,10 +524,6 @@ RpMaterialList* _rpMaterialListInitialize(RpMaterialList* matList) {
     return matList;
 }
 
-RpMaterialList* _rpMaterialListDeinitialize(RpMaterialList* matList) {
-    return ((RpMaterialList*(__cdecl *)(RpMaterialList*))0x74E150)(matList);
-}
-
 RpMaterial** _rpMaterialListAlloc(RwUInt32 count) {
     return ((RpMaterial**(__cdecl *)(RwUInt32))0x74E1C0)(count);
 }
@@ -549,10 +541,6 @@ RpMaterialList* _rpMaterialListCopy(RpMaterialList* matListOut, const RpMaterial
     return ((RpMaterialList*(__cdecl *)(RpMaterialList*, const RpMaterialList*))0x74E1F0)(matListOut, matListIn);
 }
 
-RwInt32 _rpMaterialListAppendMaterial(RpMaterialList* matList, RpMaterial* material) {
-    return ((RwInt32(__cdecl *)(RpMaterialList*, RpMaterial*))0x74E350)(matList, material);
-}
-
 // 0x74E420
 // Busca de atras hacia delante; sin coincidencia (o con numMaterials <= 0) devuelve numMaterials-1 como el EXE (dec eax, con vuelta en 32 bits).
 RwInt32 _rpMaterialListFindMaterialIndex(const RpMaterialList* matList, const RpMaterial* material) {
@@ -568,14 +556,6 @@ RwInt32 _rpMaterialListFindMaterialIndex(const RpMaterialList* matList, const Rp
         } while (index > 0);
     }
     return static_cast<RwInt32>(static_cast<RwUInt32>(index) - 1u);
-}
-
-RwUInt32 _rpMaterialListStreamGetSize(const RpMaterialList* matList) {
-    return ((RwUInt32(__cdecl *)(const RpMaterialList*))0x74E450)(matList);
-}
-
-RpMaterialList* _rpMaterialListStreamRead(RwStream* stream, RpMaterialList* matList) {
-    return ((RpMaterialList*(__cdecl *)(RwStream*, RpMaterialList*))0x74E600)(stream, matList);
 }
 
 const RpMaterialList* _rpMaterialListStreamWrite(const RpMaterialList* matList, RwStream* stream) {
@@ -2781,14 +2761,6 @@ RpWorld* _rpWorldSetupSectorBoundingBoxes(RpWorld* world) {
     return ((RpWorld*(__cdecl *)(RpWorld*))0x74F020)(world);
 }
 
-void _rpWorldSectorDeinstanceAll(RpSector* sector) {
-    ((void(__cdecl *)(RpSector*))0x74ECA0)(sector);
-}
-
-void _rpWorldSectorDestroyRecurse(RpSector* sector) {
-    ((void(__cdecl *)(RpSector*))0x74ED50)(sector);
-}
-
 RwBool _rpWorldForAllGlobalLights(RpLightCallBack callBack, void* data) {
     return ((RwBool(__cdecl *)(RpLightCallBack, void*))0x74EF10)(callBack, data);
 }
@@ -2797,16 +2769,8 @@ RpWorldSector* _rpWorldSectorForAllLocalLights(RpWorldSector* sector, RpLightCal
     return ((RpWorldSector*(__cdecl *)(RpWorldSector*, RpLightCallBack, void*))0x74EF60)(sector, callBack, data);
 }
 
-RpWorldSector* _rpSectorDefaultRenderCallBack(RpWorldSector* sector) {
-    return ((RpWorldSector*(__cdecl *)(RpWorldSector*))0x74EEC0)(sector);
-}
-
 RpWorld* RpWorldLock(RpWorld* world) {
     return ((RpWorld*(__cdecl *)(RpWorld*))0x74F1A0)(world);
-}
-
-RpWorld* RpWorldUnlock(RpWorld* world) {
-    return ((RpWorld*(__cdecl *)(RpWorld*))0x74F210)(world);
 }
 
 void _rpWorldRegisterWorld(RpWorld* world, RwUInt32 memorySize) {
@@ -2825,28 +2789,12 @@ RpWorld* RpWorldForAllClumps(RpWorld* world, RpClumpCallBack fpCallBack, void* d
     return ((RpWorld*(__cdecl *)(RpWorld*, RpClumpCallBack, void*))0x74FB80)(world, fpCallBack, data);
 }
 
-RpWorld* RpWorldForAllMaterials(RpWorld* world, RpMaterialCallBack fpCallBack, void* data) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RpMaterialCallBack, void*))0x74FBC0)(world, fpCallBack, data);
-}
-
 RpWorld* RpWorldForAllLights(RpWorld* world, RpLightCallBack fpCallBack, void* data) {
     return ((RpWorld*(__cdecl *)(RpWorld*, RpLightCallBack, void*))0x74FC00)(world, fpCallBack, data);
 }
 
-RpWorld* RpWorldForAllWorldSectors(RpWorld* world, RpWorldSectorCallBack fpCallBack, void* data) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RpWorldSectorCallBack, void*))0x74FC70)(world, fpCallBack, data);
-}
-
 RpWorld* RpWorldRender(RpWorld* world) {
     return ((RpWorld*(__cdecl *)(RpWorld*))0x74F570)(world);
-}
-
-RwBool RpWorldDestroy(RpWorld* world) {
-    return ((RwBool(__cdecl *)(RpWorld*))0x74F610)(world);
-}
-
-RpWorld* RpWorldCreate(RwBBox* boundingBox) {
-    return ((RpWorld*(__cdecl *)(RwBBox*))0x74F760)(boundingBox);
 }
 
 RpWorld* RpWorldSetSectorRenderCallBack(RpWorld* world, RpWorldSectorCallBackRender fpCallBack) {
@@ -2855,10 +2803,6 @@ RpWorld* RpWorldSetSectorRenderCallBack(RpWorld* world, RpWorldSectorCallBackRen
 
 RpWorldSectorCallBackRender RpWorldGetSectorRenderCallBack(const RpWorld* world) {
     return ((RpWorldSectorCallBackRender(__cdecl *)(const RpWorld*))0x74F750)(world);
-}
-
-RpWorld* RpWorldSectorGetWorld(const RpWorldSector* sector) {
-    return ((RpWorld*(__cdecl *)(const RpWorldSector*))0x74F4E0)(sector);
 }
 
 // 0x74FCD0
@@ -2936,14 +2880,6 @@ void RxD3D9AllInOneSetRenderCallBack(RxPipelineNode* node, RxD3D9AllInOneRenderC
 
 RxD3D9AllInOneRenderCallBack RxD3D9AllInOneGetRenderCallBack(RxPipelineNode* node) {
     return ((RxD3D9AllInOneRenderCallBack(__cdecl *)(RxPipelineNode*))0x7573F0)(node);
-}
-
-void _rpD3D9AddDynamicGeometry(RpGeometry* geometry) {
-    ((void(__cdecl *)(RpGeometry*))0x74E970)(geometry);
-}
-
-void _rpD3D9RemoveDynamicGeometry(RpGeometry* geometry) {
-    ((void(__cdecl *)(RpGeometry*))0x74E9E0)(geometry);
 }
 
 // 0x7522E0
@@ -3218,4 +3154,911 @@ void RpWorldInjectHooks227A() {
     RH_ScopedGlobalInstall(RpClumpRegisterPlugin, 0x74BDD0);
     RH_ScopedGlobalInstall(RpAtomicRegisterPluginStream, 0x74BE00);
     RH_ScopedGlobalInstall(RpClumpRegisterPluginStream, 0x74BE70);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Lote 229A (sin validar): lista de materiales (bamatlst), geometrias dinamicas de D3D9, tuberias por defecto del modulo de
+// mundos, sectores de BSP (liberacion, desinstanciado, render por defecto) y el objeto RpWorld (crear, destruir, desbloquear,
+// iteradores). Todo el codigo sigue el desensamblado del EXE (0x74E010..0x74FC70); no hay banco: el coordinador valida despues.
+// Las funciones del EXE que no se reconstruyen aqui (ataduras 0x74FFA0/0x74FFF0, plugins 0x755B90/0x7587D0, 0x760CF0, el
+// callback 0x74EA80) se llaman por direccion fija.
+// ---------------------------------------------------------------------------------------------------------------------
+namespace {
+
+static auto& s_sectorTKList229     = StaticRef<RwPluginRegistry>(0x8D736C); // registro de plugins de RpWorldSector
+static auto& s_dynamicGeometryHead = StaticRef<void*>(0xC92520);            // cabeza de la lista de geometrias dinamicas de D3D9
+static auto& s_dynamicGeometryPool = StaticRef<RwFreeList*>(0xC92524);      // lista libre de sus nodos (8 bytes)
+static auto& s_prevRestoreCallBack = StaticRef<rwD3D9DeviceRestoreCallBack>(0xC9251C); // callback de restauracion que habia antes de 0x74EA40
+static auto& s_worldModuleOffset   = StaticRef<RwInt32>(0xC9254C);          // globalsOffset del modulo de mundos dentro de RwEngineInstance
+static auto& s_pipelineModuleOffset = StaticRef<RwInt32>(0xC9BC60);         // globalsOffset del modulo de tuberias por defecto
+
+constexpr RwUInt32 kChunkMaterial = 0x07;
+constexpr RwUInt32 kMatListAllocHint = 0x1030008;
+constexpr RwUInt32 kMatListIndexHint = 0x10501;
+constexpr RwUInt32 kWorldAllocHint = 0x3000B;
+constexpr RwUInt32 kWorldListEntryHint = 0x40507;
+constexpr RwUInt32 kDynamicGeometryHint = 0x3050D;
+constexpr uintptr_t kSectorDefaultRenderCallBackAddress = 0x74EEC0; // el EXE guarda ESTA direccion en RpWorld::renderCallBack
+constexpr uintptr_t kD3D9RestoreCallBackAddress = 0x74EA80;         // callback de restauracion del dispositivo (sin reconstruir)
+
+// Posiciones dentro de las globales del modulo de tuberias (RwEngineInstance + [0xC9BC60] + desplazamiento).
+constexpr uint32 kPipelineSlotDefaultSector = 0x40;
+constexpr uint32 kPipelineSlotPlatformAtomic = 0x54;
+constexpr uint32 kPipelineSlotPlatformSector = 0x58;
+
+static_assert(offsetof(RwGlobals, curWorld) == 4);
+static_assert(offsetof(RpMaterial, refCount) == 0x18 && offsetof(RpMaterial, pipeline) == 8);
+static_assert(offsetof(RpMaterialList, numMaterials) == 4 && offsetof(RpMaterialList, space) == 8);
+static_assert(offsetof(RpWorld, flags) == 0x08 && offsetof(RpWorld, renderOrder) == 0x0C && offsetof(RpWorld, matList) == 0x10);
+static_assert(offsetof(RpWorld, rootSector) == 0x1C && offsetof(RpWorld, numTexCoordSets) == 0x20 && offsetof(RpWorld, numClumpsInWorld) == 0x24);
+static_assert(offsetof(RpWorld, currentClumpLink) == 0x28 && offsetof(RpWorld, clumpList) == 0x2C && offsetof(RpWorld, lightList) == 0x34);
+static_assert(offsetof(RpWorld, directionalLightList) == 0x3C && offsetof(RpWorld, worldOrigin) == 0x44 && offsetof(RpWorld, boundingBox) == 0x50);
+static_assert(offsetof(RpWorld, renderCallBack) == 0x68 && offsetof(RpWorld, pipeline) == 0x6C);
+static_assert(offsetof(RpWorldSector, triangles) == 4 && offsetof(RpWorldSector, vertices) == 8 && offsetof(RpWorldSector, normals) == 0xC);
+static_assert(offsetof(RpWorldSector, texCoords) == 0x10 && rwMAXTEXTURECOORDS == 8 && offsetof(RpWorldSector, preLitLum) == 0x30);
+static_assert(offsetof(RpWorldSector, repEntry) == 0x34 && offsetof(RpWorldSector, collAtomicsInWorldSector) == 0x38 && offsetof(RpWorldSector, lightsInWorldSector) == 0x40);
+static_assert(offsetof(RpWorldSector, boundingBox) == 0x48 && offsetof(RpWorldSector, tightBoundingBox) == 0x60 && offsetof(RpWorldSector, mesh) == 0x78);
+static_assert(offsetof(RpWorldSector, pipeline) == 0x7C && offsetof(RpWorldSector, matListWindowBase) == 0x80 && offsetof(RpWorldSector, numVertices) == 0x82);
+static_assert(offsetof(RpWorldSector, numTriangles) == 0x84);
+static_assert(offsetof(RpPlaneSector, leftSubTree) == 8 && offsetof(RpPlaneSector, rightSubTree) == 0xC);
+static_assert(sizeof(RpTriangle) == 8 && offsetof(RpTriangle, matIndex) == 6);
+static_assert(offsetof(RwTexture, raster) == 0);
+
+// Nodo de la lista de geometrias dinamicas de D3D9 (se enlaza por `next`).
+struct DynamicGeometryNode {
+    RpGeometry*          geometry;
+    DynamicGeometryNode* next;
+};
+static_assert(sizeof(DynamicGeometryNode) == 8);
+
+// Globales del modulo de mundos dentro de RwEngineInstance: lista libre de entradas (+0) y lista de mundos registrados (+4).
+struct WorldModuleGlobals {
+    RwFreeList* entryFreeList;
+    RwLinkList  worldList;
+};
+static_assert(offsetof(WorldModuleGlobals, worldList) == 4);
+
+// Entrada de la lista de mundos (16 bytes): {mundo, bytes de la asignacion unica, enlace}.
+struct WorldListEntry {
+    RpWorld*   world;
+    RwUInt32   memorySize;
+    RwLLLink   link;
+};
+static_assert(sizeof(WorldListEntry) == 0x10 && offsetof(WorldListEntry, link) == 8);
+
+inline WorldModuleGlobals& WorldGlobals() {
+    return *reinterpret_cast<WorldModuleGlobals*>(reinterpret_cast<uintptr_t>(RwEngineInstance) + static_cast<uintptr_t>(s_worldModuleOffset));
+}
+inline WorldListEntry* EntryOfWorldLink(RwLLLink* link) {
+    return reinterpret_cast<WorldListEntry*>(reinterpret_cast<uintptr_t>(link) - offsetof(WorldListEntry, link));
+}
+inline RxPipeline*& PipelineModuleSlot(uint32 offset) {
+    return *reinterpret_cast<RxPipeline**>(reinterpret_cast<uintptr_t>(RwEngineInstance) + static_cast<uintptr_t>(s_pipelineModuleOffset) + offset);
+}
+
+// Funciones del EXE llamadas por direccion fija (no se reconstruyen en este lote).
+inline RwInt32 TieDestroyExe(RwLLLink* link)      { return reinterpret_cast<RwInt32(__cdecl*)(RwLLLink*)>(static_cast<uintptr_t>(0x74FFF0))(link); } // ata de atomo de un sector
+inline RwInt32 LightTieDestroyExe(RwLLLink* link) { return reinterpret_cast<RwInt32(__cdecl*)(RwLLLink*)>(static_cast<uintptr_t>(0x74FFA0))(link); } // ata de luz de un sector
+inline RwBool  D3D9LightPluginAttachExe()         { return reinterpret_cast<RwBool(__cdecl*)()>(static_cast<uintptr_t>(0x755B90))(); } // registra el plugin de luces (id 0x505)
+inline RwBool  D3D9GeometryPluginAttachExe()      { return reinterpret_cast<RwBool(__cdecl*)()>(static_cast<uintptr_t>(0x7587D0))(); } // registra los plugins de geometria/sector (id 0x50F)
+inline void    D3D9VertexShaderOpenExe()          { reinterpret_cast<void(__cdecl*)()>(static_cast<uintptr_t>(0x760CF0))(); }          // inicializa la cache de shaders de vertices
+
+// Libera los recursos de instancia, las ataduras (atomos y luces) y los plugins de un sector con atomos (parte comun de 0x74ECA0 y 0x74ED50).
+void WorldSectorReleaseInstance(RpWorldSector* worldSector) {
+    if (worldSector->repEntry) {
+        RwResourcesFreeResEntry(worldSector->repEntry);
+    }
+    RwLLLink* const atomicsEnd = &worldSector->collAtomicsInWorldSector.link;
+    for (RwLLLink* link = atomicsEnd->next; link != atomicsEnd;) {
+        RwLLLink* const current = link;
+        link = link->next;
+        TieDestroyExe(current);
+    }
+    RwLLLink* const lightsEnd = &worldSector->lightsInWorldSector.link;
+    for (RwLLLink* link = lightsEnd->next; link != lightsEnd;) {
+        RwLLLink* const current = link;
+        link = link->next;
+        LightTieDestroyExe(current);
+    }
+    _rwPluginRegistryDeInitObject(&s_sectorTKList229, worldSector);
+}
+
+// Quita el mundo de la lista de mundos del modulo y devuelve su entrada a la lista libre (la mitad de 0x74F140 que el EXE repite en linea).
+void WorldListUnregister(RpWorld* world) {
+    RwLLLink* const head = &WorldGlobals().worldList.link;
+    RwLLLink* link = head->next;
+    if (link == head) {
+        return;
+    }
+    WorldListEntry* entry;
+    for (;;) {
+        entry = EntryOfWorldLink(link);
+        if (entry->world == world) {
+            break;
+        }
+        link = link->next;
+        if (link == head) {
+            return;
+        }
+    }
+    entry->link.prev->next = entry->link.next;
+    entry->link.next->prev = entry->link.prev;
+    RwFreeListFree(WorldGlobals().entryFreeList, entry);
+}
+
+// Recorre el arbol de sectores (pila explicita) y destruye la malla de cada sector con atomos, dejando mesh = 0.
+void WorldDestroySectorMeshes(RpWorld* world) {
+    RpSector* sector = world->rootSector;
+    RpSector* stack[64] = {};
+    RwInt32 depth = 0;
+    if (!sector) {
+        return;
+    }
+    do {
+        if (sector->type < 0) {
+            RpWorldSector* const worldSector = reinterpret_cast<RpWorldSector*>(sector);
+            if (worldSector->mesh) {
+                _rpMeshDestroy(worldSector->mesh);
+                worldSector->mesh = nullptr;
+            }
+            sector = stack[depth];
+            --depth;
+        } else {
+            RpPlaneSector* const plane = reinterpret_cast<RpPlaneSector*>(sector);
+            sector = plane->leftSubTree;
+            ++depth;
+            stack[depth] = plane->rightSubTree;
+        }
+    } while (depth >= 0);
+}
+
+// Cuerpo de RpWorldDestroy (0x74F610), que el EXE tambien incrusta en la salida de error de RpWorldCreate (0x74F9E2..).
+void WorldDestroyBody(RpWorld* world) {
+    WorldListUnregister(world);
+    WorldDestroySectorMeshes(world);
+    _rpMaterialListDeinitialize(&world->matList);
+    RpSector* const root = world->rootSector;
+    if (world->object.privateFlags & rpWORLDSINGLEMALLOC) {
+        if (root) {
+            _rpWorldSectorDeinstanceAll(root);
+        }
+    } else {
+        if (root) {
+            _rpWorldSectorDestroyRecurse(root);
+        }
+    }
+    _rwPluginRegistryDeInitObject(&s_worldTKList, world);
+    RwFree(world);
+}
+
+} // namespace
+
+// 0x74E010
+// Tamano de un material en un flujo: 0x28 sin textura, o tamano de la textura + 0x34; mas los datos de plugin y la cabecera de 12 bytes.
+RwUInt32 RpMaterialStreamGetSize(const RpMaterial* material) {
+    RwUInt32 size = 0x28;
+    if (material->texture) {
+        size = RwTextureStreamGetSize(material->texture) + 0x34;
+    }
+    return static_cast<RwUInt32>(_rwPluginRegistryGetSize(&s_materialTKList, material)) + size + 0xC;
+}
+
+// 0x74E150
+// Destruye cada material (RpMaterialDestroy y lo pone a 0), libera el vector y deja materials/numMaterials/space a cero.
+RpMaterialList* _rpMaterialListDeinitialize(RpMaterialList* matList) {
+    RpMaterial** const materials = matList->materials;
+    if (materials) {
+        const RwInt32 numMaterials = matList->numMaterials;
+        for (RwInt32 i = 0; i < numMaterials; ++i) {
+            RpMaterialDestroy(materials[i]);
+            materials[i] = nullptr;
+        }
+        RwFree(materials);
+        matList->materials = nullptr;
+    }
+    matList->numMaterials = 0;
+    matList->space = 0;
+    return matList;
+}
+
+// 0x74E350
+// Con hueco libre (space > numMaterials): guarda el material, refCount++ y devuelve el indice. Con la lista llena amplia 20 entradas (space*4 + 0x50 bytes,
+// RwRealloc si ya habia vector, RwMalloc si no); sin memoria: RWERROR(NOMEM, bytes) y -1. Tras ampliar, space += 0x14 y guarda igual.
+RwInt32 _rpMaterialListAppendMaterial(RpMaterialList* matList, RpMaterial* material) {
+    if (matList->space > matList->numMaterials) {
+        matList->materials[matList->numMaterials] = material;
+        ++material->refCount;
+        const RwInt32 count = matList->numMaterials + 1;
+        matList->numMaterials = count;
+        return count - 1;
+    }
+    const RwUInt32 newSize = static_cast<RwUInt32>(matList->space) * 4 + 0x50;
+    RpMaterial** newMaterials;
+    if (matList->materials) {
+        newMaterials = static_cast<RpMaterial**>(RwRealloc(matList->materials, newSize, kMatListAllocHint));
+    } else {
+        newMaterials = static_cast<RpMaterial**>(RwMalloc(newSize, kMatListAllocHint));
+    }
+    if (!newMaterials) {
+        RaiseRwError(kErrNoMem, newSize);
+        return -1;
+    }
+    const RwInt32 newSpace = matList->space + 0x14;
+    const RwInt32 index = matList->numMaterials;
+    matList->materials = newMaterials;
+    matList->space = newSpace;
+    newMaterials[index] = material;
+    ++material->refCount;
+    const RwInt32 count = matList->numMaterials + 1;
+    matList->numMaterials = count;
+    return count - 1;
+}
+
+// 0x74E450
+// 0x10 + 4*numMaterials, mas (tamano del material + 12) por cada material cuyo puntero no aparece antes en la lista (busqueda hacia atras desde i-1).
+RwUInt32 _rpMaterialListStreamGetSize(const RpMaterialList* matList) {
+    RwUInt32 size = static_cast<RwUInt32>(matList->numMaterials) * 4 + 0x10;
+    for (RwInt32 i = 0; i < matList->numMaterials; ++i) {
+        bool seenBefore = false;
+        for (RwInt32 j = i - 1; j >= 0; --j) {
+            if (matList->materials[j] == matList->materials[i]) {
+                seenBefore = true;
+                break;
+            }
+        }
+        if (!seenBefore) {
+            size = size + RpMaterialStreamGetSize(matList->materials[i]) + 0xC;
+        }
+    }
+    return size;
+}
+
+// 0x74E600
+// Lee la lista de materiales de un flujo. Chunk STRUCT con version 0x34000..0x36003 (si no, RWERROR 0x80000004 y 0); numero de materiales (RwStreamReadInt32);
+// 0 materiales devuelve la lista vacia; con N>0 reserva N punteros (0x1030008; sin memoria: RWERROR(NOMEM, bytes), lista vacia y 0); luego lee N indices
+// (vector temporal de N*4 bytes, 0x10501, sin comprobar si fallo la reserva como el EXE). Indice < 0: chunk MATERIAL (version comprobada), RpMaterialStreamRead;
+// indice >= 0: reutiliza el material de ese puesto con refCount++. Cada uno se anade con _rpMaterialListAppendMaterial y luego RpMaterialDestroy (el resultado
+// de anadir se ignora). Cualquier fallo libera el vector temporal, deshace la lista (el EXE lo repite en linea; aqui _rpMaterialListDeinitialize) y devuelve 0.
+RpMaterialList* _rpMaterialListStreamRead(RwStream* stream, RpMaterialList* matList) {
+    RwUInt32 length;
+    RwUInt32 version;
+    if (!RwStreamFindChunk(stream, kChunkStruct, &length, &version)) {
+        return nullptr;
+    }
+    if (version < kStreamVersionMin || version > kStreamVersionMax) {
+        RaiseRwError(kErrBadVersion);
+        return nullptr;
+    }
+    RwInt32 numMaterials;
+    if (!RwStreamReadInt32(stream, &numMaterials, 4)) {
+        return nullptr;
+    }
+    matList->space = 0;
+    matList->materials = nullptr;
+    matList->numMaterials = 0;
+    if (numMaterials == 0) {
+        return matList;
+    }
+    if (numMaterials > 0) {
+        const RwUInt32 size = static_cast<RwUInt32>(numMaterials) * 4;
+        RpMaterial** const materials = static_cast<RpMaterial**>(RwMalloc(size, kMatListAllocHint));
+        if (!materials) {
+            RaiseRwError(kErrNoMem, size);
+            _rpMaterialListDeinitialize(matList);
+            return nullptr;
+        }
+        matList->materials = materials;
+        matList->space = numMaterials;
+    }
+    const RwUInt32 indicesSize = static_cast<RwUInt32>(numMaterials) * 4;
+    RwInt32* const indices = static_cast<RwInt32*>(RwMalloc(indicesSize, kMatListIndexHint));
+    if (!RwStreamReadInt32(stream, indices, indicesSize)) {
+        RwFree(indices);
+        _rpMaterialListDeinitialize(matList);
+        return nullptr;
+    }
+    for (RwInt32 i = 0; i < numMaterials; ++i) {
+        RpMaterial* material;
+        if (indices[i] < 0) {
+            if (!RwStreamFindChunk(stream, kChunkMaterial, nullptr, &version)) {
+                RwFree(indices);
+                _rpMaterialListDeinitialize(matList);
+                return nullptr;
+            }
+            if (version < kStreamVersionMin || version > kStreamVersionMax) {
+                RaiseRwError(kErrBadVersion);
+                RwFree(indices);
+                _rpMaterialListDeinitialize(matList);
+                return nullptr;
+            }
+            material = RpMaterialStreamRead(stream);
+            if (!material) {
+                RwFree(indices);
+                _rpMaterialListDeinitialize(matList);
+                return nullptr;
+            }
+        } else {
+            material = matList->materials[indices[i]];
+            ++material->refCount;
+        }
+        _rpMaterialListAppendMaterial(matList, material);
+        RpMaterialDestroy(material);
+    }
+    RwFree(indices);
+    return matList;
+}
+
+// 0x74E970
+// Anade la geometria a la lista de geometrias dinamicas de D3D9 si no estaba (busqueda lineal); la lista libre de nodos (8 bytes, 0x80 por bloque, alineacion 4)
+// se crea al primer uso. Sin comprobar el nodo devuelto, como el EXE. Inserta al principio.
+void _rpD3D9AddDynamicGeometry(RpGeometry* geometry) {
+    for (DynamicGeometryNode* node = static_cast<DynamicGeometryNode*>(s_dynamicGeometryHead); node; node = node->next) {
+        if (node->geometry == geometry) {
+            return;
+        }
+    }
+    RwFreeList* freeList = s_dynamicGeometryPool;
+    if (!freeList) {
+        freeList = RwFreeListCreate(8, 0x80, 4, kDynamicGeometryHint);
+        s_dynamicGeometryPool = freeList;
+    }
+    DynamicGeometryNode* const node = static_cast<DynamicGeometryNode*>(RwFreeListAlloc(freeList, kDynamicGeometryHint));
+    node->geometry = geometry;
+    node->next = static_cast<DynamicGeometryNode*>(s_dynamicGeometryHead);
+    s_dynamicGeometryHead = node;
+}
+
+// 0x74E9E0
+// Quita la geometria de la lista (si esta): desenlaza (la cabeza actualiza el global), pone geometry = 0 y devuelve el nodo a la lista libre.
+void _rpD3D9RemoveDynamicGeometry(RpGeometry* geometry) {
+    DynamicGeometryNode* const head = static_cast<DynamicGeometryNode*>(s_dynamicGeometryHead);
+    DynamicGeometryNode* previous = nullptr;
+    DynamicGeometryNode* node = head;
+    if (!head) {
+        return;
+    }
+    while (node->geometry != geometry) {
+        previous = node;
+        node = node->next;
+        if (!node) {
+            return;
+        }
+    }
+    if (node == head) {
+        s_dynamicGeometryHead = node->next;
+    } else {
+        previous->next = node->next;
+    }
+    node->geometry = nullptr;
+    RwFreeListFree(s_dynamicGeometryPool, node);
+}
+
+// 0x74EA40 (nombre inferido: la llama RpWorldPluginAttach en 0x74FE81 tras registrar los plugins de mundo)
+// Registra los plugins de D3D9 (luces 0x755B90 y, si fue bien, geometria 0x7587D0); guarda el callback de restauracion del dispositivo que habia y
+// pone 0x74EA80 (que marca las geometrias dinamicas como sucias y encadena el anterior). Devuelve 1 si los dos registros fueron bien.
+static RwBool _rpD3D9PluginAttach() {
+    RwBool result = FALSE;
+    if (D3D9LightPluginAttachExe() && D3D9GeometryPluginAttachExe()) {
+        result = TRUE;
+    }
+    s_prevRestoreCallBack = _rwD3D9DeviceGetRestoreCallback();
+    _rwD3D9DeviceSetRestoreCallback(reinterpret_cast<rwD3D9DeviceRestoreCallBack>(kD3D9RestoreCallBackAddress));
+    return result;
+}
+
+// 0x74EAB0 (nombre inferido; primera etapa de apertura de tuberias, llamada desde 0x75E39D): sin trabajo, devuelve 1.
+static RwBool _rpD3D9MaterialPipelineOpen() {
+    return TRUE;
+}
+
+// 0x74EAC0 (nombre inferido; ultima etapa del cierre, 0x75E30A/0x75E3C9): vacia.
+static void _rpD3D9MaterialPipelineClose() {
+}
+
+// 0x74EAD0 (nombre inferido; llamada desde 0x75E3AF)
+// Crea la tuberia de sectores por defecto: RxPipelineCreate, pluginId = 2, bloquea, anade un fragmento con la definicion de nodo D3D9WorldSectorAllInOne
+// (0x75E9F0), desbloquea; guarda la tuberia en el hueco 0x58 del modulo y la declara por defecto (RpWorldSetDefaultSectorPipeline). Fallo: destruye la tuberia y 0.
+static RwBool _rpD3D9WorldSectorPipelineOpen() {
+    RxPipeline* const pipeline = RxPipelineCreate();
+    if (!pipeline) {
+        return FALSE;
+    }
+    pipeline->pluginId = 2;
+    RxLockedPipe* const locked = RxPipelineLock(pipeline);
+    if (locked) {
+        RxNodeDefinition* const nodeDefinition = RxNodeDefinitionGetD3D9WorldSectorAllInOne();
+        RxLockedPipe* const withFragment = RxLockedPipeAddFragment(locked, nullptr, nodeDefinition, nullptr);
+        if (RxLockedPipeUnlock(withFragment)) {
+            PipelineModuleSlot(kPipelineSlotPlatformSector) = pipeline;
+            RpWorldSetDefaultSectorPipeline(pipeline);
+            return TRUE;
+        }
+    }
+    _rxPipelineDestroy(pipeline);
+    return FALSE;
+}
+
+// 0x74EB40 (nombre inferido; llamada desde 0x75E300 y 0x75E3BF)
+// Pone la tuberia de sectores por defecto a NULL y destruye la del hueco 0x58 (que vuelve a 0).
+static void _rpD3D9WorldSectorPipelineClose() {
+    RpWorldSetDefaultSectorPipeline(nullptr);
+    RxPipeline* const pipeline = PipelineModuleSlot(kPipelineSlotPlatformSector);
+    if (pipeline) {
+        _rxPipelineDestroy(pipeline);
+        PipelineModuleSlot(kPipelineSlotPlatformSector) = nullptr;
+    }
+}
+
+// 0x74EB80 (nombre inferido; llamada desde 0x75E3A6)
+// Igual que la de sectores pero con D3D9AtomicAllInOne (0x7582E0), hueco 0x54 y RpAtomicSetDefaultPipeline; despues _rwD3D9LightsOpen (0x755D80): si falla,
+// destruye la tuberia y devuelve 0 (el hueco y la tuberia por defecto quedan como estaban, igual que el EXE); si va bien llama a 0x760CF0 y devuelve 1.
+static RwBool _rpD3D9AtomicPipelineOpen() {
+    RxPipeline* const pipeline = RxPipelineCreate();
+    if (!pipeline) {
+        return FALSE;
+    }
+    pipeline->pluginId = 2;
+    RxLockedPipe* const locked = RxPipelineLock(pipeline);
+    if (locked) {
+        RxNodeDefinition* const nodeDefinition = RxNodeDefinitionGetD3D9AtomicAllInOne();
+        RxLockedPipe* const withFragment = RxLockedPipeAddFragment(locked, nullptr, nodeDefinition, nullptr);
+        if (RxLockedPipeUnlock(withFragment)) {
+            PipelineModuleSlot(kPipelineSlotPlatformAtomic) = pipeline;
+            RpAtomicSetDefaultPipeline(pipeline);
+            if (_rwD3D9LightsOpen()) {
+                D3D9VertexShaderOpenExe();
+                return TRUE;
+            }
+        }
+    }
+    _rxPipelineDestroy(pipeline);
+    return FALSE;
+}
+
+// 0x74EC00 (nombre inferido; llamada desde 0x75E305 y 0x75E3C4)
+// Cierre del modulo D3D9: devuelve cada nodo de la lista de geometrias dinamicas a su lista libre (geometry = 0; el siguiente se lee DESPUES de liberar, como
+// el EXE), pone la cabeza a 0, destruye la lista libre, purga la cache de shaders (0x75EE60), _rwD3D9LightsClose (0x755FE0), pone la tuberia de atomos por
+// defecto a NULL y destruye la del hueco 0x54.
+static void _rpD3D9AtomicPipelineClose() {
+    DynamicGeometryNode* node = static_cast<DynamicGeometryNode*>(s_dynamicGeometryHead);
+    if (node) {
+        do {
+            node->geometry = nullptr;
+            RwFreeListFree(s_dynamicGeometryPool, node);
+            node = node->next;
+        } while (node);
+        s_dynamicGeometryHead = node;
+    }
+    if (s_dynamicGeometryPool) {
+        RwFreeListDestroy(s_dynamicGeometryPool);
+        s_dynamicGeometryPool = nullptr;
+    }
+    _rpD3D9VertexShaderCachePurge();
+    _rwD3D9LightsClose();
+    RpAtomicSetDefaultPipeline(nullptr);
+    RxPipeline* const pipeline = PipelineModuleSlot(kPipelineSlotPlatformAtomic);
+    if (pipeline) {
+        _rxPipelineDestroy(pipeline);
+        PipelineModuleSlot(kPipelineSlotPlatformAtomic) = nullptr;
+    }
+}
+
+// 0x74ECA0
+// Desinstancia todos los sectores del arbol (recursion por la izquierda, iteracion por la derecha). Sector de construccion (-2): nada. Sector con atomos (-1):
+// libera la entrada de recursos, las ataduras de atomos y de luces y los plugins, y destruye la malla (mesh = 0).
+void _rpWorldSectorDeinstanceAll(RpSector* sector) {
+    if (sector->type == rwSECTORBUILD) {
+        return;
+    }
+    for (;;) {
+        if (sector->type == rwSECTORATOMIC) {
+            RpWorldSector* const worldSector = reinterpret_cast<RpWorldSector*>(sector);
+            WorldSectorReleaseInstance(worldSector);
+            if (worldSector->mesh) {
+                _rpMeshDestroy(worldSector->mesh);
+                worldSector->mesh = nullptr;
+            }
+            return;
+        }
+        RpPlaneSector* const plane = reinterpret_cast<RpPlaneSector*>(sector);
+        if (plane->leftSubTree) {
+            _rpWorldSectorDeinstanceAll(plane->leftSubTree);
+        }
+        sector = plane->rightSubTree;
+        if (!sector) {
+            return;
+        }
+        if (sector->type == rwSECTORBUILD) {
+            return;
+        }
+    }
+}
+
+// 0x74ED50
+// Destruye el arbol: sector de construccion (-2): solo RwFree. Plano: izquierda, derecha (se lee tras la izquierda), pone los punteros a 0 y RwFree.
+// Sector con atomos: libera instancia, ataduras y plugins; luego vertices, normales, luminancias, triangulos y los 8 juegos de coordenadas (cada uno si no es
+// nulo, y a 0), la malla (mesh = 0) y el propio sector.
+void _rpWorldSectorDestroyRecurse(RpSector* sector) {
+    if (sector->type == rwSECTORBUILD) {
+        RwFree(sector);
+        return;
+    }
+    if (sector->type != rwSECTORATOMIC) {
+        RpPlaneSector* const plane = reinterpret_cast<RpPlaneSector*>(sector);
+        if (plane->leftSubTree) {
+            _rpWorldSectorDestroyRecurse(plane->leftSubTree);
+        }
+        RpSector* const right = plane->rightSubTree;
+        plane->leftSubTree = nullptr;
+        if (right) {
+            _rpWorldSectorDestroyRecurse(right);
+        }
+        plane->rightSubTree = nullptr;
+        RwFree(plane);
+        return;
+    }
+    RpWorldSector* const worldSector = reinterpret_cast<RpWorldSector*>(sector);
+    WorldSectorReleaseInstance(worldSector);
+    if (worldSector->vertices) {
+        RwFree(worldSector->vertices);
+        worldSector->vertices = nullptr;
+    }
+    if (worldSector->normals) {
+        RwFree(worldSector->normals);
+        worldSector->normals = nullptr;
+    }
+    if (worldSector->preLitLum) {
+        RwFree(worldSector->preLitLum);
+        worldSector->preLitLum = nullptr;
+    }
+    if (worldSector->triangles) {
+        RwFree(worldSector->triangles);
+        worldSector->triangles = nullptr;
+    }
+    for (RwInt32 i = 0; i < rwMAXTEXTURECOORDS; ++i) {
+        if (worldSector->texCoords[i]) {
+            RwFree(worldSector->texCoords[i]);
+            worldSector->texCoords[i] = nullptr;
+        }
+    }
+    if (worldSector->mesh) {
+        _rpMeshDestroy(worldSector->mesh);
+        worldSector->mesh = nullptr;
+    }
+    RwFree(worldSector);
+}
+
+// 0x74EEC0
+// Sin triangulos devuelve el sector sin hacer nada. Tuberia: la del sector; si no, la del mundo actual (RwEngineInstance->curWorld->pipeline); si no, la
+// de sectores por defecto del modulo (hueco 0x40). RxPipelineExecute(tuberia, sector, 1): devuelve el sector si el resultado es distinto de cero, si no 0.
+RpWorldSector* _rpSectorDefaultRenderCallBack(RpWorldSector* sector) {
+    if (sector->numTriangles == 0) {
+        return sector;
+    }
+    RxPipeline* pipeline = sector->pipeline;
+    if (!pipeline) {
+        RpWorld* const world = static_cast<RpWorld*>(RwEngineInstance->curWorld);
+        pipeline = world->pipeline;
+        if (!pipeline) {
+            pipeline = PipelineModuleSlot(kPipelineSlotDefaultSector);
+        }
+    }
+    return RxPipelineExecute(pipeline, sector, TRUE) ? sector : nullptr;
+}
+
+// 0x74F210
+// Recorre el arbol con pila explicita (planos: baja por la izquierda y apila la derecha). Cada sector con atomos SIN malla construye una: una RpBuildMesh con
+// numTriangles; si el mundo tiene materiales, tres vectores temporales (texturas 0x10006, rasters 0x10507, tuberias 0x10507; numMateriales*4 bytes) con los
+// valores unicos; por cada triangulo toma el material de la ventana (materiales + matListWindowBase)[matIndex], busca/anade su textura, su raster
+// (texture->raster, 0 sin textura) y su tuberia, y llama a _rpBuildMeshAddTriangle (vertices, matIndex, indices de textura, raster y tuberia); libera los tres
+// vectores y optimiza con _rpMeshOptimise(buildMesh, flags & 1). Sin malla resultante: destruye el RpBuildMesh y devuelve 0. Raiz nula: 0. Si todo va bien devuelve el mundo.
+RpWorld* RpWorldUnlock(RpWorld* world) {
+    RpSector* sector = world->rootSector;
+    RpSector* stack[64] = {};
+    RwInt32 depth = 0;
+    if (!sector) {
+        return nullptr;
+    }
+    for (;;) {
+        if (sector->type < 0) {
+            RpWorldSector* const worldSector = reinterpret_cast<RpWorldSector*>(sector);
+            RpMaterial** const materials = world->matList.materials + worldSector->matListWindowBase;
+            if (!worldSector->mesh) {
+                RpBuildMesh* const buildMesh = _rpBuildMeshCreate(worldSector->numTriangles);
+                if (!buildMesh) {
+                    return nullptr;
+                }
+                if (world->matList.numMaterials != 0) {
+                    const RwUInt32 arraySize = static_cast<RwUInt32>(world->matList.numMaterials) * 4;
+                    RwTexture** const textures = static_cast<RwTexture**>(RwMalloc(arraySize, 0x10006));
+                    RwRaster** const rasters = static_cast<RwRaster**>(RwMalloc(arraySize, 0x10507));
+                    RxPipeline** const pipelines = static_cast<RxPipeline**>(RwMalloc(arraySize, 0x10507));
+                    RwUInt32 numTextures = 0;
+                    RwUInt32 numRasters = 0;
+                    RwUInt32 numPipelines = 0;
+                    for (RwInt32 i = 0; i < worldSector->numTriangles; ++i) {
+                        const RpTriangle* const triangle = &worldSector->triangles[i];
+                        RpMaterial* const material = materials[triangle->matIndex];
+
+                        RwTexture* const texture = material->texture;
+                        RwUInt16 textureIndex = 0;
+                        if (static_cast<RwUInt16>(numTextures) > textureIndex) {
+                            do {
+                                if (textures[textureIndex] == texture) {
+                                    break;
+                                }
+                                ++textureIndex;
+                            } while (textureIndex < static_cast<RwUInt16>(numTextures));
+                        }
+                        if (textureIndex == static_cast<RwUInt16>(numTextures)) {
+                            textures[textureIndex] = texture;
+                            numTextures = numTextures + 1;
+                        }
+
+                        RwRaster* const raster = texture ? texture->raster : nullptr;
+                        RwUInt16 rasterIndex = 0;
+                        if (static_cast<RwUInt16>(numRasters) > rasterIndex) {
+                            do {
+                                if (rasters[rasterIndex] == raster) {
+                                    break;
+                                }
+                                ++rasterIndex;
+                            } while (rasterIndex < static_cast<RwUInt16>(numRasters));
+                        }
+                        if (rasterIndex == static_cast<RwUInt16>(numRasters)) {
+                            rasters[rasterIndex] = raster;
+                            numRasters = numRasters + 1;
+                        }
+
+                        RxPipeline* const pipeline = material->pipeline;
+                        RwUInt16 pipelineIndex = 0;
+                        if (static_cast<RwUInt16>(numPipelines) > pipelineIndex) {
+                            do {
+                                if (pipelines[pipelineIndex] == pipeline) {
+                                    break;
+                                }
+                                ++pipelineIndex;
+                            } while (pipelineIndex < static_cast<RwUInt16>(numPipelines));
+                        }
+                        if (pipelineIndex == static_cast<RwUInt16>(numPipelines)) {
+                            pipelines[pipelineIndex] = pipeline;
+                            numPipelines = numPipelines + 1;
+                        }
+
+                        _rpBuildMeshAddTriangle(buildMesh, material, triangle->vertIndex[0], triangle->vertIndex[1], triangle->vertIndex[2],
+                                                triangle->matIndex, textureIndex, rasterIndex, pipelineIndex);
+                    }
+                    RwFree(textures);
+                    RwFree(rasters);
+                    RwFree(pipelines);
+                }
+                RpMeshHeader* const mesh = _rpMeshOptimise(buildMesh, (world->flags & rpWORLDTRISTRIP) ? 1 : 0);
+                if (!mesh) {
+                    _rpBuildMeshDestroy(buildMesh);
+                    return nullptr;
+                }
+                worldSector->mesh = mesh;
+            }
+            sector = stack[depth];
+            --depth;
+        } else {
+            RpPlaneSector* const plane = reinterpret_cast<RpPlaneSector*>(sector);
+            sector = plane->leftSubTree;
+            ++depth;
+            stack[depth] = plane->rightSubTree;
+        }
+        if (depth < 0) {
+            return world;
+        }
+    }
+}
+
+// 0x74F4E0
+// Recorre la lista de mundos registrados (entrada = enlace - 8). Mundo de asignacion unica (privateFlags & 1): el sector pertenece si su direccion esta en
+// [mundo, mundo + memorySize) (comparacion sin signo). Si no, recorre su arbol con pila explicita buscando el puntero exacto. Sin coincidencia: NULL.
+RpWorld* RpWorldSectorGetWorld(const RpWorldSector* sector) {
+    RwLLLink* const head = &WorldGlobals().worldList.link;
+    RwLLLink* link = head->next;
+    if (link == head) {
+        return nullptr;
+    }
+    const uintptr_t sectorAddress = reinterpret_cast<uintptr_t>(sector);
+    const RpSector* stack[65] = {};
+    do {
+        WorldListEntry* const entry = EntryOfWorldLink(link);
+        RpWorld* const world = entry->world;
+        if (world->object.privateFlags & rpWORLDSINGLEMALLOC) {
+            const uintptr_t start = reinterpret_cast<uintptr_t>(world);
+            if (sectorAddress >= start && sectorAddress < start + entry->memorySize) {
+                return entry->world;
+            }
+        } else {
+            const RpSector* current = world->rootSector;
+            RwInt32 depth = 0;
+            do {
+                if (current->type < 0) {
+                    if (reinterpret_cast<const RpSector*>(sector) == current) {
+                        return entry->world;
+                    }
+                    current = stack[depth];
+                    --depth;
+                } else {
+                    const RpPlaneSector* const plane = reinterpret_cast<const RpPlaneSector*>(current);
+                    current = plane->leftSubTree;
+                    ++depth;
+                    stack[depth] = plane->rightSubTree;
+                }
+            } while (depth >= 0);
+        }
+        link = link->next;
+    } while (link != head);
+    return nullptr;
+}
+
+// 0x74F610
+// Desregistra el mundo, destruye las mallas de sus sectores, deshace la lista de materiales y libera el arbol (desinstancia si fue de asignacion unica;
+// destruye cada nodo si no), los plugins del mundo y el propio mundo. Devuelve 1.
+RwBool RpWorldDestroy(RpWorld* world) {
+    WorldDestroyBody(world);
+    return TRUE;
+}
+
+// 0x74F760
+// Reserva el mundo (tamano del registro de plugins 0x8D62D0, 0x3000B; sin memoria RWERROR(NOMEM, tamano) y 0), lo inicializa (tipo 7, lista de materiales
+// vacia, flags 0, orden FRONT2BACK) y reserva el sector raiz (tamano del registro 0x8D736C; fallo: RWERROR con el argumento 4 como el EXE, libera el mundo y 0).
+// El sector: tipo -1, listas vacias, cajas = *boundingBox. El mundo: origen 0, cajas = *boundingBox, listas vacias, renderCallBack = 0x74EEC0 (direccion del
+// EXE), pipeline 0. Se registra en la lista de mundos (entrada 0x40507, sin comprobar el fallo), InitObject del mundo y del sector y RpWorldUnlock; si este
+// falla se deshace todo como RpWorldDestroy y devuelve 0.
+RpWorld* RpWorldCreate(RwBBox* boundingBox) {
+    RpWorld* const world = static_cast<RpWorld*>(RwMalloc(s_worldTKList.sizeOfStruct, kWorldAllocHint));
+    if (!world) {
+        RaiseRwError(kErrNoMem, s_worldTKList.sizeOfStruct);
+        return nullptr;
+    }
+    world->object.type = rpWORLD;
+    world->object.subType = 0;
+    world->object.flags = 0;
+    world->object.privateFlags = 0;
+    world->object.parent = nullptr;
+    _rpMaterialListInitialize(&world->matList);
+    world->flags = 0;
+    world->renderOrder = rpWORLDRENDERFRONT2BACK;
+
+    RpWorldSector* const sector = static_cast<RpWorldSector*>(RwMalloc(s_sectorTKList229.sizeOfStruct, kWorldAllocHint));
+    if (!sector) {
+        RaiseRwError(kErrNoMem, 4);
+        RwFree(world);
+        return nullptr;
+    }
+    RwLLLink* const atomicsHead = &sector->collAtomicsInWorldSector.link;
+    atomicsHead->prev = atomicsHead;
+    atomicsHead->next = atomicsHead;
+    RwLLLink* const lightsHead = &sector->lightsInWorldSector.link;
+    lightsHead->prev = lightsHead;
+    sector->type = rwSECTORATOMIC;
+    lightsHead->next = lightsHead;
+    sector->repEntry = nullptr;
+    sector->mesh = nullptr;
+    sector->numVertices = 0;
+    sector->numTriangles = 0;
+    sector->vertices = nullptr;
+    sector->triangles = nullptr;
+    sector->normals = nullptr;
+    for (RwInt32 i = 0; i < rwMAXTEXTURECOORDS; ++i) {
+        sector->texCoords[i] = nullptr;
+    }
+    sector->preLitLum = nullptr;
+    sector->boundingBox.inf = boundingBox->inf;
+    sector->boundingBox.sup = boundingBox->sup;
+    sector->tightBoundingBox.inf = boundingBox->inf;
+    sector->tightBoundingBox.sup = boundingBox->sup;
+    sector->pipeline = nullptr;
+
+    world->rootSector = reinterpret_cast<RpSector*>(sector);
+    world->numTexCoordSets = 0;
+    world->worldOrigin.z = 0.0f;
+    world->worldOrigin.y = 0.0f;
+    world->worldOrigin.x = 0.0f;
+    world->boundingBox.inf = boundingBox->inf;
+    world->boundingBox.sup = boundingBox->sup;
+    world->numClumpsInWorld = 0;
+    RwLLLink* const clumpsHead = &world->clumpList.link;
+    clumpsHead->prev = clumpsHead;
+    world->currentClumpLink = clumpsHead;
+    clumpsHead->next = clumpsHead;
+    RwLLLink* const worldLightsHead = &world->lightList.link;
+    worldLightsHead->prev = worldLightsHead;
+    worldLightsHead->next = worldLightsHead;
+    RwLLLink* const directionalHead = &world->directionalLightList.link;
+    directionalHead->next = directionalHead;
+    directionalHead->prev = directionalHead;
+    world->renderCallBack = reinterpret_cast<RpWorldSectorCallBackRender>(kSectorDefaultRenderCallBackAddress);
+    world->pipeline = nullptr;
+
+    // _rpWorldRegisterWorld(world, tamano del registro) en linea.
+    {
+        const RwUInt32 memorySize = static_cast<RwUInt32>(s_worldTKList.sizeOfStruct);
+        WorldListEntry* const entry = static_cast<WorldListEntry*>(RwFreeListAlloc(WorldGlobals().entryFreeList, kWorldListEntryHint));
+        if (entry) {
+            entry->world = world;
+            entry->memorySize = memorySize;
+            entry->link.next = WorldGlobals().worldList.link.next;
+            entry->link.prev = &WorldGlobals().worldList.link;
+            WorldGlobals().worldList.link.next->prev = &entry->link;
+            WorldGlobals().worldList.link.next = &entry->link;
+        }
+    }
+
+    _rwPluginRegistryInitObject(&s_worldTKList, world);
+    _rwPluginRegistryInitObject(&s_sectorTKList229, sector);
+    if (!RpWorldUnlock(world)) {
+        WorldDestroyBody(world);
+        return nullptr;
+    }
+    return world;
+}
+
+// 0x74FBC0
+// Llama a fpCallBack(material, data) con cada material de la lista (el numero se lee una vez; el vector en cada vuelta) hasta que devuelva NULL. Devuelve el mundo.
+RpWorld* RpWorldForAllMaterials(RpWorld* world, RpMaterialCallBack fpCallBack, void* data) {
+    const RwInt32 numMaterials = world->matList.numMaterials;
+    for (RwInt32 i = 0; i < numMaterials; ++i) {
+        if (!fpCallBack(world->matList.materials[i], data)) {
+            break;
+        }
+    }
+    return world;
+}
+
+// 0x74FC70
+// Recorre el arbol con pila explicita y llama a fpCallBack(sector, data) con cada sector con atomos, hasta que devuelva NULL. Sin comprobar la raiz. Devuelve el mundo.
+RpWorld* RpWorldForAllWorldSectors(RpWorld* world, RpWorldSectorCallBack fpCallBack, void* data) {
+    RpSector* sector = world->rootSector;
+    RpSector* stack[64] = {};
+    RwInt32 depth = 0;
+    do {
+        if (sector->type < 0) {
+            if (!fpCallBack(reinterpret_cast<RpWorldSector*>(sector), data)) {
+                break;
+            }
+            sector = stack[depth];
+            --depth;
+        } else {
+            RpPlaneSector* const plane = reinterpret_cast<RpPlaneSector*>(sector);
+            sector = plane->leftSubTree;
+            ++depth;
+            stack[depth] = plane->rightSubTree;
+        }
+    } while (depth >= 0);
+    return world;
+}
+
+// Registro de los hooks del lote 229A, sin validar.
+void RpWorldInjectHooks229A() {
+    RH_ScopedCategory("Plugins");
+    RH_ScopedNamespaceName("RpWorld");
+
+    RH_ScopedGlobalInstall(RpMaterialStreamGetSize, 0x74E010);
+    RH_ScopedGlobalInstall(_rpMaterialListDeinitialize, 0x74E150);
+    RH_ScopedGlobalInstall(_rpMaterialListAppendMaterial, 0x74E350);
+    RH_ScopedGlobalInstall(_rpMaterialListStreamGetSize, 0x74E450);
+    RH_ScopedGlobalInstall(_rpMaterialListStreamRead, 0x74E600);
+    RH_ScopedGlobalInstall(_rpD3D9AddDynamicGeometry, 0x74E970);
+    RH_ScopedGlobalInstall(_rpD3D9RemoveDynamicGeometry, 0x74E9E0);
+    RH_ScopedGlobalInstall(_rpD3D9PluginAttach, 0x74EA40);
+    RH_ScopedGlobalInstall(_rpD3D9MaterialPipelineOpen, 0x74EAB0);
+    RH_ScopedGlobalInstall(_rpD3D9MaterialPipelineClose, 0x74EAC0);
+    RH_ScopedGlobalInstall(_rpD3D9WorldSectorPipelineOpen, 0x74EAD0);
+    RH_ScopedGlobalInstall(_rpD3D9WorldSectorPipelineClose, 0x74EB40);
+    RH_ScopedGlobalInstall(_rpD3D9AtomicPipelineOpen, 0x74EB80);
+    RH_ScopedGlobalInstall(_rpD3D9AtomicPipelineClose, 0x74EC00);
+    RH_ScopedGlobalInstall(_rpWorldSectorDeinstanceAll, 0x74ECA0);
+    RH_ScopedGlobalInstall(_rpWorldSectorDestroyRecurse, 0x74ED50);
+    RH_ScopedGlobalInstall(_rpSectorDefaultRenderCallBack, 0x74EEC0);
+    RH_ScopedGlobalInstall(RpWorldUnlock, 0x74F210);
+    RH_ScopedGlobalInstall(RpWorldSectorGetWorld, 0x74F4E0);
+    RH_ScopedGlobalInstall(RpWorldDestroy, 0x74F610);
+    RH_ScopedGlobalInstall(RpWorldCreate, 0x74F760);
+    RH_ScopedGlobalInstall(RpWorldForAllMaterials, 0x74FBC0);
+    RH_ScopedGlobalInstall(RpWorldForAllWorldSectors, 0x74FC70);
 }
