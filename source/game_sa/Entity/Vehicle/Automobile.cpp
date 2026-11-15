@@ -113,6 +113,16 @@ static uint32 G2TimeMsPlusFloat(float addend) {
     return AutomobileTimeMsPlusFloatCpp(CTimer::GetTimeInMS(), addend);
 }
 
+static_assert(offsetof(CAutomobile, m_apWheelCollisionEntity) == 0x8E8); // 0x6A3030: `lea eax,[ecx+8E8h]`
+
+namespace {
+// 0x6A3030 (lote 210A, sin validar; ranura 40 de la vtable de CAutomobile (0x871120) y de otras cinco vtables que comparten este cuerpo; thiscall, un argumento de pila, `ret 4`, 35 bytes): recorre las cuatro entidades de colision de rueda (+0x8E8..+0x8F4) y
+// pone a cero (sin liberar la referencia) las que sean iguales a `entity`. Se engancha como S (el codigo esta en seis vtables: CAutomobile y cinco clases que lo heredan; RH_ScopedVMTInstall solo cambiaria la ranura de CAutomobile).
+void __fastcall AutomobileRemoveRefsToVehicle(CAutomobile* self, void* /*edx*/, CEntity* entity) {
+    self->CAutomobile::RemoveRefsToVehicle(entity);
+}
+} // namespace
+
 void CAutomobile::InjectHooks()
 {
     RH_ScopedVirtualClass(CAutomobile, 0x871120, 71);
@@ -149,6 +159,8 @@ void CAutomobile::InjectHooks()
     RH_ScopedInstall(GetAllWheelsOffGround, 0x6A2F70);
     RH_ScopedInstall(FixDoor, 0x6A35A0);
     RH_ScopedInstall(FixPanel, 0x6A3670);
+    RH_ScopedInstall(DebugCode, 0x6A2F80); // lote 210A (sin validar)
+    RH_ScopedNamedGlobalInstall(AutomobileRemoveRefsToVehicle, "RemoveRefsToVehicle", 0x6A3030); // lote 210A (sin validar)
     RH_ScopedInstall(PlayHornIfNecessary, 0x6A3820);
     RH_ScopedInstall(SetBusDoorTimer, 0x6A3860);
     RH_ScopedInstall(ProcessAutoBusDoors, 0x6A38A0);
@@ -4558,17 +4570,32 @@ bool CAutomobile::GetAllWheelsOffGround() const {
     return m_NumDriveWheelsOnGround == 0;
 }
 
-// 0x6A2F80
+// 0x6A2F80 (lote 210A, sin validar; thiscall, sin argumentos de pila, `ret`, 167 bytes): codigo de depuracion que, solo para el vehiculo del jugador (el que devuelve FindPlayerVehicle(-1, false) cuando no hay vehiculo remoto, o el
+// vehiculo remoto del jugador en foco), recarga masa, masa de giro y flotabilidad desde la entrada de handling del MODELO (indice = BYTE bajo del id de handling, sin comprobar; no la m_pHandlingData del vehiculo) y la resistencia del aire.
+// Orden del EXE: modelo (tabla de modelos por el indice con signo +0x22), FindPlayerVehicle, remoto; escrituras +0x8C, +0x90, +0xA0 y por ultimo +0x98: con arrastre > 0.01f (comparacion ordenada: con NaN o menor/igual se toma la otra
+// rama) arrastre / 1000 * 0.5 (x87 a 24 bits: division y producto redondeados a float), si no el dword del arrastre tal cual.
 void CAutomobile::DebugCode() {
-    auto* mi = GetVehicleModelInfo();
-    auto* vehicle = FindPlayerVehicle();
-    auto* remoteVehicle = FindPlayerInfo().m_pRemoteVehicle;
-    if (vehicle == this && !remoteVehicle || remoteVehicle == this) {
-        auto* handling      = gHandlingDataMgr.GetVehiclePointer(mi->m_nHandlingId);
-        m_fMass             = handling->m_fMass;
-        m_fTurnMass         = handling->m_fTurnMass;
-        m_fBuoyancyConstant = handling->m_fBuoyancyConstant;
-        m_fAirResistance    = GetDefaultAirResistance(); // todo: check handling. does handling in f() equal handling above
+    static_assert(offsetof(CVehicleModelInfo, m_nHandlingId) == 0x4A); // `movzx ecx, byte [edi+4Ah]`
+    auto* const mi = GetVehicleModelInfo();
+    auto* const vehicle = FindPlayerVehicle(-1, false);
+    bool isPlayerVehicle = false;
+    if (vehicle == this && !FindPlayerInfo().m_pRemoteVehicle) {
+        isPlayerVehicle = true;
+    } else {
+        isPlayerVehicle = FindPlayerInfo().m_pRemoteVehicle == this;
+    }
+    if (!isPlayerVehicle) {
+        return;
+    }
+    const auto* const handling = gHandlingDataMgr.GetVehiclePointer(static_cast<uint8>(mi->m_nHandlingId));
+    m_fMass             = handling->m_fMass;
+    m_fTurnMass         = handling->m_fTurnMass;
+    m_fBuoyancyConstant = handling->m_fBuoyancyConstant;
+    const float drag = handling->m_fDragMult;
+    if (drag > 0.01f) {
+        m_fAirResistance = drag / 1000.0f * 0.5f;
+    } else {
+        m_fAirResistance = drag;
     }
 }
 

@@ -112,6 +112,13 @@ public:
             RH_ScopedNamedInstall(ConstructorFixedPos, "Constructor", 0x66CA40);
             RH_ScopedInstall(Destructor, 0x66CBB0);
             RH_ScopedNamedInstall(ScalarDeletingDestructorExe, "ScalarDeletingDestructor", 0x66CB90);
+
+            // Lote 210A (sin validar): Clone, CreateSubTask, ControlSubTask y GetSeekPos de la misma clase del EXE (vtable 0x87004C). Siguen siendo S: las ranuras de la vtable del EXE no se sustituyen
+            // (CreateNextSubTask 0x672E80 y CreateFirstSubTask 0x6733E0 siguen siendo codigo del EXE).
+            RH_ScopedNamedInstall(CloneFixedPosExe, "Clone", 0x671330);
+            RH_ScopedInstall(CreateSubTask, 0x673070);
+            RH_ScopedNamedInstall(ControlSubTaskExe, "ControlSubTask", 0x673540);
+            RH_ScopedInstall(GetSeekPos, 0x673BA0);
         }
         // TODO: Add other specializations
     }
@@ -404,6 +411,33 @@ public:
             }
         }
         return result;
+    }
+
+    // 0x671330 (lote 210A, sin validar; solo la especializacion FixedPos, vtable 0x87004C, ranura 1; thiscall, sin argumentos de pila, `ret`, 174 bytes con marco SEH que solo desenrolla): Clone del EXE. Reserva 0x58 bytes con
+    // CTask::operator new (0x61A5A0) y llama al constructor 0x66CA40 (con hook, ConstructorFixedPos) con (entidad +0xC, intervalo de busqueda +0x10, intervalo de escaneo +0x14, distancia maxima +0x18, radio de estado de
+    // movimiento +0x1C, umbral de altura +0x24, bit 0 de +0x54 (tired), true (cara a la entidad)). Despues copia a la copia: la posicion fija (+0x44..+0x4C, tres dwords), el estado de movimiento (+0x50), el bit 3 de +0x54
+    // (seguimiento de entidad; los demas bits NO se tocan) y la distancia minima (+0x20, fld/fstp). Devuelve la copia. Sin memoria el EXE seguiria con EAX = 0 y escribiria en 0x44 (acceso invalido): aqui devuelve nulo.
+    static CTask* __fastcall CloneFixedPosExe(const CTaskComplexSeekEntity* self, void* /*edx*/) requires std::is_same_v<T_PosCalc, CEntitySeekPosCalculatorFixedPos> {
+        auto* const copy = static_cast<CTaskComplexSeekEntity*>(CTask::operator new(sizeof(CTaskComplexSeekEntity)));
+        if (!copy) {
+            return nullptr;
+        }
+        copy->ConstructorFixedPos(self->m_entityToSeek, self->m_seekInterval, self->m_scanInterval, self->m_maxEntityDist2D, self->m_moveStateRadius, self->m_followNodeThresholdHeightChange, self->m_bPlayTiredAnim, true);
+        const auto* const sourceFixedPos = reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(self) + 0x44);
+        auto* const       copyFixedPos   = reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(copy) + 0x44);
+        copyFixedPos[0] = sourceFixedPos[0];
+        copyFixedPos[1] = sourceFixedPos[1];
+        copyFixedPos[2] = sourceFixedPos[2];
+        copy->m_moveState = self->m_moveState;
+        copy->m_bTrackingEntity = self->m_bTrackingEntity;
+        copy->m_minEntityDist2D = self->m_minEntityDist2D;
+        return copy;
+    }
+
+    // 0x673540 (lote 210A, sin validar; solo FixedPos; ranura 10 de la vtable 0x87004C): ControlSubTask del EXE. Es el mismo codigo que el de la especializacion XYOffset (0x665760, comparado instruccion a instruccion:
+    // solo cambian las direcciones de salto y de las llamadas a CreateSubTask 0x673070 y GetSeekPos 0x673BA0); se llama al cuerpo de la clase sin pasar por la vtable para poder engancharlo como S.
+    static CTask* __fastcall ControlSubTaskExe(CTaskComplexSeekEntity* self, void* /*edx*/, CPed* ped) requires std::is_same_v<T_PosCalc, CEntitySeekPosCalculatorFixedPos> {
+        return self->CTaskComplexSeekEntity::ControlSubTask(ped);
     }
 
     // NOTSA Helpers

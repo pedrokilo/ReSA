@@ -6,33 +6,38 @@ class CPed;
 class CEvent;
 class CPatrolRoute;
 
-// Clase parcialmente reconstruida (lote 175A): solo el constructor del EXE (0x674930), que se instala como funcion
-// libre en TaskComplexFollowPatrolRoute.cpp, y la disposicion de los campos que ese constructor escribe (tamano 0x30,
-// confirmado por la reserva de `Clone` 0x674BB0 y de los llamadores del constructor). Los campos de +0x24 a +0x2F no
-// se conocen todavia. El resto de las funciones sigue sin reconstruir.
+// Reconstruccion parcial (lotes 195A y 210A, sin validar): campos tomados del constructor 0x674930, de la vtable 0x870114 y de las funciones 0x670A70, 0x670B00, 0x670D80 y 0x670E20. La clase sigue
+// siendo abstracta (no declara Clone, MakeAbortable ni ControlSubTask): las funciones del EXE que ya estan en C++ se enganchan como S y sin declarar la virtual (la clase no tiene vtable exportada
+// para RH_ScopedVMTInstall), con otro nombre cuando coincidiria con una virtual.
 class NOTSA_EXPORT_VTABLE CTaskComplexFollowPatrolRoute : public CTaskComplex {
 public:
     static constexpr auto Type = eTaskType::TASK_COMPLEX_FOLLOW_PATROL_ROUTE;
 
+    int16         m_nPatrolMode;      // +0x0C: 0 = una pasada, 1 = ida y vuelta una vez, 2 = ida y vuelta sin fin, 3 = circuito (ver GetNextSubTaskType)
+    int16         m_nRoutePasses;     // +0x0E: pasadas completas de la ruta (contador que incrementa GetNextSubTaskType al llegar al final)
+    int16         m_nMoveState;       // +0x10: estado de movimiento de las subtareas (eMoveState)
+    int16         m_nCurrentNode;     // +0x12: indice del nodo actual de la ruta (con signo, sin comprobar el rango)
+    float         m_fTargetRadius;    // +0x14: radio de llegada a cada punto
+    float         m_fMoveStateRadius; // +0x18: radio del estado de movimiento del ultimo punto
+    CPatrolRoute* m_pRoute;           // +0x1C: copia propia de la ruta (se libera con el destructor)
+    uint32        m_nFlags;           // +0x20: bit 0 = primera vez (lo apaga CreateFirstSubTask), bit 1 = reanudar siguiendo nodos hasta el punto mas cercano
+    uint8         m_padding[0xC];     // +0x24..+0x2F: sin uso conocido
+
     static void InjectHooks();
 
-    // Campos (disposicion del EXE; nombres provisionales): el constructor 0x674930 recibe (a, ruta, b, c, d) y los deja
-    // en +0x10 (a, 16 bits), +0xC (b, 16 bits), +0x1C (copia de la ruta), +0x14 (c, 32 bits) y +0x18 (d, 32 bits).
-    int16         m_nParamC{};   // +0x0C
-    int16         m_nParamE{};   // +0x0E (el constructor lo deja a 0)
-    int16         m_nParam10{};  // +0x10
-    int16         m_nParam12{};  // +0x12 (el constructor lo deja a 0)
-    uint32        m_nParam14{};  // +0x14
-    uint32        m_nParam18{};  // +0x18
-    CPatrolRoute* m_pRoute{};    // +0x1C
-    uint32        m_nFlags{};    // +0x20 (el constructor borra el bit 1 y pone el bit 0)
-    uint8         m_unk24[0xC]{};
 
     eTaskType GetTaskType() const override { return Type; } // 0x670A60
     // CTask* Clone() const override;
     // bool MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) override;
-    // CTask* CreateNextSubTask(CPed* ped) override;
-    // CTask* CreateFirstSubTask(CPed* ped) override;
     // CTask* ControlSubTask(CPed* ped) override;
+
+    //! 0x670B00 (lote 210A, sin validar): crea la subtarea del tipo dado (nulo si el tipo no es de los soportados o no hay memoria)
+    CTask* CreateSubTask(int32 taskType);
+    //! 0x670A70 (lote 210A, sin validar): tipo de la siguiente subtarea segun el nodo actual y el modo (sin argumentos; puede invertir la ruta y reiniciar el nodo)
+    eTaskType GetNextSubTaskType();
+    //! 0x670D80 (lote 210A, sin validar): CreateNextSubTask del EXE (ranura 8 de la vtable 0x870114; la clase aun no declara sus virtuales, por eso el nombre con sufijo)
+    CTask* CreateNextSubTaskBody(CPed* ped);
+    //! 0x670E20 (lote 210A, sin validar): CreateFirstSubTask del EXE (ranura 9)
+    CTask* CreateFirstSubTaskBody(CPed* ped);
 };
 VALIDATE_SIZE(CTaskComplexFollowPatrolRoute, 0x30);

@@ -48,6 +48,22 @@ CTask* __fastcall GoToEntryExitCenterTask(void* self, void* /*edx*/, void* /*unu
 }
 } // namespace
 
+namespace {
+// 0x66BC00 (con hook, Destructor): cuerpo del destructor de CTaskComplexGotoDoorAndOpen del EXE. Funcion propia sin expansion en linea para que el destructor con borrado la llame como el `call 0x66BC00` del EXE.
+__declspec(noinline) void __fastcall GotoDoorAndOpenDestructorBody(CTaskComplexGotoDoorAndOpen* self, void* /*edx*/) { self->CTaskComplexGotoDoorAndOpen::~CTaskComplexGotoDoorAndOpen(); }
+
+// 0x6711F0 (lote 210A, sin validar; el listado lo atribuia a otra clase): destructor con borrado de CTaskComplexGotoDoorAndOpen del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x66BC00;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del
+// BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexGotoDoorAndOpen* __fastcall GotoDoorAndOpenScalarDeletingDestructor(CTaskComplexGotoDoorAndOpen* self, void* /*edx*/, uint8 flags) {
+    GotoDoorAndOpenDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 // 0x66BB90 (lote 191A, sin validar; `mov eax,3A4h; ret`, 6 bytes; ranura 4 de la vtable 0x86FFC0): no lee el objeto.
 eTaskType CTaskComplexGotoDoorAndOpen::GetTaskType() const {
     return Type;
@@ -60,6 +76,7 @@ void CTaskComplexGotoDoorAndOpen::InjectHooks() {
     RH_ScopedOverloadedInstall(Constructor, "0", 0x66BB20, CTaskComplexGotoDoorAndOpen*(CTaskComplexGotoDoorAndOpen::*)(CObject *));
     RH_ScopedOverloadedInstall(Constructor, "1", 0x66BBA0, CTaskComplexGotoDoorAndOpen*(CTaskComplexGotoDoorAndOpen::*)(CVector const&, CVector const&));
     RH_ScopedInstall(Destructor, 0x66BC00);
+    RH_ScopedNamedGlobalInstall(GotoDoorAndOpenScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6711F0); // lote 210A (sin validar)
     RH_ScopedNamedGlobalInstall(GoToEntryExitCenterTask, "GoToEntryExitCenterTask", 0x66C280); // lote 191A (sin validar)
     RH_ScopedVMTInstall(GetTaskType, 0x66BB90);   // lote 191A (sin validar)
     RH_ScopedVMTInstall(MakeAbortable, 0x66BC80); // lote 191A (sin validar)

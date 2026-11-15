@@ -21,6 +21,22 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexTurnToFaceEntityOrCoord.h"
 #include "TaskSimpleAchieveHeading.h"
 
+namespace {
+// 0x66B960 (con hook, Destructor): cuerpo del destructor de CTaskComplexTurnToFaceEntityOrCoord del EXE. Funcion propia sin expansion en linea para que el destructor con borrado la llame como el `call 0x66B960` del EXE.
+__declspec(noinline) void __fastcall TurnToFaceDestructorBody(CTaskComplexTurnToFaceEntityOrCoord* self, void* /*edx*/) { self->CTaskComplexTurnToFaceEntityOrCoord::~CTaskComplexTurnToFaceEntityOrCoord(); }
+
+// 0x670830 (lote 210A, sin validar; el listado lo atribuia a otra clase): destructor con borrado de CTaskComplexTurnToFaceEntityOrCoord del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x66B960;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del
+// BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexTurnToFaceEntityOrCoord* __fastcall TurnToFaceScalarDeletingDestructor(CTaskComplexTurnToFaceEntityOrCoord* self, void* /*edx*/, uint8 flags) {
+    TurnToFaceDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CTaskComplexTurnToFaceEntityOrCoord::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexTurnToFaceEntityOrCoord, 0x86ff94, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
@@ -28,6 +44,7 @@ void CTaskComplexTurnToFaceEntityOrCoord::InjectHooks() {
     RH_ScopedOverloadedInstall(Constructor, "Coords", 0x66B890, CTaskComplexTurnToFaceEntityOrCoord*(CTaskComplexTurnToFaceEntityOrCoord::*)(CEntity*, float, float));
     RH_ScopedOverloadedInstall(Constructor, "Entity", 0x66B910, CTaskComplexTurnToFaceEntityOrCoord*(CTaskComplexTurnToFaceEntityOrCoord::*)(CVector const&, float, float));
     RH_ScopedInstall(Destructor, 0x66B960);
+    RH_ScopedNamedGlobalInstall(TurnToFaceScalarDeletingDestructor, "ScalarDeletingDestructor", 0x670830); // lote 210A (sin validar)
 
     RH_ScopedInstall(ComputeTargetHeading, 0x66B9D0);
 

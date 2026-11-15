@@ -51,6 +51,7 @@ void CTaskComplexGoToPointAnyMeans::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskComplexGoToPointAnyMeansScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6705B0); // lote 160A (banco Fn160A)
     RH_ScopedVMTInstall(Clone, 0x66D1E0); // lote 160A: ranura 1 de la vtable 0x86FF68
+    RH_ScopedVMTInstall(GetTaskType, 0x66B780); // lote 210A (sin validar): ranura 4 de la vtable 0x86FF68 (`mov eax,396h; ret`, 6 bytes: TASK_COMPLEX_GO_TO_POINT_ANY_MEANS; no lee el objeto)
 
     RH_ScopedOverloadedInstall(Constructor, "1", 0x66B720, CTaskComplexGoToPointAnyMeans*(CTaskComplexGoToPointAnyMeans::*)(int32, CVector const&, float, int32));
     RH_ScopedOverloadedInstall(Constructor, "2", 0x66B790, CTaskComplexGoToPointAnyMeans*(CTaskComplexGoToPointAnyMeans::*)(int32, CVector const&, CVehicle*, float, int32));
