@@ -153,6 +153,10 @@ public:
     CPed* GetFirstAvailableMember();
 
     static eModelID GetObjectForPedToHold();
+public:
+    //! 0x498801 (lote 238A): COMMAND_SET_GROUP_SEPARATION_RANGE escribe el campo directamente
+    void SetSeparationRange(float range) { m_separationRange = range; }
+
 private:
     //! NOTSA
     int32 FindNewLeaderToAppoint() const;

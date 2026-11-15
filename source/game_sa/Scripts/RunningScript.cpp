@@ -139,6 +139,7 @@ void CRunningScript::InjectHooks() {
     RH_ScopedInstall(UpdateCompareFlag, 0x4859D0, { .stackArguments = 1 });
     RH_ScopedInstall(UpdatePC, 0x464DA0, { .stackArguments = 1 });
     RH_ScopedInstall(ProcessOneCommand, 0x469EB0);
+    RH_ScopedInstall(ProcessCommands1700To1799, 0x496E00); // lote 238A (sin validar)
     RH_ScopedInstall(Process, 0x469F00);
     RH_ScopedInstall(ProcessCommands1200To1299, 0x48B590, { .stackArguments = 1 });
     RH_ScopedInstall(ProcessCommands1900To1999, 0x46B460, { .stackArguments = 1 });

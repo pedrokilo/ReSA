@@ -15,10 +15,12 @@ VALIDATE_SIZE(ExeMD5Context, 0x68);
 // por GetProcAddress y rellenan la tabla de punteros que las rodea. El listado del lote las atribuia a CEntity; no pertenecen a ninguna clase del juego. Solo se ejecutan durante el arranque del EXE.
 class ExeProtectionStub {
 public:
-    // 0x401000, 0x40104A, 0x40118B (lote 221A, sin validar): MD5Init / MD5Update / MD5Final (cdecl). La transformacion (0x4012E9) sigue siendo codigo del EXE y se llama por su direccion.
+    // 0x401000, 0x40104A, 0x40118B (lote 221A, sin validar): MD5Init / MD5Update / MD5Final (cdecl). 
     static void MD5Init(ExeMD5Context* ctx);
     static void MD5Update(ExeMD5Context* ctx, const uint8* input, uint32 length);
     static void MD5Final(ExeMD5Context* ctx);
+    // 0x4012E9 (lote 238A, sin validar): transformacion del MD5 (cdecl, estado de 4 dwords y bloque de 16 dwords).
+    static void MD5Transform(uint32* state, const uint32* block);
 
     // 0x401FBB (lote 221A, sin validar): resuelve con GetProcAddress las 41 primeras API y sigue con 0x402370.
     static void ResolveKernelImports();

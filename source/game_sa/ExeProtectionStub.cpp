@@ -23,11 +23,6 @@ Fn SlotFn(uint32 slotAddress) {
     return reinterpret_cast<Fn>(Load32(slotAddress));
 }
 
-// 0x4012E9: transformacion del MD5 (cdecl, (estado, bloque de 16 dwords)); sin reconstruir, se llama al EXE por su direccion.
-void MD5Transform(uint32* state, const uint32* block) {
-    reinterpret_cast<void(__cdecl*)(uint32*, const uint32*)>(0x4012E9)(state, block);
-}
-
 // Como el EXE: los 16 dwords del bloque se arman byte a byte (little endian) desde el bloque de 64 bytes del contexto.
 uint32 DecodeWord(const uint8* bytes) {
     return (uint32(bytes[1]) << 8) | (uint32(bytes[3]) << 24) | (uint32(bytes[2]) << 16) | uint32(bytes[0]);
@@ -159,6 +154,8 @@ void ExeProtectionStub::InjectHooks() {
     RH_ScopedInstall(MD5Init, 0x401000);
     RH_ScopedInstall(MD5Update, 0x40104A);
     RH_ScopedInstall(MD5Final, 0x40118B);
+    // Lote 238A (sin validar)
+    RH_ScopedInstall(MD5Transform, 0x4012E9);
     RH_ScopedInstall(ResolveKernelImports, 0x401FBB);
     RH_ScopedInstall(ResolveLoaderImports, 0x402370);
     RH_ScopedInstall(InitCallbackTable, 0x4024C0);
@@ -232,6 +229,74 @@ void ExeProtectionStub::MD5Final(ExeMD5Context* ctx) {
         ctx->m_Digest[i * 4 + 2] = static_cast<uint8>(word >> 16);
         ctx->m_Digest[i * 4 + 3] = static_cast<uint8>(word >> 24);
     }
+}
+
+// 0x4012E9 (lote 238A, sin validar; 3282 bytes, cdecl con (estado de 4 dwords, bloque de 16 dwords), sin valor de retorno): transformacion del MD5 (RFC 1321) del EXE. Las 64 operaciones van desenrolladas con las variables a,b,c,d en la pila
+// (cargadas de estado[0..3]) y al final suma a,b,c,d a estado[0..3]. Comprobado contra el desensamblado completo con un emulador de las instrucciones usadas (cientos de bloques al azar): es el MD5 estandar, sin constantes ni rotaciones alteradas.
+// Orden de las rondas como en el EXE: F con x[i]; G con x[(5i+1)&15]; H con x[(3i+5)&15]; I con x[(7i)&15]. No usa x87 ni SEH.
+void ExeProtectionStub::MD5Transform(uint32* state, const uint32* x) {
+    constexpr auto Rotl = [](uint32 value, uint32 bits) { return (value << bits) | (value >> (32 - bits)); };
+    uint32 a = state[0];
+    uint32 b = state[1];
+    uint32 c = state[2];
+    uint32 d = state[3];
+
+    // Ronda 1: F(b,c,d) = (b & c) | (~b & d)
+    constexpr uint32 S1[4] = {7, 12, 17, 22};
+    constexpr uint32 K1[16] = {
+        0xD76AA478, 0xE8C7B756, 0x242070DB, 0xC1BDCEEE, 0xF57C0FAF, 0x4787C62A, 0xA8304613, 0xFD469501,
+        0x698098D8, 0x8B44F7AF, 0xFFFF5BB1, 0x895CD7BE, 0x6B901122, 0xFD987193, 0xA679438E, 0x49B40821,
+    };
+    for (uint32 i = 0; i < 16; i += 4) {
+        a = b + Rotl(a + (((~b) & d) | (c & b)) + x[i + 0] + K1[i + 0], S1[0]);
+        d = a + Rotl(d + (((~a) & c) | (b & a)) + x[i + 1] + K1[i + 1], S1[1]);
+        c = d + Rotl(c + (((~d) & b) | (a & d)) + x[i + 2] + K1[i + 2], S1[2]);
+        b = c + Rotl(b + (((~c) & a) | (d & c)) + x[i + 3] + K1[i + 3], S1[3]);
+    }
+
+    // Ronda 2: G(b,c,d) = (b & d) | (c & ~d)
+    constexpr uint32 S2[4] = {5, 9, 14, 20};
+    constexpr uint32 K2[16] = {
+        0xF61E2562, 0xC040B340, 0x265E5A51, 0xE9B6C7AA, 0xD62F105D, 0x02441453, 0xD8A1E681, 0xE7D3FBC8,
+        0x21E1CDE6, 0xC33707D6, 0xF4D50D87, 0x455A14ED, 0xA9E3E905, 0xFCEFA3F8, 0x676F02D9, 0x8D2A4C8A,
+    };
+    for (uint32 i = 0; i < 16; i += 4) {
+        a = b + Rotl(a + ((b & d) | (c & ~d)) + x[(5 * (i + 0) + 1) & 15] + K2[i + 0], S2[0]);
+        d = a + Rotl(d + ((a & c) | (b & ~c)) + x[(5 * (i + 1) + 1) & 15] + K2[i + 1], S2[1]);
+        c = d + Rotl(c + ((d & b) | (a & ~b)) + x[(5 * (i + 2) + 1) & 15] + K2[i + 2], S2[2]);
+        b = c + Rotl(b + ((c & a) | (d & ~a)) + x[(5 * (i + 3) + 1) & 15] + K2[i + 3], S2[3]);
+    }
+
+    // Ronda 3: H(b,c,d) = b ^ c ^ d
+    constexpr uint32 S3[4] = {4, 11, 16, 23};
+    constexpr uint32 K3[16] = {
+        0xFFFA3942, 0x8771F681, 0x6D9D6122, 0xFDE5380C, 0xA4BEEA44, 0x4BDECFA9, 0xF6BB4B60, 0xBEBFBC70,
+        0x289B7EC6, 0xEAA127FA, 0xD4EF3085, 0x04881D05, 0xD9D4D039, 0xE6DB99E5, 0x1FA27CF8, 0xC4AC5665,
+    };
+    for (uint32 i = 0; i < 16; i += 4) {
+        a = b + Rotl(a + (b ^ c ^ d) + x[(3 * (i + 0) + 5) & 15] + K3[i + 0], S3[0]);
+        d = a + Rotl(d + (a ^ b ^ c) + x[(3 * (i + 1) + 5) & 15] + K3[i + 1], S3[1]);
+        c = d + Rotl(c + (d ^ a ^ b) + x[(3 * (i + 2) + 5) & 15] + K3[i + 2], S3[2]);
+        b = c + Rotl(b + (c ^ d ^ a) + x[(3 * (i + 3) + 5) & 15] + K3[i + 3], S3[3]);
+    }
+
+    // Ronda 4: I(b,c,d) = c ^ (b | ~d)
+    constexpr uint32 S4[4] = {6, 10, 15, 21};
+    constexpr uint32 K4[16] = {
+        0xF4292244, 0x432AFF97, 0xAB9423A7, 0xFC93A039, 0x655B59C3, 0x8F0CCC92, 0xFFEFF47D, 0x85845DD1,
+        0x6FA87E4F, 0xFE2CE6E0, 0xA3014314, 0x4E0811A1, 0xF7537E82, 0xBD3AF235, 0x2AD7D2BB, 0xEB86D391,
+    };
+    for (uint32 i = 0; i < 16; i += 4) {
+        a = b + Rotl(a + (c ^ (b | ~d)) + x[(7 * (i + 0)) & 15] + K4[i + 0], S4[0]);
+        d = a + Rotl(d + (b ^ (a | ~c)) + x[(7 * (i + 1)) & 15] + K4[i + 1], S4[1]);
+        c = d + Rotl(c + (a ^ (d | ~b)) + x[(7 * (i + 2)) & 15] + K4[i + 2], S4[2]);
+        b = c + Rotl(b + (d ^ (c | ~a)) + x[(7 * (i + 3)) & 15] + K4[i + 3], S4[3]);
+    }
+
+    state[0] += a;
+    state[1] += b;
+    state[2] += c;
+    state[3] += d;
 }
 
 // 0x401FBB (lote 221A, sin validar; 949 bytes, cdecl sin argumentos): para cada una de las 41 entradas (en orden): GetProcAddress(modulo guardado en 0xC9E408 o 0xC9E410, nombre en el bloque de datos) y guarda el puntero en la direccion destino

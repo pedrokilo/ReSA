@@ -57,6 +57,7 @@ uint32 __fastcall SetMaxEntityDist2DRegs(void* self, uint32 entryEdx, uint32 dis
 
 template <std::derived_from<CEntitySeekPosCalculator> T_PosCalc = CEntitySeekPosCalculatorStandard>
 class NOTSA_EXPORT_VTABLE CTaskComplexSeekEntity : public CTaskComplex {
+    friend class CRunningScript; // lote 238A (sin validar): TASK_GOTO_CHAR_OFFSET (0x496F5F) escribe m_moveState tras construir la tarea
     CEntity* m_entityToSeek{};
     int32 m_seekInterval{};
     int32 m_scanInterval{};

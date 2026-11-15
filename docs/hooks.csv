@@ -7884,6 +7884,7 @@ CRunningScript,ObjectInAngledAreaCheckCommand,0x004883F0,1,0,1,S
 CRunningScript,ObjectInAreaCheckCommand,0x00489150,1,0,1,S
 CRunningScript,PlayAnimScriptCommand,0x00470150,1,0,1,S
 CRunningScript,Process,0x00469F00,1,0,1,S
+CRunningScript,ProcessCommands1700To1799,0x00496E00,1,0,0,S
 CRunningScript,ProcessOneCommand,0x00469EB0,1,0,1,S
 CRunningScript,ReadArrayInformation,0x00463CF0,1,0,1,S
 CRunningScript,ReadParametersForNewlyStartedScript,0x00464500,1,0,1,S
@@ -11480,6 +11481,7 @@ CTaskComplexBeCop,Constructor,0x004993D0,1,0,0,S
 ExeProtectionStub,MD5Init,0x00401000,1,0,0,S
 ExeProtectionStub,MD5Update,0x0040104A,1,0,0,S
 ExeProtectionStub,MD5Final,0x0040118B,1,0,0,S
+ExeProtectionStub,MD5Transform,0x004012E9,1,0,0,S
 ExeProtectionStub,ResolveKernelImports,0x00401FBB,1,0,0,S
 ExeProtectionStub,ResolveLoaderImports,0x00402370,1,0,0,S
 ExeProtectionStub,InitCallbackTable,0x004024C0,1,0,0,S

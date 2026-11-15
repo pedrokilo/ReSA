@@ -322,6 +322,8 @@ public:
     void UpdatePC(int32 newIP);
 
     OpcodeResult ProcessOneCommand();
+    // 0x496E00 (lote 238A, sin validar): despachador original de los comandos 1700..1799 (ranura 17 de la tabla 0x8A6168); thiscall con el numero de comando en la pila.
+    OpcodeResult ProcessCommands1700To1799(int32 commandId);
     OpcodeResult Process();
     // Lote 237A (sin validar): manejadores originales por centenas de comandos que ProcessOneCommand llama cuando un comando no tiene manejador propio.
     OpcodeResult ProcessCommands1200To1299(int32 command); // 0x48B590
