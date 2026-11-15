@@ -236,10 +236,35 @@ static auto& s_atomicWorldOffset        = StaticRef<RwInt32>(0xC925A8); // escri
 static auto& s_geometryUsageFlagsOffset = StaticRef<RwInt32>(0xC926E8); // escrito en 0x75880E
 static auto& s_sectorUsageFlagsOffset   = StaticRef<RwInt32>(0xC926EC); // escrito en 0x75883F
 
+// Lote 226A (sin validar): funciones de este archivo definidas mas abajo; se declaran aqui para registrarlas.
+static RwStream* AtomicRightsStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x749120
+static RwStream* AtomicRightsStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x749160
+static void      ClumpFreeListDestroyCallBack(void* clump, void* data); // 0x749520
+static void      AtomicFreeListDestroyCallBack(void* atomic, void* data); // 0x7496A0
+static RwBool    ClumpPluginAttach(); // 0x749830
+static RpAtomic* AtomicSyncCallBack(RpAtomic* atomic); // 0x749D20
+
 // Registro de los hooks del grupo g25b en rpworld.cpp (propio: el sufijo evita chocar con otros registradores de este archivo).
 void RpWorldInjectHooks25b() {
     RH_ScopedCategory("Plugins");
     RH_ScopedNamespaceName("RpWorld");
+
+    // Lote 226A (sin validar)
+    RH_ScopedGlobalInstall(AtomicRightsStreamRead, 0x749120);
+    RH_ScopedGlobalInstall(AtomicRightsStreamWrite, 0x749160);
+    RH_ScopedGlobalInstall(_rpAtomicResyncInterpolatedSphere, 0x7491F0);
+    RH_ScopedGlobalInstall(RpAtomicGetWorldBoundingSphere, 0x749330);
+    RH_ScopedGlobalInstall(ClumpFreeListDestroyCallBack, 0x749520);
+    RH_ScopedGlobalInstall(AtomicFreeListDestroyCallBack, 0x7496A0);
+    RH_ScopedGlobalInstall(ClumpPluginAttach, 0x749830);
+    RH_ScopedGlobalInstall(RpClumpRender, 0x749B20);
+    RH_ScopedGlobalInstall(RpClumpForAllCameras, 0x749BB0);
+    RH_ScopedGlobalInstall(RpClumpForAllLights, 0x749C00);
+    RH_ScopedGlobalInstall(RpAtomicCreate, 0x749C50);
+    RH_ScopedGlobalInstall(AtomicSyncCallBack, 0x749D20);
+    RH_ScopedGlobalInstall(RpAtomicSetGeometry, 0x749D40);
+    RH_ScopedGlobalInstall(RpAtomicDestroy, 0x749DC0);
+    RH_ScopedGlobalInstall(RpAtomicClone, 0x749E60);
 
     RH_ScopedGlobalInstall(AtomicDefaultRenderCallBack, 0x7491C0);
     RH_ScopedGlobalInstall(RpClumpGetNumAtomics, 0x7498E0);
@@ -706,12 +731,219 @@ RpAtomic* AtomicDefaultRenderCallBack(RpAtomic* atomic) {
     return RxPipelineExecute(pipeline, atomic, TRUE) ? atomic : nullptr;
 }
 
-void _rpAtomicResyncInterpolatedSphere(RpAtomic* atomic) {
-    ((void(__cdecl *)(RpAtomic*))0x7491F0)(atomic);
+// Lote 226A (sin validar): estado compartido de las funciones de atomos y clumps de abajo.
+static auto& s_clumpTKList             = StaticRef<RwPluginRegistry>(0x8D6264); // registro de plugins de RpClump
+static auto& s_engineFreeListsOffset   = StaticRef<RwInt32>(0xC924AC);          // desplazamiento de las listas libres de atomos (+0) y clumps (+4) dentro de RwEngineInstance
+static auto& s_cameraClumpLinkOffset   = StaticRef<RwInt32>(0xC924D8);          // plugin de RwCamera: {clump, enlace} (el enlace en +4); escrito en 0x749848
+static auto& s_lightClumpLinkOffset    = StaticRef<RwInt32>(0xC924DC);          // plugin de RpLight: igual; escrito en 0x749873
+static auto& s_rightsReadWord0         = StaticRef<RwInt32>(0xC924A8);          // destino de la primera lectura de AtomicRightsStreamRead
+static auto& s_rightsReadWord1         = StaticRef<RwInt32>(0xC92480);          // destino de la segunda lectura
+
+static_assert(offsetof(RwGlobals, memoryAlloc) == 0x144 && offsetof(RwGlobals, memoryFree) == 0x148);
+static_assert(offsetof(RpAtomic, interpolator) == 0x4C && offsetof(RpAtomic, repEntry) == 0x14 && offsetof(RpAtomic, geometry) == 0x18);
+static_assert(offsetof(RpAtomic, boundingSphere) == 0x1C && offsetof(RpAtomic, worldBoundingSphere) == 0x2C && offsetof(RpAtomic, clump) == 0x3C);
+static_assert(offsetof(RpAtomic, renderCallBack) == 0x48 && offsetof(RpAtomic, renderFrame) == 0x60 && offsetof(RpAtomic, llWorldSectorsInAtomic) == 0x64);
+static_assert(offsetof(RpGeometry, numMorphTargets) == 0x18 && offsetof(RpGeometry, morphTarget) == 0x5C && sizeof(RpMorphTarget) == 0x1C);
+static_assert(offsetof(RpClump, atomicList) == 0x8 && offsetof(RpClump, lightList) == 0x10 && offsetof(RpClump, cameraList) == 0x18);
+static_assert(offsetof(RxPipeline, pluginId) == 0x2C && offsetof(RxPipeline, pluginData) == 0x30);
+
+// Lista libre de atomos (slot 0) o de clumps (slot 1) que cuelga de RwEngineInstance; el desplazamiento se lee en cada uso, como el EXE.
+static RwFreeList* EngineFreeList(int32 slot) {
+    return *reinterpret_cast<RwFreeList**>(reinterpret_cast<uint8*>(RwEngineInstance) + s_engineFreeListsOffset + slot * 4);
 }
 
+// 0x74CCB0 (RpGeometryAddRef: solo incrementa refCount): se llama por su direccion, como el EXE.
+static RpGeometry* GeometryAddRef(RpGeometry* geometry) {
+    return reinterpret_cast<RpGeometry*(__cdecl*)(RpGeometry*)>(0x74CCB0)(geometry);
+}
+
+// Parte de AtomicDestroyBody: suelta la geometria; si el atomo tiene marco y esta en un mundo, actualiza los objetos del marco.
+static void AtomicReleaseGeometry(RpAtomic* atomic) {
+    RpGeometryDestroy(atomic->geometry);
+    RwFrame* const frame = static_cast<RwFrame*>(atomic->object.object.parent);
+    atomic->geometry = nullptr;
+    if (frame && RpAtomicGetWorld(atomic)) {
+        RwFrameUpdateObjects(frame);
+    }
+}
+
+// Cuerpo comun de RpAtomicDestroy (0x749DC0) y AtomicFreeListDestroyCallBack (0x7496A0) y del bucle de ClumpFreeListDestroyCallBack (0x749520), sin devolver nada:
+// destruye los datos de plugin, la entrada de recursos y la geometria, suelta el marco y devuelve el atomo a su lista libre.
+static void AtomicDestroyBody(RpAtomic* atomic) {
+    _rwPluginRegistryDeInitObject(&s_atomicTKList, atomic);
+    if (atomic->repEntry) {
+        RwResourcesFreeResEntry(atomic->repEntry);
+    }
+    if (atomic->geometry) {
+        AtomicReleaseGeometry(atomic);
+    }
+    _rwObjectHasFrameReleaseFrame(atomic);
+    RwFreeListFree(EngineFreeList(0), atomic);
+}
+
+// 0x7491F0
+// Recalcula la esfera envolvente del atomo interpolando las de dos morph targets (centro y radio) y limpia el bit 1 del interpolador; privateFlags |= 1.
+// Como el EXE: x87 a 24 bits, es decir cada operacion se redondea a float; orden: s = posicion * recipTime; radio = (fin - inicio) * s + inicio; centro igual por componentes
+// ((fin - inicio) se guarda como float, se multiplica por s, se suma al inicio). Sin geometria no hace nada. Con indices iguales o fuera de rango copia la esfera sin interpolar
+// (la del target de inicio si los dos indices son validos con signo, si no la del target 0).
+void _rpAtomicResyncInterpolatedSphere(RpAtomic* atomic) {
+    RpGeometry* const geometry = atomic->geometry;
+    if (!geometry) {
+        return;
+    }
+    const int16 startIndex = atomic->interpolator.startMorphTarget;
+    const int16 endIndex   = atomic->interpolator.endMorphTarget;
+    const int32 numMorphTargets = geometry->numMorphTargets;
+    if (startIndex != endIndex && startIndex < numMorphTargets && endIndex < numMorphTargets) {
+        RpMorphTarget* const morphTargets = geometry->morphTarget;
+        const RwSphere& start = morphTargets[startIndex].boundingSphere;
+        const RwSphere& end   = morphTargets[endIndex].boundingSphere;
+        const float scale = atomic->interpolator.position * atomic->interpolator.recipTime;
+        atomic->boundingSphere.radius = (end.radius - start.radius) * scale + start.radius;
+        atomic->boundingSphere.center.x = end.center.x - start.center.x;
+        atomic->boundingSphere.center.y = end.center.y - start.center.y;
+        atomic->boundingSphere.center.z = end.center.z - start.center.z;
+        const float scaledX = atomic->boundingSphere.center.x * scale;
+        atomic->boundingSphere.center.x = scaledX;
+        const float scaledY = atomic->boundingSphere.center.y * scale;
+        atomic->boundingSphere.center.y = scaledY;
+        const float scaledZ = atomic->boundingSphere.center.z * scale;
+        atomic->boundingSphere.center.z = scaledZ;
+        atomic->boundingSphere.center.x = start.center.x + scaledX;
+        atomic->boundingSphere.center.y = start.center.y + scaledY;
+        atomic->boundingSphere.center.z = start.center.z + scaledZ;
+    } else if (startIndex < numMorphTargets && endIndex < numMorphTargets) {
+        atomic->boundingSphere = geometry->morphTarget[startIndex].boundingSphere;
+    } else {
+        atomic->boundingSphere = geometry->morphTarget[0].boundingSphere;
+    }
+    atomic->interpolator.flags &= ~rpINTERPOLATORDIRTYSPHERE;
+    atomic->object.object.privateFlags |= rpATOMICPRIVATEWORLDBOUNDDIRTY;
+}
+
+// 0x749330
+// Devuelve la esfera envolvente en coordenadas de mundo (+0x2C). Si el interpolador esta sucio la recalcula antes. Si el marco esta sucio (RwFrameDirty, bits 0 y 1 del marco raiz)
+// o el atomo tiene privateFlags & 1: centro = LTM * centro local; con matriz ortonormal (flags & 3 == 3) el radio es el local; si no, radio local por la raiz del mayor de los tres
+// cuadrados de longitud de los ejes (derecha, arriba, adelante). Cada longitud al cuadrado es (x*x + y*y) + z*z en float. El maximo conserva la semantica del EXE con fcom
+// (NaN elige el segundo): m = (arriba < adelante o NaN) ? adelante : arriba; max = (derecha < m o NaN) ? m : derecha. privateFlags se relee tras _rwSqrt y se limpia el bit 0.
 const RwSphere* RpAtomicGetWorldBoundingSphere(RpAtomic* atomic) {
-    return ((const RwSphere*(__cdecl *)(RpAtomic*))0x749330)(atomic);
+    RwFrame* const frame = static_cast<RwFrame*>(atomic->object.object.parent);
+    if (atomic->interpolator.flags & rpINTERPOLATORDIRTYSPHERE) {
+        _rpAtomicResyncInterpolatedSphere(atomic);
+    }
+    if (RwFrameDirty(frame) || (atomic->object.object.privateFlags & rpATOMICPRIVATEWORLDBOUNDDIRTY)) {
+        const RwMatrix* const ltm = RwFrameGetLTM(frame);
+        RwV3dTransformPoint(&atomic->worldBoundingSphere.center, &atomic->boundingSphere.center, ltm);
+        if ((ltm->flags & rwMATRIXTYPEMASK) == rwMATRIXTYPEORTHONORMAL) {
+            atomic->worldBoundingSphere.radius = atomic->boundingSphere.radius;
+            atomic->object.object.privateFlags &= ~rpATOMICPRIVATEWORLDBOUNDDIRTY;
+        } else {
+            const float rightSq = (ltm->right.x * ltm->right.x + ltm->right.y * ltm->right.y) + ltm->right.z * ltm->right.z;
+            const float upSq    = (ltm->up.x * ltm->up.x + ltm->up.y * ltm->up.y) + ltm->up.z * ltm->up.z;
+            const float atSq    = (ltm->at.x * ltm->at.x + ltm->at.y * ltm->at.y) + ltm->at.z * ltm->at.z;
+            const float middle  = !(upSq >= atSq) ? atSq : upSq;
+            const float maximum = !(rightSq >= middle) ? middle : rightSq;
+            const float scaled  = _rwSqrt(maximum) * atomic->boundingSphere.radius;
+            atomic->object.object.privateFlags &= ~rpATOMICPRIVATEWORLDBOUNDDIRTY;
+            atomic->worldBoundingSphere.radius = scaled;
+        }
+    }
+    return &atomic->worldBoundingSphere;
+}
+
+// 0x749120 (callback de lectura del plugin de derechos de render, id 0x1F, registrado con 0x74BE00): lee 4 bytes del flujo a 0xC924A8 y, si la longitud es 8, otros 4 a 0xC92480.
+// Devuelve el flujo, o nulo si alguna lectura falla (RwStreamReadInt32 devuelve nulo). No usa object, offsetInObject ni sizeInObject.
+static RwStream* AtomicRightsStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    if (!RwStreamReadInt32(stream, &s_rightsReadWord0, 4)) {
+        return nullptr;
+    }
+    if (binaryLength == 8 && !RwStreamReadInt32(stream, &s_rightsReadWord1, 4)) {
+        return nullptr;
+    }
+    return stream;
+}
+
+// 0x749160 (callback de escritura del mismo plugin): escribe pluginId (+0x2C) y pluginData (+0x30) de la tuberia del atomo (`object + 0x6C`, sin comprobar nulo) con RwStreamWriteInt32.
+// Devuelve el flujo si la segunda escritura devuelve algo distinto de nulo (neg/sbb/and); si la primera falla devuelve nulo.
+static RwStream* AtomicRightsStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    static_assert(offsetof(RpAtomic, pipeline) == 0x6C);
+    const RxPipeline* const pipeline = static_cast<const RpAtomic*>(object)->pipeline;
+    if (!RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&pipeline->pluginId), 4)) {
+        return nullptr;
+    }
+    return RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&pipeline->pluginData), 4) ? stream : nullptr;
+}
+
+// 0x749520 (callback de RwFreeListForAllUsed sobre la lista de clumps, llamado desde 0x749480): destruye el clump que queda en la lista libre. Orden: DeInitObject de plugins del clump,
+// cada atomo de la lista (el siguiente enlace se lee antes de destruir), cada luz y cada camara (se sacan de su lista por el enlace del plugin, que se pone a cero, y se destruyen;
+// el desplazamiento del plugin se relee en cada vuelta y un puntero de objeto nulo corta), el marco del clump (RwFrameDestroyHierarchy) y por fin el clump a su lista libre.
+static void ClumpFreeListDestroyCallBack(void* clumpPtr, void* data) {
+    RpClump* const clump = static_cast<RpClump*>(clumpPtr);
+    _rwPluginRegistryDeInitObject(&s_clumpTKList, clump);
+    RwLLLink* const atomicEnd = &clump->atomicList.link;
+    for (RwLLLink* link = atomicEnd->next; link != atomicEnd; ) {
+        RwLLLink* const next = link->next;
+        AtomicDestroyBody(reinterpret_cast<RpAtomic*>(reinterpret_cast<uint8*>(link) - offsetof(RpAtomic, inClumpLink)));
+        link = next;
+    }
+    RwLLLink* const lightEnd = &clump->lightList.link;
+    for (RwLLLink* link = lightEnd->next; link != lightEnd; ) {
+        const RwInt32 offset = s_lightClumpLinkOffset;
+        RwLLLink* const next = link->next;
+        uint8* const light = reinterpret_cast<uint8*>(link) - offset - 4;
+        uint32* const pluginData = reinterpret_cast<uint32*>(light + offset);
+        RwLLLink* const pluginLink = reinterpret_cast<RwLLLink*>(pluginData + 1);
+        pluginLink->prev->next = pluginLink->next;
+        pluginLink->next->prev = pluginLink->prev;
+        pluginData[2] = 0;
+        pluginData[1] = 0;
+        pluginData[0] = 0;
+        RpLightDestroy(reinterpret_cast<RpLight*>(light));
+        if (!light) {
+            break;
+        }
+        link = next;
+    }
+    RwLLLink* const cameraEnd = &clump->cameraList.link;
+    for (RwLLLink* link = cameraEnd->next; link != cameraEnd; ) {
+        const RwInt32 offset = s_cameraClumpLinkOffset;
+        RwLLLink* const next = link->next;
+        uint8* const camera = reinterpret_cast<uint8*>(link) - offset - 4;
+        uint32* const pluginData = reinterpret_cast<uint32*>(camera + offset);
+        RwLLLink* const pluginLink = reinterpret_cast<RwLLLink*>(pluginData + 1);
+        pluginLink->prev->next = pluginLink->next;
+        pluginLink->next->prev = pluginLink->prev;
+        pluginData[2] = 0;
+        pluginData[1] = 0;
+        pluginData[0] = 0;
+        RwCameraDestroy(reinterpret_cast<RwCamera*>(camera));
+        if (!camera) {
+            break;
+        }
+        link = next;
+    }
+    if (clump->object.parent) {
+        RwFrameDestroyHierarchy(static_cast<RwFrame*>(clump->object.parent));
+    }
+    RwFreeListFree(EngineFreeList(1), clump);
+}
+
+// 0x7496A0 (callback de RwFreeListForAllUsed sobre la lista de atomos): igual que RpAtomicDestroy sin valor de retorno.
+static void AtomicFreeListDestroyCallBack(void* atomic, void* data) {
+    AtomicDestroyBody(static_cast<RpAtomic*>(atomic));
+}
+
+// 0x749830 (llamada desde RpWorldPluginAttach, 0x74FE77): registra los plugins que enlazan camaras y luces a su clump (12 bytes cada uno, id 0x10): RwCameraRegisterPlugin con los
+// constructores/destructores del EXE 0x749880/0x7498A0 y RpLightRegisterPlugin con 0x7498B0/0x7498D0 (se llaman por su direccion). El desplazamiento de camara se guarda en 0xC924D8
+// aunque falle (si es negativo devuelve 0 sin registrar luces); el de luz se guarda siempre en 0xC924DC; devuelve 1 si no es negativo.
+static RwBool ClumpPluginAttach() {
+    s_cameraClumpLinkOffset = RwCameraRegisterPlugin(0xC, 0x10, reinterpret_cast<RwPluginObjectConstructor>(0x749880), reinterpret_cast<RwPluginObjectDestructor>(0x7498A0), nullptr);
+    if (s_cameraClumpLinkOffset < 0) {
+        return FALSE;
+    }
+    const RwInt32 lightOffset = RpLightRegisterPlugin(0xC, 0x10, reinterpret_cast<RwPluginObjectConstructor>(0x7498B0), reinterpret_cast<RwPluginObjectDestructor>(0x7498D0), nullptr);
+    s_lightClumpLinkOffset = lightOffset;
+    return lightOffset >= 0;
 }
 
 // RpClumpGtaCancelStream (0x72E700) vive en rwtexdict.cpp junto con el resto de la lectura de clumps de GTA.
@@ -732,12 +964,35 @@ RpClump* RpClumpForAllAtomics(RpClump* clump, RpAtomicCallBack callback, void* d
     return clump;
 }
 
+// 0x749C00
+// Recorre la lista de luces del clump; el objeto es el enlace menos el desplazamiento del plugin (0xC924DC, releido en cada vuelta) menos 4. El enlace siguiente se lee ANTES del
+// callback; un callback que devuelve nulo corta; devuelve el clump.
 RpClump* RpClumpForAllLights(RpClump* clump, RpLightCallBack callback, void* data) {
-    return ((RpClump*(__cdecl *)(RpClump*, RpLightCallBack, void*))0x749C00)(clump, callback, data);
+    const RwLLLink* const end = &clump->lightList.link;
+    for (RwLLLink* link = clump->lightList.link.next; link != end; ) {
+        const RwInt32 offset = s_lightClumpLinkOffset;
+        RwLLLink* const next = link->next;
+        if (!callback(reinterpret_cast<RpLight*>(reinterpret_cast<uint8*>(link) - offset - 4), data)) {
+            break;
+        }
+        link = next;
+    }
+    return clump;
 }
 
+// 0x749BB0
+// Igual que RpClumpForAllLights con la lista de camaras y el desplazamiento de 0xC924D8.
 RpClump* RpClumpForAllCameras(RpClump* clump, RwCameraCallBack callback, void* data) {
-    return ((RpClump*(__cdecl *)(RpClump*, RwCameraCallBack, void*))0x749BB0)(clump, callback, data);
+    const RwLLLink* const end = &clump->cameraList.link;
+    for (RwLLLink* link = clump->cameraList.link.next; link != end; ) {
+        const RwInt32 offset = s_cameraClumpLinkOffset;
+        RwLLLink* const next = link->next;
+        if (!callback(reinterpret_cast<RwCamera*>(reinterpret_cast<uint8*>(link) - offset - 4), data)) {
+            break;
+        }
+        link = next;
+    }
+    return clump;
 }
 
 // 0x74BF20
@@ -752,8 +1007,22 @@ RpClump* RpClumpCreateSpace(const RwV3d* position, RwReal radius) {
     return ((RpClump*(__cdecl *)(const RwV3d*, RwReal))0x749970)(position, radius);
 }
 
+// 0x749B20
+// Para cada atomo de la lista cuyo indicador `flags` tiene el bit 4 (rpATOMICRENDER): RwFrameGetLTM(marco) (resultado ignorado) y su callback de dibujo; si el callback devuelve nulo
+// el resultado pasa a nulo (y se sigue con el resto). Devuelve el clump, o nulo si algun callback fallo.
 RpClump* RpClumpRender(RpClump* clump) {
-    return ((RpClump*(__cdecl *)(RpClump*))0x749B20)(clump);
+    RpClump* result = clump;
+    const RwLLLink* const end = &clump->atomicList.link;
+    for (RwLLLink* link = clump->atomicList.link.next; link != end; link = link->next) {
+        RpAtomic* const atomic = reinterpret_cast<RpAtomic*>(reinterpret_cast<uint8*>(link) - offsetof(RpAtomic, inClumpLink));
+        if (atomic->object.object.flags & rpATOMICRENDER) {
+            RwFrameGetLTM(static_cast<RwFrame*>(atomic->object.object.parent));
+            if (!atomic->renderCallBack(atomic)) {
+                result = nullptr;
+            }
+        }
+    }
+    return result;
 }
 
 RpClump* RpClumpRemoveAtomic(RpClump* clump, RpAtomic* atomic) {
@@ -792,20 +1061,131 @@ RpClump* RpClumpClone(RpClump* clump) {
     return ((RpClump*(__cdecl *)(RpClump*))0x749F70)(clump);
 }
 
+// 0x749DC0
+// Destruye el atomo: DeInitObject de plugins, entrada de recursos, geometria (y, con marco en un mundo, RwFrameUpdateObjects), suelta el marco y devuelve el atomo a la lista libre. Devuelve 1.
 RwBool RpAtomicDestroy(RpAtomic* atomic) {
-    return ((RwBool(__cdecl *)(RpAtomic*))0x749DC0)(atomic);
+    AtomicDestroyBody(atomic);
+    return TRUE;
 }
 
+// 0x749E60
+// Crea un atomo con RpAtomicCreate (nulo si falla) y copia type, subType, flags y privateFlags (byte a byte), pone parent a nulo, _rwObjectHasFrameSetFrame(clon, nulo), privateFlags |= 1,
+// y, si el original tiene geometria (el clon recien creado no la tiene), la asigna con AddRef y copia la esfera del morph target 0 sin interpolar (sin mirar las banderas). Despues
+// copia la esfera local (4 dwords), el callback de dibujo, la tuberia y el interpolador (5 dwords) y por ultimo los datos de plugin con _rwPluginRegistryCopyObject.
 RpAtomic* RpAtomicClone(RpAtomic* atomic) {
-    return ((RpAtomic*(__cdecl *)(RpAtomic*))0x749E60)(atomic);
+    RpAtomic* const clone = RpAtomicCreate();
+    if (!clone) {
+        return nullptr;
+    }
+    clone->object.object.type         = atomic->object.object.type;
+    clone->object.object.subType      = atomic->object.object.subType;
+    clone->object.object.flags        = atomic->object.object.flags;
+    clone->object.object.privateFlags = atomic->object.object.privateFlags;
+    clone->object.object.parent       = nullptr;
+    clone->object.object.flags        = atomic->object.object.flags;
+    _rwObjectHasFrameSetFrame(clone, nullptr);
+    clone->object.object.privateFlags |= rpATOMICPRIVATEWORLDBOUNDDIRTY;
+    RpGeometry* const sourceGeometry = atomic->geometry;
+    if (sourceGeometry != clone->geometry) {
+        if (sourceGeometry) {
+            GeometryAddRef(sourceGeometry);
+        }
+        if (clone->geometry) {
+            RpGeometryDestroy(clone->geometry);
+        }
+        clone->geometry = sourceGeometry;
+        if (sourceGeometry) {
+            clone->boundingSphere = sourceGeometry->morphTarget[0].boundingSphere;
+        }
+        RwFrame* const frame = static_cast<RwFrame*>(clone->object.object.parent);
+        if (frame && RpAtomicGetWorld(clone)) {
+            RwFrameUpdateObjects(frame);
+        }
+    }
+    clone->boundingSphere = atomic->boundingSphere;
+    clone->renderCallBack = atomic->renderCallBack;
+    clone->pipeline       = atomic->pipeline;
+    clone->interpolator   = atomic->interpolator;
+    _rwPluginRegistryCopyObject(&s_atomicTKList, clone, atomic);
+    return clone;
 }
 
+// 0x749C50
+// Reserva un atomo de la lista libre de atomos de RwEngineInstance (pista 0x30014; nulo si falla) y lo inicializa: type 1 (rpATOMIC), flags 5 (collision test | render), privateFlags 1,
+// sync = 0x749D20, _rwObjectHasFrameSetFrame(atomo, nulo) y privateFlags |= 1, geometria y esferas a cero, callback de dibujo = AtomicDefaultRenderCallBack (0x7491C0), tiempo y recipTime
+// 1.0f, indices y posicion a cero, flags del interpolador 3, sin clump ni enlace ni tuberia, lista de sectores vacia y por ultimo _rwPluginRegistryInitObject.
 RpAtomic* RpAtomicCreate(void) {
-    return ((RpAtomic*(__cdecl *)(void))0x749C50)();
+    RpAtomic* const atomic = static_cast<RpAtomic*>(RwFreeListAlloc(EngineFreeList(0), 0x30014));
+    if (!atomic) {
+        return nullptr;
+    }
+    atomic->object.object.type = rpATOMIC;
+    atomic->object.object.subType = 0;
+    atomic->object.object.parent = nullptr;
+    atomic->object.sync = reinterpret_cast<RwObjectHasFrameSyncFunction>(&AtomicSyncCallBack);
+    atomic->repEntry = nullptr;
+    atomic->object.object.flags = rpATOMICCOLLISIONTEST | rpATOMICRENDER;
+    atomic->object.object.privateFlags = 1;
+    _rwObjectHasFrameSetFrame(atomic, nullptr);
+    atomic->object.object.privateFlags |= rpATOMICPRIVATEWORLDBOUNDDIRTY;
+    atomic->geometry = nullptr;
+    atomic->boundingSphere.radius = 0.0f;
+    atomic->boundingSphere.center.x = 0.0f;
+    atomic->boundingSphere.center.y = 0.0f;
+    atomic->boundingSphere.center.z = 0.0f;
+    atomic->worldBoundingSphere.radius = 0.0f;
+    atomic->worldBoundingSphere.center.x = 0.0f;
+    atomic->worldBoundingSphere.center.y = 0.0f;
+    atomic->worldBoundingSphere.center.z = 0.0f;
+    atomic->renderCallBack = AtomicDefaultRenderCallBack;
+    atomic->interpolator.time = 1.0f;
+    atomic->interpolator.recipTime = 1.0f;
+    atomic->interpolator.startMorphTarget = 0;
+    atomic->interpolator.endMorphTarget = 0;
+    atomic->interpolator.position = 0.0f;
+    atomic->interpolator.flags = rpINTERPOLATORDIRTYINSTANCE | rpINTERPOLATORDIRTYSPHERE;
+    atomic->inClumpLink.prev = nullptr;
+    atomic->inClumpLink.next = nullptr;
+    atomic->clump = nullptr;
+    atomic->pipeline = nullptr;
+    atomic->llWorldSectorsInAtomic.link.next = &atomic->llWorldSectorsInAtomic.link;
+    atomic->llWorldSectorsInAtomic.link.prev = &atomic->llWorldSectorsInAtomic.link;
+    _rwPluginRegistryInitObject(&s_atomicTKList, atomic);
+    return atomic;
 }
 
+// 0x749D20 (campo `sync` de los atomos): si el interpolador esta sucio de esfera (bit 2 de flags) la recalcula; privateFlags |= 1; devuelve el atomo.
+static RpAtomic* AtomicSyncCallBack(RpAtomic* atomic) {
+    if (atomic->interpolator.flags & rpINTERPOLATORDIRTYSPHERE) {
+        _rpAtomicResyncInterpolatedSphere(atomic);
+    }
+    atomic->object.object.privateFlags |= rpATOMICPRIVATEWORLDBOUNDDIRTY;
+    return atomic;
+}
+
+// 0x749D40
+// Si la geometria cambia: AddRef de la nueva (si no es nula, 0x74CCB0), destruye la anterior (RpGeometryDestroy) y la asigna; si flags no tiene el bit 1 (rpATOMICSAMEBOUNDINGSPHERE)
+// copia la esfera del morph target 0 de la nueva (si existe) y, con marco en un mundo, RwFrameUpdateObjects. Devuelve el atomo.
 RpAtomic* RpAtomicSetGeometry(RpAtomic* atomic, RpGeometry* geometry, RwUInt32 flags) {
-    return ((RpAtomic*(__cdecl *)(RpAtomic*, RpGeometry*, RwUInt32))0x749D40)(atomic, geometry, flags);
+    if (geometry != atomic->geometry) {
+        if (geometry) {
+            GeometryAddRef(geometry);
+        }
+        if (atomic->geometry) {
+            RpGeometryDestroy(atomic->geometry);
+        }
+        atomic->geometry = geometry;
+        if (!(flags & rpATOMICSAMEBOUNDINGSPHERE)) {
+            if (geometry) {
+                atomic->boundingSphere = geometry->morphTarget[0].boundingSphere;
+            }
+            RwFrame* const frame = static_cast<RwFrame*>(atomic->object.object.parent);
+            if (frame && RpAtomicGetWorld(atomic)) {
+                RwFrameUpdateObjects(frame);
+            }
+        }
+    }
+    return atomic;
 }
 
 RpClump* RpClumpSetCallBack(RpClump* clump, RpClumpCallBack callback) {

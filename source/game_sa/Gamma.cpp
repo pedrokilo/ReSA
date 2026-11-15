@@ -27,6 +27,13 @@ void CGamma::InjectHooks() {
 
     RH_ScopedInstall(Init, 0x747180);
     RH_ScopedInstall(SetGamma, 0x747200);
+    RH_ScopedInstall(SetGammaNoFade, 0x747DB0); // lote 226A (sin validar)
+}
+
+// 0x747DB0 (cdecl, sin llamadores en el EXE): copia de SetGamma (0x747200) sobre la instancia global `gamma` (0xC92134) y sin parametro `fade`: no hace nada si el nivel
+// (x 0.7) es igual al objetivo (no NaN); es decir, SetGamma(gammaLevel, false). Mismo orden de x87 a 24 bits y mismas llamadas (0x7F9D50, GetGammaRamp, pow del CRT, SetGammaRamp).
+void CGamma::SetGammaNoFade(float gammaLevel) {
+    gamma.SetGamma(gammaLevel, false);
 }
 
 // 0x747180

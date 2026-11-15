@@ -16,6 +16,7 @@ public:
 
     void Init();
     void SetGamma(float gammaLevel, bool fade);
+    static void SetGammaNoFade(float gammaLevel);
 };
 
 VALIDATE_SIZE(CGamma, 0x10);
