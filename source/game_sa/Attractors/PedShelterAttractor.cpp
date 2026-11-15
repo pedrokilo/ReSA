@@ -137,6 +137,29 @@ __declspec(noinline) int32 __fastcall SArraySizeStride12(const void* self, void*
     }
     return static_cast<int32>(words[2] - words[1]) / 12;
 }
+
+// Lote 220A (sin validar): 0x5EE7C0 (85 bytes, thiscall con tres argumentos de pila (efecto, entidad, estado de movimiento), `ret 0Ch`, devuelve `this`): constructor de CPedShelterAttractor. Llama al constructor de CPedAttractor (0x5EDFB0, con hook)
+// con (efecto, entidad, estado, 5 peatones, espaciado 1, 30000, 3000, 0.5, 6.28, 0.1, 0.1) (constantes de 0x86C470..0x86C488) y despues escribe su vtable (0x86C5B4). Aqui se construye con el constructor de la clase (misma lista de argumentos, comprobada contra los siete valores
+// del EXE), que deja la vtable de la DLL.
+CPedShelterAttractor* __fastcall PedShelterAttractorConstructor(CPedShelterAttractor* self, void* /*edx*/, C2dEffectPedAttractor* fx, CEntity* entity, eMoveState moveState) {
+    return std::construct_at(self, fx, entity, moveState);
+}
+
+// 0x5EE880 (11 bytes, thiscall sin argumentos): cuerpo del destructor de CPedShelterAttractor: escribe su vtable (0x86C5B4) y salta al cuerpo del destructor de CPedAttractor (0x5EC410, con hook). Devuelve `this` en EAX.
+CPedShelterAttractor* __fastcall PedShelterAttractorDestructorBody(CPedShelterAttractor* self, void* /*edx*/) {
+    self->CPedShelterAttractor::~CPedShelterAttractor();
+    return self;
+}
+
+// 0x5EE830 (76 bytes, thiscall con el BYTE de banderas en la pila, `ret 4`): destructor con borrado de CPedShelterAttractor (ranura 1 de su vtable 0x86C5B4). Llama al cuerpo del destructor (0x5EE880) y, solo si el bit 0 del BYTE de banderas esta puesto,
+// libera `this` en el pool de atractores (0xB744C4) EN LINEA como CPedAttractor::operator delete (0x5EAFE0, con hook). Devuelve `this`.
+CPedShelterAttractor* __fastcall PedShelterAttractorScalarDeletingDestructor(CPedShelterAttractor* self, void* /*edx*/, uint8 flags) {
+    self->CPedShelterAttractor::~CPedShelterAttractor();
+    if (flags & 1) {
+        CPedAttractor::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CPedShelterAttractor::InjectHooks() {
@@ -151,4 +174,8 @@ void CPedShelterAttractor::InjectHooks() {
     RH_ScopedVMTInstall(ComputeAttractPos, 0x5EFC40);
     RH_ScopedVMTInstall(ComputeAttractHeading, 0x5E9690);
     RH_ScopedVMTInstall(BroadcastDeparture, 0x5EF570);
+    RH_ScopedVMTInstall(GetType, 0x5EE820); // lote 220A (sin validar): ranura 0 (`mov eax, 4; ret`)
+    RH_ScopedNamedGlobalInstall(PedShelterAttractorConstructor, "Constructor", 0x5EE7C0); // lote 220A (sin validar)
+    RH_ScopedNamedGlobalInstall(PedShelterAttractorScalarDeletingDestructor, "ScalarDeletingDestructor", 0x5EE830); // lote 220A (sin validar)
+    RH_ScopedNamedGlobalInstall(PedShelterAttractorDestructorBody, "DestructorBody", 0x5EE880); // lote 220A (sin validar)
 }

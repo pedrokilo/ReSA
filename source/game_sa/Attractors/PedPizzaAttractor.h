@@ -29,4 +29,8 @@ public:
 
     // 0x5EE750
     float GetHeadOfQueueWaitTime() const { return 2000.0f; }
+
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
 };

@@ -178,6 +178,12 @@ bool __stdcall DeRegisterPedList(CPed* ped, CPedAttractor* attractor, AttractorL
     }
     return true;
 }
+
+// Lote 220A (sin validar): 0x5EDF10 (148 bytes, thiscall sin argumentos, devuelve `this`): constructor de CPedAttractorManager. Pone a cero los tres punteros (+4, +8, +0xC) de cada una de las diez listas (30 dwords, de +0x4 a +0x9C en pasos de 0x10);
+// el primer dword de cada lista (el allocator de la STL de MSVC 6) NO se escribe, como en SArray. El marco SEH del EXE (solo desenrolla las listas ya construidas) se omite.
+CPedAttractorManager* __fastcall PedAttractorManagerConstructor(CPedAttractorManager* self, void* /*edx*/) {
+    return new (self) CPedAttractorManager;
+}
 } // namespace
 
 void CPedAttractorManager::InjectHooks() {
@@ -220,6 +226,7 @@ void CPedAttractorManager::InjectHooks() {
     RH_ScopedNamedGlobalInstall(FindAssociatedAttractorList, "FindAssociatedAttractorList", 0x5EB6F0); // lote 206A (sin validar)
     RH_ScopedNamedGlobalInstall(GetPedUsingEffectList, "GetPedUsingEffectList", 0x5EB740); // lote 206A (sin validar)
     RH_ScopedNamedGlobalInstall(GetRelevantAttractorList, "GetRelevantAttractorList", 0x5EB7B0); // lote 206A (sin validar)
+    RH_ScopedNamedGlobalInstall(PedAttractorManagerConstructor, "Constructor", 0x5EDF10); // lote 220A (sin validar)
 }
 
 // 0x5EE190

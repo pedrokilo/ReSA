@@ -335,6 +335,193 @@ CPedAttractor* __fastcall PedAttractorScalarDeletingDestructor(CPedAttractor* se
     }
     return self;
 }
+
+// Lote 220A (sin validar): instancias de plantilla del vector de MSVC 6 (`insert`, `_Insert_n` y `push_back`) sobre los mismos tres tipos de elemento que los ayudantes de 189A y 205A (4, 12 y 20 bytes). Como aquellos,
+// no son metodos de CPedAttractorManager (el listado las atribuia a esa clase) sino plantillas de la STL que el EXE no expande en linea; todas son thiscall con `this` = el vector (SArray: +4 inicio, +8 fin, +0xC limite) y los
+// argumentos de pila los limpia la propia funcion, asi que se declaran __fastcall con el vector como primer argumento (EDX sin usar). Los contadores usan la division con signo por el tamano del elemento (`sar` por 4 y
+// multiplicacion magica por 12 o 20: truncan hacia cero) y las comparaciones de rango son SIN signo (`jae`), como el EXE.
+struct SArrayHelpers4 {
+    using T = uint32;
+    static constexpr uint32 kMaxSize = 0x3FFFFFFF;
+    static int32 Count(int32 bytes) { return bytes >> 2; }
+    static void  Fill(T* first, T* last, const T* value) { SArrayFillStride4(first, last, value); }
+    static void  FillN(T* dest, uint32 count, const T* value) { SArrayFillNStride4(dest, count, value); }
+    static T*    UninitCopy(const T* first, const T* last, T* dest) { return SArrayUninitCopyStride4(first, last, dest); }
+    static void  CopyBackward(T* first, T* last, T* destEnd) { T* out; SArrayCopyBackwardStride4(&out, first, last, destEnd); }
+    static void  LengthError(SArray<T>* self) { plugin::CallMethod<0x5ECCB0, SArray<T>*>(self); } // _Xlen de esta instancia (lanza length_error)
+};
+struct SArrayHelpers12 {
+    using T = SArrayElem12;
+    static constexpr uint32 kMaxSize = 0x15555555;
+    static int32 Count(int32 bytes) { return bytes / 12; }
+    static void  Fill(T* first, T* last, const T* value) { SArrayFillStride12(first, last, value); }
+    static void  FillN(T* dest, uint32 count, const T* value) { SArrayFillNStride12(dest, count, value); }
+    static T*    UninitCopy(const T* first, const T* last, T* dest) { return SArrayUninitCopyStride12(first, last, dest); }
+    static void  CopyBackward(T* first, T* last, T* destEnd) { T* out; SArrayCopyBackwardStride12(&out, first, last, destEnd); }
+    static void  LengthError(SArray<T>* self) { plugin::CallMethod<0x5ECC30, SArray<T>*>(self); } // _Xlen de esta instancia (lanza length_error)
+};
+
+template<typename H>
+int32 SArrayDiffCount(const typename H::T* from, const typename H::T* to) {
+    return H::Count(static_cast<int32>(reinterpret_cast<intptr_t>(to) - reinterpret_cast<intptr_t>(from)));
+}
+
+// vector::_Insert_n(pos, n, &x): copia el valor a un local, con n == 0 sale; si tamano + n desborda max_size llama a _Xlen; si no cabe reserva (capacidad + capacidad / 2, o tamano + n si no basta; operator new del EXE, sin
+// comprobar nulo), copia [inicio, pos) al bloque nuevo, rellena n copias, copia [pos, fin) detras, libera el bloque viejo (operator delete solo si hay inicio) y reescribe limite, fin e inicio en ese orden. Si cabe: con menos de n
+// elementos tras pos copia [pos, fin) a pos + n, rellena la cola con n - (fin - pos) copias y rellena [pos, fin viejo); si no, copia los ultimos n elementos al final, copy_backward del resto y rellena [pos, pos + n).
+template<typename H>
+void SArrayInsertN(SArray<typename H::T>* self, typename H::T* pos, uint32 n, const typename H::T* x) {
+    using T = typename H::T;
+    const T tmp = *x;
+    T* const first = self->_First;
+    const uint32 cap = first ? static_cast<uint32>(SArrayDiffCount<H>(first, self->_End)) : 0;
+    if (n == 0) {
+        return;
+    }
+    const uint32 size = first ? static_cast<uint32>(SArrayDiffCount<H>(first, self->_Last)) : 0;
+    if (H::kMaxSize - size < n) {
+        H::LengthError(self);
+        return;
+    }
+    if (cap < size + n) {
+        uint32 newCap = (H::kMaxSize - (cap >> 1) >= cap) ? cap + (cap >> 1) : 0;
+        if (newCap < size + n) {
+            newCap = size + n;
+        }
+        T* const newBuf = static_cast<T*>(::operator new(newCap * sizeof(T)));
+        T* const mid = H::UninitCopy(self->_First, pos, newBuf);
+        H::FillN(mid, n, &tmp);
+        H::UninitCopy(pos, self->_Last, mid + n);
+        T* const oldFirst = self->_First;
+        const uint32 oldSize = oldFirst ? static_cast<uint32>(SArrayDiffCount<H>(oldFirst, self->_Last)) : 0;
+        if (oldFirst) {
+            ::operator delete(oldFirst);
+        }
+        self->_End   = newBuf + newCap;
+        self->_Last  = newBuf + (n + oldSize);
+        self->_First = newBuf;
+        return;
+    }
+    T* const last = self->_Last;
+    if (static_cast<uint32>(SArrayDiffCount<H>(pos, last)) < n) {
+        H::UninitCopy(pos, last, pos + n);
+        const uint32 tail = static_cast<uint32>(SArrayDiffCount<H>(pos, self->_Last));
+        H::FillN(self->_Last, n - tail, &tmp);
+        T* const oldLast = self->_Last;
+        self->_Last = oldLast + n;
+        H::Fill(pos, oldLast, &tmp);
+    } else {
+        self->_Last = H::UninitCopy(last - n, last, last);
+        H::CopyBackward(pos, last - n, last);
+        H::Fill(pos, pos + n, &tmp);
+    }
+}
+
+// vector::insert(pos, &x) de un elemento (`ret 0Ch`, argumentos (salida, pos, &x), devuelve la salida en EAX): indice = (pos - inicio) con signo si hay inicio y el vector no esta vacio (0 si no), _Insert_n(pos, 1, &x) y
+// *salida = inicio (releido) + indice.
+template<typename H>
+typename H::T** SArrayInsertOne(SArray<typename H::T>* self, typename H::T** out, typename H::T* pos, const typename H::T* x) {
+    using T = typename H::T;
+    T* const first = self->_First;
+    int32 index = 0;
+    if (first && SArrayDiffCount<H>(first, self->_Last) != 0) {
+        index = SArrayDiffCount<H>(first, pos);
+    }
+    SArrayInsertN<H>(self, pos, 1, x);
+    *out = self->_First + index;
+    return out;
+}
+
+// 0x5ED750 (739 bytes, `ret 0Ch`; el listado la atribuia a CPedAttractorManager): vector::_Insert_n de elementos de 12 bytes (CVector del vector de desplazamientos de CPedShelterAttractor), argumentos (pos, n, &x). Maximo 0x15555555.
+// Llama a 0x5EAEA0 (copia sin inicializar), 0x5EB340 (relleno de n), 0x5EB1E0 (relleno), 0x5EB220 (copy_backward) y 0x5EB9D0 / 0x5EC140 (envolturas) con las funciones C++ de arriba, y a _Xlen (0x5ECC30) por direccion.
+void __fastcall SArrayInsertNStride12(SArray<SArrayElem12>* self, void* /*edx*/, SArrayElem12* pos, uint32 n, const SArrayElem12* x) {
+    SArrayInsertN<SArrayHelpers12>(self, pos, n, x);
+}
+
+// 0x5EDA50 (645 bytes, `ret 0Ch`; listado: CPedAttractorManager): vector::_Insert_n de punteros de 4 bytes, la tercera instancia (la que usan 0x5EDEC0 y 0x5EE400), argumentos (pos, n, &x). Maximo 0x3FFFFFFF; _Xlen es 0x5ECCB0. Las dos
+// primeras instancias (0x5ECF10 y 0x5ED4B0) y la de 20 bytes (0x5ED1B0) tienen el mismo cuerpo y no son de este lote.
+void __fastcall SArrayInsertNStride4C(SArray<uint32>* self, void* /*edx*/, uint32* pos, uint32 n, const uint32* x) {
+    SArrayInsertN<SArrayHelpers4>(self, pos, n, x);
+}
+
+// 0x5EDE50 (109 bytes, `ret 0Ch`; listado: CPedAttractorManager): vector::insert de un elemento de 12 bytes; llama a 0x5ED750 (arriba).
+SArrayElem12** __fastcall SArrayInsertStride12(SArray<SArrayElem12>* self, void* /*edx*/, SArrayElem12** out, SArrayElem12* pos, const SArrayElem12* x) {
+    return SArrayInsertOne<SArrayHelpers12>(self, out, pos, x);
+}
+
+// 0x5EDD90 (111 bytes, `ret 0Ch`; listado: CPedAttractorManager): vector::insert de un elemento de 20 bytes (CPedTaskPair): como la anterior (el indice se calcula con la division por 20 de multiplicacion magica 0x66666667) pero la
+// llamada es a _Insert_n de 20 bytes (0x5ED1B0, thiscall con (pos, 1, &x), sin reconstruir en este lote: se llama al EXE por direccion).
+SArrayElem20** __fastcall SArrayInsertStride20(SArray<SArrayElem20>* self, void* /*edx*/, SArrayElem20** out, SArrayElem20* pos, const SArrayElem20* x) {
+    SArrayElem20* const first = self->_First;
+    int32 index = 0;
+    if (first) {
+        const int32 count = static_cast<int32>(reinterpret_cast<intptr_t>(self->_Last) - reinterpret_cast<intptr_t>(first)) / 20;
+        if (count != 0) {
+            index = static_cast<int32>(reinterpret_cast<intptr_t>(pos) - reinterpret_cast<intptr_t>(first)) / 20;
+        }
+    }
+    plugin::CallMethod<0x5ED1B0, SArray<SArrayElem20>*, SArrayElem20*, uint32, const SArrayElem20*>(self, pos, 1u, x);
+    *out = self->_First + index;
+    return out;
+}
+
+// vector::push_back(&x) (`ret 4`): si hay inicio y tamano < capacidad (SIN signo) construye el elemento en el fin con el relleno de n = 1 (si el destino no es nulo) y avanza el fin; si no llama a vector::insert(fin, x).
+template<typename H, typename InsertAtEnd>
+void SArrayPushBack(SArray<typename H::T>* self, const typename H::T* x, InsertAtEnd&& insertAtEnd) {
+    using T = typename H::T;
+    T* const first = self->_First;
+    const uint32 size = first ? static_cast<uint32>(SArrayDiffCount<H>(first, self->_Last)) : 0;
+    if (first && size < static_cast<uint32>(SArrayDiffCount<H>(first, self->_End))) {
+        T* const last = self->_Last;
+        H::FillN(last, 1, x);
+        self->_Last = last + 1;
+        return;
+    }
+    insertAtEnd(self->_Last);
+}
+
+// 0x5EE200 (102 bytes, listado: CPedAttractorManager): push_back de punteros de 4 bytes, primera instancia; el camino lento es _Insert_n 0x5ECF10 (thiscall con (fin, 1, &x), sin reconstruir en este lote: se llama por direccion).
+void __fastcall SArrayPushBackStride4A(SArray<uint32>* self, void* /*edx*/, const uint32* x) {
+    SArrayPushBack<SArrayHelpers4>(self, x, [&](uint32* end) {
+        plugin::CallMethod<0x5ECF10, SArray<uint32>*, uint32*, uint32, const uint32*>(self, end, 1u, x);
+    });
+}
+
+// 0x5EE300 (102 bytes): push_back de 4 bytes, segunda instancia; camino lento 0x5ED4B0 (por direccion, sin reconstruir en este lote).
+void __fastcall SArrayPushBackStride4B(SArray<uint32>* self, void* /*edx*/, const uint32* x) {
+    SArrayPushBack<SArrayHelpers4>(self, x, [&](uint32* end) {
+        plugin::CallMethod<0x5ED4B0, SArray<uint32>*, uint32*, uint32, const uint32*>(self, end, 1u, x);
+    });
+}
+
+// 0x5EE400 (102 bytes): push_back de 4 bytes, tercera instancia; camino lento _Insert_n 0x5EDA50 (arriba).
+void __fastcall SArrayPushBackStride4C(SArray<uint32>* self, void* /*edx*/, const uint32* x) {
+    SArrayPushBack<SArrayHelpers4>(self, x, [&](uint32* end) {
+        SArrayInsertN<SArrayHelpers4>(self, end, 1, x);
+    });
+}
+
+// 0x5EE370 (136 bytes): push_back de 12 bytes; camino lento vector::insert de 12 bytes (0x5EDE50, arriba) con (salida, fin, &x): la salida es un hueco de pila que nadie lee.
+void __fastcall SArrayPushBackStride12(SArray<SArrayElem12>* self, void* /*edx*/, const SArrayElem12* x) {
+    SArrayPushBack<SArrayHelpers12>(self, x, [&](SArrayElem12* end) {
+        SArrayElem12* result;
+        SArrayInsertStride12(self, nullptr, &result, end, x);
+    });
+}
+
+// 0x5EE270 (138 bytes): push_back de 20 bytes (el relleno de n = 1 es 0x5EB2E0, SArrayFillNStride20); camino lento vector::insert de 20 bytes (0x5EDD90, arriba).
+void __fastcall SArrayPushBackStride20(SArray<SArrayElem20>* self, void* /*edx*/, const SArrayElem20* x) {
+    SArrayElem20* const first = self->_First;
+    const uint32 size = first ? static_cast<uint32>(static_cast<int32>(reinterpret_cast<intptr_t>(self->_Last) - reinterpret_cast<intptr_t>(first)) / 20) : 0;
+    if (first && size < static_cast<uint32>(static_cast<int32>(reinterpret_cast<intptr_t>(self->_End) - reinterpret_cast<intptr_t>(first)) / 20)) {
+        SArrayElem20* const last = self->_Last;
+        SArrayFillNStride20(last, 1, x);
+        self->_Last = last + 1;
+        return;
+    }
+    SArrayElem20* result;
+    SArrayInsertStride20(self, nullptr, &result, self->_Last, x);
+}
 } // namespace
 
 void CPedAttractor::InjectHooks() {
@@ -362,6 +549,17 @@ void CPedAttractor::InjectHooks() {
     RH_ScopedNamedGlobalInstall(SArrayUninitCopyWrapStride4<2>, "SArrayUninitCopyWrapStride4C", 0x5EBA00);
     RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4", 0x5EC820);
     RH_ScopedNamedGlobalInstall(PedAttractorScalarDeletingDestructor, "ScalarDeletingDestructor", 0x5EC4B0);
+
+    // Lote 220A (sin validar): vector::_Insert_n, insert y push_back de las instancias de 4, 12 y 20 bytes (ver arriba)
+    RH_ScopedNamedGlobalInstall(SArrayInsertNStride12, "SArrayInsertNStride12", 0x5ED750);
+    RH_ScopedNamedGlobalInstall(SArrayInsertNStride4C, "SArrayInsertNStride4C", 0x5EDA50);
+    RH_ScopedNamedGlobalInstall(SArrayInsertStride20, "SArrayInsertStride20", 0x5EDD90);
+    RH_ScopedNamedGlobalInstall(SArrayInsertStride12, "SArrayInsertStride12", 0x5EDE50);
+    RH_ScopedNamedGlobalInstall(SArrayPushBackStride4A, "SArrayPushBackStride4A", 0x5EE200);
+    RH_ScopedNamedGlobalInstall(SArrayPushBackStride20, "SArrayPushBackStride20", 0x5EE270);
+    RH_ScopedNamedGlobalInstall(SArrayPushBackStride4B, "SArrayPushBackStride4B", 0x5EE300);
+    RH_ScopedNamedGlobalInstall(SArrayPushBackStride12, "SArrayPushBackStride12", 0x5EE370);
+    RH_ScopedNamedGlobalInstall(SArrayPushBackStride4C, "SArrayPushBackStride4C", 0x5EE400);
 
     // Lote 205A (sin validar): mas ayudantes de plantilla de los vectores (ver arriba)
     RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride4<0>, "SArrayCopyBackwardStride4A", 0x5EB140);

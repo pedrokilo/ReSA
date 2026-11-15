@@ -226,6 +226,11 @@
 #include "Hud.h"
 #include "Attractors/PedAttractor.h"
 #include "Attractors/PedShelterAttractor.h"
+#include "Attractors/PedAtmAttractor.h"
+#include "Attractors/PedSeatAttractor.h"
+#include "Attractors/PedStopAttractor.h"
+#include "Attractors/PedPizzaAttractor.h"
+#include "Attractors/PedTriggerScriptAttractor.h"
 #include "IdleCam.h"
 #include "Tasks/TaskTypes/TaskComplexChat.h"
 #include "Credits.h"
@@ -726,6 +731,11 @@ void InjectHooksMain() {
     CPedAttractorManager::InjectHooks();
     CPedAttractor::InjectHooks();
     CPedShelterAttractor::InjectHooks();
+    CPedATMAttractor::InjectHooks();
+    CPedSeatAttractor::InjectHooks();
+    CPedStopAttractor::InjectHooks();
+    CPedPizzaAttractor::InjectHooks();
+    CPedTriggerScriptAttractor::InjectHooks();
     CPedAttractorPedPlacer::InjectHooks();
     BoneNode_c::InjectHooks();
     BoneNodeManager_c::InjectHooks();
