@@ -38,10 +38,22 @@ void CTaskSimpleGoTo::InjectHooks() {
     RH_ScopedNamedGlobalInstall(CTaskSimpleGoToBody::GoToDestructorBody, "DestructorBody", 0x667A00); // lote 122A (banco Fn122A): segundo cuerpo identico del EXE (`mov [ecx], 0x86FD1C ; jmp 0x61A3A0`, 11 bytes), llamado por el destructor con borrado
 
     RH_ScopedInstall(Constructor, 0x6679C0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x66D6D0); // lote 195A (sin validar; el listado lo atribuia a CTaskComplexInvestigateDisturbance)
 
     RH_ScopedInstall(HasCircledTarget, 0x667A10);
     RH_ScopedInstall(SetUpIK, 0x667AD0);
     RH_ScopedInstall(QuitIK, 0x667CA0);
+}
+
+// 0x66D6D0 (lote 195A, sin validar): destructor con borrado de CTaskSimpleGoTo del EXE (ranura 0 de su vtable 0x86FD1C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x667A00; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo 0x667A00
+// (vtable de CTaskSimpleGoTo y CTask::Destructor), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleGoTo* CTaskSimpleGoTo::ScalarDeletingDestructor(uint8 flags) {
+    CTaskSimpleGoToBody::GoToDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 CTaskSimpleGoTo::CTaskSimpleGoTo(eMoveState moveState, const CVector& targetPoint, float fRadius) {

@@ -29,6 +29,7 @@ void CPatrolRoute::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x6677A0);      // lote 170A (banco Fn170A)
     RH_ScopedInstall(Constructor, 0x66D440);     // lote 175A (banco Fn175A)
     RH_ScopedInstall(Assign, 0x66D4B0);          // lote 175A (banco Fn175A)
+    RH_ScopedInstall(Reverse, 0x66D550);         // lote 195A (sin validar; el listado lo atribuia a CTaskComplexInvestigateDisturbance)
 }
 
 // 0x6677A0 (lote 170A, banco Fn170A; el listado lo atribuia a CTaskSimpleRunNamedAnim): cuerpo del destructor de CPatrolRoute del EXE (thiscall, sin argumentos de pila, `ret`, 19 bytes: `push 0x46A380; push 8; push 0x28;
@@ -80,6 +81,37 @@ void CPatrolRoute::Assign(const CPatrolRoute* src) {
         }
         i++;
     } while (i < *reinterpret_cast<const int32*>(to));
+}
+
+// Copia de cadena del EXE: byte a byte hasta copiar el terminador (como `mov cl,[eax]; mov [edx+eax],cl; inc eax; test cl,cl; jne`), sin limitar por el tamano del campo.
+static void CopyZ(char* dst, const char* src) {
+    char c;
+    do {
+        c = *src++;
+        *dst++ = c;
+    } while (c != 0);
+}
+
+// 0x66D550 (lote 195A, sin validar; el listado lo atribuia a CTaskComplexInvestigateDisturbance; thiscall, sin argumentos de pila, `ret`, 348 bytes; lo llama 0x670A70 de CTaskComplexFollowPatrolRoute en 0x670AD4):
+// invierte la ruta en sitio. i = 0, j = contador - 1 (con signo; si j <= 0 no hace nada) y, mientras i < j: intercambia los puntos i y j (tres dwords, x, y, z) y los dos textos de los nodos i y j con un
+// nodo temporal de pila (cadenas copiadas con el terminador, en este orden: temp.nombre = i.nombre, temp.nombre2 = i.nombre2, i.nombre = j.nombre, i.nombre2 = j.nombre2, j.nombre = temp.nombre,
+// j.nombre2 = temp.nombre2); despues i++ y j--. El contador se lee una sola vez y no se limita a 8.
+void CPatrolRoute::Reverse() {
+    Node* const    nodes  = reinterpret_cast<Node*>(m_data + 4);
+    CVector* const points = reinterpret_cast<CVector*>(m_data + 0x144);
+    for (int32 i = 0, j = *reinterpret_cast<const int32*>(m_data) - 1; i < j; ++i, --j) {
+        const CVector pointI = points[i];
+        points[i] = points[j];
+        points[j] = pointI;
+
+        Node temp;
+        CopyZ(temp.m_szName, nodes[i].m_szName);
+        CopyZ(temp.m_szName2, nodes[i].m_szName2);
+        CopyZ(nodes[i].m_szName, nodes[j].m_szName);
+        CopyZ(nodes[i].m_szName2, nodes[j].m_szName2);
+        CopyZ(nodes[j].m_szName, temp.m_szName);
+        CopyZ(nodes[j].m_szName2, temp.m_szName2);
+    }
 }
 
 // 0x41B810 (lote 146A, banco Fn146A): `mov ecx,[0xB744B4]; jmp 0x41B660` (cdecl con un argumento de pila que no se lee; `ret`). Toma una ranura del pool de rutas de patrulla con CPatrolRoutePool::New

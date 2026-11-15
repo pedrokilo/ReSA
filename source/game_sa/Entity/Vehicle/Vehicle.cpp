@@ -184,6 +184,40 @@ static void __fastcall VehicleSetEngineOnExe(CVehicle* self, void* /*edx*/, uint
     }
 }
 
+// Lote 195A (sin validar): cuerpos por defecto de ranuras virtuales de CVehicle que el EXE comparte entre las vtables de CVehicle, CBoat y CTrain (binary_slots.csv; CAutomobile, CBike y las demas las sobrescriben).
+// Se enganchan como S (el codigo del EXE se sustituye en su direccion, asi cubren todas las vtables que apuntan a ella); en un enganche por VMT solo se cambiaria la ranura de CVehicle. Todas son thiscall:
+// ECX = this y los argumentos en la pila, que la propia funcion libera (`ret N`); se escriben como __fastcall con un EDX sin usar, como VehicleSetEngineOnExe. Ninguna toca this ni sus argumentos.
+// Direccion (ranura de la vtable 0x871E80): bytes y cuerpo del EXE
+//  0x6D6270 (23) 3 B `ret 4`; 0x6D6280 (24) 3 B `ret 4`; 0x6D6290 (25) 3 B `ret 8`; 0x6D6330 (40) 3 B `ret 4`; 0x6D6340 (41) 3 B `ret 8`;
+//  0x6D62A0 (26), 0x6D62B0 (32), 0x6D62C0 (34), 0x6D62D0 (36), 0x6D62E0 (38), 0x6D62F0 (31), 0x6D6300 (33), 0x6D6310 (35), 0x6D6320 (37), 0x6D6350 (43): 5 B `xor al,al; ret 4`; 0x6D6360 (44) y 0x6D6370 (45): 5 B `xor al,al; ret 8`;
+//  0x6D6380 (48), 0x6D6390 (50), 0x6D63A0 (51), 0x6D63B0 (52), 0x6D63C0 (54): 1 B `ret`;
+//  0x6D56B0 (30) 9 B `fld dword [0x858B50] (0.0f); ret 4`; 0x6D3D50 (63) 9 B `fld dword [0x858C84] (0.25f); ret 4`.
+// Solo EAX/ST(0) cambian (el resultado booleano sale con `xor al,al`, el flotante en ST(0)); los demas registros no se tocan.
+static void __fastcall VehStubProcessControlCollisionCheck(CVehicle* /*self*/, void* /*edx*/, bool /*applySpeed*/) {}                                       // 0x6D6270
+static void __fastcall VehStubProcessControlInputs(CVehicle* /*self*/, void* /*edx*/, uint8 /*playerNum*/) {}                                               // 0x6D6280
+static void __fastcall VehStubGetComponentWorldPosition(CVehicle* /*self*/, void* /*edx*/, int32 /*componentId*/, CVector& /*outPos*/) {}                   // 0x6D6290
+static bool __fastcall VehStubIsComponentPresent(CVehicle* /*self*/, void* /*edx*/, int32 /*componentId*/) { return false; }                                // 0x6D62A0
+static bool __fastcall VehStubIsDoorReady(CVehicle* /*self*/, void* /*edx*/, eDoors /*door*/) { return false; }                                             // 0x6D62B0
+static bool __fastcall VehStubIsDoorFullyOpen(CVehicle* /*self*/, void* /*edx*/, eDoors /*door*/) { return false; }                                         // 0x6D62C0
+static bool __fastcall VehStubIsDoorClosed(CVehicle* /*self*/, void* /*edx*/, eDoors /*door*/) { return false; }                                            // 0x6D62D0
+static bool __fastcall VehStubIsDoorMissing(CVehicle* /*self*/, void* /*edx*/, eDoors /*door*/) { return false; }                                           // 0x6D62E0
+static bool __fastcall VehStubIsDoorReadyU32(CVehicle* /*self*/, void* /*edx*/, uint32 /*door*/) { return false; }                                          // 0x6D62F0
+static bool __fastcall VehStubIsDoorFullyOpenU32(CVehicle* /*self*/, void* /*edx*/, uint32 /*door*/) { return false; }                                      // 0x6D6300
+static bool __fastcall VehStubIsDoorClosedU32(CVehicle* /*self*/, void* /*edx*/, uint32 /*door*/) { return false; }                                         // 0x6D6310
+static bool __fastcall VehStubIsDoorMissingU32(CVehicle* /*self*/, void* /*edx*/, uint32 /*door*/) { return false; }                                        // 0x6D6320
+static void __fastcall VehStubRemoveRefsToVehicle(CVehicle* /*self*/, void* /*edx*/, CEntity* /*entity*/) {}                                                // 0x6D6330
+static void __fastcall VehStubBlowUpCar(CVehicle* /*self*/, void* /*edx*/, CEntity* /*damager*/, bool /*bHideExplosion*/) {}                                // 0x6D6340
+static bool __fastcall VehStubSetUpWheelColModel(CVehicle* /*self*/, void* /*edx*/, CColModel* /*wheelCol*/) { return false; }                              // 0x6D6350
+static bool __fastcall VehStubBurstTyre(CVehicle* /*self*/, void* /*edx*/, uint8 /*tyreComponentId*/, bool /*bPhysicalEffect*/) { return false; }           // 0x6D6360
+static bool __fastcall VehStubIsRoomForPedToLeaveCar(CVehicle* /*self*/, void* /*edx*/, uint32 /*doorId*/, CVector* /*arg1*/) { return false; }             // 0x6D6370
+static void __fastcall VehStubSetupSuspensionLines(CVehicle* /*self*/, void* /*edx*/) {}                                                                    // 0x6D6380
+static void __fastcall VehStubFix(CVehicle* /*self*/, void* /*edx*/) {}                                                                                     // 0x6D6390
+static void __fastcall VehStubSetupDamageAfterLoad(CVehicle* /*self*/, void* /*edx*/) {}                                                                    // 0x6D63A0
+static void __fastcall VehStubDoBurstAndSoftGroundRatios(CVehicle* /*self*/, void* /*edx*/) {}                                                              // 0x6D63B0
+static void __fastcall VehStubPlayCarHorn(CVehicle* /*self*/, void* /*edx*/) {}                                                                             // 0x6D63C0
+static float __fastcall VehStubGetDooorAngleOpenRatio(CVehicle* /*self*/, void* /*edx*/, eDoors /*door*/) { return 0.0F; }                                  // 0x6D56B0 (+0x858B50 = 0.0f)
+static float __fastcall VehStubFindWheelWidth(CVehicle* /*self*/, void* /*edx*/, bool /*bRear*/) { return 0.25F; }                                          // 0x6D3D50 (+0x858C84 = 0.25f)
+
 void CVehicle::InjectHooks() {
     RH_ScopedVirtualClass(CVehicle, 0x871e80, 66);
     RH_ScopedCategory("Vehicle");
@@ -214,12 +248,39 @@ void CVehicle::InjectHooks() {
 
     RH_ScopedVMTInstall(ProcessDrivingAnims, 0x6DF4A0);
 
+    // Lote 195A (sin validar): ranuras virtuales por defecto de CVehicle compartidas con CBoat y CTrain (S sobre el codigo del EXE, ver los cuerpos VehStub arriba)
+    RH_ScopedNamedGlobalInstall(VehStubProcessControlCollisionCheck, "ProcessControlCollisionCheck", 0x6D6270);
+    RH_ScopedNamedGlobalInstall(VehStubProcessControlInputs, "ProcessControlInputs", 0x6D6280);
+    RH_ScopedNamedGlobalInstall(VehStubGetComponentWorldPosition, "GetComponentWorldPosition", 0x6D6290);
+    RH_ScopedNamedGlobalInstall(VehStubIsComponentPresent, "IsComponentPresent", 0x6D62A0);
+    RH_ScopedNamedGlobalInstall(VehStubIsDoorReady, "IsDoorReady", 0x6D62B0);
+    RH_ScopedNamedGlobalInstall(VehStubIsDoorFullyOpen, "IsDoorFullyOpen", 0x6D62C0);
+    RH_ScopedNamedGlobalInstall(VehStubIsDoorClosed, "IsDoorClosed", 0x6D62D0);
+    RH_ScopedNamedGlobalInstall(VehStubIsDoorMissing, "IsDoorMissing", 0x6D62E0);
+    RH_ScopedNamedGlobalInstall(VehStubIsDoorReadyU32, "IsDoorReadyU32", 0x6D62F0);
+    RH_ScopedNamedGlobalInstall(VehStubIsDoorFullyOpenU32, "IsDoorFullyOpenU32", 0x6D6300);
+    RH_ScopedNamedGlobalInstall(VehStubIsDoorClosedU32, "IsDoorClosedU32", 0x6D6310);
+    RH_ScopedNamedGlobalInstall(VehStubIsDoorMissingU32, "IsDoorMissingU32", 0x6D6320);
+    RH_ScopedNamedGlobalInstall(VehStubRemoveRefsToVehicle, "RemoveRefsToVehicle", 0x6D6330);
+    RH_ScopedNamedGlobalInstall(VehStubBlowUpCar, "BlowUpCar", 0x6D6340);
+    RH_ScopedNamedGlobalInstall(VehStubSetUpWheelColModel, "SetUpWheelColModel", 0x6D6350);
+    RH_ScopedNamedGlobalInstall(VehStubBurstTyre, "BurstTyre", 0x6D6360);
+    RH_ScopedNamedGlobalInstall(VehStubIsRoomForPedToLeaveCar, "IsRoomForPedToLeaveCar", 0x6D6370);
+    RH_ScopedNamedGlobalInstall(VehStubSetupSuspensionLines, "SetupSuspensionLines", 0x6D6380);
+    RH_ScopedNamedGlobalInstall(VehStubFix, "Fix", 0x6D6390);
+    RH_ScopedNamedGlobalInstall(VehStubSetupDamageAfterLoad, "SetupDamageAfterLoad", 0x6D63A0);
+    RH_ScopedNamedGlobalInstall(VehStubDoBurstAndSoftGroundRatios, "DoBurstAndSoftGroundRatios", 0x6D63B0);
+    RH_ScopedNamedGlobalInstall(VehStubPlayCarHorn, "PlayCarHorn", 0x6D63C0);
+    RH_ScopedNamedGlobalInstall(VehStubGetDooorAngleOpenRatio, "GetDooorAngleOpenRatio", 0x6D56B0);
+    RH_ScopedNamedGlobalInstall(VehStubFindWheelWidth, "FindWheelWidth", 0x6D3D50);
+
     RH_ScopedOverloadedInstall(IsPassenger, "Ped", 0x6D1BD0, bool(CVehicle::*)(CPed*) const);
     RH_ScopedOverloadedInstall(IsPassenger, "ModelID", 0x6D1C00, bool(CVehicle::*)(int32) const);
     RH_ScopedOverloadedInstall(IsDriver, "Ped", 0x6D1C40, bool(CVehicle::*)(const CPed*) const);
     RH_ScopedOverloadedInstall(IsDriver, "ModelID", 0x6D1C60, bool(CVehicle::*)(int32) const);
     RH_ScopedInstall(Shutdown, 0x6D0B40);
     RH_ScopedInstall(GetRemapIndex, 0x6D0B70);
+    RH_ScopedInstall(SetRemapTexDictionary, 0x6D0BC0); // lote 195A (sin validar)
     RH_ScopedInstall(SetRemap, 0x6D0C00);
     RH_ScopedInstall(SetCollisionLighting, 0x6D0CA0);
     RH_ScopedInstall(UpdateLightingFromStoredPolys, 0x6D0CC0);

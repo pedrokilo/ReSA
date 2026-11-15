@@ -120,6 +120,8 @@ public:
 
     CAutoPilot();
 
+    CAutoPilot* Constructor(); // 0x6D5E20 (lote 195A, sin validar)
+
     void ModifySpeed(float target);
     void RemoveOnePathNode();
 
@@ -145,6 +147,9 @@ public:
     void ClearTempAct() { m_nTempAction = TEMPACT_NONE; }
 
     void SetDrivingStyle(eCarDrivingStyle s) { m_nCarDrivingStyle = s; }
+
+private:
+    void InitialiseAsExe(); // cuerpo de 0x6D5E20: escribe exactamente los campos que escribe el EXE
 };
 
 VALIDATE_SIZE(CAutoPilot, 0x98);

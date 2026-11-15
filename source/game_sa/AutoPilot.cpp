@@ -26,49 +26,82 @@ void CAutoPilot::InjectHooks() {
     RH_ScopedClass(CAutoPilot);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedInstall(Constructor, 0x6D5E20); // lote 195A (sin validar)
     RH_ScopedInstall(RemoveOnePathNode, 0x41B950);
     RH_ScopedInstall(ModifySpeed, 0x41B980);
 }
 
-// 0x6D5E20
-CAutoPilot::CAutoPilot() : m_aPathFindNodesInfo() {
+// 0x6D5E20 (lote 195A, sin validar): constructor de CAutoPilot del EXE (thiscall, sin argumentos de pila, `ret`, 227 bytes; lo llama el constructor de CVehicle 0x6D5F10). Escribe SOLO estos campos, en el
+// ancho que indica el EXE (los demas conservan lo que hubiera en la memoria):
+//  - el area (WORD +0, +4 y +8) de los tres CNodeAddress y los tres WORD de CCarPathLinkAddress (+0x14, +0x16, +0x18) a 0xFFFF y el area de los ocho nodos de la ruta (WORD +0x68 + 4*i); el identificador de nodo NO se escribe;
+//  - +0x25 y +0x26 a 1; +0x4B (carCtrlFlags) = valor & 0xFC & 7, es decir solo conserva el bit 2; +0x4C (movementFlags) &= 0xFC;
+//  - +0xC y +0x30 y +0x3C y +0x8C y +0x90 a 0 (dwords), +0x10 = 1000, +0x38 = 10.0f, +0x44 = 1.0f; +0x1C y +0x20 = CTimer::m_snTimeInMilliseconds (una sola lectura);
+//  - bytes: +0x27, +0x28, +0x29, +0x2A, +0x2B, +0x34, +0x35, +0x41, +0x49, +0x4A, +0x95 a 0; +0x40 = 10; +0x4D = 20; +0x4E y +0x4F = 10; +0x94 = 0xFF; WORD +0x88 = 0;
+//  - +0x50 = (rand() & 7) + 2 con el rand() del CRT DEL EXE (0x821B1E; avanza la semilla del juego, el de la DLL no), llamado despues de +0x4C y antes de +0x90.
+// No se tocan +0x24, +0x2C, +0x36, +0x42, +0x48, +0x51..+0x5B, el vector de destino (+0x5C), +0x8A ni +0x96.
+static_assert(offsetof(CAutoPilot, m_nCurrentPathNodeInfo) == 0x14 && offsetof(CAutoPilot, m_nPreviousPathNodeInfo) == 0x18 && offsetof(CAutoPilot, m_nTimeToStartMission) == 0x1C);
+static_assert(offsetof(CAutoPilot, _smthCurr) == 0x25 && offsetof(CAutoPilot, m_nCurrentLane) == 0x27 && offsetof(CAutoPilot, m_nTempAction) == 0x2B && offsetof(CAutoPilot, m_LastUpdateTimeMs) == 0x30);
+static_assert(offsetof(CAutoPilot, m_speed) == 0x38 && offsetof(CAutoPilot, m_nCruiseSpeed) == 0x40 && offsetof(CAutoPilot, m_SpeedMult) == 0x44 && offsetof(CAutoPilot, m_nCarCtrlFlags) == 0x4B);
+static_assert(offsetof(CAutoPilot, m_nMovementFlags) == 0x4C && offsetof(CAutoPilot, m_ucHeliTargetDist2) == 0x4F && offsetof(CAutoPilot, field_50) == 0x50 && offsetof(CAutoPilot, m_aPathFindNodesInfo) == 0x68);
+static_assert(offsetof(CAutoPilot, m_nPathFindNodesCount) == 0x88 && offsetof(CAutoPilot, m_TargetEntity) == 0x8C && offsetof(CAutoPilot, m_ObstructingEntity) == 0x90 && offsetof(CAutoPilot, m_vehicleRecordingId) == 0x94);
+
+void CAutoPilot::InitialiseAsExe() {
+    m_currentAddress.m_wAreaId = 0xFFFF;
+    m_startingRouteNode.m_wAreaId = 0xFFFF;
+    m_endingRouteNode.m_wAreaId = 0xFFFF;
+    *reinterpret_cast<uint16*>(&m_nCurrentPathNodeInfo)  = 0xFFFF;
+    *reinterpret_cast<uint16*>(&m_nNextPathNodeInfo)     = 0xFFFF;
+    *reinterpret_cast<uint16*>(&m_nPreviousPathNodeInfo) = 0xFFFF;
+    for (auto& node : m_aPathFindNodesInfo) {
+        node.m_wAreaId = 0xFFFF;
+    }
+
     _smthNext = 1;
     _smthCurr = 1;
-
-    m_nCarCtrlFlags = 0;
-
+    m_nCarCtrlFlags = static_cast<uint8>(m_nCarCtrlFlags & 0xFC & 7); // Como el original: and al,0FCh ... and al,7 (solo sobrevive el bit 2)
     field_C = 0;
     m_nSpeedScaleFactor = 1000;
     m_nNextLane = 0;
     m_nCurrentLane = 0;
     m_nCarDrivingStyle = DRIVING_STYLE_STOP_FOR_CARS;
-    m_nCarMission = eCarMission::MISSION_NONE;
+    m_nCarMission = MISSION_NONE;
     m_nTempAction = TEMPACT_NONE;
-    SetCruiseSpeed(10);
+    m_nCruiseSpeed = 10;
     m_speed = 10.0F;
     m_nPathFindNodesCount = 0;
     m_TargetEntity = nullptr;
 
-    m_nTimeToStartMission = CTimer::GetTimeInMS();
-    m_nTimeSwitchedToRealPhysics = CTimer::GetTimeInMS();
-    m_LastUpdateTimeMs = 0;
-
-    m_nStraightLineDistance = 20;
-    m_ucTempActionMode = 0;
-    m_ucCarMissionModeCounter = 0;
+    const uint32 timeMs = CTimer::GetTimeInMS();
+    m_nTimeToStartMission = timeMs;
+    m_nTimeSwitchedToRealPhysics = timeMs;
     field_41 = 0;
     m_SpeedMult = 1.0f;
+    m_vehicleRecordingId = -1;
+    m_ucCarMissionModeCounter = 0;
+    m_nStraightLineDistance = 20;
+    m_LastUpdateTimeMs = 0;
+    m_ucTempActionMode = 0;
     m_ucHeliSpeedMult = 0;
-    movementFlags.bIsStopped = false;
-    movementFlags.bIsParked = false;
     field_4A = 0;
     m_ucCarFollowDist = 10;
     m_ucHeliTargetDist2 = 10;
-    field_50 = CGeneral::GetRandomNumber() % 8 + 2;
-    m_vehicleRecordingId = -1;
     m_bPlaneDogfightSomething = false;
+    m_nMovementFlags = static_cast<uint8>(m_nMovementFlags & 0xFC);
+    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    field_50 = static_cast<char>((exeRand() & 7) + 2);
     m_ObstructingEntity = nullptr;
     m_fMaxTrafficSpeed = 0.0F;
+}
+
+// 0x6D5E20 (hook): ver InitialiseAsExe; devuelve this (`mov eax,esi`).
+CAutoPilot* CAutoPilot::Constructor() {
+    InitialiseAsExe();
+    return this;
+}
+
+// Constructor de C++ (lo usan los miembros de CVehicle): los miembros CNodeAddress/CCarPathLinkAddress ya se construyen con identificador -1 antes del cuerpo (el EXE solo escribe el area); el resto es el cuerpo del EXE.
+CAutoPilot::CAutoPilot() : m_aPathFindNodesInfo() {
+    InitialiseAsExe();
 }
 
 // (float)(a - b) con un unico redondeo (el x87 a 24 bits redondea la resta una sola vez). En double la resta ya redondea y un empate de float se resolveria "a par"

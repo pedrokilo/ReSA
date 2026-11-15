@@ -40,6 +40,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    // 0x66D6D0 (lote 195A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86FD1C), `ret 4`
+    CTaskSimpleGoTo* ScalarDeletingDestructor(uint8 flags);
+
     // 0x6679C0
     auto Constructor(eMoveState moveState, const CVector& targetPoint, float fRadius) {
         this->CTaskSimpleGoTo::CTaskSimpleGoTo(moveState, targetPoint, fRadius);

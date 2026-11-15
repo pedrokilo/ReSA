@@ -25,17 +25,33 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleHoldEntity.h"
 #include "TaskSimpleDuck.h"
 
+namespace CTaskSimpleGoToBody {
+void __fastcall GoToDestructorBody(CTaskSimpleGoTo* self, void* edx); // TaskSimpleGoTo.cpp: 0x667D50 / 0x667A00
+}
+
 void CTaskSimpleGoToPoint::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleGoToPoint, 0x86fd50, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x667CD0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x66D6F0); // lote 195A (sin validar; el listado lo atribuia a CTaskComplexInvestigateDisturbance)
 
     RH_ScopedInstall(UpdatePoint, 0x645700);
     RH_ScopedVMTInstall(Clone, 0x66CC60);
     RH_ScopedVMTInstall(GetTaskType, 0x667D40);
     RH_ScopedVMTInstall(MakeAbortable, 0x667D60);
     RH_ScopedVMTInstall(ProcessPed, 0x66D710);
+}
+
+// 0x66D6F0 (lote 195A, sin validar): destructor con borrado de CTaskSimpleGoToPoint del EXE (ranura 0 de su vtable 0x86FD50; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x667D50; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). El cuerpo 0x667D50 es el mismo de CTaskSimpleGoTo
+// (deja la vtable 0x86FD1C y sigue con CTask::Destructor; la clase no escribe nada propio). Libera `this` con CTask::operator delete (0x61A5B0) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleGoToPoint* CTaskSimpleGoToPoint::ScalarDeletingDestructor(uint8 flags) {
+    CTaskSimpleGoToBody::GoToDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x667CD0

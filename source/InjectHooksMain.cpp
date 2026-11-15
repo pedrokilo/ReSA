@@ -438,6 +438,7 @@
 #include "TaskSimpleCarOpenLockedDoorFromOutside.h"
 #include "TaskSimpleCarSetPedSlowDraggedOut.h"
 #include "TaskComplexPartner.h"
+#include "TaskComplexFollowPatrolRoute.h"
 #include "TaskComplexFollowPointRoute.h"
 #include "TaskComplexDrivePointRoute.h"
 #include "TaskComplexStareAtPed.h"
@@ -1209,7 +1210,7 @@ void InjectHooksMain() {
         CTaskComplexFleeShooting::InjectHooks();
         CTaskComplexFollowLeaderAnyMeans::InjectHooks();
         // CTaskComplexFollowNodeRouteShooting::InjectHooks();
-        CTaskComplexFollowPatrolRoute::InjectHooks(); // lote 175A: solo el constructor 0x674930 (clase aun sin reconstruir)
+        CTaskComplexFollowPatrolRoute::InjectHooks(); // lote 175A: constructor 0x674930 y Clone 0x674BB0 (195A sin validar) (clase aun sin reconstruir)
         CTaskComplexFollowPointRoute::InjectHooks();
         CTaskComplexGangFollower::InjectHooks();
         CTaskComplexGangJoinRespond::InjectHooks();

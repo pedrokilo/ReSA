@@ -50,11 +50,33 @@ __declspec(noinline) CTaskComplexFollowPatrolRoute* __fastcall CTaskComplexFollo
 }
 } // namespace
 
+namespace {
+// 0x674BB0 (lote 195A, sin validar; el listado lo atribuia a CTaskComplexInvestigateDisturbance): Clone de CTaskComplexFollowPatrolRoute del EXE (ranura 1 de su vtable 0x870114; thiscall, sin argumentos de
+// pila, `ret`, 114 bytes con marco SEH que solo libera la memoria si el constructor lanzara: omitido). La clase aun no esta reconstruida (sin campos): se leen en crudo los campos del EXE. Como el original:
+// reserva 0x30 bytes con CTask::operator new (0x61A5A0, con hook); sin memoria devuelve nulo SIN leer nada; si no, llama al constructor del EXE 0x674930 (thiscall, `ret 14h`, aun sin reconstruir; llama a
+// los constructores de CPatrolRoute 0x66D440 y de copia de ruta 0x66D4B0) con, en este orden: (int16)[+0x10] (movsx), [+0x1C] (puntero a la ruta), (int16)[+0xC] (movsx), [+0x14] y [+0x18]; devuelve su EAX
+// (el objeto nuevo). Se engancha como S (la clase aun no tiene una declaracion virtual que nombre la ranura).
+CTask* __fastcall CTaskComplexFollowPatrolRouteCloneExe(const CTaskComplexFollowPatrolRoute* self, void* /*edx*/) {
+    void* const memory = CTask::operator new(0x30);
+    if (!memory) {
+        return nullptr;
+    }
+    const uint8* const source = reinterpret_cast<const uint8*>(self);
+    const int32  field10 = *reinterpret_cast<const int16*>(source + 0x10);
+    void* const  route   = *reinterpret_cast<void* const*>(source + 0x1C);
+    const int32  field0C = *reinterpret_cast<const int16*>(source + 0x0C);
+    const uint32 field14 = *reinterpret_cast<const uint32*>(source + 0x14);
+    const uint32 field18 = *reinterpret_cast<const uint32*>(source + 0x18);
+    return plugin::CallMethodAndReturn<CTask*, 0x674930, CTask*, int32, void*, int32, uint32, uint32>(static_cast<CTask*>(memory), field10, route, field0C, field14, field18);
+}
+} // namespace
+
 void CTaskComplexFollowPatrolRoute::InjectHooks() {
-    RH_ScopedVirtualClass(CTaskComplexFollowPatrolRoute, 0x870114, 11); // vtable verificado en gta_sa.exe (GetTaskType en [4]); N por confirmar
+    RH_ScopedClass(CTaskComplexFollowPatrolRoute);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedNamedGlobalInstall(CTaskComplexFollowPatrolRouteConstructorExe, "ConstructorExe", 0x674930); // lote 175A (banco Fn175A)
+    RH_ScopedNamedGlobalInstall(CTaskComplexFollowPatrolRouteCloneExe, "Clone", 0x674BB0); // lote 195A (sin validar)
     // RH_ScopedVMTInstall(GetTaskType, 0x670A60);
     // TODO: instalar las funciones conforme se reconstruyan.
 }
