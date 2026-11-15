@@ -31,6 +31,7 @@ void CTaskComplexAvoidOtherPedWhileWandering::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x66A100);
     RH_ScopedInstall(Destructor, 0x66A1D0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x66F680); // lote 205A (sin validar)
 
     RH_ScopedInstall(QuitIK, 0x66A230);
     RH_ScopedInstall(ComputeSphere, 0x66A320);
@@ -62,6 +63,17 @@ CTaskComplexAvoidOtherPedWhileWandering::CTaskComplexAvoidOtherPedWhileWandering
     m_MoveState{ moveState },
     m_IsMovingTarget{ isMovingTarget } // Como el original: el EXE limpia los tres bits; el argumento es NOTSA (por defecto false)
 {
+}
+
+// 0x66F680 (lote 205A, sin validar; el listado decia CTaskComplexWanderGang: es CTaskComplexAvoidOtherPedWhileWandering, ranura 0 de su vtable 0x86FEC4; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x66A1D0;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`): destructor con borrado. Como el original: destruye con el cuerpo de la clase (0x66A1D0, con hook), libera `this` con CTask::operator delete (0x61A5B0,
+// con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexAvoidOtherPedWhileWandering* CTaskComplexAvoidOtherPedWhileWandering::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x66D050

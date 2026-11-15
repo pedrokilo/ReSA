@@ -61,6 +61,7 @@ private:
         this->CTaskComplexAvoidOtherPedWhileWandering::~CTaskComplexAvoidOtherPedWhileWandering();
         return this;
     }
+    CTaskComplexAvoidOtherPedWhileWandering* ScalarDeletingDestructor(uint8 flags); // 0x66F680 (lote 205A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86FEC4; el listado decia CTaskComplexWanderGang), `ret 4`
 
 private:
     // Como el original: el constructor (0x66A100) no escribe m_StartPt ni m_NewTargetPt, y los temporizadores

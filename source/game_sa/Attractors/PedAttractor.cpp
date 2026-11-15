@@ -25,6 +25,96 @@ END GENERATED HOOK STATUS */
 #include "Tasks/TaskTypes/TaskComplexUseAttractor.h"
 #include "Tasks/TaskTypes/TaskComplexUsePairedAttractor.h"
 #include "Tasks/TaskTypes/TaskSimpleStandStill.h"
+#include "Pools/PoolRawDelete.h"
+
+namespace {
+struct SArrayElem20 { uint32 w[5]; };
+struct SArrayElem12 { uint32 w[3]; };
+
+// Lote 205A (sin validar): 15 funciones mas del mismo bloque de plantillas de la STL de MSVC 6 (0x5EB140..0x5EB3B2, cdecl, sin llamadores fuera de las instancias de SArray; son plantillas de la STL, no metodos de CPedAttractor).
+// Mismas convenciones que arriba: iteradores como punteros por valor, valor por puntero, retorno de estructura en el primer argumento. Los llamadores empujan argumentos de relleno de la plantilla (etiquetas de categoria) que estas
+// funciones no leen; con cdecl el llamador los limpia, asi que basta declarar los que se leen.
+// std::copy_backward de 4 bytes (0x5EB140, 0x5EB1B0 y 0x5EB260, tres instancias identicas, 40 bytes cada una): si inicio == fin no copia; *out = inicio del destino; devuelve out.
+uint32** __cdecl SArrayCopyBackwardStride4(uint32** out, uint32* first, uint32* last, uint32* destEnd) {
+    if (first != last) {
+        do {
+            const uint32 value = last[-1];
+            --last;
+            --destEnd;
+            *destEnd = value;
+        } while (last != first);
+    }
+    *out = destEnd;
+    return out;
+}
+
+// Envoltorios de copy_backward (0x5EB170 de 20 bytes y 0x5EB220 de 12 bytes, 50 bytes cada uno): reenvian (out, first, last, destEnd) y repiten destEnd como quinto argumento (el EXE empuja cinco) a la funcion de arriba
+// (0x5EAC50 / 0x5EACC0, con hook) y devuelven out (en ESI). El quinto argumento no lo lee la funcion, asi que aqui se omite.
+SArrayElem20** __cdecl SArrayCopyBackwardStride20Wrapper(SArrayElem20** out, SArrayElem20* first, SArrayElem20* last, SArrayElem20* destEnd) {
+    // Colaborador del lote 189A (sin hook en esta base): se llama por su direccion del EXE.
+    reinterpret_cast<SArrayElem20** (__cdecl*)(SArrayElem20**, SArrayElem20*, SArrayElem20*, SArrayElem20*)>(0x5EAC50)(out, first, last, destEnd);
+    return out;
+}
+SArrayElem12** __cdecl SArrayCopyBackwardStride12Wrapper(SArrayElem12** out, SArrayElem12* first, SArrayElem12* last, SArrayElem12* destEnd) {
+    // Colaborador del lote 189A (sin hook en esta base): se llama por su direccion del EXE.
+    reinterpret_cast<SArrayElem12** (__cdecl*)(SArrayElem12**, SArrayElem12*, SArrayElem12*, SArrayElem12*)>(0x5EACC0)(out, first, last, destEnd);
+    return out;
+}
+
+// std::fill de 12 bytes (0x5EB1E0, 50 bytes): lee el valor en cada vuelta (tres dwords en orden); con inicio == fin no lo lee.
+void __cdecl SArrayFillStride12(SArrayElem12* first, SArrayElem12* last, const SArrayElem12* value) {
+    for (; first != last; ++first) {
+        first->w[0] = value->w[0];
+        first->w[1] = value->w[1];
+        first->w[2] = value->w[2];
+    }
+}
+
+// std::uninitialized_fill_n de 4 bytes (0x5EB2A0, 0x5EB310 y 0x5EB390, tres instancias identicas, 35 bytes cada una): con n == 0 (comparacion SIN signo, `jbe`) no hace nada; si no, n vueltas que escriben el valor (releido en cada
+// vuelta) solo si el destino no es nulo (new(puntero) T(valor)), avanzando siempre.
+void __cdecl SArrayFillNStride4(uint32* dest, uint32 count, const uint32* value) {
+    if (count == 0) {
+        return;
+    }
+    do {
+        if (dest) {
+            *dest = *value;
+        }
+        ++dest;
+        --count;
+    } while (count != 0);
+}
+
+// Igual con elementos de 20 bytes (0x5EB2E0, 46 bytes; `rep movsd` de 5 dwords) y de 12 bytes (0x5EB340, 55 bytes; tres dwords en orden).
+void __cdecl SArrayFillNStride20(SArrayElem20* dest, uint32 count, const SArrayElem20* value) {
+    if (count == 0) {
+        return;
+    }
+    do {
+        if (dest) {
+            for (int32 i = 0; i < 5; i++) {
+                dest->w[i] = value->w[i];
+            }
+        }
+        ++dest;
+        --count;
+    } while (count != 0);
+}
+void __cdecl SArrayFillNStride12(SArrayElem12* dest, uint32 count, const SArrayElem12* value) {
+    if (count == 0) {
+        return;
+    }
+    do {
+        if (dest) {
+            dest->w[0] = value->w[0];
+            dest->w[1] = value->w[1];
+            dest->w[2] = value->w[2];
+        }
+        ++dest;
+        --count;
+    } while (count != 0);
+}
+} // namespace
 
 namespace {
 // Lote 189A (sin validar): 12 funciones de plantilla de la STL de MSVC 6 (std::fill, std::uninitialized_copy, std::copy y std::copy_backward) que el EXE no expande en linea en el codigo de los vectores de los atractores
@@ -138,6 +228,20 @@ void CPedAttractor::InjectHooks() {
     RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride12, "SArrayUninitCopyStride12", 0x5EAEA0);
     RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4<2>, "SArrayUninitCopyStride4C", 0x5EAEE0);
 
+    // Lote 205A (sin validar): mas ayudantes de plantilla de los vectores (ver arriba)
+    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride4, "SArrayCopyBackwardStride4A", 0x5EB140);
+    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride20Wrapper, "SArrayCopyBackwardStride20Wrapper", 0x5EB170);
+    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride4, "SArrayCopyBackwardStride4B", 0x5EB1B0);
+    RH_ScopedNamedGlobalInstall(SArrayFillStride12, "SArrayFillStride12", 0x5EB1E0);
+    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride12Wrapper, "SArrayCopyBackwardStride12Wrapper", 0x5EB220);
+    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride4, "SArrayCopyBackwardStride4C", 0x5EB260);
+    RH_ScopedNamedGlobalInstall(SArrayFillNStride4, "SArrayFillNStride4A", 0x5EB2A0);
+    RH_ScopedNamedGlobalInstall(SArrayFillNStride20, "SArrayFillNStride20", 0x5EB2E0);
+    RH_ScopedNamedGlobalInstall(SArrayFillNStride4, "SArrayFillNStride4B", 0x5EB310);
+    RH_ScopedNamedGlobalInstall(SArrayFillNStride12, "SArrayFillNStride12", 0x5EB340);
+    RH_ScopedNamedGlobalInstall(SArrayFillNStride4, "SArrayFillNStride4C", 0x5EB390);
+
+    RH_ScopedInstall(operator delete, 0x5EAFE0); // lote 205A (sin validar)
     RH_ScopedInstall(Constructor, 0x5EDFB0);
     RH_ScopedInstall(Destructor, 0x5EC410);
 
@@ -171,8 +275,10 @@ void* CPedAttractor::operator new(unsigned size) {
 }
 
 // 0x5EAFE0
+// Lote 205A (sin validar; cdecl con un argumento de pila, `ret`, 49 bytes): libera la ranura de `object` en el pool de atractores (puntero global 0xB744C4, leido en cada llamada) EN LINEA, igual que el resto de operator delete
+// del EXE: indice = (object - almacenamiento) / 0xC4 con signo (los slots miden 0xC4, no sizeof(CPedAttractor)), estados[indice] |= 0x80 y, si indice < cursor (con signo), cursor = indice. No comprueba nulo ni rellena el almacenamiento.
 void CPedAttractor::operator delete(void* object) {
-    GetPedAttractorPool()->Delete(static_cast<CPedAttractor*>(object));
+    PoolFreeSlotRaw(GetPedAttractorPool(), object, 0xC4);
 }
 
 // 0x5EDFB0

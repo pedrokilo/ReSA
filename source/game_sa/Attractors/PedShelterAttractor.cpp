@@ -23,6 +23,11 @@ END GENERATED HOOK STATUS */
 
 #include "Tasks/TaskTypes/TaskComplexGoToAttractor.h"
 
+// 0x5E9680 (lote 205A, sin validar; thiscall, un argumento de pila (el peaton), `ret 4`, 5 bytes: `mov al, 1; ret 4`; ranura 2 de la vtable 0x86C5B4 de CPedShelterAttractor): siempre verdadero; no lee el objeto ni el peaton.
+bool CPedShelterAttractor::IsAtHeadOfQueue(CPed* /*ped*/) {
+    return true;
+}
+
 // 0x5EF420
 CVector& CPedShelterAttractor::GetDisplacement(int32 pedId) {
     // Como el original: la tabla se rellena la primera vez con 5 desplazamientos aleatorios separados al menos 1 unidad
@@ -142,6 +147,7 @@ void CPedShelterAttractor::InjectHooks() {
     RH_ScopedNamedGlobalInstall(SArraySizeStride12, "SArraySizeStride12", 0x5E9850); // lote 147A (banco Fn147A)
 
     RH_ScopedInstall(GetDisplacement, 0x5EF420);
+    RH_ScopedVMTInstall(IsAtHeadOfQueue, 0x5E9680); // lote 205A (sin validar): ranura 2
     RH_ScopedVMTInstall(ComputeAttractPos, 0x5EFC40);
     RH_ScopedVMTInstall(ComputeAttractHeading, 0x5E9690);
     RH_ScopedVMTInstall(BroadcastDeparture, 0x5EF570);

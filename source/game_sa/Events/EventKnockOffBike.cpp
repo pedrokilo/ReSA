@@ -52,6 +52,16 @@ CEventKnockOffBike* __fastcall KnockOffBikeCopyConstructorExe(CEventKnockOffBike
     self->From(*other);
     return self;
 }
+// 0x4B63A0 (lote 205A, sin validar; el listado decia CEventDamage; ranura 0 de la vtable 0x85B2E0 de CEventKnockOffBike; thiscall, un argumento de pila, `ret 4`, 76 bytes: `push esi; push edi; mov edi,ecx; call 0x4AFE70; test byte [esp+0Ch],1; je ..;` y, con el bit 0 del BYTE de banderas,
+// el operator delete de CEvent EN LINEA (pool de eventos 0xB744AC, indice = (this - base) / 0x44 con signo, estado |= 0x80, cursor = min(cursor, indice) con signo); devuelve `this`): destructor con borrado de CEventKnockOffBike del EXE.
+// Como el original: destruye con el cuerpo de la clase (0x4AFE70), libera `this` con CEvent::operator delete (0x4B5630, con hook; mismo efecto que la copia en linea) solo si el bit 0 esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CEventKnockOffBike* __fastcall KnockOffBikeScalarDeletingDestructor(CEventKnockOffBike* self, void* /*edx*/, uint8 flags) {
+    KnockOffBikeDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CEventKnockOffBike::InjectHooks()
@@ -62,6 +72,7 @@ void CEventKnockOffBike::InjectHooks()
     RH_ScopedOverloadedInstall(Constructor, "first", 0x4AFCF0, CEventKnockOffBike*(CEventKnockOffBike::*)(CVehicle*, CVector*, CVector*, float, float, int32, uint8, int32, CPed*, bool, bool));
     RH_ScopedOverloadedInstall(Constructor, "second", 0x4AFC70, CEventKnockOffBike*(CEventKnockOffBike::*)());
     RH_ScopedNamedGlobalInstall(KnockOffBikeDestructorBody, "Destructor", 0x4AFE70);
+    RH_ScopedNamedGlobalInstall(KnockOffBikeScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B63A0); // lote 205A (sin validar)
     RH_ScopedNamedGlobalInstall(KnockOffBikeAssignExe, "operator=", 0x4B4AA0); // lote 152A (banco Fn152A)
     RH_ScopedNamedGlobalInstall(KnockOffBikeCopyConstructorExe, "CopyConstructor", 0x4B4A50); // lote 152A (banco Fn152A)
     RH_ScopedVMTInstall(GetEventType, 0x4AFCB0);        // lote 181A (sin validar): ranura 1

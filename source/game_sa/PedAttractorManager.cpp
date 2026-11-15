@@ -34,6 +34,54 @@ END GENERATED HOOK STATUS */
 #include "PedParkAttractor.h"
 #include "PedStepAttractor.h"
 
+namespace {
+// Lote 205A (sin validar): las tres instancias de plantilla del EXE sobre el vector de punteros a atractor (CPedAttractor*) que no se expanden en linea; las llaman las funciones de la clase (0x5EBA30, 0x5EBCB0 y 0x5EBD70, ya reconstruidas, con
+// su propia version de plantilla en la cabecera) una vez por cada una de las diez listas del gestor. Son metodos del gestor que NO leen `this` (ECX llega sin usar); el resto de argumentos va en la pila y los limpia el propio metodo
+// (`ret 8` / `ret 8` / `ret 10h`), asi que se declaran __stdcall con el vector (SArray, +4 = inicio, +8 = fin) como ultimo argumento. El numero de elementos se calcula como (fin - inicio) >> 2 con signo (0 si no hay inicio).
+
+// 0x5EB5F0 (67 bytes, `ret 8`; plantilla RemoveEffect<CPedAttractor>, argumentos (efecto, vector)): para cada atractor cuyo efecto (+4) es el pedido llama a AbortPedTasks (0x5EAF60, ECX = atractor). Devuelve siempre falso. El EXE vuelve a leer el
+// inicio del vector en cada vuelta (indice con signo, `jl`), asi que aqui tambien.
+bool __stdcall AttractorsRemoveEffect(const C2dEffectPedAttractor* fx, const SArray<CPedAttractor*>* attractors) {
+    const int32 count = attractors->_First ? int32(attractors->_Last - attractors->_First) : 0;
+    for (int32 i = 0; i < count; i++) {
+        CPedAttractor* const attractor = attractors->_First[i];
+        if (attractor->m_Fx == fx) {
+            attractor->AbortPedTasks();
+        }
+    }
+    return false;
+}
+
+// 0x5EB640 (75 bytes, `ret 8`; plantilla IsPedRegistered<CPedAttractor>, argumentos (peaton, vector)): verdadero en cuanto un atractor responde IsRegisteredWithPed (0x5EB4C0, ECX = atractor, el peaton en la pila); si no, falso.
+// El EXE lee el inicio una sola vez y avanza el puntero.
+bool __stdcall AttractorsIsPedRegistered(CPed* ped, const SArray<CPedAttractor*>* attractors) {
+    CPedAttractor* const* cursor = attractors->_First;
+    const int32 count = cursor ? int32(attractors->_Last - cursor) : 0;
+    for (int32 i = 0; i < count; i++, cursor++) {
+        if ((*cursor)->IsRegisteredWithPed(ped)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// 0x5EB690 (93 bytes, `ret 10h`; plantilla IsPedRegisteredWithEffect<CPedAttractor>, argumentos (peaton, efecto, entidad, vector)): verdadero en cuanto un atractor con ese efecto (+4) y esa entidad (+8, comparada en bruto) responde
+// IsRegisteredWithPed para el peaton; si no, falso. Misma lectura unica del inicio que la anterior.
+bool __stdcall AttractorsIsPedRegisteredWithEffect(CPed* ped, const C2dEffectPedAttractor* fx, const CEntity* entity, const SArray<CPedAttractor*>* attractors) {
+    CPedAttractor* const* cursor = attractors->_First;
+    const int32 count = cursor ? int32(attractors->_Last - cursor) : 0;
+    for (int32 i = 0; i < count; i++, cursor++) {
+        CPedAttractor* const attractor = *cursor;
+        if (attractor->m_Fx == fx && attractor->GetEntity() == entity) {
+            if (attractor->IsRegisteredWithPed(ped)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+} // namespace
+
 void CPedAttractorManager::InjectHooks() {
     RH_ScopedClass(CPedAttractorManager);
     RH_ScopedCategoryGlobal();
@@ -46,11 +94,14 @@ void CPedAttractorManager::InjectHooks() {
     //RH_ScopedInstall(DeRegisterPed<CPedAttractor>, 0x5EC740); // Can't hook this because template function will (probably) be wrong
     RH_ScopedOverloadedInstall(DeRegisterPed, "", 0x5EC850, bool(CPedAttractorManager::*)(CPed*, CPedAttractor*));
     //RH_ScopedInstall(RemoveEffect<CPedAttractor>, 0x5EB5F0); // Can't hook this because template function will (probably) be wrong
+    RH_ScopedNamedGlobalInstall(AttractorsRemoveEffect, "RemoveEffectCPedAttractor", 0x5EB5F0); // lote 205A (sin validar): funcion suelta __stdcall
     RH_ScopedOverloadedInstall(RemoveEffect, "", 0x5EBA30, bool(CPedAttractorManager::*)(const C2dEffectPedAttractor* fx));
     //RH_ScopedInstall(IsPedRegistered<CPedAttractor>, 0x5EB640); // Can't hook this because template function will (probably) be wrong
+    RH_ScopedNamedGlobalInstall(AttractorsIsPedRegistered, "IsPedRegisteredCPedAttractor", 0x5EB640); // lote 205A (sin validar): funcion suelta __stdcall
     RH_ScopedOverloadedInstall(IsPedRegisteredWithEffect, "Ped", 0x5EBCB0, bool(CPedAttractorManager::*)(CPed*));
     RH_ScopedOverloadedInstall(IsPedRegisteredWithEffect, "Effect", 0x5EBD70, bool(CPedAttractorManager::*)(CPed*, const C2dEffectPedAttractor*, const CEntity*));
     //RH_ScopedInstall(IsPedRegisteredWithEffect<CPedAttractor>, 0x5EB690); // Can't hook this because template function will (probably) be wrong
+    RH_ScopedNamedGlobalInstall(AttractorsIsPedRegisteredWithEffect, "IsPedRegisteredWithEffectCPedAttractor", 0x5EB690); // lote 205A (sin validar): funcion suelta __stdcall
     //RH_ScopedInstall(FindAssociatedAttractor<CPedAttractor>, 0x5EB6F0); // Can't hook this because template function will (probably) be wrong
     RH_ScopedInstall(HasQueueTailArrivedAtSlot, 0x5EBBA0);
     RH_ScopedInstall(HasEmptySlot, 0x5EBB00);

@@ -18,6 +18,7 @@ public:
     CTask* Clone() const override { return new CTaskComplexWanderGang(m_nMoveState, m_nDir, m_NextScanTime, m_bWanderSensibly, 0.5f); } // 0x671470
     void ScanForStuff(CPed* ped) override; // 0x66F640
 
+    CTaskComplexWanderGang* ScalarDeletingDestructor(uint8 flags); // 0x66F650 (lote 205A, sin validar): destructor con borrado (ranura 0 de la vtable 0x8700D4), `ret 4`
     bool CanJoinGang() { return m_TaskTimer.IsOutOfTime(); }
 
 private: // Wrappers for hooks

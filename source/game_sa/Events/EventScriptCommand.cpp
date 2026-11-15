@@ -23,12 +23,15 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleRunAnim.h"
 
+static CEventScriptCommand* __fastcall ScriptCommandScalarDeletingDestructor(CEventScriptCommand* self, void* edx, uint8 flags); // 0x4B6440 (mas abajo)
+
 void CEventScriptCommand::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventScriptCommand, 0x85B378, 17);
     RH_ScopedCategory("Events");
 
     RH_ScopedInstall(Destructor, 0x4B0A50);
+    RH_ScopedNamedGlobalInstall(ScriptCommandScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B6440); // lote 205A (sin validar)
     RH_ScopedInstall(Constructor, 0x4B0A00);
     // Como el original se llaman por la vtable: con RH_ScopedInstall el destino era el thunk virtual de la DLL, que
     // vuelve a saltar por la vtable del EXE (entrada enganchada) y se queda en un bucle infinito
@@ -157,3 +160,15 @@ uint32 __fastcall CEventScriptCommand::Destructor(CEventScriptCommand* self, uin
 }
 #pragma runtime_checks("", restore)
 #pragma warning(pop)
+
+// 0x4B6440 (lote 205A, sin validar; el listado decia CEventDamage; ranura 0 de la vtable 0x85B378 de CEventScriptCommand; thiscall, un argumento de pila, `ret 4`, 76 bytes: `push esi; push edi; mov edi,ecx; call 0x4B0A50; test byte [esp+0Ch],1; je ..;` y, con el bit 0 del BYTE
+// de banderas, el operator delete de CEvent EN LINEA (pool de eventos 0xB744AC, indice = (this - base) / 0x44 con signo, estado |= 0x80, cursor = min(cursor, indice) con signo); devuelve `this`): destructor con borrado de CEventScriptCommand del EXE.
+// Como el original: destruye con el cuerpo de la clase (0x4B0A50, con hook; el EDX de entrada es irrelevante, aqui 0), libera `this` con CEvent::operator delete (0x4B5630, con hook; mismo efecto que la copia en linea) solo si el bit 0 esta puesto y devuelve `this`.
+// Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0). El resultado del cuerpo (EAX/ECX/EDX residuales) se descarta: el EXE reescribe ECX (mov ecx,edi) y EAX antes de usarlos.
+__declspec(noinline) static CEventScriptCommand* __fastcall ScriptCommandScalarDeletingDestructor(CEventScriptCommand* self, void* /*edx*/, uint8 flags) {
+    CEventScriptCommand::Destructor(self, 0);
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
+}

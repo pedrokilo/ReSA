@@ -30,8 +30,7 @@ public:
     // 0x5EE820
     ePedAttractorType GetType() const override { return Type; }
 
-    // 0x5E9680
-    bool IsAtHeadOfQueue(CPed* ped) override { return true; }
+    bool IsAtHeadOfQueue(CPed* ped) override; // 0x5E9680 (lote 205A, sin validar): ranura 2 de la vtable 0x86C5B4
 
     // Como el original (0x5EF420): devuelve un puntero al elemento de la tabla (en eax), no un vector por valor
     static CVector& GetDisplacement(int32 pedId);

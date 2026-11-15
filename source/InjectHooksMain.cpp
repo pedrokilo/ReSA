@@ -1494,7 +1494,7 @@ void InjectHooksMain() {
         CTaskComplexBeInGroup::InjectHooks();
         CTaskComplexBeCop::InjectHooks();
         CTaskComplexAvoidOtherPedWhileWandering::InjectHooks();
-        CTaskComplexAvoidEntity::InjectHooks(); // lote 203A (sin validar)
+        CTaskComplexAvoidEntity::InjectHooks();
         CTaskComplexArrestPed::InjectHooks();
 
         const auto EntitySeekPosCalculators = [] {

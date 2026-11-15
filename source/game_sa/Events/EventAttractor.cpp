@@ -31,6 +31,16 @@ void __fastcall AttractorDestructorBody(CEventAttractor* self, void* /*edx*/) {
     CEntity::SafeCleanUpRef(self->m_entity);
     *reinterpret_cast<uint32*>(self) = 0x85AB38;
 }
+// 0x4B6260 (lote 205A, sin validar; el listado decia CEventDamage; ranura 0 de la vtable 0x85B1B8 de CEventAttractor; thiscall, un argumento de pila, `ret 4`, 76 bytes: `push esi; push edi; mov edi,ecx; call 0x4AF400; test byte [esp+0Ch],1; je ..;` y, con el bit 0 del BYTE de banderas,
+// el operator delete de CEvent EN LINEA (pool de eventos 0xB744AC, indice = (this - base) / 0x44 con signo, estado |= 0x80, cursor = min(cursor, indice) con signo); devuelve `this`): destructor con borrado de CEventAttractor del EXE.
+// Como el original: destruye con el cuerpo de la clase (0x4AF400), libera `this` con CEvent::operator delete (0x4B5630, con hook; mismo efecto que la copia en linea) solo si el bit 0 esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CEventAttractor* __fastcall AttractorScalarDeletingDestructor(CEventAttractor* self, void* /*edx*/, uint8 flags) {
+    AttractorDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
+}
 } // namespace CEventAttractorBody
 
 void CEventAttractor::InjectHooks()
@@ -38,6 +48,7 @@ void CEventAttractor::InjectHooks()
     RH_ScopedVirtualClass(CEventAttractor, 0x85B1B8, 17);
     RH_ScopedCategory("Events");
     RH_ScopedNamedGlobalInstall(CEventAttractorBody::AttractorDestructorBody, "Destructor", 0x4AF400);
+    RH_ScopedNamedGlobalInstall(CEventAttractorBody::AttractorScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B6260); // lote 205A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x4AF350);
     RH_ScopedVMTInstall(AffectsPed, 0x4AF4B0);
