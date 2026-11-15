@@ -612,10 +612,474 @@ void ExeJinitDMainController(void* cinfo, int32 needFullBuffer) {
         At<void*>(main, 0x08 + 4 * static_cast<uint32>(ci)) = At<void*(__cdecl*)(void*, int32, uint32, uint32)>(mem, 0x08)(cinfo, 1, static_cast<uint32>(width), static_cast<uint32>(height));
     }
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Lote 234A (sin validar): jdmarker (lectura de marcadores) y jdmaster (seleccion de modulos de descompresion) de la misma libjpeg 6b. Mas desplazamientos del jpeg_decompress_struct del EXE (boolean = BYTE):
+// +0x08 progress ({+0x0C completed_passes, +0x10 total_passes}), +0x14 global_state, +0x28 jpeg_color_space, +0x2C out_color_space, +0x40 buffered_image, +0x41 raw_data_out, +0x4A quantize_colors, +0x50 two_pass_quantize,
+// +0x58 enable_1pass_quant, +0x59 enable_external_quant, +0x5A enable_2pass_quant, +0x5C output_width, +0x60 output_height, +0x64 out_color_components, +0x68 output_components, +0x6C rec_outbuf_height, +0x74 colormap,
+// +0xC8 progressive_mode, +0xC9 arith_code, +0xFC restart_interval, +0x120 sample_range_limit, +0x17C unread_marker, +0x180 master, +0x184 main, +0x188 coef, +0x18C post, +0x190 inputctl, +0x194 marker, +0x198 entropy,
+// +0x19C idct, +0x1A0 upsample, +0x1A4 cconvert, +0x1A8 cquantize. jpeg_source_mgr: +0 next_input_byte, +4 bytes_in_buffer, +0x0C fill_input_buffer, +0x10 skip_input_data, +0x14 resync_to_restart.
+// marker (0xA8): +0 reset_marker_reader, +4 read_markers, +8 read_restart_marker, +0x0C saw_SOI, +0x0D saw_SOF, +0x10 next_restart_num, +0x14 discarded_bytes, +0x18 process_COM, +0x1C process_APPn[16], +0x5C length_limit_COM,
+// +0x60 length_limit_APPn[16], +0xA0. master (0x1C): +0 prepare_for_output_pass, +4 finish_output_pass, +8 is_dummy_pass, +0x0C pass_number, +0x10 using_merged_upsample, +0x14 quantizer_1pass, +0x18 quantizer_2pass.
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+constexpr int32 JERR_BAD_LENGTH = 0x0B;
+constexpr int32 JERR_DHT_INDEX = 0x1E;
+constexpr int32 JERR_NO_SOI = 0x35;
+constexpr int32 JERR_BAD_STATE = 0x14;
+constexpr int32 JERR_ARITH_NOTIMPL = 0x01;
+constexpr int32 JERR_MODE_CHANGE = 0x2E;
+constexpr int32 JERR_NOT_COMPILED = 0x30;
+constexpr int32 JTRC_DHT = 0x50;
+constexpr int32 JTRC_DRI = 0x52;
+constexpr int32 JTRC_HUFFBITS = 0x56;
+constexpr int32 JTRC_SKIP_VARIABLE = 0x5B;
+constexpr int32 JTRC_RST = 0x62;
+constexpr int32 JWRN_EXTRANEOUS_DATA = 0x74;
+
+// TRACEMS*: err->msg_code = code; err->msg_parm.i[k] = parm[k]; (*err->emit_message)(cinfo, level).
+inline void TraceMs(void* cinfo, int32 code, int32 level, std::initializer_list<int32> parms) {
+    At<int32>(At<void*>(cinfo, 0x00), 0x14) = code;
+    uint32 k = 0;
+    for (const int32 parm : parms) {
+        At<int32>(At<void*>(cinfo, 0x00), 0x18 + 4 * k) = parm;
+        ++k;
+    }
+    At<void(__cdecl*)(void*, int32)>(At<void*>(cinfo, 0x00), 0x04)(cinfo, level);
+}
+
+// Variables locales de jdmarker (INPUT_VARS / INPUT_BYTE / INPUT_SYNC): next_input_byte y bytes_in_buffer viven en registros y solo se escriben en la fuente con Sync(). Si fill_input_buffer devuelve falso
+// la funcion sale con FALSE SIN sincronizar (como el EXE).
+struct JpegInput {
+    void* cinfo;
+    uint8* src;
+    const uint8* next;
+    uint32 bytes;
+
+    explicit JpegInput(void* c)
+        : cinfo(c)
+        , src(At<uint8*>(c, 0x18)) {
+        next = At<const uint8*>(src, 0x00);
+        bytes = At<uint32>(src, 0x04);
+    }
+
+    bool Fill() {
+        if (!At<uint8(__cdecl*)(void*)>(src, 0x0C)(cinfo)) {
+            return false;
+        }
+        next = At<const uint8*>(src, 0x00);
+        bytes = At<uint32>(src, 0x04);
+        return true;
+    }
+
+    bool Byte(uint32& value) {
+        if (bytes == 0 && !Fill()) {
+            return false;
+        }
+        value = *next;
+        --bytes;
+        ++next;
+        return true;
+    }
+
+    void Sync() {
+        At<const uint8*>(src, 0x00) = next;
+        At<uint32>(src, 0x04) = bytes;
+    }
+};
+
+// 0x5CB5B0 (cdecl, un argumento, 781 bytes; el listado decia FxEmitterBP_c): get_dht(cinfo) de jdmarker -> boolean. length = 2 bytes - 2; mientras length > 16 (con signo): index, bits[1..16] (bits[0] = 0), TRACEMS1(0x50, index) nivel 1,
+// length -= 17, dos TRACEMS8(0x56) nivel 2 (bits[1..8], bits[9..16]), count > 256 o count > length (con signo) -> ERREXIT(8) y SIGUE; huffval[count]; length -= count; index & 0x10 -> AC (cinfo+0xB0) con index - 0x10, si no DC (+0xA0);
+// indice fuera de 0..3 -> ERREXIT1(0x1E, index) y SIGUE; tabla nula -> jpeg_alloc_huff_table (0x5C6BD0); copia 17 bytes de bits y 256 de huffval (el EXE copia los 256 aunque count sea menor: los sobrantes son de la pila).
+// Al final length != 0 -> ERREXIT(0x0B) y SIGUE; escribe next/bytes en la fuente.
+bool ExeGetDht(void* cinfo) {
+    JpegInput in(cinfo);
+    uint32 hi;
+    uint32 lo;
+    if (!in.Byte(hi) || !in.Byte(lo)) {
+        return false;
+    }
+    int32 length = static_cast<int32>(hi << 8) + static_cast<int32>(lo) - 2;
+    while (length > 16) {
+        uint32 index;
+        if (!in.Byte(index)) {
+            return false;
+        }
+        TraceMs(cinfo, JTRC_DHT, 1, {static_cast<int32>(index)});
+        uint8 bits[17];
+        bits[0] = 0;
+        int32 count = 0;
+        for (int32 i = 1; i <= 16; ++i) {
+            uint32 v;
+            if (!in.Byte(v)) {
+                return false;
+            }
+            bits[i] = static_cast<uint8>(v);
+            count += static_cast<int32>(v);
+        }
+        length -= 17;
+        TraceMs(cinfo, JTRC_HUFFBITS, 2, {bits[1], bits[2], bits[3], bits[4], bits[5], bits[6], bits[7], bits[8]});
+        TraceMs(cinfo, JTRC_HUFFBITS, 2, {bits[9], bits[10], bits[11], bits[12], bits[13], bits[14], bits[15], bits[16]});
+        if (count > 256 || count > length) {
+            ErrExit(cinfo, JERR_BAD_HUFF_TABLE);
+        }
+        // El EXE usa 256 bytes de pila (y desborda si count > 256 tras el error); aqui el tope es el maximo posible (16 * 255).
+        uint8 huffval[4096];
+        for (int32 i = 0; i < count; ++i) {
+            uint32 v;
+            if (!in.Byte(v)) {
+                return false;
+            }
+            huffval[i] = static_cast<uint8>(v);
+        }
+        length -= count;
+        int32 tbl = static_cast<int32>(index);
+        uint8** slot;
+        if (index & 0x10) {
+            tbl -= 0x10;
+            slot = reinterpret_cast<uint8**>(static_cast<uint8*>(cinfo) + 0xB0 + 4 * static_cast<int64>(tbl));
+        } else {
+            slot = reinterpret_cast<uint8**>(static_cast<uint8*>(cinfo) + 0xA0 + 4 * static_cast<int64>(tbl));
+        }
+        if (tbl < 0 || tbl >= 4) {
+            ErrExit1(cinfo, JERR_DHT_INDEX, tbl);
+        }
+        if (*slot == nullptr) {
+            *slot = reinterpret_cast<uint8*(__cdecl*)(void*)>(0x5C6BD0)(cinfo); // jpeg_alloc_huff_table
+        }
+        uint8* const htbl = *slot;
+        std::memcpy(htbl, bits, 17);
+        std::memcpy(htbl + 0x11, huffval, 256);
+    }
+    if (length != 0) {
+        ErrExit(cinfo, JERR_BAD_LENGTH);
+    }
+    in.Sync();
+    return true;
+}
+
+// 0x5CBB20 (cdecl, un argumento, 223 bytes; el listado decia FxEmitterBP_c): get_dri(cinfo) de jdmarker -> boolean. length (2 bytes, SIN restar 2) != 4 -> ERREXIT(0x0B) y SIGUE; tmp = 2 bytes; TRACEMS1(0x52, tmp) nivel 1;
+// cinfo->restart_interval (+0xFC) = tmp; escribe next/bytes en la fuente.
+bool ExeGetDri(void* cinfo) {
+    JpegInput in(cinfo);
+    uint32 hi;
+    uint32 lo;
+    if (!in.Byte(hi) || !in.Byte(lo)) {
+        return false;
+    }
+    if (hi * 256 + lo != 4) {
+        ErrExit(cinfo, JERR_BAD_LENGTH);
+    }
+    uint32 tmpHi;
+    uint32 tmpLo;
+    if (!in.Byte(tmpHi) || !in.Byte(tmpLo)) {
+        return false;
+    }
+    const uint32 tmp = tmpHi * 256 + tmpLo;
+    TraceMs(cinfo, JTRC_DRI, 1, {static_cast<int32>(tmp)});
+    At<uint32>(cinfo, 0xFC) = tmp;
+    in.Sync();
+    return true;
+}
+
+// 0x5CC050 (cdecl, un argumento, 157 bytes; el listado decia FxEmitterBP_c): skip_variable(cinfo) de jdmarker -> boolean (process_COM y process_APPn por defecto). length = 2 bytes - 2 (con signo);
+// TRACEMS2(0x5B, unread_marker, length) nivel 1; consume el byte bajo de la longitud y sincroniza la fuente; length > 0 -> src->skip_input_data(cinfo, length) (+0x10).
+bool ExeSkipVariable(void* cinfo) {
+    JpegInput in(cinfo);
+    uint32 hi;
+    uint32 lo;
+    if (!in.Byte(hi) || !in.Byte(lo)) {
+        return false;
+    }
+    const int32 length = static_cast<int32>(hi << 8) + static_cast<int32>(lo) - 2;
+    TraceMs(cinfo, JTRC_SKIP_VARIABLE, 1, {At<int32>(cinfo, 0x17C), length});
+    in.Sync();
+    if (length > 0) {
+        At<void(__cdecl*)(void*, int32)>(At<void*>(cinfo, 0x18), 0x10)(cinfo, length);
+    }
+    return true;
+}
+
+// 0x5CC0F0 (cdecl, un argumento, 256 bytes; el listado decia FxEmitterBP_c): next_marker(cinfo) de jdmarker -> boolean. Descarta bytes hasta 0xFF (marker->discarded_bytes, +0x14, ++ con sincronizacion por byte), salta los 0xFF
+// de relleno; un 0x00 detras suma 2 a discarded_bytes, sincroniza y reinicia. Con un codigo distinto de cero: discarded_bytes != 0 -> WARNMS2(0x74, discarded_bytes, c) con nivel -1 y se pone a cero; unread_marker (+0x17C) = c;
+// sincroniza la fuente. Falso de fill_input_buffer -> FALSE sin sincronizar.
+bool ExeNextMarker(void* cinfo) {
+    JpegInput in(cinfo);
+    for (;;) {
+        uint32 c;
+        if (!in.Byte(c)) {
+            return false;
+        }
+        while (c != 0xFF) {
+            At<int32>(At<void*>(cinfo, 0x194), 0x14) += 1;
+            in.Sync();
+            if (!in.Byte(c)) {
+                return false;
+            }
+        }
+        do {
+            if (!in.Byte(c)) {
+                return false;
+            }
+        } while (c == 0xFF);
+        if (c != 0) {
+            if (At<int32>(At<void*>(cinfo, 0x194), 0x14) != 0) {
+                TraceMs(cinfo, JWRN_EXTRANEOUS_DATA, -1, {At<int32>(At<void*>(cinfo, 0x194), 0x14), static_cast<int32>(c)});
+                At<int32>(At<void*>(cinfo, 0x194), 0x14) = 0;
+            }
+            At<int32>(cinfo, 0x17C) = static_cast<int32>(c);
+            in.Sync();
+            return true;
+        }
+        At<int32>(At<void*>(cinfo, 0x194), 0x14) += 2;
+        in.Sync();
+    }
+}
+
+// 0x5CC1F0 (cdecl, un argumento, 153 bytes; el listado decia FxEmitterBP_c): first_marker(cinfo) de jdmarker -> boolean. Lee dos bytes (c, c2); c != 0xFF o c2 != 0xD8 -> ERREXIT2(0x35, c, c2) y SIGUE; unread_marker (+0x17C) = c2;
+// escribe next/bytes en la fuente.
+bool ExeFirstMarker(void* cinfo) {
+    JpegInput in(cinfo);
+    uint32 c;
+    uint32 c2;
+    if (!in.Byte(c) || !in.Byte(c2)) {
+        return false;
+    }
+    if (c != 0xFF || c2 != 0xD8) {
+        ErrExit2(cinfo, JERR_NO_SOI, static_cast<int32>(c), static_cast<int32>(c2));
+    }
+    At<int32>(cinfo, 0x17C) = static_cast<int32>(c2);
+    in.Sync();
+    return true;
+}
+
+// 0x5CC610 (cdecl, un argumento, 136 bytes; el listado decia FxEmitterBP_c): read_restart_marker(cinfo) de jdmarker -> boolean. Sin marcador pendiente llama a next_marker (falso -> 0). marker = cinfo+0x194, next_restart_num (+0x10).
+// unread_marker == 0xD0 + next_restart_num -> TRACEMS1(0x62, next_restart_num) nivel 3 y unread_marker = 0; si no src->resync_to_restart(cinfo, next_restart_num) (+0x14; falso -> 0). Luego next_restart_num = (n + 1) & 7; devuelve 1.
+bool ExeReadRestartMarker(void* cinfo) {
+    if (At<int32>(cinfo, 0x17C) == 0) {
+        if (!ExeNextMarker(cinfo)) {
+            return false;
+        }
+    }
+    const int32 nextRestart = At<int32>(At<void*>(cinfo, 0x194), 0x10);
+    if (At<int32>(cinfo, 0x17C) == nextRestart + 0xD0) {
+        TraceMs(cinfo, JTRC_RST, 3, {At<int32>(At<void*>(cinfo, 0x194), 0x10)});
+        At<int32>(cinfo, 0x17C) = 0;
+    } else if (!At<uint8(__cdecl*)(void*, int32)>(At<void*>(cinfo, 0x18), 0x14)(cinfo, nextRestart)) {
+        return false;
+    }
+    uint8* const marker = At<uint8*>(cinfo, 0x194);
+    At<int32>(marker, 0x10) = (At<int32>(marker, 0x10) + 1) & 7;
+    return true;
+}
+
+// 0x5CC7D0 (cdecl, un argumento, 132 bytes; el listado decia FxEmitterBP_c): jinit_marker_reader(cinfo) de jdmarker. alloc_small(pool 0 = permanente, 0xA8) -> cinfo+0x194; ranuras: +0 reset_marker_reader 0x5CC7A0,
+// +4 read_markers 0x5CC290, +8 read_restart_marker 0x5CC610, process_COM (+0x18) = 0x5CC050; length_limit_COM (+0x5C) = 0; por vuelta (16): process_APPn[i] (+0x1C + 4i) = 0x5CC050 y length_limit_APPn[i] (+0x60 + 4i) = 0;
+// despues process_APPn[0] (+0x1C) y [14] (+0x54) = 0x5CBF00 (get_interesting_appn). Por ultimo cinfo+0xC4 (comp_info), +0x7C (input_scan_number) y +0x17C (unread_marker) = 0, marker +0x0C y +0x0D (bytes) = 0, +0x14 = 0 y +0xA0 = 0.
+void ExeJinitMarkerReader(void* cinfo) {
+    uint8* const marker = static_cast<uint8*>(AllocSmall(cinfo, 0, 0xA8));
+    At<void*>(cinfo, 0x194) = marker;
+    At<uint32>(marker, 0x00) = 0x5CC7A0;
+    At<uint32>(marker, 0x04) = 0x5CC290;
+    At<uint32>(marker, 0x08) = 0x5CC610;
+    At<uint32>(marker, 0x18) = 0x5CC050;
+    At<uint32>(marker, 0x5C) = 0;
+    for (uint32 i = 0; i < 16; ++i) {
+        At<uint32>(marker, 0x1C + 4 * i) = 0x5CC050;
+        At<uint32>(marker, 0x60 + 4 * i) = 0;
+    }
+    At<uint32>(marker, 0x1C) = 0x5CBF00;
+    At<uint32>(marker, 0x54) = 0x5CBF00;
+    uint8* const marker2 = At<uint8*>(cinfo, 0x194);
+    At<uint32>(cinfo, 0xC4) = 0;
+    At<uint32>(cinfo, 0x7C) = 0;
+    At<uint32>(cinfo, 0x17C) = 0;
+    At<uint8>(marker2, 0x0C) = 0;
+    At<uint8>(marker2, 0x0D) = 0;
+    At<uint32>(marker2, 0x14) = 0;
+    At<uint32>(marker2, 0xA0) = 0;
+}
+
+// 0x5CC8C0 (cdecl, un argumento, 121 bytes; el listado decia FxEmitterBP_c): jpeg_calc_output_dimensions(cinfo) de jdmaster (version sin escalado DCT). global_state (+0x14) != 0xCA (DSTATE_READY) -> ERREXIT1(0x14, global_state) y SIGUE.
+// output_width (+0x5C) = image_width, output_height (+0x60) = image_height; out_color_components (+0x64) segun out_color_space (+0x2C) - 1 (SIN signo) con la tabla del EXE 0x5CC93C: 0 -> 1, 1 -> 4, 2 -> 3, 3 -> 4, 4 -> 4, mayor que 4 ->
+// num_components (+0x24); rec_outbuf_height (+0x6C) = 1; output_components (+0x68) = quantize_colors (+0x4A) ? 1 : out_color_components.
+void ExeJpegCalcOutputDimensions(void* cinfo) {
+    if (At<int32>(cinfo, 0x14) != 0xCA) {
+        ErrExit1(cinfo, JERR_BAD_STATE, At<int32>(cinfo, 0x14));
+    }
+    const int32 width = At<int32>(cinfo, 0x1C);
+    const uint32 space = static_cast<uint32>(At<int32>(cinfo, 0x2C)) - 1;
+    const int32 height = At<int32>(cinfo, 0x20);
+    At<int32>(cinfo, 0x5C) = width;
+    At<int32>(cinfo, 0x60) = height;
+    switch (space) {
+    case 0:
+        At<int32>(cinfo, 0x64) = 1;
+        break;
+    case 2:
+        At<int32>(cinfo, 0x64) = 3;
+        break;
+    case 1:
+    case 3:
+    case 4:
+        At<int32>(cinfo, 0x64) = 4;
+        break;
+    default:
+        At<int32>(cinfo, 0x64) = At<int32>(cinfo, 0x24);
+        break;
+    }
+    At<int32>(cinfo, 0x6C) = 1;
+    int32 components = 1;
+    if (!At<uint8>(cinfo, 0x4A)) {
+        components = At<int32>(cinfo, 0x64);
+    }
+    At<int32>(cinfo, 0x68) = components;
+}
+
+// 0x5CC950 (EAX = cinfo, 119 bytes, saltada como hook por ABI): prepare_range_limit_table de jdmaster. Reproducida SIN hook para master_selection. alloc_small(pool 1, 0x580); tabla = bloque + 0x100 -> cinfo+0x120;
+// bloque[0..0xFF] = 0; tabla[i] = i (0..255); desde tabla + 0x80: 384 bytes a 0xFF, 384 bytes a 0 (tabla + 0x200) y 128 bytes copiados de tabla (a tabla + 0x380).
+void PrepareRangeLimitTable(void* cinfo) {
+    uint8* const block = static_cast<uint8*>(AllocSmall(cinfo, 1, 0x580));
+    uint8* const table = block + 0x100;
+    At<void*>(cinfo, 0x120) = table;
+    std::memset(block, 0, 0x100);
+    for (int32 i = 0; i <= 0xFF; ++i) {
+        table[i] = static_cast<uint8>(i);
+    }
+    uint8* const post = table + 0x80;
+    std::memset(post + 0x80, 0xFF, 0x180);
+    std::memset(post + 0x200, 0, 0x180);
+    std::memcpy(post + 0x380, At<uint8*>(cinfo, 0x120), 0x80);
+}
+
+// 0x5CC9D0 (ESI = cinfo, 373 bytes, saltada como hook por ABI): master_selection de jdmaster. Reproducida SIN hook para jinit_master_decompress. master = cinfo+0x180.
+// jpeg_calc_output_dimensions, prepare_range_limit_table, master +0x0C = 0, +0x10 = 0 (sin fusion de muestreo), +0x14 = 0, +0x18 = 0. Sin quantize_colors o sin buffered_image: enable_1pass/external/2pass (+0x58/+0x59/+0x5A) = 0.
+// Con quantize_colors: raw_data_out -> ERREXIT(0x2F); out_color_components != 3 -> 1pass = 1, external = 0, 2pass = 0, colormap = 0; si no colormap != 0 -> external = 1; si no two_pass_quantize -> 2pass = 1; si no 1pass = 1;
+// luego 1pass -> ERREXIT(0x30) y (2pass o external) -> ERREXIT(0x30) (todos SIGUEN). Sin raw_data_out: using_merged_upsample -> ERREXIT(0x30), si no jinit_color_deconverter (0x5C9350) y jinit_upsampler (0x5CD350);
+// jinit_d_post_controller (0x5CCDF0, cinfo, enable_2pass_quant). jinit_inverse_dct (0x5C9710); arith_code (+0xC9) -> ERREXIT(1); si no progressive_mode (+0xC8) -> ERREXIT(0x30); si no jinit_huff_decoder.
+// use_c_buffer = inputctl->has_multiple_scans (+0x10) o buffered_image; jinit_d_coef_controller (0x5C8E20, cinfo, use_c_buffer); sin raw_data_out jinit_d_main_controller (0x5CAE30, cinfo, 0);
+// mem->realize_virt_arrays (+0x18); inputctl->start_input_pass (+8).
+void MasterSelection(void* cinfo) {
+    uint8* const master = At<uint8*>(cinfo, 0x180);
+    ExeJpegCalcOutputDimensions(cinfo);
+    PrepareRangeLimitTable(cinfo);
+    At<uint32>(master, 0x0C) = 0;
+    At<uint8>(master, 0x10) = 0;
+    At<uint32>(master, 0x14) = 0;
+    At<uint32>(master, 0x18) = 0;
+    const uint8 quantize = At<uint8>(cinfo, 0x4A);
+    if (!quantize || !At<uint8>(cinfo, 0x40)) {
+        At<uint8>(cinfo, 0x58) = 0;
+        At<uint8>(cinfo, 0x59) = 0;
+        At<uint8>(cinfo, 0x5A) = 0;
+    }
+    if (quantize) {
+        if (At<uint8>(cinfo, 0x41)) {
+            ErrExit(cinfo, JERR_NOTIMPL);
+        }
+        if (At<int32>(cinfo, 0x64) != 3) {
+            At<uint8>(cinfo, 0x59) = 0;
+            At<uint8>(cinfo, 0x5A) = 0;
+            At<uint32>(cinfo, 0x74) = 0;
+            At<uint8>(cinfo, 0x58) = 1;
+        } else if (At<uint32>(cinfo, 0x74) != 0) {
+            At<uint8>(cinfo, 0x59) = 1;
+        } else if (At<uint8>(cinfo, 0x50)) {
+            At<uint8>(cinfo, 0x5A) = 1;
+        } else {
+            At<uint8>(cinfo, 0x58) = 1;
+        }
+        if (At<uint8>(cinfo, 0x58)) {
+            ErrExit(cinfo, JERR_NOT_COMPILED);
+        }
+        if (At<uint8>(cinfo, 0x5A) || At<uint8>(cinfo, 0x59)) {
+            ErrExit(cinfo, JERR_NOT_COMPILED);
+        }
+    }
+    if (!At<uint8>(cinfo, 0x41)) {
+        if (At<uint8>(master, 0x10)) {
+            ErrExit(cinfo, JERR_NOT_COMPILED);
+        } else {
+            reinterpret_cast<void(__cdecl*)(void*)>(0x5C9350)(cinfo); // jinit_color_deconverter
+            reinterpret_cast<void(__cdecl*)(void*)>(0x5CD350)(cinfo); // jinit_upsampler
+        }
+        reinterpret_cast<void(__cdecl*)(void*, uint32)>(0x5CCDF0)(cinfo, At<uint8>(cinfo, 0x5A)); // jinit_d_post_controller
+    }
+    reinterpret_cast<void(__cdecl*)(void*)>(0x5C9710)(cinfo); // jinit_inverse_dct
+    if (At<uint8>(cinfo, 0xC9)) {
+        ErrExit(cinfo, JERR_ARITH_NOTIMPL);
+    } else if (At<uint8>(cinfo, 0xC8)) {
+        ErrExit(cinfo, JERR_NOT_COMPILED);
+    } else {
+        ExeJinitHuffDecoder(cinfo);
+    }
+    const uint8 useCBuffer = (At<uint8>(At<void*>(cinfo, 0x190), 0x10) || At<uint8>(cinfo, 0x40)) ? 1 : 0;
+    reinterpret_cast<void(__cdecl*)(void*, uint32)>(0x5C8E20)(cinfo, useCBuffer); // jinit_d_coef_controller
+    if (!At<uint8>(cinfo, 0x41)) {
+        ExeJinitDMainController(cinfo, 0);
+    }
+    At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x04), 0x18)(cinfo);
+    At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x190), 0x08)(cinfo);
+}
+
+// 0x5CCB50 (cdecl, un argumento, 318 bytes; el listado decia FxEmitterBP_c): prepare_for_output_pass(cinfo) de jdmaster. master = cinfo+0x180. is_dummy_pass (+8) -> ERREXIT(0x30) y salta a la parte de progreso. Si no: con
+// quantize_colors y sin colormap: two_pass_quantize y enable_2pass_quant -> cquantize (+0x1A8) = master->quantizer_2pass (+0x18) e is_dummy_pass = 1; si no enable_1pass_quant -> cquantize = master->quantizer_1pass (+0x14);
+// si no ERREXIT(0x2E) y SIGUE. Luego idct->start_pass (+0x19C), coef->start_output_pass (+0x188 ranura 2); sin raw_data_out: cconvert->start_pass (+0x1A4) si no using_merged_upsample, upsample->start_pass (+0x1A0), con
+// quantize_colors cquantize->start_pass(cinfo, is_dummy_pass), post->start_pass(cinfo, is_dummy_pass ? 3 : 0) (+0x18C), main->start_pass(cinfo, 0) (+0x184). Progreso (cinfo+8): completed_passes (+0x0C) = pass_number (master +0x0C);
+// total_passes (+0x10) = pass_number + (is_dummy_pass ? 2 : 1); con buffered_image y sin eoi_reached (inputctl +0x11) suma (enable_2pass_quant ? 2 : 1).
+void ExePrepareForOutputPass(void* cinfo) {
+    uint8* const master = At<uint8*>(cinfo, 0x180);
+    if (At<uint8>(master, 0x08)) {
+        ErrExit(cinfo, JERR_NOT_COMPILED);
+    } else {
+        if (At<uint8>(cinfo, 0x4A) && At<uint32>(cinfo, 0x74) == 0) {
+            if (At<uint8>(cinfo, 0x50) && At<uint8>(cinfo, 0x5A)) {
+                At<uint32>(cinfo, 0x1A8) = At<uint32>(master, 0x18);
+                At<uint8>(master, 0x08) = 1;
+            } else if (At<uint8>(cinfo, 0x58)) {
+                At<uint32>(cinfo, 0x1A8) = At<uint32>(master, 0x14);
+            } else {
+                ErrExit(cinfo, JERR_MODE_CHANGE);
+            }
+        }
+        At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x19C), 0x00)(cinfo);
+        At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x188), 0x08)(cinfo);
+        if (!At<uint8>(cinfo, 0x41)) {
+            if (!At<uint8>(master, 0x10)) {
+                At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x1A4), 0x00)(cinfo);
+            }
+            At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x1A0), 0x00)(cinfo);
+            if (At<uint8>(cinfo, 0x4A)) {
+                At<void(__cdecl*)(void*, uint32)>(At<void*>(cinfo, 0x1A8), 0x00)(cinfo, At<uint8>(master, 0x08));
+            }
+            At<void(__cdecl*)(void*, int32)>(At<void*>(cinfo, 0x18C), 0x00)(cinfo, At<uint8>(master, 0x08) ? 3 : 0);
+            At<void(__cdecl*)(void*, int32)>(At<void*>(cinfo, 0x184), 0x00)(cinfo, 0);
+        }
+    }
+    if (void* const progress = At<void*>(cinfo, 0x08)) {
+        At<int32>(progress, 0x0C) = At<int32>(master, 0x0C);
+        At<int32>(At<void*>(cinfo, 0x08), 0x10) = At<int32>(master, 0x0C) + (At<uint8>(master, 0x08) ? 2 : 1);
+        if (At<uint8>(cinfo, 0x40) && !At<uint8>(At<void*>(cinfo, 0x190), 0x11)) {
+            void* const progress2 = At<void*>(cinfo, 0x08);
+            At<int32>(progress2, 0x10) = At<int32>(progress2, 0x10) + (At<uint8>(cinfo, 0x5A) ? 2 : 1);
+        }
+    }
+}
+
+// 0x5CCCC0 (cdecl, un argumento, 48 bytes; el listado decia FxEmitterBP_c): jinit_master_decompress(cinfo) de jdmaster. alloc_small(pool 1, 0x1C) -> cinfo+0x180; ranura 0 = prepare_for_output_pass 0x5CCB50,
+// ranura 1 = finish_output_pass 0x5CCC90 (no enganchada), is_dummy_pass (+8) = 0; llama a master_selection (0x5CC9D0, con ESI = cinfo; reproducida arriba sin hook).
+void ExeJinitMasterDecompress(void* cinfo) {
+    uint8* const master = static_cast<uint8*>(AllocSmall(cinfo, 1, 0x1C));
+    At<void*>(cinfo, 0x180) = master;
+    At<uint32>(master, 0x00) = 0x5CCB50;
+    At<uint32>(master, 0x04) = 0x5CCC90;
+    At<uint8>(master, 0x08) = 0;
+    MasterSelection(cinfo);
+}
 } // namespace
 
 /**
- * Registra las rutinas internas de descompresion de la libjpeg del EXE (lote 233A, sin validar).
+ * Registra las rutinas internas de descompresion de la libjpeg del EXE (lotes 233A y 234A, sin validar).
  */
 void LibJpegDecompress::InjectHooks() {
     RH_ScopedClass(LibJpegDecompress);
@@ -633,4 +1097,14 @@ void LibJpegDecompress::InjectHooks() {
     RH_ScopedNamedGlobalInstall(ExeSetWraparoundPointers, "set_wraparound_pointers", 0x5CAA90);       // lote 233A (sin validar)
     RH_ScopedNamedGlobalInstall(ExeSetBottomPointers, "set_bottom_pointers", 0x5CAB70);               // lote 233A (sin validar)
     RH_ScopedNamedGlobalInstall(ExeJinitDMainController, "jinit_d_main_controller", 0x5CAE30);        // lote 233A (sin validar)
+    RH_ScopedNamedGlobalInstall(ExeGetDht, "get_dht", 0x5CB5B0);                                      // lote 234A (sin validar)
+    RH_ScopedNamedGlobalInstall(ExeGetDri, "get_dri", 0x5CBB20);                                      // lote 234A (sin validar)
+    RH_ScopedNamedGlobalInstall(ExeSkipVariable, "skip_variable", 0x5CC050);                          // lote 234A (sin validar)
+    RH_ScopedNamedGlobalInstall(ExeNextMarker, "next_marker", 0x5CC0F0);                              // lote 234A (sin validar)
+    RH_ScopedNamedGlobalInstall(ExeFirstMarker, "first_marker", 0x5CC1F0);                            // lote 234A (sin validar)
+    RH_ScopedNamedGlobalInstall(ExeReadRestartMarker, "read_restart_marker", 0x5CC610);               // lote 234A (sin validar)
+    RH_ScopedNamedGlobalInstall(ExeJinitMarkerReader, "jinit_marker_reader", 0x5CC7D0);               // lote 234A (sin validar)
+    RH_ScopedNamedGlobalInstall(ExeJpegCalcOutputDimensions, "jpeg_calc_output_dimensions", 0x5CC8C0); // lote 234A (sin validar)
+    RH_ScopedNamedGlobalInstall(ExePrepareForOutputPass, "prepare_for_output_pass", 0x5CCB50);        // lote 234A (sin validar)
+    RH_ScopedNamedGlobalInstall(ExeJinitMasterDecompress, "jinit_master_decompress", 0x5CCCC0);       // lote 234A (sin validar)
 }

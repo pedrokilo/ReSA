@@ -11721,3 +11721,13 @@ ExeLibJpeg,build_ycc_rgb_table,0x005C8EE0,1,0,0,S
 ExeLibJpeg,null_convert,0x005C90D0,1,0,0,S
 ExeLibJpeg,jinit_color_deconverter,0x005C9350,1,0,0,S
 ExeLibJpeg,jinit_inverse_dct,0x005C9710,1,0,0,S
+LibJpegDecompress,get_dht,0x005CB5B0,1,0,0,S
+LibJpegDecompress,get_dri,0x005CBB20,1,0,0,S
+LibJpegDecompress,skip_variable,0x005CC050,1,0,0,S
+LibJpegDecompress,next_marker,0x005CC0F0,1,0,0,S
+LibJpegDecompress,first_marker,0x005CC1F0,1,0,0,S
+LibJpegDecompress,read_restart_marker,0x005CC610,1,0,0,S
+LibJpegDecompress,jinit_marker_reader,0x005CC7D0,1,0,0,S
+LibJpegDecompress,jpeg_calc_output_dimensions,0x005CC8C0,1,0,0,S
+LibJpegDecompress,prepare_for_output_pass,0x005CCB50,1,0,0,S
+LibJpegDecompress,jinit_master_decompress,0x005CCCC0,1,0,0,S
