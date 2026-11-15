@@ -106,6 +106,9 @@ public:
     void AllocateData();
     void DeAllocateData();
     void SetInitialState();
+
+    // 0x45C4B0 (lote 214A, sin validar): copia campo a campo del EXE (no copia el relleno).
+    CPlayerPedData& operator=(const CPlayerPedData& rhs);
 };
 
 VALIDATE_SIZE(CPlayerPedData, 0xAC);

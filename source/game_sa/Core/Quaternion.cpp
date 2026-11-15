@@ -40,6 +40,7 @@ void CQuaternion::InjectHooks() {
     RH_ScopedInstall(Multiply, 0x59C270);
     RH_ScopedOverloadedInstall(Set, "euler", 0x59C530, void (CQuaternion::*)(float, float, float));
     RH_ScopedInstall(Conjugate, 0x4D37D0);
+    RH_ScopedInstall(Normalise, 0x4D1610); // lote 214A (sin validar)
     RH_ScopedOverloadedInstall(Slerp, "halftheta", 0x59C300, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float, float, float));
     RH_ScopedOverloadedInstall(Slerp, "t", 0x59C630, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float));
 }
@@ -175,12 +176,9 @@ float CQuaternion::Dot(const CQuaternion& rhs) {
     return this->w * rhs.w + this->z * rhs.z + this->y * rhs.y + this->x * rhs.x;
 }
 
-// Normalises a quat
+// 0x4D1610 (lote 214A, sin validar; el listado decia RpAnimBlend): thiscall (ECX = quaternion {x, y, z, w}), sin argumentos, `ret`, 101 bytes.
+// Como el EXE: suma ((x*x + y*y) + z*z) + w*w en registros x87 sin redondear a float; si es exactamente 0 solo pone w = 1 (los demas, incluido NaN, no entran); si no multiplica cada
+// componente (x, y, z, w) por el reciproco 1/sqrt(suma) calculado una vez (no divide) y guarda cada producto como float. La aritmetica esta en AnimQuaternionNormaliseCpp (X87Math.cpp).
 void CQuaternion::Normalise() {
-    const auto sqMag = GetLengthSquared();
-    if (sqMag == 0.f) {
-        w = 1.0;
-    } else {
-        *this = *this / std::sqrt(sqMag);
-    }
+    AnimQuaternionNormaliseCpp(&x);
 }

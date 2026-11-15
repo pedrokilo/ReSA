@@ -114,6 +114,7 @@ void CTheScripts::InjectHooks() {
     RH_ScopedInstall(AddToListOfSpecialAnimGroupsAttachedToCharModels, 0x474750);
     RH_ScopedInstall(AddToSwitchJumpTable, 0x470390);
     RH_ScopedInstall(AddToVehicleModelsBlockedByScript, 0x46B200);
+    RH_ScopedInstall(AddToSuppressedCarModels, 0x46B1A0); // lote 214A (sin validar)
     RH_ScopedInstall(AddToWaitingForScriptBrainArray, 0x46AB60);
     RH_ScopedInstall(CleanUpThisObject, 0x4866C0);
     RH_ScopedInstall(CleanUpThisPed, 0x486300);
@@ -1627,6 +1628,24 @@ void CTheScripts::Save() {
 // 0x464BB0
 void CTheScripts::WipeLocalVariableMemoryForMissionScript() {
     rng::fill(LocalVariablesForCurrentMission, tScriptParam{});
+}
+
+// 0x46B1A0 (lote 214A, sin validar; el listado decia CRunningScript): cdecl, un argumento de pila (modelo), `ret`, 80 bytes; unico llamador directo del EXE: 0x46DD86 (un comando de script que empuja ScriptParams[0], el primer parametro; el nombre es deduccion por el array y el hermano 0x46A810).
+// Si el modelo ya esta en SuppressedVehicleModels (40 dwords en 0xA44940) no hace nada; si no, lo escribe en la primera ranura libre (-1). Como el original, si no hay ninguna libre el indice
+// llega a 40 y escribe FUERA del array (0xA449E0 = primera entrada de InvisibilitySettingArray).
+void CTheScripts::AddToSuppressedCarModels(eModelID carModelId) {
+    auto* const models = SuppressedVehicleModels.data();
+    constexpr uint8 NUM = MAX_NUM_SUPPRESSED_VEHICLE_MODELS;
+    for (uint8 i = 0; i < NUM; ++i) {
+        if (models[i] == carModelId) {
+            return;
+        }
+    }
+    uint8 slot = 0;
+    while (slot < NUM && models[slot] != MODEL_INVALID) {
+        ++slot;
+    }
+    models[slot] = carModelId;
 }
 
 // 0x46A810

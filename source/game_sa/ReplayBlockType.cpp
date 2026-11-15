@@ -122,8 +122,15 @@ void tReplayBmxBlock::ExtractBmxUpdateData(CBmx& bmx, float interpolation) {
     reinterpret_cast<tReplayBikeBlock*>(this)->ExtractBikeUpdateData(static_cast<CBike&>(bmx), interpolation);
 }
 
-// 0x45CDB0
+// 0x45CDB0 (lote 214A, sin validar; el listado decia CReplay): thiscall (ECX = paquete de tren), dos argumentos de pila (CTrain*, interpolacion float), `ret 8`, 226 bytes.
+// Primero ExtractVehicleUpdateData (0x45BA90, sin hook); luego copia velocidad, distancia de via y longitud (dwords), el byte de via (+0x5C0) y, si el vagon anterior / siguiente del
+// paquete no es 0, limpia la referencia vieja (solo si habia), busca el vagon con la tabla de conversion de CReplay (FindPoolIndexForVehicle, ref - 1) leyendo el pool en crudo como el EXE
+// (sin comprobar limites; bit 0x80 del mapa = libre -> nullptr), lo guarda y registra la referencia (solo si no es nulo). Orden del EXE: anterior y luego siguiente.
 void tReplayTrainBlock::ExtractTrainUpdateData(CTrain& train, float interpolation) {
+    static_assert(offsetof(CTrain, m_fTrainSpeed) == 0x5A4 && offsetof(CTrain, m_fCurrentRailDistance) == 0x5A8 && offsetof(CTrain, m_fLength) == 0x5AC);
+    static_assert(offsetof(CTrain, m_nTrackId) == 0x5C0 && offsetof(CTrain, m_pPrevCarriage) == 0x5D0 && offsetof(CTrain, m_pNextCarriage) == 0x5D4);
+    static_assert(offsetof(tReplayTrainBlock, trainSpeed) == 0x34 && offsetof(tReplayTrainBlock, prevCarriageRef) == 0x40 && offsetof(tReplayTrainBlock, trackId) == 0x48);
+
     As<tReplayVehicleBlock>()->ExtractVehicleUpdateData(*train.AsVehicle(), interpolation);
 
     train.m_fTrainSpeed = trainSpeed;
@@ -131,17 +138,24 @@ void tReplayTrainBlock::ExtractTrainUpdateData(CTrain& train, float interpolatio
     train.m_fLength = length;
     train.m_nTrackId = trackId;
 
-    if (auto prevCarriage = prevCarriageRef) {
-        CEntity::SafeCleanUpRef(train.m_pPrevCarriage);
+    // Pool de vehiculos en crudo como el EXE: objetos en +0 (0xA18 bytes por ranura), mapa de estado en +4 (bit 0x80 = libre).
+    const auto findCarriage = [](uint32 ref) -> CTrain* {
+        const int32 slot = CReplay::FindPoolIndexForVehicle(static_cast<int32>(ref) - 1);
+        auto* const pool = GetVehiclePool();
+        auto* const objects = reinterpret_cast<uint8**>(pool)[0];
+        auto* const flags = reinterpret_cast<int8**>(pool)[1];
+        return flags[slot] < 0 ? nullptr : reinterpret_cast<CTrain*>(objects + slot * 0xA18);
+    };
 
-        train.m_pPrevCarriage = GetVehiclePool()->GetAt(CReplay::FindPoolIndexForVehicle(prevCarriage - 1))->AsTrain();
+    if (prevCarriageRef) {
+        CEntity::SafeCleanUpRef(train.m_pPrevCarriage);
+        train.m_pPrevCarriage = findCarriage(prevCarriageRef);
         CEntity::SafeRegisterRef(train.m_pPrevCarriage);
     }
 
-    if (auto nextCarriage = nextCarriageRef) {
+    if (nextCarriageRef) {
         CEntity::SafeCleanUpRef(train.m_pNextCarriage);
-
-        train.m_pNextCarriage = GetVehiclePool()->GetAt(CReplay::FindPoolIndexForVehicle(nextCarriage - 1))->AsTrain();
+        train.m_pNextCarriage = findCarriage(nextCarriageRef);
         CEntity::SafeRegisterRef(train.m_pNextCarriage);
     }
 }

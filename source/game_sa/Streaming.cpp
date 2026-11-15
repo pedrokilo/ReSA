@@ -165,6 +165,7 @@ void CStreaming::InjectHooks() {
     RH_ScopedInstall(LoadInitialVehicles, 0x407F20);
     RH_ScopedInstall(StartRenderEntities, 0x4096C0);
     RH_ScopedInstall(SetMissionDoesntRequireSpecialChar, 0x40B490);
+    RH_ScopedInstall(SetMissionDoesntRequireAnim, 0x48B570); // lote 214A (sin validar)
     RH_ScopedInstall(RemoveStreamedScriptModel, 0x40C1C0);
     RH_ScopedInstall(SetMissionDoesntRequireStreamedScript, 0x4700E0); // lote 198A (sin validar)
     RH_ScopedOverloadedInstall(ProcessEntitiesInSectorList<CPtrListSingleLink<CEntity*>>, "Simple", 0x40C450, void(*)(CPtrListSingleLink<CEntity*>&, int32));
@@ -3159,7 +3160,8 @@ void CStreaming::SetLoadVehiclesInLoadScene(bool bEnable) {
     ms_bLoadVehiclesInLoadScene = bEnable;
 }
 
-// 0x48B570
+// 0x48B570 (lote 214A, sin validar; el listado decia CRunningScript): cdecl, un argumento de pila, 18 bytes: suma 0x63E7 (RESOURCE_ID_IFP = 25575) al argumento y salta a 0x409C90
+// (SetMissionDoesntRequireModel, con hook; unico llamador directo del EXE: 0x48C409). La suma es de 32 bits sin comprobar el rango.
 void CStreaming::SetMissionDoesntRequireAnim(int32 slot) {
     SetMissionDoesntRequireModel(IFPToModelId(slot));
 }

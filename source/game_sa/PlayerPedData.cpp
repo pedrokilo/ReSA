@@ -29,6 +29,7 @@ void CPlayerPedData::InjectHooks() {
     RH_ScopedInstall(AllocateData, 0x571880);
     RH_ScopedInstall(DeAllocateData, 0x56F890);
     RH_ScopedInstall(SetInitialState, 0x56F210);
+    RH_ScopedInstall(operator=, 0x45C4B0); // lote 214A (sin validar)
 }
 
 // 0x56F810
@@ -150,4 +151,35 @@ void CPlayerPedData::SetInitialState() {
     m_bLastHSMissileLOS = true;
 
     m_nModelIndexOfLastBuildingShot = -1;
+}
+
+// 0x45C4B0 (lote 214A, sin validar; el listado decia CReplay): operator= de CPlayerPedData del EXE (thiscall, un puntero de origen en la pila, `ret 4`, 537 bytes; devuelve this). Su unico llamador es
+// CPlayerInfo::operator= (0x45DEF0). Copia SOLO los campos, en orden creciente, con el ancho del EXE (dwords, bytes y words); no copia el relleno (+0x22/+0x23, +0x87, +0x8F).
+// Las banderas de +0x34 las mezcla con ESI sin inicializar (en esta funcion ESI es el del llamador, que es el CPlayerInfo, this - 4): bit 9 con el valor de destino, bits 10-12 con el de origen y
+// el resto con ESI. El bit 31 de +0xA0 acaba con el valor de origen (el EXE lo mezcla en dos pasos y el resultado es el dword de origen).
+CPlayerPedData& CPlayerPedData::operator=(const CPlayerPedData& rhs) {
+    auto* const dst = reinterpret_cast<uint8*>(this);
+    const auto* const src = reinterpret_cast<const uint8*>(&rhs);
+    const auto copy = [&](size_t off, size_t size) { memcpy(dst + off, src + off, size); };
+
+    copy(0x00, 0x22); // 0x00..0x1F dwords + bytes 0x20/0x21
+    copy(0x24, 0x10); // 0x24..0x33 dwords
+    {
+        uint32 oldFlags, srcFlags;
+        memcpy(&oldFlags, dst + 0x34, 4);
+        memcpy(&srcFlags, src + 0x34, 4);
+        const uint32 esi = static_cast<uint32>(reinterpret_cast<uintptr_t>(this) - 4u);
+        const uint32 newFlags = (esi & ~0x1E00u) | (oldFlags & 0x200u) | (srcFlags & 0x1C00u);
+        memcpy(dst + 0x34, &newFlags, 4);
+    }
+    copy(0x38, 0x08); // 0x38, 0x3C
+    copy(0x40, 0x04); // cuatro bytes
+    copy(0x44, 0x30); // 0x44..0x73 dwords
+    copy(0x74, 0x0C); // tres dwords
+    copy(0x80, 0x07); // dword 0x80 + bytes 0x84..0x86
+    copy(0x88, 0x07); // words 0x88/0x8A + bytes 0x8C..0x8E
+    copy(0x90, 0x10); // 0x90..0x9F dwords
+    copy(0xA0, 0x04); // dword completo (ver arriba)
+    copy(0xA4, 0x08); // 0xA4, 0xA8
+    return *this;
 }

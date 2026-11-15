@@ -490,6 +490,7 @@ public:
     static void AddToListOfSpecialAnimGroupsAttachedToCharModels(int32 modelId, Const char* ifpName);
     static void AddToSwitchJumpTable(int32 switchValue, int32 switchLabelLocalAddress);
     static void AddToVehicleModelsBlockedByScript(eModelID modelIndex);
+    static void AddToSuppressedCarModels(eModelID carModelId);
     static void AddToWaitingForScriptBrainArray(CEntity* entity, int16 arg2);
 
     static void AttachSearchlightToSearchlightObject(int32 searchLightId, CObject* tower, CObject* housing, CObject* bulb, CVector offset);

@@ -720,12 +720,6 @@ float CalculateTotalBlendOfPartial(AnimBlendUpdateData* c, AnimBlendFrameData* f
 
 #ifdef USE_COPY_PASTE_FRAME_UPDATE
 #pragma region "R* Frame Update Functions"
-// 0x4D1610 (CQuaternion::Normalise del EXE; los hooks de CQuaternion no están instalados)
-// Como el original: longitud en registros x87 y multiplicación por el recíproco (no división); ver X87Math.cpp.
-static void NormaliseQuatExe(CQuaternion* quat) {
-    AnimQuaternionNormaliseCpp(&quat->x);
-}
-
 /*!
  * @brief Ruta sin extracción de velocidad de 0x4D2B90/0x4D2E40/0x4D30A0/0x4D32D0
  * @details Como el original: el blend parcial suma `blend + suma`, la escala se pasa como `1 - suma`,
@@ -789,7 +783,7 @@ static void FrameUpdateCallBackNoVelocity(AnimBlendFrameData* fd, AnimBlendUpdat
     if constexpr (IsSkinned) {
         const auto kf = fd->KeyFrame;
         if (!fd->KeyFramesIgnoreNodeOrientation) {
-            NormaliseQuatExe(&nextQ);
+            nextQ.Normalise();
             std::memcpy(&kf->q, &nextQ, sizeof(kf->q));
         }
         if (!fd->KeyFramesIgnoreNodeTranslation) {
@@ -805,7 +799,7 @@ static void FrameUpdateCallBackNoVelocity(AnimBlendFrameData* fd, AnimBlendUpdat
         const auto mat = RwFrameGetMatrix(fd->Frame);
         if (!fd->KeyFramesIgnoreNodeOrientation) {
             RwMatrixSetIdentity(mat);
-            NormaliseQuatExe(&nextQ);
+            nextQ.Normalise();
             RpNanQuatToMatrixCpp(&nextQ.x, reinterpret_cast<float*>(mat)); // CQuaternion::Get del EXE (0x59C080) en x87; el hook de Get está apagado y el de la DLL es SSE
         }
         if (!fd->KeyFramesIgnoreNodeTranslation) {
@@ -963,11 +957,11 @@ static void FrameUpdateCallBackExeVelocity(AnimBlendUpdateData* c, AnimBlendFram
 
     if (!fd->KeyFramesIgnoreNodeOrientation) {
         if constexpr (IsSkinned) {
-            NormaliseQuatExe(&nextQ);
+            nextQ.Normalise();
             std::memcpy(&kf->q, &nextQ, sizeof(kf->q));
         } else {
             RwMatrixSetIdentity(mat);
-            NormaliseQuatExe(&nextQ);
+            nextQ.Normalise();
             RpNanQuatToMatrixCpp(&nextQ.x, reinterpret_cast<float*>(mat)); // CQuaternion::Get del EXE (0x59C080) en x87; el hook de Get está apagado y el de la DLL es SSE
         }
     }

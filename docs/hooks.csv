@@ -11305,3 +11305,10 @@ CReplay,StoreBmxBlock,0x0045BF90,1,0,0,S
 CReplay,ExtractBmxBlock,0x0045BFF0,1,0,0,S
 CReplay,StoreBikeBlock,0x0045C070,1,0,0,S
 CReplay,ExtractBikeBlock,0x0045C0D0,1,0,0,S
+CPlayerPedData,operator=,0x0045C4B0,1,0,0,S
+CPlayerInfo,operator=,0x0045DEF0,1,0,0,S
+CReplay,StoreTrainUpdate,0x0045CD10,1,0,0,S
+tReplayTrainBlock,ExtractTrainUpdateData,0x0045CDB0,1,0,0,S
+CTheScripts,AddToSuppressedCarModels,0x0046B1A0,1,0,0,S
+CStreaming,SetMissionDoesntRequireAnim,0x0048B570,1,0,0,S
+CQuaternion,Normalise,0x004D1610,1,0,0,S

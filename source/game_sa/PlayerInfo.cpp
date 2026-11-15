@@ -84,6 +84,7 @@ void CPlayerInfo::InjectHooks() {
     RH_ScopedInstall(SetLastTargetVehicle, 0x56DA80);
     RH_ScopedInstall(Load, 0x5D3B00);
     RH_ScopedInstall(Save, 0x5D3AC0);
+    RH_ScopedInstall(operator=, 0x45DEF0); // lote 214A (sin validar)
     RH_ScopedNamedGlobalInstall(ScriptStub_571970, "ScriptStub_571970", 0x571970);   // lote 139A (banco Fn139A): siempre false
     RH_ScopedNamedGlobalInstall(ScriptStub_571980, "ScriptStub_571980", 0x571980);   // lote 139A
 }
@@ -813,7 +814,7 @@ bool CPlayerInfo::Save() {
     return true;
 }
 
-// 0x45DEF0
+// 0x45DEF0 (lote 214A, sin validar)
 CPlayerInfo& CPlayerInfo::operator=(const CPlayerInfo& rhs) {
     // Como el original: copia por campos sin tocar el relleno (el EXE no usa memcpy de la estructura).
     auto* const dst = reinterpret_cast<uint8*>(this);
@@ -822,34 +823,8 @@ CPlayerInfo& CPlayerInfo::operator=(const CPlayerInfo& rhs) {
 
     copy(0x0, 4); // m_pPed
 
-    // 0x45C4B0 (CPlayerPedData, +4): solo copia los campos, no el relleno (+0x22/0x23, +0x87, +0x8F).
-    // Las banderas de +0x34 las mezcla con un registro sin inicializar (ESI = this del CPlayerInfo):
-    // solo el bit 9 queda con el valor de destino, los bits 10-12 con el de origen y el resto con ESI.
-    uint8* const pd = dst + 4;
-    const uint8* const ps = src + 4;
-    const auto copyPd = [&](size_t off, size_t size) { memcpy(pd + off, ps + off, size); };
-    copyPd(0x00, 0x22); // 0x00..0x21 (dwords hasta 0x1C + bytes 0x20/0x21)
-    copyPd(0x24, 0x10); // 0x24..0x33
-    {
-        uint32 oldFlags, srcFlags;
-        memcpy(&oldFlags, pd + 0x34, 4);
-        memcpy(&srcFlags, ps + 0x34, 4);
-        const uint32 esi = static_cast<uint32>(reinterpret_cast<uintptr_t>(this));
-        const uint32 newFlags = (esi & ~0x1E00u) | (oldFlags & 0x200u) | (srcFlags & 0x1C00u);
-        memcpy(pd + 0x34, &newFlags, 4);
-    }
-    copyPd(0x38, 0x08); // 0x38..0x3F
-    copyPd(0x40, 0x04);
-    copyPd(0x44, 0x30); // 0x44..0x73
-    copyPd(0x74, 0x0C);
-    copyPd(0x80, 0x07); // 0x80 dword + bytes 0x84..0x86
-    copyPd(0x88, 0x07); // words 0x88/0x8A + byte 0x8C..0x8E (0x88..0x8E)
-    copyPd(0x90, 0x10); // 0x90..0x9F
-    {
-        // Bits 0-30 de +0xA0 (el bit 31 acaba también con el valor de origen)
-        memcpy(pd + 0xA0, ps + 0xA0, 4);
-    }
-    copyPd(0xA4, 0x08);
+    // 0x45C4B0 (CPlayerPedData, +4, lote 214A): operator= propio de CPlayerPedData (hook aparte); aqui ESI del EXE es este CPlayerInfo.
+    m_PlayerData = rhs.m_PlayerData;
 
     copy(0xB0, 0x24); // 0xB0..0xD3 (dwords)
     copy(0xD4, 2);    // m_bTaxiTimerScore, m_bTryingToExitCar

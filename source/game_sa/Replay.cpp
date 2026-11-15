@@ -36,6 +36,7 @@ void __fastcall ReplayStoreBikeBlockExe(uint8* packet, void* edx, CVehicle* veh,
 void __fastcall ReplayExtractVehicleBlockExe(tReplayVehicleBlock* self, void* edx, CVehicle* veh, float interpolation); // 0x45BA90 (lote 213A), definida mas abajo
 void __fastcall ReplayExtractBmxBlockExe(tReplayBmxBlock* self, void* edx, CBmx* bmx, float interpolation);             // 0x45BFF0 (lote 213A), definida mas abajo
 void __fastcall ReplayExtractBikeBlockExe(tReplayBikeBlock* self, void* edx, CBike* bike, float interpolation);         // 0x45C0D0 (lote 213A), definida mas abajo
+void __fastcall ReplayStoreTrainUpdateExe(uint8* p, void* /*edx*/, CVehicle* veh, int32 poolIdx);
 }
 
 void CReplay::InjectHooks() {
@@ -98,6 +99,14 @@ void CReplay::InjectHooks() {
     RH_ScopedNamedGlobalInstall(ReplayExtractBmxBlockExe, "ExtractBmxBlock", 0x45BFF0);
     RH_ScopedNamedGlobalInstall(ReplayStoreBikeBlockExe, "StoreBikeBlock", 0x45C070);
     RH_ScopedNamedGlobalInstall(ReplayExtractBikeBlockExe, "ExtractBikeBlock", 0x45C0D0);
+    RH_ScopedNamedGlobalInstall(ReplayStoreTrainUpdateExe, "StoreTrainUpdate", 0x45CD10); // lote 214A (sin validar)
+
+    {
+        // 0x45CDB0 (lote 214A, sin validar): metodo de tReplayTrainBlock (ReplayBlockType.cpp).
+        RH_ScopedClass(tReplayTrainBlock);
+        RH_ScopedCategoryGlobal();
+        RH_ScopedInstall(ExtractTrainUpdateData, 0x45CDB0);
+    }
 }
 
 namespace {
@@ -270,6 +279,12 @@ void __fastcall ReplayExtractBmxBlockExe(tReplayBmxBlock* self, void* /*edx*/, C
 }
 void __fastcall ReplayExtractBikeBlockExe(tReplayBikeBlock* self, void* /*edx*/, CBike* bike, float interpolation) {
     self->ExtractBikeUpdateData(*bike, interpolation);
+}
+
+// 0x45CD10 (lote 214A, sin validar): paquete de tren de la grabacion. thiscall (ECX = paquete del buffer), dos argumentos de pila (CVehicle*, indice de pool), `ret 8`, 159 bytes.
+// El listado lo atribuia a CReplay; escribe en crudo el paquete REPLAY_PACKET_TRAIN (0x12) con ReplayStoreTrainUpdate (el tipo se escribe antes de la llamada a 0x45B730).
+void __fastcall ReplayStoreTrainUpdateExe(uint8* p, void* /*edx*/, CVehicle* veh, int32 poolIdx) {
+    ReplayStoreTrainUpdate(p, veh, poolIdx);
 }
 } // namespace
 
