@@ -20,6 +20,11 @@ public:
     CTask* Clone() const override;
 
 private: // Wrappers para los hooks
+    // 0x4993D0 (lote 221A, sin validar): constructor del EXE (thiscall, tres argumentos de pila, `ret 0Ch`); el listado decia CTaskComplexSeekEntityRadiusAngleOffset
+    CTaskComplexBeCop* Constructor(eMoveState moveState, uint8 dir, CTask* task) {
+        this->CTaskComplexBeCop::CTaskComplexBeCop(moveState, dir, task);
+        return this;
+    }
     // 0x4994E0
     __declspec(noinline) CTaskComplexBeCop* Destructor() {
         this->CTaskComplexBeCop::~CTaskComplexBeCop();

@@ -231,6 +231,11 @@
 #include "Attractors/PedStopAttractor.h"
 #include "Attractors/PedPizzaAttractor.h"
 #include "Attractors/PedTriggerScriptAttractor.h"
+#include "Attractors/PedLookAtAttractor.h"
+#include "Attractors/PedScriptedAttractor.h"
+#include "Attractors/PedParkAttractor.h"
+#include "Attractors/PedStepAttractor.h"
+#include "ExeProtectionStub.h"
 #include "IdleCam.h"
 #include "Tasks/TaskTypes/TaskComplexChat.h"
 #include "Credits.h"
@@ -736,6 +741,11 @@ void InjectHooksMain() {
     CPedStopAttractor::InjectHooks();
     CPedPizzaAttractor::InjectHooks();
     CPedTriggerScriptAttractor::InjectHooks();
+    CPedLookAtAttractor::InjectHooks();    // lote 221A (sin validar)
+    CPedScriptedAttractor::InjectHooks();  // lote 221A (sin validar)
+    CPedParkAttractor::InjectHooks();      // lote 221A (sin validar)
+    CPedStepAttractor::InjectHooks();      // lote 221A (sin validar)
+    ExeProtectionStub::InjectHooks();      // lote 221A (sin validar)
     CPedAttractorPedPlacer::InjectHooks();
     BoneNode_c::InjectHooks();
     BoneNodeManager_c::InjectHooks();

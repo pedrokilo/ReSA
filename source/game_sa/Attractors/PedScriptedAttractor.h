@@ -26,4 +26,13 @@ public:
 
     // 0x5EEA90
     ePedAttractorType GetType() const override { return Type; }
+
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    // Envolturas para los hooks (lote 221A, sin validar)
+    CPedScriptedAttractor* Constructor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState); // 0x5EEA30
+    __declspec(noinline) void Destructor();                                               // 0x5EEAF0
+    CPedScriptedAttractor* ScalarDeletingDestructor(uint8 flags);                                           // 0x5EEAA0
 };

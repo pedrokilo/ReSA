@@ -97,6 +97,7 @@ void CTheScripts::InjectHooks() {
     RH_ScopedInstall(Init, 0x468D50);
     RH_ScopedNamedGlobalInstall(ScriptEntryListAdd, "ScriptEntryListAdd", 0x46AE80); // lote 166A (banco Fn166A)
     RH_ScopedInstall(IsPointWithinSearchLight, 0x493280);
+    RH_ScopedInstall(IsEntityWithinAnySearchLight, 0x493960); // lote 221A (sin validar); el listado decia CTaskComplexSeekEntityRadiusAngleOffset
     RH_ScopedInstall(InitialiseAllConnectLodObjects, 0x470960);
     RH_ScopedInstall(InitialiseConnectLodObjects, 0x470940);
     RH_ScopedInstall(InitialiseSpecialAnimGroupsAttachedToCharModels, 0x474730);
@@ -2377,4 +2378,20 @@ static float __fastcall SearchLightNormaliseAndMag(float* vector, void*) {
 bool CTheScripts::IsPointWithinSearchLight(const CVector& pointPosn, int32 index) {
     const tScriptSearchlight& light = ScriptSearchLightArray.data()[index];
     return SearchLightPointWithinCpp(&pointPosn.x, &light.m_TargetSpot.x, &light.vf64.x, &light.vf70.x, &SearchLightNormaliseAndMag);
+}
+
+// 0x493960 (lote 221A, sin validar; 136 bytes, cdecl con (entidad, puntero de salida), bool en AL; el listado decia CTaskComplexSeekEntityRadiusAngleOffset, lo llama el opcode 0x46C1F7 de scripts): escribe -1 en *pIndex, copia la posicion de la entidad (matriz +0x14 si existe,
+// posicion de la matriz +0x30; si no, la de CPlaceable +4) a un local y recorre los 8 focos: para el primero activo (+0 distinto de cero) cuyo IsPointWithinSearchLight (0x493280, con hook) acepta el punto, escribe en *pIndex el identificador unico
+// (word +4, desplazado 16 bits) unido al indice y devuelve verdadero. Si ninguno lo contiene devuelve falso (con -1 ya escrito).
+bool CTheScripts::IsEntityWithinAnySearchLight(CEntity* entity, int32* pIndex) {
+    *pIndex = -1;
+    const CVector pos = entity->GetPosition();
+    for (int32 i = 0; i < (int32)MAX_NUM_SCRIPT_SEARCH_LIGHT; i++) {
+        const tScriptSearchlight& light = ScriptSearchLightArray.data()[i];
+        if (light.IsActive() && IsPointWithinSearchLight(pos, i)) {
+            *pIndex = (int32)(((uint32)(uint16)light.m_nId << 16) | (uint32)i);
+            return true;
+        }
+    }
+    return false;
 }

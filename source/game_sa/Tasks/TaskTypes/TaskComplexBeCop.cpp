@@ -24,6 +24,7 @@ void CTaskComplexBeCop::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexBeCop, 0x85A428, 15); // vtable verificado en gta_sa.exe (GetTaskType en [4]); [11]..[14] heredadas de CTaskComplexWander
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedInstall(Constructor, 0x4993D0); // lote 221A (sin validar)
     RH_ScopedInstall(Destructor, 0x4994E0);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x4994C0);
 

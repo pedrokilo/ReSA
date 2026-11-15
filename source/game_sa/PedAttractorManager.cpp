@@ -184,6 +184,68 @@ bool __stdcall DeRegisterPedList(CPed* ped, CPedAttractor* attractor, AttractorL
 CPedAttractorManager* __fastcall PedAttractorManagerConstructor(CPedAttractorManager* self, void* /*edx*/) {
     return new (self) CPedAttractorManager;
 }
+
+// 0x5EF920 (lote 221A, sin validar; 95 bytes, `ret 0Ch`): instancia de plantilla BroadcastArrival del EXE (`this` en ECX sin usar, argumentos (peaton, atractor, lista) en la pila). Falso si el atractor es nulo o no esta en la lista; si esta, devuelve lo que devuelve
+// CPedAttractor::BroadcastArrival (0x5EEF80, con hook, no virtual) para el peaton. El EXE recorre la lista leyendo el inicio una sola vez y avanzando el puntero (indice con signo, 0 elementos si no hay inicio).
+bool __stdcall BroadcastArrivalList(CPed* ped, CPedAttractor* attractor, AttractorList& attractors) {
+    if (!attractor) {
+        return false;
+    }
+    CPedAttractor* const* cursor = attractors._First;
+    const int32 count = cursor ? int32(attractors._Last - cursor) : 0;
+    for (int32 i = 0; i < count; i++, cursor++) {
+        if (*cursor == attractor) {
+            return attractor->BroadcastArrival(ped);
+        }
+    }
+    return false;
+}
+
+// 0x5EF980 (lote 221A, sin validar; 659 bytes con marco SEH que solo desenrolla, `ret 14h`): instancia de la plantilla RegisterPed del EXE (`this` en ECX sin usar, argumentos (peaton, efecto, entidad, estado de movimiento, lista) en la pila). Busca en la lista el primer
+// atractor con ese efecto (+4) y esa entidad (+8). Si no lo hay, elige por el BYTE de tipo del efecto (+0x34, sin signo; mayor que 9 devuelve nulo sin tocar nada) la clase de atractor (0 ATM, 1 Seat, 2 Stop, 3 Pizza, 4 Shelter, 5 TriggerScript, 6 LookAt, 7 Scripted,
+// 8 Park, 9 Step), reserva su hueco en el pool (CPedAttractorPool::New, 0x5EA9F0) y, si lo obtiene, lo construye con (efecto, entidad, estado) y anade el puntero (nulo si el pool esta lleno) al final de la lista. Despues, si el atractor es no nulo (el hallado o el nuevo),
+// llama a CPedAttractor::RegisterPed (0x5EEE30, con hook) con el peaton. Devuelve el atractor (nulo si el pool esta lleno o el tipo no es valido).
+CPedAttractor* __stdcall RegisterPedList(CPed* ped, C2dEffectPedAttractor* fx, CEntity* entity, eMoveState moveState, AttractorList& attractors) {
+    CPedAttractor* result = nullptr;
+
+    CPedAttractor* const* cursor = attractors._First;
+    const int32 count = cursor ? int32(attractors._Last - cursor) : 0;
+    bool found = false;
+    for (int32 i = 0; i < count; i++) {
+        CPedAttractor* const a = attractors._First[i];
+        if (a->m_Fx == fx && a->GetEntity() == entity) {
+            result = a;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        const auto Create = [&]<typename T>() -> CPedAttractor* {
+            void* const mem = CPedAttractor::operator new(sizeof(T));
+            return mem ? std::construct_at(static_cast<T*>(mem), fx, entity, moveState) : nullptr;
+        };
+        switch (static_cast<uint8>(fx->m_nAttractorType)) {
+        case PED_ATTRACTOR_ATM:            result = Create.template operator()<CPedATMAttractor>(); break;
+        case PED_ATTRACTOR_SEAT:           result = Create.template operator()<CPedSeatAttractor>(); break;
+        case PED_ATTRACTOR_STOP:           result = Create.template operator()<CPedStopAttractor>(); break;
+        case PED_ATTRACTOR_PIZZA:          result = Create.template operator()<CPedPizzaAttractor>(); break;
+        case PED_ATTRACTOR_SHELTER:        result = Create.template operator()<CPedShelterAttractor>(); break;
+        case PED_ATTRACTOR_TRIGGER_SCRIPT: result = Create.template operator()<CPedTriggerScriptAttractor>(); break;
+        case PED_ATTRACTOR_LOOK_AT:        result = Create.template operator()<CPedLookAtAttractor>(); break;
+        case PED_ATTRACTOR_SCRIPTED:       result = Create.template operator()<CPedScriptedAttractor>(); break;
+        case PED_ATTRACTOR_PARK:           result = Create.template operator()<CPedParkAttractor>(); break;
+        case PED_ATTRACTOR_STEP:           result = Create.template operator()<CPedStepAttractor>(); break;
+        default:                           return nullptr; // Como el original: tipo fuera de 0..9, sin anadir a la lista ni registrar
+        }
+        attractors.emplace_back(result);
+    }
+
+    if (result) {
+        result->RegisterPed(ped);
+    }
+    return result;
+}
 } // namespace
 
 void CPedAttractorManager::InjectHooks() {
@@ -191,7 +253,7 @@ void CPedAttractorManager::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(RestoreStuffFromMem, 0x5EF710);
-    //RH_ScopedInstall(BroadcastArrival<CPedAttractor>, 0x5EF920); // Can't hook this because template function will (probably) be wrong
+    RH_ScopedNamedGlobalInstall(BroadcastArrivalList, "BroadcastArrivalList", 0x5EF920); // lote 221A (sin validar): instancia de la plantilla del EXE, ver arriba
     RH_ScopedOverloadedInstall(BroadcastArrival, "", 0x5EFE20, bool(CPedAttractorManager::*)(CPed*, CPedAttractor*));
     //RH_ScopedInstall(BroadcastDeparture<CPedAttractor>, 0x5EC660); // Can't hook this because template function will (probably) be wrong
     RH_ScopedOverloadedInstall(BroadcastDeparture, "", 0x5EC980, bool(CPedAttractorManager::*)(CPed*, CPedAttractor*));
@@ -217,7 +279,7 @@ void CPedAttractorManager::InjectHooks() {
     //RH_ScopedInstall(ComputeEffectUseDir, 0x5E96E0); // Different signature, cant hook
     //RH_ScopedInstall(ComputeEffectQueueDir, 0x5E9730); // Different signature, cant hook
     //RH_ScopedInstall(ComputeEffectForwardDir, 0x5E9780); // Different signature, cant hook
-    //RH_ScopedInstall(RegisterPed<CPedAttractor>, 0x5EF980); // Can't hook this because template function will (probably) be wrong
+    RH_ScopedNamedGlobalInstall(RegisterPedList, "RegisterPedList", 0x5EF980); // lote 221A (sin validar): instancia de la plantilla del EXE, ver arriba
     RH_ScopedInstall(RegisterPedWithAttractor, 0x5EFCA0);
     RH_ScopedInstall(IsApproachable, 0x5EA220);
     RH_ScopedGlobalInstall(GetPedAttractorManager, 0x5EE190);

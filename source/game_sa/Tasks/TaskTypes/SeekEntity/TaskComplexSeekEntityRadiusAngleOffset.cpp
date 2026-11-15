@@ -26,6 +26,10 @@ void CTaskComplexSeekEntityRadiusAngleOffset::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x493730);
     RH_ScopedInstall(Destructor, 0x493890);
 
+    // Lote 221A (sin validar): destructor con borrado (ranura 0 de la vtable 0x85A388; cuerpo 0x493890) y GetSeekPos (calculador incrustado en +0x40)
+    RH_ScopedNamedInstall(ScalarDeletingDestructorExe, "ScalarDeletingDestructor", 0x493870);
+    RH_ScopedInstall(GetSeekPos, 0x496DC0);
+
     RH_ScopedInstall(CreateSubTask, 0x496270);
 
     RH_ScopedVMTInstall(Clone, 0x495FB0);
