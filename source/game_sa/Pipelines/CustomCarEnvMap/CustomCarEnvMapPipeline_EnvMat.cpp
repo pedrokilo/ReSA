@@ -81,23 +81,45 @@ void* CCustomCarEnvMapPipeline::pluginEnvMatCopyConstructorCB(void* dstObject, c
     return dstObject;
 }
 
+// 0x5D8BE0 (lote 211A, sin validar): cdecl, dos argumentos de pila (bufer del flujo, datos de salida), `ret`; devuelve la textura en EAX. Como el original: conversion con _ftol2 (byte bajo; escalas
+// y traslaciones por 8, brillo por 255), la textura al dword +8 y el fotograma de render (+6) a 0; NO escribe el byte de relleno +5.
+RwTexture* CCustomCarEnvMapPipeline::EnvMatDataFromBuffer(const EnvMapPipeMaterialDataBuffer* in, CustomEnvMapPipeMaterialData* out) {
+    auto* const raw = Raw(out);
+    raw[0] = ToFixed8(in->Scale.x);
+    raw[1] = ToFixed8(in->Scale.y);
+    raw[2] = ToFixed8(in->TranslationScale.x);
+    raw[3] = ToFixed8(in->TranslationScale.y);
+    raw[4] = ToFixed255(in->Shininess);
+    RwTexture* const texture = in->Texture;
+    *reinterpret_cast<RwTexture**>(raw + 8) = texture;
+    *reinterpret_cast<uint16*>(raw + 6) = 0;
+    return texture;
+}
+
+// 0x5D8C50 (lote 211A, sin validar): cdecl, dos argumentos de pila (datos, bufer de salida), `ret`; devuelve la textura en EAX. Como el original: byte con signo * 0,125 (escalas y traslaciones),
+// brillo sin signo * (1/255) y la textura (dword +8).
+RwTexture* CCustomCarEnvMapPipeline::EnvMatDataToBuffer(const CustomEnvMapPipeMaterialData* in, EnvMapPipeMaterialDataBuffer* out) {
+    const auto* const raw = reinterpret_cast<const uint8*>(in);
+    out->Scale.x            = FromFixed8(raw[0]);
+    out->Scale.y            = FromFixed8(raw[1]);
+    out->TranslationScale.x = FromFixed8(raw[2]);
+    out->TranslationScale.y = FromFixed8(raw[3]);
+    out->Shininess          = FromFixed255(raw[4]);
+    RwTexture* const texture = *reinterpret_cast<RwTexture* const*>(raw + 8);
+    out->Texture = texture;
+    return texture;
+}
+
 // 0x5D9660
 RwStream* CCustomCarEnvMapPipeline::pluginEnvMatStreamReadCB(RwStream* stream, int32 binaryLength, void* object, int32 offsetInObject, int32 sizeInObject) {
     EnvMapPipeMaterialDataBuffer buffer;
     RwStreamRead(stream, &buffer, binaryLength);
 
-    // 0x5D8BE0 - Como el original: conversión con _ftol2; el fotograma de render queda a 0.
-    // En el EXE el byte de relleno +5 es basura de la pila; aquí se toma el del falso para que la
-    // comparación siguiente dependa solo de los campos.
-    uint8 data[sizeof(CustomEnvMapPipeMaterialData)];
-    data[0] = ToFixed8(buffer.Scale.x);
-    data[1] = ToFixed8(buffer.Scale.y);
-    data[2] = ToFixed8(buffer.TranslationScale.x);
-    data[3] = ToFixed8(buffer.TranslationScale.y);
-    data[4] = ToFixed255(buffer.Shininess);
+    // 0x5D8BE0 (EnvMatDataFromBuffer): el fotograma de render queda a 0. En el EXE el byte de relleno +5 es basura de la pila; aqui se toma el del falso
+    // para que la comparacion siguiente dependa solo de los campos.
+    alignas(CustomEnvMapPipeMaterialData) uint8 data[sizeof(CustomEnvMapPipeMaterialData)];
     data[5] = Raw(&fakeEnvMapPipeMatData)[5];
-    *reinterpret_cast<uint16*>(data + 6) = 0;
-    *reinterpret_cast<RwTexture**>(data + 8) = buffer.Texture;
+    EnvMatDataFromBuffer(&buffer, reinterpret_cast<CustomEnvMapPipeMaterialData*>(data));
 
     auto& slot = *RWPLUGINOFFSET(CustomEnvMapPipeMaterialData*, object, offsetInObject);
     if (std::memcmp(data, &fakeEnvMapPipeMatData, sizeof(data)) == 0) {
@@ -115,16 +137,9 @@ RwStream* CCustomCarEnvMapPipeline::pluginEnvMatStreamReadCB(RwStream* stream, i
 
 // 0x5D8CD0
 RwStream* CCustomCarEnvMapPipeline::pluginEnvMatStreamWriteCB(RwStream* stream, int32 binaryLength, const void* object, int32 offsetInObject, int32 sizeInObject) {
-    // 0x5D8C50 - Como el original: usa el offset recibido
-    const auto* const raw = reinterpret_cast<const uint8*>(*RWPLUGINOFFSETCONST(CustomEnvMapPipeMaterialData*, object, offsetInObject));
-
+    // 0x5D8C50 (EnvMatDataToBuffer) - Como el original: usa el offset recibido
     EnvMapPipeMaterialDataBuffer buffer;
-    buffer.Scale.x            = FromFixed8(raw[0]);
-    buffer.Scale.y            = FromFixed8(raw[1]);
-    buffer.TranslationScale.x = FromFixed8(raw[2]);
-    buffer.TranslationScale.y = FromFixed8(raw[3]);
-    buffer.Shininess          = FromFixed255(raw[4]);
-    buffer.Texture            = *reinterpret_cast<RwTexture* const*>(raw + 8);
+    EnvMatDataToBuffer(*RWPLUGINOFFSETCONST(CustomEnvMapPipeMaterialData*, object, offsetInObject), &buffer);
     RwStreamWrite(stream, &buffer, binaryLength);
 
     return stream;

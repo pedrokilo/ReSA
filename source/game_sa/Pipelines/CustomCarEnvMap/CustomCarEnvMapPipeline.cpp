@@ -218,63 +218,94 @@ void SetDefaultSurfaceProperties() {
     RwD3D9SetSurfaceProperties(&gDefaultSurfaceProps, &gDefaultColor, rxGEOMETRY_LIGHT);
 }
 
-// Como el original: new de 0x14 bytes y constructor inline de CPool (0x5D9060/0x5D91B0/0x5D9300: new escalar
-// para objetos y flags, propietario, sin relleno; todos los flags quedan en 0x80). Si new falla, el pool es nulo.
+// Lote 211A (sin validar): instancias de las plantillas de CPool que el EXE enlaza junto al pipeline (todas con `this` en ECX, thiscall; se escriben como __fastcall con un EDX sin usar).
+// El pool es la disposicion cruda RawPool (objetos +0, flags +4, tamano +8, ultimo libre +0xC, propietario +0x10; 0x14 bytes en total).
+// Constructores (0x5D9060 y 0x5D91B0: elementos de 12 bytes; 0x5D9300: de 8; `ret 8`: tamano y nombre; el nombre no se lee). Reserva primero los objetos (tamano * elemento) y despues los flags (tamano),
+// pone propietario = 1, tamano y ultimo libre = -1 y, con tamano > 0 (con signo), deja todos los flags en 0x80 (`|= 0x80; &= 0x80`, sin relleno de depuracion). Devuelve `this`.
+template<size_t ElemSize>
+RawPool* __fastcall EnvMapPoolConstructor(RawPool* self, void* /*edx*/, int32 size, const char* /*name*/) {
+    self->Objects         = static_cast<uint8*>(::operator new(size * ElemSize));
+    self->Flags           = static_cast<uint8*>(::operator new(size));
+    self->OwnsAllocations = 1;
+    self->Size            = size;
+    self->LastFreeSlot    = -1;
+    for (int32 i = 0; i < size; i++) {
+        self->Flags[i] |= 0x80;
+        self->Flags[i] &= 0x80;
+    }
+    return self;
+}
+
+// Destructor de CPool (0x5D8F70, 0x5D8FC0, 0x5D9010, 0x5D90C0, 0x5D9210 y 0x5D9360: mismos bytes; `ret`): solo con tamano > 0 (con signo) libera objetos y flags (operator delete escalar, en ese orden)
+// si es propietario y pone a cero objetos, flags, tamano y ultimo libre. No libera el propio pool.
+void __fastcall EnvMapPoolDestructor(RawPool* self, void* /*edx*/) {
+    if (self->Size > 0) {
+        if (self->OwnsAllocations) {
+            ::operator delete(self->Objects);
+            ::operator delete(self->Flags);
+        }
+        self->Objects      = nullptr;
+        self->Flags        = nullptr;
+        self->Size         = 0;
+        self->LastFreeSlot = 0;
+    }
+}
+
+// 0x5D9450 (`ret 4`): destructor con borrado de CPool: cuerpo del destructor y, con el bit 0 del BYTE de banderas, operator delete (0x8214BD) del propio pool; devuelve `this`.
+RawPool* __fastcall EnvMapPoolScalarDeletingDestructor(RawPool* self, void* /*edx*/, uint8 flags) {
+    EnvMapPoolDestructor(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
+// New de CPool (0x5D9110 y 0x5D9260: elementos de 12 bytes; 0x5D93B0: de 8; `ret`): ver PoolNew en CustomCarEnvMapPipeline.h (busca desde ultimo libre + 1, una vuelta como mucho, deja el hueco sin rellenar).
+// Devuelve el elemento o nulo.
+template<size_t ElemSize>
+void* __fastcall EnvMapPoolNewExe(RawPool* self, void* /*edx*/) {
+    return PoolNew<ElemSize>(self);
+}
+
+// Delete de CPool (0x5D9180: elementos de 12 bytes; `ret 4`): ver PoolDelete en CustomCarEnvMapPipeline.h.
+template<size_t ElemSize>
+void __fastcall EnvMapPoolDeleteExe(RawPool* self, void* /*edx*/, const void* obj) {
+    PoolDelete<ElemSize>(self, obj);
+}
+
+constexpr size_t kEnvMatSize  = sizeof(CustomEnvMapPipeMaterialData);   // 12
+constexpr size_t kEnvAtmSize  = sizeof(CustomEnvMapPipeAtomicData);     // 12
+constexpr size_t kSpecMatSize = sizeof(CustomSpecMapPipeMaterialData);  // 8
+
+// Como el original: new de 0x14 bytes (si falla, el pool es nulo) y constructor del pool (0x5D9060 / 0x5D91B0 / 0x5D9300)
 template<size_t ElemSize, class Pool>
 Pool* CreateEnvMapPool(int32 size) {
     auto* const p = static_cast<RawPool*>(::operator new(0x14));
     if (!p) {
         return nullptr;
     }
-    p->Objects         = static_cast<uint8*>(::operator new(size * ElemSize));
-    p->Flags           = static_cast<uint8*>(::operator new(size));
-    p->OwnsAllocations = 1;
-    p->Size            = size;
-    p->LastFreeSlot    = -1;
-    for (int32 i = 0; i < size; i++) {
-        p->Flags[i] |= 0x80;
-        p->Flags[i] &= 0x80;
-    }
-    return reinterpret_cast<Pool*>(p);
+    return reinterpret_cast<Pool*>(EnvMapPoolConstructor<ElemSize>(p, nullptr, size, nullptr));
 }
 
-// Como el original: destructor inline de CPool (solo con tamaño > 0, operator delete escalar, último libre = 0)
-// y operator delete del pool
+// Como el original: destructor inline de CPool (cuerpo 0x5D8F70..) y operator delete del pool
 template<class Pool>
 void DestroyEnvMapPool(Pool* pool) {
     auto* const p = reinterpret_cast<RawPool*>(pool);
-    if (p->Size > 0) {
-        if (p->OwnsAllocations) {
-            ::operator delete(p->Objects);
-            ::operator delete(p->Flags);
-        }
-        p->Objects      = nullptr;
-        p->Flags        = nullptr;
-        p->Size         = 0;
-        p->LastFreeSlot = 0;
-    }
+    EnvMapPoolDestructor(p, nullptr);
     ::operator delete(p);
 }
 
-// 0x5D94B0 y 0x5D9510 (lote 212A, sin validar; 71 bytes cada una): destructores con borrado de dos de las tres instancias de CPool de este pipeline (el EXE tambien trae 0x5D9450, no incluida en el lote; mismos bytes salvo las
-// direcciones de operator delete). thiscall con un argumento de pila (banderas, `ret 4`), devuelve `this`. Con tamano (+8, con signo) > 0: si el propietario (+0x10, byte) no es cero libera el almacenamiento (+0) y los estados (+4)
-// con operator delete escalar (0x8214BD, el mismo que usa DestroyEnvMapPool); despues pone +0, +4, +8 y +0xC a cero. Solo si el bit 0 de las banderas esta puesto libera `this` con operator delete. No toca el byte propietario.
-void* __fastcall EnvMapPoolScalarDeletingDestructor(void* self, void* /*edx*/, uint32 deleteFlags) {
-    auto* const p = static_cast<RawPool*>(self);
-    if (p->Size > 0) {
-        if (p->OwnsAllocations) {
-            ::operator delete(p->Objects);
-            ::operator delete(p->Flags);
-        }
-        p->Objects      = nullptr;
-        p->Flags        = nullptr;
-        p->Size         = 0;
-        p->LastFreeSlot = 0;
-    }
-    if (deleteFlags & 1) {
-        ::operator delete(self);
-    }
-    return self;
+// 0x5D94B0 y 0x5D9510 (lote 212A, sin validar): mismas copias que 0x5D9450 (lote 211A): se enganchan con EnvMapPoolScalarDeletingDestructor (ver arriba).
+
+// 0x5D8980 (lote 211A, sin validar): cdecl sin argumentos, el resultado entero completo en EAX (0 o 1). Pregunta las capacidades de D3D9: MaxTextureBlendStages (+0x94, con signo) > 1,
+// MaxSimultaneousTextures (+0x98, sin signo) >= 2, TextureOpCaps (+0x90) con BLENDFACTORALPHA (bit 13) y MULTIPLYADD (bit 24) y ShadeCaps (+0x38) con SPECULARGOURAUDRGB (bit 9).
+uint32 IsEnvironmentMappingSupported() {
+    const auto caps = (D3DCAPS9*)RwD3D9GetCaps();
+    return ((int32)caps->MaxTextureBlendStages > 1 && // Como el original: comparacion con signo (jle)
+        caps->MaxSimultaneousTextures >= 2 &&
+        (caps->TextureOpCaps & D3DTEXOPCAPS_BLENDFACTORALPHA) &&
+        (caps->TextureOpCaps & D3DTEXOPCAPS_MULTIPLYADD) &&
+        (caps->ShadeCaps & D3DPSHADECAPS_SPECULARGOURAUDRGB)) ? 1u : 0u;
 }
 } // namespace
 
@@ -330,6 +361,24 @@ void CCustomCarEnvMapPipeline::InjectHooks() {
     RH_ScopedNamedGlobalInstall(RxD3D9InstanceDataRenderLighting, "RxD3D9InstanceDataRenderLighting", 0x5DA6A0);
     RH_ScopedNamedGlobalInstall(SetEnvMapMaterial, "SetEnvMapMaterial", 0x5DA790);
     RH_ScopedNamedGlobalInstall(SetDefaultSurfaceProperties, "SetDefaultSurfaceProperties", 0x5DAAC0);
+    // Lote 211A (sin validar): ver reversing/PendienteValidar/211A.md
+    RH_ScopedGlobalInstall(IsEnvironmentMappingSupported, 0x5D8980);
+    RH_ScopedInstall(EnvMatDataFromBuffer, 0x5D8BE0);
+    RH_ScopedInstall(EnvMatDataToBuffer, 0x5D8C50);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolConstructor<kEnvMatSize>, "PoolConstructorMat", 0x5D9060);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolConstructor<kEnvAtmSize>, "PoolConstructorAtm", 0x5D91B0);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolConstructor<kSpecMatSize>, "PoolConstructorSpec", 0x5D9300);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor, "PoolDestructorA", 0x5D8F70);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor, "PoolDestructorB", 0x5D8FC0);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor, "PoolDestructorC", 0x5D9010);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor, "PoolDestructorD", 0x5D90C0);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor, "PoolDestructorE", 0x5D9210);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor, "PoolDestructorF", 0x5D9360);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolScalarDeletingDestructor, "PoolScalarDeletingDestructor", 0x5D9450);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolNewExe<kEnvMatSize>, "PoolNewMat", 0x5D9110);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolNewExe<kEnvAtmSize>, "PoolNewAtm", 0x5D9260);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolNewExe<kSpecMatSize>, "PoolNewSpec", 0x5D93B0);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDeleteExe<kEnvMatSize>, "PoolDeleteMat", 0x5D9180);
 }
 
 // 0x5DA450
@@ -361,16 +410,6 @@ RwBool CCustomCarEnvMapPipeline::RegisterPlugin() {
     }
 
     return TRUE;
-}
-
-// 0x5D8980
-bool IsEnvironmentMappingSupported() {
-    const auto caps = (D3DCAPS9*)RwD3D9GetCaps();
-    return (int32)caps->MaxTextureBlendStages > 1 && // Como el original: comparación con signo (jle)
-        caps->MaxSimultaneousTextures >= 2 &&
-        (caps->TextureOpCaps & D3DTEXOPCAPS_BLENDFACTORALPHA) &&
-        (caps->TextureOpCaps & D3DTEXOPCAPS_MULTIPLYADD) &&
-        (caps->ShadeCaps & D3DPSHADECAPS_SPECULARGOURAUDRGB);
 }
 
 // 0x5DA020

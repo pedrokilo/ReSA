@@ -143,6 +143,7 @@ public:
     ~CAutomobile() override;
 
     // CEntity
+    void SetModelIndex(uint32 index) override; // 0x6A6590 (lote 211A, sin validar)
     void Teleport(CVector destination, bool resetRotation) override;
 
     // CPhysical
@@ -406,6 +407,11 @@ public: // Envoltura del cuerpo 0x6A61E0 (con hook): la llama el cuerpo reconstr
 };
 
 VALIDATE_SIZE(CAutomobile, 0x988);
+VALIDATE_OFFSET(CAutomobile, m_pDustParticle, 0x580);        // lote 211A
+VALIDATE_OFFSET(CAutomobile, m_nVehicleSubType, 0x594);      // lote 211A
+VALIDATE_OFFSET(CAutomobile, m_aCarNodes, 0x648);            // lote 211A
+VALIDATE_OFFSET(CAutomobile, m_exhaustNitroFxSystem, 0x978); // lote 211A
+VALIDATE_OFFSET(CAutomobile, m_heliDustFxTimeConst, 0x984);  // lote 211A
 VALIDATE_OFFSET(CAutomobile, m_damageManager, 0x5A0);
 VALIDATE_OFFSET(CAutomobile, m_wheelColPoint, 0x724);
 VALIDATE_OFFSET(CAutomobile, autoFlags, 0x868);

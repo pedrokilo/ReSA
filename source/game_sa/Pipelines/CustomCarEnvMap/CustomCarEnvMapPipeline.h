@@ -178,6 +178,10 @@ public:
     static auto*& EnvMapPlGetData(RpMaterial* obj) { return *RWPLUGINOFFSET(CustomEnvMapPipeMaterialData*, obj, ms_envMapPluginOffset); }
     static auto*& EnvMapPlGetData(const RpMaterial* obj) { return *RWPLUGINOFFSETCONST(CustomEnvMapPipeMaterialData*, obj, ms_envMapPluginOffset); }
 
+    // 0x5D8BE0 y 0x5D8C50 (lote 211A, sin validar): conversion entre el bufer del flujo y los datos del material (cdecl, dos argumentos de pila, `ret`; devuelven la textura en EAX)
+    static RwTexture* EnvMatDataFromBuffer(const EnvMapPipeMaterialDataBuffer* in, CustomEnvMapPipeMaterialData* out);
+    static RwTexture* EnvMatDataToBuffer(const CustomEnvMapPipeMaterialData* in, EnvMapPipeMaterialDataBuffer* out);
+
     static void* pluginEnvMatConstructorCB(void* object, int32 offsetInObject, int32 sizeInObject);
     static void* pluginEnvMatDestructorCB(void* object, int32 offsetInObject, int32 sizeInObject);
     static void* pluginEnvMatCopyConstructorCB(void* dstObject, const void* srcObject, int32 offsetInObject, int32 sizeInObject);

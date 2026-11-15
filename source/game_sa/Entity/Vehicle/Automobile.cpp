@@ -122,6 +122,23 @@ void __fastcall AutomobileRemoveRefsToVehicle(CAutomobile* self, void* /*edx*/, 
     self->CAutomobile::RemoveRefsToVehicle(entity);
 }
 } // namespace
+// Lote 211A (sin validar): 0x6A6280 (3 bytes `xor eax,eax; ret`): ranura 47 de la vtable 0x871120, CVehicle::GetRideAnimData (solo bicis y quads devuelven datos); devuelve nulo.
+// thiscall sin argumentos; solo escribe EAX.
+static CRideAnimData* __fastcall AutomobileGetRideAnimDataExe(CAutomobile* /*self*/, void* /*edx*/) { return nullptr; }
+
+// Lote 211A (sin validar): 0x6A6290 (1 byte `ret`): ranura 21 de la vtable 0x871120, CVehicle::FlagToDestroyWhenNextProcessed (los vehiculos no hacen nada). thiscall sin argumentos; no escribe ningun registro.
+static void __fastcall AutomobileFlagToDestroyWhenNextProcessedExe(CAutomobile* /*self*/, void* /*edx*/) {}
+
+// Lote 211A (sin validar): 0x6B1330 (30 bytes, ranura 0 de la vtable 0x871120; thiscall, un argumento de pila, `ret 4`): `push esi; mov esi,ecx; call 0x6A61E0; test byte [esp+8],1; je ..; push esi;
+// call 0x6E2D90; add esp,4; mov eax,esi; pop esi; ret 4`. Como el original: destruye con el cuerpo de la clase (0x6A61E0, con hook: Destructor()), libera `this` con CVehicle::operator delete
+// (0x6E2D90, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Igual que CBike (0x6B8950) y CHeli (0x6C4810). Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+static CAutomobile* __fastcall AutomobileScalarDeletingDestructor(CAutomobile* self, void* /*edx*/, uint8 flags) {
+    self->Destructor();
+    if (flags & 1) {
+        CVehicle::operator delete(self);
+    }
+    return self;
+}
 
 void CAutomobile::InjectHooks()
 {
@@ -238,6 +255,16 @@ void CAutomobile::InjectHooks()
     RH_ScopedVMTInstall(OpenDoor, 0x6A6AE0);
     RH_ScopedVMTInstall(BlowUpCar, 0x6B3780);
     RH_ScopedVMTInstall(BlowUpCarCutSceneNoExtras, 0x6B3BB0);
+
+    // Lote 211A (sin validar): ver reversing/PendienteValidar/211A.md
+    RH_ScopedInstall(DoNitroEffect, 0x6A3BD0);
+    RH_ScopedInstall(DoHeliDustEffect, 0x6B0690);
+    RH_ScopedVMTInstall(SetUpWheelColModel, 0x6A3060);
+    RH_ScopedVMTInstall(BurstTyre, 0x6A32B0);
+    RH_ScopedVMTInstall(SetModelIndex, 0x6A6590);
+    RH_ScopedNamedGlobalInstall(AutomobileGetRideAnimDataExe, "GetRideAnimData", 0x6A6280);
+    RH_ScopedNamedGlobalInstall(AutomobileFlagToDestroyWhenNextProcessedExe, "FlagToDestroyWhenNextProcessed", 0x6A6290);
+    RH_ScopedNamedGlobalInstall(AutomobileScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6B1330);
 }
 
 // 0x6B0A90
@@ -490,6 +517,14 @@ CAutomobile::~CAutomobile() {
     FxSystem_c::SafeKillAndClear(m_pFireParticle);
     StopNitroEffect();
     m_vehicleAudio.Terminate();
+}
+
+// 0x6A6590 (lote 211A, sin validar): ranura 5 de la vtable 0x871120 (CEntity::SetModelIndex); thiscall, un argumento de pila, `ret 4`. Como el original: CVehicle::SetModelIndex (0x6D6A40, sin vtable),
+// pone a cero los 25 dwords de m_aCarNodes (+0x648, `rep stosd`) y rellena los nodos con CClumpModelInfo::FillFrameArray (0x4C5440, cdecl) pasando [this+0x18] tal cual (sin comprobar el tipo del objeto RW).
+void CAutomobile::SetModelIndex(uint32 index) {
+    CVehicle::SetModelIndex(index);
+    std::ranges::fill(m_aCarNodes, nullptr);
+    CClumpModelInfo::FillFrameArray(reinterpret_cast<RpClump*>(GetRwObject()), m_aCarNodes.data());
 }
 
 // Como el original: Multiply3x3 (0x59C790), con el orden de sumas del EXE (x: up, forward, right; y y z: up, right, forward)
@@ -2843,11 +2878,14 @@ bool CAutomobile::BurstTyre(uint8 tyreComponentId, bool bPhysicalEffect) {
 
     constexpr auto force = 0.03f;
     if (bPhysicalEffect) {
-        ApplyMoveForce(m_matrix->GetRight() * CGeneral::GetRandomNumberInRange(-force, force) * m_fMass);
-        ApplyTurnForce(
-            m_matrix->GetRight() * CGeneral::GetRandomNumberInRange(-force, force) * m_fTurnMass,
-            m_matrix->GetForward()
-        );
+        // Lote 211A (sin validar), como el original (0x6A3365..0x6A33AB y 0x6A33B0..0x6A340E): primero se multiplica el aleatorio por la masa (se guarda como
+        // float: fmul + fstp) y despues el vector derecho por ese escalar (0x40FE90, escalar * vector); NO es (derecha * aleatorio) * masa. Cada aleatorio se
+        // pide justo antes de su fuerza (movimiento, giro) y el giro se aplica en el punto "adelante" (+0x10 de la matriz).
+        const float moveScale = CGeneral::GetRandomNumberInRange(-force, force) * m_fMass;
+        ApplyMoveForce(m_matrix->GetRight() * moveScale);
+
+        const float turnScale = CGeneral::GetRandomNumberInRange(-force, force) * m_fTurnMass;
+        ApplyTurnForce(m_matrix->GetRight() * turnScale, m_matrix->GetForward());
 
         m_nFakePhysics = 0;
     }
@@ -4742,10 +4780,12 @@ void CAutomobile::DoNitroEffect(float power) {
     bool firstExhaustSubmergedInWater = false;
     bool secondExhaustSubmergedInWater = false;
     float level = 0.0f;
+    // Lote 211A (sin validar): el punto del escape se transforma con MultiplyMatrixWithVector (0x59C890, operator*(CMatrix, CVector) con el orden de
+    // sumas del EXE), no con TransformPoint (que suma la posicion al final). GetWaterLevel recibe (x, y, z, &nivel, 1, 0) como en 0x6A3C1D..0x6A3C3A.
     if (physicalFlags.bTouchingWater) {
-        CVector point = m_matrix->TransformPoint(exhaustPosition);
+        const CVector point = *m_matrix * exhaustPosition;
         if (CWaterLevel::GetWaterLevel(point.x, point.y, point.z, level, true, nullptr)) {
-            if (level >= point.z)
+            if (level >= point.z) // fcomp + test ah,1: nivel < z o desordenado => no sumergido
                 firstExhaustSubmergedInWater = true;
         }
     }
@@ -4753,9 +4793,10 @@ void CAutomobile::DoNitroEffect(float power) {
     if (m_pHandlingData->m_bDoubleExhaust) {
         secondExhaustPosition = exhaustPosition;
         secondExhaustPosition.x *= -1.0f;
-        if (!physicalFlags.bTouchingWater) {
-            CVector point = m_matrix->TransformPoint(secondExhaustPosition);
-            if (CWaterLevel::GetWaterLevel(point, level, true)) {
+        // 0x6A3C82: `test [esi+40h], 0x8000000; je ...`: el segundo escape solo se comprueba con el vehiculo TOCANDO el agua (el codigo anterior lo tenia invertido)
+        if (physicalFlags.bTouchingWater) {
+            const CVector point = *m_matrix * secondExhaustPosition;
+            if (CWaterLevel::GetWaterLevel(point.x, point.y, point.z, level, true, nullptr)) {
                 if (level >= point.z)
                     secondExhaustSubmergedInWater = true;
             }
@@ -6722,9 +6763,13 @@ void CAutomobile::CloseBoot() {
     G2UpdateDoorFrameMatrix(door, frameMat); // Como el original (0x6AFA5C..0x6AFAE5): SetRotate y suma de la posicion guardada
 }
 
-// 0x6B0690
+// 0x6B0690 (lote 211A, sin validar: reescrita contra el desensamblado; la version anterior comprobaba la distancia a la camara antes de la sonda vertical
+// y usaba >=/< sin la semantica de la x87). thiscall, dos floats en la pila (`ret 8`), con SEH propio (el unico objeto con destructor es el CEventDanger).
+// Orden del EXE: tipo/rotor -> CWorld::ProcessVerticalLine (-1000, solo edificios) -> IsSand -> GetWaterLevel -> altura maxima -> distancia a la camara
+// (cuadrado < 2500, estricto) -> distancia al suelo < altura maxima -> evento de peligro cada 20 fotogramas -> crear el efecto -> constante de tiempo -> posicion -> primitivas.
+// Todas las comparaciones son ordenadas (fcomp + test ah,5/41h): con NaN el efecto se mata o no cambia, nunca avanza.
 void CAutomobile::DoHeliDustEffect(float timeConstMult, float fxMaxZMult) {
-    const auto KillDustFx = [this] {
+    const auto KillDustFx = [this] { // 0x6B0A55
         if (m_pDustParticle) {
             m_pDustParticle->Kill();
             m_pDustParticle = nullptr;
@@ -6732,122 +6777,101 @@ void CAutomobile::DoHeliDustEffect(float timeConstMult, float fxMaxZMult) {
         }
     };
 
-    const auto& myPos = GetPosition();
-
-    // 0x6B07E9
-    // Moved early out here instead
-    if (DistanceBetweenPointsSquared(TheCamera.GetPosition(), myPos) >= sq(50.f)) {
+    // 0x6B06AC: helicoptero con el rotor por encima de 0,1125 (estricto) o avion; cualquier otro caso mata el efecto
+    const auto subType = m_nVehicleSubType;
+    if (!((subType == eVehicleType::VEHICLE_TYPE_HELI && m_fHeliRotorSpeed > 0.1125f) || subType == eVehicleType::VEHICLE_TYPE_PLANE)) {
         KillDustFx();
         return;
     }
 
-    switch (m_nVehicleSubType) {
-    case eVehicleType::VEHICLE_TYPE_HELI: {
-        if (m_fHeliRotorSpeed < 0.1125f) {
+    const auto& myPos = GetPosition();
+
+    // 0x6B0705: sonda vertical (origen = posicion, distancia -1000, solo edificios) y tipo de superficie del impacto (SurfaceTypeB)
+    CColPoint groundCP{};
+    CEntity*  hitEntity{}; // No se usa
+    CWorld::ProcessVerticalLine(myPos, -1000.f, groundCP, hitEntity, true, false, false, false, false, false, nullptr);
+    const bool isGroundSand = g_surfaceInfos.IsSand(groundCP.m_nSurfaceTypeB);
+
+    // 0x6B0766: nivel del agua en la posicion (bTouchingWater = 0, sin normales); si queda por encima del suelo (estricto) el suelo pasa a ser el agua
+    float groundZ = groundCP.m_vecPoint.z;
+    bool isHitPosUnderWater = false;
+    float waterLevel = -1000.f;
+    if (CWaterLevel::GetWaterLevel(myPos.x, myPos.y, myPos.z, waterLevel, false, nullptr)) {
+        if (waterLevel > groundZ) {
+            groundZ = waterLevel;
+            isHitPosUnderWater = true;
+        }
+    }
+
+    // 0x6B078E: altura maxima del efecto (3 para el RC Goblin y el RC Raider, 30 para el resto) por el multiplicador, redondeada a float
+    const float baseMaxZ = (m_nModelIndex == MODEL_RCGOBLIN || m_nModelIndex == MODEL_RCRAIDER) ? 3.f : 30.f;
+    const float maxZForFx = baseMaxZ * fxMaxZMult;
+
+    // 0x6B07B5: distancia al cuadrado a la camara, (dx*dx + dy*dy) + dz*dz con dx = mi posicion - camara; si no es MENOR que 2500 se mata el efecto
+    {
+        const auto& camPos = TheCamera.GetPosition();
+        const float dz = myPos.z - camPos.z;
+        const float dy = myPos.y - camPos.y;
+        const float dx = myPos.x - camPos.x;
+        const float distSq = (dx * dx + dy * dy) + dz * dz;
+        if (!(distSq < 2500.f)) {
             KillDustFx();
             return;
         }
-        break;
-    }
-    case eVehicleType::VEHICLE_TYPE_PLANE: {
-        break;
-    }
-    default: {
-        KillDustFx();
-        return;
-    }
     }
 
-    // 0x6B0705
-
-    // Figure out ground position, and if it's underwater
-
-    CColPoint groundCP{};
-    CEntity* hitEntity{}; // Unused
-    CWorld::ProcessVerticalLine(myPos, -1000.f, groundCP, hitEntity, true); // TODO: Check if it returned true :D
-    const bool isGroundSand = g_surfaceInfos.IsSand(groundCP.m_nSurfaceTypeB);
-
-    auto waterLevel{-1000.f};
-    const bool isThereWaterUnderUs = CWaterLevel::GetWaterLevel(myPos, waterLevel, false);
-    const auto isHitPosUnderWater = isThereWaterUnderUs && waterLevel > groundCP.m_vecPoint.z;
-
-    const auto groundZ = isHitPosUnderWater ? waterLevel : groundCP.m_vecPoint.z;
-    const auto distToGroundZ = myPos.z - groundZ;
-
-    // Calculate max height for fx to be played
-    const auto GetBaseMaxZForFx = [this]{
-        switch (m_nModelIndex) {
-        case eModelID::MODEL_RCGOBLIN:
-        case eModelID::MODEL_RCRAIDER:
-            return 3.f;
-        }
-        return 30.f;
-    };
-    const auto maxZForFx = GetBaseMaxZForFx() * fxMaxZMult;
-
-    // Check if we're flying low enough for the fx to be played. If not, kill it, and return.
-    if (distToGroundZ >= maxZForFx) {
+    // 0x6B0818: altura sobre el suelo (o el agua); si no es MENOR que la altura maxima se mata el efecto
+    const float distToGroundZ = myPos.z - groundZ;
+    if (!(distToGroundZ < maxZForFx)) {
         KillDustFx();
         return;
     }
 
-    // Early out moved to top
-
-    // Add danger event if we're flying too low to the ground
-    if (CTimer::GetFrameCounter() % 20 == 0) {
-        const auto dangerRadius = m_nModelIndex == MODEL_HYDRA ? 30.f : 20.f;
+    // 0x6B082E: evento de peligro cada 20 fotogramas (contador sin signo, div) si se vuela por debajo de 20 (30 con el Hydra)
+    if (CTimer::GetFrameCounter() % 20u == 0u) {
+        const float dangerRadius = m_nModelIndex == MODEL_HYDRA ? 30.f : 20.f;
         if (distToGroundZ < dangerRadius) {
             CEventDanger danger{this, dangerRadius};
-            GetEventGlobalGroup()->Add(&danger);
+            GetEventGlobalGroup()->Add(&danger, false);
         }
     }
 
-    // 0x6B08B1
-    // Create and play fx if it doesn't exist.
+    // 0x6B08B1: crear y reproducir el efecto si no existe (posicion cero, sin matriz, mundo local); si falla no se hace nada mas
     if (!m_pDustParticle) {
-        CVector fxPos{0.f, 0.f, 0.f};
         m_pDustParticle = g_fxMan.CreateFxSystem("heli_dust", CVector{0.f, 0.f, 0.f}, nullptr, true);
-        if (!m_pDustParticle) { // Failed, return
-            return;
+        if (m_pDustParticle) {
+            m_pDustParticle->SetLocalParticles(true);
+            m_pDustParticle->Play();
         }
-        m_pDustParticle->SetLocalParticles(true);
-        m_pDustParticle->Play();
+    }
+    if (!m_pDustParticle) {
+        return;
     }
 
-    // Update time constant of fx
+    // 0x6B0914: constante de tiempo: ((max - altura) / max * multiplicador)^2, redondeada a float en cada paso; la constante actual se acerca 0,04 por fotograma
     {
-        const auto heightProgress = (maxZForFx - distToGroundZ) / maxZForFx * timeConstMult;
-        const auto heightProgressSq = heightProgress * heightProgress;
-
-        // TODO: Figure out a better way to do this... Very ugly.
-        // Basically it's stepping `m_heliDustFxTimeConst` by 0.04 towards `heightProgressSq`.
-        if (m_heliDustFxTimeConst < heightProgressSq) {
-            m_heliDustFxTimeConst = std::min(m_heliDustFxTimeConst + 0.04f, heightProgressSq);
-        } else if (m_heliDustFxTimeConst > heightProgressSq) { // Must check if less, because they might be equal (tbh, the chance for that to happen are... small)
-            m_heliDustFxTimeConst = std::max(m_heliDustFxTimeConst - 0.04f, heightProgressSq);
+        const float heightProgress   = (maxZForFx - distToGroundZ) / maxZForFx * timeConstMult;
+        const float heightProgressSq = heightProgress * heightProgress;
+        if (heightProgressSq > m_heliDustFxTimeConst) { // 0x6B0943..0x6B099B
+            const float stepped = m_heliDustFxTimeConst + 0.04f;
+            m_heliDustFxTimeConst = stepped < heightProgressSq ? stepped : heightProgressSq;
+        } else if (heightProgressSq < m_heliDustFxTimeConst) { // 0x6B096D..0x6B099B (iguales o NaN: sin cambios)
+            const float stepped = m_heliDustFxTimeConst - 0.04f;
+            m_heliDustFxTimeConst = stepped > heightProgressSq ? stepped : heightProgressSq;
         }
+    }
+    m_pDustParticle->SetConstTime(true, m_heliDustFxTimeConst);
 
-        m_pDustParticle->SetConstTime(true, m_heliDustFxTimeConst);
+    // 0x6B09AF: desplazamiento = (x, y, suelo)
+    {
+        const CVector offsetPos{myPos.x, myPos.y, groundZ};
+        m_pDustParticle->SetOffsetPos(offsetPos);
     }
 
-    // Update max of fx
-    m_pDustParticle->SetOffsetPos({ myPos.x, myPos.y, groundZ });
-
-    // Finally enable/disable prims (whatever that is)
-    m_pDustParticle->EnablePrim(0, !isHitPosUnderWater && !isGroundSand); // Dust or similar particles?
-    m_pDustParticle->EnablePrim(1, !isHitPosUnderWater && isGroundSand);  // Sand particles?
-    m_pDustParticle->EnablePrim(2, isHitPosUnderWater);                   // Water particles?
-
-    // Above code originally (kinda):
-    //if (isHitPosUnderWater) {
-    //    m_pDustParticle->EnablePrim(0, false);
-    //    m_pDustParticle->EnablePrim(1, false);
-    //    m_pDustParticle->EnablePrim(2, true);
-    //} else {
-    //    m_pDustParticle->EnablePrim(0, !isGroundSand);
-    //    m_pDustParticle->EnablePrim(1, isGroundSand);
-    //    m_pDustParticle->EnablePrim(2, false);
-    //}
+    // 0x6B09EA: primitivas en el orden 0, 1, 2: agua (F, F, T), arena (F, T, F), resto (T, F, F)
+    m_pDustParticle->EnablePrim(0, !isHitPosUnderWater && !isGroundSand);
+    m_pDustParticle->EnablePrim(1, !isHitPosUnderWater && isGroundSand);
+    m_pDustParticle->EnablePrim(2, isHitPosUnderWater);
 }
 
 // 0x6B1350
