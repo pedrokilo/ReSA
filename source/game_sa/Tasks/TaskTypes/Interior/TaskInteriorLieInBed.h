@@ -52,6 +52,7 @@ private: // Wrappers for hooks
         this->CTaskInteriorLieInBed::~CTaskInteriorLieInBed();
         return this;
     }
+    CTaskInteriorLieInBed* ScalarDeletingDestructor(uint8 flags); // 0x6772C0 (lote 204A, sin validar): destructor con borrado (ranura 0 de la vtable 0x870338), `ret 4`
 
 private:
     int32                  m_GetOutAfterInterval{};           //< Time after which we should get out of the bed and finish the task

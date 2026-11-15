@@ -20,12 +20,23 @@ END GENERATED HOOK STATUS */
 
 #include "VehicleScanner.h"
 
+namespace {
+// 0x605FB0 (lote 204A, sin validar; el listado decia CPedIntelligencePool; thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov dword [ecx], 0x86CD40; jmp 0x5FF9D0`): cuerpo del destructor de CVehicleScanner del EXE (el
+// escaner de vehiculos de CPedIntelligence, +0xD4; solo lo llama el desenrollado SEH de CPedIntelligence). Como el original: deja la vtable base de CEntityScanner (0x86CD40) y sigue con CEntityScanner::Clear (0x5FF9D0, con hook) por salto.
+// El destructor generado por el compilador dejaria la vtable de la DLL.
+void __fastcall VehicleScannerDestructorBody(CVehicleScanner* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86CD40;
+    self->Clear();
+}
+} // namespace
+
 // Lote 109A (banco Fn109A): GetClosestVehicleInRange (0x5FFEE0; thiscall, devuelve el dword +0x4C del escaner en EAX).
 void CVehicleScannerInjectHooksLote109A() {
     RH_ScopedClass(CVehicleScanner);
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(GetClosestVehicleInRange, 0x5FFEE0);
+    RH_ScopedNamedGlobalInstall(VehicleScannerDestructorBody, "Destructor", 0x605FB0); // lote 204A (sin validar)
     RH_ScopedInstall(ScanForVehiclesInRange, 0x5FFE60); // lote 198A (sin validar)
 }
 

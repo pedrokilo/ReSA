@@ -98,6 +98,125 @@ END GENERATED HOOK STATUS */
 #include "PedIntelligence.h"
 #include "PedType.h"
 #include "X87Math.h"
+#include "Events/EventAcquaintancePedRespect.h"
+#include "Events/EventAcquaintancePedLike.h"
+#include "Events/EventAcquaintancePedDislike.h"
+#include "Events/EventAcquaintancePedHate.h"
+#include "Events/EventAcquaintancePedHateBadlyLit.h"
+#include "Events/EventSeenCop.h"
+#include "Events/EventPotentialWalkIntoPed.h"
+#include "Collision/ColSphere.h"
+
+// 0x606580 (lote 204A, sin validar; el listado decia CPedIntelligencePool; stdcall con dos argumentos de pila (`ret 8`), 776 bytes con marco SEH que solo destruye el evento local): escaner de colisiones potenciales con peatones
+// (el hermano de ScanForVehiclePotentialCollisionEvents y ScanForObjectPotentialCollisionEvents; no usa `this`; el unico llamador es CEventScanner::ScanForEvents, que le pasa el peaton y el peaton mas cercano del escaner de
+// peatones). Como el original: sin peaton cercano, sin colision (bit 0 de +0x1C) o sin tarea de ir a un punto (o con movimiento quieto) no hace nada. Recorre las 16 entradas del escaner de peatones (+0x130 de la inteligencia) y se
+// queda con la mas cercana (distancia al cuadrado < 2.5^2, 0x86C8C0) que este viva, use colision, este por delante ((y*fy + z*fz) + x*fx > 0 con el avance del peaton) y cuya esfera de 0.7 (CColSphere::Set 0x40FD10) corte el
+// segmento posicion-destino (IntersectEdge 0x4100E0). Con la candidata: crea el evento si ella no va a un punto o no avanza en la misma direccion (producto escalar < 0.923, 0x86CD98), o si el minimo no pasa de 1.0, o si
+// su velocidad*50 (con z a 0) al cuadrado + 0.25 casi es 0 (|a - 0| < 0.01, 0x4EEA80), o si ese valor no supera el de la propia velocidad al cuadrado. El evento es CEventPotentialWalkIntoPed (ctor 0x4AE6E0) con la
+// candidata, el destino y el estado de movimiento (0x601D70), anadido al grupo de eventos (0x4AB420, sin validar). x87 de 24 bits: cada operacion se guarda como float en el orden del EXE.
+static void __stdcall ScanForPedPotentialCollisionEvents(CPed* ped, CEntity* closestPed) {
+    if (!closestPed) {
+        return;
+    }
+    if (!ped->GetUsesCollision()) {
+        return;
+    }
+    CPedIntelligence* const intel = ped->GetIntelligence();
+    CTask* const            task  = intel->GetTaskManager().GetSimplestActiveTask();
+    if (!task) {
+        return;
+    }
+    if (!CTask::IsGoToTask(task)) {
+        return;
+    }
+    if (intel->GetMoveStateFromGoToTask() == PEDMOVE_STILL) {
+        return;
+    }
+    const CVector& targetPoint = static_cast<CTaskSimpleGoTo*>(task)->m_vecTargetPoint; // task + 0xC
+
+    float limitSq = 2.5f * 2.5f; // 0x86C8C0 al cuadrado; despues, la distancia al cuadrado de la mejor candidata
+    CPed* best    = nullptr;
+    for (size_t i = 0; i < MAX_NUM_ENTITIES; ++i) {
+        CPed* const other = static_cast<CPed*>(intel->m_pedScanner.m_apEntities[i]);
+        if (!other) {
+            continue;
+        }
+        if (!other->IsAlive()) {
+            continue;
+        }
+        if (!other->GetUsesCollision()) {
+            continue;
+        }
+        // 0x40FE00: diferencia candidata - peaton (cada componente guardada como float)
+        const CVector& otherPos = other->GetPosition();
+        const CVector& pedPos   = ped->GetPosition();
+        const CVector  diff{ otherPos.x - pedPos.x, otherPos.y - pedPos.y, otherPos.z - pedPos.z };
+        // Como el original: (y*fy + z*fz) + x*fx con el avance del peaton (matriz +0x10..+0x18, sin comprobar nulo)
+        const CVector& fwd = ped->GetMatrix().GetForward();
+        const float    yy  = diff.y * fwd.y;
+        const float    zz  = diff.z * fwd.z;
+        const float    dot = (yy + zz) + diff.x * fwd.x;
+        if (!(dot > 0.0f)) { // fcomp 0.0 (0x858B50) + test ah,41h + jne: <= 0 y NaN descartan
+            continue;
+        }
+        CColSphere sphere;
+        sphere.Set(0.7f, other->GetPosition(), static_cast<eSurfaceType>(0), 0, tColLighting{ 0xFF });
+        CVector point1, point2;
+        if (!sphere.IntersectEdge(ped->GetPosition(), targetPoint, point1, point2)) {
+            continue;
+        }
+        // CVector::SquaredMagnitude (0x406DA0): (x*x + y*y) + z*z; el minimo se guarda como float
+        const float sq = (diff.x * diff.x + diff.y * diff.y) + diff.z * diff.z;
+        if (!(sq < limitSq)) { // fcom + test ah,5 + jp: >=, igual y NaN descartan
+            continue;
+        }
+        limitSq = sq;
+        best    = other;
+    }
+    if (!best) {
+        return;
+    }
+
+    bool createEvent = false;
+    CTask* const bestTask = best->GetIntelligence()->GetTaskManager().GetSimplestActiveTask();
+    if (!bestTask || !CTask::IsGoToTask(bestTask)) {
+        createEvent = true;
+    } else {
+        // DotProduct (0x40FDB0) de los avances: (a.z*b.z + a.y*b.y) + a.x*b.x, con a = peaton y b = candidata
+        const CVector& a   = ped->GetMatrix().GetForward();
+        const CVector& b   = best->GetMatrix().GetForward();
+        const float    dzz = a.z * b.z;
+        const float    dyy = a.y * b.y;
+        const float    dot = (dzz + dyy) + a.x * b.x;
+        if (!(dot >= 0.923f)) { // 0x86CD98; fcomp + test ah,1 + jne: menor y NaN crean el evento
+            createEvent = true;
+        } else {
+            // 0x40FEC0: velocidad * 50.0; la z se pone a 0
+            const CVector& pedSpeed  = ped->GetMoveSpeed();
+            const CVector& bestSpeed = best->GetMoveSpeed();
+            CVector        speed1{ 50.0f * pedSpeed.x, 50.0f * pedSpeed.y, 50.0f * pedSpeed.z };
+            CVector        speed2{ 50.0f * bestSpeed.x, 50.0f * bestSpeed.y, 50.0f * bestSpeed.z };
+            speed1.z = 0.0f;
+            speed2.z = 0.0f;
+            const float sq1 = (speed1.x * speed1.x + speed1.y * speed1.y) + speed1.z * speed1.z;           // 0x406DA0, guardado como float
+            const float sq2 = ((speed2.x * speed2.x + speed2.y * speed2.y) + speed2.z * speed2.z) + 0.25f; // 0x86CD94, guardado como float
+            if (!(limitSq > 1.0f)) {                   // 0x86CD90; fcomp + test ah,41h + jne
+                createEvent = true;
+            } else if (std::abs(sq2 - 0.0f) < 0.01f) { // 0x4EEA80(sq2, 0, 0.01): |a - b| < eps estricto, NaN falso
+                createEvent = true;
+            } else if (!(sq2 > sq1)) {                 // fcomp + test ah,41h + je: sq2 > sq1 sale sin evento
+                createEvent = true;
+            }
+        }
+    }
+    if (!createEvent) {
+        return;
+    }
+
+    const eMoveState moveState = intel->GetMoveStateFromGoToTask();
+    CEventPotentialWalkIntoPed event(best, targetPoint, moveState);
+    ped->GetIntelligence()->GetEventGroup().Add(&event, false);
+}
 
 void CObjectPotentialCollisionScanner::InjectHooks() {
     RH_ScopedClass(CObjectPotentialCollisionScanner);
@@ -115,6 +234,7 @@ void CPedAcquaintanceScanner::InjectHooks() {
     RH_ScopedInstall(CanJoinRiotAgainst, 0x603AF0); // caso COLAB-607A (banco Fn607B)
     RH_ScopedInstall(CanScanPed, 0x603A30); // lote 198A (sin validar)
     RH_ScopedInstall(FindAcquaintance, 0x607560); // caso COLAB-607A (banco Fn607B)
+    RH_ScopedInstall(CreateAcquaintanceEvent, 0x606BA0); // lote 204A (sin validar)
 }
 
 void CSexyPedScanner::InjectHooks() {
@@ -138,6 +258,7 @@ void CEventScanner::InjectHooks() {
     RH_ScopedInstall(ScanForEvents, 0x607E30);
     RH_ScopedInstall(ScanForEventsNow, 0x6053D0);
     RH_ScopedInstall(Constructor, 0x605300); // lote 168A (banco Fn168A)
+    RH_ScopedNamedGlobalInstall(ScanForPedPotentialCollisionEvents, "ScanForPedPotentialCollisionEvents", 0x606580); // lote 204A (sin validar)
 }
 
 // 0x605300 (lote 168A, banco Fn168A): hook del constructor (el listado lo atribuia a CDecisionMakerTypes; lo llama 0x607287, el constructor de CPedIntelligence, con ECX = this + 0x18C, y ignora lo que devuelve)
@@ -176,8 +297,8 @@ void CEventScanner::ScanForEvents(CPed& ped) {
 
     // Escaneres: los reconstruidos se llaman en C++; el resto por direccion del EXE
     m_vehiclePotentialCollisionScanner.ScanForVehiclePotentialCollisionEvents(ped, intel->GetVehicleEntities(), 16);
-    // 0x606580: funcion sin `this` (el EXE le deja en ECX la direccion del argumento); recibe el peaton y el peaton mas cercano del escaner de peatones
-    reinterpret_cast<void(__stdcall*)(CPed*, CEntity*)>(0x606580)(&ped, intel->m_pedScanner.GetClosestPedInRange());
+    // 0x606580 (lote 204A, sin validar): funcion sin `this` (stdcall); recibe el peaton y el peaton mas cercano del escaner de peatones
+    ScanForPedPotentialCollisionEvents(&ped, intel->m_pedScanner.GetClosestPedInRange());
     m_objectPotentialCollisionScanner.ScanForObjectPotentialCollisionEvents(ped);
     m_pedAcquaintanceScanner.ScanForPedAcquaintances(ped, intel->GetPedEntities(), 16);
     m_attractorScanner.ScanForAttractors(ped);
@@ -650,7 +771,7 @@ int32 CPedAcquaintanceScanner::ScanEntities(CPed& ped, int32 priority, CEntity**
 // 0x607560 (hook S, banco Fn607B; la llama ScanEntities). Thiscall con seis argumentos de pila (`ret 18h`): para los indices 4..0 (parando con -1 si llega al ya usado, `current`) comprueba si el ped tiene al
 // candidato como acquaintance de ese indice (0x608970/0x608830, o disturbios y CanJoinRiotAgainst; con prioridad -1 el indice 2 y un policia pasan directo) y la visibilidad con luces (0x605550, float): sigue si
 // es mayor que 0 o, solo con el indice 4, si es distinta de 0 (negativa o NaN). Entonces escribe *outA = candidato, *outB = indice; con una prioridad distinta de -1 devuelve la prioridad; con -1 pide el evento a
-// 0x606BA0 (por direccion: aun sin reconstruir) y fija el temporizador del escaner (inicio = hora, intervalo = 200 si el indice es 4 y la visibilidad es negativa, 3000 si no, arrancado), devolviendo
+// 0x606BA0 (CreateAcquaintanceEvent, lote 204A) y fija el temporizador del escaner (inicio = hora, intervalo = 200 si el indice es 4 y la visibilidad es negativa, 3000 si no, arrancado), devolviendo
 // el indice si el evento se creo. Devuelve -1 si ningun indice sirve. Validada por el banco Fn607B.
 int32 CPedAcquaintanceScanner::FindAcquaintance(CPed& ped, int32 priority, int32 current, CPed* candidate, int32* outA, int32* outB) {
     const float visibility = ped.GetIntelligence()->CanSeeEntityWithLights(candidate, 0);
@@ -682,7 +803,7 @@ int32 CPedAcquaintanceScanner::FindAcquaintance(CPed& ped, int32 priority, int32
         if (!*outA) {
             continue;
         }
-        const bool created = plugin::CallMethodAndReturn<bool, 0x606BA0, CPedAcquaintanceScanner*, CPed*, int32, CEntity*>(this, &ped, id, reinterpret_cast<CEntity*>(*outA));
+        const bool created = CreateAcquaintanceEvent(&ped, id, reinterpret_cast<CEntity*>(*outA)); // 0x606BA0 (lote 204A, sin validar; antes llamada al EXE por direccion)
         const int32 interval = (*outB == 4 && visibility < 0.0f) ? StaticRef<int32>(0x8D2360) : StaticRef<int32>(0x8D235C);
         m_timer.m_nStartTime = CTimer::GetTimeInMS();
         m_timer.m_nInterval  = interval;
@@ -692,6 +813,69 @@ int32 CPedAcquaintanceScanner::FindAcquaintance(CPed& ped, int32 priority, int32
         }
     }
     return -1;
+}
+
+// 0x606BA0 (lote 204A, sin validar; el listado decia CPedIntelligencePool; thiscall con tres argumentos de pila (`ret 0Ch`; el EXE no lee ECX), 694 bytes con marco SEH que solo destruye el evento local). Con el indice de conocido `id`
+// (sin signo; >4 no hace nada) crea el evento hacia `entity` y lo anade al grupo de eventos del peaton (0x4AB420 sobre inteligencia + 0x68, sin validar): 0 CEventAcquaintancePedRespect (vtable 0x86CA38), 1 CEventAcquaintancePedLike
+// (0x86CA80), 2 CEventSeenCop (0x86CB58; solo si el tipo de peaton de `entity` (+0x598) es 6 (policia), si no devuelve falso), 3 CEventAcquaintancePedDislike (0x86CAC8). El 4 (odio) segun la visibilidad con luces del peaton
+// (0x605550, sin usar el segundo argumento): > 0 (NaN y <= 0 no entran) crea CEventAcquaintancePedHate (ctor 0x420E70, vtable 0x858E68) y lo manda al grupo del peaton objetivo (CPedGroups::GetPedsGroup 0x5F7E80: con grupo, tarea
+// 0x5DE (1502) y CPedGroupIntelligence::AddEvent 0x5F7470 -> AL; sin grupo, tarea 0x3E8 (1000) y grupo de eventos) si el byte 0x96913F es distinto de 0 o hay disturbios (CGameLogic::LaRiotsActiveHere 0x441C10) y el peaton puede unirse
+// (CanJoinRiotAgainst 0x603AF0); si no, directo al grupo de eventos sin cambiar la tarea; < 0 (estrictamente) crea CEventAcquaintancePedHateBadlyLit (vtable 0x86CB10, hora actual y posicion de `entity` copiadas sin pasar por el ctor
+// 0x5FF250) y lo anade; 0 o NaN no hacen nada. Devuelve si el evento se anadio (el resultado de Add != nulo, o el AL de AddEvent).
+bool CPedAcquaintanceScanner::CreateAcquaintanceEvent(CPed* ped, int32 id, CEntity* entity) {
+    CPed* const other      = static_cast<CPed*>(entity);
+    const auto  eventGroup = [&]() -> CEventGroup& { return ped->GetIntelligence()->GetEventGroup(); };
+    bool        added      = false;
+    switch (static_cast<uint32>(id)) {
+    case 0: {
+        CEventAcquaintancePedRespect event{ other };
+        added = eventGroup().Add(&event, false) != nullptr;
+        break;
+    }
+    case 1: {
+        CEventAcquaintancePedLike event{ other };
+        added = eventGroup().Add(&event, false) != nullptr;
+        break;
+    }
+    case 2: {
+        if (other->m_nPedType != PED_TYPE_COP) {
+            return false;
+        }
+        CEventSeenCop event{ other };
+        added = eventGroup().Add(&event, false) != nullptr;
+        break;
+    }
+    case 3: {
+        CEventAcquaintancePedDislike event{ other };
+        added = eventGroup().Add(&event, false) != nullptr;
+        break;
+    }
+    case 4: {
+        const float visibility = ped->GetIntelligence()->CanSeeEntityWithLights(entity, 0);
+        if (visibility > 0.0f) {
+            const bool toGroup = StaticRef<uint8>(0x96913F) != 0 || (CGameLogic::LaRiotsActiveHere() && CanJoinRiotAgainst(ped, other));
+            CEventAcquaintancePedHate event{ other };
+            if (!toGroup) {
+                added = eventGroup().Add(&event, false) != nullptr;
+            } else if (CPedGroup* const group = CPedGroups::GetPedsGroup(other)) {
+                event.m_TaskId = TASK_GROUP_KILL_THREATS_BASIC; // 0x5DE
+                added = group->GetIntelligence().AddEvent(&event);
+            } else {
+                event.m_TaskId = TASK_COMPLEX_KILL_PED_ON_FOOT; // 0x3E8
+                added = eventGroup().Add(&event, false) != nullptr;
+            }
+        } else if (visibility < 0.0f) {
+            CEventAcquaintancePedHateBadlyLit event{ other, 0, CVector{} };
+            event.m_startTimeInMs = CTimer::GetTimeInMS();
+            event.m_point         = other->GetPosition();
+            added = eventGroup().Add(&event, false) != nullptr;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+    return added;
 }
 
 // 0x603AF0 (hook S, cdecl, banco Fn607B; la llaman ScanEntities y FindAcquaintance). Dice si `ped` puede unirse a un disturbio contra `other`: falso si el ped es policia, medico o bombero (tipos 6, 18 y 19),

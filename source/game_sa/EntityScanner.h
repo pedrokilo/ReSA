@@ -43,13 +43,13 @@ public:
         return &m_timer;
     }
 
+    void Clear(); // 0x5FF9D0 (lote 204A: publica para los cuerpos de destructor de CVehicleScanner, CPedScanner y CObjectScanner)
+
 protected:
     virtual void ScanForEntitiesInRange(const eRepeatSectorList sectorList, const CPed& ped);
     CEntity* GetClosestEntity() const {
         return m_pClosestEntityInRange;
     }
-
-    void Clear();
 
 private: // NOTSA:
     friend void InjectHooksMain();

@@ -267,9 +267,10 @@ if(MSVC)
     # Lote 139A: lo mismo para CEventSpecial (0x4B1B50, EventSpecial.cpp): su unico llamador (0x4B6750) usa ECX tras la llamada.
     # Lote 107A: CEvent::~CEvent (0x4AC010) y CEventEditableResponse::~CEventEditableResponse (0x4AC480) son `mov [ecx], 0x85AB38; ret`: sus 58 y 57 llamadores del EXE conservan EAX, ECX y EDX
     # (el destructor con borrado sigue usando ECX tras la llamada), asi que el cuerpo no puede llevar marco ni comprobaciones. Se optimiza por pragma, que solo actua con /Zi y sin comprobaciones de ejecucion.
+    # Lote 204A: CEventDeath cuerpo del destructor (0x4ADE90, EventDeath.cpp): `mov [ecx], 0x85AB38; ret`, mismo recurso por pragma (su destructor con borrado 0x4B5DB0 usa ECX tras la llamada).
     # Lote 151A: CPedGroupDefaultTaskAllocators::Get (0x5F7200, PedGroupDefaultTaskAllocators.cpp): su llamador (0x5FBB77) guarda ECX en EDX antes de la llamada y lo recupera despues, asi que el cuerpo solo
     # puede usar EAX y ECX (sin marco ni comprobaciones): mismo recurso por pragma.
-    set_source_files_properties(game_sa/Events/Event.cpp game_sa/Events/EventEditableResponse.cpp game_sa/Events/EventSpecial.cpp game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocators.cpp PROPERTIES
+    set_source_files_properties(game_sa/Events/Event.cpp game_sa/Events/EventEditableResponse.cpp game_sa/Events/EventSpecial.cpp game_sa/Events/EventDeath.cpp game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocators.cpp PROPERTIES
         COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>"
         VS_SETTINGS "BasicRuntimeChecks=Default"
         SKIP_PRECOMPILE_HEADERS ON

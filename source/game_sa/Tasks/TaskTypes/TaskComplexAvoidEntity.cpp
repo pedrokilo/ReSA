@@ -166,8 +166,14 @@ __declspec(noinline) bool __fastcall AvoidEntityComputeRouteRoundSphere(CTaskCom
 }
 } // namespace
 
+#include "TaskSimpleGoTo.h"
+#include "TaskSimpleGoToPoint.h"
+#include "TaskComplexAvoidOtherPedWhileWandering.h"
+#include "Ragdoll/IKChainManager.h"
+#include "Pad.h"
+
 void CTaskComplexAvoidEntity::InjectHooks() {
-    RH_ScopedClass(CTaskComplexAvoidEntity); // clase aun sin reconstruir (sin vtable exportada): solo hooks de funciones sueltas por direccion; lote 203A (sin validar)
+    RH_ScopedVirtualClass(CTaskComplexAvoidEntity, 0x86FF00, 11); // vtable verificado en gta_sa.exe (GetTaskType en [4]); lote 204A
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedNamedGlobalInstall(AvoidEntityConstructor, "Constructor", 0x66AA20);
@@ -176,5 +182,141 @@ void CTaskComplexAvoidEntity::InjectHooks() {
     RH_ScopedNamedGlobalInstall(AvoidEntityScalarDeletingDestructor, "ScalarDeletingDestructor", 0x66F6A0);    // lote 205A
     RH_ScopedNamedGlobalInstall(AvoidEntityComputeSphere, "ComputeSphere", 0x66F6C0);                          // lote 205A
     RH_ScopedNamedGlobalInstall(AvoidEntityComputeRouteRoundSphere, "ComputeRouteRoundSphere", 0x66FD30);      // lote 205A
-    // TODO: instalar el resto (Clone 0x66D0C0, MakeAbortable 0x66AD40, CreateNextSubTask 0x66AD70, CreateFirstSubTask 0x672530, ControlSubTask 0x66ADE0) conforme se reconstruyan.
+    RH_ScopedInstall(SetUpIK, 0x66AB40);                    // lote 204A (sin validar)
+    RH_ScopedInstall(QuitIK, 0x66AD10);                     // lote 204A (sin validar)
+    RH_ScopedVMTInstall(Clone, 0x66D0C0);                   // lote 204A (sin validar)
+    RH_ScopedVMTInstall(MakeAbortable, 0x66AD40);           // lote 204A (sin validar)
+    RH_ScopedVMTInstall(CreateNextSubTask, 0x66AD70);       // lote 204A (sin validar)
+    RH_ScopedVMTInstall(CreateFirstSubTask, 0x672530);      // lote 204A (sin validar)
+    RH_ScopedVMTInstall(ControlSubTask, 0x66ADE0);          // lote 204A (sin validar)
+}
+
+// 0x66AB40 (lote 204A, sin validar; el listado decia CTaskComplexAvoidOtherPedWhileWandering; thiscall, un argumento de pila (el peaton), `ret 4`, 455 bytes). Como el original y en este orden, cortando al primer fallo: CPad::GetPad(0)
+// (0x53FB70); si el peaton es el jugador (0x56E210) y los controles NO estan desactivados (word +0x10E del pad == 0) sale; CEntity::GetIsOnScreen (0x534540); la IK ya activa (bit 0 de +0x50); IKChainManager::GetLookAtEntity
+// (0x6181D0, no nulo); tarea secundaria IK (0x681810, no nula); el padre (+4) con tipo AVOID_OTHER_PED_WHILE_WANDERING (0x395) o AVOID_ENTITY (0x3AB) (GetTaskType se llama dos veces). Con d = objetivo (+0x20) - posicion del peaton
+// (0x40FE60): |d|^2 > 9.0 ((x*x + y*y) + z*z, 0x406DA0), se normaliza (0x59C910) y (d.z*fz + d.y*fy) + d.x*fx (avance del peaton) < el umbral de mirar de CTaskSimpleGoTo (0xC18D48). Entonces mira (LookAt 0x618970,
+// "TaskAvoidEntity", 5000 ms, sin hueso, sin torso, 0.25, 500, prioridad 3) hacia (2*d.x + objetivo.x, objetivo.y + 2*d.y, (2*d.z + z del peaton) + 0.61 (0x86FD40)) y pone el bit 0 de +0x50.
+void CTaskComplexAvoidEntity::SetUpIK(CPed* ped) {
+    const auto pad = CPad::GetPad(0);
+    if (ped == FindPlayerPed(-1) && !pad->DisablePlayerControls) {
+        return;
+    }
+    if (!ped->GetIsOnScreen()) {
+        return;
+    }
+    if (m_IsDoingIK) {
+        return;
+    }
+    if (g_ikChainMan.GetLookAtEntity(ped)) {
+        return;
+    }
+    if (ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_IK)) {
+        return;
+    }
+    // Como el original: sin padre sigue; el tipo del padre se pide dos veces (una por comparacion)
+    if (m_Parent) {
+        if (m_Parent->GetTaskType() == TASK_COMPLEX_AVOID_OTHER_PED_WHILE_WANDERING) {
+            return;
+        }
+        if (m_Parent->GetTaskType() == TASK_COMPLEX_AVOID_ENTITY) {
+            return;
+        }
+    }
+    const auto& pedPos = ped->GetPosition();
+    CVector pedToTarget{ m_TargetPt.x - pedPos.x, m_TargetPt.y - pedPos.y, m_TargetPt.z - pedPos.z }; // 0x40FE60
+    // Como el original: (x*x + y*y) + z*z; NaN tambien sale
+    if (!((pedToTarget.x * pedToTarget.x + pedToTarget.y * pedToTarget.y) + pedToTarget.z * pedToTarget.z > 9.0f)) {
+        return;
+    }
+    pedToTarget.Normalise(); // Como el original: CVector::Normalise (0x59C910)
+    const auto& fwd = ped->GetMatrix().GetForward();
+    // Como el original: orden (z + y) + x; NaN tambien sale
+    if (!(pedToTarget.z * fwd.z + pedToTarget.y * fwd.y + pedToTarget.x * fwd.x < CTaskSimpleGoTo::ms_fLookAtThresholdDotProduct)) {
+        return;
+    }
+    // Como el original: z = (2 * dir.z + z del peaton) + 0.61
+    CVector lookAt{
+        pedToTarget.x * 2.f + m_TargetPt.x,
+        pedToTarget.y * 2.f + m_TargetPt.y,
+        pedToTarget.z * 2.f + pedPos.z + 0.61f
+    };
+    g_ikChainMan.LookAt("TaskAvoidEntity", ped, nullptr, 5000, BONE_UNKNOWN, &lookAt, false, 0.25f, 500, 3, false);
+    m_IsDoingIK = true;
+}
+
+// 0x66AD10 (lote 204A, sin validar; el listado decia CTaskComplexAvoidOtherPedWhileWandering; thiscall, un argumento de pila, `ret 4`, 46 bytes). Como el original: solo con el bit 0 de +0x50 puesto, si el IKChainManager mira al
+// peaton (0x6181A0) lo deja (AbortLookAt, 0x618280, 250 ms). No baja el bit. Sin valor de retorno.
+void CTaskComplexAvoidEntity::QuitIK(CPed* ped) {
+    if (m_IsDoingIK) {
+        if (g_ikChainMan.IsLooking(ped)) {
+            g_ikChainMan.AbortLookAt(ped, 250);
+        }
+    }
+}
+
+// 0x66D0C0 (lote 204A, sin validar; el listado decia CTaskComplexAvoidOtherPedWhileWandering; ranura 1 de la vtable 0x86FF00; thiscall, sin argumentos, `ret`, 104 bytes con marco SEH que solo libera la memoria si el constructor lanza
+// (se omite)). Como el original: CTask::operator new (0x61A5A0, con hook) con 0x54 bytes; sin memoria devuelve nulo; si no llama al constructor del EXE (0x66AA20, sin reconstruir: por direccion fija; deja la vtable del EXE 0x86FF00,
+// copia el objetivo en +0x20 y +0x2C, registra la referencia de +0xC y pone a cero +0x44, +0x48, +0x4C, +0x4D y el bit 0 de +0x50) con (estado de movimiento +0x10, entidad +0xC, direccion del objetivo +0x20) y devuelve lo que deja en EAX.
+CTask* CTaskComplexAvoidEntity::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskComplexAvoidEntity));
+    if (!memory) {
+        return nullptr;
+    }
+    return plugin::CallMethodAndReturn<CTask*, 0x66AA20, CTask*, eMoveState, CEntity*, const CVector*>(static_cast<CTask*>(memory), m_MoveState, m_Entity, &m_TargetPt);
+}
+
+// 0x66AD40 (lote 204A, sin validar; el listado decia CTaskComplexAvoidOtherPedWhileWandering; ranura 6; thiscall, tres argumentos de pila, `ret 0Ch`, 48 bytes). Como el original: QuitIK (el cuerpo en linea de 0x66AD10 con el peaton)
+// y devuelve siempre verdadero (prioridad y evento no se usan).
+bool CTaskComplexAvoidEntity::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
+    QuitIK(ped);
+    return true;
+}
+
+// 0x66AD70 (lote 204A, sin validar; el listado decia CTaskComplexAvoidOtherPedWhileWandering; ranura 8; thiscall, un argumento de pila, `ret 4`, 48 bytes). Como el original: QuitIK y devuelve nulo (no hay subtarea siguiente).
+CTask* CTaskComplexAvoidEntity::CreateNextSubTask(CPed* ped) {
+    QuitIK(ped);
+    return nullptr;
+}
+
+// 0x672530 (lote 204A, sin validar; el listado decia CTaskComplexAvoidOtherPedWhileWandering; ranura 9; thiscall, un argumento de pila, `ret 4`, 204 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite)).
+// Como el original: copia la posicion del peaton (matriz +0x30 o placement +4) en +0x14; llama a 0x66FD30 (sin reconstruir: por direccion fija, thiscall con el peaton; devuelve bool) y, si falla, QuitIK y devuelve nulo; si no,
+// CTask::operator new (0x61A5A0) con 0x30 bytes (sin memoria devuelve nulo) y construye CTaskSimpleGoToPoint (0x667CD0, con hook) con (estado de movimiento +0x10, punto +0x2C, 0.5 (0x86FC78), false, false).
+CTask* CTaskComplexAvoidEntity::CreateFirstSubTask(CPed* ped) {
+    m_PedPos = ped->GetPosition();
+    if (!plugin::CallMethodAndReturn<bool, 0x66FD30, CTaskComplexAvoidEntity*, CPed*>(this, ped)) {
+        QuitIK(ped);
+        return nullptr;
+    }
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleGoToPoint));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskSimpleGoToPoint(m_MoveState, m_GoToPt, 0.5f, false, false);
+}
+
+// 0x66ADE0 (lote 204A, sin validar; el listado decia CTaskComplexAvoidOtherPedWhileWandering; ranura 10; thiscall, un argumento de pila, `ret 4`, 220 bytes). Como el original: sin entidad (+0xC) hace QuitIK y devuelve nulo. Con
+// entidad: SetUpIK (0x66AB40); si el contador estatico de la inteligencia del peaton (+0x274) pasa de 30 (0x86C938) hace QuitIK y devuelve nulo; si no, con d = posicion del peaton - posicion de la entidad (matriz +0x30 o
+// placement +4, cada resta sin guardar), |d|^2 = (z*z + x*x) + y*y y 7.5*7.5*4.0 = 225.0 (0x86C8FC, 0x858B90): si |d|^2 > 225.0 hace QuitIK y devuelve nulo; en el resto de casos (incluido NaN) devuelve la subtarea (+8).
+CTask* CTaskComplexAvoidEntity::ControlSubTask(CPed* ped) {
+    if (!m_Entity) {
+        QuitIK(ped);
+        return nullptr;
+    }
+    SetUpIK(ped);
+    if (ped->GetIntelligence()->m_AnotherStaticCounter > 30) {
+        QuitIK(ped);
+        return nullptr;
+    }
+    const CVector& entityPos = m_Entity->GetPosition();
+    const CVector& pedPos    = ped->GetPosition();
+    const float dx = pedPos.x - entityPos.x;
+    const float dy = pedPos.y - entityPos.y;
+    const float dz = pedPos.z - entityPos.z;
+    const float distSq = (dz * dz + dx * dx) + dy * dy;
+    // fcompp 225.0 contra distSq + test ah,5 + jp: sale por la subtarea con >=, igual y NaN; solo distSq > 225.0 hace QuitIK
+    if (distSq > 225.0f) {
+        QuitIK(ped);
+        return nullptr;
+    }
+    return m_pSubTask;
 }

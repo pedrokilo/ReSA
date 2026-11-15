@@ -20,6 +20,19 @@ END GENERATED HOOK STATUS */
 
 #include "EventGroupEvent.h"
 
+namespace {
+// 0x4B5E50 (lote 204A, sin validar; el listado decia CEventDamage; ranura 0 de la vtable 0x85AE48 de CEventGroupEvent; thiscall, un argumento de pila, `ret 4`, 76 bytes): destructor con borrado del EXE. Como el original: llama al cuerpo del
+// destructor (0x4AE070, Destructor con hook: libera la referencia al peaton y borra el evento interno con su destructor virtual con borrado) y, con el bit 0 del BYTE de banderas, libera la ranura en el pool de eventos (0xB744AC) EN LINEA,
+// igual que CEvent::operator delete (0x4B5630, con hook); devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+__declspec(noinline) CEventGroupEvent* __fastcall GroupEventScalarDeletingDestructor(CEventGroupEvent* self, void* /*edx*/, uint8 flags) {
+    self->CEventGroupEvent::~CEventGroupEvent();
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CEventGroupEvent::InjectHooks() {
     RH_ScopedVirtualClass(CEventGroupEvent, 0x85AE48, 16);
     RH_ScopedCategory("Events");
@@ -27,6 +40,7 @@ void CEventGroupEvent::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x4ADFD0);
     RH_ScopedInstall(Destructor, 0x4AE070);
     RH_ScopedVMTInstall(Clone, 0x4B6EE0); // lote 202A (sin validar): ranura 4
+    RH_ScopedNamedGlobalInstall(GroupEventScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B5E50); // lote 204A (sin validar)
     RH_ScopedInstall(BaseEventTakesPriorityOverBaseEvent, 0x4AE100);
 }
 

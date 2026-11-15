@@ -16,14 +16,30 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
+#pragma warning(push, 0)
 #include "StdInc.h"
+#pragma warning(pop)
 
 #include "EventDeath.h"
+
+namespace {
+// 0x4ADE90 (lote 204A, sin validar; el listado decia CEventDamage; thiscall, sin argumentos de pila, `ret`, 7 bytes): cuerpo no virtual de ~CEventDeath del EXE (su destructor con borrado 0x4B5DB0 y otros cuatro llamadores del EXE lo llaman).
+// La cadena de destructores se reduce a `mov dword [ecx], 0x85AB38; ret`: deja la vtable de CEvent del EXE y conserva EAX, ECX y EDX; el destructor con borrado sigue usando ECX tras la llamada, asi que el cuerpo no puede llevar marco ni
+// comprobaciones: se optimiza por pragma (CMakeLists.txt: /Zi y BasicRuntimeChecks=Default para este archivo). __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos.
+#pragma runtime_checks("", off)
+#pragma optimize("gty", on)
+void __fastcall DeathDestructorBody(CEventDeath* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+#pragma optimize("", on)
+#pragma runtime_checks("", restore)
+} // namespace
 
 void CEventDeath::InjectHooks() {
     RH_ScopedVirtualClass(CEventDeath, 0x85ADC0, 16); // lote 202A (sin validar): antes RH_ScopedClass; hace falta la vtable para enganchar Clone
     RH_ScopedCategory("Events");
 
+    RH_ScopedNamedGlobalInstall(DeathDestructorBody, "Destructor", 0x4ADE90); // lote 204A (sin validar)
     RH_ScopedInstall(Constructor, 0x4ADDF0);
     RH_ScopedVMTInstall(Clone, 0x4B6E30); // lote 202A (sin validar): ranura 4
 }

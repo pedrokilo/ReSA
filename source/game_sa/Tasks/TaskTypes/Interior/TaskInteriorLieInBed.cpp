@@ -29,6 +29,7 @@ void CTaskInteriorLieInBed::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x675E20);
     RH_ScopedInstall(Destructor, 0x675E90);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6772C0); // lote 204A (sin validar)
 
     RH_ScopedInstall(FinishAnimCB, 0x675FC0);
 
@@ -70,6 +71,17 @@ CTaskInteriorLieInBed::~CTaskInteriorLieInBed() {
     if (m_Anim) {
         m_Anim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr); // Como el original: callback de borrado
     }
+}
+
+// 0x6772C0 (lote 204A, sin validar; el listado decia CTaskInteriorUseInfo; ranura 0 de la vtable 0x870338 de CTaskInteriorLieInBed; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x675E90;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x675E90, con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook)
+// solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskInteriorLieInBed* CTaskInteriorLieInBed::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x675FC0
