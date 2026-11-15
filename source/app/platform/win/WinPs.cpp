@@ -441,7 +441,9 @@ RwBool psAlwaysOnTop(RwBool alwaysOnTop) {
     );
 }
 
-// 0x7460A0
+// 0x7460A0 (lote 225A, sin validar: ahora con hook; antes solo la usaba psSelectDevice): cdecl (ancho, alto, profundidad) -> mejor frecuencia de refresco, `ret`, 205 bytes. Crea IDirect3D9 (version 31), formato 32 -> X8R8G8B8 (22),
+// 24 -> R8G8B8 (20), resto -> R5G6B5 (23); recorre los modos del adaptador GcurSelSS (0xC920F4) y se queda con la menor frecuencia >= 60 Hz entre los modos de ese tamano/formato; si algun modo informa 0 (frecuencia por defecto) devuelve 0;
+// si no hay ninguno, devuelve -1 (centinela 0x7FFFFFFF). Se libera el IDirect3D9 antes de salir.
 static RwUInt32 GetBestRefreshRate(RwUInt32 width, RwUInt32 height, RwUInt32 depth) {
     // Como el original: version de SDK 31 (0x1F)
     const auto d3d = Direct3DCreate9(31);
@@ -644,6 +646,7 @@ void WinPsInjectHooks() {
     RH_ScopedGlobalInstall(psDebugMessageHandler, 0x745540);
     RH_ScopedGlobalInstall(psAlwaysOnTop, 0x7458B0);
     RH_ScopedGlobalInstall(psSelectDevice, 0x746190);
+    RH_ScopedGlobalInstall(GetBestRefreshRate, 0x7460A0); // lote 225A (sin validar)
 
     RH_ScopedGlobalInstall(InitialiseLanguage, 0x7465B0);
     RH_ScopedGlobalInstall(CheckDirectSound, 0x745840);

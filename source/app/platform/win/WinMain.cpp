@@ -168,6 +168,12 @@ bool IsForegroundApp() {
     return StaticRef<uint32>(0x8D621C) != 0; // Como el original: ForegroundApp es un dword en el EXE
 }
 
+// 0x746070 (lote 225A, sin validar; `mov eax,[0xC920EC]; test eax,eax; setne al; ret`, 11 bytes, cdecl sin argumentos): devuelve si el DWORD completo de `isForeground` (0xC920EC) es distinto de cero.
+// Como el original: lee el dword entero, no solo el byte. Lo llama CCutsceneMgr::IsCutsceneSkipButtonBeingPressed (0x4D5D10; lo lee en linea, ver CutsceneMgr.cpp).
+bool WasForegroundAppLastFrame() {
+    return StaticRef<uint32>(0xC920EC) != 0;
+}
+
 // Code from winmain, 0x748DCF
 bool ProcessGameLogic(INT nCmdShow) {
     if (RsGlobal.quit || FrontEndMenuManager.m_bStartGameLoading) {
@@ -548,6 +554,7 @@ void InjectWinMainStuff() {
     RH_ScopedNamespaceName("Win");
 
     RH_ScopedGlobalInstall(IsForegroundApp, 0x746060);
+    RH_ScopedGlobalInstall(WasForegroundAppLastFrame, 0x746070); // lote 225A (sin validar)
     RH_ScopedGlobalInstall(IsAlreadyRunning, 0x7468E0);
     RH_ScopedGlobalInstall(getDvdGamePath, 0x747300);
 

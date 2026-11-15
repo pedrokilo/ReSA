@@ -6,6 +6,7 @@
 #include "WindowedMode.hpp"
 #include <HookSystem.h>
 #include "PostEffects.h"
+#include "RenderWare/D3D9RasterFormat.h"
 
 #include "winincl.h"
 
@@ -529,7 +530,8 @@ _rxD3D9VideoMemoryRasterListRestore
 Release all the video memory
 
 */
-const auto _rxD3D9VideoMemoryRasterListRestore = plugin::CallAndReturn<RwBool, 0x4CC970>;
+// Lote 225A (sin validar): el cuerpo de 0x4CC970 ya esta en C++ (D3D9RasterFormat); se llama directamente en lugar de la envoltura plugin::CallAndReturn.
+inline RwBool _rxD3D9VideoMemoryRasterListRestore() { return D3D9RasterFormat::VideoMemoryRasterListRestore(); }
 
 /****************************************************************************
 _rwD3D9DynamicVertexBufferRestore

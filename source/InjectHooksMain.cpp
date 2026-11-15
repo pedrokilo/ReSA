@@ -238,6 +238,7 @@
 #include "Attractors/PedParkAttractor.h"
 #include "Attractors/PedStepAttractor.h"
 #include "ExeProtectionStub.h"
+#include "RenderWare/D3D9RasterFormat.h"
 #include "IdleCam.h"
 #include "Tasks/TaskTypes/TaskComplexChat.h"
 #include "Credits.h"
@@ -741,6 +742,7 @@ void InjectHooksMain() {
     CPedATMAttractor::InjectHooks();
     CProtectionStub::InjectHooks();
     RwD3D9RasterDriver::InjectHooks();     // lote 224A (sin validar)
+    D3D9RasterFormat::InjectHooks();       // lote 225A (sin validar)
     CPedSeatAttractor::InjectHooks();
     CPedStopAttractor::InjectHooks();
     CPedPizzaAttractor::InjectHooks();
