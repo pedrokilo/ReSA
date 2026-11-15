@@ -45,7 +45,7 @@ private: // Wrappers for hooks
     }
 
     // 0x6222B0
-    CTaskComplexKillPedGroupOnFoot* Destructor() {
+    __declspec(noinline) CTaskComplexKillPedGroupOnFoot* Destructor() {
         this->CTaskComplexKillPedGroupOnFoot::~CTaskComplexKillPedGroupOnFoot();
         return this;
     }

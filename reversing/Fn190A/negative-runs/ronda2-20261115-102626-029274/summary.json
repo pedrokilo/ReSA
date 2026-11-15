@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "6731c20ac575e1611ed202b98ee20a9603de1e2698b505bbdc3d41a0e4a2bafa",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CEventAcquaintancePedHate::GetLifeTime: 296/2048; CEventAcquaintancePedHate::GetSourceEntity: 291/2048; CEventAcquaintancePedHate::CanBeInterruptedBySameEvent: 313/2048; CEventAcquaintancePedHate::DestructorBody: 306/2048; CEventAcquaintancePedHate::GetEventType: 309/2048; CEventAcquaintancePedHate::CloneEditable: 241/2048; CEventAcquaintancePedHate::ScalarDeletingDestructor: 291/2048; CEventAcquaintancePedHate::GetEventPriority: 298/2048; CEventGunShot::ScalarDeletingDestructor: 285/2048; CEventVehicleCollision::ScalarDeletingDestructor: 290/2048; CEventPedCollisionWithPed::ScalarDeletingDestructor: 286/2048; CEventObjectCollision::ScalarDeletingDestructor: 289/2048; CEventBuildingCollision::ScalarDeletingDestructor: 271/2048; CEventDraggedOutCar::ScalarDeletingDestructor: 329/2048; CTaskComplexKillAllThreats::Constructor: 305/2048; CTaskComplexKillAllThreats::GetTaskType: 295/2048; CTaskComplexKillAllThreats::Destructor: 278/2048; CTaskComplexKillAllThreats::ScanForThreat: 272/2048; CTaskComplexKillAllThreats::ControlSubTask: 292/2048; CTaskComplexKillAllThreats::ScalarDeletingDestructor: 298/2048; CTaskComplexKillAllThreats::CreateNextSubTask: 35/2048; CTaskComplexKillAllThreats::CreateFirstSubTask: 68/2048; CTaskComplexKillPedGroupOnFoot::ScalarDeletingDestructor: 312/2048; CStencilShadows::FindForOwner: 71/2048; CStencilShadowObject::Create: 38/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

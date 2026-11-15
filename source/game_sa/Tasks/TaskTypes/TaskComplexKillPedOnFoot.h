@@ -49,6 +49,7 @@ public:
 
 private:
     friend void InjectHooksMain();
+    friend class CTaskComplexKillAllThreats; // CreateNextSubTask / CreateFirstSubTask (0x6293C0 / 0x629480) llaman al Constructor enganchado (0x620E30), como el EXE (correccion del banco Fn190A)
     static void InjectHooks();
 
     CTaskComplexKillPedOnFoot* Constructor(CPed* target, int32 time, int32 pedFlags, int32 delay, int32 chance, int8 a7);

@@ -86,14 +86,17 @@ bool CEventAcquaintancePedHate::CanBeInterruptedBySameEvent() {
 }
 
 // 0x420F50 (lote 190A, sin validar; thiscall, sin argumentos, `ret`, 88 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 16 de la vtable 0x858E68).
-// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x18 bytes; sin memoria devuelve nulo; si no, llama al constructor de CEventAcquaintancePed (0x4AF820, con hook) con el conocido (+0x14),
-// deja la vtable de la clase y devuelve la memoria. En C++ el constructor heredado de CEventAcquaintancePedHate hace lo mismo.
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x18 bytes; sin memoria devuelve nulo; si no, llama al constructor de CEventAcquaintancePed (0x4AF820, con hook; ECX = memoria) con el conocido (+0x14),
+// deja la vtable de la clase del EXE (0x858E68; la de la DLL no vale para los llamadores del EXE) y devuelve la memoria (no el EAX del constructor). Correccion del banco Fn190A: antes se construia con el constructor
+// heredado en el sitio, que no pasa por la direccion del constructor enganchado y dejaba la vtable de la DLL.
 CEventEditableResponse* CEventAcquaintancePedHate::CloneEditable() const noexcept {
     void* const memory = CEvent::operator new(sizeof(CEventAcquaintancePedHate));
     if (!memory) {
         return nullptr;
     }
-    return ::new (memory) CEventAcquaintancePedHate(m_AcquaintancePed);
+    static_cast<CEventAcquaintancePed*>(memory)->Constructor(m_AcquaintancePed);
+    *reinterpret_cast<uint32*>(memory) = 0x858E68;
+    return static_cast<CEventEditableResponse*>(memory);
 }
 
 // 0x420E70

@@ -114,7 +114,7 @@ CTask* CTaskComplexKillAllThreats::CreateNextSubTask(CPed* ped) {
     if (!memory) {
         return nullptr;
     }
-    return ::new (memory) CTaskComplexKillPedOnFoot(threat, -1, m_pedFlags, m_actionDelay, m_actionChance, 1);
+    return static_cast<CTaskComplexKillPedOnFoot*>(memory)->Constructor(threat, -1, m_pedFlags, m_actionDelay, m_actionChance, 1); // el EXE devuelve el EAX del constructor
 }
 
 // 0x629480 (lote 190A, sin validar; thiscall, un argumento de pila, `ret 4`, 194 bytes con marco SEH que solo desenrolla; ranura 9). Como el original: busca una amenaza (0x6221D0). Con amenaza, igual que CreateNextSubTask:
@@ -127,13 +127,13 @@ CTask* CTaskComplexKillAllThreats::CreateFirstSubTask(CPed* ped) {
         if (!memory) {
             return nullptr;
         }
-        return ::new (memory) CTaskComplexKillPedOnFoot(threat, -1, m_pedFlags, m_actionDelay, m_actionChance, 1);
+        return static_cast<CTaskComplexKillPedOnFoot*>(memory)->Constructor(threat, -1, m_pedFlags, m_actionDelay, m_actionChance, 1); // el EXE devuelve el EAX del constructor
     }
     void* const memory = CTask::operator new(sizeof(CTaskSimpleStandStill));
     if (!memory) {
         return nullptr;
     }
-    return ::new (memory) CTaskSimpleStandStill(0, false, false, 8.0f);
+    return static_cast<CTaskSimpleStandStill*>(memory)->Constructor(0, false, false, 8.0f); // el EXE devuelve el EAX del constructor
 }
 
 // 0x6293A0 (lote 190A, sin validar): destructor con borrado de CTaskComplexKillAllThreats del EXE (ranura 0 de su vtable 0x86DA1C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
