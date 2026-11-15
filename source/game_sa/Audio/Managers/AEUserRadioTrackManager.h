@@ -29,6 +29,7 @@ struct UserTracksLegacyVector {
     tUserTracksInfo** end{};
 
     void PushBack(tUserTracksInfo* const& value); // 0x4F4620
+    void Insert(tUserTracksInfo** pos, uint32 count, tUserTracksInfo* const& value); // 0x4F4320 (lote 209A, sin validar): insert(pos, n, valor) del vector VC9
 };
 VALIDATE_SIZE(UserTracksLegacyVector, 0x10);
 

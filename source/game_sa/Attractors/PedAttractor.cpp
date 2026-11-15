@@ -209,6 +209,96 @@ SArrayElem12** __cdecl SArrayCopyBackwardStride12(SArrayElem12** out, SArrayElem
     return out;
 }
 
+// Lote 205A (sin validar): 15 funciones mas del mismo bloque de plantillas de la STL de MSVC 6 (0x5EB140..0x5EB3B2, cdecl, sin llamadores fuera de las instancias de SArray; son plantillas de la STL, no metodos de CPedAttractor).
+// Mismas convenciones que arriba: iteradores como punteros por valor, valor por puntero, retorno de estructura en el primer argumento. Los llamadores empujan argumentos de relleno de la plantilla (etiquetas de categoria) que estas
+// funciones no leen; con cdecl el llamador los limpia, asi que basta declarar los que se leen.
+// std::copy_backward de 4 bytes (0x5EB140, 0x5EB1B0 y 0x5EB260, tres instancias identicas, 40 bytes cada una): si inicio == fin no copia; *out = inicio del destino; devuelve out.
+uint32** __cdecl SArrayCopyBackwardStride4(uint32** out, uint32* first, uint32* last, uint32* destEnd) {
+    if (first != last) {
+        do {
+            const uint32 value = last[-1];
+            --last;
+            --destEnd;
+            *destEnd = value;
+        } while (last != first);
+    }
+    *out = destEnd;
+    return out;
+}
+
+// Envoltorios de copy_backward (0x5EB170 de 20 bytes y 0x5EB220 de 12 bytes, 50 bytes cada uno): reenvian (out, first, last, destEnd) y repiten destEnd como quinto argumento (el EXE empuja cinco) a la funcion de arriba
+// (0x5EAC50 / 0x5EACC0, con hook) y devuelven out (en ESI). El quinto argumento no lo lee la funcion, asi que aqui se omite.
+SArrayElem20** __cdecl SArrayCopyBackwardStride20Wrapper(SArrayElem20** out, SArrayElem20* first, SArrayElem20* last, SArrayElem20* destEnd) {
+    SArrayCopyBackwardStride20(out, first, last, destEnd);
+    return out;
+}
+SArrayElem12** __cdecl SArrayCopyBackwardStride12Wrapper(SArrayElem12** out, SArrayElem12* first, SArrayElem12* last, SArrayElem12* destEnd) {
+    SArrayCopyBackwardStride12(out, first, last, destEnd);
+    return out;
+}
+
+// std::fill de 12 bytes (0x5EB1E0, 50 bytes): lee el valor en cada vuelta (tres dwords en orden); con inicio == fin no lo lee.
+void __cdecl SArrayFillStride12(SArrayElem12* first, SArrayElem12* last, const SArrayElem12* value) {
+    for (; first != last; ++first) {
+        first->w[0] = value->w[0];
+        first->w[1] = value->w[1];
+        first->w[2] = value->w[2];
+    }
+}
+
+// std::uninitialized_fill_n de 4 bytes (0x5EB2A0, 0x5EB310 y 0x5EB390, tres instancias identicas, 35 bytes cada una): con n == 0 (comparacion SIN signo, `jbe`) no hace nada; si no, n vueltas que escriben el valor (releido en cada
+// vuelta) solo si el destino no es nulo (new(puntero) T(valor)), avanzando siempre.
+void __cdecl SArrayFillNStride4(uint32* dest, uint32 count, const uint32* value) {
+    if (count == 0) {
+        return;
+    }
+    do {
+        if (dest) {
+            *dest = *value;
+        }
+        ++dest;
+        --count;
+    } while (count != 0);
+}
+
+// Igual con elementos de 20 bytes (0x5EB2E0, 46 bytes; `rep movsd` de 5 dwords) y de 12 bytes (0x5EB340, 55 bytes; tres dwords en orden).
+void __cdecl SArrayFillNStride20(SArrayElem20* dest, uint32 count, const SArrayElem20* value) {
+    if (count == 0) {
+        return;
+    }
+    do {
+        if (dest) {
+            for (int32 i = 0; i < 5; i++) {
+                dest->w[i] = value->w[i];
+            }
+        }
+        ++dest;
+        --count;
+    } while (count != 0);
+}
+void __cdecl SArrayFillNStride12(SArrayElem12* dest, uint32 count, const SArrayElem12* value) {
+    if (count == 0) {
+        return;
+    }
+    do {
+        if (dest) {
+            dest->w[0] = value->w[0];
+            dest->w[1] = value->w[1];
+            dest->w[2] = value->w[2];
+        }
+        ++dest;
+        --count;
+    } while (count != 0);
+}
+
+// Lote 209A (sin validar): 0x4F3D80 (39 bytes, thiscall con ECX sin leer, tres argumentos de pila, `ret 0Ch`; el listado la atribuia a CAEUserRadioTrackManager): envoltorio de uninitialized_fill_n de elementos de 4 bytes (mismos bytes que 0x5EC070, 0x5EC110
+// y 0x5EC1B0, sin enganchar). Reenvia (destino, cantidad, valor) a la funcion cdecl de arriba (0x5EB2A0 y gemelas; el EXE empuja cinco argumentos, tres reales y dos de relleno que no se leen) y devuelve destino + cantidad * 4 (EAX = EDI + ESI * 4),
+// con la cantidad SIN signo y la aritmetica de punteros del EXE (envuelve a 32 bits).
+uint32* __stdcall SArrayFillNReturnEndStride4(uint32* dest, uint32 count, const uint32* value) {
+    SArrayFillNStride4(dest, count, value);
+    return dest + count;
+}
+
 // Lote 206A (sin validar): envolturas stdcall de std::uninitialized_copy (0x5EB930, 0x5EB960, 0x5EB990, 0x5EB9D0 y 0x5EBA00; `ret 0Ch`, tres argumentos de pila (origen, fin, destino)). Cada una reserva en la pila un marco
 // de 0x14 bytes con los tres argumentos y un hueco sin inicializar (el ECX de entrada, basura), llama a la funcion cdecl de la tabla de 189A (0x5EAE10 / 0x5EAE40 / 0x5EAE70 / 0x5EAEA0 / 0x5EAEE0), la limpia con
 // `add esp, 14h` y devuelve su EAX (el final del destino). No usan `this`. Las tres de elemento de 4 bytes (0x5EB930, 0x5EB990 y 0x5EBA00) comparten cuerpo, como las funciones de 189A.
@@ -285,6 +375,16 @@ void CPedAttractor::InjectHooks() {
     RH_ScopedNamedGlobalInstall(SArrayFillNStride4<1>, "SArrayFillNStride4B", 0x5EB310);
     RH_ScopedNamedGlobalInstall(SArrayFillNStride12, "SArrayFillNStride12", 0x5EB340);
     RH_ScopedNamedGlobalInstall(SArrayFillNStride4<2>, "SArrayFillNStride4C", 0x5EB390);
+
+    // Lote 209A (sin validar): instancias de las mismas plantillas junto a los vectores de CAEUserRadioTrackManager (0x4F3AE0..0x4F4030; el listado las atribuia a esa clase). Mismos bytes que las gemelas de arriba (comprobado con
+    // una busqueda de la secuencia de bytes en el EXE), asi que se enganchan con las mismas funciones C++.
+    RH_ScopedNamedGlobalInstall(SArrayFillStride4, "SArrayFillStride4D", 0x4F3AE0);
+    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride4, "SArrayCopyBackwardStride4D", 0x4F3B00);
+    RH_ScopedNamedGlobalInstall(SArrayFillNStride4, "SArrayFillNStride4D", 0x4F3B30);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyWrapStride4, "SArrayUninitCopyWrapStride4D", 0x4F3CE0);
+    RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride4, "SArrayFillNReturnEndStride4", 0x4F3D80);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4B", 0x4F3F30);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4C", 0x4F4030);
 
     RH_ScopedInstall(operator delete, 0x5EAFE0); // lote 205A (sin validar)
     RH_ScopedInstall(Constructor, 0x5EDFB0);

@@ -30,6 +30,7 @@ void CTaskSimpleSlideToCoord::InjectHooks() {
     RH_ScopedOverloadedInstall(Constructor, "NoAnim", 0x66C3E0, CTaskSimpleSlideToCoord*(CTaskSimpleSlideToCoord::*)(CVector const&, float, float)); // lote 191A (sin validar)
     RH_ScopedOverloadedInstall(Constructor, "Anim", 0x66C450, CTaskSimpleSlideToCoord*(CTaskSimpleSlideToCoord::*)(CVector const&, float, float, char const*, char const*, int32, float, bool, int32)); // lote 191A (sin validar)
     RH_ScopedInstall(Destructor, 0x66C4C0); // lote 191A (sin validar)
+    RH_ScopedVMTInstall(Clone, 0x66D300); // lote 209A (sin validar; el listado decia CTaskComplexTurnToFaceEntityOrCoord)
     // + RH_ScopedVmtInstall(MakeAbortable, 0x66C4D0);
     RH_ScopedVMTInstall(ProcessPed, 0x66C4E0);
 }
@@ -60,7 +61,9 @@ CTaskSimpleSlideToCoord::CTaskSimpleSlideToCoord(const CVector& slideToPos, floa
 {
 }
 
-// 0x66D300
+// 0x66D300 (lote 209A, sin validar; ranura 1 de la vtable 0x86FFEC; thiscall, sin argumentos de pila, `ret`, 204 bytes con marco SEH que solo libera la memoria si el constructor lanzara: omitido): con el bit 1 de +0x78 (animacion en
+// marcha) reserva 0x80 bytes con CTask::operator new (0x61A5A0) y llama al constructor largo (0x66C450) con (+0x64, +0x70, +0x74, +0x10, +0x28, +0x5C, +0x38, (byte +0xC & 0x10) >> 4, +0x40); si no, al corto (0x66C3E0) con (+0x64, +0x70, +0x74).
+// Sin memoria devuelve nulo sin construir.
 CTask* CTaskSimpleSlideToCoord::Clone() const {
     return m_bRunningAnim
         ? new CTaskSimpleSlideToCoord(m_SlideToPos, m_fAimingRotation, m_Speed, m_animName, m_animGroupName, m_animFlags, m_fBlendDelta, !!m_bRunInSequence, m_Time)

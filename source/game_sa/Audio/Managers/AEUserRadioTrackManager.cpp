@@ -664,6 +664,312 @@ std::wstring CAEUserRadioTrackManager::ResolveShortcut(const std::wstring& path)
     return target;
 }
 
+namespace {
+// Lote 209A (sin validar): bloque de la STL de MSVC 9 que el EXE enlaza junto a CAEUserRadioTrackManager (0x4F3A3E..0x4F4D10); el listado lo atribuia entero a esa clase. NO son metodos suyos: son std::string (+4 buffer de 16 bytes o puntero,
+// +0x14 longitud, +0x18 capacidad; el campo +0 no se escribe), std::runtime_error (std::exception de 12 bytes con un std::string en +0xC; vtables 0x887D5C y, la derivada length_error, 0x887D68) y las plantillas de std::vector de punteros
+// (ver UserTracksLegacyVector). Las funciones de std::string se reconocen por la comparacion `cmp [x+18h],10h` (capacidad >= 16 -> datos por puntero). Colaboradores sin reconstruir, llamados por direccion fija: CRT 0x82119A operator new,
+// 0x8214BD operator delete (::operator new / delete del proyecto), 0x821255 std::string::_Xlen, 0x8211FD std::string::_Xran, 0x822A20 memmove, 0x822D97 / 0x822DE5 / 0x822E2F constructor, constructor de copia y destructor de
+// std::exception, 0x822D5D _CxxThrowException; std::string::_Copy 0x4F39C0 (la contienen 0x4F3A3E y 0x4F3AAD).
+struct LegacyString {
+    uint32 allocator; // +0, sin inicializar por los constructores
+    union {
+        char  sso[16];
+        char* ptr;
+    };
+    uint32 size; // +0x14
+    uint32 res;  // +0x18, capacidad (0xF = buffer interno)
+
+    [[nodiscard]] char* Data() { return res >= 0x10 ? ptr : sso; }
+    [[nodiscard]] const char* Data() const { return res >= 0x10 ? ptr : sso; }
+};
+VALIDATE_SIZE(LegacyString, 0x1C);
+
+struct LegacyRuntimeError {
+    uint32       vtable;  // +0
+    const char*  what;    // +4  (std::exception::_m_what)
+    uint32       doFree;  // +8
+    LegacyString message; // +0xC
+};
+VALIDATE_SIZE(LegacyRuntimeError, 0x28);
+
+// `rep movsd` (n / 4 dwords) y `rep movsb` (n % 4 bytes), como el EXE (sin superposicion en estos usos).
+void CopyBytesLikeExe(char* dst, const char* src, uint32 n) {
+    __movsd(reinterpret_cast<unsigned long*>(dst), reinterpret_cast<const unsigned long*>(src), n >> 2);
+    __movsb(reinterpret_cast<unsigned char*>(dst) + (n & ~3u), reinterpret_cast<const unsigned char*>(src) + (n & ~3u), n & 3u);
+}
+
+[[noreturn]] void StringXlen() { // 0x821255, no vuelve
+    plugin::Call<0x821255>();
+    __assume(0);
+}
+[[noreturn]] void StringXran() { // 0x8211FD, no vuelve
+    plugin::Call<0x8211FD>();
+    __assume(0);
+}
+
+// 0x4F39C0 (no listada; la contienen 0x4F3A3E y 0x4F3AAD, trozos con el marco EBP de esa funcion y su manejador de excepciones): std::string::_Copy(nuevaCapacidad, longitudAnterior), thiscall, `ret 8`.
+void StringCopyGrow(LegacyString* self, uint32 newSize, uint32 oldLength) {
+    plugin::CallMethod<0x4F39C0, LegacyString*, uint32, uint32>(self, newSize, oldLength);
+}
+
+// 0x4F3BA0 (lote 209A, sin validar; 35 bytes, thiscall sin argumentos, `ret`): std::string::_Tidy(): con capacidad >= 16 libera el buffer con operator delete (0x8214BD); despues capacidad = 0xF, longitud = 0 y primer byte del buffer
+// interno = 0 (esto ultimo escribe en el primer byte de la union aunque el puntero acabe de liberarse).
+void __fastcall StringTidy(LegacyString* self, void* /*edx*/) {
+    if (self->res >= 0x10) {
+        ::operator delete(self->ptr);
+    }
+    self->res    = 0xF;
+    self->size   = 0;
+    self->sso[0] = 0;
+}
+
+// 0x4F3BD0 (lote 209A, sin validar; 190 bytes, thiscall con (nuevoTamano, vaciar), `ret 8`; el BYTE `vaciar` se lee de la pila): std::string::_Grow. Devuelve (nuevoTamano != 0) en EAX (0 o 1).
+//  - nuevoTamano > 0xFFFFFFFE (sin signo): std::string::_Xlen (0x821255).
+//  - capacidad < nuevoTamano: _Copy (0x4F39C0) con (nuevoTamano, vaciar ? 0 : longitud actual).
+//  - si no, con vaciar y nuevoTamano < 16: libera si habia buffer, capacidad 0xF, longitud 0, primer byte 0.
+//  - si no, con nuevoTamano == 0: longitud 0 y terminador en la posicion 0 del buffer activo; devuelve 0.
+bool __fastcall StringGrow(LegacyString* self, void* /*edx*/, uint32 newSize, bool trim) {
+    if (newSize > 0xFFFFFFFEu) {
+        StringXlen();
+    }
+    if (self->res < newSize) {
+        StringCopyGrow(self, newSize, trim ? 0 : self->size);
+        return newSize != 0;
+    }
+    if (trim && newSize < 0x10) {
+        if (self->res >= 0x10) {
+            ::operator delete(self->ptr);
+        }
+        self->res    = 0xF;
+        self->size   = 0;
+        self->sso[0] = 0;
+        return newSize != 0;
+    }
+    if (newSize == 0) {
+        self->size      = 0;
+        self->Data()[0] = 0;
+        return false;
+    }
+    return true;
+}
+
+// 0x4F3DB0 (lote 209A, sin validar; 181 bytes, thiscall con (posicion, cantidad), `ret 8`): std::string::erase(pos, n). pos > longitud: std::string::_Xran (0x8211FD). n se limita a longitud - pos (sin signo). Si el n efectivo es > 0: memmove
+// (0x822A20) de la cola sobre la posicion (sin el terminador), nueva longitud = longitud - n; si es > 0xFFFFFFFE: _Xlen; si la capacidad no la alcanza: _Copy(nuevaLongitud, longitud anterior) y despues longitud y terminador; con nueva
+// longitud 0 solo pone longitud 0 y terminador en el inicio del buffer activo. Devuelve this.
+LegacyString* __fastcall StringErase(LegacyString* self, void* /*edx*/, uint32 pos, uint32 n) {
+    if (self->size < pos) {
+        StringXran();
+    }
+    const uint32 remaining = self->size - pos;
+    const uint32 count     = remaining < n ? remaining : n;
+    if (count > 0) {
+        char* const base = self->Data();
+        std::memmove(base + pos, base + pos + count, remaining - count);
+        const uint32 newSize = self->size - count;
+        if (newSize > 0xFFFFFFFEu) {
+            StringXlen();
+        }
+        if (self->res < newSize) {
+            StringCopyGrow(self, newSize, self->size);
+        } else if (newSize == 0) {
+            self->size      = 0;
+            self->Data()[0] = 0;
+            return self;
+        }
+        self->size            = newSize;
+        self->Data()[newSize] = 0;
+    }
+    return self;
+}
+
+// 0x4F3E80 (lote 209A, sin validar; 166 bytes, thiscall con (cadena, posicion, cantidad), `ret 0Ch`): std::string::assign(const string&, pos, n). pos > longitud de la otra: _Xran. n se limita a su longitud - pos. Si es la misma cadena:
+// erase(pos + n, -1) y erase(0, pos) (0x4F3DB0). Si no: _Grow(n, true) (0x4F3BD0) y, si devuelve cierto, copia n bytes (rep movsd/movsb) desde su buffer + pos, longitud = n y terminador. Devuelve this.
+LegacyString* __fastcall StringAssignString(LegacyString* self, void* /*edx*/, const LegacyString* str, uint32 pos, uint32 n) {
+    if (str->size < pos) {
+        StringXran();
+    }
+    uint32 len = str->size - pos;
+    if (n < len) {
+        len = n;
+    }
+    if (self == str) {
+        StringErase(self, nullptr, pos + len, 0xFFFFFFFFu);
+        StringErase(self, nullptr, 0, pos);
+        return self;
+    }
+    if (StringGrow(self, nullptr, len, true)) {
+        CopyBytesLikeExe(self->Data(), str->Data() + pos, len);
+        self->size        = len;
+        self->Data()[len] = 0;
+    }
+    return self;
+}
+
+// 0x4F3F60 (lote 209A, sin validar; 159 bytes, thiscall con (texto, cantidad), `ret 8`): std::string::assign(const char*, n). Si el texto cae dentro del propio buffer (inicio del buffer <= texto < inicio + longitud, comparaciones sin signo)
+// delega en assign(esta cadena, texto - buffer, n) (0x4F3E80). Si no: _Grow(n, true) y, si devuelve cierto, copia n bytes (rep movsd/movsb) al buffer activo, longitud = n y terminador. Devuelve this.
+LegacyString* __fastcall StringAssignChars(LegacyString* self, void* /*edx*/, const char* text, uint32 n) {
+    const uint32 data = reinterpret_cast<uint32>(self->Data());
+    const uint32 from = reinterpret_cast<uint32>(text);
+    if (!(data > from) && !(from >= self->size + data)) {
+        return StringAssignString(self, nullptr, self, from - data, n);
+    }
+    if (StringGrow(self, nullptr, n, true)) {
+        CopyBytesLikeExe(self->Data(), text, n);
+        self->size      = n;
+        self->Data()[n] = 0;
+    }
+    return self;
+}
+
+// 0x4F4170 (lote 209A, sin validar; 57 bytes, thiscall con (texto), `ret 4`): std::string::string(const char*): capacidad 0xF, longitud 0, primer byte 0 (el campo +0 no se escribe); longitud del texto con un recorrido byte a byte y
+// assign(texto, longitud) (0x4F3F60). Devuelve this.
+LegacyString* __fastcall StringFromChars(LegacyString* self, void* /*edx*/, const char* text) {
+    self->res    = 0xF;
+    self->size   = 0;
+    self->sso[0] = 0;
+    const uint32 length = static_cast<uint32>(std::strlen(text));
+    StringAssignChars(self, nullptr, text, length);
+    return self;
+}
+
+// 0x4F4090 (lote 209A, sin validar; 95 bytes con marco SEH que solo destruye la base si la asignacion lanzara: omitido; thiscall con (const std::string&), `ret 4`): std::runtime_error::runtime_error(const string&):
+// std::exception::exception() (0x822D97), vtable 0x887D5C, el string en +0xC con capacidad 0xF, longitud 0 y primer byte 0 y assign(mensaje, 0, -1) (0x4F3E80). Devuelve this.
+LegacyRuntimeError* __fastcall RuntimeErrorFromString(LegacyRuntimeError* self, void* /*edx*/, const LegacyString* message) {
+    plugin::CallMethod<0x822D97, LegacyRuntimeError*>(self);
+    self->vtable         = 0x887D5C;
+    self->message.res    = 0xF;
+    self->message.size   = 0;
+    self->message.sso[0] = 0;
+    StringAssignString(&self->message, nullptr, message, 0, 0xFFFFFFFFu);
+    return self;
+}
+
+// 0x4F4230 (lote 209A, sin validar; 101 bytes con marco SEH que solo destruye la base: omitido; thiscall con (const runtime_error&), `ret 4`): constructor de copia de std::runtime_error: constructor de copia de std::exception (0x822DE5),
+// vtable 0x887D5C, el string en +0xC vacio (capacidad 0xF, longitud 0, primer byte 0) y assign(string del otro, 0, -1). Devuelve this.
+LegacyRuntimeError* __fastcall RuntimeErrorCopy(LegacyRuntimeError* self, void* /*edx*/, const LegacyRuntimeError* other) {
+    plugin::CallMethod<0x822DE5, LegacyRuntimeError*, const LegacyRuntimeError*>(self, other);
+    self->vtable         = 0x887D5C;
+    self->message.res    = 0xF;
+    self->message.size   = 0;
+    self->message.sso[0] = 0;
+    StringAssignString(&self->message, nullptr, &other->message, 0, 0xFFFFFFFFu);
+    return self;
+}
+
+// 0x4F3D10 y 0x4F4130 (lote 209A, sin validar; 47 bytes cada una, mismos bytes salvo el destino del salto; thiscall sin argumentos, `ret`): cuerpo del destructor de std::runtime_error: vtable 0x887D5C, destruye el string (libera si la
+// capacidad es >= 16; capacidad 0xF, longitud 0, primer byte 0) y salta (`jmp`) al destructor de std::exception (0x822E2F). Una sola funcion C++ para las dos direcciones.
+void __fastcall RuntimeErrorDestructorBody(LegacyRuntimeError* self, void* /*edx*/) {
+    self->vtable = 0x887D5C;
+    if (self->message.res >= 0x10) {
+        ::operator delete(self->message.ptr);
+    }
+    self->message.res    = 0xF;
+    self->message.size   = 0;
+    self->message.sso[0] = 0;
+    plugin::CallMethod<0x822E2F, LegacyRuntimeError*>(self);
+}
+
+// 0x4F3D50 (lote 209A, sin validar; 14 bytes, thiscall sin argumentos, `ret`): std::runtime_error::what(): c_str() del string en +0xC (puntero si la capacidad es >= 16, si no el buffer interno).
+const char* __fastcall RuntimeErrorWhat(const LegacyRuntimeError* self, void* /*edx*/) {
+    return self->message.Data();
+}
+
+// 0x4F3D60 y 0x4F4110 (lote 209A, sin validar; 27 bytes cada una, thiscall con el BYTE de banderas en la pila, `ret 4`): destructor con borrado de std::runtime_error (0x4F3D60, cuerpo 0x4F3D10) y de la clase derivada con vtable 0x887D68
+// (0x4F4110, cuerpo 0x4F4130, el mismo codigo): cuerpo del destructor y, solo si el bit 0 de las banderas esta puesto, operator delete (0x8214BD). Devuelve this.
+LegacyRuntimeError* __fastcall RuntimeErrorScalarDeletingDestructor(LegacyRuntimeError* self, void* /*edx*/, uint8 flags) {
+    RuntimeErrorDestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
+// 0x4F41B0 (lote 209A, sin validar; 122 bytes con marco SEH que destruye el string y el objeto temporales al desenrollar: aqui NO se destruyen, se pierden sus bloques de memoria dinamica; thiscall con ECX sin leer, sin argumentos, no vuelve):
+// std::vector<T>::_Xlen(): construye un std::string con el texto de 0x860AB0 ("vector<T> too long"; longitud por recorrido byte a byte, assign 0x4F3F60), con el un std::runtime_error (0x4F4090), pone la vtable 0x887D68 (la clase
+// derivada, std::length_error) y lanza el objeto con _CxxThrowException (0x822D5D, stdcall) y el ThrowInfo 0x893634.
+[[noreturn]] void __fastcall VectorXlen(void* /*self*/, void* /*edx*/) {
+    LegacyString text;
+    text.res    = 0xF;
+    text.size   = 0;
+    text.sso[0] = 0;
+    const char* const message = reinterpret_cast<const char*>(0x860AB0);
+    StringAssignChars(&text, nullptr, message, static_cast<uint32>(std::strlen(message)));
+    LegacyRuntimeError error;
+    RuntimeErrorFromString(&error, nullptr, &text);
+    error.vtable = 0x887D68;
+    reinterpret_cast<void(__stdcall*)(void*, const void*)>(0x822D5D)(&error, reinterpret_cast<const void*>(0x893634));
+    __assume(0);
+}
+} // namespace
+
+// 0x4F4320 (lote 209A, sin validar; 645 bytes con marco SEH que solo libera el bloque nuevo si una copia lanzara: omitido; thiscall con (posicion, cantidad, const T&), `ret 0Ch`): std::vector<T*>::insert(pos, n, valor) de VC9 (vector de
+// punteros de 4 bytes; disposicion +4 inicio, +8 fin, +0xC limite). Como el original:
+//  - El valor se copia a una variable local al entrar (su direccion es el argumento de relleno de todas las llamadas). capacidad = inicio ? (limite - inicio) >> 2 : 0 (desplazamiento con signo). Con n == 0 no hace nada.
+//  - tamano = inicio ? (fin - inicio) >> 2 : 0; si (0x3FFFFFFF - tamano) < n (sin signo): VectorXlen (0x4F41B0).
+//  - Capacidad insuficiente (capacidad < tamano + n): nueva = (0x3FFFFFFF - capacidad / 2 < capacidad) ? 0 : capacidad + capacidad / 2; si es menor que tamano + n, la nueva es tamano + n; reserva nueva * 4 con operator new (0x82119A);
+//    copia [inicio, pos) (0x4F3940), rellena n con el valor (0x4F3B30), copia [pos, fin) detras (0x4F3940), libera el bloque viejo (0x8214BD) y coloca inicio, fin = inicio + (n + tamano anterior) y limite = inicio + nueva * 4.
+//  - Con capacidad: si hay menos de n elementos tras pos, copia la cola a pos + n (0x4F3CE0), rellena n - cola desde fin (0x4F3D80), fin += n y rellena [pos, fin anterior) (0x4F3AE0); si no, copia los ultimos n a fin (0x4F3CE0),
+//    fin = su retorno, copia hacia atras [pos, fin anterior - n) hasta fin anterior (0x4F3B00) y rellena [pos, pos + n) (0x4F3AE0).
+void UserTracksLegacyVector::Insert(tUserTracksInfo** pos, uint32 count, tUserTracksInfo* const& value) {
+    using Slot = tUserTracksInfo*;
+    const auto ElementsBetween = [](const Slot* upper, const Slot* lower) -> uint32 {
+        return static_cast<uint32>(static_cast<int32>(reinterpret_cast<uint32>(upper) - reinterpret_cast<uint32>(lower)) >> 2);
+    };
+    const auto Advance = [](Slot* base, uint32 elements) -> Slot* { // aritmetica de punteros de 32 bits del EXE (elementos * 4, con envoltura)
+        return reinterpret_cast<Slot*>(reinterpret_cast<uint32>(base) + elements * 4);
+    };
+
+    uint32 valueSlot = reinterpret_cast<const uint32&>(value);
+    const uint32 capacity = first ? ElementsBetween(end, first) : 0;
+    if (count == 0) {
+        return;
+    }
+    uint32 size = first ? ElementsBetween(last, first) : 0;
+    if (0x3FFFFFFFu - size < count) {
+        VectorXlen(this, nullptr);
+    }
+    size = first ? ElementsBetween(last, first) : 0;
+    if (capacity < size + count) {
+        const uint32 half = capacity >> 1;
+        uint32 newCapacity = (0x3FFFFFFFu - half < capacity) ? 0 : capacity + half;
+        const uint32 needed = (first ? ElementsBetween(last, first) : 0) + count;
+        if (newCapacity < needed) {
+            newCapacity = needed;
+        }
+        const uint32 bytes = newCapacity << 2;
+        Slot* const block = static_cast<Slot*>(::operator new(bytes));
+        Slot* const afterPrefix = plugin::CallAndReturn<Slot*, 0x4F3940, Slot*, Slot*, Slot*>(first, pos, block);
+        plugin::Call<0x4F3B30, Slot*, uint32, const uint32*>(afterPrefix, count, &valueSlot);
+        plugin::CallAndReturn<Slot*, 0x4F3940, Slot*, Slot*, Slot*>(pos, last, Advance(afterPrefix, count));
+        const uint32 newSize = count + (first ? ElementsBetween(last, first) : 0);
+        if (first) {
+            ::operator delete(first);
+        }
+        const uint32 newEnd = bytes + reinterpret_cast<uint32>(block);
+        Slot* const newLast = Advance(block, newSize);
+        end   = reinterpret_cast<Slot*>(newEnd);
+        last  = newLast;
+        first = block;
+        return;
+    }
+
+    Slot* const oldLast = last;
+    const uint32 bytes = count << 2;
+    if (ElementsBetween(oldLast, pos) < count) {
+        plugin::CallMethodAndReturn<Slot*, 0x4F3CE0, UserTracksLegacyVector*, Slot*, Slot*, Slot*>(this, pos, oldLast, reinterpret_cast<Slot*>(reinterpret_cast<uint32>(pos) + bytes));
+        const uint32 tail = ElementsBetween(last, pos);
+        plugin::CallMethodAndReturn<Slot*, 0x4F3D80, UserTracksLegacyVector*, Slot*, uint32, const uint32*>(this, last, count - tail, &valueSlot);
+        last = reinterpret_cast<Slot*>(reinterpret_cast<uint32>(last) + bytes);
+        plugin::Call<0x4F3AE0, Slot*, Slot*, const uint32*>(pos, oldLast, &valueSlot);
+    } else {
+        Slot* const lastN = reinterpret_cast<Slot*>(reinterpret_cast<uint32>(oldLast) - bytes);
+        last = plugin::CallMethodAndReturn<Slot*, 0x4F3CE0, UserTracksLegacyVector*, Slot*, Slot*, Slot*>(this, lastN, oldLast, oldLast);
+        Slot* scratch;
+        plugin::Call<0x4F3B00, Slot**, Slot*, Slot*, Slot*>(&scratch, pos, lastN, oldLast);
+        plugin::Call<0x4F3AE0, Slot*, Slot*, const uint32*>(pos, Advance(pos, count), &valueSlot);
+    }
+}
+
 // 0x4F4620: push_back del vector VC6 de elementos de 4 bytes (thiscall, ECX = vector, un argumento en pila: referencia al valor, ret 4). Con el almacenamiento reservado y
 // sitio libre (first != 0 y (last - first) / 4 < (end - first) / 4, cocientes con signo comparados sin signo) construye el elemento en `last` con 0x4F3B30 (cdecl:
 // destino, 1, &valor, this, &valor) y guarda en last la direccion leida ANTES de la llamada mas 4; si no (sin almacenamiento o lleno) llama a insert(last, 1, &valor)
@@ -709,5 +1015,28 @@ void CAEUserRadioTrackManager::InjectHooks() {
     {
         RH_ScopedClass(UserTracksLegacyVector);
         RH_ScopedInstall(PushBack, 0x4F4620);
+        RH_ScopedInstall(Insert, 0x4F4320); // lote 209A (sin validar)
+    }
+
+    // Lote 209A (sin validar): std::string y std::runtime_error de la STL de MSVC 9 enlazados junto a esta clase (ver el bloque de arriba); el listado los atribuia a CAEUserRadioTrackManager.
+    {
+        RH_ScopedNamespaceName("LegacyStdString");
+        RH_ScopedNamedGlobalInstall(StringTidy, "Tidy", 0x4F3BA0);
+        RH_ScopedNamedGlobalInstall(StringGrow, "Grow", 0x4F3BD0);
+        RH_ScopedNamedGlobalInstall(StringErase, "Erase", 0x4F3DB0);
+        RH_ScopedNamedGlobalInstall(StringAssignString, "AssignString", 0x4F3E80);
+        RH_ScopedNamedGlobalInstall(StringAssignChars, "AssignChars", 0x4F3F60);
+        RH_ScopedNamedGlobalInstall(StringFromChars, "ConstructFromChars", 0x4F4170);
+    }
+    {
+        RH_ScopedNamespaceName("LegacyRuntimeError");
+        RH_ScopedNamedGlobalInstall(RuntimeErrorDestructorBody, "DestructorBodyA", 0x4F3D10);
+        RH_ScopedNamedGlobalInstall(RuntimeErrorWhat, "What", 0x4F3D50);
+        RH_ScopedNamedGlobalInstall(RuntimeErrorScalarDeletingDestructor, "ScalarDeletingDestructorA", 0x4F3D60);
+        RH_ScopedNamedGlobalInstall(RuntimeErrorFromString, "ConstructFromString", 0x4F4090);
+        RH_ScopedNamedGlobalInstall(RuntimeErrorScalarDeletingDestructor, "ScalarDeletingDestructorB", 0x4F4110);
+        RH_ScopedNamedGlobalInstall(RuntimeErrorDestructorBody, "DestructorBodyB", 0x4F4130);
+        RH_ScopedNamedGlobalInstall(RuntimeErrorCopy, "CopyConstructor", 0x4F4230);
+        RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlen", 0x4F41B0);
     }
 }

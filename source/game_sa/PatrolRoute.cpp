@@ -20,6 +20,19 @@ END GENERATED HOOK STATUS */
 #include "PatrolRoute.h"
 #include "Pools/PoolRawDelete.h"
 
+namespace {
+// 0x66BA70 (lote 209A, sin validar; el listado decia CTaskComplexTurnToFaceEntityOrCoord; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6677A0; test byte [esp+8],1; je ..; push esi; call 0x41B820;
+// add esp,4; mov eax,esi; pop esi; ret 4`): destructor con borrado de CPatrolRoute. Sin llamadores ni vtable en el EXE (codigo muerto). Como el original: cuerpo del destructor (0x6677A0, con hook), libera `this` con
+// CPatrolRoute::operator delete (0x41B820, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CPatrolRoute* __fastcall PatrolRouteScalarDeletingDestructor(CPatrolRoute* self, void* /*edx*/, uint8 flags) {
+    self->Destructor();
+    if (flags & 1) {
+        CPatrolRoute::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CPatrolRoute::InjectHooks() {
     RH_ScopedClass(CPatrolRoute);
     RH_ScopedCategory("Core");
@@ -29,6 +42,7 @@ void CPatrolRoute::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x6677A0);      // lote 170A (banco Fn170A)
     RH_ScopedInstall(Constructor, 0x66D440);     // lote 175A (banco Fn175A)
     RH_ScopedInstall(Assign, 0x66D4B0);          // lote 175A (banco Fn175A)
+    RH_ScopedNamedGlobalInstall(PatrolRouteScalarDeletingDestructor, "ScalarDeletingDestructor", 0x66BA70); // lote 209A (sin validar)
     RH_ScopedInstall(Reverse, 0x66D550);         // lote 195A (sin validar; el listado lo atribuia a CTaskComplexInvestigateDisturbance)
 }
 

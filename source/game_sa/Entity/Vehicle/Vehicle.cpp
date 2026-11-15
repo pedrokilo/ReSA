@@ -230,11 +230,26 @@ CVehicle* __fastcall CVehicle::ScalarDeletingDestructorExe(CVehicle* self, void*
     return self;
 }
 
+// Lote 209A (sin validar): dos lectores de CVehicle del EXE que el listado atribuia a CAEUserRadioTrackManager (0x4F4Cxx esta junto al audio, pero ECX es un CVehicle: +0x428 banderas, +0x45C alarma, +0x36 estado).
+// 0x4F4CA0 (12 bytes, thiscall sin argumentos, `ret`): `mov al,[ecx+428h]; shr al,5; and al,1; ret` = vehicleFlags.bIsHandbrakeOn (bit 5 del byte bajo). Solo escribe AL.
+static bool __fastcall VehIsHandbrakeOnExe(const CVehicle* self, void* /*edx*/) { return self->vehicleFlags.bIsHandbrakeOn; }
+// 0x4F4CE0 (36 bytes, thiscall sin argumentos, `ret`): `movzx` de la palabra +0x45C (m_nAlarmState, uint16): si es 0 o 0xFFFF devuelve 0; si el estado de la entidad (byte +0x36 & 0xF8 == 0x28, es decir STATUS_WRECKED = 5) devuelve 0;
+// si no, 1. Es el complemento de CVehicle::CanUpdateHornCounter (que devuelve cierto en esos tres casos).
+static bool __fastcall VehIsAlarmActiveExe(const CVehicle* self, void* /*edx*/) {
+    const uint16 alarm = self->m_nAlarmState;
+    if (alarm == 0 || alarm == 0xFFFF) {
+        return false;
+    }
+    return self->GetStatus() != STATUS_WRECKED;
+}
+
 void CVehicle::InjectHooks() {
     RH_ScopedVirtualClass(CVehicle, 0x871e80, 66);
     RH_ScopedCategory("Vehicle");
 
     RH_ScopedNamedGlobalInstall(VehicleSetEngineOnExe, "SetEngineOn", 0x41BDD0);
+    RH_ScopedNamedGlobalInstall(VehIsHandbrakeOnExe, "IsHandbrakeOn", 0x4F4CA0); // lote 209A (sin validar)
+    RH_ScopedNamedGlobalInstall(VehIsAlarmActiveExe, "IsAlarmActive", 0x4F4CE0); // lote 209A (sin validar)
 
     RH_ScopedOverloadedInstall(operator new, "anon", 0x6E2D50, void* (*)(unsigned));
     RH_ScopedOverloadedInstall(operator new, "poolRef", 0x6E2D60, void* (*)(unsigned, int32));
