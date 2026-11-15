@@ -365,6 +365,7 @@
 #include "TaskComplexEnterCarAsDriver.h"
 #include "TaskSimpleCarShuffle.h"
 #include "TaskSimpleCarSlowBeDraggedOut.h"
+#include "TaskComplexReactToAttack.h"
 #include "TaskComplexReactToGunAimedAt.h"
 #include "Tasks/TaskTypes/TaskSimpleNone.h"
 #include "TaskComplexKillPedOnFoot.h"
@@ -1236,7 +1237,7 @@ void InjectHooksMain() {
         CTaskComplexOpenPassengerDoor::InjectHooks();
         CTaskComplexPassObject::InjectHooks();
         // CTaskComplexPresentIDToCop::InjectHooks();
-        // CTaskComplexReactToAttack::InjectHooks();
+        CTaskComplexReactToAttack::InjectHooks(); // lote 199A (sin validar): MakeAbortable, CreateSubTask, ControlSubTask y Clone
         CTaskComplexReactToGunAimedAt::InjectHooks();
         CTaskComplexRoadRage::InjectHooks();
         CTaskComplexScreamInCarThenLeave::InjectHooks();

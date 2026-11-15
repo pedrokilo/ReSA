@@ -15,14 +15,14 @@ public:
     CEventVehicleHitAndRun(CPed* victim, CVehicle* vehicle);
     ~CEventVehicleHitAndRun() override;
 
-    eEventType GetEventType() const override { return EVENT_VEHICLE_HIT_AND_RUN; }
-    int32 GetEventPriority() const override { return 14; }
-    int32 GetLifeTime() override { return 0; }
+    eEventType GetEventType() const override;                         // 0x4AEA00 (lote 199A, sin validar)
+    int32 GetEventPriority() const override;                          // 0x4AEA40 (lote 199A, sin validar)
+    int32 GetLifeTime() override;                                     // 0x4AEA10 (lote 199A, sin validar)
     CEvent* Clone() const noexcept override { return new CEventVehicleHitAndRun(m_victim, m_vehicle); }
-    bool AffectsPed(CPed* ped) override { return ped->IsAlive(); }
+    bool AffectsPed(CPed* ped) override;                              // 0x4AEA20 (lote 199A, sin validar)
     bool IsCriminalEvent() override { return m_vehicle->m_pDriver && m_vehicle->m_pDriver->IsPlayer(); }
     void ReportCriminalEvent(CPed* ped) override;
-    float GetLocalSoundLevel() override { return 100.0f; }
+    float GetLocalSoundLevel() override;                              // 0x4AEA30 (lote 199A, sin validar)
 
 private:
     friend void InjectHooksMain();

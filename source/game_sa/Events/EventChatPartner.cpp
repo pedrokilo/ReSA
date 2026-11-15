@@ -35,6 +35,8 @@ void CEventChatPartner::InjectHooks() {
     RH_ScopedNamedGlobalInstall(ChatPartnerDestructorBody, "Destructor", 0x4AED60);
 
     RH_ScopedInstall(Constructor, 0x4AECD0);
+    RH_ScopedVMTInstall(AffectsPed, 0x4AEDC0); // lote 199A (sin validar): ranura 5
+    RH_ScopedVMTInstall(Clone, 0x4B7210);      // lote 199A (sin validar): ranura 4
 }
 
 
@@ -49,8 +51,20 @@ CEventChatPartner::~CEventChatPartner() {
     CEntity::SafeCleanUpRef(m_partner);
 }
 
+// 0x4AEDC0 (lote 199A, sin validar; thiscall, un argumento de pila, `ret 4`, 35 bytes; ranura 5 de la vtable 0x85B070): CPed::IsAlive (0x5E0170) del peaton y companero (+0x10) no nulo. Devuelve AL (0 o 1).
 bool CEventChatPartner::AffectsPed(CPed* ped) {
     return ped->IsAlive() && m_partner;
+}
+
+// 0x4B7210 (lote 199A, sin validar; thiscall, sin argumentos, `ret`, 103 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 4 de la vtable 0x85B070).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x14 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x4AECD0 (Constructor, con hook) con la bandera del hablante principal
+// (byte +0xC, ampliado a cero) y el companero (+0x10), y devuelve la memoria.
+CEventChatPartner* CEventChatPartner::Clone() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventChatPartner));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CEventChatPartner*>(memory)->Constructor(m_leadSpeaker, m_partner);
 }
 
 // 0x4AECD0

@@ -26,11 +26,13 @@ public:
     bool IsFalling();
     void SetDownTime(int32 nTime);
 
+public:
+    CTaskComplexFallAndGetUp* Constructor(AnimationId nFallAnimId, AssocGroupId nFallAnimGroup, int32 nFallDownTime); // 0x6786C0 (publico: lo usa CTaskComplexReactToAttack::CreateSubTask, lote 199A)
+
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
-    CTaskComplexFallAndGetUp* Constructor(AnimationId nFallAnimId, AssocGroupId nFallAnimGroup, int32 nFallDownTime);
     CTaskComplexFallAndGetUp* Constructor2(int32 nDir, int32 nFallDownTime);
 
 };

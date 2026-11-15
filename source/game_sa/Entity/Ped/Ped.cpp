@@ -63,12 +63,27 @@ END GENERATED HOOK STATUS */
 #include "SurfaceInfos_c.h"
 #include "Tasks/TaskTypes/TaskSimpleInAir.h"
 
+namespace {
+// 0x5E8C80 (lote 199A, sin validar): destructor con borrado de CPed del EXE (ranura 0 de la vtable 0x86C358; thiscall, un argumento de pila, `ret 4`, 76 bytes: `push esi; push edi; mov edi,ecx; call 0x5E8620; test byte [esp+0Ch],1;
+// je ..;` y, con el bit 0 del BYTE de banderas, el borrado del almacen de peatones EN LINEA (0xB74490: indice = (this - base) / 0x7C4 con signo, marca el hueco libre (bit 7 del mapa) y baja el cursor si el indice es menor)
+// SIN pasar por 0x5E4760; devuelve `this`). Destruye con el cuerpo de CPed del EXE (0x5E8620, con hook). Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CPed* __fastcall PedScalarDeletingDestructor(CPed* self, void* /*edx*/, uint8 flags) {
+    self->Destructor(); // cuerpo 0x5E8620 (CPed::Destructor, con hook): el EXE llama a esa direccion
+    if (flags & 1) {
+        GetPedPool()->Delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CPed::InjectHooks() {
     RH_ScopedVirtualClass(CPed, 0x86C358, 26);
     RH_ScopedCategory("Entity/Ped");
 
     RH_ScopedInstall(Constructor, 0x5E8030);
     RH_ScopedInstall(Destructor, 0x5E8620);
+    RH_ScopedNamedGlobalInstall(PedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x5E8C80); // lote 199A (sin validar)
+    RH_ScopedInstall(CanWeRunAndFireWithWeapon, 0x5E88E0);                                           // lote 199A (sin validar)
 
     RH_ScopedInstall(RequestDelayedWeapon, 0x5E8910);
     RH_ScopedInstall(DettachPedFromEntity, 0x5E7EC0);
@@ -76,6 +91,7 @@ void CPed::InjectHooks() {
     RH_ScopedInstall(AttachPedToEntity, 0x5E7CB0);
     RH_ScopedInstall(OurPedCanSeeThisEntity, 0x5E1660);
     RH_ScopedOverloadedInstall(operator delete, "anon", 0x5E4760, void (*)(void*));
+    RH_ScopedOverloadedInstall(operator delete, "poolRef", 0x5E47A0, void (*)(void*, int32)); // lote 199A (sin validar)
     RH_ScopedOverloadedInstall(operator new, "anon", 0x5E4720, void* (*)(unsigned));
     RH_ScopedOverloadedInstall(operator new, "poolIndexed", 0x5E4730, void* (*)(unsigned, int32));
     RH_ScopedInstall(SpawnFlyingComponent, 0x5F0190);
@@ -420,7 +436,9 @@ void CPed::operator delete(void* data) {
     GetPedPool()->Delete((CPed*)data);
 }
 
-// NOTSA
+// 0x5E47A0 (lote 199A, sin validar; funcion de liberacion que usan los bloques de desenrollado del EXE (0x837A60, 0x837A74 y 0x83D6B0: `push poolRef; push this; call 0x5E47A0; add esp,8`), asi que es cdecl con dos
+// argumentos de pila de los que solo se lee el primero; `ret`, 49 bytes). Mismo cuerpo que 0x5E4760: indice = (data - base del pool 0xB74490) / 0x7C4 con signo (hacia cero), marca el hueco como libre (bit 7 del BYTE de estado)
+// y baja el cursor (+0xC) si el indice es menor (comparacion con signo). No comprueba nulo ni pertenencia al pool, no destruye ni rellena nada.
 void CPed::operator delete(void* data, int poolRef) {
     GetPedPool()->Delete((CPed*)data);
 }
@@ -3757,9 +3775,14 @@ void CPed::SetAimFlag(float heading) {
 
 /*!
 * @addr 0x5E88E0
+*
+* Lote 199A (sin validar; thiscall, `ret`, 43 bytes). Como el original: ranura activa = BYTE +0x718 con signo (movsx), tipo de arma = m_aWeapons[ranura].m_Type (lo lee UNA vez, esi), habilidad =
+* CPed::GetWeaponSkill(tipo) (0x5E3B60, con hook), informacion = CWeaponInfo::GetWeaponInfo(tipo, habilidad) (0x743C60) y devuelve el bit 1 (bAimWithArm) de la palabra +0x18.
 */
 bool CPed::CanWeRunAndFireWithWeapon() {
-    return GetActiveWeapon().GetWeaponInfo(this).flags.bAimWithArm;
+    const eWeaponType type = m_aWeapons.data()[static_cast<int32>(static_cast<int8>(m_nActiveWeaponSlot))].m_Type;
+    const eWeaponSkill skill = GetWeaponSkill(type);
+    return CWeaponInfo::GetWeaponInfo(type, skill)->flags.bAimWithArm;
 }
 
 /*!

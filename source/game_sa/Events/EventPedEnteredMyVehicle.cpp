@@ -36,6 +36,8 @@ void CEventPedEnteredMyVehicle::InjectHooks() {
     RH_ScopedNamedGlobalInstall(PedEnteredMyVehicleDestructorBody, "Destructor", 0x4AEB90);
 
     RH_ScopedInstall(Constructor, 0x4AEAC0);
+    RH_ScopedVMTInstall(AffectsPed, 0x4AEC00);     // lote 199A (sin validar): ranura 5
+    RH_ScopedVMTInstall(CloneEditable, 0x4B7170);  // lote 199A (sin validar): ranura 16
 }
 
 
@@ -55,12 +57,25 @@ CEventPedEnteredMyVehicle::~CEventPedEnteredMyVehicle() {
     CEntity::SafeCleanUpRef(m_Vehicle);
 }
 
+// 0x4AEC00 (lote 199A, sin validar; thiscall, un argumento de pila, `ret 4`, 65 bytes; ranura 5 de la vtable 0x85AFE8): en este orden y cortando en el primer fallo: CPed::IsAlive (0x5E0170) del peaton, vehiculo del peaton
+// (+0x58C) no nulo, bit 8 de la palabra +0x46C (bInVehicle), ese vehiculo igual al de +0x18 del evento y el peaton que entro (+0x14) no nulo. Devuelve AL (0 o 1).
 bool CEventPedEnteredMyVehicle::AffectsPed(CPed* ped) {
     return ped->IsAlive()
         && ped->m_pVehicle
         && ped->bInVehicle
         && ped->m_pVehicle == m_Vehicle
         && m_PedThatEntered;
+}
+
+// 0x4B7170 (lote 199A, sin validar; thiscall, sin argumentos, `ret`, 105 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 16 de la vtable 0x85AFE8).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x20 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x4AEAC0 (Constructor, con hook) con el peaton (+0x14), el vehiculo (+0x18)
+// y la puerta (+0x1C), en ese orden de argumentos, y devuelve la memoria.
+CEventEditableResponse* CEventPedEnteredMyVehicle::CloneEditable() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventPedEnteredMyVehicle));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CEventPedEnteredMyVehicle*>(memory)->Constructor(m_PedThatEntered, m_Vehicle, m_TargetDoor);
 }
 
 // 0x4AEAC0

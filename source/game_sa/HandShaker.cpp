@@ -24,9 +24,21 @@ void CHandShaker::InjectHooks() {
     RH_ScopedClass(CHandShaker);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedInstall(Constructor, 0x517740); // lote 199A (sin validar)
     RH_ScopedInstall(SetDefaults, 0x517330);
     RH_ScopedInstall(Reset, 0x50D860);
     RH_ScopedInstall(Process, 0x50D930);
+}
+
+// 0x517740 (lote 199A, sin validar; thiscall, sin argumentos, `ret`, 23 bytes: `push esi; mov esi,ecx; xor eax,eax; mov [esi+7Ch],eax; mov [esi+80h],eax; call 0x517330; mov eax,esi; pop esi; ret`). Constructor de CHandShaker del EXE:
+// solo inicializa la CMatrix de resultado (+0x3C): el puntero de la matriz enlazada (+0x7C) y la palabra de la bandera de propiedad (+0x80, un dword completo, relleno incluido) a cero; no toca los vectores ni el resto de la matriz;
+// y llama a SetDefaults (0x517330, con hook). Devuelve this. Los miembros se escriben por desplazamiento para no usar el constructor de C++ (que inicializa tambien el resto).
+CHandShaker* CHandShaker::Constructor() {
+    uint8* const bytes = reinterpret_cast<uint8*>(this);
+    *reinterpret_cast<uint32*>(bytes + 0x7C) = 0; // m_resultMat.m_pAttachMatrix
+    *reinterpret_cast<uint32*>(bytes + 0x80) = 0; // m_resultMat.m_bOwnsAttachedMatrix y su relleno
+    SetDefaults();
+    return this;
 }
 
 // 0x517330

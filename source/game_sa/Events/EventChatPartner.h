@@ -16,8 +16,8 @@ public:
     eEventType GetEventType() const override { return EVENT_CHAT_PARTNER; }
     int32 GetEventPriority() const override { return 5; }
     int32 GetLifeTime() override { return 0; }
-    CEventChatPartner* Clone() const noexcept override { return new CEventChatPartner(m_leadSpeaker, m_partner); }
-    bool AffectsPed(CPed* ped)  override;
+    CEventChatPartner* Clone() const noexcept override; // 0x4B7210 (lote 199A, sin validar)
+    bool AffectsPed(CPed* ped)  override;               // 0x4AEDC0 (lote 199A, sin validar)
 private:
     friend void InjectHooksMain();
     static void InjectHooks();

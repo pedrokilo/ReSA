@@ -14,6 +14,7 @@ public:
     static void InjectHooks();
 
     CIdleCam();
+    CIdleCam* Constructor(); // 0x517760 (lote 199A, sin validar)
 
     void  Init();
     void  Reset(bool resetControls);

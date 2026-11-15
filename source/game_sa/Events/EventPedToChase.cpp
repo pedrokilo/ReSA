@@ -36,6 +36,7 @@ void CEventPedToChase::InjectHooks() {
     RH_ScopedNamedGlobalInstall(PedToChaseDestructorBody, "Destructor", 0x4AF1C0);
 
     RH_ScopedInstall(Constructor, 0x4AF130);
+    RH_ScopedVMTInstall(Clone, 0x4B7360); // lote 199A (sin validar): ranura 4
 }
 
 // 0x4AF130
@@ -48,6 +49,16 @@ CEventPedToChase::CEventPedToChase(CPed* ped) {
 CEventPedToChase* CEventPedToChase::Constructor(CPed* ped) {
     this->CEventPedToChase::CEventPedToChase(ped);
     return this;
+}
+
+// 0x4B7360 (lote 199A, sin validar; thiscall, sin argumentos, `ret`, 97 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 4 de la vtable 0x85B138).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x10 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x4AF130 (Constructor, con hook) con el peaton (+0xC) y devuelve la memoria.
+CEvent* CEventPedToChase::Clone() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventPedToChase));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CEventPedToChase*>(memory)->Constructor(m_ped);
 }
 
 // 0x4AF1C0

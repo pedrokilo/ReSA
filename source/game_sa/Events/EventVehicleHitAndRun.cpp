@@ -39,6 +39,11 @@ void CEventVehicleHitAndRun::InjectHooks()
 
     RH_ScopedInstall(Constructor, 0x4AE990);
     RH_ScopedVMTInstall(Clone, 0x4B7100);
+    RH_ScopedVMTInstall(GetEventType, 0x4AEA00);       // lote 199A (sin validar): retorno de constante, ranura 1
+    RH_ScopedVMTInstall(GetEventPriority, 0x4AEA40);   // lote 199A (sin validar): retorno de constante, ranura 2
+    RH_ScopedVMTInstall(GetLifeTime, 0x4AEA10);        // lote 199A (sin validar): retorno de constante, ranura 3
+    RH_ScopedVMTInstall(AffectsPed, 0x4AEA20);         // lote 199A (sin validar): ranura 5
+    RH_ScopedVMTInstall(GetLocalSoundLevel, 0x4AEA30); // lote 199A (sin validar): ranura 12
     RH_ScopedVMTInstall(IsCriminalEvent, 0x4B27B0); // lote 142A (banco Fn142A): `m_vehicle->m_pDriver` no nulo y CPed::IsPlayer (el listado la atribuia a CEventDanger), ranura 7
     RH_ScopedVMTInstall(ReportCriminalEvent, 0x4B27D0);
 }
@@ -62,6 +67,31 @@ CEventVehicleHitAndRun* CEventVehicleHitAndRun::Constructor(CPed* victim, CVehic
 {
     this->CEventVehicleHitAndRun::CEventVehicleHitAndRun(victim, vehicle);
     return this;
+}
+
+// 0x4AEA00 (lote 199A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,0Eh`): EVENT_VEHICLE_HIT_AND_RUN (14); no lee el objeto (ranura 1 de la vtable 0x85AFA8).
+eEventType CEventVehicleHitAndRun::GetEventType() const {
+    return EVENT_VEHICLE_HIT_AND_RUN;
+}
+
+// 0x4AEA40 (lote 199A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,0Eh`): prioridad 14; no lee el objeto (ranura 2).
+int32 CEventVehicleHitAndRun::GetEventPriority() const {
+    return 14;
+}
+
+// 0x4AEA10 (lote 199A, sin validar; thiscall, `ret`, 3 bytes: `xor eax,eax`): vida util 0; no lee el objeto (ranura 3).
+int32 CEventVehicleHitAndRun::GetLifeTime() {
+    return 0;
+}
+
+// 0x4AEA20 (lote 199A, sin validar; thiscall, un argumento de pila, `ret 4`, 12 bytes: `mov ecx,[esp+4]; call 0x5E0170; ret 4`): devuelve CPed::IsAlive del peaton (estado distinto de 0x36 y 0x37); no lee el objeto (ranura 5).
+bool CEventVehicleHitAndRun::AffectsPed(CPed* ped) {
+    return ped->IsAlive();
+}
+
+// 0x4AEA30 (lote 199A, sin validar; thiscall, `ret`, 7 bytes: `fld dword ptr [0x858628]`): 100.0f en ST0 (el EXE no lo redondea ni lo guarda); no lee el objeto (ranura 12).
+float CEventVehicleHitAndRun::GetLocalSoundLevel() {
+    return 100.0f;
 }
 
 // 0x4B27D0

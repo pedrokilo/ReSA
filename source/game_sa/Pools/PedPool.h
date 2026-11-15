@@ -44,6 +44,10 @@ public:
         // Lote 189A (sin validar; el listado decia CStreaming): CPool<CPed, CCopPed>::GetAt (thiscall, un argumento de pila, `ret 4`, 31 bytes; 6 llamadores; el elemento de 0x7C4 bytes y el ECX = 0xB74490 comprobado en un llamador, 0x46DF01, son los del pool de peatones).
         // Nulo si el bit 7 del BYTE de estado de la ranura esta puesto (libre); si no, almacenamiento + indice * 0x7C4. El EXE no comprueba el limite del indice; la plantilla si (assert).
         RH_ScopedInstall(GetAt, 0x4082A0);
+        // Lote 199A (sin validar; el listado decia CPed): CPool<CPed, CCopPed>::CreateAtRef (thiscall, un argumento de pila, `ret 4`, 74 bytes; lo llama CPed::operator new(size, ref) 0x5E4730, que ya calcula el almacenamiento).
+        // Mismo cuerpo que CPool<CObject>::CreateAtRef (0x59F610) y CPool<CVehicle, CHeli>::CreateAtRef (0x6D5DD0): ranura = ref >> 8 (con signo); borra el bit 0x80 del estado y deja los 7 bits bajos iguales a los de la
+        // referencia; cursor (+0xC) = 0 y avanza mientras el estado de la ranura tenga el bit 0x80 apagado. No comprueba que la ranura estuviera libre ni que este en rango (la plantilla si, con assert). EAX queda con basura.
+        RH_ScopedInstall(CreateAtRef, 0x5E0540);
     }
 
 public:

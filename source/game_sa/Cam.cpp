@@ -249,9 +249,17 @@ static void __fastcall RandomiseDWHeliChaseParams(DWHeliChaseParams* params, uin
     }
 }
 
+namespace {
+// Ayudantes de las camaras cooperativas (lote 199A, sin validar; el listado los atribuia a CCam). Se definen mas abajo, junto a Process_Cam_TwoPlayer.
+bool __stdcall TwoPlayerCameraVisible(CVector source);
+void __fastcall TwoPlayerCameraGeometry(CCam* cam, void* edx, float beta, CVector* source, CVector* front, CVector* target);
+} // namespace
+
 void CCam::InjectHooks() {
     RH_ScopedClass(CCam);
     RH_ScopedCategory("Camera");
+    RH_ScopedNamedGlobalInstall(TwoPlayerCameraVisible, "TwoPlayerCameraVisible", 0x513220);   // lote 199A (sin validar)
+    RH_ScopedNamedGlobalInstall(TwoPlayerCameraGeometry, "TwoPlayerCameraGeometry", 0x5132D0); // lote 199A (sin validar)
     RH_ScopedNamedGlobalInstall(WrapAngleKeepEdx, "WrapAngle", 0x509BE0);
     RH_ScopedNamedGlobalInstall(ResetDWHeliChaseParams, "ResetDWHeliChaseParams", 0x50E180);
     RH_ScopedNamedGlobalInstall(RandomiseDWHeliChaseParams, "RandomiseDWHeliChaseParams", 0x50E090);
@@ -1834,14 +1842,24 @@ int16 MouseCameraStick(const CPad* pad, bool vertical) {
     return vertical?pad->GetMouseCameraStickVertical():pad->GetMouseCameraStickHorizontal();
 }
 
-bool TwoPlayerCameraVisible(const CVector& source) {
+// 0x513220 (lote 199A, sin validar; el listado decia CCam; funcion libre, stdcall con la fuente de la camara POR VALOR (tres floats en la pila, `ret 0Ch`, 164 bytes; no usa ECX como this). Fija el byte 0x8CCB80 a 5 y
+// lanza CWorld::ProcessLineOfSight (0x56BA00) desde la fuente hasta la posicion del primer jugador (0xB7CD98; matriz +0x30 o, sin matriz, +4) con las banderas (edificios si, vehiculos, peatones, objetos y dummies no,
+// seeThrough si, cameraIgnore si, shootThrough no); si choca devuelve false. Si no, repite hasta el segundo jugador (0xB7CF28) y devuelve el contrario de su resultado.
+bool __stdcall TwoPlayerCameraVisible(CVector source) {
     CColPoint point;
     CEntity* entity{};
     StaticRef<uint8>(0x8CCB80) = 5;
     if (CWorld::ProcessLineOfSight(source, StaticRef<CPed*>(0xB7CD98)->GetPosition(), point, entity, true, false, false, false, false, true, true, false)) return false;
     return !CWorld::ProcessLineOfSight(source, StaticRef<CPed*>(0xB7CF28)->GetPosition(), point, entity, true, false, false, false, false, true, true, false);
 }
-void TwoPlayerCameraGeometry(CCam* cam, float beta, CVector& source, CVector& front, CVector& target) {
+// 0x5132D0 (lote 199A, sin validar; el listado decia CCam; thiscall con la camara en ECX y cuatro argumentos de pila (beta, destino de la fuente, destino del frente, destino del objetivo), `ret 10h`, 568 bytes). Calcula con
+// el angulo vertical (+0xAC) y beta el frente (-(cos beta * cos alfa), -(sin beta * cos alfa), sin alfa), el plano horizontal normalizado, la distancia (raiz(dz*dz + dy*dy + dx*dx) de la separacion primer - segundo jugador * 0.67
+// (0x8631C8) + 7.0 (0x858F48)), el peso (0.5 - (sepY*planoY + sepX*planoX + planoZ*sepZ) * 0.25) y el objetivo (peso * primero + (1 - peso) * segundo); la fuente es objetivo - distancia * frente, con z + distancia * 0.1.
+// Todo en float de 24 bits en el orden del EXE; las normalizaciones usan CVector::Normalise (0x59C910, con hook).
+void __fastcall TwoPlayerCameraGeometry(CCam* cam, void* /*edx*/, float beta, CVector* sourcePtr, CVector* frontPtr, CVector* targetPtr) {
+    CVector& source = *sourcePtr;
+    CVector& front = *frontPtr;
+    CVector& target = *targetPtr;
     const float alpha = cam->m_fVerticalAngle;
     float directionX;
     float directionY;
@@ -1901,7 +1919,7 @@ void CCam::Process_Cam_TwoPlayer() {
     for (; attempt < 21; ++attempt) {
         const float offset = float(int32(attempt + 1) / 2) * .15f;
         wantedBeta = attempt % 2 == 0 ? m_fHorizontalAngle - offset : offset + m_fHorizontalAngle;
-        TwoPlayerCameraGeometry(this,wantedBeta,candidateSource,candidateFront,m_vecTargetCoorsForFudgeInter);
+        TwoPlayerCameraGeometry(this, nullptr, wantedBeta, &candidateSource, &candidateFront, &m_vecTargetCoorsForFudgeInter);
         if (TwoPlayerCameraVisible(candidateSource)) { StaticRef<uint32>(0xB6EC24) = CTimer::GetTimeInMS(); break; }
     }
     if (attempt == 21) wantedBeta = m_fHorizontalAngle;
@@ -1926,7 +1944,7 @@ void CCam::Process_Cam_TwoPlayer() {
             if (additional > .01f) wantedBeta += .15f; else if (additional < .01f) wantedBeta -= .15f;
         } else wantedBeta -= .15f;
         if (std::abs(additional) > .01f) {
-            TwoPlayerCameraGeometry(this,wantedBeta,candidateSource,candidateFront,m_vecTargetCoorsForFudgeInter);
+            TwoPlayerCameraGeometry(this, nullptr, wantedBeta, &candidateSource, &candidateFront, &m_vecTargetCoorsForFudgeInter);
             if (!TwoPlayerCameraVisible(candidateSource)) {
                 if ((additional > 0.f && m_fBetaSpeed > 0.f) || (additional < 0.f && m_fBetaSpeed < 0.f)) m_fBetaSpeed = 0.f;
                 StaticRef<uint32>(0xB6EC28) = now; additional = 0.f;
@@ -1944,7 +1962,7 @@ void CCam::Process_Cam_TwoPlayer() {
         additional = m_fFOV * StaticRef<float>(0x85A5C4) * StaticRef<float>(0x859B50) * std::abs(input) * StaticRef<float>(0x8CC4A0) * StaticRef<float>(0x8CC4A0) * input;
         if (additional > .01f) wantedBeta += .15f; else if (additional < .01f) wantedBeta -= .15f;
         if (std::abs(additional) > .01f) {
-            TwoPlayerCameraGeometry(this,wantedBeta,candidateSource,candidateFront,m_vecTargetCoorsForFudgeInter);
+            TwoPlayerCameraGeometry(this, nullptr, wantedBeta, &candidateSource, &candidateFront, &m_vecTargetCoorsForFudgeInter);
             if (!TwoPlayerCameraVisible(candidateSource)) {
                 if ((additional > 0.f && m_fBetaSpeed > 0.f) || (additional < 0.f && m_fBetaSpeed < 0.f)) m_fBetaSpeed = 0.f;
                 StaticRef<uint32>(0xB6EC28) = now; additional = 0.f;
@@ -1956,7 +1974,7 @@ void CCam::Process_Cam_TwoPlayer() {
     velocity = std::clamp(velocity,-limit,limit);
     m_fBetaSpeed = smoothing * m_fBetaSpeed + (1.f - smoothing) * velocity;
     m_fHorizontalAngle = m_fBetaSpeed * CTimer::GetTimeStep() + m_fHorizontalAngle;
-    TwoPlayerCameraGeometry(this,m_fHorizontalAngle,m_vecSource,m_vecFront,m_vecTargetCoorsForFudgeInter);
+    TwoPlayerCameraGeometry(this, nullptr, m_fHorizontalAngle, &m_vecSource, &m_vecFront, &m_vecTargetCoorsForFudgeInter);
     if (attempt == 21 && now - StaticRef<uint32>(0xB6EC24) > 500) {
         CColPoint point; CEntity* entity{}; StaticRef<uint8>(0x8CCB80) = 5;
         if (CWorld::ProcessLineOfSight(m_vecTargetCoorsForFudgeInter,m_vecSource,point,entity,true,false,false,false,false,true,true,false)) m_vecSource = point.m_vecPoint;

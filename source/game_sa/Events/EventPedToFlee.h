@@ -14,7 +14,7 @@ public:
     eEventType GetEventType() const override { return EVENT_PED_TO_FLEE; }
     int32 GetEventPriority() const override { return 2; }
     int32 GetLifeTime() override { return 0; }
-    CEvent* Clone() const noexcept override { return new CEventPedToFlee(m_ped); } // 0x4B73D0
+    CEvent* Clone() const noexcept override; // 0x4B73D0 (lote 199A, sin validar)
     bool AffectsPed(CPed* ped) override { return ped->IsAlive(); }
 
 private:

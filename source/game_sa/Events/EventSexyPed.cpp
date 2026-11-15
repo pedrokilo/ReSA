@@ -35,6 +35,8 @@ void CEventSexyPed::InjectHooks() {
     RH_ScopedNamedGlobalInstall(SexyPedDestructorBody, "Destructor", 0x4AEEA0);
 
     RH_ScopedInstall(Constructor, 0x4AEDF0);
+    RH_ScopedVMTInstall(AffectsPed, 0x4AEF00);    // lote 199A (sin validar): ranura 5
+    RH_ScopedVMTInstall(CloneEditable, 0x4B7280); // lote 199A (sin validar): ranura 16
 }
 
 
@@ -54,6 +56,11 @@ CEventSexyPed::~CEventSexyPed() {
     CEntity::SafeCleanUpRef(m_SexyPed);
 }
 
+// 0x4AEF00 (lote 199A, sin validar; thiscall, un argumento de pila, `ret 4`, 272 bytes; ranura 5 de la vtable 0x85B0B0). En este orden y cortando en el primer fallo (devuelve false): CPed::IsAlive (0x5E0170) del peaton,
+// peaton atractivo (+0x14) no nulo y vivo, y que el peaton NO este mirando (IKChainManager_c::IsLooking 0x6181A0) al atractivo (GetLookAtEntity 0x6181D0 igual a +0x14). Despues busca en el gestor de tareas del peaton
+// (CTaskManager::FindActiveTaskByType 0x681740, cuyo gestor es +4 de la inteligencia +0x47C) la primera tarea entre TASK_COMPLEX_PARTNER_DEAL (0x4B2), TASK_COMPLEX_BE_IN_COUPLE (0x4BF) y TASK_COMPLEX_PARTNER_GREET (0x4B3),
+// en ese orden y parando en la primera; si no hay, devuelve true. Repite la busqueda en el gestor del atractivo; si no hay, true. Por ultimo llama a GetTaskType (ranura +0x10) de la tarea del atractivo PRIMERO y despues a
+// la del peaton; si los tipos son iguales devuelve false, si no true.
 bool CEventSexyPed::AffectsPed(CPed* ped) {
     if (!ped->IsAlive())
         return false;
@@ -68,11 +75,27 @@ bool CEventSexyPed::AffectsPed(CPed* ped) {
         return false;
     }
 
-    if (ped->GetTaskManager().IsFirstFoundTaskMatching<TASK_COMPLEX_PARTNER_DEAL, TASK_COMPLEX_BE_IN_COUPLE, TASK_COMPLEX_PARTNER_GREET>(m_SexyPed->GetTaskManager())) {
-        return false;
+    CTask* const pedTask = ped->GetTaskManager().Find<TASK_COMPLEX_PARTNER_DEAL, TASK_COMPLEX_BE_IN_COUPLE, TASK_COMPLEX_PARTNER_GREET>();
+    if (!pedTask) {
+        return true;
     }
+    CTask* const sexyTask = m_SexyPed->GetTaskManager().Find<TASK_COMPLEX_PARTNER_DEAL, TASK_COMPLEX_BE_IN_COUPLE, TASK_COMPLEX_PARTNER_GREET>();
+    if (!sexyTask) {
+        return true;
+    }
+    const eTaskType sexyTaskType = sexyTask->GetTaskType(); // el EXE pide primero el tipo de la tarea del atractivo
+    const eTaskType pedTaskType = pedTask->GetTaskType();
+    return sexyTaskType != pedTaskType;
+}
 
-    return true;
+// 0x4B7280 (lote 199A, sin validar; thiscall, sin argumentos, `ret`, 97 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 16 de la vtable 0x85B0B0).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x18 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x4AEDF0 (Constructor, con hook) con el atractivo (+0x14) y devuelve la memoria.
+CEventEditableResponse* CEventSexyPed::CloneEditable() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventSexyPed));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CEventSexyPed*>(memory)->Constructor(m_SexyPed);
 }
 
 // 0x4AEDF0

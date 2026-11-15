@@ -35,6 +35,8 @@ void CEventSexyVehicle::InjectHooks() {
     RH_ScopedNamedGlobalInstall(SexyVehicleDestructorBody, "Destructor", 0x4AF0A0);
 
     RH_ScopedInstall(Constructor, 0x4AF010);
+    RH_ScopedVMTInstall(AffectsPed, 0x4AF100); // lote 199A (sin validar): ranura 5
+    RH_ScopedVMTInstall(Clone, 0x4B72F0);      // lote 199A (sin validar): ranura 4
 }
 
 
@@ -48,8 +50,19 @@ CEventSexyVehicle::~CEventSexyVehicle() {
     CEntity::SafeCleanUpRef(m_vehicle);
 }
 
+// 0x4AF100 (lote 199A, sin validar; thiscall, un argumento de pila, `ret 4`, 35 bytes; ranura 5 de la vtable 0x85B0F8): CPed::IsAlive (0x5E0170) del peaton y vehiculo (+0xC) no nulo. Devuelve AL (0 o 1).
 bool CEventSexyVehicle::AffectsPed(CPed* ped) {
     return ped->IsAlive() && m_vehicle;
+}
+
+// 0x4B72F0 (lote 199A, sin validar; thiscall, sin argumentos, `ret`, 97 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 4 de la vtable 0x85B0F8).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x10 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x4AF010 (Constructor, con hook) con el vehiculo (+0xC) y devuelve la memoria.
+CEventSexyVehicle* CEventSexyVehicle::Clone() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventSexyVehicle));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CEventSexyVehicle*>(memory)->Constructor(m_vehicle);
 }
 
 // 0x4AF010

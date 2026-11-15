@@ -37,7 +37,7 @@ public:
     ~CTaskComplexKillPedOnFoot() override;
 
     eTaskType GetTaskType() const override { return Type; }
-    CTask* Clone() const override { return new CTaskComplexKillPedOnFoot(m_target, m_time, m_pedFlags, m_actionDelay, m_actionChance, m_nCompetence); }
+    CTask* Clone() const override; // 0x623370 (lote 199A, sin validar)
     bool   MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;

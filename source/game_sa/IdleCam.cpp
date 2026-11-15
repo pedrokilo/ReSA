@@ -42,6 +42,7 @@ void CIdleCam::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(GetLookAtPositionOnTarget, 0x50EAE0);
+    RH_ScopedInstall(Constructor, 0x517760); // lote 199A (sin validar)
     RH_ScopedInstall(Init, 0x50E6D0);
     RH_ScopedInstall(Reset, 0x50A160);
     RH_ScopedInstall(ProcessIdleCamTicker, 0x50A200);
@@ -57,9 +58,15 @@ void CIdleCam::InjectHooks() {
     RH_ScopedInstall(IdleCamGeneralProcess, 0x50E690);
 }
 
-// 0x517760
 CIdleCam::CIdleCam() {
     Init();
+}
+
+// 0x517760 (lote 199A, sin validar; thiscall, sin argumentos, `ret`, 12 bytes: `push esi; mov esi,ecx; call 0x50E6D0; mov eax,esi; pop esi; ret`): constructor de CIdleCam del EXE. Solo llama a Init (0x50E6D0, con hook) y devuelve this;
+// no escribe ningun campo por su cuenta.
+CIdleCam* CIdleCam::Constructor() {
+    Init();
+    return this;
 }
 
 // 0x50E6D0

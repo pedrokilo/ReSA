@@ -17,8 +17,10 @@ public:
 public:
     static void InjectHooks();
 
-    CHandShaker() { SetDefaults(); } // 0x517740
+    CHandShaker() { SetDefaults(); }
     ~CHandShaker() = default;        // 0x509810
+
+    CHandShaker* Constructor(); // 0x517740 (lote 199A, sin validar)
 
     void SetDefaults();
     void Reset();

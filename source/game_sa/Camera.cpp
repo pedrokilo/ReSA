@@ -101,9 +101,47 @@ bool CCamera::IsActiveCamUnderWater() {
     return !(level < cam.m_vecSource.z);
 }
 
+namespace {
+static_assert(offsetof(CCamera, m_mCameraMatrix) == 0x974);
+static_assert(offsetof(CCamera, m_mCameraMatrixOld) == 0x9BC);
+static_assert(offsetof(CCamera, m_mViewMatrix) == 0xA04);
+static_assert(offsetof(CCamera, m_mMatInverse) == 0xA4C);
+static_assert(offsetof(CCamera, m_mMatMirrorInverse) == 0xA94);
+static_assert(offsetof(CCamera, m_mMatMirror) == 0xADC);
+
+// 0x50A870 (lote 199A, sin validar; el listado decia CCam): cuerpo del destructor de CCamera del EXE (thiscall, sin argumentos de pila, `ret`, 253 bytes con marco SEH que solo desenrolla y aqui se omite). Como el original: deja la vtable de
+// CCamera del EXE (0x8630E8); los destructores de los arrays de miembros (0xCF4: 5 x 0x10, 0x960: 4 x 4 y 0x174: 3 x 0x238 (las tres CCam)) son `ret` (0x509800, 0x5097C0, 0x5097D0) y no hacen nada; destruye las seis CMatrix en orden inverso
+// (+0xADC, +0xA94, +0xA4C, +0xA04, +0x9BC y +0x974) con el cuerpo del EXE de CMatrix (0x59ACD0, CMatrix::Destructor, con hook); y sigue con ~CPlaceable (0x54F490: vtable de CPlaceable 0x863C40; con +0x14 ya a cero no hay RemoveMatrix; deja +0x14 apuntando a la matriz ficticia 0xB74240). Como el original (0x50A8AB), pone a cero +0x14 (puntero de la matriz) antes de destruir los miembros, asi que ~CPlaceable nunca llama a RemoveMatrix. No se usa ~CCamera() de la DLL.
+void __fastcall CameraDestructorBody(CCamera* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x8630E8;
+    *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(self) + 0x14) = 0; // el EXE pone a cero el puntero de la matriz (+0x14) ANTES de destruir los miembros (0x50A8AB): ~CPlaceable no llama a RemoveMatrix
+    self->m_mMatMirror.Destructor();
+    self->m_mMatMirrorInverse.Destructor();
+    self->m_mMatInverse.Destructor();
+    self->m_mViewMatrix.Destructor();
+    self->m_mCameraMatrixOld.Destructor();
+    self->m_mCameraMatrix.Destructor();
+    self->CPlaceable::~CPlaceable();
+    *reinterpret_cast<uint32*>(self) = 0x863C40;
+}
+
+// 0x514010 (lote 199A, sin validar; el listado decia CCam): destructor con borrado de CCamera del EXE (ranura 0 de la vtable 0x8630E8; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x50A870; test byte [esp+8],1;
+// je ..; push esi; call 0x8214BD (operator delete); add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo (0x50A870, CameraDestructorBody), libera `this` con operator delete (0x8214BD, CRT, sin hook) solo si el bit 0 del
+// BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CCamera* __fastcall CameraScalarDeletingDestructor(CCamera* self, void* /*edx*/, uint8 flags) {
+    CameraDestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CCamera::InjectHooks() {
     RH_ScopedClass(CCamera);
     RH_ScopedCategoryGlobal();
+    RH_ScopedNamedGlobalInstall(CameraDestructorBody, "DestructorBody", 0x50A870);                         // lote 199A (sin validar)
+    RH_ScopedNamedGlobalInstall(CameraScalarDeletingDestructor, "ScalarDeletingDestructor", 0x514010); // lote 199A (sin validar)
     RH_ScopedInstall(IsActiveCamUnderWater, 0x50B830);
 
     RH_ScopedOverloadedInstall(IsSphereVisible, "matrix", 0x420C40, bool(CCamera::*)(const CVector&,float,RwMatrix*));

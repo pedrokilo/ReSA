@@ -64,6 +64,7 @@ void CTaskComplexKillPedOnFoot::InjectHooks() {
     RH_ScopedInstall(SayGangAttack, 0x65E9A0);
 
     RH_ScopedVMTInstall(GetTaskType, 0x620EE0);
+    RH_ScopedVMTInstall(Clone, 0x623370); // lote 199A (sin validar): ranura 1
     RH_ScopedVMTInstall(MakeAbortable, 0x625E40);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x62B150);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x62B490);
@@ -95,6 +96,21 @@ CTaskComplexKillPedOnFoot::CTaskComplexKillPedOnFoot(
 
 CTaskComplexKillPedOnFoot::~CTaskComplexKillPedOnFoot() {
     CEntity::SafeCleanUpRef(m_target);
+}
+
+// 0x623370 (lote 199A, sin validar; el listado decia CTaskSimpleBeHit; ranura 1 (Clone) de la vtable 0x86D894; thiscall, sin argumentos, `ret`, 137 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite)).
+// Como el original: CTask::operator new (0x61A5A0, con hook) con 0x38 bytes y el constructor 0x620E30 (Constructor, con hook) con (objetivo +0x10, tiempo +0x28, banderas del ped +0x14, retraso +0x18, probabilidad +0x1C, competencia +0x20
+// ampliada con signo (movsx)). Despues copia a la tarea nueva los bits 4 (bAimImmediate) y 5 (bWaitForPlayerToBeSafe) del byte +0xC; el resto de los bits los deja el constructor. DIFERENCIA CONOCIDA: con el almacen agotado (memoria nula) el EXE
+// no comprueba y lee/escribe en la direccion 0xC (fallo de proteccion); aqui se devuelve nulo.
+CTask* CTaskComplexKillPedOnFoot::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskComplexKillPedOnFoot));
+    if (!memory) {
+        return nullptr;
+    }
+    CTaskComplexKillPedOnFoot* const clone = static_cast<CTaskComplexKillPedOnFoot*>(memory)->Constructor(m_target, m_time, m_pedFlags, m_actionDelay, m_actionChance, static_cast<int8>(m_nCompetence));
+    clone->m_bAimImmediate = m_bAimImmediate;
+    clone->m_bWaitForPlayerToBeSafe = m_bWaitForPlayerToBeSafe;
+    return clone;
 }
 
 CTaskComplexKillPedOnFoot* CTaskComplexKillPedOnFoot::Constructor(CPed* target, int32 time, int32 pedFlags, int32 delay, int32 chance, int8 a7) {
