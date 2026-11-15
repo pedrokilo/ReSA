@@ -56,6 +56,17 @@ __declspec(noinline) void __fastcall FollowPedFootstepsDestructorBodyExe(CTaskCo
     }
     CTaskComplexBody::Destructor(self, nullptr);
 }
+
+// 0x696260 (lote 201A, sin validar; el listado decia CTaskComplexSeekEntityAnyMeansXYOffset: es CTaskComplexFollowPedFootsteps, ranura 0 de su vtable 0x870CC0; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x695DC0;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`): destructor con borrado de la clase. Como el original: destruye con el cuerpo (0x695DC0, con hook), libera `this` con CTask::operator delete
+// (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) CTaskComplexFollowPedFootsteps* __fastcall FollowPedFootstepsScalarDeletingDestructor(CTaskComplexFollowPedFootsteps* self, void* /*edx*/, uint8 flags) {
+    FollowPedFootstepsDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexFollowPedFootsteps::InjectHooks() {
@@ -64,6 +75,7 @@ void CTaskComplexFollowPedFootsteps::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x694E20);
     RH_ScopedNamedGlobalInstall(FollowPedFootstepsDestructorBodyExe, "DestructorBody", 0x695DC0); // lote 185A (sin validar)
+    RH_ScopedNamedGlobalInstall(FollowPedFootstepsScalarDeletingDestructor, "ScalarDeletingDestructor", 0x696260); // lote 201A (sin validar)
     RH_ScopedVMTInstall(Clone, 0x695890);                                                          // lote 185A (sin validar): ranura 1
     // 0x6955D0 (lote 166A, banco Fn166A; el listado decia CTaskComplexFollowPedFootsteps): misma forma que 0x4BC470 (SetMaxEntityDist2D de la plantilla de CTaskComplexSeekEntity): si la distancia (float de la pila)
     // no es igual a la de +0x18 (un NaN la cambia), la guarda y reinicia el temporizador de +0x28 (inicio = hora, intervalo 0, arrancado). Se reutiliza el mismo cuerpo.

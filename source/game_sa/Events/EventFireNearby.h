@@ -16,7 +16,7 @@ public:
     int32 GetLifeTime() override { return 0; }
     bool AffectsPed(CPed* ped) override;
     bool TakesPriorityOver(const CEvent& refevent) override { return true; }
-    CEventFireNearby* CloneEditable() const noexcept override { return new CEventFireNearby(m_position); }
+    CEventFireNearby* CloneEditable() const noexcept override; // 0x4B7A70 (lote 201A, sin validar)
 private:
     friend void InjectHooksMain();
     static void InjectHooks();

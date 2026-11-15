@@ -16,7 +16,7 @@ public:
     int32 GetLifeTime() override { return 0; }
     bool AffectsPed(CPed* ped) override;
     CEntity* GetSourceEntity() const override { return m_ped;}
-    CEventSeenPanickedPed* CloneEditable() const noexcept override { return new CEventSeenPanickedPed(m_ped); }
+    CEventSeenPanickedPed* CloneEditable() const noexcept override; // 0x4B7B30 (lote 201A, sin validar)
 
 private:
     friend void InjectHooksMain();

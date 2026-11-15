@@ -46,6 +46,7 @@ __declspec(noinline) CEventDanger* __fastcall DangerScalarDeletingDestructor(CEv
 void CEventDanger::InjectHooks() {
     RH_ScopedVirtualClass(CEventDanger, 0x85B848, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedVMTInstall(CloneEditable, 0x4B7C10); // lote 201A (sin validar)
     RH_ScopedNamedGlobalInstall(DangerDestructorBody, "Destructor", 0x4B26A0);
     RH_ScopedNamedGlobalInstall(DangerScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B6AD0); // lote 184A (sin validar)
 
@@ -103,4 +104,12 @@ CEntity* CEventDanger::GetSourceEntity() const {
             return vehicle->m_pDriver;
     }
     return m_dangerFrom;
+}
+
+// 0x4B7C10 (lote 201A, sin validar; thiscall, sin argumentos, `ret`, ranura 16 de la vtable 0x85B848; el listado la atribuia a otra clase). Como el original: CEvent::operator new (0x4B5620, con hook; el EXE lo expande en linea con 0x4B5570 sobre
+// el pool 0xB744AC) con CEventDanger; sin memoria devuelve nulo (EAX = 0); si no, llama al constructor del EXE (0x4B2600, con hook; aqui Constructor) con la entidad de peligro (+0x14) y el radio (+0x18, bits del float) y devuelve lo que este deja en EAX (this). El marco SEH solo libera la
+// memoria si el constructor lanza y se omite. No modifica el objeto copiado.
+CEventDanger* CEventDanger::CloneEditable() const noexcept {
+    auto* const object = static_cast<CEventDanger*>(CEvent::operator new(sizeof(CEventDanger)));
+    return object ? object->Constructor(m_dangerFrom, m_dangerRadius) : nullptr;
 }

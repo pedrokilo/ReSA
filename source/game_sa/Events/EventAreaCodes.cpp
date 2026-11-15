@@ -47,6 +47,7 @@ void CEventAreaCodes::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventAreaCodes, 0x85B7C0, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedVMTInstall(Clone, 0x4B7BA0); // lote 201A (sin validar)
     RH_ScopedNamedGlobalInstall(CEventAreaCodesBody::AreaCodesDestructorBody, "Destructor", 0x4B2210);
     RH_ScopedNamedGlobalInstall(AreaCodesScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B6A30); // lote 184A (sin validar)
 
@@ -116,4 +117,12 @@ bool CEventAreaCodes::TakesPriorityOver(const CEvent& refEvent)
     if (CEventHandler::IsTemporaryEvent(refEvent))
         return true;
     return CEvent::TakesPriorityOver(refEvent);
+}
+
+// 0x4B7BA0 (lote 201A, sin validar; thiscall, sin argumentos, `ret`, ranura 4 de la vtable 0x85B7C0; el listado la atribuia a otra clase). Como el original: CEvent::operator new (0x4B5620, con hook; el EXE lo expande en linea con 0x4B5570 sobre
+// el pool 0xB744AC) con CEventAreaCodes; sin memoria devuelve nulo (EAX = 0); si no, llama al constructor del EXE (0x4B2190, con hook; aqui Constructor) con el ped guardado (+0xC) y devuelve lo que este deja en EAX (this). El marco SEH solo libera la
+// memoria si el constructor lanza y se omite. No modifica el objeto copiado.
+CEventAreaCodes* CEventAreaCodes::Clone() const noexcept {
+    auto* const object = static_cast<CEventAreaCodes*>(CEvent::operator new(sizeof(CEventAreaCodes)));
+    return object ? object->Constructor(m_ped) : nullptr;
 }

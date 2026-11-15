@@ -14,11 +14,11 @@ public:
     CEventVehicleOnFire(CVehicle* vehicle);
     ~CEventVehicleOnFire() override;
 
-    eEventType GetEventType() const override { return EVENT_VEHICLE_ON_FIRE; }
-    int32 GetEventPriority() const override { return 54; }
-    int32 GetLifeTime() override { return 0; }
+    eEventType GetEventType() const override; // 0x4B1130 (lote 201A, sin validar)
+    int32 GetEventPriority() const override; // 0x4B1160 (lote 201A, sin validar)
+    int32 GetLifeTime() override; // 0x4B1140 (lote 201A, sin validar)
     bool AffectsPed(CPed* ped) override;
-    float GetLocalSoundLevel() override { return 60.0f; }
+    float GetLocalSoundLevel() override; // 0x4B1150 (lote 201A, sin validar)
     CEventEditableResponse* CloneEditable() const noexcept override;
 
 private:

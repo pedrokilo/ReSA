@@ -41,6 +41,7 @@ void CEventPotentialWalkIntoFire::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventPotentialWalkIntoFire, 0x85B6A0, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedVMTInstall(CloneEditable, 0x4B7A40); // lote 201A (sin validar)
     RH_ScopedNamedGlobalInstall(PotentialWalkIntoFireDestructorBody, "Destructor", 0x4B1F00);
     RH_ScopedNamedGlobalInstall(PotentialWalkIntoFireScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B6840); // lote 192A (sin validar)
 
@@ -102,4 +103,12 @@ bool CEventPotentialWalkIntoFire::AffectsPed(CPed* ped) {
         }
     }
     return false;
+}
+
+// 0x4B7A40 (lote 201A, sin validar; thiscall, sin argumentos, `ret`, ranura 16 de la vtable 0x85B6A0; el listado la atribuia a otra clase). Como el original: CEvent::operator new (0x4B5620, con hook; el EXE lo expande en linea con 0x4B5570 sobre
+// el pool 0xB744AC) con CEventPotentialWalkIntoFire; sin memoria devuelve nulo (EAX = 0); si no, llama al constructor del EXE (0x4B1E20, con hook; aqui Constructor) con la direccion de la posicion (+0x14), el tamano del fuego (+0x20, bits del float) y el estado de movimiento (+0x28) y devuelve lo que este deja en EAX (this). El marco SEH solo libera la
+// memoria si el constructor lanza y se omite. No modifica el objeto copiado.
+CEventPotentialWalkIntoFire* CEventPotentialWalkIntoFire::CloneEditable() const noexcept {
+    auto* const object = static_cast<CEventPotentialWalkIntoFire*>(CEvent::operator new(sizeof(CEventPotentialWalkIntoFire)));
+    return object ? object->Constructor(m_firePos, m_fireSize, m_moveState) : nullptr;
 }

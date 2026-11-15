@@ -49,6 +49,7 @@ void CEventGunShotWhizzedBy::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventGunShotWhizzedBy, 0x85B730, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedVMTInstall(CloneEditable, 0x4B7AC0); // lote 201A (sin validar)
     RH_ScopedNamedGlobalInstall(GunShotWhizzedByDestructorBody, "Destructor", 0x4B2070);
     RH_ScopedNamedGlobalInstall(GunShotWhizzedByScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B6990); // lote 184A (sin validar)
 
@@ -88,4 +89,12 @@ bool CEventGunShotWhizzedBy::AffectsPed(CPed* ped)
         }
     }
     return false;
+}
+
+// 0x4B7AC0 (lote 201A, sin validar; thiscall, sin argumentos, `ret`, ranura 16 de la vtable 0x85B730; el listado la atribuia a otra clase). Como el original: CEvent::operator new (0x4B5620, con hook; el EXE lo expande en linea con 0x4B5570 sobre
+// el pool 0xB744AC) con CEventGunShotWhizzedBy; sin memoria devuelve nulo (EAX = 0); si no, llama al constructor del EXE (0x4B1FD0, con hook; aqui Constructor) con la entidad que disparo (+0x14), la direccion del punto inicial (+0x18),
+// la del punto final (+0x24) y el BYTE +0x30 sin signo (bHasNoSound), y devuelve lo que este deja en EAX (this). El marco SEH solo libera la memoria si el constructor lanza y se omite.
+CEventEditableResponse* CEventGunShotWhizzedBy::CloneEditable() const noexcept {
+    auto* const object = static_cast<CEventGunShotWhizzedBy*>(CEvent::operator new(sizeof(CEventGunShotWhizzedBy)));
+    return object ? object->Constructor(m_firedBy, m_startPoint, m_endPoint, m_bHasNoSound) : nullptr;
 }

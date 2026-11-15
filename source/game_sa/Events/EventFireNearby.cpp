@@ -29,6 +29,7 @@ void __fastcall FireNearbyDestructorBody(CEventFireNearby* self, void* /*edx*/) 
 void CEventFireNearby::InjectHooks() {
     RH_ScopedVirtualClass(CEventFireNearby, 0x85B6E8, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedVMTInstall(CloneEditable, 0x4B7A70); // lote 201A (sin validar)
     RH_ScopedNamedGlobalInstall(FireNearbyDestructorBody, "Destructor", 0x4B1F80);
 
     RH_ScopedInstall(Constructor, 0x4B1F10);
@@ -55,4 +56,26 @@ bool CEventFireNearby::AffectsPed(CPed* ped) {
 CEventFireNearby* CEventFireNearby::Constructor(const CVector& position) {
     this->CEventFireNearby::CEventFireNearby(position);
     return this;
+}
+
+// 0x4B7A70 (lote 201A, sin validar; thiscall, sin argumentos, `ret`, 76 bytes sin marco SEH; ranura 16 de la vtable 0x85B6E8; el listado decia CEventVehicleOnFire). Como el original: CEvent::operator new (0x4B5620, con hook; el EXE lo expande en
+// linea con 0x4B5570 sobre el pool 0xB744AC) con 0x20 bytes; sin memoria devuelve nulo (EAX = 0). NO llama a ningun constructor: escribe a mano +4 = 0, BYTE +8 = 0, la parte de CEventEditableResponse (BYTE +0xC = 1, WORD +0xE = 0xC8, WORD +0x10 = 0xFFFF),
+// la vtable del EXE (0x85B6E8) y copia como palabras de 32 bits el CVector +0x14 (posicion); devuelve la memoria. Los bytes de relleno +9..+0xB y +0x12..+0x13 no se escriben.
+CEventFireNearby* CEventFireNearby::CloneEditable() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventFireNearby));
+    if (!memory) {
+        return nullptr;
+    }
+    auto* const       dst = static_cast<uint8*>(memory);
+    const auto* const src = reinterpret_cast<const uint8*>(this);
+    *reinterpret_cast<uint32*>(dst + 0x4)  = 0;
+    *(dst + 0x8)                           = 0;
+    *(dst + 0xC)                           = 1;
+    *reinterpret_cast<uint16*>(dst + 0xE)  = 0xC8;
+    *reinterpret_cast<uint16*>(dst + 0x10) = 0xFFFF;
+    *reinterpret_cast<uint32*>(dst + 0x0)  = 0x85B6E8;
+    for (uint32 offset = 0x14; offset < 0x20; offset += sizeof(uint32)) {
+        *reinterpret_cast<uint32*>(dst + offset) = *reinterpret_cast<const uint32*>(src + offset);
+    }
+    return static_cast<CEventFireNearby*>(memory);
 }

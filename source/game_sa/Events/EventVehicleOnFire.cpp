@@ -44,6 +44,10 @@ void CEventVehicleOnFire::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventVehicleOnFire, 0x85B440, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedVMTInstall(GetEventType, 0x4B1130); // lote 201A (sin validar): retorno de constante
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B1140); // lote 201A (sin validar): retorno de constante
+    RH_ScopedVMTInstall(GetLocalSoundLevel, 0x4B1150); // lote 201A (sin validar): retorno de constante x87
+    RH_ScopedVMTInstall(GetEventPriority, 0x4B1160); // lote 201A (sin validar): retorno de constante
     RH_ScopedNamedGlobalInstall(VehicleOnFireDestructorBody, "Destructor", 0x4B1170);
     RH_ScopedNamedGlobalInstall(VehicleOnFireScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B6570); // lote 192A (sin validar)
 
@@ -97,4 +101,24 @@ bool CEventVehicleOnFire::AffectsPed(CPed* ped)
 CEventEditableResponse* CEventVehicleOnFire::CloneEditable() const noexcept
 {
     return new CEventVehicleOnFire(m_vehicle);
+}
+
+// 0x4B1130 (lote 201A, sin validar; el listado la daba como CEventVehicleOnFire y SI lo es; thiscall, `ret`, 6 bytes: `mov eax,4Fh`): EVENT_VEHICLE_ON_FIRE (79); no lee el objeto (ranura 1 de la vtable 0x85B440).
+eEventType CEventVehicleOnFire::GetEventType() const {
+    return EVENT_VEHICLE_ON_FIRE;
+}
+
+// 0x4B1160 (lote 201A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,36h`): prioridad 54; no lee el objeto (ranura 2).
+int32 CEventVehicleOnFire::GetEventPriority() const {
+    return 54;
+}
+
+// 0x4B1140 (lote 201A, sin validar; thiscall, `ret`, 3 bytes: `xor eax,eax`): vida util 0; no lee el objeto (ranura 3).
+int32 CEventVehicleOnFire::GetLifeTime() {
+    return 0;
+}
+
+// 0x4B1150 (lote 201A, sin validar; thiscall, `ret`, 7 bytes: `fld dword [0x858B34]`): nivel de sonido local 60.0f (constante del EXE 0x42700000) en ST(0); no lee el objeto (ranura 12). Un solo float, sin aritmetica.
+float CEventVehicleOnFire::GetLocalSoundLevel() {
+    return 60.0f;
 }

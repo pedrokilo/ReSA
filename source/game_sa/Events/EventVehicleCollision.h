@@ -29,7 +29,7 @@ public:
     CEventVehicleCollision(int16 pieceType, float damageIntensity, CVehicle* vehicle, const CVector& collisionImpactVelocity, const CVector& collisionPosition, int8 moveState, int16 evadeType);
     ~CEventVehicleCollision() override;
 
-    eEventType GetEventType() const override { return EVENT_VEHICLE_COLLISION; }
+    eEventType GetEventType() const override; // 0x4AC8F0 (lote 201A, sin validar)
     int32 GetEventPriority() const override { return 58; }
     int32 GetLifeTime() override { return 0; }
     CEvent* Clone() const noexcept override { return new CEventVehicleCollision(m_pieceType, m_fDamageIntensity, m_vehicle, m_impactNormal, m_impactPos, m_moveState, VEHICLE_EVADE_NONE); } // 0x4B6BC0

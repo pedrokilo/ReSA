@@ -43,6 +43,7 @@ __declspec(noinline) CEventGotKnockedOverByCar* __fastcall GotKnockedOverByCarSc
 void CEventGotKnockedOverByCar::InjectHooks() {
     RH_ScopedVirtualClass(CEventGotKnockedOverByCar, 0x85B618, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedVMTInstall(CloneEditable, 0x4B7960); // lote 201A (sin validar)
     RH_ScopedNamedGlobalInstall(GotKnockedOverByCarDestructorBody, "Destructor", 0x4B1C10);
     RH_ScopedNamedGlobalInstall(GotKnockedOverByCarScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B67A0); // lote 192A (sin validar)
 
@@ -73,7 +74,10 @@ bool CEventGotKnockedOverByCar::AffectsPed(CPed* ped) {
     return false;
 }
 
-// 0x4B7960
+// 0x4B7960 (lote 201A, sin validar; thiscall, sin argumentos, `ret`, ranura 16 de la vtable 0x85B618; el listado la atribuia a otra clase). Como el original: CEvent::operator new (0x4B5620, con hook; el EXE lo expande en linea con 0x4B5570 sobre
+// el pool 0xB744AC) con CEventGotKnockedOverByCar; sin memoria devuelve nulo (EAX = 0); si no, llama al constructor del EXE (0x4B1B60, con hook; aqui Constructor) con el vehiculo guardado (+0x14) y devuelve lo que este deja en EAX (this). El marco SEH solo libera la
+// memoria si el constructor lanza y se omite. No modifica el objeto copiado.
 CEventEditableResponse* CEventGotKnockedOverByCar::CloneEditable() const noexcept {
-    return new CEventGotKnockedOverByCar(m_vehicle);
+    auto* const object = static_cast<CEventGotKnockedOverByCar*>(CEvent::operator new(sizeof(CEventGotKnockedOverByCar)));
+    return object ? object->Constructor(m_vehicle) : nullptr;
 }

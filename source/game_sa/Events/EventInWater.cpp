@@ -29,6 +29,7 @@ void __fastcall InWaterDestructorBody(CEventInWater* self, void* /*edx*/) {
 void CEventInWater::InjectHooks() {
     RH_ScopedVirtualClass(CEventInWater, 0x85B4C8, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedVMTInstall(Clone, 0x4B7810); // lote 201A (sin validar)
     RH_ScopedNamedGlobalInstall(InWaterDestructorBody, "Destructor", 0x4B13C0);
 
     RH_ScopedInstall(Constructor, 0x4B1370);
@@ -72,4 +73,21 @@ bool CEventInWater::TakesPriorityOver(const CEvent& refEvent) {
 CEventInWater* CEventInWater::Constructor(float acceleration) {
     this->CEventInWater::CEventInWater(acceleration);
     return this;
+}
+
+// 0x4B7810 (lote 201A, sin validar; thiscall, sin argumentos, `ret`, 44 bytes sin marco SEH; ranura 4 de la vtable 0x85B4C8; el listado decia CEventVehicleOnFire). Como el original: CEvent::operator new (0x4B5620, con hook; el EXE lo expande en
+// linea con 0x4B5570 sobre el pool 0xB744AC) con 0x10 bytes; sin memoria devuelve nulo (EAX = 0). NO llama a ningun constructor: escribe a mano +4 = 0, BYTE +8 = 0, la vtable del EXE (0x85B4C8) y copia la aceleracion (+0xC) con `fld/fstp`
+// (un float, sin aritmetica; el EXE la carga y la guarda como float, de modo que un NaN senalizante sale silenciado); devuelve la memoria.
+CEvent* CEventInWater::Clone() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventInWater));
+    if (!memory) {
+        return nullptr;
+    }
+    auto* const dst = static_cast<uint8*>(memory);
+    const float acceleration = m_acceleration;
+    *reinterpret_cast<uint32*>(dst + 0x4) = 0;
+    *reinterpret_cast<float*>(dst + 0xC)  = acceleration;
+    *(dst + 0x8)                          = 0;
+    *reinterpret_cast<uint32*>(dst + 0x0) = 0x85B4C8;
+    return static_cast<CEvent*>(memory);
 }

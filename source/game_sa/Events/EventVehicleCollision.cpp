@@ -49,6 +49,7 @@ void CEventVehicleCollision::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventVehicleCollision, 0x85AC28, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedVMTInstall(GetEventType, 0x4AC8F0); // lote 201A (sin validar): retorno de constante
     RH_ScopedNamedGlobalInstall(VehicleCollisionDestructorBody, "Destructor", 0x4AC920);
     RH_ScopedNamedGlobalInstall(VehicleCollisionScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B5930); // lote 190A (sin validar)
 
@@ -148,4 +149,9 @@ bool CEventVehicleCollision::AffectsPed(CPed* ped)
     }
 
     return true;
+}
+
+// 0x4AC8F0 (lote 201A, sin validar; thiscall, `ret`, 6 bytes: `mov eax,1`): EVENT_VEHICLE_COLLISION (1); no lee el objeto (ranura 1 de la vtable 0x85AC28).
+eEventType CEventVehicleCollision::GetEventType() const {
+    return EVENT_VEHICLE_COLLISION;
 }

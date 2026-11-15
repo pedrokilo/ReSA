@@ -17,7 +17,7 @@ public:
     eEventType GetEventType() const override { return EVENT_COP_CAR_BEING_STOLEN; }
     int32 GetEventPriority() const override { return 38; }
     int32 GetLifeTime() override { return 0; }
-    CEventCopCarBeingStolen* Clone() const noexcept override { return new CEventCopCarBeingStolen(m_hijacker, m_vehicle); }
+    CEventCopCarBeingStolen* Clone() const noexcept override; // 0x4B78B0 (lote 201A, sin validar)
     bool AffectsPed(CPed* ped) override;
 
 private:

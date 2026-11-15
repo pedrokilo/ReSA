@@ -44,6 +44,7 @@ void CEventStuckInAir::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventStuckInAir, 0x85B508, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedVMTInstall(Clone, 0x4B7840); // lote 201A (sin validar)
     RH_ScopedNamedGlobalInstall(StuckInAirDestructorBody, "Destructor", 0x4B1520);
     RH_ScopedNamedGlobalInstall(StuckInAirScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B6660); // lote 192A (sin validar)
 
@@ -114,4 +115,12 @@ bool CEventStuckInAir::TakesPriorityOver(const CEvent& refEvent)
         return true;
 
     return CEvent::TakesPriorityOver(refEvent);
+}
+
+// 0x4B7840 (lote 201A, sin validar; thiscall, sin argumentos, `ret`, ranura 4 de la vtable 0x85B508; el listado la atribuia a otra clase). Como el original: CEvent::operator new (0x4B5620, con hook; el EXE lo expande en linea con 0x4B5570 sobre
+// el pool 0xB744AC) con CEventStuckInAir; sin memoria devuelve nulo (EAX = 0); si no, llama al constructor del EXE (0x4B1490, con hook; aqui Constructor) con el ped guardado (+0xC) y devuelve lo que este deja en EAX (this). El marco SEH solo libera la
+// memoria si el constructor lanza y se omite. No modifica el objeto copiado.
+CEvent* CEventStuckInAir::Clone() const noexcept {
+    auto* const object = static_cast<CEventStuckInAir*>(CEvent::operator new(sizeof(CEventStuckInAir)));
+    return object ? object->Constructor(m_ped) : nullptr;
 }

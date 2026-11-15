@@ -103,6 +103,16 @@ __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FB00(void* 
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FB50(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FBA0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FBF0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FC40(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FC90(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FCE0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FD30(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FD80(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FDD0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FE20(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FE70(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FEC0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+__declspec(noinline) static void __fastcall PlaceableArrayPairReset54FF10(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
 
 /**
  * Registra las operaciones de transformación y gestión del pool global de matrices.
@@ -121,6 +131,16 @@ void CPlaceable::InjectHooks() {
     RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FB50, "ArrayPairReset54FB50", 0x54FB50);              // lote 200A (sin validar)
     RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FBA0, "ArrayPairReset54FBA0", 0x54FBA0);              // lote 200A (sin validar)
     RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FBF0, "ArrayPairReset54FBF0", 0x54FBF0);              // lote 200A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FC40, "ArrayPairReset54FC40", 0x54FC40);              // lote 201A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FC90, "ArrayPairReset54FC90", 0x54FC90);              // lote 201A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FCE0, "ArrayPairReset54FCE0", 0x54FCE0);              // lote 201A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FD30, "ArrayPairReset54FD30", 0x54FD30);              // lote 201A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FD80, "ArrayPairReset54FD80", 0x54FD80);              // lote 201A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FDD0, "ArrayPairReset54FDD0", 0x54FDD0);              // lote 201A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FE20, "ArrayPairReset54FE20", 0x54FE20);              // lote 201A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FE70, "ArrayPairReset54FE70", 0x54FE70);              // lote 201A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FEC0, "ArrayPairReset54FEC0", 0x54FEC0);              // lote 201A (sin validar)
+    RH_ScopedNamedGlobalInstall(PlaceableArrayPairReset54FF10, "ArrayPairReset54FF10", 0x54FF10);              // lote 201A (sin validar)
     RH_ScopedOverloadedInstall(SetPosn, "xyz", 0x420B80, void(CPlaceable::*)(float, float, float));
     RH_ScopedOverloadedInstall(SetPosn, "vector", 0x4241C0, void(CPlaceable::*)(const CVector&));
     RH_ScopedOverloadedInstall(SetOrientation, "xyz", 0x439A80, void(CPlaceable::*)(float, float, float));

@@ -50,6 +50,18 @@ __declspec(noinline) bool __fastcall EventIsValidAliveOrBaseExe(CEvent* self, vo
     return self->CEvent::IsValid(nullptr);
 }
 
+// 0x4B7C80 (lote 201A, sin validar; thiscall, un argumento de pila, `ret 4`, 78 bytes; ranura 0 de la vtable de CEvent 0x85AB38): destructor con borrado de CEvent del EXE. Como el original: deja la vtable de CEvent del EXE
+// (0x85AB38, igual que el cuerpo 0x4AC010 pero escrito EN LINEA, sin llamarlo) y, con el bit 0 del BYTE de banderas, libera `this` con la copia en linea de CEvent::operator delete (pool de eventos 0xB744AC, indice =
+// (this - base) / 0x44 con signo, estado |= 0x80, cursor = min(cursor, indice) con signo; aqui CEvent::operator delete, 0x4B5630, con hook y el mismo efecto); devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no
+// puede nombrar la ranura 0).
+__declspec(noinline) CEvent* __fastcall EventScalarDeletingDestructorExe(CEvent* self, void* /*edx*/, uint8 flags) {
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
+}
+
 void CEvent::InjectHooks() {
     RH_ScopedVirtualClass(CEvent, 0x85AB38, 16);
     RH_ScopedCategory("Events");
@@ -58,6 +70,7 @@ void CEvent::InjectHooks() {
     RH_ScopedInstall(operator new, 0x4B5620);
     RH_ScopedInstall(operator delete, 0x4B5630);                               // lote 153A (banco Fn153A)
     RH_ScopedNamedGlobalInstall(EventIsValidAliveOrBaseExe, "IsValidAliveOrBase", 0x4B1680); // lote 153A (banco Fn153A)
+    RH_ScopedNamedGlobalInstall(EventScalarDeletingDestructorExe, "ScalarDeletingDestructor", 0x4B7C80); // lote 201A (sin validar)
     RH_ScopedInstall(Constructor, 0x4ABFC0);
     RH_ScopedInstall(CalcSoundLevelIncrement, 0x4AC050);
     RH_ScopedInstall(GetSoundLevel, 0x4B2850);

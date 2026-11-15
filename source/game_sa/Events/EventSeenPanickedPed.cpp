@@ -46,6 +46,7 @@ __declspec(noinline) CEventSeenPanickedPed* __fastcall SeenPanickedPedScalarDele
 void CEventSeenPanickedPed::InjectHooks() {
     RH_ScopedVirtualClass(CEventSeenPanickedPed, 0x85B778, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedVMTInstall(CloneEditable, 0x4B7B30); // lote 201A (sin validar)
     RH_ScopedNamedGlobalInstall(SeenPanickedPedDestructorBody, "Destructor", 0x4B2130);
     RH_ScopedNamedGlobalInstall(SeenPanickedPedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B69E0); // lote 184A (sin validar)
 
@@ -80,4 +81,12 @@ bool CEventSeenPanickedPed::AffectsPed(CPed* ped) {
         }
     }
     return false;
+}
+
+// 0x4B7B30 (lote 201A, sin validar; thiscall, sin argumentos, `ret`, ranura 16 de la vtable 0x85B778; el listado la atribuia a otra clase). Como el original: CEvent::operator new (0x4B5620, con hook; el EXE lo expande en linea con 0x4B5570 sobre
+// el pool 0xB744AC) con CEventSeenPanickedPed; sin memoria devuelve nulo (EAX = 0); si no, llama al constructor del EXE (0x4B2080, con hook; aqui Constructor) con el ped guardado (+0x14) y devuelve lo que este deja en EAX (this). El marco SEH solo libera la
+// memoria si el constructor lanza y se omite. No modifica el objeto copiado.
+CEventSeenPanickedPed* CEventSeenPanickedPed::CloneEditable() const noexcept {
+    auto* const object = static_cast<CEventSeenPanickedPed*>(CEvent::operator new(sizeof(CEventSeenPanickedPed)));
+    return object ? object->Constructor(m_ped) : nullptr;
 }

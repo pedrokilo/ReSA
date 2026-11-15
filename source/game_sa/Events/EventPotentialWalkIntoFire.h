@@ -32,7 +32,7 @@ public:
     int32 GetEventPriority() const override;     // 0x4B1EF0 (lote 184A, sin validar)
     int32 GetLifeTime() override;                // 0x4B1EE0 (lote 184A, sin validar)
     bool AffectsPed(CPed* ped) override;
-    CEventPotentialWalkIntoFire* CloneEditable() const noexcept override { return new CEventPotentialWalkIntoFire(m_firePos, m_fireSize, m_moveState); }
+    CEventPotentialWalkIntoFire* CloneEditable() const noexcept override; // 0x4B7A40 (lote 201A, sin validar)
 
 private:
     friend void InjectHooksMain();

@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 
 namespace CTaskComplexBody {
 void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
+void __fastcall Destructor(CTask* self, void* edx);  // Task.cpp: 0x61A3D0
 }
 
 namespace {
@@ -49,6 +50,31 @@ __declspec(noinline) void* __fastcall AnyMeansXYOffsetConstructorExe(void* self,
     }
     return self;
 }
+
+// 0x6956D0 (lote 201A, sin validar; thiscall, sin argumentos de pila, `ret`, 97 bytes con marco SEH que solo desenrolla y se omite; el listado decia CTaskComplexSeekEntityAnyMeansXYOffset y SI lo es): cuerpo no virtual de
+// ~CTaskComplexSeekEntityAnyMeansXYOffset del EXE (lo llama el destructor con borrado 0x6956B0). Orden del EXE: vtable de la clase (0x870CF0), si la entidad (+0xC) no es nula CEntity::CleanUpOldReference (0x571A00) sobre +0xC,
+// vtable base del calculador de posiciones (+0x24) = 0x859DC4 (el destructor del calculador deja la vtable de CEntitySeekPosCalculator) y fin en CTaskComplex::Destructor (0x61A3D0, con hook; ECX = this). El destructor generado por el
+// compilador dejaria la vtable de la DLL.
+__declspec(noinline) void __fastcall AnyMeansXYOffsetDestructorBodyExe(void* self, void* /*edx*/) {
+    auto* const raw = static_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(raw + 0x00) = 0x870CF0;
+    if (CEntity* const entity = *reinterpret_cast<CEntity**>(raw + 0xC)) {
+        entity->CleanUpOldReference(reinterpret_cast<CEntity**>(raw + 0xC));
+    }
+    *reinterpret_cast<uint32*>(raw + 0x24) = 0x859DC4;
+    CTaskComplexBody::Destructor(static_cast<CTask*>(self), nullptr);
+}
+
+// 0x6956B0 (lote 201A, sin validar; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6956D0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`): destructor con borrado
+// de CTaskComplexSeekEntityAnyMeansXYOffset del EXE (ranura 0 de su vtable 0x870CF0). Como el original: destruye con el cuerpo (0x6956D0), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas
+// esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+__declspec(noinline) void* __fastcall AnyMeansXYOffsetScalarDeletingDestructor(void* self, void* /*edx*/, uint8 flags) {
+    AnyMeansXYOffsetDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexSeekEntityAnyMeansXYOffset::InjectHooks() {
@@ -56,6 +82,8 @@ void CTaskComplexSeekEntityAnyMeansXYOffset::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedNamedGlobalInstall(AnyMeansXYOffsetConstructorExe, "ConstructorExe", 0x695600); // lote 166A (banco Fn166A)
+    RH_ScopedNamedGlobalInstall(AnyMeansXYOffsetDestructorBodyExe, "DestructorBody", 0x6956D0); // lote 201A (sin validar)
+    RH_ScopedNamedGlobalInstall(AnyMeansXYOffsetScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6956B0); // lote 201A (sin validar)
     RH_ScopedVMTInstall(Clone, 0x696030);
     RH_ScopedVMTInstall(GetTaskType, 0x695690);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x6956A0);

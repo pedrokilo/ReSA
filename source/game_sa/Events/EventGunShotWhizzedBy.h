@@ -18,7 +18,7 @@ public:
     int32 GetLifeTime() override { return 0; }
     bool AffectsPed(CPed* ped) override;
     bool CanBeInterruptedBySameEvent() override { return true; }
-    CEventEditableResponse* CloneEditable() const noexcept override { return new CEventGunShotWhizzedBy(m_firedBy, m_startPoint, m_endPoint, m_bHasNoSound); }
+    CEventEditableResponse* CloneEditable() const noexcept override; // 0x4B7AC0 (lote 201A, sin validar)
 
 private:
     CEventGunShotWhizzedBy* Constructor(CEntity* entity, const CVector& startPoint, const CVector& endPoint, bool bHasNoSound);

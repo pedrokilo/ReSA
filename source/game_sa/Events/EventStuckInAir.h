@@ -17,7 +17,7 @@ public:
     eEventType GetEventType() const override; // 0x4B14F0 (lote 153A, banco Fn153A)
     int32 GetEventPriority() const override;
     int32 GetLifeTime() override; // 0x4B1500 (lote 153A, banco Fn153A)
-    CEvent* Clone() const noexcept override { return new CEventStuckInAir(m_ped); }
+    CEvent* Clone() const noexcept override; // 0x4B7840 (lote 201A, sin validar)
     bool AffectsPed(CPed* ped) override;
     bool TakesPriorityOver(const CEvent& refEvent) override;
     bool CanBeInterruptedBySameEvent() override; // 0x4B1510 (lote 153A, banco Fn153A)

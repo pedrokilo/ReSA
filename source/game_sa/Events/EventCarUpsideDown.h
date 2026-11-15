@@ -15,7 +15,7 @@ public:
     eEventType GetEventType() const override { return EVENT_CAR_UPSIDE_DOWN; }
     int32 GetEventPriority() const override { return 18; }
     int32 GetLifeTime() override { return 0; }
-    CEventCarUpsideDown* Clone() const noexcept override { return new CEventCarUpsideDown(m_vehicle); }
+    CEventCarUpsideDown* Clone() const noexcept override; // 0x4B79D0 (lote 201A, sin validar)
     bool AffectsPed(CPed* ped) override;
 
 private:

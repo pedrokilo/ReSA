@@ -55,6 +55,7 @@ void CTaskComplexFollowLeaderInFormation::InjectHooks() {
     RH_ScopedInstall(Offsets::Constructor, 0x694850);
     RH_ScopedNamedInstall(Offsets::GetFormationOffset, "GetFormationOffset", 0x611F20); // lote 132A (banco Fn132A)
 
+    RH_ScopedInstall(CreateSubTask, 0x6962A0); // lote 201A (sin validar)
     RH_ScopedVMTInstall(Clone, 0x695740);
     RH_ScopedVMTInstall(GetTaskType, 0x694A30);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x696820);
@@ -218,32 +219,72 @@ CTask* CTaskComplexFollowLeaderInFormation::ControlSubTask(CPed* ped) {
     return CreateSubTask(static_cast<eTaskType>(0x38B), ped);
 }
 
+// 0x6962A0 (lote 201A, sin validar; el listado decia CTaskComplexSeekEntityAnyMeansXYOffset: es una funcion NO virtual de CTaskComplexFollowLeaderInFormation que llaman CreateNextSubTask 0x696820 y CreateFirstSubTask 0x6968E0; thiscall, dos argumentos de pila
+// (tipo de tarea, ped), `ret 8`, 981 bytes con marco SEH que solo libera la memoria si un constructor lanza (se omite)): crea la subtarea para el tipo pedido. Cada rama reserva con CTask::operator new (0x61A5A0) y, si devuelve nulo, devuelve nulo SIN
+// llamar al constructor (salvo la del seguimiento, ver abajo); los constructores son los del EXE (con hook o equivalentes en C++). Ramas (el EXE compara en el orden 0x2C5, 0x2BC, 0xCA/0xCB, 0x2C0, y luego 0x386, 0x38B, 0x516):
+//  0xCB (203): CTaskSimpleStandStill(500, false, false, 8.0f) (0x62F310, 0x20 bytes).
+//  0xCA (202): CTaskSimplePause(2000) (0x48E750, 0x18 bytes).
+//  0x2BC (700): CTaskComplexEnterCarAsPassenger(vehiculo del lider (+0x10 -> +0x58C), 0, false) (0x640340, 0x50 bytes).
+//  0x2C0 (704): CTaskComplexLeaveCar(vehiculo del ped (+0x58C), 0, 0, true, false) (0x63B8C0, 0x34 bytes).
+//  0x2C5 (709): CTaskSimpleCarDrive(vehiculo del ped, nulo, false) (0x63C340, 0x60 bytes).
+//  0x38B (907): CTaskComplexSeekEntity<XYOffset>(lider, 50000, 1000, 1.0f [0x86FC2C], 2.0f, 2.0f [0x86FC30], false, true) (0x661DC0, 0x58 bytes); despues copia el desplazamiento guardado (+0x14, tres palabras) a +0x44 y pone el estado de movimiento
+//         (+0x50) a 7. El EXE escribe esos campos aunque la reserva haya fallado (accederia a la direccion nula + 0x44 y caeria); aqui, sin memoria, se devuelve nulo.
+//  0x386 (902): elige un miembro del grupo al azar (CountMembers 0x5F6A50, GetRandomIntInRange(0, n) 0x407180, GetMember 0x5F69B0; si es el propio ped, el lider 0x5F69A0). Solo si hay miembro, tira otra vez GetRandomIntInRange(0, 50) y, si sale 20, reserva
+//         0x18 bytes y crea CTaskSimpleAchieveHeading(LimitRadianAngle(GetRadianAngleBetweenPoints(dir.x, dir.y, 0, 0)), 0.5f [0x86FC7C], 0.2f [0x86FC80]) (0x667E20) con dir = Normalise(miembro - ped) (0x40FE60, 0x59C910); si no, reserva y crea
+//         CTaskSimpleAchieveHeading(rotacion actual del ped (+0x558), 0.5f, 0.2f). La reserva se hace despues de calcular el angulo, como el EXE.
+//  Cualquier otro tipo (incluido 0x516) devuelve nulo.
 CTask* CTaskComplexFollowLeaderInFormation::CreateSubTask(eTaskType type, CPed* ped) {
-    switch (type) {
-    case static_cast<eTaskType>(0xCB): return new CTaskSimpleStandStill(500, false, false, 8.f);
-    case static_cast<eTaskType>(0xCA): return new CTaskSimplePause(2000);
-    case static_cast<eTaskType>(700): return new CTaskComplexEnterCarAsPassenger(m_Leader->m_pVehicle, 0, false);
-    case static_cast<eTaskType>(0x2C0): return new CTaskComplexLeaveCar(ped->m_pVehicle, 0, 0, true, false);
-    case static_cast<eTaskType>(0x2C5): return new CTaskSimpleCarDrive(ped->m_pVehicle, nullptr, false);
-    case static_cast<eTaskType>(0x38B): {
-        auto* task = new CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>(m_Leader, 50000, 1000, 1.f, 2.f, 2.f, false, true);
+    switch (static_cast<int32>(type)) {
+    case 0xCB: {
+        void* const memory = CTask::operator new(sizeof(CTaskSimpleStandStill));
+        return memory ? ::new (memory) CTaskSimpleStandStill(500, false, false, 8.0f) : nullptr;
+    }
+    case 0xCA: {
+        void* const memory = CTask::operator new(sizeof(CTaskSimplePause));
+        return memory ? ::new (memory) CTaskSimplePause(2000) : nullptr;
+    }
+    case 700: {
+        void* const memory = CTask::operator new(sizeof(CTaskComplexEnterCarAsPassenger));
+        return memory ? ::new (memory) CTaskComplexEnterCarAsPassenger(m_Leader->m_pVehicle, 0, false) : nullptr;
+    }
+    case 0x2C0: {
+        void* const memory = CTask::operator new(sizeof(CTaskComplexLeaveCar));
+        return memory ? ::new (memory) CTaskComplexLeaveCar(ped->m_pVehicle, 0, 0, true, false) : nullptr;
+    }
+    case 0x2C5: {
+        void* const memory = CTask::operator new(sizeof(CTaskSimpleCarDrive));
+        return memory ? ::new (memory) CTaskSimpleCarDrive(ped->m_pVehicle, nullptr, false) : nullptr;
+    }
+    case 0x38B: {
+        using SeekTask = CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>;
+        void* const memory = CTask::operator new(sizeof(SeekTask));
+        if (!memory) {
+            return nullptr;
+        }
+        auto* const task = ::new (memory) SeekTask(m_Leader, 50000, 1000, 1.0f, 2.0f, 2.0f, false, true);
         task->GetSeekPosCalculator().SetOffset(m_Pos);
         task->SetMoveState(static_cast<eMoveState>(7));
         return task;
     }
-    case static_cast<eTaskType>(0x386): {
+    case 0x386: {
         auto& members = m_Group->GetMembership();
-        auto* other = members.GetMember(CGeneral::GetRandomIntInRange(0, members.CountMembers()));
-        if (other == ped) other = members.GetLeader();
-        if (other && CGeneral::GetRandomIntInRange(0, 50) == 20) {
-            auto dir = other->GetPosition() - ped->GetPosition();
-            dir.Normalise();
-            const float angle = CGeneral::GetRadianAngleBetweenPoints(dir.x, dir.y, 0.f, 0.f);
-            auto* storage = CTask::operator new(sizeof(CTaskSimpleAchieveHeading));
-            return storage ? ::new (storage) CTaskSimpleAchieveHeading(CGeneral::LimitRadianAngle(angle), .5f, .2f) : nullptr;
+        const int32 count = members.CountMembers();
+        const int32 index = CGeneral::GetRandomIntInRange(0, count);
+        CPed* other = members.GetMember(index);
+        if (other == ped) {
+            other = members.GetLeader();
         }
-        return new CTaskSimpleAchieveHeading(ped->m_fCurrentRotation, .5f, .2f);
+        if (other && CGeneral::GetRandomIntInRange(0, 50) == 20) {
+            CVector dir = other->GetPosition() - ped->GetPosition();
+            dir.Normalise();
+            const float angle = CGeneral::GetRadianAngleBetweenPoints(dir.x, dir.y, 0.0f, 0.0f);
+            void* const memory = CTask::operator new(sizeof(CTaskSimpleAchieveHeading));
+            return memory ? ::new (memory) CTaskSimpleAchieveHeading(CGeneral::LimitRadianAngle(angle), 0.5f, 0.2f) : nullptr;
+        }
+        void* const memory = CTask::operator new(sizeof(CTaskSimpleAchieveHeading));
+        return memory ? ::new (memory) CTaskSimpleAchieveHeading(ped->m_fCurrentRotation, 0.5f, 0.2f) : nullptr;
     }
-    default: return nullptr;
+    default:
+        return nullptr;
     }
 }

@@ -41,6 +41,7 @@ void CEventHitByWaterCannon::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventHitByWaterCannon, 0x85B488, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedVMTInstall(Clone, 0x4B77B0); // lote 201A (sin validar)
     RH_ScopedNamedGlobalInstall(HitByWaterCannonDestructorBody, "Destructor", 0x4B1320);
     RH_ScopedNamedGlobalInstall(HitByWaterCannonScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B65C0); // lote 192A (sin validar)
 
@@ -95,4 +96,23 @@ bool CEventHitByWaterCannon::AffectsPed(CPed* ped)
             return true;
     }
     return false;
+}
+
+// 0x4B77B0 (lote 201A, sin validar; thiscall, sin argumentos, `ret`, 84 bytes sin marco SEH; ranura 4 de la vtable 0x85B488; el listado decia CEventVehicleOnFire). Como el original: CEvent::operator new (0x4B5620, con hook; el EXE lo expande en
+// linea con 0x4B5570 sobre el pool 0xB744AC) con 0x24 bytes; sin memoria devuelve nulo (EAX = 0). NO llama a ningun constructor: escribe a mano +4 = 0, BYTE +8 = 0, la vtable del EXE (0x85B488) y copia como palabras de 32 bits (sin pasar por x87)
+// el CVector +0xC (punto) y el CVector +0x18 (velocidad); devuelve la memoria.
+CEvent* CEventHitByWaterCannon::Clone() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventHitByWaterCannon));
+    if (!memory) {
+        return nullptr;
+    }
+    auto* const       dst = static_cast<uint8*>(memory);
+    const auto* const src = reinterpret_cast<const uint8*>(this);
+    *reinterpret_cast<uint32*>(dst + 0x4) = 0;
+    *(dst + 0x8)                          = 0;
+    *reinterpret_cast<uint32*>(dst + 0x0) = 0x85B488;
+    for (uint32 offset = 0xC; offset < 0x24; offset += sizeof(uint32)) {
+        *reinterpret_cast<uint32*>(dst + offset) = *reinterpret_cast<const uint32*>(src + offset);
+    }
+    return static_cast<CEvent*>(memory);
 }
