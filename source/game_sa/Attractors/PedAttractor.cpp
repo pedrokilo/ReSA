@@ -30,11 +30,14 @@ namespace {
 // Lote 189A (sin validar): 12 funciones de plantilla de la STL de MSVC 6 (std::fill, std::uninitialized_copy, std::copy y std::copy_backward) que el EXE no expande en linea en el codigo de los vectores de los atractores
 // (0x5EAAA0..0x5EAF04, cdecl, sin llamadores fuera de las instancias de SArray). El listado las atribuia a CPedAttractorPool; son el mismo bloque que SArraySizeStride20/12 (0x5E9800, PedShelterAttractor.cpp).
 // Los iteradores son punteros (4 bytes) pasados por valor; el valor a rellenar se pasa por puntero; las dos copias que devuelven un iterador lo escriben en el puntero que reciben primero (retorno de estructura) y lo devuelven.
+// Cada direccion de hook tiene su propia instancia de plantilla (RH no admite dos hooks hacia la misma funcion de la DLL: el cuerpo de la segunda y la tercera se resolvia a la entrada del EXE de la primera; lo detecto el banco Fn189A).
+// Cada direccion de hook tiene su propia instancia de plantilla (RH no admite dos hooks hacia la misma funcion de la DLL: el cuerpo de la segunda y la tercera se resolvia a la entrada del EXE de la primera; lo detecto el banco Fn189A).
 // Elementos de 4 bytes (SArray<puntero>), de 20 bytes (CPedTaskPair) y de 12 bytes (CVector). Las instancias identicas de distinto tipo de elemento tienen su propia direccion (A, B y C).
 struct SArrayElem20 { uint32 w[5]; };
 struct SArrayElem12 { uint32 w[3]; };
 
 // std::fill: lee el valor en cada vuelta; con inicio == fin no lo lee. EAX queda en fin, nadie lo usa.
+template<int Id>
 void __cdecl SArrayFillStride4(uint32* first, uint32* last, const uint32* value) {
     for (; first != last; ++first) {
         *first = *value;
@@ -47,6 +50,7 @@ void __cdecl SArrayFillStride20(SArrayElem20* first, SArrayElem20* last, const S
 }
 
 // std::uninitialized_copy: construye en el destino solo si no es nulo (new(puntero) T(*origen)); devuelve el final del destino en EAX.
+template<int Id>
 uint32* __cdecl SArrayUninitCopyStride4(const uint32* first, const uint32* last, uint32* dest) {
     for (; first != last; ++first, ++dest) {
         if (dest) {
@@ -121,18 +125,18 @@ void CPedAttractor::InjectHooks() {
     RH_ScopedCategory("Attractors");
 
     // Lote 189A (sin validar): ayudantes de plantilla de los vectores (ver arriba)
-    RH_ScopedNamedGlobalInstall(SArrayFillStride4, "SArrayFillStride4A", 0x5EAAA0);
+    RH_ScopedNamedGlobalInstall(SArrayFillStride4<0>, "SArrayFillStride4A", 0x5EAAA0);
     RH_ScopedNamedGlobalInstall(SArrayFillStride20, "SArrayFillStride20", 0x5EAAC0);
-    RH_ScopedNamedGlobalInstall(SArrayFillStride4, "SArrayFillStride4B", 0x5EAAF0);
-    RH_ScopedNamedGlobalInstall(SArrayFillStride4, "SArrayFillStride4C", 0x5EAB10);
+    RH_ScopedNamedGlobalInstall(SArrayFillStride4<1>, "SArrayFillStride4B", 0x5EAAF0);
+    RH_ScopedNamedGlobalInstall(SArrayFillStride4<2>, "SArrayFillStride4C", 0x5EAB10);
     RH_ScopedNamedGlobalInstall(SArrayCopyStride20, "SArrayCopyStride20", 0x5EAB80);
     RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride20, "SArrayCopyBackwardStride20", 0x5EAC50);
     RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride12, "SArrayCopyBackwardStride12", 0x5EACC0);
-    RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4, "SArrayUninitCopyStride4A", 0x5EAE10);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4<0>, "SArrayUninitCopyStride4A", 0x5EAE10);
     RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride20, "SArrayUninitCopyStride20", 0x5EAE40);
-    RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4, "SArrayUninitCopyStride4B", 0x5EAE70);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4<1>, "SArrayUninitCopyStride4B", 0x5EAE70);
     RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride12, "SArrayUninitCopyStride12", 0x5EAEA0);
-    RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4, "SArrayUninitCopyStride4C", 0x5EAEE0);
+    RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4<2>, "SArrayUninitCopyStride4C", 0x5EAEE0);
 
     RH_ScopedInstall(Constructor, 0x5EDFB0);
     RH_ScopedInstall(Destructor, 0x5EC410);

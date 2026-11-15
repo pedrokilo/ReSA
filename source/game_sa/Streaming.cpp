@@ -2662,11 +2662,12 @@ void CStreaming::ProcessEntitiesInSectorList(PtrListType& list, int32 streamingF
 
         // Como el original (0x40C48A y 0x40C500): el indice del modelo se lee con movsx (WORD con signo), dos veces (antes y despues de CreateRwObject)
         const int32 modelId = static_cast<int16>(entity->m_nModelIndex);
-        if (GetInfo(modelId).IsLoaded())
+        if (ms_aInfoForModel.data()[modelId].IsLoaded()) // sin assert ni limite del indice, como el EXE (0x40C491)
             continue;
         if (entity->m_bStreamingDontDelete)
             continue;
-        if (!entity->IsInCurrentArea())
+        // Como el original (0x40C4A3..0x40C4B4): el byte de area se extiende con ceros y se compara con el DWORD de CGame::currArea (o con 13)
+        if (const auto area = static_cast<int32>(static_cast<uint8>(entity->GetAreaCode())); area != static_cast<int32>(CGame::currArea) && area != 13)
             continue;
         if (entity->m_bDontStream || !entity->m_bIsVisible)
             continue;
@@ -2677,7 +2678,7 @@ void CStreaming::ProcessEntitiesInSectorList(PtrListType& list, int32 streamingF
         if (timeInfo && !CClock::GetIsTimeInRange(timeInfo->GetTimeOn(), timeInfo->GetTimeOff()))
             continue;
 
-        if (modelInfo->GetRwObject() && !entity->GetRwObject())
+        if (modelInfo->GetRwObjectNoChecks() && !entity->GetRwObject()) // el EXE lee el campo +0x1C del model info sin comprobaciones
             entity->CreateRwObject();
 
         RequestModel(static_cast<int16>(entity->m_nModelIndex), streamingFlags);
@@ -2902,12 +2903,16 @@ eModelID CStreaming::GetDefaultCopModel() {
 
 // 0x407D30 (lote 189A, sin validar; el listado decia CStreaming sin nombre): modelo de ambulancia por nivel (0x8A5AB4 + nivel * 4); sin limite del indice, como el EXE
 eModelID CStreaming::GetDefaultAmbulanceModel() {
-    return (eModelID)ms_aDefaultAmbulanceModel.data()[CTheZones::m_CurrLevel];
+    // El EXE lee el nivel como DWORD (0xBA6718); eLevelName es de 8 bits y solo leeria el byte bajo (corregido tras el banco Fn189A)
+    static auto& s_Level = StaticRef<int32>(0xBA6718);
+    return (eModelID)ms_aDefaultAmbulanceModel.data()[s_Level];
 }
 
 // 0x407DC0 (lote 189A, sin validar): modelo de camion de bomberos por nivel (0x8A5AD4 + nivel * 4); sin limite del indice, como el EXE
 eModelID CStreaming::GetDefaultFireEngineModel() {
-    return (eModelID)ms_aDefaultFireEngineModel.data()[CTheZones::m_CurrLevel];
+    // El EXE lee el nivel como DWORD (0xBA6718); eLevelName es de 8 bits y solo leeria el byte bajo (corregido tras el banco Fn189A)
+    static auto& s_Level = StaticRef<int32>(0xBA6718);
+    return (eModelID)ms_aDefaultFireEngineModel.data()[s_Level];
 }
 
 // 0x407D40

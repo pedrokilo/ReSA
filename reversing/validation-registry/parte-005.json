@@ -53069,6 +53069,1340 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en el cuerpo de la DLL (cuerpos de destructores, constructores, operator new y delete de CEvent y CTask, ScanEntities, GetColModel, Malloc, RegisterReference, UpdateHierarchy); reales en ambos lados: constructor y destructor base de CTaskComplex (subtarea sintetica con tabla virtual de falsos) y el operator delete en linea del EXE frente a CEvent::operator delete de la DLL (pool de eventos sintetico). La vtable de constructor y destructor reales se clasifica (la de la DLL no tiene la direccion de la del EXE). Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, pools reales y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn190A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDirectory",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x00407670",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CDirectory::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "IsObjectInCdImage",
+        "address": "0x00407800",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::IsObjectInCdImage"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "ForceLayerToRead",
+        "address": "0x00407A10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::ForceLayerToRead"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "SetLoadVehiclesInLoadScene",
+        "address": "0x00407A30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::SetLoadVehiclesInLoadScene"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "RemoveUnusedModelsInLoadedList",
+        "address": "0x00407AC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::RemoveUnusedModelsInLoadedList"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "ImGonnaUseStreamingMemory",
+        "address": "0x00407BE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::ImGonnaUseStreamingMemory"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "IHaveUsedStreamingMemory",
+        "address": "0x00407BF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::IHaveUsedStreamingMemory"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "GetDefaultAmbulanceModel",
+        "address": "0x00407D30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::GetDefaultAmbulanceModel"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "GetDefaultFireEngineModel",
+        "address": "0x00407DC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::GetDefaultFireEngineModel"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "LoadInitialVehicles",
+        "address": "0x00407F20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::LoadInitialVehicles"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CLinkList<CEntity*>",
+        "fn_name": "Insert-Data",
+        "address": "0x00408230",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CLinkList<CEntity*>::Insert-Data"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedPool",
+        "fn_name": "GetAt",
+        "address": "0x004082A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedPool::GetAt"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "StartRenderEntities",
+        "address": "0x004096C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::StartRenderEntities"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "SetMissionDoesntRequireSpecialChar",
+        "address": "0x0040B490",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::SetMissionDoesntRequireSpecialChar"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "RemoveStreamedScriptModel",
+        "address": "0x0040C1C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::RemoveStreamedScriptModel"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreaming",
+        "fn_name": "ProcessEntitiesInSectorList<CPtrListSingleLink<CEntity*>>-Simple",
+        "address": "0x0040C450",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CStreaming::ProcessEntitiesInSectorList-Simple"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "VehicleStructPoolConstructor",
+        "address": "0x005B8340",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPools::VehicleStructPoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayFillStride4A",
+        "address": "0x005EAAA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayFillStride4A"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayFillStride20",
+        "address": "0x005EAAC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayFillStride20"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayFillStride4B",
+        "address": "0x005EAAF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayFillStride4B"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayFillStride4C",
+        "address": "0x005EAB10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayFillStride4C"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayCopyStride20",
+        "address": "0x005EAB80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayCopyStride20"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayCopyBackwardStride20",
+        "address": "0x005EAC50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayCopyBackwardStride20"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayCopyBackwardStride12",
+        "address": "0x005EACC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayCopyBackwardStride12"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayUninitCopyStride4A",
+        "address": "0x005EAE10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayUninitCopyStride4A"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayUninitCopyStride20",
+        "address": "0x005EAE40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayUninitCopyStride20"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayUninitCopyStride4B",
+        "address": "0x005EAE70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayUninitCopyStride4B"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayUninitCopyStride12",
+        "address": "0x005EAEA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayUninitCopyStride12"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayUninitCopyStride4C",
+        "address": "0x005EAEE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn189A/validation-summary.json",
+        "sha256": "966f27c790ba3c1da96895b1ea9938de0f3f8dd708836a5809c4680bcf28d25c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayUninitCopyStride4C"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "017a57d22e7f41204cf3bfac76239ed9b283f1e33a423e383a5d1bc382b608f9",
+        "source/InjectHooksMain.cpp": "9dc66772bbeb43dfcd13b3e2aaacd4068090b7001a8d2f9320fa0984b3a32fac",
+        "source/game_sa/Attractors/PedAttractor.cpp": "e7d668693ef58d80866ad35b12d4123d76f49503766db0d9c9b2d3dca3c4ed3d",
+        "source/game_sa/Directory.cpp": "3bef529ae7f66848f835e453dcc26f69a5f5a9f54cac3e0efb653150b4f6c6b6",
+        "source/game_sa/Directory.h": "c83d030252fa6c7ac102e8bcb9d8e7f3edb80a448a82742a9b29f4d6628926c5",
+        "source/game_sa/Models/BaseModelInfo.h": "779b041b06fad71ca9f8de5c894c29c1e697984152ebbbc746a6dda132fa0538",
+        "source/game_sa/Pools.cpp": "c8d7c3050757f45464889b847b9cde0d5ea600b80d24052157423bcca001737d",
+        "source/game_sa/Pools/PedPool.h": "1fbf5176053aaeb4290ebf684e9e4809e98f0e8d3ff58840cbbdb59bde5da2d0",
+        "source/game_sa/Streaming.cpp": "4a791d0c08d9006fd28434a12b4e2bac5fb70875690a01c583760dc980123f1b",
+        "source/game_sa/Streaming.h": "e896c4fe4dca8746b0479e8ad3883a18a17afbfbb02acc07e3ddff398e70fa50",
+        "source/game_sa/Core/LinkList.h": "d61f724e4b19a383197fca93d860ada6dd4a0d3e287a5169f53c706be3b9dcab",
+        "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+        "source/game_sa/MemoryMgr.cpp": "7c7cbb3dae9c0b5c378e730f51ae5b89868a0fc2e164f3ec147ec984dae3d402",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn189A/LiveComparison.hpp": "b80ff34783c0a58483526be0703f34d386e9d8d38575d5c7743883c4e09c97a6",
+        "reversing/Fn189A/Core.hpp": "c985f7d87fb696ebae92e95df28d98c9fdfeaf1bd3c048295fb7985633b20fd9",
+        "reversing/Fn189A/Fixtures.hpp": "9eaaba21b6fa898c798610513322a10734f030232916ece884bca8396626c9fa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9acc2209e0 con el cherry-pick del lote 189A (a23f2f2dc1) y las correcciones que dio el banco (ver README.md). 29 funciones del EXE: destructor con borrado de CDirectory, 12 funciones pequenas de CStreaming, CLinkList<CEntity*>::Insert, CPool<CPed,CCopPed>::GetAt, ProcessEntitiesInSectorList (dos argumentos), constructor de CPool<CVehicleStructure> y 12 ayudantes de la STL de MSVC 6 (std::fill, copy, copy_backward, uninitialized_copy). Colaboradores falseados: operator delete 0x8214BD y operator new[] 0x821195 (solo en la direccion del EXE), SetMissionDoesntRequireModel 0x409C90, RemoveModel 0x4089A0, CClock::GetIsTimeInRange 0x52CEE0 y RequestModel 0x4087E0 (identicos en el EXE y en el cuerpo de la DLL); ~CDirectory 0x5322D0 corre real; CreateRwObject y GetTimeInfo por vtables falsas. Fuera de los fixtures: punteros crudos que se desreferencian, listas o pools corruptos, solapes parciales dentro de un elemento de los ayudantes de la STL, indices de CPool::GetAt fuera de capacidad (la plantilla de la DLL tiene assert), colaboradores reales construidos por el EXE y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn189A/README.md"
     }
   ]
 }

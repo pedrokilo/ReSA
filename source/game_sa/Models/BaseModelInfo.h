@@ -252,6 +252,7 @@ public:
 
 
     RwObject* GetRwObject() const noexcept { assert(!m_pRwObject || RwObjectGetType(m_pRwObject) == GetRwModelType()); return m_pRwObject; }
+    RwObject* GetRwObjectNoChecks() const noexcept { return m_pRwObject; } // NOTSA: lectura cruda del campo +0x1C, sin assert ni GetRwModelType virtual (como el EXE en ProcessEntitiesInSectorList, 0x40C4EB)
     RpClump*  GetRpClump()  const noexcept { assert(!m_pRwObject || RwObjectGetType(m_pRwObject) == rpCLUMP); return reinterpret_cast<RpClump*>(m_pRwObject); }
     RpAtomic* GetRpAtomic() const noexcept { assert(!m_pRwObject || RwObjectGetType(m_pRwObject) == rpATOMIC); return reinterpret_cast<RpAtomic*>(m_pRwObject); }
 
