@@ -26,6 +26,21 @@ void RpUVAnimInjectHooks() {
 
     RH_ScopedGlobalInstall(_rpUVAnimCustomDataStreamGetSize, 0x7CC010);
     RH_ScopedGlobalInstall(RpUVAnimKeyFrameStreamGetSize, 0x7CC9D0);
+    RH_ScopedGlobalInstall(RpUVAnimLinearKeyFrameDataFromMatrix, 0x7CCC50);
+}
+
+static_assert(offsetof(RwMatrix, up) == 0x10 && offsetof(RwMatrix, pos) == 0x30 && sizeof(RpUVAnimLinearKeyFrameData) == 0x18);
+
+// 0x7CCC50 (clase RpUVAnim: la llama 0x7CC810, de este modulo; el listado la daba por RtAnim con confianza baja): copia seis floats de la matriz a los datos lineales
+// (uv[0] = right.x +0x00, uv[1] = right.y +0x04, uv[2] = up.x +0x10, uv[3] = up.y +0x14, uv[4] = pos.x +0x30, uv[5] = pos.y +0x34) como dwords (sin pasar por la x87) y devuelve data (EAX = primer argumento).
+RpUVAnimLinearKeyFrameData* RpUVAnimLinearKeyFrameDataFromMatrix(RpUVAnimLinearKeyFrameData* data, const RwMatrix* matrix) {
+    memcpy(&data->uv[0], &matrix->right.x, sizeof(RwReal));
+    memcpy(&data->uv[1], &matrix->right.y, sizeof(RwReal));
+    memcpy(&data->uv[2], &matrix->up.x, sizeof(RwReal));
+    memcpy(&data->uv[3], &matrix->up.y, sizeof(RwReal));
+    memcpy(&data->uv[4], &matrix->pos.x, sizeof(RwReal));
+    memcpy(&data->uv[5], &matrix->pos.y, sizeof(RwReal));
+    return data;
 }
 
 _rpUVAnimCustomData* _rpUVAnimCustomDataStreamRead(RwStream* stream) {

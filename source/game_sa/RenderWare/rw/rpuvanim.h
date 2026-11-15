@@ -516,6 +516,10 @@ RpMaterialUVAnimExists(const RpMaterial *material);
 RpMaterial *
 RpMaterialUVAnimApplyUpdate(RpMaterial *material);
 
+/* 0x7CCC50: copia (right.x, right.y, up.x, up.y, pos.x, pos.y) de una matriz a los seis floats de unos datos lineales de fotograma. Devuelve data. */
+RpUVAnimLinearKeyFrameData *
+RpUVAnimLinearKeyFrameDataFromMatrix(RpUVAnimLinearKeyFrameData *data, const RwMatrix *matrix);
+
 extern const RwV3d rpUVAnimPivot;
 extern const RwV3d rpUVAnimInvPivot;
 

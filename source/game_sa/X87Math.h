@@ -2394,3 +2394,9 @@ bool __cdecl Wv223TimeNotAfterCpp(int timeMs, float endTime);
 // CTheScripts::MoveSearchLightBetweenTwoPoints (0x493360): `target` = los dos primeros floats del objetivo del foco (+0x14, +0x18). Con la x87 (24 bits, sin guardados intermedios): a = target.x - x1, b = target.y - y1,
 // primera = b*b + a*a; c = target.x - x2, d = target.y - y2, segunda = d*d + c*c; `fcompp; test ah,41h; jp ..` -> verdadero solo si primera <= segunda (ordenado; con NaN es falso). Se avanza hacia el primer punto si es verdadero.
 bool __cdecl Wv223SearchLightFirstPointNotFartherCpp(const float* target, float x1, float y1, float x2, float y2);
+
+// Lote R2A (sin validar).
+// RtQuatSetupSlerpCache (0x7EC220, RtSlerp): copia raFrom = *from; coseno = producto escalar de los cuatro floats ((f1*t1 + f0*t0) + f2*t2) + f3*t3 (x87, 24 bits); si es negativo (limitado a 1) se usa -coseno y
+// raTo = -to, si no raTo = to (limitado a 1). omega = arcocoseno por la aproximacion de RW (RwSqrt 0x7EDB30 por direccion fija en las ramas |c| >= 0.5; casos especiales por los bits: |c| >= 1 -> 0 o pi, |c| <= 2^-29 -> pi/2).
+// nearlyZeroOm = (c >= 0x3F7FFF58); si es 0, raFrom y raTo se multiplican por 1 / (w + w^3 * poly(w^2)). `from`, `to` y `cache` son RtQuat / RtQuatSlerpCache (cache: 4 + 4 floats, omega +0x20, nearlyZeroOm +0x24). Ver X87Math.cpp.
+void __cdecl RtSlerpSetupCacheCpp(const float* from, const float* to, float* cache);

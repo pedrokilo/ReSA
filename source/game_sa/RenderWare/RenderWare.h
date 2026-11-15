@@ -75,3 +75,4 @@ void RpHAnimInjectHooks();
 void RpSkinInjectHooks();
 void RpUVAnimInjectHooks();
 void RtDictInjectHooks();
+void RtSlerpInjectHooks();       // lote R2A (sin validar): RtQuatSetupSlerpCache

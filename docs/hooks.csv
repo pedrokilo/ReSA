@@ -11788,3 +11788,11 @@ RtDict,RtDictStreamWrite,0x007CF490,1,0,0,S
 RtDict,RtDictSchemaForAllDictionaries,0x007CF5B0,1,0,0,S
 RwD3D9,RwD3D9GetCaps,0x007FAD20,1,0,0,S
 RwD3D9,_rwD3D9DeviceGetRestoreCallback,0x007FAE30,1,0,0,S
+RpUVAnim,RpUVAnimLinearKeyFrameDataFromMatrix,0x007CCC50,1,0,0,S
+RtAnim,RtAnimInitialize,0x007CCCA0,1,0,0,S
+RtAnim,RtAnimRegisterInterpolationScheme,0x007CCD40,1,0,0,S
+RtAnim,RtAnimAnimationCreate,0x007CCE40,1,0,0,S
+RtAnim,RtAnimAnimationDestroy,0x007CCF10,1,0,0,S
+RtAnim,RtAnimInterpolatorCreate,0x007CD520,1,0,0,S
+RtAnim,RtAnimInterpolatorAddAnimTime,0x007CD8D0,1,0,0,S
+RtSlerp,RtQuatSetupSlerpCache,0x007EC220,1,0,0,S

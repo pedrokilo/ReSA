@@ -21,28 +21,99 @@ END GENERATED HOOK STATUS */
 #include "rpdbgerr.h"
 #include "rtanim.h"
 
+static_assert(sizeof(RtAnimInterpolatorInfo) == 0x30 && offsetof(RtAnimInterpolatorInfo, interpKeyFrameSize) == 0x04 && offsetof(RtAnimInterpolatorInfo, animKeyFrameSize) == 0x08 && offsetof(RtAnimInterpolatorInfo, customDataSize) == 0x2C);
+static_assert(sizeof(RtAnimAnimation) == 0x18 && offsetof(RtAnimAnimation, duration) == 0x0C && offsetof(RtAnimAnimation, pFrames) == 0x10 && offsetof(RtAnimAnimation, customData) == 0x14);
+static_assert(sizeof(RtAnimInterpolator) == 0x4C && offsetof(RtAnimInterpolator, animCallBackTime) == 0x14 && offsetof(RtAnimInterpolator, maxInterpKeyFrameSize) == 0x20 && offsetof(RtAnimInterpolator, numNodes) == 0x2C);
+static_assert(offsetof(RtAnimInterpolator, parentAnimation) == 0x38 && offsetof(RtAnimInterpolator, keyFrameInterpolateCB) == 0x44 && sizeof(RtAnimInterpFrameHeader) == 8);
+
+namespace {
+// Tabla de esquemas de interpolacion registrados del EXE: 16 RtAnimInterpolatorInfo de 0x30 bytes en 0xC9B920 y su contador en 0xC97900 (la lista libre de animaciones
+// ocupa el dword siguiente a la tabla, 0xC9BC20).
+constexpr RwInt32 kMaxInterpolatorInfos = 16;
+RtAnimInterpolatorInfo* InterpolatorInfos() { return reinterpret_cast<RtAnimInterpolatorInfo*>(0xC9B920); }
+RwInt32& NumInterpolatorInfos() { return *reinterpret_cast<RwInt32*>(0xC97900); }
+
+// Plugin de motor de RtAnim: id 0x1B7; los errores se emiten con ese mismo identificador (RWERROR del SDK: pluginID literal del EXE, errorCode = _rwerror(codigo)).
+constexpr RwInt32 kRtAnimPluginID = 0x1B7;
+// Pistas de memoria del EXE para animaciones e interpoladores: 0x1B | rwMEMHINTDUR_EVENT (0x30000).
+constexpr RwUInt32 kRtAnimMemHint = 0x3001B;
+
+void RaiseRtAnimError(RwInt32 code) {
+    RwError error;
+    error.pluginID  = kRtAnimPluginID;
+    error.errorCode = _rwerror(code);
+    RwErrorSet(&error);
+}
+} // namespace
+
 void RtAnimAnimationFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
     ((void(__cdecl *)(RwInt32, RwInt32))0x7CCC80)(blockSize, numBlocksToPrealloc);
 }
 
+// 0x7CCCA0: registra el plugin de motor de RtAnim con RwEngineRegisterPlugin (0x7F2BB0): tamano 0, id 0x1B7, constructor 0x7CCCD0 (crea la lista libre de animaciones con los
+// parametros de 0x7CCC80) y destructor 0x7CCD10 (pone a 0 el contador de esquemas y destruye la lista libre); ambos por direccion fija (no reconstruidos). Devuelve (resultado > 0), con signo.
 RwBool RtAnimInitialize() {
-    return ((RwBool(__cdecl *)(void))0x7CCCA0)();
+    const RwInt32 result = RwEngineRegisterPlugin(0, kRtAnimPluginID,
+        reinterpret_cast<RwPluginObjectConstructor>(0x7CCCD0), reinterpret_cast<RwPluginObjectDestructor>(0x7CCD10));
+    return result > 0;
 }
 
+// 0x7CCD40: alta de un esquema de interpolacion en la tabla global (0xC9B920, maximo 16). Con la tabla llena: RWERROR(1) y FALSE; con el mismo typeID ya registrado: RWERROR(0) y FALSE
+// (el EXE mira primero el limite, luego busca el typeID); si no, copia los 0x30 bytes (12 dwords) al final de la tabla, incrementa el contador y devuelve TRUE.
 RwBool RtAnimRegisterInterpolationScheme(RtAnimInterpolatorInfo* interpolatorInfo) {
-    return ((RwBool(__cdecl *)(RtAnimInterpolatorInfo*))0x7CCD40)(interpolatorInfo);
+    const RwInt32 count = NumInterpolatorInfos();
+    if (count >= kMaxInterpolatorInfos) {
+        RaiseRtAnimError(1);
+        return FALSE;
+    }
+    const RwInt32 typeID = interpolatorInfo->typeID;
+    for (RwInt32 i = 0; i < count; ++i) {
+        if (InterpolatorInfos()[i].typeID == typeID) {
+            RaiseRtAnimError(0);
+            return FALSE;
+        }
+    }
+    memcpy(&InterpolatorInfos()[count], interpolatorInfo, sizeof(RtAnimInterpolatorInfo));
+    NumInterpolatorInfos() = count + 1;
+    return TRUE;
 }
 
 RtAnimInterpolatorInfo* RtAnimGetInterpolatorInfo(RwInt32 typeID) {
     return ((RtAnimInterpolatorInfo*(__cdecl *)(RwInt32))0x7CCDE0)(typeID);
 }
 
+// 0x7CCE40: busca el esquema por typeID en la tabla (0xC9B920); si no esta: RWERROR(2) y NULL. Reserva animKeyFrameSize * numFrames + customDataSize + 0x18 bytes
+// (RwMalloc del motor, pista 0x3001B; el EXE no comprueba el resultado ni inicializa los fotogramas) y rellena la cabecera: interpInfo, numFrames, flags, duration (copiado como dword),
+// pFrames = justo tras la cabecera y customData = tras los fotogramas si customDataSize > 0 (con signo), o NULL.
 RtAnimAnimation* RtAnimAnimationCreate(RwInt32 typeID, RwInt32 numFrames, RwInt32 flags, RwReal duration) {
-    return ((RtAnimAnimation*(__cdecl *)(RwInt32, RwInt32, RwInt32, RwReal))0x7CCE40)(typeID, numFrames, flags, duration);
+    const RwInt32 count = NumInterpolatorInfos();
+    RwInt32 index = 0;
+    while (index < count && InterpolatorInfos()[index].typeID != typeID) {
+        ++index;
+    }
+    if (index >= count) {
+        RaiseRtAnimError(2);
+        return nullptr;
+    }
+    RtAnimInterpolatorInfo* info = &InterpolatorInfos()[index];
+    auto* animation = static_cast<RtAnimAnimation*>(RwMalloc(static_cast<RwUInt32>(info->animKeyFrameSize * numFrames + info->customDataSize + static_cast<RwInt32>(sizeof(RtAnimAnimation))), kRtAnimMemHint));
+    animation->flags      = flags;
+    animation->numFrames  = numFrames;
+    animation->duration   = duration;
+    animation->interpInfo = info;
+    animation->pFrames    = animation + 1;
+    if (info->customDataSize > 0) {
+        animation->customData = static_cast<RwUInt8*>(animation->pFrames) + info->animKeyFrameSize * numFrames;
+    } else {
+        animation->customData = nullptr;
+    }
+    return animation;
 }
 
+// 0x7CCF10: RwFree del motor (RwEngineInstance + 0x138) sobre la animacion y devuelve TRUE.
 RwBool RtAnimAnimationDestroy(RtAnimAnimation* animation) {
-    return ((RwBool(__cdecl *)(RtAnimAnimation*))0x7CCF10)(animation);
+    RwFree(animation);
+    return TRUE;
 }
 
 RtAnimAnimation* RtAnimAnimationRead(const RwChar* filename) {
@@ -84,8 +155,30 @@ RwUInt32 RtAnimAnimationGetNumNodes(const RtAnimAnimation* animation) {
     return count;
 }
 
+// 0x7CD520: reserva numNodes * maxInterpKeyFrameSize + 0x4C bytes (RwMalloc del motor, pista 0x3001B, sin comprobar el resultado) y deja la cabecera sin animacion:
+// numNodes, currentInterpKeyFrameSize = maxInterpKeyFrameSize, todo a 0 salvo animCallBackTime = -1.0f, currentAnimKeyFrameSize = -1, isSubInterpolator = 0, offsetInParent = 0 y parentAnimation = el propio interpolador.
 RtAnimInterpolator* RtAnimInterpolatorCreate(RwInt32 numNodes, RwInt32 maxInterpKeyFrameSize) {
-    return ((RtAnimInterpolator*(__cdecl *)(RwInt32, RwInt32))0x7CD520)(numNodes, maxInterpKeyFrameSize);
+    auto* interpolator = static_cast<RtAnimInterpolator*>(RwMalloc(static_cast<RwUInt32>(numNodes * maxInterpKeyFrameSize + static_cast<RwInt32>(sizeof(RtAnimInterpolator))), kRtAnimMemHint));
+    interpolator->numNodes                  = numNodes;
+    interpolator->currentInterpKeyFrameSize = maxInterpKeyFrameSize;
+    interpolator->maxInterpKeyFrameSize     = maxInterpKeyFrameSize;
+    interpolator->pCurrentAnim              = nullptr;
+    interpolator->pNextFrame                = nullptr;
+    interpolator->currentTime               = 0.0f;
+    interpolator->pAnimCallBack             = nullptr;
+    interpolator->animCallBackTime          = -1.0f;
+    interpolator->pAnimCallBackData         = nullptr;
+    interpolator->pAnimLoopCallBack         = nullptr;
+    interpolator->pAnimLoopCallBackData     = nullptr;
+    interpolator->currentAnimKeyFrameSize   = -1;
+    interpolator->isSubInterpolator         = FALSE;
+    interpolator->offsetInParent            = 0;
+    interpolator->parentAnimation           = interpolator;
+    interpolator->keyFrameApplyCB           = nullptr;
+    interpolator->keyFrameInterpolateCB     = nullptr;
+    interpolator->keyFrameBlendCB           = nullptr;
+    interpolator->keyFrameAddCB             = nullptr;
+    return interpolator;
 }
 
 // 0x7CD590: `jmp [RwEngineInstance + 0x138]` con el mismo argumento, es decir RwFree del motor (memoryFuncs.rwfree) sobre la propia interpolacion.
@@ -215,8 +308,85 @@ RwBool RtAnimInterpolatorSubAnimTime(RtAnimInterpolator* anim, RwReal time) {
     return ((RwBool(__cdecl *)(RtAnimInterpolator*, RwReal))0x7CD760)(anim, time);
 }
 
+// 0x7CD8D0: avanza el tiempo de la animacion. Con time <= 0 (o NaN) no hace nada y devuelve TRUE. Si no: dispara la devolucion de llamada puntual (callbackFired) cuando
+// currentTime < animCallBackTime y currentTime + time >= animCallBackTime; guarda currentTime += time y, si supera la duracion, resta la duracion las veces que haga falta (acumulando callbackFired
+// si algun valor intermedio alcanza animCallBackTime), marca el bucle (looped) y reinicia con RtAnimInterpolatorSetCurrentAnim(anim, pCurrentAnim) restaurando el tiempo restante.
+// Sin pNextFrame tambien reinicia (conservando el tiempo). Luego avanza pNextFrame por los fotogramas con prevFrame->time <= currentTime: en cada paso busca (desde el nodo siguiente al ultimo, con vuelta a 0) el
+// fotograma interpolado cuyo keyFrame2 es prevFrame, le pone keyFrame1 = keyFrame2 y keyFrame2 = pNextFrame (sin limite de busqueda, como el EXE). Despues llama a keyFrameInterpolateCB(interp, kf1, kf2, currentTime,
+// customData) por nodo, a pAnimCallBack(anim, data) si se disparo (lo anula si devuelve NULL) y a pAnimLoopCallBack(anim, data) si hubo bucle (lo anula si devuelve NULL). Siempre devuelve TRUE.
+// Aritmetica en float: la x87 del EXE (24 bits) redondea cada operacion igual que un float; las comparaciones son ordenadas (falsas con NaN), como `fnstsw + test ah,41h`.
 RwBool RtAnimInterpolatorAddAnimTime(RtAnimInterpolator* anim, RwReal time) {
-    return ((RwBool(__cdecl *)(RtAnimInterpolator*, RwReal))0x7CD8D0)(anim, time);
+    if (!(time > 0.0f)) {
+        return TRUE;
+    }
+    RtAnimAnimation* const currentAnim = anim->pCurrentAnim;
+    const RwReal callbackTime = anim->animCallBackTime;
+    const RwReal duration     = currentAnim->duration;
+    const RwInt32 numNodes    = anim->numNodes;
+    bool looped = false;
+
+    bool callbackFired = false;
+    if (anim->currentTime < callbackTime) {
+        callbackFired = (time + anim->currentTime) >= callbackTime;
+    }
+
+    RwReal newTime = time + anim->currentTime;
+    anim->currentTime = newTime;
+    if (newTime > duration) {
+        looped = true;
+        do {
+            newTime = newTime - duration;
+            callbackFired |= (newTime >= callbackTime);
+        } while (newTime > duration);
+        anim->currentTime = newTime;
+        RtAnimInterpolatorSetCurrentAnim(anim, currentAnim);
+        anim->currentTime = newTime;
+    }
+
+    if (!anim->pNextFrame) {
+        const RwReal keptTime = anim->currentTime;
+        RtAnimInterpolatorSetCurrentAnim(anim, currentAnim);
+        anim->currentTime = keptTime;
+    }
+
+    uint8* const endOfFrames = static_cast<uint8*>(currentAnim->pFrames) + currentAnim->numFrames * anim->currentAnimKeyFrameSize;
+    RwInt32 nodeIndex = 0;
+    while (static_cast<uint8*>(anim->pNextFrame) < endOfFrames) {
+        auto* const prevFrame = *reinterpret_cast<RtAnimKeyFrameHeader**>(anim->pNextFrame);
+        if (prevFrame->time > anim->currentTime) {
+            break;
+        }
+        RtAnimInterpFrameHeader* interpFrame;
+        do {
+            interpFrame = reinterpret_cast<RtAnimInterpFrameHeader*>(reinterpret_cast<uint8*>(anim + 1) + anim->currentInterpKeyFrameSize * nodeIndex);
+            ++nodeIndex;
+            if (nodeIndex >= numNodes) {
+                nodeIndex = 0;
+            }
+        } while (interpFrame->keyFrame2 != prevFrame);
+        interpFrame->keyFrame1 = interpFrame->keyFrame2;
+        interpFrame->keyFrame2 = static_cast<RtAnimKeyFrameHeader*>(anim->pNextFrame);
+        anim->pNextFrame = static_cast<uint8*>(anim->pNextFrame) + anim->currentAnimKeyFrameSize;
+    }
+
+    uint8* interpFrame = reinterpret_cast<uint8*>(anim + 1);
+    for (RwInt32 node = numNodes; node > 0; --node) {
+        auto* const header = reinterpret_cast<RtAnimInterpFrameHeader*>(interpFrame);
+        anim->keyFrameInterpolateCB(interpFrame, header->keyFrame1, header->keyFrame2, anim->currentTime, anim->pCurrentAnim->customData);
+        interpFrame += anim->currentInterpKeyFrameSize;
+    }
+
+    if (callbackFired && anim->pAnimCallBack) {
+        if (!anim->pAnimCallBack(anim, anim->pAnimCallBackData)) {
+            anim->pAnimCallBack = nullptr;
+        }
+    }
+    if (looped && anim->pAnimLoopCallBack) {
+        if (!anim->pAnimLoopCallBack(anim, anim->pAnimLoopCallBackData)) {
+            anim->pAnimLoopCallBack = nullptr;
+        }
+    }
+    return TRUE;
 }
 
 RwBool RtAnimInterpolatorSetCurrentTime(RtAnimInterpolator* anim, RwReal time) {
@@ -251,7 +421,13 @@ void RtAnim::InjectHooks() {
     RH_ScopedNamespaceName("RtAnim");
     RH_ScopedCategory("Plugins");
 
+    RH_ScopedGlobalInstall(RtAnimInitialize, 0x7CCCA0);
+    RH_ScopedGlobalInstall(RtAnimRegisterInterpolationScheme, 0x7CCD40);
+    RH_ScopedGlobalInstall(RtAnimAnimationCreate, 0x7CCE40);
+    RH_ScopedGlobalInstall(RtAnimAnimationDestroy, 0x7CCF10);
     RH_ScopedGlobalInstall(RtAnimAnimationGetNumNodes, 0x7CD4F0);
+    RH_ScopedGlobalInstall(RtAnimInterpolatorCreate, 0x7CD520);
     RH_ScopedGlobalInstall(RtAnimInterpolatorDestroy, 0x7CD590);
     RH_ScopedGlobalInstall(RtAnimInterpolatorSetCurrentAnim, 0x7CD5A0);
+    RH_ScopedGlobalInstall(RtAnimInterpolatorAddAnimTime, 0x7CD8D0);
 }

@@ -19138,3 +19138,177 @@ __declspec(noinline) bool __cdecl Wv223SearchLightFirstPointNotFartherCpp(const 
     return first <= second;
 }
 #pragma float_control(pop)
+
+// --- Lote R2A (sin validar) ---
+// RtQuatSetupSlerpCache (0x7EC220, RtSlerp): ver X87Math.h. Todo en doubles con `precise` para conservar el orden del EXE; la x87 del juego trabaja a 24 bits, asi que cada
+// operacion se redondea como un float. Las constantes son las del .rdata/.data del EXE (se escriben por sus bits).
+#pragma float_control(precise, on, push)
+namespace {
+constexpr float RtK(unsigned int bits) { return std::bit_cast<float>(bits); }
+// Conversion de bits en tiempo de ejecucion con memcpy (sin llamadas a std::bit_cast dentro del cuerpo x87).
+__forceinline unsigned int RtBits(float value) { unsigned int bits; memcpy(&bits, &value, sizeof(bits)); return bits; }
+__forceinline float RtFloat(unsigned int bits) { float value; memcpy(&value, &bits, sizeof(value)); return value; }
+constexpr double kRtOne      = RtK(0x3F800000u); // 0x858624
+constexpr double kRtHalf     = RtK(0x3F000000u); // 0x858B8C
+constexpr double kRtPi       = RtK(0x40490FDAu); // 0x874E64
+constexpr double kRtPiOver2  = RtK(0x3FC90FDAu); // 0x874E68
+constexpr double kRtPiOver2L = RtK(0x33A22168u); // 0x874E6C
+constexpr double kRtQ4 = RtK(0x3D9DC62Eu), kRtQ3 = RtK(0x3F303361u), kRtQ2 = RtK(0x4001572Du), kRtQ1 = RtK(0x4019D139u); // 0x874E7C, 78, 74, 70
+constexpr double kRtP5 = RtK(0x3811EF08u), kRtP4 = RtK(0x3A4F7F04u), kRtP3 = RtK(0x3D241146u), kRtP2 = RtK(0x3E4E0AA8u), kRtP1 = RtK(0x3EA6B090u); // 0x874E90, 8C, 88, 84, 80
+constexpr double kRtP0 = RtK(0x3E2AAAABu);       // 0x85F0A0
+constexpr double kRtNearOne = RtK(0x3F7FFF58u);  // 0x871258
+constexpr double kRtS5 = RtK(0x2F2EC9D3u), kRtS4 = RtK(0x32D72F34u), kRtS3 = RtK(0x3638EF1Bu), kRtS2 = RtK(0x39500D01u), kRtS1 = RtK(0x3C088889u); // 0x86D2B0, AC, A8, A4, 0x864E0C
+
+// p(z) del arcocoseno de RW (polinomio de la rama |x| < 1): (((((p5 * z + p4) * z - p3) * z + p2) * z - p1) * z + p0) * z.
+__forceinline double RtAcosP(double z) {
+    double a = kRtP5 * z;
+    a = a + kRtP4;
+    a = a * z;
+    a = a - kRtP3;
+    a = a * z;
+    a = a + kRtP2;
+    a = a * z;
+    a = a - kRtP1;
+    a = a * z;
+    a = a + kRtP0;
+    a = a * z;
+    return a;
+}
+// q(z) = ((((q4 * z - q3) * z + q2) * z - q1) * z + 1.
+__forceinline double RtAcosQ(double z) {
+    double a = z * kRtQ4;
+    a = a - kRtQ3;
+    a = a * z;
+    a = a + kRtQ2;
+    a = a * z;
+    a = a - kRtQ1;
+    a = a * z;
+    a = a + kRtOne;
+    return a;
+}
+} // namespace
+
+__declspec(noinline) void __cdecl RtSlerpSetupCacheCpp(const float* from, const float* to, float* cache) {
+    const unsigned int* const fromBits = reinterpret_cast<const unsigned int*>(from);
+    const unsigned int* const toBits   = reinterpret_cast<const unsigned int*>(to);
+    unsigned int* const cacheBits      = reinterpret_cast<unsigned int*>(cache);
+    // raFrom = *from (4 dwords)
+    cacheBits[0] = fromBits[0];
+    cacheBits[1] = fromBits[1];
+    cacheBits[2] = fromBits[2];
+    cacheBits[3] = fromBits[3];
+
+    // producto escalar en el orden del EXE: ((f.y*t.y + f.x*t.x) + f.z*t.z) + f.w*t.w
+    double dot = double(from[1]) * double(to[1]);
+    dot = dot + double(from[0]) * double(to[0]);
+    dot = dot + double(from[2]) * double(to[2]);
+    dot = dot + double(from[3]) * double(to[3]);
+    volatile float dotStored = float(dot);
+    float c = dotStored;
+    if (dot < 0.0) {
+        // coseno negativo: se toma -dot (1 si dot < -1) y raTo = -to
+        if (double(c) < -1.0) {
+            c = 1.0f;
+        } else {
+            c = -c;
+        }
+        cache[7] = -to[3];
+        cache[4] = -to[0];
+        cache[5] = -to[1];
+        cache[6] = -to[2];
+    } else {
+        if (double(c) > 1.0) {
+            c = 1.0f;
+        }
+        cacheBits[4] = toBits[0];
+        cacheBits[5] = toBits[1];
+        cacheBits[6] = toBits[2];
+        cacheBits[7] = toBits[3];
+    }
+
+    // omega = acos(c) por la aproximacion de RW (como fdlibm e_acosf); se decide por los bits de c
+    const int bits = static_cast<int>(RtBits(c));
+    const int magnitude = bits & 0x7FFFFFFF;
+    if (magnitude >= 0x3F800000) {
+        cacheBits[8] = (bits > 0) ? 0u : 0x40490FDBu;
+    } else if (magnitude >= 0x3F000000) {
+        auto* const rwSqrt = reinterpret_cast<float(__cdecl*)(float)>(0x7EDB30);
+        if (bits >= 0) {
+            // z = (1 - c) * 0.5; s = RwSqrt(z); df = s con los 12 bits bajos a 0; w = r*s + (z - df*df)/(df + s); omega = 2*(df + w)
+            volatile float zStored = float((kRtOne - double(c)) * kRtHalf);
+            const float z = zStored;
+            const double s = double(rwSqrt(z));
+            volatile float sStored = float(s);
+            volatile unsigned int dfBits = RtBits(float(sStored)) & 0xFFFFF000u;
+            const double df = double(RtFloat(unsigned int(dfBits)));
+            const double p = RtAcosP(double(z));
+            const double q = RtAcosQ(double(z));
+            const double r = p / q;
+            const double rs = r * s;
+            const double numerator = double(z) - df * df;
+            const double cc = numerator / (df + s);
+            const double w = rs + cc;
+            double omega = w + df;
+            omega = omega + omega;
+            cache[8] = float(omega);
+        } else {
+            // z = (c + 1) * 0.5; s = RwSqrt(z); omega = pi - 2 * (s + (r*s - pio2_lo))
+            volatile float zStored = float((double(c) + kRtOne) * kRtHalf);
+            const float z = zStored;
+            const double s = double(rwSqrt(z));
+            const double p = RtAcosP(double(z));
+            const double q = RtAcosQ(double(z));
+            const double r = p / q;
+            double omega = r * s;
+            omega = omega - kRtPiOver2L;
+            omega = omega + s;
+            omega = omega + omega;
+            omega = kRtPi - omega;
+            cache[8] = float(omega);
+        }
+    } else if (magnitude <= 0x23000000) {
+        cacheBits[8] = 0x3FC90FDBu;
+    } else {
+        // |c| pequeno: omega = pio2_hi - (c - (pio2_lo - c * r(c*c)))
+        const double z = double(c) * double(c);
+        const double p = RtAcosP(z);
+        const double q = RtAcosQ(z);
+        const double r = p / q;
+        double omega = r * double(c);
+        omega = kRtPiOver2L - omega;
+        omega = double(c) - omega;
+        omega = kRtPiOver2 - omega;
+        cache[8] = float(omega);
+    }
+
+    // nearlyZeroOm = (c >= 0x3F7FFF58); si no, se escalan raFrom y raTo por 1 / (w + w^3 * poly(w^2)), con w = omega ya guardado como float
+    const bool nearlyZero = double(c) >= kRtNearOne;
+    cacheBits[9] = nearlyZero ? 1u : 0u;
+    if (!nearlyZero) {
+        const double w = double(cache[8]);
+        const double w2 = w * w;
+        double t = kRtS5 * w2;
+        t = t - kRtS4;
+        t = t * w2;
+        t = t + kRtS3;
+        t = t * w2;
+        t = t - kRtS2;
+        t = t * w2;
+        t = t + kRtS1;
+        t = t * w2;
+        t = t - kRtP0;
+        const double w3 = w2 * w;
+        t = t * w3;
+        const double sum = w + t;
+        const double inv = kRtOne / sum;
+        cache[3] = float(double(cache[3]) * inv);
+        cache[0] = float(double(cache[0]) * inv);
+        cache[1] = float(double(cache[1]) * inv);
+        cache[2] = float(double(cache[2]) * inv);
+        cache[7] = float(double(cache[7]) * inv);
+        cache[4] = float(double(cache[4]) * inv);
+        cache[5] = float(double(cache[5]) * inv);
+        cache[6] = float(double(cache[6]) * inv);
+    }
+}
+#pragma float_control(pop)
