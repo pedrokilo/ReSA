@@ -233,6 +233,7 @@
 #include "ProtectionStub.h"
 #include "RenderWare/D3D9RasterDriver.h"
 #include "Plugins/JPegCompressPlugin/LibJpegCompress.h"
+#include "Plugins/JPegCompressPlugin/LibJpegDecompress.h"
 #include "Attractors/PedTriggerScriptAttractor.h"
 #include "Attractors/PedLookAtAttractor.h"
 #include "Attractors/PedScriptedAttractor.h"
@@ -754,6 +755,8 @@ void InjectHooksMain() {
     CProtectionStub::InjectHooks();
     RwD3D9RasterDriver::InjectHooks();     // lote 224A (sin validar)
     LibJpegCompressEncode::InjectHooks();  // lote 230A (sin validar)
+    LibJpegCompress::InjectHooks();        // lote 230A (sin validar)
+    LibJpegDecompress::InjectHooks();      // lote 233A (sin validar)
     D3D9RasterFormat::InjectHooks();       // lote 225A (sin validar)
     CPedSeatAttractor::InjectHooks();
     CPedStopAttractor::InjectHooks();
