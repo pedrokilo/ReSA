@@ -11345,7 +11345,6 @@ FxInfoEmLife_c,ScalarDeletingDestructor,0x004A6CA0,1,0,0,S
 FxInfoEmLife_c,Destructor,0x004A6CC0,1,0,0,S
 FxInfoEmPos_c,ScalarDeletingDestructor,0x004A6D10,1,0,0,S
 FxInfoEmPos_c,Destructor,0x004A6D30,1,0,0,S
-FxInfoEmPos_c,DestructorBody,0x004A6D30,1,0,0,S
 FxInfoEmWeather_c,ScalarDeletingDestructor,0x004A6D80,1,0,0,S
 FxInfoEmWeather_c,DestructorBody,0x004A6DA0,1,0,0,S
 FxInfoEmRotation_c,ScalarDeletingDestructor,0x004A6DF0,1,0,0,S

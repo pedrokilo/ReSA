@@ -8,6 +8,7 @@ void FxInfoSpriteRect_c::InjectHooks() {
     RH_ScopedCategory("Fx");
 
     RH_ScopedInstall(Constructor, 0x004A60B0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A76A0);
 }
 
 // 0x4A60B0
@@ -43,13 +44,6 @@ void FxInfoSpriteRect_c::GetValue(float currentTime, float mult, float totalTime
     render.m_fSpriteRight  = values[3];
 }
 
-// Lote 217A (sin validar): ver reversing/PendienteValidar/217A.md
-void FxInfoSpriteRect_c::InjectHooks() {
-    RH_ScopedClass(FxInfoSpriteRect_c);
-    RH_ScopedCategory("Fx");
-
-    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A76A0);
-}
 
 
 // 0x4A76A0 (27 bytes, thiscall, un argumento de pila, `ret 4`): destructor con borrado de FxInfoSpriteRect_c del EXE (ranura 0 de su vtable). `push esi; mov esi,ecx; call 0x4A76C0; test byte [esp+8],1; je ..;

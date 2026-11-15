@@ -8,6 +8,8 @@ void FxInfoGroundCollide_c::InjectHooks() {
     RH_ScopedCategory("Fx");
 
     RH_ScopedInstall(Constructor, 0x004A5980);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A7090);
+    RH_ScopedInstall(DestructorBody, 0x4A70B0);
 }
 
 // 0x4A5980
@@ -62,14 +64,6 @@ void FxInfoGroundCollide_c::GetValue(float currentTime, float mult, float totalT
     movement.m_Vel = values[1] * out.Magnitude() * out;
 }
 
-// Lote 217A (sin validar): ver reversing/PendienteValidar/217A.md
-void FxInfoGroundCollide_c::InjectHooks() {
-    RH_ScopedClass(FxInfoGroundCollide_c);
-    RH_ScopedCategory("Fx");
-
-    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A7090);
-    RH_ScopedInstall(DestructorBody, 0x4A70B0);
-}
 
 // 0x4A70B0 (67 bytes con marco SEH que solo desenrolla y aqui se omite; thiscall sin argumentos, `ret`): cuerpo del destructor de FxInfoGroundCollide_c del EXE. Como el original: destruye el miembro +8
 // (FxInterpInfo32_c, 0x4A89B0: solo deja la vtable de FxInterpInfo_c, 0x85A968) y despues deja la vtable de la base FxInfo_c (0x85A7DC). El destructor generado por el compilador dejaria vtables propias

@@ -9,6 +9,8 @@ void FxInfoFloat_c::InjectHooks() {
     RH_ScopedCategory("Fx");
 
     RH_ScopedInstall(Constructor, 0x004A5DA0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A74E0);
+    RH_ScopedInstall(DestructorBody, 0x4A7500);
 }
 
 // 0x4A5DA0
@@ -34,14 +36,6 @@ void FxInfoFloat_c::GetValue(float currentTime, float mult, float totalTime, flo
     static_cast<MovementInfo_t*>(info)->m_bHasFloatInfo = true;
 }
 
-// Lote 217A (sin validar): ver reversing/PendienteValidar/217A.md
-void FxInfoFloat_c::InjectHooks() {
-    RH_ScopedClass(FxInfoFloat_c);
-    RH_ScopedCategory("Fx");
-
-    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A74E0);
-    RH_ScopedInstall(DestructorBody, 0x4A7500);
-}
 
 // 0x4A7500 (67 bytes con marco SEH que solo desenrolla y aqui se omite; thiscall sin argumentos, `ret`): cuerpo del destructor de FxInfoFloat_c del EXE. Como el original: destruye el miembro +8
 // (FxInterpInfoFloat_c, 0x4A8460: solo deja la vtable de FxInterpInfo_c, 0x85A968) y despues deja la vtable de la base FxInfo_c (0x85A7DC). El destructor generado por el compilador dejaria vtables propias

@@ -9,6 +9,8 @@ void FxInfoUnderwater_c::InjectHooks() {
     RH_ScopedCategory("Fx");
 
     RH_ScopedInstall(Constructor, 0x004A5E20);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A7550);
+    RH_ScopedInstall(DestructorBody, 0x4A7570);
 }
 
 // 0x4A5E20
@@ -33,14 +35,6 @@ void FxInfoUnderwater_c::GetValue(float currentTime, float mult, float totalTime
     static_cast<MovementInfo_t*>(info)->m_bHasUnderwaterInfo = true;
 }
 
-// Lote 217A (sin validar): ver reversing/PendienteValidar/217A.md
-void FxInfoUnderwater_c::InjectHooks() {
-    RH_ScopedClass(FxInfoUnderwater_c);
-    RH_ScopedCategory("Fx");
-
-    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A7550);
-    RH_ScopedInstall(DestructorBody, 0x4A7570);
-}
 
 // 0x4A7570 (67 bytes con marco SEH que solo desenrolla y aqui se omite; thiscall sin argumentos, `ret`): cuerpo del destructor de FxInfoUnderwater_c del EXE. Como el original: destruye el miembro +8
 // (FxInterpInfoU255_c, 0x4A87F0: solo deja la vtable de FxInterpInfo_c, 0x85A968) y despues deja la vtable de la base FxInfo_c (0x85A7DC). El destructor generado por el compilador dejaria vtables propias
