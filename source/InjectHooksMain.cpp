@@ -670,6 +670,7 @@ void RpWorldInjectHooks227A();
 void RpWorldInjectHooks228A(); // rpworld.cpp (lote 228A)
 void RpWorldInjectHooks229A();
 void RpWorldInjectHooks230A();
+void ExeLibJpegInjectHooks232A(); // JPegCompress.cpp (lote 232A, libjpeg 6b del EXE)
 void RpAnisotInjectHooks();
 void CMatrixInjectHooksLote101A(); // Matrix.cpp (lote 101A)
 void CMatrixInjectHooksLote103A(); // Matrix.cpp (lote 103A)
@@ -742,6 +743,7 @@ void InjectHooksMain() {
     RpWorldInjectHooks228A();
     RpWorldInjectHooks229A();
     RpWorldInjectHooks230A();
+    ExeLibJpegInjectHooks232A();
     RpAnisotInjectHooks();
     LibJpegCompress::InjectHooks();        // lote 231A (sin validar)
     CCam::InjectHooks();
