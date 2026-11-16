@@ -37,14 +37,18 @@ auto& CurrentDepthStencilSurface  = StaticRef<void*>(0xC9808C);
 auto& D3D9Device                  = StaticRef<void*>(0xC97C28);
 
 struct TextureGlobalsLayout {   // solo los campos que usan estas funciones (batextur.c de RW 3.6)
-    uint8 pad0[0x1C];
+    uint8 pad00[0x08];
+    RwFreeList* textureFreeList; // +0x08 (lista libre de RwTexture; lote R7A)
+    uint8 pad0[0x10];
     RwBool mipmapping;          // +0x1C
     RwBool autoMipmapping;      // +0x20
     uint8 pad1[0x08];
     RwTextureCallBackMipmapGeneration mipmapGenerationCallBack; // +0x2C
+    RwTextureCallBackMipmapName mipmapNameCallBack;             // +0x30 (lote R7A)
 };
 static_assert(offsetof(TextureGlobalsLayout, mipmapping) == 0x1C && offsetof(TextureGlobalsLayout, autoMipmapping) == 0x20
            && offsetof(TextureGlobalsLayout, mipmapGenerationCallBack) == 0x2C);
+static_assert(offsetof(TextureGlobalsLayout, textureFreeList) == 0x08 && offsetof(TextureGlobalsLayout, mipmapNameCallBack) == 0x30);
 
 struct RasterGlobalsLayout {    // pila de contextos de RwRasterPushContext/PopContext (bardevice/baraster.c)
     RwRaster* rasterStack[10];  // +0x00
@@ -56,7 +60,7 @@ struct D3D9DynamicVertexBuffer { // nodo de la lista 0xC97B8C (0x14 bytes)
     uint32 size;                 // +0x00
     uint32 inUse;                // +0x04 (RwD3D9DynamicVertexBufferDestroy lo pone a 0)
     void*  vertexBuffer;         // +0x08 IDirect3DVertexBuffer9*
-    uint32 used;                 // +0x0C (RwD3D9DynamicVertexBufferDestroy lo pone a 0)
+    void** owner;                // +0x0C direccion de la variable del llamador que guarda el bufer (RwD3D9DynamicVertexBufferDestroy la pone a 0)
     D3D9DynamicVertexBuffer* next; // +0x10
 };
 static_assert(sizeof(D3D9DynamicVertexBuffer) == 0x14 && offsetof(D3D9DynamicVertexBuffer, next) == 0x10);
@@ -828,16 +832,224 @@ void RwD3D9VertexBufferManagerChangeDefaultSize(RwUInt32 defaultSize) {
     ((void(__cdecl *)(RwUInt32))0x7F57F0)(defaultSize);
 }
 
-RwBool RwD3D9CreateVertexBuffer(RwUInt32 stride, RwUInt32 size, void* vertexBuffer, RwUInt32* offset) {
-    return ((RwBool(__cdecl *)(RwUInt32, RwUInt32, void*, RwUInt32*))0x7F5500)(stride, size, vertexBuffer, offset);
+// --- Lote R7A (sin validar): gestor de buferes de vertices D3D9 de RenderWare (0x7F5500..0x7F5A00; el listado dejaba 0x7F5800..0x7F5940 en RpSkin/D3DX9 con confianza baja) ---
+// Estado del EXE (direcciones): 0xC97B7C lista de grupos por paso (stride); 0xC97B80 / 0xC97B84 / 0xC97B88 / 0xC97B90 listas libres de grupos, bloques libres, entradas de bufer y nodos dinamicos;
+// 0x8E2414 tamano por defecto de un bufer gestionado (RwD3D9VertexBufferManagerChangeDefaultSize); 0xC97B8C lista de buferes dinamicos; 0xC97B94 indice del bufer dinamico actual;
+// 0xC97B98[4] posiciones, 0xC97BA8[4] tamanos y 0xC97BB8[4] buferes dinamicos activos; 0xC9BF1C = D3DCAPS9.DevCaps (bit 0x10000 = HWTRANSFORMANDLIGHT: buferes dinamicos en pool DEFAULT).
+namespace {
+struct VertexBufferFreeBlock {  // 0x14 bytes (lista libre 0xC97B84): tramo libre de un bufer gestionado, lista doble por grupo
+    uint32 offset;              // +0x00
+    uint32 size;                // +0x04
+    void*  vertexBuffer;        // +0x08
+    VertexBufferFreeBlock* next; // +0x0C
+    VertexBufferFreeBlock* prev; // +0x10
+};
+struct VertexBufferEntry {      // 8 bytes (lista libre 0xC97B88): un bufer D3D creado para el grupo
+    void* vertexBuffer;         // +0x00
+    VertexBufferEntry* next;    // +0x04
+};
+struct VertexBufferGroup {      // 0x10 bytes (lista libre 0xC97B80): un paso (stride)
+    uint32 stride;              // +0x00
+    VertexBufferFreeBlock* freeBlocks; // +0x04
+    VertexBufferEntry* vertexBuffers;  // +0x08
+    VertexBufferGroup* next;    // +0x0C
+};
+static_assert(sizeof(VertexBufferFreeBlock) == 0x14 && sizeof(VertexBufferEntry) == 8 && sizeof(VertexBufferGroup) == 0x10);
+
+auto& VertexBufferGroups           = StaticRef<VertexBufferGroup*>(0xC97B7C);
+auto& VertexBufferGroupFreeList    = StaticRef<RwFreeList*>(0xC97B80);
+auto& VertexBufferBlockFreeList    = StaticRef<RwFreeList*>(0xC97B84);
+auto& VertexBufferEntryFreeList    = StaticRef<RwFreeList*>(0xC97B88);
+auto& DynamicVertexBufferFreeList  = StaticRef<RwFreeList*>(0xC97B90);
+auto& VertexBufferDefaultSize      = StaticRef<uint32>(0x8E2414);
+auto& DynamicVertexBufferCurrent   = StaticRef<uint32>(0xC97B94);
+uint32 (&DynamicVertexBufferPosition)[4] = *reinterpret_cast<uint32(*)[4]>(0xC97B98);
+uint32 (&DynamicVertexBufferSize)[4]     = *reinterpret_cast<uint32(*)[4]>(0xC97BA8);
+void*  (&DynamicVertexBufferActive)[4]   = *reinterpret_cast<void*(*)[4]>(0xC97BB8);
+auto& D3D9DeviceDevCaps            = StaticRef<uint32>(0xC9BF1C);
+
+constexpr size_t kSlotDeviceCreateVertexBuffer = 26;    // IDirect3DDevice9::CreateVertexBuffer (+0x68)
+constexpr uint32 kDevCapsHardwareTransformAndLight = 0x10000;
+// RwEngineInstance + 0x144 / +0x148: memoryAlloc / memoryFree (RwFreeListAlloc / RwFreeListFree).
+static_assert(offsetof(RwGlobals, memoryAlloc) == 0x144 && offsetof(RwGlobals, memoryFree) == 0x148);
+} // namespace
+
+// 0x7F5500 (lote R7A, sin validar): (stride, size, void** vertexBuffer, uint32* offset). Busca el grupo del paso (lo crea con la lista libre 0xC97B80, pista 0x30411, y lo pone al principio de la lista
+// 0xC97B7C) y en el un tramo libre con size >= el pedido (el primero de la lista). Si no hay: crea un bloque (lista 0xC97B84) de (defaultSize + stride - 1) / stride * stride bytes (el pedido si es >= ese
+// valor), con CreateVertexBuffer(longitud, D3DUSAGE_WRITEONLY 8, FVF 0, D3DPOOL_MANAGED 1); si el HRESULT es distinto de 0 libera el bloque y devuelve FALSE; si no lo pone al principio de los libres
+// y registra el bufer en una entrada (0xC97B88). Entrega bufer y offset del tramo, avanza su offset y reduce su tamano; si queda a 0 lo saca de la lista y lo libera. Devuelve TRUE.
+RwBool RwD3D9CreateVertexBuffer(RwUInt32 stride, RwUInt32 size, void** vertexBuffer, RwUInt32* offset) {
+    VertexBufferGroup* group = VertexBufferGroups;
+    while (group != nullptr && stride != group->stride) {
+        group = group->next;
+    }
+    if (group == nullptr) {
+        group = static_cast<VertexBufferGroup*>(RwFreeListAlloc(VertexBufferGroupFreeList, 0x30411));
+        group->stride        = stride;
+        group->freeBlocks    = nullptr;
+        group->vertexBuffers = nullptr;
+        group->next          = VertexBufferGroups;
+        VertexBufferGroups   = group;
+    }
+    VertexBufferFreeBlock* block = group->freeBlocks;
+    while (block != nullptr && block->size < size) {
+        block = block->next;
+    }
+    if (block == nullptr) {
+        block = static_cast<VertexBufferFreeBlock*>(RwFreeListAlloc(VertexBufferBlockFreeList, 0x30411));
+        block->offset = 0;
+        const uint32 rounded = (VertexBufferDefaultSize + stride - 1) / stride * stride;
+        block->size = rounded;
+        if (!(size < rounded)) {
+            block->size = size;
+        }
+        if (ComCall<kSlotDeviceCreateVertexBuffer, int32>(D3D9Device, block->size, 8u, 0u, 1u, &block->vertexBuffer, static_cast<void*>(nullptr)) != 0) {
+            RwFreeListFree(VertexBufferBlockFreeList, block);
+            return FALSE;
+        }
+        block->prev = nullptr;
+        block->next = group->freeBlocks;
+        if (group->freeBlocks != nullptr) {
+            group->freeBlocks->prev = block;
+        }
+        group->freeBlocks = block;
+        VertexBufferEntry* const entry = static_cast<VertexBufferEntry*>(RwFreeListAlloc(VertexBufferEntryFreeList, 0x30411));
+        entry->vertexBuffer = block->vertexBuffer;
+        entry->next         = group->vertexBuffers;
+        group->vertexBuffers = entry;
+    }
+    *vertexBuffer = block->vertexBuffer;
+    *offset = block->offset;
+    block->offset += size;
+    block->size   -= size;
+    if (!(block->size > 0)) {
+        if (block->prev != nullptr) {
+            block->prev->next = block->next;
+        }
+        if (block->next != nullptr) {
+            block->next->prev = block->prev;
+        }
+        if (group->freeBlocks == block) {
+            group->freeBlocks = block->next;
+        }
+        RwFreeListFree(VertexBufferBlockFreeList, block);
+    }
+    return TRUE;
 }
 
+// 0x7F56A0 (lote R7A, sin validar): (stride, size, vertexBuffer, offset). Devuelve un tramo al grupo de su paso (si no hay grupo no hace nada). Busca en los tramos libres del mismo bufer uno contiguo (el termina
+// donde empieza el devuelto, o el devuelto termina donde empieza el): si no hay crea un tramo nuevo (0xC97B84, pista 0x30411) al principio de la lista. Si hay lo ensancha (por detras: size +=; por delante:
+// offset = el devuelto y size +=) y despues repite desde el principio de la lista: mientras haya otro tramo del mismo bufer contiguo al resultante, saca el resultante de la lista, lo libera y fusiona sus
+// limites en el vecino. No libera los buferes D3D. Los nodos de la lista se tratan como en el EXE (sin comprobar solapes).
 void RwD3D9DestroyVertexBuffer(RwUInt32 stride, RwUInt32 size, void* vertexBuffer, RwUInt32 offset) {
-    ((void(__cdecl *)(RwUInt32, RwUInt32, void*, RwUInt32))0x7F56A0)(stride, size, vertexBuffer, offset);
+    VertexBufferGroup* group = VertexBufferGroups;
+    while (group != nullptr && stride != group->stride) {
+        group = group->next;
+    }
+    if (group == nullptr) {
+        return;
+    }
+    VertexBufferFreeBlock* target = group->freeBlocks;
+    while (target != nullptr) {
+        if (target->vertexBuffer == vertexBuffer && (target->offset + target->size == offset || size + offset == target->offset)) {
+            break;
+        }
+        target = target->next;
+    }
+    if (target == nullptr) {
+        VertexBufferFreeBlock* const block = static_cast<VertexBufferFreeBlock*>(RwFreeListAlloc(VertexBufferBlockFreeList, 0x30411));
+        block->offset       = offset;
+        block->size         = size;
+        block->vertexBuffer = vertexBuffer;
+        block->prev         = nullptr;
+        block->next         = group->freeBlocks;
+        if (group->freeBlocks != nullptr) {
+            group->freeBlocks->prev = block;
+        }
+        group->freeBlocks = block;
+        return;
+    }
+    uint32 mergedOffset = offset;
+    uint32 mergedSize   = size;
+    for (;;) {
+        uint32 newSize = target->size;
+        const uint32 targetOffset = target->offset;
+        bool grow = false;
+        if (targetOffset + newSize == mergedOffset) {
+            grow = true;
+        } else if (mergedSize + mergedOffset == targetOffset) {
+            target->offset = mergedOffset;
+            grow = true;
+        }
+        if (grow) {
+            newSize += mergedSize;
+            target->size = newSize;
+        }
+        mergedOffset = target->offset;
+        mergedSize   = target->size;
+        VertexBufferFreeBlock* const merged = target;
+        VertexBufferFreeBlock* neighbour = group->freeBlocks;
+        while (neighbour != nullptr) {
+            if (neighbour->vertexBuffer == vertexBuffer && (neighbour->offset + neighbour->size == mergedOffset || mergedSize + mergedOffset == neighbour->offset)) {
+                break;
+            }
+            neighbour = neighbour->next;
+        }
+        if (neighbour == nullptr) {
+            return;
+        }
+        if (merged->prev != nullptr) {
+            merged->prev->next = merged->next;
+        }
+        if (merged->next != nullptr) {
+            merged->next->prev = merged->prev;
+        }
+        if (group->freeBlocks == merged) {
+            group->freeBlocks = merged->next;
+        }
+        RwFreeListFree(VertexBufferBlockFreeList, merged);
+        target = neighbour;
+    }
 }
 
-RwBool RwD3D9DynamicVertexBufferCreate(RwUInt32 size, void* vertexBuffer) {
-    return ((RwBool(__cdecl *)(RwUInt32, void*))0x7F5A00)(size, vertexBuffer);
+// 0x7F5A00 (lote R7A, sin validar): (size, void** vertexBuffer). Recorre la lista de buferes dinamicos (0xC97B8C): un nodo libre (inUse == 0) del mismo tamano se reutiliza (inUse = 1, entrega su bufer,
+// owner = vertexBuffer, TRUE); si no, el candidato es el libre MAS GRANDE. Con candidato: Release de su bufer (el EXE desreferencia aunque sea NULL) y a NULL; sin candidato: nodo nuevo (lista libre
+// 0xC97B90, pista 0x40411) al principio de la lista. Despues CreateVertexBuffer(size, D3DUSAGE_WRITEONLY|DYNAMIC 0x208, FVF 0, pool 0 si DevCaps & 0x10000 o 2 si no); un HRESULT distinto de 0 devuelve
+// FALSE (el nodo queda tal cual); si no guarda size, inUse = 1, el bufer y owner = vertexBuffer y devuelve TRUE.
+RwBool RwD3D9DynamicVertexBufferCreate(RwUInt32 size, void** vertexBuffer) {
+    D3D9DynamicVertexBuffer* candidate = nullptr;
+    for (D3D9DynamicVertexBuffer* node = DynamicVertexBufferList; node != nullptr; node = node->next) {
+        if (node->inUse != 0) {
+            continue;
+        }
+        if (node->size == size) {
+            node->inUse = 1;
+            *vertexBuffer = node->vertexBuffer;
+            node->owner = vertexBuffer;
+            return TRUE;
+        }
+        if (candidate == nullptr || candidate->size < node->size) {
+            candidate = node;
+        }
+    }
+    D3D9DynamicVertexBuffer* node = candidate;
+    if (node != nullptr) {
+        ComCall<kSlotRelease, ULONG>(node->vertexBuffer);
+        node->vertexBuffer = nullptr;
+    } else {
+        node = static_cast<D3D9DynamicVertexBuffer*>(RwFreeListAlloc(DynamicVertexBufferFreeList, 0x40411));
+        node->next = DynamicVertexBufferList;
+        DynamicVertexBufferList = node;
+    }
+    const uint32 pool = (~D3D9DeviceDevCaps >> 15) & 2u;
+    if (ComCall<kSlotDeviceCreateVertexBuffer, int32>(D3D9Device, size, 0x208u, 0u, pool, vertexBuffer, static_cast<void*>(nullptr)) != 0) {
+        return FALSE;
+    }
+    node->size         = size;
+    node->inUse        = 1;
+    node->owner        = vertexBuffer;
+    node->vertexBuffer = *vertexBuffer;
+    return TRUE;
 }
 
 // 0x7F5AE0: marca como libre (inUse = used = 0) el primer nodo de la lista cuyo bufer es `vertexBuffer`; no libera nada ni toca el resto.
@@ -845,7 +1057,7 @@ void RwD3D9DynamicVertexBufferDestroy(void* vertexBuffer) {
     for (auto* node = DynamicVertexBufferList; node != nullptr; node = node->next) {
         if (node->vertexBuffer == vertexBuffer) {
             node->inUse = 0;
-            node->used = 0;
+            node->owner = nullptr;
             return;
         }
     }
@@ -859,6 +1071,106 @@ RwBool RwD3D9DynamicVertexBufferLock(RwUInt32 vertexSize, RwUInt32 numVertex, vo
 RwBool RwD3D9DynamicVertexBufferUnlock(void* vertexBuffer) {
     const HRESULT result = ComCall<kSlotVertexBufferUnlock, HRESULT>(vertexBuffer);
     return result >= 0;
+}
+
+// 0x7F5800 (lote R7A, sin validar; nombre inferido): pone a 0 las cuatro posiciones de los buferes dinamicos activos (0xC97B98..0xC97BA4) y avanza el indice actual (0xC97B94) modulo 4.
+void _rwD3D9DynamicVertexBufferManagerForceDiscard() {
+    DynamicVertexBufferPosition[0] = 0;
+    DynamicVertexBufferPosition[1] = 0;
+    DynamicVertexBufferPosition[2] = 0;
+    DynamicVertexBufferPosition[3] = 0;
+    const uint32 next = DynamicVertexBufferCurrent + 1;
+    DynamicVertexBufferCurrent = next;
+    if (!(next < 4)) {
+        DynamicVertexBufferCurrent = 0;
+    }
+}
+
+// 0x7F5840 (lote R7A, sin validar; nombre inferido): indice actual a 0 y, por cada uno de los cuatro buferes dinamicos activos: posicion y tamano a 0 y, si tenia bufer, busca su nodo en la lista (0xC97B8C)
+// y lo marca libre (inUse = 0, owner = NULL) y deja la ranura a NULL. Con DevCaps & 0x10000 (pool DEFAULT) recorre despues TODOS los nodos con bufer: Release, vertexBuffer = NULL y, si tiene owner, escribe
+// NULL en la variable del propietario.
+void _rwD3D9DynamicVertexBufferRelease() {
+    DynamicVertexBufferCurrent = 0;
+    for (int i = 0; i < 4; ++i) {
+        void* const vertexBuffer = DynamicVertexBufferActive[i];
+        DynamicVertexBufferPosition[i] = 0;
+        DynamicVertexBufferSize[i]     = 0;
+        if (vertexBuffer != nullptr) {
+            for (D3D9DynamicVertexBuffer* node = DynamicVertexBufferList; node != nullptr; node = node->next) {
+                if (node->vertexBuffer == vertexBuffer) {
+                    node->inUse = 0;
+                    node->owner = nullptr;
+                    break;
+                }
+            }
+            DynamicVertexBufferActive[i] = nullptr;
+        }
+    }
+    if ((D3D9DeviceDevCaps & kDevCapsHardwareTransformAndLight) != 0 && DynamicVertexBufferList != nullptr) {
+        D3D9DynamicVertexBuffer* node = DynamicVertexBufferList;
+        while (node != nullptr) {
+            D3D9DynamicVertexBuffer* const next = node->next;
+            if (node->vertexBuffer != nullptr) {
+                ComCall<kSlotRelease, ULONG>(node->vertexBuffer);
+                node->vertexBuffer = nullptr;
+                if (node->owner != nullptr) {
+                    *node->owner = nullptr;
+                }
+            }
+            node = next;
+        }
+    }
+}
+
+// 0x7F5940 (lote R7A, sin validar; nombre inferido; la llama 0x7F5D0C y 0x7F58D0 por salto): indice actual a 0. Con DevCaps & 0x10000: para los cuatro buferes activos posicion = 0, tamano = 0x40000 y
+// RwD3D9DynamicVertexBufferCreate(0x40000, &activo[i]); FALSE en cuanto uno falla; TRUE. Sin ese bit: solo el primero (los otros tres: posicion, tamano y bufer a 0) y TRUE.
+RwBool _rwD3D9DynamicVertexBufferManagerOpen() {
+    DynamicVertexBufferCurrent = 0;
+    if ((D3D9DeviceDevCaps & kDevCapsHardwareTransformAndLight) != 0) {
+        for (int i = 0; i < 4; ++i) {
+            DynamicVertexBufferPosition[i] = 0;
+            DynamicVertexBufferSize[i]     = 0x40000;
+            if (!RwD3D9DynamicVertexBufferCreate(0x40000, &DynamicVertexBufferActive[i])) {
+                return FALSE;
+            }
+        }
+        return TRUE;
+    }
+    DynamicVertexBufferPosition[0] = 0;
+    DynamicVertexBufferSize[0]     = 0x40000;
+    if (!RwD3D9DynamicVertexBufferCreate(0x40000, &DynamicVertexBufferActive[0])) {
+        return FALSE;
+    }
+    for (int i = 1; i < 4; ++i) {
+        DynamicVertexBufferPosition[i] = 0;
+        DynamicVertexBufferActive[i]   = nullptr;
+        DynamicVertexBufferSize[i]     = 0;
+    }
+    return TRUE;
+}
+
+// 0x7F58D0 (lote R7A, sin validar; nombre del EXE por WindowedMode.cpp): tras recuperar el dispositivo. Con DevCaps & 0x10000 recorre la lista de buferes dinamicos y recrea (CreateVertexBuffer(size,
+// 0x208, FVF 0, pool DEFAULT)) los que no tienen bufer, copiando el nuevo a la variable del propietario si existe; un HRESULT negativo devuelve FALSE (el nodo anterior ya recreado se conserva). Despues
+// salta a 0x7F5940 y devuelve su resultado (tambien cuando no hay lista ni bit).
+RwBool _rwD3D9DynamicVertexBufferRestore() {
+    int32 result = 0;
+    if ((D3D9DeviceDevCaps & kDevCapsHardwareTransformAndLight) != 0) {
+        D3D9DynamicVertexBuffer* node = DynamicVertexBufferList;
+        while (node != nullptr) {
+            D3D9DynamicVertexBuffer* const next = node->next;
+            if (node->vertexBuffer == nullptr) {
+                result = ComCall<kSlotDeviceCreateVertexBuffer, int32>(D3D9Device, node->size, 0x208u, 0u, 0u, &node->vertexBuffer, static_cast<void*>(nullptr));
+                if (node->owner != nullptr) {
+                    *node->owner = node->vertexBuffer;
+                }
+            }
+            if (result < 0) {
+                return FALSE;
+            }
+            node = next;
+        }
+    }
+    return _rwD3D9DynamicVertexBufferManagerOpen();
 }
 
 void RwRasterSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
@@ -2118,4 +2430,185 @@ RwUInt32 RwRGBAToPixel(RwRGBA* rgbIn, RwInt32 rasterFormat) {
     RwUInt32 pixel = static_cast<RwUInt32>(rasterFormat);
     RwEngineInstance->stdFunc[rwSTANDARDRGBTOPIXEL](&pixel, rgbIn, rasterFormat);
     return pixel;
+}
+
+// --- Lote R7A (sin validar): lectura de texturas con mipmaps del controlador D3D9 (0x7F4AE0; el listado la atribuia a RpSkin con confianza baja: es el cuerpo de RwTextureRead con mipmapping activo,
+// la llama 0x7F40F0 cuando textureGlobals+0x1C es distinto de 0) ---
+namespace {
+// Copia con comprobacion de longitud como la macro de cadenas de RW en el EXE: rwstrncpy(destino, origen, size) (RwEngineInstance + 0xFC) y, si rwstrlen(origen) (+0x120) >= size, emite
+// RwError { pluginID = 1, errorCode = _rwerror(0x8000001E, origen, size, size - 1, (char)origen[size - 1]) } con RwErrorSet (0x808820) y cierra la cadena (destino[size - 1] = 0).
+// _rwerror (0x8088D0) se llama por direccion para conservar la secuencia de colaboradores.
+static_assert(offsetof(RwGlobals, stringFuncs) + offsetof(RwStringFunctions, vecStrncpy) == 0xFC && offsetof(RwGlobals, stringFuncs) + offsetof(RwStringFunctions, vecStrlen) == 0x120);
+void CopyStringChecked(char* destination, const char* source, uint32 size) {
+    rwstrncpy(destination, source, size);
+    if (static_cast<uint32>(rwstrlen(source)) >= size) {
+        RwError error;
+        error.pluginID  = 1;
+        error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(static_cast<RwInt32>(0x8000001E), source, static_cast<RwInt32>(size), static_cast<RwInt32>(size - 1), static_cast<RwInt32>(static_cast<signed char>(source[size - 1])));
+        RwErrorSet(&error);
+        destination[size - 1] = 0;
+    }
+}
+
+// 0x7F4690 (sin reconstruir): lee la imagen (nombre, mascara, banderas de raster) y devuelve la imagen; escribe ancho, alto, profundidad y formato (cType | cFormat << 8) del raster que le corresponde.
+// Los dos primeros parametros de salida se leen como entrada (0 la primera vez; las dimensiones del nivel de mipmap despues).
+using TextureImageReadFn = RwImage*(__cdecl*)(const char*, const char*, uint32, RwInt32*, RwInt32*, RwInt32*, RwInt32*);
+// 0x7F44C0 (sin reconstruir): genera la paleta (1024 bytes) comun de las imagenes de los niveles; los dos ultimos parametros son 4 (formato de 8 bits) u 8 (de 4 bits).
+using TextureImagePaletteFn = void(__cdecl*)(void*, int, RwImage**, int, int);
+constexpr uint32 kTextureReadDefaultMaskSource = 0xC97904; // cadena de 32 bytes que el EXE copia como mascara cuando no hay nombre de mascara
+} // namespace
+
+// 0x7F4AE0 (lote R7A, sin validar; nombre inferido): (name, maskName). Copia el nombre (y la mascara, si existe y no esta vacia) a dos buferes locales de 256 bytes con CopyStringChecked. Formato = 4;
+// con mipmapping 0x8004 y con generacion automatica 0x9004. Si hay devolucion de nombres de mipmap (textureGlobals+0x30) la llama (nombre, mascara, 0, formato). Lee la imagen del nivel 0 con 0x7F4690
+// (NULL si falla) y crea el raster con RwRasterCreate (ancho, alto, profundidad, banderas; si falla destruye la imagen y devuelve NULL). Sin el bit 0x8000 de las banderas: RwImageGammaCorrect y
+// RwRasterSetFromImage; con 0x1000 (automatico): solo RwRasterSetFromImage; en ambos casos un fallo destruye el raster y la imagen y devuelve NULL, y si no se destruye la imagen. Con mipmaps de archivo:
+// por nivel 1..RwRasterGetNumLevels-1 repite las copias de nombre y mascara y la devolucion, hace RwRasterLock(raster, nivel, 5) solo para leer ancho/alto/profundidad y cType | cFormat << 8 del raster
+// (el bloqueo cambia sus dimensiones) y RwRasterUnlock, y lee la imagen de ese nivel con 0x7F4690 (un fallo destruye las imagenes anteriores (de la ultima a la 0) y el raster y devuelve NULL).
+// Con formato paletizado (cFormat & 0x60) llama a 0x7F44C0(paleta, 0, imagenes, niveles, 4 si cFormat & 0x40 u 8) y corrige el gamma solo de la imagen 0; si no, corrige el gamma de todas. Despues, por
+// nivel: RwRasterLock(5) y, si devuelve algo, RwRasterSetFromImage (un fallo destruye las imagenes restantes, empezando por la actual, y el raster, y devuelve NULL) y RwRasterUnlock; destruye la imagen.
+// Finalmente reserva la textura (lista libre textureGlobals+8, pista 0x30006; NULL destruye el raster), la deja con raster, dict = NULL, filtro 1 / direccionamiento 0x11, refCount 1, inicializa sus plugins
+// (_rwPluginRegistryInitObject sobre el registro 0x8E23CC), copia el nombre (32 bytes) y la mascara (o la cadena de 0xC97904 si maskName es NULL) con CopyStringChecked.
+RwTexture* _rwTextureReadMipmapped(const RwChar* name, const RwChar* maskName) {
+    char nameBuffer[256];
+    char maskBuffer[256];
+    RwImage* images[144];
+
+    CopyStringChecked(nameBuffer, name, 0x100);
+    maskBuffer[0] = 0;
+    if (maskName != nullptr && maskName[0] != 0) {
+        CopyStringChecked(maskBuffer, maskName, 0x100);
+    }
+    TextureGlobalsLayout& globals = TextureGlobals();
+    uint32 format = 4;
+    if (globals.mipmapping != 0) {
+        format = 0x8004;
+        if (globals.autoMipmapping != 0) {
+            format = 0x9004;
+        }
+    }
+    if (globals.mipmapNameCallBack != nullptr) {
+        globals.mipmapNameCallBack(nameBuffer, maskBuffer, 0, static_cast<RwInt32>(format));
+    }
+
+    RwInt32 width = 0;
+    RwInt32 height = 0;
+    RwInt32 depth = 0;
+    RwInt32 rasterFlags = 0;
+    images[0] = reinterpret_cast<TextureImageReadFn>(0x7F4690)(nameBuffer, maskBuffer, format, &width, &height, &depth, &rasterFlags);
+    if (images[0] == nullptr) {
+        return nullptr;
+    }
+    RwRaster* const raster = RwRasterCreate(width, height, depth, rasterFlags);
+    if (raster == nullptr) {
+        RwImageDestroy(images[0]);
+        return nullptr;
+    }
+
+    RwInt32 numLevels = 0;
+    bool singleImage = true;
+    RwRaster* setResult = nullptr;
+    if ((rasterFlags & 0x8000) == 0) {
+        RwImageGammaCorrect(images[0]);
+        setResult = RwRasterSetFromImage(raster, images[0]);
+    } else if ((rasterFlags & 0x1000) != 0) {
+        setResult = RwRasterSetFromImage(raster, images[0]);
+    } else {
+        singleImage = false;
+        numLevels = RwRasterGetNumLevels(raster);
+        if (numLevels > 1) {
+            RwInt32 level = 1;
+            do {
+                CopyStringChecked(nameBuffer, name, 0x100);
+                maskBuffer[0] = 0;
+                if (maskName != nullptr && maskName[0] != 0) {
+                    CopyStringChecked(maskBuffer, maskName, 0x100);
+                }
+                if (globals.mipmapNameCallBack != nullptr) {
+                    globals.mipmapNameCallBack(nameBuffer, maskBuffer, static_cast<RwUInt8>(level), static_cast<RwInt32>(format));
+                }
+                RwRasterLock(raster, static_cast<RwUInt8>(level), 5);
+                width       = raster->width;
+                height      = raster->height;
+                depth       = raster->depth;
+                rasterFlags = static_cast<RwInt32>((static_cast<uint32>(raster->cFormat) << 8) | raster->cType);
+                RwRasterUnlock(raster);
+                images[level] = reinterpret_cast<TextureImageReadFn>(0x7F4690)(nameBuffer, maskBuffer, format, &width, &height, &depth, &rasterFlags);
+                if (images[level] == nullptr) {
+                    for (RwInt32 i = level - 1; i >= 0; --i) {
+                        RwImageDestroy(images[i]);
+                    }
+                    RwRasterDestroy(raster);
+                    return nullptr;
+                }
+                ++level;
+            } while (level < numLevels);
+        }
+        if ((raster->cFormat & 0x60) != 0) {
+            RwUInt8 palette[0x400];
+            reinterpret_cast<TextureImagePaletteFn>(0x7F44C0)(palette, 0, images, numLevels, (raster->cFormat & 0x40) != 0 ? 4 : 8);
+            RwImageGammaCorrect(images[0]);
+        } else {
+            for (RwInt32 i = 0; i < numLevels; ++i) {
+                RwImageGammaCorrect(images[i]);
+            }
+        }
+        for (RwInt32 i = 0; i < numLevels; ++i) {
+            if (RwRasterLock(raster, static_cast<RwUInt8>(i), 5) != nullptr) {
+                if (RwRasterSetFromImage(raster, images[i]) == nullptr) {
+                    for (; i < numLevels; ++i) {
+                        RwImageDestroy(images[i]);
+                    }
+                    RwRasterDestroy(raster);
+                    return nullptr;
+                }
+                RwRasterUnlock(raster);
+            }
+            RwImageDestroy(images[i]);
+        }
+    }
+    if (singleImage) {
+        if (setResult == nullptr) {
+            RwRasterDestroy(raster);
+            RwImageDestroy(images[0]);
+            return nullptr;
+        }
+        RwImageDestroy(images[0]);
+    }
+
+    RwTexture* const texture = static_cast<RwTexture*>(RwFreeListAlloc(globals.textureFreeList, 0x30006));
+    if (texture == nullptr) {
+        RwRasterDestroy(raster);
+        return nullptr;
+    }
+    texture->filterAddressing = 0;
+    reinterpret_cast<RwUInt8*>(texture)[0x51] = 0x11;
+    texture->dict = nullptr;
+    texture->name[0] = 0;
+    texture->mask[0] = 0;
+    texture->raster = raster;
+    texture->refCount = 1;
+    reinterpret_cast<RwUInt8*>(texture)[0x50] = 1;
+    _rwPluginRegistryInitObject(&TextureTKList, texture);
+    CopyStringChecked(texture->name, name, 0x20);
+    if (maskName != nullptr) {
+        CopyStringChecked(texture->mask, maskName, 0x20);
+    } else {
+        CopyStringChecked(texture->mask, reinterpret_cast<const char*>(kTextureReadDefaultMaskSource), 0x20);
+    }
+    return texture;
+}
+
+// Gestor de buferes de vertices D3D9 y lectura de texturas con mipmaps (lote R7A, sin validar).
+void RwCoreInjectHooksR7A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(_rwTextureReadMipmapped, 0x7F4AE0);
+    RH_ScopedGlobalInstall(RwD3D9CreateVertexBuffer, 0x7F5500);
+    RH_ScopedGlobalInstall(RwD3D9DestroyVertexBuffer, 0x7F56A0);
+    RH_ScopedGlobalInstall(_rwD3D9DynamicVertexBufferManagerForceDiscard, 0x7F5800);
+    RH_ScopedGlobalInstall(_rwD3D9DynamicVertexBufferRelease, 0x7F5840);
+    RH_ScopedGlobalInstall(_rwD3D9DynamicVertexBufferRestore, 0x7F58D0);
+    RH_ScopedGlobalInstall(_rwD3D9DynamicVertexBufferManagerOpen, 0x7F5940);
+    RH_ScopedGlobalInstall(RwD3D9DynamicVertexBufferCreate, 0x7F5A00);
 }

@@ -116,8 +116,56 @@ RwBool RtAnimAnimationDestroy(RtAnimAnimation* animation) {
     return TRUE;
 }
 
+// 0x7CCF30 (lote R7A, sin validar; 0x7CCF6C..0x7CD144 es la misma funcion, el desensamblador la parte en dos): abre el archivo (rwSTREAMFILENAME, rwSTREAMREAD) y busca el chunk 0x1B. Si no se abre o
+// no hay chunk devuelve NULL SIN cerrar el flujo (el EXE no lo cierra en esos dos casos). Despues lee (RwStreamReadInt32/Real, 4 bytes cada uno): version (debe ser 0x100), typeID, numFrames, flags y
+// duracion. Busca el esquema por typeID (RWERROR(2) si no esta) y crea la animacion (el EXE inlina RtAnimAnimationCreate: una segunda busqueda, reserva sin comprobar y cabecera como la de esa
+// funcion), llama a interpInfo->keyFrameStreamReadCB(stream, animacion) sin mirar su resultado y devuelve la animacion. Cualquier fallo de lectura o de busqueda tras el chunk deja la animacion en NULL;
+// en todos esos casos se cierra el flujo con RwStreamClose(stream, 0) antes de devolver.
 RtAnimAnimation* RtAnimAnimationRead(const RwChar* filename) {
-    return ((RtAnimAnimation*(__cdecl *)(const RwChar*))0x7CCF30)(filename);
+    RwStream* const stream = RwStreamOpen(rwSTREAMFILENAME, rwSTREAMREAD, filename);
+    if (stream == nullptr) {
+        return nullptr;
+    }
+    if (!RwStreamFindChunk(stream, 0x1B, nullptr, nullptr)) {
+        return nullptr;
+    }
+    RtAnimAnimation* animation = nullptr;
+    do {
+        RwInt32 version;
+        if (RwStreamReadInt32(stream, &version, sizeof(RwInt32)) == nullptr || version != 0x100) {
+            break;
+        }
+        RwInt32 typeID;
+        if (RwStreamReadInt32(stream, &typeID, sizeof(RwInt32)) == nullptr) {
+            break;
+        }
+        const RwInt32 count = NumInterpolatorInfos();
+        RwInt32 index = 0;
+        while (index < count && InterpolatorInfos()[index].typeID != typeID) {
+            ++index;
+        }
+        if (index >= count) {
+            RaiseRtAnimError(2);
+            break;
+        }
+        RtAnimInterpolatorInfo* const info = &InterpolatorInfos()[index];
+        RwInt32 numFrames;
+        if (RwStreamReadInt32(stream, &numFrames, sizeof(RwInt32)) == nullptr) {
+            break;
+        }
+        RwInt32 flags;
+        if (RwStreamReadInt32(stream, &flags, sizeof(RwInt32)) == nullptr) {
+            break;
+        }
+        RwReal duration;
+        if (RwStreamReadReal(stream, &duration, sizeof(RwReal)) == nullptr) {
+            break;
+        }
+        animation = RtAnimAnimationCreate(typeID, numFrames, flags, duration);
+        info->keyFrameStreamReadCB(stream, animation);
+    } while (false);
+    RwStreamClose(stream, nullptr);
+    return animation;
 }
 
 RwBool RtAnimAnimationWrite(const RtAnimAnimation* animation, const RwChar* filename) {
@@ -425,6 +473,7 @@ void RtAnim::InjectHooks() {
     RH_ScopedGlobalInstall(RtAnimRegisterInterpolationScheme, 0x7CCD40);
     RH_ScopedGlobalInstall(RtAnimAnimationCreate, 0x7CCE40);
     RH_ScopedGlobalInstall(RtAnimAnimationDestroy, 0x7CCF10);
+    RH_ScopedGlobalInstall(RtAnimAnimationRead, 0x7CCF30); // lote R7A (sin validar)
     RH_ScopedGlobalInstall(RtAnimAnimationGetNumNodes, 0x7CD4F0);
     RH_ScopedGlobalInstall(RtAnimInterpolatorCreate, 0x7CD520);
     RH_ScopedGlobalInstall(RtAnimInterpolatorDestroy, 0x7CD590);

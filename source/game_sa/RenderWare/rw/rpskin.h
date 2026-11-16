@@ -230,6 +230,27 @@ extern void
 _rpSkinGenericMatrixBlend(RwInt32 numVertices, const RwMatrixWeights *matrixWeights, const RwUInt32 *matrixIndices, const RwMatrix *matrixArray,
                           RwUInt8 *outVertices, const RwUInt8 *inVertices, RwUInt8 *outNormals, const RwUInt8 *inNormals, RwInt32 outStride);
 
+/* Lote R7A (sin validar): datos divididos en el flujo, instanciado D3D9 de skin, ayudantes SSE y pipeline generico (ver rpskin.cpp). */
+extern RwStream *
+_rpSkinSplitDataStreamWrite(RwStream *stream, const RpSkin *skin);
+
+extern RwStream *
+_rpSkinSplitDataStreamRead(RwStream *stream, RpSkin *skin);
+
+extern void
+_rpSkinD3D9InstanceVertexData(RpAtomic *atomic, RxD3D9ResEntryHeader *header, const RpHAnimHierarchy *hierarchy, RwUInt32 lockedFlags);
+
+extern void
+_rpSkinSSETransformPoints(RwUInt32 numVertices, const RwMatrix *matrix, RwUInt8 *outVertices, const RwUInt8 *inVertices,
+                          RwUInt8 *outNormals, const RwUInt8 *inNormals, RwInt32 outStride);
+
+extern void
+_rpSkinSSETransformPointsIndexed(RwUInt32 numVertices, const RwUInt32 *matrixIndices, const RwMatrix *matrixArray, RwUInt8 *outVertices,
+                                 const RwUInt8 *inVertices, RwUInt8 *outNormals, const RwUInt8 *inNormals, RwInt32 outStride);
+
+extern RxPipeline *
+_rpSkinD3D9CreateGenericPipeline(void);
+
 extern RpGeometry *
 _rpSkinInitialize(RpGeometry *geometry);
 

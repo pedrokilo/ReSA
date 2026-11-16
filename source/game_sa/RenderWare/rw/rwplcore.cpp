@@ -399,6 +399,7 @@ void RwPlCoreEngineStreamInjectHooks() {
     RH_ScopedGlobalInstall(RwMatrixOrthoNormalize, 0x7F1920);
     RH_ScopedGlobalInstall(RwEngineRegisterPlugin, 0x7F2BB0);
     RH_ScopedGlobalInstall(RwEngineGetPluginOffset, 0x7F2BE0);
+    RH_ScopedGlobalInstall(_rwerror, 0x8088D0); // lote R7A (sin validar)
 }
 
 // 0x7F2BB0: registra el plugin en la lista del motor (0x8E2298) con _rwPluginRegistryAddPlugin (0x8084A0); el callback de copia es nulo.
@@ -491,6 +492,7 @@ RwError* RwErrorSet(RwError* code) {
     return ((RwError*(__cdecl *)(RwError*))0x808820)(code);
 }
 
+// 0x8088D0 (lote R7A, sin validar; 5 bytes: `mov eax, [esp+4]; ret`): cdecl variadica, devuelve el primer argumento (el codigo de error); el resto de argumentos de pila se ignoran (los empuja el llamador).
 RwInt32 _rwerror(RwInt32 code, ...) {
     return code;
 }

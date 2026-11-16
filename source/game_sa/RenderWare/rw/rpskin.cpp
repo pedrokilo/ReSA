@@ -18,6 +18,9 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 
+#include <emmintrin.h>
+#include <xmmintrin.h>
+
 #include "rpskin.h"
 #include "X87Math.h"
 
@@ -92,6 +95,12 @@ void RpSkinInjectHooks() {
     RH_ScopedGlobalInstall(_rpSkinSplitDataDestroy, 0x7C8B10);
     RH_ScopedGlobalInstall(_rpSkinSplitDataGetStreamSize, 0x7C8D40);
     RH_ScopedGlobalInstall(_rpSkinGenericMatrixBlend, 0x7CB6A0); // lote R6A (sin validar)
+    RH_ScopedGlobalInstall(_rpSkinSplitDataStreamWrite, 0x7C8B50); // lote R7A (sin validar)
+    RH_ScopedGlobalInstall(_rpSkinSplitDataStreamRead, 0x7C8BE0); // lote R7A (sin validar)
+    RH_ScopedGlobalInstall(_rpSkinD3D9InstanceVertexData, 0x7C90D0); // lote R7A (sin validar)
+    RH_ScopedGlobalInstall(_rpSkinSSETransformPoints, 0x7CAAD0); // lote R7A (sin validar)
+    RH_ScopedGlobalInstall(_rpSkinSSETransformPointsIndexed, 0x7CAB80); // lote R7A (sin validar)
+    RH_ScopedGlobalInstall(_rpSkinD3D9CreateGenericPipeline, 0x7CB2B0); // lote R7A (sin validar)
 }
 
 void RpSkinSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
@@ -455,7 +464,7 @@ RwStream* _rpSkinNativeGeometryRead(RwStream* stream, RpGeometry* geometry) {
 RwBool _rpSkinPipelinesCreate(RwUInt32 flags) {
     RwBool result = TRUE;
     if ((flags & 1) != 0) {
-        RxPipeline* const pipeline = ((RxPipeline*(__cdecl *)(void))0x7CB2B0)();
+        RxPipeline* const pipeline = _rpSkinD3D9CreateGenericPipeline();
         if (pipeline == nullptr) {
             result = FALSE;
         }
@@ -541,9 +550,9 @@ RwBool _rpSkinD3D9CreateVertexBuffer(RpAtomic* atomic, RxD3D9ResEntryHeader* hea
         if (stream.vertexBuffer != nullptr) {
             const RwUInt32 offset = stream.offset;
             if (stream.managed != 0) {
-                ((void(__cdecl *)(RwUInt32, RwUInt32, void*, RwUInt32))0x7F56A0)(stream.stride, header->totalNumVertex * stream.stride, stream.vertexBuffer, offset);
+                RwD3D9DestroyVertexBuffer(stream.stride, header->totalNumVertex * stream.stride, stream.vertexBuffer, offset);
             } else if (offset == 0 && stream.dynamicLock == 0) {
-                ((void(__cdecl *)(void*))0x7F5AE0)(stream.vertexBuffer);
+                RwD3D9DynamicVertexBufferDestroy(stream.vertexBuffer);
             }
             stream.vertexBuffer = nullptr;
         }
@@ -726,7 +735,7 @@ RwBool _rpSkinD3D9CreateVertexBuffer(RpAtomic* atomic, RxD3D9ResEntryHeader* hea
     auto* const instances = reinterpret_cast<RxD3D9InstanceData*>(header + 1);
     auto createManaged = [&](RxD3D9VertexStream& stream) -> bool {
         const RwUInt32 size = header->totalNumVertex * stream.stride;
-        return ((RwBool(__cdecl *)(RwUInt32, RwUInt32, void*, RwUInt32*))0x7F5500)(stream.stride, size, &stream.vertexBuffer, &stream.offset) != 0;
+        return RwD3D9CreateVertexBuffer(stream.stride, size, &stream.vertexBuffer, &stream.offset) != 0;
     };
     bool singleStreamPath = false;
     if (usedStreams == 1 && streams[0].managed != 0) {
@@ -753,7 +762,7 @@ RwBool _rpSkinD3D9CreateVertexBuffer(RpAtomic* atomic, RxD3D9ResEntryHeader* hea
                 createDynamic = usedStreams != 1;
             }
             if (createDynamic) {
-                if (!((RwBool(__cdecl *)(RwUInt32, void*))0x7F5A00)(size, &stream.vertexBuffer)) {
+                if (!RwD3D9DynamicVertexBufferCreate(size, &stream.vertexBuffer)) {
                     return FALSE;
                 }
             } else {
@@ -883,6 +892,346 @@ void _rpSkinGenericMatrixBlend(RwInt32 numVertices, const RwMatrixWeights* matri
         inVertex -= 0x0C;
         outOffset -= outStride;
     } while (--index != 0);
+}
+
+// 0x7C8B50 (lote R7A, sin validar; el listado decia RpSkin con confianza alta y es correcto: la llama 0x7C6CF8, escritura del chunk de datos divididos del skin): (stream, skin). Escribe con RwStreamWriteInt32
+// (4 bytes cada una) boneLimit (+0x24), numMeshes (+0x28) y numRLE (+0x2C); cada escritura se comprueba (NULL si devuelve NULL). Si numMeshes != 0 (sin signo) escribe con RwStreamWrite (0x7ECB30)
+// los datos de remapeo (skin+0x30): numBones + 2*(numMeshes + numRLE) bytes; NULL si falla. Devuelve el flujo. El nombre es el del SDK de RW (inferido).
+RwStream* _rpSkinSplitDataStreamWrite(RwStream* stream, const RpSkin* skin) {
+    if (RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&skin->boneLimit), 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&skin->numMeshes), 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&skin->numRLE), 4) == nullptr) {
+        return nullptr;
+    }
+    if (skin->numMeshes != 0) {
+        if (RwStreamWrite(stream, skin->meshBoneRemapIndices, skin->numBones + (skin->numRLE + skin->numMeshes) * 2) == nullptr) {
+            return nullptr;
+        }
+    }
+    return stream;
+}
+
+// 0x7C8BE0 (lote R7A, sin validar; la llama 0x7C7071): (stream, skin). Lee tres enteros de 4 bytes con RwStreamReadInt32, en este orden: boneLimit, numMeshes y numRLE (NULL si falla alguna). Con numMeshes <= 0
+// (CON signo) devuelve el flujo sin tocar el skin. Si no: toma numBones (skin+0), libera los datos divididos anteriores (skin+0x30, RwFree del motor) si existen, pone a 0 los seis campos +0x24..+0x38,
+// reserva numBones + 2*(numMeshes + numRLE) bytes (pista 0x30116; si falla deja skin+0x30 en NULL y devuelve NULL), los pone a cero, rellena boneLimit, numMeshes, cuentas RLE (+0x34 = base + numBones),
+// RLE (+0x38 = +0x34 + 2*numMeshes) y numRLE, y lee con RwStreamRead (0x7EC9D0) esos mismos bytes sobre el bloque. Si la lectura devuelve 0 el EXE llama a RwFree con `skin + 0x24` (un puntero INTERIOR
+// del skin, no el bloque: fallo del original que se conserva) y devuelve NULL. Devuelve el flujo.
+RwStream* _rpSkinSplitDataStreamRead(RwStream* stream, RpSkin* skin) {
+    RwInt32 boneLimit;
+    RwInt32 numMeshes;
+    RwInt32 numRLE;
+    if (RwStreamReadInt32(stream, &boneLimit, 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamReadInt32(stream, &numMeshes, 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamReadInt32(stream, &numRLE, 4) == nullptr) {
+        return nullptr;
+    }
+    if (numMeshes <= 0) {
+        return stream;
+    }
+    const RwUInt32 numBones = skin->numBones;
+    if (skin->meshBoneRemapIndices != nullptr) {
+        RwFree(skin->meshBoneRemapIndices);
+    }
+    skin->boneLimit            = 0;
+    skin->numMeshes            = 0;
+    skin->numRLE               = 0;
+    skin->meshBoneRemapIndices = nullptr;
+    skin->meshBoneRLECount     = nullptr;
+    skin->meshBoneRLE          = nullptr;
+    const RwUInt32 size = numBones + static_cast<RwUInt32>(numMeshes + numRLE) * 2;
+    RwUInt8* const block = static_cast<RwUInt8*>(RwMalloc(size, kSkinMemHint));
+    skin->meshBoneRemapIndices = block;
+    if (block == nullptr) {
+        return nullptr;
+    }
+    memset(block, 0, size);
+    skin->boneLimit        = static_cast<RwUInt32>(boneLimit);
+    skin->numMeshes        = static_cast<RwUInt32>(numMeshes);
+    skin->meshBoneRLECount = block + numBones;
+    skin->meshBoneRLE      = block + numBones + static_cast<RwUInt32>(numMeshes) * 2;
+    skin->numRLE           = static_cast<RwUInt32>(numRLE);
+    if (RwStreamRead(stream, skin->meshBoneRemapIndices, skin->numBones + static_cast<RwUInt32>(numMeshes + numRLE) * 2) == 0) {
+        RwFree(reinterpret_cast<RwUInt8*>(skin) + 0x24);
+        return nullptr;
+    }
+    return stream;
+}
+
+// 0x7C90D0 (lote R7A, sin validar; el listado decia RpSkin con confianza alta y es correcto: la llaman 0x7C7FF2 y 0x7C9031 del propio modulo, el segundo tras _rpSkinD3D9CreateVertexBuffer): rellena los
+// buferes de vertices D3D9 de una geometria con skin (instanciado / reinstanciado). cdecl, 4 argumentos de pila (el EXE usa marco con `and esp, -8`); el valor de retorno de EAX es basura y ningun llamador
+// lo lee. (atomic, cabecera RxD3D9ResEntryHeader (= RwResEntry + 0x18), jerarquia RpHAnimHierarchy (los llamadores la leen del plugin del atomic, atomic + [0xC978A4]; solo se usa su numNodes, +4), banderas de bloqueo: 0xFFF = todo).
+//  1. RpD3D9GeometryGetUsageFlags (0x7588D0), skin de la geometria, numTexCoordSets; GetDeclaration de la declaracion del header (hasta 18 elementos en pila) y numero de flujos = max(Stream)+1
+//     (0 si el primer elemento ya es D3DDECL_END).
+//  2. Por flujo (el bucle se salta los flujos cuyas geometryFlags no estan en las banderas, salvo con 0xFFF): bufer no gestionado con offset 0 -> las banderas |= geometryFlags y Lock(0, 0, 0x2800);
+//     si no Lock(offset, stride * totalNumVertex, 0x800). Punteros bloqueados por flujo (2 ranuras).
+//  3. Posiciones (banderas & 2): _rpD3D9VertexDeclarationInstV3d con morphTarget->verts (+0x14), en el elemento (usage 0, indice 0).
+//  4. Con skin, skin+0x20 != 0 y banderas == 0xFFF: pesos (maxNumWeightsPerVertex > 1; pone 1.0f,0,0,0 si el primero > 1.0f, comparacion ordenada x87) con _rpD3D9VertexDeclarationInstWeights, e
+//     indices con _rpD3D9VertexDeclarationInstIndicesRemap y una tabla local de 255 bytes a cero: con skin+0x34 != 0 usa los remapeos skin+0x30 (el primero se pone a 0 si >= numNodes de la jerarquia, con signo;
+//     entrada < 0xFF -> *3); si no, con numNodes <= limite [0xC978E8] i*3 por posicion, y si no usedBones[i] (del skin, skin->numUsedBones) -> i*3.
+//  5. Normales (flags de la geometria & 0x10 y banderas & 4): InstV3d con morphTarget->normals (+0x18). Tangentes (usage & 0x10000 y banderas & 0xFF2): _rpD3D9VertexDeclarationInstTangent con verts,
+//     texCoords[numTexCoordSets - 1] (el EXE lee geometria + 0x30 + 4 * numTexCoordSets) y el header. Coordenadas de textura (numTexCoordSets != 0, banderas & 0xFF0): por conjunto cuyo bit (0x10 << t)
+//     esta puesto, InstV2d. Color (flags de la geometria & 8 y banderas & 8): por malla (do/while, con numMeshes == 0 no termina), _rpD3D9VertexDeclarationInstColor y guarda el resultado en vertexAlpha.
+//  6. Unlock de los flujos bloqueados.
+void _rpSkinD3D9InstanceVertexData(RpAtomic* atomic, RxD3D9ResEntryHeader* header, const RpHAnimHierarchy* hierarchy, RwUInt32 lockedFlags) {
+    RpGeometry* const geometry = atomic->geometry;
+    const RwUInt32 usage = static_cast<RwUInt32>(RpD3D9GeometryGetUsageFlags(geometry));
+    const RpSkin* const skin = GeometrySkin(geometry);
+    const RwUInt32 numTexCoordSets = static_cast<RwUInt32>(geometry->numTexCoordSets);
+
+    D3DVERTEXELEMENT9 elements[18] = {};
+    UINT numElements = 0;
+    header->vertexDeclaration->GetDeclaration(elements, &numElements);
+
+    RwUInt32 numStreams = 0;
+    if (elements[0].Type != D3DDECLTYPE_UNUSED) {
+        RwUInt32 maxStream = 0;
+        const D3DVERTEXELEMENT9* element = elements;
+        BYTE nextType;
+        do {
+            if (!(element->Stream < maxStream)) {
+                maxStream = element->Stream + 1;
+            }
+            nextType = element[1].Type;
+            ++element;
+        } while (nextType != D3DDECLTYPE_UNUSED);
+        numStreams = maxStream;
+    }
+
+    RwUInt8* locked[2] = { nullptr, nullptr };
+    for (RwUInt32 i = 0; i < numStreams; ++i) {
+        RxD3D9VertexStream& stream = header->vertexStream[i];
+        if (lockedFlags != 0xFFF && (lockedFlags & stream.geometryFlags) == 0) {
+            continue;
+        }
+        const RwUInt32 size = stream.stride * header->totalNumVertex;
+        auto* const vertexBuffer = static_cast<IDirect3DVertexBuffer9*>(stream.vertexBuffer);
+        if (stream.managed == 0 && stream.offset == 0) {
+            lockedFlags |= stream.geometryFlags;
+            vertexBuffer->Lock(0, 0, reinterpret_cast<void**>(&locked[i]), 0x2800);
+        } else {
+            vertexBuffer->Lock(stream.offset, size, reinterpret_cast<void**>(&locked[i]), 0x800);
+        }
+    }
+
+    // Busca el elemento (usage, indice) sin comprobar el final (como el EXE).
+    auto findElement = [&elements](BYTE elementUsage, BYTE elementUsageIndex) -> const D3DVERTEXELEMENT9& {
+        RwUInt32 k = 0;
+        while (elements[k].Usage != elementUsage || elements[k].UsageIndex != elementUsageIndex) {
+            ++k;
+        }
+        return elements[k];
+    };
+    const RwUInt32 totalNumVertex = header->totalNumVertex;
+    RpMorphTarget* const morphTarget = geometry->morphTarget;
+
+    if ((lockedFlags & 2) != 0) {
+        const D3DVERTEXELEMENT9& element = findElement(D3DDECLUSAGE_POSITION, 0);
+        _rpD3D9VertexDeclarationInstV3d(element.Type, locked[element.Stream] + element.Offset, morphTarget->verts, static_cast<RwInt32>(totalNumVertex), header->vertexStream[element.Stream].stride);
+    }
+
+    if (skin != nullptr && skin->field20 != 0 && lockedFlags == 0xFFF) {
+        const RwUInt32 numUsedBones = skin->numUsedBones;
+        if (skin->maxNumWeightsPerVertex > 1) {
+            const D3DVERTEXELEMENT9& weightElement = findElement(D3DDECLUSAGE_BLENDWEIGHT, 0);
+            RwMatrixWeights* const weights = skin->vertexBoneWeights;
+            for (RwUInt32 v = 0; v < totalNumVertex; ++v) {
+                float* const w = reinterpret_cast<float*>(weights + v);
+                if (w[0] > 1.0f) {
+                    *reinterpret_cast<RwUInt32*>(&w[0]) = 0x3F800000;
+                    *reinterpret_cast<RwUInt32*>(&w[1]) = 0;
+                    *reinterpret_cast<RwUInt32*>(&w[2]) = 0;
+                    *reinterpret_cast<RwUInt32*>(&w[3]) = 0;
+                }
+            }
+            _rpD3D9VertexDeclarationInstWeights(weightElement.Type, locked[weightElement.Stream] + weightElement.Offset, reinterpret_cast<const RwV4d*>(weights), static_cast<RwInt32>(totalNumVertex), header->vertexStream[weightElement.Stream].stride);
+        }
+
+        const D3DVERTEXELEMENT9& indexElement = findElement(D3DDECLUSAGE_BLENDINDICES, 0);
+        RwUInt8 remap[255];
+        memset(remap, 0, sizeof(remap));
+        if (skin->meshBoneRLECount != nullptr) {
+            RwUInt8* const remapSource = skin->meshBoneRemapIndices;
+            if (static_cast<RwInt32>(remapSource[0]) >= static_cast<RwInt32>(hierarchy->numNodes)) {
+                remapSource[0] = 0;
+            }
+            const RwUInt32 count = static_cast<RwUInt32>(hierarchy->numNodes);
+            for (RwUInt32 i = 0; i < count; ++i) {
+                if (remapSource[i] < 0xFF) {
+                    remap[i] = static_cast<RwUInt8>(remapSource[i] * 3);
+                }
+            }
+        } else {
+            const RwUInt32 count = static_cast<RwUInt32>(hierarchy->numNodes);
+            if (count <= SkinLimitE8()) {
+                for (RwUInt32 i = 0; i < count; ++i) {
+                    remap[i] = static_cast<RwUInt8>(i * 3);
+                }
+            } else {
+                remap[0] = 0;
+                for (RwUInt32 i = 0; i < numUsedBones; ++i) {
+                    remap[skin->usedBonesArray[i]] = static_cast<RwUInt8>(i * 3);
+                }
+            }
+        }
+        _rpD3D9VertexDeclarationInstIndicesRemap(indexElement.Type, locked[indexElement.Stream] + indexElement.Offset, skin->vertexBoneIndices, remap, static_cast<RwInt32>(totalNumVertex), header->vertexStream[indexElement.Stream].stride);
+    }
+
+    if ((geometry->flags & 0x10) != 0 && (lockedFlags & 4) != 0) {
+        const D3DVERTEXELEMENT9& element = findElement(D3DDECLUSAGE_NORMAL, 0);
+        _rpD3D9VertexDeclarationInstV3d(element.Type, locked[element.Stream] + element.Offset, morphTarget->normals, static_cast<RwInt32>(totalNumVertex), header->vertexStream[element.Stream].stride);
+    }
+
+    if ((usage & 0x10000) != 0 && (lockedFlags & 0xFF2) != 0) {
+        const D3DVERTEXELEMENT9& element = findElement(D3DDECLUSAGE_TANGENT, 0);
+        const RwTexCoords* const tangents = *reinterpret_cast<RwTexCoords* const*>(reinterpret_cast<const RwUInt8*>(geometry) + 0x30 + 4 * numTexCoordSets);
+        _rpD3D9VertexDeclarationInstTangent(element.Type, locked[element.Stream] + element.Offset, morphTarget->verts, tangents, header, header->vertexStream[element.Stream].stride);
+    }
+
+    if (numTexCoordSets != 0 && (lockedFlags & 0xFF0) != 0) {
+        for (RwUInt32 t = 0; t < numTexCoordSets; ++t) {
+            if ((lockedFlags & (0x10u << t)) == 0) {
+                continue;
+            }
+            const D3DVERTEXELEMENT9& element = findElement(D3DDECLUSAGE_TEXCOORD, static_cast<BYTE>(t));
+            _rpD3D9VertexDeclarationInstV2d(element.Type, locked[element.Stream] + element.Offset, reinterpret_cast<const RwV2d*>(geometry->texCoords[t]), static_cast<RwInt32>(totalNumVertex), header->vertexStream[element.Stream].stride);
+        }
+    }
+
+    if ((geometry->flags & 8) != 0 && (lockedFlags & 8) != 0) {
+        const D3DVERTEXELEMENT9& element = findElement(D3DDECLUSAGE_COLOR, 0);
+        const RwUInt32 stride = header->vertexStream[element.Stream].stride;
+        RwUInt32 count = header->numMeshes;
+        RxD3D9InstanceData* instance = reinterpret_cast<RxD3D9InstanceData*>(header + 1);
+        do {
+            const RwUInt32 first = instance->minVert;
+            instance->vertexAlpha = _rpD3D9VertexDeclarationInstColor(locked[element.Stream] + first * stride + element.Offset, geometry->preLitLum + first, static_cast<RwInt32>(instance->numVertices), stride);
+            ++instance;
+        } while (--count != 0);
+    }
+
+    for (RwUInt32 i = 0; i < numStreams; ++i) {
+        if (locked[i] != nullptr) {
+            static_cast<IDirect3DVertexBuffer9*>(header->vertexStream[i].vertexBuffer)->Unlock();
+        }
+    }
+}
+
+namespace {
+// Escritura de un vector de 3 floats desde un registro SSE (los tres floats bajos).
+inline void SkinStoreVec3(RwUInt8* destination, __m128 value) {
+    alignas(16) float lanes[4];
+    _mm_store_ps(lanes, value);
+    float* const out = reinterpret_cast<float*>(destination);
+    out[0] = lanes[0];
+    out[1] = lanes[1];
+    out[2] = lanes[2];
+}
+// Transformacion de un punto como el EXE: (z * fila2 [+ fila3]) + (y * fila1 + x * fila0), con mulps/addps de precision simple por separado y en ese orden.
+inline __m128 SkinTransformPoint(const RwUInt8* source, __m128 row0, __m128 row1, __m128 row2, const __m128* row3) {
+    const float* const p = reinterpret_cast<const float*>(source);
+    __m128 x = _mm_load_ss(p);
+    __m128 y = _mm_load_ss(p + 1);
+    __m128 z = _mm_load_ss(p + 2);
+    x = _mm_shuffle_ps(x, x, 0);
+    y = _mm_shuffle_ps(y, y, 0);
+    z = _mm_shuffle_ps(z, z, 0);
+    x = _mm_mul_ps(x, row0);
+    y = _mm_mul_ps(y, row1);
+    z = _mm_mul_ps(z, row2);
+    y = _mm_add_ps(y, x);
+    if (row3 != nullptr) {
+        z = _mm_add_ps(z, *row3);
+    }
+    return _mm_add_ps(z, y);
+}
+} // namespace
+
+// 0x7CAAD0 (lote R7A, sin validar; el listado decia RpSkin con confianza alta: ayudante SSE del skin generico, la llama 0x7C7EE0; nombre inferido): transforma por UNA matriz alineada a 16 bytes. cdecl, 7
+// argumentos de pila (numVertices, matriz, posiciones de salida, posiciones de entrada (12 bytes por vertice), normales de salida, normales de entrada (NULL = no se calculan), paso de salida en bytes). Por vertice (do/while
+// con contador sin signo: con 0 el EXE da 2^32 vueltas): posicion = (z * fila2 + fila3) + (y * fila1 + x * fila0) con mulps/addps de precision simple en ese orden (movaps de la matriz: la cuarta lane
+// de cada fila se ignora); escribe 3 floats y avanza el paso de salida; normal = (z * fila2) + (y * fila1 + x * fila0) sin traslacion y con el mismo paso.
+void _rpSkinSSETransformPoints(RwUInt32 numVertices, const RwMatrix* matrix, RwUInt8* outVertices, const RwUInt8* inVertices, RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride) {
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    const __m128 row0 = _mm_load_ps(m);
+    const __m128 row1 = _mm_load_ps(m + 4);
+    const __m128 row2 = _mm_load_ps(m + 8);
+    const __m128 row3 = _mm_load_ps(m + 12);
+    do {
+        SkinStoreVec3(outVertices, SkinTransformPoint(inVertices, row0, row1, row2, &row3));
+        inVertices += 0xC;
+        outVertices += outStride;
+        if (inNormals != nullptr) {
+            SkinStoreVec3(outNormals, SkinTransformPoint(inNormals, row0, row1, row2, nullptr));
+            inNormals += 0xC;
+            outNormals += outStride;
+        }
+    } while (--numVertices != 0);
+}
+
+// 0x7CAB80 (lote R7A, sin validar; ayudante SSE del skin generico, la llama 0x7C7F06; nombre inferido): igual que 0x7CAAD0 pero la matriz de cada vertice sale de un array por indice: el indice es el byte
+// bajo del dword de `matrixIndices` (se avanza 4 bytes por vertice) y la matriz es matrixArray + indice * 64 (alineada a 16). cdecl, 8 argumentos de pila (numVertices, indices, matrices, posiciones de salida,
+// posiciones de entrada, normales de salida, normales de entrada (NULL = no se calculan), paso de salida). Los indices avanzan aunque no haya normales; las normales usan la misma matriz
+// que la posicion del mismo vertice.
+void _rpSkinSSETransformPointsIndexed(RwUInt32 numVertices, const RwUInt32* matrixIndices, const RwMatrix* matrixArray, RwUInt8* outVertices, const RwUInt8* inVertices, RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride) {
+    do {
+        const RwUInt32 index = *reinterpret_cast<const RwUInt8*>(matrixIndices);
+        ++matrixIndices;
+        const float* const m = reinterpret_cast<const float*>(reinterpret_cast<const RwUInt8*>(matrixArray) + (index << 6));
+        const __m128 row0 = _mm_load_ps(m);
+        const __m128 row1 = _mm_load_ps(m + 4);
+        const __m128 row2 = _mm_load_ps(m + 8);
+        const __m128 row3 = _mm_load_ps(m + 12);
+        SkinStoreVec3(outVertices, SkinTransformPoint(inVertices, row0, row1, row2, &row3));
+        inVertices += 0xC;
+        outVertices += outStride;
+        if (inNormals != nullptr) {
+            SkinStoreVec3(outNormals, SkinTransformPoint(inNormals, row0, row1, row2, nullptr));
+            inNormals += 0xC;
+            outNormals += outStride;
+        }
+    } while (--numVertices != 0);
+}
+
+// 0x7CB2B0 (lote R7A, sin validar; el listado decia RpSkin con confianza alta y es correcto: la llama _rpSkinPipelinesCreate 0x7C898E; nombre inferido): crea el pipeline generico del skin D3D9.
+// Lee D3DCAPS9 (0xC9BF00): 0xC978E0 = bit 16 de DevCaps (HWTRANSFORMANDLIGHT); con ese bit y VertexShaderVersion (+0xC4) y PixelShaderVersion (+0xCC), de 16 bits bajos, ambas >= 0x101: 0xC978E4 = 1,
+// 0xC978EC = MaxVertexShaderConst (+0xC8) y 0xC978E8 = (MaxVertexShaderConst - 12) / 3 (sin signo, multiplicacion por 0xAAAAAAAB); si no, los tres a 0. Despues RxPipelineCreate (0x8057B0; NULL si
+// falla), pluginId = 0x116, pluginData = 1, RxPipelineLock (0x806990; si devuelve NULL destruye el pipeline con 0x805820 y devuelve NULL), RxLockedPipeAddFragment(bloqueado, NULL, 0x8DED08, NULL)
+// (nodo AllInOne del skin D3D9), RxLockedPipeUnlock sobre su resultado (sin mirarlo) y devuelve el pipeline.
+RxPipeline* _rpSkinD3D9CreateGenericPipeline() {
+    const D3DCAPS9* const caps = static_cast<const D3DCAPS9*>(RwD3D9GetCaps());
+    const RwUInt32 hardwareTransformAndLight = (caps->DevCaps >> 16) & 1;
+    SkinFlagE0() = hardwareTransformAndLight;
+    if (hardwareTransformAndLight != 0 && (caps->VertexShaderVersion & 0xFFFF) >= 0x101 && (caps->PixelShaderVersion & 0xFFFF) >= 0x101) {
+        SkinFlagE4() = 1;
+        const RwUInt32 maxConstants = caps->MaxVertexShaderConst;
+        *reinterpret_cast<RwUInt32*>(0xC978EC) = maxConstants;
+        SkinLimitE8() = static_cast<RwUInt32>((static_cast<uint64>(static_cast<RwUInt32>(maxConstants - 12)) * 0xAAAAAAABull) >> 33);
+    } else {
+        SkinFlagE4() = 0;
+        SkinLimitE8() = 0;
+        *reinterpret_cast<RwUInt32*>(0xC978EC) = 0;
+    }
+    RxPipeline* const pipeline = RxPipelineCreate();
+    if (pipeline == nullptr) {
+        return nullptr;
+    }
+    pipeline->pluginId   = kSkinPluginID;
+    pipeline->pluginData = 1;
+    RxLockedPipe* const lockedPipe = RxPipelineLock(pipeline);
+    if (lockedPipe == nullptr) {
+        _rxPipelineDestroy(pipeline);
+        return nullptr;
+    }
+    RxLockedPipeUnlock(RxLockedPipeAddFragment(lockedPipe, nullptr, reinterpret_cast<RxNodeDefinition*>(0x8DED08), nullptr));
+    return pipeline;
 }
 
 RxNodeDefinition* RxNodeDefinitionGetD3D9SkinAtomicAllInOne() {

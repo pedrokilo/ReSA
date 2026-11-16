@@ -1099,6 +1099,7 @@ void InjectHooksMain() {
     RtDictInjectHooks();
     RwD3D9InjectHooksR1A();
     RwD3D9InjectHooksR6A();
+    RwCoreInjectHooksR7A();
     RtSlerpInjectHooks();
     D3DX9InjectHooks();
     RtQuatInjectHooks();

@@ -1430,6 +1430,12 @@ extern RwBool RwD3D9DynamicVertexBufferLock(RwUInt32 vertexSize,
 
 extern RwBool RwD3D9DynamicVertexBufferUnlock(void *vertexBuffer);
 
+/* Lote R7A (sin validar): resto del gestor de buferes dinamicos (ver rwcore.cpp; la lectura de texturas con mipmaps 0x7F4AE0 se declara en rwcore.cpp). */
+extern void _rwD3D9DynamicVertexBufferManagerForceDiscard(void);
+extern void _rwD3D9DynamicVertexBufferRelease(void);
+extern RwBool _rwD3D9DynamicVertexBufferRestore(void);
+extern RwBool _rwD3D9DynamicVertexBufferManagerOpen(void);
+
 #ifdef    __cplusplus
 }
 #endif /* __cplusplus */
