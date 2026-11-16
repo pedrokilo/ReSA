@@ -783,8 +783,55 @@ RwStream* RwStreamReadChunkHeaderInfo(RwStream* stream, RwChunkHeaderInfo* chunk
     return stream;
 }
 
+// Lote R15A (sin validar). 0x80A240 (272 bytes; era una envoltura): rellena las 17 funciones de cadena del motor (RwEngineInstance + 0xF0..0x130) con direcciones fijas del EXE, en orden:
+// sprintf 0x821BB5, vsprintf 0x8230B8, strcpy 0x826590, strncpy 0x821F40, strcat 0x8265A0, strncat 0x826450, strrchr 0x80A420, strchr 0x80A400, strstr 0x822650, strcmp 0x8263C0,
+// strncmp 0x8214D0, stricmp 0x80A350, strlen 0x826330, strupr 0x80A3A0, strlwr 0x80A3D0, strtok 0x82244B y sscanf 0x8220AD. Devuelve 1.
 RwBool _rwStringOpen() {
-    return ((RwBool(__cdecl *)(void))0x80A240)();
+    RwStringFunctions& funcs = RwEngineInstance->stringFuncs;
+    funcs.vecSprintf = reinterpret_cast<vecSprintfFunc>(0x821BB5);
+    funcs.vecVsprintf = reinterpret_cast<vecVsprintfFunc>(0x8230B8);
+    funcs.vecStrcpy = reinterpret_cast<vecStrcpyFunc>(0x826590);
+    funcs.vecStrncpy = reinterpret_cast<vecStrncpyFunc>(0x821F40);
+    funcs.vecStrcat = reinterpret_cast<vecStrcatFunc>(0x8265A0);
+    funcs.vecStrncat = reinterpret_cast<vecStrncatFunc>(0x826450);
+    funcs.vecStrrchr = reinterpret_cast<vecStrrchrFunc>(0x80A420);
+    funcs.vecStrchr = reinterpret_cast<vecStrchrFunc>(0x80A400);
+    funcs.vecStrstr = reinterpret_cast<vecStrstrFunc>(0x822650);
+    funcs.vecStrcmp = reinterpret_cast<vecStrcmpFunc>(0x8263C0);
+    funcs.vecStrncmp = reinterpret_cast<vecStrncmpFunc>(0x8214D0);
+    funcs.vecStricmp = reinterpret_cast<vecStricmpFunc>(0x80A350);
+    funcs.vecStrlen = reinterpret_cast<vecStrlenFunc>(0x826330);
+    funcs.vecStrupr = reinterpret_cast<vecStruprFunc>(0x80A3A0);
+    funcs.vecStrlwr = reinterpret_cast<vecStrlwrFunc>(0x80A3D0);
+    funcs.vecStrtok = reinterpret_cast<vecStrtokFunc>(0x82244B);
+    funcs.vecSscanf = reinterpret_cast<vecSscanfFunc>(0x8220AD);
+    return TRUE;
+}
+
+// 0x80A350 (lote R15A, sin validar; 72 bytes; cdecl, (a, b); nombre inferido: stricmp por defecto del motor): si alguna cadena es NULL devuelve 0. Compara byte a byte CON signo; las letras
+// A-Z (0x41..0x5A, comparacion con signo) se pasan a minuscula sumando 0x20. Si difieren devuelve la resta (con signo) de los dos bytes ya convertidos; si son iguales y alguno es 0 devuelve 0.
+int _rwStringStricmp(const RwChar* string1, const RwChar* string2) {
+    if (string1 == nullptr || string2 == nullptr) {
+        return 0;
+    }
+    for (;;) {
+        signed char a = static_cast<signed char>(*string1);
+        signed char b = static_cast<signed char>(*string2);
+        if (a >= 0x41 && a <= 0x5A) {
+            a = static_cast<signed char>(a + 0x20);
+        }
+        if (b >= 0x41 && b <= 0x5A) {
+            b = static_cast<signed char>(b + 0x20);
+        }
+        if (a != b) {
+            return static_cast<int>(a) - static_cast<int>(b);
+        }
+        ++string1;
+        ++string2;
+        if (a == 0 || b == 0) {
+            return 0;
+        }
+    }
 }
 
 // 0x80A440: el EXE solo ejecuta `ret` (1 byte, seguido de 15 bytes de relleno 0x90 hasta 0x80A450).
@@ -805,12 +852,99 @@ RwUInt32 _rwStringStreamGetSize(const RwChar* string) {
     return (length + 4u) & ~3u;
 }
 
+// 0x80A4A0 (lote R15A, sin validar; 102 bytes; era una envoltura; cdecl, (cadena, flujo)): cadena NULL -> la cadena vacia del EXE (0x884F6A). tamano = (rwstrlen + 4) & ~3 (rwstrlen = [motor + 0x120]);
+// escribe la cabecera de bloque (tipo 2, tamano, version 0x36003, build 0xFFFF) con 0x7ED270 (NULL -> devuelve NULL) y despues RwStreamWrite(flujo, cadena, tamano) (0x7ECB30): devuelve la cadena
+// (la sustituida si era NULL) si la escritura dio un resultado distinto de NULL, si no NULL.
 const RwChar* _rwStringStreamWrite(const RwChar* string, RwStream* stream) {
-    return ((const RwChar*(__cdecl *)(const RwChar*, RwStream*))0x80A4A0)(string, stream);
+    if (string == nullptr) {
+        string = reinterpret_cast<const RwChar*>(0x884F6A);
+    }
+    const uint32 length = static_cast<uint32>(RWSRCGLOBAL(stringFuncs).vecStrlen(string));
+    const uint32 size = (length + 4u) & ~3u;
+    if (_rwStreamWriteVersionedChunkHeader(stream, 2, static_cast<RwInt32>(size), 0x36003u, 0xFFFFu) == nullptr) {
+        return nullptr;
+    }
+    return RwStreamWrite(stream, string, size) != nullptr ? string : nullptr;
 }
 
+// 0x80A510 (lote R15A, sin validar; 609 bytes; era una envoltura; cdecl, (destino o NULL, flujo)): lee la cabecera de bloque (0x7ED0F0, sin build; fallo -> NULL) y la valida: version < 0x34000 o
+// > 0x36003 (sin signo) -> error 0x80000004 y NULL. Tipo 2 (cadena de 8 bits) y tipo 0x13 (cadena de 16 bits): con destino NULL reserva `longitud` bytes con rwmalloc(longitud, 0x30002) (fallo: error
+// 0x80000013 con la longitud y NULL). Tipo 2: copia en trozos de 0x40 bytes (RwStreamRead 0x7EC9D0; si lee menos, NULL SIN liberar). Tipo 0x13: trozos de 0x80 bytes y se queda con el byte bajo de
+// cada par (chunk >> 1 bytes por trozo; un byte final impar se descarta); si lee menos y habia reservado, rwfree y NULL. Ambos devuelven el destino SIN terminar la cadena. Otros tipos: RwStreamSkip(longitud)
+// (NULL -> NULL) y siguiente cabecera (fallo -> NULL).
 RwChar* _rwStringStreamFindAndRead(RwChar* string, RwStream* stream) {
-    return ((RwChar*(__cdecl *)(RwChar*, RwStream*))0x80A510)(string, stream);
+    RwUInt32 type, length, version;
+    if (!_rwStreamReadChunkHeader(stream, &type, &length, &version, nullptr)) {
+        return nullptr;
+    }
+    for (;;) {
+        if (version < 0x34000u || version > 0x36003u) {
+            StreamRaiseError(static_cast<RwInt32>(0x80000004));
+            return nullptr;
+        }
+        if (type == 2) {
+            RwChar* destination = string;
+            if (destination == nullptr) {
+                destination = static_cast<RwChar*>(RwEngineInstance->memoryFuncs.rwmalloc(length, 0x30002));
+                if (destination == nullptr) {
+                    StreamRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(length));
+                    return nullptr;
+                }
+            }
+            RwChar* cursor = destination;
+            RwUInt32 remaining = length;
+            while (remaining != 0) {
+                const RwUInt32 chunk = remaining > 0x40u ? 0x40u : remaining;
+                RwUInt8 buffer[0x40];
+                if (RwStreamRead(stream, buffer, chunk) != chunk) {
+                    return nullptr;
+                }
+                remaining -= chunk;
+                for (RwUInt32 i = 0; i < chunk; ++i) {
+                    cursor[i] = static_cast<RwChar>(buffer[i]);
+                }
+                cursor += chunk;
+            }
+            return destination;
+        }
+        if (type == 0x13) {
+            RwChar* destination = string;
+            bool allocated = false;
+            if (destination == nullptr) {
+                destination = static_cast<RwChar*>(RwEngineInstance->memoryFuncs.rwmalloc(length, 0x30002));
+                if (destination == nullptr) {
+                    StreamRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(length));
+                    return nullptr;
+                }
+                allocated = true;
+            }
+            RwChar* cursor = destination;
+            RwUInt32 remaining = length;
+            while (remaining != 0) {
+                const RwUInt32 chunk = remaining > 0x80u ? 0x80u : remaining;
+                RwUInt8 buffer[0x80];
+                if (RwStreamRead(stream, buffer, chunk) != chunk) {
+                    if (allocated) {
+                        RwEngineInstance->memoryFuncs.rwfree(destination);
+                    }
+                    return nullptr;
+                }
+                remaining -= chunk;
+                const RwUInt32 half = chunk >> 1;
+                for (RwUInt32 i = 0; i < half; ++i) {
+                    cursor[i] = static_cast<RwChar>(buffer[i * 2]);
+                }
+                cursor += half;
+            }
+            return destination;
+        }
+        if (RwStreamSkip(stream, length) == nullptr) {
+            return nullptr;
+        }
+        if (!_rwStreamReadChunkHeader(stream, &type, &length, &version, nullptr)) {
+            return nullptr;
+        }
+    }
 }
 
 void RwPluginRegistrySetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
@@ -987,24 +1121,130 @@ RwInt32 _rwPluginRegistryAddPlgnStrmRightsCB(RwPluginRegistry* reg, RwUInt32 plu
     return entry->offset;
 }
 
+// 0x808980 (lote R15A, sin validar; 299 bytes; era una envoltura; cdecl, (registro, flujo, objeto)): RwStreamFindChunk(flujo, 3 = extension, &longitud, &version) (FALSE -> NULL); version < 0x34000 o > 0x36003
+// (sin signo) -> error {1, _rwerror(0x80000004)} y NULL. Mientras longitud != 0: lee la cabecera (0x7ED0F0 sin version ni build; fallo -> NULL); busca la PRIMERA entrada con pluginID == tipo; con readCB
+// lo llama con (flujo, longitud del bloque, objeto, desplazamiento, tamano) y un resultado NULL aborta (NULL); sin entrada o sin readCB hace RwStreamSkip (NULL aborta). longitud -= bloque + 12 (con
+// envoltura de 32 bits; el bucle termina solo al llegar a 0). Despues alwaysCB (+0x18) de cada entrada en orden con (objeto, desplazamiento, tamano): FALSE -> NULL. Devuelve el registro.
 const RwPluginRegistry* _rwPluginRegistryReadDataChunks(const RwPluginRegistry* reg, RwStream* stream, void* object) {
-    return ((const RwPluginRegistry*(__cdecl *)(const RwPluginRegistry*, RwStream*, void*))0x808980)(reg, stream, object);
+    RwUInt32 length, version;
+    if (!RwStreamFindChunk(stream, 3, &length, &version)) {
+        return nullptr;
+    }
+    if (version < 0x34000u || version > 0x36003u) {
+        StreamRaiseError(static_cast<RwInt32>(0x80000004));
+        return nullptr;
+    }
+    if (length != 0) {
+        do {
+            RwUInt32 chunkType, chunkLength;
+            if (!_rwStreamReadChunkHeader(stream, &chunkType, &chunkLength, nullptr, nullptr)) {
+                return nullptr;
+            }
+            RwPluginRegEntry* entry = reg->firstRegEntry;
+            while (entry != nullptr && entry->pluginID != chunkType) {
+                entry = entry->nextRegEntry;
+            }
+            if (entry != nullptr && entry->readCB != nullptr) {
+                if (entry->readCB(stream, static_cast<RwInt32>(chunkLength), object, entry->offset, entry->size) == nullptr) {
+                    return nullptr;
+                }
+            } else if (RwStreamSkip(stream, chunkLength) == nullptr) {
+                return nullptr;
+            }
+            length -= chunkLength + 12u;
+        } while (length != 0);
+    }
+    for (RwPluginRegEntry* entry = reg->firstRegEntry; entry != nullptr; entry = entry->nextRegEntry) {
+        if (entry->alwaysCB != nullptr && !entry->alwaysCB(object, entry->offset, entry->size)) {
+            return nullptr;
+        }
+    }
+    return reg;
 }
 
+namespace {
+// Suma de getSizeCB (+0x14) de cada entrada en orden con (objeto, desplazamiento, tamano): cada resultado > 0 (con signo) suma resultado + 12 (envoltura de 32 bits). Es el bucle de 0x808B00 y el
+// de la primera parte de 0x808B40.
+RwInt32 PluginRegistryTotalSize(const RwPluginRegistry* reg, const void* object) {
+    RwUInt32 total = 0;
+    for (RwPluginRegEntry* entry = reg->firstRegEntry; entry != nullptr; entry = entry->nextRegEntry) {
+        if (entry->getSizeCB != nullptr) {
+            const RwInt32 size = entry->getSizeCB(object, entry->offset, entry->size);
+            if (size > 0) {
+                total = total + static_cast<RwUInt32>(size) + 12u;
+            }
+        }
+    }
+    return static_cast<RwInt32>(total);
+}
+}
+
+// 0x808B40 (lote R15A, sin validar; 201 bytes; era una envoltura; cdecl, (registro, flujo, objeto)): total = suma de getSizeCB como en 0x808B00; escribe la cabecera de extension con
+// _rwStreamWriteVersionedChunkHeader(flujo, 3, total, 0x36003, 0xFFFF) (NULL -> NULL). Despues, por cada entrada con getSizeCB (+0x14) Y writeCB (+0x10): tam = getSizeCB(objeto, desplazamiento,
+// tamano) (se vuelve a llamar); si tam > 0 (con signo) escribe la cabecera (flujo, pluginID, tam, 0x36003, 0xFFFF) y llama writeCB(flujo, tam, objeto, desplazamiento, tamano); NULL en cualquiera -> NULL.
+// Devuelve el registro.
 const RwPluginRegistry* _rwPluginRegistryWriteDataChunks(const RwPluginRegistry* reg, RwStream* stream, const void* object) {
-    return ((const RwPluginRegistry*(__cdecl *)(const RwPluginRegistry*, RwStream*, const void*))0x808B40)(reg, stream, object);
+    const RwInt32 total = PluginRegistryTotalSize(reg, object);
+    if (_rwStreamWriteVersionedChunkHeader(stream, 3, total, 0x36003u, 0xFFFFu) == nullptr) {
+        return nullptr;
+    }
+    for (RwPluginRegEntry* entry = reg->firstRegEntry; entry != nullptr; entry = entry->nextRegEntry) {
+        if (entry->getSizeCB == nullptr || entry->writeCB == nullptr) {
+            continue;
+        }
+        const RwInt32 size = entry->getSizeCB(object, entry->offset, entry->size);
+        if (size <= 0) {
+            continue;
+        }
+        if (_rwStreamWriteVersionedChunkHeader(stream, static_cast<RwInt32>(entry->pluginID), size, 0x36003u, 0xFFFFu) == nullptr) {
+            return nullptr;
+        }
+        if (entry->writeCB(stream, size, object, entry->offset, entry->size) == nullptr) {
+            return nullptr;
+        }
+    }
+    return reg;
 }
 
+// 0x808C10 (lote R15A, sin validar; 113 bytes; era una envoltura; cdecl, (registro, flujo)): RwStreamFindChunk(flujo, 3, &longitud, NULL) (FALSE -> NULL). Mientras longitud != 0: cabecera (0x7ED0F0
+// con solo la longitud; fallo -> NULL), RwStreamSkip(longitud del bloque) (NULL -> NULL) y longitud -= bloque + 12. Devuelve el registro. No consulta ninguna entrada.
 const RwPluginRegistry* _rwPluginRegistrySkipDataChunks(const RwPluginRegistry* reg, RwStream* stream) {
-    return ((const RwPluginRegistry*(__cdecl *)(const RwPluginRegistry*, RwStream*))0x808C10)(reg, stream);
+    RwUInt32 length;
+    if (!RwStreamFindChunk(stream, 3, &length, nullptr)) {
+        return nullptr;
+    }
+    if (length != 0) {
+        do {
+            RwUInt32 chunkLength;
+            if (!_rwStreamReadChunkHeader(stream, nullptr, &chunkLength, nullptr, nullptr)) {
+                return nullptr;
+            }
+            if (RwStreamSkip(stream, chunkLength) == nullptr) {
+                return nullptr;
+            }
+            length -= chunkLength + 12u;
+        } while (length != 0);
+    }
+    return reg;
 }
 
+// 0x808B00 (lote R15A, sin validar; 61 bytes; era una envoltura; cdecl, (registro, objeto)): suma, por cada entrada con getSizeCB (+0x14), resultado + 12 de los resultados > 0 (con signo) de
+// getSizeCB(objeto, desplazamiento, tamano). Devuelve la suma.
 RwInt32 _rwPluginRegistryGetSize(const RwPluginRegistry* reg, const void* object) {
-    return ((RwInt32(__cdecl *)(const RwPluginRegistry*, const void*))0x808B00)(reg, object);
+    return PluginRegistryTotalSize(reg, object);
 }
 
+// 0x808AB0 (lote R15A, sin validar; 69 bytes; era una envoltura; cdecl, (registro, id, objeto, datos extra)): busca la primera entrada con pluginID == id; sin ella o sin rightsCB (+0x1C) devuelve
+// NULL. Llama rightsCB(objeto, desplazamiento, tamano, extra) y devuelve el registro si el resultado es distinto de 0, si no NULL.
 const RwPluginRegistry* _rwPluginRegistryInvokeRights(const RwPluginRegistry* reg, RwUInt32 id, void* obj, RwUInt32 extraData) {
-    return ((const RwPluginRegistry*(__cdecl *)(const RwPluginRegistry*, RwUInt32, void*, RwUInt32))0x808AB0)(reg, id, obj, extraData);
+    RwPluginRegEntry* entry = reg->firstRegEntry;
+    while (entry != nullptr && entry->pluginID != id) {
+        entry = entry->nextRegEntry;
+    }
+    if (entry == nullptr || entry->rightsCB == nullptr) {
+        return nullptr;
+    }
+    return entry->rightsCB(obj, entry->offset, entry->size, extraData) != 0 ? reg : nullptr;
 }
 
 RwBool RwEngineGetMatrixTolerances(RwMatrixTolerance * const tolerance) {
@@ -1260,12 +1500,36 @@ RwReal _rwV3dNormalize(RwV3d* out, const RwV3d* in) {
     return ((RwReal(__cdecl *)(RwV3d*, const RwV3d*))0x7ED910)(out, in);
 }
 
+// 0x809160 (lote R15A, sin validar; 205 bytes; era una envoltura; cdecl, (tamano de entrada, pista)): reserva la cabecera (0x10 bytes, rwmalloc con pista 0x30000); fallo: error {1, _rwerror(0x80000013, 0x10)}
+// y NULL. entrySize = tamano, numElementsFilled = 0, numElementsAlloced = 0x14 y listElements = rwmalloc(tamano * 20, pista | 0x1000000); si falla: error con (0x80000013, 0x14 * tamano), rwfree de la cabecera y NULL.
 RwSList* _rwSListCreate(RwInt32 size, RwUInt32 hint) {
-    return ((RwSList*(__cdecl *)(RwInt32, RwUInt32))0x809160)(size, hint);
+    RwSList* const sList = static_cast<RwSList*>(RwEngineInstance->memoryFuncs.rwmalloc(0x10, 0x30000));
+    if (sList == nullptr) {
+        StreamRaiseError(static_cast<RwInt32>(0x80000013), 0x10);
+        return nullptr;
+    }
+    sList->entrySize = size;
+    sList->numElementsFilled = 0;
+    sList->numElementsAlloced = 0x14;
+    sList->listElements = static_cast<RwUInt8*>(RwEngineInstance->memoryFuncs.rwmalloc(static_cast<uint32>(size) * 20u, hint | 0x1000000u));
+    if (sList->listElements == nullptr) {
+        StreamRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(static_cast<uint32>(sList->numElementsAlloced) * static_cast<uint32>(sList->entrySize)));
+        RwEngineInstance->memoryFuncs.rwfree(sList);
+        return nullptr;
+    }
+    return sList;
 }
 
+// 0x809440 (lote R15A, sin validar; 69 bytes; era una envoltura): con listElements != NULL y numElementsAlloced != 0 libera la matriz (rwfree) y deja listElements = NULL y numElementsAlloced = 0;
+// despues libera la cabecera (rwfree). Devuelve 1.
 RwBool _rwSListDestroy(RwSList* sList) {
-    return ((RwBool(__cdecl *)(RwSList*))0x809440)(sList);
+    if (sList->listElements != nullptr && sList->numElementsAlloced != 0) {
+        RwEngineInstance->memoryFuncs.rwfree(sList->listElements);
+        sList->listElements = nullptr;
+        sList->numElementsAlloced = 0;
+    }
+    RwEngineInstance->memoryFuncs.rwfree(sList);
+    return TRUE;
 }
 
 // 0x809400: resta `amount` a numElementsFilled (+4), con envoltura de 32 bits.
@@ -1278,8 +1542,26 @@ void* _rwSListGetEntry(RwSList* sList, RwInt32 entry) {
     return reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(sList->listElements) + static_cast<uint32>(sList->entrySize) * static_cast<uint32>(entry));
 }
 
+// 0x809240 (lote R15A, sin validar; 166 bytes; era una envoltura; cdecl, (lista, pista)): con numElementsFilled >= numElementsAlloced (CON signo) amplia la matriz a alloced + alloced / 4 (division con signo
+// hacia cero) con rwrealloc(listElements, nuevo * entrySize, pista); fallo: error {1, _rwerror(0x80000013, nuevo * entrySize)} y NULL (sin tocar la lista). Devuelve entrySize * filled + listElements y
+// incrementa numElementsFilled.
 void* _rwSListGetNewEntry(RwSList* sList, RwUInt32 hint) {
-    return ((void*(__cdecl *)(RwSList*, RwUInt32))0x809240)(sList, hint);
+    const RwInt32 alloced = sList->numElementsAlloced;
+    if (sList->numElementsFilled >= alloced) {
+        const RwInt32 grown = alloced + alloced / 4;
+        const RwUInt32 bytes = static_cast<RwUInt32>(grown) * static_cast<RwUInt32>(sList->entrySize);
+        void* const memory = RwEngineInstance->memoryFuncs.rwrealloc(sList->listElements, bytes, hint);
+        if (memory == nullptr) {
+            StreamRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(bytes));
+            return nullptr;
+        }
+        sList->listElements = static_cast<RwUInt8*>(memory);
+        sList->numElementsAlloced = grown;
+    }
+    const RwInt32 filled = sList->numElementsFilled;
+    void* const entry = sList->listElements + static_cast<RwUInt32>(sList->entrySize) * static_cast<RwUInt32>(filled);
+    sList->numElementsFilled = filled + 1;
+    return entry;
 }
 
 // 0x8094B0: numElementsFilled (+4).
@@ -1478,6 +1760,8 @@ RwInt32 RwResourcesGetArenaUsage() {
     return ((RwInt32(__cdecl *)(void))0x8081C0)();
 }
 
+void _rwResArenaHeapFree(void* memory); // 0x810040 (lote R15A); definida mas abajo con el monton del arena
+
 namespace {
 // Modulo de recursos: rwResources en motor + [0xC9BC58]: +0 maxSize, +4 currentSize, +8 reusageSize, +0xC memHeap, +0x10 entriesA, +0x18 entriesB, +0x20 freeEntries, +0x24 usedEntries.
 static_assert(offsetof(rwResources, currentSize) == 4 && offsetof(rwResources, reusageSize) == 8 && offsetof(rwResources, entriesA) == 0x10 && offsetof(rwResources, entriesB) == 0x18);
@@ -1485,8 +1769,6 @@ static_assert(offsetof(rwResources, freeEntries) == 0x20 && offsetof(rwResources
 rwResources* ResourcesModule() {
     return reinterpret_cast<rwResources*>(reinterpret_cast<RwUInt8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9BC58));
 }
-using ResHeapFreeFn = void(__cdecl*)(RwResEntry*);
-constexpr uintptr_t kResHeapFree = 0x810040; // libera la entrada en el monton del arena (sin reconstruir)
 
 // Destruye una entrada de recursos: destroyNotify(entrada), *ownerRef = NULL; con enlace (+0) la saca de su lista, resta su tamano de currentSize y la devuelve al monton (0x810040); sin enlace rwfree.
 void DestroyResEntry(RwResEntry* entry) {
@@ -1499,7 +1781,7 @@ void DestroyResEntry(RwResEntry* entry) {
     if (entry->link.next != nullptr) {
         LinkRemove(&entry->link);
         ResourcesModule()->currentSize -= entry->size;
-        reinterpret_cast<ResHeapFreeFn>(kResHeapFree)(entry);
+        _rwResArenaHeapFree(entry);
     } else {
         RwEngineInstance->memoryFuncs.rwfree(entry);
     }
@@ -1709,6 +1991,36 @@ void* _rwResArenaHeapSplitBlock(void* blockPointer, RwUInt32 size) {
     block->size = size;
     split->heap = block->heap;
     return split;
+}
+
+// 0x810040 (lote R15A, sin validar; 125 bytes; cdecl, (memoria devuelta por _rwResArenaHeapAlloc); sin valor de retorno que lea nadie; nombre inferido: liberar en el monton del arena): el bloque es
+// memoria - 0x20; lo marca libre (used = 0). Si el punto de busqueda del monton (+4) es NULL o el bloque es anterior (comparacion SIN signo), el bloque pasa a ser el punto de busqueda. Si el bloque
+// anterior existe y esta libre (bit 0 de used a 0): lo funde con el actual (anterior.next = siguiente, siguiente.prev = anterior, anterior.size += size + 0x20) y sigue con el anterior como bloque. Si
+// el siguiente (el de antes de fundir) existe y esta libre: lo funde con el bloque vigente (bloque.next = siguiente.next, su prev apunta al bloque, bloque.size += siguiente.size + 0x20).
+void _rwResArenaHeapFree(void* memory) {
+    ResArenaBlock* block = reinterpret_cast<ResArenaBlock*>(static_cast<RwUInt8*>(memory) - 0x20);
+    ResArenaHeap* const heap = static_cast<ResArenaHeap*>(block->heap);
+    ResArenaBlock* const prev = block->prev;
+    ResArenaBlock* const next = block->next;
+    block->used = 0;
+    if (heap->searchStart == nullptr || block < heap->searchStart) {
+        heap->searchStart = block;
+    }
+    if (prev != nullptr && (~prev->used & 1u) != 0) {
+        prev->next = next;
+        if (next != nullptr) {
+            next->prev = prev;
+        }
+        prev->size = prev->size + (block->size + 0x20);
+        block = prev;
+    }
+    if (next != nullptr && (~next->used & 1u) != 0) {
+        block->next = next->next;
+        if (next->next != nullptr) {
+            next->next->prev = block;
+        }
+        block->size = block->size + (next->size + 0x20);
+    }
 }
 
 // Lote R12A (sin validar): flujos, vectores y matrices de RwPlCore (0x7EC810..0x7F1930).
@@ -2401,4 +2713,25 @@ void RwPlCoreInjectHooksR14A() {
     RH_ScopedGlobalInstall(_rwPluginRegistryAddPluginStream, 0x8088E0);
     RH_ScopedGlobalInstall(_rwPluginRegistryAddPlgnStrmlwysCB, 0x808920);
     RH_ScopedGlobalInstall(_rwPluginRegistryAddPlgnStrmRightsCB, 0x808950);
+}
+
+// Lote R15A (sin validar): lectura, escritura, salto, tamano y derechos de los bloques de datos del registro de plugins (0x808980..0x808C10), listas SList, cadenas del motor (apertura, stricmp,
+// escritura y lectura en flujo) y liberacion en el monton del arena (0x810040).
+void RwPlCoreInjectHooksR15A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    RH_ScopedGlobalInstall(_rwPluginRegistryReadDataChunks, 0x808980);
+    RH_ScopedGlobalInstall(_rwPluginRegistryInvokeRights, 0x808AB0);
+    RH_ScopedGlobalInstall(_rwPluginRegistryGetSize, 0x808B00);
+    RH_ScopedGlobalInstall(_rwPluginRegistryWriteDataChunks, 0x808B40);
+    RH_ScopedGlobalInstall(_rwPluginRegistrySkipDataChunks, 0x808C10);
+    RH_ScopedGlobalInstall(_rwSListCreate, 0x809160);
+    RH_ScopedGlobalInstall(_rwSListGetNewEntry, 0x809240);
+    RH_ScopedGlobalInstall(_rwSListDestroy, 0x809440);
+    RH_ScopedGlobalInstall(_rwStringOpen, 0x80A240);
+    RH_ScopedGlobalInstall(_rwStringStricmp, 0x80A350);
+    RH_ScopedGlobalInstall(_rwStringStreamWrite, 0x80A4A0);
+    RH_ScopedGlobalInstall(_rwStringStreamFindAndRead, 0x80A510);
+    RH_ScopedGlobalInstall(_rwResArenaHeapFree, 0x810040);
 }

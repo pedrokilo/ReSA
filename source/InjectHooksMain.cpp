@@ -699,6 +699,10 @@ void CPointRouteInjectHooksLote109A(); // PedGeometryAnalyser.cpp (lote 109A)
 void RwD3D9InjectHooksR14A();    // 0x801390: imagen -> raster del controlador D3D9 (rwcore.cpp)
 void RwPlCoreInjectHooksR14A();  // listas libres, memoria, ficheros, registro de plugins, error y arena de recursos (rwplcore.cpp)
 
+// Lote R15A (sin validar).
+void RwPlCoreInjectHooksR15A();  // registro de plugins (datos de flujo), SList, cadenas del motor y liberacion en el arena (rwplcore.cpp)
+void RwCoreInjectHooksR15A();    // tuberias de Rx: Im3D por defecto y fases finales del desbloqueo (rwcore.cpp)
+
 void InjectHooksMain() {
     /**
     * We have `NOTSA_STANDALONE` macro to be able to dump all hooks without actually writing to memory,
@@ -1115,6 +1119,8 @@ void InjectHooksMain() {
     RwPlCoreInjectHooksR13A();
     RwPlCoreInjectHooksR14A();
     RwD3D9InjectHooksR14A();
+    RwPlCoreInjectHooksR15A();
+    RwCoreInjectHooksR15A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();

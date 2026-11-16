@@ -4117,3 +4117,378 @@ void RwD3D9InjectHooksR14A() {
 
     RH_ScopedGlobalInstall(_rwD3D9ImageToRaster, 0x801390);
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R15A (sin validar): tuberias de Rx. 0x80A1A0 crea las tuberias por defecto de Im3D; 0x80F970, 0x80FBA0 y 0x80FC30 son las tres fases finales del desbloqueo de una tuberia
+// (RxLockedPipeUnlock, 0x805F40: las llaman 0x80F38A, 0x80F39C y 0x80F3AE, en este orden, mientras la anterior devuelva 0). Los datos temporales de cada nodo (RxPipelineNode::topSortData, +0x1C)
+// cuelgan de una matriz de "requisitos" {+0 cuenta, +0xC elementos de 0x24 bytes}; los grupos de elementos (0x10 bytes) salen del extremo alto del almacen temporal de Rx (0x805890) y los
+// datos definitivos del extremo bajo (0x8058F0). Los dos almacenes son el EXE (por direccion fija).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+struct RxUnlockGroup;
+struct RxUnlockInfo {
+    RwUInt32 field0;
+    RwUInt32 field4;
+    RwUInt32 slotMask; // +8: mascara de ranuras de cluster ya usadas
+};
+struct RxUnlockItem { // 0x24 bytes: un cluster pedido por un nodo (en la tuberia final: RxPipelineRequiresCluster = {clusterDef, tipo, ranura})
+    RxClusterDefinition* clusterDef;  // +0x00
+    RwUInt32             type;        // +0x04 (1 = obligatorio, 2 = opcional; 0 = no lo quiere)
+    RwUInt32             field8;      // +0x08
+    RxUnlockGroup*       group;       // +0x0C
+    RxUnlockItem*        nextInGroup; // +0x10
+    RxUnlockInfo*        info;        // +0x14
+    RwUInt32             outputsMask; // +0x18: salidas a las que el cluster persiste
+    RwUInt32             slot;        // +0x1C: ranura de cluster asignada
+    RwUInt32             field20;     // +0x20
+};
+struct RxUnlockGroup { // 0x10 bytes
+    RxUnlockItem*  firstItem;  // +0x00
+    RxUnlockGroup* chained;    // +0x04: grupos fundidos con este (cadena)
+    RxUnlockGroup* nextInList; // +0x08: lista global de grupos
+    RxUnlockGroup* parent;     // +0x0C: grupo en el que se fundio este (union-find)
+};
+struct RxUnlockItemArray { // matriz de requisitos de un nodo
+    RwUInt32      count; // +0x00
+    RwUInt32      field4;
+    RwUInt32      field8;
+    RxUnlockItem* items; // +0x0C
+};
+struct RxUnlockClusterRecord { // 8 bytes: un cluster distinto de la tuberia y sus atributos por defecto
+    RxClusterDefinition* clusterDef;
+    RwUInt32             attributes;
+};
+static_assert(sizeof(RxUnlockItem) == 0x24 && offsetof(RxUnlockItem, group) == 0xC && offsetof(RxUnlockItem, info) == 0x14 && offsetof(RxUnlockItem, slot) == 0x1C);
+static_assert(sizeof(RxUnlockGroup) == 0x10 && offsetof(RxUnlockItemArray, items) == 0xC && offsetof(RxUnlockInfo, slotMask) == 8);
+static_assert(sizeof(RxPipelineNode) == 0x28 && offsetof(RxPipelineNode, topSortData) == 0x1C && offsetof(RxPipelineNode, inputToClusterSlot) == 0x18);
+static_assert(offsetof(RxPipelineNodeTopSortData, req) == 8 && offsetof(RxPipeline, inputRequirements) == 0x1C && offsetof(RxPipeline, pluginId) == 0x2C);
+static_assert(offsetof(RxNodeDefinition, io) == 0x20 && offsetof(RxNodeDefinition, pipelineNodePrivateDataSize) == 0x34 && offsetof(RxClusterDefinition, defaultAttributes) == 8);
+
+void* RxScratchAllocHigh(RwUInt32 size) { return reinterpret_cast<void*(__cdecl*)(RwUInt32)>(0x805890)(size); }
+void* RxScratchAllocLow(RwUInt32 size) { return reinterpret_cast<void*(__cdecl*)(RwUInt32)>(0x8058F0)(size); }
+RxUnlockItemArray* UnlockRequirements(const RxPipelineNode* node) { return reinterpret_cast<RxUnlockItemArray*>(node->topSortData->req); }
+
+// Hay un grupo anterior a `group` (desde `head`) con el mismo cluster en su primer elemento.
+bool UnlockGroupIsDuplicate(const RxUnlockGroup* head, const RxUnlockGroup* group) {
+    for (const RxUnlockGroup* other = head; other != group; other = other->nextInList) {
+        if (other->firstItem->clusterDef == group->firstItem->clusterDef) {
+            return true;
+        }
+    }
+    return false;
+}
+} // namespace
+
+RwInt32 _rxPipelineUnlockLinkItems(RxPipeline* pipeline, RxUnlockGroup** groupList);
+RwInt32 _rxPipelineUnlockAssignSlots(RxPipeline* pipeline, RxUnlockGroup** groupList);
+RwInt32 _rxPipelineUnlockBuildExecutionData(RxPipeline* pipeline, RxUnlockGroup* groups);
+RwInt32 _rwIm3DDefaultPipelinesCreate(RxPipeline** pipelines);
+
+// 0x80F970 (lote R15A, sin validar; 560 bytes; cdecl, (tuberia, puntero a la lista de grupos); devuelve 0 o 0x20; nombre inferido): fase 1 del desbloqueo. Por cada nodo (do-while: el contador de
+// nodos se decrementa al final) da un grupo (0x805890(0x10), enlazado al frente de la lista global; sin memoria: error {1, _rwerror(0x20)} y devuelve 0x20) a cada requisito sin grupo y lo pone al
+// frente del grupo. Despues, por cada salida (!= -1) y por cada requisito del nodo destino con tipo != 0, busca en el nodo actual el requisito con el mismo cluster; si existe y la salida esta en su
+// mascara (1 << salida, con la cuenta modulo 32): si el del destino no tiene grupo entra en el grupo del encontrado; si tiene, funde las raices (union-find): la del encontrado cuelga de la del destino,
+// se enlaza al final de la cadena de la primera y se quita de la lista global.
+RwInt32 _rxPipelineUnlockLinkItems(RxPipeline* pipeline, RxUnlockGroup** groupList) {
+    RwUInt32 nodesLeft = pipeline->numNodes;
+    RxPipelineNode* node = pipeline->nodes;
+    do {
+        if (UnlockRequirements(node)->count > 0) {
+            RwUInt32 i = 0;
+            do {
+                RxUnlockItem* const item = &UnlockRequirements(node)->items[i];
+                if (item->group == nullptr) {
+                    RxUnlockGroup* const group = static_cast<RxUnlockGroup*>(RxScratchAllocHigh(0x10));
+                    if (group != nullptr) {
+                        group->chained = nullptr;
+                        group->firstItem = nullptr;
+                        group->parent = nullptr;
+                        group->nextInList = *groupList;
+                        *groupList = group;
+                    }
+                    item->group = group;
+                    if (group == nullptr) {
+                        RwError error;
+                        error.pluginID = 1;
+                        error.errorCode = _rwerror(0x20);
+                        RwErrorSet(&error);
+                        return 0x20;
+                    }
+                    item->nextInGroup = group->firstItem;
+                    group->firstItem = item;
+                }
+                ++i;
+            } while (i < UnlockRequirements(node)->count);
+        }
+        if (node->numOutputs > 0) {
+            RwUInt32 output = 0;
+            do {
+                const RwUInt32 targetIndex = node->outputs[output];
+                if (targetIndex != 0xFFFFFFFFu) {
+                    RxPipelineNode* const target = &pipeline->nodes[targetIndex];
+                    if (UnlockRequirements(target)->count > 0) {
+                        RwUInt32 j = 0;
+                        do {
+                            RxUnlockItem* const targetItem = &UnlockRequirements(target)->items[j];
+                            if (targetItem->type != 0) {
+                                const RwUInt32 ownCount = UnlockRequirements(node)->count;
+                                RxUnlockItem* match = nullptr;
+                                if (ownCount != 0) {
+                                    RxUnlockItem* const ownItems = UnlockRequirements(node)->items;
+                                    for (RwUInt32 k = 0; k < ownCount; ++k) {
+                                        if (ownItems[k].clusterDef == targetItem->clusterDef) {
+                                            match = &ownItems[k];
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (match != nullptr && ((1u << (output & 31u)) & match->outputsMask) != 0) {
+                                    if (targetItem->group == nullptr) {
+                                        RxUnlockGroup* const matchGroup = match->group;
+                                        targetItem->nextInGroup = matchGroup->firstItem;
+                                        matchGroup->firstItem = targetItem;
+                                        targetItem->group = match->group;
+                                    } else {
+                                        RxUnlockGroup* rootTarget = targetItem->group;
+                                        while (rootTarget->parent != nullptr) {
+                                            rootTarget = rootTarget->parent;
+                                        }
+                                        RxUnlockGroup* rootMatch = match->group;
+                                        while (rootMatch->parent != nullptr) {
+                                            rootMatch = rootMatch->parent;
+                                        }
+                                        if (rootTarget != rootMatch) {
+                                            RxUnlockGroup* tail = rootTarget;
+                                            while (tail->chained != nullptr) {
+                                                tail = tail->chained;
+                                            }
+                                            tail->chained = rootMatch;
+                                            rootMatch->parent = rootTarget;
+                                            RxUnlockGroup** link = groupList;
+                                            while (*link != rootMatch) {
+                                                link = &(*link)->nextInList;
+                                            }
+                                            *link = rootMatch->nextInList;
+                                        }
+                                    }
+                                }
+                            }
+                            ++j;
+                        } while (j < UnlockRequirements(target)->count);
+                    }
+                }
+                ++output;
+            } while (output < node->numOutputs);
+        }
+        ++node;
+        --nodesLeft;
+    } while (nodesLeft != 0);
+    return 0;
+}
+
+// 0x80FBA0 (lote R15A, sin validar; 137 bytes; cdecl, (tuberia, puntero a la lista de grupos); devuelve 0; nombre inferido): fase 2, asigna ranuras de cluster. Sin grupos: packetNumClusterSlots = 0.
+// Por cada grupo de la lista: O de las mascaras de ranuras (info +8) de los elementos de todos los grupos de su cadena (+4); ranura = numero de bits bajos consecutivos a 1 de ese O (solo se mira el
+// bit 0 en cada paso); packetNumClusterSlots = max(ranura + 1); cada elemento de la cadena recibe la ranura (+0x1C) y marca su mascara con 1 << ranura (modulo 32).
+RwInt32 _rxPipelineUnlockAssignSlots(RxPipeline* pipeline, RxUnlockGroup** groupList) {
+    RxUnlockGroup* head = *groupList;
+    if (head == nullptr) {
+        pipeline->packetNumClusterSlots = 0;
+        return 0;
+    }
+    RwUInt32 numSlots = 0;
+    do {
+        RwUInt32 used = 0;
+        for (RxUnlockGroup* group = head; group != nullptr; group = group->chained) {
+            for (RxUnlockItem* item = group->firstItem; item != nullptr; item = item->nextInGroup) {
+                used |= item->info->slotMask;
+            }
+        }
+        RwUInt32 slot = 0;
+        while ((used & 1u) != 0) {
+            used >>= 1;
+            ++slot;
+        }
+        if (slot >= numSlots) {
+            numSlots = slot + 1;
+        }
+        for (RxUnlockGroup* group = head; group != nullptr; group = group->chained) {
+            const RwUInt32 bit = 1u << (slot & 31u);
+            for (RxUnlockItem* item = group->firstItem; item != nullptr; item = item->nextInGroup) {
+                RxUnlockInfo* const info = item->info;
+                item->slot = slot;
+                info->slotMask |= bit;
+            }
+        }
+        head = head->nextInList;
+    } while (head != nullptr);
+    pipeline->packetNumClusterSlots = numSlots;
+    return 0;
+}
+
+// 0x80FC30 (lote R15A, sin validar; 884 bytes; cdecl, (tuberia, lista de grupos POR VALOR); devuelve 0; nombre inferido): fase 3, datos definitivos. numInputs = requisitos del nodo 0 con tipo 1 o 2.
+// Cuenta los clusters distintos (primer elemento de cada grupo; sin duplicados anteriores). Pone a cero todo el almacen temporal libre (de 0x8058F0(0) a 0x805890(0), en ese orden de llamadas) y reserva
+// el paquete embebido (28 * ranuras + 0x14; numClusters = ranuras de 16 bits, pipeline en +4, estado 0, puntero en +0x14). Crea la matriz de registros {cluster, atributos por defecto (+8)} de 8 bytes
+// (uno por cluster distinto, reservados seguidos). Por cada nodo: slotClusterRefs (ranuras * 4, solo si > 0), slotsContinue (ranuras * 4 + 4), inputToClusterSlot (clusters de interes * 4, si > 0) y
+// privateData (tamano redondeado a 4, si != 0); rellena slotClusterRefs[ranura] con el registro del cluster y slotsContinue[ranura + 1] con la mascara de salidas, slotsContinue[0] = AND de todas;
+// inputToClusterSlot[i] = primera ranura cuyo cluster coincide con clustersOfInterest[i] (0xFFFFFFFF si ninguna). Por ultimo inputRequirements (12 bytes por requisito 1 o 2 del nodo 0: cluster,
+// tipo, ranura), numInputRequirements y ordenacion por cluster con 0x8103D0.
+RwInt32 _rxPipelineUnlockBuildExecutionData(RxPipeline* pipeline, RxUnlockGroup* groups) {
+    RwUInt32 numInputs = 0;
+    {
+        const RxUnlockItemArray* const req = UnlockRequirements(&pipeline->nodes[0]);
+        const RwUInt32 count = req->count;
+        for (RwUInt32 i = 0; i < count; ++i) {
+            const RwUInt32 type = req->items[i].type;
+            if (type == 1 || type == 2) {
+                ++numInputs;
+            }
+        }
+    }
+    RwUInt32 numUnique = 0;
+    for (const RxUnlockGroup* group = groups; group != nullptr; group = group->nextInList) {
+        if (!UnlockGroupIsDuplicate(groups, group)) {
+            ++numUnique;
+        }
+    }
+    void* const scratchTop = RxScratchAllocHigh(0);
+    void* const scratchBottom = RxScratchAllocLow(0);
+    memset(scratchBottom, 0, reinterpret_cast<uintptr_t>(scratchTop) - reinterpret_cast<uintptr_t>(scratchBottom));
+    RxPacket* const packet = static_cast<RxPacket*>(RxScratchAllocLow(pipeline->packetNumClusterSlots * 28u + 0x14u));
+    pipeline->embeddedPacket = packet;
+    packet->numClusters = static_cast<RwUInt16>(pipeline->packetNumClusterSlots);
+    packet->pipeline = pipeline;
+    pipeline->embeddedPacketState = rxPKST_PACKETLESS;
+    RxUnlockClusterRecord* records = nullptr;
+    for (RxUnlockGroup* group = groups; group != nullptr; group = group->nextInList) {
+        if (UnlockGroupIsDuplicate(groups, group)) {
+            continue;
+        }
+        RxClusterDefinition* const clusterDef = group->firstItem->clusterDef;
+        RxUnlockClusterRecord* const record = static_cast<RxUnlockClusterRecord*>(RxScratchAllocLow(8));
+        if (records == nullptr) {
+            records = record;
+        }
+        record->clusterDef = clusterDef;
+        record->attributes = clusterDef->defaultAttributes;
+    }
+    for (RwUInt32 nodeIndex = 0; nodeIndex < pipeline->numNodes; ++nodeIndex) {
+        RxPipelineNode* const node = &pipeline->nodes[nodeIndex];
+        if (pipeline->packetNumClusterSlots > 0) {
+            node->slotClusterRefs = static_cast<RxPipelineCluster**>(RxScratchAllocLow(pipeline->packetNumClusterSlots * 4u));
+        }
+        node->slotsContinue = static_cast<RwUInt32*>(RxScratchAllocLow(pipeline->packetNumClusterSlots * 4u + 4u));
+        if (node->nodeDef->io.numClustersOfInterest > 0) {
+            node->inputToClusterSlot = static_cast<RwUInt32*>(RxScratchAllocLow(node->nodeDef->io.numClustersOfInterest * 4u));
+        }
+        if (node->nodeDef->pipelineNodePrivateDataSize != 0) {
+            node->privateData = RxScratchAllocLow((node->nodeDef->pipelineNodePrivateDataSize + 3u) & ~3u);
+        }
+        RwUInt32 continueMask = 0xFFFFFFFFu;
+        RxUnlockItemArray* req = UnlockRequirements(node);
+        RwUInt32 count = req->count;
+        if (count > 0) {
+            RwUInt32 i = 0;
+            do {
+                const RxUnlockItem* const item = &req->items[i];
+                RxUnlockClusterRecord* record = nullptr;
+                for (RwUInt32 k = 0; k < numUnique; ++k) {
+                    if (records[k].clusterDef == item->clusterDef) {
+                        record = &records[k];
+                        break;
+                    }
+                }
+                node->slotClusterRefs[item->slot] = reinterpret_cast<RxPipelineCluster*>(record);
+                node->slotsContinue[item->slot + 1] = item->outputsMask;
+                continueMask &= item->outputsMask;
+                ++i;
+                req = UnlockRequirements(node);
+                count = req->count;
+            } while (i < count);
+        }
+        node->slotsContinue[0] = continueMask;
+        if (node->nodeDef->io.numClustersOfInterest > 0) {
+            RwUInt32 cluster = 0;
+            do {
+                node->inputToClusterSlot[cluster] = 0xFFFFFFFFu;
+                const RwUInt32 numSlots = pipeline->packetNumClusterSlots;
+                RxPipelineCluster** ref = node->slotClusterRefs;
+                for (RwUInt32 slot = 0; slot < numSlots; ++slot, ++ref) {
+                    if (*ref != nullptr && reinterpret_cast<const RxUnlockClusterRecord*>(*ref)->clusterDef == node->nodeDef->io.clustersOfInterest[cluster].clusterDef) {
+                        node->inputToClusterSlot[cluster] = slot;
+                        break;
+                    }
+                }
+                ++cluster;
+            } while (cluster < node->nodeDef->io.numClustersOfInterest);
+        }
+    }
+    if (numInputs > 0) {
+        pipeline->inputRequirements = static_cast<RxPipelineRequiresCluster*>(RxScratchAllocLow(numInputs * 12u));
+    }
+    RwUInt32 numRequirements = 0;
+    {
+        const RxUnlockItemArray* req = UnlockRequirements(&pipeline->nodes[0]);
+        RwUInt32 count = req->count;
+        for (RwUInt32 i = 0; i < count;) {
+            const RxUnlockItem* const item = &req->items[i];
+            if (item->type == 1 || item->type == 2) {
+                RxPipelineRequiresCluster* const out = &pipeline->inputRequirements[numRequirements];
+                out->clusterDef = item->clusterDef;
+                out->rqdOrOpt = static_cast<RxClusterValidityReq>(item->type);
+                out->slotIndex = item->slot;
+                ++numRequirements;
+            }
+            ++i;
+            req = UnlockRequirements(&pipeline->nodes[0]);
+            count = req->count;
+        }
+    }
+    pipeline->numInputRequirements = numRequirements;
+    _rwSortRecordsByKey(pipeline->inputRequirements, numRequirements, 0xC, 0, 0, 0xFFFFFFFFu);
+    return 0;
+}
+
+// 0x80A1A0 (lote R15A, sin validar; 152 bytes; cdecl, (tabla de 5 tuberias); nombre inferido: creacion de las tuberias por defecto de Im3D; llamador: 0x7EFE7A, el constructor del plugin de motor 0x40A): crea
+// una tuberia (0x8057B0) con pluginId (+0x2C) = 1, la bloquea (0x806990), le anade el nodo que devuelve 0x80E9A0 (0x806BE0 con indice NULL) y la desbloquea (0x805F40). Con exito escribe la tuberia
+// en las 5 ranuras de la tabla, la asigna a los tipos de primitiva 3, 5, 4, 1 y 2 con RwIm3DSetRenderPipeline (0x7EFB10) y TERMINA con salto (cola) a 0x80E020(tabla), cuyo resultado devuelve. Fallo
+// (bloqueo o desbloqueo): destruye con 0x805820 la tuberia creada (en el fallo del bloqueo) o NULL (en el del desbloqueo; la tuberia se pierde, como en el EXE) y devuelve 0; sin tuberia devuelve 0.
+RwInt32 _rwIm3DDefaultPipelinesCreate(RxPipeline** pipelines) {
+    RxPipeline* toDestroy = RxPipelineCreate();
+    if (toDestroy == nullptr) {
+        return 0;
+    }
+    RxPipeline* const created = toDestroy;
+    created->pluginId = 1;
+    RxLockedPipe* locked = RxPipelineLock(created);
+    if (locked != nullptr) {
+        RxNodeDefinition* const nodeDefinition = reinterpret_cast<RxNodeDefinition*(__cdecl*)()>(0x80E9A0)();
+        locked = RxLockedPipeAddFragment(locked, nullptr, nodeDefinition, nullptr);
+        RxPipeline* const unlocked = RxLockedPipeUnlock(locked);
+        if (unlocked != nullptr) {
+            pipelines[0] = unlocked;
+            pipelines[1] = unlocked;
+            pipelines[2] = unlocked;
+            pipelines[3] = unlocked;
+            pipelines[4] = unlocked;
+            reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 3);
+            reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 5);
+            reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 4);
+            reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 1);
+            reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 2);
+            return reinterpret_cast<RwInt32(__cdecl*)(RxPipeline**)>(0x80E020)(pipelines);
+        }
+        toDestroy = unlocked;
+    }
+    _rxPipelineDestroy(toDestroy);
+    return 0;
+}
+
+void RwCoreInjectHooksR15A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(_rwIm3DDefaultPipelinesCreate, 0x80A1A0);
+    RH_ScopedGlobalInstall(_rxPipelineUnlockLinkItems, 0x80F970);
+    RH_ScopedGlobalInstall(_rxPipelineUnlockAssignSlots, 0x80FBA0);
+    RH_ScopedGlobalInstall(_rxPipelineUnlockBuildExecutionData, 0x80FC30);
+}
