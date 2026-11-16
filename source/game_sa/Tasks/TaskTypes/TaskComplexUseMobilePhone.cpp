@@ -123,14 +123,9 @@ bool __fastcall UseMobilePhoneMakeAbortable(CTaskComplexUseMobilePhone* self, vo
     return false;
 }
 
-// Crea una subtarea de animacion del telefono como el EXE: CTask::operator new (0x61A5A0, 0x20 bytes) y, solo si hay memoria, el constructor de CTaskSimpleRunAnim (0x61A900, con hook) con (grupo 0, animacion, 4.0f, tipo,
-// nombre (se ignora), sin mantener el ultimo fotograma); nulo si el pool de tareas esta agotado.
-CTask* NewPhoneAnimTask(int32 animId, int32 taskType, uintptr_t exeNameAddress) {
-    void* const memory = CTask::operator new(sizeof(CTaskSimpleRunAnim));
-    if (!memory) {
-        return nullptr;
-    }
-    return ::new (memory) CTaskSimpleRunAnim{ANIM_GROUP_DEFAULT, static_cast<AnimationId>(animId), 4.0f, taskType, reinterpret_cast<const char*>(exeNameAddress), false};
+// Crea una subtarea de animacion del telefono como el EXE (ver CTaskComplexUseMobilePhone::NewPhoneAnimTask: grupo 0, animacion, 4.0f, tipo, nombre (se ignora), sin mantener el ultimo fotograma).
+CTask* NewPhoneAnimTaskImpl(int32 animId, int32 taskType, uintptr_t exeNameAddress) {
+    return CTaskComplexUseMobilePhone::NewPhoneAnimTask(animId, taskType, exeNameAddress);
 }
 
 // 0x634A60 (lote 206A, sin validar; el listado decia CTaskComplexUseClosestFreeScriptedAttractor; ranura 8 (CreateNextSubTask) de la vtable 0x86E454; thiscall, un argumento de pila (el peaton), `ret 4`, 425 bytes con marco SEH que solo desenrolla): segun
@@ -144,21 +139,17 @@ CTask* NewPhoneAnimTask(int32 animId, int32 taskType, uintptr_t exeNameAddress) 
 CTask* __fastcall UseMobilePhoneCreateNextSubTask(CTaskComplexUseMobilePhone* self, void* /*edx*/, CPed* ped) {
     switch (self->GetSubTaskRaw()->GetTaskType()) {
     case TASK_SIMPLE_PHONE_TALK:
-        return NewPhoneAnimTask(0x92, TASK_SIMPLE_PHONE_OUT, 0x86E48C);
+        return NewPhoneAnimTaskImpl(0x92, TASK_SIMPLE_PHONE_OUT, 0x86E48C);
     case TASK_SIMPLE_PHONE_IN:
         if (self->m_nDuration >= 0) {
             self->m_timer.m_nStartTime = CTimer::m_snTimeInMilliseconds;
             self->m_timer.m_nInterval  = self->m_nDuration;
             self->m_timer.m_bStarted   = true;
         }
-        return NewPhoneAnimTask(0x93, TASK_SIMPLE_PHONE_TALK, 0x86E480);
+        return NewPhoneAnimTaskImpl(0x93, TASK_SIMPLE_PHONE_TALK, 0x86E480);
     case TASK_SIMPLE_PHONE_OUT:
         if (!self->m_bQuit && self->m_bIsAborting) {
-            void* const memory = CTask::operator new(sizeof(CTaskSimplePause));
-            if (!memory) {
-                return nullptr;
-            }
-            return ::new (memory) CTaskSimplePause{1000};
+            return CTaskComplexUseMobilePhone::NewPhonePauseTask(1000);
         }
         ClearPhoneFlags(ped);
         return nullptr;
@@ -175,6 +166,23 @@ CTask* __fastcall UseMobilePhoneCreateNextSubTask(CTaskComplexUseMobilePhone* se
     }
 }
 } // namespace
+
+// Lote 206A (sin validar): CTask::operator new (0x61A5A0) y, solo si hay memoria, el cuerpo ENGANCHADO del constructor (CTaskSimpleRunAnim::Constructor2 0x61A900, CTaskSimplePause::Constructor 0x48E750; la DLL no construye con su
+// constructor de C++): su EAX (this) es el resultado, como en el EXE. Pool agotado -> nulo sin construir.
+CTask* CTaskComplexUseMobilePhone::NewPhoneAnimTask(int32 animId, int32 taskType, uintptr_t exeNameAddress) {
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleRunAnim));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CTaskSimpleRunAnim*>(memory)->Constructor2(ANIM_GROUP_DEFAULT, static_cast<AnimationId>(animId), 4.0f, taskType, reinterpret_cast<const char*>(exeNameAddress), false);
+}
+CTask* CTaskComplexUseMobilePhone::NewPhonePauseTask(int32 timeMs) {
+    void* const memory = CTask::operator new(sizeof(CTaskSimplePause));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CTaskSimplePause*>(memory)->Constructor(timeMs);
+}
 
 void CTaskComplexUseMobilePhone::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexUseMobilePhone, 0x86E454, 11); // vtable verificado en gta_sa.exe (GetTaskType en [4])

@@ -86,14 +86,15 @@ private:
     auto* Constructor(C2dEffectPedAttractor* fx, CEntity* entity, eMoveState moveState, size_t maxNoOfPeds, float spacing, float achieveQueueTime, float achieveQueueShuffleTime, float arriveRange, float headingRange, float deltaPos, float deltaHeading) {
         return std::construct_at(this,fx, entity, moveState, maxNoOfPeds, spacing, achieveQueueTime, achieveQueueShuffleTime, arriveRange, headingRange, deltaPos, deltaHeading);
     }
+
+public:
+    // 0x5EC410 (enganchado): cuerpo del destructor. Publico desde el lote 206A: lo llama el destructor con borrado 0x5EC4B0 (PedAttractor.cpp) como el EXE (que llama a 0x5EC410), no el destructor de C++ directamente.
     auto* Destructor() {
         // Como el original: llamada no virtual; std::destroy_at llamaba al destructor por la vtable del EXE,
         // que vuelve a 0x5EC410 (enganchado aquí) -> bucle infinito
         this->CPedAttractor::~CPedAttractor();
         return this;
     }
-
-public:
     C2dEffectPedAttractor* m_Fx{};
     notsa::EntityRef<>     m_Entity{};
     SArray<CPed*>          m_AttractPeds;  // Como el original: sin inicializar por valor (el constructor no escribe el allocator)

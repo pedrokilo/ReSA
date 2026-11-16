@@ -78620,6 +78620,1446 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 23938b22f1 con el commit del lote 202A (cherry-pick de 7d697593e5) y la correccion de fuente de ProcessPed (X87Math.cpp). 32 funciones del EXE: tres funciones constantes de CEventVehicleCollision, once Clone/CloneEditable de eventos, siete funciones de la tarea de la vtable 0x86D594 (TASK_SIMPLE_ANIM_LOOPED_MIDDLE), cinco de CTaskSimplePlayHandSignalAnim, los constructores de Interior_c e InteriorGroup_c, CMatrix::ConvertToEulerAngles/ConvertFromEulerAngles y CAttractorScanner::ScanEffect/GetBestEffect (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (el pool de eventos: 0x4B5570 en el EXE y el cuerpo de CEvent::operator new 0x4B5620 en la DLL, que anotan el mismo evento); CPlaceable::GetMatrix y el destructor de la matriz local del escaner corren reales. La DLL pasa su propia reconstruccion de CTaskSimpleAnim::FinishRunAnimCB (0x61A8A0 no tiene hook) a SetFinishCallback y el banco la da por equivalente a 0x61A8A0. En las dos funciones de CMatrix las filas con NaN, infinitos o angulos de mas de 2^20 (sin modelo exacto de fsin/fcos) solo se comparan EXE contra DLL. Fuera de los fixtures: this nulo o crudo, eventos y tareas reales construidos por el EXE, el pool de eventos real, animaciones, asociaciones, jerarquias y manos reales, escaneres con tipo de atractor >= 10, e indices de radios fuera de 0..63.",
       "review_reference": "reversing/Fn202A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractorManager",
+        "fn_name": "FindAssociatedAttractorList",
+        "address": "0x005EB6F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractorManager::FindAssociatedAttractorList"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractorManager",
+        "fn_name": "GetPedUsingEffectList",
+        "address": "0x005EB740",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractorManager::GetPedUsingEffectList"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractorManager",
+        "fn_name": "GetRelevantAttractorList",
+        "address": "0x005EB7B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractorManager::GetRelevantAttractorList"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractorManager",
+        "fn_name": "BroadcastDepartureList",
+        "address": "0x005EC660",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractorManager::BroadcastDepartureList"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractorManager",
+        "fn_name": "DeRegisterPedList",
+        "address": "0x005EC740",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractorManager::DeRegisterPedList"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayUninitCopyWrapStride4A",
+        "address": "0x005EB930",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayUninitCopyWrapStride4A"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayUninitCopyWrapStride20",
+        "address": "0x005EB960",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayUninitCopyWrapStride20"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayUninitCopyWrapStride4B",
+        "address": "0x005EB990",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayUninitCopyWrapStride4B"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayUninitCopyWrapStride12",
+        "address": "0x005EB9D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayUninitCopyWrapStride12"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayUninitCopyWrapStride4C",
+        "address": "0x005EBA00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayUninitCopyWrapStride4C"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayTidyStride4",
+        "address": "0x005EC820",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayTidyStride4"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x005EC4B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleBeKickedOnGround",
+        "fn_name": "Constructor",
+        "address": "0x0061FC20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleBeKickedOnGround::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleBeKickedOnGround",
+        "fn_name": "GetTaskType",
+        "address": "0x0061FC40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleBeKickedOnGround::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleBeKickedOnGround",
+        "fn_name": "MakeAbortable",
+        "address": "0x0061FCC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleBeKickedOnGround::MakeAbortable"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleBeKickedOnGround",
+        "fn_name": "StartAnim",
+        "address": "0x0061FD20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleBeKickedOnGround::StartAnim"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleBeKickedOnGround",
+        "fn_name": "ProcessPed",
+        "address": "0x0061FE00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleBeKickedOnGround::ProcessPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleBeKickedOnGround",
+        "fn_name": "Clone",
+        "address": "0x00623120",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleBeKickedOnGround::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleBeHitWhileMoving",
+        "fn_name": "Constructor",
+        "address": "0x0061FE30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleBeHitWhileMoving::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleBeHitWhileMoving",
+        "fn_name": "GetTaskType",
+        "address": "0x0061FE60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleBeHitWhileMoving::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleBeHitWhileMoving",
+        "fn_name": "MakeAbortable",
+        "address": "0x0061FEE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleBeHitWhileMoving::MakeAbortable"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleBeHitWhileMoving",
+        "fn_name": "StartAnim",
+        "address": "0x0061FF40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleBeHitWhileMoving::StartAnim"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleBeHitWhileMoving",
+        "fn_name": "ProcessPed",
+        "address": "0x00620290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleBeHitWhileMoving::ProcessPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleBeHitWhileMoving",
+        "fn_name": "Clone",
+        "address": "0x00623190",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleBeHitWhileMoving::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseMobilePhone",
+        "fn_name": "Constructor",
+        "address": "0x006348A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseMobilePhone::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseMobilePhone",
+        "fn_name": "GetTaskType",
+        "address": "0x006348D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseMobilePhone::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseMobilePhone",
+        "fn_name": "DestructorBody",
+        "address": "0x006348E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseMobilePhone::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseMobilePhone",
+        "fn_name": "PutAway",
+        "address": "0x006348F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseMobilePhone::PutAway"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseMobilePhone",
+        "fn_name": "MakeAbortable",
+        "address": "0x00634930",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseMobilePhone::MakeAbortable"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseMobilePhone",
+        "fn_name": "CreateNextSubTask",
+        "address": "0x00634A60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn206A/validation-summary.json",
+        "sha256": "8bc3c68196d3424561d36523bd3cdee1c7de58c5c6b5caff0fc61813e4283e2c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseMobilePhone::CreateNextSubTask"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/Attractors/PedAttractor.cpp": "764ea6c3e6f74be1e8eeb02b054d369e45ed0f5a15de255c2ff0e78ba32295f0",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/PedAttractorManager.cpp": "6b5be2ffa575627f05fb2cbd7422b6cace847d4b29364b7e6c996273a36a8754",
+        "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "b5b3477b7635d5332b315be983bf3deb58d9ae1de55dda770547dc2c5027f2d3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "957062d86494c4b95b8594b411913ef89f9951fe21f45b5606e71e61aff8415d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "477f67f16a7300f7b70c3ca0c3d5bef05869360719d2175c827839296d9f60a1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "01766510ef82060c3c7395ef4061d8b2b01a25ebe185fb80b262bd6574c605c9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp": "192e8168705fbd58921e9138431080399874187bc6b0e42d519a6f59574f6267",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h": "033f159ab390f6bcadb963f97892af08d3827a67e7081967a276b407354bb82d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp": "2b19306931fd164a01f72e2d3dee7215e20e5a3ef46e9d85c1ac104e21a4b108",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h": "7e1acdd8cdd8d1194553a9803864be4fd9e8237778cf97fdc5ff045ddc9cef7a",
+        "source/game_sa/X87Math.cpp": "c3c6a8d20fc5dc85631b17e3f66e5a3fa19737075feac81fc2a5544ab5f07237",
+        "source/game_sa/X87Math.h": "3c77ffd9ae68e8a8d71adf5f935a8b40cfc442f71a0f67850a6bb03743fbe3f8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn206A/LiveComparison.hpp": "c2d9dd83da604d42fc402afa9e19066ad075ba9a384c1f0df2a54c6af531ae0e",
+        "reversing/Fn206A/Core.hpp": "3bfaac5a793ea3635c617ed4659cba1998caad17b1f11b4d47bb69f7ffcdfeb6",
+        "reversing/Fn206A/Fixtures.hpp": "139ffe077fefc0a66d2195f44ada327f74b089e14e4de6c279aa323a5930926e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el cherry-pick del lote 206A (commit a1216d1f7c) y las correcciones del banco (destructor con borrado de CPedAttractor llama al cuerpo enganchado Destructor, vaciado de SArray sin recorrer el rango, CreateNextSubTask de CTaskComplexUseMobilePhone construye con los cuerpos enganchados de los constructores); ver artifacts/build-manifest.json. 30 funciones del EXE con hook (cinco instancias compartidas de plantillas de CPedAttractorManager, cinco envolturas de std::uninitialized_copy, vaciado de SArray, destructor con borrado de CPedAttractor, constructor, GetTaskType, MakeAbortable, StartAnim, ProcessPed y Clone de CTaskSimpleBeKickedOnGround y de CTaskSimpleBeHitWhileMoving, y constructor, GetTaskType, cuerpo del destructor, PutAway, MakeAbortable y CreateNextSubTask de CTaskComplexUseMobilePhone; las clases del listado salen del desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: operator delete del CRT, rand y RenderWare); constructores y destructores base de tareas y GetRandomNumberInRange<int> corren reales con el hook apagado; las llamadas virtuales van a vtables falsas. Fuera de los fixtures: this nulo o crudo, listas SArray con fin incoherente (el EXE recorre hasta el fin), clump del peaton que no sea un RwObject valido (la DLL comprueba el tipo en GetRpClump), peaton o subtarea nulos, borrados dobles o fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales.",
+      "review_reference": "reversing/Fn206A/README.md"
     }
   ]
 }

@@ -1,0 +1,69 @@
+# Fn206A: 30 funciones del EXE (lote 206A)
+
+Estado: **APROBADO dentro del juego** (16/11/2026, worktree `wv-5` desde origin/main 70b6d35891 + cherry-pick del commit a1216d1f7c del lote 206A + las tres correcciones de fuente que encontro el banco, descritas abajo; plantilla `Fn200A`, con `Fn197A` (rand, constructores de tareas), `Fn193A` y `Fn180A`). Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn206a/20261116-143336-361364` (archivada en `reversing/CppTwelveLevel6Final/runs/Fn206A-20261116-143336-361364`). 30 x 16384 = **491520 pares** EXE/DLL, cero diferencias, compuertas de ABI/ruta/SEH/DF/restauracion en ambos lados, x87 vacia y cada lado coincide con el oraculo Python independiente (`fixture_oracle.py`). SHA256 de la sonda ejecutada: `9ded5adadb76f8ef7d9719c5d2a697e14991bad1fb631920714f16d6dea43b0d`; del EXE original: `72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b`.
+
+El encargo listaba 32 direcciones: 30 funciones nuevas con hook (commit a1216d1f7c) y los cuerpos de destructor 0x61FC50 y 0x61FE70, que ya estaban enganchados (192A y 193A) y validados. No se salta ni se excluye ninguna: las 30 filas de `docs/hooks.csv` pasan a validated=1. El listado atribuia las direcciones a tres clases (`CPedAttractor`, `CTaskSimpleThrowControl`, `CTaskComplexUseClosestFreeScriptedAttractor`) y casi todas estaban mal; las clases reales salen del desensamblado, de las vtables y de los llamadores.
+
+| # | Funcion (el listado decia) | Entrada | Tipo |
+|---|---|---|---|
+| 0 | `CPedAttractorManager::FindAssociatedAttractor<T>`, instancia compartida (CPedAttractor) | 0x5EB6F0 | S |
+| 1 | `CPedAttractorManager::GetPedUsingEffect<T>` | 0x5EB740 | S |
+| 2 | `CPedAttractorManager::GetRelevantAttractor<T>` | 0x5EB7B0 | S |
+| 3 | `CPedAttractorManager::BroadcastDeparture<T>` | 0x5EC660 | S |
+| 4 | `CPedAttractorManager::DeRegisterPed<T>` | 0x5EC740 | S |
+| 5 | envoltura stdcall de `std::uninitialized_copy` 0x5EAE10 (4 bytes, A) | 0x5EB930 | S |
+| 6 | envoltura de 0x5EAE40 (20 bytes) | 0x5EB960 | S |
+| 7 | envoltura de 0x5EAE70 (4 bytes, B) | 0x5EB990 | S |
+| 8 | envoltura de 0x5EAEA0 (12 bytes) | 0x5EB9D0 | S |
+| 9 | envoltura de 0x5EAEE0 (4 bytes, C) | 0x5EBA00 | S |
+| 10 | vaciado de un `SArray` de elementos sin destructor | 0x5EC820 | S |
+| 11 | `CPedAttractor` destructor con borrado | 0x5EC4B0 | S |
+| 12 | `CTaskSimpleBeKickedOnGround::Constructor` (CTaskSimpleThrowControl) | 0x61FC20 | S |
+| 13 | `CTaskSimpleBeKickedOnGround::GetTaskType` (0x3EF) | 0x61FC40 | S |
+| 14 | `CTaskSimpleBeKickedOnGround::MakeAbortable` | 0x61FCC0 | S |
+| 15 | `CTaskSimpleBeKickedOnGround::StartAnim` | 0x61FD20 | S |
+| 16 | `CTaskSimpleBeKickedOnGround::ProcessPed` | 0x61FE00 | S |
+| 17 | `CTaskSimpleBeKickedOnGround::Clone` | 0x623120 | S |
+| 18 | `CTaskSimpleBeHitWhileMoving::Constructor` | 0x61FE30 | S |
+| 19 | `CTaskSimpleBeHitWhileMoving::GetTaskType` (0x3F1) | 0x61FE60 | S |
+| 20 | `CTaskSimpleBeHitWhileMoving::MakeAbortable` | 0x61FEE0 | S |
+| 21 | `CTaskSimpleBeHitWhileMoving::StartAnim` (x87, rand del CRT del EXE) | 0x61FF40 | S |
+| 22 | `CTaskSimpleBeHitWhileMoving::ProcessPed` | 0x620290 | S |
+| 23 | `CTaskSimpleBeHitWhileMoving::Clone` | 0x623190 | S |
+| 24 | `CTaskComplexUseMobilePhone::Constructor` (CTaskComplexUseClosestFreeScriptedAttractor) | 0x6348A0 | S |
+| 25 | `CTaskComplexUseMobilePhone::GetTaskType` (0x640) | 0x6348D0 | S |
+| 26 | `CTaskComplexUseMobilePhone` cuerpo del destructor | 0x6348E0 | S |
+| 27 | `CTaskComplexUseMobilePhone::PutAway` | 0x6348F0 | S |
+| 28 | `CTaskComplexUseMobilePhone::MakeAbortable` | 0x634930 | S |
+| 29 | `CTaskComplexUseMobilePhone::CreateNextSubTask` | 0x634A60 | S |
+
+Las 30 son hooks S (`RH_ScopedNamedGlobalInstall` / `RH_ScopedInstall`, funciones libres con la convencion del EXE: las clases de las dos tareas de golpe y de `CTaskComplexUseMobilePhone` no estan reconstruidas como clase completa).
+
+## Diferencias que encontro el banco (corregidas en la fuente)
+Las 30 funciones se dispararon por primera vez con 64 casos cada una; el banco encontro tres defectos de la fuente respecto del EXE (el resto de funciones, 27, salieron limpias a la primera):
+- **`CPedAttractor` destructor con borrado (0x5EC4B0)**: la fuente llamaba a `self->CPedAttractor::~CPedAttractor()` (el destructor de C++ directamente) en lugar de a `Destructor()`, el cuerpo enganchado de 0x5EC410 que el EXE llama; con el falso del cuerpo en ambos lados la DLL no pasaba por el colaborador. Corregido: llama a `self->Destructor()` (que pasa a publico en `PedAttractor.h`).
+- **Vaciado de `SArray` (0x5EC820)**: la fuente llamaba a `SArray::clear()`, que destruye el rango `[inicio, fin)` con `std::destroy` antes de liberar; el EXE solo libera `[+4]` y pone a cero los tres punteros. Con un fin anterior al inicio (vector incoherente) la DLL recorria el espacio de direcciones y hundia el juego (0xC0000409). Corregido: libera con `::operator delete` solo con el inicio no nulo y pone a cero `_First`, `_Last` y `_End`, sin recorrer el rango.
+- **`CTaskComplexUseMobilePhone::CreateNextSubTask` (0x634A60)**: construia las subtareas con `::new (memoria) CTaskSimpleRunAnim{...}` / `CTaskSimplePause{1000}` (constructor de C++ de la DLL, que escribe los campos) en lugar de pasar por los cuerpos enganchados de 0x61A900 y 0x48E750 como el EXE: la llamada al constructor no aparecia en la DLL. Corregido: dos ayudantes publicos `CTaskComplexUseMobilePhone::NewPhoneAnimTask` / `NewPhonePauseTask` (con `friend` en `TaskSimpleRunAnim.h` y `TaskSimplePause.h`) llaman a `Constructor2` / `Constructor` y devuelven su resultado, como `CTaskComplexSunbathe` (197A).
+
+Ajustes del banco (no de la fuente): las vtables falsas distinguen la de atractores (destructor en la ranura 1: `GetType` va antes) de la de tareas (destructor en la ranura 0), y el `clump` del peaton de `StartAnim` es un `RwObject` valido de tipo `rpCLUMP` o nulo: `CEntity::GetRpClump` de la DLL comprueba el tipo (`assert`) y el EXE no desreferencia el puntero.
+
+## Revision contra el EXE (`dumpbin /disasm` sobre el PE)
+Ver `reversing/PendienteValidar/206A.md` (retirado en el commit de validacion) y `fixture_oracle.py`, que lleva el desensamblado de las 30 funciones. Puntos que condicionan el banco:
+- **Instancias de plantilla de `CPedAttractorManager` (0-4)**: stdcall sin objeto (ECX sin usar), lista `SArray<CPedAttractor*>` por referencia (+4 inicio, +8 fin), tamano `(fin - inicio) >> 2` con signo (0 si el inicio es nulo; listas vacias, con el fin antes del inicio y con el fin nulo cubiertas). `GetPedUsingEffect` devuelve la cabeza de la cola de llegada (+0x20/+0x24) del primer atractor que coincide sin seguir buscando; `GetRelevantAttractor` llama a `IsRegisteredWithPed` (0x5EB4C0, falso identico) solo con efecto y entidad iguales. `BroadcastDeparture` / `DeRegisterPed` llaman por la vtable falsa (ranura 5) o a 0x5EC5B0 (falso), suman las dos colas, y con suma cero buscan el atractor por punteros, compactan la lista y borran por la ranura 1 con argumento 1; el falso puede modificar las colas y el fin de la lista para cubrir "ausente tras la llamada".
+- **Envolturas de `uninitialized_copy` (5-9)**: stdcall `ret 0Ch` con un marco de 5 dwords (origen, fin, destino, ECX basura, destino) a la funcion cdecl de 189A (falso identico); devuelven su EAX. El hueco con el ECX de entrada es basura: no se compara la pila fuera de los argumentos.
+- **Vaciado (10) y destructor con borrado de `CPedAttractor` (11)**: `operator delete` del CRT (0x8214BD) falso solo en la direccion del EXE; el borrado del pool de atractores (0xB744C4, hueco de 0xC4 bytes, indice con la constante 0x5397829D) corre real sobre un pool sintetico en las arenas (indices 0..63 con el hueco usado).
+- **Tareas de golpe (12-23)**: constructores y `Clone` con `CTask::operator new` (0x61A5A0, falso identico) y el constructor base 0x61A390 real con el hook apagado; vtables 0x86D7D8 / 0x86D7FC anotadas como clase; `MakeAbortable` con `SetFinishCallback` (0x4CEBE0, falso) con el `DefaultAnimCB` del EXE (0x4D1390) por direccion; `StartAnim` de `BeKickedOnGround` con `KickingWhenDown` (0x56D270, dos llamadas), `RpAnimBlendClumpGetFirstAssociation` (0x4D6A70), `BlendAnimation` (0x4D4610), `SetCurrentTime` (0x4CEA80), y las rutinas de RenderWare 0x734A40, 0x7C51A0, 0x7C5120 y 0x7EDD90 (falsos).
+- **`BeHitWhileMoving::StartAnim` (21)**: arbol de decisiones con `IsPlayer` (0x5DF8F0, falso por llamada), `rand()` del CRT del EXE (0x821B1E, falso con un valor por llamada; en la DLL `CGeneral::GetRandomNumber` lleva el mismo falso), `GetRandomNumberInRange<int>` 0x407180 real en el EXE, `RpAnimBlendClumpGetAssociation` (0x4D68B0), `BlendAnimation`, `SetCurrentTime`, `ClearLookFlag` / `ClearAimFlag` (0x5E1950 / 0x5DEF20) y `SetFinishCallback` con el callback 0x61FF30. El tiempo de inconsciencia (+0x744) se modela con fracciones exactas de la x87 de 24 bits (`fild` con signo y 2^32 si es negativo, `fmul 1000.0f`, `fsubp`, `_ftol` con los 32 bits bajos; NaN, infinito y fuera de rango dan 0) para los cinco casos: sin animacion (entero), jugador con animacion 0x6E / 0x6F, jugador con otra y no jugador con animacion; la comparacion `m_BlendDelta < 0` es ordenada (NaN reutiliza la animacion).
+- **`CTaskComplexUseMobilePhone` (24-29)**: constructor con el base 0x61A3B0 real; cuerpo del destructor con el base 0x61A3D0 real (borra la subtarea por la ranura 0 de la vtable falsa de tareas); `PutAway` con `RemoveWeaponModel` / `SetCurrentWeapon` (0x5E3990 / 0x5E6280, falsos); `MakeAbortable` con llamadas virtuales a la subtarea (ranuras 4 y 6), al evento (ranura 1), `IsPlayer` y `PutAway` (falsos); `CreateNextSubTask` con `CTask::operator new` y los constructores 0x61A900 / 0x48E750 (falsos) y `CreateFirstSubTask` por la ranura 9 de la propia tarea.
+
+## Banco
+Una funcion por ruta (original = EXE con el hook apagado; candidato = DLL con SOLO ese hook). Cuatro arenas (A..D) con guardas de 0x40 y ventana de 0x2000 (las vtables falsas viven en la mitad alta de D); falsos identicos en la direccion del EXE y en el cuerpo de la DLL de los colaboradores con hook y solo en la direccion del EXE de los que la DLL llama por ella (CRT y RenderWare). Memoria global tocada y restaurada: marca del banco 0xA9B0B0, reloj 0xB7CB84, contador de fotogramas 0xB7CB4C y puntero del pool de atractores 0xB744C4 (comparada con `gchanges`). 16 familias de 1024 casos por funcion; `python -I fixture_selfcheck.py` pasa los 491520 casos por el oraculo. Comando: `CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1 bash reversing/_handoff/bench_here.sh Fn206A` (con timeouts largos en `run_local.py`: 9000 s; la corrida principal y las dos rondas negativas se hicieron en una sola sesion del candado del juego con un envoltorio propio).
+
+## Prueba negativa
+`mutate.py` (28 mutaciones por ronda: las envolturas de 4 bytes A, B y C comparten el cuerpo plantilla; todas condicionadas a la marca 0x5A en 0xA9B0B0, que solo pone el banco). **Las 30 funciones fallan en ambas rondas** (`negative-runs/`, 2048 casos por funcion): ronda 1 `20261116-151507-506803` (40774 de 61440 pares con diferencias; minimo 166/2048 en `BeHitWhileMoving::StartAnim`) y ronda 2 `20261116-160108-952007` (42686 de 61440; minimo 194/2048 en `CreateNextSubTask`); el lado EXE coincide con el oraculo en todos los pares. Incidencia: la primera tentativa de la ronda 2 no compilo (una mutacion de `SArrayUninitCopyWrapStride12` mezclaba un puntero constante con uno no constante), asi que no llego a ejecutar el juego; se corrigio la mutacion y se repitio la ronda 2 en otra sesion del candado (la ronda 1 y la corrida principal no se repitieron). Fuentes restauradas con `mutate.py restore` (SHA256 igual a las copias buenas) y manifiesto de la sonda regenerado con los hashes de las fuentes buenas.
+
+## Fuera de los fixtures
+`this` nulo o crudo, listas `SArray` con el fin incoherente en las funciones que recorren hasta el fin (el EXE seguiria hasta encontrarlo), `clump` del peaton que no sea un `RwObject` valido o nulo, peaton, subtarea o evento crudos (solo nulos o validos), borrados dobles o hueco fuera del pool de atractores, pools y vtables reales construidos por el EXE, y objetos RenderWare reales; ademas la exactitud de los colaboradores falseados.
+
+## Bancos que citan las direcciones (sin repetir; para el pase final del coordinador)
+Grep por direccion en `reversing/` (sin este banco, `_handoff`, evidencia archivada ni registros): ningun banco cita las 30 direcciones; solo `HooksActivados` (README) nombra 0x61FC40 y 0x61FE60 en una tabla de documentacion. Bancos que llegan a ellas sin citarlas (rutas del EXE con el gancho del llamador apagado) y que conviene repetir si se quiere cobertura indirecta de los ganchos nuevos: `Mix14` y `TasksBatch3` (llamadores de las plantillas de `CPedAttractorManager`: HasEmptySlot 0x5EBB00, GetPedUsingEffect 0x5EBE50, GetRelevantAttractor 0x5EBF50, BroadcastDeparture 0x5EC980, DeRegisterPed 0x5EC850), `FixPeds` (cita 0x5EC410, cuerpo del destructor de `CPedAttractor`, ahora llamado por 0x5EC4B0), `Fn205A` (0x5EAFE0, `operator delete` de `CPedAttractor`), `Fn192A` y `Fn193A` (cuerpos de destructor 0x61FC50 / 0x61FE70 de las dos tareas de golpe, mismas clases). La cabecera `PedAttractor.h` solo cambia de visibilidad (`Destructor()` publico) y `TaskSimpleRunAnim.h` / `TaskSimplePause.h` anaden un `friend`: sin cambios de comportamiento.

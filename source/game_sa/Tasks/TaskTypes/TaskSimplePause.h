@@ -23,6 +23,7 @@ private:
     friend class CTaskComplexSunbathe; // lote 197A: su CreateSubTask del EXE (0x638290) llama al cuerpo enganchado Constructor (0x48E750) y devuelve su EAX
     friend class CTaskComplexGoToPointAndStandStill; // lote 198A: su CreateSubTask (0x6682D0) tambien
     friend class CTaskComplexFollowLeaderInFormation; // lote 201A (sin validar): su CreateSubTask (0x6962A0) llama al Constructor enganchado del EXE, como el original
+    friend class CTaskComplexUseMobilePhone; // lote 206A: su CreateNextSubTask del EXE (0x634A60) llama al cuerpo enganchado Constructor (0x48E750) y devuelve su EAX
     CTaskSimplePause* Constructor(int32 time);
 
 private:

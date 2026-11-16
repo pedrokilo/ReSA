@@ -28,6 +28,10 @@ public:
 
     // Lote 206A (sin validar): lectura directa del campo +8 (m_pSubTask) para las funciones sueltas enganchadas del EXE (CTaskComplex::GetSubTask es una llamada que el EXE no hace)
     CTask* GetSubTaskRaw() const { return m_pSubTask; }
+
+    // Lote 206A (sin validar): crean las subtareas de CreateNextSubTask como el EXE: CTask::operator new (0x61A5A0) y, solo si hay memoria, el cuerpo enganchado del constructor (0x61A900 de CTaskSimpleRunAnim, 0x48E750 de CTaskSimplePause); nulo si el pool esta agotado
+    static CTask* NewPhoneAnimTask(int32 animId, int32 taskType, uintptr_t exeNameAddress);
+    static CTask* NewPhonePauseTask(int32 timeMs);
 };
 
 VALIDATE_SIZE(CTaskComplexUseMobilePhone, 0x20);

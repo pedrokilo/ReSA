@@ -226,14 +226,20 @@ SArrayElem12* __stdcall SArrayUninitCopyWrapStride12(const SArrayElem12* first, 
 // 0x5EC820 (39 bytes, thiscall sin argumentos de pila, `ret`): liberar el almacenamiento de un vector SArray de elementos sin destructor (el inicio esta en +4, el fin en +8 y el limite en +0xC): si el inicio no es nulo
 // lo libera con operator delete del EXE (0x8214BD) y pone los tres punteros a cero. Es el mismo trozo que el destructor de los vectores de CPedAttractor 0x5EC410 trae en linea.
 void __fastcall SArrayTidyStride4(SArray<uint32>* self, void* /*edx*/) {
-    self->clear();
+    // Como el EXE: sin recorrer los elementos (SArray::clear destruiria el rango [inicio, fin), que con un fin incoherente no termina); operator delete solo con el inicio no nulo y despues los tres punteros a cero
+    if (self->_First) {
+        ::operator delete(self->_First);
+    }
+    self->_First = nullptr;
+    self->_Last  = nullptr;
+    self->_End   = nullptr;
 }
 
 // 0x5EC4B0 (76 bytes, thiscall con el BYTE de banderas en la pila, `ret 4`): destructor con borrado de CPedAttractor del EXE (ranura 1 de su vtable 0x86C538, tras GetType). Llama al cuerpo del destructor (0x5EC410, con
 // hook: aqui el destructor de la clase llamado sin pasar por la vtable) y, solo si el bit 0 del BYTE de banderas esta puesto, libera `this` en el pool de atractores (0xB744C4) EN LINEA (indice = (this - almacenamiento) / 0xC4 con signo,
 // estado |= 0x80, cursor = min con signo), como CPedAttractor::operator delete (0x5EAFE0, con hook). Devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
 CPedAttractor* __fastcall PedAttractorScalarDeletingDestructor(CPedAttractor* self, void* /*edx*/, uint8 flags) {
-    self->CPedAttractor::~CPedAttractor();
+    self->Destructor();
     if (flags & 1) {
         CPedAttractor::operator delete(self);
     }
