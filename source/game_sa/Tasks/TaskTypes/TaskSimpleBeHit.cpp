@@ -32,7 +32,7 @@ namespace {
 // test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x620810, el destructor de C++ con el hook Destructor), libera `this` con
 // CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
 CTaskSimpleBeHit* __fastcall BeHitScalarDeletingDestructor(CTaskSimpleBeHit* self, void* /*edx*/, uint8 flags) {
-    self->CTaskSimpleBeHit::~CTaskSimpleBeHit();
+    self->Destructor(); // el destructor enganchado 0x620810 (para que el banco lo sustituya por el mismo falso en el EXE y en la DLL)
     if (flags & 1) {
         CTask::operator delete(self);
     }

@@ -40,6 +40,7 @@ public:
     CTask*    ControlSubTask(CPed* ped) override;
 
 private: // Wrappers for hooks
+    friend CTaskComplexKillPedOnFootMelee* __fastcall KillPedOnFootMeleeScalarDeletingDestructor(CTaskComplexKillPedOnFootMelee* self, void* edx, uint8 flags); // destructor con borrado (lote 193A): llama al destructor enganchado
     // 0x621000
     CTaskComplexKillPedOnFootMelee* Constructor(CPed * target) {
         this->CTaskComplexKillPedOnFootMelee::CTaskComplexKillPedOnFootMelee(target);

@@ -1,4 +1,7 @@
+// Sin PCH (CMakeLists.txt): StdInc.h redefine NOMINMAX y el aviso C4005 es error; mismo recurso que Fx.cpp.
+#pragma warning(push, 0)
 #include "StdInc.h"
+#pragma warning(pop)
 
 #include "TaskComplexExtinguishFireOnFoot.h"
 #include "TaskComplexGoToPointAndStandStill.h"
@@ -80,7 +83,7 @@ CTask* CTaskComplexExtinguishFireOnFoot::CreateNextSubTask(CPed* ped) {
         if (!memory) {
             return nullptr;
         }
-        return ::new (memory) CTaskSimpleGunControl(nullptr, m_pos, CVector{}, eGunCommand::RELOAD, 1, -1);
+        return static_cast<CTaskSimpleGunControl*>(memory)->Constructor(nullptr, &m_pos, nullptr, eGunCommand::RELOAD, 1, -1); // el constructor enganchado 0x61F3F0; devuelve su EAX
     }
     if (subTaskType == TASK_SIMPLE_GUN_CTRL) {
         return CreateFirstSubTask(ped);
@@ -102,7 +105,7 @@ CTask* CTaskComplexExtinguishFireOnFoot::CreateFirstSubTask(CPed* ped) {
     if (!memory) {
         return nullptr;
     }
-    return ::new (memory) CTaskComplexGoToPointAndStandStill(PEDMOVE_RUN, firePos, 2.0f, 2.0f, false, false);
+    return static_cast<CTaskComplexGoToPointAndStandStill*>(memory)->Constructor(PEDMOVE_RUN, firePos, 2.0f, 2.0f, false, false); // el constructor enganchado 0x668120; devuelve su EAX
 }
 
 // 0x659980 (lote 193A, sin validar; ranura 10 (ControlSubTask) de la vtable 0x86F5FC; thiscall, un argumento de pila (el ped, que no se lee), `ret 4`, 6 bytes: `mov eax,[ecx+8]; ret 4`): devuelve la subtarea actual.

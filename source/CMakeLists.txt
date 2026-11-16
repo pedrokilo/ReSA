@@ -219,6 +219,13 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # Lote 193A: CTaskComplexReactToAttack::CreateFirstSubTask (0x625C70, restas y productos x87 con denormales) y CTaskComplexExtinguishFireOnFoot::FindNearestFire (0x659990, suma de cuadrados con exponente ampliado): un SSE con DAZ/FTZ del juego aplana los denormales que la x87 conserva; los archivos de las dos clases se compilan asi.
+    set_source_files_properties(game_sa/Tasks/TaskTypes/TaskComplexReactToAttack.cpp game_sa/Tasks/TaskTypes/TaskComplexExtinguishFireOnFoot.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Ob0;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=Disabled;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # Lote 171A: CTaskComplexGoToBoatSteeringWheel::ComputeTargetPos (0x649160): sumas float de la x87 del EXE (un SSE con DAZ/FTZ del juego aplana los denormales que la x87 conserva); el archivo de la clase se compila asi.
     set_source_files_properties(game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp PROPERTIES
         COMPILE_OPTIONS "/O2;/Ob0;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"

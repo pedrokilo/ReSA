@@ -27,6 +27,7 @@ public:
     void UpdateChoke(CPed* victim, CPed* attacker, bool bIsTeargas);
 
 private: // Wrappers for hooks
+    friend CTaskSimpleChoking* __fastcall ChokingScalarDeletingDestructor(CTaskSimpleChoking* self, void* edx, uint8 flags); // destructor con borrado (lote 193A): llama al destructor enganchado
     // 0x6202C0
     CTaskSimpleChoking* Constructor(CPed* attacker, uint8 isTeargas) {
         this->CTaskSimpleChoking::CTaskSimpleChoking(attacker, isTeargas);

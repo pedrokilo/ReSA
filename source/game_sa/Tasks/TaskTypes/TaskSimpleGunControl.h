@@ -62,6 +62,7 @@ private:
     bool GetPedToTarget(const CPed* ped, CVector& out);
 
 private: // Wrappers for hooks
+    friend class CTaskComplexExtinguishFireOnFoot; // su CreateNextSubTask (0x6598C0, lote 193A) llama al constructor enganchado 0x61F3F0
     // 0x61F3F0
     CTaskSimpleGunControl* Constructor(CEntity* targetEntity, CVector const* target, CVector const* moveTarget, eGunCommand firingTask, int16 burstLength, int32 durationMs) {
         this->CTaskSimpleGunControl::CTaskSimpleGunControl(targetEntity, target ? *target : CVector{}, moveTarget ? *moveTarget : CVector{}, firingTask, burstLength, durationMs);

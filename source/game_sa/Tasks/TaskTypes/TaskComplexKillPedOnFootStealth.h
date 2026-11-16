@@ -28,6 +28,7 @@ public:
     CTask*    ControlSubTask(CPed* ped) override;
 
 private: // Wrappers for hooks
+    friend CTaskComplexKillPedOnFootStealth* __fastcall KillPedOnFootStealthScalarDeletingDestructor(CTaskComplexKillPedOnFootStealth* self, void* edx, uint8 flags); // destructor con borrado (lote 193A): llama al destructor enganchado
     // 0x620F70
     CTaskComplexKillPedOnFootStealth* Constructor(CPed* target) {
         this->CTaskComplexKillPedOnFootStealth::CTaskComplexKillPedOnFootStealth(target);
