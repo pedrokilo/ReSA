@@ -3953,3 +3953,167 @@ void _rwSortRecordsByKey(void* basePointer, RwUInt32 count, RwUInt32 stride, RwU
         }
     }
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R14A (sin validar): 0x801390, imagen -> raster del controlador D3D9 (RwD3D9). El listado la daba por RwPlCore; la llama 0x8006F8 (rama de imagen a raster del controlador) con (raster, imagen).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+// Funciones de conversion RGBA -> pixel del EXE (cdecl, UN argumento de pila: puntero a 4 bytes R, G, B, A; devuelven el pixel en EAX), sin reconstruir; se llaman por direccion fija.
+using ImageToPixelFn = uint32(__cdecl*)(const void*);
+// Tabla de saltos del EXE (0x801860: indices por D3DFORMAT - 0x15; 0x801820: destinos; la segunda copia 0x801904 / 0x8018C4 es identica): D3DFORMAT -> funcion; sin entrada 0 (el EXE haria call 0).
+ImageToPixelFn ImageToPixelConverter(uint32 d3dFormat) {
+    uintptr_t address = 0;
+    switch (d3dFormat) {
+    case 0x15: address = 0x800B00; break;
+    case 0x16: address = 0x800AA0; break;
+    case 0x17: address = 0x800960; break;
+    case 0x18: address = 0x800930; break;
+    case 0x19: address = 0x800990; break;
+    case 0x1A: address = 0x8009D0; break;
+    case 0x1D: address = 0x800A10; break;
+    case 0x1E: address = 0x800A40; break;
+    case 0x20: address = 0x800B30; break;
+    case 0x21: address = 0x800AD0; break;
+    case 0x32: address = 0x800B70; break;
+    case 0x33: address = 0x800BD0; break;
+    case 0x3C: address = 0x800B60; break;
+    case 0x3D: address = 0x800A70; break;
+    case 0x3E: address = 0x800AD0; break;
+    case 0x3F: address = 0x800B30; break;
+    case 0x51: address = 0x800C20; break;
+    case 0x75: address = 0x800B60; break;
+    default: break;
+    }
+    return reinterpret_cast<ImageToPixelFn>(address);
+}
+// Byte de alfa de la tabla _rwD3D9PixelFormatInfo (0xB4E7E0, 4 bytes por D3DFORMAT): 0xFF = sin alfa.
+uint8 PixelFormatAlphaByte(uint32 d3dFormat) {
+    return *reinterpret_cast<const uint8*>(0xB4E7E0 + static_cast<uintptr_t>(d3dFormat) * 4);
+}
+} // namespace
+
+// 0x801390 (lote R14A, sin validar; 1167 bytes; nombre inferido, simetrica de _rwD3D9RasterToImage32; cdecl (RwRaster* raster, RwImage* imagen), sin valor de retorno): copia los pixeles de la imagen al raster
+// ya bloqueado (raster->cpPixels y stride; imagen: cpPixels, stride y paleta de RGBA en bytes R, G, B, A). Extension D3D9 del raster = raster + [0xB4E9E0]; su byte +8 es "tiene alfa".
+// Profundidad de imagen 32: cFormat & 0xF = 0x6 (xrgb): pixel = 0xFF000000 | R << 16 | G << 8 | B y alfa = 0; 0x5 (argb): igual con el alfa de la imagen (byte 3) y termina como "con alfa"; otro formato:
+// funcion de conversion por el D3DFORMAT de la extension (tabla de saltos; 18 formatos con funcion, el resto hace call 0), un pixel por llamada con el puntero a los 4 bytes de la imagen, escrito como DWORD.
+// Profundidad 4 u 8 (1 << profundidad entradas): paleta local de dwords convertida con el mismo criterio (6: alfa FF; 5: con alfa; otro: por la funcion de conversion), luego cada pixel indexa esa paleta (indices de UN
+// byte por pixel tambien con 4 bits). Otra profundidad: solo el cierre "con alfa". Cierre: byte de alfa de la tabla de formatos (0xB4E7E0 + d3dFormat * 4; 0xFF en las ramas xrgb): >= 0xFF -> alfa = 0 y sale;
+// si no alfa = 1 y, si el raster tiene padre distinto de el, tambien el alfa de la extension del padre = 1. Los bucles son con signo (alto y ancho <= 0 no copian nada).
+void _rwD3D9ImageToRaster(RwRaster* raster, RwImage* image) {
+    D3D9RasterExtLayout& ext = D3D9RasterExt(raster);
+    const auto markAlpha = [&]() {
+        ext.alpha = 1;
+        RwRaster* const parent = raster->parent;
+        if (parent != raster) {
+            D3D9RasterExt(parent).alpha = 1;
+        }
+    };
+    // Recorre las filas de la imagen y del raster; convertPixel(origen, destino) por pixel; avanza 4 bytes en los dos.
+    const auto convertRows = [&](auto&& convertPixel) {
+        for (RwInt32 y = 0; y < raster->height; y++) {
+            const RwUInt8* source = image->cpPixels + static_cast<RwInt32>(image->stride * y);
+            RwUInt8* destination = raster->cpPixels + static_cast<RwInt32>(raster->stride * y);
+            if (raster->width > 0) {
+                RwInt32 x = 0;
+                do {
+                    convertPixel(source, destination);
+                    source += 4;
+                    destination += 4;
+                    x++;
+                } while (x < raster->width);
+            }
+        }
+    };
+    const auto packXrgb = [](const RwUInt8* rgba) -> uint32 {
+        return 0xFF000000u | (static_cast<uint32>(rgba[0]) << 16) | (static_cast<uint32>(rgba[1]) << 8) | rgba[2];
+    };
+    const auto packArgb = [](const RwUInt8* rgba) -> uint32 {
+        return (static_cast<uint32>(rgba[3]) << 24) | (static_cast<uint32>(rgba[0]) << 16) | (static_cast<uint32>(rgba[1]) << 8) | rgba[2];
+    };
+    const uint32 rasterFormat = static_cast<uint32>(raster->cFormat & 0x0Fu) << 8;
+    const RwInt32 depth = image->depth;
+
+    if (depth == 4 || depth == 8) {
+        const uint32 count = 1u << depth;
+        uint32 palette[256];
+        uint8 alphaInfo;
+        const RwUInt8* const imagePalette = reinterpret_cast<const RwUInt8*>(image->palette);
+        if (rasterFormat == 0x600) {
+            alphaInfo = 0xFF;
+            for (uint32 i = 0; i < count; i++) {
+                palette[i] = packXrgb(imagePalette + i * 4);
+            }
+        } else if (rasterFormat == 0x500) {
+            alphaInfo = 0;
+            for (uint32 i = 0; i < count; i++) {
+                palette[i] = packArgb(imagePalette + i * 4);
+            }
+        } else {
+            const ImageToPixelFn convert = ImageToPixelConverter(ext.d3dFormat);
+            alphaInfo = PixelFormatAlphaByte(ext.d3dFormat);
+            if (convert == nullptr) {
+                return; // el EXE hace call 0
+            }
+            for (uint32 i = 0; i < count; i++) {
+                palette[i] = convert(imagePalette + i * 4);
+            }
+        }
+        for (RwInt32 y = 0; y < raster->height; y++) {
+            const RwUInt8* source = image->cpPixels + static_cast<RwInt32>(image->stride * y);
+            RwUInt8* destination = raster->cpPixels + static_cast<RwInt32>(raster->stride * y);
+            if (raster->width > 0) {
+                RwInt32 x = 0;
+                do {
+                    *reinterpret_cast<uint32*>(destination) = palette[*source];
+                    source++;
+                    destination += 4;
+                    x++;
+                } while (x < raster->width);
+            }
+        }
+        if (alphaInfo >= 0xFF) {
+            ext.alpha = 0;
+            return;
+        }
+        markAlpha();
+        return;
+    }
+    if (depth != 32) {
+        markAlpha();
+        return;
+    }
+    if (rasterFormat == 0x600) {
+        convertRows([&](const RwUInt8* source, RwUInt8* destination) {
+            *reinterpret_cast<uint32*>(destination) = packXrgb(source);
+        });
+        ext.alpha = 0;
+        return;
+    }
+    if (rasterFormat == 0x500) {
+        convertRows([&](const RwUInt8* source, RwUInt8* destination) {
+            *reinterpret_cast<uint32*>(destination) = packArgb(source);
+        });
+        markAlpha();
+        return;
+    }
+    const ImageToPixelFn convert = ImageToPixelConverter(ext.d3dFormat);
+    const uint8 alphaInfo = PixelFormatAlphaByte(ext.d3dFormat);
+    if (convert == nullptr) {
+        return; // el EXE hace call 0
+    }
+    convertRows([&](const RwUInt8* source, RwUInt8* destination) {
+        *reinterpret_cast<uint32*>(destination) = convert(source);
+    });
+    if (alphaInfo >= 0xFF) {
+        ext.alpha = 0;
+        return;
+    }
+    markAlpha();
+}
+
+void RwD3D9InjectHooksR14A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwD3D9");
+
+    RH_ScopedGlobalInstall(_rwD3D9ImageToRaster, 0x801390);
+}

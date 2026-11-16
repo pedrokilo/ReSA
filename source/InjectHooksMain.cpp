@@ -695,6 +695,10 @@ void CPedScannerInjectHooksLote109A(); // PedScanner.cpp (lote 109A)
 void CVehicleScannerInjectHooksLote109A(); // VehicleScanner.cpp (lote 109A)
 void CPointRouteInjectHooksLote109A(); // PedGeometryAnalyser.cpp (lote 109A)
 
+// Lote R14A (sin validar): se declaran aqui (no en RenderWare.h) para no recompilar todas las unidades por el encabezado precompilado.
+void RwD3D9InjectHooksR14A();    // 0x801390: imagen -> raster del controlador D3D9 (rwcore.cpp)
+void RwPlCoreInjectHooksR14A();  // listas libres, memoria, ficheros, registro de plugins, error y arena de recursos (rwplcore.cpp)
+
 void InjectHooksMain() {
     /**
     * We have `NOTSA_STANDALONE` macro to be able to dump all hooks without actually writing to memory,
@@ -1109,6 +1113,8 @@ void InjectHooksMain() {
     RwPlCoreInjectHooksR8A();
     RwPlCoreInjectHooksR12A();
     RwPlCoreInjectHooksR13A();
+    RwPlCoreInjectHooksR14A();
+    RwD3D9InjectHooksR14A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();
