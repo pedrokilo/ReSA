@@ -226,6 +226,13 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # Lote 205A: CTaskComplexAvoidEntity::ComputeSphere (0x66F6C0): aritmetica x87 del EXE (24 bits, intermedios con exponente ampliado, un SSE con DAZ/FTZ aplana los denormales que la x87 conserva); el archivo de la clase se compila asi.
+    set_source_files_properties(game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Ob0;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=Disabled;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # Lote 176A: CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::ComputeTarget (0x646F40) y CTaskSimpleKillPedWithCar::ShakePadIfPlayerVehicle (0x6563D0): aritmetica x87 del EXE (palabra de control de 24 bits,
     # intermedios en registros con exponente ampliado, guardados como float solo donde los guarda el EXE); el archivo propio de cada funcion (TaskSimpleCarGoToPointNearDoorUntilDoorNotInUseTarget.cpp y TaskSimpleKillPedWithCarShake.cpp) se compila asi; el resto de cada clase usa las opciones normales (arreglo tras el pase final: ProcessPed 0x6564A0 fallaba 1 ULP con /fp:fast). Sin expansion en linea (/Ob0).
     set_source_files_properties(game_sa/Tasks/TaskTypes/TaskSimpleCarGoToPointNearDoorUntilDoorNotInUseTarget.cpp game_sa/Tasks/TaskTypes/TaskSimpleKillPedWithCarShake.cpp PROPERTIES

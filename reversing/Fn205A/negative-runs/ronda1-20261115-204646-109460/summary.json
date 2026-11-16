@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "6e9ce9a76b022e42648b98ef517f38e8ceac9cfc5584734d5f781a92440eeb00",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CEventSexyVehicle::ScalarDeletingDestructor: 301/2048; CEventPedToChase::ScalarDeletingDestructor: 295/2048; CEventPedToFlee::ScalarDeletingDestructor: 290/2048; CEventAttractor::ScalarDeletingDestructor: 317/2048; CEventVehicleToSteal::ScalarDeletingDestructor: 299/2048; CEventAcquaintancePed::ScalarDeletingDestructor: 305/2048; CEventVehicleThreat::ScalarDeletingDestructor: 314/2048; CEventKnockOffBike::ScalarDeletingDestructor: 296/2048; CEventGunAimedAt::ScalarDeletingDestructor: 286/2048; CEventScriptCommand::ScalarDeletingDestructor: 290/2048; CTaskComplexWanderGang::ScalarDeletingDestructor: 426/2048; CTaskComplexWanderGang::DestructorBody: 901/2048; CTaskComplexAvoidOtherPedWhileWandering::ScalarDeletingDestructor: 437/2048; CTaskComplexAvoidEntity::ScalarDeletingDestructor: 413/2048; CTaskComplexAvoidEntity::ComputeSphere: 730/2048; CTaskComplexAvoidEntity::ComputeRouteRoundSphere: 731/2048; CPedShelterAttractor::IsAtHeadOfQueue: 882/2048; CPedAttractor::operator delete: 467/2048; SArray::CopyBackwardStride4A: 1007/2048; SArray::CopyBackwardStride20Wrapper: 631/2048; SArray::CopyBackwardStride4B: 1000/2048; SArray::FillStride12: 200/2048; SArray::CopyBackwardStride12Wrapper: 596/2048; SArray::CopyBackwardStride4C: 1099/2048; SArray::FillNStride4A: 180/2048; SArray::FillNStride20: 200/2048; SArray::FillNStride4B: 201/2048; SArray::FillNStride12: 195/2048; SArray::FillNStride4C: 208/2048; CPedAttractorManager::RemoveEffect<CPedAttractor>: 601/2048; CPedAttractorManager::IsPedRegistered<CPedAttractor>: 425/2048; CPedAttractorManager::IsPedRegisteredWithEffect<CPedAttractor>: 276/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

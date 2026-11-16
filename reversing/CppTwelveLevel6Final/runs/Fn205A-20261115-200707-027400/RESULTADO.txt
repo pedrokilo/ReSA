@@ -1,0 +1,3 @@
+APROBADO: Fn205A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn205a\20261115-200707-027400
