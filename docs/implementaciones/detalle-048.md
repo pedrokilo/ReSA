@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 15/11/2026 (Ciudad de México):** 917 grupos / 10794 funciones reconstruidas; 10794 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 16/11/2026 (Ciudad de México):** 922 grupos / 10894 funciones reconstruidas; 10894 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,20 +8,53 @@
 
 <a id="grupo-941"></a>
 
+## CWeaponInfo
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CWeaponInfo::InjectHooks() | [source/game_sa/WeaponInfo.cpp:32](../../source/game_sa/WeaponInfo.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::GetAnimLoopStart(bool isSet2) const | [source/game_sa/WeaponInfo.cpp:55](../../source/game_sa/WeaponInfo.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponInfo::GetAnimLoopStart 0x00608F00 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::GetAnimLoopEnd(bool isSet2) const | [source/game_sa/WeaponInfo.cpp:60](../../source/game_sa/WeaponInfo.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponInfo::GetAnimLoopEnd 0x00608F20 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::GetAnimLoopFire(bool isSet2) const | [source/game_sa/WeaponInfo.cpp:66](../../source/game_sa/WeaponInfo.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponInfo::GetAnimLoopFire 0x0061C150 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::Initialise() | [source/game_sa/WeaponInfo.cpp:71](../../source/game_sa/WeaponInfo.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::Initialise 0x005BF750 | 0 / 0 | Posible dato fijo aWeaponInfo: source/game_sa/WeaponInfo.h:33 (0x00C8AAB8); Posible dato fijo ms_WeaponAimOffsets: source/game_sa/WeaponInfo.h:45 (0x00C8A8A8) |
+| CWeaponInfo::Shutdown() | [source/game_sa/WeaponInfo.cpp:121](../../source/game_sa/WeaponInfo.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::Shutdown 0x00743C50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::FindWeaponFireType(const char* name) | [source/game_sa/WeaponInfo.cpp:126](../../source/game_sa/WeaponInfo.cpp#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::FindWeaponFireType 0x005BCF30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::TypeHasSkillStats(eWeaponType wt) | [source/game_sa/WeaponInfo.cpp:143](../../source/game_sa/WeaponInfo.cpp#L143) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::TypeIsWeapon(eWeaponType type) | [source/game_sa/WeaponInfo.cpp:148](../../source/game_sa/WeaponInfo.cpp#L148) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::GetWeaponInfoIndex(eWeaponType wt, eWeaponSkill skill) | [source/game_sa/WeaponInfo.cpp:154](../../source/game_sa/WeaponInfo.cpp#L154) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::StreamModelsForWeapon(eStreamingFlags streamingFlags) | [source/game_sa/WeaponInfo.cpp:174](../../source/game_sa/WeaponInfo.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetBaseComboByName(const char* name) | [source/game_sa/WeaponInfo.cpp:186](../../source/game_sa/WeaponInfo.cpp#L186) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponInfo::GetBaseComboByName 0x0061DB30 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::LoadWeaponData() | [source/game_sa/WeaponInfo.cpp:221](../../source/game_sa/WeaponInfo.cpp#L221) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::LoadWeaponData 0x005BE670 | 0 / 0 | Posible dato fijo aWeaponInfo: source/game_sa/WeaponInfo.h:33 (0x00C8AAB8); Posible dato fijo ms_WeaponAimOffsets: source/game_sa/WeaponInfo.h:45 (0x00C8A8A8) |
+| * CWeaponInfo::GetWeaponInfo(eWeaponType weaponID, eWeaponSkill skill) | [source/game_sa/WeaponInfo.cpp:416](../../source/game_sa/WeaponInfo.cpp#L416) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::GetWeaponInfo-original 0x00743C60 | 0 / 0 | Posible dato fijo aWeaponInfo: source/game_sa/WeaponInfo.h:33 (0x00C8AAB8) |
+| CWeaponInfo::GetSkillStatIndex(eWeaponType wt) | [source/game_sa/WeaponInfo.cpp:430](../../source/game_sa/WeaponInfo.cpp#L430) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::GetSkillStatIndex 0x00743CD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::FindWeaponType(const char* type) | [source/game_sa/WeaponInfo.cpp:448](../../source/game_sa/WeaponInfo.cpp#L448) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::FindWeaponType 0x00743D10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::GetRLoadA(bool isCrouching) const | [source/game_sa/WeaponInfo.cpp:510](../../source/game_sa/WeaponInfo.cpp#L510) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponInfo::GetRLoadA 0x0073A280 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::GetRLoadB(bool isCrouching) const | [source/game_sa/WeaponInfo.cpp:516](../../source/game_sa/WeaponInfo.cpp#L516) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponInfo::GetRLoadB 0x0073A2B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::GetCrouchReloadAnimationID() const | [source/game_sa/WeaponInfo.cpp:522](../../source/game_sa/WeaponInfo.cpp#L522) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::GetCrouchReloadAnimationID 0x00685700 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::GetTargetHeadRange() const | [source/game_sa/WeaponInfo.cpp:527](../../source/game_sa/WeaponInfo.cpp#L527) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponInfo::GetTargetHeadRange 0x00743D50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponInfo::GetWeaponReloadTime() const | [source/game_sa/WeaponInfo.cpp:537](../../source/game_sa/WeaponInfo.cpp#L537) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::GetWeaponReloadTime 0x00743D70 | 0 / 0 | Posible dato fijo ms_WeaponAimOffsets: source/game_sa/WeaponInfo.h:45 (0x00C8A8A8) |
+| GetFireType() const | [source/game_sa/WeaponInfo.h:132](../../source/game_sa/WeaponInfo.h#L132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetModels() const | [source/game_sa/WeaponInfo.h:142](../../source/game_sa/WeaponInfo.h#L142) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetWeaponInfo(CPed* ped, std::optional&lt;eWeaponSkill&gt; skill = {}) | [source/game_sa/WeaponInfo.h:148](../../source/game_sa/WeaponInfo.h#L148) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::GetWeaponInfo-original 0x00743C60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetAimingOffset() const | [source/game_sa/WeaponInfo.h:152](../../source/game_sa/WeaponInfo.h#L152) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_WeaponAimOffsets: source/game_sa/WeaponInfo.h:45 (0x00C8A8A8) |
+
+<a id="grupo-942"></a>
+
 ## CWeaponModelInfo
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | * __fastcall WeaponModelInfoConstructorBody(CWeaponModelInfo* self, void* /*edx*/) | [source/game_sa/Models/WeaponModelInfo.cpp:30](../../source/game_sa/Models/WeaponModelInfo.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponModelInfo::ConstructorBody 0x004C5760 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CWeaponModelInfo::InjectHooks() | [source/game_sa/Models/WeaponModelInfo.cpp:39](../../source/game_sa/Models/WeaponModelInfo.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CWeaponModelInfo::GetModelType() | [source/game_sa/Models/WeaponModelInfo.cpp:51](../../source/game_sa/Models/WeaponModelInfo.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponModelInfo::GetModelType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CWeaponModelInfo::Init() | [source/game_sa/Models/WeaponModelInfo.cpp:58](../../source/game_sa/Models/WeaponModelInfo.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponModelInfo::Init 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CWeaponModelInfo::SetClump(RpClump* clump) | [source/game_sa/Models/WeaponModelInfo.cpp:71](../../source/game_sa/Models/WeaponModelInfo.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponModelInfo::SetClump 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall WeaponModelInfoScalarDeletingDestructor(CWeaponModelInfo* self, void* /*edx*/, uint8 flags) | [source/game_sa/Models/WeaponModelInfo.cpp:45](../../source/game_sa/Models/WeaponModelInfo.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponModelInfo::ScalarDeletingDestructor 0x004C62D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponModelInfo::InjectHooks() | [source/game_sa/Models/WeaponModelInfo.cpp:56](../../source/game_sa/Models/WeaponModelInfo.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponModelInfo::GetModelType() | [source/game_sa/Models/WeaponModelInfo.cpp:70](../../source/game_sa/Models/WeaponModelInfo.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponModelInfo::GetModelType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponModelInfo::Init() | [source/game_sa/Models/WeaponModelInfo.cpp:77](../../source/game_sa/Models/WeaponModelInfo.cpp#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponModelInfo::Init 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWeaponModelInfo::SetClump(RpClump* clump) | [source/game_sa/Models/WeaponModelInfo.cpp:90](../../source/game_sa/Models/WeaponModelInfo.cpp#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponModelInfo::SetClump 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CWeaponModelInfo() | [source/game_sa/Models/WeaponModelInfo.h:23](../../source/game_sa/Models/WeaponModelInfo.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetWeaponInfo(eWeaponType weapon) | [source/game_sa/Models/WeaponModelInfo.h:33](../../source/game_sa/Models/WeaponModelInfo.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetWeaponInfo() | [source/game_sa/Models/WeaponModelInfo.h:34](../../source/game_sa/Models/WeaponModelInfo.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-942"></a>
+<a id="grupo-943"></a>
 
 ## CWeather
 
@@ -45,7 +78,7 @@
 | CWeather::IsRainy() | [source/game_sa/Weather.cpp:1015](../../source/game_sa/Weather.cpp#L1015) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeather::IsRainy 0x004ABF50 | 0 / 0 | Posible dato fijo Rain: source/game_sa/Weather.h:46 (0x00C81324) |
 | IsUnderWater() | [source/game_sa/Weather.h:95](../../source/game_sa/Weather.h#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo UnderWaterness: source/game_sa/Weather.h:49 (0x00C8132C) |
 
-<a id="grupo-943"></a>
+<a id="grupo-944"></a>
 
 ## CWindModifiers
 
@@ -55,7 +88,7 @@
 | CWindModifiers::RegisterOne(CVector vecPos, int32 iActive, float fPower) | [source/game_sa/WindModifiers.cpp:32](../../source/game_sa/WindModifiers.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWindModifiers::RegisterOne 0x0072C8B0 | 0 / 0 | Posible dato fijo Array: source/game_sa/WindModifiers.h:14 (0x00C81458); Posible dato fijo Number: source/game_sa/WindModifiers.h:13 (0x00C81450); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 | CWindModifiers::FindWindModifier(CVector vecPos, float* outX, float* outY) | [source/game_sa/WindModifiers.cpp:52](../../source/game_sa/WindModifiers.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWindModifiers::FindWindModifier 0x0072C950 | 0 / 0 | Posible dato fijo Array: source/game_sa/WindModifiers.h:14 (0x00C81458); Posible dato fijo Number: source/game_sa/WindModifiers.h:13 (0x00C81450) |
 
-<a id="grupo-944"></a>
+<a id="grupo-945"></a>
 
 ## CWinsockLink
 
@@ -64,7 +97,7 @@
 | * __fastcall WinsockLinkScalarDeletingDestructor(void* self, void* /*edx*/, uint8 flags) | [source/game_sa/WinsockLink.cpp:33](../../source/game_sa/WinsockLink.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWinsockLink::ScalarDeletingDestructor 0x0059CD50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CWinsockLink::InjectHooks() | [source/game_sa/WinsockLink.cpp:42](../../source/game_sa/WinsockLink.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-945"></a>
+<a id="grupo-946"></a>
 
 ## CWorld
 
@@ -199,17 +232,17 @@
 | FindPlayerHeading(int32 playerId) | [source/game_sa/World_Helper.cpp:129](../../source/game_sa/World_Helper.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWorld::FindPlayerHeading 0x0056E450 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | * FindPlayerWanted(int32 playerId) | [source/game_sa/World_Helper.cpp:153](../../source/game_sa/World_Helper.cpp#L153) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWorld::FindPlayerWanted 0x0056E230 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-946"></a>
+<a id="grupo-947"></a>
 
 ## CWorldScan
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CWorldScan::InjectHooks() | [source/game_sa/Renderer.cpp:112](../../source/game_sa/Renderer.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CWorldScan::ScanWorld(CVector2D* points, int32 pointsCount, tScanFunction scanFunction) | [source/game_sa/Renderer.cpp:141](../../source/game_sa/Renderer.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWorldScan::ScanWorld 0x0072CAE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo WsExtraCount: source/game_sa/Renderer.cpp:133 (0x00C815B8); Posible dato fijo WsExtraX: source/game_sa/Renderer.cpp:132 (0x00C815A8); Posible dato fijo WsExtraY: source/game_sa/Renderer.cpp:131 (0x00C81598) |
-| CWorldScan::SetExtraRectangleToScan(float minX, float maxX, float minY, float maxY) | [source/game_sa/Renderer.cpp:408](../../source/game_sa/Renderer.cpp#L408) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWorldScan::SetExtraRectangleToScan 0x0072D5E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo WsExtraCount: source/game_sa/Renderer.cpp:133 (0x00C815B8); Posible dato fijo WsExtraX: source/game_sa/Renderer.cpp:132 (0x00C815A8); Posible dato fijo WsExtraY: source/game_sa/Renderer.cpp:131 (0x00C81598) |
+| CWorldScan::InjectHooks() | [source/game_sa/Renderer.cpp:114](../../source/game_sa/Renderer.cpp#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWorldScan::ScanWorld(CVector2D* points, int32 pointsCount, tScanFunction scanFunction) | [source/game_sa/Renderer.cpp:143](../../source/game_sa/Renderer.cpp#L143) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWorldScan::ScanWorld 0x0072CAE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo WsExtraCount: source/game_sa/Renderer.cpp:135 (0x00C815B8); Posible dato fijo WsExtraX: source/game_sa/Renderer.cpp:134 (0x00C815A8); Posible dato fijo WsExtraY: source/game_sa/Renderer.cpp:133 (0x00C81598) |
+| CWorldScan::SetExtraRectangleToScan(float minX, float maxX, float minY, float maxY) | [source/game_sa/Renderer.cpp:410](../../source/game_sa/Renderer.cpp#L410) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWorldScan::SetExtraRectangleToScan 0x0072D5E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo WsExtraCount: source/game_sa/Renderer.cpp:135 (0x00C815B8); Posible dato fijo WsExtraX: source/game_sa/Renderer.cpp:134 (0x00C815A8); Posible dato fijo WsExtraY: source/game_sa/Renderer.cpp:133 (0x00C81598) |
 
-<a id="grupo-947"></a>
+<a id="grupo-948"></a>
 
 ## CZone
 
@@ -221,7 +254,7 @@
 | GetRect() const | [source/game_sa/Zone.h:24](../../source/game_sa/Zone.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetBB() const | [source/game_sa/Zone.h:25](../../source/game_sa/Zone.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-948"></a>
+<a id="grupo-949"></a>
 
 ## CZoneDef
 
@@ -231,7 +264,7 @@
 | Init( const CVector& pos, float vec1X, float vec1Y, float minZ, float vec2X, float vec2Y, float maxZ ) | [source/game_sa/CullZones.h:82](../../source/game_sa/CullZones.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsPointWithin(const CVector& point) const | [source/game_sa/CullZones.h:104](../../source/game_sa/CullZones.h#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-949"></a>
+<a id="grupo-950"></a>
 
 ## CZoneInfo
 
@@ -239,7 +272,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GetSumOfGangDensity() const | [source/game_sa/ZoneInfo.h:53](../../source/game_sa/ZoneInfo.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-950"></a>
+<a id="grupo-951"></a>
 
 ## C_PcSave
 
@@ -253,7 +286,7 @@
 | C_PcSave::SaveSlot(int32 slot) | [source/game_sa/C_PcSave.cpp:123](../../source/game_sa/C_PcSave.cpp#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: C_PcSave::SaveSlot 0x00619060 | 0 / 0 | Posible dato fijo s_PcSaveHelper: source/game_sa/C_PcSave.h:42 (0x00C17034) |
 | C_PcSave::DeleteSlot(int32 slot) | [source/game_sa/C_PcSave.cpp:133](../../source/game_sa/C_PcSave.cpp#L133) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: C_PcSave::DeleteSlot 0x006190D0 | 0 / 0 | Posible dato fijo DefaultPCSaveFileName: source/game_sa/C_PcSave.h:27 (0x00C16F18); Posible dato fijo s_PcSaveHelper: source/game_sa/C_PcSave.h:42 (0x00C17034) |
 
-<a id="grupo-951"></a>
+<a id="grupo-952"></a>
 
 ## Car75Word
 
@@ -262,7 +295,7 @@
 | Car75Word(uint32_t bits) | [source/game_sa/X87Math.cpp:16469](../../source/game_sa/X87Math.cpp#L16469) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & f() const | [source/game_sa/X87Math.cpp:16470](../../source/game_sa/X87Math.cpp#L16470) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-952"></a>
+<a id="grupo-953"></a>
 
 ## CdStream
 
@@ -280,7 +313,7 @@
 | CdStreamRemoveImages() | [source/game_sa/CdStreamInfo.cpp:298](../../source/game_sa/CdStreamInfo.cpp#L298) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CdStream::CdStreamRemoveImages 0x00406690 | 0 / 0 | Posible dato fijo gCdImageNames: source/game_sa/CdStreamInfo.cpp:22 (0x008E4098); Posible dato fijo gOpenStreamCount: source/game_sa/CdStreamInfo.cpp:26 (0x008E4094); Posible dato fijo gStreamCount: source/game_sa/CdStreamInfo.cpp:25 (0x008E4090); Posible dato fijo gStreamFileHandles: source/game_sa/CdStreamInfo.cpp:21 (0x008E4010) |
 | CdStreamShutdown() | [source/game_sa/CdStreamInfo.cpp:314](../../source/game_sa/CdStreamInfo.cpp#L314) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CdStream::CdStreamShutdown 0x00406370 | 0 / 0 | Posible dato fijo gCdStreams: source/game_sa/CdStreamInfo.cpp:24 (0x008E3FFC); Posible dato fijo gStreamCount: source/game_sa/CdStreamInfo.cpp:25 (0x008E4090); Posible dato fijo gStreamQueue: source/game_sa/CdStreamInfo.cpp:29 (0x008E3FEC); Posible dato fijo gStreamSemaphore: source/game_sa/CdStreamInfo.cpp:30 (0x008E4004); Posible dato fijo gStreamingInitialized: source/game_sa/CdStreamInfo.cpp:27 (0x008E3FE4); Posible dato fijo gStreamingThread: source/game_sa/CdStreamInfo.cpp:31 (0x008E4008) |
 
-<a id="grupo-953"></a>
+<a id="grupo-954"></a>
 
 ## CdStreamPos
 
@@ -288,7 +321,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ToInt() const | [source/game_sa/CdStreamInfo.h:22](../../source/game_sa/CdStreamInfo.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-954"></a>
+<a id="grupo-955"></a>
 
 ## ColDef
 
@@ -297,7 +330,7 @@
 | * ColDef::operator new(unsigned size) | [source/game_sa/Collision/ColStore.cpp:39](../../source/game_sa/Collision/ColStore.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pColPool: source/game_sa/Collision/ColStore.cpp:24 (0x00965560) |
 | ColDef::operator delete(void* data) | [source/game_sa/Collision/ColStore.cpp:43](../../source/game_sa/Collision/ColStore.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pColPool: source/game_sa/Collision/ColStore.cpp:24 (0x00965560) |
 
-<a id="grupo-955"></a>
+<a id="grupo-956"></a>
 
 ## ColHelpers::FileHeader
 
@@ -307,7 +340,7 @@
 | GetDataSize() const | [source/game_sa/Collision/ColHelpers.h:61](../../source/game_sa/Collision/ColHelpers.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetVersion() const | [source/game_sa/Collision/ColHelpers.h:66](../../source/game_sa/Collision/ColHelpers.h#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-956"></a>
+<a id="grupo-957"></a>
 
 ## ColHelpers::FileHeader::FileInfo
 
@@ -316,7 +349,7 @@
 | GetVersion() const | [source/game_sa/Collision/ColHelpers.h:34](../../source/game_sa/Collision/ColHelpers.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsValid() const | [source/game_sa/Collision/ColHelpers.h:46](../../source/game_sa/Collision/ColHelpers.h#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-957"></a>
+<a id="grupo-958"></a>
 
 ## ColHelpers::V2::Header
 
@@ -325,7 +358,7 @@
 | IsEmpty() const | [source/game_sa/Collision/ColHelpers.h:205](../../source/game_sa/Collision/ColHelpers.h#L205) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HasFaceGroups() const | [source/game_sa/Collision/ColHelpers.h:206](../../source/game_sa/Collision/ColHelpers.h#L206) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-958"></a>
+<a id="grupo-959"></a>
 
 ## ColHelpers::V3::Header
 
@@ -334,7 +367,7 @@
 | GetNoOfShdwVerts(CCollisionData* cd) const | [source/game_sa/Collision/ColHelpers.h:224](../../source/game_sa/Collision/ColHelpers.h#L224) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HasShadowMesh() const | [source/game_sa/Collision/ColHelpers.h:229](../../source/game_sa/Collision/ColHelpers.h#L229) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-959"></a>
+<a id="grupo-960"></a>
 
 ## ColProc59b
 
@@ -348,13 +381,3 @@
 | StoreTriangleHit(CColPoint& cp, const CVector& point, const CVector& normal, const CColTriangle& tri, CStoredCollPoly* collPoly, const CVector& v0, const CVector& v1, const CVector& v2) | [source/game_sa/Collision/Collision.cpp:1757](../../source/game_sa/Collision/Collision.cpp#L1757) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CopySurfaceA(CColPoint& cp, const CColSurface& surf) | [source/game_sa/Collision/Collision.cpp:1777](../../source/game_sa/Collision/Collision.cpp#L1777) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CopySurfaceB(CColPoint& cp, const CColSurface& surf) | [source/game_sa/Collision/Collision.cpp:1782](../../source/game_sa/Collision/Collision.cpp#L1782) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-960"></a>
-
-## ColWorld59c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| MulPoint(const CMatrix& m, const CVector& v) | [source/game_sa/Collision/Collision.cpp:2225](../../source/game_sa/Collision/Collision.cpp#L2225) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| MulVector(const CMatrix& m, const CVector& v) | [source/game_sa/Collision/Collision.cpp:2234](../../source/game_sa/Collision/Collision.cpp#L2234) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| EntityBoundSphere(CEntity* entity) | [source/game_sa/Collision/Collision.cpp:3766](../../source/game_sa/Collision/Collision.cpp#L3766) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

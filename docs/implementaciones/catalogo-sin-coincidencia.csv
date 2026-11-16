@@ -29,3 +29,14 @@ CLinkList<CAnimBlendHierarchy*>,Insert-Data,0x004D40C0,1,0,1,S,hooks.csv
 CLinkList<CPed*>,Clear,0x0053E8D0,1,0,1,S,hooks.csv
 CLinkList<CEntity*>,Insert-Data,0x00408230,1,0,1,S,hooks.csv
 CPed,operator delete-poolRef,0x005E47A0,1,0,1,S,hooks.csv
+CTaskComplexFallAndStayDown,CreateNextSubTask,0x00000000,1,0,1,V,hooks.csv
+CTaskSimpleBeHitWhileMoving,DestructorBody,0x0061FE70,1,0,1,S,hooks.csv
+CModelInfo,AtomicModelInfoStoreConstructor,0x004C5CB0,1,0,1,S,hooks.csv
+CModelInfo,DamageAtomicModelInfoStoreConstructor,0x004C5D10,1,0,1,S,hooks.csv
+CModelInfo,LodAtomicModelInfoStoreConstructor,0x004C5D70,1,0,1,S,hooks.csv
+CModelInfo,TimeModelInfoStoreConstructor,0x004C5DD0,1,0,1,S,hooks.csv
+CModelInfo,LodTimeModelInfoStoreConstructor,0x004C5E30,1,0,1,S,hooks.csv
+CModelInfo,WeaponModelInfoStoreConstructor,0x004C5E90,1,0,1,S,hooks.csv
+CModelInfo,ClumpModelInfoStoreConstructor,0x004C5EF0,1,0,1,S,hooks.csv
+CModelInfo,VehicleModelInfoStoreConstructor,0x004C5F50,1,0,1,S,hooks.csv
+CModelInfo,PedModelInfoStoreConstructor,0x004C67D0,1,0,1,S,hooks.csv

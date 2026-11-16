@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 15/11/2026 (Ciudad de México):** 917 grupos / 10794 funciones reconstruidas; 10794 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 16/11/2026 (Ciudad de México):** 922 grupos / 10894 funciones reconstruidas; 10894 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,27 +8,28 @@
 
 <a id="grupo-1101"></a>
 
+## Globales y helpers: source/game_sa/Clouds.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CloudsFtol(float value) | [source/game_sa/Clouds.cpp:51](../../source/game_sa/Clouds.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CloudsCameraRight() | [source/game_sa/Clouds.cpp:56](../../source/game_sa/Clouds.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+
+<a id="grupo-1102"></a>
+
 ## Globales y helpers: source/game_sa/Collision/BoundingBox.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | * BoundingBoxConstructorAliasBody(CBoundingBox* self) | [source/game_sa/Collision/BoundingBox.cpp:27](../../source/game_sa/Collision/BoundingBox.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1102"></a>
+<a id="grupo-1103"></a>
 
 ## Globales y helpers: source/game_sa/Collision/ColDisk.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | CopyThreeDwords(volatile uint32* dst, const volatile uint32* src) | [source/game_sa/Collision/ColDisk.cpp:26](../../source/game_sa/Collision/ColDisk.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1103"></a>
-
-## Globales y helpers: source/game_sa/Collision/ColModel.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| ColModelDestructorExe(CColModel* self, void* /*edx*/) | [source/game_sa/Collision/ColModel.cpp:33](../../source/game_sa/Collision/ColModel.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CColModel::Destructor 0x0040F700 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1104"></a>
 
@@ -188,14 +189,14 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| SetExeVtable(COctTree* tree) | [source/game_sa/Core/OctTree.cpp:14](../../source/game_sa/Core/OctTree.cpp#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ReleaseChildren(COctTree* self) | [source/game_sa/Core/OctTree.cpp:21](../../source/game_sa/Core/OctTree.cpp#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_octTreePool: source/game_sa/Core/OctTree.h:25 (0x00BC12E4) |
-| * __fastcall OctTreeConstructorExe(COctTree* self, void* /*edx*/) | [source/game_sa/Core/OctTree.cpp:37](../../source/game_sa/Core/OctTree.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: COctTree::Constructor 0x005A6DB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * __fastcall OctTreeScalarDeletingDestructorExe(COctTree* self, void* /*edx*/, uint8 flags) | [source/game_sa/Core/OctTree.cpp:45](../../source/game_sa/Core/OctTree.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: COctTree::ScalarDeletingDestructor 0x005A7490 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo ms_octTreePool: source/game_sa/Core/OctTree.h:25 (0x00BC12E4) |
-| OctTreeInsertTreeExe(COctTree* self, void* /*edx*/, uint8 red, uint8 green, uint8 blue) | [source/game_sa/Core/OctTree.cpp:62](../../source/game_sa/Core/OctTree.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_bFailed: source/game_sa/Core/OctTree.h:23 (0x00BC12DC), source/game_sa/GenericGameStorage.h:69 (0x00C16EFC); Posible dato fijo ms_level: source/game_sa/Core/OctTree.h:24 (0x00BC12E0); Posible dato fijo ms_octTreePool: source/game_sa/Core/OctTree.h:25 (0x00BC12E4) |
-| * __fastcall OctTreePoolNewExe(COctTreePool* pool, void* /*edx*/) | [source/game_sa/Core/OctTree.cpp:106](../../source/game_sa/Core/OctTree.cpp#L106) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: COctTree::PoolNew 0x005A7350 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| OctTreePoolDeleteExe(COctTreePool* pool, void* /*edx*/, COctTree* obj) | [source/game_sa/Core/OctTree.cpp:111](../../source/game_sa/Core/OctTree.cpp#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: COctTree::PoolDelete 0x005A73C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PoolFlushBody(void* self) | [source/game_sa/Core/OctTree.cpp:118](../../source/game_sa/Core/OctTree.cpp#L118) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetExeVtable(COctTree* tree) | [source/game_sa/Core/OctTree.cpp:32](../../source/game_sa/Core/OctTree.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ReleaseChildren(COctTree* self) | [source/game_sa/Core/OctTree.cpp:39](../../source/game_sa/Core/OctTree.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_octTreePool: source/game_sa/Core/OctTree.h:25 (0x00BC12E4) |
+| * __fastcall OctTreeConstructorExe(COctTree* self, void* /*edx*/) | [source/game_sa/Core/OctTree.cpp:55](../../source/game_sa/Core/OctTree.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: COctTree::Constructor 0x005A6DB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall OctTreeScalarDeletingDestructorExe(COctTree* self, void* /*edx*/, uint8 flags) | [source/game_sa/Core/OctTree.cpp:63](../../source/game_sa/Core/OctTree.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: COctTree::ScalarDeletingDestructor 0x005A7490 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo ms_octTreePool: source/game_sa/Core/OctTree.h:25 (0x00BC12E4) |
+| OctTreeInsertTreeExe(COctTree* self, void* /*edx*/, uint8 red, uint8 green, uint8 blue) | [source/game_sa/Core/OctTree.cpp:80](../../source/game_sa/Core/OctTree.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_bFailed: source/game_sa/Core/OctTree.h:23 (0x00BC12DC), source/game_sa/GenericGameStorage.h:69 (0x00C16EFC); Posible dato fijo ms_level: source/game_sa/Core/OctTree.h:24 (0x00BC12E0); Posible dato fijo ms_octTreePool: source/game_sa/Core/OctTree.h:25 (0x00BC12E4) |
+| * __fastcall OctTreePoolNewExe(COctTreePool* pool, void* /*edx*/) | [source/game_sa/Core/OctTree.cpp:124](../../source/game_sa/Core/OctTree.cpp#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: COctTree::PoolNew 0x005A7350 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| OctTreePoolDeleteExe(COctTreePool* pool, void* /*edx*/, COctTree* obj) | [source/game_sa/Core/OctTree.cpp:129](../../source/game_sa/Core/OctTree.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: COctTree::PoolDelete 0x005A73C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PoolFlushBody(void* self) | [source/game_sa/Core/OctTree.cpp:136](../../source/game_sa/Core/OctTree.cpp#L136) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1119"></a>
 

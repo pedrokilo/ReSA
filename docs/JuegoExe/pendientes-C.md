@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 15/11/2026 (Ciudad de México):** 917 grupos / 10794 funciones reconstruidas; 10794 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 16/11/2026 (Ciudad de México):** 922 grupos / 10894 funciones reconstruidas; 10894 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-262 funciones, 49,853 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+241 funciones, 48,849 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -106,7 +106,6 @@
 | `0x0074EB80` | 124 | Win | baja | 1 (0) |  |
 | `0x00670A70` | 121 | CTaskComplexTurnToFaceEntityOrCoord | baja | 2 (0) |  |
 | `0x00403B03` | 120 | CEntity | baja | 1 (0) |  |
-| `0x00659990` | 120 | CTaskComplexUseWaterCannon | baja | 1 (0) |  |
 | `0x0061AC90` | 112 | CTaskSimpleRunTimedAnim | baja | 1 (0) |  |
 | `0x0046A9C0` | 110 | CScriptsForBrains | alta | 2 (0) |  |
 | `0x006709F0` | 110 | CTaskComplexTurnToFaceEntityOrCoord | baja | 1 (0) |  |
@@ -117,19 +116,14 @@
 | `0x004CAD90` | 104 | CWeaponModelInfo | baja | 3 (0) |  |
 | `0x005C54F0` | 104 | FxEmitterBP_c | baja | 12 (0) |  |
 | `0x00618030` | 103 | IKChain_c | baja | 1 (0) |  |
-| `0x0061FC50` | 103 | CTaskSimpleThrowControl | baja | 1 (0) |  |
-| `0x0061FE70` | 103 | CTaskSimpleThrowControl | baja | 1 (0) |  |
 | `0x005C5560` | 102 | FxEmitterBP_c | baja | 18 (0) |  |
 | `0x00617FC0` | 102 | IKChain_c | baja | 1 (0) |  |
 | `0x006592A0` | 99 | CTaskComplexMedicTreatInjuredPed | baja | 1 (0) |  |
 | `0x007486A0` | 99 | Win | baja | 1 (0) |  |
-| `0x0066CBB0` | 97 | CTaskComplexInvestigateDisturbance | baja | 1 (0) |  |
 | `0x006956D0` | 97 | CTaskComplexSeekEntityAnyMeansXYOffset | baja | 1 (0) |  |
 | `0x004CBE20` | 93 | CWeaponModelInfo | baja | 8 (0) |  |
 | `0x004CBF20` | 93 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x00403C14` | 92 | CEntity | baja | 1 (0) |  |
-| `0x004C62F0` | 90 | CModelInfo | alta | 1 (0) |  |
-| `0x00620B90` | 90 | CTaskSimpleBeHit | baja | 1 (0) |  |
 | `0x00659240` | 90 | CTaskComplexMedicTreatInjuredPed | baja | 1 (0) |  |
 | `0x00493420` | 88 | CTheScripts | alta | 2 (0) |  |
 | `0x005C79F0` | 88 | FxEmitterBP_c | baja | 4 (0) |  |
@@ -195,21 +189,12 @@
 | `0x00474870` | 46 | CTheScripts | baja | 1 (0) |  |
 | `0x004748A0` | 46 | CTheScripts | baja | 1 (0) |  |
 | `0x0066AD10` | 46 | CTaskComplexAvoidOtherPedWhileWandering | baja | 1 (0) |  |
-| `0x004C5F50` | 42 | CModelInfo | alta | 1 (0) |  |
 | `0x00424160` | 40 | CCarCtrl | baja | 16 (0) |  |
-| `0x004C5CB0` | 39 | CModelInfo | alta | 1 (0) |  |
-| `0x004C5DD0` | 39 | CModelInfo | alta | 1 (0) |  |
-| `0x004C67D0` | 39 | CModelInfo | alta | 1 (0) |  |
 | `0x004F4030` | 39 | CAEUserRadioTrackManager | alta | 1 (0) |  |
 | `0x005EC1F0` | 39 | CPedAttractorManager | baja | 4 (0) |  |
 | `0x005EC260` | 39 | CPedAttractorManager | baja | 2 (0) |  |
 | `0x005EC340` | 39 | CPedAttractorManager | baja | 9 (0) |  |
 | `0x0046A900` | 38 | CScriptsForBrains | alta | 2 (0) |  |
-| `0x004C5D10` | 36 | CModelInfo | alta | 1 (0) |  |
-| `0x004C5D70` | 36 | CModelInfo | alta | 1 (0) |  |
-| `0x004C5E30` | 36 | CModelInfo | alta | 1 (0) |  |
-| `0x004C5E90` | 36 | CModelInfo | alta | 1 (0) |  |
-| `0x004C5EF0` | 36 | CModelInfo | alta | 1 (0) |  |
 | `0x004F3BA0` | 35 | CAEUserRadioTrackManager | alta | 8 (0) |  |
 | `0x0046A7E0` | 33 | CTheScripts | alta | 1 (0) |  |
 | `0x00470070` | 32 | CTaskComplexGoToPointAndStandStill | baja | 2 (0) |  |
@@ -224,13 +209,11 @@
 | `0x00463490` | 21 | CEntity | baja | 1 (0) |  |
 | `0x005CF850` | 20 | FxEmitterBP_c | baja | 2 (0) |  |
 | `0x004C9F70` | 19 | CWeaponModelInfo | baja | 1 (0) |  |
-| `0x005D28B0` | 19 | CObject | baja | 2 (0) |  |
 | `0x004032C5` | 18 | CEntity | baja | 1 (0) |  |
 | `0x0046A2F0` | 18 | CEntity | baja | 2 (0) |  |
 | `0x004700E0` | 18 | CTaskComplexGoToPointAndStandStill | baja | 1 (0) |  |
 | `0x0048B570` | 18 | CRunningScript | baja | 1 (0) |  |
 | `0x005CF820` | 16 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x0049E620` | 15 | CTrafficLights | baja | 1 (0) |  |
 | `0x00447000` | 14 | CEntity | baja | 7 (0) |  |
 | `0x00447050` | 14 | CEntity | baja | 1 (0) |  |
 | `0x0046B260` | 12 | CTheScripts | baja | 1 (0) |  |
@@ -251,7 +234,6 @@
 | `0x00606000` | 11 | CPedIntelligencePool | baja | 1 (0) |  |
 | `0x00606050` | 11 | CPedIntelligencePool | baja | 1 (0) |  |
 | `0x006348E0` | 11 | CTaskComplexUseClosestFreeScriptedAttractor | baja | 1 (0) |  |
-| `0x006598B0` | 11 | CTaskComplexUseWaterCannon | baja | 1 (0) |  |
 | `0x005CF810` | 10 | FxEmitterBP_c | baja | 2 (0) |  |
 | `0x005CF830` | 10 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x00402DC5` | 9 | CEntity | baja | 4 (0) |  |
@@ -260,15 +242,12 @@
 | `0x004A87F0` | 7 | FxInfoManager_c | baja | 15 (0) |  |
 | `0x004A89B0` | 7 | FxInfoManager_c | baja | 27 (0) |  |
 | `0x004A8B70` | 7 | FxInfoManager_c | baja | 4 (0) |  |
-| `0x004C5790` | 7 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x0074EAB0` | 6 | Win | baja | 1 (0) |  |
 | `0x0043E1A0` | 5 | CPlaceable | baja | 5 (0) |  |
 | `0x004A2BB0` | 5 | FxEmitterBP_c | alta | 1 (0) |  |
 | `0x00542080` | 5 | CEntity | baja | 2 (0) |  |
 | `0x005CF840` | 5 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x005D28F0` | 5 | CObject | baja | 2 (0) |  |
 | `0x0061BCA0` | 5 | CTaskSimpleRunTimedAnim | baja | 1 (0) |  |
-| `0x00659E00` | 5 | CTaskComplexUseWaterCannon | baja | 1 (0) |  |
 | `0x00403B7B` | 2 | CEntity | baja | 3 (0) |  |
 | `0x00486AE0` | 1 | CTheScripts | alta | 1 (0) |  |
 | `0x0074EAC0` | 1 | Win | baja | 2 (0) |  |
