@@ -2461,3 +2461,16 @@ void __cdecl MatrixInvertOrthoPosCpp(float* out, const float* in);
 void __cdecl MatrixInvertGeneralCpp(float* out, const float* in);
 // 0x7F2450 (preconcatenacion): pos += (right, up, at) . t con la suma ((at*tz + up*ty) + right*tx) + pos sin redondear intermedios.
 void __cdecl MatrixTranslatePreCpp(float* m, const float* t);
+
+// Lote R23A (sin validar): RwCamera (0x7EE200, 0x7EE410, 0x7EE2D0, 0x7EE740, 0x7EEDE0, 0x7EF1F0). Convencion: double = registro de la x87 sin redondear, float = guardado con fst/fstp dword. Ver X87Math.cpp.
+// 0x7EE200: zScale y zShift de la camara; deviceNear/deviceFar = RwEngineInstance + 0x18/+0x1C; proyeccion 2 = paralela.
+void __cdecl CameraZScaleCpp(float deviceNear, float deviceFar, int projection, float cameraNear, float cameraFar, float* zScale, float* zShift);
+// 0x7EE410: viewWindow = camara + 0x68; escribe recipViewWindow (+8, +0xC de ese puntero).
+void __cdecl CameraRecipViewWindowCpp(float* viewWindow);
+// 0x7EE2D0: planes = camara + 0x94 (6 planos de 5 floats), sphere = {x, y, z, radio}; 0 = fuera, 1 = frontera, 2 = dentro.
+int __cdecl CameraFrustumTestSphereCpp(const float* planes, const float* sphere);
+// 0x7EE740 (perspectiva), 0x7EEDE0 (paralela; dos partes: esquinas y planos) y 0x7EF1F0 (matriz de vista paralela). cam = RwCamera como floats, m = ltm del marco (16 floats), invSqrt = _rwInvSqrt.
+void __cdecl CameraFrustumPerspectiveCpp(float* cam, const float* m, float(__cdecl* invSqrt)(float));
+void __cdecl CameraFrustumParallelCornersCpp(float* cam);
+void __cdecl CameraFrustumParallelPlanesCpp(float* cam, const float* m, float(__cdecl* invSqrt)(float));
+void __cdecl CameraParallelViewMatrixCpp(float* cam, const float* m);

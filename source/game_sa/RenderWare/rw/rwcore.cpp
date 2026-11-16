@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "rwcore.h"
+#include "X87Math.h"
 
 // Estado global del motor que leen o escriben las funciones reconstruidas del grupo g25d en este archivo (direcciones del EXE):
 //   RwEngineInstance (0xC97B24, ver RenderWare.h)       puntero a RwGlobals; los modulos cuelgan de el con su `globalsOffset`
@@ -1581,12 +1582,72 @@ rwIm3DPool* _rwIm3DGetPool() {
     return ((rwIm3DPool*(__cdecl *)(void))0x7EFDD0)();
 }
 
-void* RwIm3DTransform(RwIm3DVertex* pVerts, RwUInt32 numVerts, RwMatrix* ltm, RwUInt32 flags) {
-    return ((void*(__cdecl *)(RwIm3DVertex*, RwUInt32, RwMatrix*, RwUInt32))0x7EF450)(pVerts, numVerts, ltm, flags);
+// Lote R23A (sin validar): Im3D (rwim3d.c). El modulo cuelga de RwEngineInstance + [0xC9C078]: +0x00 tuberia de transformacion; +0x04/+0x08/+0x0C/+0x10/+0x14 tuberias de render de los tipos de primitiva
+// 3 (lista de triangulos), 5 (abanico), 4 (tira), 1 (lista de lineas) y 2 (polilinea); +0x38 estado de la transformacion en curso (15 dwords hasta +0x74): numero de vertices (word), vertices (+0x3C),
+// stride 0x24 (+0x40), banderas (+0x44), matriz (+0x48); +0x44.. es ademas el paquete de la ejecucion de render: tuberia (+0x64), tipo (+0x68), indices (+0x6C), numero de indices (+0x70).
+namespace {
+constexpr uint32 kIm3DTransformPipeline = 0x00;
+constexpr uint32 kIm3DNumVerts = 0x38;
+constexpr uint32 kIm3DVerts = 0x3C;
+constexpr uint32 kIm3DStride = 0x40;
+constexpr uint32 kIm3DFlags = 0x44;
+constexpr uint32 kIm3DLtm = 0x48;
+constexpr uint32 kIm3DRenderPacket = 0x44;  // paquete de render = modulo + 0x44 (campos +0x20 tuberia, +0x24 tipo, +0x28 indices, +0x2C numero)
+uint8* R23AIm3DModule() {
+    return reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9C078);
+}
+template<typename T>
+T& R23AIm3DField(uint8* module, uint32 offset) {
+    return *reinterpret_cast<T*>(module + offset);
+}
+// Tuberia de render del tipo de primitiva (tabla de saltos del EXE: tipos 1..5 -> +0x10, +0x14, +0x04, +0x0C, +0x08).
+uint32 R23AIm3DRenderPipelineOffset(uint32 primTypeMinusOne) {
+    constexpr uint32 offsets[5] = { 0x10, 0x14, 0x04, 0x0C, 0x08 };
+    return offsets[primTypeMinusOne];
+}
+// RwError { pluginID = 1, errorCode = _rwerror(codigo [, argumento]) } + RwErrorSet.
+void R23ARaiseError(RwInt32 code) {
+    RwError error;
+    error.pluginID  = 1;
+    error.errorCode = _rwerror(code);
+    RwErrorSet(&error);
+}
+void R23ARaiseError(RwInt32 code, RwInt32 argument) {
+    RwError error;
+    error.pluginID  = 1;
+    error.errorCode = _rwerror(code, argument);
+    RwErrorSet(&error);
+}
 }
 
+// 0x7EF450 (lote R23A, sin validar; 196 bytes; era una envoltura; cdecl, (vertices, numero, matriz, banderas)): mas de 0x10000 vertices -> RwError { 1, _rwerror(0x32) } y NULL. Si no guarda en el modulo
+// (en este orden) numero (word, +0x38), vertices (+0x3C), stride 0x24 (+0x40), matriz (+0x48) y banderas | 0x18 (+0x44), y ejecuta la tuberia de transformacion ([modulo + 0]) con RxPipelineExecute(tuberia,
+// modulo + 0x38, 1). Si falla devuelve NULL; si no, los vertices.
+void* RwIm3DTransform(RwIm3DVertex* pVerts, RwUInt32 numVerts, RwMatrix* ltm, RwUInt32 flags) {
+    if (numVerts > 0x10000) {
+        R23ARaiseError(0x32);
+        return nullptr;
+    }
+    uint8* const module = R23AIm3DModule();
+    R23AIm3DField<uint16>(module, kIm3DNumVerts) = static_cast<uint16>(numVerts);
+    R23AIm3DField<RwIm3DVertex*>(module, kIm3DVerts) = pVerts;
+    R23AIm3DField<uint32>(module, kIm3DStride) = 0x24;
+    R23AIm3DField<RwMatrix*>(module, kIm3DLtm) = ltm;
+    R23AIm3DField<uint32>(module, kIm3DFlags) = flags | 0x18;
+    if (RxPipelineExecute(R23AIm3DField<RxPipeline*>(module, kIm3DTransformPipeline), module + kIm3DNumVerts, TRUE) == nullptr) {
+        return nullptr;
+    }
+    return pVerts;
+}
+
+// 0x7EF520 (lote R23A, sin validar; 47 bytes; era una envoltura): sin vertices en curso (+0x3C == NULL) devuelve FALSE; si no pone a cero los 15 dwords del estado (+0x38..+0x73) y devuelve TRUE.
 RwBool RwIm3DEnd() {
-    return ((RwBool(__cdecl *)(void))0x7EF520)();
+    uint8* const module = R23AIm3DModule();
+    if (R23AIm3DField<void*>(module, kIm3DVerts) == nullptr) {
+        return FALSE;
+    }
+    memset(module + kIm3DNumVerts, 0, 15 * sizeof(uint32));
+    return TRUE;
 }
 
 RwBool RwIm3DRenderLine(RwInt32 vert1, RwInt32 vert2) {
@@ -1597,12 +1658,57 @@ RwBool RwIm3DRenderTriangle(RwInt32 vert1, RwInt32 vert2, RwInt32 vert3) {
     return ((RwBool(__cdecl *)(RwInt32, RwInt32, RwInt32))0x7EF810)(vert1, vert2, vert3);
 }
 
+// 0x7EF550 (lote R23A, sin validar; 318 bytes; era una envoltura; cdecl, (tipo, indices, numero)): sin vertices en curso -> RwError { 1, _rwerror(0x23) } y FALSE. Rellena el paquete (modulo + 0x44): tuberia = 0 (+0x64),
+// tipo (+0x68), indices (+0x6C), numero (+0x70) y elige la tuberia por tipo (tabla de saltos de tipo - 1, sin signo): 1 (lineas) +0x10 con numero -= numero % 2 (resto con signo); 2 +0x14; 3 (triangulos) +0x04 con
+// numero -= numero % 3 (idiv con signo); 4 +0x0C; 5 +0x08. Cualquier otro tipo: RwError { 1, _rwerror(0x25, tipo) } y SIGUE con la tuberia a NULL. Ejecuta RxPipelineExecute(tuberia, paquete, 0): NULL -> FALSE, si no TRUE.
 RwBool RwIm3DRenderIndexedPrimitive(RwPrimitiveType primType, RwImVertexIndex* indices, RwInt32 numIndices) {
-    return ((RwBool(__cdecl *)(RwPrimitiveType, RwImVertexIndex*, RwInt32))0x7EF550)(primType, indices, numIndices);
+    uint8* const module = R23AIm3DModule();
+    if (R23AIm3DField<void*>(module, kIm3DVerts) == nullptr) {
+        R23ARaiseError(0x23);
+        return FALSE;
+    }
+    uint8* const packet = module + kIm3DRenderPacket;
+    R23AIm3DField<RwImVertexIndex*>(packet, 0x28) = indices;
+    R23AIm3DField<RxPipeline*>(packet, 0x20) = nullptr;
+    R23AIm3DField<RwInt32>(packet, 0x24) = static_cast<RwInt32>(primType);
+    R23AIm3DField<RwInt32>(packet, 0x2C) = numIndices;
+    const uint32 index = static_cast<uint32>(primType) - 1u;
+    if (index > 4) {
+        R23ARaiseError(0x25, static_cast<RwInt32>(primType));
+    } else {
+        R23AIm3DField<RxPipeline*>(packet, 0x20) = R23AIm3DField<RxPipeline*>(module, R23AIm3DRenderPipelineOffset(index));
+        if (index == 0) {
+            R23AIm3DField<RwInt32>(packet, 0x2C) = numIndices - numIndices % 2;
+        } else if (index == 2) {
+            R23AIm3DField<RwInt32>(packet, 0x2C) = numIndices - numIndices % 3;
+        }
+    }
+    return RxPipelineExecute(R23AIm3DField<RxPipeline*>(packet, 0x20), packet, FALSE) != nullptr ? TRUE : FALSE;
 }
 
+// 0x7EF6B0 (lote R23A, sin validar; 319 bytes; era una envoltura; cdecl, (tipo)): llama a RxHeapGetGlobalHeap (0x8052F0, resultado ignorado) y, sin vertices en curso, RwError { 1, _rwerror(0x23) } y FALSE. Rellena el
+// paquete: tuberia = 0 (+0x64), tipo (+0x68), indices = NULL (+0x6C), numero = el numero de vertices del estado (word +0x38, sin signo; +0x70) y elige la tuberia como RwIm3DRenderIndexedPrimitive (sin ajustar
+// el numero); tipo invalido: RwError { 1, _rwerror(0x25, tipo) } y sigue con la tuberia a NULL. Ejecuta RxPipelineExecute(tuberia, paquete, 0): NULL -> FALSE, si no TRUE.
 RwBool RwIm3DRenderPrimitive(RwPrimitiveType primType) {
-    return ((RwBool(__cdecl *)(RwPrimitiveType))0x7EF6B0)(primType);
+    const RwBool hasVertices = R23AIm3DField<void*>(R23AIm3DModule(), kIm3DVerts) != nullptr;
+    RxHeapGetGlobalHeap();
+    if (!hasVertices) {
+        R23ARaiseError(0x23);
+        return FALSE;
+    }
+    uint8* const module = R23AIm3DModule();
+    R23AIm3DField<RxPipeline*>(module, 0x64) = nullptr;
+    uint8* const packet = module + kIm3DRenderPacket;
+    R23AIm3DField<RwInt32>(packet, 0x24) = static_cast<RwInt32>(primType);
+    R23AIm3DField<void*>(packet, 0x28) = nullptr;
+    R23AIm3DField<uint32>(packet, 0x2C) = R23AIm3DField<uint16>(module, kIm3DNumVerts);
+    const uint32 index = static_cast<uint32>(primType) - 1u;
+    if (index > 4) {
+        R23ARaiseError(0x25, static_cast<RwInt32>(primType));
+    } else {
+        R23AIm3DField<RxPipeline*>(packet, 0x20) = R23AIm3DField<RxPipeline*>(module, R23AIm3DRenderPipelineOffset(index));
+    }
+    return RxPipelineExecute(R23AIm3DField<RxPipeline*>(packet, 0x20), packet, FALSE) != nullptr ? TRUE : FALSE;
 }
 
 RxPipeline* RwIm3DGetTransformPipeline() {
@@ -3450,14 +3556,6 @@ void RwCameraSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPreal
     ((void(__cdecl *)(RwInt32, RwInt32))0x7EE0F0)(blockSize, numBlocksToPrealloc);
 }
 
-RwBool RwCameraDestroy(RwCamera* camera) {
-    return ((RwBool(__cdecl *)(RwCamera*))0x7EE4B0)(camera);
-}
-
-RwCamera* RwCameraCreate() {
-    return ((RwCamera*(__cdecl *)(void))0x7EE4F0)();
-}
-
 RwCamera* RwCameraClone(RwCamera* camera) {
     return ((RwCamera*(__cdecl *)(RwCamera*))0x7EF3B0)(camera);
 }
@@ -3491,20 +3589,143 @@ RwCamera* RwCameraSetViewOffset(RwCamera* camera, const RwV2d* offset) {
     return camera;
 }
 
-RwCamera* RwCameraSetViewWindow(RwCamera* camera, const RwV2d* viewWindow) {
-    return ((RwCamera*(__cdecl *)(RwCamera*, const RwV2d*))0x7EE410)(camera, viewWindow);
+// Lote R23A (sin validar): RwCamera (bacamera.c). Cuerpos numericos en X87Math.cpp (CameraZScaleCpp, CameraRecipViewWindowCpp, CameraFrustumTestSphereCpp, CameraFrustumPerspectiveCpp,
+// CameraFrustumParallel*Cpp, CameraParallelViewMatrixCpp). Datos del EXE: RwEngineInstance + [0xC97960] = modulo de camaras (+0 lista libre; contador en 0xC97964); registro de plugins 0x8E222C.
+static_assert(offsetof(RwGlobals, dOpenDevice) + offsetof(RwDevice, zBufferNear) == 0x18 && offsetof(RwGlobals, dOpenDevice) + offsetof(RwDevice, zBufferFar) == 0x1C);
+static_assert(offsetof(RwCamera, recipViewWindow) == offsetof(RwCamera, viewWindow) + 8 && offsetof(RwCamera, viewWindow) == 0x68 && offsetof(RwCamera, nearPlane) == 0x80 && offsetof(RwCamera, farPlane) == 0x84);
+static_assert(offsetof(RwCamera, zScale) == 0x8C && offsetof(RwCamera, zShift) == 0x90 && offsetof(RwCamera, frustumPlanes) == 0x94 && offsetof(RwCamera, frustumCorners) == 0x124);
+static_assert(offsetof(RwCamera, viewMatrix) == 0x20 && offsetof(RwCamera, projectionType) == 0x14 && offsetof(RwCamera, viewOffset) == 0x78 && sizeof(RwFrustumPlane) == 0x14);
+static_assert(offsetof(RwFrame, ltm) == 0x50);
+
+// 0x7EE200 (lote R23A, sin validar; 150 bytes; cdecl, (camara); nombre inferido): recalcula zScale (+0x8C) y zShift (+0x90) con los z de pantalla del dispositivo (RwEngineInstance + 0x18 y +0x1C), la proyeccion
+// (+0x14; 2 = paralela) y near/far (ver CameraZScaleCpp). Deja la camara en EAX.
+RwCamera* _rwCameraUpdateZScale(RwCamera* camera) {
+    CameraZScaleCpp(RwEngineInstance->dOpenDevice.zBufferNear, RwEngineInstance->dOpenDevice.zBufferFar, static_cast<int>(camera->projectionType),
+                    camera->nearPlane, camera->farPlane, &camera->zScale, &camera->zShift);
+    return camera;
 }
 
-RwCamera* RwCameraSetProjection(RwCamera* camera, RwCameraProjection projection) {
-    return ((RwCamera*(__cdecl *)(RwCamera*, RwCameraProjection))0x7EE3A0)(camera, projection);
-}
-
+// 0x7EE1D0 y 0x7EE2A0 (lote R23A, sin validar; 44 bytes cada una; eran envolturas; cdecl, (camara, valor)): guardan el plano (+0x80 near, +0x84 far), llaman a 0x7EE200 y, si la camara tiene marco (+4),
+// RwFrameUpdateObjects (0x7F0910). Devuelven la camara.
 RwCamera* RwCameraSetNearClipPlane(RwCamera* camera, RwReal nearClip) {
-    return ((RwCamera*(__cdecl *)(RwCamera*, RwReal))0x7EE1D0)(camera, nearClip);
+    camera->nearPlane = nearClip;
+    _rwCameraUpdateZScale(camera);
+    if (auto* const parent = static_cast<RwFrame*>(camera->object.object.parent)) {
+        RwFrameUpdateObjects(parent);
+    }
+    return camera;
 }
 
 RwCamera* RwCameraSetFarClipPlane(RwCamera* camera, RwReal farClip) {
-    return ((RwCamera*(__cdecl *)(RwCamera*, RwReal))0x7EE2A0)(camera, farClip);
+    camera->farPlane = farClip;
+    _rwCameraUpdateZScale(camera);
+    if (auto* const parent = static_cast<RwFrame*>(camera->object.object.parent)) {
+        RwFrameUpdateObjects(parent);
+    }
+    return camera;
+}
+
+// 0x7EE410 (lote R23A, sin validar; 64 bytes; era una envoltura; cdecl, (camara, ventana)): copia los dos dwords de la ventana a camera->viewWindow (+0x68) como bits y calcula recipViewWindow (+0x70, +0x74) = 1.0 / ventana
+// (fld1; fdiv; fstp dword). Si la camara tiene marco (+4), RwFrameUpdateObjects (0x7F0910). Devuelve la camara.
+RwCamera* RwCameraSetViewWindow(RwCamera* camera, const RwV2d* viewWindow) {
+    const auto* const source = reinterpret_cast<const uint32*>(viewWindow);
+    auto* const target = reinterpret_cast<uint32*>(&camera->viewWindow);
+    target[0] = source[0];
+    target[1] = source[1];
+    CameraRecipViewWindowCpp(&camera->viewWindow.x);
+    if (auto* const parent = static_cast<RwFrame*>(camera->object.object.parent)) {
+        RwFrameUpdateObjects(parent);
+    }
+    return camera;
+}
+
+// 0x7EE3A0 (lote R23A, sin validar; 102 bytes; era una envoltura; cdecl, (camara, proyeccion)): proyeccion <= 0 o > 2 (con signo) -> RwError { 1, _rwerror(0x80000003, "Invalid projection type specified" (0x8E224C)) } y
+// NULL. Si no guarda la proyeccion (+0x14), RwFrameUpdateObjects si hay marco y despues 0x7EE200. Devuelve la camara.
+RwCamera* RwCameraSetProjection(RwCamera* camera, RwCameraProjection projection) {
+    if (projection <= 0 || projection > 2) {
+        RwError error;
+        error.pluginID  = 1;
+        error.errorCode = _rwerror(static_cast<RwInt32>(0x80000003), reinterpret_cast<const char*>(0x8E224C));
+        RwErrorSet(&error);
+        return nullptr;
+    }
+    camera->projectionType = projection;
+    if (auto* const parent = static_cast<RwFrame*>(camera->object.object.parent)) {
+        RwFrameUpdateObjects(parent);
+    }
+    _rwCameraUpdateZScale(camera);
+    return camera;
+}
+
+// 0x7EE740 (lote R23A, sin validar; 1682 bytes; cdecl, (camara); nombre inferido; llamador: la sincronizacion de la camara 0x7EE5A0 en perspectiva): esquinas (+0x124) y los 6 planos (+0x94) del frustum a partir de la matriz
+// ltm del marco (frame + 0x50), la ventana, el desplazamiento y near/far (ver CameraFrustumPerspectiveCpp; normaliza con _rwInvSqrt 0x7EDB90). El EXE deja basura en EAX.
+void _rwCameraBuildFrustumPerspective(RwCamera* camera) {
+    const auto* const frame = static_cast<const RwFrame*>(camera->object.object.parent);
+    CameraFrustumPerspectiveCpp(reinterpret_cast<float*>(camera), reinterpret_cast<const float*>(&frame->ltm), &_rwInvSqrt);
+}
+
+// 0x7EEDE0 (lote R23A, sin validar; 1040 bytes; cdecl, (camara); nombre inferido; llamador: 0x7EE5A0 en paralela, despues de 0x7EF1F0): esquinas del frustum paralelo en espacio de camara, RwV3dTransformPoints (0x7EDD90)
+// de las 8 esquinas sobre si mismas con la ltm del marco y los 6 planos (ver CameraFrustumParallelCornersCpp y CameraFrustumParallelPlanesCpp). El EXE deja basura en EAX.
+void _rwCameraBuildFrustumParallel(RwCamera* camera) {
+    auto* const cam = reinterpret_cast<float*>(camera);
+    const auto* const frame = static_cast<const RwFrame*>(camera->object.object.parent);
+    CameraFrustumParallelCornersCpp(cam);
+    RwV3dTransformPoints(camera->frustumCorners, camera->frustumCorners, 8, &frame->ltm);
+    CameraFrustumParallelPlanesCpp(cam, reinterpret_cast<const float*>(&frame->ltm), &_rwInvSqrt);
+}
+
+// 0x7EF1F0 (lote R23A, sin validar; 334 bytes; cdecl, (camara); nombre inferido; llamador: 0x7EE5A0 en paralela): matriz de vista de la camara paralela (+0x20) a partir de la ltm del marco, la inversa de la ventana (+0x70, +0x74)
+// y el desplazamiento (ver CameraParallelViewMatrixCpp); termina con RwMatrixOptimize (0x7F17E0, matriz de vista, tolerancia NULL). Devuelve la camara.
+RwCamera* _rwCameraBuildViewMatrixParallel(RwCamera* camera) {
+    const auto* const frame = static_cast<const RwFrame*>(camera->object.object.parent);
+    CameraParallelViewMatrixCpp(reinterpret_cast<float*>(camera), reinterpret_cast<const float*>(&frame->ltm));
+    RwMatrixOptimize(&camera->viewMatrix, nullptr);
+    return camera;
+}
+
+// 0x7EE4B0 (lote R23A, sin validar; 54 bytes; era una envoltura; cdecl, (camara)): _rwPluginRegistryDeInitObject(registro 0x8E222C, camara), _rwObjectHasFrameReleaseFrame (0x804F40) y libera la camara en la lista libre
+// del modulo (RwFreeListFree, +0x148 del motor). Devuelve TRUE.
+RwBool RwCameraDestroy(RwCamera* camera) {
+    _rwPluginRegistryDeInitObject(reinterpret_cast<RwPluginRegistry*>(0x8E222C), camera);
+    _rwObjectHasFrameReleaseFrame(camera);
+    auto* const freeList = *reinterpret_cast<RwFreeList**>(reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC97960));
+    RwFreeListFree(freeList, camera);
+    return TRUE;
+}
+
+// 0x7EE4F0 (lote R23A, sin validar; 171 bytes; era una envoltura; cdecl, sin argumentos): reserva la camara en la lista libre del modulo (pista 0x30005; sin memoria -> NULL). Rellena: tipo 4 (rwCAMERA), subtipo, banderas y
+// banderas privadas 0, parent NULL, sync = 0x7EE5A0, beginUpdate = 0x7EF370, endUpdate = 0x7EF340, ventana y su inversa (1, 1), desplazamiento (0, 0), near 0x3D4CCCCD (0.05f), far 10.0f, niebla 5.0f, raster y
+// zbuffer NULL, proyeccion 1 (perspectiva); llama a 0x7EE200, pone viewMatrix.flags (+0x2C) a 0 e inicializa los plugins (0x8086E0 con el registro 0x8E222C). Devuelve la camara.
+RwCamera* RwCameraCreate() {
+    auto* const freeList = *reinterpret_cast<RwFreeList**>(reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC97960));
+    auto* const camera = static_cast<RwCamera*>(RwFreeListAlloc(freeList, 0x30005));
+    if (camera == nullptr) {
+        return nullptr;
+    }
+    camera->object.object.type = 4;
+    camera->object.object.subType = 0;
+    camera->object.object.flags = 0;
+    camera->object.object.privateFlags = 0;
+    camera->object.object.parent = nullptr;
+    camera->object.sync = reinterpret_cast<RwObjectHasFrameSyncFunction>(0x7EE5A0);
+    camera->beginUpdate = reinterpret_cast<RwCameraBeginUpdateFunc>(0x7EF370);
+    camera->endUpdate = reinterpret_cast<RwCameraEndUpdateFunc>(0x7EF340);
+    camera->viewWindow.y = 1.0f;
+    camera->viewWindow.x = 1.0f;
+    camera->recipViewWindow.y = 1.0f;
+    camera->recipViewWindow.x = 1.0f;
+    camera->viewOffset.y = 0.0f;
+    camera->viewOffset.x = 0.0f;
+    camera->nearPlane = std::bit_cast<float>(0x3D4CCCCDu);
+    camera->farPlane = std::bit_cast<float>(0x41200000u);
+    camera->fogPlane = std::bit_cast<float>(0x40A00000u);
+    camera->frameBuffer = nullptr;
+    camera->zBuffer = nullptr;
+    camera->projectionType = rwPERSPECTIVE;
+    _rwCameraUpdateZScale(camera);
+    camera->viewMatrix.flags = 0;
+    _rwPluginRegistryInitObject(reinterpret_cast<RwPluginRegistry*>(0x8E222C), camera);
+    return camera;
 }
 
 // 0x7EE450: registra el plugin en la lista de RwCamera (0x8E222C) con _rwPluginRegistryAddPlugin (0x8084A0).
@@ -3520,8 +3741,10 @@ RwBool RwCameraValidatePlugins(const RwCamera* camera) {
     return ((RwBool(__cdecl *)(const RwCamera*))0x7EE4A0)(camera);
 }
 
+// 0x7EE2D0 (lote R23A, sin validar; 104 bytes; era una envoltura; cdecl, (camara, esfera)): por cada uno de los 6 planos (+0x94, de 0x14 bytes) d = ((n.y*c.y + n.x*c.x) + n.z*c.z) - distancia; d > radio -> 0 (fuera,
+// sin mirar el resto); d > -radio -> resultado 1 (frontera); si nunca, 2 (dentro). Comparaciones ordenadas de la x87 (ver CameraFrustumTestSphereCpp).
 RwFrustumTestResult RwCameraFrustumTestSphere(const RwCamera* camera, const RwSphere* sphere) {
-    return ((RwFrustumTestResult(__cdecl *)(const RwCamera*, const RwSphere*))0x7EE2D0)(camera, sphere);
+    return static_cast<RwFrustumTestResult>(CameraFrustumTestSphereCpp(reinterpret_cast<const float*>(&camera->frustumPlanes[0]), reinterpret_cast<const float*>(sphere)));
 }
 
 RwInt32 RwCameraRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
@@ -4491,4 +4714,26 @@ void RwCoreInjectHooksR15A() {
     RH_ScopedGlobalInstall(_rxPipelineUnlockLinkItems, 0x80F970);
     RH_ScopedGlobalInstall(_rxPipelineUnlockAssignSlots, 0x80FBA0);
     RH_ScopedGlobalInstall(_rxPipelineUnlockBuildExecutionData, 0x80FC30);
+}
+
+// Lote R23A (sin validar): Im3D (0x7EF450..0x7EF6B0) y RwCamera (0x7EE1D0..0x7EF1F0).
+void RwCoreInjectHooksR23A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RwCameraSetNearClipPlane, 0x7EE1D0);
+    RH_ScopedGlobalInstall(_rwCameraUpdateZScale, 0x7EE200);
+    RH_ScopedGlobalInstall(RwCameraSetFarClipPlane, 0x7EE2A0);
+    RH_ScopedGlobalInstall(RwCameraFrustumTestSphere, 0x7EE2D0);
+    RH_ScopedGlobalInstall(RwCameraSetProjection, 0x7EE3A0);
+    RH_ScopedGlobalInstall(RwCameraSetViewWindow, 0x7EE410);
+    RH_ScopedGlobalInstall(RwCameraDestroy, 0x7EE4B0);
+    RH_ScopedGlobalInstall(RwCameraCreate, 0x7EE4F0);
+    RH_ScopedGlobalInstall(_rwCameraBuildFrustumPerspective, 0x7EE740);
+    RH_ScopedGlobalInstall(_rwCameraBuildFrustumParallel, 0x7EEDE0);
+    RH_ScopedGlobalInstall(_rwCameraBuildViewMatrixParallel, 0x7EF1F0);
+    RH_ScopedGlobalInstall(RwIm3DTransform, 0x7EF450);
+    RH_ScopedGlobalInstall(RwIm3DEnd, 0x7EF520);
+    RH_ScopedGlobalInstall(RwIm3DRenderIndexedPrimitive, 0x7EF550);
+    RH_ScopedGlobalInstall(RwIm3DRenderPrimitive, 0x7EF6B0);
 }

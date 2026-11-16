@@ -1433,8 +1433,34 @@ RwReal _rwMatrixIdentityError(const RwMatrix* matrix) {
     return MatrixIdentityErrorCpp(reinterpret_cast<const float*>(matrix));
 }
 
+// 0x7ED9B0 (lote R23A, sin validar; 271 bytes; era una envoltura; cdecl, (salida, entrada)): s = (x*x + y*y) + z*z guardado como float. Con los bits de s distintos de cero: longitud aproximada con la tabla de la raiz
+// del modulo de vectores (+0, igual que RwV3dLength) e inverso con la tabla +4 (igual que _rwInvSqrt); con bits cero la "longitud" es 0 y el "inverso" es s (0.0f). salida.x = inverso * entrada.x, luego y, luego z
+// (cada una guardada como float; la entrada se lee despues de escribir la componente anterior, asi que salida == entrada funciona). Si la longitud es <= 0.0f (comparacion ordenada: NaN no entra) pone el error
+// RwError { 1, _rwerror(0x19) } con RwErrorSet. Devuelve la longitud aproximada (ST0).
 RwReal RwV3dNormalize(RwV3d* out, const RwV3d* in) {
-    return ((RwReal(__cdecl *)(RwV3d*, const RwV3d*))0x7ED9B0)(out, in);
+    const float sum = V3dSumSquaresCpp(&in->x);
+    const RwUInt32 sumBits = std::bit_cast<RwUInt32>(sum);
+    RwUInt32 lengthBits = sumBits;
+    float inverse = sum;
+    if (sumBits != 0) {
+        const RwUInt32 shifted = sumBits + 0x800;
+        lengthBits = R12AVectorModule().sqrtTable[(shifted >> 12) & 0xFFF] + ((shifted >> 1) & 0x3FC00000u);
+        inverse = std::bit_cast<RwReal>(R12AVectorModule().invSqrtTable[(shifted >> 12) & 0xFFF] + (((~shifted) >> 1) & 0x3FC00000u));
+    }
+    const float x = float(double(inverse) * double(in->x));
+    out->x = x;
+    const float y = float(double(in->y) * double(inverse));
+    out->y = y;
+    const float z = float(double(in->z) * double(inverse));
+    out->z = z;
+    const RwReal length = std::bit_cast<RwReal>(lengthBits);
+    if (length <= 0.0f) {
+        RwError error;
+        error.pluginID  = 1;
+        error.errorCode = _rwerror(0x19);
+        RwErrorSet(&error);
+    }
+    return length;
 }
 
 // 0x7EDAC0 (lote R12A, sin validar; 112 bytes): s = (x*x + y*y) + z*z guardado como float; con los bits de s distintos de cero (tambien -0.0f) se aproxima la raiz con la tabla del modulo de vectores (motor + [0xC97934], puntero en +0):
@@ -1464,8 +1490,10 @@ RwV3d* RwV3dTransformPoint(RwV3d* pointOut, const RwV3d* pointIn, const RwMatrix
     return pointOut;
 }
 
+// 0x7EDD90 (lote R23A, sin validar; 43 bytes; era una envoltura): llama al callback del modulo de vectores (motor + [0xC97934] + 0xC, cdecl) con (salida, entrada, numero, matriz), ignora su resultado y devuelve la salida.
 RwV3d* RwV3dTransformPoints(RwV3d* pointsOut, const RwV3d* pointsIn, RwInt32 numPoints, const RwMatrix* matrix) {
-    return ((RwV3d*(__cdecl *)(RwV3d*, const RwV3d*, RwInt32, const RwMatrix*))0x7EDD90)(pointsOut, pointsIn, numPoints, matrix);
+    R12AVectorModule().multPoints(pointsOut, pointsIn, numPoints, matrix);
+    return pointsOut;
 }
 
 // 0x7EDDC0 (lote R12A, sin validar; 38 bytes): igual que RwV3dTransformPoint con el callback de +0x10.
@@ -2734,4 +2762,13 @@ void RwPlCoreInjectHooksR15A() {
     RH_ScopedGlobalInstall(_rwStringStreamWrite, 0x80A4A0);
     RH_ScopedGlobalInstall(_rwStringStreamFindAndRead, 0x80A510);
     RH_ScopedGlobalInstall(_rwResArenaHeapFree, 0x810040);
+}
+
+// Lote R23A (sin validar): RwV3dNormalize (0x7ED9B0) y RwV3dTransformPoints (0x7EDD90).
+void RwPlCoreInjectHooksR23A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    RH_ScopedGlobalInstall(RwV3dNormalize, 0x7ED9B0);
+    RH_ScopedGlobalInstall(RwV3dTransformPoints, 0x7EDD90);
 }

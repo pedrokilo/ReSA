@@ -711,6 +711,10 @@ void RpWorldInjectHooksR20A();    // union de tiras, listas de triangulos, cache
 void RpWorldInjectHooksR21A();    // matrices del vertex shader D3D9 del modulo de mundos y flujo nativo (D3D9) de los sectores (rpworld.cpp)
 void RpWorldInjectHooksR18A();    // plugin de geometria D3D9, callback de instanciado de atomos, mallas RpBuildMesh/RpMeshHeader y accesores (rpworld.cpp)
 
+// Lote R23A (sin validar).
+void RwPlCoreInjectHooksR23A();   // RwV3dNormalize (0x7ED9B0) y RwV3dTransformPoints (0x7EDD90) (rwplcore.cpp)
+void RwCoreInjectHooksR23A();     // camaras (0x7EE1D0..0x7EF1F0) e Im3D (0x7EF450..0x7EF6B0) (rwcore.cpp)
+
 void InjectHooksMain() {
     /**
     * We have `NOTSA_STANDALONE` macro to be able to dump all hooks without actually writing to memory,
@@ -1135,6 +1139,8 @@ void InjectHooksMain() {
     RpWorldInjectHooksR19A();
     RpWorldInjectHooksR20A();
     RpWorldInjectHooksR21A();
+    RwPlCoreInjectHooksR23A();
+    RwCoreInjectHooksR23A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();

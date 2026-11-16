@@ -19796,3 +19796,487 @@ __declspec(noinline) void __cdecl MatrixRotateTrigCpp(float angle, float factor,
     *oneMinusCosine = float(1.0 - cos(double(theta)));
 }
 #pragma float_control(pop)
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R23A (sin validar): RwCamera (rwcamera.c de RenderWare). Cuerpos numericos de las funciones 0x7EE200, 0x7EE410, 0x7EE2D0, 0x7EE740, 0x7EEDE0 y 0x7EF1F0 del EXE.
+// Convencion: `double` = valor que el EXE deja en un registro de la x87 (sin redondear); `float` = valor guardado con fst/fstp dword (o leido de memoria). El orden de los operandos de cada
+// suma/resta es el de la pila del EXE (las sumas solo se agrupan como el original). La camara se recibe como array de floats (indices = desplazamiento / 4) y la matriz ltm del marco como
+// 16 floats (right 0..2, up 4..6, at 8..10, pos 12..14).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+#pragma float_control(precise, on, push)
+namespace {
+// `sar reg, 1Fh; inc reg8` sobre los bits de un float: 0 si el bit de signo esta puesto, 1 si no (tambien -0.0f da 0, NaN segun su signo).
+inline unsigned char CameraClosestFlag(float component) { return static_cast<unsigned char>((std::bit_cast<int>(component) >> 31) + 1); }
+inline void CameraCopyBits(float* dst, const float* src) { *reinterpret_cast<unsigned int*>(dst) = *reinterpret_cast<const unsigned int*>(src); }
+inline void CameraSetFlags(float* plane, float nx, float ny, float nz) {
+    unsigned char* const flags = reinterpret_cast<unsigned char*>(plane) + 0x10; // closestX, closestY, closestZ del plano (plane = 5 floats)
+    flags[0] = CameraClosestFlag(nx);
+    flags[1] = CameraClosestFlag(ny);
+    flags[2] = CameraClosestFlag(nz);
+}
+// (x*x + y*y) + z*z: x e y se cargan de memoria (float) y z llega de un registro (sin redondear), como en los cuatro bloques de normalizacion de 0x7EE740 y 0x7EEDE0.
+inline float CameraSumSquares(float x, float y, double zRegister) { return float((double(x) * double(x) + double(y) * double(y)) + zRegister * zRegister); }
+}
+
+// 0x7EE200 (RwCamera: zScale y zShift a partir de los z de pantalla del dispositivo): perspectiva (proyeccion != 2) usa 1/far y 1/near; paralela far y near.
+// span = (zFar - zNear) * 1e-4f (0x858FC4); farAdj = float(zFar - span); base = span + zNear; q = farAdj - base; r = q / (F - N); zScale = float(r); zShift = float(((farAdj + base) - (N + F) * r) * 0.5f).
+__declspec(noinline) void __cdecl CameraZScaleCpp(float deviceNear, float deviceFar, int projection, float cameraNear, float cameraFar, float* zScale, float* zShift) {
+    double farValue = double(cameraFar);
+    double nearValue;
+    if (projection != 2) {
+        farValue = 1.0 / farValue;                  // fdivr [0x858624 = 1.0f]
+        nearValue = 1.0 / double(cameraNear);
+    } else {
+        nearValue = double(cameraNear);
+    }
+    const double span = (double(deviceFar) - double(deviceNear)) * double(std::bit_cast<float>(0x38D1B717u));
+    const float farAdjusted = float(double(deviceFar) - span);
+    const double base = span + double(deviceNear);
+    const double q = double(farAdjusted) - base;
+    const double r = q / (farValue - nearValue);
+    *zScale = float(r);
+    const double x = (double(farAdjusted) + base) - (nearValue + farValue) * r;
+    *zShift = float(x * 0.5);
+}
+
+// 0x7EE410: recip = float(1.0 / viewWindow) para x e y (fld1; fdiv dword [viewWindow]; fstp dword). `viewWindow` apunta a camara + 0x68 (viewWindow +0, +4; recipViewWindow +8, +0xC).
+__declspec(noinline) void __cdecl CameraRecipViewWindowCpp(float* viewWindow) {
+    viewWindow[2] = float(1.0 / double(viewWindow[0]));
+    viewWindow[3] = float(1.0 / double(viewWindow[1]));
+}
+
+// 0x7EE2D0 (RwCameraFrustumTestSphere): `planes` = camara + 0x94 (6 planos de 5 floats), esfera = {x, y, z, radio}. Devuelve 0 (fuera), 1 (frontera) o 2 (dentro). Comparaciones ordenadas (NaN no cumple ninguna).
+__declspec(noinline) int __cdecl CameraFrustumTestSphereCpp(const float* planes, const float* sphere) {
+    int result = 2;
+    for (int i = 0; i < 6; ++i) {
+        const float* const plane = planes + i * 5;
+        double d = double(plane[1]) * double(sphere[1]);
+        d = d + double(plane[0]) * double(sphere[0]);
+        d = d + double(plane[2]) * double(sphere[2]);
+        d = d - double(plane[3]);
+        if (d > double(sphere[3])) {
+            return 0;
+        }
+        if (d > -double(sphere[3])) {
+            result = 1;
+        }
+    }
+    return result;
+}
+
+// 0x7EE740: esquinas y planos del frustum en perspectiva. cam = RwCamera como floats; m = ltm del marco de la camara; invSqrt = _rwInvSqrt (0x7EDB90, cdecl, devuelve ST0).
+__declspec(noinline) void __cdecl CameraFrustumPerspectiveCpp(float* cam, const float* m, float(__cdecl* invSqrt)(float)) {
+    const float ox = cam[0x78 / 4];
+    const float oy = cam[0x7C / 4];
+    const float wx = cam[0x68 / 4];
+    const float wy = cam[0x6C / 4];
+    const float nearPlane = cam[0x80 / 4];
+    const float farPlane = cam[0x84 / 4];
+    float* const C = cam + 0x124 / 4;   // 8 esquinas (cercanas 0..3, lejanas 4..7)
+    float* const P = cam + 0x94 / 4;    // 6 planos
+
+    // A = -ox * right + oy * up (ax, ay sin redondear; az guardado), T1 = at + wx * right, V1 = T1 + wy * up
+    const double negOx = -double(ox);
+    const double u = negOx * double(m[0]);
+    const float p1y = float(double(m[1]) * negOx);
+    const float p1z = float(double(m[2]) * negOx);
+    const double ax = double(oy) * double(m[4]) + u;
+    const double ay = double(oy) * double(m[5]) + double(p1y);
+    const float az = float(double(oy) * double(m[6]) + double(p1z));
+
+    const double wxRx = double(wx) * double(m[0]);
+    const double wxRy = double(wx) * double(m[1]);
+    const float wxRz = float(double(wx) * double(m[2]));
+    const double t1x = double(m[8]) + wxRx;
+    const double t1y = double(m[9]) + wxRy;
+    const float t1z = float(double(m[10]) + double(wxRz));
+
+    const float uwx = float(double(wy) * double(m[4]));
+    const float uwy = float(double(wy) * double(m[5]));
+    const float uwz = float(double(wy) * double(m[6]));
+    const float v1x = float(double(uwx) + t1x);
+    const float v1y = float(double(uwy) + t1y);
+    C[0] = v1x;
+    C[1] = v1y;
+    const float v1z = float(double(uwz) + double(t1z));
+    C[2] = v1z;
+    const float w2x = float(wxRx + wxRx);
+    const double twoWxRy = wxRy + wxRy;
+    const double twoWxRz = double(wxRz) + double(wxRz);
+    const double twoUwx = double(uwx) + double(uwx);
+    const double twoUwy = double(uwy) + double(uwy);
+    const float w2uz = float(double(uwz) + double(uwz));
+
+    const float v2x = float(double(v1x) - double(w2x));
+    const float v2y = float(double(v1y) - twoWxRy);
+    C[3] = v2x;
+    C[4] = v2y;
+    const float v2z = float(double(v1z) - twoWxRz);
+    C[5] = v2z;
+    const float v3x = float(double(v2x) - twoUwx);
+    const float v3y = float(double(v2y) - twoUwy);
+    C[6] = v3x;
+    C[7] = v3y;
+    const float v3z = float(double(v2z) - double(w2uz));
+    C[8] = v3z;
+    const float v4x = float(double(v3x) + double(w2x));
+    const float v4y = float(double(v3y) + twoWxRy);
+    C[9] = v4x;
+    C[10] = v4y;
+    const float v4z = float(double(v3z) + twoWxRz);
+    C[11] = v4z;
+
+    // Esquinas cercanas y lejanas: pos + A + distancia * (V - A)
+    for (int k = 0; k < 4; ++k) {
+        float* const nearCorner = C + 3 * k;
+        float* const farCorner = C + 12 + 3 * k;
+        const double dxr = double(nearCorner[0]) - ax;
+        const double dyr = double(nearCorner[1]) - ay;
+        const float dz = float(double(nearCorner[2]) - double(az));
+        const float cx = float(double(m[12]) + ax);
+        const float cy = float(double(m[13]) + ay);
+        const float cz = float(double(m[14]) + double(az));
+        nearCorner[0] = cx;
+        nearCorner[1] = cy;
+        nearCorner[2] = cz;
+        nearCorner[0] = float(double(nearPlane) * dxr + double(nearCorner[0]));
+        nearCorner[1] = float(double(nearPlane) * dyr + double(nearCorner[1]));
+        nearCorner[2] = float(double(nearPlane) * double(dz) + double(nearCorner[2]));
+        farCorner[0] = float(double(m[12]) + ax);
+        farCorner[1] = float(double(m[13]) + ay);
+        farCorner[2] = float(double(m[14]) + double(az));
+        farCorner[0] = float(double(farPlane) * dxr + double(farCorner[0]));
+        farCorner[1] = float(double(farPlane) * dyr + double(farCorner[1]));
+        farCorner[2] = float(double(farPlane) * double(dz) + double(farCorner[2]));
+    }
+
+    // Plano 0 (lejano): normal = at (copia de bits), distancia = at . esquina 4
+    CameraCopyBits(P + 0, m + 8);
+    CameraCopyBits(P + 1, m + 9);
+    CameraCopyBits(P + 2, m + 10);
+    double dist = double(m[8]) * double(C[12]);
+    dist = dist + double(C[13]) * double(m[9]);
+    dist = dist + double(C[14]) * double(m[10]);
+    P[3] = float(dist);
+    CameraSetFlags(P + 0, P[0], P[1], P[2]);
+
+    // Plano 1 (cercano): normal = -at, distancia = (-at) . esquina 0
+    P[5] = float(-double(P[0]));
+    P[6] = float(-double(P[1]));
+    P[7] = float(-double(P[2]));
+    dist = double(C[1]) * double(P[6]);
+    dist = dist + double(P[5]) * double(C[0]);
+    dist = dist + double(C[2]) * double(P[7]);
+    P[8] = float(dist);
+    CameraSetFlags(P + 5, P[5], P[6], P[7]);
+
+    // Plano 2: e1 = esquina 1 - esquina 5 (guardado), d6 = esquina 6 - esquina 5; normal = e1 x d6 normalizada; distancia = esquina 1 . normal
+    const float e1x = float(double(C[3]) - double(C[15]));
+    const float e1y = float(double(C[4]) - double(C[16]));
+    const float e1z = float(double(C[5]) - double(C[17]));
+    {
+        const double dx6 = double(C[18]) - double(C[15]);
+        const double dy6 = double(C[19]) - double(C[16]);
+        const double dz6 = double(C[20]) - double(C[17]);
+        const float nx = float(double(e1y) * dz6 - dy6 * double(e1z));
+        P[10] = nx;
+        const float ny = float(dx6 * double(e1z) - dz6 * double(e1x));
+        P[11] = ny;
+        const double nzr = dy6 * double(e1x) - dx6 * double(e1y);
+        P[12] = float(nzr);
+        const float inv = invSqrt(CameraSumSquares(nx, ny, nzr));
+        const double nxr = double(P[10]) * double(inv);
+        P[10] = float(nxr);
+        const double nyr = double(P[11]) * double(inv);
+        P[11] = float(nyr);
+        const double nzr2 = double(P[12]) * double(inv);
+        P[12] = float(nzr2);
+        dist = double(C[4]) * nyr;
+        dist = dist + double(C[3]) * nxr;
+        dist = dist + double(C[5]) * nzr2;
+        P[13] = float(dist);
+        CameraSetFlags(P + 10, P[10], P[11], P[12]);
+    }
+
+    // Plano 3: g = esquina 4 - esquina 5; normal = g x e1 normalizada; distancia = esquina 1 . normal
+    {
+        const double gx = double(C[12]) - double(C[15]);
+        const double gy = double(C[13]) - double(C[16]);
+        const double gz = double(C[14]) - double(C[17]);
+        const float nx = float(gy * double(e1z) - gz * double(e1y));
+        P[15] = nx;
+        const float ny = float(gz * double(e1x) - gx * double(e1z));
+        P[16] = ny;
+        const double nzr = gx * double(e1y) - gy * double(e1x);
+        P[17] = float(nzr);
+        const float inv = invSqrt(CameraSumSquares(nx, ny, nzr));
+        const double nxr = double(P[15]) * double(inv);
+        P[15] = float(nxr);
+        const double nyr = double(P[16]) * double(inv);
+        P[16] = float(nyr);
+        const double nzr2 = double(P[17]) * double(inv);
+        P[17] = float(nzr2);
+        dist = double(C[3]) * nxr;
+        dist = dist + double(C[4]) * nyr;
+        dist = dist + double(C[5]) * nzr2;
+        P[18] = float(dist);
+        CameraSetFlags(P + 15, P[15], P[16], P[17]);
+    }
+
+    // Planos 4 y 5: h1 = esquina 3 - esquina 7 (guardado); plano 4 = h1 x (esquina 4 - esquina 7), plano 5 = (esquina 6 - esquina 7) x h1 con el orden de productos del EXE; distancia = esquina 3 . normal
+    const float h1x = float(double(C[9]) - double(C[21]));
+    const float h1y = float(double(C[10]) - double(C[22]));
+    const float h1z = float(double(C[11]) - double(C[23]));
+    {
+        const double kx = double(C[12]) - double(C[21]);
+        const double ky = double(C[13]) - double(C[22]);
+        const double kz = double(C[14]) - double(C[23]);
+        const float nx = float(double(h1y) * kz - ky * double(h1z));
+        P[20] = nx;
+        const float ny = float(kx * double(h1z) - kz * double(h1x));
+        P[21] = ny;
+        const double nzr = ky * double(h1x) - kx * double(h1y);
+        P[22] = float(nzr);
+        const float inv = invSqrt(CameraSumSquares(nx, ny, nzr));
+        const double nxr = double(P[20]) * double(inv);
+        P[20] = float(nxr);
+        const double nyr = double(P[21]) * double(inv);
+        P[21] = float(nyr);
+        const double nzr2 = double(P[22]) * double(inv);
+        P[22] = float(nzr2);
+        dist = double(C[10]) * nyr;
+        dist = dist + double(C[9]) * nxr;
+        dist = dist + double(C[11]) * nzr2;
+        P[23] = float(dist);
+        CameraSetFlags(P + 20, P[20], P[21], P[22]);
+    }
+    {
+        const double mx = double(C[18]) - double(C[21]);
+        const double my = double(C[19]) - double(C[22]);
+        const double mz = double(C[20]) - double(C[23]);
+        const float nx = float(my * double(h1z) - mz * double(h1y));
+        P[25] = nx;
+        const float ny = float(mz * double(h1x) - mx * double(h1z));
+        P[26] = ny;
+        const double nzr = mx * double(h1y) - my * double(h1x);
+        P[27] = float(nzr);
+        const float inv = invSqrt(CameraSumSquares(nx, ny, nzr));
+        const double nxr = double(P[25]) * double(inv);
+        P[25] = float(nxr);
+        const double nyr = double(P[26]) * double(inv);
+        P[26] = float(nyr);
+        const double nzr2 = double(P[27]) * double(inv);
+        P[27] = float(nzr2);
+        dist = double(C[10]) * nyr;
+        dist = dist + double(C[9]) * nxr;
+        dist = dist + double(C[11]) * nzr2;
+        P[28] = float(dist);
+        CameraSetFlags(P + 25, P[25], P[26], P[27]);
+    }
+}
+
+// 0x7EEDE0 (primera parte, antes de RwV3dTransformPoints): esquinas del frustum paralelo en espacio de camara. z = near (0..3) o far (4..7); x e y a partir de 1 - near, 1 - far, la ventana y el desplazamiento.
+__declspec(noinline) void __cdecl CameraFrustumParallelCornersCpp(float* cam) {
+    const float wx = cam[0x68 / 4];
+    const float wy = cam[0x6C / 4];
+    const float nearPlane = cam[0x80 / 4];
+    const float farPlane = cam[0x84 / 4];
+    const float ox = cam[0x78 / 4];
+    const float oy = cam[0x7C / 4];
+    float* const C = cam + 0x124 / 4;
+    const float negOx = float(-double(ox));
+    C[11] = nearPlane;   // +0x2C
+    C[8] = nearPlane;    // +0x20
+    C[5] = nearPlane;    // +0x14
+    C[2] = nearPlane;    // +8
+    C[23] = farPlane;    // +0x5C
+    C[20] = farPlane;    // +0x50
+    C[17] = farPlane;    // +0x44
+    C[14] = farPlane;    // +0x38
+    const float g = float(1.0 - double(nearPlane));
+    const double t = double(g) * double(negOx);
+    const float a = float(t + double(wx));
+    C[9] = a;            // +0x24
+    C[0] = a;
+    const float b = float(t - double(wx));
+    C[6] = b;            // +0x18
+    C[3] = b;            // +0x0C
+    const double regH = 1.0 - double(farPlane);
+    const float h = float(regH);
+    const double t2 = regH * double(negOx);
+    const float c = float(t2 + double(wx));
+    C[21] = c;           // +0x54
+    C[12] = c;           // +0x30
+    const float d = float(t2 - double(wx));
+    C[18] = d;           // +0x48
+    C[15] = d;           // +0x3C
+    const double u = double(g) * double(oy);
+    const float e = float(double(wy) + u);
+    C[4] = e;            // +0x10
+    C[1] = e;            // +4
+    const float f = float(u - double(wy));
+    C[10] = f;           // +0x28
+    C[7] = f;            // +0x1C
+    const double u2 = double(h) * double(oy);
+    const float g2 = float(double(wy) + u2);
+    C[16] = g2;          // +0x40
+    C[13] = g2;          // +0x34
+    const float g3 = float(u2 - double(wy));
+    C[22] = g3;          // +0x58
+    C[19] = g3;          // +0x4C
+}
+
+// 0x7EEDE0 (segunda parte, despues de RwV3dTransformPoints sobre las 8 esquinas): planos del frustum paralelo. m = ltm del marco. Las normales de los planos 2 y 3 se normalizan con invSqrt (0x7EDB90).
+__declspec(noinline) void __cdecl CameraFrustumParallelPlanesCpp(float* cam, const float* m, float(__cdecl* invSqrt)(float)) {
+    float* const C = cam + 0x124 / 4;
+    float* const P = cam + 0x94 / 4;
+
+    // Plano 0: normal = at (copia de bits), distancia = (n.y * c4.y + c4.x * n.x) + c4.z * n.z
+    CameraCopyBits(P + 0, m + 8);
+    CameraCopyBits(P + 1, m + 9);
+    CameraCopyBits(P + 2, m + 10);
+    double dist = double(P[1]) * double(C[13]);
+    dist = dist + double(C[12]) * double(P[0]);
+    dist = dist + double(C[14]) * double(P[2]);
+    P[3] = float(dist);
+    CameraSetFlags(P + 0, P[0], P[1], P[2]);
+
+    // Plano 1: normal = -plano 0, distancia = ((c0.y * ny) + (nx * c0.x)) + c0.z * nz
+    P[5] = float(-double(P[0]));
+    P[6] = float(-double(P[1]));
+    P[7] = float(-double(P[2]));
+    dist = double(C[1]) * double(P[6]);
+    dist = dist + double(P[5]) * double(C[0]);
+    dist = dist + double(C[2]) * double(P[7]);
+    P[8] = float(dist);
+    CameraSetFlags(P + 5, P[5], P[6], P[7]);
+
+    // Plano 2: e1 = esquina 1 - esquina 5 (guardado); normal = e1 x (esquina 6 - esquina 5) normalizada
+    const float e1x = float(double(C[3]) - double(C[15]));
+    const float e1y = float(double(C[4]) - double(C[16]));
+    const float e1z = float(double(C[5]) - double(C[17]));
+    {
+        const double dx6 = double(C[18]) - double(C[15]);
+        const double dy6 = double(C[19]) - double(C[16]);
+        const double dz6 = double(C[20]) - double(C[17]);
+        const float nx = float(double(e1y) * dz6 - dy6 * double(e1z));
+        P[10] = nx;
+        const float ny = float(dx6 * double(e1z) - dz6 * double(e1x));
+        P[11] = ny;
+        const double nzr = dy6 * double(e1x) - dx6 * double(e1y);
+        P[12] = float(nzr);
+        const float inv = invSqrt(CameraSumSquares(nx, ny, nzr));
+        const double nxr = double(P[10]) * double(inv);
+        P[10] = float(nxr);
+        const double nyr = double(P[11]) * double(inv);
+        P[11] = float(nyr);
+        const double nzr2 = double(P[12]) * double(inv);
+        P[12] = float(nzr2);
+        dist = double(C[4]) * nyr;
+        dist = dist + double(C[3]) * nxr;
+        dist = dist + double(C[5]) * nzr2;
+        P[13] = float(dist);
+        CameraSetFlags(P + 10, P[10], P[11], P[12]);
+    }
+
+    // Plano 3: normal = (esquina 4 - esquina 5) x e1 normalizada. El EXE guarda y y z normalizadas como float (pila) y reutiliza x en el registro.
+    float ny3;
+    float nz3;
+    double nx3r;
+    {
+        const double gx = double(C[12]) - double(C[15]);
+        const double gy = double(C[13]) - double(C[16]);
+        const double gz = double(C[14]) - double(C[17]);
+        const float nx = float(gy * double(e1z) - gz * double(e1y));
+        P[15] = nx;
+        const float ny = float(gz * double(e1x) - gx * double(e1z));
+        P[16] = ny;
+        const double nzr = gx * double(e1y) - gy * double(e1x);
+        P[17] = float(nzr);
+        const float inv = invSqrt(CameraSumSquares(nx, ny, nzr));
+        nx3r = double(P[15]) * double(inv);
+        P[15] = float(nx3r);
+        ny3 = float(double(P[16]) * double(inv));
+        P[16] = ny3;
+        nz3 = float(double(P[17]) * double(inv));
+        P[17] = nz3;
+        dist = double(C[4]) * double(ny3);
+        dist = dist + double(C[3]) * nx3r;
+        dist = dist + double(C[5]) * double(nz3);
+        P[18] = float(dist);
+        CameraSetFlags(P + 15, P[15], ny3, nz3);
+    }
+
+    // Plano 4: normal = -plano 2 (de los floats guardados), distancia = (c3.x * nx + c3.y * ny) + c3.z * nz
+    P[20] = float(-double(P[10]));
+    P[21] = float(-double(P[11]));
+    P[22] = float(-double(P[12]));
+    dist = double(C[9]) * double(P[20]);
+    dist = dist + double(C[10]) * double(P[21]);
+    dist = dist + double(C[11]) * double(P[22]);
+    P[23] = float(dist);
+    CameraSetFlags(P + 20, P[20], P[21], P[22]);
+
+    // Plano 5: normal = -plano 3 (x del registro sin redondear; y y z de las guardadas)
+    const double nx5r = -nx3r;
+    P[25] = float(nx5r);
+    P[26] = float(-double(ny3));
+    P[27] = float(-double(nz3));
+    dist = double(C[9]) * nx5r;
+    dist = dist + double(C[10]) * double(P[26]);
+    dist = dist + double(C[11]) * double(P[27]);
+    P[28] = float(dist);
+    CameraSetFlags(P + 25, P[25], P[26], P[27]);
+}
+
+// 0x7EF1F0: matriz de vista de la camara paralela. cam = RwCamera como floats (viewMatrix en +0x20; recipViewWindow +0x70/+0x74, viewOffset +0x78/+0x7C), m = ltm del marco.
+// La llamada final a RwMatrixOptimize (0x7F17E0) la hace el llamador en C++.
+__declspec(noinline) void __cdecl CameraParallelViewMatrixCpp(float* cam, const float* m) {
+    float* const v = cam + 0x20 / 4;
+    const double minusHalf = double(std::bit_cast<float>(0xBF000000u));   // 0x858F40
+    const double half = double(std::bit_cast<float>(0x3F000000u));        // 0x858B8C
+
+    // Columna x: s = recip.x * -0.5; k = float(-(ox * s)); V = k * at + (s * right.x, float(s * right.y), float(s * right.z))
+    const double s = double(cam[0x70 / 4]) * minusHalf;
+    const double sRx = s * double(m[0]);
+    const float a1 = float(double(m[1]) * s);
+    const float a2 = float(double(m[2]) * s);
+    const float k = float(-(double(cam[0x78 / 4]) * s));
+    const double vx = double(m[8]) * double(k) + sRx;
+    const double vy = double(m[9]) * double(k) + double(a1);
+    const double vz = double(m[10]) * double(k) + double(a2);
+    v[0] = float(vx);
+    v[4] = float(vy);
+    v[8] = float(vz);
+    double dot = double(m[12]) * vx;
+    dot = dot + double(m[13]) * vy;
+    dot = dot + double(m[14]) * vz;
+    v[12] = float(half - (dot + double(k)));
+
+    // Columna y: s = recip.y * -0.5; k2 = float(oy * s) (sin cambio de signo)
+    const double s2 = double(cam[0x74 / 4]) * minusHalf;
+    const double uS2 = double(m[4]) * s2;
+    const float b1 = float(double(m[5]) * s2);
+    const float b2 = float(double(m[6]) * s2);
+    const float k2 = float(double(cam[0x7C / 4]) * s2);
+    const double wx = double(m[8]) * double(k2) + uS2;
+    const double wy = double(m[9]) * double(k2) + double(b1);
+    const double wz = double(m[10]) * double(k2) + double(b2);
+    v[1] = float(wx);
+    v[5] = float(wy);
+    v[9] = float(wz);
+    double dot2 = double(m[12]) * wx;
+    dot2 = dot2 + double(m[13]) * wy;
+    dot2 = dot2 + double(m[14]) * wz;
+    v[13] = float(half - (dot2 + double(k2)));
+
+    // Columna z = at (copia de bits); pos.z = -(((pos.x * at.x) + (at.y * pos.y)) + (pos.z * at.z))
+    CameraCopyBits(v + 2, m + 8);
+    CameraCopyBits(v + 6, m + 9);
+    CameraCopyBits(v + 10, m + 10);
+    double dot3 = double(m[12]) * double(m[8]);
+    dot3 = dot3 + double(m[9]) * double(m[13]);
+    dot3 = dot3 + double(m[14]) * double(m[10]);
+    v[14] = float(-dot3);
+}
+#pragma float_control(pop)
