@@ -657,6 +657,7 @@
 #include "platform/win/VideoMode.h"
 #include "platform/win/WinPlatform.h"
 #include "platform/win/DelayLoadThunks.h"
+#include "platform/win/ImportThunks.h"
 
 #include "app/app.h"
 #include <RealTimeShadowManager.h>
@@ -1106,6 +1107,7 @@ void InjectHooksMain() {
     RwPlCoreInjectHooksR8A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
+    ImportThunksInjectHooks();
     RtSlerpInjectHooks();
     D3DX9InjectHooks();
     RtQuatInjectHooks();

@@ -7,9 +7,11 @@
 namespace {
 constexpr uintptr_t kDirectInput8CreateSlot  = 0x8E3EC4;
 constexpr uintptr_t kDirectSoundCreate8Slot  = 0x8E3ECC;
+constexpr uintptr_t kDirectDrawCreateExSlot  = 0x8E3EBC;
 
 using DirectInput8CreateFn = HRESULT(WINAPI*)(HINSTANCE, DWORD, const void*, LPVOID*, void*);
 using DirectSoundCreate8Fn = HRESULT(WINAPI*)(const void*, void**, void*);
+using DirectDrawCreateExFn = HRESULT(WINAPI*)(const void*, void**, const void*, void*);
 } // namespace
 
 // 0x817523 (lote R8A, sin validar; stdcall, 5 argumentos, 6 bytes: `jmp dword ptr [0x8E3EC4]`; llamadores: 0x746985 y 0x748801): DirectInput8Create(hinst, version, iid, ppvOut, punkOuter).
@@ -23,10 +25,16 @@ HRESULT WINAPI DirectSoundCreate8Thunk(const void* guid, void** ppDS8, void* pun
     return (*reinterpret_cast<DirectSoundCreate8Fn*>(kDirectSoundCreate8Slot))(guid, ppDS8, punkOuter);
 }
 
+// 0x81805C (lote R9A, sin validar; stdcall, 4 argumentos, 6 bytes: `jmp dword ptr [0x8E3EBC]`; llamador: 0x7455E0 con (NULL, &ppDD, &IID_IDirectDraw7 0x859694, NULL)): DirectDrawCreateEx de DDRAW.dll.
+HRESULT WINAPI DirectDrawCreateExThunk(const void* guid, void** ppDD, const void* iid, void* punkOuter) {
+    return (*reinterpret_cast<DirectDrawCreateExFn*>(kDirectDrawCreateExSlot))(guid, ppDD, iid, punkOuter);
+}
+
 void DelayLoadThunksInjectHooks() {
     RH_ScopedCategory("App");
     RH_ScopedNamespaceName("DelayLoadThunks");
 
     RH_ScopedGlobalInstall(DirectInput8CreateThunk, 0x817523);
     RH_ScopedGlobalInstall(DirectSoundCreate8Thunk, 0x81803B);
+    RH_ScopedGlobalInstall(DirectDrawCreateExThunk, 0x81805C);
 }
