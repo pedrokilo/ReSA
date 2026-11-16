@@ -22,6 +22,7 @@ public:
     CTask* Clone() const override { return new CTaskComplexEnterCarAsPassenger{*this}; } // 0x6437F0
 
 private: // Wrappers for hooks
+    friend class CTaskComplexFollowLeaderInFormation; // lote 201A (sin validar): su CreateSubTask (0x6962A0) llama al Constructor enganchado del EXE, como el original
     // 0x640340
     CTaskComplexEnterCarAsPassenger* Constructor(CVehicle* targetVehicle, int32 nTargetSeat, bool bCarryOnAfterFallingOff) {
         this->CTaskComplexEnterCarAsPassenger::CTaskComplexEnterCarAsPassenger(targetVehicle, nTargetSeat, bCarryOnAfterFallingOff);

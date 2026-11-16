@@ -45,6 +45,7 @@ private:
     friend class CTaskComplexGoToPointAndStandStillAndAchieveHeading; // CreateSubTask (0x668D50, lote 180A) tambien
     friend class CTaskComplexPresentIDToCop; // CreateSubTask (0x65A110, lote 198A) tambien
     friend class CTaskComplexObserveTrafficLightsAndAchieveHeading; // CreateSubTask (lote 170A) llama a este constructor del EXE (hook 0x667E20) sobre la memoria reservada
+    friend class CTaskComplexFollowLeaderInFormation; // lote 201A (sin validar): su CreateSubTask (0x6962A0) llama al Constructor enganchado del EXE, como el original
 
     // Wrapper para el hook
     // 0x667E20

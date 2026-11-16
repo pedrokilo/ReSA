@@ -48,6 +48,7 @@ private:
     friend void InjectHooksMain();
     friend class CTaskComplexGoToPointAndStandStill; // lote 198A: su CreateSubTask (0x6682D0) llama al Constructor enganchado (0x63B8C0)
     static void InjectHooks();
+    friend class CTaskComplexFollowLeaderInFormation; // lote 201A (sin validar): su CreateSubTask (0x6962A0) llama al Constructor enganchado del EXE, como el original
 
     CTaskComplexLeaveCar* Constructor(CVehicle* targetVehicle, int32 nTargetDoor, int32 nDelayTime, bool bSensibleLeaveCar, bool bForceGetOut) { this->CTaskComplexLeaveCar::CTaskComplexLeaveCar(targetVehicle, nTargetDoor, nDelayTime, bSensibleLeaveCar, bForceGetOut); return this; }
     CTaskComplexLeaveCar* Destructor() { this->CTaskComplexLeaveCar::~CTaskComplexLeaveCar(); return this; }

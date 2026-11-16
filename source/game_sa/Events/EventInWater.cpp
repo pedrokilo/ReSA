@@ -84,9 +84,14 @@ CEvent* CEventInWater::Clone() const noexcept {
         return nullptr;
     }
     auto* const dst = static_cast<uint8*>(memory);
-    const float acceleration = m_acceleration;
+    // El EXE copia la aceleracion con `fld dword` / `fstp dword` (x87): un NaN senalizante sale silenciado (bit 22 puesto, carga intacta). La DLL se compila con SSE, que copiaria el bit tal cual; se reproduce
+    // el efecto del x87 con enteros (denormales, infinitos y el resto de valores pasan sin cambios).
+    uint32 accelerationBits = std::bit_cast<uint32>(m_acceleration);
+    if ((accelerationBits & 0x7F800000u) == 0x7F800000u && (accelerationBits & 0x007FFFFFu) != 0) {
+        accelerationBits |= 0x00400000u;
+    }
     *reinterpret_cast<uint32*>(dst + 0x4) = 0;
-    *reinterpret_cast<float*>(dst + 0xC)  = acceleration;
+    *reinterpret_cast<uint32*>(dst + 0xC) = accelerationBits;
     *(dst + 0x8)                          = 0;
     *reinterpret_cast<uint32*>(dst + 0x0) = 0x85B4C8;
     return static_cast<CEvent*>(memory);

@@ -63,6 +63,7 @@ eTaskType GetTaskType() const override { return Type; }
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    friend class CTaskComplexFollowLeaderInFormation; // lote 201A (sin validar): su CreateSubTask (0x6962A0) llama al Constructor enganchado del EXE, como el original
 
     CTaskSimpleCarDrive* Constructor(CVehicle* pVehicle, CTaskUtilityLineUpPedWithCar* pUtilityTask, int8_t bUpdateCurrentVehicle) { this->CTaskSimpleCarDrive::CTaskSimpleCarDrive(pVehicle, pUtilityTask, bUpdateCurrentVehicle); return this; }
     __declspec(noinline) CTaskSimpleCarDrive* Destructor() { this->CTaskSimpleCarDrive::~CTaskSimpleCarDrive(); return this; }   // 0x63C460 (sin expansion en linea: el banco Fn152A sustituye este cuerpo)

@@ -234,26 +234,27 @@ CTask* CTaskComplexFollowLeaderInFormation::ControlSubTask(CPed* ped) {
 //         CTaskSimpleAchieveHeading(rotacion actual del ped (+0x558), 0.5f, 0.2f). La reserva se hace despues de calcular el angulo, como el EXE.
 //  Cualquier otro tipo (incluido 0x516) devuelve nulo.
 CTask* CTaskComplexFollowLeaderInFormation::CreateSubTask(eTaskType type, CPed* ped) {
+    // Cada rama reserva con CTask::operator new y llama al cuerpo enganchado del constructor del EXE (`Constructor`, como el original: el constructor directo de C++ no pasa por el hook), devolviendo su EAX.
     switch (static_cast<int32>(type)) {
     case 0xCB: {
         void* const memory = CTask::operator new(sizeof(CTaskSimpleStandStill));
-        return memory ? ::new (memory) CTaskSimpleStandStill(500, false, false, 8.0f) : nullptr;
+        return memory ? static_cast<CTaskSimpleStandStill*>(memory)->Constructor(500, false, false, 8.0f) : nullptr;
     }
     case 0xCA: {
         void* const memory = CTask::operator new(sizeof(CTaskSimplePause));
-        return memory ? ::new (memory) CTaskSimplePause(2000) : nullptr;
+        return memory ? static_cast<CTaskSimplePause*>(memory)->Constructor(2000) : nullptr;
     }
     case 700: {
         void* const memory = CTask::operator new(sizeof(CTaskComplexEnterCarAsPassenger));
-        return memory ? ::new (memory) CTaskComplexEnterCarAsPassenger(m_Leader->m_pVehicle, 0, false) : nullptr;
+        return memory ? static_cast<CTaskComplexEnterCarAsPassenger*>(memory)->Constructor(m_Leader->m_pVehicle, 0, false) : nullptr;
     }
     case 0x2C0: {
         void* const memory = CTask::operator new(sizeof(CTaskComplexLeaveCar));
-        return memory ? ::new (memory) CTaskComplexLeaveCar(ped->m_pVehicle, 0, 0, true, false) : nullptr;
+        return memory ? static_cast<CTaskComplexLeaveCar*>(memory)->Constructor(ped->m_pVehicle, 0, 0, true, false) : nullptr;
     }
     case 0x2C5: {
         void* const memory = CTask::operator new(sizeof(CTaskSimpleCarDrive));
-        return memory ? ::new (memory) CTaskSimpleCarDrive(ped->m_pVehicle, nullptr, false) : nullptr;
+        return memory ? static_cast<CTaskSimpleCarDrive*>(memory)->Constructor(ped->m_pVehicle, nullptr, false) : nullptr;
     }
     case 0x38B: {
         using SeekTask = CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>;
@@ -261,28 +262,32 @@ CTask* CTaskComplexFollowLeaderInFormation::CreateSubTask(eTaskType type, CPed* 
         if (!memory) {
             return nullptr;
         }
-        auto* const task = ::new (memory) SeekTask(m_Leader, 50000, 1000, 1.0f, 2.0f, 2.0f, false, true);
+        auto* const task = static_cast<SeekTask*>(memory)->Constructor(m_Leader, 50000, 1000, 1.0f, 2.0f, 2.0f, false, true);
         task->GetSeekPosCalculator().SetOffset(m_Pos);
         task->SetMoveState(static_cast<eMoveState>(7));
         return task;
     }
     case 0x386: {
         auto& members = m_Group->GetMembership();
-        const int32 count = members.CountMembers();
+        const int32 count = static_cast<int32>(members.CountMembers());
         const int32 index = CGeneral::GetRandomIntInRange(0, count);
         CPed* other = members.GetMember(index);
         if (other == ped) {
             other = members.GetLeader();
         }
         if (other && CGeneral::GetRandomIntInRange(0, 50) == 20) {
-            CVector dir = other->GetPosition() - ped->GetPosition();
+            // Como el original: copia local de la posicion del miembro, resta con VectorSubtract (0x40FE60) contra la posicion del ped y Normalise (0x59C910)
+            CVector otherPos = other->GetPosition();
+            const CVector& pedPos = ped->GetPosition();
+            CVector dir;
+            VectorSubtract(&dir, &otherPos, &pedPos);
             dir.Normalise();
             const float angle = CGeneral::GetRadianAngleBetweenPoints(dir.x, dir.y, 0.0f, 0.0f);
             void* const memory = CTask::operator new(sizeof(CTaskSimpleAchieveHeading));
-            return memory ? ::new (memory) CTaskSimpleAchieveHeading(CGeneral::LimitRadianAngle(angle), 0.5f, 0.2f) : nullptr;
+            return memory ? static_cast<CTaskSimpleAchieveHeading*>(memory)->Constructor(CGeneral::LimitRadianAngle(angle), 0.5f, 0.2f) : nullptr;
         }
         void* const memory = CTask::operator new(sizeof(CTaskSimpleAchieveHeading));
-        return memory ? ::new (memory) CTaskSimpleAchieveHeading(ped->m_fCurrentRotation, 0.5f, 0.2f) : nullptr;
+        return memory ? static_cast<CTaskSimpleAchieveHeading*>(memory)->Constructor(ped->m_fCurrentRotation, 0.5f, 0.2f) : nullptr;
     }
     default:
         return nullptr;
