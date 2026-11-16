@@ -1108,6 +1108,7 @@ void InjectHooksMain() {
     RwCoreInjectHooksR8A();
     RwPlCoreInjectHooksR8A();
     RwPlCoreInjectHooksR12A();
+    RwPlCoreInjectHooksR13A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();

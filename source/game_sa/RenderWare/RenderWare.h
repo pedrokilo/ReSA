@@ -61,6 +61,7 @@ void RwCoreInjectHooksR7A();       // lote R7A (sin validar): gestor de buferes 
 void RwPlCoreInjectHooks25d();
 void RwPlCoreInjectHooksR8A();       // lote R8A (sin validar): monton del arena de recursos (0x80FFE0..0x810140)
 void RwPlCoreInjectHooksR12A();       // lote R12A (sin validar): flujos, vectores y matrices de RwPlCore (0x7EC810..0x7F1930)
+void RwPlCoreInjectHooksR13A();       // lote R13A (sin validar): matrices (crear, invertir, escalar, trasladar, rotar, combinar), callback de vector por defecto y motor RwEngine* (0x7ED880, 0x7F1D00..0x7F3170)
 void RwCoreInjectHooksR8A();         // lote R8A (sin validar): ordenacion de registros por clave (0x8103D0)
 void RpMatFXInjectHooks();           // lote R8A (sin validar): RpMatFX (plugin de efectos de material) y su canal D3D9 (0x810AA0..0x816290)
 

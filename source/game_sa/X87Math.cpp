@@ -19693,3 +19693,106 @@ __declspec(noinline) float __cdecl MatrixIdentityErrorCpp(const float* m) {
     return float(error);
 }
 #pragma float_control(pop)
+
+// --- Lote R13A (sin validar): transformacion de vectores y matrices de RenderWare (RwPlCore) ---
+#pragma float_control(precise, on, push)
+// 0x7ED880 (comprobado instruccion por instruccion): igual que el callback de punto pero sin la traslacion. T1 = float(right.y*x) y T2 = float(right.z*x) (fstp dword [esp], [esp+10h]);
+// S = up.x*y + x*right.x; W1 = up.y*y + T1 (sin redondear); W2 = float(up.z*y + T2) (fstp dword [esp+10h]); out.x = float(at.x*z + S); out.y = float(at.y*z + W1); out.z = float(at.z*z + W2).
+// Las tres componentes de entrada se leen antes de escribir; out.z se calcula despues de escribir out.x y out.y como en el original.
+__declspec(noinline) void __cdecl V3dTransformVectorDefaultCpp(float* out, const float* in, const float* m) {
+    const double x = double(in[0]);
+    const double y = double(in[1]);
+    const double z = double(in[2]);
+    const float t1 = float(double(m[1]) * x);
+    const float t2 = float(double(m[2]) * x);
+    const double s = double(m[4]) * y + double(m[0]) * x;
+    const double w1 = double(m[5]) * y + double(t1);
+    const float w2 = float(double(m[6]) * y + double(t2));
+    out[0] = float(double(m[8]) * z + s);
+    out[1] = float(double(m[9]) * z + w1);
+    out[2] = float(double(m[10]) * z + double(w2));
+}
+// 0x7F1D00: A = 1 - ax^2, B = 1 - ay^2, Cz = float(1 - az^2); P24 = float(A*omc); Q = B*omc; R = float(Cz)*omc; P18 = float((ay*az)*omc); P20 = float(ay*ax); azax_omc = (az*ax)*omc; T3 = P20*omc;
+// SAx = float(sine*ax); AyS = float(ay*sine); AzS = az*sine. right = (float(1 - P24), float(AzS + T3), float(azax_omc - AyS)); up = (float(T3 - AzS), float(1 - Q), float(SAx + P18));
+// at = (float(AyS + azax_omc), float(P18 - SAx), float(1 - R)).
+__declspec(noinline) void __cdecl MatrixRotateOmcSineCpp(float* t, const float* axis, float oneMinusCosine, float sine) {
+    const double ax = double(axis[0]);
+    const double ay = double(axis[1]);
+    const double az = double(axis[2]);
+    const double omc = double(oneMinusCosine);
+    const double s = double(sine);
+    const double a = 1.0 - ax * ax;
+    const double b = 1.0 - ay * ay;
+    const float cz = float(1.0 - az * az);
+    const float p24 = float(a * omc);
+    const double q = b * omc;
+    const double r = double(cz) * omc;
+    const double ayaz = ay * az;
+    const double azax = az * ax;
+    const float p20 = float(ay * ax);
+    const float p18 = float(ayaz * omc);
+    const double azaxOmc = azax * omc;
+    const double t3 = double(p20) * omc;
+    const float sax = float(s * ax);
+    const float ays = float(ay * s);
+    const double azs = az * s;
+    t[0] = float(1.0 - double(p24));
+    t[1] = float(azs + t3);
+    t[2] = float(azaxOmc - double(ays));
+    t[4] = float(t3 - azs);
+    t[5] = float(1.0 - q);
+    t[6] = float(double(sax) + double(p18));
+    t[8] = float(double(ays) + azaxOmc);
+    t[9] = float(double(p18) - double(sax));
+    t[10] = float(1.0 - r);
+}
+// 0x7F2070 (flags & 3 == 3): la parte de rotacion ya esta copiada (traspuesta) por el llamador; pos.x = -(((py*ry) + (px*rx)) + (rz*pz)), pos.y = -(((px*ux) + (py*uy)) + (pz*uz)), pos.z = -(((ax*px) + (py*ay)) + (az*pz)).
+__declspec(noinline) void __cdecl MatrixInvertOrthoPosCpp(float* out, const float* in) {
+    out[12] = float(-((double(in[13]) * double(in[1]) + double(in[12]) * double(in[0])) + double(in[2]) * double(in[14])));
+    out[13] = float(-((double(in[12]) * double(in[4]) + double(in[13]) * double(in[5])) + double(in[14]) * double(in[6])));
+    out[14] = float(-((double(in[8]) * double(in[12]) + double(in[13]) * double(in[9])) + double(in[10]) * double(in[14])));
+}
+// 0x7F2160: cofactores (m = in, o = out; indices de float: right 0..2, up 4..6, at 8..10, pos 12..14). o0 = float(m10*m5 - m9*m6); o1 = float(-(m10*m1 - m9*m2)); C = m6*m1 - m5*m2 (sin redondear), o2 = float(C);
+// det = float((m4*o1 + m8*C) + o0*m0); inv = (bits(det) != 0) ? 1.0f / det : 1.0f. io0 = inv*o0 (sin redondear, se guarda en o0 y se reutiliza), o1 = float(inv*o1), o2 = float(inv*o2).
+// Resto de la rotacion y traslacion en el orden del EXE (las lecturas de o* son las floats ya guardadas).
+__declspec(noinline) void __cdecl MatrixInvertGeneralCpp(float* o, const float* m) {
+    o[0] = float(double(m[10]) * double(m[5]) - double(m[9]) * double(m[6]));
+    o[1] = float(-(double(m[10]) * double(m[1]) - double(m[9]) * double(m[2])));
+    const double c = double(m[6]) * double(m[1]) - double(m[5]) * double(m[2]);
+    o[2] = float(c);
+    const float det = float((double(m[4]) * double(o[1]) + double(m[8]) * c) + double(o[0]) * double(m[0]));
+    double inv = 1.0;
+    if (*reinterpret_cast<const unsigned int*>(&det) != 0) {
+        inv = 1.0 / double(det);
+    }
+    const double io0 = inv * double(o[0]);
+    o[0] = float(io0);
+    const float o1f = float(inv * double(o[1]));
+    o[1] = o1f;
+    o[2] = float(inv * double(o[2]));
+    o[4] = float(-((double(m[10]) * double(m[4]) - double(m[8]) * double(m[6])) * inv));
+    o[5] = float((double(m[10]) * double(m[0]) - double(m[8]) * double(m[2])) * inv);
+    o[6] = float(-((double(m[6]) * double(m[0]) - double(m[4]) * double(m[2])) * inv));
+    o[8] = float((double(m[9]) * double(m[4]) - double(m[8]) * double(m[5])) * inv);
+    o[9] = float(-((double(m[9]) * double(m[0]) - double(m[8]) * double(m[1])) * inv));
+    o[10] = float((double(m[5]) * double(m[0]) - double(m[4]) * double(m[1])) * inv);
+    o[12] = float(-((double(o[8]) * double(m[14]) + double(m[13]) * double(o[4])) + double(m[12]) * io0));
+    o[13] = float(-((double(o[9]) * double(m[14]) + double(m[13]) * double(o[5])) + double(m[12]) * double(o1f)));
+    o[14] = float(-((double(m[13]) * double(o[6]) + double(m[12]) * double(o[2])) + double(o[10]) * double(m[14])));
+}
+// 0x7F2450 (preconcatenacion): px' = float(((ax*tz + ux*ty) + rx*tx) + px), py' = float(((ay*tz + uy*ty) + ry*tx) + py), pz' = float(((az*tz + uz*ty) + rz*tx) + pz).
+__declspec(noinline) void __cdecl MatrixTranslatePreCpp(float* m, const float* t) {
+    m[12] = float(((double(m[8]) * double(t[2]) + double(m[4]) * double(t[1])) + double(m[0]) * double(t[0])) + double(m[12]));
+    m[13] = float(((double(m[9]) * double(t[2]) + double(m[5]) * double(t[1])) + double(m[1]) * double(t[0])) + double(m[13]));
+    m[14] = float(((double(m[10]) * double(t[2]) + double(m[6]) * double(t[1])) + double(m[2]) * double(t[0])) + double(m[14]));
+}
+#pragma float_control(pop)
+// 0x7F1FD0 (con `precise` apagado: el modelo rapido emite fsin/fcos nativos; con `precise` el compilador llama a __CIsin/__CIcos de la CRT): fld angulo; fmul factor (0x8595EC = 0.017453292f); fstp dword; fld theta; fsin; fstp dword;
+// fld theta; fcos; fsubr 1.0f; fstp dword. theta es volatile: el EXE lo guarda como float y lo recarga dos veces.
+#pragma float_control(precise, off, push)
+__declspec(noinline) void __cdecl MatrixRotateTrigCpp(float angle, float factor, float* sine, float* oneMinusCosine) {
+    volatile float theta = float(double(angle) * double(factor));
+    *sine = float(sin(double(theta)));
+    *oneMinusCosine = float(1.0 - cos(double(theta)));
+}
+#pragma float_control(pop)

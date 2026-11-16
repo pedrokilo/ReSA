@@ -2447,3 +2447,17 @@ float __cdecl MatrixDeterminantCpp(const float* m);
 float __cdecl MatrixOrthogonalErrorCpp(const float* m);
 float __cdecl MatrixNormalErrorCpp(const float* m);
 float __cdecl MatrixIdentityErrorCpp(const float* m);
+
+// Lote R13A (sin validar): RwPlCore (transformacion de vectores y matrices de RenderWare). Misma convencion que R12A: secuencia x87 del EXE (24 bits; solo se redondea a float donde el original hace `fstp dword`).
+// 0x7ED880: callback por defecto de RwV3dTransformVector: out = in * (right, up, at) sin traslacion; T1 = float(right.y*x) y W2 = float(up.z*y + float(right.z*x)) se guardan como float.
+void __cdecl V3dTransformVectorDefaultCpp(float* out, const float* in, const float* m);
+// 0x7F1D00: rotacion de un eje unitario con (1 - coseno) y seno: escribe en t (16 floats de RwMatrix) right (0..2), up (4..6) y at (8..10); los guardados intermedios como float son los del EXE.
+void __cdecl MatrixRotateOmcSineCpp(float* t, const float* axis, float oneMinusCosine, float sine);
+// 0x7F1FD0: theta = float(angulo * factor); sine = float(sin(theta)); omc = float(1 - cos(theta)) (fsin/fcos sin redondear antes del guardado).
+void __cdecl MatrixRotateTrigCpp(float angle, float factor, float* sine, float* oneMinusCosine);
+// 0x7F2070 (ruta ortonormal): traslacion de la inversa: out.pos = -(pos . ejes) con los productos en el orden del EXE; in y out pueden solaparse (las lecturas siguen el orden de las escrituras del original).
+void __cdecl MatrixInvertOrthoPosCpp(float* out, const float* in);
+// 0x7F2160: inversa general por cofactores (sin flags): ver X87Math.cpp.
+void __cdecl MatrixInvertGeneralCpp(float* out, const float* in);
+// 0x7F2450 (preconcatenacion): pos += (right, up, at) . t con la suma ((at*tz + up*ty) + right*tx) + pos sin redondear intermedios.
+void __cdecl MatrixTranslatePreCpp(float* m, const float* t);

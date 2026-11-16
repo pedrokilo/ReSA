@@ -616,16 +616,8 @@ RwBool RwMatrixDestroy(RwMatrix* mpMat) {
     return ((RwBool(__cdecl *)(RwMatrix*))0x7F2A20)(mpMat);
 }
 
-RwMatrix* RwMatrixCreate() {
-    return ((RwMatrix*(__cdecl *)(void))0x7F2A50)();
-}
-
 RwMatrix* RwMatrixMultiply(RwMatrix* matrixOut, const RwMatrix* MatrixIn1, const RwMatrix* matrixIn2) {
     return ((RwMatrix*(__cdecl *)(RwMatrix*, const RwMatrix*, const RwMatrix*))0x7F18B0)(matrixOut, MatrixIn1, matrixIn2);
-}
-
-RwMatrix* RwMatrixTransform(RwMatrix* matrix, const RwMatrix* transform, RwOpCombineType combineOp) {
-    return ((RwMatrix*(__cdecl *)(RwMatrix*, const RwMatrix*, RwOpCombineType))0x7F25A0)(matrix, transform, combineOp);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -744,26 +736,6 @@ RwMatrix* RwMatrixOrthoNormalizeImpl(RwMatrix* matrixOut, const RwMatrix* matrix
 // 0x7F1920 (lote R12A, sin validar): `jmp 0x7F1930`; ahora llama directamente al cuerpo reconstruido (RwMatrixOrthoNormalizeImpl).
 RwMatrix* RwMatrixOrthoNormalize(RwMatrix* matrixOut, const RwMatrix* matrixIn) {
     return RwMatrixOrthoNormalizeImpl(matrixOut, matrixIn);
-}
-
-RwMatrix* RwMatrixInvert(RwMatrix* matrixOut, const RwMatrix* matrixIn) {
-    return ((RwMatrix*(__cdecl *)(RwMatrix*, const RwMatrix*))0x7F2070)(matrixOut, matrixIn);
-}
-
-RwMatrix* RwMatrixScale(RwMatrix* matrix, const RwV3d* scale, RwOpCombineType combineOp) {
-    return ((RwMatrix*(__cdecl *)(RwMatrix*, const RwV3d*, RwOpCombineType))0x7F22C0)(matrix, scale, combineOp);
-}
-
-RwMatrix* RwMatrixTranslate(RwMatrix* matrix, const RwV3d* translation, RwOpCombineType combineOp) {
-    return ((RwMatrix*(__cdecl *)(RwMatrix*, const RwV3d*, RwOpCombineType))0x7F2450)(matrix, translation, combineOp);
-}
-
-RwMatrix* RwMatrixRotate(RwMatrix* matrix, const RwV3d* axis, RwReal angle, RwOpCombineType combineOp) {
-    return ((RwMatrix*(__cdecl *)(RwMatrix*, const RwV3d*, RwReal, RwOpCombineType))0x7F1FD0)(matrix, axis, angle, combineOp);
-}
-
-RwMatrix* RwMatrixRotateOneMinusCosineSine(RwMatrix* matrix, const RwV3d* unitAxis, RwReal oneMinusCosine, RwReal sine, RwOpCombineType combineOp) {
-    return ((RwMatrix*(__cdecl *)(RwMatrix*, const RwV3d*, RwReal, RwReal, RwOpCombineType))0x7F1D00)(matrix, unitAxis, oneMinusCosine, sine, combineOp);
 }
 
 const RwMatrix* RwMatrixQueryRotate(const RwMatrix* matrix, RwV3d* unitAxis, RwReal* angle, RwV3d* center) {
@@ -922,10 +894,6 @@ RwUInt32 RwEngineGetVersion() {
     return ((RwUInt32(__cdecl *)(void))0x7F2BA0)();
 }
 
-RwBool RwEngineInit(const RwMemoryFunctions* memFuncs, RwUInt32 initFlags, RwUInt32 resArenaSize) {
-    return ((RwBool(__cdecl *)(const RwMemoryFunctions*, RwUInt32, RwUInt32))0x7F3170)(memFuncs, initFlags, resArenaSize);
-}
-
 // Direcciones del EXE usadas por las funciones del lote 25 (g25c) de este archivo.
 namespace {
 constexpr uintptr_t kEnginePluginRegistry = 0x8E2298; // RwEngine: lista de plugins de RwGlobals
@@ -953,58 +921,6 @@ RwInt32 RwEngineRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectCo
 // 0x7F2BE0: desplazamiento del plugin en la lista del motor (0x8E2298) con _rwPluginRegistryGetPluginOffset (0x808470).
 RwInt32 RwEngineGetPluginOffset(RwUInt32 pluginID) {
     return _rwPluginRegistryGetPluginOffset(reinterpret_cast<const RwPluginRegistry*>(kEnginePluginRegistry), pluginID);
-}
-
-RwBool RwEngineOpen(RwEngineOpenParams* initParams) {
-    return ((RwBool(__cdecl *)(RwEngineOpenParams*))0x7F2F70)(initParams);
-}
-
-RwBool RwEngineStart() {
-    return ((RwBool(__cdecl *)(void))0x7F2E70)();
-}
-
-RwBool RwEngineStop() {
-    return ((RwBool(__cdecl *)(void))0x7F2E20)();
-}
-
-RwBool RwEngineClose() {
-    return ((RwBool(__cdecl *)(void))0x7F2F00)();
-}
-
-RwBool RwEngineTerm() {
-    return ((RwBool(__cdecl *)(void))0x7F3130)();
-}
-
-RwInt32 RwEngineGetNumSubSystems() {
-    return ((RwInt32(__cdecl *)(void))0x7F2C00)();
-}
-
-RwSubSystemInfo* RwEngineGetSubSystemInfo(RwSubSystemInfo* subSystemInfo, RwInt32 subSystemIndex) {
-    return ((RwSubSystemInfo*(__cdecl *)(RwSubSystemInfo*, RwInt32))0x7F2C30)(subSystemInfo, subSystemIndex);
-}
-
-RwInt32 RwEngineGetCurrentSubSystem() {
-    return ((RwInt32(__cdecl *)(void))0x7F2C60)();
-}
-
-RwBool RwEngineSetSubSystem(RwInt32 subSystemIndex) {
-    return ((RwBool(__cdecl *)(RwInt32))0x7F2C90)(subSystemIndex);
-}
-
-RwInt32 RwEngineGetNumVideoModes() {
-    return ((RwInt32(__cdecl *)(void))0x7F2CC0)();
-}
-
-RwVideoMode* RwEngineGetVideoModeInfo(RwVideoMode* vmi, RwInt32 modeIndex) {
-    return plugin::CallAndReturn<RwVideoMode*, 0x7F2CF0>(vmi, modeIndex);
-}
-
-RwInt32 RwEngineGetCurrentVideoMode() {
-    return ((RwInt32(__cdecl *)(void))0x7F2D20)();
-}
-
-RwBool RwEngineSetVideoMode(RwInt32 modeIndex) {
-    return ((RwBool(__cdecl *)(RwInt32))0x7F2D50)(modeIndex);
 }
 
 RwInt32 RwEngineGetTextureMemorySize() {
@@ -1240,4 +1156,630 @@ void RwPlCoreInjectHooksR12A() {
     RH_ScopedGlobalInstall(_rwMatrixIdentityError, 0x7F1590);
     RH_ScopedGlobalInstall(RwMatrixOptimize, 0x7F17E0);
     RH_ScopedGlobalInstall(RwMatrixOrthoNormalizeImpl, 0x7F1930);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R13A (sin validar): matrices (crear, invertir, escalar, trasladar, rotar, combinar), el callback de vector por defecto y el motor (RwEngine*, 0x7ED880, 0x7F1D00..0x7F3170).
+// Variables del EXE: RwEngineInstance (0xC97B24), globales estaticos del motor (0xC979C8, 0x158 bytes, RwGlobals) y contador de aperturas (0xC97B20), registro de plugins del motor (0x8E2298).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+constexpr uintptr_t kEngineStaticGlobals = 0xC979C8;      // RwGlobals estatico: RwEngineInstance apunta aqui antes de RwEngineOpen y despues de RwEngineClose
+constexpr size_t    kEngineGlobalsSize   = 0x158;         // 0x56 dwords copiados por RwEngineOpen / RwEngineClose
+constexpr uintptr_t kEngineOpenCountAddr = 0xC97B20;      // numero de aperturas del motor (+1 en RwEngineOpen, -1 en RwEngineClose)
+constexpr uintptr_t kEngineRegistryAddr  = 0x8E2298;      // RwPluginRegistry de los plugins de motor (+0: tamano acumulado)
+constexpr uintptr_t kInvalidCombinationString = 0x8E21FC; // "Invalid combination type"
+constexpr uintptr_t kSubSystemNameString = 0x8E23B0;      // "Only rendering sub system"
+constexpr uintptr_t kDegToRadAddr        = 0x8595EC;      // 0.017453292f
+static_assert(offsetof(RwGlobals, dOpenDevice) == 0x10 && sizeof(RwDevice) == 0x38 && offsetof(RwGlobals, stdFunc) == 0x48);
+static_assert(offsetof(RwGlobals, stringFuncs) == 0xF0 && offsetof(RwGlobals, memoryFuncs) == 0x134);
+static_assert(offsetof(RwGlobals, memoryAlloc) == 0x144 && offsetof(RwGlobals, memoryFree) == 0x148 && offsetof(RwGlobals, metrics) == 0x14C);
+static_assert(offsetof(RwGlobals, engineStatus) == 0x150 && offsetof(RwGlobals, resArenaInitSize) == 0x154 && sizeof(RwGlobals) == kEngineGlobalsSize);
+static_assert(sizeof(RwMatrix) == 0x40 && offsetof(RwMatrix, flags) == 0xC && offsetof(RwMatrix, pos) == 0x30);
+
+RwInt32& EngineOpenCount() { return StaticRef<RwInt32>(kEngineOpenCountAddr); }
+RwGlobals& EngineStaticGlobals() { return *reinterpret_cast<RwGlobals*>(kEngineStaticGlobals); }
+using MatrixMultFn = RwMatrix*(__cdecl*)(RwMatrix*, const RwMatrix*, const RwMatrix*);
+using ExeCall0Fn   = RwInt32(__cdecl*)();
+RwInt32 ExeCall0(uintptr_t address) { return reinterpret_cast<ExeCall0Fn>(address)(); }
+
+// RwError { pluginID = 1, errorCode = _rwerror(codigo[, extra]) } + RwErrorSet; ver StreamRaiseError (R11A).
+void CombineTypeError() {
+    StreamRaiseError(static_cast<RwInt32>(0x80000003), static_cast<RwInt32>(kInvalidCombinationString));
+}
+// Copia de 0x10 dwords (rep movs dword).
+void CopyMatrix(RwMatrix* dst, const RwMatrix* src) { memcpy(dst, src, sizeof(RwMatrix)); }
+}
+
+// 0x7ED880 (lote R13A, sin validar; 133 bytes; cdecl, (salida, entrada, matriz)): callback por defecto de RwV3dTransformVector (+0x10 del modulo de vectores, instalado por _rwVectorSetMultFn): como el de punto sin
+// traslacion; devuelve la salida (EAX). Ver V3dTransformVectorDefaultCpp (x87).
+RwV3d* _rwV3dTransformVectorDefault(RwV3d* vectorOut, const RwV3d* vectorIn, const RwMatrix* matrix) {
+    V3dTransformVectorDefaultCpp(&vectorOut->x, &vectorIn->x, reinterpret_cast<const float*>(matrix));
+    return vectorOut;
+}
+
+// 0x7F2A50 (lote R13A, sin validar; 83 bytes): reserva con memoryAlloc del motor (+0x144, lista libre del modulo de matrices, hint 0x3000D); si no es nulo pone la identidad (right.x = up.y = at.z = 1, el resto de ejes y pos a 0,
+// flags = 0x20003; los rellenos no se tocan) y devuelve la matriz; si es nulo devuelve NULL.
+RwMatrix* RwMatrixCreate() {
+    RwMatrix* const matrix = static_cast<RwMatrix*>(RwEngineInstance->memoryAlloc(static_cast<RwFreeList*>(R12AMatrixModule().freeList), 0x3000D));
+    if (matrix == nullptr) {
+        return nullptr;
+    }
+    matrix->up.x = 0.0f;
+    matrix->at.z = 1.0f;
+    matrix->up.y = 1.0f;
+    matrix->right.x = 1.0f;
+    matrix->at.x = 0.0f;
+    matrix->right.y = 0.0f;
+    matrix->at.y = 0.0f;
+    matrix->up.z = 0.0f;
+    matrix->right.z = 0.0f;
+    matrix->pos.z = 0.0f;
+    matrix->pos.y = 0.0f;
+    matrix->pos.x = 0.0f;
+    matrix->flags = 0x20003;
+    return matrix;
+}
+
+// 0x7F2160 (lote R13A, sin validar; 338 bytes; cdecl, (salida, entrada); sin retorno): inversa general por cofactores / determinante (cuerpo de RwMatrixInvert cuando la matriz no es ortonormal). Pone flags = 0. Ver MatrixInvertGeneralCpp.
+void _rwMatrixInvertGeneral(RwMatrix* matrixOut, const RwMatrix* matrixIn) {
+    MatrixInvertGeneralCpp(reinterpret_cast<float*>(matrixOut), reinterpret_cast<const float*>(matrixIn));
+    matrixOut->flags = 0;
+}
+
+// 0x7F2070 (lote R13A, sin validar; 225 bytes; cdecl, (salida, entrada)): con (flags del modulo [+4] & flags de la entrada) & 0x20000 (identidad optimizada) copia la entrada a la salida (0x10 dwords). Si no, con (flags & 3) == 3 (ortonormal)
+// transpone la parte de rotacion con copias de dword (la lectura de entrada sigue el orden del EXE: 0<-0, 4<-0x10, 8<-0x20, 0x10<-4, 0x14<-0x14, 0x18<-0x24, 0x20<-8, 0x24<-0x18, 0x28<-0x28), calcula
+// pos = -(pos . ejes) (MatrixInvertOrthoPosCpp) y deja flags = 3 (sin conservar los demas bits); en el resto llama a _rwMatrixInvertGeneral (0x7F2160). Devuelve la salida en todos los casos.
+RwMatrix* RwMatrixInvert(RwMatrix* matrixOut, const RwMatrix* matrixIn) {
+    if (((R12AMatrixModule().flags & matrixIn->flags) & 0x20000) != 0) {
+        CopyMatrix(matrixOut, matrixIn);
+        return matrixOut;
+    }
+    if ((matrixIn->flags & 3) == 3) {
+        const RwUInt32* const in = reinterpret_cast<const RwUInt32*>(matrixIn);
+        RwUInt32* const out = reinterpret_cast<RwUInt32*>(matrixOut);
+        out[0] = in[0];
+        out[1] = in[4];
+        out[2] = in[8];
+        out[4] = in[1];
+        out[5] = in[5];
+        out[6] = in[9];
+        out[8] = in[2];
+        out[9] = in[6];
+        out[10] = in[10];
+        MatrixInvertOrthoPosCpp(reinterpret_cast<float*>(matrixOut), reinterpret_cast<const float*>(matrixIn));
+        matrixOut->flags = 3;
+        return matrixOut;
+    }
+    _rwMatrixInvertGeneral(matrixOut, matrixIn);
+    return matrixOut;
+}
+
+// 0x7F22C0 (lote R13A, sin validar; 398 bytes): combinacion 0 (reemplazo): identidad (right.x = up.y = at.z = 1, el resto a 0, flags |= 0x20003), luego la diagonal = (sx, sy, sz); flags &= 0xFFFDFFFC. 1 (preconcatenar): right *= sx, up *= sy, at *= sz
+// (float(m * s) con la x87); la posicion no cambia. 2 (postconcatenar): cada fila de las cuatro (right, up, at, pos) = (x*sx, y*sy, z*sz). En 1 y 2: flags &= 0xFFFDFFFC. Otro valor: error 0x80000003
+// ("Invalid combination type", 0x8E21FC) y el EXE lee [0 + 0xC] (acceso a NULL: cuelga el juego); aqui devuelve NULL sin leer.
+RwMatrix* RwMatrixScale(RwMatrix* matrix, const RwV3d* scale, RwOpCombineType combineOp) {
+    switch (combineOp) {
+    case rwCOMBINEREPLACE:
+        matrix->at.z = 1.0f;
+        matrix->up.y = 1.0f;
+        matrix->right.x = 1.0f;
+        matrix->flags = matrix->flags | 0x20003;
+        matrix->up.x = 0.0f;
+        matrix->at.x = 0.0f;
+        matrix->right.y = 0.0f;
+        matrix->at.y = 0.0f;
+        matrix->up.z = 0.0f;
+        matrix->right.z = 0.0f;
+        matrix->pos.z = 0.0f;
+        matrix->pos.y = 0.0f;
+        matrix->pos.x = 0.0f;
+        matrix->right.x = scale->x;
+        matrix->up.y = scale->y;
+        matrix->at.z = scale->z;
+        matrix->flags = matrix->flags & 0xFFFDFFFC;
+        return matrix;
+    case rwCOMBINEPRECONCAT:
+        matrix->right.x = matrix->right.x * scale->x;
+        matrix->right.y = matrix->right.y * scale->x;
+        matrix->right.z = matrix->right.z * scale->x;
+        matrix->up.x = scale->y * matrix->up.x;
+        matrix->up.y = scale->y * matrix->up.y;
+        matrix->up.z = scale->y * matrix->up.z;
+        matrix->at.x = scale->z * matrix->at.x;
+        matrix->at.y = scale->z * matrix->at.y;
+        matrix->at.z = scale->z * matrix->at.z;
+        matrix->flags &= 0xFFFDFFFC;
+        return matrix;
+    case rwCOMBINEPOSTCONCAT:
+        matrix->right.x = matrix->right.x * scale->x;
+        matrix->right.y = matrix->right.y * scale->y;
+        matrix->right.z = matrix->right.z * scale->z;
+        matrix->up.x = matrix->up.x * scale->x;
+        matrix->up.y = scale->y * matrix->up.y;
+        matrix->up.z = matrix->up.z * scale->z;
+        matrix->at.x = matrix->at.x * scale->x;
+        matrix->at.y = scale->y * matrix->at.y;
+        matrix->at.z = matrix->at.z * scale->z;
+        matrix->pos.x = matrix->pos.x * scale->x;
+        matrix->pos.y = scale->y * matrix->pos.y;
+        matrix->pos.z = matrix->pos.z * scale->z;
+        matrix->flags &= 0xFFFDFFFC;
+        return matrix;
+    default:
+        CombineTypeError();
+        return nullptr;
+    }
+}
+
+// 0x7F2450 (lote R13A, sin validar; 323 bytes): 0 (reemplazo): identidad (flags |= 0x20003), luego pos = traslacion; flags &= 0xFFFDFFFF. 1 (preconcatenar): pos += right*tx + up*ty + at*tz con ((at*tz + up*ty) + right*tx) + pos sin
+// redondear intermedios (MatrixTranslatePreCpp); flags &= 0xFFFDFFFF. 2 (postconcatenar): pos = float(pos + t) por componente (la suma con la x87 equivale a la de float); flags &= 0xFFFDFFFF. Otro valor: error 0x80000003 y el EXE lee
+// [0 + 0xC] (cuelga); aqui devuelve NULL.
+RwMatrix* RwMatrixTranslate(RwMatrix* matrix, const RwV3d* translation, RwOpCombineType combineOp) {
+    switch (combineOp) {
+    case rwCOMBINEREPLACE:
+        matrix->at.z = 1.0f;
+        matrix->up.y = 1.0f;
+        matrix->right.x = 1.0f;
+        matrix->flags = matrix->flags | 0x20003;
+        matrix->up.x = 0.0f;
+        matrix->at.x = 0.0f;
+        matrix->right.y = 0.0f;
+        matrix->at.y = 0.0f;
+        matrix->up.z = 0.0f;
+        matrix->right.z = 0.0f;
+        matrix->pos.z = 0.0f;
+        matrix->pos.y = 0.0f;
+        matrix->pos.x = 0.0f;
+        matrix->pos.x = translation->x;
+        matrix->pos.y = translation->y;
+        matrix->pos.z = translation->z;
+        matrix->flags = matrix->flags & 0xFFFDFFFF;
+        return matrix;
+    case rwCOMBINEPRECONCAT:
+        MatrixTranslatePreCpp(reinterpret_cast<float*>(matrix), &translation->x);
+        matrix->flags &= 0xFFFDFFFF;
+        return matrix;
+    case rwCOMBINEPOSTCONCAT:
+        matrix->pos.x = matrix->pos.x + translation->x;
+        matrix->pos.y = translation->y + matrix->pos.y;
+        matrix->pos.z = translation->z + matrix->pos.z;
+        matrix->flags &= 0xFFFDFFFF;
+        return matrix;
+    default:
+        CombineTypeError();
+        return nullptr;
+    }
+}
+
+// 0x7F25A0 (lote R13A, sin validar; 378 bytes): 0 (reemplazo): copia `transform` en `matrix` (0x10 dwords). Con mascara = flags del modulo de matrices [+4] & 0x20000: 1 (preconcatenar): si transform.flags & mascara no cambia nada;
+// si no, si matrix.flags & mascara copia `transform` en `matrix`; si no, temp = multFn(transform, matrix) (multFn = modulo + 8), temp.flags = transform.flags & matrix.flags y copia temp en `matrix`. 2 (postconcatenar): si matrix.flags & mascara
+// copia `transform`; si no, si transform.flags & mascara no cambia nada; si no, temp = multFn(matrix, transform), temp.flags = flags de ambos y copia temp. Las copias por temporal son las del EXE (rep movs). Otro valor: error
+// 0x80000003 y devuelve NULL (esta vez el EXE si devuelve 0 sin leer nada). Devuelve `matrix`.
+RwMatrix* RwMatrixTransform(RwMatrix* matrix, const RwMatrix* transform, RwOpCombineType combineOp) {
+    RwMatrix temp;
+    switch (combineOp) {
+    case rwCOMBINEREPLACE:
+        CopyMatrix(matrix, transform);
+        return matrix;
+    case rwCOMBINEPRECONCAT: {
+        const RwUInt32 mask = R12AMatrixModule().flags & 0x20000;
+        const RwUInt32 transformFlags = transform->flags;
+        const RwUInt32 matrixFlags = matrix->flags;
+        if ((transformFlags & mask) != 0) {
+            CopyMatrix(&temp, matrix);
+            CopyMatrix(matrix, &temp);
+            return matrix;
+        }
+        if ((matrixFlags & mask) != 0) {
+            CopyMatrix(&temp, transform);
+            CopyMatrix(matrix, &temp);
+            return matrix;
+        }
+        reinterpret_cast<MatrixMultFn>(R12AMatrixModule().multFn)(&temp, transform, matrix);
+        temp.flags = matrixFlags & transformFlags;
+        CopyMatrix(matrix, &temp);
+        return matrix;
+    }
+    case rwCOMBINEPOSTCONCAT: {
+        const RwUInt32 mask = R12AMatrixModule().flags & 0x20000;
+        const RwUInt32 matrixFlags = matrix->flags;
+        const RwUInt32 transformFlags = transform->flags;
+        if ((matrixFlags & mask) != 0) {
+            CopyMatrix(&temp, transform);
+            CopyMatrix(matrix, &temp);
+            return matrix;
+        }
+        if ((transformFlags & mask) != 0) {
+            CopyMatrix(&temp, matrix);
+            CopyMatrix(matrix, &temp);
+            return matrix;
+        }
+        reinterpret_cast<MatrixMultFn>(R12AMatrixModule().multFn)(&temp, matrix, transform);
+        temp.flags = transformFlags & matrixFlags;
+        CopyMatrix(matrix, &temp);
+        return matrix;
+    }
+    default:
+        CombineTypeError();
+        return nullptr;
+    }
+}
+
+// 0x7F1D00 (lote R13A, sin validar; 717 bytes; cdecl, 5 argumentos): construye en una matriz local la rotacion de eje unitario (MatrixRotateOmcSineCpp: right, up, at; flags = 3; pos = 0; los rellenos quedan sin escribir, en el EXE son basura de
+// pila) y la combina: 0 (reemplazo) copia la local a `matrix`; 1 (preconcatenar): si matrix.flags & (flags del modulo & 0x20000) copia la local, si no temp = multFn(local, matrix) con temp.flags = matrix.flags & 3 y copia temp; 2 (postconcatenar):
+// igual con temp = multFn(matrix, local). (Las dos ramas `test al,3` del EXE son inalcanzables: AL es 0 tras el `and eax, 0x20000`.) Otro valor: error 0x80000003 y devuelve NULL (sin leer nada). Devuelve `matrix`.
+RwMatrix* RwMatrixRotateOneMinusCosineSine(RwMatrix* matrix, const RwV3d* unitAxis, RwReal oneMinusCosine, RwReal sine, RwOpCombineType combineOp) {
+    RwMatrix rotation;
+    MatrixRotateOmcSineCpp(reinterpret_cast<float*>(&rotation), &unitAxis->x, oneMinusCosine, sine);
+    rotation.flags = 3;
+    rotation.pos.x = 0.0f;
+    rotation.pos.y = 0.0f;
+    rotation.pos.z = 0.0f;
+    RwMatrix temp;
+    switch (combineOp) {
+    case rwCOMBINEREPLACE:
+        CopyMatrix(matrix, &rotation);
+        return matrix;
+    case rwCOMBINEPRECONCAT: {
+        const RwUInt32 mask = R12AMatrixModule().flags & 0x20000;
+        const RwUInt32 matrixFlags = matrix->flags;
+        if ((matrixFlags & mask) != 0) {
+            CopyMatrix(&temp, &rotation);
+            CopyMatrix(matrix, &temp);
+            return matrix;
+        }
+        reinterpret_cast<MatrixMultFn>(R12AMatrixModule().multFn)(&temp, &rotation, matrix);
+        temp.flags = matrixFlags & 3;
+        CopyMatrix(matrix, &temp);
+        return matrix;
+    }
+    case rwCOMBINEPOSTCONCAT: {
+        const RwUInt32 mask = R12AMatrixModule().flags & 0x20000;
+        const RwUInt32 matrixFlags = matrix->flags;
+        if ((matrixFlags & mask) != 0) {
+            CopyMatrix(&temp, &rotation);
+            CopyMatrix(matrix, &temp);
+            return matrix;
+        }
+        reinterpret_cast<MatrixMultFn>(R12AMatrixModule().multFn)(&temp, matrix, &rotation);
+        temp.flags = matrixFlags & 3;
+        CopyMatrix(matrix, &temp);
+        return matrix;
+    }
+    default:
+        CombineTypeError();
+        return nullptr;
+    }
+}
+
+// 0x7F1FD0 (lote R13A, sin validar; 155 bytes; cdecl, (matriz, eje, angulo en grados, combinacion)): theta = float(angulo * 0.017453292f (0x8595EC)); l2 = float((x*x + y*y) + z*z) del eje; inv = _rwInvSqrt(l2); n = float(inv * eje[i])
+// (x, y, z); seno = float(sin(theta)); (1 - coseno) = float(1 - cos(theta)); llama a RwMatrixRotateOneMinusCosineSine (0x7F1D00) con (matriz, n, 1 - coseno, seno, combinacion) y devuelve la matriz.
+RwMatrix* RwMatrixRotate(RwMatrix* matrix, const RwV3d* axis, RwReal angle, RwOpCombineType combineOp) {
+    float sine;
+    float oneMinusCosine;
+    MatrixRotateTrigCpp(angle, StaticRef<float>(kDegToRadAddr), &sine, &oneMinusCosine);
+    const float inv = _rwInvSqrt(V3dSumSquaresCpp(&axis->x));
+    RwV3d unitAxis = *axis;
+    V3dScaleCpp(&unitAxis.x, inv);
+    RwMatrixRotateOneMinusCosineSine(matrix, &unitAxis, oneMinusCosine, sine, combineOp);
+    return matrix;
+}
+
+// 0x7F2AB0 (lote R13A, sin validar; 191 bytes; cdecl, (dispositivo, peticion, salida, entrada-salida, numero)): _rwDeviceSystemRequest. Llama a device->fpSystem(peticion, salida, entrada-salida, numero) (+4) y devuelve su resultado si es no nulo.
+// Si devuelve 0, atiende por su cuenta las peticiones de subsistema (0xD..0x12): 0xD (numero de subsistemas): *salida = 1, TRUE; 0xE (info): con numero == 0 copia "Only rendering sub system" (0x8E23B0) con rwstrcpy del motor (+0xF8) a salida y
+// da TRUE (con numero != 0 cae en el error); 0xF (subsistema actual): *salida = 0, TRUE; 0x10 (fijar): con numero == 0 TRUE (si no, error); 0x11 y 0x12: TRUE sin escribir. Cualquier otra peticion o el error: RwError { 1, _rwerror(0x18, peticion) } y devuelve 0.
+RwBool _rwDeviceSystemRequest(RwDevice* device, RwInt32 requestID, void* pOut, void* pInOut, RwInt32 numIn) {
+    const RwBool result = device->fpSystem(requestID, pOut, pInOut, numIn);
+    if (result != 0) {
+        return result;
+    }
+    switch (requestID) {
+    case rwDEVICESYSTEMGETNUMSUBSYSTEMS:
+        *static_cast<RwInt32*>(pOut) = 1;
+        return TRUE;
+    case rwDEVICESYSTEMGETSUBSYSTEMINFO:
+        if (numIn == 0) {
+            RwEngineInstance->stringFuncs.vecStrcpy(static_cast<RwChar*>(pOut), reinterpret_cast<const RwChar*>(kSubSystemNameString));
+            return TRUE;
+        }
+        break;
+    case rwDEVICESYSTEMGETCURRENTSUBSYSTEM:
+        *static_cast<RwInt32*>(pOut) = 0;
+        return TRUE;
+    case rwDEVICESYSTEMSETSUBSYSTEM:
+        if (numIn == 0) {
+            return TRUE;
+        }
+        break;
+    case rwDEVICESYSTEMFINALIZESTART:
+    case rwDEVICESYSTEMINITIATESTOP:
+        return TRUE;
+    default:
+        break;
+    }
+    StreamRaiseError(0x18, requestID);
+    return result;
+}
+
+// 0x7F2B90 (lote R13A, sin validar; 6 bytes: `mov eax, [0xC97B20]; ret`): contador de aperturas del motor (lo incrementa RwEngineOpen, lo decrementa RwEngineClose y RwEngineTerm exige 0). Nombre inferido (no esta en el listado).
+RwInt32 RwEngineGetOpenCount() {
+    return EngineOpenCount();
+}
+
+// 0x7F2C00 (lote R13A, sin validar; 43 bytes): peticion 0xD con una variable local inicializada a 1; devuelve la variable (da igual el resultado de la peticion).
+RwInt32 RwEngineGetNumSubSystems() {
+    RwInt32 numSubSystems = 1;
+    _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETNUMSUBSYSTEMS, &numSubSystems, nullptr, 0);
+    return numSubSystems;
+}
+
+// 0x7F2C30 (lote R13A, sin validar; 43 bytes): peticion 0xE (salida = info, numero = indice); NULL si falla, si no `info`.
+RwSubSystemInfo* RwEngineGetSubSystemInfo(RwSubSystemInfo* subSystemInfo, RwInt32 subSystemIndex) {
+    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETSUBSYSTEMINFO, subSystemInfo, nullptr, subSystemIndex) == 0) {
+        return nullptr;
+    }
+    return subSystemInfo;
+}
+
+// 0x7F2C60 (lote R13A, sin validar; 45 bytes): peticion 0xF con una variable local (sin inicializar en el EXE; aqui 0); -1 si la peticion falla, si no la variable.
+RwInt32 RwEngineGetCurrentSubSystem() {
+    RwInt32 currentSubSystem = 0;
+    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETCURRENTSUBSYSTEM, &currentSubSystem, nullptr, 0) == 0) {
+        return -1;
+    }
+    return currentSubSystem;
+}
+
+// 0x7F2C90 (lote R13A, sin validar; 36 bytes): peticion 0x10 con numero = indice; devuelve 1 si el resultado es distinto de 0 y 0 si no.
+RwBool RwEngineSetSubSystem(RwInt32 subSystemIndex) {
+    return _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMSETSUBSYSTEM, nullptr, nullptr, subSystemIndex) != 0 ? TRUE : FALSE;
+}
+
+// 0x7F2CC0 (lote R13A, sin validar; 45 bytes): peticion 5 con una variable local (sin inicializar en el EXE; aqui 0); -1 si la peticion falla.
+RwInt32 RwEngineGetNumVideoModes() {
+    RwInt32 numModes = 0;
+    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETNUMMODES, &numModes, nullptr, 0) == 0) {
+        return -1;
+    }
+    return numModes;
+}
+
+// 0x7F2CF0 (lote R13A, sin validar; 43 bytes; era una envoltura): peticion 6 (salida = vmi, numero = indice); NULL si falla, si no `vmi`.
+RwVideoMode* RwEngineGetVideoModeInfo(RwVideoMode* vmi, RwInt32 modeIndex) {
+    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETMODEINFO, vmi, nullptr, modeIndex) == 0) {
+        return nullptr;
+    }
+    return vmi;
+}
+
+// 0x7F2D20 (lote R13A, sin validar; 45 bytes; era una envoltura): peticion 0xA con una variable local (sin inicializar en el EXE; aqui 0); -1 si la peticion falla.
+RwInt32 RwEngineGetCurrentVideoMode() {
+    RwInt32 currentMode = 0;
+    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETMODE, &currentMode, nullptr, 0) == 0) {
+        return -1;
+    }
+    return currentMode;
+}
+
+// 0x7F2D50 (lote R13A, sin validar; 36 bytes): peticion 7 con numero = indice; 1 si el resultado es distinto de 0, 0 si no.
+RwBool RwEngineSetVideoMode(RwInt32 modeIndex) {
+    return _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMUSEMODE, nullptr, nullptr, modeIndex) != 0 ? TRUE : FALSE;
+}
+
+// 0x7F2E20 (lote R13A, sin validar; 79 bytes): peticion 0x12 (iniciar parada; resultado ignorado), _rwPluginRegistryDeInitObject (0x808740) del registro de motor con el motor, peticion 3 (parar); si esa da distinto de 0 pone
+// engineStatus (+0x150) = 2 (leyendo RwEngineInstance de nuevo). Devuelve el resultado de la peticion 3.
+RwBool RwEngineStop() {
+    RwDevice* const device = &RwEngineInstance->dOpenDevice;
+    _rwDeviceSystemRequest(device, rwDEVICESYSTEMINITIATESTOP, nullptr, nullptr, 0);
+    _rwPluginRegistryDeInitObject(reinterpret_cast<const RwPluginRegistry*>(kEngineRegistryAddr), RwEngineInstance);
+    const RwBool result = _rwDeviceSystemRequest(device, rwDEVICESYSTEMSTOP, nullptr, nullptr, 0);
+    if (result != 0) {
+        RwEngineInstance->engineStatus = rwENGINESTATUSOPENED;
+    }
+    return result;
+}
+
+// 0x7F2E70 (lote R13A, sin validar; 130 bytes): peticion 2 (arrancar); si da 0 devuelve 0. Si no, _rwPluginRegistryInitObject (0x8086E0) del registro con el motor: distinto de NULL -> RwImageSetGamma (0x803FE0) con la
+// gammaCorrection del dispositivo (dword en +0x10), peticion 0x11 (finalizar arranque), engineStatus = 3 y devuelve 1; NULL -> peticion 3 (parar; resultado ignorado) y devuelve 0.
+RwBool RwEngineStart() {
+    RwDevice* const device = &RwEngineInstance->dOpenDevice;
+    if (_rwDeviceSystemRequest(device, rwDEVICESYSTEMSTART, nullptr, nullptr, 0) == 0) {
+        return FALSE;
+    }
+    if (_rwPluginRegistryInitObject(reinterpret_cast<const RwPluginRegistry*>(kEngineRegistryAddr), RwEngineInstance) == nullptr) {
+        _rwDeviceSystemRequest(device, rwDEVICESYSTEMSTOP, nullptr, nullptr, 0);
+        return FALSE;
+    }
+    RwImageSetGamma(RwEngineInstance->dOpenDevice.gammaCorrection);
+    _rwDeviceSystemRequest(device, rwDEVICESYSTEMFINALIZESTART, nullptr, nullptr, 0);
+    RwEngineInstance->engineStatus = rwENGINESTATUSSTARTED;
+    return TRUE;
+}
+
+// 0x7F2F00 (lote R13A, sin validar; 102 bytes): peticion 1 (cerrar) con el dispositivo del motor actual; si da 0 devuelve 0 (sin tocar nada). Si no, copia el RwGlobals completo (0x56 dwords) al bloque estatico 0xC979C8, hace que
+// RwEngineInstance apunte a el, libera el bloque anterior con rwfree (el del bloque estatico, +0x138: se lee de la copia), decrementa el contador de aperturas (0xC97B20), engineStatus = 1 y devuelve el resultado de la peticion.
+RwBool RwEngineClose() {
+    const RwBool result = _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMCLOSE, nullptr, nullptr, 0);
+    if (result == 0) {
+        return result;
+    }
+    RwGlobals* const previous = RwEngineInstance;
+    RwEngineInstance = &EngineStaticGlobals();
+    memcpy(&EngineStaticGlobals(), previous, kEngineGlobalsSize);
+    EngineStaticGlobals().memoryFuncs.rwfree(previous);
+    EngineOpenCount() = EngineOpenCount() - 1;
+    RwEngineInstance->engineStatus = rwENGINESTATUSINITED;
+    return result;
+}
+
+// 0x7F2F70 (lote R13A, sin validar; 447 bytes; era una envoltura): RwEngineInstance nulo -> bloque estatico 0xC979C8. engineStatus != 1 (Inited) -> error 0x80000001, 0; initParams NULL -> error 0x80000016, 0. Obtiene el dispositivo con la
+// funcion 0x7F9C20 (sin reconstruir; NULL -> devuelve 0 sin error); reserva sizeOfStruct (+0 del registro 0x8E2298) con rwmalloc (+0x134, hint 0x40000) del bloque estatico y lo asigna a RwEngineInstance; NULL -> restaura el estatico,
+// error 0x80000013 con el tamano y devuelve 0. Copia 0x158 bytes del estatico al nuevo bloque, peticiones 4 (registrar: salida = &dOpenDevice, entrada = &memoryFuncs), 0 (abrir: entrada = initParams; si da 0 restaura el bloque estatico, copia el nuevo
+// al estatico, lo libera con rwfree y devuelve 0) y 0xB (estandares: salida = &stdFunc, numero 0x1D); incrementa el contador de aperturas, engineStatus = 2 y devuelve 1.
+RwBool RwEngineOpen(RwEngineOpenParams* initParams) {
+    if (RwEngineInstance == nullptr) {
+        RwEngineInstance = &EngineStaticGlobals();
+    }
+    if (RwEngineInstance->engineStatus != rwENGINESTATUSINITED) {
+        StreamRaiseError(static_cast<RwInt32>(0x80000001));
+        return FALSE;
+    }
+    if (initParams == nullptr) {
+        StreamRaiseError(static_cast<RwInt32>(0x80000016));
+        return FALSE;
+    }
+    RwDevice* const device = reinterpret_cast<RwDevice*(__cdecl*)()>(0x7F9C20)();
+    if (device == nullptr) {
+        return FALSE;
+    }
+    RwGlobals* const created = static_cast<RwGlobals*>(RwEngineInstance->memoryFuncs.rwmalloc(StaticRef<RwUInt32>(kEngineRegistryAddr), 0x40000));
+    RwEngineInstance = created;
+    if (created == nullptr) {
+        RwEngineInstance = &EngineStaticGlobals();
+        StreamRaiseError(static_cast<RwInt32>(0x80000013), StaticRef<RwInt32>(kEngineRegistryAddr));
+        return FALSE;
+    }
+    memcpy(created, &EngineStaticGlobals(), kEngineGlobalsSize);
+    _rwDeviceSystemRequest(device, rwDEVICESYSTEMREGISTER, &RwEngineInstance->dOpenDevice, &RwEngineInstance->memoryFuncs, 0);
+    if (_rwDeviceSystemRequest(device, rwDEVICESYSTEMOPEN, nullptr, initParams, 0) == 0) {
+        RwEngineInstance = &EngineStaticGlobals();
+        memcpy(&EngineStaticGlobals(), created, kEngineGlobalsSize);
+        EngineStaticGlobals().memoryFuncs.rwfree(created);
+        return FALSE;
+    }
+    _rwDeviceSystemRequest(device, rwDEVICESYSTEMSTANDARDS, RwEngineInstance->stdFunc, nullptr, rwSTANDARDNUMOFSTANDARD);
+    EngineOpenCount() = EngineOpenCount() + 1;
+    RwEngineInstance->engineStatus = rwENGINESTATUSOPENED;
+    return TRUE;
+}
+
+// 0x7F3130 (lote R13A, sin validar; 55 bytes; era una envoltura): si el contador de aperturas es 0 llama a 0x808320, 0x804240 y 0x8020F0 (cierres de modulos, sin reconstruir) y pone engineStatus = 0; devuelve (contador == 0).
+RwBool RwEngineTerm() {
+    const RwBool canTerminate = EngineOpenCount() == 0 ? TRUE : FALSE;
+    if (canTerminate) {
+        ExeCall0(0x808320);
+        ExeCall0(0x804240);
+        ExeCall0(0x8020F0);
+        RwEngineInstance->engineStatus = rwENGINESTATUSIDLE;
+    }
+    return canTerminate;
+}
+
+namespace {
+// RwPluginRegistryAddPlugin sobre el registro de motor (0x8E2298): argumentos (size, id, constructor, destructor, copia nula), en la numeracion de la pila del EXE.
+RwInt32 EnginePluginAdd(RwInt32 size, RwUInt32 pluginID, uintptr_t constructor, uintptr_t destructor) {
+    return _rwPluginRegistryAddPlugin(reinterpret_cast<RwPluginRegistry*>(kEngineRegistryAddr), size, pluginID, reinterpret_cast<RwPluginObjectConstructor>(constructor),
+                                      reinterpret_cast<RwPluginObjectDestructor>(destructor), nullptr);
+}
+}
+
+// 0x7F3170 (lote R13A, sin validar; 788 bytes; era una envoltura; cdecl, (memFuncs, initFlags, resArenaSize)): RwEngineInstance = bloque estatico 0xC979C8; con initFlags & 1 los asignadores de lista libre (+0x144 y +0x148) son 0x7F3490 y 0x7F34B0
+// y se llama a 0x801970(0), si no 0x801C30 y 0x801D50 y 0x801970(1); resArenaInitSize (+0x154) = resArenaSize. Con engineStatus != 0 devuelve 0. Abre en orden 0x80A240 (_rwStringOpen), 0x801FD0(memFuncs), 0x804140 y 0x8082E0 (un fallo
+// deshace los anteriores: 0x80A440, 0x8020F0, 0x804240, en ese orden inverso, y devuelve 0); registra 14 plugins de motor en 0x8E2298 con _rwPluginRegistryAddPlugin (ids 0x40F, 0x401, 0x40D, 0x402, 0x403, 0x404, 0x405, 0x406, 0x407, 0x408,
+// 0x409, 0x412, luego 0x807C70(), 0x40A, 0x40B) y hace OR de todos los resultados: si es negativo (con signo) deshace (0x808320, 0x804240, 0x8020F0, 0x80A440) y devuelve 0. Si no, _rwDeviceRegisterPlugin (0x7F5F60): 0 -> mismo deshacer y 0;
+// distinto de 0 -> engineStatus = 1 y devuelve ese valor.
+RwBool RwEngineInit(const RwMemoryFunctions* memFuncs, RwUInt32 initFlags, RwUInt32 resArenaSize) {
+    RwEngineInstance = &EngineStaticGlobals();
+    RwInt32 arenaMode;
+    if ((initFlags & 1) != 0) {
+        EngineStaticGlobals().memoryAlloc = reinterpret_cast<RwMemoryAllocFn>(0x7F3490);
+        EngineStaticGlobals().memoryFree = reinterpret_cast<RwMemoryFreeFn>(0x7F34B0);
+        arenaMode = 0;
+    } else {
+        EngineStaticGlobals().memoryAlloc = reinterpret_cast<RwMemoryAllocFn>(0x801C30);
+        EngineStaticGlobals().memoryFree = reinterpret_cast<RwMemoryFreeFn>(0x801D50);
+        arenaMode = 1;
+    }
+    reinterpret_cast<void(__cdecl*)(RwInt32)>(0x801970)(arenaMode);
+    RwEngineInstance->resArenaInitSize = resArenaSize;
+    if (RwEngineInstance->engineStatus != rwENGINESTATUSIDLE) {
+        return 0;
+    }
+    RwInt32 status = ExeCall0(0x80A240);
+    if (status == 0) {
+        return 0;
+    }
+    status = reinterpret_cast<RwInt32(__cdecl*)(const RwMemoryFunctions*)>(0x801FD0)(memFuncs);
+    if (status == 0) {
+        _rwStringClose();
+        return 0;
+    }
+    status = ExeCall0(0x804140);
+    if (status == 0) {
+        ExeCall0(0x8020F0);
+        _rwStringClose();
+        return 0;
+    }
+    status = ExeCall0(0x8082E0);
+    if (status == 0) {
+        ExeCall0(0x804240);
+        ExeCall0(0x8020F0);
+        _rwStringClose();
+        return 0;
+    }
+    const RwInt32 r1 = EnginePluginAdd(8, 0x40F, 0x8087D0, 0x808810);
+    const RwInt32 r2 = EnginePluginAdd(0x18, 0x401, 0x7EDE90, 0x7EDE20);
+    const RwInt32 r3 = EnginePluginAdd(0, 0x40D, 0x80AA40, 0x80AA50);
+    const RwInt32 r4 = EnginePluginAdd(0x18, 0x402, 0x7F16C0, 0x7F1660);
+    const RwInt32 r5 = EnginePluginAdd(4, 0x403, 0x7EFEF0, 0x7EFF70);
+    const RwInt32 r6 = EnginePluginAdd(4, 0x404, 0x7EC780, 0x7EC7E0);
+    const RwInt32 r7 = EnginePluginAdd(4, 0x405, 0x7EE110, 0x7EE0B0);
+    const RwInt32 r8 = EnginePluginAdd(0x220, 0x406, 0x802280, 0x8024E0);
+    const RwInt32 r9 = EnginePluginAdd(0x64, 0x407, 0x7FB370, 0x7FB310);
+    const RwInt32 r10 = EnginePluginAdd(0x34, 0x408, 0x7F3EA0, 0x7F3D00);
+    const RwInt32 r11 = EnginePluginAdd(0x60, 0x409, 0x807C40, 0x807C60);
+    const RwInt32 r12 = EnginePluginAdd(4, 0x412, 0x80A780, 0x80A7E0);
+    const RwInt32 rExtra = ExeCall0(0x807C70);
+    const RwInt32 r13 = EnginePluginAdd(0x74, 0x40A, 0x7EFE20, 0x7EFDE0);
+    const RwInt32 r14 = EnginePluginAdd(0x28, 0x40B, 0x807C90, 0x807D80);
+    const RwInt32 combined = rExtra | r12 | r11 | r10 | r9 | r8 | r7 | r6 | r5 | r4 | r3 | r2 | r1 | r14 | r13;
+    if (combined < 0) {
+        ExeCall0(0x808320);
+        ExeCall0(0x804240);
+        ExeCall0(0x8020F0);
+        _rwStringClose();
+        return 0;
+    }
+    status = ExeCall0(0x7F5F60);
+    if (status == 0) {
+        ExeCall0(0x808320);
+        ExeCall0(0x804240);
+        ExeCall0(0x8020F0);
+        _rwStringClose();
+        return 0;
+    }
+    RwEngineInstance->engineStatus = rwENGINESTATUSINITED;
+    return status;
+}
+
+// Lote R13A (sin validar): matrices (crear, invertir, escalar, trasladar, rotar y combinar), el callback de vector por defecto y el motor (RwEngine*).
+void RwPlCoreInjectHooksR13A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    RH_ScopedGlobalInstall(_rwV3dTransformVectorDefault, 0x7ED880);
+    RH_ScopedGlobalInstall(RwMatrixRotateOneMinusCosineSine, 0x7F1D00);
+    RH_ScopedGlobalInstall(RwMatrixRotate, 0x7F1FD0);
+    RH_ScopedGlobalInstall(RwMatrixInvert, 0x7F2070);
+    RH_ScopedGlobalInstall(_rwMatrixInvertGeneral, 0x7F2160);
+    RH_ScopedGlobalInstall(RwMatrixScale, 0x7F22C0);
+    RH_ScopedGlobalInstall(RwMatrixTranslate, 0x7F2450);
+    RH_ScopedGlobalInstall(RwMatrixTransform, 0x7F25A0);
+    RH_ScopedGlobalInstall(RwMatrixCreate, 0x7F2A50);
+    RH_ScopedGlobalInstall(_rwDeviceSystemRequest, 0x7F2AB0);
+    RH_ScopedGlobalInstall(RwEngineGetOpenCount, 0x7F2B90);
+    RH_ScopedGlobalInstall(RwEngineGetNumSubSystems, 0x7F2C00);
+    RH_ScopedGlobalInstall(RwEngineGetSubSystemInfo, 0x7F2C30);
+    RH_ScopedGlobalInstall(RwEngineGetCurrentSubSystem, 0x7F2C60);
+    RH_ScopedGlobalInstall(RwEngineSetSubSystem, 0x7F2C90);
+    RH_ScopedGlobalInstall(RwEngineGetNumVideoModes, 0x7F2CC0);
+    RH_ScopedGlobalInstall(RwEngineGetVideoModeInfo, 0x7F2CF0);
+    RH_ScopedGlobalInstall(RwEngineGetCurrentVideoMode, 0x7F2D20);
+    RH_ScopedGlobalInstall(RwEngineSetVideoMode, 0x7F2D50);
+    RH_ScopedGlobalInstall(RwEngineStop, 0x7F2E20);
+    RH_ScopedGlobalInstall(RwEngineStart, 0x7F2E70);
+    RH_ScopedGlobalInstall(RwEngineClose, 0x7F2F00);
+    RH_ScopedGlobalInstall(RwEngineOpen, 0x7F2F70);
+    RH_ScopedGlobalInstall(RwEngineTerm, 0x7F3130);
+    RH_ScopedGlobalInstall(RwEngineInit, 0x7F3170);
 }
