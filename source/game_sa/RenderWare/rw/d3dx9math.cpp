@@ -44,6 +44,12 @@ void D3DX9InjectHooks() {
     RH_ScopedGlobalInstall(D3DX9TwoAcosScalar, 0x7C2CA4);
     RH_ScopedGlobalInstall(D3DX9SinCosPS, 0x7C307E);
     RH_ScopedGlobalInstall(D3DX9SinCosPS_SSE2, 0x7C381F);
+
+    // lote R21A (sin validar): ensamblador y compilador de shaders
+    RH_ScopedGlobalInstall(D3DXAssembleShader, 0x7652AE);
+    RH_ScopedGlobalInstall(D3DXCompileShaderFromFileA, 0x76534D);
+    RH_ScopedGlobalInstall(D3DXCompileShaderFromFileW, 0x765402);
+    RH_ScopedGlobalInstall(D3DXCompileShaderFromResourceA, 0x7654B8);
 }
 
 // 0x7C1D80: medios flotantes -> floats con MMX/3DNow! (`femms` al entrar y salir, __stdcall: `ret 0Ch`). Con count < 4 llama al conversor escalar 0x76626B
@@ -350,4 +356,123 @@ float* __stdcall D3DX9SinCosPS(const float* in, float* outSin, float* outCos) {
 float* __stdcall D3DX9SinCosPS_SSE2(const float* in, float* outSin, float* outCos) {
     SinCosFour(in, outSin, outCos);
     return outSin;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R21A (sin validar): ensamblador y compilador de shaders de D3DX9 (0x7652AE, 0x76534D, 0x765402, 0x7654B8). Cuatro funciones __stdcall con objetos locales de C++ (sin SEH) cuyos metodos
+// (__thiscall, en el EXE y sin reconstruir) se llaman por direccion fija sobre buffers de pila del tamano que reserva el EXE:
+//   fuente (0x90 bytes; ctor 0x76B89B, dtor 0x76B940; su subobjeto de errores esta en +4: 0x76E664 devuelve su campo +8, 0x76E5FB(destino) copia el buffer de errores al ID3DXBuffer** pedido),
+//   ensamblador (0x80 bytes; ctor 0x76FAEB, ejecucion 0x772BB1, dtor 0x771F63) y compilador (0x54 bytes; ctor 0x773022, ejecucion 0x77EE77, dtor 0x77303B).
+// Cargadores de la fuente: 0x76DFD1(datos, longitud, defines, include), 0x76DF03(fichero, modo 0 = ANSI / 1 = Unicode, defines, include) y 0x76DF6C(modulo, recurso, modo, defines, include).
+// El HRESULT es el del paso que falla (comparacion con signo `< 0`); si todo va bien pero el objeto de errores no esta vacio (0x76E664 != 0) devuelve 0x88760B59.
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+constexpr int32  kD3DXErrorInvalidData = static_cast<int32>(0x88760B59);
+constexpr size_t kShaderSourceSize     = 0x90;
+constexpr size_t kShaderAssemblerSize  = 0x80;
+constexpr size_t kShaderCompilerSize   = 0x54;
+
+using ObjectVoidFn         = void*(__thiscall*)(void* self);
+using ObjectIntFn          = int32(__thiscall*)(void* self);
+using SourceFromMemoryFn   = int32(__thiscall*)(void* self, const void* data, uint32 length, const void* defines, void* include);
+using SourceFromFileFn     = int32(__thiscall*)(void* self, const void* file, int32 wide, const void* defines, void* include);
+using SourceFromResourceFn = int32(__thiscall*)(void* self, void* module, const void* resource, int32 wide, const void* defines, void* include);
+using ErrorsCopyFn         = void*(__thiscall*)(void* self, void** destination);
+using AssemblerRunFn       = int32(__thiscall*)(void* self, void* source, uint32 flags, int32 zero, void** shader);
+using CompilerRunFn        = int32(__thiscall*)(void* self, void* source, int32 zero0, const char* functionName, int32 zero1, const char* target, uint32 flags, void** shader, void** constantTable);
+
+inline void SourceConstruct(void* source) { reinterpret_cast<ObjectVoidFn>(0x76B89B)(source); }
+inline void SourceDestruct(void* source) { reinterpret_cast<ObjectVoidFn>(0x76B940)(source); }
+inline int32 SourceErrorsPending(void* source) { return reinterpret_cast<ObjectIntFn>(0x76E664)(static_cast<uint8_t*>(source) + 4); }
+inline void SourceErrorsCopy(void* source, void** destination) { reinterpret_cast<ErrorsCopyFn>(0x76E5FB)(static_cast<uint8_t*>(source) + 4, destination); }
+inline void AssemblerConstruct(void* assembler) { reinterpret_cast<ObjectVoidFn>(0x76FAEB)(assembler); }
+inline void AssemblerDestruct(void* assembler) { reinterpret_cast<ObjectVoidFn>(0x771F63)(assembler); }
+inline void CompilerConstruct(void* compiler) { reinterpret_cast<ObjectVoidFn>(0x773022)(compiler); }
+inline void CompilerDestruct(void* compiler) { reinterpret_cast<ObjectVoidFn>(0x77303B)(compiler); }
+
+// Tramo comun de las tres funciones de compilacion: la carga ya esta hecha en `source` con `hr`; compila, comprueba el objeto de errores, copia los errores y destruye la fuente.
+int32 CompileLoadedSource(uint8_t* source, int32 hr, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
+    if (hr >= 0) {
+        alignas(4) uint8_t compiler[kShaderCompilerSize];
+        CompilerConstruct(compiler);
+        hr = reinterpret_cast<CompilerRunFn>(0x77EE77)(compiler, source, 0, functionName, 0, target, flags, shader, constantTable);
+        CompilerDestruct(compiler);
+        if (hr >= 0 && SourceErrorsPending(source) != 0) {
+            hr = kD3DXErrorInvalidData;
+        }
+    }
+    if (errorMsgs != nullptr) {
+        SourceErrorsCopy(source, errorMsgs);
+    }
+    SourceDestruct(source);
+    return hr;
+}
+} // namespace
+
+// 0x7652AE (lote R21A, sin validar; nombre de la API publica inferido; __stdcall, 7 argumentos, `ret 1Ch`, 159 bytes): *ppShader = NULL si no es NULL; carga la fuente de memoria (0x76DFD1); con exito,
+// ensamblador (0x772BB1(fuente, flags, 0, ppShader)); con exito y errores pendientes -> 0x88760B59; copia los errores a ppErrorMsgs si no es NULL; destruye la fuente; devuelve el HRESULT.
+int32 __stdcall D3DXAssembleShader(const void* srcData, uint32 srcDataLen, const void* defines, void* include, uint32 flags, void** shader, void** errorMsgs) {
+    if (shader != nullptr) {
+        *shader = nullptr;
+    }
+    alignas(4) uint8_t source[kShaderSourceSize];
+    SourceConstruct(source);
+    int32 hr = reinterpret_cast<SourceFromMemoryFn>(0x76DFD1)(source, srcData, srcDataLen, defines, include);
+    if (hr >= 0) {
+        alignas(4) uint8_t assembler[kShaderAssemblerSize];
+        AssemblerConstruct(assembler);
+        hr = reinterpret_cast<AssemblerRunFn>(0x772BB1)(assembler, source, flags, 0, shader);
+        AssemblerDestruct(assembler);
+        if (hr >= 0 && SourceErrorsPending(source) != 0) {
+            hr = kD3DXErrorInvalidData;
+        }
+    }
+    if (errorMsgs != nullptr) {
+        SourceErrorsCopy(source, errorMsgs);
+    }
+    SourceDestruct(source);
+    return hr;
+}
+
+// 0x76534D (lote R21A, sin validar; nombre inferido; __stdcall, 9 argumentos, `ret 24h`, 181 bytes): *ppShader y *ppConstantTable = NULL si no son NULL; fuente de fichero ANSI (0x76DF03 con modo 0) y
+// compilacion (0x77EE77(fuente, 0, funcion, 0, destino, flags, ppShader, ppConstantTable)).
+int32 __stdcall D3DXCompileShaderFromFileA(const char* srcFile, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
+    if (shader != nullptr) {
+        *shader = nullptr;
+    }
+    if (constantTable != nullptr) {
+        *constantTable = nullptr;
+    }
+    alignas(4) uint8_t source[kShaderSourceSize];
+    SourceConstruct(source);
+    const int32 hr = reinterpret_cast<SourceFromFileFn>(0x76DF03)(source, srcFile, 0, defines, include);
+    return CompileLoadedSource(source, hr, functionName, target, flags, shader, errorMsgs, constantTable);
+}
+
+// 0x765402 (lote R21A, sin validar; nombre inferido; __stdcall, 9 argumentos, `ret 24h`, 182 bytes): igual que 0x76534D con el modo 1 (ruta Unicode) en el cargador 0x76DF03.
+int32 __stdcall D3DXCompileShaderFromFileW(const wchar_t* srcFile, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
+    if (shader != nullptr) {
+        *shader = nullptr;
+    }
+    if (constantTable != nullptr) {
+        *constantTable = nullptr;
+    }
+    alignas(4) uint8_t source[kShaderSourceSize];
+    SourceConstruct(source);
+    const int32 hr = reinterpret_cast<SourceFromFileFn>(0x76DF03)(source, srcFile, 1, defines, include);
+    return CompileLoadedSource(source, hr, functionName, target, flags, shader, errorMsgs, constantTable);
+}
+
+// 0x7654B8 (lote R21A, sin validar; nombre inferido; __stdcall, 10 argumentos, `ret 28h`, 184 bytes): igual que 0x76534D con la fuente de recurso (0x76DF6C(modulo, recurso, 0, defines, include)).
+int32 __stdcall D3DXCompileShaderFromResourceA(void* srcModule, const char* srcResource, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
+    if (shader != nullptr) {
+        *shader = nullptr;
+    }
+    if (constantTable != nullptr) {
+        *constantTable = nullptr;
+    }
+    alignas(4) uint8_t source[kShaderSourceSize];
+    SourceConstruct(source);
+    const int32 hr = reinterpret_cast<SourceFromResourceFn>(0x76DF6C)(source, srcModule, srcResource, 0, defines, include);
+    return CompileLoadedSource(source, hr, functionName, target, flags, shader, errorMsgs, constantTable);
 }

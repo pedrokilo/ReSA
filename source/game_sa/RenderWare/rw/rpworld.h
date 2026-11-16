@@ -2345,10 +2345,14 @@ struct rpWorldChunkInfo34000
 #endif /* (!defined(DOXYGEN)) */
 
 void _rwD3D9VSSetActiveWorldMatrix(const RwMatrix* worldMatrix); // 0x764650
-void _rwD3D9VSGetComposedTransformMatrix(); // 0x7646E0
-void _rwD3D9VSGetWorldViewTransposedMatrix(); // 0x764730
+void _rwD3D9VSGetComposedTransformMatrix(void* matrix); // 0x7646E0 (el EXE le pasa la matriz 4x4 de salida)
+void _rwD3D9VSGetWorldViewTransposedMatrix(void* matrix); // 0x764730 (el EXE le pasa la matriz 4x4 de salida)
 void _rwD3D9VSGetWorldViewMatrix(); // 0x764760
-void _rwD3D9VSGetInverseWorldMatrix(); // 0x7647B0
+void _rwD3D9VSInvertRigidMatrix(float* out, const float* in); // 0x764890 (nombre inferido; lote R21A)
+RwInt32 _rpD3D9WorldSectorNativeSize(const RpWorldSector* sector); // 0x7645C0 (nombre inferido; lote R21A)
+RwStream* _rpD3D9WorldSectorNativeWrite(RwStream* stream, const RpWorldSector* sector); // 0x763F20 (nombre inferido; lote R21A)
+RpWorldSector* _rpD3D9WorldSectorNativeRead(RwStream* stream, RpWorldSector* sector); // 0x7641C0 (nombre inferido; lote R21A)
+void _rwD3D9VSGetInverseWorldMatrix(void* matrix); // 0x7647B0 (el EXE le pasa la matriz 4x4 de salida)
 void _rwD3D9VSGetWorldMultiplyMatrix(RwMatrix* worldMultiplyMatrix, const RwMatrix* matrix); // 0x764920
 void _rwD3D9VSGetWorldMultiplyTransposeMatrix(void* worldMultiplyMatrix, const RwMatrix* matrix); // 0x764960
 void _rwD3D9VSGetWorldViewMultiplyTransposeMatrix(void* worldViewMultiplyMatrix, const RwMatrix* matrix); // 0x7649D0

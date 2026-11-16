@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 #include <rpdbgerr.h>
 #include <bit>
 #include <cstring>
+#include "X87Math.h"
 
 // Direcciones del EXE usadas por las funciones de este archivo.
 namespace {
@@ -97,65 +98,16 @@ void RpWorldInjectHooks() {
     RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationUnInstV3d, 0x7551F0); // lote R10A (sin validar)
 }
 
-void _rwD3D9VSSetActiveWorldMatrix(const RwMatrix* worldMatrix) {
-    ((void(__cdecl *)(const RwMatrix*))0x764650)(worldMatrix);
-}
-
-void _rwD3D9VSGetComposedTransformMatrix() {
-    ((void(__cdecl *)(void))0x7646E0)();
-}
-
-void _rwD3D9VSGetWorldViewTransposedMatrix() {
-    ((void(__cdecl *)(void))0x764730)();
-}
-
 void _rwD3D9VSGetWorldViewMatrix() {
     ((void(__cdecl *)(void))0x764760)();
-}
-
-void _rwD3D9VSGetInverseWorldMatrix() {
-    ((void(__cdecl *)(void))0x7647B0)();
 }
 
 void _rwD3D9VSGetWorldMultiplyMatrix(RwMatrix* worldMultiplyMatrix, const RwMatrix* matrix) {
     ((void(__cdecl *)(RwMatrix*, const RwMatrix*))0x764920)(worldMultiplyMatrix, matrix);
 }
 
-void _rwD3D9VSGetWorldMultiplyTransposeMatrix(void* worldMultiplyMatrix, const RwMatrix* matrix) {
-    ((void(__cdecl *)(void*, const RwMatrix*))0x764960)(worldMultiplyMatrix, matrix);
-}
-
-void _rwD3D9VSGetWorldViewMultiplyTransposeMatrix(void* worldViewMultiplyMatrix, const RwMatrix* matrix) {
-    ((void(__cdecl *)(void*, const RwMatrix*))0x7649D0)(worldViewMultiplyMatrix, matrix);
-}
-
-void _rwD3D9VSGetWorldNormalizedMultiplyTransposeMatrix(void* worldMultiplyMatrix, const RwMatrix* matrix) {
-    ((void(__cdecl *)(void*, const RwMatrix*))0x764A70)(worldMultiplyMatrix, matrix);
-}
-
-void _rwD3D9VSGetWorldNormalizedViewMultiplyTransposeMatrix(void* worldViewMultiplyMatrix, const RwMatrix* matrix) {
-    ((void(__cdecl *)(void*, const RwMatrix*))0x764B50)(worldViewMultiplyMatrix, matrix);
-}
-
-// 0x764C60: el EXE la llama con un argumento (cdecl, puntero a la matriz 4x4 de salida), aunque el SDK la declara sin parametros.
-void _rwD3D9VSGetWorldNormalizedTransposeMatrix(void* matrix) {
-    ((void(__cdecl *)(void*))0x764C60)(matrix);
-}
-
 void _rwD3D9VSGetProjectionTransposedMatrix() {
     ((void(__cdecl *)(void))0x764D20)();
-}
-
-void _rwD3D9VSGetNormalInLocalSpace(const RwV3d* normalWorldSpace, RwV3d* normalLocalSpace) {
-    ((void(__cdecl *)(const RwV3d*, RwV3d*))0x764D30)(normalWorldSpace, normalLocalSpace);
-}
-
-void _rwD3D9VSGetPointInLocalSpace(const RwV3d* pointWorldSpace, RwV3d* pointLocalSpace) {
-    ((void(__cdecl *)(const RwV3d*, RwV3d*))0x764E70)(pointWorldSpace, pointLocalSpace);
-}
-
-void _rwD3D9VSGetRadiusInLocalSpace(RwReal radiusWorldSpace, RwReal* radiusLocalSpace) {
-    ((void(__cdecl *)(RwReal, RwReal*))0x764F60)(radiusWorldSpace, radiusLocalSpace);
 }
 
 
@@ -7538,4 +7490,654 @@ void RpWorldInjectHooksR20A() {
     RH_ScopedGlobalInstall(_rpD3D9GeometryNativeWrite, 0x7637F0);
     RH_ScopedGlobalInstall(_rpD3D9GeometryNativeRead, 0x763A80);
     RH_ScopedGlobalInstall(_rpD3D9GeometryNativeSize, 0x763EB0);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R21A (sin validar): ayudas de matrices del vertex shader de D3D9 del modulo de mundos (0x764650..0x764F60) y flujo nativo (D3D9) de los RpWorldSector (0x763F20, 0x7641C0, 0x7645C0).
+// Estado global del EXE (.data/.bss, accedido por direccion fija): 0xC94C70 = matriz activa (RwMatrix*, o NULL); 0xC94C74 = inversa en cache; 0xC94C78 = inversa para normales en cache;
+// 0xC94C7C = matriz ortonormalizada en cache; 0x8D7390 = copia (12 floats) de la matriz activa; 0x8D73D0, 0x8D7410, 0x8D7450 = matrices 4x4 de las caches; 0x8753D0 = identidad estatica;
+// 0xC9BC80 = matriz de vista; 0x8E2458 = proyeccion; 0xC94C30 = vista * proyeccion (0xC97C64 apunta a ella cuando ya se calculo).
+// Las rutinas 0x7672E1, 0x7675EE, 0x7676C7, 0x766AB7 y 0x766A32 son `jmp [tabla]` a la implementacion de D3DX9 elegida en tiempo de ejecucion y se llaman por direccion fija (__stdcall,
+// devuelven el puntero de salida en EAX, que aqui no se usa): D3DXMatrixMultiply, D3DXMatrixTranspose, D3DXMatrixMultiplyTranspose, D3DXVec3TransformNormal y D3DXVec3TransformCoord.
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+static_assert(offsetof(RpWorldSector, repEntry) == 0x34 && offsetof(RpWorld, flags) == 0x08 && offsetof(RpWorld, matList) == 0x10);
+
+namespace {
+constexpr uintptr_t kVSActiveMatrixAddress      = 0xC94C70;
+constexpr uintptr_t kVSInverseCacheAddress      = 0xC94C74;
+constexpr uintptr_t kVSNormalInverseAddress     = 0xC94C78;
+constexpr uintptr_t kVSOrthoNormalCacheAddress  = 0xC94C7C;
+constexpr uintptr_t kVSActiveMatrixCopyAddress  = 0x8D7390;
+constexpr uintptr_t kVSInverseStorageAddress    = 0x8D73D0;
+constexpr uintptr_t kVSNormalInverseStorageAddress = 0x8D7410;
+constexpr uintptr_t kVSOrthoNormalStorageAddress = 0x8D7450;
+constexpr uintptr_t kVSIdentityMatrixAddress    = 0x8753D0;
+constexpr uintptr_t kVSViewMatrixAddress        = 0xC9BC80;
+constexpr uintptr_t kVSProjectionMatrixAddress  = 0x8E2458;
+constexpr uintptr_t kVSComposedMatrixAddress    = 0xC94C30;
+constexpr uintptr_t kVSComposedPointerAddress   = 0xC97C64;
+constexpr RwUInt32  kMatrixIdentityFlag         = 0x20000; // rwMATRIXINTERNALIDENTITY
+constexpr RwUInt32  kMatrixTypeMask             = 3;       // rwMATRIXTYPEMASK (3 = ortonormal)
+
+using VSMatrixTransposeFn = void*(__stdcall*)(void* out, const void* in);
+using VSMatrixMultiplyFn  = void*(__stdcall*)(void* out, const void* a, const void* b);
+using VSVec3TransformFn   = void*(__stdcall*)(void* out, const void* v, const void* matrix);
+
+inline void* VSMatrixTranspose(void* out, const void* in) { return reinterpret_cast<VSMatrixTransposeFn>(0x7675EE)(out, in); }
+inline void* VSMatrixMultiply(void* out, const void* a, const void* b) { return reinterpret_cast<VSMatrixMultiplyFn>(0x7672E1)(out, a, b); }
+inline void* VSMatrixMultiplyTranspose(void* out, const void* a, const void* b) { return reinterpret_cast<VSMatrixMultiplyFn>(0x7676C7)(out, a, b); }
+inline void* VSVec3TransformNormal(void* out, const void* v, const void* m) { return reinterpret_cast<VSVec3TransformFn>(0x766AB7)(out, v, m); }
+inline void* VSVec3TransformCoord(void* out, const void* v, const void* m) { return reinterpret_cast<VSVec3TransformFn>(0x766A32)(out, v, m); }
+
+inline RwMatrix*& VSActiveMatrix()      { return *reinterpret_cast<RwMatrix**>(kVSActiveMatrixAddress); }
+inline RwMatrix*& VSInverseCache()      { return *reinterpret_cast<RwMatrix**>(kVSInverseCacheAddress); }
+inline RwMatrix*& VSNormalInverse()     { return *reinterpret_cast<RwMatrix**>(kVSNormalInverseAddress); }
+inline RwMatrix*& VSOrthoNormalCache()  { return *reinterpret_cast<RwMatrix**>(kVSOrthoNormalCacheAddress); }
+inline RwMatrix* VSAt(uintptr_t address) { return reinterpret_cast<RwMatrix*>(address); }
+
+// Los cuatro floats de relleno de una matriz 4x4 (indices 3, 7, 11 y 15) como los deja el EXE tras RwMatrixInvert / RwMatrixOrthoNormalize: 0, 0, 0 y 1.0f.
+inline void VSSetMatrixPads(RwMatrix* matrix) {
+    float* const f = reinterpret_cast<float*>(matrix);
+    f[3]  = 0.0f;
+    f[7]  = 0.0f;
+    f[11] = 0.0f;
+    f[15] = 1.0f;
+}
+
+// Copia de 16 dwords (`rep movsd`) sin pasar por la FPU.
+inline void VSCopyMatrix(void* dst, const void* src) {
+    memcpy(dst, src, 0x40);
+}
+
+// Copia de tres dwords (x, y, z) en ese orden.
+inline void VSCopyVec3(void* dst, const void* src) {
+    uint32* const d = static_cast<uint32*>(dst);
+    const uint32* const s = static_cast<const uint32*>(src);
+    d[0] = s[0];
+    d[1] = s[1];
+    d[2] = s[2];
+}
+
+// Inversa en cache por el camino de matriz ortonormal (0x764890 sobre 0x8D73D0) o la general (RwMatrixInvert 0x7F2070 + rellenos 0, 0, 0, 1.0f); la guarda en 0xC94C74.
+inline RwMatrix* VSBuildInverse(RwMatrix* active, bool rigid) {
+    RwMatrix* const inverse = VSAt(kVSInverseStorageAddress);
+    if (rigid) {
+        _rwD3D9VSInvertRigidMatrix(reinterpret_cast<float*>(inverse), reinterpret_cast<const float*>(active));
+    } else {
+        RwMatrixInvert(inverse, active);
+        VSSetMatrixPads(inverse);
+    }
+    VSInverseCache() = inverse;
+    return inverse;
+}
+
+// Matriz activa ortonormalizada en cache (0xC94C7C): si no existe, RwMatrixOrthoNormalize(0x8D7450, activa) y rellenos 0, 0, 0, 1.0f.
+inline RwMatrix* VSOrthoNormalized(RwMatrix* active) {
+    RwMatrix* cached = VSOrthoNormalCache();
+    if (cached == nullptr) {
+        RwMatrix* const storage = VSAt(kVSOrthoNormalStorageAddress);
+        RwMatrixOrthoNormalize(storage, active);
+        VSSetMatrixPads(storage);
+        VSOrthoNormalCache() = storage;
+        cached = storage;
+    }
+    return cached;
+}
+}
+
+// 0x764650 (lote R21A, sin validar; sustituye la envoltura; cdecl, 1 argumento, `ret`, 143 bytes): guarda la matriz activa en 0xC94C70 y, si no es NULL, copia sus 12 floats (indices 0-2, 4-6, 8-10 y
+// 12-14, como dwords; los cuatro de relleno NO se copian) a 0x8D7390. Siempre pone a NULL las caches 0xC94C74 (inversa), 0xC94C78 (inversa para normales) y 0xC94C7C (ortonormalizada).
+void _rwD3D9VSSetActiveWorldMatrix(const RwMatrix* worldMatrix) {
+    VSActiveMatrix() = const_cast<RwMatrix*>(worldMatrix);
+    if (worldMatrix != nullptr) {
+        const uint32* const src = reinterpret_cast<const uint32*>(worldMatrix);
+        uint32* const dst = reinterpret_cast<uint32*>(kVSActiveMatrixCopyAddress);
+        dst[0] = src[0]; dst[1] = src[1]; dst[2] = src[2];
+        dst[4] = src[4]; dst[5] = src[5]; dst[6] = src[6];
+        dst[8] = src[8]; dst[9] = src[9]; dst[10] = src[10];
+        dst[12] = src[12]; dst[13] = src[13]; dst[14] = src[14];
+    }
+    VSInverseCache() = nullptr;
+    VSNormalInverse() = nullptr;
+    VSOrthoNormalCache() = nullptr;
+}
+
+// 0x7646E0 (lote R21A, sin validar; sustituye la envoltura; cdecl, 1 argumento (matriz 4x4 de salida), `ret`, 80 bytes): si 0xC97C64 es NULL calcula vista * proyeccion en 0xC94C30
+// (D3DXMatrixMultiply(0xC94C30, 0xC9BC80, 0x8E2458)) y deja en 0xC97C64 su direccion. Con matriz activa: D3DXMatrixMultiplyTranspose(salida, 0x8D7390, compuesta); sin ella:
+// D3DXMatrixTranspose(salida, compuesta). La compuesta se lee de 0xC97C64.
+void _rwD3D9VSGetComposedTransformMatrix(void* matrix) {
+    void*& composedPointer = *reinterpret_cast<void**>(kVSComposedPointerAddress);
+    if (composedPointer == nullptr) {
+        VSMatrixMultiply(reinterpret_cast<void*>(kVSComposedMatrixAddress), reinterpret_cast<const void*>(kVSViewMatrixAddress), reinterpret_cast<const void*>(kVSProjectionMatrixAddress));
+        composedPointer = reinterpret_cast<void*>(kVSComposedMatrixAddress);
+    }
+    void* const composed = composedPointer;
+    if (VSActiveMatrix() != nullptr) {
+        VSMatrixMultiplyTranspose(matrix, reinterpret_cast<const void*>(kVSActiveMatrixCopyAddress), composed);
+    } else {
+        VSMatrixTranspose(matrix, composed);
+    }
+}
+
+// 0x764730 (lote R21A, sin validar; sustituye la envoltura; cdecl, 1 argumento (matriz 4x4 de salida), 44 bytes): con matriz activa D3DXMatrixMultiplyTranspose(salida, 0x8D7390, vista 0xC9BC80);
+// sin ella D3DXMatrixTranspose(salida, vista).
+void _rwD3D9VSGetWorldViewTransposedMatrix(void* matrix) {
+    if (VSActiveMatrix() != nullptr) {
+        VSMatrixMultiplyTranspose(matrix, reinterpret_cast<const void*>(kVSActiveMatrixCopyAddress), reinterpret_cast<const void*>(kVSViewMatrixAddress));
+    } else {
+        VSMatrixTranspose(matrix, reinterpret_cast<const void*>(kVSViewMatrixAddress));
+    }
+}
+
+// 0x7647B0 (lote R21A, sin validar; sustituye la envoltura; cdecl, 1 argumento (matriz 4x4 de salida), 214 bytes): copia (16 dwords) a la salida la inversa de la matriz activa. Cache 0xC94C74: si no
+// es NULL se usa tal cual. Si es NULL: con matriz activa sin la marca de identidad (0x20000) y de tipo ortonormal (flags & 3 == 3) la inversa es 0x764890(0x8D73D0, activa) y se fijan 0xC94C78 y
+// 0xC94C74 a 0x8D73D0; con otro tipo, RwMatrixInvert(0x8D73D0, activa) con rellenos 0, 0, 0, 1.0f y SOLO se fija 0xC94C74. Sin matriz activa o con identidad: 0xC94C74 = 0xC94C78 = 0x8753D0 (identidad).
+void _rwD3D9VSGetInverseWorldMatrix(void* matrix) {
+    RwMatrix* inverse = VSInverseCache();
+    if (inverse == nullptr) {
+        RwMatrix* const active = VSActiveMatrix();
+        if (active != nullptr && (active->flags & kMatrixIdentityFlag) != kMatrixIdentityFlag) {
+            if ((active->flags & kMatrixTypeMask) == kMatrixTypeMask) {
+                _rwD3D9VSInvertRigidMatrix(reinterpret_cast<float*>(VSAt(kVSInverseStorageAddress)), reinterpret_cast<const float*>(active));
+                VSNormalInverse() = VSAt(kVSInverseStorageAddress);
+                VSInverseCache() = VSAt(kVSInverseStorageAddress);
+                VSCopyMatrix(matrix, VSAt(kVSInverseStorageAddress));
+                return;
+            }
+            RwMatrixInvert(VSAt(kVSInverseStorageAddress), active);
+            VSSetMatrixPads(VSAt(kVSInverseStorageAddress));
+            VSInverseCache() = VSAt(kVSInverseStorageAddress);
+            VSCopyMatrix(matrix, VSAt(kVSInverseStorageAddress));
+            return;
+        }
+        inverse = VSAt(kVSIdentityMatrixAddress);
+        VSNormalInverse() = inverse;
+        VSInverseCache() = inverse;
+    }
+    VSCopyMatrix(matrix, inverse);
+}
+
+// 0x764890 (lote R21A, sin validar; nombre inferido: inversa de una matriz ortonormal; cdecl, (salida, entrada), 141 bytes, `ret`): la parte de rotacion se escribe traspuesta (salida[0], [4], [8] =
+// entrada[0], [1], [2]; salida[1], [5], [9] = entrada[4], [5], [6]; salida[2], [6], [10] = entrada[8], [9], [10]; dwords, sin FPU) y la traslacion es -(pos . ejes) con la x87 a 24 bits en el orden
+// del EXE (MatrixInvertOrthoPosCpp, la misma secuencia que 0x7F2070). Los floats 3, 7, 11 y 15 de la salida NO se tocan. Con salida == entrada el resultado diferiria del EXE (este escribe la
+// traslacion x antes de copiar la rotacion); los llamadores usan siempre 0x8D73D0 como salida.
+void _rwD3D9VSInvertRigidMatrix(float* out, const float* in) {
+    MatrixInvertOrthoPosCpp(out, in);
+    uint32* const o = reinterpret_cast<uint32*>(out);
+    const uint32* const i = reinterpret_cast<const uint32*>(in);
+    o[0]  = i[0];
+    o[4]  = i[1];
+    o[8]  = i[2];
+    o[1]  = i[4];
+    o[5]  = i[5];
+    o[9]  = i[6];
+    o[2]  = i[8];
+    o[6]  = i[9];
+    o[10] = i[10];
+}
+
+// 0x764960 (lote R21A, sin validar; sustituye la envoltura; cdecl, (salida 4x4, matriz), 104 bytes): con matriz activa sin marca de identidad, RwMatrixMultiply(tmp, activa, matriz) y la fuente es tmp;
+// si no, la fuente es la matriz recibida. D3DXMatrixTranspose(salida, fuente) y despues salida[12..14] = 0, salida[15] = 1.0f.
+void _rwD3D9VSGetWorldMultiplyTransposeMatrix(void* worldMultiplyMatrix, const RwMatrix* matrix) {
+    RwMatrix* const active = VSActiveMatrix();
+    RwMatrix product;
+    const void* source = matrix;
+    if (active != nullptr && (active->flags & kMatrixIdentityFlag) != kMatrixIdentityFlag) {
+        RwMatrixMultiply(&product, active, matrix);
+        source = &product;
+    }
+    VSMatrixTranspose(worldMultiplyMatrix, source);
+    float* const out = static_cast<float*>(worldMultiplyMatrix);
+    out[12] = 0.0f;
+    out[13] = 0.0f;
+    out[14] = 0.0f;
+    out[15] = 1.0f;
+}
+
+// 0x7649D0 (lote R21A, sin validar; sustituye la envoltura; cdecl, (salida 4x4, matriz), 159 bytes; el EXE alinea la pila a 16): con matriz activa sin marca de identidad, A = activa * vista (0xC9BC80) y
+// B = A * matriz (RwMatrixMultiply(A, activa, vista); RwMatrixMultiply(B, A, matriz)); si no, B = vista * matriz. B[3], B[7], B[11] = 0 y B[15] = 1.0f y D3DXMatrixTranspose(salida, B).
+void _rwD3D9VSGetWorldViewMultiplyTransposeMatrix(void* worldViewMultiplyMatrix, const RwMatrix* matrix) {
+    RwMatrix* const active = VSActiveMatrix();
+    RwMatrix first;
+    RwMatrix second;
+    if (active != nullptr && (active->flags & kMatrixIdentityFlag) != kMatrixIdentityFlag) {
+        RwMatrixMultiply(&first, active, VSAt(kVSViewMatrixAddress));
+        RwMatrixMultiply(&second, &first, matrix);
+    } else {
+        RwMatrixMultiply(&second, VSAt(kVSViewMatrixAddress), matrix);
+    }
+    VSSetMatrixPads(&second);
+    VSMatrixTranspose(worldViewMultiplyMatrix, &second);
+}
+
+// 0x764A70 (lote R21A, sin validar; sustituye la envoltura; cdecl, (salida 4x4, matriz), 219 bytes): con matriz activa sin marca de identidad: si es ortonormal (flags & 3 == 3) tmp = activa * matriz;
+// si no, usa la activa ortonormalizada en cache (0xC94C7C; si falta, RwMatrixOrthoNormalize(0x8D7450, activa) y rellenos 0, 0, 0, 1.0f) y tmp = ortonormalizada * matriz. Sin activa o con identidad la
+// fuente es la matriz recibida. D3DXMatrixTranspose(salida, fuente) y salida[12..14] = 0, salida[15] = 1.0f.
+void _rwD3D9VSGetWorldNormalizedMultiplyTransposeMatrix(void* worldMultiplyMatrix, const RwMatrix* matrix) {
+    RwMatrix* const active = VSActiveMatrix();
+    RwMatrix product;
+    const void* source = matrix;
+    if (active != nullptr && (active->flags & kMatrixIdentityFlag) != kMatrixIdentityFlag) {
+        if ((active->flags & kMatrixTypeMask) == kMatrixTypeMask) {
+            RwMatrixMultiply(&product, active, matrix);
+        } else {
+            RwMatrixMultiply(&product, VSOrthoNormalized(active), matrix);
+        }
+        source = &product;
+    }
+    VSMatrixTranspose(worldMultiplyMatrix, source);
+    float* const out = static_cast<float*>(worldMultiplyMatrix);
+    out[12] = 0.0f;
+    out[13] = 0.0f;
+    out[14] = 0.0f;
+    out[15] = 1.0f;
+}
+
+// 0x764B50 (lote R21A, sin validar; sustituye la envoltura; cdecl, (salida 4x4, matriz), 269 bytes; el EXE alinea la pila a 16): con matriz activa sin marca de identidad, A = (activa si es ortonormal, si
+// no la ortonormalizada en cache) * vista (0xC9BC80) y B = A * matriz; si no, B = vista * matriz. B[3], B[7], B[11] = 0 y B[15] = 1.0f y D3DXMatrixTranspose(salida, B).
+void _rwD3D9VSGetWorldNormalizedViewMultiplyTransposeMatrix(void* worldViewMultiplyMatrix, const RwMatrix* matrix) {
+    RwMatrix* const active = VSActiveMatrix();
+    RwMatrix first;
+    RwMatrix second;
+    if (active != nullptr && (active->flags & kMatrixIdentityFlag) != kMatrixIdentityFlag) {
+        if ((active->flags & kMatrixTypeMask) == kMatrixTypeMask) {
+            RwMatrixMultiply(&first, active, VSAt(kVSViewMatrixAddress));
+        } else {
+            RwMatrixMultiply(&first, VSOrthoNormalized(active), VSAt(kVSViewMatrixAddress));
+        }
+        RwMatrixMultiply(&second, &first, matrix);
+    } else {
+        RwMatrixMultiply(&second, VSAt(kVSViewMatrixAddress), matrix);
+    }
+    VSSetMatrixPads(&second);
+    VSMatrixTranspose(worldViewMultiplyMatrix, &second);
+}
+
+// 0x764C60 (lote R21A, sin validar; sustituye la envoltura; cdecl, 1 argumento (salida 4x4), 187 bytes): con matriz activa sin marca de identidad: ortonormal -> D3DXMatrixTranspose(salida, 0x8D7390)
+// (la copia de 12 floats: sus cuatro floats de relleno son los que haya en memoria y acaban en salida[12..15]); si no -> D3DXMatrixTranspose(salida, ortonormalizada en cache). Sin activa o con identidad:
+// copia la identidad estatica 0x8753D0 (16 dwords) y pone salida[3], [7], [11] = 0 y [15] = 1.0f.
+void _rwD3D9VSGetWorldNormalizedTransposeMatrix(void* matrix) {
+    RwMatrix* const active = VSActiveMatrix();
+    if (active != nullptr && (active->flags & kMatrixIdentityFlag) != kMatrixIdentityFlag) {
+        if ((active->flags & kMatrixTypeMask) == kMatrixTypeMask) {
+            VSMatrixTranspose(matrix, reinterpret_cast<const void*>(kVSActiveMatrixCopyAddress));
+        } else {
+            VSMatrixTranspose(matrix, VSOrthoNormalized(active));
+        }
+        return;
+    }
+    VSCopyMatrix(matrix, VSAt(kVSIdentityMatrixAddress));
+    float* const out = static_cast<float*>(matrix);
+    out[3]  = 0.0f;
+    out[7]  = 0.0f;
+    out[11] = 0.0f;
+    out[15] = 1.0f;
+}
+
+// 0x764D30 (lote R21A, sin validar; sustituye la envoltura; cdecl, (normal en el mundo, normal local de salida), 308 bytes): inversa para normales en cache 0xC94C78. Si es NULL: sin activa o con identidad
+// se fijan 0xC94C74 = 0xC94C78 = 0x8753D0; ortonormal: inversa 0x764890 en 0x8D73D0 (si 0xC94C74 es NULL) y 0xC94C78 = esa inversa; otro tipo: inversa general RwMatrixInvert (si 0xC94C74 es NULL), despues
+// RwMatrixOrthoNormalize(0x8D7410, inversa) con rellenos 0, 0, 0, 1.0f, 0xC94C78 = 0x8D7410 y D3DXVec3TransformNormal(salida, entrada, 0x8D7410). Con identidad la salida copia los tres dwords de la
+// entrada; si no, D3DXVec3TransformNormal(salida, entrada, inversa).
+void _rwD3D9VSGetNormalInLocalSpace(const RwV3d* normalWorldSpace, RwV3d* normalLocalSpace) {
+    RwMatrix* normalInverse = VSNormalInverse();
+    if (normalInverse == nullptr) {
+        RwMatrix* const active = VSActiveMatrix();
+        if (active == nullptr || (active->flags & kMatrixIdentityFlag) == kMatrixIdentityFlag) {
+            normalInverse = VSAt(kVSIdentityMatrixAddress);
+            VSInverseCache() = normalInverse;
+            VSNormalInverse() = normalInverse;
+            VSCopyVec3(normalLocalSpace, normalWorldSpace);
+            return;
+        }
+        RwMatrix* inverse = VSInverseCache();
+        if ((active->flags & kMatrixTypeMask) == kMatrixTypeMask) {
+            if (inverse == nullptr) {
+                inverse = VSBuildInverse(active, true);
+            }
+            VSNormalInverse() = inverse;
+            normalInverse = inverse;
+        } else {
+            if (inverse == nullptr) {
+                inverse = VSBuildInverse(active, false);
+            }
+            RwMatrix* const orthoNormal = VSAt(kVSNormalInverseStorageAddress);
+            RwMatrixOrthoNormalize(orthoNormal, inverse);
+            VSSetMatrixPads(orthoNormal);
+            VSNormalInverse() = orthoNormal;
+            VSVec3TransformNormal(normalLocalSpace, normalWorldSpace, orthoNormal);
+            return;
+        }
+    }
+    if (normalInverse == VSAt(kVSIdentityMatrixAddress)) {
+        VSCopyVec3(normalLocalSpace, normalWorldSpace);
+        return;
+    }
+    VSVec3TransformNormal(normalLocalSpace, normalWorldSpace, normalInverse);
+}
+
+// 0x764E70 (lote R21A, sin validar; sustituye la envoltura; cdecl, (punto en el mundo, punto local de salida), 234 bytes): inversa en cache 0xC94C74. Si es NULL: sin activa o con identidad se fija a la identidad
+// 0x8753D0 y la salida copia los tres dwords de la entrada; ortonormal: 0x764890 en 0x8D73D0; otro tipo: RwMatrixInvert con rellenos 0, 0, 0, 1.0f; despues D3DXVec3TransformCoord(salida, entrada, inversa).
+// Con la cache ya a la identidad copia; con cualquier otra, D3DXVec3TransformCoord.
+void _rwD3D9VSGetPointInLocalSpace(const RwV3d* pointWorldSpace, RwV3d* pointLocalSpace) {
+    RwMatrix* inverse = VSInverseCache();
+    if (inverse == nullptr) {
+        RwMatrix* const active = VSActiveMatrix();
+        if (active != nullptr && (active->flags & kMatrixIdentityFlag) != kMatrixIdentityFlag) {
+            inverse = VSBuildInverse(active, (active->flags & kMatrixTypeMask) == kMatrixTypeMask);
+            VSVec3TransformCoord(pointLocalSpace, pointWorldSpace, inverse);
+            return;
+        }
+        VSInverseCache() = VSAt(kVSIdentityMatrixAddress);
+        VSCopyVec3(pointLocalSpace, pointWorldSpace);
+        return;
+    }
+    if (inverse == VSAt(kVSIdentityMatrixAddress)) {
+        VSCopyVec3(pointLocalSpace, pointWorldSpace);
+        return;
+    }
+    VSVec3TransformCoord(pointLocalSpace, pointWorldSpace, inverse);
+}
+
+// 0x764F60 (lote R21A, sin validar; sustituye la envoltura; cdecl, (radio float, float* de salida), 203 bytes): con matriz activa cuyo tipo NO es ortonormal (flags & 3 != 3; aqui no se mira la marca de
+// identidad): inversa en cache 0xC94C74 (si falta, RwMatrixInvert(0x8D73D0, activa) y rellenos 0, 0, 0, 1.0f), v = (0x3F13CD3A, 0x3F13CD3A, 0x3F13CD3A) (1/raiz de 3), D3DXVec3TransformNormal(v, v, inversa),
+// s = float(((v.y*v.y) + (v.x*v.x)) + (v.z*v.z)) guardado como float y *salida = _rwInvSqrt(s) * radio (x87 a 24 bits, fmul + fstp). En cualquier otro caso *salida = radio.
+void _rwD3D9VSGetRadiusInLocalSpace(RwReal radiusWorldSpace, RwReal* radiusLocalSpace) {
+    RwMatrix* const active = VSActiveMatrix();
+    if (active != nullptr && (active->flags & kMatrixTypeMask) != kMatrixTypeMask) {
+        RwMatrix* inverse = VSInverseCache();
+        if (inverse == nullptr) {
+            inverse = VSBuildInverse(active, false);
+        }
+        float v[3];
+        const uint32 third = 0x3F13CD3A;
+        memcpy(&v[0], &third, 4);
+        memcpy(&v[1], &third, 4);
+        memcpy(&v[2], &third, 4);
+        VSVec3TransformNormal(v, v, inverse);
+        const float sumSquares = V3dSumSquaresCpp(v);
+        *radiusLocalSpace = _rwInvSqrt(sumSquares) * radiusWorldSpace;
+        return;
+    }
+    *radiusLocalSpace = radiusWorldSpace;
+}
+
+// 0x7645C0 (lote R21A, sin validar; nombre inferido: tamano nativo D3D9 del sector; cdecl, 1 argumento (RpWorldSector), 138 bytes): sin entrada de recursos (sector + 0x34 NULL) devuelve 0; con ella,
+// RpWorldSectorGetWorld(sector) (0x74F4E0) y, si el mundo no tiene rpWORLDNATIVE (0x1000000 en world->flags), devuelve 0. Si no, GetDeclaration de la declaracion de la cabecera (vtable +0x10) y
+// tamano = entrada->size + 0x14 + 2 * (totalNumIndex + 4 * elementos) + 4 mas, por cada uno de los dos flujos, 0x10 (+ totalNumVertex * stride si tiene buffer de vertices). Como 0x763EB0.
+RwInt32 _rpD3D9WorldSectorNativeSize(const RpWorldSector* sector) {
+    if (sector->repEntry == nullptr) {
+        return 0;
+    }
+    const RpWorld* const world = RpWorldSectorGetWorld(sector);
+    if ((world->flags & kNativeGeometryFlag) == 0) {
+        return 0;
+    }
+    RwResEntry* const entry = sector->repEntry;
+    RxD3D9ResEntryHeader* const header = ResEntryHeader(entry);
+    D3DVERTEXELEMENT9 elements[kMaxNativeDeclElements];
+    UINT numElements = 0;
+    header->vertexDeclaration->GetDeclaration(elements, &numElements);
+    RwUInt32 total = static_cast<RwUInt32>(entry->size) + 0x14 + (header->totalNumIndex + numElements * 4) * 2 + 4;
+    for (RwUInt32 i = 0; i < 2; ++i) {
+        total += 0x10;
+        if (header->vertexStream[i].vertexBuffer != nullptr) {
+            total += header->totalNumVertex * header->vertexStream[i].stride;
+        }
+    }
+    return static_cast<RwInt32>(total);
+}
+
+// 0x763F20 (lote R21A, sin validar; nombre inferido: escritura nativa D3D9 del sector; cdecl, 2 argumentos (flujo, RpWorldSector), 657 bytes): world = RpWorldSectorGetWorld(sector); sin rpWORLDNATIVE
+// devuelve el flujo. Con ella: entrada de recursos (sector + 0x34), cabecera D3D9 (+0x18) y GetDeclaration (el EXE usa un buffer de pila de 18 elementos). Tamano del chunk = entrada->size + 8 + 8 *
+// elementos + 4 (+ 2 * totalNumIndex si hay buffer de indices) + por flujo 0x10 (+ totalNumVertex * stride si tiene buffer). Cambia el puntero de material de cada instancia por su indice en la lista de
+// materiales del MUNDO (0x74E420 sobre world + 0x10; NO se restaura si despues falla algo). Escribe: cabecera de chunk (tipo 1, tamano, version 0x36003, build 0xFFFF; 0x7ED270), plataforma (4 bytes de
+// 0x8D7384), entrada->size (4), cabecera + datos (entrada->size bytes), numero de elementos (4), elementos (8 cada uno), indices (Lock(0, 0, ...); con puntero no nulo escribe 2 * totalNumIndex bytes;
+// Unlock SIEMPRE; sin escritura -> NULL tras el Unlock) y por flujo su estructura de 0x10 bytes y su buffer (Lock(offset, stride * totalNumVertex, 0x800): con HRESULT distinto de 0 se SALTA el buffer sin
+// error; si no se escribe, Unlock y escritura NULL -> NULL). Cualquier escritura NULL devuelve NULL. Al final devuelve a cada instancia su puntero de material (0x74E2B0) y devuelve el flujo.
+RwStream* _rpD3D9WorldSectorNativeWrite(RwStream* stream, const RpWorldSector* sector) {
+    RpWorld* const world = RpWorldSectorGetWorld(sector);
+    if ((world->flags & kNativeGeometryFlag) == 0) {
+        return stream;
+    }
+    RwResEntry* const entry = sector->repEntry;
+    RxD3D9ResEntryHeader* const header = ResEntryHeader(entry);
+    RxD3D9InstanceData* const instances = ResEntryInstances(header);
+
+    D3DVERTEXELEMENT9 elements[kMaxNativeDeclElements];
+    UINT numElements = 0;
+    header->vertexDeclaration->GetDeclaration(elements, &numElements);
+    RwUInt32 chunkSize = static_cast<RwUInt32>(entry->size) + 8 + numElements * 8 + 4;
+    if (header->indexBuffer != nullptr) {
+        chunkSize += header->totalNumIndex * 2;
+    }
+    for (RwUInt32 i = 0; i < 2; ++i) {
+        chunkSize += 0x10;
+        if (header->vertexStream[i].vertexBuffer != nullptr) {
+            chunkSize += header->totalNumVertex * header->vertexStream[i].stride;
+        }
+    }
+    for (RwUInt32 i = 0; i < header->numMeshes; ++i) {
+        instances[i].material = reinterpret_cast<RpMaterial*>(static_cast<intptr_t>(_rpMaterialListFindMaterialIndex(&world->matList, instances[i].material)));
+    }
+
+    if (_rwStreamWriteVersionedChunkHeader(stream, 1, static_cast<RwInt32>(chunkSize), kNativeGeometryVersion, 0xFFFF) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamWrite(stream, reinterpret_cast<const void*>(kNativePlatformIdAddress), 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamWrite(stream, reinterpret_cast<const uint8_t*>(sector->repEntry) + 8, 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamWrite(stream, ResEntryHeader(sector->repEntry), static_cast<RwUInt32>(sector->repEntry->size)) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamWrite(stream, &numElements, 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamWrite(stream, elements, numElements * 8) == nullptr) {
+        return nullptr;
+    }
+    if (header->indexBuffer != nullptr) {
+        void* locked = nullptr;
+        RwStream* written = nullptr;
+        header->indexBuffer->Lock(0, 0, &locked, 0);
+        if (locked != nullptr) {
+            written = RwStreamWrite(stream, locked, header->totalNumIndex * 2);
+        }
+        header->indexBuffer->Unlock();
+        if (written == nullptr) {
+            return nullptr;
+        }
+    }
+    for (RwUInt32 i = 0; i < 2; ++i) {
+        RxD3D9VertexStream& vertexStream = header->vertexStream[i];
+        if (RwStreamWrite(stream, &vertexStream, 0x10) == nullptr) {
+            return nullptr;
+        }
+        if (vertexStream.vertexBuffer != nullptr) {
+            void* locked = nullptr;
+            IDirect3DVertexBuffer9* const vertexBuffer = static_cast<IDirect3DVertexBuffer9*>(vertexStream.vertexBuffer);
+            if (vertexBuffer->Lock(vertexStream.offset, vertexStream.stride * header->totalNumVertex, &locked, kDefaultInstLockManaged) == 0) {
+                RwStream* const written = RwStreamWrite(stream, locked, vertexStream.stride * header->totalNumVertex);
+                vertexBuffer->Unlock();
+                if (written == nullptr) {
+                    return nullptr;
+                }
+            }
+        }
+    }
+    for (RwUInt32 i = 0; i < header->numMeshes; ++i) {
+        instances[i].material = _rpMaterialListGetMaterial(&world->matList, static_cast<RwInt32>(reinterpret_cast<intptr_t>(instances[i].material)));
+    }
+    return stream;
+}
+
+// 0x7641C0 (lote R21A, sin validar; nombre inferido: lectura nativa D3D9 del sector; cdecl, 2 argumentos (flujo, RpWorldSector), 1012 bytes; el EXE usa un buffer de pila de 18 elementos para la
+// declaracion). Igual que 0x763A80 (geometria) con estas diferencias: world = RpWorldSectorGetWorld(sector) se pide ANTES de buscar el chunk y su lista de materiales (world + 0x10) es la que
+// convierte los indices en punteros (0x74E2B0); la RwResEntry cuelga de sector + 0x34 (ownerRef = &sector->repEntry); los buffers de vertices son SIEMPRE gestionados (managed = 1 antes de crear con
+// 0x7F5500, Lock con flags 0x800); no hay camino dinamico por morph targets. Devuelve el sector, o NULL en cualquier fallo (FindChunk 0x7ED2D0; version fuera de 0x34000..0x36003 sin signo: error
+// 0x80000004 (pluginID 2); plataforma distinta de 9; lecturas incompletas; indices o buffers sin crear con la bandera `fallo`). Bucles por malla do/while como en el EXE (con numMeshes == 0 se salen de
+// la tabla).
+RpWorldSector* _rpD3D9WorldSectorNativeRead(RwStream* stream, RpWorldSector* sector) {
+    RpWorld* const world = RpWorldSectorGetWorld(sector);
+    RwUInt32 length  = 0;
+    RwUInt32 version = 0;
+    if (!RwStreamFindChunk(stream, 1, &length, &version)) {
+        return nullptr;
+    }
+    if (version < kStreamVersionMin || version > kStreamVersionMax) {
+        RaiseRwError(kErrorBadVersion);
+        return nullptr;
+    }
+    RwUInt32 platformId = 0;
+    if (RwStreamRead(stream, &platformId, 4) != 4) {
+        return nullptr;
+    }
+    length -= 4;
+    if (platformId != kNativeGeometryPlatform) {
+        return nullptr;
+    }
+    RwUInt32 entrySize = 0;
+    if (RwStreamRead(stream, &entrySize, 4) != 4) {
+        return nullptr;
+    }
+    length -= 4;
+
+    sector->repEntry = static_cast<RwResEntry*>(RwMalloc(entrySize + 0x18, kNativeGeometryResHint));
+    RwResEntry* const entry = sector->repEntry;
+    entry->link.next = nullptr;
+    entry->link.prev = nullptr;
+    entry->owner     = sector;
+    entry->size      = static_cast<RwInt32>(entrySize);
+    entry->ownerRef  = &sector->repEntry;
+    entry->destroyNotify = reinterpret_cast<RwResEntryDestroyNotify>(kResEntryHeaderDestroyAddress);
+    RxD3D9ResEntryHeader* const header = ResEntryHeader(entry);
+    RxD3D9InstanceData* const instances = ResEntryInstances(header);
+    if (RwStreamRead(stream, header, entrySize) != entrySize) {
+        return nullptr;
+    }
+    length -= entrySize;
+
+    header->indexBuffer = nullptr;
+    header->vertexStream[0].vertexBuffer = nullptr;
+    header->vertexStream[1].vertexBuffer = nullptr;
+    header->vertexDeclaration = nullptr;
+
+    RwUInt32 numElements = 0;
+    if (RwStreamRead(stream, &numElements, 4) != 4) {
+        return nullptr;
+    }
+    length -= 4;
+    D3DVERTEXELEMENT9 elements[kMaxNativeDeclElements];
+    if (RwStreamRead(stream, elements, numElements * 8) != numElements * 8) {
+        return nullptr;
+    }
+    length -= numElements * 8;
+    RwD3D9CreateVertexDeclaration(elements, reinterpret_cast<void**>(&header->vertexDeclaration));
+
+    if (header->totalNumIndex != 0) {
+        if (!RwD3D9IndexBufferCreate(header->totalNumIndex, reinterpret_cast<void**>(&header->indexBuffer))) {
+            DestroyResEntryExe(sector->repEntry);
+            return nullptr;
+        }
+    }
+    if (header->indexBuffer != nullptr) {
+        void* data = nullptr;
+        RwUInt32 readBytes = 0;
+        header->indexBuffer->Lock(0, 0, &data, 0);
+        const RwUInt32 indexBytes = header->totalNumIndex * 2;
+        if (data != nullptr) {
+            readBytes = RwStreamRead(stream, data, indexBytes);
+            header->indexBuffer->Unlock();
+        }
+        if (readBytes != indexBytes) {
+            DestroyResEntryExe(sector->repEntry);
+            return nullptr;
+        }
+        length -= readBytes;
+    }
+
+    RwUInt32 numStreams = 0;
+    RwUInt32 failed = 1;
+    for (RwUInt32 i = 0; i < 2; ++i) {
+        RxD3D9VertexStream& vertexStream = header->vertexStream[i];
+        if (RwStreamRead(stream, &vertexStream, 0x10) != 0x10) {
+            DestroyResEntryExe(sector->repEntry);
+            return nullptr;
+        }
+        if (vertexStream.vertexBuffer == nullptr) {
+            continue;
+        }
+        ++numStreams;
+        const RwUInt32 bufferSize = header->totalNumVertex * vertexStream.stride;
+        vertexStream.managed = 1;
+        const RwBool created = RwD3D9CreateVertexBuffer(vertexStream.stride, bufferSize, &vertexStream.vertexBuffer, &vertexStream.offset);
+        if (!created && failed != 0) {
+            continue;
+        }
+        failed = 1;
+        void* data = nullptr;
+        IDirect3DVertexBuffer9* const vertexBuffer = static_cast<IDirect3DVertexBuffer9*>(vertexStream.vertexBuffer);
+        vertexBuffer->Lock(vertexStream.offset, bufferSize, &data, kDefaultInstLockManaged);
+        const RwUInt32 got = RwStreamRead(stream, data, bufferSize);
+        static_cast<IDirect3DVertexBuffer9*>(vertexStream.vertexBuffer)->Unlock();
+        if (got == bufferSize) {
+            failed = 0;
+            length -= got;
+        }
+    }
+    if (failed != 0) {
+        DestroyResEntryExe(sector->repEntry);
+        return nullptr;
+    }
+
+    if (numStreams > 1) {
+        if ((D3D9CapsDword(kD3D9DevCaps2Address) & 1) != 0) {
+            header->useOffsets = 1;
+        }
+        RwUInt32 remaining = header->numMeshes;
+        RxD3D9InstanceData* instance = instances;
+        do {
+            instance->baseIndex = instance->minVert;
+            ++instance;
+            --remaining;
+        } while (remaining != 0);
+    } else {
+        header->useOffsets = 0;
+        RwUInt32 remaining = header->numMeshes;
+        RxD3D9InstanceData* instance = instances;
+        do {
+            instance->baseIndex = header->vertexStream[0].offset / header->vertexStream[0].stride + instance->minVert;
+            ++instance;
+            --remaining;
+        } while (remaining != 0);
+    }
+    for (RwUInt32 i = 0; i < header->numMeshes; ++i) {
+        instances[i].material = _rpMaterialListGetMaterial(&world->matList, static_cast<RwInt32>(reinterpret_cast<intptr_t>(instances[i].material)));
+    }
+    return sector;
+}
+
+// Registro de los hooks del lote R21A de RpWorld (sin validar).
+void RpWorldInjectHooksR21A() {
+    RH_ScopedCategory("Plugins");
+    RH_ScopedNamespaceName("RpWorld");
+
+    RH_ScopedGlobalInstall(_rpD3D9WorldSectorNativeWrite, 0x763F20);
+    RH_ScopedGlobalInstall(_rpD3D9WorldSectorNativeRead, 0x7641C0);
+    RH_ScopedGlobalInstall(_rpD3D9WorldSectorNativeSize, 0x7645C0);
+    RH_ScopedGlobalInstall(_rwD3D9VSSetActiveWorldMatrix, 0x764650);
+    RH_ScopedGlobalInstall(_rwD3D9VSGetComposedTransformMatrix, 0x7646E0);
+    RH_ScopedGlobalInstall(_rwD3D9VSGetWorldViewTransposedMatrix, 0x764730);
+    RH_ScopedGlobalInstall(_rwD3D9VSGetInverseWorldMatrix, 0x7647B0);
+    RH_ScopedGlobalInstall(_rwD3D9VSInvertRigidMatrix, 0x764890);
+    RH_ScopedGlobalInstall(_rwD3D9VSGetWorldMultiplyTransposeMatrix, 0x764960);
+    RH_ScopedGlobalInstall(_rwD3D9VSGetWorldViewMultiplyTransposeMatrix, 0x7649D0);
+    RH_ScopedGlobalInstall(_rwD3D9VSGetWorldNormalizedMultiplyTransposeMatrix, 0x764A70);
+    RH_ScopedGlobalInstall(_rwD3D9VSGetWorldNormalizedViewMultiplyTransposeMatrix, 0x764B50);
+    RH_ScopedGlobalInstall(_rwD3D9VSGetWorldNormalizedTransposeMatrix, 0x764C60);
+    RH_ScopedGlobalInstall(_rwD3D9VSGetNormalInLocalSpace, 0x764D30);
+    RH_ScopedGlobalInstall(_rwD3D9VSGetPointInLocalSpace, 0x764E70);
+    RH_ScopedGlobalInstall(_rwD3D9VSGetRadiusInLocalSpace, 0x764F60);
 }

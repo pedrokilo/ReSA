@@ -708,6 +708,7 @@ void RpWorldInjectHooksR16A();    // plugin 0x509 (mundo y ties), mallas 0x50E/0
 void RpWorldInjectHooksR17A();    // vertices D3D9 (instanciar, leer), formato de texcoord, plugin y estado de luces, utilidades de indices, recorte y callbacks AllInOne (rpworld.cpp)
 void RpWorldInjectHooksR19A();    // generador de tiras por defecto de RpBuildMesh (rpworld.cpp)
 void RpWorldInjectHooksR20A();    // union de tiras, listas de triangulos, cache de vertex shaders D3D9, tuberias, plugin 0x1F y flujo nativo de geometrias (rpworld.cpp)
+void RpWorldInjectHooksR21A();    // matrices del vertex shader D3D9 del modulo de mundos y flujo nativo (D3D9) de los sectores (rpworld.cpp)
 void RpWorldInjectHooksR18A();    // plugin de geometria D3D9, callback de instanciado de atomos, mallas RpBuildMesh/RpMeshHeader y accesores (rpworld.cpp)
 
 void InjectHooksMain() {
@@ -1133,6 +1134,7 @@ void InjectHooksMain() {
     RpWorldInjectHooksR18A();
     RpWorldInjectHooksR19A();
     RpWorldInjectHooksR20A();
+    RpWorldInjectHooksR21A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();
