@@ -204,6 +204,14 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # Lote 204A: CTaskInteriorSitInChair::ProcessPed (0x676D30): aritmetica x87 del EXE (palabra de control de 24 bits, intermedios en registros con exponente ampliado: 1/L, dx*inv, productos por el modulo y
+    # productos escalares); el archivo de la clase se compila asi (sin expansion en linea: la funcion llama a funciones con hook).
+    set_source_files_properties(game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Ob0;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=Disabled;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # Lote 94A: CTaskComplexPartner::ComputeTargetPoints (0x681FE0) y CTaskComplexWalkRoundObject::ComputeRouteRoundObject (0x6551D0): aritmetica x87 del EXE
     # (palabra de control de 24 bits, intermedios en registros con exponente ampliado, resultado en ST0); el archivo de cada clase se compila asi. Sin expansion en linea (/Ob0):
     # con /O2 el compilador expandia CTaskManager::SetTask (definida en la cabecera) y la llamada ya no pasaba por su hook ni por los falsos de los bancos.

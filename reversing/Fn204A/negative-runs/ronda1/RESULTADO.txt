@@ -1,0 +1,3 @@
+FALLO: Fn204A
+Diferencia en CTaskComplexAvoidEntity::SetUpIK 1
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn204a\20261116-165306-145276

@@ -818,7 +818,7 @@ int32 CPedAcquaintanceScanner::FindAcquaintance(CPed& ped, int32 priority, int32
 // 0x606BA0 (lote 204A, sin validar; el listado decia CPedIntelligencePool; thiscall con tres argumentos de pila (`ret 0Ch`; el EXE no lee ECX), 694 bytes con marco SEH que solo destruye el evento local). Con el indice de conocido `id`
 // (sin signo; >4 no hace nada) crea el evento hacia `entity` y lo anade al grupo de eventos del peaton (0x4AB420 sobre inteligencia + 0x68, sin validar): 0 CEventAcquaintancePedRespect (vtable 0x86CA38), 1 CEventAcquaintancePedLike
 // (0x86CA80), 2 CEventSeenCop (0x86CB58; solo si el tipo de peaton de `entity` (+0x598) es 6 (policia), si no devuelve falso), 3 CEventAcquaintancePedDislike (0x86CAC8). El 4 (odio) segun la visibilidad con luces del peaton
-// (0x605550, sin usar el segundo argumento): > 0 (NaN y <= 0 no entran) crea CEventAcquaintancePedHate (ctor 0x420E70, vtable 0x858E68) y lo manda al grupo del peaton objetivo (CPedGroups::GetPedsGroup 0x5F7E80: con grupo, tarea
+// (0x605550, sin usar el segundo argumento): > 0 (NaN y <= 0 no entran) crea CEventAcquaintancePedHate (ctor 0x420E70, vtable 0x858E68) y lo manda al grupo del propio peaton (CPedGroups::GetPedsGroup 0x5F7E80, con `ped`; el banco Fn204A encontro que la primera version la pedia de la entidad: con grupo, tarea
 // 0x5DE (1502) y CPedGroupIntelligence::AddEvent 0x5F7470 -> AL; sin grupo, tarea 0x3E8 (1000) y grupo de eventos) si el byte 0x96913F es distinto de 0 o hay disturbios (CGameLogic::LaRiotsActiveHere 0x441C10) y el peaton puede unirse
 // (CanJoinRiotAgainst 0x603AF0); si no, directo al grupo de eventos sin cambiar la tarea; < 0 (estrictamente) crea CEventAcquaintancePedHateBadlyLit (vtable 0x86CB10, hora actual y posicion de `entity` copiadas sin pasar por el ctor
 // 0x5FF250) y lo anade; 0 o NaN no hacen nada. Devuelve si el evento se anadio (el resultado de Add != nulo, o el AL de AddEvent).
@@ -857,7 +857,7 @@ bool CPedAcquaintanceScanner::CreateAcquaintanceEvent(CPed* ped, int32 id, CEnti
             CEventAcquaintancePedHate event{ other };
             if (!toGroup) {
                 added = eventGroup().Add(&event, false) != nullptr;
-            } else if (CPedGroup* const group = CPedGroups::GetPedsGroup(other)) {
+            } else if (CPedGroup* const group = CPedGroups::GetPedsGroup(ped)) {
                 event.m_TaskId = TASK_GROUP_KILL_THREATS_BASIC; // 0x5DE
                 added = group->GetIntelligence().AddEvent(&event);
             } else {

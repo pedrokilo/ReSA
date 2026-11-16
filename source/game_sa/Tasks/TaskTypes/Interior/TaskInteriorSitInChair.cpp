@@ -16,7 +16,9 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
+#pragma warning(push, 0)
 #include "StdInc.h"
+#pragma warning(pop)
 #include "X87Math.h"
 
 #include "TaskInteriorSitInChair.h"
@@ -142,6 +144,7 @@ static void SitInChairStartTimer(CTaskInteriorSitInChair* self) {
 // uno como (z + y) + x), y pone +0x55C = LimitRadianAngle(GetRadianAngleBetweenPoints(dir.x, dir.y, 0, 0)). Al final, con la animacion 0x159: si el IKChainManager mira al peaton devuelve falso; si no, con probabilidad 19/1000 (aleatorio
 // 0..1000 > 980, 0x407180) y con un grupo de interior del peaton (0x598240) cuya informacion mas cercana a 10.0 (FindClosestInteriorInfo, 0x594A50) exista, LookAt (0x618970) "TaskSitInChair" de 10000 a 20000 ms hacia la posicion de la
 // informacion; sin animacion 0x159, AbortLookAt (0x618280, 250) si miraba. Devuelve falso siempre salvo en los dos primeros retornos tempranos.
+#pragma float_control(precise, on, push)
 bool __fastcall SitInChairProcessPed(CTaskInteriorSitInChair* self, void* /*edx*/, CPed* ped) {
     auto* const anim0 = SitInChairField<CAnimBlendAssociation*>(self, 0x14);
     const int32 animId = anim0 ? SitAnimIdOf(anim0) : -1;
@@ -191,15 +194,14 @@ bool __fastcall SitInChairProcessPed(CTaskInteriorSitInChair* self, void* /*edx*
         if (SitInChairField<uint8>(self, 0x28)) {
             // Posicion del peaton (matriz +0x30 o placement +4) copiada a V; W = z original
             CVector     V = ped->GetPosition();
-            const float W = V.z;
+            uint32 Wbits; // como el EXE: copias por dword (una copia por la x87 silenciaria un NaN senalizante)
+            std::memcpy(&Wbits, &V.z, sizeof(Wbits));
             if (animId == SIT_ANIM_OUT) {
                 // 0x59C890 (matriz * vector fijo 0xC18C78) por direccion fija; la matriz no se comprueba (como el EXE)
                 CVector T;
                 plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&T, ped->m_matrix, &StaticRef<CVector>(0xC18C78));
                 const float rotation = ped->m_fCurrentRotation + 3.14159274f; // 0x858CB8
-                V.x = T.x;
-                V.y = T.y;
-                V.z = T.z;
+                std::memcpy(&V, &T, sizeof(V));
                 const float limited = CGeneral::LimitRadianAngle(rotation); // 0x53CB50
                 ped->m_fAimingRotation  = limited;
                 ped->m_fCurrentRotation = limited;
@@ -211,11 +213,9 @@ bool __fastcall SitInChairProcessPed(CTaskInteriorSitInChair* self, void* /*edx*
             } else if (animId == SIT_ANIM_LOOP) {
                 CVector T;
                 plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&T, ped->m_matrix, &StaticRef<CVector>(0xC18C78));
-                V.x = T.x;
-                V.y = T.y;
-                V.z = T.z;
+                std::memcpy(&V, &T, sizeof(V));
             }
-            V.z = W;
+            std::memcpy(&V.z, &Wbits, sizeof(Wbits));
             ped->SetPosn(V); // 0x4241C0
             SitInChairField<uint8>(self, 0x28) = 0;
         }
@@ -238,24 +238,31 @@ bool __fastcall SitInChairProcessPed(CTaskInteriorSitInChair* self, void* /*edx*
             const float dx = P.x - pos.x;
             const float dy = P.y - pos.y;
             const float dz = P.z - pos.z;
-            const float sum = (dz * dz + dy * dy) + dx * dx;
-            const float L   = std::sqrt(sum);                // fsqrt, guardado como float
-            const float M   = (L < 0.02f) ? L : 0.02f;       // 0x858B38; fcomp + test ah,5 + jp: L >= 0.02 y NaN usan 0.02
-            const float inv = 1.0f / L;                      // 0x858624 / L
-            const float nx  = dx * inv;
-            const float ny  = dy * inv;
-            const float nz  = dz * inv;
-            const float X1  = nx * M;
-            const float Y1  = ny * M;
-            const float Z1  = nz * M;
+            // Los valores que el EXE mantiene en registros x87 (suma de cuadrados, 1/L, dx*inv, los productos por M y los productos escalares) son `double` (24 bits de mantisa por la palabra de control y exponente ampliado: con
+            // coordenadas enormes un float desbordaria o se haria denormal donde el EXE no); los que guarda como float (L, dy*inv y dz*inv) son `float`.
+            const double sum = (double(dz) * dz + double(dy) * dy) + double(dx) * dx;
+            const float  L   = static_cast<float>(std::sqrt(sum));          // fsqrt, guardado como float
+            const double M   = (L < 0.02f) ? double(L) : double(0.02f);       // 0x858B38; fcomp + test ah,5 + jp: L >= 0.02 y NaN usan 0.02
+            const double inv = 1.0 / double(L);                               // 0x858624 / L
+            const double nx  = double(dx) * inv;
+            const float  ny  = static_cast<float>(double(dy) * inv);
+            const float  nz  = static_cast<float>(double(dz) * inv);
+            const double X1  = nx * M;
+            const double Y1  = double(ny) * M;
+            const double Z1  = double(nz) * M;
             const CMatrix& matrix = *ped->m_matrix;
             const CVector  right  = matrix.GetRight();
             const CVector  fwd    = matrix.GetForward();
-            const float dotRight = (right.z * Z1 + right.y * Y1) + X1 * right.x;
+            const float dotRight = static_cast<float>((double(right.z) * Z1 + double(right.y) * Y1) + X1 * double(right.x));
             ped->m_vecAnimMovingShiftLocal.x = dotRight; // +0x4D8
-            const float dotFwd = (fwd.z * Z1 + fwd.y * Y1) + fwd.x * X1;
+            const float dotFwd = static_cast<float>((double(fwd.z) * Z1 + double(fwd.y) * Y1) + double(fwd.x) * X1);
             ped->m_vecAnimMovingShiftLocal.y = dotFwd;   // +0x4DC
-            ped->m_fAimingRotation = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(info->Dir.x, info->Dir.y, 0.0f, 0.0f)); // 0x53CBE0, 0x53CB50
+            // Como el EXE: los cuatro argumentos de 0x53CBE0 se empujan como dwords crudos (pasarlos como float por la x87 silenciaria un NaN senalizante)
+            uint32 dirX, dirY;
+            std::memcpy(&dirX, &info->Dir.x, sizeof(dirX));
+            std::memcpy(&dirY, &info->Dir.y, sizeof(dirY));
+            const float angle = reinterpret_cast<float(__cdecl*)(uint32, uint32, uint32, uint32)>(0x53CBE0)(dirX, dirY, 0u, 0u); // CGeneral::GetRadianAngleBetweenPoints
+            ped->m_fAimingRotation = CGeneral::LimitRadianAngle(angle); // 0x53CB50 // 0x53CBE0, 0x53CB50
         }
     }
 
@@ -282,6 +289,7 @@ bool __fastcall SitInChairProcessPed(CTaskInteriorSitInChair* self, void* /*edx*
     }
     return false;
 }
+#pragma float_control(pop)
 } // namespace
 
 void CTaskInteriorSitInChair::InjectHooks() {
