@@ -2474,3 +2474,6 @@ void __cdecl CameraFrustumPerspectiveCpp(float* cam, const float* m, float(__cde
 void __cdecl CameraFrustumParallelCornersCpp(float* cam);
 void __cdecl CameraFrustumParallelPlanesCpp(float* cam, const float* m, float(__cdecl* invSqrt)(float));
 void __cdecl CameraParallelViewMatrixCpp(float* cam, const float* m);
+
+// Lote R30A (sin validar): RwImageSetGamma (0x803FE0). Rellena tabla[256] (pow(t, 1 / gamma)) y inverseTable[256] (pow(t, gamma)) con t = i / 255, ambas como byte de truncar(pow * 255 + 0.5); powFunction = pow del CRT del EXE (0x8220F0). Ver X87Math.cpp.
+void __cdecl ImageGammaTablesCpp(float gamma, unsigned char* table, unsigned char* inverseTable, double(__cdecl* powFunction)(double, double));

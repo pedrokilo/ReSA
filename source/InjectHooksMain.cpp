@@ -725,6 +725,9 @@ void RwCoreInjectHooksR28A();      // rasters de RwCore (baraster.c): crear, des
 void RwD3D9InjectHooksR28A();     // controlador D3D9: luces, declaraciones, Im2D, caches de estados, material, reinicio de estados, RwD3D9SetTexture y formato de imagen (rwcore.cpp)
 void RwCoreInjectHooksR29A();      // imagenes de RwCore (baimage.c): crear, destruir, reservar y liberar pixeles y mascara (rwcore.cpp)
 void RwD3D9InjectHooksR29A();     // controlador D3D9: imagen -> raster (0x8001E0), conversores RGBA -> pixel y raster de 4/8 bits o luminancia (rwcore.cpp)
+// Lote R30A (sin validar).
+void RwPlCoreInjectHooksR30A();  // RwOsGetFileInterface (0x804130) (rwplcore.cpp)
+void RwCoreInjectHooksR30A();    // imagenes (mascara, lectura, gamma, copia), RwImageSetFromRaster, flujos de textura y cierre de Rx (0x802AF0..0x804F60) (rwcore.cpp)
 
 void InjectHooksMain() {
     /**
@@ -1163,6 +1166,8 @@ void InjectHooksMain() {
     RwD3D9InjectHooksR28A();
     RwCoreInjectHooksR29A();
     RwD3D9InjectHooksR29A();
+    RwPlCoreInjectHooksR30A();
+    RwCoreInjectHooksR30A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();

@@ -1694,9 +1694,11 @@ RwMetrics* RwEngineGetMetrics() {
     return ((RwMetrics*(__cdecl *)(void))0x7F2E10)();
 }
 
-//RwFileFunctions* RwOsGetFileInterface() {
-//    return ((RwFileFunctions*(__cdecl *)(void))0x804130)();
-//}
+// 0x804130 (lote R30A, sin validar; 11 bytes; era una envoltura; cdecl, sin argumentos; `RwOsGetFileInterface` del SDK): `mov eax, [0xC97B24] / add eax, 0xC4 / ret`: devuelve la direccion de las 11 funciones de
+// fichero del motor (RwEngineInstance + 0xC4 = fileFuncs; nunca NULL). El tipo RwFileFunctions no existe en las cabeceras del proyecto: se devuelve como vector de punteros.
+void** RwOsGetFileInterface() {
+    return RwEngineInstance->fileFuncs;
+}
 
 // 0x808880 (lote R14A, sin validar; 74 bytes; era una envoltura): el error pendiente vive en el motor + [0xC9A6F0] (pluginID, errorCode): lo copia a `code` (pluginID primero) y lo deja en
 // (0, 0x80000000), es decir, sin error. Devuelve `code`.
@@ -2877,4 +2879,12 @@ void RwPlCoreInjectHooksR24A() {
     RH_ScopedGlobalInstall(RwMatrixUpdate, 0x7F18A0);
     RH_ScopedGlobalInstall(RwMatrixMultiply, 0x7F18B0);
     RH_ScopedGlobalInstall(RwMatrixDestroy, 0x7F2A20);
+}
+
+// Lote R30A (sin validar): RwOsGetFileInterface (0x804130).
+void RwPlCoreInjectHooksR30A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    RH_ScopedGlobalInstall(RwOsGetFileInterface, 0x804130);
 }

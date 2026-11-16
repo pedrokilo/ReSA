@@ -678,8 +678,20 @@ RwBool _rxPipelineOpen() {
     return ((RwBool(__cdecl *)(void))0x804FE0)();
 }
 
+// 0x804F60 (lote R30A, sin validar; 88 bytes; era una envoltura; cdecl, sin argumentos; cierre del modulo de tuberias Rx): si la bandera de modulo abierto (0xC9A6AC) es 0 solo devuelve 1. Si no: RwFreeListDestroy
+// de la lista libre de tuberias ([RwEngineInstance + [0xC9BC60]], la misma de RxPipelineCreate), pone esa ranura a NULL, RxHeapDestroy (0x809F30) del monton global (0xC9A6B0), pone el monton y la bandera a 0
+// y devuelve 1.
 RwBool _rxPipelineClose() {
-    return ((RwBool(__cdecl *)(void))0x804F60)();
+    if (StaticRef<RwInt32>(0xC9A6AC) != 0) {
+        RwFreeList** const slot = reinterpret_cast<RwFreeList**>(reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9BC60));
+        RwFreeListDestroy(*slot);
+        RwFreeList** const slotAfter = reinterpret_cast<RwFreeList**>(reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9BC60));
+        *slotAfter = nullptr;
+        RxHeapDestroy(StaticRef<RxHeap*>(0xC9A6B0));
+        StaticRef<RxHeap*>(0xC9A6B0) = nullptr;
+        StaticRef<RwInt32>(0xC9A6AC) = 0;
+    }
+    return TRUE;
 }
 
 // 0x8057B0 (lote R11A, sin validar; 102 bytes): reserva un RxPipeline (0x34 bytes) de la lista libre del modulo de tuberias ([RwEngineInstance + [0xC9BC60]], pista 0x30409) y lo pone a cero.
@@ -1467,6 +1479,170 @@ RwFreeList* ImageFreeListR29A() {
 }
 } // namespace
 
+// Lote R30A (sin validar): resto del modulo de imagenes (baimage.c, 0x802AF0..0x803FE0). El bloque del modulo = RwEngineInstance + [0xC9A65C]; lo que usan estas funciones: lista libre +0x00, ruta de busqueda
+// (cadena de rutas separadas por ';') +0x04, tabla de gamma +0x0C (256 bytes), tabla de gamma inversa +0x10C (256 bytes), gamma +0x20C, bufer temporal +0x210 y su tamano +0x214, lista de formatos +0x21C.
+// Nodo de formato (0x34 bytes): extension +0x00 (0x14 bytes), extension alternativa +0x14 (0x14 bytes), lectura +0x28, escritura +0x2C, siguiente +0x30.
+namespace {
+struct ImageFormatNodeR30A {
+    char                 extension[0x14];  // +0x00
+    char                 alternate[0x14];  // +0x14
+    RwImageCallBackRead  read;             // +0x28
+    RwImageCallBackWrite write;            // +0x2C
+    ImageFormatNodeR30A* next;             // +0x30
+};
+static_assert(sizeof(ImageFormatNodeR30A) == 0x34 && offsetof(ImageFormatNodeR30A, read) == 0x28 && offsetof(ImageFormatNodeR30A, next) == 0x30);
+
+struct ImageModuleGlobalsR30A {
+    RwFreeList* freeList;            // +0x000
+    char*       searchPath;          // +0x004
+    uint8       unknown008[4];       // +0x008
+    uint8       gammaTable[256];     // +0x00C
+    uint8       gammaInverse[256];   // +0x10C
+    RwReal      gamma;               // +0x20C
+    void*       scratchBuffer;       // +0x210
+    RwInt32     scratchSize;         // +0x214
+    uint8       unknown218[4];       // +0x218
+    ImageFormatNodeR30A* formats;    // +0x21C
+};
+static_assert(offsetof(ImageModuleGlobalsR30A, searchPath) == 0x04 && offsetof(ImageModuleGlobalsR30A, gammaTable) == 0x0C && offsetof(ImageModuleGlobalsR30A, gammaInverse) == 0x10C
+           && offsetof(ImageModuleGlobalsR30A, gamma) == 0x20C && offsetof(ImageModuleGlobalsR30A, scratchBuffer) == 0x210 && offsetof(ImageModuleGlobalsR30A, scratchSize) == 0x214
+           && offsetof(ImageModuleGlobalsR30A, formats) == 0x21C);
+ImageModuleGlobalsR30A* ImageModuleR30A() {
+    return reinterpret_cast<ImageModuleGlobalsR30A*>(reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9A65C));
+}
+// Devolucion de llamada de las busquedas por ruta: (ruta completa en el bufer temporal, datos). Devuelve 0 para parar la busqueda. Las del EXE (0x8032D0 y 0x803340) se llaman por direccion fija.
+using ImagePathCallbackR30A = void*(__cdecl*)(char* path, void* data);
+constexpr uint32 kImageOpenCallbackAddress = 0x8032D0;       // abre el archivo: (ruta, {lectura, resultado}); si existe llama a lectura(ruta) y guarda la imagen
+constexpr uint32 kImageExtensionCallbackAddress = 0x803340;  // prueba cada extension registrada: (ruta, &extension encontrada)
+} // namespace
+
+// 0x803210 (lote R30A, sin validar; 179 bytes; cdecl, (tamano); nombre inferido): garantiza un bufer temporal de al menos `tamano` bytes en el modulo de imagenes (+0x210 puntero, +0x214 capacidad).
+// Si tamano (con signo) <= capacidad devuelve el bufer actual. Si no: RwRealloc (RwEngineInstance + 0x13C) del bufer, o RwMalloc (+0x134) si no hay, con la pista 0x1040018; sin memoria emite
+// RwError { 1, _rwerror(0x80000013, tamano) } y devuelve NULL; si no guarda puntero y capacidad y devuelve el bufer.
+void* _rwImageScratchBufferReserve(RwInt32 size) {
+    if (size > ImageModuleR30A()->scratchSize) {
+        void* const current = ImageModuleR30A()->scratchBuffer;
+        void* const grown = (current != nullptr) ? RwRealloc(current, static_cast<size_t>(size), 0x1040018) : RwMalloc(static_cast<size_t>(size), 0x1040018);
+        if (grown == nullptr) {
+            RwRaiseError(static_cast<RwInt32>(0x80000013), size);
+            return nullptr;
+        }
+        ImageModuleR30A()->scratchBuffer = grown;
+        ImageModuleR30A()->scratchSize = size;
+    }
+    return ImageModuleR30A()->scratchBuffer;
+}
+
+// 0x8030C0 (lote R30A, sin validar; 333 bytes; cdecl, (nombre, tamano extra, devolucion, datos); nombre inferido): recorre las rutas de busqueda del modulo (+0x04, separadas por ';') probando `ruta + nombre`.
+// Con un nombre absoluto (0x80E9B0: empieza por '\' o por letra y ':') o sin rutas (NULL o cadena vacia) usa solo el nombre. Para cada ruta pide un bufer de strlen(nombre) + longitud de la ruta + extra
+// (0x803210; NULL -> devuelve 0), copia la ruta (sin anadir separador), le concatena el nombre con rwstrcpy y llama a devolucion(bufer, datos): 0 -> para y devuelve el nombre; distinto de 0 -> sigue con la
+// ruta siguiente. Sin rutas pide strlen(nombre) + extra, copia el nombre y llama a devolucion una vez (resultado ignorado). Devuelve el nombre. rwstrchr se llama dos veces seguidas como en el EXE.
+const RwChar* _rwImageForAllPaths(const RwChar* name, RwInt32 extra, ImagePathCallbackR30A callback, void* data) {
+    const char* paths = ImageModuleR30A()->searchPath;
+    const bool absolute = reinterpret_cast<RwInt32(__cdecl*)(const RwChar*)>(0x80E9B0)(name) != 0;
+    if (!absolute && paths != nullptr && *paths != '\0') {
+        while (*paths != '\0') {
+            (void)rwstrchr(paths, ';');
+            const char* const separator = rwstrchr(paths, ';');
+            RwInt32 prefixLength;
+            const char* next;
+            if (separator != nullptr) {
+                prefixLength = static_cast<RwInt32>(separator - paths);
+                next = separator + 1;
+            } else {
+                prefixLength = static_cast<RwInt32>(rwstrlen(paths));
+                next = nullptr;
+            }
+            const RwInt32 total = static_cast<RwInt32>(rwstrlen(name)) + prefixLength + extra;
+            char* const buffer = static_cast<char*>(_rwImageScratchBufferReserve(total));
+            if (buffer == nullptr) {
+                return nullptr;
+            }
+            memcpy(buffer, paths, static_cast<size_t>(prefixLength));
+            rwstrcpy(buffer + prefixLength, name);
+            if (callback(buffer, data) == nullptr) {
+                return name;
+            }
+            paths = next;
+            if (paths == nullptr) {
+                return name;
+            }
+        }
+        return name;
+    }
+    const RwInt32 total = static_cast<RwInt32>(rwstrlen(name)) + extra;
+    char* const buffer = static_cast<char*>(_rwImageScratchBufferReserve(total));
+    if (buffer == nullptr) {
+        return nullptr;
+    }
+    rwstrcpy(buffer, name);
+    callback(buffer, data);
+    return name;
+}
+
+// 0x803310 (lote R30A, sin validar; 39 bytes; cdecl, (nombre); nombre inferido): busca la extension registrada con la que existe el archivo `nombre + extension` en alguna de las rutas: llama a
+// _rwImageForAllPaths(nombre, 0x14, 0x803340, &resultado) con resultado = NULL y lo devuelve (NULL si ninguna extension existe; es el puntero a la cadena del nodo del formato).
+const RwChar* _rwImageFindFormatExtension(const RwChar* name) {
+    const RwChar* found = nullptr;
+    _rwImageForAllPaths(name, 0x14, reinterpret_cast<ImagePathCallbackR30A>(kImageExtensionCallbackAddress), &found);
+    return found;
+}
+
+// 0x803790 (lote R30A, sin validar; 162 bytes; cdecl, (destino, origen); nombre inferido): copia paleta y pixeles entre imagenes de la misma profundidad. Si ambas tienen paleta (+0x18) y la profundidad del
+// origen es <= 8 (con signo) copia (1 << profundidad) * 4 bytes de paleta. Despues copia alto (destino, con signo; <= 0 nada) filas de ((profundidad del destino + 7) >> 3) * ancho bytes; avanza el destino
+// con SU stride (+0x10) y el origen con el stride del origen. Devuelve TRUE.
+RwBool _rwImageCopySameDepth(RwImage* destination, const RwImage* source) {
+    if (destination->palette != nullptr && source->palette != nullptr && source->depth <= 8) {
+        memcpy(destination->palette, source->palette, static_cast<size_t>((1 << (source->depth & 0x1F)) << 2));
+    }
+    const RwInt32 rowBytes = ((destination->depth + 7) >> 3) * destination->width;
+    const RwUInt8* sourceRow = source->cpPixels;
+    RwUInt8* destinationRow = destination->cpPixels;
+    for (RwInt32 row = 0; row < destination->height; ++row) {
+        memcpy(destinationRow, sourceRow, static_cast<size_t>(static_cast<uint32>(rowBytes)));
+        destinationRow += destination->stride;
+        sourceRow += source->stride;
+    }
+    return TRUE;
+}
+
+// 0x803840 (lote R30A, sin validar; 271 bytes; cdecl, (destino, origen); nombre inferido): conversion de profundidad (clave = profundidad origen << 8 | profundidad destino). 0x404, 0x808 y 0x2020: no hace nada
+// (TRUE). 0x408 (4 -> 8): copia `ancho` bytes por fila. 0x420 y 0x820 (4 u 8 -> 32): cada pixel del destino = paleta del origen[indice] (dword); las filas con ancho <= 0 solo avanzan. Alto con signo (<= 0 no hace
+// nada); el destino avanza con su stride y el origen con el suyo. Otra clave: RwError { 1, _rwerror(0x80000009) } y FALSE. No toca las banderas.
+RwBool _rwImageCopyConvertDepth(RwImage* destination, const RwImage* source) {
+    const RwInt32 key = (source->depth << 8) | destination->depth;
+    const RwInt32 width = destination->width;
+    const RwUInt8* sourceRow = source->cpPixels;
+    RwUInt8* destinationRow = destination->cpPixels;
+    const RwRGBA* palette = source->palette;
+    switch (key) {
+    case 0x404:
+    case 0x808:
+    case 0x2020:
+        return TRUE;
+    case 0x408:
+        for (RwInt32 row = 0; row < destination->height; ++row) {
+            memcpy(destinationRow, sourceRow, static_cast<size_t>(static_cast<uint32>(width)));
+            sourceRow += source->stride;
+            destinationRow += destination->stride;
+        }
+        return TRUE;
+    case 0x420:
+    case 0x820:
+        for (RwInt32 row = 0; row < destination->height; ++row) {
+            for (RwInt32 x = 0; x < width; ++x) {
+                reinterpret_cast<uint32*>(destinationRow)[x] = reinterpret_cast<const uint32*>(palette)[sourceRow[x]];
+            }
+            sourceRow += source->stride;
+            destinationRow += destination->stride;
+        }
+        return TRUE;
+    default:
+        RwRaiseError(static_cast<RwInt32>(0x80000009));
+        return FALSE;
+    }
+}
+
 // 0x8026E0 (lote R29A, sin validar; 87 bytes; era una envoltura; cdecl, (ancho, alto, profundidad); `RwImageCreate` del SDK): RwFreeListAlloc (RwEngineInstance + 0x144) de la lista de imagenes con la pista 0x30018;
 // sin memoria devuelve NULL. Escribe ancho (+4), alto (+8), profundidad (+0xC) y pone a cero cpPixels (+0x14), palette (+0x18) y flags (+0) (el stride +0x10 no se toca) y llama a
 // _rwPluginRegistryInitObject(0x8E2670, imagen) (0x8086E0). Devuelve la imagen.
@@ -1534,8 +1710,85 @@ RwImage* RwImageFreePixels(RwImage* image) {
     return image;
 }
 
+// 0x802AF0 (lote R30A, sin validar; 936 bytes; era una envoltura; cdecl, (imagen, mascara); `RwImageApplyMask` del SDK): copia el alfa de la mascara al alfa (byte 3) de cada pixel de la imagen. Con otras
+// dimensiones: RwError { 1, _rwerror(0x8000000A) } y NULL. Profundidad de la imagen distinta de 4, 8 y 32: RwError { 1, _rwerror(0x80000009) } y NULL. Con 4 u 8 bits primero la pasa a 32: crea una imagen
+// temporal (lista libre, pista 0x30018, InitObject 0x8E2670; sin memoria devuelve NULL SIN error) de la misma profundidad y la reserva (RwImageAllocatePixels; si falla la destruye sin mas y devuelve NULL),
+// copia imagen -> temporal con el copiador de misma profundidad (0x803790; bit 1 de las banderas se hereda de la imagen), libera los pixeles de la imagen (si banderas & 1), la pasa a profundidad 32 y la
+// reserva (el resultado se ignora), convierte temporal -> imagen (0x803840; el bit 1 pasa de la temporal a la imagen) y destruye la temporal (RwFree de sus pixeles, DeInitObject, RwFreeListFree).
+// El EXE tiene dos ramas muertas en este camino (profundidades iguales con el 32 de la imagen; resultado 0 de los copiadores, que acabaria dereferenciando NULL): aqui no se reproducen.
+// Despues, por fila (alto de la imagen, con signo): mascara de 4 u 8 bits -> alfa del pixel = alfa (+3) de la entrada de la paleta de la mascara indicada por el pixel; mascara de 32 bits -> alfa del pixel =
+// alfa del pixel de la mascara; otra profundidad de mascara no toca nada; avanza el stride de la mascara y el de la imagen. Devuelve la imagen.
 RwImage* RwImageApplyMask(RwImage* image, const RwImage* mask) {
-    return ((RwImage*(__cdecl *)(RwImage*, const RwImage*))0x802AF0)(image, mask);
+    const RwInt32 width = image->width;
+    if (width != mask->width || image->height != mask->height) {
+        RwRaiseError(static_cast<RwInt32>(0x8000000A));
+        return nullptr;
+    }
+    const RwInt32 height = image->height;
+    const RwInt32 depth = image->depth;
+    if (depth == 4 || depth == 8) {
+        RwImage* const temporary = static_cast<RwImage*>(RwFreeListAlloc(ImageFreeListR29A(), 0x30018));
+        if (temporary == nullptr) {
+            return nullptr;
+        }
+        temporary->width = width;
+        temporary->height = height;
+        temporary->depth = depth;
+        temporary->cpPixels = nullptr;
+        temporary->palette = nullptr;
+        temporary->flags = 0;
+        _rwPluginRegistryInitObject(&ImageTKListR29A, temporary);
+        if (RwImageAllocatePixels(temporary) == nullptr) {
+            if (temporary->flags & 1) {
+                RwFree(temporary->cpPixels);
+                temporary->cpPixels = nullptr;
+                temporary->palette = nullptr;
+                temporary->flags &= ~1;
+            }
+            _rwPluginRegistryDeInitObject(&ImageTKListR29A, temporary);
+            RwFreeListFree(ImageFreeListR29A(), temporary);
+            return nullptr;
+        }
+        _rwImageCopySameDepth(temporary, image);
+        temporary->flags = (temporary->flags & ~2) | (image->flags & 2);
+        if (image->flags & 1) {
+            RwFree(image->cpPixels);
+            image->cpPixels = nullptr;
+            image->palette = nullptr;
+            image->flags &= ~1;
+        }
+        image->depth = 32;
+        RwImageAllocatePixels(image);
+        _rwImageCopyConvertDepth(image, temporary);
+        image->flags = (image->flags & ~2) | (temporary->flags & 2);
+        RwFree(temporary->cpPixels);
+        temporary->cpPixels = nullptr;
+        temporary->palette = nullptr;
+        temporary->flags &= ~1;
+        _rwPluginRegistryDeInitObject(&ImageTKListR29A, temporary);
+        RwFreeListFree(ImageFreeListR29A(), temporary);
+    } else if (depth != 32) {
+        RwRaiseError(static_cast<RwInt32>(0x80000009));
+        return nullptr;
+    }
+    RwUInt8* imageRow = image->cpPixels;
+    const RwUInt8* maskRow = mask->cpPixels;
+    const RwRGBA* const maskPalette = mask->palette;
+    for (RwInt32 row = 0; row < image->height; ++row) {
+        const RwInt32 maskDepth = mask->depth;
+        if (maskDepth == 4 || maskDepth == 8) {
+            for (RwInt32 x = 0; x < image->width; ++x) {
+                imageRow[x * 4 + 3] = maskPalette[maskRow[x]].alpha;
+            }
+        } else if (maskDepth == 32) {
+            for (RwInt32 x = 0; x < image->width; ++x) {
+                imageRow[x * 4 + 3] = maskRow[x * 4 + 3];
+            }
+        }
+        maskRow += mask->stride;
+        imageRow += image->stride;
+    }
+    return image;
 }
 
 // 0x802A20 (lote R29A, sin validar; 198 bytes; era una envoltura; cdecl, (imagen); `RwImageMakeMask` del SDK): pone el alfa (byte 3) de cada color a max(R, G, B). Profundidad 4 u 8: recorre las (1 << profundidad)
@@ -1569,24 +1822,127 @@ RwImage* RwImageMakeMask(RwImage* image) {
     return image;
 }
 
+// 0x8035C0 (lote R30A, sin validar; 375 bytes; era una envoltura; cdecl, (nombre, nombre de la mascara); `RwImageReadMaskedImage` del SDK): RwImageRead(nombre) (0x802FD0; NULL -> NULL). Sin nombre de mascara
+// (NULL o cadena vacia) devuelve la imagen. Si no lee la mascara con RwImageRead: si falla destruye la imagen (flags & 1 libera pixeles, DeInitObject, RwFreeListFree: es RwImageDestroy) y devuelve NULL;
+// RwImageMakeMask(mascara) (0x802A20) y, si da distinto de 0, RwImageApplyMask(imagen, mascara) (0x802AF0): con exito destruye la mascara y devuelve la imagen; si alguna falla destruye la imagen y despues la
+// mascara y devuelve NULL.
 RwImage* RwImageReadMaskedImage(const RwChar* imageName, const RwChar* maskname) {
-    return ((RwImage*(__cdecl *)(const RwChar*, const RwChar*))0x8035C0)(imageName, maskname);
+    RwImage* const image = RwImageRead(imageName);
+    if (image == nullptr) {
+        return nullptr;
+    }
+    if (maskname == nullptr || maskname[0] == '\0') {
+        return image;
+    }
+    RwImage* const mask = RwImageRead(maskname);
+    if (mask == nullptr) {
+        RwImageDestroy(image);
+        return nullptr;
+    }
+    if (RwImageMakeMask(mask) != nullptr && RwImageApplyMask(image, mask) != nullptr) {
+        RwImageDestroy(mask);
+        return image;
+    }
+    RwImageDestroy(image);
+    RwImageDestroy(mask);
+    return nullptr;
 }
 
+// 0x802FD0 (lote R30A, sin validar; 240 bytes; era una envoltura; cdecl, (nombre); `RwImageRead` del SDK): se queda con la parte tras la ultima ':' , '/' y '\' del nombre (rwstrrchr, cada una sobre el resultado
+// de la anterior) y busca en ella la ultima '.' (sin punto -> NULL). Recorre la lista de formatos del modulo (+0x21C): el nodo coincide si rwstrcmp(extension, punto) o rwstrcmp(extension alternativa +0x14, punto)
+// dan 0; sin funcion de lectura (+0x28) -> NULL. Con una coincidencia llama a _rwImageForAllPaths(nombre COMPLETO, 5, 0x8032D0, &{lectura, resultado}) y devuelve el resultado (la imagen leida por el primer
+// camino donde el archivo existe y la lectura da una imagen, o NULL). Sin coincidencia -> NULL.
 RwImage* RwImageRead(const RwChar* imageName) {
-    return ((RwImage*(__cdecl *)(const RwChar*))0x802FD0)(imageName);
+    const RwChar* start = imageName;
+    if (const RwChar* const colon = rwstrrchr(imageName, ':')) {
+        start = colon;
+    }
+    if (const RwChar* const slash = rwstrrchr(start, '/')) {
+        start = slash;
+    }
+    if (const RwChar* const backslash = rwstrrchr(start, '\\')) {
+        start = backslash;
+    }
+    const RwChar* const dot = rwstrrchr(start, '.');
+    if (dot == nullptr) {
+        return nullptr;
+    }
+    for (ImageFormatNodeR30A* format = ImageModuleR30A()->formats; format != nullptr; format = format->next) {
+        if (rwstrcmp(format->extension, dot) == 0 || rwstrcmp(format->alternate, dot) == 0) {
+            if (format->read == nullptr) {
+                return nullptr;
+            }
+            struct {
+                RwImageCallBackRead read;
+                RwImage*            result;
+            } context = { format->read, nullptr };
+            _rwImageForAllPaths(imageName, 5, reinterpret_cast<ImagePathCallbackR30A>(kImageOpenCallbackAddress), &context);
+            return context.result;
+        }
+    }
+    return nullptr;
 }
 
 const RwChar* RwImageSetPath(const RwChar* path) {
     return ((const RwChar*(__cdecl *)(const RwChar*))0x802EA0)(path);
 }
 
+// 0x803FE0 (lote R30A, sin validar; 325 bytes; era una envoltura; cdecl, (gamma float); `RwImageSetGamma` del SDK): guarda gamma en el modulo de imagenes (+0x20C) y rellena las dos tablas de 256 bytes:
+// tabla (+0x0C)[0] = tabla inversa (+0x10C)[0] = 0 y, para i = 1..255, t = float(i * (1 / 255)) (0x859A3C; fild + fmul y guardado como float), tabla[i] = byte de truncar(float(pow(t, float(1.0f / gamma)) * 255.0f
+// + 0.5f)) e inversa[i] = lo mismo con pow(t, gamma) (pow del CRT del EXE 0x8220F0, cdecl con dos double; 255.0f en 0x859AAC y 0.5f en 0x858B8C; la x87 a 24 bits, el truncado con fistp en modo truncar). El
+// calculo esta en ImageGammaTablesCpp (X87Math.cpp). Devuelve TRUE.
 RwBool RwImageSetGamma(RwReal gammaValue) {
-    return ((RwBool(__cdecl *)(RwReal))0x803FE0)(gammaValue);
+    ImageModuleGlobalsR30A* const module = ImageModuleR30A();
+    module->gamma = gammaValue;
+    ImageGammaTablesCpp(gammaValue, module->gammaTable, module->gammaInverse, reinterpret_cast<double(__cdecl*)(double, double)>(0x8220F0));
+    return TRUE;
 }
 
+// 0x803E30 (lote R30A, sin validar; 395 bytes; era una envoltura; cdecl, (imagen); `RwImageGammaCorrect` del SDK): aplica la tabla de gamma del modulo (+0x0C) a R, G y B (el alfa no cambia). Profundidad 4 u 8:
+// recorre (1 << profundidad) entradas de la paleta (+0x18; NULL -> RwError { 1, _rwerror(0x80000016) } y NULL). Profundidad 32: pixeles (+0x14; NULL -> el mismo error y NULL), alto filas (con signo; <= 0 no hace
+// nada) de ancho pixeles (el contador se compara solo con 0: un ancho negativo daria vueltas como en el EXE), avanzando stride (+0x10) por fila. Otra profundidad: RwError { 1, _rwerror(0x80000008) } y NULL.
+// Si acaba pone el bit 1 de las banderas (+0) y devuelve la imagen.
 RwImage* RwImageGammaCorrect(RwImage* image) {
-    return ((RwImage*(__cdecl *)(RwImage*))0x803E30)(image);
+    const RwInt32 depth = image->depth;
+    if (depth == 4 || depth == 8) {
+        RwUInt8* color = reinterpret_cast<RwUInt8*>(image->palette);
+        const RwInt32 entries = 1 << (depth & 0x1F);
+        if (color == nullptr) {
+            RwRaiseError(static_cast<RwInt32>(0x80000016));
+            return nullptr;
+        }
+        const uint8* const table = ImageModuleR30A()->gammaTable;
+        for (RwInt32 remaining = entries; remaining != 0; --remaining, color += 4) {
+            color[0] = table[color[0]];
+            color[1] = table[color[1]];
+            color[2] = table[color[2]];
+        }
+    } else if (depth == 32) {
+        RwUInt8* row = image->cpPixels;
+        const RwUInt32 width = static_cast<RwUInt32>(image->width);
+        const RwInt32 height = image->height;
+        if (row == nullptr) {
+            RwRaiseError(static_cast<RwInt32>(0x80000016));
+            return nullptr;
+        }
+        if (height > 0) {
+            const uint8* const table = ImageModuleR30A()->gammaTable;
+            for (RwInt32 remainingRows = height; remainingRows != 0; --remainingRows) {
+                RwUInt8* color = row;
+                for (RwUInt32 remaining = width; remaining != 0; --remaining, color += 4) {
+                    color[0] = table[color[0]];
+                    color[1] = table[color[1]];
+                    color[2] = table[color[2]];
+                }
+                row += image->stride;
+            }
+        }
+    } else {
+        RwRaiseError(static_cast<RwInt32>(0x80000008));
+        return nullptr;
+    }
+    image->flags |= 2;
+    return image;
 }
 
 RwBool RwPalQuantInit(RwPalQuant* pq) {
@@ -3772,13 +4128,44 @@ RwImage* RwImageCreateResample(const RwImage* srcImage, RwInt32 width, RwInt32 h
     return ((RwImage*(__cdecl *)(const RwImage*, RwInt32, RwInt32))0x80CD10)(srcImage, width, height);
 }
 
-RwImage* RwImageSetFromRaster(RwImage* image, RwRaster* raster) {
-    return ((RwImage*(__cdecl *)(RwImage*, RwRaster*))0x804250)(image, raster);
+// 0x803950 (lote R30A, sin validar; 468 bytes; era una llamada por direccion fija; cdecl, (destino, origen); `RwImageCopy` del SDK): copia los pixeles de origen en destino (mismo tamano; el EXE no lo comprueba).
+// Misma profundidad: es el cuerpo de 0x803790 (paleta si ambas la tienen y profundidad <= 8, y filas de ((profundidad + 7) >> 3) * ancho bytes con el stride de cada una). Distinta: es el de 0x803840 (clave =
+// profundidad origen << 8 | profundidad destino: 0x404/0x808/0x2020 nada, 0x408 filas de `ancho` bytes, 0x420/0x820 expansion con la paleta del origen). Otra clave: RwError { 1, _rwerror(0x80000009) }; el EXE
+// sigue con destino = NULL y dereferencia NULL (cuelgue): aqui devuelve NULL sin tocar nada. Al acabar: banderas del destino = (banderas & ~2) | (banderas del origen & 2). Devuelve el destino.
+RwImage* RwImageCopy(RwImage* destImage, const RwImage* sourceImage) {
+    if (destImage->depth == sourceImage->depth) {
+        _rwImageCopySameDepth(destImage, sourceImage);
+    } else if (_rwImageCopyConvertDepth(destImage, sourceImage) == FALSE) {
+        return nullptr;
+    }
+    destImage->flags = (destImage->flags & ~2) | (sourceImage->flags & 2);
+    return destImage;
 }
 
-RwRaster* RwRasterSetFromImage(RwRaster* raster, RwImage* image) {
-    return ((RwRaster*(__cdecl *)(RwRaster*, RwImage*))0x804290)(raster, image);
+// 0x804250 (lote R30A, sin validar; 51 bytes; era una llamada por direccion fija; cdecl, (imagen, raster); `RwImageSetFromRaster` del SDK): stdFunc[rwSTANDARDIMAGEGETRASTER] (RwEngineInstance + 0x60) con
+// (imagen, raster, 0); si da 0 devuelve NULL. Si privateFlags del raster (+0x22) & 1 pone el bit 1 de las banderas de la imagen. Devuelve la imagen.
+RwImage* RwImageSetFromRaster(RwImage* image, RwRaster* raster) {
+    if (!RwEngineInstance->stdFunc[rwSTANDARDIMAGEGETRASTER](image, raster, 0)) {
+        return nullptr;
+    }
+    if (raster->privateFlags & 1) {
+        image->flags |= 2;
+    }
+    return image;
 }
+
+// 0x804290 (lote R30A, sin validar; 48 bytes; era una llamada por direccion fija; cdecl, (raster, imagen); `RwRasterSetFromImage` del SDK): stdFunc[rwSTANDARDRASTERSETIMAGE] (+0x64) con (raster, imagen, 0); si da
+// 0 devuelve NULL. Si el bit 1 de las banderas de la imagen esta puesto pone el bit 0 de privateFlags del raster (+0x22). Devuelve el raster.
+RwRaster* RwRasterSetFromImage(RwRaster* raster, RwImage* image) {
+    if (!RwEngineInstance->stdFunc[rwSTANDARDRASTERSETIMAGE](raster, image, 0)) {
+        return nullptr;
+    }
+    if (image->flags & 2) {
+        raster->privateFlags |= 1;
+    }
+    return raster;
+}
+
 
 RwRaster* RwRasterRead(const RwChar* filename) {
     return ((RwRaster*(__cdecl *)(const RwChar*))0x8043F0)(filename);
@@ -3788,8 +4175,20 @@ RwRaster* RwRasterReadMaskedRaster(const RwChar* filename, const RwChar* masknam
     return ((RwRaster*(__cdecl *)(const RwChar*, const RwChar*))0x8044E0)(filename, maskname);
 }
 
+// 0x8042C0 (lote R30A, sin validar; 107 bytes; era una llamada por direccion fija; cdecl, (imagen, tipo de raster, &ancho, &alto, &profundidad, &formato); `RwImageFindRasterFormat` del SDK): stdFunc[
+// rwSTANDARDIMAGEFINDRASTERFORMAT] (+0x6C) con (&raster temporal de 0x34 bytes sin inicializar en la pila, imagen, tipo); si da 0 devuelve NULL. Si no escribe ancho (+0xC), alto (+0x10) y profundidad (+0x14)
+// del temporal y formato = (cFormat (+0x23) << 8) | cType (+0x20) y devuelve la imagen.
 RwImage* RwImageFindRasterFormat(RwImage* ipImage, RwInt32 nRasterType, RwInt32* npWidth, RwInt32* npHeight, RwInt32* npDepth, RwInt32* npFormat) {
-    return ((RwImage*(__cdecl *)(RwImage*, RwInt32, RwInt32*, RwInt32*, RwInt32*, RwInt32*))0x8042C0)(ipImage, nRasterType, npWidth, npHeight, npDepth, npFormat);
+    static_assert(sizeof(RwRaster) == 0x34 && offsetof(RwRaster, cType) == 0x20 && offsetof(RwRaster, cFormat) == 0x23 && offsetof(RwRaster, privateFlags) == 0x22);
+    RwRaster raster;
+    if (!RwEngineInstance->stdFunc[rwSTANDARDIMAGEFINDRASTERFORMAT](&raster, ipImage, nRasterType)) {
+        return nullptr;
+    }
+    *npFormat = (static_cast<RwInt32>(raster.cFormat) << 8) | static_cast<RwInt32>(raster.cType);
+    *npWidth = raster.width;
+    *npHeight = raster.height;
+    *npDepth = raster.depth;
+    return ipImage;
 }
 
 // Lote R24A (sin validar): RwFrame (bafframe.c). Datos del EXE: lista libre de marcos = [RwEngineInstance + [0xC9796C]] (pista 0x3000E); registro de plugins de RwFrame 0x8E2270; lista de marcos sucios del motor
@@ -4246,17 +4645,103 @@ RwInt32 RwTextureSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlw
     return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x804580)(pluginID, alwaysCB);
 }
 
+// 0x8045A0 (lote R30A, sin validar; 54 bytes; era una envoltura; cdecl, (textura); `RwTextureStreamGetSize` del SDK): tamano en el flujo = (_rwStringStreamGetSize(nombre +0x10) + 0x1C) +
+// _rwStringStreamGetSize(mascara +0x30) + 0xC + _rwPluginRegistryGetSize(registro 0x8E23CC, textura) + 0xC, sumado en ese orden.
 RwUInt32 RwTextureStreamGetSize(const RwTexture* texture) {
-    return ((RwUInt32(__cdecl *)(const RwTexture*))0x8045A0)(texture);
+    RwUInt32 size = _rwStringStreamGetSize(texture->name) + 0x1C;
+    size = size + _rwStringStreamGetSize(texture->mask) + 0xC;
+    return static_cast<RwUInt32>(_rwPluginRegistryGetSize(&TextureTKList, texture)) + size + 0xC;
 }
 
+
+// 0x8046E0 (lote R30A, sin validar; 511 bytes; era una envoltura; cdecl, (flujo); `RwTextureStreamRead` del SDK): RwStreamFindChunk(flujo, 1, &longitud, &version) (0x7ED2D0; FALSE -> NULL sin error); version
+// < 0x34000 o > 0x36003 -> RwError { 1, _rwerror(0x80000004) } y NULL. Lee `longitud` bytes a un dword puesto a 0 (RwStreamRead 0x7EC9D0; otra cantidad -> NULL). Si el nibble alto del byte 1 (direccionamiento V) es 0
+// copia el U (bits 8..11) a los bits 12..15. Guarda mipmapping (0x7F3550) y automipmapping (0x7F3580) y, segun el filtro (byte bajo 3..6 = con mipmaps) pone mipmapping 1 y automipmapping = (byte 2 & 1) ? 0 : 1, o
+// ambos a 0. Lee nombre y mascara con _rwStringStreamFindAndRead (0x80A510; bufer de 0x80 bytes cada uno; NULL -> restaura y NULL), RwTextureRead(nombre, mascara) (0x7F3AC0; NULL -> _rwPluginRegistrySkipDataChunks
+// (0x808C10) y restaura). Con refCount (+0x54) == 1 pone filterAddressing (+0x50) = dword & 0xFFFF. Restaura mipmapping (0x7F3530) y automipmapping (0x7F3560) y devuelve la textura si
+// _rwPluginRegistryReadDataChunks (0x808980) da distinto de NULL (si no NULL).
 RwTexture* RwTextureStreamRead(RwStream* stream) {
-    return ((RwTexture*(__cdecl *)(RwStream*))0x8046E0)(stream);
+    RwUInt32 length = 0;
+    RwUInt32 version = 0;
+    if (!RwStreamFindChunk(stream, 1, &length, &version)) {
+        return nullptr;
+    }
+    if (version < 0x34000 || version > 0x36003) {
+        RwRaiseError(static_cast<RwInt32>(0x80000004));
+        return nullptr;
+    }
+    RwUInt32 flags = 0;
+    if (RwStreamRead(stream, &flags, length) != length) {
+        return nullptr;
+    }
+    const RwUInt32 filter = flags & 0xFF;
+    if ((flags & 0xF000) == 0) {
+        flags |= (flags & 0xF00) << 4;
+    }
+    const RwUInt32 mipFlags = (flags >> 16) & 0xFF;
+    const RwBool savedMipmapping = RwTextureGetMipmapping();
+    const RwBool savedAutoMipmapping = RwTextureGetAutoMipmapping();
+    if (filter == 3 || filter == 4 || filter == 5 || filter == 6) {
+        RwTextureSetMipmapping(1);
+        RwTextureSetAutoMipmapping((mipFlags & 1) ? 0 : 1);
+    } else {
+        RwTextureSetMipmapping(0);
+        RwTextureSetAutoMipmapping(0);
+    }
+    RwChar name[0x80];
+    RwChar mask[0x80];
+    if (_rwStringStreamFindAndRead(name, stream) == nullptr) {
+        RwTextureSetMipmapping(savedMipmapping);
+        RwTextureSetAutoMipmapping(savedAutoMipmapping);
+        return nullptr;
+    }
+    if (_rwStringStreamFindAndRead(mask, stream) == nullptr) {
+        RwTextureSetMipmapping(savedMipmapping);
+        RwTextureSetAutoMipmapping(savedAutoMipmapping);
+        return nullptr;
+    }
+    RwTexture* const texture = RwTextureRead(name, mask);
+    if (texture == nullptr) {
+        _rwPluginRegistrySkipDataChunks(&TextureTKList, stream);
+        RwTextureSetMipmapping(savedMipmapping);
+        RwTextureSetAutoMipmapping(savedAutoMipmapping);
+        return nullptr;
+    }
+    if (texture->refCount == 1) {
+        texture->filterAddressing = flags & 0xFFFF;
+    }
+    RwTextureSetMipmapping(savedMipmapping);
+    RwTextureSetAutoMipmapping(savedAutoMipmapping);
+    return _rwPluginRegistryReadDataChunks(&TextureTKList, stream, texture) != nullptr ? texture : nullptr;
 }
 
+// 0x8045E0 (lote R30A, sin validar; 250 bytes; era una envoltura; cdecl, (textura, flujo); `RwTextureStreamWrite` del SDK): calcula el tamano como 0x8045A0 y escribe, con _rwStreamWriteVersionedChunkHeader
+// (0x7ED270) y version 0x36003 / build 0xFFFF, la cabecera tipo 6 con ese tamano y la de tipo 1 (struct) de 4 bytes (si alguna da NULL devuelve NULL). Escribe un dword (RwStreamWrite 0x7ECB30) = ((raster != NULL
+// y su cFormat (+0x23) sin el bit 0x10 (mipmaps automaticos)) ? 1 : 0) << 16 | (filterAddressing (+0x50) & 0xFFFF); despues el nombre y la mascara con _rwStringStreamWrite (0x80A4A0) y por ultimo
+// _rwPluginRegistryWriteDataChunks (0x808B40) del registro de texturas. Cualquier resultado 0 -> NULL; si todo va bien devuelve la textura.
 const RwTexture* RwTextureStreamWrite(const RwTexture* texture, RwStream* stream) {
-    return ((const RwTexture*(__cdecl *)(const RwTexture*, RwStream*))0x8045E0)(texture, stream);
+    const RwInt32 size = static_cast<RwInt32>(RwTextureStreamGetSize(texture));
+    if (_rwStreamWriteVersionedChunkHeader(stream, 6, size, 0x36003, 0xFFFF) == nullptr) {
+        return nullptr;
+    }
+    if (_rwStreamWriteVersionedChunkHeader(stream, 1, 4, 0x36003, 0xFFFF) == nullptr) {
+        return nullptr;
+    }
+    const RwRaster* const raster = texture->raster;
+    const RwUInt32 hasMipmaps = (raster != nullptr && (raster->cFormat & 0x10) == 0) ? 1 : 0;
+    RwUInt32 flags = ((hasMipmaps & 0xFF) << 16) | (texture->filterAddressing & 0xFFFF);
+    if (RwStreamWrite(stream, &flags, 4) == nullptr) {
+        return nullptr;
+    }
+    if (_rwStringStreamWrite(texture->name, stream) == nullptr) {
+        return nullptr;
+    }
+    if (_rwStringStreamWrite(texture->mask, stream) == nullptr) {
+        return nullptr;
+    }
+    return _rwPluginRegistryWriteDataChunks(&TextureTKList, stream, texture) != nullptr ? texture : nullptr;
 }
+
 
 RwInt32 RwTexDictionaryRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
     return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkReadCallBack, RwPluginDataChunkWriteCallBack, RwPluginDataChunkGetSizeCallBack))0x8048E0)(pluginID, readCB, writeCB, getSizeCB);
@@ -4635,12 +5120,12 @@ void CopyStringChecked(char* destination, const char* source, uint32 size) {
 }
 
 constexpr uint32 kTextureReadDefaultMaskSource = 0xC97904; // cadena de 32 bytes que el EXE copia como mascara cuando no hay nombre de mascara
-// 0x803310 (sin reconstruir): devuelve la extension (cadena) que se anade al nombre de una imagen segun el formato de archivo registrado, o NULL. 0x803950: RwImageCopy(destino, origen) (sin reconstruir).
+// 0x803310 (lote R30A): _rwImageFindFormatExtension devuelve la extension (cadena) que se anade al nombre de una imagen segun el formato de archivo registrado, o NULL. 0x803950: RwImageCopy(destino, origen).
 const char* ImageFileSuffix(const char* name) {
-    return reinterpret_cast<const char*(__cdecl*)(const char*)>(0x803310)(name);
+    return _rwImageFindFormatExtension(name);
 }
 RwImage* RwImageCopyByAddress(RwImage* destination, const RwImage* source) {
-    return reinterpret_cast<RwImage*(__cdecl*)(RwImage*, const RwImage*)>(0x803950)(destination, source);
+    return RwImageCopy(destination, source);
 }
 } // namespace
 
@@ -8178,4 +8663,30 @@ void RwD3D9InjectHooksR29A() {
     RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelA8L8, 0x800BD0);
     RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelL16, 0x800C20);
     RH_ScopedGlobalInstall(_rwD3D9RasterSetFromImageIndexed, 0x800C80);
+}
+
+// Lote R30A (sin validar): ganchos del resto de las imagenes de RwCore (baimage.c, 0x802AF0..0x803FE0), RwImageSetFromRaster y compania (0x804250..0x8042C0), los flujos de textura (0x8045A0..0x8046E0)
+// y el cierre del modulo de tuberias Rx (0x804F60).
+void RwCoreInjectHooksR30A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RwImageApplyMask, 0x802AF0);
+    RH_ScopedGlobalInstall(RwImageRead, 0x802FD0);
+    RH_ScopedGlobalInstall(_rwImageForAllPaths, 0x8030C0);
+    RH_ScopedGlobalInstall(_rwImageScratchBufferReserve, 0x803210);
+    RH_ScopedGlobalInstall(_rwImageFindFormatExtension, 0x803310);
+    RH_ScopedGlobalInstall(RwImageReadMaskedImage, 0x8035C0);
+    RH_ScopedGlobalInstall(_rwImageCopySameDepth, 0x803790);
+    RH_ScopedGlobalInstall(_rwImageCopyConvertDepth, 0x803840);
+    RH_ScopedGlobalInstall(RwImageCopy, 0x803950);
+    RH_ScopedGlobalInstall(RwImageGammaCorrect, 0x803E30);
+    RH_ScopedGlobalInstall(RwImageSetGamma, 0x803FE0);
+    RH_ScopedGlobalInstall(RwImageSetFromRaster, 0x804250);
+    RH_ScopedGlobalInstall(RwRasterSetFromImage, 0x804290);
+    RH_ScopedGlobalInstall(RwImageFindRasterFormat, 0x8042C0);
+    RH_ScopedGlobalInstall(RwTextureStreamGetSize, 0x8045A0);
+    RH_ScopedGlobalInstall(RwTextureStreamWrite, 0x8045E0);
+    RH_ScopedGlobalInstall(RwTextureStreamRead, 0x8046E0);
+    RH_ScopedGlobalInstall(_rxPipelineClose, 0x804F60);
 }

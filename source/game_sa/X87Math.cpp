@@ -20280,3 +20280,20 @@ __declspec(noinline) void __cdecl CameraParallelViewMatrixCpp(float* cam, const 
     v[14] = float(-dot3);
 }
 #pragma float_control(pop)
+
+// Lote R30A (sin validar): tablas de gamma de RwImageSetGamma (0x803FE0). La x87 va con la precision que tenga el proceso (24 bits en el juego): t = float(i * 0x3B808081) guardado como float, el pow
+// del CRT del EXE (0x8220F0, se recibe por puntero) devuelve double en ST0 y el producto por 255.0f y la suma de 0.5f se hacen en ST0 antes de guardar el float; el truncado es fistp en modo truncar.
+// tabla[i] = byte bajo de pow(t, 1 / gamma) y inversa[i] = byte bajo de pow(t, gamma); la entrada 0 de las dos tablas es 0. 1 / gamma se guarda como float.
+__declspec(noinline) void __cdecl ImageGammaTablesCpp(float gamma, unsigned char* table, unsigned char* inverseTable, double(__cdecl* powFunction)(double, double)) {
+    table[0] = 0;
+    inverseTable[0] = 0;
+    volatile float inverseGamma = 1.0f / gamma;                     // 0x858624 / gamma
+    const float oneOver255 = std::bit_cast<float>(0x3B808081u);      // 0x859A3C
+    for (int i = 1; i < 256; ++i) {
+        volatile float t = float(i) * oneOver255;
+        volatile float scaled = float(powFunction(double(t), double(inverseGamma)) * 255.0f + 0.5f);    // 0x859AAC, 0x858B8C
+        table[i] = static_cast<unsigned char>(static_cast<int>(scaled));
+        volatile float scaledInverse = float(powFunction(double(t), double(gamma)) * 255.0f + 0.5f);
+        inverseTable[i] = static_cast<unsigned char>(static_cast<int>(scaledInverse));
+    }
+}
