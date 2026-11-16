@@ -728,6 +728,8 @@ void RwD3D9InjectHooksR29A();     // controlador D3D9: imagen -> raster (0x8001E
 // Lote R30A (sin validar).
 void RwPlCoreInjectHooksR30A();  // RwOsGetFileInterface (0x804130) (rwplcore.cpp)
 void RwCoreInjectHooksR30A();    // imagenes (mascara, lectura, gamma, copia), RwImageSetFromRaster, flujos de textura y cierre de Rx (0x802AF0..0x804F60) (rwcore.cpp)
+// Lote R31A (sin validar).
+void RwCoreInjectHooksR31A();    // tuberias de Rx: apertura, nodos, almacen temporal, bloqueo, desbloqueo y clonado de definiciones (0x804FE0..0x806990) (rwcore.cpp)
 
 void InjectHooksMain() {
     /**
@@ -1168,6 +1170,7 @@ void InjectHooksMain() {
     RwD3D9InjectHooksR29A();
     RwPlCoreInjectHooksR30A();
     RwCoreInjectHooksR30A();
+    RwCoreInjectHooksR31A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();

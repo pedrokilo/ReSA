@@ -674,9 +674,7 @@ void RxPipelineSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPre
     ((void(__cdecl *)(RwInt32, RwInt32))0x804FC0)(blockSize, numBlocksToPrealloc);
 }
 
-RwBool _rxPipelineOpen() {
-    return ((RwBool(__cdecl *)(void))0x804FE0)();
-}
+// 0x804FE0 (_rxPipelineOpen): reconstruida al final del archivo (lote R31A, RwCoreInjectHooksR31A).
 
 // 0x804F60 (lote R30A, sin validar; 88 bytes; era una envoltura; cdecl, sin argumentos; cierre del modulo de tuberias Rx): si la bandera de modulo abierto (0xC9A6AC) es 0 solo devuelve 1. Si no: RwFreeListDestroy
 // de la lista libre de tuberias ([RwEngineInstance + [0xC9BC60]], la misma de RxPipelineCreate), pone esa ranura a NULL, RxHeapDestroy (0x809F30) del monton global (0xC9A6B0), pone el monton y la bandera a 0
@@ -710,9 +708,7 @@ RxPipeline* RxPipelineCreate() {
     return static_cast<RxPipeline*>(pipeline);
 }
 
-void _rxPipelineDestroy(RxPipeline* Pipeline) {
-    ((void(__cdecl *)(RxPipeline*))0x805820)(Pipeline);
-}
+// 0x805820 (_rxPipelineDestroy): reconstruida al final del archivo (lote R31A, RwCoreInjectHooksR31A).
 
 // 0x8052F0: `mov eax, [0xC9A6B0] / ret`. El montón global de Rx es una variable del EXE (se lee por dirección, sin copiarla).
 RxHeap* RxHeapGetGlobalHeap() {
@@ -838,9 +834,7 @@ RxNodeInput RxPipelineNodeFindInput(RxPipelineNode* node) {
     return ((RxNodeInput(__cdecl *)(RxPipelineNode*))0x805DA0)(node);
 }
 
-RxNodeDefinition* RxPipelineNodeCloneDefinition(RxPipelineNode* node, RxClusterDefinition* cluster2add) {
-    return ((RxNodeDefinition*(__cdecl *)(RxPipelineNode*, RxClusterDefinition*))0x8059C0)(node, cluster2add);
-}
+// 0x8059C0 (RxPipelineNodeCloneDefinition): reconstruida al final del archivo (lote R31A, RwCoreInjectHooksR31A).
 
 RxPipeline* RxPipelineNodeRequestCluster(RxPipeline* pipeline, RxPipelineNode* node, RxClusterDefinition* clusterDef) {
     return ((RxPipeline*(__cdecl *)(RxPipeline*, RxPipelineNode*, RxClusterDefinition*))0x805DB0)(pipeline, node, clusterDef);
@@ -870,13 +864,7 @@ RxPipelineNode* RxPipelineFindNodeByIndex(RxPipeline* pipeline, RwUInt32 nodeind
     return ((RxPipelineNode*(__cdecl *)(RxPipeline*, RwUInt32))0x806BC0)(pipeline, nodeindex);
 }
 
-RxLockedPipe* RxPipelineLock(RxPipeline* pipeline) {
-    return ((RxLockedPipe*(__cdecl *)(RxPipeline*))0x806990)(pipeline);
-}
-
-RxPipeline* RxLockedPipeUnlock(RxLockedPipe* pipeline) {
-    return ((RxPipeline*(__cdecl *)(RxLockedPipe*))0x805F40)(pipeline);
-}
+// 0x806990 (RxPipelineLock) y 0x805F40 (RxLockedPipeUnlock): reconstruidas al final del archivo (lote R31A, RwCoreInjectHooksR31A).
 
 RxPipeline* RxLockedPipeReplaceNode(RxLockedPipe* pipeline, RxPipelineNode* node, RxNodeDefinition* nodeDef) {
     return ((RxPipeline*(__cdecl *)(RxLockedPipe*, RxPipelineNode*, RxNodeDefinition*))0x806F20)(pipeline, node, nodeDef);
@@ -5809,6 +5797,9 @@ void RwD3D9InjectHooksR14A() {
 // cuelgan de una matriz de "requisitos" {+0 cuenta, +0xC elementos de 0x24 bytes}; los grupos de elementos (0x10 bytes) salen del extremo alto del almacen temporal de Rx (0x805890) y los
 // datos definitivos del extremo bajo (0x8058F0). Los dos almacenes son el EXE (por direccion fija).
 // ---------------------------------------------------------------------------------------------------------------------------------------------
+// Almacen temporal de Rx (0x805890 por el extremo alto, 0x8058F0 por el bajo): reconstruidos al final del archivo (lote R31A).
+void* RxScratchAllocHigh(RwUInt32 size);
+void* RxScratchAllocLow(RwUInt32 size);
 namespace {
 struct RxUnlockGroup;
 struct RxUnlockInfo {
@@ -5849,8 +5840,6 @@ static_assert(sizeof(RxPipelineNode) == 0x28 && offsetof(RxPipelineNode, topSort
 static_assert(offsetof(RxPipelineNodeTopSortData, req) == 8 && offsetof(RxPipeline, inputRequirements) == 0x1C && offsetof(RxPipeline, pluginId) == 0x2C);
 static_assert(offsetof(RxNodeDefinition, io) == 0x20 && offsetof(RxNodeDefinition, pipelineNodePrivateDataSize) == 0x34 && offsetof(RxClusterDefinition, defaultAttributes) == 8);
 
-void* RxScratchAllocHigh(RwUInt32 size) { return reinterpret_cast<void*(__cdecl*)(RwUInt32)>(0x805890)(size); }
-void* RxScratchAllocLow(RwUInt32 size) { return reinterpret_cast<void*(__cdecl*)(RwUInt32)>(0x8058F0)(size); }
 RxUnlockItemArray* UnlockRequirements(const RxPipelineNode* node) { return reinterpret_cast<RxUnlockItemArray*>(node->topSortData->req); }
 
 // Hay un grupo anterior a `group` (desde `head`) con el mismo cluster en su primer elemento.
@@ -8689,4 +8678,852 @@ void RwCoreInjectHooksR30A() {
     RH_ScopedGlobalInstall(RwTextureStreamWrite, 0x8045E0);
     RH_ScopedGlobalInstall(RwTextureStreamRead, 0x8046E0);
     RH_ScopedGlobalInstall(_rxPipelineClose, 0x804F60);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R31A (sin validar): tuberias de Rx (rxpipeline.c, 0x804FE0..0x806990): apertura del modulo, destruccion de nodos y tuberias, almacen temporal, bloqueo (RxPipelineLock) y desbloqueo
+// (RxLockedPipeUnlock) con su ordenacion topologica, clonado de definiciones de nodo y recolocacion del "superbloque" de cada tuberia.
+//
+// Datos del modulo de tuberias (en el EXE; se leen siempre por direccion fija, sin copias):
+//   0xC9BC60 desplazamiento del modulo dentro de RwEngineInstance; datos: +0x00 lista libre de tuberias, +0x04 vector de estados de render por defecto (RxRenderStateVector),
+//            +0x30/+0x34 a cero al abrir, +0x38 "M" (nodos maximos por tuberia: 0x8E269C)
+//   0xC9A6AC bandera de modulo abierto, 0xC9A6B0 monton global (RxHeap), 0xC9A688 espacio de la lista libre (0x34 bytes por entrada), 0xC9A6B4/0xC9A6B8 extremos alto/bajo del almacen temporal
+// Superbloque de una tuberia bloqueada (tamano minimo 180 * M): nodos (0x28 bytes cada uno, M reservados), M bloques de 0x80 bytes con las salidas de cada nodo, y M elementos de 12 bytes
+// (RxPipelineNodeTopSortData) a partir de nodes + 168 * M; al desbloquear las salidas se empaquetan justo detras de los nodos.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+uint8* RxModuleData() {
+    return reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9BC60);
+}
+RwUInt32 RxMaxNodes() {
+    return *reinterpret_cast<RwUInt32*>(RxModuleData() + 0x38);
+}
+RwFreeList*& RxPipelineFreeListSlot() {
+    return *reinterpret_cast<RwFreeList**>(RxModuleData());
+}
+template<typename T>
+void RxShiftPointer(T*& pointer, uintptr_t delta) {
+    if (pointer != nullptr) {
+        pointer = reinterpret_cast<T*>(reinterpret_cast<uintptr_t>(pointer) + delta);
+    }
+}
+// Copia de cadena hasta el NUL incluido (bucle de bytes del EXE).
+void RxCopyString(char* destination, const char* source) {
+    char c;
+    do {
+        c = *source++;
+        *destination++ = c;
+    } while (c != 0);
+}
+// Tamano de una cadena en la reserva: (longitud + 1) redondeado a 4.
+RwUInt32 RxStringSlot(const char* text) {
+    return (static_cast<RwUInt32>(strlen(text)) + 4u) & ~3u;
+}
+constexpr RwInt32 kRxErrNullPointer = static_cast<RwInt32>(0x80000016);
+constexpr RwInt32 kRxErrOutOfMemory = static_cast<RwInt32>(0x80000013);
+static_assert(offsetof(RxNodeDefinition, nodeMethods) == 4 && offsetof(RxNodeMethods, pipelineNodeTerm) == 0x10 && offsetof(RxNodeMethods, nodeTerm) == 8);
+static_assert(offsetof(RxNodeDefinition, io) == 0x20 && offsetof(RxIoSpec, outputs) == 0x10 && offsetof(RxNodeDefinition, InputPipesCnt) == 0x3C && offsetof(RxNodeDefinition, editable) == 0x38);
+static_assert(offsetof(RxPipelineNode, initializationData) == 0x20 && offsetof(RxPipelineNode, initializationDataSize) == 0x24 && sizeof(RxPipelineNodeTopSortData) == 0xC);
+static_assert(offsetof(RxPipeline, superBlock) == 0x20 && offsetof(RxPipeline, superBlockSize) == 0x24 && offsetof(RxPipeline, entryPoint) == 0x28 && offsetof(RxPipeline, embeddedPacket) == 0x14);
+} // namespace
+
+// Contexto de la ordenacion topologica: la tuberia y cuantos nodos llevan ya su sitio definitivo (dos dwords consecutivos en la pila de RxLockedPipeUnlock).
+struct RxPipelineTopSortContext {
+    RxPipeline* pipeline;
+    RwUInt32    numSorted;
+};
+
+// 0x804FE0 (lote R31A, sin validar; 210 bytes; era una envoltura; cdecl, sin argumentos; llamador: 0x807C49): abre el modulo de tuberias. Si la bandera 0xC9A6AC ya es distinta de 0 devuelve 0.
+// Si no: crea el monton global (RxHeapCreate(0x8E2698), 0x809F90) en 0xC9A6B0 (NULL: devuelve 0), crea la lista libre de tuberias (RwFreeListCreateAndPreallocateSpace 0x801B70: entrada 0x34,
+// 0x8E26A0 por bloque, alineacion 4, 0x8E26A4 bloques, espacio 0xC9A688, pista 0x40409) en la ranura del modulo (sin memoria: RxHeapDestroy y monton a NULL, devuelve 0). Con exito: M (+0x38) =
+// 0x8E269C, vector de estados de render por defecto (0x80EA40) sobre modulo + 4, +0x34 y +0x30 a 0, bandera a 1 y devuelve 1.
+RwBool _rxPipelineOpen() {
+    if (StaticRef<RwInt32>(0xC9A6AC) != 0) {
+        return FALSE;
+    }
+    RxHeap* const heap = RxHeapCreate(StaticRef<RwUInt32>(0x8E2698));
+    StaticRef<RxHeap*>(0xC9A6B0) = heap;
+    if (heap == nullptr) {
+        return FALSE;
+    }
+    RwFreeList* const freeList = RwFreeListCreateAndPreallocateSpace(0x34, StaticRef<RwInt32>(0x8E26A0), 4, StaticRef<RwInt32>(0x8E26A4), reinterpret_cast<RwFreeList*>(0xC9A688), 0x40409);
+    RxPipelineFreeListSlot() = freeList;
+    if (RxPipelineFreeListSlot() == nullptr) {
+        RxHeapDestroy(StaticRef<RxHeap*>(0xC9A6B0));
+        StaticRef<RxHeap*>(0xC9A6B0) = nullptr;
+        return FALSE;
+    }
+    *reinterpret_cast<RwUInt32*>(RxModuleData() + 0x38) = StaticRef<RwUInt32>(0x8E269C);
+    RxRenderStateVectorSetDefaultRenderStateVector(reinterpret_cast<RxRenderStateVector*>(RxModuleData() + 4));
+    *reinterpret_cast<RwUInt32*>(RxModuleData() + 0x34) = 0;
+    *reinterpret_cast<RwUInt32*>(RxModuleData() + 0x30) = 0;
+    StaticRef<RwInt32>(0xC9A6AC) = 1;
+    return TRUE;
+}
+
+// 0x8050C0 (lote R31A, sin validar; 546 bytes; cdecl (nodo, tuberia); nombre inferido: destruccion de un nodo de tuberia; llamadores: 0x805839 (_rxPipelineDestroy) y 0x806D2A, 0x806D70, 0x807024,
+// 0x80705D): devuelve el nodo. Tuberia desbloqueada: pipelineNodeTerm (+0x14 de la definicion) si existe; InputPipesCnt (+0x3C) -= 1 y, si llega a 0, nodeTerm (+0x0C) y, si la definicion es
+// editable (+0x38), RwFree y nodeDef = NULL; libera los datos de inicializacion (+0x20, y pone +0x20/+0x24 a 0), pone el nodo a cero (0x28 bytes) y numNodes -= 1. Tuberia bloqueada: libera los datos
+// de inicializacion; si InputPipesCnt == 0 y la definicion es editable la libera (nodeDef = NULL); si el nodo no es el ultimo (indice = (nodo - nodes) / 40, con signo) corre los bloques de 0x80 bytes de
+// salidas (a partir de nodes + 40 * M + 128 * indice), copia 12 bytes por elemento DESDE EL ELEMENTO 0 (nodes + 168 * M; el EXE no suma el indice), corre los nodos y resta 0x80 a sus salidas y 0xC a
+// su topSortData, y renumera las salidas de todos los nodos (indice -> 0xFFFFFFFF, mayores -> menos 1; el comparador es sin signo: un 0xFFFFFFFF pasa a 0xFFFFFFFE). Al final numNodes -= 1.
+RxPipelineNode* _rxPipelineNodeDestroy(RxPipelineNode* node, RxPipeline* pipeline) {
+    if (pipeline->locked == 0) {
+        {
+            const RxPipelineNodeTermFn term = node->nodeDef->nodeMethods.pipelineNodeTerm;
+            if (term != nullptr) {
+                term(node);
+            }
+        }
+        node->nodeDef->InputPipesCnt = node->nodeDef->InputPipesCnt - 1;
+        if (node->nodeDef->InputPipesCnt == 0) {
+            RxNodeDefinition* definition = node->nodeDef;
+            const RxNodeTermFn nodeTerm = definition->nodeMethods.nodeTerm;
+            if (nodeTerm != nullptr) {
+                nodeTerm(definition);
+            }
+            definition = node->nodeDef;
+            if (definition->editable != 0) {
+                RwFree(definition);
+                node->nodeDef = nullptr;
+            }
+        }
+        if (node->initializationData != nullptr) {
+            RwFree(node->initializationData);
+            node->initializationData = nullptr;
+            node->initializationDataSize = 0;
+        }
+        memset(node, 0, sizeof(RxPipelineNode));
+        pipeline->numNodes = pipeline->numNodes - 1;
+        return node;
+    }
+
+    if (node->initializationData != nullptr) {
+        RwFree(node->initializationData);
+        node->initializationData = nullptr;
+        node->initializationDataSize = 0;
+    }
+    {
+        RxNodeDefinition* const definition = node->nodeDef;
+        if (definition->InputPipesCnt == 0 && definition->editable != 0) {
+            RwFree(definition);
+            node->nodeDef = nullptr;
+        }
+    }
+    const RwUInt32 index = static_cast<RwUInt32>(static_cast<RwInt32>(reinterpret_cast<uint8*>(node) - reinterpret_cast<uint8*>(pipeline->nodes)) / static_cast<RwInt32>(sizeof(RxPipelineNode)));
+    if (index < pipeline->numNodes - 1) {
+        // Bloques de 0x80 bytes con las salidas de cada nodo.
+        {
+            uint8* destination = reinterpret_cast<uint8*>(pipeline->nodes) + index * 0x80 + RxMaxNodes() * 0x28;
+            uint8* source = destination + 0x80;
+            RwUInt32 current = index;
+            do {
+                memcpy(destination, source, 0x80);
+                destination = source;
+                source += 0x80;
+                ++current;
+            } while (current < pipeline->numNodes - 1);
+        }
+        // Elementos de 12 bytes (a partir del elemento 0, como el EXE).
+        {
+            uint8* destination = reinterpret_cast<uint8*>(pipeline->nodes) + RxMaxNodes() * 0xA8;
+            uint8* source = destination + 0xC;
+            RwUInt32 current = index;
+            do {
+                memcpy(destination, source, 0xC);
+                destination = source;
+                source += 0xC;
+                ++current;
+            } while (current < pipeline->numNodes - 1);
+        }
+        // Nodos.
+        {
+            RwUInt32 current = index;
+            RwUInt32 offset = index * sizeof(RxPipelineNode);
+            do {
+                uint8* const base = reinterpret_cast<uint8*>(pipeline->nodes);
+                memcpy(base + offset, base + offset + sizeof(RxPipelineNode), sizeof(RxPipelineNode));
+                RxPipelineNode* const moved = reinterpret_cast<RxPipelineNode*>(base + offset);
+                moved->outputs = reinterpret_cast<RwUInt32*>(reinterpret_cast<uint8*>(moved->outputs) - 0x80);
+                moved->topSortData = reinterpret_cast<RxPipelineNodeTopSortData*>(reinterpret_cast<uint8*>(moved->topSortData) - 0xC);
+                ++current;
+                offset += sizeof(RxPipelineNode);
+            } while (current < pipeline->numNodes - 1);
+        }
+        // Renumeracion de las salidas.
+        if (pipeline->numNodes - 1 != 0) {
+            RwUInt32 nodeIndex = 0;
+            do {
+                if (pipeline->nodes[nodeIndex].numOutputs != 0) {
+                    RwUInt32 outputIndex = 0;
+                    do {
+                        RwUInt32* const slot = &pipeline->nodes[nodeIndex].outputs[outputIndex];
+                        const RwUInt32 value = *slot;
+                        if (value >= index) {
+                            if (value == index) {
+                                *slot = 0xFFFFFFFFu;
+                            } else {
+                                *slot = value - 1;
+                            }
+                        }
+                        ++outputIndex;
+                    } while (outputIndex < pipeline->nodes[nodeIndex].numOutputs);
+                }
+                ++nodeIndex;
+            } while (nodeIndex < pipeline->numNodes - 1);
+        }
+    }
+    pipeline->numNodes = pipeline->numNodes - 1;
+    return node;
+}
+
+// 0x805820 (lote R31A, sin validar; 111 bytes; era una envoltura; cdecl (tuberia); llamadores: 0x5D5FAA, 0x74EB31, 0x7C86FD y otros): tuberia NULL: nada. Si no: destruye uno a uno (0x8050C0,
+// con el numero de nodos leido una vez al principio) los numNodes nodos desde nodes, pone nodes a NULL, libera el superbloque (+0x20; superBlock y superBlockSize a 0) y devuelve la tuberia a la
+// lista libre del modulo (RwFreeListFree).
+void _rxPipelineDestroy(RxPipeline* Pipeline) {
+    if (Pipeline == nullptr) {
+        return;
+    }
+    const RwUInt32 numNodes = Pipeline->numNodes;
+    RxPipelineNode* node = Pipeline->nodes;
+    if (numNodes != 0) {
+        RwUInt32 remaining = numNodes;
+        do {
+            _rxPipelineNodeDestroy(node, Pipeline);
+            node = reinterpret_cast<RxPipelineNode*>(reinterpret_cast<uint8*>(node) + sizeof(RxPipelineNode));
+            --remaining;
+        } while (remaining != 0);
+    }
+    void* const superBlock = Pipeline->superBlock;
+    Pipeline->nodes = nullptr;
+    if (superBlock != nullptr) {
+        RwFree(superBlock);
+        Pipeline->superBlock = nullptr;
+        Pipeline->superBlockSize = 0;
+    }
+    RwFreeListFree(RxPipelineFreeListSlot(), Pipeline);
+}
+
+// 0x805890 (lote R31A, sin validar; 84 bytes; cdecl (tamano); nombre inferido: reserva del almacen temporal de Rx por el extremo ALTO; llamadores: 0x80F464, 0x80F47D, 0x80F9B4, 0x80FCB6):
+// tamano = (size + 3) & ~3; alto (0xC9A6B4) -= tamano; si el nuevo alto es >= bajo (0xC9A6B8) devuelve el alto. Si no: restituye el alto, error 0x80000013 con el tamano y devuelve NULL.
+void* RxScratchAllocHigh(RwUInt32 size) {
+    const RwUInt32 rounded = (size + 3u) & ~3u;
+    const RwUInt32 low = StaticRef<RwUInt32>(0xC9A6B8);
+    const RwUInt32 high = StaticRef<RwUInt32>(0xC9A6B4) - rounded;
+    StaticRef<RwUInt32>(0xC9A6B4) = high;
+    if (high >= low) {
+        return reinterpret_cast<void*>(static_cast<uintptr_t>(high));
+    }
+    StaticRef<RwUInt32>(0xC9A6B4) = high + rounded;
+    RwRaiseError(kRxErrOutOfMemory, rounded);
+    return nullptr;
+}
+
+// 0x8058F0 (lote R31A, sin validar; 90 bytes; cdecl (tamano); nombre inferido: reserva del almacen temporal de Rx por el extremo BAJO; llamadores: 0x80FCBF..0x80FFB2): tamano = (size + 3) & ~3;
+// bajo (0xC9A6B8) += tamano; si el nuevo bajo es <= alto (0xC9A6B4) devuelve el bajo anterior. Si no: restituye el bajo, error 0x80000013 con el tamano y devuelve NULL.
+void* RxScratchAllocLow(RwUInt32 size) {
+    const RwUInt32 rounded = (size + 3u) & ~3u;
+    const RwUInt32 high = StaticRef<RwUInt32>(0xC9A6B4);
+    const RwUInt32 low = StaticRef<RwUInt32>(0xC9A6B8) + rounded;
+    StaticRef<RwUInt32>(0xC9A6B8) = low;
+    if (low <= high) {
+        return reinterpret_cast<void*>(static_cast<uintptr_t>(low - rounded));
+    }
+    StaticRef<RwUInt32>(0xC9A6B8) = low - rounded;
+    RwRaiseError(kRxErrOutOfMemory, rounded);
+    return nullptr;
+}
+
+// 0x805950 (lote R31A, sin validar; 108 bytes; cdecl (tuberia); nombre inferido: numero de clusters distintos de la tuberia; llamador: 0x80F15B): devuelve cuantas definiciones de cluster distintas hay
+// entre las "clustersOfInterest" de las definiciones de todos los nodos. Se cuentan ordenando por la direccion de la definicion: en cada pasada se busca la menor direccion (sin signo) mayor que la
+// de la pasada anterior (0 al principio); sin ninguna se devuelve la cuenta. El numero de nodos se lee una vez.
+RwUInt32 _rxPipelineCountClusters(RxPipeline* pipeline) {
+    const RwUInt32 numNodes = pipeline->numNodes;
+    RwUInt32 count = 0;
+    uintptr_t threshold = 0;
+    for (;;) {
+        uintptr_t minimum = 0xFFFFFFFFu;
+        if (numNodes == 0) {
+            return count;
+        }
+        const RxPipelineNode* node = pipeline->nodes;
+        for (RwUInt32 remaining = numNodes; remaining != 0; --remaining) {
+            const RxNodeDefinition* const definition = node->nodeDef;
+            const RxClusterRef* reference = definition->io.clustersOfInterest;
+            for (RwUInt32 left = definition->io.numClustersOfInterest; left != 0; --left) {
+                const uintptr_t address = reinterpret_cast<uintptr_t>(reference->clusterDef);
+                if (address > threshold && address < minimum) {
+                    minimum = address;
+                }
+                ++reference;
+            }
+            node = reinterpret_cast<const RxPipelineNode*>(reinterpret_cast<const uint8*>(node) + sizeof(RxPipelineNode));
+        }
+        if (minimum == 0xFFFFFFFFu) {
+            return count;
+        }
+        ++count;
+        threshold = minimum;
+    }
+}
+
+// 0x805A20 (lote R31A, sin validar; 747 bytes; cdecl (nodo, cluster a anadir o NULL); nombre inferido: clonado de la definicion de un nodo con un cluster de mas; llamadores: 0x8059F3 y 0x805A06
+// (RxPipelineNodeCloneDefinition), 0x805DF0 (RxPipelineNodeRequestCluster), 0x805E6F (ReplaceCluster), 0x8073F3): crea con RwMalloc (pista 0x30409) un bloque con la copia editable de nodo->nodeDef
+// (cabecera de 0x40 bytes, nombre, lista de clusters de interes (12 bytes, uno mas si se anade: forcePresent 0, reservado 0), requisitos de entrada (el nuevo = 0) y salidas (nombre, estados de
+// cluster por salida; el del cluster nuevo = allOtherClusters)); tamanos redondeados a 4. Sin memoria: error 0x80000013 con el tamano total y devuelve NULL. Con exito: InputPipesCnt = 0, editable = 1,
+// copia pipelineNodePrivateDataSize; si la definicion anterior no tenia tuberias y era editable la libera (RwFree); nodo->nodeDef = la copia, que devuelve.
+RxNodeDefinition* _rxNodeDefinitionClone(RxPipelineNode* node, RxClusterDefinition* clusterToAdd) {
+    RxNodeDefinition* const definition = node->nodeDef;
+    const RwUInt32 numClusters = definition->io.numClustersOfInterest;
+    const RwUInt32 newNumClusters = (clusterToAdd != nullptr) ? numClusters + 1 : numClusters;
+    const RwUInt32 numOutputs = definition->io.numOutputs;
+    const RwUInt32 clusterListBytes = (newNumClusters * 4u + 3u) & ~3u;
+    const RwUInt32 clusterRefsBytes = (newNumClusters * 12u + 3u) & ~3u;
+    const RwUInt32 outputsBytes = (numOutputs * 12u + 3u) & ~3u;
+
+    RwUInt32 totalSize = outputsBytes + clusterListBytes + RxStringSlot(definition->name) + clusterRefsBytes + 0x40;
+    for (RwUInt32 i = 0; i < numOutputs; ++i) {
+        totalSize += RxStringSlot(definition->io.outputs[i].name) + clusterListBytes;
+    }
+
+    uint8* const block = static_cast<uint8*>(RwMalloc(totalSize, 0x30409));
+    if (block == nullptr) {
+        RwRaiseError(kRxErrOutOfMemory, totalSize);
+        return nullptr;
+    }
+    RxNodeDefinition* const clone = reinterpret_cast<RxNodeDefinition*>(block);
+    uint8* cursor = block + 0x40;
+
+    clone->name = reinterpret_cast<RwChar*>(cursor);
+    cursor += RxStringSlot(definition->name);
+    RxCopyString(clone->name, definition->name);
+    clone->nodeMethods = definition->nodeMethods;
+    clone->io.numClustersOfInterest = newNumClusters;
+    clone->io.clustersOfInterest = reinterpret_cast<RxClusterRef*>(cursor);
+    cursor += clusterRefsBytes;
+
+    for (RwUInt32 i = 0; i < numClusters; ++i) {
+        clone->io.clustersOfInterest[i].forcePresent = definition->io.clustersOfInterest[i].forcePresent;
+        clone->io.clustersOfInterest[i].clusterDef = definition->io.clustersOfInterest[i].clusterDef;
+        clone->io.clustersOfInterest[i].reserved = definition->io.clustersOfInterest[i].reserved;
+    }
+    if (clusterToAdd != nullptr) {
+        clone->io.clustersOfInterest[numClusters].forcePresent = rxCLALLOWABSENT;
+        clone->io.clustersOfInterest[numClusters].clusterDef = clusterToAdd;
+        clone->io.clustersOfInterest[numClusters].reserved = 0;
+    }
+
+    clone->io.inputRequirements = reinterpret_cast<RxClusterValidityReq*>(cursor);
+    cursor += clusterListBytes;
+    for (RwUInt32 i = 0; i < numClusters; ++i) {
+        clone->io.inputRequirements[i] = definition->io.inputRequirements[i];
+    }
+    if (clusterToAdd != nullptr) {
+        clone->io.inputRequirements[newNumClusters - 1] = static_cast<RxClusterValidityReq>(0);
+    }
+
+    clone->io.outputs = reinterpret_cast<RxOutputSpec*>(cursor);
+    clone->io.numOutputs = numOutputs;
+    cursor += outputsBytes;
+    for (RwUInt32 i = 0; i < numOutputs; ++i) {
+        const RxOutputSpec& oldOutput = definition->io.outputs[i];
+        RxOutputSpec& newOutput = clone->io.outputs[i];
+        newOutput.name = reinterpret_cast<RwChar*>(cursor);
+        const RwUInt32 nameSlot = RxStringSlot(oldOutput.name);
+        RxCopyString(newOutput.name, oldOutput.name);
+        newOutput.outputClusters = reinterpret_cast<RxClusterValid*>(cursor + nameSlot);
+        cursor += nameSlot + clusterListBytes;
+        for (RwUInt32 k = 0; k < numClusters; ++k) {
+            newOutput.outputClusters[k] = oldOutput.outputClusters[k];
+        }
+        if (clusterToAdd != nullptr) {
+            newOutput.outputClusters[newNumClusters - 1] = oldOutput.allOtherClusters;
+        }
+        newOutput.allOtherClusters = oldOutput.allOtherClusters;
+    }
+
+    clone->pipelineNodePrivateDataSize = definition->pipelineNodePrivateDataSize;
+    clone->editable = static_cast<RxNodeDefEditable>(1);
+    clone->InputPipesCnt = 0;
+    if (definition->InputPipesCnt == 0 && definition->editable != 0) {
+        RwFree(definition);
+    }
+    node->nodeDef = clone;
+    return clone;
+}
+
+// 0x8059C0 (lote R31A, sin validar; 82 bytes; era una envoltura; cdecl (nodo, cluster a anadir o NULL)): nodo NULL: devuelve NULL. Con cluster y ya presente entre los de interes de la definicion
+// (comparacion por direccion de la definicion): devuelve NULL. En cualquier otro caso devuelve _rxNodeDefinitionClone (0x805A20) del nodo con ese cluster.
+RxNodeDefinition* RxPipelineNodeCloneDefinition(RxPipelineNode* node, RxClusterDefinition* cluster2add) {
+    if (node == nullptr) {
+        return nullptr;
+    }
+    if (cluster2add != nullptr) {
+        const RxIoSpec& io = node->nodeDef->io;
+        for (RwUInt32 i = 0; i < io.numClustersOfInterest; ++i) {
+            if (io.clustersOfInterest[i].clusterDef == cluster2add) {
+                return nullptr;
+            }
+        }
+    }
+    return _rxNodeDefinitionClone(node, cluster2add);
+}
+
+// 0x8064D0 (lote R31A, sin validar; 271 bytes; cdecl (tuberia, tamano nuevo); nombre inferido: cambio de tamano del superbloque; llamadores: 0x806087, 0x8062F9, 0x8069C9): RwRealloc del superbloque
+// (+0x20) con pista 0x1040409; NULL: error 0x80000013 con el tamano y devuelve 0. Si no: superBlock y nodes = el bloque nuevo, superBlockSize = tamano, y suma la diferencia de direcciones (nuevo -
+// anterior) a embeddedPacket (+0x14) y a inputRequirements (+0x1C) si no son NULL y, en cada nodo, a +0x08, +0x0C, +0x10, +0x14, +0x18 y +0x1C si no son NULL. Devuelve 1.
+RwBool _rxPipelineResizeSuperBlock(RxPipeline* pipeline, RwUInt32 newSize) {
+    void* const oldBlock = pipeline->superBlock;
+    uint8* const block = static_cast<uint8*>(RwRealloc(oldBlock, newSize, 0x1040409));
+    if (block == nullptr) {
+        RwRaiseError(kRxErrOutOfMemory, newSize);
+        return FALSE;
+    }
+    const RwUInt32 numNodes = pipeline->numNodes;
+    pipeline->superBlock = block;
+    pipeline->nodes = reinterpret_cast<RxPipelineNode*>(block);
+    const uintptr_t delta = reinterpret_cast<uintptr_t>(block) - reinterpret_cast<uintptr_t>(oldBlock);
+    pipeline->superBlockSize = newSize;
+    RxShiftPointer(pipeline->embeddedPacket, delta);
+    RxShiftPointer(pipeline->inputRequirements, delta);
+    for (RwUInt32 i = 0; i < numNodes; ++i) {
+        RxPipelineNode* const node = &pipeline->nodes[i];
+        RxShiftPointer(node->outputs, delta);
+        RxShiftPointer(node->slotClusterRefs, delta);
+        RxShiftPointer(node->slotsContinue, delta);
+        RxShiftPointer(node->privateData, delta);
+        RxShiftPointer(node->inputToClusterSlot, delta);
+        RxShiftPointer(node->topSortData, delta);
+    }
+    return TRUE;
+}
+
+// 0x8065E0 (lote R31A, sin validar; 462 bytes; cdecl (destino, origen); nombre inferido: reconstruye la disposicion "bloqueada" del superbloque del destino a partir del origen; llamadores:
+// 0x806431 (desbloqueo fallido), 0x8069DE (RxPipelineLock) y 0x806B01 (RxPipelineClone), los dos primeros con destino == origen). Si destino != origen: copia los nodos de origen a destino del
+// ultimo al primero (0x28 bytes), pone a cero slotClusterRefs, slotsContinue, privateData e inputToClusterSlot y duplica los datos de inicializacion con RwMalloc (pista 0x30409; sin memoria: error
+// 0x80000013 con su tamano y devuelve 0); al acabar numNodes del destino = el del origen. Despues, comun: pone las salidas de cada nodo del destino en su bloque de 0x80 bytes (nodes + 40 * M + 128 *
+// indice) y, si el origen tenia salidas, copia 32 dwords hacia delante con rep movs DESPUES de escribir el puntero (con destino == origen la copia es de un bloque a si mismo); por ultimo reparte
+// los elementos de 12 bytes (nodes + 168 * M, puestos a cero) como topSortData de cada nodo. Devuelve 1.
+RwBool _rxPipelineBuildLockedLayout(RxPipeline* destination, RxPipeline* source) {
+    if (destination != source) {
+        RwInt32 index = static_cast<RwInt32>(source->numNodes) - 1;
+        if (index >= 0) {
+            RwUInt32 offset = static_cast<RwUInt32>(index) * sizeof(RxPipelineNode);
+            do {
+                RxPipelineNode* const sourceNode = reinterpret_cast<RxPipelineNode*>(reinterpret_cast<uint8*>(source->nodes) + offset);
+                RxPipelineNode* const destinationNode = reinterpret_cast<RxPipelineNode*>(reinterpret_cast<uint8*>(destination->nodes) + offset);
+                memcpy(destinationNode, sourceNode, sizeof(RxPipelineNode));
+                destinationNode->slotClusterRefs = nullptr;
+                destinationNode->slotsContinue = nullptr;
+                destinationNode->privateData = nullptr;
+                destinationNode->inputToClusterSlot = nullptr;
+                const RwUInt32 dataSize = destinationNode->initializationDataSize;
+                if (dataSize != 0) {
+                    destinationNode->initializationData = RwMalloc(dataSize, 0x30409);
+                    if (destinationNode->initializationData == nullptr) {
+                        RwRaiseError(kRxErrOutOfMemory, destination->nodes[index].initializationDataSize);
+                        return FALSE;
+                    }
+                    const uint8* const sourceData = static_cast<const uint8*>(source->nodes[index].initializationData);
+                    uint8* const destinationData = static_cast<uint8*>(destinationNode->initializationData);
+                    __movsd(reinterpret_cast<unsigned long*>(destinationData), reinterpret_cast<const unsigned long*>(sourceData), dataSize >> 2);
+                    __movsb(destinationData + (dataSize >> 2) * 4, sourceData + (dataSize >> 2) * 4, dataSize & 3);
+                }
+                --index;
+                offset -= sizeof(RxPipelineNode);
+            } while (index >= 0);
+        }
+        destination->numNodes = source->numNodes;
+    }
+
+    uint8* const blocks = reinterpret_cast<uint8*>(destination->nodes) + RxMaxNodes() * sizeof(RxPipelineNode);
+    {
+        RwInt32 index = static_cast<RwInt32>(source->numNodes) - 1;
+        if (index >= 0) {
+            uint8* block = blocks + static_cast<RwUInt32>(index) * 0x80;
+            RwUInt32 offset = static_cast<RwUInt32>(index) * sizeof(RxPipelineNode);
+            RwUInt32 remaining = static_cast<RwUInt32>(index) + 1;
+            do {
+                RxPipelineNode* const destinationNode = reinterpret_cast<RxPipelineNode*>(reinterpret_cast<uint8*>(destination->nodes) + offset);
+                destinationNode->outputs = reinterpret_cast<RwUInt32*>(block);
+                RwUInt32* const sourceOutputs = reinterpret_cast<RxPipelineNode*>(reinterpret_cast<uint8*>(source->nodes) + offset)->outputs;
+                if (sourceOutputs != nullptr) {
+                    __movsd(reinterpret_cast<unsigned long*>(destinationNode->outputs), reinterpret_cast<const unsigned long*>(sourceOutputs), 0x20);
+                }
+                block -= 0x80;
+                offset -= sizeof(RxPipelineNode);
+                --remaining;
+            } while (remaining != 0);
+        }
+    }
+
+    RwUInt32* element = reinterpret_cast<RwUInt32*>(blocks + RxMaxNodes() * 0x80);
+    if (source->numNodes != 0) {
+        RwUInt32 index = 0;
+        RwUInt32 offset = 0;
+        do {
+            element[0] = 0;
+            element[1] = 0;
+            element[2] = 0;
+            reinterpret_cast<RxPipelineNode*>(reinterpret_cast<uint8*>(destination->nodes) + offset)->topSortData = reinterpret_cast<RxPipelineNodeTopSortData*>(element);
+            ++index;
+            element += 3;
+            offset += sizeof(RxPipelineNode);
+        } while (index < source->numNodes);
+    }
+    return TRUE;
+}
+
+// 0x8067B0 (lote R31A, sin validar; 474 bytes; cdecl (contexto, indice); nombre inferido: paso de la ordenacion topologica de RxLockedPipeUnlock; llamadores: 0x806154 y ella misma): el contexto
+// es {tuberia, nodos ya ordenados}. Si el nodo `indice` no esta ya en la posicion `numSorted`: intercambia los 32 dwords de los bloques de salidas de ambos, cruza sus punteros de salidas, intercambia
+// el contenido de sus topSortData y cruza esos punteros, intercambia los dos nodos enteros (40 bytes) y cambia en las salidas de todos los nodos la referencia a una posicion por la otra. Despues el nodo
+// de la posicion numSorted cuenta como ordenado (numSorted += 1) y por cada salida distinta de 0xFFFFFFFF suma uno a numInsVisited del destino; si ya iguala a numIns recorre ese destino de la misma manera.
+void _rxPipelineTopSortVisit(RxPipelineTopSortContext* context, RwUInt32 index) {
+    const RwUInt32 sorted = context->numSorted;
+    if (sorted != index) {
+        RxPipeline* const pipeline = context->pipeline;
+        RwUInt32* const outputsOfSorted = pipeline->nodes[sorted].outputs;
+        RwUInt32* const outputsOfIndex = pipeline->nodes[index].outputs;
+        for (RwUInt32 i = 0; i < 0x20; ++i) {
+            const RwUInt32 previous = outputsOfSorted[i];
+            outputsOfSorted[i] = outputsOfIndex[i];
+            outputsOfIndex[i] = previous;
+        }
+        pipeline->nodes[sorted].outputs = outputsOfIndex;
+        pipeline->nodes[index].outputs = outputsOfSorted;
+
+        RxPipelineNodeTopSortData* const dataOfSorted = pipeline->nodes[sorted].topSortData;
+        RxPipelineNodeTopSortData* const dataOfIndex = pipeline->nodes[index].topSortData;
+        const RxPipelineNodeTopSortData saved = *dataOfSorted;
+        *dataOfSorted = *dataOfIndex;
+        *dataOfIndex = saved;
+        pipeline->nodes[sorted].topSortData = dataOfIndex;
+        pipeline->nodes[index].topSortData = dataOfSorted;
+
+        RxPipelineNode swapped;
+        memcpy(&swapped, &pipeline->nodes[sorted], sizeof(RxPipelineNode));
+        memcpy(&pipeline->nodes[sorted], &pipeline->nodes[index], sizeof(RxPipelineNode));
+        memcpy(&pipeline->nodes[index], &swapped, sizeof(RxPipelineNode));
+
+        if (context->pipeline->numNodes != 0) {
+            RwUInt32 nodeIndex = 0;
+            do {
+                RxPipelineNode* const node = &context->pipeline->nodes[nodeIndex];
+                if (node->numOutputs != 0) {
+                    RwUInt32 outputIndex = 0;
+                    do {
+                        RwUInt32* const slot = &node->outputs[outputIndex];
+                        const RwUInt32 value = *slot;
+                        if (value == sorted) {
+                            *slot = index;
+                        } else if (value == index) {
+                            *slot = sorted;
+                        }
+                        ++outputIndex;
+                    } while (outputIndex < node->numOutputs);
+                }
+                ++nodeIndex;
+            } while (nodeIndex < context->pipeline->numNodes);
+        }
+    }
+
+    RxPipeline* const pipeline = context->pipeline;
+    RxPipelineNode* const current = &pipeline->nodes[context->numSorted];
+    context->numSorted = context->numSorted + 1;
+    if (current->numOutputs != 0) {
+        RwUInt32 outputIndex = 0;
+        do {
+            const RwUInt32 target = current->outputs[outputIndex];
+            if (target != 0xFFFFFFFFu) {
+                RxPipelineNode* const targetNode = &context->pipeline->nodes[target];
+                targetNode->topSortData->numInsVisited = targetNode->topSortData->numInsVisited + 1;
+                if (targetNode->topSortData->numIns == targetNode->topSortData->numInsVisited) {
+                    _rxPipelineTopSortVisit(context, target);
+                }
+            }
+            ++outputIndex;
+        } while (outputIndex < current->numOutputs);
+    }
+}
+
+// 0x806990 (lote R31A, sin validar; 291 bytes; era una envoltura; cdecl (tuberia); llamadores: 0x5D676A, 0x74EAE5, 0x7CB34D, 0x806AF3, 0x80737C y otros): ya bloqueada: la devuelve sin mas. Si no:
+// tamano = 180 * M. Con nodes != NULL: si el superbloque es menor lo redimensiona (0x8064D0; fallo: devuelve NULL) y reconstruye la disposicion bloqueada (0x8065E0 con destino == origen; fallo:
+// NULL). Sin nodes: RwMalloc (pista 0x1030409) del superbloque (superBlock = resultado antes de comprobarlo; NULL: error 0x80000013 con el tamano y devuelve NULL), superBlockSize = tamano, nodes =
+// superbloque. Marca locked = 1 y, con nodes != NULL, por cada nodo: pipelineNodeTerm (+0x14 de la definicion leida ANTES de la llamada) si existe; InputPipesCnt -= 1 y, si llega a 0, nodeTerm
+// (la funcion de la definicion anterior, con la definicion releida) si existe; slotClusterRefs = NULL. Devuelve la tuberia.
+RxLockedPipe* RxPipelineLock(RxPipeline* pipeline) {
+    if (pipeline->locked != 0) {
+        return pipeline;
+    }
+    const RwUInt32 requiredSize = RxMaxNodes() * 180u;
+    if (pipeline->nodes != nullptr) {
+        if (requiredSize > pipeline->superBlockSize) {
+            if (!_rxPipelineResizeSuperBlock(pipeline, requiredSize)) {
+                return nullptr;
+            }
+        }
+        if (!_rxPipelineBuildLockedLayout(pipeline, pipeline)) {
+            return nullptr;
+        }
+    } else {
+        void* const block = RwMalloc(requiredSize, 0x1030409);
+        pipeline->superBlock = block;
+        if (block == nullptr) {
+            RwRaiseError(kRxErrOutOfMemory, requiredSize);
+            return nullptr;
+        }
+        pipeline->superBlockSize = requiredSize;
+        pipeline->nodes = static_cast<RxPipelineNode*>(block);
+    }
+    pipeline->locked = TRUE;
+    if (pipeline->nodes != nullptr && pipeline->numNodes != 0) {
+        RwUInt32 index = 0;
+        do {
+            RxPipelineNode* const node = &pipeline->nodes[index];
+            const RxNodeDefinition* const firstDefinition = node->nodeDef;
+            {
+                const RxPipelineNodeTermFn term = firstDefinition->nodeMethods.pipelineNodeTerm;
+                if (term != nullptr) {
+                    term(node);
+                }
+            }
+            pipeline->nodes[index].nodeDef->InputPipesCnt = pipeline->nodes[index].nodeDef->InputPipesCnt - 1;
+            RxNodeDefinition* const secondDefinition = pipeline->nodes[index].nodeDef;
+            if (secondDefinition->InputPipesCnt == 0) {
+                const RxNodeTermFn nodeTerm = firstDefinition->nodeMethods.nodeTerm;
+                if (nodeTerm != nullptr) {
+                    nodeTerm(secondDefinition);
+                }
+            }
+            pipeline->nodes[index].slotClusterRefs = nullptr;
+            ++index;
+        } while (index < pipeline->numNodes);
+    }
+    return pipeline;
+}
+
+// 0x805F40 (lote R31A, sin validar; 1412 bytes; era una envoltura; cdecl (tuberia bloqueada); llamadores: 0x5D6793, 0x74EB04, 0x7CB369, 0x806B0E, 0x80752F, 0x80A0D4 y otros): desbloquea una tuberia
+// de Rx. Errores (RwErrorSet con pluginID 1; devuelven NULL): tuberia NULL 0x80000016, no bloqueada 0x34, entryPoint fuera de rango o nodo de entrada sin definicion 0x24; sin nodos: locked = 0 y
+// devuelve la tuberia. Calcula el tamano necesario S = max(180 * M, ...) con el numero de clusters distintos (_rxPipelineCountClusters; el EXE lo hace en linea), lo hace crecer si hace falta (0x8064D0),
+// fija el almacen temporal (bajo 0, alto superbloque + S), pone a cero numIns/numInsVisited, cuenta las entradas de cada nodo (numIns += 1 por cada salida distinta de 0xFFFFFFFF), exige numIns == 0
+// en el nodo de entrada (0x24) y != 0 en los demas (0x22), ordena topologicamente desde el nodo de entrada (0x8067B0) y exige numIns == numInsVisited en todos (0x1C; ciclo). Despues entryPoint = 0;
+// mueve los elementos topSortData al final del superbloque, empaqueta las salidas de cada nodo justo detras de los nodos, fija el almacen temporal (alto = nodes + 168 * M - 12, bajo = bloques +
+// 4 * salidas) y llama a 0x80F0D0 (asignacion de clusters y ranuras, EXE; distinto de 0: devuelve NULL sin mas). Ajusta el superbloque al tamano usado (bajo - superBlock; fallo: reconstruye la
+// disposicion bloqueada y devuelve NULL), pone topSortData = NULL en los nodos y, del ultimo al primero, nodeInit (solo la primera vez que se usa la definicion) y pipelineNodeInit; si alguna falla
+// deshace con pipelineNodeTerm/nodeTerm lo ya iniciado, reconstruye la disposicion bloqueada (0x8065E0) y devuelve NULL. Del ultimo al primero pipelineNodeConfig(nodo, tuberia) (un fallo termina
+// todos los nodos igual). Con exito locked = 0 y devuelve la tuberia.
+RxPipeline* RxLockedPipeUnlock(RxLockedPipe* pipeline) {
+    RxPipeline* const locked = pipeline;
+    if (locked == nullptr) {
+        RwRaiseError(kRxErrNullPointer);
+        return nullptr;
+    }
+    if (locked->locked == 0) {
+        RwRaiseError(0x34);
+        return nullptr;
+    }
+    const RwUInt32 numNodes = locked->numNodes;
+    if (numNodes == 0) {
+        locked->locked = FALSE;
+        return locked;
+    }
+    if (locked->entryPoint >= numNodes || locked->nodes[locked->entryPoint].nodeDef == nullptr) {
+        RwRaiseError(0x24);
+        return nullptr;
+    }
+
+    // Tamano necesario del superbloque.
+    const RwUInt32 numClusters = _rxPipelineCountClusters(locked);
+    const RwUInt32 maxNodes = RxMaxNodes();
+    const RwUInt32 minimumSize = maxNodes * 180u;
+    RwUInt32 outputsBytes = numNodes * 0x28u;
+    outputsBytes += (locked->nodes[0].numOutputs * numNodes) * 4u;
+    RwUInt32 total = maxNodes * 12u + (numClusters * 52u + 0x14u) * numNodes + outputsBytes;
+    RwUInt32 clusterBytes = ((numNodes + 5u) * numClusters + (numClusters + 1u) * numNodes) * 4u;
+    {
+        const RxPipelineNode* node = locked->nodes;
+        for (RwUInt32 remaining = numNodes; remaining != 0; --remaining) {
+            const RxNodeDefinition* const definition = node->nodeDef;
+            if (definition->pipelineNodePrivateDataSize != 0) {
+                clusterBytes += definition->pipelineNodePrivateDataSize;
+            }
+            clusterBytes += definition->io.numClustersOfInterest * 4u;
+            node = reinterpret_cast<const RxPipelineNode*>(reinterpret_cast<const uint8*>(node) + sizeof(RxPipelineNode));
+        }
+    }
+    total += clusterBytes + numClusters * 28u + 0x14u;
+    const RwUInt32 superBlockNeeded = (total > minimumSize) ? total : minimumSize;
+    if (superBlockNeeded > locked->superBlockSize) {
+        if (!_rxPipelineResizeSuperBlock(locked, superBlockNeeded)) {
+            return nullptr;
+        }
+    }
+
+    // Almacen temporal y contadores de entradas.
+    StaticRef<RwUInt32>(0xC9A6B8) = 0;
+    StaticRef<RwUInt32>(0xC9A6B4) = static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(locked->superBlock)) + superBlockNeeded;
+    RxPipelineTopSortContext context;
+    context.pipeline = locked;
+    context.numSorted = 0;
+    for (RwUInt32 i = 0; i < locked->numNodes; ++i) {
+        RxPipelineNode* const node = &locked->nodes[i];
+        if (node->nodeDef != nullptr) {
+            node->topSortData->numInsVisited = 0;
+            node->topSortData->numIns = 0;
+        }
+    }
+    for (RwUInt32 i = 0; i < locked->numNodes; ++i) {
+        RxPipelineNode* const node = &locked->nodes[i];
+        if (node->nodeDef != nullptr && node->numOutputs != 0) {
+            const RwUInt32* output = node->outputs;
+            for (RwUInt32 left = node->numOutputs; left != 0; --left) {
+                const RwUInt32 target = *output;
+                if (target != 0xFFFFFFFFu) {
+                    locked->nodes[target].topSortData->numIns = locked->nodes[target].topSortData->numIns + 1;
+                }
+                ++output;
+            }
+        }
+    }
+    const RwUInt32 entryPoint = locked->entryPoint;
+    if (locked->nodes[entryPoint].topSortData->numIns != 0) {
+        RwRaiseError(0x24);
+        return nullptr;
+    }
+    for (RwUInt32 i = 0; i < locked->numNodes; ++i) {
+        if (i != entryPoint && locked->nodes[i].topSortData->numIns == 0) {
+            RwRaiseError(0x22);
+            return nullptr;
+        }
+    }
+
+    // Ordenacion topologica.
+    _rxPipelineTopSortVisit(&context, entryPoint);
+    for (RwUInt32 i = 0; i < locked->numNodes; ++i) {
+        if (locked->nodes[i].topSortData->numIns != locked->nodes[i].topSortData->numInsVisited) {
+            RwRaiseError(0x1C);
+            return nullptr;
+        }
+    }
+    locked->entryPoint = 0;
+
+    // Los topSortData pasan al final del superbloque; las salidas se empaquetan detras de los nodos.
+    uint8* const blocks = reinterpret_cast<uint8*>(locked->nodes) + RxMaxNodes() * 0x28u;
+    uint8* const elementBase = blocks + RxMaxNodes() * 0x80u;
+    const RwUInt32 nodeCount = locked->numNodes;
+    uint8* source = elementBase + nodeCount * 12u - 0xC;
+    uint8* destination = reinterpret_cast<uint8*>(locked->superBlock) + superBlockNeeded - 0xC;
+    for (RwInt32 index = static_cast<RwInt32>(nodeCount) - 1; index >= 0; --index) {
+        memcpy(destination, source, 0xC);
+        locked->nodes[index].topSortData = reinterpret_cast<RxPipelineNodeTopSortData*>(destination);
+        source -= 0xC;
+        destination -= 0xC;
+    }
+    uint8* const scratchHigh = source;
+
+    uint8* packed = reinterpret_cast<uint8*>(locked->nodes) + locked->numNodes * sizeof(RxPipelineNode);
+    uint8* block = blocks;
+    RwUInt32 totalOutputs = 0;
+    for (RwUInt32 i = 0; i < locked->numNodes; ++i) {
+        RxPipelineNode* const node = &locked->nodes[i];
+        const RwUInt32 count = node->numOutputs;
+        if (count == 0) {
+            node->outputs = nullptr;
+        } else {
+            __movsd(reinterpret_cast<unsigned long*>(packed), reinterpret_cast<const unsigned long*>(block), count);
+            locked->nodes[i].outputs = reinterpret_cast<RwUInt32*>(packed);
+        }
+        block += 0x80;
+        totalOutputs += locked->nodes[i].numOutputs;
+        packed += locked->nodes[i].numOutputs * 4u;
+    }
+    StaticRef<RwUInt32>(0xC9A6B4) = static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(scratchHigh));
+    StaticRef<RwUInt32>(0xC9A6B8) = static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(block)) + totalOutputs * 4u;
+    if (reinterpret_cast<RwInt32(__cdecl*)(RxPipeline*)>(0x80F0D0)(locked) != 0) {
+        return nullptr;
+    }
+    const RwUInt32 usedSize = StaticRef<RwUInt32>(0xC9A6B8) - static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(locked->superBlock));
+    if (!_rxPipelineResizeSuperBlock(locked, usedSize)) {
+        _rxPipelineBuildLockedLayout(locked, locked);
+        return nullptr;
+    }
+    for (RwUInt32 i = 0; i < locked->numNodes; ++i) {
+        locked->nodes[i].topSortData = nullptr;
+    }
+
+    // Termina los nodos desde `first` hasta el ultimo (pipelineNodeTerm, InputPipesCnt -= 1 y nodeTerm si llega a 0).
+    const auto terminateFrom = [locked](RwUInt32 first) {
+        for (RwUInt32 i = first; i < locked->numNodes; ++i) {
+            RxPipelineNode* const node = &locked->nodes[i];
+            RxNodeDefinition* const definition = node->nodeDef;
+            if (definition->nodeMethods.pipelineNodeTerm != nullptr) {
+                definition->nodeMethods.pipelineNodeTerm(node);
+            }
+            definition->InputPipesCnt = definition->InputPipesCnt - 1;
+            if (definition->InputPipesCnt == 0 && definition->nodeMethods.nodeTerm != nullptr) {
+                definition->nodeMethods.nodeTerm(definition);
+            }
+        }
+    };
+
+    // nodeInit y pipelineNodeInit, del ultimo nodo al primero.
+    for (RwInt32 index = static_cast<RwInt32>(locked->numNodes) - 1; index >= 0; --index) {
+        RxPipelineNode* const node = &locked->nodes[index];
+        RxNodeDefinition* const definition = node->nodeDef;
+        const RwInt32 previousCount = definition->InputPipesCnt;
+        definition->InputPipesCnt = previousCount + 1;
+        if (previousCount == 0 && definition->nodeMethods.nodeInit != nullptr) {
+            if (!definition->nodeMethods.nodeInit(definition)) {
+                terminateFrom(static_cast<RwUInt32>(index) + 1);
+                _rxPipelineBuildLockedLayout(locked, locked);
+                return nullptr;
+            }
+        }
+        if (definition->nodeMethods.pipelineNodeInit != nullptr) {
+            if (!definition->nodeMethods.pipelineNodeInit(node)) {
+                definition->InputPipesCnt = definition->InputPipesCnt - 1;
+                if (definition->InputPipesCnt == 0 && definition->nodeMethods.nodeTerm != nullptr) {
+                    definition->nodeMethods.nodeTerm(definition);
+                }
+                terminateFrom(static_cast<RwUInt32>(index) + 1);
+                _rxPipelineBuildLockedLayout(locked, locked);
+                return nullptr;
+            }
+        }
+    }
+
+    // pipelineNodeConfig, del ultimo nodo al primero.
+    for (RwInt32 index = static_cast<RwInt32>(locked->numNodes) - 1; index >= 0; --index) {
+        RxPipelineNode* const node = &locked->nodes[index];
+        const RxPipelineNodeConfigFn config = node->nodeDef->nodeMethods.pipelineNodeConfig;
+        if (config != nullptr) {
+            if (!config(node, locked)) {
+                terminateFrom(0);
+                _rxPipelineBuildLockedLayout(locked, locked);
+                return nullptr;
+            }
+        }
+    }
+    locked->locked = FALSE;
+    return locked;
+}
+
+// Lote R31A (sin validar): ganchos de las tuberias de Rx (0x804FE0..0x806990).
+void RwCoreInjectHooksR31A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(_rxPipelineOpen, 0x804FE0);
+    RH_ScopedGlobalInstall(_rxPipelineNodeDestroy, 0x8050C0);
+    RH_ScopedGlobalInstall(_rxPipelineDestroy, 0x805820);
+    RH_ScopedGlobalInstall(RxScratchAllocHigh, 0x805890);
+    RH_ScopedGlobalInstall(RxScratchAllocLow, 0x8058F0);
+    RH_ScopedGlobalInstall(_rxPipelineCountClusters, 0x805950);
+    RH_ScopedGlobalInstall(RxPipelineNodeCloneDefinition, 0x8059C0);
+    RH_ScopedGlobalInstall(_rxNodeDefinitionClone, 0x805A20);
+    RH_ScopedGlobalInstall(RxLockedPipeUnlock, 0x805F40);
+    RH_ScopedGlobalInstall(_rxPipelineResizeSuperBlock, 0x8064D0);
+    RH_ScopedGlobalInstall(_rxPipelineBuildLockedLayout, 0x8065E0);
+    RH_ScopedGlobalInstall(_rxPipelineTopSortVisit, 0x8067B0);
+    RH_ScopedGlobalInstall(RxPipelineLock, 0x806990);
 }

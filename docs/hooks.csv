@@ -12358,3 +12358,16 @@ RwCore,RwTextureStreamGetSize,0x008045A0,1,0,0,S
 RwCore,RwTextureStreamWrite,0x008045E0,1,0,0,S
 RwCore,RwTextureStreamRead,0x008046E0,1,0,0,S
 RwCore,_rxPipelineClose,0x00804F60,1,0,0,S
+RwCore,_rxPipelineOpen,0x00804FE0,1,0,0,S
+RwCore,_rxPipelineNodeDestroy,0x008050C0,1,0,0,S
+RwCore,_rxPipelineDestroy,0x00805820,1,0,0,S
+RwCore,RxScratchAllocHigh,0x00805890,1,0,0,S
+RwCore,RxScratchAllocLow,0x008058F0,1,0,0,S
+RwCore,_rxPipelineCountClusters,0x00805950,1,0,0,S
+RwCore,RxPipelineNodeCloneDefinition,0x008059C0,1,0,0,S
+RwCore,_rxNodeDefinitionClone,0x00805A20,1,0,0,S
+RwCore,RxLockedPipeUnlock,0x00805F40,1,0,0,S
+RwCore,_rxPipelineResizeSuperBlock,0x008064D0,1,0,0,S
+RwCore,_rxPipelineBuildLockedLayout,0x008065E0,1,0,0,S
+RwCore,_rxPipelineTopSortVisit,0x008067B0,1,0,0,S
+RwCore,RxPipelineLock,0x00806990,1,0,0,S
