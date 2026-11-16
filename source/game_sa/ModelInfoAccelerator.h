@@ -19,6 +19,8 @@ public:
     static constexpr int32 BUFFER_SIZE = 41100;
 
 public:
+    static void InjectHooks();
+
     CModelInfoAccelerator();
     ~CModelInfoAccelerator() = default;
 

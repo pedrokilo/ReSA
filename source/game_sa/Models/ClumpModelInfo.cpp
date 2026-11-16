@@ -63,12 +63,24 @@ __declspec(noinline) void __fastcall ClumpModelInfoDestructorBody(CClumpModelInf
 }
 } // namespace
 
+// 0x4C62B0 (lote 194A, sin validar): destructor con borrado de CClumpModelInfo del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x4C5750; test byte [esp+8],1; je ..; push esi;
+// call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x4C5750, con hook), libera `this` con operator delete (0x8214BD, CRT) solo si el bit 0 del BYTE
+// de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+static CClumpModelInfo* __fastcall ClumpModelInfoScalarDeletingDestructor(CClumpModelInfo* self, void* /*edx*/, uint8 flags) {
+    ClumpModelInfoDestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
 void CClumpModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CClumpModelInfo, 0x85BD30, 17);
     RH_ScopedCategory("Models");
     RH_ScopedNamedGlobalInstall(ClumpModelInfoConstructorBody, "Constructor", 0x4C56F0);
     RH_ScopedNamedGlobalInstall(ClumpModelInfoDestructorBody, "DestructorBody", 0x4C5750); // lote 167A (banco Fn167A)
+    RH_ScopedNamedGlobalInstall(ClumpModelInfoScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4C62B0); // lote 194A (sin validar)
 
     RH_ScopedVMTInstall(GetModelType, 0x4C5720);
     RH_ScopedVMTInstall(Init, 0x4C4E40);

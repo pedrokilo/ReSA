@@ -41,6 +41,7 @@ END GENERATED HOOK STATUS */
 #include "PosCalculators/EntitySeekPosCalculator.h"
 #include "PosCalculators/EntitySeekPosCalculatorStandard.h"
 #include "PosCalculators/EntitySeekPosCalculatorXYOffset.h"
+#include "PosCalculators/EntitySeekPosCalculatorFixedPos.h"
 
 // 0x4BC470 con los registros del EXE (TaskComplexSeekEntityXYOffset.cpp); el argumento llega como los bits del float.
 uint32 __fastcall SetMaxEntityDist2DRegs(void* self, uint32 entryEdx, uint32 distanceBits);
@@ -93,6 +94,15 @@ public:
             RH_ScopedVMTInstall(CreateNextSubTask, 0x665080);
             RH_ScopedVMTInstall(CreateFirstSubTask, 0x665600);
             RH_ScopedVMTInstall(ControlSubTask, 0x665760);
+        }
+        else if constexpr (std::is_same_v<T_PosCalc, CEntitySeekPosCalculatorFixedPos>) {
+            // Lote 194A (sin validar): solo las tres funciones no virtuales de la clase del EXE con vtable 0x87004C (constructor y destructores); el resto de la clase (Clone, GetTaskType, MakeAbortable,
+            // CreateNextSubTask, CreateFirstSubTask, ControlSubTask...) sigue siendo codigo del EXE. RH_ScopedClass y no VirtualClass: no se sustituye ninguna ranura de la vtable.
+            RH_ScopedClass(CTaskComplexSeekEntity<CEntitySeekPosCalculatorFixedPos>);
+
+            RH_ScopedNamedInstall(ConstructorFixedPos, "Constructor", 0x66CA40);
+            RH_ScopedInstall(Destructor, 0x66CBB0);
+            RH_ScopedNamedInstall(ScalarDeletingDestructorExe, "ScalarDeletingDestructor", 0x66CB90);
         }
         // TODO: Add other specializations
     }
@@ -489,6 +499,27 @@ protected: // Wrappers for hooks
     ) {
         // Como el original (0x661DC0): el 2.º argumento va a +0x10 (m_seekInterval) y el 3.º a +0x14; antes se intercambiaban
         this->CTaskComplexSeekEntity::CTaskComplexSeekEntity(entity, taskTimer2Interval, taskTimer1Interval, maxEntityDist2D, unk1, unk2, flag0, flag1);
+        return this;
+    }
+
+    // 0x66CA40 (lote 194A, sin validar; solo la especializacion FixedPos, vtable 0x87004C; el listado decia CTaskComplexInvestigateDisturbance): thiscall, ocho argumentos de pila, `ret 20h`, 209 bytes con marco SEH
+    // que solo desenrolla; devuelve this. Base CTaskComplex (0x61A3B0), +0xC = entidad, +0x10 = intervalo de busqueda, +0x14 = intervalo de escaneo, +0x18 = distancia maxima, +0x1C = radio de estado de movimiento,
+    // +0x20 = distancia minima = 0, +0x24 = umbral de altura, temporizadores +0x28 y +0x34 a cero, calculador incrustado +0x40 (vtable 0x86FD18, posicion fija +0x44..+0x4C = 0), +0x50 = 6 (PEDMOVE_RUN) y los
+    // bits de +0x54: bit 0 = tired (bool & 1), bit 1 = cara a la entidad (bool & 1), bits 2 y 3 a cero (el nibble alto no se toca). Si la entidad no es nula, CEntity::RegisterReference (0x571B70) sobre +0xC. La
+    // vtable de la clase del EXE (0x87004C) queda escrita al final (el constructor de C++ deja la de la DLL) y la del calculador la del EXE (0x86FD18); la posicion fija se rellena despues, fuera del constructor.
+    CTaskComplexSeekEntity* ConstructorFixedPos(
+        CEntity* entity,
+        int32    seekInterval,
+        int32    scanInterval,
+        float    maxEntityDist2D,
+        float    moveStateRadius,
+        float    followNodeThresholdHeightChange,
+        bool     bPlayTiredAnim,
+        bool     bFaceEntityWhenDone
+    ) requires std::is_same_v<T_PosCalc, CEntitySeekPosCalculatorFixedPos> {
+        this->CTaskComplexSeekEntity::CTaskComplexSeekEntity(entity, seekInterval, scanInterval, maxEntityDist2D, moveStateRadius, followNodeThresholdHeightChange, bPlayTiredAnim, bFaceEntityWhenDone, CEntitySeekPosCalculatorFixedPos{ CVector{ 0.f, 0.f, 0.f } });
+        *reinterpret_cast<uint32*>(this) = 0x87004C;
+        *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(this) + 0x40) = 0x86FD18;
         return this;
     }
 

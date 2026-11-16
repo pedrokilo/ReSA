@@ -20,12 +20,42 @@ END GENERATED HOOK STATUS */
 
 #include "PedModelInfo.h"
 
+namespace CColModelBody {
+void __fastcall DestructorExe(CColModel* self, void* edx); // Collision/ColModel.cpp: 0x40F700
+}
+
+// 0x4C62F0 (lote 194A, sin validar; el listado decia CModelInfo; thiscall, sin argumentos de pila, `ret`, 90 bytes con marco SEH que solo desenrolla): cuerpo del destructor de CPedModelInfo del EXE (lo pasa a los
+// iteradores de vectores del almacen de peatones `push 0x4C62F0` en 0x4C67D1 y 0x4C6391, y lo llama el destructor con borrado 0x4C6350). Como el original: vtable de CPedModelInfo (0x85BDC0); si el modelo de
+// colision de impactos (+0x34) no es nulo, destructor de CColModel (0x40F700, con hook) y CColModel::operator delete (0x40FC40, con hook); vtable de CBaseModelInfo (0x85BB9C). Funcion propia sin expansion en linea.
+__declspec(noinline) static void __fastcall PedModelInfoDestructorBody(CPedModelInfo* self, void* /*edx*/) {
+    static_assert(offsetof(CPedModelInfo, m_pHitColModel) == 0x34);
+    *reinterpret_cast<uint32*>(self) = 0x85BDC0;
+    if (CColModel* const hitColModel = self->m_pHitColModel) {
+        CColModelBody::DestructorExe(hitColModel, nullptr);
+        CColModel::operator delete(hitColModel);
+    }
+    *reinterpret_cast<uint32*>(self) = 0x85BB9C;
+}
+
+// 0x4C6350 (lote 194A, sin validar): destructor con borrado de CPedModelInfo del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x4C62F0; test byte [esp+8],1; je ..; push esi;
+// call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x4C62F0, con hook), libera `this` con operator delete (0x8214BD, CRT) solo si el bit 0 del BYTE
+// de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+static CPedModelInfo* __fastcall PedModelInfoScalarDeletingDestructor(CPedModelInfo* self, void* /*edx*/, uint8 flags) {
+    PedModelInfoDestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
 /**
  * Registra las operaciones específicas de modelos de peatón.
  */
 void CPedModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CPedModelInfo, 0x85BDC0, 17);
     RH_ScopedCategory("Models");
+    RH_ScopedNamedGlobalInstall(PedModelInfoDestructorBody, "DestructorBody", 0x4C62F0); // lote 194A (sin validar)
+    RH_ScopedNamedGlobalInstall(PedModelInfoScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4C6350); // lote 194A (sin validar)
 
     RH_ScopedVMTInstall(GetModelType, 0x4C57C0);
     RH_ScopedVMTInstall(DeleteRwObject, 0x4C6C50);

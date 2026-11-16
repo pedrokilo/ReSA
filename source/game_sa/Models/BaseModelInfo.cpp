@@ -44,7 +44,10 @@ static uint32 __fastcall SetBaseModelInfoFlags_KeepEdx(void* /*ecx*/, uint32 ent
 
 // 0x4C5620 (lote 140A, banco Fn140A): cuerpo del destructor de CBaseModelInfo del EXE (thiscall, sin argumentos, `ret`, 7 bytes: `mov dword [ecx],0x85BB9C`): solo deja la vtable de la clase base y no
 // toca nada mas. Lo pasan a los iteradores de vectores de los almacenes (CStore) y lo llama el destructor con borrado (0x4C6250).
-__declspec(noinline) static void __fastcall BaseModelInfoDestructorBody(CBaseModelInfo* self, void* /*edx*/) { *reinterpret_cast<uint32*>(self) = 0x85BB9C; }
+// Espacio con nombre (no anonimo) para que el destructor con borrado de CLodAtomicModelInfo (0x4C6250, LodAtomicModelInfo.cpp) llame a este mismo cuerpo sin duplicarlo (lote 194A).
+namespace CBaseModelInfoBody {
+__declspec(noinline) void __fastcall DestructorBody(CBaseModelInfo* self, void* /*edx*/) { *reinterpret_cast<uint32*>(self) = 0x85BB9C; }
+} // namespace CBaseModelInfoBody
 
 // 0x4C4A60 (lote 143A, banco Fn143A): cuerpo del constructor de CBaseModelInfo del EXE (thiscall, sin argumentos, `ret`, 21 bytes: `mov eax,ecx; mov [eax],0x85BB9C; mov word [eax+8],0; mov word [eax+0Ah],0FFFFh`):
 // vtable de la clase base, contador de referencias (+8, word) a 0 e indice del TXD (+0xA, word) a 0xFFFF; devuelve `this`. Espacio con nombre (no anonimo) para que el constructor de CAtomicModelInfo
@@ -71,13 +74,21 @@ static CBaseModelInfo* __fastcall BaseModelInfoScalarDeletingDestructor(CBaseMod
     return self;
 }
 
+// 0x4C6200 (lote 194A, sin validar; el listado decia CModelInfo; thiscall, sin argumentos, 5 bytes: `mov eax,[ecx]; jmp [eax+0x1C]`): salto por la ranura 7 de la vtable del objeto (CBaseModelInfo::Shutdown;
+// ranura 0 destructor, 1-3 AsXxxPtr, 4 GetModelType, 5 GetTimeInfo, 6 Init, 7 Shutdown). Lo llama CModelInfo::ShutDown (0x4C63E0) con cada elemento de los almacenes. Llamada virtual normal sobre el objeto:
+// el despachador toma la vtable de la instancia (la del EXE en los objetos construidos por el EXE) y los argumentos no existen.
+static void __fastcall BaseModelInfoShutdownThunk(CBaseModelInfo* self, void* /*edx*/) {
+    self->Shutdown();
+}
+
 void CBaseModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CBaseModelInfo, 0x85BB9C, 15);
     RH_ScopedCategory("Models");
 
-    RH_ScopedNamedGlobalInstall(BaseModelInfoDestructorBody, "DestructorBody", 0x4C5620); // lote 140A (banco Fn140A)
+    RH_ScopedNamedGlobalInstall(CBaseModelInfoBody::DestructorBody, "DestructorBody", 0x4C5620); // lote 140A (banco Fn140A)
     RH_ScopedNamedGlobalInstall(BaseModelInfoScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4C4AF0); // lote 150A (banco Fn150A)
     RH_ScopedNamedGlobalInstall(CBaseModelInfoBody::Constructor, "ConstructorBody", 0x4C4A60); // lote 143A (banco Fn143A)
+    RH_ScopedNamedGlobalInstall(BaseModelInfoShutdownThunk, "ShutdownThunk", 0x4C6200); // lote 194A (sin validar)
 
     RH_ScopedVMTInstall(AsAtomicModelInfoPtr, 0x4C4A80);
     RH_ScopedVMTInstall(AsDamageAtomicModelInfoPtr, 0x4C4A90);

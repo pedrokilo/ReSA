@@ -19,7 +19,7 @@ public:
     void ScanForStuff(CPed* ped) override; // 0x66F640
 
     CTaskComplexWanderGang* ScalarDeletingDestructor(uint8 flags); // 0x66F650 (lote 205A, sin validar): destructor con borrado (ranura 0 de la vtable 0x8700D4), `ret 4`
-    bool CanJoinGang() { return m_TaskTimer.IsOutOfTime(); }
+    bool CanJoinGang(); // 0x669FB0 (lote 194A, sin validar): CTaskTimer::IsOutOfTime expandido en linea
 
 private: // Wrappers for hooks
     // 0x66F5C0

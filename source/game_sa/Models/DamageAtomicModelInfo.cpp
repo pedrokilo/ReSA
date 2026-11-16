@@ -41,6 +41,17 @@ __declspec(noinline) static void __fastcall DamageAtomicModelInfoDestructorBody(
     *reinterpret_cast<uint32*>(self) = 0x85BB9C;
 }
 
+// 0x4C6230 (lote 194A, sin validar): destructor con borrado de CDamageAtomicModelInfo del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x4C55D0; test byte [esp+8],1; je ..; push esi;
+// call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x4C55D0, con hook), libera `this` con operator delete (0x8214BD, CRT) solo si el bit 0 del BYTE
+// de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+static CDamageAtomicModelInfo* __fastcall DamageAtomicModelInfoScalarDeletingDestructor(CDamageAtomicModelInfo* self, void* /*edx*/, uint8 flags) {
+    DamageAtomicModelInfoDestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
 /**
  * Registra las operaciones del model info con variante dañada de RpAtomic.
  */
@@ -51,6 +62,7 @@ void CDamageAtomicModelInfo::InjectHooks()
 
     RH_ScopedNamedGlobalInstall(DamageAtomicModelInfoConstructorBody, "ConstructorBody", 0x4C55A0); // lote 161A (banco Fn161A)
     RH_ScopedNamedGlobalInstall(DamageAtomicModelInfoDestructorBody, "DestructorBody", 0x4C55D0); // lote 173A (banco Fn173A)
+    RH_ScopedNamedGlobalInstall(DamageAtomicModelInfoScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4C6230); // lote 194A (sin validar)
     RH_ScopedVMTInstall(Init, 0x4C48B0);
     RH_ScopedVMTInstall(AsDamageAtomicModelInfoPtr, 0x4C55C0);
     RH_ScopedVMTInstall(DeleteRwObject, 0x4C49D0);

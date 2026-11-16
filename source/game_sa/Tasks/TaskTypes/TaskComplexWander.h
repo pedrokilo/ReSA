@@ -76,6 +76,7 @@ public:
     float GetDistSqOfClosestPathNodeToPed(CPed* ped);
 
     static CTaskComplexWander* GetWanderTaskByPedType(CPed* ped);
+    static CTaskComplexWander* GetWanderTaskByPedTypeId(int32 pedType); // 0x673EF0 (lote 194A, sin validar; nombre propio: misma logica que GetWanderTaskByPedType pero recibe el tipo de peaton)
 private:
     friend void InjectHooksMain();
     static void InjectHooks();

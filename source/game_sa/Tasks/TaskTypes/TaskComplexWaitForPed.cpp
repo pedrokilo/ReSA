@@ -19,6 +19,8 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "TaskComplexWaitForPed.h"
+#include "TaskSimpleStandStill.h"
+#include "EventDeadPed.h"
 #include "X87Math.h"
 
 namespace CTaskComplexBody {
@@ -73,6 +75,9 @@ void CTaskComplexWaitForPed::InjectHooks() {
     RH_ScopedNamedGlobalInstall(WaitForPedMakeAbortable, "MakeAbortable", 0x683430); // lote 193A (sin validar)
     RH_ScopedInstall(CloneBody, 0x683950); // lote 132A (banco Fn132A)
     RH_ScopedNamedGlobalInstall(WaitForPedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x684780); // lote 151A (banco Fn151A)
+    RH_ScopedNamedInstall(CreateNextSubTaskBody, "CreateNextSubTask", 0x683440);  // lote 194A (sin validar)
+    RH_ScopedNamedInstall(CreateFirstSubTaskBody, "CreateFirstSubTask", 0x683450); // lote 194A (sin validar)
+    RH_ScopedNamedInstall(ControlSubTaskBody, "ControlSubTask", 0x6834E0);        // lote 194A (sin validar)
 }
 
 namespace {
@@ -140,4 +145,83 @@ CTask* CTaskComplexWaitForPed::CloneBody() const {
         return nullptr;
     }
     return memory->Constructor(m_ped, m_radius, m_timeInMs, m_bRotateOtherPedsToWaitingPed);
+}
+
+// 0x683440 (lote 194A, sin validar; `xor eax,eax; ret 4`, 5 bytes; ranura 8 de la vtable 0x8706F8): no lee el ped ni el objeto; siempre devuelve nulo.
+CTask* CTaskComplexWaitForPed::CreateNextSubTaskBody(CPed* /*ped*/) {
+    return nullptr;
+}
+
+// 0x683450 (lote 194A, sin validar; thiscall, un argumento de pila, `ret 4`, 138 bytes con marco SEH que solo libera la memoria si el constructor lanzara: se omite; ranura 9). Sin ped (+0xC) devuelve nulo sin
+// tocar nada. Si no: arranca el temporizador (+0x1C = hora actual de CTimer, +0x20 = tiempo, +0x24 = true; +0x25 no se toca) y pone a cero el contador de fotogramas (+0x28). Despues reserva 0x20 bytes con
+// CTask::operator new (0x61A5A0; sin memoria devuelve nulo) y construye CTaskSimpleStandStill con el constructor enganchado 0x62F310 (999999 = 0xF423F, false, false, 8.0f) y devuelve lo que este deja en EAX.
+CTask* CTaskComplexWaitForPed::CreateFirstSubTaskBody(CPed* /*ped*/) {
+    if (!m_ped) {
+        return nullptr;
+    }
+    m_timer.m_nStartTime = CTimer::GetTimeInMS();
+    m_timer.m_nInterval = m_timeInMs;
+    m_timer.m_bStarted = true;
+    m_framesToWaitForSettingRotation = 0;
+
+    void* const memory = CTask::operator new(sizeof(CTaskSimpleStandStill));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CTaskSimpleStandStill*>(memory)->Constructor(999999, false, false, 8.0f);
+}
+
+// 0x6834E0 (lote 194A, sin validar; thiscall, ped en la pila, `ret 4`, 528 bytes con marco SEH que solo desenrolla el evento local; ranura 10). Como el original:
+//  1. sin ped esperado (+0xC) devuelve nulo; con el ped esperado muerto (CPed::IsAlive 0x5E0170) construye un CEventDeadPed local (0x4ADEA0: ped esperado, false, hora actual), pone su tarea de respuesta (+0xE) a
+//     TASK_COMPLEX_INVESTIGATE_DEAD_PED (0x258) y lo anade al grupo de eventos del ped recibido (CEventGroup::Add 0x4AB420, false); devuelve nulo (el evento se destruye con 0x4ADF70).
+//  2. con el temporizador arrancado (+0x24) y vencido (CTaskTimer::IsOutOfTime 0x420E30) devuelve nulo.
+//  3. busca en el ped esperado la tarea TASK_COMPLEX_WALK_ALONGSIDE_PED (0x4B8 = 1208; CPedIntelligence::FindTaskByType 0x600EE0). Con tarea: copia el CVector de la tarea (+0x14, tres dwords), lo pasa por la matriz
+//     del ped recibido (0x59C890, sin comprobar nulo) y la diferencia es (resultado - posicion del ped esperado). Sin tarea: (posicion del ped recibido - posicion del ped esperado). Orden x, y, z.
+//  4. distancia al cuadrado = (dz*dz + dy*dy) + dx*dx (x87 a 24 bits = floats); si es menor que radio*radio (+0x10) devuelve nulo (NaN o mayor/igual sigue).
+//  5. con rotar (+0x18) y contador (+0x28) a cero: CVector (posicion del ped esperado - posicion del ped recibido) (0x40FE60) y m_fAimingRotation (+0x55C; no m_fCurrentRotation, que es +0x558) del ped recibido = LimitRadianAngle(
+//     GetRadianAngleBetweenPoints(x, y, 0, 0)) (0x53CB50 / 0x53CBE0); el resultado de ambas pasa por un float en la pila.
+//  6. contador = contador + 1, a cero si supera 10 (con signo); devuelve la subtarea (+0x8).
+CTask* CTaskComplexWaitForPed::ControlSubTaskBody(CPed* ped) {
+    static_assert(offsetof(CPed, m_fAimingRotation) == 0x55C);
+    if (!m_ped) {
+        return nullptr;
+    }
+    if (!m_ped->IsAlive()) {
+        CEventDeadPed event(m_ped, false, CTimer::GetTimeInMS());
+        event.m_TaskId = TASK_COMPLEX_INVESTIGATE_DEAD_PED;
+        ped->GetIntelligence()->GetEventGroup().Add(&event, false);
+        return nullptr;
+    }
+
+    if (m_timer.m_bStarted && m_timer.IsOutOfTime()) {
+        return nullptr;
+    }
+
+    const CVector& waitedPos = m_ped->GetPosition();
+    CVector        world;
+    const float*   fromPos;
+    if (auto* const alongside = m_ped->GetIntelligence()->FindTaskByType(TASK_COMPLEX_WALK_ALONGSIDE_PED)) {
+        const CVector local = *reinterpret_cast<const CVector*>(reinterpret_cast<const uint8*>(alongside) + 0x14);
+        plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&world, ped->m_matrix, &local);
+        fromPos = &world.x;
+    } else {
+        fromPos = &ped->GetPosition().x;
+    }
+    // (dz*dz + dy*dy) + dx*dx < radio*radio en la x87 (24 bits, exponente ampliado, sin guardar parciales): X87Math.cpp (el EXE guarda las restas en registros, no como float)
+    if (Wfp194NearCpp(fromPos, &waitedPos.x, m_radius)) {
+        return nullptr;
+    }
+
+    if (m_bRotateOtherPedsToWaitingPed && m_framesToWaitForSettingRotation == 0) {
+        float difference[3];
+        Veh81BSub3Cpp(&m_ped->GetPosition().x, &ped->GetPosition().x, difference); // 0x40FE60: fld/fsub/fstp por componente (los desnormales no se aplanan como con SSE)
+        const float heading = CGeneral::GetRadianAngleBetweenPoints(difference[0], difference[1], 0.0f, 0.0f);
+        ped->m_fAimingRotation = CGeneral::LimitRadianAngle(heading);
+    }
+
+    m_framesToWaitForSettingRotation = m_framesToWaitForSettingRotation + 1;
+    if (m_framesToWaitForSettingRotation > 10) {
+        m_framesToWaitForSettingRotation = 0;
+    }
+    return m_pSubTask;
 }

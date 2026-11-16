@@ -36,6 +36,7 @@ private:
     friend class CTaskComplexGoToBoatSteeringWheel; // su CreateSubTask (0x64CDA0, lote 180A) tambien
     friend class CTaskComplexGoToPointAndStandStillAndAchieveHeading; // su CreateSubTask (0x668D50, lote 180A) tambien
     friend class CTaskComplexKillAllThreats; // su CreateFirstSubTask (0x629480, lote 190A) tambien
+    friend class CTaskComplexWaitForPed;      // su CreateFirstSubTask (0x683450) tambien (lote 194A, sin validar)
     static void InjectHooks();
 
     __declspec(noinline) CTaskSimpleStandStill* Constructor(int32 nTime, bool Looped, bool bUseAnimIdleStance, float fBlendData) { this->CTaskSimpleStandStill::CTaskSimpleStandStill(nTime, Looped, bUseAnimIdleStance, fBlendData); return this; }

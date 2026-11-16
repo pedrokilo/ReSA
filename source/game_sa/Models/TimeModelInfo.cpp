@@ -45,10 +45,22 @@ __declspec(noinline) static CTimeModelInfo* __fastcall TimeModelInfoConstructorB
     return self;
 }
 
+// 0x4C6270 (lote 194A, sin validar): destructor con borrado de CTimeModelInfo del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x4C5680; test byte [esp+8],1; je ..; push esi;
+// call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x4C5680, con hook), libera `this` con operator delete (0x8214BD, CRT) solo si el bit 0 del BYTE
+// de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+static CTimeModelInfo* __fastcall TimeModelInfoScalarDeletingDestructor(CTimeModelInfo* self, void* /*edx*/, uint8 flags) {
+    TimeModelInfoDestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
 void CTimeModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CTimeModelInfo, 0x85BCB0, 16);
     RH_ScopedCategory("Models");
     RH_ScopedNamedGlobalInstall(TimeModelInfoDestructorBody, "Destructor", 0x4C5680);
+    RH_ScopedNamedGlobalInstall(TimeModelInfoScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4C6270); // lote 194A (sin validar)
 
     RH_ScopedNamedGlobalInstall(TimeModelInfoConstructorBody, "ConstructorBody", 0x4C5640); // lote 140A (banco Fn140A)
 

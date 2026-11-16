@@ -23,6 +23,13 @@ public:
 
     //! 0x683950 (lote 132A, banco Fn132A): cuerpo del Clone de la clase del EXE (la clase aun no declara sus virtuales): reserva una tarea (0x2C bytes) y le aplica Constructor con los campos de esta
     CTask* CloneBody() const;
+
+    //! 0x683440 (lote 194A, sin validar): CreateNextSubTask del EXE (ranura 8 de la vtable 0x8706F8; la clase aun no declara sus virtuales, por eso el nombre con sufijo): siempre nulo
+    CTask* CreateNextSubTaskBody(CPed* ped);
+    //! 0x683450 (lote 194A, sin validar): CreateFirstSubTask del EXE (ranura 9)
+    CTask* CreateFirstSubTaskBody(CPed* ped);
+    //! 0x6834E0 (lote 194A, sin validar): ControlSubTask del EXE (ranura 10)
+    CTask* ControlSubTaskBody(CPed* ped);
 };
 
 VALIDATE_SIZE(CTaskComplexWaitForPed, 0x2C);

@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 
 namespace CBaseModelInfoBody {
 CBaseModelInfo* __fastcall Constructor(CBaseModelInfo* self, void* edx); // BaseModelInfo.cpp: 0x4C4A60
+void __fastcall DestructorBody(CBaseModelInfo* self, void* edx); // BaseModelInfo.cpp: 0x4C5620
 }
 
 // 0x4C55E0 (lote 173A, banco Fn173A): cuerpo del constructor de CLodAtomicModelInfo del EXE (thiscall, sin argumentos, `ret`, 28 bytes: `push esi; mov esi,ecx; call 0x4C4A60; xor eax,eax; mov [esi+20h],ax;
@@ -35,6 +36,17 @@ __declspec(noinline) static CLodAtomicModelInfo* __fastcall LodAtomicModelInfoCo
     return self;
 }
 
+// 0x4C6250 (lote 194A, sin validar): destructor con borrado de CLodAtomicModelInfo del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x4C5620; test byte [esp+8],1; je ..; push esi;
+// call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x4C5620, con hook), libera `this` con operator delete (0x8214BD, CRT) solo si el bit 0 del BYTE
+// de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+static CLodAtomicModelInfo* __fastcall LodAtomicModelInfoScalarDeletingDestructor(CLodAtomicModelInfo* self, void* /*edx*/, uint8 flags) {
+    CBaseModelInfoBody::DestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
 /**
  * Registra las operaciones del model info especializado para LODs.
  */
@@ -44,6 +56,7 @@ void CLodAtomicModelInfo::InjectHooks()
     RH_ScopedCategory("Models");
 
     RH_ScopedNamedGlobalInstall(LodAtomicModelInfoConstructorBody, "ConstructorBody", 0x4C55E0); // lote 173A (banco Fn173A)
+    RH_ScopedNamedGlobalInstall(LodAtomicModelInfoScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4C6250); // lote 194A (sin validar)
     RH_ScopedVMTInstall(AsLodAtomicModelInfoPtr, 0x4C5610);
     RH_ScopedVMTInstall(GetModelType, 0x4C5600);
     RH_ScopedVMTInstall(Init, 0x4C54D0);

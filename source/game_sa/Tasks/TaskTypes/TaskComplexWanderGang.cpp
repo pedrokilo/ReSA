@@ -40,6 +40,7 @@ void CTaskComplexWanderGang::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x66F5C0);
     RH_ScopedNamedGlobalInstall(WanderGangDestructorBodyExe, "DestructorBody", 0x66F670); // lote 205A (sin validar)
     RH_ScopedInstall(ScalarDeletingDestructor, 0x66F650);                                  // lote 205A (sin validar)
+    RH_ScopedInstall(CanJoinGang, 0x669FB0); // lote 194A (sin validar)
 
     RH_ScopedVMTInstall(Clone, 0x671470);
     RH_ScopedVMTInstall(GetWanderType, 0x66F630);
@@ -70,4 +71,19 @@ CTaskComplexWanderGang* CTaskComplexWanderGang::ScalarDeletingDestructor(uint8 f
         CTask::operator delete(this);
     }
     return this;
+}
+
+// 0x669FB0 (lote 194A, sin validar; thiscall, sin argumentos, `ret`, 54 bytes; el listado decia CTaskComplexWander: la clase real es CTaskComplexWanderGang, con el temporizador en +0x28; lo llama el
+// escaneo de pandilleros del EXE en 0x65E4C8 tras comprobar GetWanderType == WANDER_TYPE_GANG). Es CTaskTimer::IsOutOfTime (0x420E30) expandido EN LINEA, sin llamar a esa funcion: temporizador sin arrancar
+// (+0x30) -> false; si esta parado (+0x31) lo rearranca (+0x28 = hora actual, +0x31 = false); devuelve hora actual >= inicio + intervalo (+0x2C), comparacion SIN signo (cmp + sbb + inc).
+bool CTaskComplexWanderGang::CanJoinGang() {
+    if (!m_TaskTimer.m_bStarted) {
+        return false;
+    }
+    if (m_TaskTimer.m_bStopped) {
+        m_TaskTimer.m_nStartTime = CTimer::GetTimeInMS();
+        m_TaskTimer.m_bStopped = false;
+    }
+    const uint32 end = uint32(m_TaskTimer.m_nStartTime) + uint32(m_TaskTimer.m_nInterval);
+    return CTimer::GetTimeInMS() >= end;
 }

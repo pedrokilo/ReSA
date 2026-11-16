@@ -37,6 +37,7 @@ private:
 
 private:
     friend void InjectHooksMain();
+    friend class CTaskComplexWander; // GetWanderTaskByPedTypeId (0x673EF0, lote 194A) llama al constructor enganchado
     static void InjectHooks();
 
     CTaskComplexWanderCop* Constructor(eMoveState moveState, uint8 dir);

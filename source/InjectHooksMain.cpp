@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "ModelInfoAccelerator.h"
 #include "PatrolRoute.h"
 #include "AttractorScanner.h"
 #include "Events/EventSource.h"
@@ -805,6 +806,7 @@ void InjectHooksMain() {
     CMemoryMgr::InjectHooks();
     CMemoryHeap::InjectHooks();
     CModelInfo::InjectHooks();
+    CModelInfoAccelerator::InjectHooks(); // lote 194A (sin validar)
     CBaseModelInfo::InjectHooks();
     CAtomicModelInfo::InjectHooks();
     CLodAtomicModelInfo::InjectHooks();
@@ -1263,6 +1265,7 @@ void InjectHooksMain() {
         CTaskComplexSeekEntityXYOffset::InjectHooks();
         CTaskComplexSeekEntityAiming::InjectHooks();
         CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::InjectHooks();
+        CTaskComplexSeekEntity<CEntitySeekPosCalculatorFixedPos>::InjectHooks(); // lote 194A (sin validar)
 
         CTaskComplexSeekEntityAnyMeansXYOffset::InjectHooks();
         CTaskComplexShuffleSeats::InjectHooks();

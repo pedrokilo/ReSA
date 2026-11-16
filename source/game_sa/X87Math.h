@@ -2359,3 +2359,11 @@ void __cdecl MatrixScaleAllCpp(float* matrix, float factor);
 // Lote 185A (sin validar).
 // 0x44CB10 (COnscreenTimerEntry::Process): _ftol2((paso * 0.02f) * 1000.0f) con la x87 (24 bits, sin guardado intermedio); devuelve los 32 bits bajos del truncamiento a 64 bits. Ver X87Math.cpp.
 int __cdecl TimerStepMsCpp(float step);
+
+// Lote 194A (sin validar).
+// CTaskComplexWaitForPed::ControlSubTask (0x6834E0): `((dz*dz + dy*dy) + dx*dx) < radio*radio` con d = a - b (x, y, z) en la x87 (24 bits, exponente ampliado, sin guardar parciales); comparacion ordenada (con NaN, falso).
+// Los punteros apuntan a x, y, z consecutivos.
+bool __cdecl Wfp194NearCpp(const float* a, const float* b, float radius);
+// CTaskComplexWander::GetDistSqOfClosestPathNodeToPed (0x669FF0): distancia al cuadrado ((dz*dz + dy*dy) + dx*dx) del peaton a cada nodo (nulo = nodo no valido: 999999.0f) en la x87 (24 bits, exponente ampliado): la del
+// siguiente se guarda como float (`fstp dword`), la del anterior queda en el registro y gana solo si es ESTRICTAMENTE menor (comparacion ordenada; empate o NaN devuelven el siguiente). Los punteros apuntan a x, y, z consecutivos.
+float __cdecl Pf194ClosestDistSqCpp(const float* next, const float* last, const float* ped);

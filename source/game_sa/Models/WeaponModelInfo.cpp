@@ -33,6 +33,23 @@ __declspec(noinline) static CWeaponModelInfo* __fastcall WeaponModelInfoConstruc
     return self;
 }
 
+// 0x4C5790 (lote 194A, sin validar; no estaba en el listado: lo llama el destructor con borrado 0x4C62D0 y el iterador de destructores de vectores del almacen de armas): cuerpo del destructor de CWeaponModelInfo
+// del EXE (thiscall, sin argumentos de pila, `ret`, 7 bytes: `mov dword [ecx],0x85BB9C`): solo deja la vtable de la clase base y no llama a nada (como 0x4C5590 y 0x4C5750). Funcion propia sin expansion en linea.
+__declspec(noinline) static void __fastcall WeaponModelInfoDestructorBody(CWeaponModelInfo* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85BB9C;
+}
+
+// 0x4C62D0 (lote 194A, sin validar): destructor con borrado de CWeaponModelInfo del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x4C5790; test byte [esp+8],1; je ..; push esi;
+// call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x4C5790, con hook), libera `this` con operator delete (0x8214BD, CRT) solo si el bit 0 del BYTE
+// de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+static CWeaponModelInfo* __fastcall WeaponModelInfoScalarDeletingDestructor(CWeaponModelInfo* self, void* /*edx*/, uint8 flags) {
+    WeaponModelInfoDestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
 /**
  * Registra la inicialización y configuración RenderWare de modelos de armas.
  */
@@ -42,6 +59,8 @@ void CWeaponModelInfo::InjectHooks()
     RH_ScopedCategory("Models");
 
     RH_ScopedNamedGlobalInstall(WeaponModelInfoConstructorBody, "ConstructorBody", 0x4C5760); // lote 167A (banco Fn167A)
+    RH_ScopedNamedGlobalInstall(WeaponModelInfoDestructorBody, "DestructorBody", 0x4C5790); // lote 194A (sin validar)
+    RH_ScopedNamedGlobalInstall(WeaponModelInfoScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4C62D0); // lote 194A (sin validar)
     RH_ScopedVMTInstall(GetModelType, 0x4C5780);
     RH_ScopedVMTInstall(Init, 0x4C98F0);
     RH_ScopedVMTInstall(SetClump, 0x4C9910);

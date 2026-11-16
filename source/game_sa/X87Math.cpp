@@ -19014,3 +19014,35 @@ __declspec(noinline) bool __cdecl ProcSurfaceInTriangle2DCpp(const float* in, fl
     return true;
 }
 #pragma float_control(pop)
+
+// --- Lote 194A (sin validar) ---
+// 0x6834E0 (CTaskComplexWaitForPed::ControlSubTask) 0x683624..0x68364B: dx, dy, dz = a - b (fld/fsub en la x87), `fld st0; fmul st,st1` ... (dz*dz + dy*dy) + dx*dx sin guardar y comparacion ordenada con radio*radio (`fcompp`: solo
+// "menor" (C0 sin C2) devuelve nulo; con NaN o mayor/igual sigue).
+// 0x669FF0 (CTaskComplexWander::GetDistSqOfClosestPathNodeToPed): la misma suma para cada nodo; la del siguiente se guarda como float y la del anterior se compara (`fcom dword`) con ella sin guardarse.
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl Wfp194NearCpp(const float* a, const float* b, float radius) {
+    const double dx = double(a[0]) - double(b[0]);
+    const double dy = double(a[1]) - double(b[1]);
+    const double dz = double(a[2]) - double(b[2]);
+    const double r = radius;
+    return ((dz * dz + dy * dy) + dx * dx) < r * r;
+}
+__declspec(noinline) float __cdecl Pf194ClosestDistSqCpp(const float* next, const float* last, const float* ped) {
+    volatile float nextDist = 999999.0f;
+    if (next) {
+        const double dx = double(next[0]) - double(ped[0]);
+        const double dy = double(next[1]) - double(ped[1]);
+        const double dz = double(next[2]) - double(ped[2]);
+        nextDist = float((dz * dz + dy * dy) + dx * dx);
+    }
+    double lastDist = 999999.0;
+    if (last) {
+        const double dx = double(last[0]) - double(ped[0]);
+        const double dy = double(last[1]) - double(ped[1]);
+        const double dz = double(last[2]) - double(ped[2]);
+        lastDist = (dz * dz + dy * dy) + dx * dx;
+    }
+    const float stored = nextDist;
+    return lastDist < double(stored) ? float(lastDist) : stored;
+}
+#pragma float_control(pop)

@@ -42,11 +42,23 @@ CLodTimeModelInfo* __fastcall LodTimeModelInfoConstructorBody(CLodTimeModelInfo*
 }
 } // namespace
 
+// 0x4C6290 (lote 194A, sin validar): destructor con borrado de CLodTimeModelInfo del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x4C56E0; test byte [esp+8],1; je ..; push esi;
+// call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x4C56E0, con hook), libera `this` con operator delete (0x8214BD, CRT) solo si el bit 0 del BYTE
+// de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+static CLodTimeModelInfo* __fastcall LodTimeModelInfoScalarDeletingDestructor(CLodTimeModelInfo* self, void* /*edx*/, uint8 flags) {
+    LodTimeModelInfoDestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
 void CLodTimeModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CLodTimeModelInfo, 0x85BCF0, 16);
     RH_ScopedCategory("Models");
     RH_ScopedNamedGlobalInstall(LodTimeModelInfoDestructorBody, "Destructor", 0x4C56E0);
+    RH_ScopedNamedGlobalInstall(LodTimeModelInfoScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4C6290); // lote 194A (sin validar)
     RH_ScopedNamedGlobalInstall(LodTimeModelInfoConstructorBody, "Constructor", 0x4C5690);
 
     // Las direcciones anteriores (0x4C5660/0x4C5670) eran las de CTimeModelInfo; las

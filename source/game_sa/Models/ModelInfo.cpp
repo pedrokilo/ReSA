@@ -39,6 +39,47 @@ auto& CModelInfo::ms_vehicleModelInfoStore = StaticRef<CStore<CVehicleModelInfo,
 auto& CModelInfo::ms_pedModelInfoStore = StaticRef<CStore<CPedModelInfo, NUM_PED_MODEL_INFOS>>(0xB478F8);
 auto& CModelInfo::ms_2dFXInfoStore = StaticRef<CStore<C2dEffect, NUM_2DFX_INFOS>>(0xB4C2D8);
 
+// Constructores de los almacenes (CStore) de model infos (lote 194A, sin validar). Cada uno es el marco del `eh vector constructor iterator` del CRT del EXE (0x821D30; thiscall, sin argumentos de pila, `ret`,
+// 36 a 42 bytes; los llama el inicializador estatico de cada almacen): llama al constructor de ELEMENTO del EXE (se pasa por direccion: unos estan enganchados (0x4C5540...) y otros no (0x4C57A0, 0x4C75E0)) sobre
+// cada elemento en orden ascendente (puntero + 4 + i * tamano; el iterador solo escribe lo que escribe el constructor del elemento, no pone a cero el resto), y DESPUES pone el contador (+0x0) a cero. Devuelve
+// this. El destructor de desenrollado que pasa el EXE (0x4C5590...) solo se usa si un constructor lanzara y no tiene efecto aqui.
+template<typename T, size_t Capacity>
+static CStore<T, Capacity>* ConstructModelInfoStore(CStore<T, Capacity>* self, uintptr_t elementConstructor) {
+    auto* const elements = reinterpret_cast<uint8*>(&self->m_aObjects);
+    for (size_t i = 0; i < Capacity; ++i) {
+        reinterpret_cast<void(__thiscall*)(void*)>(elementConstructor)(elements + i * sizeof(T));
+    }
+    self->m_nCount = 0;
+    return self;
+}
+
+#define NOTSA_MODEL_INFO_STORE_CONSTRUCTOR(name, Type, count, elementCtor)     static CStore<Type, count>* __fastcall name(CStore<Type, count>* self, void* /*edx*/) {         static_assert(sizeof(CStore<Type, count>) == sizeof(uint32) + sizeof(Type) * (count));         return ConstructModelInfoStore(self, elementCtor);     }
+
+// 0x4C5CB0: 14000 CAtomicModelInfo de 0x20 bytes, constructor 0x4C5540 (destructor 0x4C5590)
+NOTSA_MODEL_INFO_STORE_CONSTRUCTOR(AtomicModelInfoStoreConstructor, CAtomicModelInfo, CModelInfo::NUM_ATOMIC_MODEL_INFOS, 0x4C5540)
+// 0x4C5D10: 70 CDamageAtomicModelInfo de 0x24 bytes, constructor 0x4C55A0 (destructor 0x4C55D0)
+NOTSA_MODEL_INFO_STORE_CONSTRUCTOR(DamageAtomicModelInfoStoreConstructor, CDamageAtomicModelInfo, CModelInfo::NUM_DAMAGE_ATOMIC_MODEL_INFOS, 0x4C55A0)
+// 0x4C5D70: 1 CLodAtomicModelInfo de 0x24 bytes, constructor 0x4C55E0 (destructor 0x4C5620)
+NOTSA_MODEL_INFO_STORE_CONSTRUCTOR(LodAtomicModelInfoStoreConstructor, CLodAtomicModelInfo, CModelInfo::NUM_LOD_ATOMIC_MODEL_INFOS, 0x4C55E0)
+// 0x4C5DD0: 169 CTimeModelInfo de 0x24 bytes, constructor 0x4C5640 (destructor 0x4C5680)
+NOTSA_MODEL_INFO_STORE_CONSTRUCTOR(TimeModelInfoStoreConstructor, CTimeModelInfo, CModelInfo::NUM_TIME_MODEL_INFOS, 0x4C5640)
+// 0x4C5E30: 1 CLodTimeModelInfo de 0x28 bytes, constructor 0x4C5690 (destructor 0x4C56E0)
+NOTSA_MODEL_INFO_STORE_CONSTRUCTOR(LodTimeModelInfoStoreConstructor, CLodTimeModelInfo, CModelInfo::NUM_LOD_TIME_MODEL_INFOS, 0x4C5690)
+// 0x4C5E90: 51 CWeaponModelInfo de 0x28 bytes, constructor 0x4C5760 (destructor 0x4C5790)
+NOTSA_MODEL_INFO_STORE_CONSTRUCTOR(WeaponModelInfoStoreConstructor, CWeaponModelInfo, CModelInfo::NUM_WEAPON_MODEL_INFOS, 0x4C5760)
+// 0x4C5EF0: 92 CClumpModelInfo de 0x24 bytes, constructor 0x4C56F0 (destructor 0x4C5750)
+NOTSA_MODEL_INFO_STORE_CONSTRUCTOR(ClumpModelInfoStoreConstructor, CClumpModelInfo, CModelInfo::NUM_CLUMP_MODEL_INFOS, 0x4C56F0)
+// 0x4C5F50: 212 CVehicleModelInfo de 0x308 bytes, constructor 0x4C75E0 (sin reconstruir; destructor 0x4C5920)
+NOTSA_MODEL_INFO_STORE_CONSTRUCTOR(VehicleModelInfoStoreConstructor, CVehicleModelInfo, CModelInfo::NUM_VEHICLE_MODEL_INFOS, 0x4C75E0)
+// 0x4C67D0: 278 CPedModelInfo de 0x44 bytes, constructor 0x4C57A0 (sin reconstruir; destructor 0x4C62F0)
+NOTSA_MODEL_INFO_STORE_CONSTRUCTOR(PedModelInfoStoreConstructor, CPedModelInfo, CModelInfo::NUM_PED_MODEL_INFOS, 0x4C57A0)
+
+#undef NOTSA_MODEL_INFO_STORE_CONSTRUCTOR
+
+// Tamanos de elemento que usa el iterador del EXE
+static_assert(sizeof(CAtomicModelInfo) == 0x20 && sizeof(CDamageAtomicModelInfo) == 0x24 && sizeof(CLodAtomicModelInfo) == 0x24 && sizeof(CTimeModelInfo) == 0x24);
+static_assert(sizeof(CLodTimeModelInfo) == 0x28 && sizeof(CWeaponModelInfo) == 0x28 && sizeof(CClumpModelInfo) == 0x24 && sizeof(CVehicleModelInfo) == 0x308 && sizeof(CPedModelInfo) == 0x44);
+
 /**
  * Registra las operaciones del catálogo global de model infos.
  */
@@ -48,6 +89,15 @@ void CModelInfo::InjectHooks()
     RH_ScopedCategory("Models");
 
     RH_ScopedInstall(Initialise, 0x4C6810);
+    RH_ScopedNamedGlobalInstall(AtomicModelInfoStoreConstructor, "AtomicModelInfoStoreConstructor", 0x4C5CB0);                // lote 194A (sin validar)
+    RH_ScopedNamedGlobalInstall(DamageAtomicModelInfoStoreConstructor, "DamageAtomicModelInfoStoreConstructor", 0x4C5D10);  // lote 194A (sin validar)
+    RH_ScopedNamedGlobalInstall(LodAtomicModelInfoStoreConstructor, "LodAtomicModelInfoStoreConstructor", 0x4C5D70);        // lote 194A (sin validar)
+    RH_ScopedNamedGlobalInstall(TimeModelInfoStoreConstructor, "TimeModelInfoStoreConstructor", 0x4C5DD0);                  // lote 194A (sin validar)
+    RH_ScopedNamedGlobalInstall(LodTimeModelInfoStoreConstructor, "LodTimeModelInfoStoreConstructor", 0x4C5E30);            // lote 194A (sin validar)
+    RH_ScopedNamedGlobalInstall(WeaponModelInfoStoreConstructor, "WeaponModelInfoStoreConstructor", 0x4C5E90);              // lote 194A (sin validar)
+    RH_ScopedNamedGlobalInstall(ClumpModelInfoStoreConstructor, "ClumpModelInfoStoreConstructor", 0x4C5EF0);                // lote 194A (sin validar)
+    RH_ScopedNamedGlobalInstall(VehicleModelInfoStoreConstructor, "VehicleModelInfoStoreConstructor", 0x4C5F50);            // lote 194A (sin validar)
+    RH_ScopedNamedGlobalInstall(PedModelInfoStoreConstructor, "PedModelInfoStoreConstructor", 0x4C67D0);                    // lote 194A (sin validar)
     RH_ScopedInstall(Get2dEffectStore, 0x4C5A60);
     RH_ScopedInstall(ShutDown, 0x4C63E0);
     RH_ScopedInstall(ReInit2dEffects, 0x4C63B0);

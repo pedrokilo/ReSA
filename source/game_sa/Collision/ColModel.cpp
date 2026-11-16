@@ -30,15 +30,18 @@ END GENERATED HOOK STATUS */
 
 // 0x40F700 (lote 129A, banco Fn129A; el listado de pendientes decia CCollisionData): cuerpo del destructor de CColModel del EXE (thiscall, sin argumentos de pila, `ret`, 52 bytes; lo llaman
 // los destructores de los modelos por saltos como 0x856035). Es el destructor reconstruido de la clase: este envoltorio lo enlaza al hook sin tocar ColModel.h.
-__declspec(noinline) static void __fastcall ColModelDestructorExe(CColModel* self, void* /*edx*/) {
+// Espacio con nombre (no estatica) para que el cuerpo del destructor de CPedModelInfo (0x4C62F0, PedModelInfo.cpp, lote 194A) llame a este mismo cuerpo, como el `call 0x40F700` del EXE, y no a un destructor expandido en linea.
+namespace CColModelBody {
+__declspec(noinline) void __fastcall DestructorExe(CColModel* self, void* /*edx*/) {
     self->~CColModel();
 }
+} // namespace CColModelBody
 
 // 0x4C4C00 (lote 150A, banco Fn150A; el listado decia CBaseModelInfo): destructor con borrado de CColModel del EXE (sin vtable ni llamadores; thiscall, un argumento de pila, `ret 4`, 30 bytes:
 // `push esi; mov esi,ecx; call 0x40F700; test byte [esp+8],1; je ..; push esi; call 0x40FC40 (CColModel::operator delete); add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo
 // de la clase (0x40F700, con hook), libera `this` con CColModel::operator delete (0x40FC40, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
 static CColModel* __fastcall ColModelScalarDeletingDestructor(CColModel* self, void* /*edx*/, uint8 flags) {
-    ColModelDestructorExe(self, nullptr);
+    CColModelBody::DestructorExe(self, nullptr);
     if (flags & 1) {
         CColModel::operator delete(self);
     }
@@ -53,7 +56,7 @@ void CColModel::InjectHooks() {
     RH_ScopedCategory("Collision");
 
     RH_ScopedInstall(Constructor, 0x40FB60);
-    RH_ScopedNamedGlobalInstall(ColModelDestructorExe, "Destructor", 0x40F700);
+    RH_ScopedNamedGlobalInstall(CColModelBody::DestructorExe, "Destructor", 0x40F700);
     RH_ScopedNamedGlobalInstall(ColModelScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4C4C00); // lote 150A (banco Fn150A)
     RH_ScopedInstall(operator new, 0x40FC30);
     RH_ScopedInstall(operator delete, 0x40FC40);

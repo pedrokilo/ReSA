@@ -17,6 +17,7 @@ public:
     void ScanForStuff(CPed* ped) override;
 
 private: // Wrappers for hooks
+    friend class CTaskComplexWander; // GetWanderTaskByPedTypeId (0x673EF0, lote 194A) llama al constructor enganchado
     // 0x672690
     CTaskComplexWanderProstitute* Constructor(eMoveState MoveState, uint8 Dir, bool bWanderSensibly) {
         this->CTaskComplexWanderProstitute::CTaskComplexWanderProstitute(MoveState, Dir, bWanderSensibly);

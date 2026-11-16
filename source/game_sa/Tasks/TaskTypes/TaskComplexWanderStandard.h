@@ -26,6 +26,7 @@ public:
     bool LookForGangMembers(CPed* ped);
 
 private: // Wrappers for hooks
+    friend class CTaskComplexWander; // GetWanderTaskByPedTypeId (0x673EF0, lote 194A) llama al constructor enganchado
     // 0x48E4F0
     CTaskComplexWanderStandard* Constructor(eMoveState MoveState, uint8 Dir, bool bWanderSensibly) {
         this->CTaskComplexWanderStandard::CTaskComplexWanderStandard(MoveState, Dir, bWanderSensibly);

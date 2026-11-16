@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "TaskComplexWander.h"
+#include "X87Math.h"
 
 #include "TaskSimpleCarDriveTimed.h"
 #include "TaskSimpleScratchHead.h"
@@ -50,6 +51,8 @@ void __fastcall Destructor(CTaskComplexWander* self, void* /*edx*/) {
 }
 } // namespace CTaskComplexWanderBody
 
+static CTaskComplexWander* __fastcall WanderScalarDeletingDestructor(CTaskComplexWander* self, void* edx, uint8 flags); // 0x66F4A0 (mas abajo)
+
 void CTaskComplexWander::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexWander, 0x86FE84, 15);
     RH_ScopedCategory("Tasks/TaskTypes");
@@ -70,6 +73,9 @@ void CTaskComplexWander::InjectHooks() {
     RH_ScopedOverloadedInstall(ScanForBlockedNode, "", 0x671EF0, bool(CTaskComplexWander::*)(CPed*, const CNodeAddress&));
     RH_ScopedOverloadedInstall(ScanForBlockedNode, "1", 0x66F4C0, bool(CTaskComplexWander::*)(const CVector&, CEntity*));
     RH_ScopedInstall(GetWanderTaskByPedType, 0x673D00);
+    RH_ScopedInstall(GetWanderTaskByPedTypeId, 0x673EF0); // lote 194A (sin validar)
+    RH_ScopedInstall(GetDistSqOfClosestPathNodeToPed, 0x669FF0); // lote 194A (sin validar)
+    RH_ScopedNamedGlobalInstall(WanderScalarDeletingDestructor, "ScalarDeletingDestructor", 0x66F4A0); // lote 194A (sin validar)
     RH_ScopedInstall(RequestDir, 0x669D30);
     RH_ScopedInstall(RequestNodesFrom, 0x669D50);
 }
@@ -408,15 +414,86 @@ CTaskComplexWander* CTaskComplexWander::GetWanderTaskByPedType(CPed* ped) {
     }
 }
 
-// 0x669FF0 - OG name unknown
+// 0x669FF0 (lote 194A, sin validar; OG name unknown; thiscall, peaton en la pila, `ret 4`, 265 bytes; la llama el EXE en 0x662467): distancia al cuadrado del peaton al nodo mas cercano de los dos guardados.
+// Como el original (no es la version con rangos que habia): para cada nodo, SOLO se comprueba el area (+0x1C/+0x1E el siguiente, +0x18/+0x1A el anterior; area 0xFFFF o area sin cargar -> 999999.0f = 0x86FEC0,
+// sin mirar el id del nodo) y la distancia es (dz*dz + dy*dy) + dx*dx de (posicion del nodo - posicion del peaton) (CPathNode::GetPosition 0x420A10; x87 a 24 bits = floats). Primero se calcula el siguiente
+// (guardado como float) y despues el anterior; devuelve el anterior si es ESTRICTAMENTE menor (comparacion ordenada: empate o NaN devuelven el siguiente).
 float CTaskComplexWander::GetDistSqOfClosestPathNodeToPed(CPed* ped) {
-    return rng::min(
-        std::array{ m_NextNode, m_LastNode }
-     | rng::views::transform([ped](CNodeAddress node) {
-            if (node.IsValid() && ThePaths.IsAreaNodesAvailable(node)) {
-                return (ped->GetPosition() - ThePaths.GetPathNode(node)->GetPosition()).SquaredMagnitude();
-            }
-            return 999'999.f;
-        })
-    );
+    static_assert(sizeof(CPathNode) == 0x1C);
+    // Posicion del nodo (CPathNode::GetPosition, 0x420A10) o nulo si el area no es valida o no esta cargada
+    const auto NodePos = [](const CNodeAddress& node, CVector& out) -> const float* {
+        if (node.m_wAreaId != uint16(-1) && ThePaths.m_pPathNodes[node.m_wAreaId]) {
+            out = ThePaths.m_pPathNodes[node.m_wAreaId][node.m_wNodeId].GetPosition();
+            return &out.x;
+        }
+        return nullptr;
+    };
+    CVector      nextPos, lastPos;
+    const float* const next = NodePos(m_NextNode, nextPos);
+    const float* const last = NodePos(m_LastNode, lastPos);
+    // Las distancias, el guardado de la del siguiente como float y la comparacion con la del anterior van en la x87 (24 bits, exponente ampliado): X87Math.cpp
+    return Pf194ClosestDistSqCpp(next, last, &ped->GetPosition().x);
+}
+
+// 0x66F4A0 (lote 194A, sin validar): destructor con borrado de CTaskComplexWander del EXE (ranura 0 de su vtable 0x86FE84; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x669D20;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x669D20, con hook), libera `this` con CTask::operator
+// delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+static CTaskComplexWander* __fastcall WanderScalarDeletingDestructor(CTaskComplexWander* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexWanderBody::Destructor(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+
+// 0x673EF0 (lote 194A, sin validar; sin llamadores ni referencias en el EXE: codigo muerto; static, un argumento de pila (el tipo de peaton, NO el peaton), `ret`, 448 bytes con marco SEH que solo libera la
+// memoria si un constructor lanzara): copia exacta de GetWanderTaskByPedType (0x673D00) que recibe el tipo en vez del peaton. Tabla de saltos 0x6740B0 / indices 0x6740C4 sobre (tipo - 6) sin signo (> 16 -> por
+// defecto): 6 = PED_TYPE_COP -> CTaskComplexWanderCop (0x50 bytes, constructor 0x460C80 con (4, dir)); 18 = PED_TYPE_MEDIC -> CTaskComplexWanderMedic (0x28, 0x658770 con (4, dir, true)); 20 = PED_TYPE_CRIMINAL ->
+// CTaskComplexWanderCriminal (0x38, 0x48E610); 22 = PED_TYPE_PROSTITUTE -> CTaskComplexWanderProstitute (0x3C, 0x672690); cualquier otro -> CTaskComplexWanderStandard (0x38, 0x48E4F0). Todas reservan con
+// CTask::operator new (0x61A5A0; nulo -> devuelve nulo), piden la direccion DESPUES de reservar y llaman al constructor con PEDMOVE_WALK (4). Las cuatro primeras piden la direccion con 0x407180(0, 8); la de
+// por defecto usa en linea (rand() del CRT del EXE, 0x821B1E, & 0xFFFF) * (1/32768) * 8.0f truncado con _ftol2 (0x821B40).
+CTaskComplexWander* CTaskComplexWander::GetWanderTaskByPedTypeId(int32 pedType) {
+    switch (uint32(pedType) - uint32(PED_TYPE_COP)) {
+    case uint32(PED_TYPE_COP) - uint32(PED_TYPE_COP): {
+        void* const memory = CTask::operator new(sizeof(CTaskComplexWanderCop));
+        if (!memory) {
+            return nullptr;
+        }
+        const uint8 dir = uint8(CGeneral::GetRandomIntInRange(0, 8));
+        return static_cast<CTaskComplexWanderCop*>(memory)->Constructor(PEDMOVE_WALK, dir);
+    }
+    case uint32(PED_TYPE_MEDIC) - uint32(PED_TYPE_COP): {
+        void* const memory = CTask::operator new(sizeof(CTaskComplexWanderMedic));
+        if (!memory) {
+            return nullptr;
+        }
+        const uint8 dir = uint8(CGeneral::GetRandomIntInRange(0, 8));
+        return static_cast<CTaskComplexWanderMedic*>(memory)->Constructor(PEDMOVE_WALK, dir, true);
+    }
+    case uint32(PED_TYPE_CRIMINAL) - uint32(PED_TYPE_COP): {
+        void* const memory = CTask::operator new(sizeof(CTaskComplexWanderCriminal));
+        if (!memory) {
+            return nullptr;
+        }
+        const uint8 dir = uint8(CGeneral::GetRandomIntInRange(0, 8));
+        return static_cast<CTaskComplexWanderCriminal*>(memory)->Constructor(PEDMOVE_WALK, dir, true);
+    }
+    case uint32(PED_TYPE_PROSTITUTE) - uint32(PED_TYPE_COP): {
+        void* const memory = CTask::operator new(sizeof(CTaskComplexWanderProstitute));
+        if (!memory) {
+            return nullptr;
+        }
+        const uint8 dir = uint8(CGeneral::GetRandomIntInRange(0, 8));
+        return static_cast<CTaskComplexWanderProstitute*>(memory)->Constructor(PEDMOVE_WALK, dir, true);
+    }
+    default: {
+        void* const memory = CTask::operator new(sizeof(CTaskComplexWanderStandard));
+        if (!memory) {
+            return nullptr;
+        }
+        const int32 random = reinterpret_cast<int(__cdecl*)()>(0x821B1E)() & 0xFFFF;
+        const uint8 dir = uint8(int32(float(random) * 3.0517578125e-05f * 8.0f));
+        return static_cast<CTaskComplexWanderStandard*>(memory)->Constructor(PEDMOVE_WALK, dir, true);
+    }
+    }
 }
