@@ -35,6 +35,7 @@ struct SArrayElem12 { uint32 w[3]; };
 // Mismas convenciones que arriba: iteradores como punteros por valor, valor por puntero, retorno de estructura en el primer argumento. Los llamadores empujan argumentos de relleno de la plantilla (etiquetas de categoria) que estas
 // funciones no leen; con cdecl el llamador los limpia, asi que basta declarar los que se leen.
 // std::copy_backward de 4 bytes (0x5EB140, 0x5EB1B0 y 0x5EB260, tres instancias identicas, 40 bytes cada una): si inicio == fin no copia; *out = inicio del destino; devuelve out.
+template<int Id>
 uint32** __cdecl SArrayCopyBackwardStride4(uint32** out, uint32* first, uint32* last, uint32* destEnd) {
     if (first != last) {
         do {
@@ -72,6 +73,7 @@ void __cdecl SArrayFillStride12(SArrayElem12* first, SArrayElem12* last, const S
 
 // std::uninitialized_fill_n de 4 bytes (0x5EB2A0, 0x5EB310 y 0x5EB390, tres instancias identicas, 35 bytes cada una): con n == 0 (comparacion SIN signo, `jbe`) no hace nada; si no, n vueltas que escriben el valor (releido en cada
 // vuelta) solo si el destino no es nulo (new(puntero) T(valor)), avanzando siempre.
+template<int Id>
 void __cdecl SArrayFillNStride4(uint32* dest, uint32 count, const uint32* value) {
     if (count == 0) {
         return;
@@ -123,8 +125,6 @@ namespace {
 // Cada direccion de hook tiene su propia instancia de plantilla (RH no admite dos hooks hacia la misma funcion de la DLL: el cuerpo de la segunda y la tercera se resolvia a la entrada del EXE de la primera; lo detecto el banco Fn189A).
 // Cada direccion de hook tiene su propia instancia de plantilla (RH no admite dos hooks hacia la misma funcion de la DLL: el cuerpo de la segunda y la tercera se resolvia a la entrada del EXE de la primera; lo detecto el banco Fn189A).
 // Elementos de 4 bytes (SArray<puntero>), de 20 bytes (CPedTaskPair) y de 12 bytes (CVector). Las instancias identicas de distinto tipo de elemento tienen su propia direccion (A, B y C).
-struct SArrayElem20 { uint32 w[5]; };
-struct SArrayElem12 { uint32 w[3]; };
 
 // std::fill: lee el valor en cada vuelta; con inicio == fin no lo lee. EAX queda en fin, nadie lo usa.
 template<int Id>
@@ -229,17 +229,17 @@ void CPedAttractor::InjectHooks() {
     RH_ScopedNamedGlobalInstall(SArrayUninitCopyStride4<2>, "SArrayUninitCopyStride4C", 0x5EAEE0);
 
     // Lote 205A (sin validar): mas ayudantes de plantilla de los vectores (ver arriba)
-    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride4, "SArrayCopyBackwardStride4A", 0x5EB140);
+    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride4<0>, "SArrayCopyBackwardStride4A", 0x5EB140);
     RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride20Wrapper, "SArrayCopyBackwardStride20Wrapper", 0x5EB170);
-    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride4, "SArrayCopyBackwardStride4B", 0x5EB1B0);
+    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride4<1>, "SArrayCopyBackwardStride4B", 0x5EB1B0);
     RH_ScopedNamedGlobalInstall(SArrayFillStride12, "SArrayFillStride12", 0x5EB1E0);
     RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride12Wrapper, "SArrayCopyBackwardStride12Wrapper", 0x5EB220);
-    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride4, "SArrayCopyBackwardStride4C", 0x5EB260);
-    RH_ScopedNamedGlobalInstall(SArrayFillNStride4, "SArrayFillNStride4A", 0x5EB2A0);
+    RH_ScopedNamedGlobalInstall(SArrayCopyBackwardStride4<2>, "SArrayCopyBackwardStride4C", 0x5EB260);
+    RH_ScopedNamedGlobalInstall(SArrayFillNStride4<0>, "SArrayFillNStride4A", 0x5EB2A0);
     RH_ScopedNamedGlobalInstall(SArrayFillNStride20, "SArrayFillNStride20", 0x5EB2E0);
-    RH_ScopedNamedGlobalInstall(SArrayFillNStride4, "SArrayFillNStride4B", 0x5EB310);
+    RH_ScopedNamedGlobalInstall(SArrayFillNStride4<1>, "SArrayFillNStride4B", 0x5EB310);
     RH_ScopedNamedGlobalInstall(SArrayFillNStride12, "SArrayFillNStride12", 0x5EB340);
-    RH_ScopedNamedGlobalInstall(SArrayFillNStride4, "SArrayFillNStride4C", 0x5EB390);
+    RH_ScopedNamedGlobalInstall(SArrayFillNStride4<2>, "SArrayFillNStride4C", 0x5EB390);
 
     RH_ScopedInstall(operator delete, 0x5EAFE0); // lote 205A (sin validar)
     RH_ScopedInstall(Constructor, 0x5EDFB0);
