@@ -22,6 +22,10 @@ constexpr uintptr_t kSlotWsCloseSocket    = 0x858328; // ordinal 3
 constexpr uintptr_t kSlotWsSend           = 0x858324; // ordinal 19
 constexpr uintptr_t kSlotWsRecv           = 0x858320; // ordinal 16
 
+constexpr uintptr_t kSlotGetModuleHandleA = 0x858068; // KERNEL32 (lote R10A)
+constexpr uintptr_t kSlotGetProcAddress   = 0x85806C; // KERNEL32 (lote R10A)
+constexpr uintptr_t kSlotLoadLibraryA     = 0x858070; // KERNEL32 (lote R10A)
+
 // ov_callbacks de libvorbisfile: cuatro punteros a funcion, pasados POR VALOR (16 bytes en la pila).
 struct OvCallbacks {
     void* read;
@@ -45,6 +49,10 @@ using WsSocketFn        = uintptr_t(WINAPI*)(int, int, int);
 using WsCloseSocketFn   = int(WINAPI*)(uintptr_t);
 using WsSendFn          = int(WINAPI*)(uintptr_t, const char*, int, int);
 using WsRecvFn          = int(WINAPI*)(uintptr_t, char*, int, int);
+
+using GetModuleHandleAFn = HMODULE(WINAPI*)(const char*);
+using GetProcAddressFn   = FARPROC(WINAPI*)(HMODULE, const char*);
+using LoadLibraryAFn     = HMODULE(WINAPI*)(const char*);
 
 template<typename Fn>
 Fn Slot(uintptr_t slot) { return *reinterpret_cast<Fn*>(slot); }
@@ -120,6 +128,21 @@ int WINAPI WsRecvThunk(uintptr_t s, char* buf, int len, int flags) {
     return Slot<WsRecvFn>(kSlotWsRecv)(s, buf, len, flags);
 }
 
+// 0x81E406 (lote R10A, sin validar; stdcall, 1 argumento, 6 bytes: `jmp [0x858068]` = KERNEL32 GetModuleHandleA; unos 20 llamadores del EXE, entre ellos el codigo de carga dinamica de 0x4034xx): GetModuleHandleA(name).
+HMODULE WINAPI GetModuleHandleAThunk(const char* name) {
+    return Slot<GetModuleHandleAFn>(kSlotGetModuleHandleA)(name);
+}
+
+// 0x81E40C (lote R10A, sin validar; stdcall, 2 argumentos, 6 bytes: `jmp [0x85806C]` = KERNEL32 GetProcAddress; cientos de llamadores del EXE desde 0x401FC8): GetProcAddress(module, name).
+FARPROC WINAPI GetProcAddressThunk(HMODULE module, const char* name) {
+    return Slot<GetProcAddressFn>(kSlotGetProcAddress)(module, name);
+}
+
+// 0x81E412 (lote R10A, sin validar; stdcall, 1 argumento, 6 bytes: `jmp [0x858070]` = KERNEL32 LoadLibraryA; llamadores 0x402EAE, 0x402FF3, 0x40344E y 0x403473): LoadLibraryA(name).
+HMODULE WINAPI LoadLibraryAThunk(const char* name) {
+    return Slot<LoadLibraryAFn>(kSlotLoadLibraryA)(name);
+}
+
 void ImportThunksInjectHooks() {
     RH_ScopedCategory("App");
     RH_ScopedNamespaceName("ImportThunks");
@@ -139,4 +162,9 @@ void ImportThunksInjectHooks() {
     RH_ScopedGlobalInstall(WsCloseSocketThunk, 0x8180B6);
     RH_ScopedGlobalInstall(WsSendThunk, 0x8180BC);
     RH_ScopedGlobalInstall(WsRecvThunk, 0x8180C2);
+
+    // Lote R10A (sin validar)
+    RH_ScopedGlobalInstall(GetModuleHandleAThunk, 0x81E406);
+    RH_ScopedGlobalInstall(GetProcAddressThunk, 0x81E40C);
+    RH_ScopedGlobalInstall(LoadLibraryAThunk, 0x81E412);
 }

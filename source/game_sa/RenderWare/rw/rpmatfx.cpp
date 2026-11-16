@@ -2,6 +2,8 @@
 
 #include "rpmatfx.h"
 
+#include <emmintrin.h>
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // Lote R8A (sin validar): RpMatFX (plugin de efectos de material, id 0x120) y su canal D3D9. Cada cuerpo se transcribio del desensamblado (dumpbin /disasm)
 // instruccion por instruccion; los nombres sin simbolo en el SDK son inferidos. Estado global del modulo en el EXE (direcciones):
@@ -61,10 +63,111 @@ constexpr size_t kSlotSetPixelShader       = 107; // IDirect3DDevice9::SetPixelS
 
 void* Device() { return *reinterpret_cast<void**>(0xC97C28); } // _RwD3DDevice
 
-constexpr uintptr_t kBumpedTextureCreate   = 0x810830; // RwTexture* (RwTexture* base, RwTexture* bump): combina la textura del material con el mapa de relieve (fuera del lote)
 constexpr uintptr_t kRasterIsCube          = 0x4C9F70; // _rwD3D9RasterIsCubeRaster(RwRaster*)
 constexpr uintptr_t kD3D9FlushRenderStates = 0x7FC200; // vacia los estados de render pendientes antes de dibujar
 constexpr uintptr_t kEnvMapHalfMatrix      = 0x885608; // RwMatrix constante (0.5, -0.5, 1, traslacion 0.5/0.5): de [-1,1] a [0,1]
+
+// Lote R10A (sin validar): ayudantes de los callbacks de render de MatFX (0x812AC0, 0x812D40, 0x813A10, 0x814460).
+constexpr size_t kSlotValidateDevice         = 70;  // IDirect3DDevice9::ValidateDevice (+0x118)
+constexpr size_t kSlotSetVertexDeclaration   = 87;  // IDirect3DDevice9::SetVertexDeclaration (+0x15C)
+constexpr size_t kSlotSetFVF                 = 89;  // IDirect3DDevice9::SetFVF (+0x164)
+constexpr size_t kSlotSetPixelShaderConstantF = 109; // IDirect3DDevice9::SetPixelShaderConstantF (+0x1B4)
+
+constexpr uintptr_t kTextureHasAlpha         = 0x4C9EA0; // _rwD3D9TextureHasAlpha(RwTexture*)
+constexpr uintptr_t kConvertRasterToDisplay  = 0x4CD250; // D3D9RasterFormat::ConvertRasterToDisplayFormat(RwRaster*)
+constexpr uintptr_t kVertexAlphaGet          = 0x7FE190; // estado actual del alfa por vertice del controlador D3D9 (devuelve un entero)
+constexpr uintptr_t kVertexAlphaSet          = 0x7FE0A0; // activa o desactiva el alfa por vertice del controlador D3D9
+constexpr uintptr_t kUvScratchMatrix         = 0x8E29C8; // matriz D3D de trabajo (16 dwords) de las matrices UV
+constexpr uintptr_t kEnvPixelShaders         = 0xC9AB94; // seis pixel shaders consecutivos 0xC9AB94..0xC9ABA8 (ver _rpMatFXPipelinesCreate)
+auto& D3D9LastFVF                = StaticRef<RwUInt32>(0x8E2440);  // ultimo FVF (0xFFFFFFFF = declaracion de vertices activa)
+auto& D3D9LastVertexDeclaration  = StaticRef<uintptr_t>(0x8E2444); // ultima declaracion de vertices (0xFFFFFFFF = FVF activo)
+
+void*& MatFXPixelShader(size_t index) { return reinterpret_cast<void**>(kEnvPixelShaders)[index]; }
+
+RwInt32 TextureHasAlpha(RwTexture* texture) {
+    return reinterpret_cast<RwInt32(__cdecl *)(RwTexture*)>(kTextureHasAlpha)(texture);
+}
+void ConvertRasterToDisplayFormatExe(RwRaster* raster) {
+    reinterpret_cast<void(__cdecl *)(RwRaster*)>(kConvertRasterToDisplay)(raster);
+}
+RwInt32 VertexAlphaEnabled() {
+    return reinterpret_cast<RwInt32(__cdecl *)()>(kVertexAlphaGet)();
+}
+void VertexAlphaEnable(RwBool enable) {
+    reinterpret_cast<void(__cdecl *)(RwBool)>(kVertexAlphaSet)(enable);
+}
+
+// fistp con el redondeo vigente (al mas cercano) del float guardado: cvtss2si; fuera de rango o NaN dan 0x80000000 como la x87.
+RwInt32 FloatToIntRounded(float value) {
+    return _mm_cvtss_si32(_mm_set_ss(value));
+}
+
+void Tss(RwUInt32 stage, RwUInt32 type, RwUInt32 value) { RwD3D9SetTextureStageState(stage, type, value); }
+void SetRs(RwUInt32 state, RwUInt32 value) { RwD3D9SetRenderState(state, value); }
+RwUInt32 GetRs(RwUInt32 state) {
+    RwUInt32 value = 0;
+    RwD3D9GetRenderState(state, &value);
+    return value;
+}
+
+// RwRenderStateGet / RwRenderStateSet del motor (tabla de funciones estandar de RwEngineInstance: +0x24 y +0x20).
+RwUInt32 EngineRenderStateGet(RwUInt32 state) {
+    RwUInt32 value = 0;
+    (*reinterpret_cast<RwBool(__cdecl **)(RwUInt32, void*)>(StaticRef<uintptr_t>(0xC97B24) + 0x24))(state, &value);
+    return value;
+}
+void EngineRenderStateSet(RwUInt32 state, RwUInt32 value) {
+    (*reinterpret_cast<RwBool(__cdecl **)(RwUInt32, RwUInt32)>(StaticRef<uintptr_t>(0xC97B24) + 0x20))(state, value);
+}
+
+// Quita el pixel shader activo (SetPixelShader(NULL), +0x1AC) si lo hay.
+void ResetPixelShader() {
+    if (D3D9LastPixelShader != nullptr) {
+        D3D9LastPixelShader = nullptr;
+        ComCall<kSlotSetPixelShader, long>(Device(), static_cast<void*>(nullptr));
+    }
+}
+// Cambia el pixel shader activo (SetPixelShader, +0x1AC) si difiere del ultimo.
+void SelectPixelShader(void* shader) {
+    if (D3D9LastPixelShader != shader) {
+        D3D9LastPixelShader = shader;
+        ComCall<kSlotSetPixelShader, long>(Device(), shader);
+    }
+}
+// Cambia el vertex shader activo (SetVertexShader, +0x170) al de la malla si difiere del ultimo.
+void SelectVertexShader(const RxD3D9InstanceData* instance) {
+    if (D3D9LastVertexShader != instance->vertexShader) {
+        D3D9LastVertexShader = instance->vertexShader;
+        ComCall<kSlotSetVertexShader, long>(Device(), static_cast<void*>(instance->vertexShader));
+    }
+}
+// Vacia los estados pendientes (0x7FC200) y dibuja la malla: con bufer de indices DrawIndexedPrimitive(tipo, baseIndex, 0, numVertices, startIndex, numPrimitives; +0x148), si no DrawPrimitive(tipo, baseIndex, numPrimitives; +0x144).
+void DrawBatch(const RxD3D9ResEntryHeader* header, const RxD3D9InstanceData* instance, RwUInt32 baseIndex) {
+    const bool indexed = header->indexBuffer != nullptr;
+    reinterpret_cast<void(__cdecl *)()>(kD3D9FlushRenderStates)();
+    if (indexed) {
+        ComCall<kSlotDrawIndexedPrimitive, long>(Device(), static_cast<RwUInt32>(header->primType), baseIndex, 0u, instance->numVertices, instance->startIndex, instance->numPrimitives);
+    } else {
+        ComCall<kSlotDrawPrimitive, long>(Device(), static_cast<RwUInt32>(header->primType), baseIndex, instance->numPrimitives);
+    }
+}
+// Si la matriz UV existe y no es la identidad (bandera interna 0x20000): TEXTURETRANSFORMFLAGS (0x18) de la etapa = COUNT2, copia los seis dwords utiles (right.x, right.y, up.x, up.y, pos.x, pos.y) a _11, _12, _21, _22, _31, _32
+// de la matriz de trabajo 0x8E29C8 (el resto no se toca) y la activa como transformada `transformState` (0x10 + etapa).
+void ApplyUvTransform(const RwMatrix* matrix, RwUInt32 stage, RwUInt32 transformState) {
+    if (matrix == nullptr || (matrix->flags & 0x20000) != 0) {
+        return;
+    }
+    Tss(stage, 0x18, 2);
+    auto* const scratch = reinterpret_cast<RwUInt32*>(kUvScratchMatrix);
+    const auto* const raw = reinterpret_cast<const RwUInt32*>(matrix);
+    scratch[0] = raw[0];
+    scratch[1] = raw[1];
+    scratch[4] = raw[4];
+    scratch[5] = raw[5];
+    scratch[8] = raw[12];
+    scratch[9] = raw[13];
+    RwD3D9SetTransform(transformState, scratch);
+}
 
 // Vertice de salida del instanciado del relieve (FVF 0x252 = XYZ | NORMAL | DIFFUSE | TEX2, 0x2C bytes). Posicion, normal y coordenadas se copian como dwords (sin pasar por la x87).
 struct BumpVertex {
@@ -97,6 +200,12 @@ RpAtomic* _rpMatFXAtomicPipelineSet(RpAtomic* atomic);
 RpWorldSector* _rpMatFXWorldSectorPipelineSet(RpWorldSector* sector);
 RwBool _rpMatFXD3D9EffectStub(void* effect, RwInt32 pass);
 RwTexture* _rpMatFXD3D9BumpedTextureCreate(RwTexture* texture, RwTexture* bumpTexture);
+RwTexture* _rpMatFXD3D9BumpedTextureCombine(RwTexture* texture, RwTexture* bumpTexture);
+void _rpMatFXD3D9DrawMeshUVTransform(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* instance, RwUInt32 flags, RwTexture* texture);
+void _rpMatFXD3D9RenderDualTexture(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* instance, RwUInt32 flags, RwTexture* baseTexture, RwTexture* dualTexture);
+void _rpMatFXD3D9RenderEnvMapPass(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* instance, RwUInt32 flags, RwUInt32 pass, RwTexture* baseTexture, RwTexture* envTexture);
+void _rpMatFXD3D9RenderBumpMap(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* instance, RwUInt32 flags, RwTexture* baseTexture, RwTexture* bumpedTexture, RwTexture* envTexture);
+RwBool _rpMatFXPipelinesDestroy();
 
 void RpMatFXInjectHooks() {
     RH_ScopedCategory("Renderware");
@@ -125,6 +234,14 @@ void RpMatFXInjectHooks() {
     RH_ScopedGlobalInstall(_rpMatFXWorldSectorPipelineSet, 0x816270);
     RH_ScopedGlobalInstall(_rpMatFXD3D9EffectStub, 0x816280);
     RH_ScopedGlobalInstall(_rpMatFXD3D9BumpedTextureCreate, 0x816290);
+
+    // Lote R10A (sin validar)
+    RH_ScopedGlobalInstall(_rpMatFXD3D9BumpedTextureCombine, 0x810830);
+    RH_ScopedGlobalInstall(_rpMatFXD3D9DrawMeshUVTransform, 0x812AC0);
+    RH_ScopedGlobalInstall(_rpMatFXD3D9RenderDualTexture, 0x812D40);
+    RH_ScopedGlobalInstall(_rpMatFXD3D9RenderEnvMapPass, 0x813A10);
+    RH_ScopedGlobalInstall(_rpMatFXD3D9RenderBumpMap, 0x814460);
+    RH_ScopedGlobalInstall(_rpMatFXPipelinesDestroy, 0x816190);
 }
 
 void RpMatFXMaterialDataSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
@@ -502,7 +619,7 @@ const RpMaterial* RpMatFXMaterialGetUVTransformMatrices(const RpMaterial* materi
 
 // 0x812C90 (lote R8A, sin validar; cdecl, 2 argumentos (cabecera de la entrada de recursos y malla instanciada), `ret`, 166 bytes; llamador: 0x815E01, del callback de render 0x815C20): dibujo por defecto de una malla.
 // Si hay un pixel shader activo (0x8E244C) lo quita (SetPixelShader(NULL), +0x1AC); si el vertex shader de la malla (+0x10) no es el ultimo (0x8E2448) lo cambia (+0x170); vacia los estados (0x7FC200) y dibuja:
-// con bufer de indices (+8 de la cabecera) DrawIndexedPrimitive(tipo +0xC, 0, baseIndex +0x14, numVertices +0x18, startIndex +0x1C, numPrimitives +0x20; +0x148), si no DrawPrimitive(tipo, baseIndex, numPrimitives; +0x144).
+// con bufer de indices (+8 de la cabecera) DrawIndexedPrimitive(tipo +0xC, baseIndex +0x14, 0, numVertices +0x18, startIndex +0x1C, numPrimitives +0x20; +0x148; corregido en R10A: R8A tenia baseIndex y el 0 intercambiados, el EXE empuja +0x14 antes que el 0), si no DrawPrimitive(tipo, baseIndex, numPrimitives; +0x144).
 void _rpMatFXD3D9DrawMesh(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* instance) {
     if (D3D9LastPixelShader != nullptr) {
         D3D9LastPixelShader = nullptr;
@@ -514,7 +631,7 @@ void _rpMatFXD3D9DrawMesh(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* inst
     }
     if (header->indexBuffer != nullptr) {
         ((void(__cdecl *)())kD3D9FlushRenderStates)();
-        ComCall<kSlotDrawIndexedPrimitive, long>(Device(), static_cast<RwUInt32>(header->primType), 0, instance->baseIndex, instance->numVertices, instance->startIndex, instance->numPrimitives);
+        ComCall<kSlotDrawIndexedPrimitive, long>(Device(), static_cast<RwUInt32>(header->primType), instance->baseIndex, 0, instance->numVertices, instance->startIndex, instance->numPrimitives);
     } else {
         ((void(__cdecl *)())kD3D9FlushRenderStates)();
         ComCall<kSlotDrawPrimitive, long>(Device(), static_cast<RwUInt32>(header->primType), instance->baseIndex, instance->numPrimitives);
@@ -1004,7 +1121,7 @@ RwBool _rpMatFXD3D9EffectStub(void* effect, RwInt32 pass) {
 }
 
 // 0x816290 (lote R8A, sin validar; cdecl, 2 argumentos (textura del material, textura de relieve), `ret`, 94 bytes; llamador: 0x8122C4, de RpMatFXMaterialSetBumpMapTexture): sin textura de relieve devuelve
-// la del material; si alguno de los rasters (el del material solo si existe) esta comprimido (RwD3D9RasterIsCompressed, 0x820C90) devuelve NULL; si no, crea la textura combinada con 0x810830.
+// la del material; si alguno de los rasters (el del material solo si existe) esta comprimido (RwD3D9RasterIsCompressed, 0x820C90) devuelve NULL; si no, crea la textura combinada con 0x810830 (_rpMatFXD3D9BumpedTextureCombine, lote R10A).
 RwTexture* _rpMatFXD3D9BumpedTextureCreate(RwTexture* texture, RwTexture* bumpTexture) {
     if (bumpTexture == nullptr) {
         return texture;
@@ -1019,9 +1136,841 @@ RwTexture* _rpMatFXD3D9BumpedTextureCreate(RwTexture* texture, RwTexture* bumpTe
     } else if (RwD3D9RasterIsCompressed(bumpTexture->raster) != 0) {
         return nullptr;
     }
-    return reinterpret_cast<RwTexture*(__cdecl *)(RwTexture*, RwTexture*)>(kBumpedTextureCreate)(texture, bumpTexture);
+    return _rpMatFXD3D9BumpedTextureCombine(texture, bumpTexture);
 }
 
 RxPipeline* RpMatFXGetD3D9Pipeline(RpMatFXD3D9Pipeline d3d9Pipeline) {
     return ((RxPipeline*(__cdecl *)(RpMatFXD3D9Pipeline))0x8162F0)(d3d9Pipeline);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R10A (sin validar): lo que quedaba de RpMatFX en 0x80FFE0-0x81F0C0 (combinacion de texturas del relieve, callbacks de render de D3D9 y destruccion de los pipelines). Cada cuerpo sigue el desensamblado instruccion por instruccion;
+// los almacenamientos de la pila que el EXE reutiliza (ranuras de los argumentos como variables locales) se han pasado a variables locales. Constantes de los estados de etapa (D3DTSS): 1 COLOROP, 2 COLORARG1, 3 COLORARG2, 4 ALPHAOP,
+// 5 ALPHAARG1, 6 ALPHAARG2, 0xB TEXCOORDINDEX, 0x18 TEXTURETRANSFORMFLAGS, 0x19 COLORARG0, 0x1A... (valores D3DTOP: 1 DISABLE, 2 SELECTARG1, 3 SELECTARG2, 4 MODULATE, 5 MODULATE2X, 7 ADD, 0xD BLENDCURRENTALPHA...). Estados de render (D3DRS): 0xE ZWRITEENABLE,
+// 0xF ALPHATESTENABLE, 0x1B ALPHABLENDENABLE, 0x1C FOGENABLE, 0x22 FOGCOLOR, 0x3C TEXTUREFACTOR, 0x89 LIGHTING.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+// 0x810830 (lote R10A, sin validar; cdecl, 2 argumentos (textura del material, que puede ser NULL, y textura de relieve), `ret`, 614 bytes; llamador: 0x8162DA, de _rpMatFXD3D9BumpedTextureCreate): combina la textura del material con el mapa de
+// relieve en una textura nueva (la usan los efectos de relieve, donde el relieve va en el alfa). Imagen de relieve = RwImageCreate(ancho, alto del raster de relieve, 32) + AllocatePixels + SetFromRaster. Imagen base = lo mismo con el raster del material
+// o, sin textura, una imagen blanca (0xFFFFFFFF) del tamano del relieve. Si los tamanos difieren, el relieve se remuestrea (RwImageResample) a una imagen nueva del tamano de la base y se destruye el original; esa imagen (o el relieve) es la mascara:
+// RwImageMakeMask(mascara), RwImageApplyMask(base, mascara). Formato de raster = RwImageFindRasterFormat(base, 4 = textura, &ancho, &alto, &profundidad, &formato); si el raster del material (o el de relieve sin material) tiene la bandera 0x80 en su
+// formato (cFormat), formato |= 0x9000 (mipmaps y generacion automatica). Raster = RwRasterCreate(ancho, alto, profundidad, formato) + RwRasterSetFromImage(raster, base); textura = RwTextureCreate(raster). Filtrado y direccionamiento de la nueva
+// textura (+0x50, de la del material o, sin ella, la de relieve): byte bajo copiado; direccion U (bits 8-11) y V (12-15) = la comun si coinciden, 0 si no, repetida en ambos nibbles; se conservan los 16 bits altos de la nueva. Destruye la base y la mascara.
+// Nombre: intercala caracter a caracter los nombres de la textura del material (o el del relieve dos veces si no hay material) y el del relieve, hasta que se acaban los dos o se han copiado 30 o mas caracteres (la vuelta termina de copiar los de
+// los dos); buffer de 32 bytes puestos a cero; RwTextureSetName. Devuelve la textura nueva.
+RwTexture* _rpMatFXD3D9BumpedTextureCombine(RwTexture* texture, RwTexture* bumpTexture) {
+    RwRaster* const bumpRaster = bumpTexture->raster;
+    RwInt32 bumpWidth  = bumpRaster->width;
+    RwInt32 bumpHeight = bumpRaster->height;
+    RwImage* const bumpImage = RwImageCreate(bumpWidth, bumpHeight, 32);
+    RwImageAllocatePixels(bumpImage);
+    RwImageSetFromRaster(bumpImage, bumpRaster);
+
+    RwRaster* baseRaster = nullptr;
+    RwImage*  baseImage;
+    RwInt32   baseWidth;
+    RwInt32   baseHeight;
+    if (texture != nullptr) {
+        baseRaster = texture->raster;
+        baseHeight = baseRaster->height;
+        baseWidth  = baseRaster->width;
+        baseImage  = RwImageCreate(baseWidth, baseHeight, 32);
+        RwImageAllocatePixels(baseImage);
+        RwImageSetFromRaster(baseImage, baseRaster);
+    } else {
+        baseHeight = bumpRaster->height;
+        baseWidth  = bumpRaster->width;
+        baseImage  = RwImageCreate(baseWidth, baseHeight, 32);
+        RwImageAllocatePixels(baseImage);
+        for (RwInt32 y = 0; y < baseHeight; ++y) {
+            if (baseWidth > 0) {
+                RwInt32 x = 0;
+                do {
+                    *reinterpret_cast<RwUInt32*>(baseImage->cpPixels + baseImage->stride * y + x * 4) = 0xFFFFFFFFu;
+                    ++x;
+                } while (x < baseWidth);
+            }
+        }
+    }
+
+    RwImage* maskImage;
+    if (baseWidth != bumpWidth || baseHeight != bumpHeight) {
+        maskImage = RwImageCreate(baseWidth, baseHeight, 32);
+        RwImageAllocatePixels(maskImage);
+        RwImageResample(maskImage, bumpImage);
+        RwImageDestroy(bumpImage);
+    } else {
+        maskImage = bumpImage;
+    }
+    RwImageMakeMask(maskImage);
+    RwImageApplyMask(baseImage, maskImage);
+
+    RwInt32 rasterWidth;
+    RwInt32 rasterHeight;
+    RwInt32 rasterDepth;
+    RwInt32 rasterFormat;
+    RwImageFindRasterFormat(baseImage, 4, &rasterWidth, &rasterHeight, &rasterDepth, &rasterFormat);
+    const RwUInt8 sourceFormat = (texture != nullptr) ? baseRaster->cFormat : bumpRaster->cFormat;
+    if ((sourceFormat & 0x80) != 0) {
+        rasterFormat |= 0x9000;
+    }
+    RwRaster* const raster = RwRasterCreate(rasterWidth, rasterHeight, rasterDepth, rasterFormat);
+    RwRasterSetFromImage(raster, baseImage);
+    RwTexture* const result = RwTextureCreate(raster);
+
+    const RwTexture* const filterSource = (texture != nullptr) ? texture : bumpTexture;
+    const RwUInt32 sourceFilter = filterSource->filterAddressing;
+    const RwUInt32 addressU = (sourceFilter >> 8) & 0xF;
+    const RwUInt32 addressV = (sourceFilter >> 12) & 0xF;
+    const RwUInt32 address  = (addressU == addressV) ? addressV : 0;
+    const RwUInt32 nibbles  = address | (address << 4);
+    result->filterAddressing = (result->filterAddressing & ~0xFF00u) | (nibbles << 8);
+    *reinterpret_cast<RwUInt8*>(&result->filterAddressing) = static_cast<RwUInt8>(sourceFilter & 0xFF);
+
+    RwImageDestroy(baseImage);
+    RwImageDestroy(maskImage);
+
+    RwChar name[32] = {};
+    const RwChar* sources[2] = { (texture != nullptr) ? texture->name : bumpTexture->name, bumpTexture->name };
+    RwChar* out = name;
+    RwInt32 copied = 0;
+    while (*sources[0] != 0 || *sources[1] != 0) {
+        for (RwInt32 i = 0; i < 2; ++i) {
+            const RwChar c = *sources[i];
+            if (c != 0) {
+                *out++ = c;
+                ++sources[i];
+                ++copied;
+            }
+        }
+        if (copied >= 0x1E) {
+            break;
+        }
+    }
+    *out = 0;
+    RwTextureSetName(result, name);
+    return result;
+}
+
+// 0x812AC0 (lote R10A, sin validar; cdecl, 4 argumentos (cabecera de la entrada de recursos, malla instanciada, banderas de la geometria (solo el byte bajo), textura), `ret`, 454 bytes; llamadores: 0x813A02, 0x814260, 0x8149C6, 0x815DF5 y los de
+// los callbacks de render): dibujo de una malla con la etapa 0 y, si el material tiene la transformacion UV sola (efecto 5 = rpMATFXEFFECTUVTRANSFORM), su matriz base. Con geometria texturada (banderas & 0x84: 0x4 textura, 0x80 dos juegos de UV):
+// etapa 0 = textura; si el material tiene datos de MatFX con banderas 5 y matriz base no identidad, aplica la matriz (ApplyUvTransform con la etapa 0 y la transformada 0x10) y recuerda los datos; luego etapa 0: COLOROP MODULATE, COLORARG1 TEXTURE (2),
+// COLORARG2 DIFFUSE (0), ALPHAOP MODULATE, ALPHAARG1 TEXTURE, ALPHAARG2 DIFFUSE. Sin textura: textura NULL en la etapa 0 y COLOROP = SELECTARG2 (3), COLORARG2 = 0, ALPHAOP = 3, ALPHAARG2 = 0. Despues quita el pixel shader activo (0x8E244C), cambia el
+// vertex shader si difiere (0x8E2448) y dibuja (vaciado de estados 0x7FC200, DrawIndexedPrimitive o DrawPrimitive). Si recordo datos de UV, deja TEXTURETRANSFORMFLAGS de la etapa 0 a 0.
+void _rpMatFXD3D9DrawMeshUVTransform(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* instance, RwUInt32 flags, RwTexture* texture) {
+    rpMatFXMaterialData* uvData = nullptr;
+    if ((flags & 0x84) != 0) {
+        RwD3D9SetTexture(texture, 0);
+        rpMatFXMaterialData* const data = MaterialData(instance->material);
+        if (data != nullptr && static_cast<RwUInt32>(data->flags) == 5) {
+            uvData = data;
+            const RwMatrix* const baseTransform = data->data[0].data.uvAnim.baseTransform;
+            ApplyUvTransform(baseTransform, 0, 0x10);
+        }
+        Tss(0, 1, 4);
+        Tss(0, 2, 2);
+        Tss(0, 3, 0);
+        Tss(0, 4, 4);
+        Tss(0, 5, 2);
+        Tss(0, 6, 0);
+    } else {
+        RwD3D9SetTexture(nullptr, 0);
+        Tss(0, 1, 3);
+        Tss(0, 3, 0);
+        Tss(0, 4, 3);
+        Tss(0, 6, 0);
+    }
+    ResetPixelShader();
+    SelectVertexShader(instance);
+    DrawBatch(header, instance, instance->baseIndex);
+    if (uvData != nullptr) {
+        Tss(0, 0x18, 0);
+    }
+}
+
+// 0x812D40 (lote R10A, sin validar; cdecl, 5 argumentos (cabecera, malla instanciada, banderas de la geometria (byte bajo), textura base, textura dual), `ret`, 3279 bytes; llamadores: 0x815DD1 y 0x815DE5, del callback de render 0x815C20 con los efectos
+// 4 = DUAL y 6 = DUALUVTRANSFORM; la ranura dual es la 0 del 4 y la 1 del 6): dibujo con textura dual. Sin textura dual (o sin raster) llama a _rpMatFXD3D9DrawMeshUVTransform(cabecera, malla, banderas, base) y sale. Si no, `efecto` = ranura dual (src +4 y dst +8 de la
+// mezcla); con efecto 6 se recuerdan los datos (la matriz base esta en la ranura 0). Etapa 0 como en 0x812AC0 (con o sin geometria texturada; con efecto 6 aplica la matriz base de la ranura 0 con la transformada 0x10). Si hay textura base y los dos rasters tienen la
+// bandera 0x20 del formato y las texturas son distintas, convierte el raster de la textura dual (0x4CD250). Sin multitextura (0xC9ABAC) va directo a dibujar. Segun el par de mezcla (src, dst): (DESTCOLOR 9, ZERO 1) o (ZERO 1, SRCCOLOR 3) = multiplicar; (SRCALPHA 5,
+// INVSRCALPHA 6) = mezcla de alfa (con base exige al menos 3 etapas, MaxTextureBlendStages 0xC9ABBC); (9, 3) = multiplicar x2 (exige TextureOpCaps & MODULATE2X 0xC9ABB4 y se valida con ValidateDevice la primera vez, 0x8E29C0; si falla apaga la capacidad y deja
+// la segunda pasada); (ONE 2, ONE 2) = sumar (exige MULTIPLYADD 0xC9ABB0); (1, SRCALPHA... 5) = efecto con COLORARG2 = 0x22; otro par = segunda pasada. Si el modo se resuelve en una sola pasada pone `segundaPasada` a 0 y termina la configuracion (TEXCOORDINDEX de la
+// etapa 1 = 0 si la geometria no tiene dos juegos de UV y matriz dual de la ranura 0 con la transformada 0x11 si hay datos). Despues quita el pixel shader, cambia el vertex shader y dibuja. Si quedo una sola pasada restaura las etapas 0, 1 (textura NULL) y 2 y, sin
+// dos juegos de UV, TEXCOORDINDEX de la etapa 1 = 1. Si no, segunda pasada: etapa 0 = textura dual (con la matriz dual de la ranura 0 si hay datos), alfa por vertice activado si no lo estaba, ALPHATESTENABLE = 0 en los modos de multiplicar, mezcla del motor = la del efecto
+// (se guardan SRCBLEND y DESTBLEND), ZWRITEENABLE = 0 y, si hay niebla, FOGCOLOR = 0 (dst ONE) o 0xFFFFFFFF (src DESTCOLOR o dst SRCCOLOR); TEXCOORDINDEX 1 en la etapa 0 si la geometria tiene dos juegos de UV; dibuja y restaura todo. Al salir, si habia datos de UV,
+// TEXTURETRANSFORMFLAGS de las etapas 0 y 1 = 0.
+void _rpMatFXD3D9RenderDualTexture(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* instance, RwUInt32 flags, RwTexture* baseTexture, RwTexture* dualTexture) {
+    if (dualTexture == nullptr || dualTexture->raster == nullptr) {
+        _rpMatFXD3D9DrawMeshUVTransform(header, instance, flags, baseTexture);
+        return;
+    }
+    rpMatFXMaterialData* const data = MaterialData(instance->material);
+    RwInt32 secondPass = 1;
+    rpMatFXMaterialData* uvData = nullptr;
+    MatFXEffectData* effect;
+    if (static_cast<RwUInt32>(data->flags) == 6) {
+        effect = &data->data[1];
+        uvData = data;
+    } else {
+        effect = &data->data[0];
+    }
+    const RwUInt32 blendSrc = static_cast<RwUInt32>(effect->data.dual.srcBlendMode);
+    const RwUInt32 blendDst = static_cast<RwUInt32>(effect->data.dual.dstBlendMode);
+
+    if ((flags & 0x84) != 0) {
+        RwD3D9SetTexture(baseTexture, 0);
+        Tss(0, 1, 4);
+        Tss(0, 2, 2);
+        Tss(0, 3, 0);
+        Tss(0, 4, 4);
+        Tss(0, 5, 2);
+        Tss(0, 6, 0);
+    } else {
+        RwD3D9SetTexture(nullptr, 0);
+        Tss(0, 1, 3);
+        Tss(0, 3, 0);
+        Tss(0, 4, 3);
+        Tss(0, 6, 0);
+    }
+    if (uvData != nullptr) {
+        ApplyUvTransform(uvData->data[0].data.uvAnim.baseTransform, 0, 0x10);
+    }
+    if (baseTexture != nullptr && (baseTexture->raster->cFormat & 0x20) != 0 && (dualTexture->raster->cFormat & 0x20) != 0 && baseTexture != dualTexture) {
+        ConvertRasterToDisplayFormatExe(dualTexture->raster);
+    }
+
+    // 0x8133C8: fin de la configuracion de multitextura.
+    const auto finishMultiTexture = [&]() {
+        if ((flags & 0x80) == 0) {
+            Tss(1, 0xB, 0);
+        }
+        if (uvData != nullptr) {
+            ApplyUvTransform(uvData->data[0].data.uvAnim.dualTransform, 1, 0x11);
+        }
+    };
+
+    do {
+        if (MatFXMultiTexture == 0) {
+            break;
+        }
+        if ((blendSrc == 9 && blendDst == 1) || (blendSrc == 1 && blendDst == 3)) {
+            if (baseTexture != nullptr) {
+                RwD3D9SetTexture(dualTexture, 1);
+                if (MatFXMaxBlendStages == 3) {
+                    Tss(0, 1, 2);
+                    Tss(0, 2, 2);
+                    Tss(0, 4, 2);
+                    Tss(0, 5, 2);
+                    Tss(1, 1, 4);
+                    Tss(1, 2, 2);
+                    Tss(1, 3, 1);
+                    Tss(1, 4, 3);
+                    Tss(1, 6, 1);
+                    Tss(2, 1, 4);
+                    Tss(2, 2, 0);
+                    Tss(2, 3, 1);
+                    Tss(2, 4, 4);
+                    Tss(2, 5, 0);
+                    Tss(2, 6, 1);
+                } else {
+                    Tss(1, 1, 4);
+                    Tss(1, 2, 2);
+                    Tss(1, 3, 1);
+                    Tss(1, 4, 3);
+                    Tss(1, 6, 1);
+                }
+            } else {
+                RwD3D9SetTexture(dualTexture, 0);
+                Tss(0, 1, 4);
+                Tss(0, 2, 2);
+                Tss(0, 3, 0);
+                Tss(0, 4, 4);
+                Tss(0, 5, 2);
+                Tss(0, 6, 0);
+            }
+            secondPass = 0;
+            finishMultiTexture();
+            break;
+        }
+        if (blendSrc == 5 && blendDst == 6) {
+            if (baseTexture != nullptr) {
+                if (MatFXMaxBlendStages < 3) {
+                    break;
+                }
+                RwD3D9SetTexture(dualTexture, 1);
+                Tss(0, 1, 2);
+                Tss(0, 2, 2);
+                Tss(0, 4, 2);
+                Tss(0, 5, 2);
+                Tss(1, 1, 0xD);
+                Tss(1, 2, 2);
+                Tss(1, 3, 1);
+                Tss(1, 4, 0xD);
+                Tss(1, 5, 2);
+                Tss(1, 6, 1);
+                Tss(2, 1, 4);
+                Tss(2, 2, 0);
+                Tss(2, 3, 1);
+                Tss(2, 4, 4);
+                Tss(2, 5, 0);
+                Tss(2, 6, 1);
+            } else {
+                SetRs(0x3C, 0xFFFFFFFFu);
+                RwD3D9SetTexture(dualTexture, 0);
+                Tss(0, 1, 0xD);
+                Tss(0, 2, 2);
+                Tss(0, 3, 3);
+                Tss(0, 1, 0xD);
+                Tss(0, 2, 2);
+                Tss(0, 3, 3);
+                Tss(1, 1, 4);
+                Tss(1, 2, 0);
+                Tss(1, 3, 1);
+                Tss(1, 4, 4);
+                Tss(1, 5, 0);
+                Tss(1, 6, 1);
+            }
+            secondPass = 0;
+            finishMultiTexture();
+            break;
+        }
+        if (blendSrc == 9 && blendDst == 3) {
+            if (MatFXModulate2X == 0) {
+                break;
+            }
+            if (baseTexture != nullptr) {
+                RwD3D9SetTexture(dualTexture, 1);
+                Tss(1, 1, 5);
+                Tss(1, 2, 2);
+                Tss(1, 3, 1);
+                if (MatFXMaxBlendStages == 3) {
+                    Tss(0, 1, 2);
+                    Tss(0, 2, 2);
+                    Tss(0, 4, 2);
+                    Tss(0, 5, 2);
+                    Tss(1, 4, 3);
+                    Tss(1, 6, 1);
+                    Tss(2, 1, 4);
+                    Tss(2, 2, 0);
+                    Tss(2, 3, 1);
+                    Tss(2, 4, 4);
+                    Tss(2, 5, 0);
+                    Tss(2, 6, 1);
+                } else {
+                    Tss(1, 4, 3);
+                    Tss(1, 6, 1);
+                }
+            } else {
+                RwD3D9SetTexture(dualTexture, 0);
+                Tss(0, 1, 5);
+                Tss(0, 4, 3);
+                Tss(0, 6, 0);
+            }
+            if (MatFXUnknown29C0 == 0) {
+                secondPass = 0;
+            } else {
+                RwUInt32 numPasses = 0;
+                reinterpret_cast<void(__cdecl *)()>(kD3D9FlushRenderStates)();
+                const long hr = ComCall<kSlotValidateDevice, long>(Device(), &numPasses);
+                if (hr >= 0 && numPasses == 1) {
+                    secondPass = 0;
+                } else {
+                    MatFXModulate2X = 0;
+                    RwD3D9SetTexture(baseTexture, 0);
+                    Tss(0, 1, 4);
+                    Tss(0, 2, 2);
+                    Tss(0, 3, 0);
+                    Tss(0, 4, 4);
+                    Tss(0, 5, 2);
+                    Tss(0, 6, 0);
+                    Tss(1, 1, 1);
+                    Tss(1, 4, 1);
+                    Tss(2, 1, 1);
+                    Tss(2, 4, 1);
+                    RwD3D9SetTexture(nullptr, 1);
+                }
+                MatFXUnknown29C0 = 0;
+                if (secondPass != 0) {
+                    break;
+                }
+            }
+            finishMultiTexture();
+            break;
+        }
+        if (blendSrc == 2 && blendDst == 2) {
+            if (baseTexture != nullptr) {
+                if (MatFXMultiplyAdd == 0) {
+                    break;
+                }
+                RwD3D9SetTexture(dualTexture, 1);
+                Tss(1, 1, 0x19);
+                Tss(1, 0x1A, 1);
+                Tss(1, 2, 2);
+                Tss(1, 3, 0);
+                Tss(1, 4, 3);
+                Tss(1, 6, 1);
+            } else {
+                RwD3D9SetTexture(dualTexture, 0);
+                Tss(0, 4, 3);
+                Tss(0, 6, 0);
+                Tss(1, 1, 7);
+                Tss(1, 2, 0);
+                Tss(1, 3, 1);
+                Tss(1, 4, 3);
+                Tss(1, 6, 1);
+            }
+            secondPass = 0;
+            finishMultiTexture();
+            break;
+        }
+        if (blendSrc == 1 && blendDst == 5) {
+            if (baseTexture != nullptr) {
+                RwD3D9SetTexture(dualTexture, 1);
+                if (MatFXMaxBlendStages == 3) {
+                    Tss(0, 1, 2);
+                    Tss(0, 2, 2);
+                    Tss(0, 4, 2);
+                    Tss(0, 5, 2);
+                    Tss(1, 1, 4);
+                    Tss(1, 2, 0x22);
+                    Tss(1, 3, 1);
+                    Tss(1, 4, 3);
+                    Tss(1, 6, 1);
+                    Tss(2, 1, 4);
+                    Tss(2, 2, 0);
+                    Tss(2, 3, 1);
+                    Tss(2, 4, 4);
+                    Tss(2, 5, 0);
+                    Tss(2, 6, 1);
+                } else {
+                    Tss(1, 1, 4);
+                    Tss(1, 2, 0x22);
+                    Tss(1, 3, 1);
+                    Tss(1, 4, 3);
+                    Tss(1, 6, 1);
+                }
+            } else {
+                RwD3D9SetTexture(dualTexture, 0);
+                Tss(0, 1, 4);
+                Tss(0, 2, 0x22);
+                Tss(0, 3, 0);
+                Tss(0, 4, 3);
+                Tss(0, 6, 0);
+            }
+            secondPass = 0;
+            finishMultiTexture();
+            break;
+        }
+    } while (false);
+
+    // 0x813443: primera pasada.
+    ResetPixelShader();
+    SelectVertexShader(instance);
+    DrawBatch(header, instance, instance->baseIndex);
+
+    if (secondPass == 0) {
+        // 0x81396C
+        Tss(0, 1, 4);
+        Tss(0, 2, 2);
+        Tss(0, 3, 0);
+        RwD3D9SetTexture(nullptr, 1);
+        Tss(2, 1, 1);
+        Tss(2, 4, 1);
+        if ((flags & 0x80) == 0) {
+            Tss(1, 0xB, 1);
+        }
+    } else {
+        // 0x81374D: segunda pasada con la textura dual.
+        RwD3D9SetTexture(dualTexture, 0);
+        if (uvData != nullptr) {
+            ApplyUvTransform(uvData->data[0].data.uvAnim.dualTransform, 0, 0x10);
+        }
+        if (VertexAlphaEnabled() == 0) {
+            VertexAlphaEnable(TRUE);
+        }
+        if ((blendSrc == 9 && blendDst == 1) || (blendSrc == 1 && blendDst == 3) || (blendSrc == 9 && blendDst == 3)) {
+            SetRs(0xF, 0);
+        }
+        const RwUInt32 savedSrcBlend = EngineRenderStateGet(0xA);
+        const RwUInt32 savedDstBlend = EngineRenderStateGet(0xB);
+        _rwD3D9RenderStateSrcBlend(static_cast<RwInt32>(blendSrc));
+        _rwD3D9RenderStateDestBlend(static_cast<RwInt32>(blendDst));
+        const RwUInt32 savedZWrite = GetRs(0xE);
+        SetRs(0xE, 0);
+        const RwUInt32 savedFogEnable = GetRs(0x1C);
+        RwUInt32 savedFogColor = 0;
+        if (savedFogEnable != 0) {
+            savedFogColor = GetRs(0x22);
+            if (blendDst == 2) {
+                SetRs(0x22, 0);
+            } else if (blendSrc == 9 || blendDst == 3) {
+                SetRs(0x22, 0xFFFFFFFFu);
+            }
+        }
+        const bool secondUVSet = (flags & 0x80) != 0;
+        if (secondUVSet) {
+            Tss(0, 0xB, 1);
+        }
+        DrawBatch(header, instance, instance->baseIndex);
+        SetRs(0xE, savedZWrite);
+        if (savedFogEnable != 0) {
+            SetRs(0x22, savedFogColor);
+        }
+        if (secondUVSet) {
+            Tss(0, 0xB, 0);
+        }
+        VertexAlphaEnable(FALSE);
+        EngineRenderStateSet(0xA, savedSrcBlend);
+        EngineRenderStateSet(0xB, savedDstBlend);
+    }
+    if (uvData != nullptr) {
+        Tss(0, 0x18, 0);
+        Tss(1, 0x18, 0);
+    }
+}
+
+// 0x813A10 (lote R10A, sin validar; cdecl, 6 argumentos (cabecera, malla instanciada, banderas de la geometria (byte bajo), pasada, textura base, textura de entorno), `ret`, 2144 bytes; llamadores: 0x815DB8 (pasada 0, efecto 2 = ENVMAP) y 0x8149A6
+// (pasada 1, desde 0x814460)): una pasada de mapa de entorno. Intensidad = (int)(coef * 255.0f) & 0xFF con el coef de la ranura `pasada` (el producto se guarda como float y fistp redondea al mas cercano); sin intensidad, sin textura de entorno o sin su raster, la pasada 0
+// llama a _rpMatFXD3D9DrawMeshUVTransform(cabecera, malla, banderas, base) y la 1 no hace nada. Cambia el vertex shader si difiere. Pasada distinta de 0: solo la segunda parte (abajo). Pasada 0: con geometria texturada y textura base, etapa 0 = base (`conBase` = 1;
+// y si ambos rasters tienen la bandera 0x20 y las texturas difieren convierte el raster de entorno con 0x4CD250), si no etapa 0 = textura NULL. Decide la ruta: sin usar el alfa del bufer (ranura de entorno +0xC = 0) y con alfa de vertice, material con alfa != 255 o
+// base con alfa, salta a la ruta de dos pasadas (sin pixel shader); si el entorno tiene alfa y existe el pixel shader 0xC9AB98 usa la ruta de pixel shader (abajo), y si no existe cae en la ruta de dos pasadas; sin alfa en el entorno, `combinada` = 1 si
+// MULTIPLYADD (0xC9ABB0) o, con intensidad 255, si no hay base, o 0xC9ABB8 o 0x8E29C4 distintos de 0. Quita el pixel shader activo y configura la etapa 0 (con base: MODULATE; sin base: SELECTARG2). Si no es `combinada`: dibuja la malla (primera pasada) y sigue a la
+// segunda parte. Si lo es: con intensidad 255 y sin base, entorno en la etapa 0 (0x814270) con COLOROP = ADD, dibuja y restaura las etapas 0 (textura NULL, TEXTURETRANSFORMFLAGS y TEXCOORDINDEX a 0); si no, entorno en la etapa 1: con intensidad < 255,
+// TEXTUREFACTOR (0x3C) = intensidad * 0x01010101 y etapa 1 con COLOROP = 0x19 (LERP), COLORARG0 = TFACTOR (0x1A: 1), COLORARG1 = 2, COLORARG2 = 3; con 255, etapa 1 con ADD (7), COLORARG1 = 2, COLORARG2 = 1 y, si 0x8E29C4 != 0, ValidateDevice para fijar 0xC9ABB8
+// (1 si no devuelve error y una pasada; si no 0) y poner 0x8E29C4 = 0; dibuja y restaura la etapa 1 (textura NULL, TEXTURETRANSFORMFLAGS = 0, TEXCOORDINDEX = 1). Ruta de pixel shader: constante 0 del pixel shader = (coef, coef, coef, coef) (SetPixelShaderConstantF); con base,
+// entorno en la etapa 1, pixel shader 0xC9AB98, dibuja y restaura la etapa 1; sin base, entorno en la etapa 0, pixel shader 0xC9AB9C y restauracion de la etapa 0. Segunda parte (envio aditivo): entorno en la etapa 0 (con el marco de la ranura), alfa por vertice
+// activado si no lo estaba, mezcla del motor SRCALPHA (5) / ONE (2) con las anteriores guardadas, TEXTUREFACTOR = intensidad * 0x01010101 y con intensidad < 255 etapa 0 con COLOROP = MODULATE (4), COLORARG1 = 2, COLORARG2 = 3 (TFACTOR), ALPHAOP = 2, ALPHAARG1 = 2,
+// ALPHAARG2 = 3; con 255 SELECTARG1 en color y alfa; LIGHTING (0x89), ZWRITEENABLE (0xE) = 0 y, con niebla, FOGCOLOR = 0; dibuja y restaura todo (con intensidad < 255 COLORARG2 = 0 y ALPHAARG2 = 0, con 255 MODULATE otra vez), alfa por vertice desactivado y mezcla del motor.
+void _rpMatFXD3D9RenderEnvMapPass(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* instance, RwUInt32 flags, RwUInt32 pass, RwTexture* baseTexture, RwTexture* envTexture) {
+    rpMatFXMaterialData* const data = MaterialData(instance->material);
+    MatFXEffectData* const effect = &data->data[pass];
+    const RwReal scaled = effect->data.envMap.coef * 255.0f;
+    const RwUInt32 intensity = static_cast<RwUInt32>(FloatToIntRounded(scaled)) & 0xFFu;
+    if (intensity == 0 || envTexture == nullptr || envTexture->raster == nullptr) {
+        if (pass == 0) {
+            _rpMatFXD3D9DrawMeshUVTransform(header, instance, flags, baseTexture);
+        }
+        return;
+    }
+    RwFrame* const envFrame = effect->data.envMap.frame;
+    RwBool combined = FALSE;
+    RwBool hasBase  = FALSE;
+    SelectVertexShader(instance);
+
+    if (pass == 0) {
+        if ((flags & 0x84) != 0 && baseTexture != nullptr) {
+            RwD3D9SetTexture(baseTexture, 0);
+            hasBase = TRUE;
+            if ((baseTexture->raster->cFormat & 0x20) != 0 && (envTexture->raster->cFormat & 0x20) != 0 && baseTexture != envTexture) {
+                ConvertRasterToDisplayFormatExe(envTexture->raster);
+            }
+        } else {
+            RwD3D9SetTexture(nullptr, 0);
+        }
+
+        bool useTwoPasses = false;  // 0x813B75 directo
+        bool usePixelShader = false;
+        do {
+            if (effect->data.envMap.useFrameBufferAlpha == 0) {
+                if (instance->vertexAlpha != 0) {
+                    useTwoPasses = true;
+                    break;
+                }
+                if (instance->material->color.alpha != 0xFF) {
+                    useTwoPasses = true;
+                    break;
+                }
+                if (hasBase && TextureHasAlpha(baseTexture) != 0) {
+                    useTwoPasses = true;
+                    break;
+                }
+            }
+            if (TextureHasAlpha(envTexture) != 0) {
+                if (MatFXPixelShader(1) == nullptr) {
+                    useTwoPasses = true;
+                } else {
+                    usePixelShader = true;
+                }
+                break;
+            }
+            if (MatFXMultiplyAdd != 0) {
+                combined = TRUE;
+                break;
+            }
+            if (intensity != 0xFF) {
+                break;
+            }
+            if (!hasBase || MatFXUnknownB8 != 0 || MatFXUnknown29C4 != 0) {
+                combined = TRUE;
+            }
+        } while (false);
+        (void)useTwoPasses;
+
+        if (usePixelShader) {
+            const RwReal coef = effect->data.envMap.coef;
+            const RwReal constants[4] = { coef, coef, coef, coef };
+            ComCall<kSlotSetPixelShaderConstantF, long>(Device(), 0u, static_cast<const void*>(constants), 1u);
+            if (hasBase) {
+                _rpMatFXD3D9SetEnvMapTexture(envTexture, 1, envFrame);
+                SelectPixelShader(MatFXPixelShader(1));
+                DrawBatch(header, instance, instance->baseIndex);
+                RwD3D9SetTexture(nullptr, 1);
+                Tss(1, 0x18, 0);
+                Tss(1, 0xB, 1);
+            } else {
+                _rpMatFXD3D9SetEnvMapTexture(envTexture, 0, envFrame);
+                SelectPixelShader(MatFXPixelShader(2));
+                DrawBatch(header, instance, instance->baseIndex);
+                RwD3D9SetTexture(nullptr, 0);
+                Tss(0, 0x18, 0);
+                Tss(0, 0xB, 0);
+            }
+            return;
+        }
+
+        ResetPixelShader();
+        if (hasBase) {
+            Tss(0, 1, 4);
+            Tss(0, 2, 2);
+            Tss(0, 3, 0);
+            Tss(0, 4, 4);
+            Tss(0, 5, 2);
+            Tss(0, 6, 0);
+        } else {
+            Tss(0, 1, 3);
+            Tss(0, 3, 0);
+            Tss(0, 4, 3);
+            Tss(0, 6, 0);
+        }
+
+        if (!combined) {
+            DrawBatch(header, instance, instance->baseIndex);
+        } else if (intensity == 0xFF && !hasBase) {
+            _rpMatFXD3D9SetEnvMapTexture(envTexture, 0, envFrame);
+            Tss(0, 1, 7);
+            DrawBatch(header, instance, instance->baseIndex);
+            RwD3D9SetTexture(nullptr, 0);
+            Tss(0, 0x18, 0);
+            Tss(0, 0xB, 0);
+            return;
+        } else {
+            _rpMatFXD3D9SetEnvMapTexture(envTexture, 1, envFrame);
+            if (intensity != 0xFF) {
+                SetRs(0x3C, intensity * 0x01010101u);
+                Tss(1, 1, 0x19);
+                Tss(1, 0x1A, 1);
+                Tss(1, 2, 2);
+                Tss(1, 3, 3);
+            } else {
+                Tss(1, 1, 7);
+                Tss(1, 2, 2);
+                Tss(1, 3, 1);
+                if (MatFXUnknown29C4 != 0) {
+                    RwUInt32 numPasses = 0;
+                    reinterpret_cast<void(__cdecl *)()>(kD3D9FlushRenderStates)();
+                    const long hr = ComCall<kSlotValidateDevice, long>(Device(), &numPasses);
+                    if (hr >= 0 && numPasses == 1) {
+                        MatFXUnknownB8 = 1;
+                    } else {
+                        MatFXUnknownB8 = 0;
+                    }
+                    MatFXUnknown29C4 = 0;
+                }
+            }
+            DrawBatch(header, instance, instance->baseIndex);
+            RwD3D9SetTexture(nullptr, 1);
+            Tss(1, 0x18, 0);
+            Tss(1, 0xB, 1);
+            return;
+        }
+    }
+
+    // 0x814003: pasada aditiva del entorno.
+    _rpMatFXD3D9SetEnvMapTexture(envTexture, 0, envFrame);
+    if (VertexAlphaEnabled() == 0) {
+        VertexAlphaEnable(TRUE);
+    }
+    const RwUInt32 savedSrcBlend = EngineRenderStateGet(0xA);
+    const RwUInt32 savedDstBlend = EngineRenderStateGet(0xB);
+    _rwD3D9RenderStateSrcBlend(5);
+    _rwD3D9RenderStateDestBlend(2);
+    const RwUInt32 color = intensity * 0x01010101u;
+    if (color < 0xFFFFFFFFu) {
+        SetRs(0x3C, color);
+        Tss(0, 1, 4);
+        Tss(0, 2, 2);
+        Tss(0, 3, 3);
+        Tss(0, 4, 2);
+        Tss(0, 5, 2);
+        Tss(0, 6, 3);
+    } else {
+        Tss(0, 1, 2);
+        Tss(0, 2, 2);
+        Tss(0, 4, 2);
+        Tss(0, 5, 2);
+    }
+    const RwUInt32 savedLighting = GetRs(0x89);
+    const RwUInt32 savedZWrite   = GetRs(0xE);
+    const RwUInt32 savedFogEnable = GetRs(0x1C);
+    SetRs(0x89, 0);
+    SetRs(0xE, 0);
+    RwUInt32 savedFogColor = 0;
+    if (savedFogEnable != 0) {
+        savedFogColor = GetRs(0x22);
+        SetRs(0x22, 0);
+    }
+    DrawBatch(header, instance, instance->baseIndex);
+    if (savedFogEnable != 0) {
+        SetRs(0x22, savedFogColor);
+    }
+    SetRs(0xE, savedZWrite);
+    SetRs(0x89, savedLighting);
+    if (color < 0xFFFFFFFFu) {
+        Tss(0, 3, 0);
+        Tss(0, 6, 0);
+    } else {
+        Tss(0, 1, 4);
+        Tss(0, 4, 4);
+    }
+    VertexAlphaEnable(FALSE);
+    EngineRenderStateSet(0xA, savedSrcBlend);
+    EngineRenderStateSet(0xB, savedDstBlend);
+    Tss(0, 0x18, 0);
+    Tss(0, 0xB, 0);
+}
+
+// 0x814460 (lote R10A, sin validar; cdecl, 6 argumentos (cabecera, malla instanciada, banderas de la geometria (byte bajo), textura base, textura combinada del relieve (MatFXBumpMapData.texture), textura de entorno o NULL), `ret`, 1398 bytes; llamadores: 0x815DA2
+// con los efectos 1 = BUMPMAP (entorno NULL) y 3 = BUMPENVMAP (entorno = textura de la ranura 1)): dibujo con relieve. Textura de trabajo = la combinada o, si es NULL, la base si tiene alfa (_rwD3D9TextureHasAlpha); si no hay ninguna llama a _rpMatFXD3D9DrawMeshUVTransform
+// (cabecera, malla, banderas, base) y sale. Reserva 0x2C bytes por vertice en el bufer dinamico (RwD3D9DynamicVertexBufferLock; si falla sale sin dibujar), instancia el relieve en el (_rpMatFXD3D9BumpMapInstance, 0x8149E0), lo desbloquea, pone la textura de trabajo en la etapa 0,
+// FVF 0x252 (si cambia; invalida la declaracion), flujo 0 = el bufer (desplazamiento 0, paso 0x2C) y el vertex shader de la malla. Con pixel shaders (0xC9AB94 con o sin entorno, o 0xC9ABA0 con entorno): alfa por vertice desactivado, textura de trabajo en la etapa 1, guarda
+// ALPHABLENDENABLE (0x1B) y ALPHATESTENABLE (0xF) y los pone a 0; con entorno y pixel shader 0xC9ABA0, intensidad del entorno de la ranura 1 (coef * 255 con fistp, byte bajo; 0 la salta): entorno en la etapa 2 (0x814270 con el marco de la ranura 1), pixel shader = 0xC9ABA4 o 0xC9ABA8
+// (con el alfa del bufer segun el alfa del entorno) o 0xC9ABA0, constante 0 = (coef x4) y dibuja con la base compartida del bufer; restaura la etapa 2; si no, pixel shader 0xC9AB94 y dibuja; restaura ALPHABLENDENABLE y ALPHATESTENABLE y deja la textura NULL en la etapa 1. Sin pixel shaders (ruta fija):
+// etapa 0 MODULATE con TEXTURE y DIFFUSE, quita el pixel shader, alfa por vertice si no estaba, ALPHATESTENABLE = 0, mezcla del motor SRC = INVSRCALPHA (6) y DST = ZERO (1), dibuja; ALPHATESTENABLE = 1, mezcla SRC = SRCALPHA (5) y DST = ONE (2), ZWRITEENABLE = 0, TEXCOORDINDEX de la etapa 0 = 1
+// y dibuja otra vez; restaura todo. Despues vuelve a poner los flujos de la entrada de recursos (_rwD3D9SetStreams) y su declaracion de vertices (si cambia; invalida el FVF) y, con entorno y sin pixel shader 0xC9ABA0, llama a _rpMatFXD3D9RenderEnvMapPass(cabecera, malla, banderas, 1, base, entorno).
+void _rpMatFXD3D9RenderBumpMap(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* instance, RwUInt32 flags, RwTexture* baseTexture, RwTexture* bumpedTexture, RwTexture* envTexture) {
+    RwTexture* texture = bumpedTexture;
+    if (texture == nullptr) {
+        texture = baseTexture;
+        if (texture == nullptr || TextureHasAlpha(texture) == 0) {
+            _rpMatFXD3D9DrawMeshUVTransform(header, instance, flags, texture);
+            return;
+        }
+    }
+
+    void* vertexBuffer = nullptr;
+    void* vertexData   = nullptr;
+    RwUInt32 baseIndex = 0;
+    if (reinterpret_cast<RwBool(__cdecl *)(RwUInt32, RwUInt32, void**, void**, RwUInt32*)>(0x7F5B10)(0x2C, instance->numVertices, &vertexBuffer, &vertexData, &baseIndex) == 0) {
+        return;
+    }
+    _rpMatFXD3D9BumpMapInstance(header, instance, vertexData);
+    RwD3D9DynamicVertexBufferUnlock(vertexBuffer);
+    RwD3D9SetTexture(texture, 0);
+    if (D3D9LastFVF != 0x252) {
+        D3D9LastFVF = 0x252;
+        D3D9LastVertexDeclaration = 0xFFFFFFFFu;
+        ComCall<kSlotSetFVF, long>(Device(), 0x252u);
+    }
+    RwD3D9SetStreamSource(0, vertexBuffer, 0, 0x2C);
+    SelectVertexShader(instance);
+
+    const bool usePixelShaders = (envTexture != nullptr && MatFXPixelShader(3) != nullptr) || MatFXPixelShader(0) != nullptr;
+    if (usePixelShaders) {
+        VertexAlphaEnable(FALSE);
+        RwD3D9SetTexture(texture, 1);
+        const RwUInt32 savedAlphaBlend = GetRs(0x1B);
+        const RwUInt32 savedAlphaTest  = GetRs(0xF);
+        SetRs(0x1B, 0);
+        SetRs(0xF, 0);
+        bool withEnv = false;
+        if (envTexture != nullptr && MatFXPixelShader(3) != nullptr) {
+            MatFXEffectData* const envEffect = &MaterialData(instance->material)->data[1];
+            const RwReal scaled = envEffect->data.envMap.coef * 255.0f;
+            if ((static_cast<RwUInt32>(FloatToIntRounded(scaled)) & 0xFFu) != 0) {
+                withEnv = true;
+                const RwReal coef = envEffect->data.envMap.coef;
+                const RwReal constants[4] = { coef, coef, coef, coef };
+                _rpMatFXD3D9SetEnvMapTexture(envTexture, 2, envEffect->data.envMap.frame);
+                void* shader;
+                if (envEffect->data.envMap.useFrameBufferAlpha != 0) {
+                    shader = (TextureHasAlpha(envTexture) != 0) ? MatFXPixelShader(4) : MatFXPixelShader(5);
+                } else {
+                    shader = MatFXPixelShader(3);
+                }
+                SelectPixelShader(shader);
+                ComCall<kSlotSetPixelShaderConstantF, long>(Device(), 0u, static_cast<const void*>(constants), 1u);
+                DrawBatch(header, instance, baseIndex);
+                RwD3D9SetTexture(nullptr, 2);
+                Tss(2, 0x18, 0);
+                Tss(2, 0xB, 2);
+            }
+        }
+        if (!withEnv) {
+            SelectPixelShader(MatFXPixelShader(0));
+            DrawBatch(header, instance, baseIndex);
+        }
+        SetRs(0x1B, savedAlphaBlend);
+        SetRs(0xF, savedAlphaTest);
+        RwD3D9SetTexture(nullptr, 1);
+    } else {
+        Tss(0, 1, 4);
+        Tss(0, 2, 2);
+        Tss(0, 3, 0);
+        Tss(0, 4, 4);
+        Tss(0, 5, 2);
+        Tss(0, 6, 0);
+        ResetPixelShader();
+        if (VertexAlphaEnabled() == 0) {
+            VertexAlphaEnable(TRUE);
+        }
+        SetRs(0xF, 0);
+        const RwUInt32 savedSrcBlend = EngineRenderStateGet(0xA);
+        const RwUInt32 savedDstBlend = EngineRenderStateGet(0xB);
+        _rwD3D9RenderStateSrcBlend(6);
+        _rwD3D9RenderStateDestBlend(1);
+        DrawBatch(header, instance, baseIndex);
+        SetRs(0xF, 1);
+        _rwD3D9RenderStateSrcBlend(5);
+        _rwD3D9RenderStateDestBlend(2);
+        const RwUInt32 savedZWrite = GetRs(0xE);
+        SetRs(0xE, 0);
+        Tss(0, 0xB, 1);
+        DrawBatch(header, instance, baseIndex);
+        Tss(0, 0xB, 0);
+        SetRs(0xE, savedZWrite);
+        VertexAlphaEnable(FALSE);
+        EngineRenderStateSet(0xA, savedSrcBlend);
+        EngineRenderStateSet(0xB, savedDstBlend);
+    }
+
+    _rwD3D9SetStreams(header->vertexStream, header->useOffsets);
+    const uintptr_t declaration = reinterpret_cast<uintptr_t>(header->vertexDeclaration);
+    if (D3D9LastVertexDeclaration != declaration) {
+        D3D9LastVertexDeclaration = declaration;
+        D3D9LastFVF = 0xFFFFFFFFu;
+        ComCall<kSlotSetVertexDeclaration, long>(Device(), static_cast<void*>(header->vertexDeclaration));
+    }
+    if (envTexture != nullptr && MatFXPixelShader(3) == nullptr) {
+        _rpMatFXD3D9RenderEnvMapPass(header, instance, flags, 1, baseTexture, envTexture);
+    }
+}
+
+// 0x816190 (lote R10A, sin validar; cdecl sin argumentos, `ret`, 202 bytes; llamador: 0x810BBD, el destructor del plugin de motor 0x810BB0): destruye los pipelines de MatFX de atomico (0xC9AB8C) y de sector (0xC9AB90) con _rxPipelineDestroy (0x805820) y los seis pixel shaders
+// (0xC9AB94..0xC9ABA8) con RwD3D9DeletePixelShader (0x7FACF0), poniendo a NULL cada variable que no lo era. Devuelve TRUE.
+RwBool _rpMatFXPipelinesDestroy() {
+    if (MatFXAtomicPipeline != nullptr) {
+        _rxPipelineDestroy(MatFXAtomicPipeline);
+        MatFXAtomicPipeline = nullptr;
+    }
+    if (MatFXWorldSectorPipeline != nullptr) {
+        _rxPipelineDestroy(MatFXWorldSectorPipeline);
+        MatFXWorldSectorPipeline = nullptr;
+    }
+    for (size_t i = 0; i < 6; ++i) {
+        void*& shader = MatFXPixelShader(i);
+        if (shader != nullptr) {
+            RwD3D9DeletePixelShader(shader);
+            shader = nullptr;
+        }
+    }
+    return TRUE;
 }

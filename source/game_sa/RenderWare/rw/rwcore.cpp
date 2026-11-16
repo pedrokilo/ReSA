@@ -83,6 +83,8 @@ constexpr size_t kSlotRelease = 2;                      // IUnknown::Release
 constexpr size_t kSlotVertexBufferUnlock = 12;          // IDirect3DVertexBuffer9::Unlock (+0x30)
 constexpr size_t kSlotSetDepthStencilSurface = 39;      // IDirect3DDevice9::SetDepthStencilSurface (+0x9C)
 constexpr size_t kSlotCreatePixelShader = 106;          // IDirect3DDevice9::CreatePixelShader (+0x1A8)
+constexpr size_t kSlotSetRenderState = 57;              // IDirect3DDevice9::SetRenderState (+0xE4; lote R10A)
+constexpr size_t kSlotSetTextureStageState = 67;        // IDirect3DDevice9::SetTextureStageState (+0x10C; lote R10A)
 } // namespace
 
 // --- Lote 223A (sin validar): plugin de raster del controlador D3D9 de RenderWare (0x4C9990..0x4CA5A0; el listado las atribuia a CWeaponModelInfo) ---
@@ -1615,8 +1617,51 @@ void RwD3D9SetStreamSource(RwUInt32 streamNumber, void* streamData, RwUInt32 off
     ((void(__cdecl *)(RwUInt32, void*, RwUInt32, RwUInt32))0x7FA030)(streamNumber, streamData, offset, stride);
 }
 
+// 0x7FC200 (lote R10A, sin validar; sustituye la envoltura; cdecl sin argumentos, `ret`, 195 bytes; el listado la atribuia a RpMatFX por vecindad): vuelca al dispositivo los estados pendientes de la cache de estados del controlador D3D9.
+// Dos listas de pendientes: estados de render (contador 0xC9A5EC, ids en 0xC98B40) y estados de etapa de textura (contador 0xC9A5F0, pares (etapa, tipo) de 8 bytes en 0xC99C80). Estados de render: valor pedido en 0xC991D0 + 8 * id (con la
+// bandera de pendiente en +4) y valor actual en 0xC98E88 + 4 * id; estados de etapa: indice = etapa * 33 + tipo, valor pedido en 0xC980F8 + 8 * indice (bandera en +4) y actual en 0xC99860 + 4 * indice. Para cada pendiente pone la bandera a 0 y,
+// si el valor pedido difiere del actual, lo copia y llama a IDirect3DDevice9::SetRenderState (+0xE4) o SetTextureStageState (+0x10C). Al terminar cada lista deja su contador a 0. La lista de render se recorre releyendo el contador en cada vuelta
+// (como el EXE); la de etapas es un do-while.
 void _rwD3D9RenderStateFlushCache() {
-    ((void(__cdecl *)(void))0x7FC200)();
+    auto& renderStateCount = StaticRef<RwUInt32>(0xC9A5EC);
+    auto& stageStateCount  = StaticRef<RwUInt32>(0xC9A5F0);
+    const RwUInt32* const dirtyRenderStates = reinterpret_cast<const RwUInt32*>(0xC98B40);
+    RwUInt32* const wantedRenderStates      = reinterpret_cast<RwUInt32*>(0xC991D0); // {valor, pendiente} por id
+    RwUInt32* const currentRenderStates     = reinterpret_cast<RwUInt32*>(0xC98E88);
+    const RwUInt32* const dirtyStageStates  = reinterpret_cast<const RwUInt32*>(0xC99C80); // {etapa, tipo}
+    RwUInt32* const wantedStageStates       = reinterpret_cast<RwUInt32*>(0xC980F8);     // {valor, pendiente} por indice
+    RwUInt32* const currentStageStates      = reinterpret_cast<RwUInt32*>(0xC99860);
+
+    if (renderStateCount != 0) {
+        for (RwUInt32 i = 0; i < renderStateCount; ++i) {
+            const RwUInt32 state  = dirtyRenderStates[i];
+            const RwUInt32 wanted = wantedRenderStates[state * 2];
+            const RwUInt32 actual = currentRenderStates[state];
+            wantedRenderStates[state * 2 + 1] = 0;
+            if (actual != wanted) {
+                currentRenderStates[state] = wanted;
+                ComCall<kSlotSetRenderState, int32>(D3D9Device, state, wanted);
+            }
+        }
+        renderStateCount = 0;
+    }
+    if (stageStateCount != 0) {
+        RwUInt32 i = 0;
+        do {
+            const RwUInt32 stage  = dirtyStageStates[i * 2];
+            const RwUInt32 type   = dirtyStageStates[i * 2 + 1];
+            const RwUInt32 index  = stage + (type + (stage << 5));
+            const RwUInt32 wanted = wantedStageStates[index * 2];
+            const RwUInt32 actual = currentStageStates[index];
+            wantedStageStates[index * 2 + 1] = 0;
+            if (actual != wanted) {
+                currentStageStates[index] = wanted;
+                ComCall<kSlotSetTextureStageState, int32>(D3D9Device, stage, type, wanted);
+            }
+            ++i;
+        } while (i < stageStateCount);
+        stageStateCount = 0;
+    }
 }
 
 void _rwD3D9DrawIndexedPrimitiveUP(RwUInt32 primitiveType, RwUInt32 minIndex, RwUInt32 numVertices, RwUInt32 primitiveCount, const void* indexData, const void* vertexStreamZeroData, RwUInt32 VertexStreamZeroStride) {
@@ -2124,6 +2169,7 @@ void RwD3D9InjectHooksR6A() {
     RH_ScopedCategory("Renderware");
     RH_ScopedNamespaceName("RwD3D9");
 
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateFlushCache, 0x7FC200); // lote R10A (sin validar)
     RH_ScopedGlobalInstall(_rwD3D9RWGetRenderState, 0x7FD810);
     RH_ScopedGlobalInstall(_rwD3D9RenderStateTextureFilter, 0x7FDB80);
     RH_ScopedGlobalInstall(_rwD3D9RenderStateSrcBlend, 0x7FDC30);

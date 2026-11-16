@@ -20,6 +20,8 @@ END GENERATED HOOK STATUS */
 
 #include "rpworld.h"
 #include <rpdbgerr.h>
+#include <bit>
+#include <cstring>
 
 // Direcciones del EXE usadas por las funciones de este archivo.
 namespace {
@@ -91,6 +93,7 @@ void RpWorldInjectHooks() {
     RH_ScopedGlobalInstall(RxNodeDefinitionGetD3D9WorldSectorAllInOne, 0x75E9F0);
     RH_ScopedGlobalInstall(RpWorldSectorRegisterPlugin, 0x761C90);
     RH_ScopedGlobalInstall(RpWorldSectorRegisterPluginStream, 0x761CC0);
+    RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationUnInstV3d, 0x7551F0); // lote R10A (sin validar)
 }
 
 void _rwD3D9VSSetActiveWorldMatrix(const RwMatrix* worldMatrix) {
@@ -2953,8 +2956,116 @@ RwUInt32 _rpD3D9VertexDeclarationInstTangent(RwUInt32 type, RwUInt8* mem, const 
     return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RwV3d*, const RwTexCoords*, RxD3D9ResEntryHeader*, RwUInt32))0x754E20)(type, mem, pos, texCoord, meshHeader, stride);
 }
 
+// 0x7551F0 (lote R10A, sin validar; sustituye la envoltura; cdecl, 3 argumentos (tipo de elemento de la declaracion de vertices, destino RwV3d, origen), `ret`, 936 bytes; el listado la atribuia a RpMatFX por vecindad):
+// lee un elemento de un vertice D3D9 y lo deja como RwV3d. Tipos (D3DDECLTYPE, tabla de saltos 0x755598; mayor que 14 -> (0,0,0)): 0 FLOAT1 = (dword, 0, 0); 1 FLOAT2 = (dword, dword, 0); 2 y 3 (FLOAT3 y FLOAT4) = tres dwords;
+// 4 D3DCOLOR = (byte2, byte1, byte0) * (1/255) [0x859A3C = 0x3B808081]; 5 UBYTE4 = (byte0, byte1, byte2) sin escala; 6 SHORT2 = (short0, short1, 0); 7 SHORT4 = tres shorts; 8 UBYTE4N = (byte0, byte1, byte2) * (1/255);
+// 9 SHORT2N = (short0, short1, 0) * (1/32767) [0x858C7C = 0x38000100]; 10 SHORT4N = tres shorts * (1/32767); 11 USHORT2N y 12 USHORT4N = como 9 y 10 pero con (1/65535) [0x874F48 = 0x37800080] y leyendo los words CON SIGNO (movsx) como el EXE;
+// 13 UDEC3 = tres campos de 10 bits sin signo (bits 0, 10 y 20) sin escala; 14 DEC3N = los mismos campos con signo (extension del bit 9) * (1/511) [0x874F40 = 0x3B004020]. Las conversiones entero a float son `fild` + `fmul` + `fstp` en la x87 a 24 bits:
+// el entero es exacto y el producto se redondea una sola vez a 24 bits, igual que la multiplicacion float de C++. Los casos 0..3 copian dwords (sin pasar por la x87). Escribe siempre los tres componentes.
 void _rpD3D9VertexDeclarationUnInstV3d(RwUInt32 type, RwV3d* dst, const RwUInt8* src) {
-    ((void(__cdecl *)(RwUInt32, RwV3d*, const RwUInt8*))0x7551F0)(type, dst, src);
+    constexpr float kByteScale    = std::bit_cast<float>(0x3B808081u); // 0x859A3C
+    constexpr float kShortScale   = std::bit_cast<float>(0x38000100u); // 0x858C7C
+    constexpr float kUShortScale  = std::bit_cast<float>(0x37800080u); // 0x874F48
+    constexpr float kDecScale     = std::bit_cast<float>(0x3B004020u); // 0x874F40
+    const auto readDword = [src](size_t index) {
+        RwUInt32 value;
+        std::memcpy(&value, src + index * sizeof(RwUInt32), sizeof(value));
+        return value;
+    };
+    const auto readShort = [src](size_t index) {
+        RwInt16 value;
+        std::memcpy(&value, src + index * sizeof(RwInt16), sizeof(value));
+        return static_cast<RwInt32>(value);
+    };
+    auto* const out = reinterpret_cast<RwUInt32*>(dst);
+    switch (type) {
+    case 0:
+        out[0] = readDword(0);
+        out[1] = 0;
+        out[2] = 0;
+        return;
+    case 1:
+        out[0] = readDword(0);
+        out[1] = readDword(1);
+        out[2] = 0;
+        return;
+    case 2:
+    case 3:
+        out[0] = readDword(0);
+        out[1] = readDword(1);
+        out[2] = readDword(2);
+        return;
+    case 4:
+        dst->x = static_cast<float>(static_cast<RwInt32>(src[2])) * kByteScale;
+        dst->y = static_cast<float>(static_cast<RwInt32>(src[1])) * kByteScale;
+        dst->z = static_cast<float>(static_cast<RwInt32>(src[0])) * kByteScale;
+        return;
+    case 5:
+        dst->x = static_cast<float>(static_cast<RwInt32>(src[0]));
+        dst->y = static_cast<float>(static_cast<RwInt32>(src[1]));
+        dst->z = static_cast<float>(static_cast<RwInt32>(src[2]));
+        return;
+    case 6:
+        dst->x = static_cast<float>(readShort(0));
+        out[2] = 0;
+        dst->y = static_cast<float>(readShort(1));
+        return;
+    case 7:
+        dst->x = static_cast<float>(readShort(0));
+        dst->y = static_cast<float>(readShort(1));
+        dst->z = static_cast<float>(readShort(2));
+        return;
+    case 8:
+        dst->x = static_cast<float>(static_cast<RwInt32>(src[0])) * kByteScale;
+        dst->y = static_cast<float>(static_cast<RwInt32>(src[1])) * kByteScale;
+        dst->z = static_cast<float>(static_cast<RwInt32>(src[2])) * kByteScale;
+        return;
+    case 9:
+        dst->x = static_cast<float>(readShort(0)) * kShortScale;
+        out[2] = 0;
+        dst->y = static_cast<float>(readShort(1)) * kShortScale;
+        return;
+    case 10:
+        dst->x = static_cast<float>(readShort(0)) * kShortScale;
+        dst->y = static_cast<float>(readShort(1)) * kShortScale;
+        dst->z = static_cast<float>(readShort(2)) * kShortScale;
+        return;
+    case 11:
+        dst->x = static_cast<float>(readShort(0)) * kUShortScale;
+        out[2] = 0;
+        dst->y = static_cast<float>(readShort(1)) * kUShortScale;
+        return;
+    case 12:
+        dst->x = static_cast<float>(readShort(0)) * kUShortScale;
+        dst->y = static_cast<float>(readShort(1)) * kUShortScale;
+        dst->z = static_cast<float>(readShort(2)) * kUShortScale;
+        return;
+    case 13: {
+        const RwUInt32 packed = readDword(0);
+        dst->x = static_cast<float>(packed & 0x3FFu);
+        dst->y = static_cast<float>((packed >> 10) & 0x3FFu);
+        dst->z = static_cast<float>((packed >> 20) & 0x3FFu);
+        return;
+    }
+    case 14: {
+        const RwUInt32 packed = readDword(0);
+        const auto signExtend10 = [](RwUInt32 field) {
+            return static_cast<RwInt32>((field & 0x200u) != 0 ? (field | 0xFFFFFC00u) : field);
+        };
+        const RwInt32 x = signExtend10(packed & 0x3FFu);
+        const RwInt32 y = signExtend10((packed >> 10) & 0x3FFu);
+        const RwInt32 z = signExtend10((packed >> 20) & 0x3FFu);
+        dst->x = static_cast<float>(x) * kDecScale;
+        dst->y = static_cast<float>(y) * kDecScale;
+        dst->z = static_cast<float>(z) * kDecScale;
+        return;
+    }
+    default:
+        out[0] = 0;
+        out[1] = 0;
+        out[2] = 0;
+        return;
+    }
 }
 
 void _rpD3D9VertexDeclarationUnInstV2d(RwUInt32 type, RwV2d* dst, const RwUInt8* src) {

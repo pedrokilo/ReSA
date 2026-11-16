@@ -287,6 +287,10 @@ void D3D9RasterFormat::InjectHooks() {
     RH_ScopedInstall(CreateRasterFromD3DFormat, 0x4CD050);      // lote 225A (sin validar)
     RH_ScopedInstall(ConvertRasterToDisplayFormat, 0x4CD250);   // lote 225A (sin validar)
     RH_ScopedInstall(GetRasterMemorySize, 0x4CD360);            // lote 225A (sin validar)
+    RH_ScopedInstall(DecompressDxt1, 0x81E720);                 // lote R10A (sin validar)
+    RH_ScopedInstall(DecompressDxt3, 0x81EA70);                 // lote R10A (sin validar)
+    RH_ScopedInstall(DecompressDxt5, 0x81EDC0);                 // lote R10A (sin validar)
+    RH_ScopedInstall(DecodeDxt5AlphaBlock, 0x81F0C0);           // lote R10A (sin validar)
 }
 
 // 0x4CC1D0 (lote 225A, sin validar; el listado decia CWeaponModelInfo): _rwD3D9FindCorrectRasterFormat. cdecl (tipo de raster, banderas), `ret`, 906 bytes; devuelve las banderas de formato (esi) con el formato de pixel ajustado a lo que
@@ -649,4 +653,212 @@ RwBool D3D9RasterFormat::GetRasterMemorySize(uint32* outSize, RwRaster** inRaste
 
     *outSize = size;
     return 1;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R10A (sin validar): descompresores DXT. Los llaman las rutas de lectura de texturas nativas D3D9 (0x820235 DXT2/3, 0x820251 DXT1 y 0x820345 DXT4/5) con (ancho, alto, pixeles de la imagen, datos comprimidos); el listado las atribuia a RpMatFX
+// (0x80FFE0-0x81F0C0, confianza baja) pero solo hacen aritmetica de bloques de 4x4 pixeles. Pixel de 32 bits = R | G << 8 | B << 16 | A << 24. Paleta de colores (565) de cada bloque: R = (c >> 11) << 3, G = ((c >> 5) & 0x3F) << 2, B = (c & 0x1F) << 3 (bytes);
+// con c0 > c1 (sin signo de 16 bits) cuatro colores (c0, c1, (2*c0 + c1) / 3, (c0 + 2*c1) / 3, alfa 255); si no, tres colores (c0, c1, (c0 + c1) / 2 con alfa 255) y el cuarto es transparente (indice 3). Divisiones truncadas (los valores son positivos).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+struct DxtBlockPalette {
+    uint32 colors[4];
+    bool   threeColors;
+};
+
+uint32 DxtPack(uint32 r, uint32 g, uint32 b, uint32 a) {
+    return (r & 0xFFu) | ((g & 0xFFu) << 8) | ((b & 0xFFu) << 16) | ((a & 0xFFu) << 24);
+}
+
+// `transparentColor` es el cuarto color del modo de tres colores: 0 en DXT1 y 0x00FFFF00 (R 0, G 255, B 255, A 0) en DXT3 y DXT5 (el alfa lo reescribe luego el bloque de alfa).
+DxtBlockPalette DxtDecodePalette(const uint8* colorBlock, uint32 transparentColor) {
+    uint16 c0;
+    uint16 c1;
+    std::memcpy(&c0, colorBlock, sizeof(c0));
+    std::memcpy(&c1, colorBlock + 2, sizeof(c1));
+    const uint32 r0 = static_cast<uint8>((c0 >> 11) << 3);
+    const uint32 g0 = static_cast<uint8>((c0 >> 5) << 2);
+    const uint32 b0 = static_cast<uint8>(c0 << 3);
+    const uint32 r1 = static_cast<uint8>((c1 >> 11) << 3);
+    const uint32 g1 = static_cast<uint8>((c1 >> 5) << 2);
+    const uint32 b1 = static_cast<uint8>(c1 << 3);
+
+    DxtBlockPalette palette;
+    palette.colors[0] = DxtPack(r0, g0, b0, 0xFF);
+    palette.colors[1] = DxtPack(r1, g1, b1, 0xFF);
+    if (c0 > c1) {
+        palette.threeColors = false;
+        palette.colors[2] = DxtPack((r1 + r0 * 2) / 3, (g1 + g0 * 2) / 3, (b1 + b0 * 2) / 3, 0xFF);
+        palette.colors[3] = DxtPack((r0 + r1 * 2) / 3, (g0 + g1 * 2) / 3, (b0 + b1 * 2) / 3, 0xFF);
+    } else {
+        palette.threeColors = true;
+        palette.colors[2] = DxtPack((r0 + r1) / 2, (g0 + g1) / 2, (b0 + b1) / 2, 0xFF);
+        palette.colors[3] = transparentColor;
+    }
+    return palette;
+}
+
+// Escribe los 16 pixeles del bloque (filas separadas `stridePixels` pixeles; indices de 2 bits, un byte por fila en colorBlock + 4 + fila, el pixel de la izquierda en los bits bajos).
+// Devuelve true si algun pixel uso el indice 3 en el modo de tres colores (transparente).
+bool DxtWriteColors(uint32* dst, int32 stridePixels, const uint8* colorBlock, const DxtBlockPalette& palette) {
+    bool usedTransparent = false;
+    for (int32 row = 0; row < 4; ++row) {
+        uint32 bits = colorBlock[4 + row];
+        uint32* const out = dst + static_cast<ptrdiff_t>(row) * stridePixels;
+        for (int32 px = 0; px < 4; ++px) {
+            const uint32 index = bits & 3u;
+            if (index == 3 && palette.threeColors) {
+                usedTransparent = true;
+            }
+            out[px] = palette.colors[index];
+            bits >>= 2;
+        }
+    }
+    return usedTransparent;
+}
+} // namespace
+
+// 0x81E720 (lote R10A, sin validar; el listado decia RpMatFX; cdecl, 4 argumentos (ancho, alto, pixeles destino, datos DXT1), `ret`, 816 bytes; llamador: 0x820251): descomprime DXT1 (8 bytes por bloque). Bloques por fila = ancho / 4 y filas de bloques = alto / 4 (division
+// con signo truncada); sin filas de bloques devuelve 0. Cada fila de bloques avanza el destino ancho * 16 bytes y el origen bloquesPorFila * 8. El bloque ocupa 4 pixeles a lo ancho (16 bytes) y las filas del destino estan separadas ancho * 4 bytes. Devuelve 1 si algun bloque en
+// modo de tres colores uso el indice 3 (el llamador lo traduce a un formato con alfa de 1 bit) y 0 si no; el cuarto color del modo de tres colores es 0x00000000.
+int32 D3D9RasterFormat::DecompressDxt1(int32 width, int32 height, uint32* dst, const uint8* src) {
+    const int32 blocksPerRow = width / 4;
+    int32 blockRows = height / 4;
+    int32 anyTransparent = 0;
+    if (blockRows <= 0) {
+        return 0;
+    }
+    uint32* rowDst = dst;
+    const uint8* rowSrc = src;
+    do {
+        if (blocksPerRow > 0) {
+            uint32* blockDst = rowDst;
+            const uint8* block = rowSrc;
+            int32 remaining = blocksPerRow;
+            do {
+                const DxtBlockPalette palette = DxtDecodePalette(block, 0u);
+                if (DxtWriteColors(blockDst, width, block, palette)) {
+                    anyTransparent |= 1;
+                }
+                blockDst += 4;
+                block += 8;
+                --remaining;
+            } while (remaining != 0);
+        }
+        rowDst += static_cast<ptrdiff_t>(width) * 4;
+        rowSrc += static_cast<ptrdiff_t>(blocksPerRow) * 8;
+        --blockRows;
+    } while (blockRows != 0);
+    return anyTransparent;
+}
+
+// 0x81EA70 (lote R10A, sin validar; el listado decia RpMatFX; cdecl, 4 argumentos (ancho, alto, pixeles destino, datos DXT3) mas un quinto dword de pila que el llamador 0x820235 deja puesto (0x1A) y que no se lee, `ret`, 830 bytes): descomprime DXT3 / DXT2 (16 bytes por bloque).
+// Mismo reparto de bloques que DXT1. Primero escribe los colores del bloque de color (los ultimos 8 bytes del bloque; cuarto color transparente 0x00FFFF00) y luego sustituye el alfa de cada pixel por el nibble del bloque de alfa (los primeros 8 bytes: una word por fila,
+// el pixel de la izquierda en el nibble bajo), expandido a 8 bits (n | n << 4): pixel = (pixel & 0x00FFFFFF) | (alfa << 24). No devuelve nada.
+void D3D9RasterFormat::DecompressDxt3(int32 width, int32 height, uint32* dst, const uint8* src) {
+    const int32 blocksPerRow = width / 4;
+    int32 blockRows = height / 4;
+    if (blockRows <= 0) {
+        return;
+    }
+    uint32* rowDst = dst;
+    const uint8* rowSrc = src;
+    do {
+        if (blocksPerRow > 0) {
+            uint32* blockDst = rowDst;
+            const uint8* block = rowSrc;
+            int32 remaining = blocksPerRow;
+            do {
+                const uint8* const colorBlock = block + 8;
+                const DxtBlockPalette palette = DxtDecodePalette(colorBlock, 0x00FFFF00u);
+                DxtWriteColors(blockDst, width, colorBlock, palette);
+                for (int32 row = 0; row < 4; ++row) {
+                    uint16 word;
+                    std::memcpy(&word, block + row * 2, sizeof(word));
+                    uint32* const out = blockDst + static_cast<ptrdiff_t>(row) * width;
+                    for (int32 px = 0; px < 4; ++px) {
+                        const uint32 nibble = (static_cast<uint32>(word) >> (px * 4)) & 0xFu;
+                        const uint32 alpha  = nibble | (nibble << 4);
+                        out[px] = (out[px] & 0x00FFFFFFu) | (alpha << 24);
+                    }
+                }
+                blockDst += 4;
+                block += 16;
+                --remaining;
+            } while (remaining != 0);
+        }
+        rowDst += static_cast<ptrdiff_t>(width) * 4;
+        rowSrc += static_cast<ptrdiff_t>(blocksPerRow) * 16;
+        --blockRows;
+    } while (blockRows != 0);
+}
+
+// 0x81EDC0 (lote R10A, sin validar; el listado decia RpMatFX; cdecl, 4 argumentos (ancho, alto, pixeles destino, datos DXT5) mas el quinto dword de pila sobrante del llamador 0x820345, `ret`, 746 bytes): descomprime DXT4 / DXT5 (16 bytes por bloque). Igual que DXT3 pero
+// el alfa de cada bloque lo escribe DecodeDxt5AlphaBlock(destino del bloque, bloque de alfa (los primeros 8 bytes), ancho, 0x00FFFFFF) despues de los colores. No devuelve nada.
+void D3D9RasterFormat::DecompressDxt5(int32 width, int32 height, uint32* dst, const uint8* src) {
+    const int32 blocksPerRow = width / 4;
+    int32 blockRows = height / 4;
+    if (blockRows <= 0) {
+        return;
+    }
+    uint32* rowDst = dst;
+    const uint8* rowSrc = src;
+    do {
+        if (blocksPerRow > 0) {
+            uint32* blockDst = rowDst;
+            const uint8* block = rowSrc;
+            int32 remaining = blocksPerRow;
+            do {
+                const uint8* const colorBlock = block + 8;
+                const DxtBlockPalette palette = DxtDecodePalette(colorBlock, 0x00FFFF00u);
+                DxtWriteColors(blockDst, width, colorBlock, palette);
+                DecodeDxt5AlphaBlock(blockDst, block, width, 0x00FFFFFFu);
+                blockDst += 4;
+                block += 16;
+                --remaining;
+            } while (remaining != 0);
+        }
+        rowDst += static_cast<ptrdiff_t>(width) * 4;
+        rowSrc += static_cast<ptrdiff_t>(blocksPerRow) * 16;
+        --blockRows;
+    } while (blockRows != 0);
+}
+
+// 0x81F0C0 (lote R10A, sin validar; el listado decia RpMatFX; cdecl, 4 argumentos (pixeles destino del bloque, bloque de alfa de 8 bytes, separacion entre filas en pixeles, mascara que conserva del pixel), `ret`, 669 bytes; llamador: 0x81F052, de DecompressDxt5): decodifica el alfa
+// de un bloque DXT5. Tabla de 8 alfas: a0 = byte 0, a1 = byte 1; con a0 > a1 los seis restantes son (6*a0 + a1) / 7, (5*a0 + 2*a1) / 7 ... (a0 + 6*a1) / 7; si no (4*a0 + a1) / 5, (3*a0 + 2*a1) / 5, (2*a0 + 3*a1) / 5, (a0 + 4*a1) / 5, 0 y 255.
+// Los 16 indices de 3 bits salen de los bytes 2-4 (los primeros 8, el del primer pixel en los bits bajos) y 5-7 (los otros 8; el EXE lee un dword en +5 y solo usa 24 bits); cada pixel = (pixel & mascara) | (byte bajo de la tabla << 24). Las filas del destino distan `stride` pixeles.
+void D3D9RasterFormat::DecodeDxt5AlphaBlock(uint32* dst, const uint8* src, int32 stridePixels, uint32 keepMask) {
+    const int32 a0 = src[0];
+    const int32 a1 = src[1];
+    int32 table[8];
+    table[0] = a0;
+    table[1] = a1;
+    if (a0 > a1) {
+        table[2] = (a1 + a0 * 6) / 7;
+        table[3] = (a1 * 2 + a0 * 5) / 7;
+        table[4] = (a1 * 3 + a0 * 4) / 7;
+        table[5] = (a1 * 4 + a0 * 3) / 7;
+        table[6] = (a1 * 5 + a0 * 2) / 7;
+        table[7] = (a0 + a1 * 6) / 7;
+    } else {
+        table[2] = (a1 + a0 * 4) / 5;
+        table[3] = (a1 * 2 + a0 * 3) / 5;
+        table[4] = (a1 * 3 + a0 * 2) / 5;
+        table[5] = (a0 + a1 * 4) / 5;
+        table[6] = 0;
+        table[7] = 0xFF;
+    }
+    const uint32 firstBits  = static_cast<uint32>(src[2]) | (static_cast<uint32>(src[3]) << 8) | (static_cast<uint32>(src[4]) << 16);
+    const uint32 secondBits = static_cast<uint32>(src[5]) | (static_cast<uint32>(src[6]) << 8) | (static_cast<uint32>(src[7]) << 16);
+    uint8 alphas[16];
+    for (int32 i = 0; i < 8; ++i) {
+        alphas[i]     = static_cast<uint8>(table[(firstBits >> (i * 3)) & 7u]);
+        alphas[i + 8] = static_cast<uint8>(table[(secondBits >> (i * 3)) & 7u]);
+    }
+    for (int32 row = 0; row < 4; ++row) {
+        uint32* const out = dst + static_cast<ptrdiff_t>(row) * stridePixels;
+        for (int32 px = 0; px < 4; ++px) {
+            out[px] = (out[px] & keepMask) | (static_cast<uint32>(alphas[row * 4 + px]) << 24);
+        }
+    }
 }

@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h" // TODO: Remove
 
 #include "AEMFDecoder.h"
+#include "platform/win/QTMLRuntime.h"
 #include "X87Math.h"
 
 // 0x4E7990
@@ -282,7 +283,7 @@ int32 CAEMFDecoder::GetStreamID() {
 bool CAEMFDecoder::InitLibrary() {
     int16 err = 0;
     if (!quickTimeInitialized) {
-        err = plugin::CallAndReturn<int16, 0x8195C0, int32>(0);
+        err = QtmlInitialize(0); // 0x8195C0 (cuerpo en C++ en QTMLRuntime.cpp, lote R10A)
         if (err == 0) {
             err = plugin::CallAndReturn<int16, 0x819820>();
         }
@@ -297,7 +298,7 @@ bool CAEMFDecoder::InitLibrary() {
 // Como el original: ExitMovies (0x819840) y TerminateQTML (0x819770), sin mirar el flag.
 void CAEMFDecoder::Shutdown() {
     plugin::Call<0x819840>();
-    plugin::Call<0x819770>();
+    QtmlTerminate(); // 0x819770 (cuerpo en C++ en QTMLRuntime.cpp, lote R10A)
 }
 
 namespace {
