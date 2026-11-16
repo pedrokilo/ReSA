@@ -55,6 +55,7 @@ void RwPlCoreInjectHooks();
 void RwCoreInjectHooks25d();   // grupo g25d (biblioteca RenderWare / driver D3D9)
 void RwD3D9InjectHooksR1A();     // lote R1A (sin validar): RwD3D9GetCaps y _rwD3D9DeviceGetRestoreCallback
 void RwD3D9InjectHooksR6A();     // lote R6A (sin validar): estados de render y etapas de textura del controlador D3D9 (0x7FD810..0x7FDE60)
+void RwD3D9InjectHooksR11A2();   // lote R11A (segundo encargo; sin validar): estados de render, conversiones de pixel, raster -> imagen e Im2D del controlador D3D9 (0x7FBB00..0x7FF8C0)
 void RwCoreInjectHooksR11A();      // lote R11A (sin validar): declaraciones de vertices D3D9 (0x7FAA30), material D3D9 (0x7FC430), RxPipelineCreate (0x8057B0) y campos iniciales de RwFrame (0x7F0360)
 void RwCoreInjectHooksR7A();       // lote R7A (sin validar): gestor de buferes de vertices D3D9 (0x7F5500..0x7F5A00) y lectura de texturas con mipmaps (0x7F4AE0)
 void RwPlCoreInjectHooks25d();

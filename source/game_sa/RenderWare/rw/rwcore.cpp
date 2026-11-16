@@ -80,6 +80,7 @@ R ComCall(void* self, Args... args) {
     return reinterpret_cast<R(__stdcall*)(void*, Args...)>(vtbl[Slot])(self, args...);
 }
 constexpr size_t kSlotRelease = 2;                      // IUnknown::Release
+constexpr size_t kSlotVertexBufferLock = 11;            // IDirect3DVertexBuffer9::Lock (+0x2C; lote R11A)
 constexpr size_t kSlotVertexBufferUnlock = 12;          // IDirect3DVertexBuffer9::Unlock (+0x30)
 constexpr size_t kSlotSetDepthStencilSurface = 39;      // IDirect3DDevice9::SetDepthStencilSurface (+0x9C)
 constexpr size_t kSlotCreatePixelShader = 106;          // IDirect3DDevice9::CreatePixelShader (+0x1A8)
@@ -1077,8 +1078,78 @@ void RwD3D9DynamicVertexBufferDestroy(void* vertexBuffer) {
     }
 }
 
-RwBool RwD3D9DynamicVertexBufferLock(RwUInt32 vertexSize, RwUInt32 numVertex, void* vertexBufferOut, void* vertexDataOut, RwUInt32* baseIndexOut) {
-    return ((RwBool(__cdecl *)(RwUInt32, RwUInt32, void*, void*, RwUInt32*))0x7F5B10)(vertexSize, numVertex, vertexBufferOut, vertexDataOut, baseIndexOut);
+// 0x7F5B10 (lote R11A, sin validar; era una envoltura): (stride, numVertex, void** vertexBuffer, void** vertexData, uint32* baseIndex). Reserva stride * numVertex bytes en uno de los cuatro buferes dinamicos
+// activos. Con DevCaps & 0x10000 busca primero en el actual (posicion alineada hacia arriba al paso) y si no cabe en los otros tres por orden (el primero que cabe pasa a ser el actual); si ninguno cabe avanza el
+// actual modulo 4 y empieza en 0. Sin ese bit empieza siempre en 0. Si lo pedido supera el tamano del bufer actual libera su nodo (inUse = 0, owner = 0), fija el tamano y lo recrea con 0x7F5A00. Bloquea con
+// D3DLOCK_DISCARD | NOSYSLOCK (0x2800) si el desplazamiento es 0 o NOOVERWRITE | NOSYSLOCK (0x1800) si no; baseIndex = desplazamiento / stride (0 con descarte). TRUE si el HRESULT del Lock no es negativo.
+RwBool RwD3D9DynamicVertexBufferLock(RwUInt32 vertexSize, RwUInt32 numVertex, void** vertexBufferOut, void** vertexDataOut, RwUInt32* baseIndexOut) {
+    const uint32 stride = vertexSize;
+    const uint32 bytes  = vertexSize * numVertex;
+    uint32 current      = DynamicVertexBufferCurrent;
+    uint32 offset = 0;
+    uint32 end    = 0;
+    bool   reuse  = false;
+    if ((D3D9DeviceDevCaps & kDevCapsHardwareTransformAndLight) != 0) {
+        offset = (DynamicVertexBufferPosition[current] + stride - 1) / stride * stride;
+        end    = offset + bytes;
+        if (end <= DynamicVertexBufferSize[current]) {
+            reuse = true;
+        } else {
+            uint32 other = 0;
+            for (; other < 4; ++other) {
+                if (other == current) {
+                    continue;
+                }
+                offset = (DynamicVertexBufferPosition[other] + stride - 1) / stride * stride;
+                end    = offset + bytes;
+                if (end <= DynamicVertexBufferSize[other]) {
+                    break;
+                }
+            }
+            if (other < 4) {
+                current = other;
+                DynamicVertexBufferCurrent = current;
+                reuse = true;
+            } else {
+                ++current;
+                DynamicVertexBufferCurrent = current;
+                if (!(current < 4)) {
+                    current = 0;
+                    DynamicVertexBufferCurrent = current;
+                }
+            }
+        }
+    }
+    if (!reuse) {
+        offset = 0;
+        end    = bytes;
+    }
+    if (bytes > DynamicVertexBufferSize[current]) {
+        for (auto* node = DynamicVertexBufferList; node != nullptr; node = node->next) {
+            if (node->vertexBuffer == DynamicVertexBufferActive[current]) {
+                node->inUse = 0;
+                node->owner = nullptr;
+                current = DynamicVertexBufferCurrent;
+                break;
+            }
+        }
+        DynamicVertexBufferSize[current] = bytes;
+        RwD3D9DynamicVertexBufferCreate(bytes, &DynamicVertexBufferActive[current]);
+        current = DynamicVertexBufferCurrent;
+    }
+    void* const vb = DynamicVertexBufferActive[current];
+    int32 result;
+    if (offset == 0) {
+        result = ComCall<kSlotVertexBufferLock, int32>(vb, 0u, bytes, static_cast<void*>(vertexDataOut), 0x2800u);
+        DynamicVertexBufferPosition[DynamicVertexBufferCurrent] = bytes;
+        *baseIndexOut = 0;
+    } else {
+        result = ComCall<kSlotVertexBufferLock, int32>(vb, offset, bytes, static_cast<void*>(vertexDataOut), 0x1800u);
+        DynamicVertexBufferPosition[DynamicVertexBufferCurrent] = end;
+        *baseIndexOut = offset / stride;
+    }
+    *vertexBufferOut = DynamicVertexBufferActive[DynamicVertexBufferCurrent];
+    return result >= 0;
 }
 
 // 0x7F5C90: IDirect3DVertexBuffer9::Unlock; TRUE si el HRESULT no es negativo.
@@ -2164,6 +2235,929 @@ void _rwD3D9SetAnisotropyTextureOffset(RwInt32 offset) {
     StaticRef<RwInt32>(0xC9A5E8) = offset;
 }
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R11A (sin validar; segundo encargo con ese nombre: resto de 0x7F5B10-0x7FF8C0 atribuido por vecindad a RpMatFX con confianza baja): son del controlador D3D9 de RenderWare (RwD3D9), no de
+// RpMatFX. Manejadores de estados de render (0x7FE0A0-0x7FED00), despachador de RwRenderStateSet (0x7FE420), tamano valido de textura (0x7FED70), conversiones de pixel RGBA (0x7FEE20, 0x7FF070),
+// raster -> imagen (0x7FF270, 0x7FF450, 0x7FF8C0) y RwIm2DRenderPrimitive (0x7FBB00). Estado: igual que R6A (valor actual 0xC9A4xx, copia D3D 0xC99xxx, bandera "en lista" y lista 0xC98B40 / 0xC9A5EC).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+constexpr uint32 kD3DRSZEnable = 0x07, kD3DRSZWriteEnable = 0x0E, kD3DRSShadeMode = 0x09, kD3DRSCullMode = 0x16, kD3DRSZFunc = 0x17, kD3DRSAlphaRef = 0x18, kD3DRSAlphaFunc = 0x19;
+constexpr uint32 kD3DRSFogEnable = 0x1C, kD3DRSFogColor = 0x22, kD3DRSFogTableMode = 0x23, kD3DRSFogStart = 0x24, kD3DRSFogEnd = 0x25, kD3DRSFogDensity = 0x26, kD3DRSFogVertexMode = 0x8C;
+constexpr uint32 kD3DSAMPAddressU = 1, kD3DSAMPAddressV = 2, kD3DSAMPBorderColor = 4;
+
+// RWERROR((codigo [, argumento])) con pluginID 1 (literal del EXE): RwError { 1, _rwerror(codigo [, argumento]) } + RwErrorSet.
+void D3D9RaiseError(RwInt32 code) {
+    RwError error;
+    error.pluginID  = 1;
+    error.errorCode = _rwerror(code);
+    RwErrorSet(&error);
+}
+void D3D9RaiseError(RwInt32 code, const char* argument) {
+    RwError error;
+    error.pluginID  = 1;
+    error.errorCode = _rwerror(code, argument);
+    RwErrorSet(&error);
+}
+} // namespace
+
+// 0x7FE0A0 (lote R11A, sin validar; manejador del estado VERTEXALPHAENABLE; cdecl, un argumento (RwBool), `ret`, 235 bytes): actual en 0xC9A4E8. Con un valor distinto de 0: si ya estaba activo no hace nada; si no lo activa
+// y, solo con 0xC9A4EC (raster con alfa) a 0, deja 0xC992A8 = 1 (D3DRS_ALPHABLENDENABLE 0x1B a la lista con su bandera 0xC992AC) y copia 0xC9A5D4 a 0xC99248 si difieren (solo entonces D3DRS_ALPHATESTENABLE 0x0F con la
+// bandera 0xC9924C). Con 0: lo mismo en sentido contrario (0xC992A8 = 0 y 0xC99248 a 0 si no lo era). Devuelve siempre TRUE.
+RwBool _rwD3D9RenderStateVertexAlphaEnable(RwBool enable) {
+    auto& current = StaticRef<uint32>(0xC9A4E8);
+    if (enable != 0) {
+        if (current != 0) {
+            return TRUE;
+        }
+        const uint32 rasterAlpha = StaticRef<uint32>(0xC9A4EC);
+        current = 1;
+        if (rasterAlpha != 0) {
+            return TRUE;
+        }
+        StaticRef<uint32>(0xC992A8) = 1;
+        D3D9QueueRenderState(StaticRef<uint32>(0xC992AC), kD3DRSAlphaBlendEnable);
+        const uint32 alphaTest = StaticRef<uint32>(0xC9A5D4);
+        if (StaticRef<uint32>(0xC99248) == alphaTest) {
+            return TRUE;
+        }
+        StaticRef<uint32>(0xC99248) = alphaTest;
+    } else {
+        if (current == 0) {
+            return TRUE;
+        }
+        const uint32 rasterAlpha = StaticRef<uint32>(0xC9A4EC);
+        current = 0;
+        if (rasterAlpha != 0) {
+            return TRUE;
+        }
+        StaticRef<uint32>(0xC992A8) = 0;
+        D3D9QueueRenderState(StaticRef<uint32>(0xC992AC), kD3DRSAlphaBlendEnable);
+        if (StaticRef<uint32>(0xC99248) == 0) {
+            return TRUE;
+        }
+        StaticRef<uint32>(0xC99248) = 0;
+    }
+    D3D9QueueRenderState(StaticRef<uint32>(0xC9924C), kD3DRSAlphaTestEnable);
+    return TRUE;
+}
+
+// 0x7FE190 (lote R11A, sin validar; 6 bytes: mov eax, [0xC9A4E8]; ret; nombre inferido): estado actual de VERTEXALPHAENABLE.
+RwInt32 _rwD3D9RenderStateGetVertexAlphaEnable() {
+    return StaticRef<RwInt32>(0xC9A4E8);
+}
+
+// 0x7FE1A0 (lote R11A, sin validar; manejador de STENCILENABLE; cdecl, un argumento, `ret`, 72 bytes): si difiere del actual (0xC9A4C8): copia D3D (0xC99370) = valor; con la bandera 0xC99374 a 0 la pone a 1 y anade D3DRS_STENCILENABLE
+// (0x34) a la lista; guarda el valor. Devuelve siempre TRUE.
+RwBool _rwD3D9RenderStateStencilEnable(RwInt32 enable) {
+    auto& current = StaticRef<RwInt32>(0xC9A4C8);
+    if (enable != current) {
+        StaticRef<uint32>(0xC99370) = static_cast<uint32>(enable);
+        D3D9QueueRenderState(StaticRef<uint32>(0xC99374), 0x34);
+        current = enable;
+    }
+    return TRUE;
+}
+
+// 0x7FE1F0 (lote R11A, sin validar; STENCILFAIL; 78 bytes): igual con actual 0xC9A4CC, copia 0xC99378 = tabla 0x8849A0[valor], bandera 0xC9937C y D3DRS_STENCILFAIL (0x35). Devuelve siempre TRUE.
+RwBool _rwD3D9RenderStateStencilFail(RwInt32 operation) {
+    auto& current = StaticRef<RwInt32>(0xC9A4CC);
+    if (operation != current) {
+        StaticRef<uint32>(0xC99378) = reinterpret_cast<const uint32*>(0x8849A0)[operation];
+        D3D9QueueRenderState(StaticRef<uint32>(0xC9937C), 0x35);
+        current = operation;
+    }
+    return TRUE;
+}
+
+// 0x7FE240 (lote R11A, sin validar; STENCILZFAIL; 78 bytes): actual 0xC9A4D0, copia 0xC99380 = tabla 0x8849A0[valor], bandera 0xC99384, D3DRS_STENCILZFAIL (0x36).
+RwBool _rwD3D9RenderStateStencilZFail(RwInt32 operation) {
+    auto& current = StaticRef<RwInt32>(0xC9A4D0);
+    if (operation != current) {
+        StaticRef<uint32>(0xC99380) = reinterpret_cast<const uint32*>(0x8849A0)[operation];
+        D3D9QueueRenderState(StaticRef<uint32>(0xC99384), 0x36);
+        current = operation;
+    }
+    return TRUE;
+}
+
+// 0x7FE290 (lote R11A, sin validar; STENCILPASS; 78 bytes): actual 0xC9A4D4, copia 0xC99388 = tabla 0x8849A0[valor], bandera 0xC9938C, D3DRS_STENCILPASS (0x37).
+RwBool _rwD3D9RenderStateStencilPass(RwInt32 operation) {
+    auto& current = StaticRef<RwInt32>(0xC9A4D4);
+    if (operation != current) {
+        StaticRef<uint32>(0xC99388) = reinterpret_cast<const uint32*>(0x8849A0)[operation];
+        D3D9QueueRenderState(StaticRef<uint32>(0xC9938C), 0x37);
+        current = operation;
+    }
+    return TRUE;
+}
+
+// 0x7FE2E0 (lote R11A, sin validar; STENCILFUNCTION; 78 bytes): actual 0xC9A4D8, copia 0xC99390 = tabla 0x8849C4[valor], bandera 0xC99394, D3DRS_STENCILFUNC (0x38).
+RwBool _rwD3D9RenderStateStencilFunction(RwInt32 function) {
+    auto& current = StaticRef<RwInt32>(0xC9A4D8);
+    if (function != current) {
+        StaticRef<uint32>(0xC99390) = reinterpret_cast<const uint32*>(0x8849C4)[function];
+        D3D9QueueRenderState(StaticRef<uint32>(0xC99394), 0x38);
+        current = function;
+    }
+    return TRUE;
+}
+
+// 0x7FE330 (lote R11A, sin validar; STENCILFUNCTIONREF; 72 bytes): actual 0xC9A4DC, copia 0xC99398 = valor, bandera 0xC9939C, D3DRS_STENCILREF (0x39).
+RwBool _rwD3D9RenderStateStencilFunctionRef(RwInt32 value) {
+    auto& current = StaticRef<RwInt32>(0xC9A4DC);
+    if (value != current) {
+        StaticRef<uint32>(0xC99398) = static_cast<uint32>(value);
+        D3D9QueueRenderState(StaticRef<uint32>(0xC9939C), 0x39);
+        current = value;
+    }
+    return TRUE;
+}
+
+// 0x7FE380 (lote R11A, sin validar; STENCILFUNCTIONMASK; 72 bytes): actual 0xC9A4E0, copia 0xC993A0 = valor, bandera 0xC993A4, D3DRS_STENCILMASK (0x3A).
+RwBool _rwD3D9RenderStateStencilFunctionMask(RwInt32 value) {
+    auto& current = StaticRef<RwInt32>(0xC9A4E0);
+    if (value != current) {
+        StaticRef<uint32>(0xC993A0) = static_cast<uint32>(value);
+        D3D9QueueRenderState(StaticRef<uint32>(0xC993A4), 0x3A);
+        current = value;
+    }
+    return TRUE;
+}
+
+// 0x7FE3D0 (lote R11A, sin validar; STENCILFUNCTIONWRITEMASK; 72 bytes): actual 0xC9A4E4, copia 0xC993A8 = valor, bandera 0xC993AC, D3DRS_STENCILWRITEMASK (0x3B).
+RwBool _rwD3D9RenderStateStencilFunctionWriteMask(RwInt32 value) {
+    auto& current = StaticRef<RwInt32>(0xC9A4E4);
+    if (value != current) {
+        StaticRef<uint32>(0xC993A8) = static_cast<uint32>(value);
+        D3D9QueueRenderState(StaticRef<uint32>(0xC993AC), 0x3B);
+        current = value;
+    }
+    return TRUE;
+}
+
+// 0x7FEA70 (lote R11A, sin validar; ZWRITEENABLE; cdecl, un argumento, `ret`, 244 bytes): actual 0xC9A4C0. Con un valor distinto de 0 y el actual a 0: si el ZTEST (0xC9A4C4) esta a 0 deja 0xC99208 = 1 (D3DRS_ZENABLE 0x07 a
+// la lista con la bandera 0xC9920C); copia 0xC99240 = 1 (D3DRS_ZWRITEENABLE 0x0E con la bandera 0xC99244); actual = 1. Con 0 y el actual distinto de 0: igual con 0 (y ZENABLE solo si el ZTEST esta a 0). Devuelve siempre TRUE.
+RwBool _rwD3D9RenderStateZWriteEnable(RwBool enable) {
+    auto& current = StaticRef<uint32>(0xC9A4C0);
+    if (enable != 0) {
+        if (current != 0) {
+            return TRUE;
+        }
+        if (StaticRef<uint32>(0xC9A4C4) == 0) {
+            StaticRef<uint32>(0xC99208) = 1;
+            D3D9QueueRenderState(StaticRef<uint32>(0xC9920C), kD3DRSZEnable);
+        }
+        StaticRef<uint32>(0xC99240) = 1;
+        D3D9QueueRenderState(StaticRef<uint32>(0xC99244), kD3DRSZWriteEnable);
+        current = 1;
+    } else {
+        if (current == 0) {
+            return TRUE;
+        }
+        if (StaticRef<uint32>(0xC9A4C4) == 0) {
+            StaticRef<uint32>(0xC99208) = 0;
+            D3D9QueueRenderState(StaticRef<uint32>(0xC9920C), kD3DRSZEnable);
+        }
+        StaticRef<uint32>(0xC99240) = 0;
+        D3D9QueueRenderState(StaticRef<uint32>(0xC99244), kD3DRSZWriteEnable);
+        current = 0;
+    }
+    return TRUE;
+}
+
+// 0x7FEB70 (lote R11A, sin validar; ZTESTENABLE; 253 bytes): actual 0xC9A4C4. Con un valor distinto de 0 y el actual a 0: si el ZWRITE (0xC9A4C0) esta a 0 deja 0xC99208 = 1 (D3DRS_ZENABLE, bandera 0xC9920C);
+// 0xC99288 = 4 (D3DCMP_LESSEQUAL; D3DRS_ZFUNC 0x17, bandera 0xC9928C); actual = 1. Con 0: igual con 0 y ZFUNC = 8 (D3DCMP_ALWAYS). Devuelve siempre TRUE.
+RwBool _rwD3D9RenderStateZTestEnable(RwBool enable) {
+    auto& current = StaticRef<uint32>(0xC9A4C4);
+    if (enable != 0) {
+        if (current != 0) {
+            return TRUE;
+        }
+        if (StaticRef<uint32>(0xC9A4C0) == 0) {
+            StaticRef<uint32>(0xC99208) = 1;
+            D3D9QueueRenderState(StaticRef<uint32>(0xC9920C), kD3DRSZEnable);
+        }
+        StaticRef<uint32>(0xC99288) = 4;
+        D3D9QueueRenderState(StaticRef<uint32>(0xC9928C), kD3DRSZFunc);
+        current = 1;
+    } else {
+        if (current == 0) {
+            return TRUE;
+        }
+        if (StaticRef<uint32>(0xC9A4C0) == 0) {
+            StaticRef<uint32>(0xC99208) = 0;
+            D3D9QueueRenderState(StaticRef<uint32>(0xC9920C), kD3DRSZEnable);
+        }
+        StaticRef<uint32>(0xC99288) = 8;
+        D3D9QueueRenderState(StaticRef<uint32>(0xC9928C), kD3DRSZFunc);
+        current = 0;
+    }
+    return TRUE;
+}
+
+// 0x7FEC70 (lote R11A, sin validar; SHADEMODE; 78 bytes): actual 0xC9A504; si difiere: copia 0xC99218 = tabla 0x8848F0[valor], bandera 0xC9921C, D3DRS_SHADEMODE (0x09). Devuelve siempre TRUE.
+RwBool _rwD3D9RenderStateShadeMode(RwInt32 mode) {
+    auto& current = StaticRef<RwInt32>(0xC9A504);
+    if (mode != current) {
+        StaticRef<uint32>(0xC99218) = reinterpret_cast<const uint32*>(0x8848F0)[mode];
+        D3D9QueueRenderState(StaticRef<uint32>(0xC9921C), kD3DRSShadeMode);
+        current = mode;
+    }
+    return TRUE;
+}
+
+// 0x7FECC0 (lote R11A, sin validar; BORDERCOLOR; 50 bytes): si difiere del actual (0xC9A518): lo guarda, copia 0xC98948 = valor y SetSamplerState(0, D3DSAMP_BORDERCOLOR 4, valor) del dispositivo. Devuelve siempre TRUE.
+RwBool _rwD3D9RenderStateBorderColor(RwUInt32 color) {
+    auto& current = StaticRef<RwUInt32>(0xC9A518);
+    if (color != current) {
+        current = color;
+        StaticRef<uint32>(0xC98948) = color;
+        ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, 0u, kD3DSAMPBorderColor, color);
+    }
+    return TRUE;
+}
+
+// 0x7FED00 (lote R11A, sin validar; CULLMODE; 78 bytes): actual 0xC9A4F0; si difiere: copia 0xC99280 = tabla 0x884990[valor], bandera 0xC99284, D3DRS_CULLMODE (0x16). Devuelve siempre TRUE.
+RwBool _rwD3D9RenderStateCullMode(RwInt32 mode) {
+    auto& current = StaticRef<RwInt32>(0xC9A4F0);
+    if (mode != current) {
+        StaticRef<uint32>(0xC99280) = reinterpret_cast<const uint32*>(0x884990)[mode];
+        D3D9QueueRenderState(StaticRef<uint32>(0xC99284), kD3DRSCullMode);
+        current = mode;
+    }
+    return TRUE;
+}
+
+namespace {
+// Bloques de TEXTUREADDRESS: direccion U (0xC9A50C, copia 0xC9893C, SetSamplerState(0, ADDRESSU)) y V (0xC9A510, copia 0xC98940, SetSamplerState(0, ADDRESSV)); tabla 0x88493C (RwTextureAddressMode -> D3DTADDRESS).
+void D3D9SetTextureAddressU(uint32 mode) {
+    if (mode != StaticRef<uint32>(0xC9A50C)) {
+        const uint32 d3dMode = reinterpret_cast<const uint32*>(0x88493C)[mode];
+        StaticRef<uint32>(0xC9A50C) = mode;
+        StaticRef<uint32>(0xC9893C) = d3dMode;
+        ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, 0u, kD3DSAMPAddressU, d3dMode);
+    }
+}
+void D3D9SetTextureAddressV(uint32 mode) {
+    if (mode != StaticRef<uint32>(0xC9A510)) {
+        StaticRef<uint32>(0xC9A510) = mode;
+        const uint32 d3dMode = reinterpret_cast<const uint32*>(0x88493C)[mode];
+        StaticRef<uint32>(0xC98940) = d3dMode;
+        ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, 0u, kD3DSAMPAddressV, d3dMode);
+    }
+}
+} // namespace
+
+// 0x7FE420 (lote R11A, sin validar; RwRenderStateSet del controlador D3D9; cdecl, (RwRenderState, void* valor), `ret`, 1493 bytes): reparte por la tabla 0x7FE9F8 (estado - 1 > 29 devuelve 0; 18 y 19 tambien):
+//  1 raster de la etapa 0; 2 direccion U y V; 3 U; 4 V; 5 devuelve (valor != 0) sin guardar nada; 6 ZTEST (0x7FEB70); 7 SHADEMODE (0x7FEC70); 8 ZWRITE (0x7FEA70); 9 filtro (0x7FDB80); 10 SRCBLEND; 11 DESTBLEND;
+//  12 VERTEXALPHA (0x7FE0A0); 13 BORDERCOLOR (0x7FECC0); 14 FOGENABLE, 15 FOGCOLOR, 16 FOGTYPE, 17 FOGDENSITY (el valor es un puntero a float) en linea; 20 CULLMODE (0x7FED00); 21-28 los ocho del stencil; 29 funcion
+//  del test de alfa en linea; 30 referencia de alfa (RwD3D9SetRenderState(D3DRS_ALPHAREF 0x18, valor)). Los manejadores devuelven TRUE (1); FOGENABLE con capacidades sin niebla (RasterCaps & 0x180) no cambia nada y devuelve 1.
+RwBool _rwD3D9RWSetRenderState(RwInt32 state, void* value) {
+    const uint32 raw = static_cast<uint32>(reinterpret_cast<uintptr_t>(value));
+    const uint32 index = static_cast<uint32>(state) - 1u;
+    if (index > 0x1Du) {
+        return FALSE;
+    }
+    switch (index) {
+    case 0:
+        return _rwD3D9RWSetRasterStage(static_cast<RwRaster*>(value), 0);
+    case 1:
+        D3D9SetTextureAddressU(raw);
+        D3D9SetTextureAddressV(raw);
+        return TRUE;
+    case 2:
+        D3D9SetTextureAddressU(raw);
+        return TRUE;
+    case 3:
+        D3D9SetTextureAddressV(raw);
+        return TRUE;
+    case 4:
+        return raw != 0 ? TRUE : FALSE;
+    case 5:
+        return _rwD3D9RenderStateZTestEnable(static_cast<RwBool>(raw));
+    case 6:
+        return _rwD3D9RenderStateShadeMode(static_cast<RwInt32>(raw));
+    case 7:
+        return _rwD3D9RenderStateZWriteEnable(static_cast<RwBool>(raw));
+    case 8:
+        return _rwD3D9RenderStateTextureFilter(static_cast<RwInt32>(raw));
+    case 9:
+        return _rwD3D9RenderStateSrcBlend(static_cast<RwInt32>(raw));
+    case 10:
+        return _rwD3D9RenderStateDestBlend(static_cast<RwInt32>(raw));
+    case 11:
+        return _rwD3D9RenderStateVertexAlphaEnable(static_cast<RwBool>(raw));
+    case 12:
+        return _rwD3D9RenderStateBorderColor(raw);
+    case 13: { // FOGENABLE
+        auto& current = StaticRef<uint32>(0xC9A4F4);
+        if (raw != 0) {
+            if (current == 0 && (StaticRef<uint32>(0xC9BF24) & 0x180u) != 0) {
+                StaticRef<uint32>(0xC992B0) = 1;
+                D3D9QueueRenderState(StaticRef<uint32>(0xC992B4), kD3DRSFogEnable);
+                current = 1;
+            }
+        } else if (current != 0) {
+            StaticRef<uint32>(0xC992B0) = 0;
+            D3D9QueueRenderState(StaticRef<uint32>(0xC992B4), kD3DRSFogEnable);
+            current = 0;
+        }
+        return TRUE;
+    }
+    case 14: { // FOGCOLOR
+        auto& current = StaticRef<uint32>(0xC9A500);
+        if (raw != current) {
+            StaticRef<uint32>(0xC992E0) = raw;
+            D3D9QueueRenderState(StaticRef<uint32>(0xC992E4), kD3DRSFogColor);
+            current = raw;
+        }
+        return TRUE;
+    }
+    case 15: { // FOGTYPE
+        auto& current = StaticRef<uint32>(0xC9A4F8);
+        if (raw != current) {
+            const uint32 caps = StaticRef<uint32>(0xC9BF24);
+            if ((caps & 0x100u) != 0 && (caps & 0x100000u) != 0) {
+                StaticRef<uint32>(0xC992E8) = reinterpret_cast<const uint32*>(0x8848FC)[raw];
+                D3D9QueueRenderState(StaticRef<uint32>(0xC992EC), kD3DRSFogTableMode);
+                if (StaticRef<uint32>(0xC99630) != 0) {
+                    StaticRef<uint32>(0xC99630) = 0;
+                    D3D9QueueRenderState(StaticRef<uint32>(0xC99634), kD3DRSFogVertexMode);
+                }
+            } else {
+                if (StaticRef<uint32>(0xC992E8) != 0) {
+                    StaticRef<uint32>(0xC992E8) = 0;
+                    D3D9QueueRenderState(StaticRef<uint32>(0xC992EC), kD3DRSFogTableMode);
+                }
+                StaticRef<uint32>(0xC99630) = reinterpret_cast<const uint32*>(0x8848FC)[raw];
+                D3D9QueueRenderState(StaticRef<uint32>(0xC99634), kD3DRSFogVertexMode);
+            }
+            current = raw;
+        }
+        if (raw == 1) { // niebla lineal: FOGEND = plano lejano y FOGSTART = plano cercano de la camara actual (comparados como enteros)
+            const uint8* const camera = StaticRef<const uint8*>(0xC9BCC0);
+            const uint32 farPlane  = *reinterpret_cast<const uint32*>(camera + 0x88);
+            const uint32 nearPlane = *reinterpret_cast<const uint32*>(camera + 0x84);
+            if (StaticRef<uint32>(0xC992F0) != farPlane) {
+                StaticRef<uint32>(0xC992F0) = farPlane;
+                D3D9QueueRenderState(StaticRef<uint32>(0xC992F4), kD3DRSFogEnd);
+            }
+            if (StaticRef<uint32>(0xC992F8) != nearPlane) {
+                StaticRef<uint32>(0xC992F8) = nearPlane;
+                D3D9QueueRenderState(StaticRef<uint32>(0xC992FC), kD3DRSFogStart);
+            }
+        }
+        return TRUE;
+    }
+    case 16: { // FOGDENSITY: *valor es un float; se copian los bits tal cual y se compara como float (un NaN siempre cuenta como distinto)
+        const uint32 bits = *static_cast<const uint32*>(value);
+        const uint32 currentBits = StaticRef<uint32>(0xC9A4FC);
+        float newDensity;
+        float currentDensity;
+        memcpy(&newDensity, &bits, sizeof(float));
+        memcpy(&currentDensity, &currentBits, sizeof(float));
+        if (!(newDensity == currentDensity)) {
+            StaticRef<uint32>(0xC99300) = bits;
+            D3D9QueueRenderState(StaticRef<uint32>(0xC99304), kD3DRSFogDensity);
+            StaticRef<uint32>(0xC9A4FC) = bits;
+        }
+        return TRUE;
+    }
+    case 17:
+    case 18:
+        return FALSE;
+    case 19:
+        return _rwD3D9RenderStateCullMode(static_cast<RwInt32>(raw));
+    case 20:
+        return _rwD3D9RenderStateStencilEnable(static_cast<RwInt32>(raw));
+    case 21:
+        return _rwD3D9RenderStateStencilFail(static_cast<RwInt32>(raw));
+    case 22:
+        return _rwD3D9RenderStateStencilZFail(static_cast<RwInt32>(raw));
+    case 23:
+        return _rwD3D9RenderStateStencilPass(static_cast<RwInt32>(raw));
+    case 24:
+        return _rwD3D9RenderStateStencilFunction(static_cast<RwInt32>(raw));
+    case 25:
+        return _rwD3D9RenderStateStencilFunctionRef(static_cast<RwInt32>(raw));
+    case 26:
+        return _rwD3D9RenderStateStencilFunctionMask(static_cast<RwInt32>(raw));
+    case 27:
+        return _rwD3D9RenderStateStencilFunctionWriteMask(static_cast<RwInt32>(raw));
+    case 28: { // ALPHATESTFUNCTION
+        auto& current = StaticRef<uint32>(0xC9A5D0);
+        if (raw != current) {
+            const uint32 alphaBlend = StaticRef<uint32>(0xC992A8);
+            const uint32 testEnable = raw != 8 ? 1u : 0u;
+            current = raw;
+            StaticRef<uint32>(0xC9A5D4) = testEnable;
+            if (alphaBlend != 0) {
+                RwD3D9SetRenderState(kD3DRSAlphaTestEnable, testEnable);
+            }
+            StaticRef<uint32>(0xC99298) = reinterpret_cast<const uint32*>(0x8849C4)[raw];
+            D3D9QueueRenderState(StaticRef<uint32>(0xC9929C), kD3DRSAlphaFunc);
+        }
+        return TRUE;
+    }
+    default: // 29: ALPHATESTFUNCTIONREF
+        RwD3D9SetRenderState(kD3DRSAlphaRef, raw);
+        return TRUE;
+    }
+}
+
+// 0x7FED70 (lote R11A, sin validar; cdecl, (RwInt32* ancho, RwInt32* alto, RwUInt32 formato), `ret` sin valor de retorno definido, 176 bytes): ajusta el tamano de una textura a las capacidades del dispositivo.
+// Limita a MaxTextureWidth (0xC9BF58) y MaxTextureHeight (0xC9BF5C) (comparacion con signo). TextureCaps = 0xC9BF3C. Potencia de dos (cada lado pasa a 1 << floor(log2(lado)); un lado a 0 da 0x80000000 porque el
+// desplazamiento 0xFF se reduce a 31): con (formato & 7) != 0 y el bit 0x8000 (mipmap) si TextureCaps & 2 (POW2); si no, con TextureCaps & 2 y sin TextureCaps & 0x100 (NONPOW2CONDITIONAL).
+// Despues, con TextureCaps & 0x20 (SQUAREONLY), los dos lados valen el menor (comparacion con signo).
+void _rwD3D9CheckValidTextureSize(RwInt32* width, RwInt32* height, RwUInt32 format) {
+    const auto floorLog2 = [](RwInt32 value) {
+        RwInt32 log = -1;
+        while (value != 0) {
+            ++log;
+            value >>= 1;
+        }
+        return log;
+    };
+    if (*width > StaticRef<RwInt32>(0xC9BF58)) {
+        *width = StaticRef<RwInt32>(0xC9BF58);
+    }
+    if (*height > StaticRef<RwInt32>(0xC9BF5C)) {
+        *height = StaticRef<RwInt32>(0xC9BF5C);
+    }
+    const uint32 caps = StaticRef<uint32>(0xC9BF3C);
+    bool roundToPowerOfTwo;
+    if ((format & 7u) != 0 && (format & 0x8000u) != 0) {
+        roundToPowerOfTwo = (caps & 2u) != 0;
+    } else {
+        roundToPowerOfTwo = (caps & 2u) != 0 && (caps & 0x100u) == 0;
+    }
+    if (roundToPowerOfTwo) {
+        *width  = static_cast<RwInt32>(1u << (static_cast<uint32>(floorLog2(*width)) & 31u));
+        *height = static_cast<RwInt32>(1u << (static_cast<uint32>(floorLog2(*height)) & 31u));
+    }
+    if ((caps & 0x20u) != 0) {
+        const RwInt32 w = *width;
+        const RwInt32 h = *height;
+        if (w < h) {
+            *height = w;
+        } else {
+            *width = h;
+        }
+    }
+}
+
+// 0x7FEE20 (lote R11A, sin validar; cdecl, (RwUInt32* pixel, const RwRGBA* color, RwUInt32 formato), `ret`, 587 bytes): empaqueta un RwRGBA (bytes R, G, B, A) en el formato de raster (formato & 0xF00):
+// 0x100 1555, 0x200 565, 0x300 4444, 0x400 luminancia (59 G + 11 B + 30 R) / 100 con signo, por A / 255 (multiplicacion por 0x80808081 >> 39), 0x500 y 0 argb de 32 bits, 0x600 xrgb con alfa 0xFF, 0xA00 555.
+// Otro formato: error 0x8000000D (RwError { 1, _rwerror(...) } + RwErrorSet) y devuelve 0. Si no, escribe *pixel y devuelve 1.
+RwBool _rwD3D9RGBToPixel(RwUInt32* pixel, const RwUInt8* color, RwUInt32 format) {
+    const uint32 r = color[0], g = color[1], b = color[2], a = color[3];
+    uint32 value;
+    switch (format & 0xF00u) {
+    case 0x100:
+        value = ((((a & 0x80u) * 2u) | (r & 0xF8u)) << 5 | (g & 0xF8u)) << 2 | (b >> 3);
+        break;
+    case 0x200:
+        value = (((r & 0xF8u) << 5) | (g & 0xFCu)) << 3 | (b >> 3);
+        break;
+    case 0x300:
+        value = ((((a & 0xF0u) << 4) | (r & 0xF0u)) << 4) | ((g & 0xF0u) | (b >> 4));
+        break;
+    case 0x400: {
+        const int32 sum = static_cast<int32>(g * 59u + b * 11u + r * 30u);
+        const int32 luminance = sum / 100;
+        const uint32 product = static_cast<uint32>(luminance * static_cast<int32>(a));
+        value = static_cast<uint32>((static_cast<uint64>(product) * 0x80808081ull) >> 39);
+        break;
+    }
+    case 0:
+    case 0x500:
+        value = (a << 24) | (r << 16) | (g << 8) | b;
+        break;
+    case 0x600:
+        value = 0xFF000000u | (r << 16) | (g << 8) | b;
+        break;
+    case 0xA00:
+        value = (((r & 0xF8u) << 5) | (g & 0xF8u)) << 2 | (b >> 3);
+        break;
+    default:
+        D3D9RaiseError(static_cast<RwInt32>(0x8000000D));
+        return FALSE;
+    }
+    *pixel = value;
+    return TRUE;
+}
+
+// 0x7FF070 (lote R11A, sin validar; cdecl, (RwRGBA* color, const RwUInt32* pixel, RwUInt32 formato), `ret`, 501 bytes): desempaqueta un pixel. Con formato & 0x2000 (paleta de 8 bits) copia el dword tal cual y devuelve 1.
+// Si no (formato & 0xF00): 0x100 1555 (alfa 0xFF con el bit 15), 0x200 565 (alfa 0xFF), 0x300 4444 (alfa 0xFF si los cuatro bits son 1; si no el nibble alto del byte alto), 0x400 gris (R = G = B = byte bajo, alfa 0xFF),
+// 0x500 argb, 0x600 xrgb (alfa 0xFF), 0xA00 555 (alfa 0xFF); canales de 5/6/4 bits SIN replicar los bits bajos. Otro formato: error 0x8000000D y devuelve 0. Los bytes se escriben en orden R, G, B, A.
+RwBool _rwD3D9PixelToRGB(RwUInt8* color, const RwUInt32* pixel, RwUInt32 format) {
+    if ((format & 0x2000u) != 0) {
+        *reinterpret_cast<RwUInt32*>(color) = *pixel;
+        return TRUE;
+    }
+    const uint32 v = *pixel;
+    switch (format & 0xF00u) {
+    case 0x400:
+        color[3] = 0xFF;
+        color[0] = static_cast<RwUInt8>(v);
+        color[1] = static_cast<RwUInt8>(v);
+        color[2] = static_cast<RwUInt8>(v);
+        return TRUE;
+    case 0x100:
+        color[3] = (v & 0x8000u) != 0 ? 0xFF : 0;
+        color[0] = static_cast<RwUInt8>((v >> 7) & 0xF8u);
+        color[2] = static_cast<RwUInt8>(v << 3);
+        color[1] = static_cast<RwUInt8>((v >> 2) & 0xF8u);
+        return TRUE;
+    case 0x200:
+        color[3] = 0xFF;
+        color[0] = static_cast<RwUInt8>((v >> 8) & 0xF8u);
+        color[2] = static_cast<RwUInt8>(v << 3);
+        color[1] = static_cast<RwUInt8>((v >> 3) & 0xFCu);
+        return TRUE;
+    case 0x300:
+        if ((v & 0xF000u) == 0xF000u) {
+            color[3] = 0xFF;
+        } else {
+            color[3] = static_cast<RwUInt8>((v >> 8) & 0xF0u);
+        }
+        color[0] = static_cast<RwUInt8>((v >> 4) & 0xF0u);
+        color[2] = static_cast<RwUInt8>(v << 4);
+        color[1] = static_cast<RwUInt8>(v & 0xF0u);
+        return TRUE;
+    case 0x500:
+        color[2] = static_cast<RwUInt8>(v);
+        color[0] = static_cast<RwUInt8>(v >> 16);
+        color[3] = static_cast<RwUInt8>(v >> 24);
+        color[1] = static_cast<RwUInt8>(v >> 8);
+        return TRUE;
+    case 0x600:
+        color[3] = 0xFF;
+        color[2] = static_cast<RwUInt8>(v);
+        color[0] = static_cast<RwUInt8>(v >> 16);
+        color[1] = static_cast<RwUInt8>(v >> 8);
+        return TRUE;
+    case 0xA00:
+        color[3] = 0xFF;
+        color[0] = static_cast<RwUInt8>((v >> 7) & 0xF8u);
+        color[2] = static_cast<RwUInt8>(v << 3);
+        color[1] = static_cast<RwUInt8>((v >> 2) & 0xF8u);
+        return TRUE;
+    default:
+        D3D9RaiseError(static_cast<RwInt32>(0x8000000D));
+        return FALSE;
+    }
+}
+
+// 0x7FF8C0 (lote R11A, sin validar; nombre inferido; cdecl, (RwImage* imagen, RwRaster* raster), `ret` sin valor definido, 564 bytes): conversion generica raster -> imagen de 32 bits por una funcion por pixel
+// segun el D3DFORMAT de la extension del raster padre (ext + 0x18 menos 0x15 como indice de la tabla 0x7FFB40; formatos sin entrada dejan el puntero a 0, que el EXE llamaria igualmente: aqui se sale sin escribir).
+// Las funciones por pixel son cdecl (RwUInt32* destino, RwUInt32 valor): D3DFMT 0x15 -> 0x7FFDF0, 0x16 -> 0x7FFD90, 0x17 -> 0x7FFC10, 0x18 -> 0x7FFBE0, 0x19 -> 0x7FFC70, 0x1A -> 0x7FFCB0, 0x1B -> 0x7FFD30,
+// 0x1C -> 0x7FFE70, 0x1D -> 0x7FFD00, 0x1E -> 0x7FFD60, 0x20 y 0x3F -> 0x7FFE20, 0x21 y 0x3E -> 0x7FFDB0, 0x32 -> 0x7FFE50, 0x33 -> 0x7FFEC0, 0x34 -> 0x7FFE90, 0x3C y 0x75 -> 0x7FFDD0, 0x3D -> 0x7FFC40,
+// 0x51 -> 0x7FFEE0. Profundidad del raster (menos 4, maximo 0x1C): 4 y 8 leen un byte por pixel, 16 un word, 32 un dword; otra profundidad (24 incluida): error 0x8000000C (RwError { 1, _rwerror(...) }). Recorre las
+// filas de 0 a alto - 1 (si el alto es <= 0 no escribe nada; el ancho se recorre con do-while).
+void _rwD3D9RasterToImageGeneric(RwImage* image, RwRaster* raster) {
+    using PixelConvert = void(__cdecl*)(RwUInt32*, RwUInt32);
+    uintptr_t convert = 0;
+    switch (D3D9RasterExt(raster->parent).d3dFormat) {
+    case 0x15: convert = 0x7FFDF0; break;
+    case 0x16: convert = 0x7FFD90; break;
+    case 0x17: convert = 0x7FFC10; break;
+    case 0x18: convert = 0x7FFBE0; break;
+    case 0x19: convert = 0x7FFC70; break;
+    case 0x1A: convert = 0x7FFCB0; break;
+    case 0x1B: convert = 0x7FFD30; break;
+    case 0x1C: convert = 0x7FFE70; break;
+    case 0x1D: convert = 0x7FFD00; break;
+    case 0x1E: convert = 0x7FFD60; break;
+    case 0x20: convert = 0x7FFE20; break;
+    case 0x21: convert = 0x7FFDB0; break;
+    case 0x32: convert = 0x7FFE50; break;
+    case 0x33: convert = 0x7FFEC0; break;
+    case 0x34: convert = 0x7FFE90; break;
+    case 0x3C: convert = 0x7FFDD0; break;
+    case 0x3D: convert = 0x7FFC40; break;
+    case 0x3E: convert = 0x7FFDB0; break;
+    case 0x3F: convert = 0x7FFE20; break;
+    case 0x51: convert = 0x7FFEE0; break;
+    case 0x75: convert = 0x7FFDD0; break;
+    default: break;
+    }
+    const RwInt32 depthIndex = raster->depth - 4;
+    uint32 unit;
+    if (depthIndex == 0 || depthIndex == 4) {
+        unit = 1;
+    } else if (depthIndex == 12) {
+        unit = 2;
+    } else if (depthIndex == 28) {
+        unit = 4;
+    } else {
+        D3D9RaiseError(static_cast<RwInt32>(0x8000000C));
+        return;
+    }
+    if (convert == 0) {
+        return; // el EXE hace `call 0` aqui
+    }
+    for (RwInt32 y = 0; y < raster->height; ++y) {
+        const RwUInt8* source = raster->cpPixels + static_cast<RwInt32>(raster->stride * y);
+        RwUInt8* destination  = image->cpPixels + static_cast<RwInt32>(image->stride * y);
+        uint32 count = static_cast<uint32>(raster->width);
+        do {
+            RwUInt32 pixel;
+            if (unit == 1) {
+                pixel = *source;
+            } else if (unit == 2) {
+                pixel = *reinterpret_cast<const uint16*>(source);
+            } else {
+                pixel = *reinterpret_cast<const uint32*>(source);
+            }
+            reinterpret_cast<PixelConvert>(convert)(reinterpret_cast<RwUInt32*>(destination), pixel);
+            source += unit;
+            destination += 4;
+            --count;
+        } while (count != 0);
+    }
+}
+
+// 0x7FF450 (lote R11A, sin validar; nombre inferido; cdecl, (RwImage* imagen de 32 bits, RwRaster* raster), `ret` sin valor definido, 1087 bytes): raster -> imagen de 32 bits (R, G, B, A en ese orden de bytes).
+// Sin formato de pixel en cFormat & 0xF: 0x7FF8C0. Si no, por la profundidad del raster (menos 4; fuera de 0..0x1C = error 0x8000000C; solo 4, 8, 16, 24 y 32 valen, otras caen en el mismo error): 4 y 8 con paleta: dword
+// paleta[indice] por pixel; sin paleta: gris 0xFF000000 | indice * 0x010101. 16: segun el formato (0x100 1555, 0x200 565, 0x300 4444, 0xA00 555; otro: no escribe). 24 y 32: segun el D3DFORMAT de la extension del
+// raster padre: 0x16 (xrgb, alfa 0xFF), 0x15 (argb) y 0x23 (a2r10g10b10: canales >> 22, >> 12, >> 2 truncados y alfa = (v >> 30) * 0x55); otro formato: 0x7FF8C0. Alto <= 0 no escribe nada; el ancho se recorre con do-while.
+void _rwD3D9RasterToImage32(RwImage* image, RwRaster* raster) {
+    const uint32 format = static_cast<uint32>(raster->cFormat & 0x0Fu) << 8;
+    if (format == 0) {
+        _rwD3D9RasterToImageGeneric(image, raster);
+        return;
+    }
+    const uint32 depthIndex = static_cast<uint32>(raster->depth - 4);
+    if (depthIndex > 0x1Cu) {
+        D3D9RaiseError(static_cast<RwInt32>(0x8000000C));
+        return;
+    }
+    const auto forEachPixel = [&](auto&& convertPixel, uint32 sourceSize) {
+        for (RwInt32 y = 0; y < raster->height; ++y) {
+            const RwUInt8* source = raster->cpPixels + static_cast<RwInt32>(raster->stride * y);
+            RwUInt8* destination  = image->cpPixels + static_cast<RwInt32>(image->stride * y);
+            uint32 count = static_cast<uint32>(raster->width);
+            do {
+                convertPixel(source, destination);
+                source += sourceSize;
+                destination += 4;
+                --count;
+            } while (count != 0);
+        }
+    };
+    if (depthIndex == 0 || depthIndex == 4) { // 4 y 8 bits
+        const uint32* const palette = reinterpret_cast<const uint32*>(raster->palette);
+        if (palette != nullptr) {
+            forEachPixel([palette](const RwUInt8* source, RwUInt8* destination) {
+                *reinterpret_cast<uint32*>(destination) = palette[*source];
+            }, 1);
+        } else {
+            forEachPixel([](const RwUInt8* source, RwUInt8* destination) {
+                const uint32 index = *source;
+                *reinterpret_cast<uint32*>(destination) = 0xFF000000u | (index << 16) | (index << 8) | index;
+            }, 1);
+        }
+        return;
+    }
+    if (depthIndex == 12) { // 16 bits
+        switch (format) {
+        case 0x200:
+            forEachPixel([](const RwUInt8* source, RwUInt8* destination) {
+                const uint32 v = *reinterpret_cast<const uint16*>(source);
+                destination[3] = 0xFF;
+                destination[0] = static_cast<RwUInt8>((v >> 8) & 0xF8u);
+                destination[1] = static_cast<RwUInt8>((v >> 3) & 0xFCu);
+                destination[2] = static_cast<RwUInt8>(v << 3);
+            }, 2);
+            break;
+        case 0x100:
+            forEachPixel([](const RwUInt8* source, RwUInt8* destination) {
+                const uint32 v = *reinterpret_cast<const uint16*>(source);
+                destination[0] = static_cast<RwUInt8>((v >> 7) & 0xF8u);
+                destination[1] = static_cast<RwUInt8>((v >> 2) & 0xF8u);
+                destination[2] = static_cast<RwUInt8>(v << 3);
+                destination[3] = (v & 0x8000u) != 0 ? 0xFF : 0;
+            }, 2);
+            break;
+        case 0x300:
+            forEachPixel([](const RwUInt8* source, RwUInt8* destination) {
+                const uint32 v = *reinterpret_cast<const uint16*>(source);
+                destination[0] = static_cast<RwUInt8>((v >> 4) & 0xF0u);
+                destination[1] = static_cast<RwUInt8>(v & 0xF0u);
+                destination[2] = static_cast<RwUInt8>(v << 4);
+                destination[3] = (v & 0xF000u) == 0xF000u ? 0xFF : static_cast<RwUInt8>((v >> 8) & 0xF0u);
+            }, 2);
+            break;
+        case 0xA00:
+            forEachPixel([](const RwUInt8* source, RwUInt8* destination) {
+                const uint32 v = *reinterpret_cast<const uint16*>(source);
+                destination[3] = 0xFF;
+                destination[0] = static_cast<RwUInt8>((v >> 7) & 0xF8u);
+                destination[1] = static_cast<RwUInt8>((v >> 2) & 0xF8u);
+                destination[2] = static_cast<RwUInt8>(v << 3);
+            }, 2);
+            break;
+        default:
+            break;
+        }
+        return;
+    }
+    if (depthIndex == 20 || depthIndex == 28) { // 24 y 32 bits
+        const uint32 d3dFormat = D3D9RasterExt(raster->parent).d3dFormat;
+        if (d3dFormat == 0x16) {
+            forEachPixel([](const RwUInt8* source, RwUInt8* destination) {
+                const uint32 v = *reinterpret_cast<const uint32*>(source);
+                destination[3] = 0xFF;
+                destination[2] = static_cast<RwUInt8>(v);
+                destination[0] = static_cast<RwUInt8>(v >> 16);
+                destination[1] = static_cast<RwUInt8>(v >> 8);
+            }, 4);
+            return;
+        }
+        if (d3dFormat == 0x15) {
+            forEachPixel([](const RwUInt8* source, RwUInt8* destination) {
+                const uint32 v = *reinterpret_cast<const uint32*>(source);
+                destination[2] = static_cast<RwUInt8>(v);
+                destination[0] = static_cast<RwUInt8>(v >> 16);
+                destination[1] = static_cast<RwUInt8>(v >> 8);
+                destination[3] = static_cast<RwUInt8>(v >> 24);
+            }, 4);
+            return;
+        }
+        if (d3dFormat == 0x23) {
+            forEachPixel([](const RwUInt8* source, RwUInt8* destination) {
+                const uint32 v = *reinterpret_cast<const uint32*>(source);
+                destination[0] = static_cast<RwUInt8>(v >> 22);
+                destination[1] = static_cast<RwUInt8>(v >> 12);
+                destination[2] = static_cast<RwUInt8>(v >> 2);
+                destination[3] = static_cast<RwUInt8>(static_cast<int8>(v >> 30) * 0x55);
+            }, 4);
+            return;
+        }
+        _rwD3D9RasterToImageGeneric(image, raster);
+        return;
+    }
+    D3D9RaiseError(static_cast<RwInt32>(0x8000000C));
+}
+
+// 0x7FF270 (lote R11A, sin validar; nombre inferido: RwImageSetFromRaster del controlador; cdecl, (RwImage*, RwRaster*) (el llamador de rwcore pasa un tercer argumento que no se lee), `ret`, 468 bytes): copia el
+// contenido de un raster a una imagen. Con raster comprimido (extension +0xA & 0xF0): error 2 con la cadena 0x8E2600 y devuelve 0. Si el raster no esta bloqueado (privateFlags & 2 == 0): RwRasterLock(raster, 0, 2)
+// (marca X); con cFormat & 0x60 y sin privateFlags & 8: RwRasterLockPalette(raster, 2) (marca Y). Con la imagen de 32 bits: 0x7FF450; con 8 bits y un raster de 8 bits con formato de paleta (cFormat & 0xF): copia
+// de pixeles (de una vez si los tres pasos coinciden, fila a fila si no) y la paleta de 256 dwords (o, sin paleta, una escala de grises con alfa 0xFF); otro caso: error 2 con la cadena 0x8E25B8 (raster no
+// paletizado a 8 bits) o 0x8E257C (profundidad de imagen distinta de 8 y 32). Al final desbloquea la paleta (si Y) y los pixeles (si X). Devuelve 1.
+RwBool _rwD3D9RasterToImage(RwImage* image, RwRaster* raster) {
+    const auto& ext = D3D9RasterExt(raster);
+    if ((ext.mipFlags & 0xF0u) != 0) {
+        D3D9RaiseError(2, reinterpret_cast<const char*>(0x8E2600));
+        return FALSE;
+    }
+    bool lockedPixels = false;
+    bool lockedPalette = false;
+    if ((raster->privateFlags & 2u) == 0) {
+        RwRasterLock(raster, 0, 2);
+        lockedPixels = true;
+    }
+    if ((raster->cFormat & 0x60u) != 0 && (raster->privateFlags & 8u) == 0) {
+        RwRasterLockPalette(raster, 2);
+        lockedPalette = true;
+    }
+    if (image->depth == 0x20) {
+        _rwD3D9RasterToImage32(image, raster);
+    } else if (image->depth != 8) {
+        D3D9RaiseError(2, reinterpret_cast<const char*>(0x8E257C));
+    } else if (raster->depth != 8 || (raster->cFormat & 0x0Fu) == 0) {
+        D3D9RaiseError(2, reinterpret_cast<const char*>(0x8E25B8));
+    } else {
+        if (image->stride == raster->stride && raster->width == raster->stride) {
+            memcpy(image->cpPixels, raster->cpPixels, static_cast<size_t>(static_cast<uint32>(raster->height * raster->width)));
+        } else {
+            for (RwInt32 y = 0; y < raster->height; ++y) {
+                memcpy(image->cpPixels + static_cast<RwInt32>(image->stride * y), raster->cpPixels + static_cast<RwInt32>(raster->stride * y), static_cast<size_t>(static_cast<uint32>(raster->width)));
+            }
+        }
+        if (raster->palette != nullptr) {
+            memcpy(image->palette, raster->palette, 0x100 * sizeof(uint32));
+        } else {
+            auto* const palette = reinterpret_cast<RwUInt8*>(image->palette);
+            for (int i = 0; i < 0x100; ++i) {
+                palette[i * 4]     = static_cast<RwUInt8>(i);
+                palette[i * 4 + 1] = static_cast<RwUInt8>(i);
+                palette[i * 4 + 2] = static_cast<RwUInt8>(i);
+                palette[i * 4 + 3] = 0xFF;
+            }
+        }
+    }
+    if (lockedPalette) {
+        RwRasterUnlockPalette(raster);
+    }
+    if (lockedPixels) {
+        RwRasterUnlock(raster);
+    }
+    return TRUE;
+}
+
+// 0x7FBB00 (lote R11A, sin validar; nombre inferido: RwIm2DRenderPrimitive del controlador D3D9; cdecl, (RwPrimitiveType tipo, RwIm2DVertex* vertices, RwInt32 numero), `ret`, 534 bytes): copia `numero` vertices de
+// 0x1C bytes (x, y, z, rhw, color, u, v) a un bufer dinamico y los dibuja. Con 0xC980E0 distinto de 0 usa el bufer propio (0xC980E8; posicion en vertices 0xC980E4; si posicion + numero > 0x2492 la pone a 0 y bloquea
+// con descarte 0x2800, si no con NOOVERWRITE 0x1800); sin el: RwD3D9DynamicVertexBufferLock(0x1C, numero, 0xC980E8, &datos, 0xC980E4). Sin datos devuelve 0. Si el raster del marco de la camara (camara actual 0xC9BCC0 + 0x60, o el
+// contexto de raster 0x7FAE60) tiene desplazamiento (nOffsetX, nOffsetY) distinto de 0, suma el desplazamiento a x e y de cada vertice; si no copia. Desbloquea, llama a 0x7FB810 (estados del dibujo 2D) y DrawPrimitive(tipo D3D de
+// la tabla 0x884888, inicio 0xC980E4, primitivas) por la ranura 0x144; 0xC980E4 += numero; TRUE si el HRESULT no es negativo. Primitivas: tipo 1 numero / 2, 2 numero - 1, 3 numero / 3, 4 y 5 numero - 2, otro 0.
+RwBool _rwD3D9Im2DRenderPrimitive(RwInt32 primType, void* vertices, RwInt32 numVertices) {
+    constexpr size_t kSlotDeviceDrawPrimitive = 81; // IDirect3DDevice9::DrawPrimitive (+0x144)
+    auto& bufferInUse  = StaticRef<uint32>(0xC980E0);
+    auto& position     = StaticRef<uint32>(0xC980E4);
+    auto& vertexBuffer = StaticRef<void*>(0xC980E8);
+    const uint8* const camera = StaticRef<const uint8*>(0xC9BCC0);
+    const RwRaster* const frameBuffer = camera != nullptr ? *reinterpret_cast<RwRaster* const*>(camera + 0x60) : RwRasterGetCurrentContext();
+    RwInt32 primitives;
+    switch (primType) {
+    case 1: primitives = numVertices / 2; break;
+    case 2: primitives = numVertices - 1; break;
+    case 3: primitives = numVertices / 3; break;
+    case 4:
+    case 5: primitives = numVertices - 2; break;
+    default: primitives = 0; break;
+    }
+    const uint32 byteCount = static_cast<uint32>(numVertices) * 28u;
+    uint8* data = nullptr;
+    if (bufferInUse != 0) {
+        const uint32 start = position;
+        if (start + static_cast<uint32>(numVertices) > 0x2492u) {
+            position = 0;
+            ComCall<kSlotVertexBufferLock, int32>(vertexBuffer, 0u, byteCount, static_cast<void*>(&data), 0x2800u);
+        } else {
+            ComCall<kSlotVertexBufferLock, int32>(vertexBuffer, start * 28u, byteCount, static_cast<void*>(&data), 0x1800u);
+        }
+    } else {
+        RwD3D9DynamicVertexBufferLock(0x1C, static_cast<RwUInt32>(numVertices), &vertexBuffer, reinterpret_cast<void**>(&data), &position);
+    }
+    if (data == nullptr) {
+        return FALSE;
+    }
+    const int16 offsetX = frameBuffer->nOffsetX;
+    const int16 offsetY = frameBuffer->nOffsetY;
+    if (offsetX == 0 && offsetY == 0) {
+        memcpy(data, vertices, static_cast<size_t>(byteCount));
+    } else {
+        const float shiftX = static_cast<float>(static_cast<int32>(offsetX));
+        const float shiftY = static_cast<float>(static_cast<int32>(offsetY));
+        const uint32* source = static_cast<const uint32*>(vertices);
+        uint32* destination  = reinterpret_cast<uint32*>(data);
+        for (RwInt32 i = 0; i < numVertices; ++i) {
+            float x, y;
+            memcpy(&x, source, sizeof(float));
+            memcpy(&y, source + 1, sizeof(float));
+            x = shiftX + x;
+            y = shiftY + y;
+            memcpy(destination, &x, sizeof(float));
+            memcpy(destination + 1, &y, sizeof(float));
+            destination[2] = source[2];
+            destination[3] = source[3];
+            destination[4] = source[4];
+            destination[5] = source[5];
+            destination[6] = source[6];
+            source += 7;
+            destination += 7;
+        }
+    }
+    ComCall<kSlotVertexBufferUnlock, int32>(vertexBuffer);
+    reinterpret_cast<void(__cdecl*)()>(0x7FB810)();
+    const uint32 d3dPrimitive = reinterpret_cast<const uint32*>(0x884888)[primType];
+    const int32 result = ComCall<kSlotDeviceDrawPrimitive, int32>(D3D9Device, d3dPrimitive, static_cast<uint32>(position), static_cast<uint32>(primitives));
+    position += static_cast<uint32>(numVertices);
+    return result >= 0;
+}
+
+// Lote R11A (sin validar; segundo encargo con ese nombre): controlador D3D9 de RenderWare (RwD3D9).
+void RwD3D9InjectHooksR11A2() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwD3D9");
+
+    RH_ScopedGlobalInstall(_rwD3D9Im2DRenderPrimitive, 0x7FBB00);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateVertexAlphaEnable, 0x7FE0A0);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateGetVertexAlphaEnable, 0x7FE190);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateStencilEnable, 0x7FE1A0);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateStencilFail, 0x7FE1F0);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateStencilZFail, 0x7FE240);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateStencilPass, 0x7FE290);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateStencilFunction, 0x7FE2E0);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateStencilFunctionRef, 0x7FE330);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateStencilFunctionMask, 0x7FE380);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateStencilFunctionWriteMask, 0x7FE3D0);
+    RH_ScopedGlobalInstall(_rwD3D9RWSetRenderState, 0x7FE420);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateZWriteEnable, 0x7FEA70);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateZTestEnable, 0x7FEB70);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateShadeMode, 0x7FEC70);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateBorderColor, 0x7FECC0);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateCullMode, 0x7FED00);
+    RH_ScopedGlobalInstall(_rwD3D9CheckValidTextureSize, 0x7FED70);
+    RH_ScopedGlobalInstall(_rwD3D9RGBToPixel, 0x7FEE20);
+    RH_ScopedGlobalInstall(_rwD3D9PixelToRGB, 0x7FF070);
+    RH_ScopedGlobalInstall(_rwD3D9RasterToImage, 0x7FF270);
+    RH_ScopedGlobalInstall(_rwD3D9RasterToImage32, 0x7FF450);
+    RH_ScopedGlobalInstall(_rwD3D9RasterToImageGeneric, 0x7FF8C0);
+}
+
 // Estados de render y etapas de textura del controlador D3D9 (lote R6A, sin validar).
 void RwD3D9InjectHooksR6A() {
     RH_ScopedCategory("Renderware");
@@ -2811,6 +3805,7 @@ void RwCoreInjectHooksR7A() {
     RH_ScopedGlobalInstall(_rwD3D9DynamicVertexBufferRestore, 0x7F58D0);
     RH_ScopedGlobalInstall(_rwD3D9DynamicVertexBufferManagerOpen, 0x7F5940);
     RH_ScopedGlobalInstall(RwD3D9DynamicVertexBufferCreate, 0x7F5A00);
+    RH_ScopedGlobalInstall(RwD3D9DynamicVertexBufferLock, 0x7F5B10); // lote R11A (sin validar)
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
