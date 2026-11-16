@@ -705,6 +705,7 @@ void RwCoreInjectHooksR15A();    // tuberias de Rx: Im3D por defecto y fases fin
 
 // Lote R16A (sin validar).
 void RpWorldInjectHooksR16A();    // plugin 0x509 (mundo y ties), mallas 0x50E/0x510, luces, camaras, clumps y pesos de vertices D3D9 (rpworld.cpp)
+void RpWorldInjectHooksR17A();    // vertices D3D9 (instanciar, leer), formato de texcoord, plugin y estado de luces, utilidades de indices, recorte y callbacks AllInOne (rpworld.cpp)
 
 void InjectHooksMain() {
     /**
@@ -1125,6 +1126,7 @@ void InjectHooksMain() {
     RwPlCoreInjectHooksR15A();
     RwCoreInjectHooksR15A();
     RpWorldInjectHooksR16A();
+    RpWorldInjectHooksR17A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();

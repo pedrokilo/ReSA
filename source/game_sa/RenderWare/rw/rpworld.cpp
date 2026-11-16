@@ -1606,10 +1606,6 @@ void RpD3D9LightGetAttenuationParams(const RpLight* light, RpD3D9AttenuationPara
     ((void(__cdecl *)(const RpLight*, RpD3D9AttenuationParams*))0x755D50)(light, params);
 }
 
-RwBool _rwD3D9LightsOpen(void) {
-    return ((RwBool(__cdecl *)(void))0x755D80)();
-}
-
 RwBool _rwD3D9LightsGlobalEnable(RpLightFlag flags) {
     return ((RwBool(__cdecl *)(RpLightFlag))0x756070)(flags);
 }
@@ -1624,10 +1620,6 @@ RwBool _rwD3D9LightLocalEnable(RpLight* light) {
 
 void _rwD3D9LightsEnable(RwBool enable, RwUInt32 type) {
     ((void(__cdecl *)(RwBool, RwUInt32))0x756600)(enable, type);
-}
-
-void _rwD3D9LightsClose(void) {
-    ((void(__cdecl *)(void))0x755FE0)();
 }
 
 void RpAtomicSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
@@ -3013,22 +3005,6 @@ RpD3D9WorldSectorUsageFlag RpD3D9WorldSectorGetUsageFlags(const RpWorldSector* s
     return *reinterpret_cast<const RpD3D9WorldSectorUsageFlag*>(reinterpret_cast<uintptr_t>(sector) + static_cast<uintptr_t>(s_sectorUsageFlagsOffset));
 }
 
-void RxD3D9AllInOneSetInstanceCallBack(RxPipelineNode* node, RxD3D9AllInOneInstanceCallBack callback) {
-    ((void(__cdecl *)(RxPipelineNode*, RxD3D9AllInOneInstanceCallBack))0x757380)(node, callback);
-}
-
-RxD3D9AllInOneInstanceCallBack RxD3D9AllInOneGetInstanceCallBack(RxPipelineNode* node) {
-    return ((RxD3D9AllInOneInstanceCallBack(__cdecl *)(RxPipelineNode*))0x757390)(node);
-}
-
-void RxD3D9AllInOneSetReinstanceCallBack(RxPipelineNode* node, RxD3D9AllInOneReinstanceCallBack callback) {
-    ((void(__cdecl *)(RxPipelineNode*, RxD3D9AllInOneReinstanceCallBack))0x7573A0)(node, callback);
-}
-
-RxD3D9AllInOneReinstanceCallBack RxD3D9AllInOneGetReinstanceCallBack(RxPipelineNode* node) {
-    return ((RxD3D9AllInOneReinstanceCallBack(__cdecl *)(RxPipelineNode*))0x7573B0)(node);
-}
-
 void RxD3D9AllInOneSetLightingCallBack(RxPipelineNode* node, RxD3D9AllInOneLightingCallBack callback) {
     ((void(__cdecl *)(RxPipelineNode*, RxD3D9AllInOneLightingCallBack))0x7573C0)(node, callback);
 }
@@ -3056,32 +3032,12 @@ RwUInt32 _rpD3D9VertexDeclarationGetStride(const void* vertexDeclaration) {
     return ((RwUInt32(__cdecl *)(const void*))0x7522F0)(vertexDeclaration);
 }
 
-RwUInt32 _rpD3D9VertexDeclarationInstV3d(RwUInt32 type, RwUInt8* mem, const RwV3d* src, RwInt32 numVerts, RwUInt32 stride) {
-    return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RwV3d*, RwInt32, RwUInt32))0x752AD0)(type, mem, src, numVerts, stride);
-}
-
 RwUInt32 _rpD3D9VertexDeclarationInstV3dComp(RwUInt32 type, RwUInt8* mem, const RpVertexNormal* src, RwInt32 numVerts, RwUInt32 stride) {
     return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RpVertexNormal*, RwInt32, RwUInt32))0x7531B0)(type, mem, src, numVerts, stride);
 }
 
-RwUInt32 _rpD3D9VertexDeclarationInstV3dMorph(RwUInt32 type, RwUInt8* mem, const RwV3d* src1, const RwV3d* src2, RwReal scale, RwInt32 numVerts, RwUInt32 stride) {
-    return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RwV3d*, const RwV3d*, RwReal, RwInt32, RwUInt32))0x753B60)(type, mem, src1, src2, scale, numVerts, stride);
-}
-
-RwUInt32 _rpD3D9VertexDeclarationInstV2d(RwUInt32 type, RwUInt8* mem, const RwV2d* src, RwInt32 numVerts, RwUInt32 stride) {
-    return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RwV2d*, RwInt32, RwUInt32))0x7544E0)(type, mem, src, numVerts, stride);
-}
-
-RwBool _rpD3D9VertexDeclarationInstColor(RwUInt8* mem, const RwRGBA* color, RwInt32 numVerts, RwUInt32 stride) {
-    return ((RwBool(__cdecl *)(RwUInt8*, const RwRGBA*, RwInt32, RwUInt32))0x754AE0)(mem, color, numVerts, stride);
-}
-
 RwUInt32 _rpD3D9VertexDeclarationInstIndices(RwUInt32 type, RwUInt8* mem, const RwUInt32* indices, RwInt32 numVerts, RwUInt32 stride) {
     return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RwUInt32*, RwInt32, RwUInt32))0x754B40)(type, mem, indices, numVerts, stride);
-}
-
-RwUInt32 _rpD3D9VertexDeclarationInstIndicesRemap(RwUInt32 type, RwUInt8* mem, const RwUInt32* indices, const RwUInt8* remap, RwInt32 numVerts, RwUInt32 stride) {
-    return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RwUInt32*, const RwUInt8*, RwInt32, RwUInt32))0x754C80)(type, mem, indices, remap, numVerts, stride);
 }
 
 namespace {
@@ -3230,8 +3186,935 @@ RwUInt32 _rpD3D9VertexDeclarationInstWeights(RwUInt32 type, RwUInt8* mem, const 
     return sizes[type];
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
+// Lote R17A (sin validar): instanciacion de vertices D3D9 (posicion, morph, texcoord, color, indices con remap, tangentes), lectura de
+// texcoord, rangos y formato de texcoord. Todas las tablas de saltos (15 entradas, tipos D3DDECLTYPE 0..14) y constantes se leyeron del EXE.
+// Las multiplicaciones y sumas son floats (la x87 del proceso trabaja a 24 bits); fistp = redondeo al par con la palabra de control del proceso
+// (WeightFistp). Se compila con float_control(precise) para que /fp:fast no reasocie ni cambie 1/det * n por n / det.
+// ---------------------------------------------------------------------------------------------------------------------
+#pragma float_control(precise, on, push)
+namespace {
+inline const RwUInt32* DeclSizeTable() { return reinterpret_cast<const RwUInt32*>(0x874EF8); }
+}
+
+// 0x752AD0 (lote R17A, sin validar; sustituye la envoltura; cdecl, 5 argumentos (tipo D3DDECLTYPE, destino, origen RwV3d, numero de vertices, paso), 1700 bytes; el listado la atribuia a RpWorld):
+// instancia posiciones (x, y, z) al formato `type` (tabla de saltos 0x753174, tipos 0..14; mayor -> no hace nada). Devuelve SIEMPRE 0x874EF8[type] (sin comprobar el rango). Con numVerts <= 0 (con signo) no escribe.
+// Por vertice (origen += 12, destino += paso): 0 FLOAT1: x.  1 FLOAT2: x, y.  2 FLOAT3: x, y, z (con paso 12 el EXE copia numVerts * 12 bytes de golpe con rep movs).  3 FLOAT4: x, y, z, 1.0f.
+// 4 D3DCOLOR: bytes {fistp(z * 255), fistp(y * 255), fistp(x * 255), 255}.  5 UBYTE4: {x, y, z, 1} con fistp sin escalar.  6 SHORT2: palabras {x, y}.  7 SHORT4: {x, y, z, 1}.
+// 8 UBYTE4N: bytes {x * 255, y * 255, z * 255, 255}.  9 SHORT2N: {x * 32767, y * 32767}.  10 SHORT4N: {x, y, z (* 32767), 0x7FFF}.  11 USHORT2N: {x * 65535, y * 65535}.  12 USHORT4N: {x, y, z (* 65535), 0xFFFF}.
+// 13 UDEC3: a = fistp(x), b = fistp(y), c = fistp(z): ((c & 0x3FF) << 20) | ((b & 0x3FF) << 10) | (a & 0x3FF).  14 DEC3N: igual con * 511.
+// El producto se guarda como float antes del fistp (fstp + fld). Para type 2 con paso 12 y numVerts < 0 el EXE ejecutaria un rep movs gigante (se ignora aqui).
+RwUInt32 _rpD3D9VertexDeclarationInstV3d(RwUInt32 type, RwUInt8* mem, const RwV3d* src, RwInt32 numVerts, RwUInt32 stride) {
+    const RwUInt32* const sizes = DeclSizeTable();
+    if (type > 14) {
+        return sizes[type];
+    }
+    if (type == 2 && stride == 12) {
+        if (numVerts > 0) {
+            std::memcpy(mem, src, static_cast<size_t>(numVerts) * 12u);
+        }
+        return sizes[type];
+    }
+    if (numVerts <= 0) {
+        return sizes[type];
+    }
+    const float* s = reinterpret_cast<const float*>(src);
+    RwUInt8* d = mem;
+    for (RwInt32 n = numVerts; n > 0; --n, s += 3, d += stride) {
+        switch (type) {
+        case 0:
+            std::memcpy(d, s, 4);
+            break;
+        case 1:
+            std::memcpy(d, s, 8);
+            break;
+        case 2:
+            std::memcpy(d, s, 12);
+            break;
+        case 3:
+            std::memcpy(d, s, 12);
+            WeightStore32(d + 12, 0x3F800000u);
+            break;
+        case 4:
+            d[2] = static_cast<RwUInt8>(WeightFistp(s[0] * 255.0f));
+            d[1] = static_cast<RwUInt8>(WeightFistp(s[1] * 255.0f));
+            d[0] = static_cast<RwUInt8>(WeightFistp(s[2] * 255.0f));
+            d[3] = 0xFF;
+            break;
+        case 5:
+            d[0] = static_cast<RwUInt8>(WeightFistp(s[0]));
+            d[1] = static_cast<RwUInt8>(WeightFistp(s[1]));
+            d[2] = static_cast<RwUInt8>(WeightFistp(s[2]));
+            d[3] = 1;
+            break;
+        case 6:
+            WeightStore16(d + 0, WeightFistp(s[0]));
+            WeightStore16(d + 2, WeightFistp(s[1]));
+            break;
+        case 7:
+            WeightStore16(d + 0, WeightFistp(s[0]));
+            WeightStore16(d + 2, WeightFistp(s[1]));
+            WeightStore16(d + 4, WeightFistp(s[2]));
+            WeightStore16(d + 6, 1);
+            break;
+        case 8:
+            d[0] = static_cast<RwUInt8>(WeightFistp(s[0] * 255.0f));
+            d[1] = static_cast<RwUInt8>(WeightFistp(s[1] * 255.0f));
+            d[2] = static_cast<RwUInt8>(WeightFistp(s[2] * 255.0f));
+            d[3] = 0xFF;
+            break;
+        case 9:
+            WeightStore16(d + 0, WeightFistp(s[0] * 32767.0f));
+            WeightStore16(d + 2, WeightFistp(s[1] * 32767.0f));
+            break;
+        case 10:
+            WeightStore16(d + 0, WeightFistp(s[0] * 32767.0f));
+            WeightStore16(d + 2, WeightFistp(s[1] * 32767.0f));
+            WeightStore16(d + 4, WeightFistp(s[2] * 32767.0f));
+            WeightStore16(d + 6, 0x7FFF);
+            break;
+        case 11:
+            WeightStore16(d + 0, WeightFistp(s[0] * 65535.0f));
+            WeightStore16(d + 2, WeightFistp(s[1] * 65535.0f));
+            break;
+        case 12:
+            WeightStore16(d + 0, WeightFistp(s[0] * 65535.0f));
+            WeightStore16(d + 2, WeightFistp(s[1] * 65535.0f));
+            WeightStore16(d + 4, WeightFistp(s[2] * 65535.0f));
+            WeightStore16(d + 6, 0xFFFF);
+            break;
+        case 13: {
+            const RwUInt32 a = static_cast<RwUInt32>(WeightFistp(s[0]));
+            const RwUInt32 b = static_cast<RwUInt32>(WeightFistp(s[1]));
+            const RwUInt32 c = static_cast<RwUInt32>(WeightFistp(s[2]));
+            WeightStore32(d, ((((c & 0x3FF) << 10) | (b & 0x3FF)) << 10) | (a & 0x3FF));
+            break;
+        }
+        case 14: {
+            const RwUInt32 a = static_cast<RwUInt32>(WeightFistp(s[0] * 511.0f));
+            const RwUInt32 b = static_cast<RwUInt32>(WeightFistp(s[1] * 511.0f));
+            const RwUInt32 c = static_cast<RwUInt32>(WeightFistp(s[2] * 511.0f));
+            WeightStore32(d, ((((c & 0x3FF) << 10) | (b & 0x3FF)) << 10) | (a & 0x3FF));
+            break;
+        }
+        }
+    }
+    return sizes[type];
+}
+
+// 0x753B60 (lote R17A, sin validar; sustituye la envoltura; cdecl, 7 argumentos (tipo, destino, origen A, origen B, escala, numero de vertices, paso), 2370 bytes): igual que 0x752AD0 pero cada componente es la
+// mezcla v = (B - A) * escala + A (cuatro operaciones float, la x87 redondea a 24 bits tras cada una) de dos RwV3d. Tipos 0..14 (tabla 0x7544A4; mayor o numVerts <= 0 -> nada; devuelve 0x874EF8[type]).
+//  0..3: float x [, y [, z [, 1.0f]]] (3 FLOAT3 no, 2 = x, y, z; 3 = x, y, z, 1.0f).
+//  4, 8, 9, 10, 11, 12, 14 (con escala): p = (1.0 - escala) * K y q = escala * K (K = 255, 255, 32767, 32767, 65535, 65535, 511; ambos redondeados a float al principio); cada componente
+//  c = p * A.c + q * B.c (productos float y suma float) y despues fistp. 4 D3DCOLOR: bytes {c(z), c(y), c(x), 255}. 8 UBYTE4N: {x, y, z, 255}. 9 SHORT2N: {x, y}. 10 SHORT4N: {x, y, z, 0x7FFF}.
+//  11 USHORT2N: {x, y}. 12 USHORT4N: {x, y, z, 0xFFFF}. 14 DEC3N: ((z & 0x3FF) << 20) | ((y & 0x3FF) << 10) | (x & 0x3FF).
+//  5 UBYTE4 {x, y, z, 1}, 6 SHORT2 {x, y}, 7 SHORT4 {x, y, z, 1}, 13 UDEC3: la mezcla v = (B - A) * escala + A sin escalar, fistp y empaquetado como 0x752AD0.
+RwUInt32 _rpD3D9VertexDeclarationInstV3dMorph(RwUInt32 type, RwUInt8* mem, const RwV3d* src1, const RwV3d* src2, RwReal scale, RwInt32 numVerts, RwUInt32 stride) {
+    const RwUInt32* const sizes = DeclSizeTable();
+    if (type > 14 || numVerts <= 0) {
+        return sizes[type];
+    }
+    const float* a = reinterpret_cast<const float*>(src1);
+    const float* b = reinterpret_cast<const float*>(src2);
+    RwUInt8* d = mem;
+    // Constantes de la mezcla ponderada (tipos 4, 8..12 y 14): p = (1 - escala) * K, q = escala * K.
+    float p = 0.0f;
+    float q = 0.0f;
+    {
+        float k = 0.0f;
+        switch (type) {
+        case 4:
+        case 8:
+            k = 255.0f;
+            break;
+        case 9:
+        case 10:
+            k = 32767.0f;
+            break;
+        case 11:
+        case 12:
+            k = 65535.0f;
+            break;
+        case 14:
+            k = 511.0f;
+            break;
+        default:
+            break;
+        }
+        if (k != 0.0f) {
+            const float oneMinus = 1.0f - scale;
+            p = oneMinus * k;
+            q = scale * k;
+        }
+    }
+    for (RwInt32 n = numVerts; n > 0; --n, a += 3, b += 3, d += stride) {
+        // v = (B - A) * escala + A, componente por componente (productos float).
+        auto mix = [&](int c) -> float {
+            const float diff = b[c] - a[c];
+            const float scaled = diff * scale;
+            return scaled + a[c];
+        };
+        // c = p * A + q * B.
+        auto weighted = [&](int c) -> float {
+            const float pa = p * a[c];
+            const float qb = q * b[c];
+            return pa + qb;
+        };
+        switch (type) {
+        case 0:
+            WeightStore32(d, std::bit_cast<RwUInt32>(mix(0)));
+            break;
+        case 1:
+            WeightStore32(d + 0, std::bit_cast<RwUInt32>(mix(0)));
+            WeightStore32(d + 4, std::bit_cast<RwUInt32>(mix(1)));
+            break;
+        case 2:
+            WeightStore32(d + 0, std::bit_cast<RwUInt32>(mix(0)));
+            WeightStore32(d + 4, std::bit_cast<RwUInt32>(mix(1)));
+            WeightStore32(d + 8, std::bit_cast<RwUInt32>(mix(2)));
+            break;
+        case 3:
+            WeightStore32(d + 0, std::bit_cast<RwUInt32>(mix(0)));
+            WeightStore32(d + 4, std::bit_cast<RwUInt32>(mix(1)));
+            WeightStore32(d + 12, 0x3F800000u);
+            WeightStore32(d + 8, std::bit_cast<RwUInt32>(mix(2)));
+            break;
+        case 4:
+            d[2] = static_cast<RwUInt8>(WeightFistp(weighted(0)));
+            d[1] = static_cast<RwUInt8>(WeightFistp(weighted(1)));
+            d[0] = static_cast<RwUInt8>(WeightFistp(weighted(2)));
+            d[3] = 0xFF;
+            break;
+        case 5:
+            d[0] = static_cast<RwUInt8>(WeightFistp(mix(0)));
+            d[1] = static_cast<RwUInt8>(WeightFistp(mix(1)));
+            d[3] = 1;
+            d[2] = static_cast<RwUInt8>(WeightFistp(mix(2)));
+            break;
+        case 6:
+            WeightStore16(d + 0, WeightFistp(mix(0)));
+            WeightStore16(d + 2, WeightFistp(mix(1)));
+            break;
+        case 7:
+            WeightStore16(d + 0, WeightFistp(mix(0)));
+            WeightStore16(d + 2, WeightFistp(mix(1)));
+            WeightStore16(d + 6, 1);
+            WeightStore16(d + 4, WeightFistp(mix(2)));
+            break;
+        case 8:
+            d[0] = static_cast<RwUInt8>(WeightFistp(weighted(0)));
+            d[1] = static_cast<RwUInt8>(WeightFistp(weighted(1)));
+            d[3] = 0xFF;
+            d[2] = static_cast<RwUInt8>(WeightFistp(weighted(2)));
+            break;
+        case 9:
+            WeightStore16(d + 0, WeightFistp(weighted(0)));
+            WeightStore16(d + 2, WeightFistp(weighted(1)));
+            break;
+        case 10:
+            WeightStore16(d + 0, WeightFistp(weighted(0)));
+            WeightStore16(d + 2, WeightFistp(weighted(1)));
+            WeightStore16(d + 6, 0x7FFF);
+            WeightStore16(d + 4, WeightFistp(weighted(2)));
+            break;
+        case 11:
+            WeightStore16(d + 0, WeightFistp(weighted(0)));
+            WeightStore16(d + 2, WeightFistp(weighted(1)));
+            break;
+        case 12:
+            WeightStore16(d + 0, WeightFistp(weighted(0)));
+            WeightStore16(d + 2, WeightFistp(weighted(1)));
+            WeightStore16(d + 6, 0xFFFF);
+            WeightStore16(d + 4, WeightFistp(weighted(2)));
+            break;
+        case 13: {
+            const RwUInt32 x = static_cast<RwUInt32>(WeightFistp(mix(0)));
+            const RwUInt32 y = static_cast<RwUInt32>(WeightFistp(mix(1)));
+            const RwUInt32 z = static_cast<RwUInt32>(WeightFistp(mix(2)));
+            WeightStore32(d, ((((z & 0x3FF) << 10) | (y & 0x3FF)) << 10) | (x & 0x3FF));
+            break;
+        }
+        case 14: {
+            const RwUInt32 x = static_cast<RwUInt32>(WeightFistp(weighted(0)));
+            const RwUInt32 y = static_cast<RwUInt32>(WeightFistp(weighted(1)));
+            const RwUInt32 z = static_cast<RwUInt32>(WeightFistp(weighted(2)));
+            WeightStore32(d, ((((z & 0x3FF) << 10) | (y & 0x3FF)) << 10) | (x & 0x3FF));
+            break;
+        }
+        }
+    }
+    return sizes[type];
+}
+
+// 0x7544E0 (lote R17A, sin validar; sustituye la envoltura; cdecl, 5 argumentos (tipo, destino, origen RwV2d, numero de vertices, paso), 1467 bytes): coordenadas de textura (u, v) al formato `type` (tabla 0x754A9C, tipos 0..14).
+// Devuelve 0x874EF8[type]; type > 14 o numVerts <= 0 no escriben. 0 FLOAT1: u.  1 FLOAT2: u, v (con paso 8 el EXE copia numVerts * 8 bytes de golpe).  2 FLOAT3: u, v, 0.  3 FLOAT4: u, v, 0, 1.0f.
+// 4 D3DCOLOR: bytes {0, fistp(v * 255), fistp(u * 255), 255}.  5 UBYTE4: {u, v, 0, 1} sin escalar.  6 SHORT2: {u, v}.  7 SHORT4: {u, v, 0, 1}.  8 UBYTE4N: {u * 255, v * 255, 0, 255}.
+// 9 SHORT2N: {u, v} * 32767.  10 SHORT4N: {u * 32767, v * 32767, 0, 0x7FFF}.  11 USHORT2N: * 65535.  12 USHORT4N: {.., .., 0, 0xFFFF}.  13 UDEC3: ((v & 0x3FF) << 10) | (u & 0x3FF) con fistp sin escalar.  14 DEC3N: igual con * 511.
+RwUInt32 _rpD3D9VertexDeclarationInstV2d(RwUInt32 type, RwUInt8* mem, const RwV2d* src, RwInt32 numVerts, RwUInt32 stride) {
+    const RwUInt32* const sizes = DeclSizeTable();
+    if (type > 14) {
+        return sizes[type];
+    }
+    if (type == 1 && stride == 8) {
+        if (numVerts > 0) {
+            std::memcpy(mem, src, static_cast<size_t>(numVerts) * 8u);
+        }
+        return sizes[type];
+    }
+    if (numVerts <= 0) {
+        return sizes[type];
+    }
+    const float* s = reinterpret_cast<const float*>(src);
+    RwUInt8* d = mem;
+    for (RwInt32 n = numVerts; n > 0; --n, s += 2, d += stride) {
+        switch (type) {
+        case 0:
+            std::memcpy(d, s, 4);
+            break;
+        case 1:
+            std::memcpy(d, s, 8);
+            break;
+        case 2:
+            std::memcpy(d, s, 8);
+            WeightStore32(d + 8, 0);
+            break;
+        case 3:
+            std::memcpy(d, s, 8);
+            WeightStore32(d + 8, 0);
+            WeightStore32(d + 12, 0x3F800000u);
+            break;
+        case 4:
+            d[2] = static_cast<RwUInt8>(WeightFistp(s[0] * 255.0f));
+            d[0] = 0;
+            d[1] = static_cast<RwUInt8>(WeightFistp(s[1] * 255.0f));
+            d[3] = 0xFF;
+            break;
+        case 5:
+            d[0] = static_cast<RwUInt8>(WeightFistp(s[0]));
+            d[2] = 0;
+            d[1] = static_cast<RwUInt8>(WeightFistp(s[1]));
+            d[3] = 1;
+            break;
+        case 6:
+            WeightStore16(d + 0, WeightFistp(s[0]));
+            WeightStore16(d + 2, WeightFistp(s[1]));
+            break;
+        case 7:
+            WeightStore16(d + 0, WeightFistp(s[0]));
+            WeightStore16(d + 4, 0);
+            WeightStore16(d + 2, WeightFistp(s[1]));
+            WeightStore16(d + 6, 1);
+            break;
+        case 8:
+            d[0] = static_cast<RwUInt8>(WeightFistp(s[0] * 255.0f));
+            d[2] = 0;
+            d[1] = static_cast<RwUInt8>(WeightFistp(s[1] * 255.0f));
+            d[3] = 0xFF;
+            break;
+        case 9:
+            WeightStore16(d + 0, WeightFistp(s[0] * 32767.0f));
+            WeightStore16(d + 2, WeightFistp(s[1] * 32767.0f));
+            break;
+        case 10:
+            WeightStore16(d + 0, WeightFistp(s[0] * 32767.0f));
+            WeightStore16(d + 4, 0);
+            WeightStore16(d + 2, WeightFistp(s[1] * 32767.0f));
+            WeightStore16(d + 6, 0x7FFF);
+            break;
+        case 11:
+            WeightStore16(d + 0, WeightFistp(s[0] * 65535.0f));
+            WeightStore16(d + 2, WeightFistp(s[1] * 65535.0f));
+            break;
+        case 12:
+            WeightStore16(d + 0, WeightFistp(s[0] * 65535.0f));
+            WeightStore16(d + 4, 0);
+            WeightStore16(d + 2, WeightFistp(s[1] * 65535.0f));
+            WeightStore16(d + 6, 0xFFFF);
+            break;
+        case 13: {
+            const RwUInt32 u = static_cast<RwUInt32>(WeightFistp(s[0]));
+            const RwUInt32 v = static_cast<RwUInt32>(WeightFistp(s[1]));
+            WeightStore32(d, ((v & 0x3FF) << 10) | (u & 0x3FF));
+            break;
+        }
+        case 14: {
+            const RwUInt32 u = static_cast<RwUInt32>(WeightFistp(s[0] * 511.0f));
+            const RwUInt32 v = static_cast<RwUInt32>(WeightFistp(s[1] * 511.0f));
+            WeightStore32(d, ((v & 0x3FF) << 10) | (u & 0x3FF));
+            break;
+        }
+        }
+    }
+    return sizes[type];
+}
+
+// 0x754AE0 (lote R17A, sin validar; sustituye la envoltura; cdecl, 4 argumentos (destino, colores RwRGBA, numero de vertices, paso), `ret`, 85 bytes): convierte RwRGBA (r, g, b, a) a D3DCOLOR (a << 24 | r << 16 | g << 8 | b) por vertice
+// (origen += 4, destino += paso). Devuelve TRUE si algun alfa es distinto de 255 (el AND de todos los alfas con 0xFF inicial no es 0xFF); con numVerts <= 0 devuelve FALSE y no escribe.
+RwBool _rpD3D9VertexDeclarationInstColor(RwUInt8* mem, const RwRGBA* color, RwInt32 numVerts, RwUInt32 stride) {
+    RwUInt8 alphaAnd = 0xFF;
+    const RwUInt8* c = reinterpret_cast<const RwUInt8*>(color);
+    RwUInt8* d = mem;
+    for (RwInt32 n = numVerts; n > 0; --n, c += 4, d += stride) {
+        const RwUInt32 value = (static_cast<RwUInt32>(c[3]) << 24) | (static_cast<RwUInt32>(c[0]) << 16) | (static_cast<RwUInt32>(c[1]) << 8) | static_cast<RwUInt32>(c[2]);
+        WeightStore32(d, value);
+        alphaAnd &= c[3];
+    }
+    return alphaAnd != 0xFF ? TRUE : FALSE;
+}
+
+// 0x754C80 (lote R17A, sin validar; sustituye la envoltura; cdecl, 6 argumentos (tipo, destino, indices de 32 bits, tabla de remapeo de bytes, numero de vertices, paso), `ret`, 386 bytes): escribe por vertice los cuatro bytes del
+// indice i (little endian b0..b3) pasados por remap[]. Solo tipos 4..7 (tabla 0x754E04); cualquier otro (o numVerts <= 0, con signo) no escribe. Devuelve 0x874EF8[type] siempre.
+// 4 D3DCOLOR: bytes {r[b2], r[b1], r[b0], r[b3]}.  5 UBYTE4: {r[b0], r[b1], r[b2], r[b3]}.  6 SHORT2: palabras {r[b0], r[b1]} (extendidas con ceros).  7 SHORT4: palabras {r[b0], r[b1], r[b2], r[b3]}.
+RwUInt32 _rpD3D9VertexDeclarationInstIndicesRemap(RwUInt32 type, RwUInt8* mem, const RwUInt32* indices, const RwUInt8* remap, RwInt32 numVerts, RwUInt32 stride) {
+    const RwUInt32* const sizes = DeclSizeTable();
+    if (type - 4u > 3u || numVerts <= 0) {
+        return sizes[type];
+    }
+    const RwUInt8* ib = reinterpret_cast<const RwUInt8*>(indices);
+    RwUInt8* d = mem;
+    for (RwInt32 n = numVerts; n > 0; --n, ib += 4, d += stride) {
+        switch (type) {
+        case 4:
+            d[0] = remap[ib[2]];
+            d[1] = remap[ib[1]];
+            d[2] = remap[ib[0]];
+            d[3] = remap[ib[3]];
+            break;
+        case 5:
+            d[0] = remap[ib[0]];
+            d[1] = remap[ib[1]];
+            d[2] = remap[ib[2]];
+            d[3] = remap[ib[3]];
+            break;
+        case 6:
+            WeightStore16(d + 0, remap[ib[0]]);
+            WeightStore16(d + 2, remap[ib[1]]);
+            break;
+        case 7:
+            WeightStore16(d + 0, remap[ib[0]]);
+            WeightStore16(d + 2, remap[ib[1]]);
+            WeightStore16(d + 4, remap[ib[2]]);
+            WeightStore16(d + 6, remap[ib[3]]);
+            break;
+        }
+    }
+    return sizes[type];
+}
+
+// 0x754E20 (lote R17A, sin validar; sustituye la envoltura; cdecl, 6 argumentos (tipo, destino, posiciones RwV3d, texcoords, cabecera de recursos D3D9, paso), `ret`, 973 bytes): calcula tangentes por vertice y las instancia con _rpD3D9VertexDeclarationInstV3d.
+// 1) numVerts = cabecera->totalNumVertex (+0x3C); bufer de numVerts * 12 bytes con RwMalloc (pista 0x1050D, el EXE llama a [RwEngineInstance + 0x134]) puesto a cero. 2) Bloquea el bufer de indices (IDirect3DIndexBuffer9::Lock(0,
+// totalNumIndex * 2, &ptr, 0)). 3) Por cada malla (numMeshes, instancias de 0x24 bytes desde cabecera + 0x40): indices = ptr + startIndex (palabras de 16 bits); cuenta = numIndex (primType 5 = tira: numIndex - 2); minVert se suma a cada indice.
+// Lista de triangulos (primType 4): k += 3, (a, b, c) = (i[k], i[k+1], i[k+2]) y NO se descartan degenerados. Tira: k += 1, k par (a, b, c) = (i[k], i[k+1], i[k+2]), k impar (a, b, c) = (i[k+2], i[k+1], i[k]); se descarta el triangulo si a == b, a == c o b == c.
+// 4) Por triangulo: e1 = P[b] - P[a], e2 = P[c] - P[a]; du1 = uv[b].u - uv[a].u, dv1, du2 = uv[c].u - uv[a].u, dv2; det = du1 * dv2 - du2 * dv1; si |det| > 9.99999996e-13 (0x874F44; comparacion ordenada, con NaN no entra): r = (1.0 / det) * (e2.c * dv1 - dv2 * e1.c)
+// para cada componente c = x, y, z (cada operacion float; 1.0 / det redondeado a float) y tan[a].c -= r, tan[b].c -= r, tan[c].c -= r (en ese orden). 5) Desbloquea los indices. 6) Si numVerts > 0, normaliza cada tangente: s = (y * y + x * x) + z * z,
+// i = _rwInvSqrt(s) (0x7EDB90), componentes *= i. 7) r = _rpD3D9VertexDeclarationInstV3d(tipo, destino, tangentes, numVerts, paso), RwFree(tangentes) (hueco +0x138) y devuelve r.
 RwUInt32 _rpD3D9VertexDeclarationInstTangent(RwUInt32 type, RwUInt8* mem, const RwV3d* pos, const RwTexCoords* texCoord, RxD3D9ResEntryHeader* meshHeader, RwUInt32 stride) {
-    return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RwV3d*, const RwTexCoords*, RxD3D9ResEntryHeader*, RwUInt32))0x754E20)(type, mem, pos, texCoord, meshHeader, stride);
+    static_assert(sizeof(RxD3D9InstanceData) == 0x24, "instancia D3D9");
+    const RwInt32 numVerts = static_cast<RwInt32>(meshHeader->totalNumVertex);
+    const RwUInt32 tanBytes = static_cast<RwUInt32>(numVerts) * 12u;
+    float* const tangents = static_cast<float*>(RwMalloc(tanBytes, 0x1050D));
+    std::memset(tangents, 0, tanBytes);
+
+    RwUInt16* lockedIndices = nullptr;
+    meshHeader->indexBuffer->Lock(0, meshHeader->totalNumIndex * 2, reinterpret_cast<void**>(&lockedIndices), 0);
+
+    const float* const P = reinterpret_cast<const float*>(pos);
+    const float* const UV = reinterpret_cast<const float*>(texCoord);
+    const RxD3D9InstanceData* inst = reinterpret_cast<const RxD3D9InstanceData*>(reinterpret_cast<const RwUInt8*>(meshHeader) + 0x40);
+    const bool isList = (static_cast<RwUInt32>(meshHeader->primType) == 4);
+    const bool isStrip = (static_cast<RwUInt32>(meshHeader->primType) == 5);
+
+    for (RwUInt32 mesh = meshHeader->numMeshes; mesh != 0; --mesh, ++inst) {
+        const RwUInt16* const idx = lockedIndices + inst->startIndex;
+        RwInt32 count = static_cast<RwInt32>(inst->numIndex);
+        if (isStrip) {
+            count -= 2;
+        }
+        const RwUInt32 minVert = inst->minVert;
+        if (count <= 0) {
+            continue;
+        }
+        RwInt32 k = 0;
+        do {
+            RwUInt32 a, b, c;
+            if (isList) {
+                a = static_cast<RwUInt32>(idx[k]) + minVert;
+                b = static_cast<RwUInt32>(idx[k + 1]) + minVert;
+                c = static_cast<RwUInt32>(idx[k + 2]) + minVert;
+                k += 3;
+            } else {
+                if (k & 1) {
+                    b = static_cast<RwUInt32>(idx[k + 1]) + minVert;
+                    a = static_cast<RwUInt32>(idx[k + 2]) + minVert;
+                    c = static_cast<RwUInt32>(idx[k]) + minVert;
+                } else {
+                    a = static_cast<RwUInt32>(idx[k]) + minVert;
+                    b = static_cast<RwUInt32>(idx[k + 1]) + minVert;
+                    c = static_cast<RwUInt32>(idx[k + 2]) + minVert;
+                }
+                k += 1;
+                if (a == b || a == c || b == c) {
+                    continue;
+                }
+            }
+            const float* const pa = P + a * 3;
+            const float* const pb = P + b * 3;
+            const float* const pc = P + c * 3;
+            const float* const ta = UV + a * 2;
+            const float* const tb = UV + b * 2;
+            const float* const tc = UV + c * 2;
+            float* const na = tangents + a * 3;
+            float* const nb = tangents + b * 3;
+            float* const nc = tangents + c * 3;
+
+            const float e1x = pb[0] - pa[0];
+            const float du1 = tb[0] - ta[0];
+            const float dv1 = tb[1] - ta[1];
+            const float e2x = pc[0] - pa[0];
+            const float du2 = tc[0] - ta[0];
+            const float dv2 = tc[1] - ta[1];
+            const float d1 = du1 * dv2;
+            const float d2 = du2 * dv1;
+            const float det = d1 - d2;
+            const float absDet = std::fabs(det);
+            constexpr float kEpsilon = std::bit_cast<float>(0x2B8CBCCCu);
+            // x
+            {
+                const float t1 = e2x * dv1;
+                const float t2 = dv2 * e1x;
+                const float num = t1 - t2;
+                if (absDet > kEpsilon) {
+                    const float inv = 1.0f / det;
+                    const float r = inv * num;
+                    na[0] = na[0] - r;
+                    nb[0] = nb[0] - r;
+                    nc[0] = nc[0] - r;
+                }
+            }
+            // y
+            {
+                const float e1y = pb[1] - pa[1];
+                const float e2y = pc[1] - pa[1];
+                const float t1 = e2y * dv1;
+                const float t2 = dv2 * e1y;
+                const float num = t1 - t2;
+                if (absDet > kEpsilon) {
+                    const float inv = 1.0f / det;
+                    const float r = num * inv;
+                    na[1] = na[1] - r;
+                    nb[1] = nb[1] - r;
+                    nc[1] = nc[1] - r;
+                }
+            }
+            // z
+            {
+                const float e1z = pb[2] - pa[2];
+                const float e2z = pc[2] - pa[2];
+                const float t1 = e2z * dv1;
+                const float t2 = dv2 * e1z;
+                const float num = t1 - t2;
+                if (absDet > kEpsilon) {
+                    const float inv = 1.0f / det;
+                    const float r = num * inv;
+                    na[2] = na[2] - r;
+                    nb[2] = nb[2] - r;
+                    nc[2] = nc[2] - r;
+                }
+            }
+        } while (k < count);
+    }
+
+    meshHeader->indexBuffer->Unlock();
+
+    if (numVerts > 0) {
+        float* t = tangents;
+        for (RwInt32 n = numVerts; n > 0; --n, t += 3) {
+            const float x = t[0];
+            const float y = t[1];
+            const float z = t[2];
+            const float yy = y * y;
+            const float xx = x * x;
+            const float sum1 = yy + xx;
+            const float zz = z * z;
+            const float sum = sum1 + zz;
+            const RwReal inv = _rwInvSqrt(sum);
+            t[0] = inv * x;
+            t[1] = inv * y;
+            t[2] = inv * z;
+        }
+    }
+
+    const RwUInt32 result = _rpD3D9VertexDeclarationInstV3d(type, mem, reinterpret_cast<const RwV3d*>(tangents), numVerts, stride);
+    RwFree(tangents);
+    return result;
+}
+
+// 0x7555E0 (lote R17A, sin validar; sustituye la envoltura; cdecl, 3 argumentos (tipo de elemento, destino RwV2d, origen), `ret`, 531 bytes; la usa _rpMatFXD3D9BumpMapInstance): lee un elemento de un vertice D3D9 como RwV2d (u, v).
+// Tabla de saltos 0x7557F4 (tipos 0..14; mayor -> (0, 0)). 0 FLOAT1: (dword, 0).  1, 2 y 3: dos dwords tal cual.  4 D3DCOLOR: (byte2, byte1) * (1/255) [0x859A3C = 0x3B808081].  5 UBYTE4: (byte0, byte1) sin escala.
+// 6 y 7 (SHORT2/SHORT4): (short0, short1) con signo, sin escala.  8 UBYTE4N: (byte0, byte1) * (1/255).  9 y 10 (SHORT2N/SHORT4N): (short0, short1) con signo * (1/32767) [0x858C7C = 0x38000100].
+// 11 y 12 (USHORT2N/USHORT4N): igual con signo (movsx, tambien para los "sin signo") * (1/65535) [0x874F48 = 0x37800080].  13 UDEC3: (v & 0x3FF, (v >> 10) & 0x3FF) sin escala (fild de 64 bits).
+// 14 DEC3N: campos de 10 bits con signo (bit 0x200 extiende el signo con 0xFFFFFC00) * (1/511) [0x874F40 = 0x3B004020]. Cada producto es fild + fmul + fstp (un redondeo a float).
+void _rpD3D9VertexDeclarationUnInstV2d(RwUInt32 type, RwV2d* dst, const RwUInt8* src) {
+    constexpr float k255   = std::bit_cast<float>(0x3B808081u);
+    constexpr float k32767 = std::bit_cast<float>(0x38000100u);
+    constexpr float k65535 = std::bit_cast<float>(0x37800080u);
+    constexpr float k511   = std::bit_cast<float>(0x3B004020u);
+    auto readS16 = [&](int off) -> RwInt32 {
+        RwInt16 v;
+        std::memcpy(&v, src + off, sizeof(v));
+        return static_cast<RwInt32>(v);
+    };
+    switch (type) {
+    case 0: {
+        RwUInt32 v;
+        std::memcpy(&v, src, 4);
+        std::memcpy(&dst->x, &v, 4);
+        dst->y = 0.0f;
+        return;
+    }
+    case 1:
+    case 2:
+    case 3: {
+        RwUInt32 v0, v1;
+        std::memcpy(&v0, src, 4);
+        std::memcpy(&v1, src + 4, 4);
+        std::memcpy(&dst->x, &v0, 4);
+        std::memcpy(&dst->y, &v1, 4);
+        return;
+    }
+    case 4:
+        dst->x = static_cast<float>(static_cast<RwInt32>(src[2])) * k255;
+        dst->y = static_cast<float>(static_cast<RwInt32>(src[1])) * k255;
+        return;
+    case 5:
+        dst->x = static_cast<float>(static_cast<RwInt32>(src[0]));
+        dst->y = static_cast<float>(static_cast<RwInt32>(src[1]));
+        return;
+    case 6:
+    case 7:
+        dst->x = static_cast<float>(readS16(0));
+        dst->y = static_cast<float>(readS16(2));
+        return;
+    case 8:
+        dst->x = static_cast<float>(static_cast<RwInt32>(src[0])) * k255;
+        dst->y = static_cast<float>(static_cast<RwInt32>(src[1])) * k255;
+        return;
+    case 9:
+    case 10:
+        dst->x = static_cast<float>(readS16(0)) * k32767;
+        dst->y = static_cast<float>(readS16(2)) * k32767;
+        return;
+    case 11:
+    case 12:
+        dst->x = static_cast<float>(readS16(0)) * k65535;
+        dst->y = static_cast<float>(readS16(2)) * k65535;
+        return;
+    case 13: {
+        RwUInt32 v;
+        std::memcpy(&v, src, 4);
+        dst->x = static_cast<float>(static_cast<long long>(v & 0x3FFu));
+        dst->y = static_cast<float>(static_cast<long long>((v >> 10) & 0x3FFu));
+        return;
+    }
+    case 14: {
+        RwInt32 v;
+        std::memcpy(&v, src, 4);
+        RwInt32 lo = v & 0x3FF;
+        if (lo & 0x200) {
+            lo |= static_cast<RwInt32>(0xFFFFFC00u);
+        }
+        RwInt32 hi = (v >> 10) & 0x3FF;
+        if (hi & 0x200) {
+            hi |= static_cast<RwInt32>(0xFFFFFC00u);
+        }
+        dst->x = static_cast<float>(lo) * k511;
+        dst->y = static_cast<float>(hi) * k511;
+        return;
+    }
+    default:
+        dst->x = 0.0f;
+        dst->y = 0.0f;
+        return;
+    }
+}
+
+// 0x7558F0 (lote R17A, sin validar; sustituye la envoltura; cdecl, 4 argumentos (origen RwV2d, numero de elementos, minimo, maximo), `ret`, 131 bytes): min = max = src[0]; si numElements > 1 recorre numElements - 1 elementos EMPEZANDO por src[0] (el
+// puntero avanza al final de cada vuelta, asi que el ultimo elemento nunca se examina: es el comportamiento del EXE). Por componente: si src < min (ordenado) min = src; si no, si src > max (ordenado, fcomp + test ah,5) max = src. Con NaN no cambia nada.
+void _rpD3D9GetMinMaxValuesV2d(const RwV2d* src, RwInt32 numElements, RwV2d* min, RwV2d* max) {
+    min->x = src->x;
+    min->y = src->y;
+    max->x = src->x;
+    max->y = src->y;
+    if (numElements > 1) {
+        const RwV2d* p = src;
+        for (RwInt32 n = numElements - 1; n != 0; --n, ++p) {
+            if (min->x > p->x) {      // min.x > p.x ordenado (con NaN el EXE salta a la rama del maximo; ahi tampoco cambia nada)
+                min->x = p->x;
+            } else if (max->x < p->x) {
+                max->x = p->x;
+            }
+            if (min->y > p->y) {
+                min->y = p->y;
+            } else if (max->y < p->y) {
+                max->y = p->y;
+            }
+        }
+    }
+}
+
+// 0x755AA0 (lote R17A, sin validar; sustituye la envoltura; cdecl, 2 argumentos (origen RwV2d, numero de elementos), `ret`, 227 bytes): elige el formato D3DDECLTYPE de las coordenadas de textura. Calcula minimo y maximo con 0x7558F0 y mira las capacidades
+// del dispositivo (DWORD en 0xC9BFEC = D3DCAPS9::DeclTypes: 0x4 SHORT2N, 0x10 USHORT2N, 0x80 DEC3N). Si max.x <= 1.0 y max.y <= 1.0 (ordenado; si no, FLOAT2 = 1): con min.x >= 0 y min.y >= 0 -> USHORT2N (11) si el bit 0x10, si no DEC3N (14) si el bit 0x80,
+// si no D3DCOLOR (4). Si algun min < 0 (o NaN): si min.x < -1 o min.y < -1 (o NaN) -> 1; si no SHORT2N (9) con el bit 0x4, si no DEC3N (14) con el bit 0x80, si no 1.
+RwUInt32 _rpD3D9FindFormatV2d(const RwV2d* src, RwInt32 numElements) {
+    RwV2d mn;
+    RwV2d mx;
+    _rpD3D9GetMinMaxValuesV2d(src, numElements, &mn, &mx);
+    if (!(mx.x <= 1.0f)) {
+        return 1;
+    }
+    if (!(mx.y <= 1.0f)) {
+        return 1;
+    }
+    const RwUInt32 declTypes = *reinterpret_cast<const volatile RwUInt32*>(0xC9BFEC);
+    if (mn.x >= 0.0f && mn.y >= 0.0f) {
+        if (declTypes & 0x10) {
+            return 11;
+        }
+        return (declTypes & 0x80) ? 14 : 4;
+    }
+    if (!(mn.x >= -1.0f) || !(mn.y >= -1.0f)) {
+        return 1;
+    }
+    if (declTypes & 0x4) {
+        return 9;
+    }
+    return (declTypes & 0x80) ? 14 : 1;
+}
+#pragma float_control(pop)
+
+namespace {
+// Estado global de las luces de D3D9 (direcciones fijas del EXE; los nombres son inferidos).
+// Tres arreglos asignados con RwMalloc (0xC926C4, 0xC926C8, 0xC926D4) con sus contadores/estado (0xC926B8/BC/C0, 0xC926CC/D0, 0xC926D8/DC).
+static auto& s_lightsArrayA  = StaticRef<void*>(0xC926C4);
+static auto& s_lightsArrayB  = StaticRef<void*>(0xC926C8);
+static auto& s_lightsArrayC  = StaticRef<void*>(0xC926D4);
+static auto& s_lightsStateB8 = StaticRef<RwUInt32>(0xC926B8);
+static auto& s_lightsStateBC = StaticRef<RwUInt32>(0xC926BC);
+static auto& s_lightsStateC0 = StaticRef<RwUInt32>(0xC926C0);
+static auto& s_lightsStateCC = StaticRef<RwUInt32>(0xC926CC);
+static auto& s_lightsStateD0 = StaticRef<RwUInt32>(0xC926D0);
+static auto& s_lightsStateD8 = StaticRef<RwUInt32>(0xC926D8);
+static auto& s_lightsStateDC = StaticRef<RwUInt32>(0xC926DC);
+static auto& s_lightsMaxActive = StaticRef<RwUInt32>(0xC926B4);  // D3DCAPS9::MaxActiveLights, o 0xFFFFFFFF si es 0
+static auto& s_d3d9LightPluginOffset = StaticRef<RwInt32>(0xC926B0); // desplazamiento del plugin 0x505 de RpLight
+
+// Parte comun de _rwD3D9LightsOpen y _rwD3D9LightsClose: libera los tres arreglos (RwFree, hueco +0x138 de RwEngineInstance) y pone a cero sus contadores, en el orden del EXE.
+inline void D3D9LightsFreeArrays() {
+    if (s_lightsArrayA != nullptr) {
+        RwFree(s_lightsArrayA);
+        s_lightsArrayA = nullptr;
+    }
+    void* const b = s_lightsArrayB;
+    s_lightsStateB8 = 0;
+    s_lightsStateBC = 0;
+    s_lightsStateC0 = 0;
+    if (b != nullptr) {
+        RwFree(b);
+        s_lightsArrayB = nullptr;
+    }
+    void* const c = s_lightsArrayC;
+    s_lightsStateCC = 0;
+    s_lightsStateD0 = 0;
+    if (c != nullptr) {
+        RwFree(c);
+        s_lightsArrayC = nullptr;
+    }
+    s_lightsStateD8 = 0;
+    s_lightsStateDC = 0;
+}
+
+inline void StoreWord(uintptr_t address, RwUInt32 value) {
+    *reinterpret_cast<RwUInt32*>(address) = value;
+}
+
+// 0x755B90 (lote R17A, sin validar; nombre inferido; cdecl sin argumentos, `ret`, 45 bytes; la llama _rpD3D9PluginAttach en 0x74EA41): registra el plugin 0x505 de RpLight (tamano 0x10, constructor 0x755BC0, destructor 0x755BF0, copia 0x755CE0,
+// que se llaman por direccion fija) con RpLightRegisterPlugin (0x751D60); guarda el desplazamiento resultante en 0xC926B0 y devuelve TRUE si no es negativo.
+RwBool D3D9LightPluginAttach() {
+    const RwInt32 offset = RpLightRegisterPlugin(0x10, 0x505,
+                                                 reinterpret_cast<RwPluginObjectConstructor>(0x755BC0),
+                                                 reinterpret_cast<RwPluginObjectDestructor>(0x755BF0),
+                                                 reinterpret_cast<RwPluginObjectCopy>(0x755CE0));
+    s_d3d9LightPluginOffset = offset;
+    return offset >= 0 ? TRUE : FALSE;
+}
+
+// Rango de los indices (no se reconstruye con nombre del SDK; nombre inferido). 0x756710 (lote R17A, sin validar; cdecl, 4 argumentos (indices de 16 bits, cantidad, salida del numero de vertices, salida del primer vertice), `ret`, 85 bytes; llamador 0x7C8E9A):
+// min = menor indice y max = mayor indice (comparacion sin signo; min empieza en 0xFFFFFFFF, max en 0; con empate se actualiza igual); *numVertices = max - min + 1 y *minVert = min. Con cantidad 0 deja los dos en 0.
+void _rpD3D9FindMinVertAndNumVertices(const RwUInt16* indices, RwUInt32 numIndices, RwUInt32* numVertices, RwUInt32* minVert) {
+    if (numIndices == 0) {
+        *numVertices = 0;
+        *minVert = 0;
+        return;
+    }
+    RwUInt32 mn = 0xFFFFFFFFu;
+    RwUInt32 mx = 0;
+    for (RwUInt32 n = numIndices; n != 0; --n, ++indices) {
+        const RwUInt32 value = *indices;
+        if (!(mn < value)) {
+            mn = value;
+        }
+        if (!(mx > value)) {
+            mx = value;
+        }
+    }
+    *numVertices = mx - mn + 1;
+    *minVert = mn;
+}
+
+// 0x756770 (lote R17A, sin validar; nombre inferido; cdecl, 2 argumentos (indices de 16 bits, cantidad de indices), 33 bytes; llamador 0x7C8F78): ordena los triangulos (3 indices de 16 bits, 6 bytes) con qsort del EXE (0x8247E0; no es estable,
+// por eso se llama al del EXE) y el comparador 0x7567A0 (por direccion fija): qsort(indices, cantidad / 3, 6, 0x7567A0). La division entre 3 es la del EXE (multiplicar por 0xAAAAAAAB y desplazar 33 bits = division entera sin signo).
+void _rpD3D9SortTriangles(RwUInt16* indices, RwUInt32 numIndices) {
+    using CompareFn = int(__cdecl*)(const void*, const void*);
+    using QsortFn = void(__cdecl*)(void*, size_t, size_t, CompareFn);
+    const RwUInt32 numTriangles = static_cast<RwUInt32>((static_cast<unsigned long long>(numIndices) * 0xAAAAAAABull) >> 33);
+    reinterpret_cast<QsortFn>(0x8247E0)(indices, numTriangles, 6, reinterpret_cast<CompareFn>(0x7567A0));
+}
+
+// 0x756830 (lote R17A, sin validar; nombre inferido; cdecl, 4 argumentos (destino, tira de indices de 16 bits, cantidad de indices, desplazamiento), `ret`, 296 bytes reales (el listado daba 159; termina en 0x756957); llamador 0x756BF0): convierte una tira
+// de triangulos en una lista descartando los degenerados. Para i = 0 .. cantidad - 3 (contador SIN signo: cantidad < 3 daria una vuelta gigante, igual que el EXE): (s0, s1, s2) = tira[i..i+2]; si s0 == s1, s0 == s2 o s1 == s2 se salta (comparacion de 16 bits);
+// si no escribe tres indices al destino (+3 en el contador de salida): i par (s0 - d, s1 - d, s2 - d), i impar (s2 - d, s1 - d, s0 - d) con d = desplazamiento (resta de 16 bits; con desplazamiento 0 no se resta pero el resultado es el mismo). Devuelve el numero de indices escritos.
+RwUInt32 _rpD3D9TriStripToTriList(RwUInt16* dst, const RwUInt16* src, RwUInt32 numIndices, RwUInt32 offset) {
+    const RwUInt32 numTris = numIndices - 2;
+    RwUInt32 written = 0;
+    if (numTris == 0) {
+        return 0;
+    }
+    for (RwUInt32 i = 0; i < numTris; ++i, ++src) {
+        const RwUInt16 s0 = src[0];
+        const RwUInt16 s1 = src[1];
+        const RwUInt16 s2 = src[2];
+        if (s0 == s1 || s0 == s2 || s1 == s2) {
+            continue;
+        }
+        const RwUInt16 o = static_cast<RwUInt16>(offset);
+        if (i & 1) {
+            dst[2] = static_cast<RwUInt16>(s0 - o);
+            dst[1] = static_cast<RwUInt16>(s1 - o);
+            dst[0] = static_cast<RwUInt16>(s2 - o);
+        } else {
+            dst[0] = static_cast<RwUInt16>(s0 - o);
+            dst[1] = static_cast<RwUInt16>(s1 - o);
+            dst[2] = static_cast<RwUInt16>(s2 - o);
+        }
+        dst += 3;
+        written += 3;
+    }
+    return written;
+}
+
+// 0x756D90 (lote R17A, sin validar; nombre inferido; cdecl, 2 argumentos (objeto, tipo), 81 bytes; llamadores 0x5D6495, 0x5D77E5, 0x5D993F, 0x815C32): activa o desactiva el recorte de D3D9 (estado 0x88 = D3DRS_CLIPPING) segun si el objeto cae por completo
+// dentro de la piramide de la camara actual (primer dword de RwEngineInstance). Con tipo 1 el objeto es un atomo: RwD3D9CameraIsSphereFullyInsideFrustum (0x7FAD30) con su esfera de mundo (RpAtomicGetWorldBoundingSphere 0x749330); con cualquier otro tipo es un sector
+// y se usa la caja +0x60 con RwD3D9CameraIsBBoxFullyInsideFrustum (0x7FAD90). Despues RwD3D9SetRenderState(0x88, resultado == 0) como salto final (cola); no devuelve nada util.
+void _rwD3D9SetClippingForObject(void* object, RwInt32 type) {
+    const void* const camera = RwEngineInstance->curCamera;
+    RwBool fullyInside;
+    if (type == 1) {
+        fullyInside = RwD3D9CameraIsSphereFullyInsideFrustum(camera, RpAtomicGetWorldBoundingSphere(static_cast<RpAtomic*>(object)));
+    } else {
+        fullyInside = RwD3D9CameraIsBBoxFullyInsideFrustum(camera, static_cast<const RwUInt8*>(object) + 0x60);
+    }
+    RwD3D9SetRenderState(0x88, fullyInside == 0 ? 1 : 0);
+}
+
+// Datos privados del nodo AllInOne de D3D9 (apuntados por RxPipelineNode::privateData, +0x14): callbacks de instanciacion y de reinstanciacion (0x757380..0x7573B0).
+struct D3D9AllInOnePrivateCallbacks {
+    RxD3D9AllInOneInstanceCallBack   instance;
+    RxD3D9AllInOneReinstanceCallBack reinstance;
+};
+inline D3D9AllInOnePrivateCallbacks* AllInOneCallbacks(RxPipelineNode* node) {
+    return static_cast<D3D9AllInOnePrivateCallbacks*>(node->privateData);
+}
+} // namespace
+
+// 0x755D80 (lote R17A, sin validar; sustituye la envoltura; cdecl sin argumentos, 604 bytes): abre el estado de luces de D3D9. Libera los tres arreglos (como _rwD3D9LightsClose), guarda en 0xC926B4 D3DCAPS9::MaxActiveLights (+0xA0 de RwD3D9GetCaps
+// 0x7FAD20; 0xFFFFFFFF si es 0) e inicializa las variables fijas: ambiente saturado 0x8E2418 = (0, 0, 0, 1.0f), 0xC92648 = 3, y los vectores/colores globales de 0xC925E4..0xC926AC a (0, 0, 0, 1.0f) o ceros segun el EXE (ver las escrituras en orden). Devuelve TRUE.
+RwBool _rwD3D9LightsOpen(void) {
+    D3D9LightsFreeArrays();
+    const RwUInt32 maxActive = *reinterpret_cast<const RwUInt32*>(reinterpret_cast<const RwUInt8*>(RwD3D9GetCaps()) + 0xA0);
+    s_lightsMaxActive = maxActive;
+    if (maxActive == 0) {
+        s_lightsMaxActive = 0xFFFFFFFFu;
+    }
+    constexpr RwUInt32 kOne = 0x3F800000u;
+    StoreWord(0x8E2418, 0);
+    StoreWord(0x8E241C, 0);
+    StoreWord(0x8E2420, 0);
+    StoreWord(0x8E2424, kOne);
+    StoreWord(0xC92648, 3);
+    StoreWord(0xC9264C, 0);
+    StoreWord(0xC92650, 0);
+    StoreWord(0xC92654, 0);
+    StoreWord(0xC92658, kOne);
+    StoreWord(0xC92688, 0);
+    StoreWord(0xC9268C, 0);
+    StoreWord(0xC92690, 0);
+    StoreWord(0xC9265C, 0);
+    StoreWord(0xC92660, 0);
+    StoreWord(0xC92664, 0);
+    StoreWord(0xC92668, kOne);
+    StoreWord(0xC9266C, 0);
+    StoreWord(0xC92670, 0);
+    StoreWord(0xC92674, 0);
+    StoreWord(0xC92678, kOne);
+    StoreWord(0xC9267C, 0);
+    StoreWord(0xC92680, 0);
+    StoreWord(0xC92684, 0);
+    StoreWord(0xC92694, 0);
+    StoreWord(0xC92698, 0);
+    StoreWord(0xC9269C, 0);
+    StoreWord(0xC926A0, 0);
+    StoreWord(0xC926A4, 0);
+    StoreWord(0xC926A8, 0);
+    StoreWord(0xC926AC, 0);
+    StoreWord(0xC925E4, 0);
+    StoreWord(0xC925E8, 0);
+    StoreWord(0xC925EC, 0);
+    StoreWord(0xC925F0, kOne);
+    StoreWord(0xC925F4, 0);
+    StoreWord(0xC925F8, 0);
+    StoreWord(0xC925FC, 0);
+    StoreWord(0xC92600, kOne);
+    StoreWord(0xC92604, 0);
+    StoreWord(0xC92608, 0);
+    StoreWord(0xC9260C, 0);
+    StoreWord(0xC92610, kOne);
+    StoreWord(0xC92630, kOne);
+    return TRUE;
+}
+
+// 0x755FE0 (lote R17A, sin validar; sustituye la envoltura; cdecl sin argumentos, 139 bytes): libera los tres arreglos de luces de D3D9 con RwFree y pone a cero sus punteros y contadores (0xC926C4, 0xC926C8 + 0xC926B8/BC/C0, 0xC926D4 + 0xC926CC/D0, 0xC926D8, 0xC926DC).
+void _rwD3D9LightsClose(void) {
+    D3D9LightsFreeArrays();
+}
+
+// 0x757380 (lote R17A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, `ret`, 14 bytes): privateData->instance = callback (privateData en +0x14 del nodo).
+void RxD3D9AllInOneSetInstanceCallBack(RxPipelineNode* node, RxD3D9AllInOneInstanceCallBack callback) {
+    AllInOneCallbacks(node)->instance = callback;
+}
+
+// 0x757390 (lote R17A, sin validar; sustituye la envoltura; cdecl, 1 argumento, 10 bytes): devuelve privateData->instance.
+RxD3D9AllInOneInstanceCallBack RxD3D9AllInOneGetInstanceCallBack(RxPipelineNode* node) {
+    return AllInOneCallbacks(node)->instance;
+}
+
+// 0x7573A0 (lote R17A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, 15 bytes): privateData->reinstance = callback.
+void RxD3D9AllInOneSetReinstanceCallBack(RxPipelineNode* node, RxD3D9AllInOneReinstanceCallBack callback) {
+    AllInOneCallbacks(node)->reinstance = callback;
+}
+
+// 0x7573B0 (lote R17A, sin validar; sustituye la envoltura; cdecl, 1 argumento, 11 bytes): devuelve privateData->reinstance.
+RxD3D9AllInOneReinstanceCallBack RxD3D9AllInOneGetReinstanceCallBack(RxPipelineNode* node) {
+    return AllInOneCallbacks(node)->reinstance;
 }
 
 // 0x7551F0 (lote R10A, sin validar; sustituye la envoltura; cdecl, 3 argumentos (tipo de elemento de la declaracion de vertices, destino RwV3d, origen), `ret`, 936 bytes; el listado la atribuia a RpMatFX por vecindad):
@@ -3346,24 +4229,12 @@ void _rpD3D9VertexDeclarationUnInstV3d(RwUInt32 type, RwV3d* dst, const RwUInt8*
     }
 }
 
-void _rpD3D9VertexDeclarationUnInstV2d(RwUInt32 type, RwV2d* dst, const RwUInt8* src) {
-    ((void(__cdecl *)(RwUInt32, RwV2d*, const RwUInt8*))0x7555E0)(type, dst, src);
-}
-
 void _rpD3D9GetMinMaxValuesV3d(const RwV3d* src, RwInt32 numElements, RwV3d* min, RwV3d* max) {
     ((void(__cdecl *)(const RwV3d*, RwInt32, RwV3d*, RwV3d*))0x755830)(src, numElements, min, max);
 }
 
-void _rpD3D9GetMinMaxValuesV2d(const RwV2d* src, RwInt32 numElements, RwV2d* min, RwV2d* max) {
-    ((void(__cdecl *)(const RwV2d*, RwInt32, RwV2d*, RwV2d*))0x7558F0)(src, numElements, min, max);
-}
-
 RwUInt32 _rpD3D9FindFormatV3d(const RwV3d* src, RwInt32 numElements) {
     return ((RwUInt32(__cdecl *)(const RwV3d*, RwInt32))0x755980)(src, numElements);
-}
-
-RwUInt32 _rpD3D9FindFormatV2d(const RwV2d* src, RwInt32 numElements) {
-    return ((RwUInt32(__cdecl *)(const RwV2d*, RwInt32))0x755AA0)(src, numElements);
 }
 
 RxPipeline* RpWorldSetDefaultSectorPipeline(RxPipeline* pipeline) {
@@ -3727,7 +4598,6 @@ inline RxPipeline*& PipelineModuleSlot(uint32 offset) {
 // Funciones del EXE llamadas por direccion fija (no se reconstruyen en este lote).
 inline RwInt32 TieDestroyExe(RwLLLink* link)      { return reinterpret_cast<RwInt32(__cdecl*)(RwLLLink*)>(static_cast<uintptr_t>(0x74FFF0))(link); } // ata de atomo de un sector
 inline RwInt32 LightTieDestroyExe(RwLLLink* link) { return reinterpret_cast<RwInt32(__cdecl*)(RwLLLink*)>(static_cast<uintptr_t>(0x74FFA0))(link); } // ata de luz de un sector
-inline RwBool  D3D9LightPluginAttachExe()         { return reinterpret_cast<RwBool(__cdecl*)()>(static_cast<uintptr_t>(0x755B90))(); } // registra el plugin de luces (id 0x505)
 inline RwBool  D3D9GeometryPluginAttachExe()      { return reinterpret_cast<RwBool(__cdecl*)()>(static_cast<uintptr_t>(0x7587D0))(); } // registra los plugins de geometria/sector (id 0x50F)
 inline void    D3D9VertexShaderOpenExe()          { reinterpret_cast<void(__cdecl*)()>(static_cast<uintptr_t>(0x760CF0))(); }          // inicializa la cache de shaders de vertices
 
@@ -4022,11 +4892,11 @@ void _rpD3D9RemoveDynamicGeometry(RpGeometry* geometry) {
 }
 
 // 0x74EA40 (nombre inferido: la llama RpWorldPluginAttach en 0x74FE81 tras registrar los plugins de mundo)
-// Registra los plugins de D3D9 (luces 0x755B90 y, si fue bien, geometria 0x7587D0); guarda el callback de restauracion del dispositivo que habia y
+// Registra los plugins de D3D9 (luces 0x755B90, ahora en C++, y si fue bien, geometria 0x7587D0); guarda el callback de restauracion del dispositivo que habia y
 // pone 0x74EA80 (que marca las geometrias dinamicas como sucias y encadena el anterior). Devuelve 1 si los dos registros fueron bien.
 static RwBool _rpD3D9PluginAttach() {
     RwBool result = FALSE;
-    if (D3D9LightPluginAttachExe() && D3D9GeometryPluginAttachExe()) {
+    if (D3D9LightPluginAttach() && D3D9GeometryPluginAttachExe()) {
         result = TRUE;
     }
     s_prevRestoreCallBack = _rwD3D9DeviceGetRestoreCallback();
@@ -4716,4 +5586,32 @@ void RpWorldInjectHooksR16A() {
     RH_ScopedGlobalInstall(RpLightCreate, 0x752110);
     RH_ScopedGlobalInstall(LightFreeListDestroyCallBack, 0x752210);
     RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationInstWeights, 0x752320);
+}
+
+// Registro de los hooks del lote R17A de RpWorld (sin validar): instanciacion y lectura de vertices D3D9, formato de texcoord, plugin de luces 0x505,
+// estado de luces, utilidades de indices, recorte por piramide y accesores de callbacks del nodo AllInOne.
+void RpWorldInjectHooksR17A() {
+    RH_ScopedCategory("Plugins");
+    RH_ScopedNamespaceName("RpWorld");
+
+    RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationInstV3d, 0x752AD0);
+    RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationInstV3dMorph, 0x753B60);
+    RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationInstV2d, 0x7544E0);
+    RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationInstColor, 0x754AE0);
+    RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationInstIndicesRemap, 0x754C80);
+    RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationInstTangent, 0x754E20);
+    RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationUnInstV2d, 0x7555E0);
+    RH_ScopedGlobalInstall(_rpD3D9GetMinMaxValuesV2d, 0x7558F0);
+    RH_ScopedGlobalInstall(_rpD3D9FindFormatV2d, 0x755AA0);
+    RH_ScopedGlobalInstall(D3D9LightPluginAttach, 0x755B90);
+    RH_ScopedGlobalInstall(_rwD3D9LightsOpen, 0x755D80);
+    RH_ScopedGlobalInstall(_rwD3D9LightsClose, 0x755FE0);
+    RH_ScopedGlobalInstall(_rpD3D9FindMinVertAndNumVertices, 0x756710);
+    RH_ScopedGlobalInstall(_rpD3D9SortTriangles, 0x756770);
+    RH_ScopedGlobalInstall(_rpD3D9TriStripToTriList, 0x756830);
+    RH_ScopedGlobalInstall(_rwD3D9SetClippingForObject, 0x756D90);
+    RH_ScopedGlobalInstall(RxD3D9AllInOneSetInstanceCallBack, 0x757380);
+    RH_ScopedGlobalInstall(RxD3D9AllInOneGetInstanceCallBack, 0x757390);
+    RH_ScopedGlobalInstall(RxD3D9AllInOneSetReinstanceCallBack, 0x7573A0);
+    RH_ScopedGlobalInstall(RxD3D9AllInOneGetReinstanceCallBack, 0x7573B0);
 }
