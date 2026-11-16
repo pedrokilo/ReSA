@@ -19044,6 +19044,8 @@ __declspec(noinline) float __cdecl Pf194ClosestDistSqCpp(const float* next, cons
     }
     const float stored = nextDist;
     return lastDist < double(stored) ? float(lastDist) : stored;
+}
+#pragma float_control(pop)
 
 // --- Lote 200A (sin validar) ---
 // 0x6F6370 (CTrain::OpenDoor), rama del tren Streak (modelo 570): y = ((abierta - cerrada) * razon) + cerrada con la x87 y SIN redondeos intermedios a float (`fld cerrada; fld cerrada; fld abierta; fsub st,st(1); fmul [razon];
@@ -19054,5 +19056,12 @@ __declspec(noinline) float __cdecl TrainStreakDoorYCpp(float openAngle, float cl
     const double scaled     = difference * double(ratio);
     const double sum        = scaled + double(closedAngle);
     return float(sum);
+}
+#pragma float_control(pop)
+
+// 0x6F6370 (CTrain::OpenDoor), rama normal: la posicion guardada se SUMA a la que deja SetRotate con la x87 (`fld pos; fadd guardada; fstp pos`: 24 bits, un denormal no se aplana a cero como en el SSE del juego con FTZ).
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl TrainAddPosCpp(float position, float saved) {
+    return float(double(position) + double(saved));
 }
 #pragma float_control(pop)

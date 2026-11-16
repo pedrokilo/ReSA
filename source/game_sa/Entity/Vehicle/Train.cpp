@@ -61,13 +61,23 @@ __declspec(noinline) CTrain* __fastcall CTrainScalarDeletingDestructor(CTrain* s
     return self;
 }
 
-// Como el original (0x6F65A7..0x6F65C7): CMatrix::SetRotate (0x59B120) deja la posicion a cero y el codigo SUMA la posicion guardada (`fld pos; fadd guardada; fstp pos`), que no es una copia exacta con -0.0f.
+// Como el original (0x6F65A7..0x6F65C7): CMatrix::SetRotate (0x59B120) deja la posicion a cero y el codigo SUMA la posicion guardada con la x87 (`fld pos; fadd guardada; fstp pos`), que no es una copia exacta con -0.0f.
+// La suma va por TrainAddPosCpp (x87, 24 bits): la de SSE de la DLL aplanaria a cero un denormal (el juego pone FTZ en MXCSR), la x87 del EXE no. Lo encontro el banco Fn200A.
 void TrainSetRotateAddPos(CMatrix& mat, const CVector& rot, const CVector& saved) {
     mat.SetRotate(rot.x, rot.y, rot.z);
     CVector& pos = mat.GetPosition();
-    pos.x = pos.x + saved.x;
-    pos.y = pos.y + saved.y;
-    pos.z = pos.z + saved.z;
+    pos.x = TrainAddPosCpp(pos.x, saved.x);
+    pos.y = TrainAddPosCpp(pos.y, saved.y);
+    pos.z = TrainAddPosCpp(pos.z, saved.z);
+}
+
+// Como el original (`fld [angulo]; fstp [orientacion + eje * 4]`): la x87 silencia un NaN senalizante al cargarlo (bit 22); el resto de valores pasa sin cambios. Lo encontro el banco Fn200A.
+float QuietThroughX87(float value) {
+    uint32 bits = std::bit_cast<uint32>(value);
+    if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x7FFFFFu) != 0) {
+        bits |= 0x400000u;
+    }
+    return std::bit_cast<float>(bits);
 }
 } // namespace
 
@@ -251,7 +261,7 @@ void CTrain::OpenDoor(CPed* ped, int32 componentId, eDoors door, float doorOpenR
         const float y = TrainStreakDoorYCpp(trainDoor.m_openAngle, trainDoor.m_closedAngle, doorOpenRatio);
         frameMat.SetTranslate(CVector{ savedPos.x, y, savedPos.z });
     } else {
-        orientation[trainDoor.m_axis] = trainDoor.m_angle;
+        orientation[trainDoor.m_axis] = QuietThroughX87(trainDoor.m_angle);
         TrainSetRotateAddPos(frameMat, orientation, savedPos);
     }
     frameMat.UpdateRW();

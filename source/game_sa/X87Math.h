@@ -2371,3 +2371,5 @@ float __cdecl Pf194ClosestDistSqCpp(const float* next, const float* last, const 
 // Lote 200A (sin validar).
 // 0x6F6370 (CTrain::OpenDoor), rama del tren Streak: ((abierta - cerrada) * razon) + cerrada con la x87 sin redondeos intermedios a float; solo el resultado se guarda como float. Ver X87Math.cpp.
 float __cdecl TrainStreakDoorYCpp(float openAngle, float closedAngle, float ratio);
+// 0x6F6370 (CTrain::OpenDoor), rama normal: suma de la posicion guardada con la x87 (24 bits, sin aplanar denormales). Ver X87Math.cpp.
+float __cdecl TrainAddPosCpp(float position, float saved);

@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "5c2ac1b51789ea9d6ae177522114da06308e664777d49b9b60d3178cb8f90e7e",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CBoundingBox::ConstructorAlias5B2AB0: 2048/2048; CTaskComplexStuckInAir::DestructorBody: 2048/2048; CTaskSimpleGetUp::Clone: 1558/2048; CTaskComplexGetUpAndStandStill::Clone: 1535/2048; CTaskSimpleFall::Clone: 1555/2048; CTaskComplexFallAndGetUp::Clone: 1576/2048; CTaskComplexInAirAndLand::Clone: 1570/2048; CTaskSimpleInAir::Clone: 1549/2048; CTaskSimpleLand::Clone: 1558/2048; CTaskComplexFallToDeath::Clone: 1528/2048; CTaskSimpleGetUp::ScalarDeletingDestructor: 1504/2048; CTrain::ScalarDeletingDestructor: 1145/2048; CTrain::GetDooorAngleOpenRatioU32: 152/2048; CTrain::GetDooorAngleOpenRatio: 1465/2048; CTrain::IsRoomForPedToLeaveCar: 2048/2048; CTrain::OpenDoor: 621/2048; CTrain::Teleport: 1590/2048; CVector::DivideAssignExe: 1070/2048; CColPoint::GetNormalAddress: 2048/2048; CColPoint::SetSurfaceTypeA: 2048/2048; CPtrNodeSingleLinkPool::FlushJump: 2048/2048; CMatrixLinkList::Constructor: 2048/2048; CPlaceable::DestructorBody: 2048/2048; CPlaceable::ScalarDeletingDestructor: 1090/2048; CPlaceable::ArrayPairReset54FA10: 1107/2048; CPlaceable::ArrayPairReset54FA60: 1168/2048; CPlaceable::ArrayPairReset54FAB0: 1122/2048; CPlaceable::ArrayPairReset54FB00: 1155/2048; CPlaceable::ArrayPairReset54FB50: 1132/2048; CPlaceable::ArrayPairReset54FBA0: 1066/2048; CPlaceable::ArrayPairReset54FBF0: 1122/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
