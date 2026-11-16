@@ -21,6 +21,7 @@ private:
     static void InjectHooks();
 
     friend class CTaskComplexSunbathe; // lote 197A: su CreateSubTask del EXE (0x638290) llama al cuerpo enganchado Constructor (0x48E750) y devuelve su EAX
+    friend class CTaskComplexGoToPointAndStandStill; // lote 198A: su CreateSubTask (0x6682D0) tambien
     CTaskSimplePause* Constructor(int32 time);
 
 private:

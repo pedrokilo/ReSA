@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "d124553ba69e85d069a293198ed0a7f76a562faeeb37b3116db899f75d3c2eb6",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CTaskComplexWaitAtAttractor::ScalarDeletingDestructor: 471/2048; CTaskComplexUseAttractor::ScalarDeletingDestructor: 490/2048; CTaskComplexSequence::ScalarDeletingDestructor: 494/2048; CTaskComplexDriveFireTruck::ScalarDeletingDestructor: 478/2048; CTaskComplexGoToPointAndStandStillTimed::ScalarDeletingDestructor: 490/2048; CTaskComplexPresentIDToCop::ScalarDeletingDestructor: 482/2048; CVehicleScanner::ScanForVehiclesInRange: 57/2048; CObjectScanner::ScanForObjectsInRange: 353/2048; CAttractorScanner::ScanEntityList: 418/2048; CAttractorScanner::FindClosestPedForEffect: 320/2048; CPedAcquaintanceScanner::CanScanPed: 496/2048; CTaskComplexMedicTreatInjuredPed::GetTaskType: 901/2048; CTaskComplexMedicTreatInjuredPed::DestructorBody: 899/2048; CTaskComplexPresentIDToCop::Constructor: 896/2048; CTaskComplexPresentIDToCop::GetTaskType: 909/2048; CTaskComplexPresentIDToCop::DestructorBody: 890/2048; CTaskComplexPresentIDToCop::ComputeHeading: 708/2048; CTaskComplexPresentIDToCop::Clone: 641/2048; CTaskComplexPresentIDToCop::CreateSubTask: 79/2048; CTaskComplexPresentIDToCop::CreateNextSubTask: 164/2048; CTaskComplexPresentIDToCop::CreateFirstSubTask: 894/2048; CTaskComplexPresentIDToCop::ControlSubTask: 535/2048; CTaskComplexSeekEntityStandard::GetSeekPos: 602/2048; CPed::SetKindaStayInSamePlace: 912/2048; CStreaming::SetMissionDoesntRequireStreamedScript: 675/2048; CBoundingBox::SetMinMax: 887/2048; CTaskComplexGoToPointAndStandStill::DestructorBodyCopy: 903/2048; CTaskComplexGoToPointAndStandStill::SelectMoveState: 117/2048; CTaskComplexGoToPointAndStandStill::CreateSubTask: 283/2048; CTaskComplexReactToAttack::Constructor: 900/2048; CTaskComplexReactToAttack::GetTaskType: 916/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

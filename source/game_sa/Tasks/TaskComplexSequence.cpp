@@ -28,7 +28,7 @@ void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
 namespace {
 // 0x6389F0 (lote 115A, banco Fn115A): cuerpo no virtual de ~CTaskComplexSequence del EXE (thiscall, sin argumentos de pila, `ret`)
 // Deja la vtable de CTaskComplexSequence del EXE (0x86E200) y llama a CTaskComplexSequence::Flush (0x632C10) y a CTaskComplex::Destructor (0x61A3D0). El EXE lo envuelve en un marco SEH que solo desenrolla.
-void __fastcall SequenceDestructorBody(CTaskComplexSequence* self, void* /*edx*/) {
+__declspec(noinline) void __fastcall SequenceDestructorBody(CTaskComplexSequence* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x86E200;
     self->Flush();
     CTaskComplexBody::Destructor(self, nullptr);

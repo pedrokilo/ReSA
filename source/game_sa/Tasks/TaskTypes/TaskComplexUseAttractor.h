@@ -34,8 +34,10 @@ private: // Wrappers for hooks
     }
 
     // 0x632720
-    auto Destructor() {
+    __declspec(noinline) auto Destructor() {
         this->CTaskComplexUseAttractor::~CTaskComplexUseAttractor();
         return this;
     }
+    // 0x6385B0 (lote 198A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86E134), `ret 4`
+    CTaskComplexUseAttractor* ScalarDeletingDestructor(uint8 flags);
 };

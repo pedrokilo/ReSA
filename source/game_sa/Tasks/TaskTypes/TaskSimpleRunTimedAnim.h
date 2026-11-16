@@ -33,6 +33,7 @@ public:
     bool      ProcessPed(CPed* ped) override;
 private: // Wrappers for hooks
     friend class CTaskComplexSunbathe; // lote 197A: su CreateSubTask del EXE (0x638290) llama al cuerpo enganchado 0x61ABE0 y devuelve su EAX
+    friend class CTaskComplexPresentIDToCop; // lote 198A: su CreateSubTask del EXE (0x65A110) llama al cuerpo enganchado 0x61ABE0 con la vtable del EXE de CTaskSimpleHandsUp
     friend class CTaskSimpleChat; // lote 151A (banco Fn151A): su constructor del EXE (0x5F65A0) llama al cuerpo enganchado 0x61ABE0
     // 0x61AB70
     CTaskSimpleRunTimedAnim* Constructor(AssocGroupId groupId, AnimationId animId, float blendDelta, float unused1, uint32 durationMs, bool holdLastFrame) {

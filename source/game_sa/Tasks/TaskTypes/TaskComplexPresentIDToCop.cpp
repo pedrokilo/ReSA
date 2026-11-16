@@ -3,10 +3,12 @@
 #include "TaskComplexPresentIDToCop.h"
 
 #include "TaskSimpleHandsUp.h"
+#include "TaskSimpleRunTimedAnim.h"
 #include "TaskSimpleAchieveHeading.h"
 
 namespace CTaskComplexBody {
 void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
 }
 
 namespace {
@@ -47,8 +49,13 @@ void CTaskComplexPresentIDToCop::InjectHooks() {
     RH_ScopedVMTInstall(ControlSubTask, 0x65B070);                                                             // lote 198A (sin validar)
 }
 
+// 0x6591D0 (thiscall, un argumento de pila, `ret 4`, 83 bytes con SEH): ~CTaskComplex (0x61A3B0, con hook) -> +0Ch = policia -> vtable de la clase del EXE (0x86F544) -> CEntity::RegisterReference (0x571B70, con hook) con ECX = el policia y la
+// direccion de +0Ch, SIN comprobar que el policia sea no nulo (a diferencia de CTaskComplexMedicTreatInjuredPed). Devuelve `this`. La DLL no deja su vtable: el constructor de C++ (mas abajo) sigue siendo el de quien construye en la DLL.
 CTaskComplexPresentIDToCop* CTaskComplexPresentIDToCop::Constructor(CPed* cop) {
-    this->CTaskComplexPresentIDToCop::CTaskComplexPresentIDToCop(cop);
+    CTaskComplexBody::Constructor(this, nullptr);
+    m_pCop = cop;
+    *reinterpret_cast<uint32*>(this) = 0x86F544;
+    CEntity::RegisterReference(m_pCop);
     return this;
 }
 
@@ -66,7 +73,8 @@ CTaskComplexPresentIDToCop::~CTaskComplexPresentIDToCop() {
 
 // 0x659B60 (thiscall, sin argumentos, `ret`, 96 bytes con SEH): reserva 0x10 bytes con CTask::operator new (0x61A5A0); sin memoria devuelve nulo sin leer campos; si no, el constructor con el policia actual (+0xC).
 CTask* CTaskComplexPresentIDToCop::Clone() const {
-    return new CTaskComplexPresentIDToCop(m_pCop);
+    auto* const memory = static_cast<CTaskComplexPresentIDToCop*>(CTask::operator new(sizeof(CTaskComplexPresentIDToCop)));
+    return memory ? memory->Constructor(m_pCop) : nullptr; // 0x6591D0 (con hook): su EAX (this) como resultado
 }
 
 // 0x65AFE0 (thiscall, un argumento de pila, `ret 4`, 97 bytes): pide el tipo de la subtarea actual (+8, llamada virtual, sin comprobar nulo). TASK_SIMPLE_HANDS_UP (0x19D) -> CreateSubTask(TASK_FINISHED, ped) (nulo);
@@ -101,12 +109,23 @@ CTask* CTaskComplexPresentIDToCop::ControlSubTask(CPed* ped) {
 //  - TASK_SIMPLE_HANDS_UP (0x19D): 0x34 bytes, CTaskSimpleHandsUp con duracion 3000 (el EXE mete en linea el constructor 0x48E970: anim grupo 0, ANIM_ID_HANDSUP 0x8E, mezcla 4.0 / -4.0, tipo 0x19D, "HandsUp").
 //  - TASK_SIMPLE_ACHIEVE_HEADING (0x386): 0x18 bytes, CTaskSimpleAchieveHeading(ComputeHeading(ped), 0.5f (0x86FC7C), 0.2f (0x86FC80)).
 //  - TASK_FINISHED (0x516) y cualquier otro: nulo.
-CTask* CTaskComplexPresentIDToCop::CreateSubTask(eTaskType taskType, CPed* ped) {
+__declspec(noinline) CTask* CTaskComplexPresentIDToCop::CreateSubTask(eTaskType taskType, CPed* ped) {
     switch (taskType) {
-    case TASK_SIMPLE_HANDS_UP:
-        return new CTaskSimpleHandsUp(3000);
-    case TASK_SIMPLE_ACHIEVE_HEADING:
-        return new CTaskSimpleAchieveHeading(ComputeHeading(ped), 0.5f, 0.2f);
+    case TASK_SIMPLE_HANDS_UP: {
+        // El EXE mete en linea CTaskSimpleHandsUp::Constructor (0x48E970): llama al cuerpo enganchado de CTaskSimpleRunTimedAnim (0x61ABE0) y deja la vtable del EXE de CTaskSimpleHandsUp (0x85A29C); devuelve la memoria
+        auto* const memory = static_cast<CTaskSimpleRunTimedAnim*>(CTask::operator new(0x34));
+        if (!memory) {
+            return nullptr;
+        }
+        memory->Constructor(ANIM_GROUP_DEFAULT, ANIM_ID_HANDSUP, 4.0f, -4.0f, 3000u, TASK_SIMPLE_HANDS_UP, reinterpret_cast<const char*>(0x85A2C4) /*"HandsUp"*/, false);
+        *reinterpret_cast<uint32*>(memory) = 0x85A29C;
+        return memory;
+    }
+    case TASK_SIMPLE_ACHIEVE_HEADING: {
+        // La memoria se reserva ANTES de evaluar el rumbo; devuelve el EAX del constructor enganchado (0x667E20)
+        auto* const memory = static_cast<CTaskSimpleAchieveHeading*>(CTask::operator new(sizeof(CTaskSimpleAchieveHeading)));
+        return memory ? memory->Constructor(ComputeHeading(ped), 0.5f, 0.2f) : nullptr;
+    }
     default:
         return nullptr;
     }
@@ -114,7 +133,7 @@ CTask* CTaskComplexPresentIDToCop::CreateSubTask(eTaskType taskType, CPed* ped) 
 
 // 0x6592A0 (thiscall, un argumento de pila, `ret 4`, 99 bytes): rumbo del policia hacia el peaton = CGeneral::LimitRadianAngle (0x53CB50) de CGeneral::GetRadianAngleBetweenPoints (0x53CBE0) con (policia.x, policia.y, ped.x, ped.y); las
 // posiciones salen de la matriz (+0x30) o, sin matriz, de +4. El resultado se guarda como float antes de normalizarlo. Sin comprobar que el policia sea no nulo.
-float CTaskComplexPresentIDToCop::ComputeHeading(CPed* ped) {
+__declspec(noinline) float CTaskComplexPresentIDToCop::ComputeHeading(CPed* ped) {
     const CVector& pedPos = ped->GetPosition();
     const CVector& copPos = m_pCop->GetPosition();
     const float angle = CGeneral::GetRadianAngleBetweenPoints(copPos.x, copPos.y, pedPos.x, pedPos.y);

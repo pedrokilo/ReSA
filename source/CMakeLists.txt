@@ -248,6 +248,14 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # Lote 198A: CTaskComplexGoToPointAndStandStill::SelectMoveState (0x668250) y CreateSubTask (0x6682D0): aritmetica x87 del EXE (24 bits, intermedios en registros con exponente ampliado, un SSE con DAZ/FTZ aplana los denormales
+    # que la x87 conserva); el archivo propio de las dos funciones (TaskComplexGoToPointAndStandStillX87.cpp) se compila asi; el resto de la clase usa las opciones normales. Sin expansion en linea (/Ob0).
+    set_source_files_properties(game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillX87.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Ob0;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=Disabled;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # CTask::Destructor (0x61A3A0) es `mov [ecx], 0x86D48C; ret`: sus 259 llamadores del EXE (148 con `jmp` final) conservan EAX, ECX y EDX, asi que el cuerpo
     # no puede llevar marco ni comprobaciones. Se optimiza por pragma, que solo actua con /Zi y sin comprobaciones de ejecucion.
     set_source_files_properties(game_sa/Tasks/Task.cpp PROPERTIES
