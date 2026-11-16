@@ -1,0 +1,380 @@
+#pragma once
+#include <bit>
+#include <cstddef>
+#include <cstring>
+#include <type_traits>
+#include <fstream>
+#include <memory>
+#include <new>
+#include <set>
+#include <map>
+#include <reversiblehooks/RootHookCategory.h>
+#include <reversiblehooks/ReversibleHook/Base.h>
+#include <reversiblehooks/ReversibleHook/Simple.h>
+#include <reversiblehooks/ReversibleHook/Virtual.h>
+#include "../ProbeRuntime.hpp"
+#include "../OriginalDependencies499/HookRoute.hpp"
+#include "Core.hpp"
+
+// Banco par a par Fn195A dentro del juego: Update() se llama desde CGame::Process (probe_build.py). Todo el nucleo esta en Core.hpp.
+// 31 funciones del EXE (ver Fixtures.hpp), cada una con 16384 pares EXE/DLL. Hook S (RH_ScopedInstall / RH_ScopedNamedGlobalInstall). El banco invoca la direccion del EXE con objetos sinteticos en cuatro arenas propias
+// (A, B, C y D con guardas de 0x40). Falsos de los colaboradores: el mismo falso en la direccion del EXE y en el cuerpo de la DLL (MakeCollab / Pair): cuerpo del destructor de CTaskSimpleGoTo 0x667A00 y 0x667D50 (la misma
+// funcion de la DLL, enganchada en las dos direcciones), CTask::operator new 0x61A5A0 y operator delete 0x61A5B0, constructor de CTaskComplexFollowPatrolRoute 0x674930 (la DLL lo llama por la direccion del EXE) y
+// CTxdStore::RemoveRef 0x731A30 (con hook); y solo en la direccion del EXE (la DLL la llama por ella): rand del CRT 0x821B1E. Memoria global del juego tocada (restaurada tras cada lado): el reloj 0xB7CB84 (CAutoPilot) y
+// la marca 0xA9B0B0 (solo el banco la pone en 0x5A: da algo observable a los cuerpos vacios en la prueba negativa).
+// Se observan: los bytes cambiados de las cuatro arenas (con las direcciones reales de las arenas, que el banco anota en la entrada de cada caso), los cambios de la memoria global, los eventos de los falsos (con sus
+// argumentos), el valor devuelto (punteros como etiqueta de arena; solo AL en bool; bits del float de ST0 en las dos constantes) y el estado x87 (siempre vacio). EAX/ECX/EDX tras la llamada quedan en
+// original_residue / candidate_residue (informativos).
+
+namespace F195ALive {
+using namespace F195AFix;
+inline constexpr std::array<uintptr_t, kFunctions> kEntries = [] { std::array<uintptr_t, kFunctions> a{}; for (size_t i = 0; i < kFunctions; ++i) a[i] = kEntry[i]; return a; }();
+
+// ================================================================================================ arenas (alineadas a 4096)
+template<size_t WIN> struct Arena {
+    static constexpr size_t N = F195AFix::Arena(WIN);
+    alignas(4096) std::array<uint8, N> m{};
+    alignas(4096) std::array<uint8, N> r{};
+    uintptr_t Obj(size_t off = 0) const { return uintptr_t(m.data()) + kGuard + off; }
+    void Pattern(u32 kind, u32 seed) { FillKind(m.data(), N, kind, seed); }
+    void Snap() { r = m; }
+    void Put32(size_t off, u32 v) { memcpy(m.data() + kGuard + off, &v, 4); }
+    void Put16(size_t off, u32 v) { memcpy(m.data() + kGuard + off, &v, 2); }
+    void Put8(size_t off, u32 v) { m[kGuard + off] = uint8(v); }
+    void PutBytes(size_t off, const std::vector<u8>& b) { memcpy(m.data() + kGuard + off, b.data(), b.size()); }
+    // Cambios respecto a la imagen de referencia: [desplazamiento respecto a la ventana, byte nuevo]
+    json Changes() const {
+        json out = json::array();
+        for (size_t i = 0; i < N; ++i)
+            if (m[i] != r[i]) out.push_back(json::array({int64(i) - int64(kGuard), m[i]}));
+        return out;
+    }
+};
+inline Arena<kWin> arenaA, arenaB, arenaC, arenaD;
+
+// ================================================================================================ falsos de los colaboradores
+inline u32 gRet{};                   // EAX que devuelven los falsos de cuerpo y de constructor
+inline u32 gDtorWrite{};             // dword que el falso deja en [this]
+inline u32 gNew{};                   // memoria que devuelve el falso de CTask::operator new (0 = sin memoria)
+inline u32 gRand{};                  // lo que devuelve el falso de rand
+inline const u8* gRemapThis{};       // SetRemapTexDictionary: direccion de `this` (el falso de RemoveRef lee [this + 0x59C] al entrar)
+inline DWORD gBenchThread{};
+
+// operator delete (0x61A5B0; cdecl, un argumento): evento [direccion, argumento (etiqueta), dword de [argumento] al entrar]. No libera nada.
+template<u32 ADDR> inline void __cdecl FkDelete(void* p) {
+    Ev& e = PushEv(ADDR, 2);
+    e.v[0] = Tag(p);
+    e.v[1] = BitsOf(p);
+}
+// CTask::operator new (0x61A5A0; cdecl, un tamano): evento [direccion, tamano]; devuelve gNew.
+template<u32 ADDR> inline u32 __cdecl FkNew(u32 size) {
+    Ev& e = PushEv(ADDR, 1);
+    e.v[0] = size;
+    return gNew;
+}
+// Cuerpo del destructor sin argumentos de pila (thiscall): evento [direccion, ECX (etiqueta de arena), dword que tenia [ECX] al entrar]; deja gDtorWrite en [ECX]; devuelve gRet.
+template<u32 ADDR> inline u32 __fastcall FkBody(void* self, void*) {
+    Ev& e = PushEv(ADDR, 2);
+    e.v[0] = Tag(self);
+    e.v[1] = BitsOf(self);
+    memcpy(self, &gDtorWrite, 4);
+    return gRet;
+}
+// Constructor de CTaskComplexFollowPatrolRoute (0x674930; thiscall, cinco dwords de pila, `ret 14h`): evento [direccion, ECX (etiqueta), a, b (etiqueta), c, d, e]; deja gDtorWrite en [ECX]; devuelve gRet.
+inline u32 __fastcall FkCtor5(void* self, void*, u32 a, u32 b, u32 c, u32 d, u32 e5) {
+    Ev& e = PushEv(0x674930, 6);
+    e.v[0] = Tag(self); e.v[1] = a; e.v[2] = Tag(uintptr_t(b)); e.v[3] = c; e.v[4] = d; e.v[5] = e5;
+    memcpy(self, &gDtorWrite, 4);
+    return gRet;
+}
+// CTxdStore::RemoveRef (0x731A30; cdecl, un entero): evento [direccion, argumento, dword de [this + 0x59C] de SetRemapTexDictionary al entrar (debe ser ya 0 si el argumento fue -1)].
+inline void __cdecl FkRemoveRef(u32 index) {
+    Ev& e = PushEv(0x731A30, 2);
+    e.v[0] = index;
+    e.v[1] = gRemapThis ? BitsOf(gRemapThis + 0x59C) : 0u;
+}
+// rand del CRT (0x821B1E; cdecl, sin argumentos): evento [direccion]; devuelve gRand.
+inline u32 __cdecl FkRand() {
+    PushEv(0x821B1E, 0);
+    return gRand;
+}
+
+// ================================================================================================ cierre de un lado
+inline json CloseSide(Env& env, Side& side, json obs) {
+    auto fp = NormalizeFp(side.fp);
+    obs["globals_hash"] = RegionsHash();
+    json out = CommonRow(side, fp); out["observed"] = obs;
+    RestoreFloatingState();
+    RestoreRegions();
+    out["globals_restored"] = env.WatchesIntact() && RegionsIntact();
+    out["floating_state_restored"] = FloatingStateRestored();
+    return out;
+}
+
+// Descripcion de la llamada de un caso
+struct Call {
+    std::array<u32, 8> args{};
+    u32 argCount{}, popBytes{}, ecx{};
+    bool floatRet{};
+};
+
+// Prepara arenas y memoria global del caso; devuelve la llamada
+inline Call Setup(const C& c) {
+    Call call; call.ecx = c.ecx;
+    const auto& a = c.a;
+    arenaA.Pattern(a[2], a[36]); arenaB.Pattern(a[2], a[37]); arenaC.Pattern(a[2], a[38]); arenaD.Pattern(a[2], a[39]);
+    gRet = 0; gDtorWrite = 0; gNew = 0; gRand = 0; gRemapThis = nullptr;
+    const u32 o = a[0];
+    const u32 thisA = u32(arenaA.Obj(o));
+    arenaA.Put32(o, a[3]);
+    call.ecx = thisA;
+    switch (kKind[c.fn]) {
+    case kReverse:
+        arenaA.PutBytes(o + 4, c.s);
+        break;
+    case kSdd:
+        gRet = a[4]; gDtorWrite = a[5];
+        call.args[0] = a[6]; call.argCount = 1;
+        break;
+    case kClone:
+        gNew = a[4] == 0 ? 0u : u32(arenaB.Obj(a[5]));
+        gRet = a[6]; gDtorWrite = a[7];
+        arenaA.Put32(o + 0xC, a[8]); arenaA.Put32(o + 0x10, a[9]); arenaA.Put32(o + 0x14, a[10]); arenaA.Put32(o + 0x18, a[11]);
+        arenaA.Put32(o + 0x1C, a[13] ? u32(arenaC.Obj(a[14])) : a[12]);
+        break;
+    case kRemap:
+        arenaA.Put32(o + 0x598, a[4]); arenaA.Put32(o + 0x59C, a[5]);
+        gRemapThis = reinterpret_cast<const u8*>(arenaA.Obj(o));
+        call.args[0] = a[6]; call.argCount = 1;
+        break;
+    case kFloatConst:
+        call.args[0] = a[4]; call.argCount = 1; call.floatRet = true;
+        break;
+    case kCreateAt: {
+        arenaA.Put32(o, a[9]); arenaA.Put32(o + 4, u32(arenaB.Obj(a[4]))); arenaA.Put32(o + 8, a[5]); arenaA.Put32(o + 0xC, a[6]);
+        for (u32 i = 0; i < a[5]; ++i) arenaB.Put8(a[4] + i, SlotByte(a[10], i));
+        arenaB.Put8(a[4] + a[7], SlotByte(a[10], a[7]) | 0x80u);   // la ranura a crear esta libre (la plantilla de la DLL lo comprueba)
+        {   // y hay otro hueco libre (ancla) para que la busqueda del cursor termine dentro del arreglo
+            u32 anchor = Rand(a[10], 0x3E7) % a[5];
+            if (anchor == a[7]) anchor = (a[7] + 1) % a[5];
+            arenaB.Put8(a[4] + anchor, SlotByte(a[10], anchor) | 0x80u);
+        }
+        call.args[0] = (a[7] << 8) | (a[8] & 0xFFu); call.argCount = 1;
+        break;
+    }
+    case kApCtor:
+        arenaA.Put32(o + 0x48, a[6]); arenaA.Put32(o + 0x4C, a[7]);
+        *reinterpret_cast<u32*>(kClock) = a[4];
+        gRand = a[5];
+        break;
+    case kStubVoid:
+    case kStubBool:
+        *reinterpret_cast<u8*>(kFlag) = 0x5A;   // marca que la prueba negativa (mutate.py) lee para que los cuerpos vacios tengan algo observable; el juego real nunca la pone
+        for (u32 i = 0; i < kStub[c.fn].nargs; ++i) call.args[i] = ((kStub[c.fn].ptrMask >> i) & 1) ? u32(arenaB.Obj(a[6])) : a[4 + i];
+        call.argCount = kStub[c.fn].nargs;
+        break;
+    }
+    return call;
+}
+
+inline void CaseRun(Env& env, Totals& t, unsigned fn, unsigned n) {
+    const C c = MakeC(fn, n);
+    json input = json::parse(JsonC(c));
+    input["arena"] = json::array({u32(uintptr_t(arenaA.m.data())), u32(uintptr_t(arenaB.m.data())), u32(uintptr_t(arenaC.m.data())), u32(uintptr_t(arenaD.m.data()))});   // direcciones reales de las arenas (para el oraculo)
+    Side sides[2]; json rows[2];
+    curFn = fn;
+    for (int s = 0; s < 2; ++s) {
+        const bool candidate = s == 1;
+        PrepareFloatingState();
+        const Call call = Setup(c);
+        arenaA.Snap(); arenaB.Snap(); arenaC.Snap(); arenaD.Snap();
+        SnapRegions();
+        TagClear(); TagAdd(arenaA.m.data(), arenaA.m.size()); TagAdd(arenaB.m.data(), arenaB.m.size()); TagAdd(arenaC.m.data(), arenaC.m.size()); TagAdd(arenaD.m.data(), arenaD.m.size());
+        nev = 0;
+        sides[s] = Execute(env, fn, kEntries[fn], candidate, [&](uintptr_t entry) {
+            return Gate(entry, call.args.data(), call.argCount, c.eax, call.ecx, c.edx, c.stack, call.popBytes, call.floatRet);
+        });
+        json obs;
+        obs["changes"] = {{"A", arenaA.Changes()}, {"B", arenaB.Changes()}, {"C", arenaC.Changes()}, {"D", arenaD.Changes()}};
+        obs["gchanges"] = RegionChanges();
+        obs["events"] = EvsJson();
+        const u32 eax = sides[s].reg.eax;
+        const u32 floatBits = gFloatRet;
+        switch (kKind[fn]) {
+        case kSdd: case kClone: case kApCtor: obs["ret"] = Tag(uintptr_t(eax)); break;   // puntero como etiqueta de arena
+        case kStubBool: obs["ret"] = eax & 0xFFu; break;                                  // bool: solo AL
+        case kFloatConst: obs["ret"] = floatBits; break;                                  // bits del float de ST0
+        default: obs["ret"] = nullptr; break;                                             // void
+        }
+        rows[s] = CloseSide(env, sides[s], obs);
+    }
+    Finish(t, kFn[fn], n, input, rows, sides);
+}
+
+
+// ================================================================================================ ejecucion
+// Casos por funcion: kCases salvo que la variable de entorno FN195A_CASES (solo para las rondas de la prueba negativa, hereda el proceso del juego) pida menos (multiplo de 16, minimo 16)
+inline unsigned CasesPerFunction() {
+    char buffer[16]{};
+    if (GetEnvironmentVariableA("FN195A_CASES", buffer, sizeof(buffer)) > 0) {
+        const unsigned v = unsigned(std::atoi(buffer));
+        if (v >= kFamilies && v <= kCases && v % kFamilies == 0) return v;
+    }
+    return kCases;
+}
+inline void Run(Env& env, bool ready, const json& registered, const json& bodies, const json& collaborators) {
+    for (unsigned f = 0; f < kFunctions; ++f) {
+        const uintptr_t body = env.route[f] ? env.route[f]->Body() : 0;
+        ready &= body && ModuleOf(body) == env.asi;
+    }
+    json watched = json::array(); for (const auto& w : env.watches) watched.push_back({{"address", w.address}, {"bytes", HexBytes(reinterpret_cast<void*>(w.address), w.saved.size())}});
+    SaveFP(savedFP.data()); savedMXCSR = ReadMXCSR(); savedFPActive = true;
+    const unsigned nCases = CasesPerFunction();
+    json cases = json::object(); for (const char* nm : kFn) cases[nm] = nCases;
+    Write({{"event", "begin"}, {"registered_hook", ready}, {"registered", registered}, {"functions", kFunctions}, {"pairs", kFunctions * nCases}, {"cases", cases},
+        {"direct_functions", json::array()}, {"compare_dead_x87_registers", kCompareDeadX87Registers}, {"compare_volatile_registers", kCompareVolatileRegisters},
+        {"x87_comparison", "fcw+top+ftw+valid_st; ignora FSW banderas/CC, FIP/FDP y registros vacios; MXCSR sin banderas"}, {"collaborators_stubbed", true}, {"rng_native", false},
+        {"collaborators", collaborators}, {"watched_entries", watched}, {"bodies", bodies}, {"asi_module", env.asi}, {"original_module", env.game},
+        {"initial_fp", HexBytes(savedFP.data(), 108)}, {"initial_mxcsr", savedMXCSR}});
+    Totals totals;
+    if (ready) {
+        gBenchThread = GetCurrentThreadId();
+        for (unsigned f = 0; f < kFunctions; ++f) {
+            const unsigned before = totals.failures;
+            for (unsigned c = 0; c < nCases; ++c) CaseRun(env, totals, f, c);
+            Write({{"event", "function_summary"}, {"function", kFn[f]}, {"cases", nCases}, {"failures", totals.failures - before}, {"state_restored", env.WatchesIntact() && RegionsIntact()}});
+        }
+    }
+    RestoreAllRegions();
+    const bool entriesIntact = env.WatchesIntact() && RegionsIntact();
+    bool stateRestored = entriesIntact;
+    for (auto& r : env.collab) if (r) stateRestored &= r->Restore();
+    for (auto& r : env.route) if (r) stateRestored &= r->Restore();
+    RestoreFloatingState(); stateRestored &= FloatingStateRestored();
+    Write({{"event", "global_state_final"}, {"floating_state", HexBytes(savedFP.data(), 108)}, {"mxcsr", ReadMXCSR()}, {"state_restored", stateRestored}, {"watched_intact", entriesIntact}});
+    Write({{"event", ready && totals.passed && stateRestored ? "complete" : "error"}, {"pairs", totals.pairs}, {"state_restored", stateRestored}, {"floating_state_restored", FloatingStateRestored()}, {"entries_intact", entriesIntact}});
+    RestoreFloatingState(); savedFPActive = false;
+}
+
+// Busca el hook registrado para una direccion del EXE (categoria y nombre). Hooks Simple (direccion del EXE) y Virtual (direccion de la funcion del EXE que ocupa la ranura): de un Virtual devuelve ademas
+// el cuerpo de la DLL (la entrada de su vtabla), que HookRoute usa como candidato. Un Virtual lleva dentro un Simple sobre la misma direccion (Virtual::Switch).
+inline bool FindHook(uintptr_t exe, std::string& cat, std::string& name, uintptr_t* virtualBody = nullptr) {
+    bool found = false;
+    ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c) {
+        for (auto& h : c.Items()) {
+            if (h->Type() == ReversibleHooks::ReversibleHook::Base::HookType::Simple
+                && reinterpret_cast<uintptr_t>(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get())->GetHookGTAAddress()) == exe) {
+                cat = std::string(c.Name()); name = std::string(h->Name()); found = true;
+            } else if (virtualBody && h->Type() == ReversibleHooks::ReversibleHook::Base::HookType::Virtual
+                && reinterpret_cast<uintptr_t>(static_cast<ReversibleHooks::ReversibleHook::Virtual*>(h.get())->GetHookGTAAddress()) == exe) {
+                cat = std::string(c.Name()); name = std::string(h->Name()); found = true;
+                *virtualBody = reinterpret_cast<uintptr_t>(static_cast<ReversibleHooks::ReversibleHook::Virtual*>(h.get())->GetHookOurAddress());
+            }
+        }
+    });
+    return found;
+}
+// Colaborador: si la DLL tiene hook (apagado) se parchea tambien el cuerpo de la DLL; si no (dll = 0), la DLL llama a la direccion del EXE.
+inline Pair MakeCollab(Env& env, uintptr_t exe, json& hooksFound) {
+    Pair p{exe, 0, false};
+    std::string cat, name;
+    if (FindHook(exe, cat, name)) {
+        env.collab.emplace_back(new HookRoute(cat.c_str(), name.c_str(), exe, HookRoute::RegisteredTarget{}));
+        hooksFound.push_back({{"exe", exe}, {"class", cat}, {"name", name}});
+        if (env.collab.back()->Registered()) { p.dll = Body(env.collab.back()->Body()); p.hooked = true; }
+    }
+    return p;
+}
+// Colaborador con hook V (RH_ScopedVMTInstall): la ruta usa el cuerpo de la DLL de la ranura (la funcion que la DLL llama de forma no virtual) y el hook se apaga.
+inline Pair MakeCollabV(Env& env, uintptr_t exe, json& hooksFound) {
+    Pair p{exe, 0, false};
+    std::string cat, name; uintptr_t vbody = 0;
+    if (FindHook(exe, cat, name, &vbody)) {
+        if (vbody) env.collab.emplace_back(new HookRoute(cat.c_str(), name.c_str(), exe, vbody));
+        else env.collab.emplace_back(new HookRoute(cat.c_str(), name.c_str(), exe, HookRoute::RegisteredTarget{}));
+        hooksFound.push_back({{"exe", exe}, {"class", cat}, {"name", name}, {"virtual", vbody != 0}});
+        if (env.collab.back()->Registered()) { p.dll = Body(env.collab.back()->Body()); p.hooked = true; }
+    }
+    return p;
+}
+
+inline void Update() {
+    if (done) return; char exe[MAX_PATH]{}; GetModuleFileNameA(nullptr, exe, MAX_PATH); const auto dir = std::filesystem::path(exe).parent_path();
+    if (!std::filesystem::exists(dir / "fn195a-runtime.start")) { done = true; return; }
+    if (!log.is_open()) { log.open(dir / "fn195a-runtime.jsonl"); Write({{"event", "waiting_for_player"}}); ReversingProbe::InstallFailureCapture("fn195a"); }
+    if (!FindPlayerPed() || CCutsceneMgr::IsRunning()) return; done = true;
+    Env env;
+    env.asi = ModuleOf(uintptr_t(&ModuleMarker)); env.game = uintptr_t(GetModuleHandleA(nullptr));
+    bool ready = true; json registered = json::object(); json bodies = json::object(); json collaborators = json::object(); json ownHooks = json::object();
+    // Ruta RH de cada funcion probada: se construye ANTES que nada; el constructor deja el hook apagado.
+    for (unsigned f = 0; f < kFunctions; ++f) {
+        std::string cat, name; uintptr_t vbody = 0;
+        const bool found = FindHook(kEntries[f], cat, name, &vbody);
+        if (found) {
+            if (vbody) env.route[f].reset(new HookRoute(cat.c_str(), name.c_str(), kEntries[f], vbody));
+            else env.route[f].reset(new HookRoute(cat.c_str(), name.c_str(), kEntries[f], HookRoute::RegisteredTarget{}));
+        }
+        registered[kFn[f]] = found && env.route[f]->Registered(); bodies[kFn[f]] = found && env.route[f]->Body() != 0;
+        ready &= found && env.route[f]->Registered() && env.route[f]->Body() && ModuleOf(env.route[f]->Body()) == env.asi;
+        if (!found) ready = false;
+        ownHooks[kFn[f]] = found ? json({{"class", cat}, {"name", name}, {"address", kEntries[f]}, {"virtual", vbody != 0}}) : json(nullptr);
+    }
+    json hooksFound = json::array();
+    if (!ready) { Run(env, false, registered, bodies, collaborators); return; }
+    auto S = [](const Pair& p, void* fake) { return StubSpec{p, fake}; };
+    std::map<uintptr_t, Pair> collabCache;   // una sola ruta por colaborador aunque lo usen varias funciones
+    // Colaborador con hook RH en la DLL (apagado durante el banco): el mismo falso en el EXE y en el cuerpo de la DLL
+    auto F = [&](uintptr_t exe, auto* fake) {
+        auto it = collabCache.find(exe);
+        if (it == collabCache.end()) it = collabCache.emplace(exe, MakeCollab(env, exe, hooksFound)).first;
+        if (!it->second.hooked || !it->second.dll) ready = false;   // se esperaba hook RH con cuerpo en el ASI
+        return S(it->second, reinterpret_cast<void*>(fake));
+    };
+    // Colaborador SIN hook RH que la DLL llama por la direccion del EXE (delete[] 0x8213AE, RpAtomicClone 0x749E60, RwFrameCreate 0x7F0410): el falso va solo en la direccion del EXE. Se exige que no tenga hook.
+    auto ByExeAddress = [&](uintptr_t exe, auto* fake) {
+        std::string cat, name;
+        if (FindHook(exe, cat, name)) ready = false;
+        return S(Pair{exe, 0, false}, reinterpret_cast<void*>(fake));
+    };
+    // 0x667A00 y 0x667D50 son DOS hooks RH sobre la MISMA funcion de la DLL (GoToDestructorBody). Al apagarlos, RH escribe en la entrada de esa funcion (el enlace ILT que comparten) un salto a la direccion del EXE del
+    // ULTIMO hook apagado: la DLL llamaria a una u otra segun el orden. Por eso los dos cuerpos del EXE llevan el MISMO falso en cada funcion probada (el EXE llama a uno, la DLL llega al otro) y el cuerpo de la DLL
+    // es la funcion real (la direccion que resuelve la ruta de 0x667A00). El evento del falso lleva la direccion que espera la funcion probada (0x667A00 en 1; 0x667D50 en 2).
+    const StubSpec bodyA1 = F(0x667A00, &FkBody<0x667A00>);
+    auto twin = [&](uintptr_t exe, auto* fake) {
+        auto it = collabCache.find(exe);
+        if (it == collabCache.end()) it = collabCache.emplace(exe, MakeCollab(env, exe, hooksFound)).first;
+        Pair p = it->second;
+        p.dll = bodyA1.pair.dll; p.hooked = true;
+        if (!p.dll || ModuleOf(p.dll) != env.asi) ready = false;
+        return S(p, reinterpret_cast<void*>(fake));
+    };
+    env.stubs[1] = {bodyA1, twin(0x667D50, &FkBody<0x667A00>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
+    env.stubs[2] = {twin(0x667D50, &FkBody<0x667D50>), twin(0x667A00, &FkBody<0x667D50>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
+    env.stubs[3] = {F(0x61A5A0, &FkNew<0x61A5A0>), F(0x674930, &FkCtor5)};
+    env.stubs[4] = {F(0x731A30, &FkRemoveRef)};
+    env.stubs[8] = {ByExeAddress(0x821B1E, &FkRand)};
+    const char* dllReal[kFunctions];
+    for (unsigned f = 0; f < kFunctions; ++f) dllReal[f] = "toda la funcion (sin colaboradores)";
+    for (unsigned f : {1u, 2u, 3u, 4u, 8u}) dllReal[f] = "toda la funcion salvo los colaboradores falseados (falso identico en la direccion del EXE y en la funcion de la DLL, o solo en la direccion del EXE si la DLL la llama por ella)";
+    for (unsigned f = 0; f < kFunctions; ++f) {
+        json stubbed = json::array(), real = json::array();
+        env.watches.emplace_back(kEntries[f], 16);
+        for (const auto& s : env.stubs[f]) {
+            env.watches.emplace_back(s.pair.exe, 16);
+            stubbed.push_back({{"exe", s.pair.exe}, {"dll", s.pair.dll != 0}, {"hooked", s.pair.hooked}, {"dll_addr", s.pair.dll}, {"dll_module", ModuleOf(s.pair.dll)}});
+        }
+        for (const auto& pr : env.reals[f]) {
+            env.watches.emplace_back(pr.exe, 16);
+            real.push_back({{"exe", pr.exe}, {"dll", pr.dll != 0}, {"hooked", pr.hooked}, {"dll_addr", pr.dll}, {"dll_module", ModuleOf(pr.dll)}});
+        }
+        collaborators[kFn[f]] = {{"dll_real", json::array({dllReal[f]})}, {"stubbed", stubbed}, {"real", real}, {"hooks_found", hooksFound}, {"own_hook", ownHooks[kFn[f]]}, {"dll_only", json::array()}, {"iat", json(nullptr)}};
+    }
+    // Memoria global del juego tocada: el reloj (CAutoPilot) y la marca 0xA9B0B0 (cuerpos por defecto de CVehicle); se restauran tras cada lado
+    regions.clear();
+    for (auto& v : regionsOf) v.clear();
+    regions.emplace_back(kClock, 4); regionsOf[8] = {regions.size() - 1};
+    regions.emplace_back(kFlag, 1);
+    for (unsigned f = 9; f < kFunctions; ++f) regionsOf[f] = {regions.size() - 1};
+    Run(env, ready, registered, bodies, collaborators);
+}
+}

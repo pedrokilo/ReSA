@@ -1,0 +1,26 @@
+SHA256 72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b
+006D6270 c20400               OK relleno (nop/int3) 13 bytes OK
+006D6280 c20400               OK relleno (nop/int3) 13 bytes OK
+006D6290 c20800               OK relleno (nop/int3) 13 bytes OK
+006D62A0 32c0c20400           OK relleno (nop/int3) 11 bytes OK
+006D62B0 32c0c20400           OK relleno (nop/int3) 11 bytes OK
+006D62C0 32c0c20400           OK relleno (nop/int3) 11 bytes OK
+006D62D0 32c0c20400           OK relleno (nop/int3) 11 bytes OK
+006D62E0 32c0c20400           OK relleno (nop/int3) 11 bytes OK
+006D62F0 32c0c20400           OK relleno (nop/int3) 11 bytes OK
+006D6300 32c0c20400           OK relleno (nop/int3) 11 bytes OK
+006D6310 32c0c20400           OK relleno (nop/int3) 11 bytes OK
+006D6320 32c0c20400           OK relleno (nop/int3) 11 bytes OK
+006D6330 c20400               OK relleno (nop/int3) 13 bytes OK
+006D6340 c20800               OK relleno (nop/int3) 13 bytes OK
+006D6350 32c0c20400           OK relleno (nop/int3) 11 bytes OK
+006D6360 32c0c20800           OK relleno (nop/int3) 11 bytes OK
+006D6370 32c0c20800           OK relleno (nop/int3) 11 bytes OK
+006D6380 c3                   OK relleno (nop/int3) 15 bytes OK
+006D6390 c3                   OK relleno (nop/int3) 15 bytes OK
+006D63A0 c3                   OK relleno (nop/int3) 15 bytes OK
+006D63B0 c3                   OK relleno (nop/int3) 15 bytes OK
+006D63C0 c3                   OK relleno (nop/int3) 15 bytes OK
+006D3D50 d905848c8500c20400   OK relleno (nop/int3) 7 bytes OK
+006D56B0 d905508b8500c20400   OK relleno (nop/int3) 7 bytes OK
+float 0x858C84 = 0.25  float 0x858B50 = 0.0

@@ -66953,6 +66953,1432 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 7bd5ae8b77 con el cherry-pick del lote 194A (89e74cb871) y las correcciones de fuente impuestas por el banco (ver README.md). 33 funciones del EXE reconstruidas sin validar en el lote 194A (CTaskComplexWaitForPed CreateNextSubTask / CreateFirstSubTask / ControlSubTask, CTaskComplexWanderGang::CanJoinGang, GetDistSqOfClosestPathNodeToPed, destructor con borrado y GetWanderTaskByPedTypeId de CTaskComplexWander, nueve constructores de almacenes CStore de CModelInfo, salto a Shutdown de CBaseModelInfo, ocho destructores con borrado de model infos con los cuerpos 0x4C5790 y 0x4C62F0, tres funciones de CModelInfoAccelerator y constructor, destructor con borrado y cuerpo de CTaskComplexSeekEntity<FixedPos>). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); corren reales con el hook apagado: el constructor de elemento de cada almacen y 0x4C4A60, 0x40FE60, 0x420A10 y 0x407180. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE (tareas, eventos, model infos, almacenes en su direccion real), nodos de rutas y peatones reales, archivos reales, constructores de las tareas de paseo reales (se falsean), valores de pila basura en el ped recibido, la exactitud de los colaboradores falseados, y las vtables del cuerpo del destructor de CTaskComplexSeekEntity<FixedPos> (la DLL deja las suyas: +0 y +0x40 no se comparan).",
       "review_reference": "reversing/Fn194A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPatrolRoute",
+        "fn_name": "Reverse",
+        "address": "0x0066D550",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CPatrolRoute::Reverse"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleGoTo",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x0066D6D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleGoTo::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleGoToPoint",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x0066D6F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleGoToPoint::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexFollowPatrolRoute",
+        "fn_name": "Clone",
+        "address": "0x00674BB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexFollowPatrolRoute::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetRemapTexDictionary",
+        "address": "0x006D0BC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetRemapTexDictionary"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "FindWheelWidth",
+        "address": "0x006D3D50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::FindWheelWidth"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetDooorAngleOpenRatio",
+        "address": "0x006D56B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetDooorAngleOpenRatio"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehiclePool",
+        "fn_name": "CreateAtRef",
+        "address": "0x006D5DD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehiclePool::CreateAtRef"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutoPilot",
+        "fn_name": "Constructor",
+        "address": "0x006D5E20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CAutoPilot::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ProcessControlCollisionCheck",
+        "address": "0x006D6270",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ProcessControlCollisionCheck"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ProcessControlInputs",
+        "address": "0x006D6280",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ProcessControlInputs"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetComponentWorldPosition",
+        "address": "0x006D6290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetComponentWorldPosition"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsComponentPresent",
+        "address": "0x006D62A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsComponentPresent"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsDoorReady",
+        "address": "0x006D62B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsDoorReady"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsDoorFullyOpen",
+        "address": "0x006D62C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsDoorFullyOpen"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsDoorClosed",
+        "address": "0x006D62D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsDoorClosed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsDoorMissing",
+        "address": "0x006D62E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsDoorMissing"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsDoorReadyU32",
+        "address": "0x006D62F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsDoorReadyU32"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsDoorFullyOpenU32",
+        "address": "0x006D6300",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsDoorFullyOpenU32"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsDoorClosedU32",
+        "address": "0x006D6310",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsDoorClosedU32"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsDoorMissingU32",
+        "address": "0x006D6320",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsDoorMissingU32"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemoveRefsToVehicle",
+        "address": "0x006D6330",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::RemoveRefsToVehicle"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "BlowUpCar",
+        "address": "0x006D6340",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::BlowUpCar"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetUpWheelColModel",
+        "address": "0x006D6350",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetUpWheelColModel"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "BurstTyre",
+        "address": "0x006D6360",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::BurstTyre"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsRoomForPedToLeaveCar",
+        "address": "0x006D6370",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsRoomForPedToLeaveCar"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetupSuspensionLines",
+        "address": "0x006D6380",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetupSuspensionLines"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "Fix",
+        "address": "0x006D6390",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::Fix"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetupDamageAfterLoad",
+        "address": "0x006D63A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetupDamageAfterLoad"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "DoBurstAndSoftGroundRatios",
+        "address": "0x006D63B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::DoBurstAndSoftGroundRatios"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "PlayCarHorn",
+        "address": "0x006D63C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn195A/validation-summary.json",
+        "sha256": "dd5a50efcc80b54ee44d6f00b6aa0149e10857fbf1a06ff9b1ffa401eb0b1a19",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::PlayCarHorn"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "730bc256e6e89b5fe91e37ad845405175121e111542d50be1f6c3dfe661435ff",
+        "source/InjectHooksMain.cpp": "0e3ee61bc77c614b703139583c1be1d84f73b4b674dd0156bbb1a7553773f7b2",
+        "source/game_sa/PatrolRoute.cpp": "ef0d4f38aa3955cf04551c92b9d9d779e85c2ac598fee87467ceac4c6df4587a",
+        "source/game_sa/PatrolRoute.h": "c3098b169b22117fd7a11c7c17689eace82c9280b80e5e0c76bf0602556a9855",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "570d203e4adf70b19a56e719aec04c7393c36a58952840699526faae23ec3e11",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "850f755592c975b45b00f1d715796d58237d3ea2d24e85c5ef8fe186d5e595bf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "aef050127974013a8e76d6d663e20998fdf295651f6a3c0425bc17536667636f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.h": "7ebec9aa33dc7c63fcbffff1d986f5e8431a440adfa6c23dd4e7f2bc73ee7ce8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "7c91a37b881a90ff4eb8c09664918b26c2ce8f8bb5872bdc02de4af8d3a485f6",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8230626f51ab60bdb9876ff2b9c93d983635b9388b1fbfcd7e458861b50eae95",
+        "source/game_sa/Pools/VehiclePool.h": "fcd1d909ff399300ce8b431ea1d942d77f5c18690d695c130758c2381a9e84cb",
+        "source/game_sa/Core/Pool.h": "446909c8accfa641c78f139ff76335f8ea8bf83f58e05d54245e987caf18245b",
+        "source/game_sa/AutoPilot.cpp": "cb580fac2bb9be622ed2feef4ecb2b471b8f32c0670c15bec9fd981c322abf8d",
+        "source/game_sa/AutoPilot.h": "6997ff22d69f94d06558b9184d64a16f4cd11f9bc31f83ceca6182476e75ffc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn195A/LiveComparison.hpp": "792d8bd756ee4fa435745f6410edf0a34a14cf9936111b539eb50a5fa96adb82",
+        "reversing/Fn195A/Core.hpp": "d329873870a8305376c1f21b21656cbd37c8ba5538f2b6b87a236e114ace98f0",
+        "reversing/Fn195A/Fixtures.hpp": "6ccedc8ebdcf7a4761d7ac0048401c6a1324b21e5cd8265af4be064edd24ff27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 7bd5ae8b77 con los cambios del lote (ver artifacts/build-manifest.json). 31 funciones del EXE sin hook: CPatrolRoute::Reverse, destructores con borrado de CTaskSimpleGoTo y CTaskSimpleGoToPoint, Clone de CTaskComplexFollowPatrolRoute, CVehicle::SetRemapTexDictionary, CPool<CVehicle,CHeli>::CreateAtRef, constructor de CAutoPilot y 22 cuerpos por defecto de ranuras virtuales de CVehicle (clases por desensamblado y vtables). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella: rand del CRT 0x821B1E y constructor 0x674930). Los dos cuerpos 0x667A00 y 0x667D50 del destructor de CTaskSimpleGoTo son una sola funcion de la DLL con dos hooks: el falso va en ambas direcciones del EXE. Fuera de los fixtures: this nulo o crudo, rutas de patrulla con nombres sin NUL en el segundo campo (desbordan el nodo temporal de pila del EXE), contadores de mas de 12 nodos, pools de vehiculos reales, ranuras fuera de rango u ocupadas (la plantilla de la DLL tiene asserts que el EXE no tiene), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados. Las 22 ranuras por defecto estan comprobadas ademas contra los bytes del PE y su relleno (check_pad.py).",
+      "review_reference": "reversing/Fn195A/README.md"
     }
   ]
 }

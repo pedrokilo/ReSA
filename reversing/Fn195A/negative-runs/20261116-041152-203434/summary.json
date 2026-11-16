@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "25215c66270f94345b2bc34a612a15b892a0cfcfdbb8e5bc04bb9159c814cd32",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CPatrolRoute::Reverse: 666/2048; CTaskSimpleGoTo::ScalarDeletingDestructor: 490/2048; CTaskSimpleGoToPoint::ScalarDeletingDestructor: 494/2048; CTaskComplexFollowPatrolRoute::Clone: 660/2048; CVehicle::SetRemapTexDictionary: 609/2048; CVehicle::FindWheelWidth: 919/2048; CVehicle::GetDooorAngleOpenRatio: 899/2048; CVehiclePool::CreateAtRef: 889/2048; CAutoPilot::Constructor: 920/2048; CVehicle::ProcessControlCollisionCheck: 2048/2048; CVehicle::ProcessControlInputs: 2048/2048; CVehicle::GetComponentWorldPosition: 2048/2048; CVehicle::IsComponentPresent: 899/2048; CVehicle::IsDoorReady: 896/2048; CVehicle::IsDoorFullyOpen: 909/2048; CVehicle::IsDoorClosed: 890/2048; CVehicle::IsDoorMissing: 882/2048; CVehicle::IsDoorReadyU32: 889/2048; CVehicle::IsDoorFullyOpenU32: 908/2048; CVehicle::IsDoorClosedU32: 908/2048; CVehicle::IsDoorMissingU32: 894/2048; CVehicle::RemoveRefsToVehicle: 2048/2048; CVehicle::BlowUpCar: 2048/2048; CVehicle::SetUpWheelColModel: 912/2048; CVehicle::BurstTyre: 885/2048; CVehicle::IsRoomForPedToLeaveCar: 890/2048; CVehicle::SetupSuspensionLines: 2048/2048; CVehicle::Fix: 2048/2048; CVehicle::SetupDamageAfterLoad: 2048/2048; CVehicle::DoBurstAndSoftGroundRatios: 2048/2048; CVehicle::PlayCarHorn: 2048/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
