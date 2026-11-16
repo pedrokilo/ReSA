@@ -2766,3 +2766,149 @@ void RwCoreInjectHooksR7A() {
     RH_ScopedGlobalInstall(_rwD3D9DynamicVertexBufferManagerOpen, 0x7F5940);
     RH_ScopedGlobalInstall(RwD3D9DynamicVertexBufferCreate, 0x7F5A00);
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R8A (sin validar): ordenacion de registros por una clave de 32 bits (0x8103D0). La llama 0x80FC30 (RwCore, creacion de la lista de grupos de la tuberia de Rx) con
+// (registros, cantidad, 0xC, 0, 0, 0xFFFFFFFF); el listado la daba por RpMatFX.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+void _rwSortRecordsByKey(void* base, RwUInt32 count, RwUInt32 stride, RwUInt32 keyOffset, RwUInt32 keyMin, RwUInt32 keyMax);
+
+void RwCoreInjectHooksR8A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(_rwSortRecordsByKey, 0x8103D0);
+}
+
+// 0x8103D0 (lote R8A, sin validar; cdecl, 6 argumentos (registros, cantidad, tamano del registro, desplazamiento de la clave, clave minima, clave maxima), `ret`, 598 bytes; llamador: 0x80FF92): ordena de
+// menor a mayor (sin signo) los registros por la clave de 32 bits en registro + desplazamiento. Sin efecto si los registros son NULL, si desplazamiento + 4 > tamano o si minima >= maxima. Con mas de 5 registros
+// hace primero una particion por bits ("radix exchange"): la mascara empieza en el bit mas alto de la clave maxima y se divide por 2 en cada nivel; cada particion intercambia (en dwords; los bytes sobrantes del
+// registro no se intercambian) el primer registro con el bit a 1 por el ultimo con el bit a 0, y solo se subdividen las mitades de 6 o mas registros (una pila de trozos en el marco). Despues (para
+// cualquier cantidad > 1) pone el menor de los primeros min(5, cantidad) en la cabeza (a igualdad de clave, el de menor indice: busca de mayor a menor con `<` estricto) y termina con una insercion directa
+// que no comprueba el limite inferior (la cabeza es el minimo).
+void _rwSortRecordsByKey(void* basePointer, RwUInt32 count, RwUInt32 stride, RwUInt32 keyOffset, RwUInt32 keyMin, RwUInt32 keyMax) {
+    const RwUInt32 base = reinterpret_cast<RwUInt32>(basePointer);
+    if (base == 0 || keyOffset + 4 > stride || keyMin >= keyMax) {
+        return;
+    }
+    const auto keyAt = [keyOffset](RwUInt32 record) { return *reinterpret_cast<const RwUInt32*>(record + keyOffset); };
+    // Intercambio de los registros por dwords (stride >= 4: stride / 4 dwords).
+    const auto swapRecords = [stride](RwUInt32 a, RwUInt32 b) {
+        if (stride < 4) {
+            return;
+        }
+        for (RwUInt32 n = stride >> 2; n != 0; --n, a += 4, b += 4) {
+            const RwUInt32 va = *reinterpret_cast<const RwUInt32*>(a);
+            const RwUInt32 vb = *reinterpret_cast<const RwUInt32*>(b);
+            *reinterpret_cast<RwUInt32*>(a) = vb;
+            *reinterpret_cast<RwUInt32*>(b) = va;
+        }
+    };
+
+    if (count > 5) {
+        RwInt32 bit = -1;
+        if (keyMax != 0) {
+            bit = 0;
+            for (RwUInt32 t = keyMax >> 1; t != 0; t >>= 1) {
+                ++bit;
+            }
+        }
+        struct Piece {
+            RwUInt32 first;
+            RwUInt32 last;
+            RwUInt32 mask;
+        };
+        Piece pieces[40];
+        RwInt32 depth = 0;
+        pieces[depth++] = { base, base + (count - 1) * stride, 1u << bit };
+        do {
+            --depth;
+            const RwUInt32 first = pieces[depth].first;
+            RwUInt32 last = pieces[depth].last;
+            RwUInt32 mask = pieces[depth].mask;
+            for (;;) {
+                const RwUInt32 pieceLast = last;
+                RwUInt32 lo = first;
+                RwUInt32 hi = last;
+                for (;;) {
+                    if ((keyAt(lo) & mask) == 0) {
+                        lo += stride;
+                        if (lo > hi) {
+                            break;
+                        }
+                        while ((keyAt(lo) & mask) == 0) {
+                            lo += stride;
+                            if (lo > hi) {
+                                goto partitioned;
+                            }
+                        }
+                    }
+                    if ((keyAt(hi) & mask) != 0) {
+                        hi -= stride;
+                        if (lo > hi) {
+                            break;
+                        }
+                        while ((keyAt(hi) & mask) != 0) {
+                            hi -= stride;
+                            if (lo > hi) {
+                                goto partitioned;
+                            }
+                        }
+                    }
+                    swapRecords(lo, hi);
+                    lo += stride;
+                    hi -= stride;
+                    if (lo > hi) {
+                        break;
+                    }
+                }
+            partitioned:
+                mask >>= 1;
+                if (mask == 0) {
+                    break;
+                }
+                hi += stride;
+                if (pieceLast >= hi + 5 * stride) {
+                    pieces[depth++] = { hi, pieceLast, mask };
+                }
+                last = lo - stride;
+                if (last < first + 5 * stride) {
+                    break;
+                }
+            }
+        } while (depth != 0);
+    }
+
+    if (count <= 1) {
+        return;
+    }
+    const RwUInt32 lastIndex = count - 1;
+    const RwUInt32 span = lastIndex < 4 ? lastIndex : 4;
+    RwUInt32 bestIndex = span;
+    RwUInt32 bestKey = keyAt(base + span * stride);
+    for (RwUInt32 i = span - 1;; --i) {
+        const RwUInt32 key = keyAt(base + i * stride);
+        if (key < bestKey) {
+            bestKey = key;
+            bestIndex = i;
+        }
+        if (i == 0) {
+            break;
+        }
+    }
+    if (bestIndex != 0) {
+        swapRecords(base, base + bestIndex * stride);
+    }
+    RwUInt32 previous = base;
+    for (RwUInt32 remaining = lastIndex; remaining != 0; --remaining, previous += stride) {
+        const RwUInt32 current = previous + stride;
+        const RwUInt32 currentKey = keyAt(current);
+        if (keyAt(previous) > currentKey) {
+            RwUInt32 slot = previous;
+            do {
+                swapRecords(slot, slot + stride);
+                slot -= stride;
+            } while (keyAt(slot) > currentKey);
+        }
+    }
+}

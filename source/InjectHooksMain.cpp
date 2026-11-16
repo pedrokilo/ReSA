@@ -656,6 +656,7 @@
 #include "platform/win/VideoPlayer/VideoPlayer.h"
 #include "platform/win/VideoMode.h"
 #include "platform/win/WinPlatform.h"
+#include "platform/win/DelayLoadThunks.h"
 
 #include "app/app.h"
 #include <RealTimeShadowManager.h>
@@ -1101,6 +1102,10 @@ void InjectHooksMain() {
     RwD3D9InjectHooksR6A();
     RwCoreInjectHooksR7A();
     RwCoreInjectHooksR11A();
+    RwCoreInjectHooksR8A();
+    RwPlCoreInjectHooksR8A();
+    RpMatFXInjectHooks();
+    DelayLoadThunksInjectHooks();
     RtSlerpInjectHooks();
     D3DX9InjectHooks();
     RtQuatInjectHooks();

@@ -58,6 +58,9 @@ void RwD3D9InjectHooksR6A();     // lote R6A (sin validar): estados de render y 
 void RwCoreInjectHooksR11A();      // lote R11A (sin validar): declaraciones de vertices D3D9 (0x7FAA30), material D3D9 (0x7FC430), RxPipelineCreate (0x8057B0) y campos iniciales de RwFrame (0x7F0360)
 void RwCoreInjectHooksR7A();       // lote R7A (sin validar): gestor de buferes de vertices D3D9 (0x7F5500..0x7F5A00) y lectura de texturas con mipmaps (0x7F4AE0)
 void RwPlCoreInjectHooks25d();
+void RwPlCoreInjectHooksR8A();       // lote R8A (sin validar): monton del arena de recursos (0x80FFE0..0x810140)
+void RwCoreInjectHooksR8A();         // lote R8A (sin validar): ordenacion de registros por clave (0x8103D0)
+void RpMatFXInjectHooks();           // lote R8A (sin validar): RpMatFX (plugin de efectos de material) y su canal D3D9 (0x810AA0..0x816290)
 
 template<typename T>
 inline T RwStreamRead(RwStream* stream, size_t size = sizeof(T)) {

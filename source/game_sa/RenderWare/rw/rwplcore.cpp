@@ -664,3 +664,131 @@ RwStream* RwStreamReadInt16(RwStream* stream, RwInt16* ints, RwUInt32 numBytes) 
 RwStream* RwStreamReadChunkHeaderInfo(RwStream* stream, RwChunkHeaderInfo* chunkHeaderInfo) {
     return ((RwStream*(__cdecl *)(RwStream*, RwChunkHeaderInfo*))0x7ED590)(stream, chunkHeaderInfo);
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R8A (sin validar): monton del arena de recursos de RenderWare (RwResources: la usan RwResourcesSetArenaSize 0x8080C0, RwResourcesAllocateResEntry 0x807ED0 y
+// la creacion de la arena 0x807C..0x808165). El monton es un bloque de memoria que se reparte en bloques con una cabecera de 0x20 bytes alineada a 32: {+0 monton, +4 siguiente,
+// +8 anterior, +0xC tamano util, +0x10 usado (bit 0)} y una cabecera de monton de dos punteros {+0 primer bloque, +4 desde donde buscar bloques libres}.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+struct ResArenaBlock {
+    void*          heap;     // +0x00 cabecera del monton
+    ResArenaBlock* next;     // +0x04
+    ResArenaBlock* prev;     // +0x08
+    RwUInt32       size;     // +0x0C bytes utiles (despues de la cabecera de 0x20)
+    RwUInt32       used;     // +0x10 bit 0 = ocupado
+    RwUInt32       pad[3];   // +0x14
+};
+struct ResArenaHeap {
+    ResArenaBlock* first;       // +0x00
+    ResArenaBlock* searchStart; // +0x04 primer bloque libre conocido (la busqueda empieza aqui)
+};
+static_assert(sizeof(ResArenaBlock) == 0x20 && offsetof(ResArenaBlock, size) == 0xC && offsetof(ResArenaBlock, used) == 0x10);
+} // namespace
+
+RwBool _rwResArenaHeapInit(void* memory, RwInt32 size);
+RwBool _rwResArenaHeapDestroy(void* heap);
+void* _rwResArenaHeapAlloc(void* heap, RwUInt32 size);
+void* _rwResArenaHeapSplitBlock(void* block, RwUInt32 size);
+
+void RwPlCoreInjectHooksR8A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    RH_ScopedGlobalInstall(_rwResArenaHeapInit, 0x80FFE0);
+    RH_ScopedGlobalInstall(_rwResArenaHeapDestroy, 0x810030);
+    RH_ScopedGlobalInstall(_rwResArenaHeapAlloc, 0x8100C0);
+    RH_ScopedGlobalInstall(_rwResArenaHeapSplitBlock, 0x810140);
+}
+
+// 0x80FFE0 (lote R8A, sin validar; cdecl, 2 argumentos (memoria y tamano), `ret`, 68 bytes; llamadores: 0x807CF8 y 0x808165, la creacion del arena): primer bloque en (memoria + 0x27) & ~0x1F; su tamano util =
+// ((memoria + tamano) & ~0x1F) - bloque - 0x20, con comparacion CON signo: si es menor que 0x20 devuelve FALSE (no escribe nada). Si no: bloque = {monton, 0, 0, tamano, 0}; primer bloque y
+// punto de busqueda del monton = bloque. Devuelve TRUE.
+RwBool _rwResArenaHeapInit(void* memory, RwInt32 size) {
+    const RwUInt32 base = reinterpret_cast<RwUInt32>(memory);
+    const RwUInt32 end = (base + static_cast<RwUInt32>(size)) & 0xFFFFFFE0u;
+    ResArenaBlock* const block = reinterpret_cast<ResArenaBlock*>((base + 0x27) & 0xFFFFFFE0u);
+    const RwInt32 room = static_cast<RwInt32>(end - reinterpret_cast<RwUInt32>(block) - 0x20);
+    if (room < 0x20) {
+        return FALSE;
+    }
+    block->heap = memory;
+    block->next = nullptr;
+    block->prev = nullptr;
+    block->used = 0;
+    block->size = static_cast<RwUInt32>(room);
+    ResArenaHeap* const heap = static_cast<ResArenaHeap*>(memory);
+    heap->first = block;
+    heap->searchStart = block;
+    return TRUE;
+}
+
+// 0x810030 (lote R8A, sin validar; cdecl, 1 argumento, `ret`, 6 bytes): `mov eax, 1; ret`. Destruccion del monton: no hace nada (llamadores: 0x807D95 y 0x808106).
+RwBool _rwResArenaHeapDestroy(void* heap) {
+    return TRUE;
+}
+
+// 0x8100C0 (lote R8A, sin validar; cdecl, 2 argumentos (monton y tamano), `ret`, 119 bytes; llamadores: 0x807EEE (RwResourcesAllocateResEntry), 0x8101C0 y 0x8102EB): reserva `tamano` redondeado a
+// multiplos de 32 bytes: el primer bloque libre (bit 0 de `used` a 0) con tamano util >= el pedido, buscando desde heap->searchStart (NULL: devuelve NULL). Si sobran mas de 0x40 bytes
+// lo parte (0x810140). Si era el punto de busqueda, lo avanza hasta el siguiente bloque libre (o NULL). Lo marca ocupado y devuelve bloque + 0x20.
+void* _rwResArenaHeapAlloc(void* heapPointer, RwUInt32 size) {
+    ResArenaHeap* const heap = static_cast<ResArenaHeap*>(heapPointer);
+    const RwUInt32 rounded = (size + 0x1F) & 0xFFFFFFE0u;
+    ResArenaBlock* best = nullptr;
+    ResArenaBlock* block = heap->searchStart;
+    if (block == nullptr) {
+        return nullptr;
+    }
+    while (block != nullptr && best == nullptr) {
+        if ((block->used & 1) == 0 && block->size >= rounded) {
+            best = block;
+        }
+        block = block->next;
+    }
+    if (best == nullptr) {
+        return nullptr;
+    }
+    if (best->size > rounded + 0x40) {
+        _rwResArenaHeapSplitBlock(best, rounded);
+    }
+    if (best == heap->searchStart) {
+        do {
+            ResArenaBlock* const next = heap->searchStart->next;
+            heap->searchStart = next;
+            if (next == nullptr) {
+                break;
+            }
+        } while ((heap->searchStart->used & 1) != 0);
+    }
+    best->used = 1;
+    return reinterpret_cast<RwUInt8*>(best) + 0x20;
+}
+
+// 0x810140 (lote R8A, sin validar; cdecl, 2 argumentos (bloque y tamano nuevo), `ret`, 99 bytes; llamadores: 0x81010A, 0x810217): parte el bloque en dos: el nuevo empieza en bloque + tamano + 0x20.
+// Si el siguiente esta libre se funde con el: el nuevo toma su `next` y su tamano = tamano del siguiente - tamano + tamano del bloque; si no (u ocupado o NULL) el nuevo toma `next` y
+// tamano = tamano del bloque - tamano - 0x20. Enlaza (el siguiente del nuevo, si existe, apunta atras al nuevo), el nuevo queda libre con el monton del bloque y el bloque con `tamano`.
+// Devuelve el bloque nuevo (EAX al salir; ningun llamador lo lee).
+void* _rwResArenaHeapSplitBlock(void* blockPointer, RwUInt32 size) {
+    ResArenaBlock* const block = static_cast<ResArenaBlock*>(blockPointer);
+    ResArenaBlock* const next = block->next;
+    ResArenaBlock* const split = reinterpret_cast<ResArenaBlock*>(reinterpret_cast<RwUInt8*>(block) + size + 0x20);
+    RwUInt32 splitSize;
+    if (next != nullptr && (next->used & 1) == 0) {
+        split->next = next->next;
+        splitSize = next->size - size + block->size;
+    } else {
+        split->next = next;
+        splitSize = block->size - size - 0x20;
+    }
+    split->size = splitSize;
+    block->next = split;
+    ResArenaBlock* const after = split->next;
+    split->used = 0;
+    split->prev = block;
+    if (after != nullptr) {
+        after->prev = split;
+    }
+    block->size = size;
+    split->heap = block->heap;
+    return split;
+}
