@@ -509,7 +509,7 @@ RxPipeline* CCustomCarEnvMapPipeline::CreateCustomObjPipe() {
     if (auto* const lpipe = RxPipelineLock(pipe)) {
         auto* const nodeDef = RxNodeDefinitionGetD3D9AtomicAllInOne();
         // Como el original: se desbloquea lo que devuelve AddFragment (nulo si falla)
-        if (RxLockedPipeUnlock(RxLockedPipeAddFragment(lpipe, nullptr, nodeDef))) {
+        if (RxLockedPipeUnlock(RxLockedPipeAddFragment(lpipe, nullptr, nodeDef, nullptr))) {
             auto* const node = RxPipelineFindNodeByName(pipe, nodeDef->name, nullptr, nullptr);
             RxD3D9AllInOneSetInstanceCallBack(node, RxD3D9AllInOneGetInstanceCallBack(node));
             RxD3D9AllInOneSetReinstanceCallBack(node, CustomPipeInstanceCB);

@@ -646,25 +646,13 @@ void RwCoreInjectHooks() {
     RH_ScopedGlobalInstall(RwD3D9RasterIsCompressed, 0x820C90);
 }
 
-RxHeap* RxHeapCreate(RwUInt32 size) {
-    return ((RxHeap*(__cdecl *)(RwUInt32))0x809F90)(size);
-}
-
-void RxHeapDestroy(RxHeap* heap) {
-    ((void(__cdecl *)(RxHeap*))0x809F30)(heap);
-}
-
-RwBool _rxHeapReset(RxHeap* heap) {
-    return ((RwBool(__cdecl *)(RxHeap*))0x809EC0)(heap);
-}
+// 0x809F90 (RxHeapCreate), 0x809F30 (RxHeapDestroy) y 0x809EC0 (_rxHeapReset): reconstruidas al final del archivo (lote R32A).
 
 void* RxHeapAlloc(RxHeap* heap, RwUInt32 size) {
     return ((void*(__cdecl *)(RxHeap*, RwUInt32))0x809AA0)(heap, size);
 }
 
-void RxHeapFree(RxHeap* heap, void* block) {
-    ((void(__cdecl *)(RxHeap*, void*))0x8098B0)(heap, block);
-}
+// 0x8098B0 (RxHeapFree): reconstruida al final del archivo (lote R32A).
 
 void* RxHeapRealloc(RxHeap* heap, void* block, RwUInt32 newSize, RwBool allowCopy) {
     return ((void*(__cdecl *)(RxHeap*, void*, RwUInt32, RwBool))0x809D10)(heap, block, newSize, allowCopy);
@@ -856,9 +844,7 @@ RxPipeline* RxPipelineClone(RxPipeline* pipeline) {
     return ((RxPipeline*(__cdecl *)(RxPipeline*))0x806AC0)(pipeline);
 }
 
-RxPipelineNode* RxPipelineFindNodeByName(RxPipeline* pipeline, const RwChar* name, RxPipelineNode* start, RwInt32* nodeIndex) {
-    return ((RxPipelineNode*(__cdecl *)(RxPipeline*, const RwChar*, RxPipelineNode*, RwInt32*))0x806B30)(pipeline, name, start, nodeIndex);
-}
+// 0x806B30 (RxPipelineFindNodeByName): reconstruida al final del archivo (lote R32A, RwCoreInjectHooksR32A).
 
 RxPipelineNode* RxPipelineFindNodeByIndex(RxPipeline* pipeline, RwUInt32 nodeindex) {
     return ((RxPipelineNode*(__cdecl *)(RxPipeline*, RwUInt32))0x806BC0)(pipeline, nodeindex);
@@ -878,9 +864,7 @@ RxPipeline* RxLockedPipeSetEntryPoint(RxLockedPipe* pipeline, RxNodeInput in) {
     return ((RxPipeline*(__cdecl *)(RxLockedPipe*, RxNodeInput))0x807070)(pipeline, in);
 }
 
-RxLockedPipe* RxLockedPipeAddFragment(RxLockedPipe* pipeline, RwUInt32* firstIndex, RxNodeDefinition* nodeDef0, RxNodeDefinition* __va_end__) {
-    return plugin::CallAndReturn<RxPipeline*, 0x806BE0, RxLockedPipe*, RwUInt32*, RxNodeDefinition*, RxNodeDefinition*>(pipeline, firstIndex, nodeDef0, __va_end__);
-}
+// 0x806BE0 (RxLockedPipeAddFragment): reconstruida al final del archivo (lote R32A, RwCoreInjectHooksR32A).
 
 RxPipelineNode* RxLockedPipeGetEntryPoint(RxLockedPipe* pipeline) {
     return ((RxPipelineNode*(__cdecl *)(RxLockedPipe*))0x8070D0)(pipeline);
@@ -1941,9 +1925,7 @@ void RwPalQuantTerm(RwPalQuant* pq) {
     ((void(__cdecl *)(RwPalQuant*))0x80C520)(pq);
 }
 
-void RwPalQuantAddImage(RwPalQuant* pq, RwImage* img, RwReal weight) {
-    ((void(__cdecl *)(RwPalQuant*, RwImage*, RwReal))0x80AA80)(pq, img, weight);
-}
+// 0x80AA80 (RwPalQuantAddImage): reconstruida al final del archivo (lote R32A).
 
 RwInt32 RwPalQuantResolvePalette(RwRGBA* palette, RwInt32 maxcols, RwPalQuant* pq) {
     return ((RwInt32(__cdecl *)(RwRGBA*, RwInt32, RwPalQuant*))0x80AF60)(palette, maxcols, pq);
@@ -4616,13 +4598,7 @@ RwFrame* _rwFramePurgeClone(RwFrame* root) {
     return root;
 }
 
-RwBool _rwFrameSyncDirty() {
-    return ((RwBool(__cdecl *)(void))0x809550)();
-}
-
-void _rwFrameSyncHierarchyLTM(RwFrame* frame) {
-    ((void(__cdecl *)(RwFrame*))0x8097D0)(frame);
-}
+// 0x809550 (_rwFrameSyncDirty) y 0x8097D0 (_rwFrameSyncHierarchyLTM): reconstruidas al final del archivo (lote R32A).
 
 // 0x804550: _rwPluginRegistryAddPluginStream(&textureTKList, ...)
 RwInt32 RwTextureRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
@@ -4759,9 +4735,7 @@ void RwFrameListSetAutoUpdate(RwBool flag) {
     ((void(__cdecl *)(RwBool))0x807570)(flag);
 }
 
-RwInt32 RwFrameRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkReadCallBack, RwPluginDataChunkWriteCallBack, RwPluginDataChunkGetSizeCallBack))0x807580)(pluginID, readCB, writeCB, getSizeCB);
-}
+// 0x807580 (RwFrameRegisterPluginStream): reconstruida al final del archivo (lote R32A).
 
 RwInt32 RwFrameSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
     return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x8075B0)(pluginID, alwaysCB);
@@ -4788,9 +4762,7 @@ RwUInt32 _rwFrameListStreamGetSize(const rwFrameList* frameList) {
     return ((RwUInt32(__cdecl *)(const rwFrameList*))0x807750)(frameList);
 }
 
-rwFrameList* _rwFrameListStreamRead(RwStream* stream, rwFrameList* fl) {
-    return ((rwFrameList*(__cdecl *)(RwStream*, rwFrameList*))0x807970)(stream, fl);
-}
+// 0x807970 (_rwFrameListStreamRead): reconstruida al final del archivo (lote R32A).
 
 const rwFrameList* _rwFrameListStreamWrite(const rwFrameList* frameList, RwStream* stream) {
     return ((const rwFrameList*(__cdecl *)(const rwFrameList*, RwStream*))0x8077A0)(frameList, stream);
@@ -5037,9 +5009,7 @@ RwUInt32 RwCameraStreamGetSize(const RwCamera* camera) {
     return ((RwUInt32(__cdecl *)(const RwCamera*))0x808CE0)(camera);
 }
 
-RwCamera* RwCameraStreamRead(RwStream* stream) {
-    return ((RwCamera*(__cdecl *)(RwStream*))0x808DE0)(stream);
-}
+// 0x808DE0 (RwCameraStreamRead): reconstruida al final del archivo (lote R32A).
 
 const RwCamera* RwCameraStreamWrite(const RwCamera* camera, RwStream* stream) {
     return ((const RwCamera*(__cdecl *)(const RwCamera*, RwStream*))0x808D00)(camera, stream);
@@ -9526,4 +9496,823 @@ void RwCoreInjectHooksR31A() {
     RH_ScopedGlobalInstall(_rxPipelineBuildLockedLayout, 0x8065E0);
     RH_ScopedGlobalInstall(_rxPipelineTopSortVisit, 0x8067B0);
     RH_ScopedGlobalInstall(RxPipelineLock, 0x806990);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R32A (sin validar): tuberias de Rx (busqueda y alta de nodos), listas de marcos y camaras en flujos, sincronizacion de marcos sucios, monton de Rx, tuberias por defecto de Im3D y
+// cuantificador de paleta (0x806B30..0x80AA80). Funciones de RenderWare (rxpipeline.c, rxheap.c, bafframe.c, bacamera.c, baim3d.c, bapalquant.c) enlazadas en el EXE.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+// Datos en flujo de un marco (0x38 bytes): matriz (derecha, arriba, adelante, posicion: 12 dwords), indice del padre y banderas de creacion.
+struct FrameListStreamFrame {
+    RwUInt32 matrix[12];
+    RwInt32  parentIndex;
+    RwUInt32 creationFlags;
+};
+static_assert(sizeof(FrameListStreamFrame) == 0x38);
+
+// Llama al `sync` de cada objeto enganchado al marco (lista con cabeza propia en +0x90, enlace en +8 del objeto y `sync` en +0x10); el siguiente se lee DESPUES de la llamada.
+void FrameSyncObjects(RwFrame* frame) {
+    RwLLLink* const head = &frame->objectList.link;
+    for (RwLLLink* link = head->next; link != head; link = link->next) {
+        RwObjectHasFrame* const object = reinterpret_cast<RwObjectHasFrame*>(reinterpret_cast<uint8*>(link) - offsetof(RwObjectHasFrame, lFrame));
+        object->sync(object);
+    }
+}
+
+// LTM del hijo = modelado del hijo x LTM del padre (padre = object.parent).
+void FrameMultiplyLtm(RwFrame* frame) {
+    RwFrame* const parent = static_cast<RwFrame*>(frame->object.parent);
+    RwMatrixMultiply(&frame->ltm, &frame->modelling, &parent->ltm);
+}
+
+// Dos llamadas por direccion fija que siguen en el EXE (descenso del octree y acumulacion del color).
+using PalQuantDescendFn = _rwPalQuantOctNode*(__cdecl*)(RwPalQuant*, _rwPalQuantOctNode*, RwUInt32, RwUInt32);
+using PalQuantAccumulateFn = void(__cdecl*)(_rwPalQuantOctNode*, const void*, RwUInt32);
+
+// Cuerpo comun de RwPalQuantAddImage para un color RGBA (4 bytes): clave de octree con la profundidad global (0x8E26E0) y la tabla de dispersion de bits de 0xC9A730, nodo hoja y acumulacion.
+void PalQuantAddPixel(RwPalQuant* pq, const RwUInt8* rgba, RwUInt32 weightBits) {
+    const RwUInt32 depth = StaticRef<RwUInt32>(0x8E26E0);
+    const RwUInt32 shift = ((8u - depth) & 0xFFu) & 31u;
+    const RwUInt32* const spread = reinterpret_cast<const RwUInt32*>(0xC9A730);
+    RwUInt32 key = spread[rgba[0] >> shift];
+    key += key;
+    key |= spread[rgba[1] >> shift];
+    key += key;
+    key |= spread[rgba[2] >> shift];
+    key += key;
+    key |= spread[rgba[3] >> shift];
+    _rwPalQuantOctNode* node;
+    if (depth == 0) {
+        node = pq->root;
+    } else {
+        _rwPalQuantOctNode** const slot = &pq->root->Branch.dir[key & 0xF];
+        if (*slot == nullptr) {
+            _rwPalQuantOctNode* const created = static_cast<_rwPalQuantOctNode*>(RwFreeListAlloc(pq->cubefreelist, 0x30411));
+            *slot = created;
+            memset(&created->Branch, 0, sizeof(created->Branch));
+            if (depth == 1) {
+                created->Leaf.palIndex = 0;
+                memset(&created->Leaf, 0, 0x18);
+            }
+        }
+        node = reinterpret_cast<PalQuantDescendFn>(0x80AED0)(pq, *slot, key >> 4, depth - 1);
+    }
+    reinterpret_cast<PalQuantAccumulateFn>(0x80AD90)(node, rgba, weightBits);
+}
+static_assert(offsetof(RwPalQuant, root) == 0x4000 && offsetof(RwPalQuant, cubefreelist) == 0x4004 && sizeof(_rwPalQuantLeafNode) == 0x1C && offsetof(_rwPalQuantLeafNode, palIndex) == 0x18);
+static_assert(offsetof(RwImage, stride) == 0x10 && offsetof(RwImage, cpPixels) == 0x14 && offsetof(RwImage, palette) == 0x18);
+static_assert(offsetof(RwFrame, objectList) == 0x90 && offsetof(RwFrame, child) == 0x98 && offsetof(RwFrame, next) == 0x9C && offsetof(RwFrame, ltm) == 0x50);
+} // namespace
+
+// 0x806B30 (lote R32A, sin validar; 142 bytes; era una envoltura; cdecl, (tuberia, nombre, inicio, &indice); `RxPipelineFindNodeByName` del SDK): tuberia o nombre NULL, o sin nodos -> indice -1 y NULL. Si `inicio` es distinto de
+// NULL la busqueda empieza en el nodo SIGUIENTE a `inicio` (si `inicio` no esta en la tuberia recorre hasta agotar y falla). Compara cada nombre de definicion (+0) con `nombre` mediante el rwstrcmp del motor
+// (+0x114; un nodo sin definicion se salta); el primero que da 0 se devuelve con su indice (numNodos - restantes).
+RxPipelineNode* RxPipelineFindNodeByName(RxPipeline* pipeline, const RwChar* name, RxPipelineNode* start, RwInt32* nodeIndex) {
+    if (pipeline != nullptr && name != nullptr && pipeline->numNodes != 0) {
+        RwInt32 remaining = static_cast<RwInt32>(pipeline->numNodes);
+        RxPipelineNode* node = pipeline->nodes;
+        if (start != nullptr) {
+            if (node != start) {
+                do {
+                    if (remaining <= 0) {
+                        break;
+                    }
+                    ++node;
+                    --remaining;
+                } while (node != start);
+            }
+            ++node;
+            --remaining;
+        }
+        while (remaining > 0) {
+            RxNodeDefinition* const definition = node->nodeDef;
+            if (definition != nullptr) {
+                if (rwstrcmp(definition->name, name) == 0) {
+                    if (nodeIndex != nullptr) {
+                        *nodeIndex = static_cast<RwInt32>(pipeline->numNodes) - remaining;
+                    }
+                    return node;
+                }
+            }
+            ++node;
+            --remaining;
+        }
+    }
+    if (nodeIndex != nullptr) {
+        *nodeIndex = -1;
+    }
+    return nullptr;
+}
+
+// 0x806DE0 (lote R32A, sin validar; 310 bytes; cdecl, (tuberia, nodo, definicion); nombre inferido: alta de un nodo en una tuberia bloqueada, la usan RxLockedPipeAddFragment 0x806BE0 y 0x806F20): pone a cero los 0x28 bytes del
+// nodo. Errores (RwError { 1, _rwerror(codigo) }): salidas > 0x20 -> 0x29, clusters de interes > 0x20 -> 0x28 (ambos siguen), salidas >= M (nodos maximos) -> 0x2A y devuelve 0 al momento. Si no hubo error: salidas = bloque de
+// 0x80 bytes nodes + 40*M + 0x80*numNodos (todas a 0xFFFFFFFF), topSortData = nodes + 12*(numNodos + 14*M) a cero, initializationData/Size a 0, nodeDef = definicion y numNodos += 1; devuelve 1 (0 si hubo error 0x29/0x28).
+RwBool _rxPipelineNodeCreate(RxPipeline* pipeline, RxPipelineNode* node, RxNodeDefinition* nodeDefinition) {
+    memset(node, 0, 0x28);
+    const RwUInt32 numOutputs = nodeDefinition->io.numOutputs;
+    RwBool success = TRUE;
+    if (numOutputs > 0x20) {
+        RwRaiseError(0x29);
+        success = FALSE;
+    }
+    if (nodeDefinition->io.numClustersOfInterest > 0x20) {
+        RwRaiseError(0x28);
+        success = FALSE;
+    }
+    const RwUInt32 maxNodes = RxMaxNodes();
+    if (numOutputs >= maxNodes) {
+        RwRaiseError(0x2A);
+        return FALSE;
+    }
+    if (success) {
+        uint8* const nodes = reinterpret_cast<uint8*>(pipeline->nodes);
+        RwUInt32* const outputs = reinterpret_cast<RwUInt32*>(nodes + maxNodes * 0x28u + pipeline->numNodes * 0x80u);
+        node->outputs = outputs;
+        node->numOutputs = numOutputs;
+        for (RwUInt32 i = 0; i < numOutputs; ++i) {
+            outputs[i] = 0xFFFFFFFFu;
+        }
+        RwUInt32* const topSort = reinterpret_cast<RwUInt32*>(nodes + (pipeline->numNodes + maxNodes * 14u) * 12u);
+        topSort[0] = 0;
+        topSort[1] = 0;
+        topSort[2] = 0;
+        node->topSortData = reinterpret_cast<RxPipelineNodeTopSortData*>(topSort);
+        node->initializationData = nullptr;
+        node->initializationDataSize = 0;
+        node->nodeDef = nodeDefinition;
+        pipeline->numNodes = pipeline->numNodes + 1;
+    }
+    return success;
+}
+
+// 0x806BE0 (lote R32A, sin validar; 508 bytes; era una envoltura; cdecl con lista variable (tuberia, &primerIndice o NULL, def0, def1, ..., NULL); `RxLockedPipeAddFragment` del SDK): tuberia NULL -> error 0x80000016 y NULL; no
+// bloqueada -> error 0x34 y NULL; sin definiciones (def0 NULL) -> NULL sin error. Cuenta las definiciones hasta el NULL; si numNodos + cantidad > M -> error 0x2A y NULL. Crea cada nodo con 0x806DE0 y lo encadena al anterior: la salida 0
+// del anterior (solo si estaba a 0xFFFFFFFF) apunta al indice del nuevo, que se calcula como (nuevo - nodes) / 40 con signo y debe volver a dar el mismo puntero, ser < numNodos y distinto de -1; si falla la creacion o el enlace
+// (la creacion que falla NO anade el nodo; el enlace fallido destruye el nodo recien creado con 0x8050C0) se destruyen con 0x8050C0 los nodos ya anadidos, del ultimo al primero, y devuelve NULL. Con exito escribe el primer
+// indice en `primerIndice` (si no es NULL) y devuelve la tuberia.
+RxLockedPipe* RxLockedPipeAddFragment(RxLockedPipe* pipeline, RwUInt32* firstIndex, RxNodeDefinition* nodeDef0, ...) {
+    if (pipeline == nullptr) {
+        RwRaiseError(kRxErrNullPointer);
+        return nullptr;
+    }
+    if (!pipeline->locked) {
+        RwRaiseError(0x34);
+        return nullptr;
+    }
+    if (nodeDef0 == nullptr) {
+        return nullptr;
+    }
+    va_list args;
+    va_start(args, nodeDef0);
+    RwUInt32 count = 1;
+    while (va_arg(args, RxNodeDefinition*) != nullptr) {
+        ++count;
+    }
+    va_end(args);
+    const RwUInt32 startIndex = pipeline->numNodes;
+    if (startIndex + count > RxMaxNodes()) {
+        RwRaiseError(0x2A);
+        return nullptr;
+    }
+    RwUInt32 offset = startIndex * 0x28u;
+    RwUInt32 added = 0;
+    RxPipelineNode* previous = nullptr;
+    RxNodeDefinition* definition = nodeDef0;
+    va_start(args, nodeDef0);
+    for (;;) {
+        RxPipelineNode* const node = reinterpret_cast<RxPipelineNode*>(reinterpret_cast<uint8*>(pipeline->nodes) + offset);
+        if (!_rxPipelineNodeCreate(pipeline, node, definition)) {
+            break;
+        }
+        if (previous != nullptr) {
+            RxPipelineNode* const current = (node->nodeDef != nullptr) ? node : nullptr;
+            RwUInt32* const outputs = (previous->nodeDef != nullptr && previous->numOutputs > 0) ? previous->outputs : nullptr;
+            bool linked = false;
+            if (pipeline->locked && outputs != nullptr && outputs[0] == 0xFFFFFFFFu && current != nullptr && current->nodeDef != nullptr) {
+                const RwInt32 index = static_cast<RwInt32>(reinterpret_cast<intptr_t>(current) - reinterpret_cast<intptr_t>(pipeline->nodes)) / 40;
+                if (reinterpret_cast<uint8*>(pipeline->nodes) + index * 40 == reinterpret_cast<uint8*>(current)
+                    && static_cast<RwUInt32>(index) < pipeline->numNodes && index != -1) {
+                    outputs[0] = static_cast<RwUInt32>(index);
+                    linked = true;
+                }
+            }
+            if (!linked) {
+                _rxPipelineNodeDestroy(node, pipeline);
+                break;
+            }
+        }
+        ++added;
+        previous = node;
+        offset += 0x28;
+        definition = va_arg(args, RxNodeDefinition*);
+        if (definition == nullptr) {
+            break;
+        }
+    }
+    va_end(args);
+    if (added == count) {
+        if (firstIndex != nullptr) {
+            *firstIndex = startIndex;
+        }
+        return pipeline;
+    }
+    if (added == 0) {
+        return nullptr;
+    }
+    for (RwUInt32 remaining = added; remaining != 0; --remaining) {
+        _rxPipelineNodeDestroy(reinterpret_cast<RxPipelineNode*>(reinterpret_cast<uint8*>(pipeline->nodes) + (startIndex + remaining) * 0x28u - 0x28u), pipeline);
+    }
+    return nullptr;
+}
+
+// 0x807580 (lote R32A, sin validar; 34 bytes; era una envoltura; cdecl, (id, lectura, escritura, tamano)): _rwPluginRegistryAddPluginStream(registro de RwFrame 0x8E2270, ...) con los mismos argumentos; devuelve su resultado.
+RwInt32 RwFrameRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
+    return _rwPluginRegistryAddPluginStream(FrameRegistry(), pluginID, readCB, writeCB, getSizeCB);
+}
+
+// 0x807970 (lote R32A, sin validar; 671 bytes; era una envoltura; cdecl, (flujo, lista); `_rwFrameListStreamRead` del SDK): RwStreamFindChunk(flujo, 1, &longitud, &version) (FALSE -> NULL sin error); version < 0x34000 o >
+// 0x36003 -> RwError { 1, _rwerror(0x80000004) } y NULL. Lee 4 bytes (numero de marcos; otra cantidad -> NULL), lista.numFrames = n y lista.frames = RwMalloc(n * 4, 0x3000E) (NULL -> error 0x80000013 con n * 4 y NULL).
+// Por cada marco (ciclo con signo) lee 0x38 bytes (otra cantidad -> libera el vector y NULL), crea el marco (0x7F0410; NULL -> libera y NULL), copia los 12 dwords a la matriz de modelado (derecha +0, arriba +0x10,
+// adelante +0x20, posicion +0x30) y pone flags (+0xC): si _rwMatrixNormalError (0x7F1500) <= el flotante de 0x858C58, _rwMatrixOrthogonalError (0x7F14A0) <= ese mismo y _rwMatrixDeterminant (0x7F1450) >= el flotante de
+// 0x862CD0 (comparaciones en el orden x87 del EXE, NaN cae en la rama mala) borra solo el bit 0x20000; si no borra ademas los bits 0 y 1. Guarda el marco en frames[i] y, si el padre (dword 12) es >= 0, lo cuelga de frames[padre]
+// con RwFrameAddChild (0x7F0B00) si la bandera 0x8E26A8 es distinta de 0 o con RwFrameAddChildNoUpdate (0x7F09C0) si no. Despues lee los plugins de cada marco (_rwPluginRegistryReadDataChunks 0x808980; NULL -> destruye el
+// marco 0 con 0x7F08A0, libera el vector y NULL). Devuelve la lista.
+rwFrameList* _rwFrameListStreamRead(RwStream* stream, rwFrameList* fl) {
+    RwUInt32 length = 0;
+    RwUInt32 version = 0;
+    if (!RwStreamFindChunk(stream, 1, &length, &version)) {
+        return nullptr;
+    }
+    if (version < 0x34000 || version > 0x36003) {
+        RwRaiseError(static_cast<RwInt32>(0x80000004));
+        return nullptr;
+    }
+    RwInt32 numFrames = 0;
+    if (RwStreamRead(stream, &numFrames, 4) != 4) {
+        return nullptr;
+    }
+    fl->numFrames = numFrames;
+    fl->frames = static_cast<RwFrame**>(RwMalloc(static_cast<size_t>(static_cast<RwUInt32>(numFrames) << 2), 0x3000E));
+    if (fl->frames == nullptr) {
+        RwRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(static_cast<RwUInt32>(numFrames) << 2));
+        return nullptr;
+    }
+    for (RwInt32 i = 0; i < numFrames; ++i) {
+        FrameListStreamFrame data;
+        if (RwStreamRead(stream, &data, 0x38) != 0x38) {
+            RwFree(fl->frames);
+            return nullptr;
+        }
+        RwFrame* const frame = RwFrameCreate();
+        if (frame == nullptr) {
+            RwFree(fl->frames);
+            return nullptr;
+        }
+        RwUInt32* const matrix = reinterpret_cast<RwUInt32*>(&frame->modelling);
+        matrix[0] = data.matrix[0];
+        matrix[1] = data.matrix[1];
+        matrix[2] = data.matrix[2];
+        matrix[4] = data.matrix[3];
+        matrix[5] = data.matrix[4];
+        matrix[6] = data.matrix[5];
+        matrix[8] = data.matrix[6];
+        matrix[9] = data.matrix[7];
+        matrix[10] = data.matrix[8];
+        matrix[12] = data.matrix[9];
+        matrix[13] = data.matrix[10];
+        matrix[14] = data.matrix[11];
+        const float normalLimit = StaticRef<float>(0x858C58);
+        const float determinantLimit = StaticRef<float>(0x862CD0);
+        bool good = false;
+        if (_rwMatrixNormalError(&frame->modelling) <= normalLimit
+            && _rwMatrixOrthogonalError(&frame->modelling) <= normalLimit
+            && _rwMatrixDeterminant(&frame->modelling) >= determinantLimit) {
+            good = true;
+        }
+        const RwUInt32 flags = frame->modelling.flags;
+        frame->modelling.flags = good ? (flags & 0xFFFDFFFFu) : (flags & 0xFFFDFFFCu);
+        fl->frames[i] = frame;
+        if (data.parentIndex >= 0) {
+            RwFrame* const parent = fl->frames[data.parentIndex];
+            if (StaticRef<RwInt32>(0x8E26A8) != 0) {
+                RwFrameAddChild(parent, frame);
+            } else {
+                RwFrameAddChildNoUpdate(parent, frame);
+            }
+        }
+    }
+    for (RwInt32 i = 0; i < numFrames; ++i) {
+        if (_rwPluginRegistryReadDataChunks(FrameRegistry(), stream, fl->frames[i]) == nullptr) {
+            RwFrameDestroyHierarchy(fl->frames[0]);
+            RwFree(fl->frames);
+            return nullptr;
+        }
+    }
+    return fl;
+}
+
+// 0x808DE0 (lote R32A, sin validar; 263 bytes; era una envoltura; cdecl, (flujo); `RwCameraStreamRead` del SDK): RwStreamFindChunk(flujo, 1, &longitud, &version) (FALSE -> NULL sin error); version fuera de 0x34000..0x36003 ->
+// RwError { 1, _rwerror(0x80000004) } y NULL. Pone a cero un bufer de 0x20 bytes (ventana, desplazamiento, cerca, lejos, niebla, proyeccion) y lee `longitud` bytes en el (otra cantidad -> NULL; el EXE no acota la longitud al
+// bufer). RwCameraCreate (0x7EE4F0; NULL -> NULL), _rwPluginRegistryReadDataChunks (0x808980, registro 0x8E222C; NULL -> NULL SIN destruir la camara) y por ultimo, en este orden: RwCameraSetViewWindow (0x7EE410),
+// RwCameraSetViewOffset (0x7EE1A0), RwCameraSetNearClipPlane (0x7EE1D0), RwCameraSetFarClipPlane (0x7EE2A0), fogPlane (+0x88) escrito directo y RwCameraSetProjection (0x7EE3A0). Devuelve la camara.
+RwCamera* RwCameraStreamRead(RwStream* stream) {
+    RwUInt32 length = 0;
+    RwUInt32 version = 0;
+    if (!RwStreamFindChunk(stream, 1, &length, &version)) {
+        return nullptr;
+    }
+    if (version < 0x34000 || version > 0x36003) {
+        RwRaiseError(static_cast<RwInt32>(0x80000004));
+        return nullptr;
+    }
+    rwStreamCamera info;
+    memset(&info, 0, sizeof(info));
+    if (RwStreamRead(stream, &info, length) != length) {
+        return nullptr;
+    }
+    RwCamera* const camera = RwCameraCreate();
+    if (camera == nullptr) {
+        return nullptr;
+    }
+    if (_rwPluginRegistryReadDataChunks(reinterpret_cast<RwPluginRegistry*>(kCameraPluginRegistry), stream, camera) == nullptr) {
+        return nullptr;
+    }
+    RwCameraSetViewWindow(camera, &info.viewWindow);
+    RwCameraSetViewOffset(camera, &info.viewOffset);
+    RwCameraSetNearClipPlane(camera, info.nearPlane);
+    RwCameraSetFarClipPlane(camera, info.farPlane);
+    camera->fogPlane = info.fogPlane;
+    RwCameraSetProjection(camera, static_cast<RwCameraProjection>(info.projection));
+    return camera;
+}
+
+// 0x809700 (lote R32A, sin validar; 122 bytes; cdecl, (marco, banderas); nombre inferido: sincronizacion de los hijos de un marco con la LTM sucia, la llaman 0x809550 y ella misma): recorre la lista de hermanos desde `marco`
+// (NULL -> nada). Por cada uno: combinadas = privateFlags | banderas; si combinadas & 4 -> LTM = modelado x LTM del padre (RwMatrixMultiply 0x7F18B0); sincroniza sus objetos; privateFlags &= 0xF3 (releida despues de los
+// objetos y escrita ANTES de la recursion); recursion sobre su hijo con las combinadas.
+void _rwFrameSyncDirtyChildren(RwFrame* frame, RwUInt32 flags) {
+    if (frame == nullptr) {
+        return;
+    }
+    do {
+        const RwUInt32 combined = frame->object.privateFlags | flags;
+        if ((combined & 4) != 0) {
+            FrameMultiplyLtm(frame);
+        }
+        FrameSyncObjects(frame);
+        frame->object.privateFlags = static_cast<RwUInt8>(frame->object.privateFlags & 0xF3);
+        _rwFrameSyncDirtyChildren(frame->child, combined);
+        frame = frame->next;
+    } while (frame != nullptr);
+}
+
+// 0x809780 (lote R32A, sin validar; 80 bytes; cdecl, (marco); nombre inferido: sincronizacion de objetos sucios de un subarbol, la llaman 0x809550 y ella misma): para cada hermano desde `marco` (NULL -> nada) sincroniza
+// sus objetos, privateFlags &= 0xF7 y recursion sobre su hijo.
+void _rwFrameSyncDirtyObjects(RwFrame* frame) {
+    if (frame == nullptr) {
+        return;
+    }
+    do {
+        FrameSyncObjects(frame);
+        frame->object.privateFlags = static_cast<RwUInt8>(frame->object.privateFlags & 0xF7);
+        _rwFrameSyncDirtyObjects(frame->child);
+        frame = frame->next;
+    } while (frame != nullptr);
+}
+
+// 0x809850 (lote R32A, sin validar; 88 bytes; cdecl, (marco, banderas); nombre inferido: sincronizacion recursiva de la LTM de la jerarquia, la llaman 0x8097D0 y ella misma): para cada hermano desde `marco` (NULL -> nada):
+// combinadas = privateFlags | banderas; si combinadas & 4 -> LTM = modelado x LTM del padre y privateFlags &= 0xFB (se relee tras la multiplicacion); recursion sobre su hijo con las combinadas.
+void _rwFrameSyncHierarchyLTMChildren(RwFrame* frame, RwUInt32 flags) {
+    if (frame == nullptr) {
+        return;
+    }
+    do {
+        const RwUInt32 combined = frame->object.privateFlags | flags;
+        if ((combined & 4) != 0) {
+            FrameMultiplyLtm(frame);
+            frame->object.privateFlags = static_cast<RwUInt8>(frame->object.privateFlags & 0xFB);
+        }
+        _rwFrameSyncHierarchyLTMChildren(frame->child, combined);
+        frame = frame->next;
+    } while (frame != nullptr);
+}
+
+// 0x8097D0 (lote R32A, sin validar; 127 bytes; era una envoltura; cdecl, (raiz); `_rwFrameSyncHierarchyLTM` del SDK): banderas = raiz.privateFlags; si banderas & 4 copia el modelado sobre la LTM (16 dwords). Para cada hijo:
+// combinadas = privateFlags | banderas; si combinadas & 4 -> LTM del hijo = modelado x LTM del padre (0x7F18B0) y privateFlags &= 0xFB; recursion 0x809850 sobre el hijo del hijo con las combinadas. Al final
+// raiz.privateFlags = banderas & 0xFA (las banderas del principio, no las actuales).
+void _rwFrameSyncHierarchyLTM(RwFrame* frame) {
+    const RwUInt32 flags = frame->object.privateFlags;
+    if ((flags & 4) != 0) {
+        memcpy(&frame->ltm, &frame->modelling, sizeof(RwMatrix));
+    }
+    for (RwFrame* child = frame->child; child != nullptr; child = child->next) {
+        const RwUInt32 combined = child->object.privateFlags | flags;
+        if ((combined & 4) != 0) {
+            FrameMultiplyLtm(child);
+            child->object.privateFlags = static_cast<RwUInt8>(child->object.privateFlags & 0xFB);
+        }
+        _rwFrameSyncHierarchyLTMChildren(child->child, combined);
+    }
+    frame->object.privateFlags = static_cast<RwUInt8>(flags & 0xFA);
+}
+
+// 0x809550 (lote R32A, sin validar; 425 bytes; era una envoltura; cdecl, sin argumentos; `_rwFrameSyncDirty` del SDK; llamador: 0x7EF37C): recorre la lista de marcos sucios del motor (RwEngineInstance + 0xBC, circular, enlace
+// en +8 del marco). Por cada raiz con banderas = privateFlags: si banderas & 1 (LTM sucia): si banderas & 4 copia modelado -> LTM; sincroniza los objetos de la raiz y recorre sus hijos (combinadas = privateFlags | (banderas & 4);
+// si combinadas & 4 LTM = modelado x LTM del padre; sincroniza objetos; privateFlags &= 0xF3; recursion 0x809700 con las combinadas). Si no: sincroniza los objetos de la raiz y, para cada hijo, sus objetos,
+// privateFlags &= 0xF7 y recursion 0x809780. La raiz queda con privateFlags = banderas & 0xF0 (las del principio). Al final la lista queda vacia (cabeza apuntando a si misma) y devuelve 1.
+RwBool _rwFrameSyncDirty() {
+    RwLLLink* const head = &RwEngineInstance->dirtyFrameList.link;
+    RwLLLink* link = head->next;
+    if (link != head) {
+        do {
+            RwFrame* const frame = reinterpret_cast<RwFrame*>(reinterpret_cast<uint8*>(link) - offsetof(RwFrame, inDirtyListLink));
+            const RwUInt32 flags = frame->object.privateFlags;
+            if ((flags & 1) != 0) {
+                const RwUInt32 subtree = flags & 4;
+                if (subtree != 0) {
+                    memcpy(&frame->ltm, &frame->modelling, sizeof(RwMatrix));
+                }
+                FrameSyncObjects(frame);
+                for (RwFrame* child = frame->child; child != nullptr; child = child->next) {
+                    const RwUInt32 combined = child->object.privateFlags | subtree;
+                    if ((combined & 4) != 0) {
+                        FrameMultiplyLtm(child);
+                    }
+                    FrameSyncObjects(child);
+                    child->object.privateFlags = static_cast<RwUInt8>(child->object.privateFlags & 0xF3);
+                    _rwFrameSyncDirtyChildren(child->child, combined);
+                }
+            } else {
+                FrameSyncObjects(frame);
+                for (RwFrame* child = frame->child; child != nullptr; child = child->next) {
+                    FrameSyncObjects(child);
+                    child->object.privateFlags = static_cast<RwUInt8>(child->object.privateFlags & 0xF7);
+                    _rwFrameSyncDirtyObjects(child->child);
+                }
+            }
+            frame->object.privateFlags = static_cast<RwUInt8>(flags & 0xF0);
+            link = link->next;
+        } while (link != head);
+    }
+    head->next = head;
+    head->prev = head;
+    return TRUE;
+}
+
+// 0x8099F0 (lote R32A, sin validar; 167 bytes; cdecl, (monton); nombre inferido: pide una entrada del vector de bloques libres de un RxHeap): con entriesAlloced (+0x10) <= entriesUsed (+0x14) amplia el vector en 0x20
+// entradas (RwRealloc, +0x13C, pista 0x1040409, entradas de 8 bytes). Sin memoria: RwError { 1, _rwerror(0x80000013, entriesAlloced * 8) }, devuelve entriesAlloced a su valor (-0x20) y NULL. Si el vector cambio de sitio
+// y habia entradas usadas, cada bloque (+4 de la entrada) reaputa su entrada libre (+0xC). Con vector NULL devuelve NULL; si no devuelve vector + usadas * 8 y suma 1 a entriesUsed.
+rxHeapFreeBlock* _rxHeapGetFreeEntry(RxHeap* heap) {
+    const RwUInt32 used = heap->entriesUsed;
+    RwUInt32 allocated = heap->entriesAlloced;
+    rxHeapFreeBlock* blocks = heap->freeBlocks;
+    if (allocated <= used) {
+        allocated += 0x20;
+        heap->entriesAlloced = allocated;
+        rxHeapFreeBlock* const grown = static_cast<rxHeapFreeBlock*>(RwRealloc(blocks, static_cast<size_t>(allocated << 3), 0x1040409));
+        if (grown == nullptr) {
+            RwRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(heap->entriesAlloced << 3));
+            heap->entriesAlloced = heap->entriesAlloced - 0x20;
+            return nullptr;
+        }
+        if (grown != heap->freeBlocks && used > 0) {
+            for (RwUInt32 i = 0; i < used; ++i) {
+                grown[i].ptr->freeEntry = &grown[i];
+            }
+        }
+        heap->freeBlocks = grown;
+        blocks = grown;
+    }
+    if (blocks == nullptr) {
+        return nullptr;
+    }
+    rxHeapFreeBlock* const entry = blocks + heap->entriesUsed;
+    heap->entriesUsed = heap->entriesUsed + 1;
+    return entry;
+}
+
+// 0x8098B0 (lote R32A, sin validar; 319 bytes; era una envoltura; cdecl, (monton, bloque); `RxHeapFree` del SDK): la cabecera (0x20 bytes: anterior +0, siguiente +4, tamano +8, entrada libre +0xC) esta en bloque - 0x20. Un vecino
+// esta libre si existe y su entrada libre (+0xC) no es NULL. Anterior y siguiente libres: la entrada del siguiente se rellena con la ULTIMA entrada del vector (si no es ella misma; el bloque de esa ultima apunta a la
+// entrada reutilizada), entriesUsed -= 1, anterior.tamano += tamano + tamano siguiente + 0x40, su entrada libre refleja el tamano, anterior.siguiente = siguiente.siguiente y este (si existe) apunta atras al anterior.
+// Solo anterior libre: tamano += tamano + 0x20, entrada actualizada, anterior.siguiente = siguiente y este apunta atras. Solo siguiente libre: tamano propio += tamano siguiente + 0x20, hereda su entrada libre (que apunta
+// ahora a esta cabecera y lleva el tamano nuevo), siguiente = siguiente.siguiente (con su enlace atras). Ninguno libre: pide una entrada con 0x8099F0 (NULL -> nada) y la rellena (bloque, tamano) y la guarda en +0xC.
+void RxHeapFree(RxHeap* heap, void* block) {
+    rxHeapBlockHeader* const header = reinterpret_cast<rxHeapBlockHeader*>(static_cast<uint8*>(block) - 0x20);
+    rxHeapBlockHeader* const previous = header->prev;
+    rxHeapBlockHeader* const next = header->next;
+    const bool previousFree = previous != nullptr && previous->freeEntry != nullptr;
+    const bool nextFree = next != nullptr && next->freeEntry != nullptr;
+    if (previousFree) {
+        if (nextFree) {
+            rxHeapFreeBlock* const nextEntry = next->freeEntry;
+            rxHeapFreeBlock* const last = &heap->freeBlocks[heap->entriesUsed - 1];
+            if (last != nextEntry) {
+                nextEntry->size = last->size;
+                nextEntry->ptr = last->ptr;
+                last->ptr->freeEntry = nextEntry;
+            }
+            heap->entriesUsed = heap->entriesUsed - 1;
+            previous->size = previous->size + (header->size + next->size + 0x40);
+            previous->freeEntry->size = previous->size;
+            previous->next = next->next;
+            if (next->next != nullptr) {
+                next->next->prev = previous;
+            }
+        } else {
+            previous->size = previous->size + (header->size + 0x20);
+            previous->freeEntry->size = previous->size;
+            previous->next = next;
+            if (next != nullptr) {
+                next->prev = previous;
+            }
+        }
+    } else if (nextFree) {
+        header->size = header->size + (next->size + 0x20);
+        header->freeEntry = next->freeEntry;
+        header->freeEntry->ptr = header;
+        next->freeEntry->size = header->size;
+        rxHeapBlockHeader* const afterNext = next->next;
+        header->next = afterNext;
+        if (afterNext != nullptr) {
+            afterNext->prev = header;
+        }
+    } else {
+        rxHeapFreeBlock* const entry = _rxHeapGetFreeEntry(heap);
+        if (entry != nullptr) {
+            entry->ptr = header;
+            entry->size = header->size;
+            header->freeEntry = entry;
+        }
+    }
+}
+
+// 0x809BF0 (lote R32A, sin validar; 128 bytes; cdecl, (superbloque {inicio, tamano}, superbloque anterior o NULL, monton); nombre inferido: da formato a un superbloque del monton y lo registra): pide una entrada libre
+// (0x8099F0; NULL -> 0). Pone a cero las cuatro primeras palabras de la cabecera de inicio y copia 0x20 bytes de ella a la cabecera final (inicio + tamano - 0x20). Cabecera de inicio -> bloque unico en inicio + 0x20 (siguiente
+// = final, anterior = inicio) con tamano = final - bloque - 0x20 y esa entrada libre (bloque, tamano). Con superbloque anterior: la cabecera final del anterior apunta (+4) a este inicio y este inicio apunta atras a ella.
+// Devuelve 1.
+RwBool _rxHeapAddSuperBlock(rxHeapSuperBlockDescriptor* superBlock, rxHeapSuperBlockDescriptor* previousSuperBlock, RxHeap* heap) {
+    rxHeapFreeBlock* const entry = _rxHeapGetFreeEntry(heap);
+    if (entry == nullptr) {
+        return FALSE;
+    }
+    uint8* const start = static_cast<uint8*>(superBlock->start);
+    rxHeapBlockHeader* const first = reinterpret_cast<rxHeapBlockHeader*>(start);
+    rxHeapBlockHeader* const end = reinterpret_cast<rxHeapBlockHeader*>(start + superBlock->size - 0x20);
+    first->prev = nullptr;
+    first->next = nullptr;
+    first->size = 0;
+    first->freeEntry = nullptr;
+    memcpy(end, first, 0x20);
+    rxHeapBlockHeader* const body = reinterpret_cast<rxHeapBlockHeader*>(start + 0x20);
+    first->next = body;
+    body->prev = first;
+    body->next = end;
+    end->prev = body;
+    body->freeEntry = entry;
+    body->size = static_cast<RwUInt32>(reinterpret_cast<uint8*>(end) - reinterpret_cast<uint8*>(body)) - 0x20;
+    entry->ptr = body;
+    entry->size = body->size;
+    if (previousSuperBlock != nullptr) {
+        rxHeapBlockHeader* const previousEnd = reinterpret_cast<rxHeapBlockHeader*>(static_cast<uint8*>(previousSuperBlock->start) + previousSuperBlock->size - 0x20);
+        previousEnd->next = first;
+        first->prev = previousEnd;
+    }
+    return TRUE;
+}
+
+// 0x809EC0 (lote R32A, sin validar; 104 bytes; era una envoltura; cdecl, (monton); `_rxHeapReset` del SDK): entriesUsed = 0 y vuelve a dar formato a los superbloques: primero los enlazados desde head.next (cada uno con
+// _rxHeapAddSuperBlock(bloque, anterior, monton), 0x809BF0; fallo -> 0; el primero fija headBlock = su inicio) y al final el propio head con el ultimo como anterior (si no hubo ninguno fija headBlock). dirty = 0 y devuelve 1.
+RwBool _rxHeapReset(RxHeap* heap) {
+    heap->entriesUsed = 0;
+    rxHeapSuperBlockDescriptor* current = heap->head->next;
+    rxHeapSuperBlockDescriptor* previous = nullptr;
+    while (current != nullptr) {
+        if (!_rxHeapAddSuperBlock(current, previous, heap)) {
+            return FALSE;
+        }
+        if (previous == nullptr) {
+            heap->headBlock = static_cast<rxHeapBlockHeader*>(current->start);
+        }
+        previous = current;
+        current = current->next;
+    }
+    current = heap->head;
+    if (!_rxHeapAddSuperBlock(current, previous, heap)) {
+        return FALSE;
+    }
+    if (previous == nullptr) {
+        heap->headBlock = static_cast<rxHeapBlockHeader*>(current->start);
+    }
+    heap->dirty = FALSE;
+    return TRUE;
+}
+
+// 0x809F30 (lote R32A, sin validar; 90 bytes; era una envoltura; cdecl, (monton); `RxHeapDestroy` del SDK): monton NULL -> nada. Libera el vector de bloques libres (+0xC; lo pone a NULL), los descriptores de superbloque
+// encadenados desde head (+4; el siguiente se lee ANTES de liberar) y el monton, con el rwfree del motor (+0x138).
+void RxHeapDestroy(RxHeap* heap) {
+    if (heap == nullptr) {
+        return;
+    }
+    if (heap->freeBlocks != nullptr) {
+        RwFree(heap->freeBlocks);
+        heap->freeBlocks = nullptr;
+    }
+    rxHeapSuperBlockDescriptor* descriptor = heap->head;
+    while (descriptor != nullptr) {
+        rxHeapSuperBlockDescriptor* const next = descriptor->next;
+        RwFree(descriptor);
+        descriptor = next;
+    }
+    RwFree(heap);
+}
+
+// 0x809F90 (lote R32A, sin validar; 270 bytes; era una envoltura; cdecl, (tamano); `RxHeapCreate` del SDK): tamano minimo 0x400. Reserva la estructura (0x1C bytes, pista 0x40409; NULL -> 0). Tamano = (tamano + 0x1F) & ~0x1F,
+// minimo 0x80. Reserva el descriptor + datos (tamano + 0x8B, pista 0x1040409; NULL -> libera la estructura y 0); inicio = (bloque + 0x8B) con el byte bajo enmascarado a 0x80 (alineado a 0x80), descriptor { inicio, tamano,
+// siguiente 0 }; monton: superBlockSize = tamano, head = descriptor, freeBlocks / entriesAlloced / entriesUsed = 0, dirty = 1. Da formato con _rxHeapAddSuperBlock (0x809BF0; fallo -> libera descriptor y estructura y 0),
+// fija headBlock = inicio, dirty = 0 y devuelve el monton.
+RxHeap* RxHeapCreate(RwUInt32 size) {
+    if (size < 0x400) {
+        size = 0x400;
+    }
+    RxHeap* const heap = static_cast<RxHeap*>(RwMalloc(0x1C, 0x40409));
+    if (heap == nullptr) {
+        return nullptr;
+    }
+    size = (size + 0x1F) & ~0x1Fu;
+    if (size < 0x80) {
+        size = 0x80;
+    }
+    rxHeapSuperBlockDescriptor* const descriptor = static_cast<rxHeapSuperBlockDescriptor*>(RwMalloc(size + 0x8B, 0x1040409));
+    if (descriptor == nullptr) {
+        RwFree(heap);
+        return nullptr;
+    }
+    const uintptr_t startAddress = reinterpret_cast<uintptr_t>(descriptor) + 0x8B;
+    descriptor->size = size;
+    descriptor->next = nullptr;
+    descriptor->start = reinterpret_cast<void*>((startAddress & ~static_cast<uintptr_t>(0xFF)) | (startAddress & 0x80));
+    heap->superBlockSize = size;
+    heap->head = descriptor;
+    heap->freeBlocks = nullptr;
+    heap->entriesAlloced = 0;
+    heap->dirty = TRUE;
+    heap->entriesUsed = 0;
+    rxHeapSuperBlockDescriptor* current = descriptor->next;
+    rxHeapSuperBlockDescriptor* previous = nullptr;
+    while (current != nullptr) {
+        if (!_rxHeapAddSuperBlock(current, previous, heap)) {
+            RwFree(descriptor);
+            RwFree(heap);
+            return nullptr;
+        }
+        if (previous == nullptr) {
+            heap->headBlock = static_cast<rxHeapBlockHeader*>(current->start);
+        }
+        previous = current;
+        current = current->next;
+    }
+    current = heap->head;
+    if (!_rxHeapAddSuperBlock(current, previous, heap)) {
+        RwFree(descriptor);
+        RwFree(heap);
+        return nullptr;
+    }
+    if (previous == nullptr) {
+        heap->headBlock = static_cast<rxHeapBlockHeader*>(current->start);
+    }
+    heap->dirty = FALSE;
+    return heap;
+}
+
+// 0x80A0A0 (lote R32A, sin validar; 103 bytes; cdecl, (&tuberia); nombre inferido: creacion de la tuberia de transformacion por defecto de Im3D; llamador: 0x7EFE5D, el constructor del plugin de motor 0x40A): crea una tuberia
+// (0x8057B0; NULL -> 0) con pluginId (+0x2C) = 1, la bloquea (0x806990; NULL -> destruye la creada con 0x805820 y 0), le anade el nodo de 0x80E990 (0x806BE0 con indice NULL y terminador NULL) y la desbloquea (0x805F40;
+// NULL -> _rxPipelineDestroy(NULL), como el EXE, y 0). Con exito escribe la tuberia en *ranura, la pone como tuberia de transformacion (RwIm3DSetTransformPipeline 0x7EFAC0) y devuelve 1.
+RwInt32 _rwIm3DDefaultTransformPipelineCreate(RxPipeline** slot) {
+    RxPipeline* const created = RxPipelineCreate();
+    if (created == nullptr) {
+        return 0;
+    }
+    created->pluginId = 1;
+    RxLockedPipe* const locked = RxPipelineLock(created);
+    if (locked == nullptr) {
+        _rxPipelineDestroy(created);
+        return 0;
+    }
+    RxNodeDefinition* const nodeDefinition = reinterpret_cast<RxNodeDefinition*(__cdecl*)()>(0x80E990)();
+    RxPipeline* const unlocked = RxLockedPipeUnlock(RxLockedPipeAddFragment(locked, nullptr, nodeDefinition, nullptr));
+    if (unlocked == nullptr) {
+        _rxPipelineDestroy(unlocked);
+        return 0;
+    }
+    *slot = unlocked;
+    RwIm3DSetTransformPipeline(unlocked);
+    return 1;
+}
+
+// 0x80A110 (lote R32A, sin validar; 38 bytes; cdecl, (&tuberia); nombre inferido: destruccion de la tuberia de transformacion por defecto de Im3D; llamadores: 0x7EFE05, 0x7EFEB0): RwIm3DSetTransformPipeline(NULL) (0x7EFAC0);
+// si *ranura es distinto de NULL lo destruye con 0x805820 y lo pone a NULL.
+void _rwIm3DDefaultTransformPipelineDestroy(RxPipeline** slot) {
+    RwIm3DSetTransformPipeline(nullptr);
+    if (*slot != nullptr) {
+        _rxPipelineDestroy(*slot);
+        *slot = nullptr;
+    }
+}
+
+// 0x80A140 (lote R32A, sin validar; 88 bytes; cdecl, (tabla de 5 tuberias); nombre inferido: destruccion de las tuberias de render por defecto de Im3D, par de 0x80A1A0; llamadores: 0x7EFDF0, 0x7EFE9B): llama a 0x80DFB0 (sin
+// argumentos), pone la tuberia de render NULL con RwIm3DSetRenderPipeline (0x7EFB10) a los tipos 3, 5, 4, 1 y 2; si tabla[0] es distinto de NULL lo destruye (0x805820) y pone las cinco ranuras a NULL.
+void _rwIm3DDefaultPipelinesDestroy(RxPipeline** pipelines) {
+    reinterpret_cast<void(__cdecl*)()>(0x80DFB0)();
+    RwIm3DSetRenderPipeline(nullptr, static_cast<RwPrimitiveType>(3));
+    RwIm3DSetRenderPipeline(nullptr, static_cast<RwPrimitiveType>(5));
+    RwIm3DSetRenderPipeline(nullptr, static_cast<RwPrimitiveType>(4));
+    RwIm3DSetRenderPipeline(nullptr, static_cast<RwPrimitiveType>(1));
+    RwIm3DSetRenderPipeline(nullptr, static_cast<RwPrimitiveType>(2));
+    if (pipelines[0] != nullptr) {
+        _rxPipelineDestroy(pipelines[0]);
+    }
+    pipelines[0] = nullptr;
+    pipelines[1] = nullptr;
+    pipelines[2] = nullptr;
+    pipelines[3] = nullptr;
+    pipelines[4] = nullptr;
+}
+
+// 0x80AA80 (lote R32A, sin validar; 784 bytes; era una envoltura; cdecl, (cuantificador, imagen, peso); `RwPalQuantAddImage` del SDK): lee de la imagen stride (+0x10), pixeles (+0x14), paleta (+0x18), profundidad (+0xC) y
+// alto (+8). Profundidad 4 u 8 (alto 0 -> nada): por fila (ancho +4 veces, el ancho 0 solo avanza la fila) toma el indice del byte, su entrada de la paleta (4 bytes RGBA) y la acumula. Profundidad 32 (alto 0 -> nada): igual con
+// el pixel RGBA directo (4 bytes). Otra profundidad: nada. Cada color: profundidad de octree D = dword de 0x8E26E0; desplazamiento (8 - D) & 0xFF (el x86 usa solo 5 bits); clave = ((((T[r >> s] * 2) | T[g >> s]) * 2 |
+// T[b >> s]) * 2) | T[a >> s] con T = dwords de 0xC9A730. Si D es 0 el nodo es la raiz (+0x4000); si no, se toma el hijo (clave & 0xF) de la raiz: si es NULL se pide un nodo a la lista libre (+0x4004, RwFreeListAlloc +0x144, pista
+// 0x30411), se guarda en el hijo, se ponen a cero sus 16 hijos (+0x1C) y, si D == 1, su palIndex (+0x18) y las seis palabras de estadisticas; el nodo sale de 0x80AED0(cuantificador, hijo, clave >> 4, D - 1). Despues 0x80AD90(nodo,
+// color, peso) acumula el peso (el flotante se pasa como bits sin tocar la pila x87). Las filas avanzan `stride` bytes (con signo) desde el inicio de la fila.
+void RwPalQuantAddImage(RwPalQuant* pq, RwImage* image, RwReal weight) {
+    const RwInt32 stride = image->stride;
+    const RwRGBA* const palette = image->palette;
+    const RwUInt8* rowStart = image->cpPixels;
+    const RwInt32 depth = image->depth;
+    RwUInt32 rows = static_cast<RwUInt32>(image->height);
+    RwUInt32 weightBits;
+    memcpy(&weightBits, &weight, sizeof(weightBits));
+    if (depth == 4 || depth == 8) {
+        if (rows == 0) {
+            return;
+        }
+        do {
+            RwUInt32 width = static_cast<RwUInt32>(image->width);
+            const RwUInt8* cursor = rowStart;
+            if (width != 0) {
+                do {
+                    PalQuantAddPixel(pq, reinterpret_cast<const RwUInt8*>(&palette[*cursor]), weightBits);
+                    ++cursor;
+                    --width;
+                } while (width != 0);
+            }
+            rowStart += stride;
+            --rows;
+        } while (rows != 0);
+    } else if (depth == 0x20) {
+        if (rows == 0) {
+            return;
+        }
+        do {
+            RwUInt32 width = static_cast<RwUInt32>(image->width);
+            const RwUInt8* pixel = rowStart;
+            if (width != 0) {
+                do {
+                    PalQuantAddPixel(pq, pixel, weightBits);
+                    pixel += 4;
+                    --width;
+                } while (width != 0);
+            }
+            rowStart += stride;
+            --rows;
+        } while (rows != 0);
+    }
+}
+
+// Lote R32A (sin validar): ganchos (0x806B30..0x80AA80).
+void RwCoreInjectHooksR32A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RxPipelineFindNodeByName, 0x806B30);
+    RH_ScopedGlobalInstall(RxLockedPipeAddFragment, 0x806BE0);
+    RH_ScopedGlobalInstall(_rxPipelineNodeCreate, 0x806DE0);
+    RH_ScopedGlobalInstall(RwFrameRegisterPluginStream, 0x807580);
+    RH_ScopedGlobalInstall(_rwFrameListStreamRead, 0x807970);
+    RH_ScopedGlobalInstall(RwCameraStreamRead, 0x808DE0);
+    RH_ScopedGlobalInstall(_rwFrameSyncDirty, 0x809550);
+    RH_ScopedGlobalInstall(_rwFrameSyncDirtyChildren, 0x809700);
+    RH_ScopedGlobalInstall(_rwFrameSyncDirtyObjects, 0x809780);
+    RH_ScopedGlobalInstall(_rwFrameSyncHierarchyLTM, 0x8097D0);
+    RH_ScopedGlobalInstall(_rwFrameSyncHierarchyLTMChildren, 0x809850);
+    RH_ScopedGlobalInstall(RxHeapFree, 0x8098B0);
+    RH_ScopedGlobalInstall(_rxHeapGetFreeEntry, 0x8099F0);
+    RH_ScopedGlobalInstall(_rxHeapAddSuperBlock, 0x809BF0);
+    RH_ScopedGlobalInstall(_rxHeapReset, 0x809EC0);
+    RH_ScopedGlobalInstall(RxHeapDestroy, 0x809F30);
+    RH_ScopedGlobalInstall(RxHeapCreate, 0x809F90);
+    RH_ScopedGlobalInstall(_rwIm3DDefaultTransformPipelineCreate, 0x80A0A0);
+    RH_ScopedGlobalInstall(_rwIm3DDefaultTransformPipelineDestroy, 0x80A110);
+    RH_ScopedGlobalInstall(_rwIm3DDefaultPipelinesDestroy, 0x80A140);
+    RH_ScopedGlobalInstall(RwPalQuantAddImage, 0x80AA80);
 }

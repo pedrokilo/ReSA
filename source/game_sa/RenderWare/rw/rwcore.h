@@ -1335,7 +1335,7 @@ extern RxLockedPipe *
 RxLockedPipeAddFragment(RxLockedPipe *pipeline,
                         RwUInt32 *firstIndex,
                         RxNodeDefinition *nodeDef0,
-                        RxNodeDefinition *__va_end__=NULL); // Actually uses ... (va list), but let's not complicate it...
+                        ...); // Lista variable de definiciones terminada en NULL (lote R32A); los llamadores deben pasar el NULL final.
 
 
 extern RxPipeline *

@@ -730,6 +730,7 @@ void RwPlCoreInjectHooksR30A();  // RwOsGetFileInterface (0x804130) (rwplcore.cp
 void RwCoreInjectHooksR30A();    // imagenes (mascara, lectura, gamma, copia), RwImageSetFromRaster, flujos de textura y cierre de Rx (0x802AF0..0x804F60) (rwcore.cpp)
 // Lote R31A (sin validar).
 void RwCoreInjectHooksR31A();    // tuberias de Rx: apertura, nodos, almacen temporal, bloqueo, desbloqueo y clonado de definiciones (0x804FE0..0x806990) (rwcore.cpp)
+void RwCoreInjectHooksR32A();    // tuberias de Rx (busqueda y alta de nodos), listas de marcos y camaras en flujos, marcos sucios, monton de Rx, Im3D por defecto y cuantificador de paleta (0x806B30..0x80AA80) (rwcore.cpp)
 
 void InjectHooksMain() {
     /**
@@ -1171,6 +1172,7 @@ void InjectHooksMain() {
     RwPlCoreInjectHooksR30A();
     RwCoreInjectHooksR30A();
     RwCoreInjectHooksR31A();
+    RwCoreInjectHooksR32A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();
