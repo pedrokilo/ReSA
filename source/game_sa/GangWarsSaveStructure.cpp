@@ -21,7 +21,7 @@ void CGangWarsSaveStructure::Construct() {
 
     if (CGangWars::pZoneInfoToFightOver) {
         for (auto i = 0; i < static_cast<uint16>(CTheZones::TotalNumberOfZoneInfos); i++) {
-            if (CGangWars::pZoneInfoToFightOver == &CTheZones::ZoneInfoArray[i]) {
+            if (CGangWars::pZoneInfoToFightOver == CTheZones::ZoneInfoArray.data() + i) {
                 GangWarZoneInfoIndex = i;
                 break;
             }
@@ -32,7 +32,7 @@ void CGangWarsSaveStructure::Construct() {
     GangWarNavigationZoneIndex = (uint32)-1;
     if (CGangWars::pZoneToFightOver) {
         for (auto i = 0; i < static_cast<uint16>(CTheZones::TotalNumberOfNavigationZones); i++) {
-            if (CGangWars::pZoneToFightOver == &CTheZones::NavigationZoneArray[i]) {
+            if (CGangWars::pZoneToFightOver == CTheZones::NavigationZoneArray.data() + i) {
                 GangWarNavigationZoneIndex = i;
                 break;
             }
@@ -59,8 +59,8 @@ void CGangWarsSaveStructure::Extract() const {
     CGangWars::bGangWarsActive = bGangWarsActive;
     CGangWars::State = State;
     CGangWars::TimeStarted = TimeStarted;
-    CGangWars::pZoneInfoToFightOver = (GangWarZoneInfoIndex != -1) ? &CTheZones::ZoneInfoArray[GangWarZoneInfoIndex] : nullptr;
-    CGangWars::pZoneToFightOver = (GangWarNavigationZoneIndex != -1) ? &CTheZones::NavigationZoneArray[GangWarNavigationZoneIndex] : nullptr;
+    CGangWars::pZoneInfoToFightOver = (GangWarZoneInfoIndex != -1) ? CTheZones::ZoneInfoArray.data() + GangWarZoneInfoIndex : nullptr;
+    CGangWars::pZoneToFightOver = (GangWarNavigationZoneIndex != -1) ? CTheZones::NavigationZoneArray.data() + GangWarNavigationZoneIndex : nullptr;
     CGangWars::CoorsOfPlayerAtStartOfWar = CoorsOfPlayerAtStartOfWar;
     CGangWars::Gang1 = (eGangID)Gang1;
     CGangWars::Gang2 = Gang2;

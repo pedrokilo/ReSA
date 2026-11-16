@@ -343,6 +343,7 @@ void InjectPadHooks() {
 
     RH_ScopedGlobalInstall(diPadInit, 0x7485C0);
     RH_ScopedGlobalInstall(diPadEnumerate, 0x7477C0);
+    RH_ScopedGlobalInstall(InputShutdown, 0x747000); // lote 196A (sin validar): se registra aqui (no en InjectHooks) para que exista tambien con SDL3, como diPadInit; el EXE de SDL no llega a 0x74803B (salida de WinMain), asi que enganchar es inocuo
 
 #ifdef NOTSA_USE_SDL3
     // Con SDL3 el resto de InjectHooks no se engancha: GetMouseSetUp y diMouseInit se registran ACTIVAS como sin SDL3 (diMouseInit bloqueada: con el enlace apagado el codigo de la DLL salta al del EXE
@@ -361,7 +362,6 @@ void InjectHooks() {
     RH_ScopedGlobalInstall(EnumDevicesCallback, 0x747020);
     RH_ScopedGlobalInstall(diPadSetRanges, 0x746D80);
     RH_ScopedGlobalInstall(GetMouseSetUpExe, 0x53F2D0);
-    RH_ScopedGlobalInstall(InputShutdown, 0x747000); // lote 196A (sin validar)
 }
 
 bool IsKeyPressed(unsigned int keyCode) {

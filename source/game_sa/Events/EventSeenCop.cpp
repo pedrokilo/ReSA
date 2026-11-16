@@ -64,13 +64,15 @@ eEventType CEventSeenCop::GetEventType() const {
 
 // 0x5FF3C0 (lote 196A, sin validar; thiscall, sin argumentos, `ret`, 88 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 16 de la vtable 0x86CB58).
 // Como el original: CEvent::operator new (0x4B5620, con hook) con 0x18 bytes; sin memoria devuelve nulo; si no, llama al constructor de CEventAcquaintancePed (0x4AF820, con hook; ECX = memoria) con la persona
-// (+0x14), pone la vtable de CEventSeenCop (0x86CB58) y devuelve la memoria. Aqui el constructor propio de la clase (0x5FF380, Constructor1) hace esas dos cosas.
+// (+0x14), pone la vtable de CEventSeenCop (0x86CB58) y devuelve la memoria. Se llama al cuerpo enganchado del constructor (CEventAcquaintancePed::Constructor) y se escribe la vtable de la clase del EXE (la de la DLL no vale para los llamadores del EXE), como el resto de los CloneEditable.
 CEventSeenCop* CEventSeenCop::CloneEditable() const noexcept {
     void* const memory = CEvent::operator new(sizeof(CEventSeenCop));
     if (!memory) {
         return nullptr;
     }
-    return static_cast<CEventSeenCop*>(memory)->Constructor1(m_AcquaintancePed);
+    static_cast<CEventAcquaintancePed*>(memory)->Constructor(m_AcquaintancePed);
+    *reinterpret_cast<uint32*>(memory) = 0x86CB58;
+    return static_cast<CEventSeenCop*>(memory);
 }
 
 // 0x5FF380

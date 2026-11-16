@@ -10924,28 +10924,28 @@ CVehicle,DoBurstAndSoftGroundRatios,0x006D63B0,1,0,1,S
 CVehicle,PlayCarHorn,0x006D63C0,1,0,1,S
 CVehicle,GetDooorAngleOpenRatio,0x006D56B0,1,0,1,S
 CVehicle,FindWheelWidth,0x006D3D50,1,0,1,S
-CVehicle,GetNumContactWheels,0x00000000,1,0,0,V
-CVehicle,VehicleDamage,0x00000000,1,0,0,V
-CVehicle,operator delete-anon,0x006E2D90,1,0,0,S
-CVehicle,operator delete-poolRef,0x006E2DD0,1,0,0,S
-CVehicle,ScalarDeletingDestructor,0x006E38A0,1,0,0,S
-CPlayerInfoSaveStructure,Construct,0x005D24B0,1,0,0,S
-CPlayerInfoSaveStructure,Extract,0x005D2560,1,0,0,S
-CGangWarsSaveStructure,Construct,0x005D2620,1,0,0,S
-CGangWarsSaveStructure,Extract,0x005D2740,1,0,0,S
-Ps,GetCpuExtendedFeatures,0x007457C0,1,0,0,S
-Ps,GetCpuFeaturesAndVendor,0x007457F0,1,0,0,S
-VideoMode,GetNumVideoModes,0x00745A70,1,0,0,S
-CPad,SetDrunkInputDelay,0x0053F910,1,0,0,S
-CPad,sub_5404F0,0x005404F0,1,0,0,S
-CPad,StopPadsShaking,0x00541D70,1,0,0,S
-CPad,UpdatePadsThunk,0x00541E50,1,0,0,S
-CMatrix,RotateByPointer,0x00541E90,1,0,0,S
-CTimer,UpdateTimeStep,0x00541F40,1,0,0,S
-Input,InputShutdown,0x00747000,1,0,0,S
-CEventSeenCop,DestructorBody,0x005FF3A0,1,0,0,S
-CEventSeenCop,GetEventType,0x00000000,1,0,0,V
-CEventSeenCop,CloneEditable,0x00000000,1,0,0,V
-CEventSeenCop,ScalarDeletingDestructor,0x005FF420,1,0,0,S
-CEventHealthLow,Constructor,0x005FF440,1,0,0,S
-CEventHealthLow,DestructorBody,0x005FF460,1,0,0,S
+CVehicle,GetNumContactWheels,0x00000000,1,0,1,V
+CVehicle,VehicleDamage,0x00000000,1,0,1,V
+CVehicle,operator delete-anon,0x006E2D90,1,0,1,S
+CVehicle,operator delete-poolRef,0x006E2DD0,1,0,1,S
+CVehicle,ScalarDeletingDestructor,0x006E38A0,1,0,1,S
+CPlayerInfoSaveStructure,Construct,0x005D24B0,1,0,1,S
+CPlayerInfoSaveStructure,Extract,0x005D2560,1,0,1,S
+CGangWarsSaveStructure,Construct,0x005D2620,1,0,1,S
+CGangWarsSaveStructure,Extract,0x005D2740,1,0,1,S
+Ps,GetCpuExtendedFeatures,0x007457C0,1,0,1,S
+Ps,GetCpuFeaturesAndVendor,0x007457F0,1,0,1,S
+VideoMode,GetNumVideoModes,0x00745A70,1,0,1,S
+CPad,SetDrunkInputDelay,0x0053F910,1,0,1,S
+CPad,sub_5404F0,0x005404F0,1,0,1,S
+CPad,StopPadsShaking,0x00541D70,1,0,1,S
+CPad,UpdatePadsThunk,0x00541E50,1,0,1,S
+CMatrix,RotateByPointer,0x00541E90,1,0,1,S
+CTimer,UpdateTimeStep,0x00541F40,1,0,1,S
+Input,InputShutdown,0x00747000,1,0,1,S
+CEventSeenCop,DestructorBody,0x005FF3A0,1,0,1,S
+CEventSeenCop,GetEventType,0x00000000,1,0,1,V
+CEventSeenCop,CloneEditable,0x00000000,1,0,1,V
+CEventSeenCop,ScalarDeletingDestructor,0x005FF420,1,0,1,S
+CEventHealthLow,Constructor,0x005FF440,1,0,1,S
+CEventHealthLow,DestructorBody,0x005FF460,1,0,1,S

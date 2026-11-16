@@ -59,9 +59,9 @@ void CEventHealthLow::InjectHooks()
 // 0x5FF440 (lote 196A, sin validar; el listado decia CEventSeenCop: es CEventHealthLow, evento 53; thiscall, sin argumentos de pila, `ret`, 18 bytes: `push esi; mov esi,ecx; call 0x4AC450; mov [esi],86CBA0h;
 // mov eax,esi; pop esi; ret`). Constructor de CEventEditableResponse (0x4AC450, con hook) y vtable de la clase del EXE (0x86CBA0); devuelve this.
 CEventHealthLow* CEventHealthLow::Constructor() {
-    this->CEventHealthLow::CEventHealthLow();
+    static_cast<CEventEditableResponse*>(this)->Constructor();
+    *reinterpret_cast<uint32*>(this) = 0x86CBA0;
     return this;
-
 }
 
 
@@ -76,5 +76,4 @@ CEventEditableResponse* CEventHealthLow::CloneEditable() const noexcept {
     static_cast<CEventEditableResponse*>(memory)->Constructor();
     *reinterpret_cast<uint32*>(memory) = 0x86CBA0;
     return static_cast<CEventHealthLow*>(memory);
-
 }

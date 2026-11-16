@@ -222,8 +222,8 @@ static float __fastcall VehStubFindWheelWidth(CVehicle* /*self*/, void* /*edx*/,
 // call 0x6E2B40; test byte [esp+0Ch],1; je ..;` y, con el bit 0 del BYTE de banderas, el borrado del almacen de vehiculos EN LINEA (0xB74494: indice = (this - base) / 0xA18 con signo, marca el hueco
 // libre (bit 7 del mapa) y baja el cursor si el indice es menor) SIN pasar por 0x6E2D90; devuelve `this`). Destruye con el cuerpo de CVehicle del EXE (0x6E2B40, con hook). Se engancha como S
 // (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
-static CVehicle* __fastcall VehicleScalarDeletingDestructor(CVehicle* self, void* /*edx*/, uint8 flags) {
-    self->CVehicle::~CVehicle();
+CVehicle* __fastcall CVehicle::ScalarDeletingDestructorExe(CVehicle* self, void* /*edx*/, uint8 flags) {
+    self->Destructor(); // cuerpo enganchado de 0x6E2B40 (llama a ~CVehicle)
     if (flags & 1) {
         GetVehiclePool()->Delete(self);
     }
@@ -240,7 +240,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedOverloadedInstall(operator new, "poolRef", 0x6E2D60, void* (*)(unsigned, int32));
     RH_ScopedInstall(Constructor, 0x6D5F10);
     RH_ScopedInstall(Destructor, 0x6E2B40);
-    RH_ScopedNamedGlobalInstall(VehicleScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6E38A0); // lote 196A (sin validar)
+    RH_ScopedNamedGlobalInstall(CVehicle::ScalarDeletingDestructorExe, "ScalarDeletingDestructor", 0x6E38A0); // lote 196A (sin validar)
     RH_ScopedOverloadedInstall(operator delete, "anon", 0x6E2D90, void (*)(void*));                       // lote 196A (sin validar)
     RH_ScopedOverloadedInstall(operator delete, "poolRef", 0x6E2DD0, void (*)(void*, int32));             // lote 196A (sin validar)
 

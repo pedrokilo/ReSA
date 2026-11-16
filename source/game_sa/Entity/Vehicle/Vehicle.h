@@ -785,6 +785,8 @@ private:
         return this;
     }
 
+    static CVehicle* __fastcall ScalarDeletingDestructorExe(CVehicle* self, void* edx, uint8 flags); // 0x6E38A0 (lote 196A, sin validar): destructor con borrado del EXE (llama al cuerpo enganchado Destructor)
+
 };
 VALIDATE_SIZE(CVehicle, 0x5A0);
 
