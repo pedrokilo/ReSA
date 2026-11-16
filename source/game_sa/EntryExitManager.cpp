@@ -56,6 +56,11 @@ void __fastcall EntryExitPoolDestructorBodyExe(void* self, void* /*edx*/) {
     EntryExitPoolFlushBody(static_cast<uint8*>(self));
 }
 
+// 0x43F780 (segunda copia del cuerpo del destructor, identica a 0x43EEB0): funcion propia para que cada direccion tenga su hook (HookRoute no distingue dos hooks sobre la misma funcion de la DLL).
+void __fastcall EntryExitPoolDestructorBodyCopyExe(void* self, void* /*edx*/) {
+    EntryExitPoolFlushBody(static_cast<uint8*>(self));
+}
+
 // 0x43F950 (thiscall, un argumento de pila (BYTE de banderas), `ret 4`, 71 bytes; sin llamadores): destructor con borrado de CPool<CEntryExit>. Cuerpo del destructor en linea (igual que 0x43EEB0) y, solo si el
 // bit 0 de las banderas esta puesto, operator delete escalar (0x8214BD) del objeto. Devuelve this.
 void* __fastcall EntryExitPoolScalarDeletingDestructorExe(void* self, void* /*edx*/, uint8 flags) {
@@ -127,7 +132,7 @@ void CEntryExitManager::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedNamedGlobalInstall(EntryExitPoolDestructorBodyExe, "PoolDestructorBody", 0x43EEB0);      // lote 191A (sin validar)
-    RH_ScopedNamedGlobalInstall(EntryExitPoolDestructorBodyExe, "PoolDestructorBodyCopy", 0x43F780);  // lote 191A (sin validar)
+    RH_ScopedNamedGlobalInstall(EntryExitPoolDestructorBodyCopyExe, "PoolDestructorBodyCopy", 0x43F780);  // lote 191A (sin validar)
     RH_ScopedNamedGlobalInstall(EntryExitPoolScalarDeletingDestructorExe, "PoolScalarDeletingDestructor", 0x43F950); // lote 191A (sin validar)
     RH_ScopedNamedGlobalInstall(EntryExitPoolConstructorExe, "PoolConstructor", 0x43F720);            // lote 191A (sin validar)
     RH_ScopedNamedGlobalInstall(EntryExitPoolNewExe, "PoolNew", 0x43F7D0);                            // lote 191A (sin validar)

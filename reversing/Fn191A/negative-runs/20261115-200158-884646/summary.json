@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "f1aa2ff6f8edbfaa12688fc6283e335ee12f3a4a29ac2d0ec31331830b06d95c",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CTaskComplexGotoDoorAndOpen::GetTaskType: 2048/2048; CTaskComplexGotoDoorAndOpen::MakeAbortable: 572/2048; CTaskComplexGotoDoorAndOpen::GoToEntryExitCenterTask: 1520/2048; CTaskSimpleSlideToCoord::Constructor-NoAnim: 2048/2048; CTaskSimpleSlideToCoord::Constructor-Anim: 2048/2048; CTaskSimpleSlideToCoord::Destructor: 1531/2048; Rs::RsCameraShowRaster: 2048/2048; Rs::RsSetPresetView: 583/2048; Rs::RsDestroyPresetViews: 1339/2048; CEntryExitManager::PoolDestructorBody: 2047/2048; CEntryExitManager::GetInSlot: 1216/2048; CEntryExitManager::SetEntryExitFlagWithName: 174/2048; CEntryExitManager::SetEntryExitFlagWithIndex: 152/2048; CEntryExitManager::PoolConstructor: 1394/2048; CEntryExitManager::PoolDestructorBodyCopy: 2046/2048; CEntryExitManager::PoolNew: 1282/2048; CEntryExitManager::PoolScalarDeletingDestructor: 1161/2048; CEntryExitManager::SetEnabledByName: 2048/2048; CPad::IsDPadRightPressed: 436/2048; CPhysical::SetVelocity: 2048/2048; CTaskComplexFallAndGetUp::GetTaskType: 2048/2048; CTaskComplexFallAndGetUp::DestructorBody: 2048/2048; CTaskComplexFallAndStayDown::Constructor: 2048/2048; CTaskComplexFallAndStayDown::GetTaskType: 2048/2048; CTaskComplexFallAndStayDown::Constructor2: 276/2048; CTaskComplexFallAndStayDown::Destructor: 2048/2048; CTaskComplexFallAndStayDown::MakeAbortable: 128/2048; CTaskComplexFallAndStayDown::CreateFirstSubTask: 1547/2048; CTaskComplexFallAndStayDown::ControlSubTask: 2048/2048; CTaskComplexFallAndStayDown::CreateSubTask: 519/2048; CTaskComplexFallAndStayDown::ScalarDeletingDestructor: 1130/2048; CTaskComplexFallAndStayDown::Clone: 1525/2048; CTaskComplexFallAndStayDown::CreateNextSubTask: 1367/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

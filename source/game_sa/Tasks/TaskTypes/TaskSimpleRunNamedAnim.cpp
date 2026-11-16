@@ -99,8 +99,11 @@ CTaskSimpleRunNamedAnim::CTaskSimpleRunNamedAnim(
     // Como el original: copia byte a byte hasta el nulo, sin relleno ni comprobación de tamaño
     strcpy(m_animName, animName);
     strcpy(m_animGroupName, animGroupName);
+    // Como el original (0x61AA63): la jerarquia se escribe SIEMPRE tras las dos copias (nula si no hay bloque), porque una cadena larga puede haber pisado +0x3C
     if (const auto block = CAnimManager::GetAnimationBlock(m_animGroupName)) {
         m_pAnimHierarchy = CAnimManager::GetAnimation(m_animName, block);
+    } else {
+        m_pAnimHierarchy = nullptr;
     }
 }
 

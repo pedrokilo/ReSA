@@ -24,6 +24,15 @@ auto& PresetViews = StaticRef<PresetView*>(0xC1707C);
 auto& NumPresetViews = StaticRef<int32>(0xC17080);
 auto& CurrentPresetView = StaticRef<int32>(0x8D2E30); // -1
 
+// Como el original (`fld [nodo+0Ch]; fchs; fstp [esp]`): la x87 silencia un NaN senalizante al cargarlo (bit 22) y FCHS cambia el signo; el resto de valores solo cambia de signo.
+static float NegateThroughX87(float value) {
+    uint32 bits = std::bit_cast<uint32>(value);
+    if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x7FFFFFu) != 0) {
+        bits |= 0x400000u;
+    }
+    return std::bit_cast<float>(bits ^ 0x80000000u);
+}
+
 // 0x619780 (lote 191A, sin validar; cdecl, camara y numero de vista en la pila, `ret`, 181 bytes): devuelve 1 o 0 en EAX COMPLETO (`mov eax,1` / `xor eax,eax`; los llamadores 0x61986A y 0x6198A6 hacen neg/sbb sobre eax), por eso RwBool.
 // Con nulo, sin vistas o numero fuera de [0, NumPresetViews) devuelve 0 sin tocar nada. Si no, CurrentPresetView = viewNum (se escribe tras leer PresetViews y antes de recorrer la lista), avanza (N - viewNum - 1) nodos
 // (solo mientras el nodo no sea nulo; si lo fuera, el EXE leeria +0xC de un nulo), RwFrameSetIdentity, RwFrameRotate(X, -rotX, REPLACE), RwFrameRotate(Y, rotY, POSTCONCAT), RwFrameTranslate(POSTCONCAT),
@@ -45,7 +54,7 @@ RwBool RsSetPresetView(RwCamera* camera, int32 viewNum) {
 
     RwFrame* parent = RwCameraGetFrame(camera);
     RwFrameSetIdentity(parent);
-    RwFrameRotate(parent, &PresetViewAxisX, -pv->m_RotX, rwCOMBINEREPLACE);
+    RwFrameRotate(parent, &PresetViewAxisX, NegateThroughX87(pv->m_RotX), rwCOMBINEREPLACE);
     RwFrameRotate(parent, &PresetViewAxisY, pv->m_RotY, rwCOMBINEPOSTCONCAT);
     RwFrameTranslate(parent, &pv->m_Translation, rwCOMBINEPOSTCONCAT);
     RwFrameUpdateObjects(parent);
