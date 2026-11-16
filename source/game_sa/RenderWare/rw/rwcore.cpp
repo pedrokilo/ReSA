@@ -1393,29 +1393,19 @@ void RwRasterSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPreal
     ((void(__cdecl *)(RwInt32, RwInt32))0x7FB350)(blockSize, numBlocksToPrealloc);
 }
 
-RwRaster* RwRasterCreate(RwInt32 width, RwInt32 height, RwInt32 depth, RwInt32 flags) {
-    return ((RwRaster*(__cdecl *)(RwInt32, RwInt32, RwInt32, RwInt32))0x7FB230)(width, height, depth, flags);
-}
-
-RwBool RwRasterDestroy(RwRaster* raster) {
-    return ((RwBool(__cdecl *)(RwRaster*))0x7FB020)(raster);
-}
+// 0x7FB230 (RwRasterCreate) y 0x7FB020 (RwRasterDestroy): reconstruidas al final del archivo (lote R28A, RwCoreInjectHooksR28A).
 
 RwRaster* RwRasterGetOffset(RwRaster* raster, RwInt16* xOffset, RwInt16* yOffset) {
     return ((RwRaster*(__cdecl *)(RwRaster*, RwInt16*, RwInt16*))0x7FAEA0)(raster, xOffset, yOffset);
 }
 
-RwInt32 RwRasterGetNumLevels(RwRaster* raster) {
-    return ((RwInt32(__cdecl *)(RwRaster*))0x7FB160)(raster);
-}
+// 0x7FB160 (RwRasterGetNumLevels): reconstruida al final del archivo (lote R28A, RwCoreInjectHooksR28A).
 
 RwRaster* RwRasterSubRaster(RwRaster* subRaster, RwRaster* raster, RwRect* rect) {
     return ((RwRaster*(__cdecl *)(RwRaster*, RwRaster*, RwRect*))0x7FB1D0)(subRaster, raster, rect);
 }
 
-RwRaster* RwRasterRenderFast(RwRaster* raster, RwInt32 x, RwInt32 y) {
-    return ((RwRaster*(__cdecl *)(RwRaster*, RwInt32, RwInt32))0x7FAF50)(raster, x, y);
-}
+// 0x7FAF50 (RwRasterRenderFast): reconstruida al final del archivo (lote R28A, RwCoreInjectHooksR28A).
 
 RwRaster* RwRasterRender(RwRaster* raster, RwInt32 x, RwInt32 y) {
     return ((RwRaster*(__cdecl *)(RwRaster*, RwInt32, RwInt32))0x7FAFB0)(raster, x, y);
@@ -1425,13 +1415,7 @@ RwRaster* RwRasterRenderScaled(RwRaster* raster, RwRect* rect) {
     return ((RwRaster*(__cdecl *)(RwRaster*, RwRect*))0x7FAE80)(raster, rect);
 }
 
-RwRaster* RwRasterPushContext(RwRaster* raster) {
-    return ((RwRaster*(__cdecl *)(RwRaster*))0x7FB060)(raster);
-}
-
-RwRaster* RwRasterPopContext() {
-    return ((RwRaster*(__cdecl *)(void))0x7FB110)();
-}
+// 0x7FB060 y 0x7FB110 (RwRasterPushContext y RwRasterPopContext): reconstruidas al final del archivo (lote R28A, RwCoreInjectHooksR28A).
 
 // 0x7FAE60: cima de la pila de contextos de rasters (rasterStack[rasterSP], sin comprobar el rango de rasterSP).
 RwRaster* RwRasterGetCurrentContext() {
@@ -1447,18 +1431,8 @@ RwBool RwRasterClearRect(RwRect* rpRect, RwInt32 pixelValue) {
     return ((RwBool(__cdecl *)(RwRect*, RwInt32))0x7FAF90)(rpRect, pixelValue);
 }
 
-RwRaster* RwRasterShowRaster(RwRaster* raster, void* dev, RwUInt32 flags) {
-    return ((RwRaster*(__cdecl *)(RwRaster*, void*, RwUInt32))0x7FB1A0)(raster, dev, flags);
-}
-
-//! NOTE: This function is responsible for calculating the `stride` in the `raster`
-RwUInt8* RwRasterLock(RwRaster* raster, RwUInt8 level, RwInt32 lockMode) {
-    return ((RwUInt8*(__cdecl *)(RwRaster*, RwUInt8, RwInt32))0x7FB2D0)(raster, level, lockMode);
-}
-
-RwRaster* RwRasterUnlock(RwRaster* raster) {
-    return ((RwRaster*(__cdecl *)(RwRaster*))0x7FAEC0)(raster);
-}
+// 0x7FB1A0 (RwRasterShowRaster), 0x7FB2D0 (RwRasterLock) y 0x7FAEC0 (RwRasterUnlock): reconstruidas al final del archivo (lote R28A, RwCoreInjectHooksR28A).
+//! NOTE: RwRasterLock is responsible for calculating the `stride` in the `raster`
 
 // 0x7FB0E0: stdFunc[rwSTANDARDRASTERLOCKPALETTE](&paleta, raster, lockMode). El EXE reutiliza como variable de salida la ranura del
 // argumento `lockMode`: si la funcion estandar devuelve TRUE sin escribir la salida, el resultado es el propio `lockMode`.
@@ -1470,9 +1444,7 @@ RwUInt8* RwRasterLockPalette(RwRaster* raster, RwInt32 lockMode) {
     return palette;
 }
 
-RwRaster* RwRasterUnlockPalette(RwRaster* raster) {
-    return ((RwRaster*(__cdecl *)(RwRaster*))0x7FAFF0)(raster);
-}
+// 0x7FAFF0 (RwRasterUnlockPalette): reconstruida al final del archivo (lote R28A, RwCoreInjectHooksR28A).
 
 // 0x7FB0B0: _rwPluginRegistryAddPlugin(&rasterTKList, ...)
 RwInt32 RwRasterRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
@@ -2201,25 +2173,13 @@ void _rwD3D9SetFVF(RwUInt32 fvf) {
 
 // 0x7F9F70, 0x7F9FB0 y 0x7F9FF0 (declaracion de vertices, vertex shader y pixel shader): reconstruidas al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
-void RwD3D9SetRenderState(RwUInt32 state, RwUInt32 value) {
-   ((void(__cdecl *)(RwUInt32, RwUInt32))0x7FC2D0)(state, value);
-}
-
-void RwD3D9GetRenderState(RwUInt32 state, void* value) {
-   ((void(__cdecl *)(RwUInt32, void*))0x7FC320)(state, value);
-}
-
-void RwD3D9SetTextureStageState(RwUInt32 stage, RwUInt32 type, RwUInt32 value) {
-   ((void(__cdecl *)(RwUInt32, RwUInt32, RwUInt32))0x7FC340)(stage, type, value);
-}
+// 0x7FC2D0, 0x7FC320 y 0x7FC340 (RwD3D9SetRenderState, RwD3D9GetRenderState y RwD3D9SetTextureStageState): reconstruidas al final del archivo (lote R28A, RwD3D9InjectHooksR28A).
 
 void RwD3D9GetTextureStageState(RwUInt32 stage, RwUInt32 type, void* value) {
    ((void(__cdecl *)(RwUInt32, RwUInt32, void*))0x7FC3A0)(stage, type, value);
 }
 
-void RwD3D9SetSamplerState(RwUInt32 stage, RwUInt32 type, RwUInt32 value) {
-   ((void(__cdecl *)(RwUInt32, RwUInt32, RwUInt32))0x7FC3C0)(stage, type, value);
-}
+// 0x7FC3C0 (RwD3D9SetSamplerState): reconstruida al final del archivo (lote R28A, RwD3D9InjectHooksR28A).
 
 void RwD3D9GetSamplerState(RwUInt32 stage, RwUInt32 type, void* value) {
    ((void(__cdecl *)(RwUInt32, RwUInt32, void*))0x7FC400)(stage, type, value);
@@ -2231,9 +2191,7 @@ RwUInt32 RwD3D9GetStencilClear() {
    return ((RwUInt32(__cdecl *)(void))0x7F9D40)();
 }
 
-RwBool RwD3D9SetTexture(RwTexture* texture, RwUInt32 stage) {
-   return ((RwBool(__cdecl *)(RwTexture*, RwUInt32))0x7FDE70)(texture, stage);
-}
+// 0x7FDE70 (RwD3D9SetTexture): reconstruida al final del archivo (lote R28A, RwD3D9InjectHooksR28A).
 
 // 0x7FA390 y 0x7FA4F0 (RwD3D9SetTransform y RwD3D9GetTransform): reconstruidas al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
@@ -2270,9 +2228,7 @@ RwBool RwD3D9SetClipPlane(RwUInt32 index, const RwV4d* plane) {
 
 // 0x7FA520 (RwD3D9SetTransformWorld): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
-RwBool RwD3D9SetSurfaceProperties(const RwSurfaceProperties* surfaceProps, const RwRGBA* color, RwUInt32 flags) {
-   return ((RwBool(__cdecl *)(const RwSurfaceProperties*, const RwRGBA*, RwUInt32))0x7FC4D0)(surfaceProps, color, flags);
-}
+// 0x7FC4D0 (RwD3D9SetSurfaceProperties): reconstruida al final del archivo (lote R28A, RwD3D9InjectHooksR28A).
 
 // 0x7FA660 (RwD3D9SetLight): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
@@ -2363,9 +2319,7 @@ RwBool RwD3D9CreateVertexDeclaration(const void* elements, void** vertexdeclarat
     return *vertexdeclaration != nullptr;
 }
 
-void RwD3D9DeleteVertexDeclaration() {
-   ((void(__cdecl *)(void))0x7FAC10)();
-}
+// 0x7FAC10 (RwD3D9DeleteVertexDeclaration): reconstruida al final del archivo (lote R28A, RwD3D9InjectHooksR28A).
 
 // 0x7FAC90: IDirect3DVertexShader9::Release (sin comprobar NULL)
 void RwD3D9DeleteVertexShader(void* shader) {
@@ -2522,9 +2476,7 @@ const void* RwD3D9GetCaps() { // D3DCAPS9*
    return reinterpret_cast<const void*>(0xC9BF00);
 }
 
-RwBool RwD3D9CameraIsSphereFullyInsideFrustum(const void* camera, const void* sphere) {
-   return ((RwBool(__cdecl *)(const void*, const void*))0x7FAD30)(camera, sphere);
-}
+// 0x7FAD30 (RwD3D9CameraIsSphereFullyInsideFrustum): reconstruida al final del archivo (lote R28A, RwD3D9InjectHooksR28A).
 
 // 0x7FAD90 (lote R25A, sin validar; 130 bytes; era una envoltura; cdecl, (camara, caja); `RwD3D9CameraIsBBoxFullyInsideFrustum` del SDK): para cada uno de los 6 planos del frustum (camara + 0x94, 0x14
 // bytes: normal, distancia, closestX/Y/Z en +0x10/+0x11/+0x12) toma la esquina de la caja mas cercana al plano (closest* = 0 -> inf, 1 -> sup; caja + 0xC/+0x10/+0x14 - closest * 12 por eje) y calcula
@@ -2555,9 +2507,7 @@ RwBool _rwDeviceRegisterPlugin() {
     return ((RwBool(__cdecl *)(void))0x4C9AB0)();
 }
 
-void _rwD3D9DeviceSetRestoreCallback(rwD3D9DeviceRestoreCallBack callback) {
-   ((void(__cdecl *)(rwD3D9DeviceRestoreCallBack))0x7FAE20)(callback);
-}
+// 0x7FAE20 (_rwD3D9DeviceSetRestoreCallback): reconstruida al final del archivo (lote R28A, RwD3D9InjectHooksR28A).
 
 // 0x7FAE30 (mov eax, [0C980B0h]; ret): devuelve el puntero de la funcion de restauracion guardado por _rwD3D9DeviceSetRestoreCallback. Lote R1A (sin validar).
 rwD3D9DeviceRestoreCallBack _rwD3D9DeviceGetRestoreCallback() {
@@ -6803,8 +6753,9 @@ RwBool RwD3D9SetTransformWorld(const RwMatrix* matrix) {
 
 // 0x7FA660 (lote R27A, sin validar; 236 bytes; era una envoltura; cdecl, (indice, luz*); `RwD3D9SetLight` del SDK): cache de luces 0xC98088 de 0x6C bytes (D3DLIGHT9 de 0x68 + bandera de activa en +0x68), contador 0xC98084.
 // Con indice >= contador (con signo): contador = indice + 1, tabla = RwRealloc(tabla, (indice + 1) * 0x6C, 0x1030411) o RwMalloc si no habia, y la bandera de las entradas nuevas (contador anterior .. nuevo) = 0 (releyendo
-// tabla y contador en cada vuelta). Con indice < contador: si la entrada es igual a la luz (0x7FA8B0 por direccion, cdecl (luz, entrada), no cero = igual) devuelve TRUE sin llamar. Despues copia 0x68 bytes a la entrada y llama a
+// tabla y contador en cada vuelta). Con indice < contador: si la entrada es igual a la luz (_rwD3D9LightsEqual, 0x7FA8B0; cdecl (luz, entrada), no cero = igual) devuelve TRUE sin llamar. Despues copia 0x68 bytes a la entrada y llama a
 // SetLight(indice, luz ORIGINAL) (+0xCC); devuelve HRESULT >= 0.
+RwBool _rwD3D9LightsEqual(const void* light, const void* entry); // 0x7FA8B0 (lote R28A; definida al final del archivo)
 RwBool RwD3D9SetLight(RwInt32 index, const void* light) {
     const RwInt32 previousCount = D3D9LightCount;
     if (index >= previousCount) {
@@ -6824,7 +6775,7 @@ RwBool RwD3D9SetLight(RwInt32 index, const void* light) {
         }
     } else {
         auto* const existing = reinterpret_cast<D3D9LightEntry*>(reinterpret_cast<uint8*>(D3D9LightCache) + static_cast<uint32>(index) * 0x6Cu);
-        if (((int(__cdecl*)(const void*, const void*))0x7FA8B0)(light, existing) != 0) {
+        if (_rwD3D9LightsEqual(light, existing) != 0) {
             return TRUE;
         }
     }
@@ -6869,4 +6820,932 @@ void RwD3D9InjectHooksR27A() {
     RH_ScopedGlobalInstall(RwD3D9SetTransformWorld, 0x7FA520);
     RH_ScopedGlobalInstall(RwD3D9SetLight, 0x7FA660);
     RH_ScopedGlobalInstall(RwD3D9EnableLight, 0x7FA860);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R28A (sin validar): 0x7FA8B0..0x7FFFF0 atribuido por vecindad a RwCore con confianza mixta. La clase real es doble: las diez funciones de rasters (0x7FAEC0..0x7FB2D0) son de RwCore (baraster.c: llaman a la tabla
+// de funciones estandar del dispositivo, RwEngineInstance->stdFunc) y el resto son del controlador D3D9 de RenderWare (RwD3D9): comparacion de luces, frustum, borrado de declaraciones, buferes y declaracion de Im2D,
+// cache de estados de render / etapa / muestreo, material de superficie, reinicio de los estados, RwD3D9SetTexture y busqueda del formato de raster de una imagen.
+// 0x7FAC10/0x7FAD30/0x7FAE20/0x7FB160/0x7FB480/0x7FC3C0/0x7FD100 y las demas marcadas "env" en el listado eran envolturas o llamadas por direccion fija: sustituidas por el cuerpo.
+// Estado del EXE que usan (direcciones):
+//   0xC991D0 + 8 * id  estados de render pedidos {valor, bandera "en lista"}   0xC98E88 + 4 * id  valor actual enviado   0xC98B40 lista de pendientes y 0xC9A5EC su contador
+//   0xC980F8 + 8 * (etapa * 33 + tipo)  estados de etapa de textura pedidos {valor, bandera}   0xC99860 actuales   0xC99C80 lista {etapa, tipo} y 0xC9A5F0 su contador
+//   0xC98938 + 4 * (etapa * 14 + tipo)  estados de muestreo actuales   0xC98AF8 material actual (17 dwords)   0xC9A508 + 0x18 * etapa  cache de la etapa (textura, direccion U, V, filtro, color de borde, anisotropia)
+//   0xC980E0..0xC980F4  Im2D: bufer dinamico creado (E0), desplazamiento (E4), bufer de vertices (E8), desplazamiento de indices (EC), bufer de indices (F0), declaracion (F4)
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+constexpr size_t kSlotDeviceGetAvailableTextureMem = 4;   // IDirect3DDevice9::GetAvailableTextureMem (+0x10)
+constexpr size_t kSlotDeviceCreateIndexBufferR28A  = 27;  // IDirect3DDevice9::CreateIndexBuffer (+0x6C)
+
+struct D3D9RenderStateSlot { uint32 value; uint32 pending; };            // 0xC991D0 + 8 * id
+struct D3D9StageStateSlot  { uint32 value; uint32 pending; };            // 0xC980F8 + 8 * (etapa * 33 + tipo)
+struct D3D9TextureStageCache {                                           // 0xC9A508 + 0x18 * etapa
+    uint32 texture;       // +0x00 raster actual (RwD3D9SetTexture / _rwD3D9RWSetRasterStage)
+    uint32 addressU;      // +0x04
+    uint32 addressV;      // +0x08
+    uint32 filter;        // +0x0C
+    uint32 borderColor;   // +0x10
+    uint32 anisotropy;    // +0x14
+};
+static_assert(sizeof(D3D9RenderStateSlot) == 8 && sizeof(D3D9TextureStageCache) == 0x18);
+
+D3D9RenderStateSlot* const   D3D9RenderStateWanted      = reinterpret_cast<D3D9RenderStateSlot*>(0xC991D0);
+uint32* const                D3D9RenderStateCurrent     = reinterpret_cast<uint32*>(0xC98E88);
+D3D9StageStateSlot* const    D3D9StageStateWanted       = reinterpret_cast<D3D9StageStateSlot*>(0xC980F8);
+uint32* const                D3D9StageStateCurrent      = reinterpret_cast<uint32*>(0xC99860);
+uint32* const                D3D9SamplerStateCurrent    = reinterpret_cast<uint32*>(0xC98938);
+uint32* const                D3D9StageStatePendingList  = reinterpret_cast<uint32*>(0xC99C80);
+D3D9TextureStageCache* const D3D9TextureStageCaches     = reinterpret_cast<D3D9TextureStageCache*>(0xC9A508);
+uint32* const                D3D9MaterialStaging        = reinterpret_cast<uint32*>(0x8E2538);   // D3DMATERIAL9 de trabajo (17 dwords)
+auto& D3D9RenderStatePendingCount   = StaticRef<uint32>(0xC9A5EC);
+auto& D3D9StageStatePendingCount    = StaticRef<uint32>(0xC9A5F0);
+auto& D3D9RasterCaps                = StaticRef<uint32>(0xC9BF24);   // D3DCAPS9::RasterCaps (+0x24)
+auto& D3D9TextureFilterCaps         = StaticRef<uint32>(0xC9BF40);   // D3DCAPS9::TextureFilterCaps (+0x40)
+auto& D3D9ImageDisplayDepth         = StaticRef<int32>(0xC9BEF4);    // _RwD3D9AdapterInformation.displayDepth
+// Tablas del EXE (dwords): 0x88493C direccion RW -> D3DTADDRESS, 0x884950 filtro RW -> (min/mag, mip) de 8 bytes, 0x88490C mezcla RW -> D3DBLEND, 0x8848F0 sombreado, 0x8848FC niebla, 0x884990 cull,
+// 0x8849A0 operacion de stencil, 0x8849C4 funcion de comparacion.
+const uint32* const kTableAddressMode = reinterpret_cast<const uint32*>(0x88493C);
+const uint32* const kTableFilterMode  = reinterpret_cast<const uint32*>(0x884950);
+const uint32* const kTableBlend       = reinterpret_cast<const uint32*>(0x88490C);
+const uint32* const kTableShadeMode   = reinterpret_cast<const uint32*>(0x8848F0);
+const uint32* const kTableFogMode     = reinterpret_cast<const uint32*>(0x8848FC);
+const uint32* const kTableCullMode    = reinterpret_cast<const uint32*>(0x884990);
+const uint32* const kTableStencilOp   = reinterpret_cast<const uint32*>(0x8849A0);
+const uint32* const kTableCompare     = reinterpret_cast<const uint32*>(0x8849C4);
+
+RwFreeList*& RasterFreeListR28A() { // RwRasterGlobals + 0x60
+    return *reinterpret_cast<RwFreeList**>(reinterpret_cast<uint8*>(&RasterGlobals()) + 0x60);
+}
+
+int32 D3D9CheckTextureFormatByAddress(int32 format) { // 0x4CBDE0 (cdecl, formato): 0/1
+    return reinterpret_cast<int32(__cdecl*)(int32)>(0x4CBDE0)(format);
+}
+} // namespace
+
+// 0x7FA8B0 (lote R28A, sin validar; 244 bytes; el listado la daba como "A, exacta"; nombre inferido, `_rwD3D9LightsEqual` de RenderWare; cdecl, (luz, entrada) -> 1 si iguales / 0 si no): compara dos D3DLIGHT9 dword a dword
+// (sin x87: un NaN o un -0 distinto cuenta como diferencia). Siempre el tipo (+0) y los tres primeros componentes del color difuso (+4, +8, +0xC). Despues, segun el tipo: 1 (punto) posicion (+0x34, +0x38, +0x3C) y rango
+// (+0x4C); 2 (foco) posicion, direccion (+0x40, +0x44, +0x48), rango, theta (+0x60) y phi (+0x64); 3 (direccional) direccion; otro tipo: nada mas.
+RwBool _rwD3D9LightsEqual(const void* light, const void* entry) {
+    const uint32* const a = static_cast<const uint32*>(light);
+    const uint32* const b = static_cast<const uint32*>(entry);
+    if (a[0] != b[0] || a[1] != b[1] || a[2] != b[2] || a[3] != b[3]) {
+        return FALSE;
+    }
+    static constexpr uint32 kPointOffsets[]       = { 0x34, 0x38, 0x3C, 0x4C };
+    static constexpr uint32 kSpotOffsets[]        = { 0x34, 0x38, 0x3C, 0x40, 0x44, 0x48, 0x4C, 0x60, 0x64 };
+    static constexpr uint32 kDirectionalOffsets[] = { 0x40, 0x44, 0x48 };
+    const uint32* offsets = nullptr;
+    size_t count = 0;
+    switch (a[0]) {
+    case 1: offsets = kPointOffsets;       count = std::size(kPointOffsets);       break;
+    case 2: offsets = kSpotOffsets;        count = std::size(kSpotOffsets);        break;
+    case 3: offsets = kDirectionalOffsets; count = std::size(kDirectionalOffsets); break;
+    default: break;
+    }
+    for (size_t i = 0; i < count; ++i) {
+        if (a[offsets[i] / 4] != b[offsets[i] / 4]) {
+            return FALSE;
+        }
+    }
+    return TRUE;
+}
+
+// 0x7FAC10 (lote R28A, sin validar; 76 bytes; era una envoltura declarada sin argumento; cdecl, (declaracion); `RwD3D9DeleteVertexDeclaration` del SDK): busca la declaracion en la cache de declaraciones (0xC97C60, entradas
+// de 12 bytes, 0xC97C58 entradas; la comparacion es por puntero) y si la encuentra llama a IDirect3DVertexDeclaration9::Release (+8) con el puntero guardado en la entrada; si la cuenta de referencias resultante es 0 (comparacion
+// sin signo, "ja" en el EXE) anula la entrada (declaracion = NULL, releyendo la direccion de la tabla) para que RwD3D9CreateVertexDeclaration la vuelva a crear. Sin entrada igual no hace nada.
+void RwD3D9DeleteVertexDeclaration(void* vertexdeclaration) {
+    const uint32 count = D3D9VertexDeclarationCount;
+    if (count == 0) {
+        return;
+    }
+    D3D9VertexDeclarationCacheEntry* const entries = D3D9VertexDeclarationEntries;
+    uint32 i = 0;
+    while (entries[i].declaration != vertexdeclaration) {
+        if (++i >= count) {
+            return;
+        }
+    }
+    void* const stored = entries[i].declaration;
+    if (ComCall<kSlotRelease, ULONG>(stored) == 0) {
+        D3D9VertexDeclarationEntries[i].declaration = nullptr;
+    }
+}
+
+// 0x7FAD30 (lote R28A, sin validar; 82 bytes; era una envoltura; cdecl, (camara, esfera) -> RwBool; `RwD3D9CameraIsSphereFullyInsideFrustum` del SDK): para cada uno de los 6 planos del frustum de la camara (+0x94, 0x14 bytes:
+// normal, distancia) calcula d = ((ny * cy + nx * cx) + nz * cz) - distancia (x87 a 24 bits en el EXE: cada producto y suma se redondea a float; aqui float en el mismo orden) y, con la esfera {cx, cy, cz, radio}, devuelve
+// FALSE si d > -radio (comparacion ordenada: con NaN no se cumple y sigue). Con los seis planos superados, TRUE. El EXE guarda -radio en el hueco del argumento de la camara (sin efecto).
+RwBool RwD3D9CameraIsSphereFullyInsideFrustum(const void* camera, const void* sphere) {
+    const RwFrustumPlane* plane = static_cast<const RwCamera*>(camera)->frustumPlanes;
+    const float* const center = static_cast<const float*>(sphere);
+    const float negativeRadius = -center[3];
+    for (int i = 0; i < 6; ++i, ++plane) {
+        const float yTerm = plane->plane.normal.y * center[1];
+        const float xTerm = plane->plane.normal.x * center[0];
+        const float sumXY = yTerm + xTerm;
+        const float zTerm = plane->plane.normal.z * center[2];
+        const float sum = sumXY + zTerm;
+        const float distance = sum - plane->plane.distance;
+        if (distance > negativeRadius) {
+            return FALSE;
+        }
+    }
+    return TRUE;
+}
+
+// 0x7FAE20 (lote R28A, sin validar; 10 bytes; era una envoltura; cdecl, (funcion)): guarda en 0xC980B0 la funcion de restauracion del dispositivo (la que devuelve _rwD3D9DeviceGetRestoreCallback, 0x7FAE30).
+void _rwD3D9DeviceSetRestoreCallback(rwD3D9DeviceRestoreCallBack callback) {
+    StaticRef<rwD3D9DeviceRestoreCallBack>(0xC980B0) = callback;
+}
+
+// 0x7FAEC0 (lote R28A, sin validar; 28 bytes; era una envoltura; cdecl, (raster); `RwRasterUnlock` del SDK): stdFunc[rwSTANDARDRASTERUNLOCK] (RwEngineInstance + 0x88) con (NULL, raster, 0); devuelve el raster.
+RwRaster* RwRasterUnlock(RwRaster* raster) {
+    RwEngineInstance->stdFunc[rwSTANDARDRASTERUNLOCK](nullptr, raster, 0);
+    return raster;
+}
+
+// 0x7FAF50 (lote R28A, sin validar; 53 bytes; era una envoltura; cdecl, (raster, x, y); `RwRasterRenderFast` del SDK): stdFunc[rwSTANDARDRASTERRENDERFAST] (+0x94) con (&{x, y}, raster, 0); devuelve el raster
+// (el resultado de la funcion estandar se ignora). El EXE reserva 16 bytes de local y solo escribe x e y.
+RwRaster* RwRasterRenderFast(RwRaster* raster, RwInt32 x, RwInt32 y) {
+    RwInt32 position[2] = { x, y };
+    RwEngineInstance->stdFunc[rwSTANDARDRASTERRENDERFAST](position, raster, 0);
+    return raster;
+}
+
+// 0x7FAFF0 (lote R28A, sin validar; 36 bytes; era una envoltura; cdecl, (raster); `RwRasterUnlockPalette` del SDK): stdFunc[rwSTANDARDRASTERUNLOCKPALETTE] (+0xA8) con (NULL, raster, 0) y despues quita las banderas
+// 0x18 de privateFlags (+0x22 &= 0xE7); devuelve el raster.
+RwRaster* RwRasterUnlockPalette(RwRaster* raster) {
+    RwEngineInstance->stdFunc[rwSTANDARDRASTERUNLOCKPALETTE](nullptr, raster, 0);
+    raster->privateFlags = static_cast<RwUInt8>(raster->privateFlags & 0xE7u);
+    return raster;
+}
+
+// 0x7FB020 (lote R28A, sin validar; 62 bytes; era una envoltura; cdecl, (raster); `RwRasterDestroy` del SDK): _rwPluginRegistryDeInitObject(&rasterTKList = 0x8E2518, raster) (0x808740), stdFunc[rwSTANDARDRASTERDESTROY]
+// (+0x5C) con (NULL, raster, 0) y RwFreeListFree de la lista de rasters (RwRasterGlobals + 0x60; RwEngineInstance + 0x148). Devuelve TRUE siempre.
+RwBool RwRasterDestroy(RwRaster* raster) {
+    _rwPluginRegistryDeInitObject(&RasterTKList, raster);
+    RwEngineInstance->stdFunc[rwSTANDARDRASTERDESTROY](nullptr, raster, 0);
+    RwFreeListFree(RasterFreeListR28A(), raster);
+    return TRUE;
+}
+
+// 0x7FB060 (lote R28A, sin validar; 74 bytes; era una envoltura; cdecl, (raster); `RwRasterPushContext` del SDK): stdFunc[rwSTANDARDSETRASTERCONTEXT] (+0x74) con (NULL, raster, 0); si devuelve FALSE el resultado es NULL.
+// Si no, incrementa el puntero de pila (RwRasterGlobals + 0x28), guarda el raster en rasterStack[puntero nuevo] (sin acotar) y lo devuelve.
+RwRaster* RwRasterPushContext(RwRaster* raster) {
+    if (!RwEngineInstance->stdFunc[rwSTANDARDSETRASTERCONTEXT](nullptr, raster, 0)) {
+        return nullptr;
+    }
+    RasterGlobals().rasterSP = RasterGlobals().rasterSP + 1;
+    *(RasterGlobals().rasterStack + RasterGlobals().rasterSP) = raster;
+    return raster;
+}
+
+// 0x7FB110 (lote R28A, sin validar; 74 bytes; era una envoltura; cdecl sin argumentos; `RwRasterPopContext` del SDK): decrementa el puntero de pila ANTES de llamar, guarda el raster que estaba en la cima (rasterStack[puntero
+// viejo]) y llama a stdFunc[rwSTANDARDSETRASTERCONTEXT] con (NULL, rasterStack[puntero nuevo], 0). Devuelve el raster sacado si la funcion estandar devolvio TRUE y NULL si no (el puntero ya esta decrementado).
+RwRaster* RwRasterPopContext() {
+    const RwInt32 oldPointer = RasterGlobals().rasterSP;
+    RasterGlobals().rasterSP = oldPointer - 1;
+    RwRaster* const popped = *(RasterGlobals().rasterStack + oldPointer);
+    RwRaster* const current = *(RasterGlobals().rasterStack + RasterGlobals().rasterSP);
+    return RwEngineInstance->stdFunc[rwSTANDARDSETRASTERCONTEXT](nullptr, current, 0) ? popped : nullptr;
+}
+
+// 0x7FB160 (lote R28A, sin validar; 54 bytes; era una envoltura; cdecl, (raster); `RwRasterGetNumLevels` del SDK): sin el bit 7 de cFormat (+0x23) devuelve 1. Con el bit llama a stdFunc[rwSTANDARDRASTERGETMIPLEVELS]
+// (+0xB8) con (&salida, raster, 0), donde la salida es el hueco del argumento (inicialmente el propio puntero del raster, que es el valor que devuelve si la funcion estandar da TRUE sin escribir); FALSE -> -1.
+RwInt32 RwRasterGetNumLevels(RwRaster* raster) {
+    if ((raster->cFormat & 0x80u) == 0) {
+        return 1;
+    }
+    RwInt32 levels = static_cast<RwInt32>(reinterpret_cast<uintptr_t>(raster));
+    if (RwEngineInstance->stdFunc[rwSTANDARDRASTERGETMIPLEVELS](&levels, raster, 0)) {
+        return levels;
+    }
+    return -1;
+}
+
+// 0x7FB1A0 (lote R28A, sin validar; 47 bytes; era una envoltura; cdecl, (raster, dispositivo, banderas); `RwRasterShowRaster` del SDK): lee stdFunc[rwSTANDARDRASTERSHOWRASTER] (+0x98), llama a _rwResourcesPurge (0x807E50) y
+// llama a la funcion con (raster, dispositivo, banderas) (la salida es el propio raster). Devuelve el raster si dio TRUE y NULL si no.
+RwRaster* RwRasterShowRaster(RwRaster* raster, void* dev, RwUInt32 flags) {
+    const RwStandardFunc show = RwEngineInstance->stdFunc[rwSTANDARDRASTERSHOWRASTER];
+    _rwResourcesPurge();
+    return show(raster, dev, static_cast<RwInt32>(flags)) ? raster : nullptr;
+}
+
+// 0x7FB230 (lote R28A, sin validar; 154 bytes; era una envoltura; cdecl, (ancho, alto, profundidad, banderas); `RwRasterCreate` del SDK): RwFreeListAlloc (RwEngineInstance + 0x144) de la lista de rasters (RwRasterGlobals + 0x60)
+// con la pista 0x30407; sin memoria devuelve NULL. Inicializa ancho (+0xC), alto (+0x10), profundidad (+0x14), privateFlags (+0x22), cFlags (+0x21), nOffsetX/Y (+0x1C/+0x1E) a 0, parent (+0) = el propio raster y
+// cpPixels/palette (+4, +8) a NULL (el resto de la memoria no se toca) y llama a stdFunc[rwSTANDARDRASTERCREATE] (+0x58) con (NULL, raster, banderas). Si da FALSE libera el raster (RwFreeListFree) y devuelve NULL; si
+// da TRUE llama a _rwPluginRegistryInitObject(&rasterTKList, raster) (0x8086E0) y devuelve el raster.
+RwRaster* RwRasterCreate(RwInt32 width, RwInt32 height, RwInt32 depth, RwInt32 flags) {
+    RwRaster* const raster = static_cast<RwRaster*>(RwFreeListAlloc(RasterFreeListR28A(), 0x30407));
+    if (raster == nullptr) {
+        return nullptr;
+    }
+    const RwStandardFunc create = RwEngineInstance->stdFunc[rwSTANDARDRASTERCREATE];
+    raster->width = width;
+    raster->privateFlags = 0;
+    raster->height = height;
+    raster->depth = depth;
+    raster->cFlags = 0;
+    raster->nOffsetX = 0;
+    raster->nOffsetY = 0;
+    raster->parent = raster;
+    raster->cpPixels = nullptr;
+    raster->palette = nullptr;
+    if (!create(nullptr, raster, flags)) {
+        RwFreeListFree(RasterFreeListR28A(), raster);
+        return nullptr;
+    }
+    _rwPluginRegistryInitObject(&RasterTKList, raster);
+    return raster;
+}
+
+// 0x7FB2D0 (lote R28A, sin validar; 54 bytes; era una envoltura; cdecl, (raster, nivel, modo de bloqueo); `RwRasterLock` del SDK; calcula el stride del raster): llama a stdFunc[rwSTANDARDRASTERLOCK] (+0x84) con
+// (&salida, raster, (nivel & 0xFF) * 256 + modo), donde la salida es el hueco del argumento `nivel` (inicialmente el propio nivel, que se devuelve si la funcion estandar da TRUE sin escribir). Devuelve la salida si dio TRUE
+// y NULL si no.
+RwUInt8* RwRasterLock(RwRaster* raster, RwUInt8 level, RwInt32 lockMode) {
+    RwUInt8* pixels = reinterpret_cast<RwUInt8*>(static_cast<uintptr_t>(level));
+    const RwInt32 request = static_cast<RwInt32>((static_cast<uint32>(level) & 0xFFu) << 8) + lockMode;
+    return RwEngineInstance->stdFunc[rwSTANDARDRASTERLOCK](&pixels, raster, request) ? pixels : nullptr;
+}
+
+// 0x7FC2D0 (lote R28A, sin validar; 67 bytes; era una envoltura; cdecl, (estado, valor); `RwD3D9SetRenderState` del SDK): si el valor pedido (0xC991D0 + 8 * estado) ya es `valor` no hace nada; si no lo guarda y, si la bandera
+// "en lista" (+4) era 0, la pone a 1 y anade el estado a la lista de pendientes (0xC98B40[contador++], contador 0xC9A5EC). No llama al dispositivo (lo hace _rwD3D9RenderStateFlushCache, 0x7FC200). Estado sin acotar.
+// Las secuencias identicas que el EXE incrusta en 0x7FC4D0, 0x7FCAC0 y 0x7FD100 son este mismo cuerpo.
+void RwD3D9SetRenderState(RwUInt32 state, RwUInt32 value) {
+    D3D9RenderStateSlot& slot = D3D9RenderStateWanted[state];
+    if (slot.value == value) {
+        return;
+    }
+    slot.value = value;
+    if (slot.pending == 0) {
+        const uint32 count = D3D9RenderStatePendingCount;
+        slot.pending = 1;
+        reinterpret_cast<uint32*>(0xC98B40)[count] = state;
+        D3D9RenderStatePendingCount = count + 1;
+    }
+}
+
+// 0x7FC320 (lote R28A, sin validar; 18 bytes; era una envoltura; cdecl, (estado, salida*)): *salida = valor pedido del estado (0xC991D0 + 8 * estado), sin acotar.
+void RwD3D9GetRenderState(RwUInt32 state, void* value) {
+    *static_cast<uint32*>(value) = D3D9RenderStateWanted[state].value;
+}
+
+// 0x7FC340 (lote R28A, sin validar; 90 bytes; era una envoltura; cdecl, (etapa, tipo, valor); `RwD3D9SetTextureStageState` del SDK): indice = etapa * 33 + tipo; si el valor pedido (0xC980F8 + 8 * indice) ya es `valor` no hace
+// nada; si no lo guarda y, si la bandera (+4) era 0, la pone a 1 y anade el par (etapa, tipo) a la lista de pendientes (0xC99C80, 8 bytes por par; contador 0xC9A5F0). Sin acotar.
+void RwD3D9SetTextureStageState(RwUInt32 stage, RwUInt32 type, RwUInt32 value) {
+    D3D9StageStateSlot& slot = D3D9StageStateWanted[stage + (type + (stage << 5))];
+    if (slot.value == value) {
+        return;
+    }
+    slot.value = value;
+    if (slot.pending == 0) {
+        slot.pending = 1;
+        const uint32 count = D3D9StageStatePendingCount;
+        D3D9StageStatePendingList[count * 2] = stage;
+        D3D9StageStatePendingList[count * 2 + 1] = type;
+        D3D9StageStatePendingCount = count + 1;
+    }
+}
+
+// 0x7FC3C0 (lote R28A, sin validar; 63 bytes; era una envoltura; cdecl, (etapa, tipo, valor); `RwD3D9SetSamplerState` del SDK): indice = tipo + 14 * etapa; si el valor actual (0xC98938 + 4 * indice) ya es `valor` no hace
+// nada; si no lo guarda ANTES de llamar a _RwD3DDevice->SetSamplerState(etapa, tipo, valor) (+0x114). El HRESULT no se mira. Sin acotar.
+void RwD3D9SetSamplerState(RwUInt32 stage, RwUInt32 type, RwUInt32 value) {
+    uint32& current = D3D9SamplerStateCurrent[type + stage * 14u];
+    if (current == value) {
+        return;
+    }
+    current = value;
+    ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, stage, type, value);
+}
+
+// 0x7FDE70 (lote R28A, sin validar; 556 bytes; era una envoltura; cdecl, (textura, etapa); `RwD3D9SetTexture` del SDK) -> TRUE siempre. Con textura, con la cache de la etapa (0xC9A508 + 0x18 * etapa; etapa sin acotar):
+//  * direccion U (filterAddressing >> 8 & 0xF) y V (>> 0xC & 0xF): si difieren de la cache (+4 / +8) la anota, guarda en el estado de muestreo (0xC98938 + 4 * (1 o 2 + 14 * etapa)) la traduccion por la tabla 0x88493C y
+//    llama SIEMPRE a SetSamplerState(etapa, 1 o 2, traduccion) (+0x114), sin comparar contra el estado de muestreo como hace 0x7FC3C0.
+//  * filtro = filterAddressing & 0xFF. Con el desplazamiento de RpAnisot (0xC9A5E8, con signo) > 0: anisotropia = byte de la textura en ese desplazamiento; si difiere de la cache (+0x14) la anota, escribe 0xC98960 (estado
+//    de muestreo MAXANISOTROPY de la ETAPA 0, siempre) y llama SetSamplerState(0, 0xA, anisotropia) (siempre la etapa 0, con independencia de `etapa`); anisotropia > 1 (con signo) fuerza el filtro 7.
+//  * si el filtro difiere de la cache (+0xC): la anota; con la tabla de pares 0x884950: min/mag = [filtro * 2], mip = [filtro * 2 + 1]; guarda y envia SetSamplerState(etapa, 6, min/mag), (etapa, 5, min/mag) y
+//    (etapa, 7, mip) (siempre los tres, sin comparar).
+//  * termina con _rwD3D9RWSetRasterStage(textura->raster, etapa) (0x7FDCD0).
+// Sin textura: con la etapa 0 y 0xC9A4EC != 0: lo pone a 0 y, si 0xC9A4E8 es 0, deja 0xC992A8 = 0 (SIEMPRE, y en lista 0x1B con la bandera 0xC992AC si no estaba) y, si 0xC99248 != 0, lo pone a 0 y encola 0x0F (bandera
+// 0xC9924C). Despues, para cualquier etapa: si la cache +0 es distinta de 0 la pone a 0 y llama a SetTexture(etapa, NULL) (+0x104).
+RwBool RwD3D9SetTexture(RwTexture* texture, RwUInt32 stage) {
+    D3D9TextureStageCache& cache = D3D9TextureStageCaches[stage];
+    if (texture != nullptr) {
+        const uint32 addressU = (texture->filterAddressing >> 8) & 0xFu;
+        if (addressU != cache.addressU) {
+            cache.addressU = addressU;
+            const uint32 translated = kTableAddressMode[addressU];
+            D3D9SamplerStateCurrent[1 + stage * 14u] = translated;
+            ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, stage, kD3DSAMPAddressU, translated);
+        }
+        const uint32 addressV = (texture->filterAddressing >> 12) & 0xFu;
+        if (addressV != cache.addressV) {
+            cache.addressV = addressV;
+            const uint32 translated = kTableAddressMode[addressV];
+            D3D9SamplerStateCurrent[2 + stage * 14u] = translated;
+            ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, stage, kD3DSAMPAddressV, translated);
+        }
+        uint32 filter = texture->filterAddressing & 0xFFu;
+        const int32 anisotropyOffset = StaticRef<int32>(0xC9A5E8);
+        if (anisotropyOffset > 0) {
+            const uint32 anisotropy = *(reinterpret_cast<const uint8*>(texture) + anisotropyOffset);
+            if (cache.anisotropy != anisotropy) {
+                cache.anisotropy = anisotropy;
+                D3D9SamplerStateCurrent[kD3DSAMPMaxAnisotropy] = anisotropy;
+                ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, 0u, kD3DSAMPMaxAnisotropy, anisotropy);
+            }
+            if (static_cast<int32>(anisotropy) > 1) {
+                filter = 7;
+            }
+        }
+        if (cache.filter != filter) {
+            const uint32 minMag = kTableFilterMode[filter * 2];
+            cache.filter = filter;
+            const uint32 mip = kTableFilterMode[filter * 2 + 1];
+            D3D9SamplerStateCurrent[kD3DSAMPMinFilter + stage * 14u] = minMag;
+            ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, stage, kD3DSAMPMinFilter, minMag);
+            D3D9SamplerStateCurrent[kD3DSAMPMagFilter + stage * 14u] = minMag;
+            ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, stage, kD3DSAMPMagFilter, minMag);
+            D3D9SamplerStateCurrent[kD3DSAMPMipFilter + stage * 14u] = mip;
+            ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, stage, kD3DSAMPMipFilter, mip);
+        }
+        _rwD3D9RWSetRasterStage(texture->raster, stage);
+        return TRUE;
+    }
+    if (stage == 0 && StaticRef<uint32>(0xC9A4EC) != 0) {
+        const uint32 vertexAlpha = StaticRef<uint32>(0xC9A4E8);
+        StaticRef<uint32>(0xC9A4EC) = 0;
+        if (vertexAlpha == 0) {
+            const uint32 alphaBlendPending = StaticRef<uint32>(0xC992AC);
+            StaticRef<uint32>(0xC992A8) = 0;
+            if (alphaBlendPending == 0) {
+                D3D9QueueRenderState(StaticRef<uint32>(0xC992AC), kD3DRSAlphaBlendEnable);
+            }
+            if (StaticRef<uint32>(0xC99248) != 0) {
+                StaticRef<uint32>(0xC99248) = 0;
+                D3D9QueueRenderState(StaticRef<uint32>(0xC9924C), kD3DRSAlphaTestEnable);
+            }
+        }
+    }
+    if (cache.texture != 0) {
+        cache.texture = 0;
+        ComCall<kSlotDeviceSetTexture, int32>(D3D9Device, stage, static_cast<void*>(nullptr));
+    }
+    return TRUE;
+}
+
+// 0x7FC4D0 (lote R28A, sin validar; 1512 bytes; era una envoltura; cdecl, (propiedades de superficie, color, banderas); `RwD3D9SetSurfaceProperties` del SDK): construye el D3DMATERIAL9 de trabajo (0x8E2538: difuso +0, ambiente
+// +0x10, especular +0x20 (no se toca), emisivo +0x30) y lo envia. Coeficientes: propiedades = {ambiente +0, especular +4, difuso +8} (float); luz ambiente global 0x8E2418/1C/20; k = 0x859A3C (1/255 = 0x3B808081).
+// Cache de salida rapida (0xC9A5FC = difuso, 0xC9A600 = ambiente, 0xC9A5F8 = color RGBA como dword, 0xC9A5F4 = banderas & 0x48, 0xC9A5D8/DC/E0 = luz ambiente), todo comparado como DWORDS (un NaN o un -0 distinto cuenta como
+// cambio): si todo coincide devuelve TRUE sin tocar nada; si no actualiza la cache. Con banderas 0x40 (modular el color del material) y color != 0xFFFFFFFF: s = difuso * k; difuso rgb = (float)canal * s, alfa = (float)a * k;
+// t = ambiente * k; con 0x08 (prelit): AMBIENT (0x8B) = ARGB (a << 24 | r << 16 | g << 8 | b), COLORVERTEX (0x8D) = 1, AMBIENTMATERIALSOURCE (0x93) = 1, EMISSIVEMATERIALSOURCE (0x94) = 0, ambiente del material = 0 y emisivo
+// = ((float)canal * luz) * t; sin 0x08: AMBIENT = 0xFFFFFFFF, 0x8D = 0, 0x93 = 0, 0x94 = 0, ambiente del material = ((float)canal * luz) * t y emisivo = 0. Sin modular: difuso rgb = difuso (copia por la x87: NaN senalizador
+// silenciado), alfa = 1.0f, AMBIENT = 0xFFFFFFFF, 0x93 = 0; con 0x08: 0x8D = 1 y 0x94 = 1 (el emisivo no se toca); sin 0x08: 0x8D = 0, 0x94 = 0 y emisivo = 0; ambiente del material = luz * ambiente o, si el dword del ambiente
+// es 0x3F800000 (1.0f), la luz copiada tal cual. Los estados pasan por RwD3D9SetRenderState (el EXE incrusta el mismo cuerpo). Al final copia los 17 dwords a la cache de material (0xC98AF8) y llama a
+// SetMaterial (+0xC4) con el material de trabajo; devuelve HRESULT >= 0. x87 a 24 bits: cada producto se redondea a float, igual que en C++.
+RwBool RwD3D9SetSurfaceProperties(const RwSurfaceProperties* surfaceProps, const RwRGBA* color, RwUInt32 flags) {
+    const uint32* const properties = reinterpret_cast<const uint32*>(surfaceProps);
+    const uint32 colorDword = *reinterpret_cast<const uint32*>(color);
+    const uint32 maskedFlags = flags & 0x48u;
+    const uint32 lightBits[3] = { StaticRef<uint32>(0x8E2418), StaticRef<uint32>(0x8E241C), StaticRef<uint32>(0x8E2420) };
+    if (StaticRef<uint32>(0xC9A5FC) == properties[2] && StaticRef<uint32>(0xC9A600) == properties[0] && StaticRef<uint32>(0xC9A5F8) == colorDword
+        && StaticRef<uint32>(0xC9A5F4) == maskedFlags && StaticRef<uint32>(0xC9A5D8) == lightBits[0] && StaticRef<uint32>(0xC9A5DC) == lightBits[1] && StaticRef<uint32>(0xC9A5E0) == lightBits[2]) {
+        return TRUE;
+    }
+    StaticRef<uint32>(0xC9A5FC) = properties[2];
+    StaticRef<uint32>(0xC9A600) = properties[0];
+    StaticRef<uint32>(0xC9A5F8) = colorDword;
+    StaticRef<uint32>(0xC9A5D8) = StaticRef<uint32>(0x8E2418);
+    StaticRef<uint32>(0xC9A5DC) = StaticRef<uint32>(0x8E241C);
+    StaticRef<uint32>(0xC9A5E0) = StaticRef<uint32>(0x8E2420);
+    StaticRef<uint32>(0xC9A5F4) = maskedFlags;
+    float* const material = reinterpret_cast<float*>(D3D9MaterialStaging);
+    const float* const light = reinterpret_cast<const float*>(0x8E2418);
+    const RwUInt8* const channel = reinterpret_cast<const RwUInt8*>(color);
+    constexpr uint32 kD3DRSAmbient = 0x8B, kD3DRSColorVertex = 0x8D, kD3DRSAmbientMaterialSource = 0x93, kD3DRSEmissiveMaterialSource = 0x94;
+    if ((maskedFlags & 0x40u) != 0 && colorDword != 0xFFFFFFFFu) {
+        const float k = StaticRef<float>(0x859A3C);
+        const float scale = surfaceProps->diffuse * k;
+        material[0] = static_cast<float>(channel[0]) * scale;
+        material[1] = static_cast<float>(channel[1]) * scale;
+        material[2] = static_cast<float>(channel[2]) * scale;
+        material[3] = static_cast<float>(channel[3]) * k;
+        const float ambientScale = surfaceProps->ambient * k;
+        if ((maskedFlags & 0x08u) != 0) {
+            const uint32 argb = (static_cast<uint32>(channel[3]) << 24) | (static_cast<uint32>(channel[0]) << 16) | (static_cast<uint32>(channel[1]) << 8) | static_cast<uint32>(channel[2]);
+            RwD3D9SetRenderState(kD3DRSAmbient, argb);
+            RwD3D9SetRenderState(kD3DRSColorVertex, 1);
+            RwD3D9SetRenderState(kD3DRSAmbientMaterialSource, 1);
+            RwD3D9SetRenderState(kD3DRSEmissiveMaterialSource, 0);
+            D3D9MaterialStaging[4] = 0;
+            D3D9MaterialStaging[5] = 0;
+            D3D9MaterialStaging[6] = 0;
+            material[12] = (static_cast<float>(channel[0]) * light[0]) * ambientScale;
+            material[13] = (static_cast<float>(channel[1]) * light[1]) * ambientScale;
+            material[14] = (static_cast<float>(channel[2]) * light[2]) * ambientScale;
+        } else {
+            RwD3D9SetRenderState(kD3DRSAmbient, 0xFFFFFFFFu);
+            RwD3D9SetRenderState(kD3DRSColorVertex, 0);
+            RwD3D9SetRenderState(kD3DRSAmbientMaterialSource, 0);
+            RwD3D9SetRenderState(kD3DRSEmissiveMaterialSource, 0);
+            material[4] = (static_cast<float>(channel[0]) * light[0]) * ambientScale;
+            material[5] = (static_cast<float>(channel[1]) * light[1]) * ambientScale;
+            D3D9MaterialStaging[12] = 0;
+            D3D9MaterialStaging[13] = 0;
+            material[6] = (static_cast<float>(channel[2]) * light[2]) * ambientScale;
+            D3D9MaterialStaging[14] = 0;
+        }
+    } else {
+        const uint32 diffuseBits = X87FloatCopyBitsD3D9(properties[2]);
+        D3D9MaterialStaging[0] = diffuseBits;
+        D3D9MaterialStaging[1] = diffuseBits;
+        D3D9MaterialStaging[2] = diffuseBits;
+        D3D9MaterialStaging[3] = 0x3F800000u;
+        RwD3D9SetRenderState(kD3DRSAmbient, 0xFFFFFFFFu);
+        RwD3D9SetRenderState(kD3DRSAmbientMaterialSource, 0);
+        if ((maskedFlags & 0x08u) != 0) {
+            RwD3D9SetRenderState(kD3DRSColorVertex, 1);
+            RwD3D9SetRenderState(kD3DRSEmissiveMaterialSource, 1);
+        } else {
+            RwD3D9SetRenderState(kD3DRSColorVertex, 0);
+            RwD3D9SetRenderState(kD3DRSEmissiveMaterialSource, 0);
+            D3D9MaterialStaging[12] = 0;
+            D3D9MaterialStaging[13] = 0;
+            D3D9MaterialStaging[14] = 0;
+        }
+        if (properties[0] != 0x3F800000u) {
+            material[4] = light[0] * surfaceProps->ambient;
+            material[5] = light[1] * surfaceProps->ambient;
+            material[6] = light[2] * surfaceProps->ambient;
+        } else {
+            D3D9MaterialStaging[4] = lightBits[0];
+            D3D9MaterialStaging[5] = lightBits[1];
+            D3D9MaterialStaging[6] = lightBits[2];
+        }
+    }
+    for (int i = 0; i < 17; ++i) {
+        D3D9CurrentMaterial.dwords[i] = D3D9MaterialStaging[i];
+    }
+    return ComCall<kSlotDeviceSetMaterial, int32>(D3D9Device, static_cast<const void*>(D3D9MaterialStaging)) >= 0;
+}
+
+// Fases comunes de _rwD3D9RenderStateOpen y _rwD3D9RenderStateReset (lote R28A): el EXE las incrusta en las dos funciones, con las mismas escrituras.
+namespace {
+// Pone a -1 los valores actuales de los estados de render (0xD2 dwords), a 0 los de 0x22, 0x8B, 0x3A y 0x3B (0xC98F10, 0xC990B4, 0xC98F70, 0xC98F74) y copia los valores a los pedidos con la bandera a 0.
+void D3D9ClearRenderStateCaches() {
+    for (uint32 i = 0; i < 0xD2; ++i) {
+        D3D9RenderStateCurrent[i] = 0xFFFFFFFFu;
+    }
+    D3D9RenderStateCurrent[0x22] = 0;
+    D3D9RenderStateCurrent[0x8B] = 0;
+    D3D9RenderStateCurrent[0x3A] = 0;
+    D3D9RenderStateCurrent[0x3B] = 0;
+    for (uint32 i = 0; i < 0xD2; ++i) {
+        D3D9RenderStateWanted[i].pending = 0;
+        D3D9RenderStateWanted[i].value = D3D9RenderStateCurrent[i];
+    }
+}
+// Estados de etapa actuales a -1 (0x108), contador de render a 0, estados de etapa pedidos {-1, 0}, estados de muestreo actuales a -1 (0x70), material actual a 0 (17 dwords) y las cinco cache del material de superficie a 0.
+void D3D9ClearStageAndMaterialCaches() {
+    for (uint32 i = 0; i < 0x108; ++i) {
+        D3D9StageStateCurrent[i] = 0xFFFFFFFFu;
+    }
+    D3D9RenderStatePendingCount = 0;
+    for (uint32 i = 0; i < 0x108; ++i) {
+        D3D9StageStateWanted[i].value = 0xFFFFFFFFu;
+        D3D9StageStateWanted[i].pending = 0;
+    }
+    for (uint32 i = 0; i < 0x70; ++i) {
+        D3D9SamplerStateCurrent[i] = 0xFFFFFFFFu;
+    }
+    for (uint32 i = 0; i < 17; ++i) {
+        D3D9CurrentMaterial.dwords[i] = 0;
+    }
+    StaticRef<uint32>(0xC9A5FC) = 0;
+    StaticRef<uint32>(0xC9A600) = 0;
+    StaticRef<uint32>(0xC9A5D8) = 0;
+    StaticRef<uint32>(0xC9A5DC) = 0;
+    StaticRef<uint32>(0xC9A5E0) = 0;
+}
+bool D3D9FogUsesTable() { // RasterCaps: FOGTABLE (0x100) y WFOG (0x100000)
+    return (D3D9RasterCaps & 0x100u) != 0 && (D3D9RasterCaps & 0x100000u) != 0;
+}
+} // namespace
+
+// 0x7FCAC0 (lote R28A, sin validar; 1595 bytes; no tenia envoltura; nombre inferido, `_rwD3D9RenderStateOpen` de RenderWare; cdecl sin argumentos, `jmp 0x7FC200` al final): inicializa las caches de estados y los valores
+// por defecto de RenderWare. Pone las caches a su valor inicial (render actuales -1 salvo 0x22, 0x8B, 0x3A, 0x3B a 0; pedidos = actuales sin bandera; etapa y muestreo a -1; material a 0; 0xC9A5F0, 0xC9A5F4 y 0xC9A5F8 a 0;
+// 0xC9A4F4 = 0, 0xC9A4F8 = 1, 0xC9A4FC = 1.0f, 0xC9A500 = 0) y encola, por RwD3D9SetRenderState y en este orden: 0x1C = 0; niebla (RasterCaps & 0x100 y & 0x100000: 0x23 = 3 y 0x8C = 0; si no: 0x23 = 0 y 0x8C = 3);
+// 0x22 = 0, 9 = 2 (0xC9A504 = 2), 0x17 = 4, 0x0E = 1, 7 = 1 (0xC9A4C0 = 1, 0xC9A4C4 = 1), 0x34 = 0, 0x35 = 1, 0x36 = 1, 0x37 = 1, 0x38 = 8, 0x39 = 0, 0x3A = -1, 0x3B = -1 (0xC9A4D8 = 8, 0xC9A4E0 = 0xC9A4E4 = -1,
+// 0xC9A4C8 = 0, 0xC9A4CC = 0xC9A4D0 = 0xC9A4D4 = 1, 0xC9A4DC = 0). Despues, para las 8 etapas: SetTexture(etapa, NULL) y la cache de la etapa (+0 = 0); con TextureFilterCaps & 0x200: muestreo 6 = 2 (directo si cambia),
+// luego 5 = 2 por 0x7FC3C0 y filtro de la etapa (+0xC) = 2; si no: 6 = 1, 5 = 1 y filtro = 1; muestreo 7 = 0, 1 = 1, 2 = 1 (direcciones U y V de la etapa = 1), 4 = 0xFF000000 (borde = 0xFF000000), 0xA = 1 (anisotropia = 1);
+// con etapa != 0: estados de etapa (etapa, 1) = 1 y (etapa, 4) = 1. Despues 0x13 = 5, 0x14 = 6 (0xC9A5C8 = 5, 0xC9A5CC = 6), 0x19 = 5 (0xC9A5D0 = 5), 0x18 = 0 (0xC9A5D4 = 1), 0x1B = 0, 0x0F = 0, 0x89 = 0 (0xC9A4E8 = 0, 0xC9A4EC = 0),
+// 0x16 = 2 (0xC9A4F0 = 2); estados de etapa (0,1) = 3, (0,3) = 0, (0,4) = 3, (0,6) = 0; 0x91 = 0, 0x92 = 0, 0x93 = 0, 0x1A = RasterCaps & 1, 0x1D = 0, 0x8E = 0, 0x8B = -1, 0x8F = 0 y vuelca los estados pendientes
+// (_rwD3D9RenderStateFlushCache, 0x7FC200; en el EXE es un `jmp`). Sin x87.
+void _rwD3D9RenderStateOpen() {
+    D3D9ClearRenderStateCaches();
+    D3D9ClearStageAndMaterialCaches();
+    StaticRef<uint32>(0xC9A5F0) = 0;
+    StaticRef<uint32>(0xC9A5F4) = 0;
+    StaticRef<uint32>(0xC9A5F8) = 0;
+    StaticRef<uint32>(0xC9A4F4) = 0;
+    StaticRef<uint32>(0xC9A4F8) = 1;
+    StaticRef<uint32>(0xC9A4FC) = 0x3F800000u;
+    StaticRef<uint32>(0xC9A500) = 0;
+    RwD3D9SetRenderState(0x1C, 0);
+    if (D3D9FogUsesTable()) {
+        RwD3D9SetRenderState(0x23, 3);
+        RwD3D9SetRenderState(0x8C, 0);
+    } else {
+        RwD3D9SetRenderState(0x23, 0);
+        RwD3D9SetRenderState(0x8C, 3);
+    }
+    RwD3D9SetRenderState(0x22, 0);
+    RwD3D9SetRenderState(9, 2);
+    StaticRef<uint32>(0xC9A504) = 2;
+    RwD3D9SetRenderState(0x17, 4);
+    RwD3D9SetRenderState(0x0E, 1);
+    RwD3D9SetRenderState(7, 1);
+    StaticRef<uint32>(0xC9A4C0) = 1;
+    StaticRef<uint32>(0xC9A4C4) = 1;
+    RwD3D9SetRenderState(0x34, 0);
+    RwD3D9SetRenderState(0x35, 1);
+    RwD3D9SetRenderState(0x36, 1);
+    RwD3D9SetRenderState(0x37, 1);
+    RwD3D9SetRenderState(0x38, 8);
+    RwD3D9SetRenderState(0x39, 0);
+    RwD3D9SetRenderState(0x3A, 0xFFFFFFFFu);
+    RwD3D9SetRenderState(0x3B, 0xFFFFFFFFu);
+    StaticRef<uint32>(0xC9A4D8) = 8;
+    StaticRef<uint32>(0xC9A4E0) = 0xFFFFFFFFu;
+    StaticRef<uint32>(0xC9A4E4) = 0xFFFFFFFFu;
+    StaticRef<uint32>(0xC9A4C8) = 0;
+    StaticRef<uint32>(0xC9A4CC) = 1;
+    StaticRef<uint32>(0xC9A4D0) = 1;
+    StaticRef<uint32>(0xC9A4D4) = 1;
+    StaticRef<uint32>(0xC9A4DC) = 0;
+    for (uint32 stage = 0; stage < 8; ++stage) {
+        D3D9TextureStageCache& cache = D3D9TextureStageCaches[stage];
+        ComCall<kSlotDeviceSetTexture, int32>(D3D9Device, stage, static_cast<void*>(nullptr));
+        cache.texture = 0;
+        if ((D3D9TextureFilterCaps & 0x200u) != 0) {
+            uint32& minFilterCache = D3D9SamplerStateCurrent[kD3DSAMPMinFilter + stage * 14u];
+            if (minFilterCache != 2) {
+                minFilterCache = 2;
+                ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, stage, kD3DSAMPMinFilter, 2u);
+            }
+            RwD3D9SetSamplerState(stage, kD3DSAMPMagFilter, 2);
+            cache.filter = 2;
+        } else {
+            RwD3D9SetSamplerState(stage, kD3DSAMPMinFilter, 1);
+            RwD3D9SetSamplerState(stage, kD3DSAMPMagFilter, 1);
+            cache.filter = 1;
+        }
+        RwD3D9SetSamplerState(stage, kD3DSAMPMipFilter, 0);
+        RwD3D9SetSamplerState(stage, kD3DSAMPAddressU, 1);
+        RwD3D9SetSamplerState(stage, kD3DSAMPAddressV, 1);
+        cache.addressU = 1;
+        cache.addressV = 1;
+        RwD3D9SetSamplerState(stage, kD3DSAMPBorderColor, 0xFF000000u);
+        cache.borderColor = 0xFF000000u;
+        cache.anisotropy = 1;
+        RwD3D9SetSamplerState(stage, kD3DSAMPMaxAnisotropy, 1);
+        if (stage != 0) {
+            RwD3D9SetTextureStageState(stage, 1, 1);
+            RwD3D9SetTextureStageState(stage, 4, 1);
+        }
+    }
+    RwD3D9SetRenderState(0x13, 5);
+    RwD3D9SetRenderState(0x14, 6);
+    StaticRef<uint32>(0xC9A5C8) = 5;
+    StaticRef<uint32>(0xC9A5CC) = 6;
+    RwD3D9SetRenderState(0x19, 5);
+    StaticRef<uint32>(0xC9A5D0) = 5;
+    StaticRef<uint32>(0xC9A5D4) = 1;
+    RwD3D9SetRenderState(0x18, 0);
+    RwD3D9SetRenderState(0x1B, 0);
+    RwD3D9SetRenderState(0x0F, 0);
+    StaticRef<uint32>(0xC9A4E8) = 0;
+    StaticRef<uint32>(0xC9A4EC) = 0;
+    RwD3D9SetRenderState(0x89, 0);
+    RwD3D9SetRenderState(0x16, 2);
+    StaticRef<uint32>(0xC9A4F0) = 2;
+    RwD3D9SetTextureStageState(0, 1, 3);
+    RwD3D9SetTextureStageState(0, 3, 0);
+    RwD3D9SetTextureStageState(0, 4, 3);
+    RwD3D9SetTextureStageState(0, 6, 0);
+    RwD3D9SetRenderState(0x91, 0);
+    RwD3D9SetRenderState(0x92, 0);
+    RwD3D9SetRenderState(0x93, 0);
+    RwD3D9SetRenderState(0x1A, D3D9RasterCaps & 1u);
+    RwD3D9SetRenderState(0x1D, 0);
+    RwD3D9SetRenderState(0x8E, 0);
+    RwD3D9SetRenderState(0x8B, 0xFFFFFFFFu);
+    RwD3D9SetRenderState(0x8F, 0);
+    _rwD3D9RenderStateFlushCache();
+}
+
+// 0x7FD100 (lote R28A, sin validar; 1806 bytes; era una llamada por direccion fija desde RwD3D9Close y el modo ventana; nombre `_rwD3D9RenderStateReset` como en WindowedMode.cpp; cdecl sin argumentos, `jmp 0x7FC200`
+// al final): como _rwD3D9RenderStateOpen pero rehace la cache a partir de los valores de RenderWare guardados (0xC9A4xx..0xC9A5Dx), traducidos por las tablas del EXE, y tras una perdida del dispositivo. Guarda antes de
+// borrar los pedidos de 0x24 (niebla, inicio), 0x25 (fin) y 0x18 (referencia alfa). Despues del mismo borrado de caches (mas 0xC9A5F0, 0xC9A5F4, 0xC9A5F8 = 0) encola por RwD3D9SetRenderState y en este orden: 0x26 = [0xC9A4FC];
+// 0x1C = [0xC9A4F4]; niebla (con RasterCaps & 0x100 y & 0x100000: 0x23 = tabla 0x8848FC[[0xC9A4F8]] y 0x8C = 0; si no 0x23 = 0 y 0x8C = la tabla); 0x24 y 0x25 = lo guardado; 0x22 = [0xC9A500]; 9 = 0x8848F0[[0xC9A504]];
+// 0x0E = [0xC9A4C0]; con [0xC9A4C4] != 0: 0x17 = 4 y 7 = 1; si no: 0x17 = 8 y 7 = ([0xC9A4C0] != 0); 0x34 = [0xC9A4C8]; 0x35, 0x36 y 0x37 = 0x8849A0[[0xC9A4CC]], [[0xC9A4D0]] y [[0xC9A4D4]]; 0x38 = 0x8849C4[[0xC9A4D8]],
+// 0x39 = [0xC9A4DC], 0x3A = [0xC9A4E0], 0x3B = [0xC9A4E4]. Para las 8 etapas: SetTexture(etapa, NULL), cache +0 = 0 y, por RwD3D9SetSamplerState, 6 y 5 = 0x884950[cache.filtro * 2], 7 = 0x884950[cache.filtro * 2 + 1],
+// 1 y 2 = 0x88493C[cache.U] y [cache.V], 4 = borde, 0xA = anisotropia; con etapa != 0, estados de etapa (etapa, 1) = 1 y (etapa, 4) = 1. Despues 0x13 = 0x88490C[[0xC9A5C8]], 0x14 = 0x88490C[[0xC9A5CC]], 0x19 = 0x8849C4[[0xC9A5D0]],
+// 0x18 = lo guardado; con [0xC9A4E8] != 0: 0x1B = 1 y 0x0F = [0xC9A5D4]; si no 0x1B = 0 y 0x0F = 0; [0xC9A4EC] = 0; 0x89 = 0; 0x16 = 0x884990[[0xC9A4F0]]; estados de etapa (0,1) = 3, (0,3) = 0, (0,4) = 3, (0,6) = 0; 0x91, 0x92, 0x93 = 0;
+// 0x1A = RasterCaps & 1; 0x1D = 0; 0x8E = 0; 0x8B = -1; 0x8F = 0 y vuelca los pendientes (_rwD3D9RenderStateFlushCache). Sin x87.
+void _rwD3D9RenderStateReset() {
+    const uint32 savedFogStart = D3D9RenderStateWanted[0x24].value;
+    const uint32 savedFogEnd   = D3D9RenderStateWanted[0x25].value;
+    const uint32 savedAlphaRef = D3D9RenderStateWanted[0x18].value;
+    D3D9ClearRenderStateCaches();
+    D3D9ClearStageAndMaterialCaches();
+    StaticRef<uint32>(0xC9A5F0) = 0;
+    StaticRef<uint32>(0xC9A5F4) = 0;
+    StaticRef<uint32>(0xC9A5F8) = 0;
+    RwD3D9SetRenderState(0x26, StaticRef<uint32>(0xC9A4FC));
+    RwD3D9SetRenderState(0x1C, StaticRef<uint32>(0xC9A4F4));
+    if (D3D9FogUsesTable()) {
+        RwD3D9SetRenderState(0x23, kTableFogMode[StaticRef<uint32>(0xC9A4F8)]);
+        RwD3D9SetRenderState(0x8C, 0);
+    } else {
+        RwD3D9SetRenderState(0x23, 0);
+        RwD3D9SetRenderState(0x8C, kTableFogMode[StaticRef<uint32>(0xC9A4F8)]);
+    }
+    RwD3D9SetRenderState(0x24, savedFogStart);
+    RwD3D9SetRenderState(0x25, savedFogEnd);
+    RwD3D9SetRenderState(0x22, StaticRef<uint32>(0xC9A500));
+    RwD3D9SetRenderState(9, kTableShadeMode[StaticRef<uint32>(0xC9A504)]);
+    const uint32 zWrite = StaticRef<uint32>(0xC9A4C0);
+    RwD3D9SetRenderState(0x0E, zWrite);
+    if (StaticRef<uint32>(0xC9A4C4) != 0) {
+        RwD3D9SetRenderState(0x17, 4);
+        RwD3D9SetRenderState(7, 1);
+    } else {
+        RwD3D9SetRenderState(0x17, 8);
+        RwD3D9SetRenderState(7, zWrite != 0 ? 1u : 0u);
+    }
+    RwD3D9SetRenderState(0x34, StaticRef<uint32>(0xC9A4C8));
+    RwD3D9SetRenderState(0x35, kTableStencilOp[StaticRef<uint32>(0xC9A4CC)]);
+    RwD3D9SetRenderState(0x36, kTableStencilOp[StaticRef<uint32>(0xC9A4D0)]);
+    RwD3D9SetRenderState(0x37, kTableStencilOp[StaticRef<uint32>(0xC9A4D4)]);
+    RwD3D9SetRenderState(0x38, kTableCompare[StaticRef<uint32>(0xC9A4D8)]);
+    RwD3D9SetRenderState(0x39, StaticRef<uint32>(0xC9A4DC));
+    RwD3D9SetRenderState(0x3A, StaticRef<uint32>(0xC9A4E0));
+    RwD3D9SetRenderState(0x3B, StaticRef<uint32>(0xC9A4E4));
+    for (uint32 stage = 0; stage < 8; ++stage) {
+        D3D9TextureStageCache& cache = D3D9TextureStageCaches[stage];
+        ComCall<kSlotDeviceSetTexture, int32>(D3D9Device, stage, static_cast<void*>(nullptr));
+        cache.texture = 0;
+        RwD3D9SetSamplerState(stage, kD3DSAMPMinFilter, kTableFilterMode[cache.filter * 2]);
+        RwD3D9SetSamplerState(stage, kD3DSAMPMagFilter, kTableFilterMode[cache.filter * 2]);
+        RwD3D9SetSamplerState(stage, kD3DSAMPMipFilter, kTableFilterMode[cache.filter * 2 + 1]);
+        RwD3D9SetSamplerState(stage, kD3DSAMPAddressU, kTableAddressMode[cache.addressU]);
+        RwD3D9SetSamplerState(stage, kD3DSAMPAddressV, kTableAddressMode[cache.addressV]);
+        RwD3D9SetSamplerState(stage, kD3DSAMPBorderColor, cache.borderColor);
+        RwD3D9SetSamplerState(stage, kD3DSAMPMaxAnisotropy, cache.anisotropy);
+        if (stage != 0) {
+            RwD3D9SetTextureStageState(stage, 1, 1);
+            RwD3D9SetTextureStageState(stage, 4, 1);
+        }
+    }
+    RwD3D9SetRenderState(0x13, kTableBlend[StaticRef<uint32>(0xC9A5C8)]);
+    RwD3D9SetRenderState(0x14, kTableBlend[StaticRef<uint32>(0xC9A5CC)]);
+    RwD3D9SetRenderState(0x19, kTableCompare[StaticRef<uint32>(0xC9A5D0)]);
+    RwD3D9SetRenderState(0x18, savedAlphaRef);
+    if (StaticRef<uint32>(0xC9A4E8) != 0) {
+        RwD3D9SetRenderState(0x1B, 1);
+        RwD3D9SetRenderState(0x0F, StaticRef<uint32>(0xC9A5D4));
+    } else {
+        RwD3D9SetRenderState(0x1B, 0);
+        RwD3D9SetRenderState(0x0F, 0);
+    }
+    StaticRef<uint32>(0xC9A4EC) = 0;
+    RwD3D9SetRenderState(0x89, 0);
+    RwD3D9SetRenderState(0x16, kTableCullMode[StaticRef<uint32>(0xC9A4F0)]);
+    RwD3D9SetTextureStageState(0, 1, 3);
+    RwD3D9SetTextureStageState(0, 3, 0);
+    RwD3D9SetTextureStageState(0, 4, 3);
+    RwD3D9SetTextureStageState(0, 6, 0);
+    RwD3D9SetRenderState(0x91, 0);
+    RwD3D9SetRenderState(0x92, 0);
+    RwD3D9SetRenderState(0x93, 0);
+    RwD3D9SetRenderState(0x1A, D3D9RasterCaps & 1u);
+    RwD3D9SetRenderState(0x1D, 0);
+    RwD3D9SetRenderState(0x8E, 0);
+    RwD3D9SetRenderState(0x8B, 0xFFFFFFFFu);
+    RwD3D9SetRenderState(0x8F, 0);
+    _rwD3D9RenderStateFlushCache();
+}
+
+// 0x7FB480 (lote R28A, sin validar; 368 bytes; era llamada por direccion fija desde _rwD3D9Im2DRenderOpen de WindowedMode.cpp y los controladores; `_rwD3D9Im2DRenderOpen` de RenderWare; cdecl sin argumentos -> RwBool): 0xC980E0 = 0.
+// Sin HWTRANSFORMANDLIGHT (DevCaps 0xC9BF1C & 0x10000) y con mas de 8 MB de memoria de texturas (GetAvailableTextureMem, ranura 4, sin signo): CreateVertexBuffer(0x40000, uso 0x228, FVF 0, pool 0, &0xC980E8, NULL) (ranura 26);
+// si HRESULT == 0: 0xC980E0 = 1 y 0xC980E4 = 0. Despues 0xC980EC = 0 y CreateIndexBuffer(0x4E20, uso 0x228, D3DFMT_INDEX16 = 0x65, pool 0, &0xC980F0, NULL) (ranura 27). Si da 0: crea la declaracion de Im2D con
+// RwD3D9CreateVertexDeclaration (0x7FAA30) y {posicion float4 en 0 (POSITIONT), color D3DCOLOR en 0x10, texcoord float2 en 0x14, fin} en 0xC980F4 (el resultado se ignora) y devuelve TRUE. Si falla: libera la declaracion
+// (RwD3D9DeleteVertexDeclaration, 0x7FAC10; 0xC980F4 = 0), el bufer de vertices (solo si 0xC980E0 != 0 y 0xC980E8 != 0; Release ranura 2; 0xC980E8 = 0) y el de indices (0xC980F0 = 0) y devuelve FALSE.
+// Tamano de la declaracion en pila: 4 elementos de 8 bytes; el EXE no la inicializa antes.
+RwBool _rwD3D9Im2DRenderOpen() {
+    StaticRef<uint32>(0xC980E0) = 0;
+    if ((D3D9DeviceDevCaps & 0x10000u) == 0) {
+        void* const device = D3D9Device;
+        const uint32 availableMemory = ComCall<kSlotDeviceGetAvailableTextureMem, uint32>(device);
+        if (availableMemory > 0x800000u) {
+            const int32 result = ComCall<kSlotDeviceCreateVertexBuffer, int32>(D3D9Device, 0x40000u, 0x228u, 0u, 0u, reinterpret_cast<void**>(0xC980E8), static_cast<void*>(nullptr));
+            if (result == 0) {
+                StaticRef<uint32>(0xC980E0) = 1;
+                StaticRef<uint32>(0xC980E4) = 0;
+            }
+        }
+    }
+    StaticRef<uint32>(0xC980EC) = 0;
+    const int32 indexResult = ComCall<kSlotDeviceCreateIndexBufferR28A, int32>(D3D9Device, 0x4E20u, 0x228u, 0x65u, 0u, reinterpret_cast<void**>(0xC980F0), static_cast<void*>(nullptr));
+    if (indexResult == 0) {
+        struct VertexElement { uint16 stream; uint16 offset; uint8 type; uint8 method; uint8 usage; uint8 usageIndex; };
+        static_assert(sizeof(VertexElement) == 8);
+        VertexElement elements[4];
+        elements[0] = { 0, 0x00, 3, 0, 9, 0 };      // D3DDECLTYPE_FLOAT4, D3DDECLUSAGE_POSITIONT
+        elements[1] = { 0, 0x10, 4, 0, 10, 0 };     // D3DDECLTYPE_D3DCOLOR, D3DDECLUSAGE_COLOR
+        elements[2] = { 0, 0x14, 1, 0, 5, 0 };      // D3DDECLTYPE_FLOAT2, D3DDECLUSAGE_TEXCOORD
+        elements[3] = { 0xFF, 0, 0x11, 0, 0, 0 };   // D3DDECL_END
+        RwD3D9CreateVertexDeclaration(elements, reinterpret_cast<void**>(0xC980F4));
+        return TRUE;
+    }
+    if (StaticRef<void*>(0xC980F4) != nullptr) {
+        RwD3D9DeleteVertexDeclaration(StaticRef<void*>(0xC980F4));
+        StaticRef<void*>(0xC980F4) = nullptr;
+    }
+    if (StaticRef<uint32>(0xC980E0) != 0) {
+        void* const vertexBuffer = StaticRef<void*>(0xC980E8);
+        if (vertexBuffer != nullptr) {
+            ComCall<kSlotRelease, ULONG>(vertexBuffer);
+            StaticRef<void*>(0xC980E8) = nullptr;
+        }
+    }
+    void* const indexBuffer = StaticRef<void*>(0xC980F0);
+    if (indexBuffer != nullptr) {
+        ComCall<kSlotRelease, ULONG>(indexBuffer);
+        StaticRef<void*>(0xC980F0) = nullptr;
+    }
+    return FALSE;
+}
+
+// 0x7FB5F0 (lote R28A, sin validar; 88 bytes; era llamada por direccion fija desde _rwD3D9DeviceReleaseVideoMemory y _rwD3D9DeviceSystemStop; `_rwD3D9Im2DRenderClose` de RenderWare; cdecl sin argumentos): libera la declaracion de
+// Im2D (0xC980F4 si no es NULL: RwD3D9DeleteVertexDeclaration y la anula), el bufer de vertices (0xC980E8, solo si 0xC980E0 != 0 y no es NULL: Release y 0xC980E8 = 0) y el de indices (0xC980F0 si no es NULL: Release y a 0).
+void _rwD3D9Im2DRenderClose() {
+    if (StaticRef<void*>(0xC980F4) != nullptr) {
+        RwD3D9DeleteVertexDeclaration(StaticRef<void*>(0xC980F4));
+        StaticRef<void*>(0xC980F4) = nullptr;
+    }
+    if (StaticRef<uint32>(0xC980E0) != 0) {
+        void* const vertexBuffer = StaticRef<void*>(0xC980E8);
+        if (vertexBuffer != nullptr) {
+            ComCall<kSlotRelease, ULONG>(vertexBuffer);
+            StaticRef<void*>(0xC980E8) = nullptr;
+        }
+    }
+    void* const indexBuffer = StaticRef<void*>(0xC980F0);
+    if (indexBuffer != nullptr) {
+        ComCall<kSlotRelease, ULONG>(indexBuffer);
+        StaticRef<void*>(0xC980F0) = nullptr;
+    }
+}
+
+// 0x7FB810 (lote R28A, sin validar; 206 bytes; era llamada por direccion fija desde las funciones de dibujo de Im2D (0x7FB7C6, 0x7FBAB0, 0x7FBCC6, 0x7FBF3D, 0x7FC170); nombre inferido; cdecl sin argumentos, `jmp 0x7FC200`): prepara el
+// dispositivo para dibujar Im2D: _rwD3D9SetVertexDeclaration(0xC980F4), vertex shader = NULL, pixel shader = NULL, estados de render 0x88 = 0 y 0x89 = 0 y la textura de la etapa 0 (_rwD3D9RWGetRasterStage(0), 0x7FDE50): sin
+// raster, estados de etapa (0,1) = 3, (0,3) = 0, (0,4) = 3, (0,6) = 0; con raster (0,1) = 4, (0,2) = 2, (0,3) = 0, (0,4) = 4, (0,5) = 2, (0,6) = 0. Despues RwD3D9SetStreamSource(0, 0xC980E8, 0, 0x1C) y vuelca los estados
+// pendientes (_rwD3D9RenderStateFlushCache).
+void _rwD3D9Im2DRenderBegin() {
+    _rwD3D9SetVertexDeclaration(StaticRef<void*>(0xC980F4));
+    _rwD3D9SetVertexShader(nullptr);
+    _rwD3D9SetPixelShader(nullptr);
+    RwD3D9SetRenderState(0x88, 0);
+    RwD3D9SetRenderState(0x89, 0);
+    if (_rwD3D9RWGetRasterStage(0) == nullptr) {
+        RwD3D9SetTextureStageState(0, 1, 3);
+        RwD3D9SetTextureStageState(0, 3, 0);
+        RwD3D9SetTextureStageState(0, 4, 3);
+        RwD3D9SetTextureStageState(0, 6, 0);
+    } else {
+        RwD3D9SetTextureStageState(0, 1, 4);
+        RwD3D9SetTextureStageState(0, 2, 2);
+        RwD3D9SetTextureStageState(0, 3, 0);
+        RwD3D9SetTextureStageState(0, 4, 4);
+        RwD3D9SetTextureStageState(0, 5, 2);
+        RwD3D9SetTextureStageState(0, 6, 0);
+    }
+    RwD3D9SetStreamSource(0, StaticRef<void*>(0xC980E8), 0, 0x1C);
+    _rwD3D9RenderStateFlushCache();
+}
+
+// 0x7FFEE0 (lote R28A, sin validar; 24 bytes; era un puntero de funcion de la tabla de _rwD3D9RasterToImageGeneric (D3DFMT_L16 = 0x51); nombre inferido; cdecl, (destino, valor)): destino[0..2] = (valor >> 8) & 0xFF (gris de 16
+// bits: el byte alto) y destino[3] = 0xFF. Sin x87.
+void _rwD3D9PixelConvertL16(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const bytes = reinterpret_cast<RwUInt8*>(destination);
+    const RwUInt8 gray = static_cast<RwUInt8>(value >> 8);
+    bytes[0] = gray;
+    bytes[1] = gray;
+    bytes[2] = gray;
+    bytes[3] = 0xFF;
+}
+
+// 0x7FFFF0 (lote R28A, sin validar; 491 bytes; no tenia envoltura; nombre inferido, la llama la funcion estandar RwImageFindRasterFormat del controlador (0x7FFF00, 0x800253, 0x800D6D); cdecl, (imagen) -> formato de raster):
+// elige el formato de raster (rwRASTERFORMAT*) de una imagen. Profundidad 4 u 8 (paleta de 16 o 256 entradas RGBA): si todas las entradas tienen alfa 0xFF devuelve 0x4600 (PAL4 | 888) / 0x2600 (PAL8 | 888); si alguna no, recorre los
+// pixeles (un byte por pixel, filas separadas por stride) y si alguno usa una entrada con alfa != 0xFF devuelve 0x4500 / 0x2500 (con 8888); si no, 0x4600 / 0x2600. Otra profundidad: recorre los alfas (byte +3 de pixeles de 4 bytes;
+// filas por stride): un alfa < 0xFF y > 0x0F corta con "alfa completo", uno <= 0x0F marca "alfa de un bit"; las lecturas del alfa de la fila usan ancho/alto con signo. Sin alfa: con profundidad de pantalla (0xC9BEF4, con signo) > 16
+// devuelve 0x600 (888) si la textura X8R8G8B8 (0x16) esta soportada (0x4CBDE0) y 0x200 (565) si no; con 16 o menos, 0x200. Con alfa de un bit: con profundidad > 16: 0x500 si A8R8G8B8 (0x15) esta soportado y 0x100 (1555) si no; si no,
+// 0x100. Con alfa completo: con profundidad > 16 y A8R8G8B8 soportado, 0x500; si no, 0x300 (4444) si A4R4G4B4 (0x1A) esta soportado y 0x100 si no. Sin x87.
+RwInt32 _rwD3D9ImageFindRasterFormat(const RwImage* image) {
+    const RwInt32 depth = image->depth;
+    if (depth == 4 || depth == 8) {
+        const RwUInt8* const palette = reinterpret_cast<const RwUInt8*>(image->palette);
+        const RwInt32 entries = depth == 4 ? 16 : 256;
+        bool opaquePalette = true;
+        for (RwInt32 i = 0; i < entries; ++i) {
+            if (palette[i * 4 + 3] != 0xFF) {
+                opaquePalette = false;
+                break;
+            }
+        }
+        const RwInt32 opaqueFormat = depth == 4 ? 0x4600 : 0x2600;
+        if (opaquePalette) {
+            return opaqueFormat;
+        }
+        const RwUInt8* row = image->cpPixels;
+        for (RwInt32 y = 0; y < image->height; ++y) {
+            const RwUInt8* pixel = row;
+            for (RwInt32 x = 0; x < image->width; ++x, ++pixel) {
+                if (palette[static_cast<uint32>(*pixel) * 4 + 3] != 0xFF) {
+                    return depth == 4 ? 0x4500 : 0x2500;
+                }
+            }
+            row += image->stride;
+        }
+        return opaqueFormat;
+    }
+    bool oneBitAlpha = false;
+    const RwUInt8* row = image->cpPixels;
+    for (RwInt32 y = 0; y < image->height; ++y) {
+        const RwUInt8* alpha = row + 3;
+        for (RwInt32 x = 0; x < image->width; ++x, alpha += 4) {
+            if (*alpha < 0xFF) {
+                if (*alpha > 0x0F) {
+                    if (D3D9ImageDisplayDepth > 16 && D3D9CheckTextureFormatByAddress(0x15) != 0) {
+                        return 0x500;
+                    }
+                    return D3D9CheckTextureFormatByAddress(0x1A) != 0 ? 0x300 : 0x100;
+                }
+                oneBitAlpha = true;
+            }
+        }
+        row += image->stride;
+    }
+    if (oneBitAlpha) {
+        if (D3D9ImageDisplayDepth > 16) {
+            return D3D9CheckTextureFormatByAddress(0x15) != 0 ? 0x500 : 0x100;
+        }
+        return 0x100;
+    }
+    if (D3D9ImageDisplayDepth > 16) {
+        return D3D9CheckTextureFormatByAddress(0x16) != 0 ? 0x600 : 0x200;
+    }
+    return 0x200;
+}
+
+// Lote R28A (sin validar): ganchos de las funciones de rasters de RwCore (baraster.c, 0x7FAEC0..0x7FB2D0).
+void RwCoreInjectHooksR28A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RwRasterUnlock, 0x7FAEC0);
+    RH_ScopedGlobalInstall(RwRasterRenderFast, 0x7FAF50);
+    RH_ScopedGlobalInstall(RwRasterUnlockPalette, 0x7FAFF0);
+    RH_ScopedGlobalInstall(RwRasterDestroy, 0x7FB020);
+    RH_ScopedGlobalInstall(RwRasterPushContext, 0x7FB060);
+    RH_ScopedGlobalInstall(RwRasterPopContext, 0x7FB110);
+    RH_ScopedGlobalInstall(RwRasterGetNumLevels, 0x7FB160);
+    RH_ScopedGlobalInstall(RwRasterShowRaster, 0x7FB1A0);
+    RH_ScopedGlobalInstall(RwRasterCreate, 0x7FB230);
+    RH_ScopedGlobalInstall(RwRasterLock, 0x7FB2D0);
+}
+
+// Lote R28A (sin validar): ganchos de las funciones del controlador D3D9 de 0x7FA8B0 a 0x7FFFF0.
+void RwD3D9InjectHooksR28A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwD3D9");
+
+    RH_ScopedGlobalInstall(_rwD3D9LightsEqual, 0x7FA8B0);
+    RH_ScopedGlobalInstall(RwD3D9DeleteVertexDeclaration, 0x7FAC10);
+    RH_ScopedGlobalInstall(RwD3D9CameraIsSphereFullyInsideFrustum, 0x7FAD30);
+    RH_ScopedGlobalInstall(_rwD3D9DeviceSetRestoreCallback, 0x7FAE20);
+    RH_ScopedGlobalInstall(_rwD3D9Im2DRenderOpen, 0x7FB480);
+    RH_ScopedGlobalInstall(_rwD3D9Im2DRenderClose, 0x7FB5F0);
+    RH_ScopedGlobalInstall(_rwD3D9Im2DRenderBegin, 0x7FB810);
+    RH_ScopedGlobalInstall(RwD3D9SetRenderState, 0x7FC2D0);
+    RH_ScopedGlobalInstall(RwD3D9GetRenderState, 0x7FC320);
+    RH_ScopedGlobalInstall(RwD3D9SetTextureStageState, 0x7FC340);
+    RH_ScopedGlobalInstall(RwD3D9SetSamplerState, 0x7FC3C0);
+    RH_ScopedGlobalInstall(RwD3D9SetSurfaceProperties, 0x7FC4D0);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateOpen, 0x7FCAC0);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateReset, 0x7FD100);
+    RH_ScopedGlobalInstall(RwD3D9SetTexture, 0x7FDE70);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertL16, 0x7FFEE0);
+    RH_ScopedGlobalInstall(_rwD3D9ImageFindRasterFormat, 0x7FFFF0);
 }
