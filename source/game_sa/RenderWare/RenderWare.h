@@ -77,3 +77,4 @@ void RpUVAnimInjectHooks();
 void RtDictInjectHooks();
 void RtBMPInjectHooks();         // lote R3A (sin validar): RtBMPImageRead y su ayudante de filas
 void RtSlerpInjectHooks();       // lote R2A (sin validar): RtQuatSetupSlerpCache
+void D3DX9InjectHooks();         // lote R4A (sin validar): matematicas de D3DX9 (3DNow!/SSE) enlazadas en el EXE

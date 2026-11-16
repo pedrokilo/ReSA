@@ -1099,6 +1099,7 @@ void InjectHooksMain() {
     RtDictInjectHooks();
     RwD3D9InjectHooksR1A();
     RtSlerpInjectHooks();
+    D3DX9InjectHooks();
 
     CIplStore::InjectHooks();
     cHandlingDataMgr::InjectHooks();
