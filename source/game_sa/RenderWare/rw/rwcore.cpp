@@ -2100,12 +2100,14 @@ RwBool RwD3D9RasterIsCompressed(const RwRaster* raster) {
     return (*reinterpret_cast<const uint8*>(static_cast<uintptr_t>(address)) & 0xF0u) != 0;
 }
 
-RwBool RwD3D9DeviceSupportsDXTTexture() {
-    return ((RwBool(__cdecl *)(void))0x7F9C30)();
-}
+// 0x7F9C30 (RwD3D9DeviceSupportsDXTTexture): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
+void* _rwD3D9DeviceCachesReset(); // 0x7F9D50 (lote R27A; definida al final del archivo)
+
+// 0x7F9D50 (lote R27A): el EXE usa esta direccion como "dame el dispositivo" (los ocho llamadores 0x53D91E, 0x7452B5, 0x7471A5... leen EAX como IDirect3DDevice9*), pero su cuerpo reinicia las caches de estado del
+// controlador D3D9 y devuelve el dispositivo; el cuerpo C++ (_rwD3D9DeviceCachesReset) esta al final del archivo y esta funcion lo llama, igual que el EXE.
 void* RwD3D9GetCurrentD3DDevice() { // IDirect3DDevice9
-    return ((void*(__cdecl *)(void))0x7F9D50)();
+    return _rwD3D9DeviceCachesReset();
 }
 
 // 0x7F84E0, 0x7F84F0 y 0x7F8580: reconstruidas al final del archivo (lote R26A, RwD3D9InjectHooksR26A).
@@ -2122,15 +2124,11 @@ void* RwD3D9GetCurrentD3DRenderTarget(RwUInt32 index) {
     return ((void*(__cdecl *)(RwUInt32))0x7F9E80)(index);
 }
 
-RwBool RwD3D9SetRenderTarget(RwUInt32 index, RwRaster* raster) {
-    return ((RwBool(__cdecl *)(RwUInt32, RwRaster*))0x7F9E90)(index, raster);
-}
+// 0x7F9E90: reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
 // 0x7F8640, 0x7F8A90 y 0x7F8D70: reconstruidas al final del archivo (lote R26A, RwD3D9InjectHooksR26A).
 
-void RwD3D9SetStreamSource(RwUInt32 streamNumber, void* streamData, RwUInt32 offset, RwUInt32 stride) {
-    ((void(__cdecl *)(RwUInt32, void*, RwUInt32, RwUInt32))0x7FA030)(streamNumber, streamData, offset, stride);
-}
+// 0x7FA030: reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
 // 0x7FC200 (lote R10A, sin validar; sustituye la envoltura; cdecl sin argumentos, `ret`, 195 bytes; el listado la atribuia a RpMatFX por vecindad): vuelca al dispositivo los estados pendientes de la cache de estados del controlador D3D9.
 // Dos listas de pendientes: estados de render (contador 0xC9A5EC, ids en 0xC98B40) y estados de etapa de textura (contador 0xC9A5F0, pares (etapa, tipo) de 8 bytes en 0xC99C80). Estados de render: valor pedido en 0xC991D0 + 8 * id (con la
@@ -2187,9 +2185,7 @@ void _rwD3D9DrawPrimitiveUP(RwUInt32 primitiveType, RwUInt32 primitiveCount, con
    ((void(__cdecl *)(RwUInt32, RwUInt32, const void*, RwUInt32))0x7FA290)(primitiveType, primitiveCount, vertexStreamZeroData, VertexStreamZeroStride);
 }
 
-void _rwD3D9DrawIndexedPrimitive(RwUInt32 primitiveType, RwInt32 baseVertexIndex, RwUInt32 minIndex, RwUInt32 numVertices, RwUInt32 startIndex, RwUInt32 primitiveCount) {
-   ((void(__cdecl *)(RwUInt32, RwInt32, RwUInt32, RwUInt32, RwUInt32, RwUInt32))0x7FA320)(primitiveType, baseVertexIndex, minIndex, numVertices, startIndex, primitiveCount);
-}
+// 0x7FA320 y 0x7FA360 (_rwD3D9DrawIndexedPrimitive y _rwD3D9DrawPrimitive): reconstruidas al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
 void _rwD3D9SetVertexShaderConstant(RwUInt32 registerAddress, const void* constantData, RwUInt32 constantCount) {
    ((void(__cdecl *)(RwUInt32, const void*, RwUInt32))0x7FACA0)(registerAddress, constantData, constantCount);
@@ -2203,13 +2199,7 @@ void _rwD3D9SetFVF(RwUInt32 fvf) {
    ((void(__cdecl *)(RwUInt32))0x7F9F30)(fvf);
 }
 
-void _rwD3D9SetVertexShader(void *shader) {
-   ((void(__cdecl *)(void *))0x7F9FB0)(shader);
-}
-
-void _rwD3D9SetPixelShader(void *shader) {
-   ((void(__cdecl *)(void *))0x7F9FF0)(shader);
-}
+// 0x7F9F70, 0x7F9FB0 y 0x7F9FF0 (declaracion de vertices, vertex shader y pixel shader): reconstruidas al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
 void RwD3D9SetRenderState(RwUInt32 state, RwUInt32 value) {
    ((void(__cdecl *)(RwUInt32, RwUInt32))0x7FC2D0)(state, value);
@@ -2235,9 +2225,7 @@ void RwD3D9GetSamplerState(RwUInt32 stage, RwUInt32 type, void* value) {
    ((void(__cdecl *)(RwUInt32, RwUInt32, void*))0x7FC400)(stage, type, value);
 }
 
-void RwD3D9SetStencilClear(RwUInt32 stencilClear) {
-   ((void(__cdecl *)(RwUInt32))0x7F9D30)(stencilClear);
-}
+// 0x7F9D30 (RwD3D9SetStencilClear): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
 RwUInt32 RwD3D9GetStencilClear() {
    return ((RwUInt32(__cdecl *)(void))0x7F9D40)();
@@ -2247,13 +2235,7 @@ RwBool RwD3D9SetTexture(RwTexture* texture, RwUInt32 stage) {
    return ((RwBool(__cdecl *)(RwTexture*, RwUInt32))0x7FDE70)(texture, stage);
 }
 
-RwBool RwD3D9SetTransform(RwUInt32 state, const void* matrix) {
-   return ((RwBool(__cdecl *)(RwUInt32, const void*))0x7FA390)(state, matrix);
-}
-
-void RwD3D9GetTransform(RwUInt32 state, void* matrix) {
-   ((void(__cdecl *)(RwUInt32, void*))0x7FA4F0)(state, matrix);
-}
+// 0x7FA390 y 0x7FA4F0 (RwD3D9SetTransform y RwD3D9GetTransform): reconstruidas al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
 // 0x7FC430 (lote R11A, sin validar; 97 bytes): D3DMATERIAL9 (17 dwords). Si es igual (dword a dword) a la copia en cache (0xC98AF8) devuelve TRUE sin tocar el dispositivo; si no, copia el material a la cache,
 // pone a 0 el dword de 0xC9A5F4 y llama a IDirect3DDevice9::SetMaterial (ranura 49, +0xC4) con el puntero ORIGINAL; TRUE si el HRESULT no es negativo.
@@ -2286,25 +2268,19 @@ RwBool RwD3D9SetClipPlane(RwUInt32 index, const RwV4d* plane) {
    return ((RwBool(__cdecl *)(RwUInt32, const RwV4d*))0x7FC4A0)(index, plane);
 }
 
-RwBool RwD3D9SetTransformWorld(const RwMatrix* matrix) {
-   return ((RwBool(__cdecl *)(const RwMatrix*))0x7FA520)(matrix);
-}
+// 0x7FA520 (RwD3D9SetTransformWorld): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
 RwBool RwD3D9SetSurfaceProperties(const RwSurfaceProperties* surfaceProps, const RwRGBA* color, RwUInt32 flags) {
    return ((RwBool(__cdecl *)(const RwSurfaceProperties*, const RwRGBA*, RwUInt32))0x7FC4D0)(surfaceProps, color, flags);
 }
 
-RwBool RwD3D9SetLight(RwInt32 index, const void* light) {
-   return ((RwBool(__cdecl *)(RwInt32, const void*))0x7FA660)(index, light);
-}
+// 0x7FA660 (RwD3D9SetLight): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
 void RwD3D9GetLight(RwInt32 index, void* light) {
    ((void(__cdecl *)(RwInt32, void*))0x7FA820)(index, light);
 }
 
-RwBool RwD3D9EnableLight(RwInt32 index, RwBool enable) {
-   return ((RwBool(__cdecl *)(RwInt32, RwBool))0x7FA860)(index, enable);
-}
+// 0x7FA860 (RwD3D9EnableLight): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
 // Registro de los hooks del grupo g25b en rwcore.cpp (propio para no compartir la lista de RwCoreInjectHooks con otros grupos).
 void RwCoreInjectHooks25b() {
@@ -2539,9 +2515,7 @@ void _rwD3D9FindMSLevels() {
     }
 }
 
-void _rwD3D9SetStreams(const RxD3D9VertexStream* streams, RwBool useOffsets) {
-    plugin::CallAndReturn<void, 0x7FA090>(streams, useOffsets);
-}
+// 0x7FA090 (_rwD3D9SetStreams): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
 // 0x7FAD20 (mov eax, 0C9BF00h; ret): devuelve la direccion fija del D3DCAPS9 de RenderWare (_RwD3D9DeviceCaps). Lote R1A (sin validar).
 const void* RwD3D9GetCaps() { // D3DCAPS9*
@@ -6569,4 +6543,330 @@ void RwD3D9InjectHooksR26A() {
     RH_ScopedGlobalInstall(RwD3D9ChangeVideoMode, 0x7F8640);
     RH_ScopedGlobalInstall(RwD3D9ChangeMultiSamplingLevels, 0x7F8A90);
     RH_ScopedGlobalInstall(RwD3D9CameraAttachWindow, 0x7F8D70);
+}
+
+// Lote R27A (sin validar): controlador D3D9 de RenderWare (SDK de RwD3D9, 0x7F9C30..0x7FA860): soporte DXT, borrado de caches de estado, render target, declaracion de vertices, shaders, flujos, indices, dibujo, transformaciones y luces.
+// 0x7F8F20 (_rwD3D9CameraBeginUpdate) NO se rehace: ya esta enganchada por WindowedMode.cpp (RH_ScopedGlobalInstall bajo NOTSA_WINDOWED_MODE).
+namespace {
+constexpr size_t kSlotDeviceSetTransformR27A         = 44;  // IDirect3DDevice9::SetTransform (+0xB0)
+constexpr size_t kSlotDeviceDrawPrimitiveR27A        = 81;  // IDirect3DDevice9::DrawPrimitive (+0x144)
+constexpr size_t kSlotDeviceDrawIndexedPrimitiveR27A = 82;  // IDirect3DDevice9::DrawIndexedPrimitive (+0x148)
+void* const kD3D9CacheInvalid = reinterpret_cast<void*>(static_cast<uintptr_t>(0xFFFFFFFFu));
+auto& D3D9LastFvf                 = StaticRef<void*>(0x8E2440);  // ultimo FVF enviado
+auto& D3D9LastVertexDeclaration   = StaticRef<void*>(0x8E2444);
+auto& D3D9LastVertexShader        = StaticRef<void*>(0x8E2448);
+auto& D3D9LastPixelShader         = StaticRef<void*>(0x8E244C);
+auto& D3D9LastIndexBuffer         = StaticRef<void*>(0x8E2450);
+constexpr uintptr_t kD3D9IdentityMatrixAddress = 0x8847A0; // 64 bytes del EXE
+uint32 (&D3D9WorldMatrixStaging)[16] = *reinterpret_cast<uint32(*)[16]>(0x8E24D0); // matriz D3D del mundo (las columnas w, +0xC/+0x1C/+0x2C/+0x3C, no se tocan)
+static_assert(sizeof(RxD3D9VertexStream) == 0x10);
+
+bool D3D9Matrices16Equal(const uint32* a, const uint32* b) {
+    for (int i = 0; i < 16; ++i) {
+        if (a[i] != b[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+} // namespace
+
+// 0x7F9C30 (lote R27A, sin validar; 242 bytes; era una envoltura; cdecl sin argumentos; `RwD3D9DeviceSupportsDXTTexture` del SDK): IDirect3D9::CheckDeviceFormat (+0x28) con (adaptador 0xC97C24, tipo de dispositivo
+// 0x8E2428, formato del adaptador 0xC9BEF0, uso 0, D3DRTYPE_TEXTURE = 3, formato) para DXT1 ('DXT1' = 0x31545844) a DXT5 en ese orden; TRUE al primero cuyo HRESULT no es negativo, FALSE si fallan los cinco.
+RwBool RwD3D9DeviceSupportsDXTTexture() {
+    for (uint32 format = 0x31545844u; format <= 0x35545844u; format += 0x01000000u) {
+        const HRESULT result = ComCall<kSlotD3DCheckDeviceFormat, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, D3D9DeviceType, D3D9AdapterFormat, 0u, 3u, format);
+        if (result >= 0) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+// 0x7F9D30 (lote R27A, sin validar; 10 bytes; era una envoltura; cdecl, (valor)): 0xC97C44 = valor (el que devuelve RwD3D9GetStencilClear, 0x7F9D40).
+void RwD3D9SetStencilClear(RwUInt32 stencilClear) {
+    StaticRef<RwUInt32>(0xC97C44) = stencilClear;
+}
+
+// 0x7F9D50 (lote R27A, sin validar; 300 bytes; era una envoltura con el nombre RwD3D9GetCurrentD3DDevice, pero el cuerpo no es un getter; nombre inferido; cdecl sin argumentos): reinicia las caches del controlador y devuelve
+// el dispositivo (0xC97C28). Superficies de render target (0xC98090..0xC9809C) y de profundidad (0xC9808C) = 0; ultimo FVF, declaracion, vertex shader, pixel shader e indices (0x8E2440..0x8E2450) = 0xFFFFFFFF; los cuatro flujos
+// (0xC97BD8) = {0xFFFFFFFF, 0, 0} (= _rwD3D9StateCacheReset, 0x7F6B00, que el EXE inlina); cache de matrices igual que _rwD3D9TransformCacheReset (0x7F6B40, inlinada: contador a 0, devuelve los punteros de la tabla a la
+// lista libre o crea la lista, reserva la matriz de mundo con la identidad); cache de luces: contador (0xC98084) = 0 y, si hay tabla (0xC98088), RwFree y la pone a NULL.
+// Los ocho llamadores del EXE (0x53D91E, 0x7452B5, 0x7471A5, 0x747248, 0x74727A, 0x747DFE, 0x747E31, 0x748089) usan el valor devuelto como IDirect3DDevice9*.
+void* _rwD3D9DeviceCachesReset() {
+    for (int i = 0; i < 4; ++i) {
+        D3D9CurrentRenderTargets[i] = nullptr;
+    }
+    CurrentDepthStencilSurface = nullptr;
+    _rwD3D9StateCacheReset();
+    _rwD3D9TransformCacheReset();
+    D3D9LightEntry* const lights = D3D9LightCache;
+    D3D9LightCount = 0;
+    if (lights != nullptr) {
+        RwFree(lights);
+        D3D9LightCache = nullptr;
+    }
+    return D3D9Device;
+}
+
+// 0x7F9E90 (lote R27A, sin validar; 148 bytes; era una envoltura; cdecl, (indice, raster); `RwD3D9SetRenderTarget` del SDK): superficie = NULL; con raster, toma la extension D3D9 del raster PADRE (raster->parent + 0xB4E9E0) y
+// la superficie del nivel 0 de su textura (GetSurfaceLevel, o GetCubeMapSurface con la cara del nibble alto si el nibble bajo del byte +9 no es cero; el HRESULT no se mira). Si la superficie es la ya anotada para ese indice
+// (0xC98090 + indice * 4) el resultado es TRUE; si no la anota ANTES de llamar a _RwD3DDevice->SetRenderTarget(indice, superficie) (+0x94) y el resultado es HRESULT >= 0. Despues, con superficie, Release (+8; la referencia
+// que dio Get*). Sin raster compara y envia NULL.
+RwBool RwD3D9SetRenderTarget(RwUInt32 index, RwRaster* raster) {
+    void* surface = nullptr;
+    if (raster != nullptr) {
+        const D3D9RasterExtLayout& extension = D3D9RasterExt(raster->parent);
+        D3D9GetTextureSurface(extension.texture, extension.cubeFace, 0u, &surface);
+    }
+    void** const renderTargets = &D3D9CurrentRenderTargets[0];
+    RwBool result;
+    if (renderTargets[index] == surface) {
+        result = TRUE;
+    } else {
+        void* const device = D3D9Device;
+        renderTargets[index] = surface;
+        result = ComCall<kSlotSetRenderTarget, HRESULT>(device, index, surface) >= 0;
+    }
+    if (surface != nullptr) {
+        ComCall<kSlotRelease, ULONG>(surface);
+    }
+    return result;
+}
+
+// 0x7F9F70 (lote R27A, sin validar; 56 bytes; era una envoltura de DNSetVertexDeclaration; cdecl, (declaracion); `_rwD3D9SetVertexDeclaration` del SDK): si es la ultima enviada (0x8E2444) no hace nada. Si no llama a
+// _RwD3DDevice->SetVertexDeclaration (+0x15C); la cache (0x8E2444) queda en 0xFFFFFFFF y, si el HRESULT no es negativo, pasa a ser la declaracion; el ultimo FVF (0x8E2440) queda siempre en 0xFFFFFFFF.
+void _rwD3D9SetVertexDeclaration(void* vertexDeclaration) {
+    if (D3D9LastVertexDeclaration == vertexDeclaration) {
+        return;
+    }
+    const HRESULT result = ComCall<kSlotDeviceSetVertexDeclaration, HRESULT>(D3D9Device, vertexDeclaration);
+    D3D9LastVertexDeclaration = kD3D9CacheInvalid;
+    if (result >= 0) {
+        D3D9LastVertexDeclaration = vertexDeclaration;
+    }
+    D3D9LastFvf = kD3D9CacheInvalid;
+}
+
+// 0x7F9FB0 (lote R27A, sin validar; 51 bytes; era una envoltura; cdecl, (shader); `_rwD3D9SetVertexShader` del SDK): como la declaracion pero con SetVertexShader (+0x170) y la cache 0x8E2448 (a 0xFFFFFFFF tras la llamada,
+// y al shader si el HRESULT no es negativo); no toca el FVF.
+void _rwD3D9SetVertexShader(void* shader) {
+    if (D3D9LastVertexShader == shader) {
+        return;
+    }
+    const HRESULT result = ComCall<kSlotDeviceSetVertexShader, HRESULT>(D3D9Device, shader);
+    D3D9LastVertexShader = kD3D9CacheInvalid;
+    if (result >= 0) {
+        D3D9LastVertexShader = shader;
+    }
+}
+
+// 0x7F9FF0 (lote R27A, sin validar; 51 bytes; era una envoltura; cdecl, (shader); `_rwD3D9SetPixelShader` del SDK): igual que el vertex shader con SetPixelShader (+0x1AC) y la cache 0x8E244C.
+void _rwD3D9SetPixelShader(void* shader) {
+    if (D3D9LastPixelShader == shader) {
+        return;
+    }
+    const HRESULT result = ComCall<kSlotDeviceSetPixelShader, HRESULT>(D3D9Device, shader);
+    D3D9LastPixelShader = kD3D9CacheInvalid;
+    if (result >= 0) {
+        D3D9LastPixelShader = shader;
+    }
+}
+
+// 0x7FA030 (lote R27A, sin validar; 90 bytes; era una envoltura; cdecl, (flujo, buffer, desplazamiento, paso); `RwD3D9SetStreamSource` del SDK): cache de flujos en 0xC97BD8 + flujo * 0x10 {buffer, desplazamiento, paso}.
+// Si los tres coinciden no hace nada; si no los anota y llama a _RwD3DDevice->SetStreamSource(flujo, buffer, desplazamiento, paso) (+0x190). El indice (sin signo) no se acota.
+void RwD3D9SetStreamSource(RwUInt32 streamNumber, void* streamData, RwUInt32 offset, RwUInt32 stride) {
+    D3D9LastStream& last = (&D3D9LastStreams[0])[streamNumber];
+    const uint32 buffer = static_cast<uint32>(reinterpret_cast<uintptr_t>(streamData));
+    if (last.vertexBuffer == buffer && last.offset == offset && last.stride == stride) {
+        return;
+    }
+    last.vertexBuffer = buffer;
+    last.offset = offset;
+    last.stride = stride;
+    ComCall<kSlotDeviceSetStreamSource, HRESULT>(D3D9Device, streamNumber, streamData, offset, stride);
+}
+
+// 0x7FA090 (lote R27A, sin validar; 298 bytes; era una envoltura de plugin::CallAndReturn; cdecl, (flujos, con desplazamientos); `_rwD3D9SetStreams` del SDK): recorre los 2 primeros flujos (elementos de 0x10 bytes:
+// buffer +0, desplazamiento +4, paso +8) contra la cache 0xC97BD8. Con buffer: si cambia el buffer, el desplazamiento (sin desplazamientos se compara contra 0) o el paso, anota los tres (desplazamiento 0 si no se piden) y llama a
+// SetStreamSource(i, buffer, desplazamiento, paso) (+0x190). Sin buffer: si la cache tenia buffer la pone a {0, 0, 0} y llama SetStreamSource(i, NULL, 0, 0).
+void _rwD3D9SetStreams(const RxD3D9VertexStream* streams, RwBool useOffsets) {
+    for (uint32 i = 0; i < 2; ++i) {
+        D3D9LastStream& last = D3D9LastStreams[i];
+        const uint32 buffer = static_cast<uint32>(reinterpret_cast<uintptr_t>(streams[i].vertexBuffer));
+        if (buffer != 0) {
+            const uint32 offset = useOffsets != 0 ? streams[i].offset : 0u;
+            if (last.vertexBuffer != buffer || last.offset != offset || last.stride != streams[i].stride) {
+                last.vertexBuffer = buffer;
+                last.offset = offset;
+                last.stride = streams[i].stride;
+                ComCall<kSlotDeviceSetStreamSource, HRESULT>(D3D9Device, i, streams[i].vertexBuffer, offset, streams[i].stride);
+            }
+        } else if (last.vertexBuffer != 0) {
+            last.vertexBuffer = 0;
+            last.offset = 0;
+            last.stride = 0;
+            ComCall<kSlotDeviceSetStreamSource, HRESULT>(D3D9Device, i, static_cast<void*>(nullptr), 0u, 0u);
+        }
+    }
+}
+
+// 0x7FA1C0 (lote R27A, sin validar; 36 bytes; era una envoltura de DNSetIndices; cdecl, (buffer de indices); `_rwD3D9SetIndices` del SDK): si es el ultimo enviado (0x8E2450) no hace nada; si no lo anota ANTES de llamar a
+// _RwD3DDevice->SetIndices (+0x1A0) (el HRESULT no se mira).
+void _rwD3D9SetIndices(void* indexBuffer) {
+    if (D3D9LastIndexBuffer == indexBuffer) {
+        return;
+    }
+    void* const device = D3D9Device;
+    D3D9LastIndexBuffer = indexBuffer;
+    ComCall<kSlotDeviceSetIndices, HRESULT>(device, indexBuffer);
+}
+
+// 0x7FA320 (lote R27A, sin validar; 50 bytes; era una envoltura; cdecl, 6 argumentos; `_rwD3D9DrawIndexedPrimitive` del SDK): vuelca los estados pendientes (_rwD3D9RenderStateFlushCache, 0x7FC200; directa a C++) y llama a
+// _RwD3DDevice->DrawIndexedPrimitive(tipo, indice base, indice minimo, numero de vertices, indice inicial, primitivas) (+0x148). El HRESULT no se lee.
+void _rwD3D9DrawIndexedPrimitive(RwUInt32 primitiveType, RwInt32 baseVertexIndex, RwUInt32 minIndex, RwUInt32 numVertices, RwUInt32 startIndex, RwUInt32 primitiveCount) {
+    _rwD3D9RenderStateFlushCache();
+    ComCall<kSlotDeviceDrawIndexedPrimitiveR27A, HRESULT>(D3D9Device, primitiveType, baseVertexIndex, minIndex, numVertices, startIndex, primitiveCount);
+}
+
+// 0x7FA360 (lote R27A, sin validar; 35 bytes; no tenia envoltura; cdecl, (tipo, vertice inicial, primitivas); `_rwD3D9DrawPrimitive` del SDK): vuelca los estados pendientes (0x7FC200, directa a C++) y llama a
+// _RwD3DDevice->DrawPrimitive(tipo, inicio, primitivas) (+0x144). El HRESULT no se lee.
+void _rwD3D9DrawPrimitive(RwUInt32 primitiveType, RwUInt32 startVertex, RwUInt32 primitiveCount) {
+    _rwD3D9RenderStateFlushCache();
+    ComCall<kSlotDeviceDrawPrimitiveR27A, HRESULT>(D3D9Device, primitiveType, startVertex, primitiveCount);
+}
+
+// 0x7FA390 (lote R27A, sin validar; 344 bytes; era una envoltura; cdecl, (estado, matriz*); `RwD3D9SetTransform` del SDK): cache de matrices 0xC97C70[estado] (puntero a 16 dwords; el indice no se acota). Con matriz: si hay entrada
+// y es igual (dword a dword) devuelve TRUE sin llamar; si no la crea (RwFreeListAlloc de 0xC98080, pista 0x30411) si faltaba, copia 64 bytes y llama a SetTransform(estado, matriz ORIGINAL) (+0xB0); con estado 0x100 (mundo) pone
+// el contador 0xC97C68 a 0; devuelve HRESULT >= 0. Sin matriz: lo mismo con la identidad del EXE (0x8847A0; el puntero que recibe el dispositivo es esa direccion), con estado 0x100 deja 0xC97C68 en 1, y una entrada
+// ya igual a la identidad devuelve TRUE.
+RwBool RwD3D9SetTransform(RwUInt32 state, const void* matrix) {
+    const uint32* const identity = reinterpret_cast<const uint32*>(kD3D9IdentityMatrixAddress);
+    const uint32* const source = matrix != nullptr ? static_cast<const uint32*>(matrix) : identity;
+    uint32* const existing = static_cast<uint32*>(D3D9TransformCache[state]);
+    if (existing != nullptr && D3D9Matrices16Equal(existing, source)) {
+        return TRUE;
+    }
+    if (existing == nullptr) {
+        D3D9TransformCache[state] = RwFreeListAlloc(D3D9TransformCacheFreeList, 0x30411);
+    }
+    memcpy(D3D9TransformCache[state], source, 0x40);
+    const HRESULT result = ComCall<kSlotDeviceSetTransformR27A, HRESULT>(D3D9Device, state, static_cast<const void*>(source));
+    if (state == 0x100) {
+        D3D9TransformCacheCount = matrix != nullptr ? 0u : 1u;
+    }
+    return result >= 0;
+}
+
+// 0x7FA4F0 (lote R27A, sin validar; 42 bytes; era una envoltura; cdecl, (estado, salida*); `RwD3D9GetTransform` del SDK): con salida distinta de NULL copia 64 bytes de la entrada 0xC97C70[estado] o, si es NULL, de la
+// identidad (0x8847A0). Sin salida no hace nada.
+void RwD3D9GetTransform(RwUInt32 state, void* matrix) {
+    if (matrix == nullptr) {
+        return;
+    }
+    const void* source = D3D9TransformCache[state];
+    if (source == nullptr) {
+        source = reinterpret_cast<const void*>(kD3D9IdentityMatrixAddress);
+    }
+    memcpy(matrix, source, 0x40);
+}
+
+// 0x7FA520 (lote R27A, sin validar; 320 bytes; era una envoltura; cdecl, (RwMatrix*); `RwD3D9SetTransformWorld` del SDK): con matriz que NO tenga rwMATRIXINTERNALIDENTITY (0x20000 en +0xC) copia a la matriz D3D de trabajo
+// 0x8E24D0 las filas right (+0), up (+0x10), at (+0x20) y pos (+0x30), tres dwords cada una (las columnas w de la matriz de trabajo no se tocan). Si el contador 0xC97C68 es 0 y la cache de mundo (0xC98070, 16 dwords)
+// es igual a la de trabajo devuelve TRUE; si no copia 64 bytes a la cache, llama a SetTransform(0x100, 0x8E24D0) (+0xB0), pone 0xC97C68 = 0 y devuelve HRESULT >= 0. Sin matriz o con la bandera de identidad:
+// si 0xC97C68 != 0 devuelve TRUE; si no copia la identidad (0x8847A0) a la cache, SetTransform(0x100, 0x8847A0), 0xC97C68 = 1 y HRESULT >= 0.
+RwBool RwD3D9SetTransformWorld(const RwMatrix* matrix) {
+    if (matrix != nullptr && (static_cast<uint32>(matrix->flags) & 0x20000u) == 0) {
+        const uint32* const m = reinterpret_cast<const uint32*>(matrix);
+        for (int row = 0; row < 4; ++row) {
+            for (int column = 0; column < 3; ++column) {
+                D3D9WorldMatrixStaging[row * 4 + column] = m[row * 4 + column];
+            }
+        }
+        uint32* const cache = static_cast<uint32*>(D3D9TransformCacheMatrix);
+        if (D3D9TransformCacheCount == 0 && D3D9Matrices16Equal(cache, D3D9WorldMatrixStaging)) {
+            return TRUE;
+        }
+        memcpy(cache, D3D9WorldMatrixStaging, 0x40);
+        const HRESULT result = ComCall<kSlotDeviceSetTransformR27A, HRESULT>(D3D9Device, 0x100u, static_cast<const void*>(D3D9WorldMatrixStaging));
+        D3D9TransformCacheCount = 0;
+        return result >= 0;
+    }
+    if (D3D9TransformCacheCount != 0) {
+        return TRUE;
+    }
+    memcpy(D3D9TransformCacheMatrix, reinterpret_cast<const void*>(kD3D9IdentityMatrixAddress), 0x40);
+    const HRESULT result = ComCall<kSlotDeviceSetTransformR27A, HRESULT>(D3D9Device, 0x100u, reinterpret_cast<const void*>(kD3D9IdentityMatrixAddress));
+    D3D9TransformCacheCount = 1;
+    return result >= 0;
+}
+
+// 0x7FA660 (lote R27A, sin validar; 236 bytes; era una envoltura; cdecl, (indice, luz*); `RwD3D9SetLight` del SDK): cache de luces 0xC98088 de 0x6C bytes (D3DLIGHT9 de 0x68 + bandera de activa en +0x68), contador 0xC98084.
+// Con indice >= contador (con signo): contador = indice + 1, tabla = RwRealloc(tabla, (indice + 1) * 0x6C, 0x1030411) o RwMalloc si no habia, y la bandera de las entradas nuevas (contador anterior .. nuevo) = 0 (releyendo
+// tabla y contador en cada vuelta). Con indice < contador: si la entrada es igual a la luz (0x7FA8B0 por direccion, cdecl (luz, entrada), no cero = igual) devuelve TRUE sin llamar. Despues copia 0x68 bytes a la entrada y llama a
+// SetLight(indice, luz ORIGINAL) (+0xCC); devuelve HRESULT >= 0.
+RwBool RwD3D9SetLight(RwInt32 index, const void* light) {
+    const RwInt32 previousCount = D3D9LightCount;
+    if (index >= previousCount) {
+        D3D9LightCount = index + 1;
+        const uint32 size = static_cast<uint32>(index + 1) * 0x6Cu;
+        if (D3D9LightCache != nullptr) {
+            D3D9LightCache = static_cast<D3D9LightEntry*>(RwRealloc(D3D9LightCache, size, 0x1030411));
+        } else {
+            D3D9LightCache = static_cast<D3D9LightEntry*>(RwMalloc(size, 0x1030411));
+        }
+        if (previousCount < D3D9LightCount) {
+            RwInt32 i = previousCount;
+            do {
+                reinterpret_cast<D3D9LightEntry*>(reinterpret_cast<uint8*>(D3D9LightCache) + static_cast<uint32>(i) * 0x6Cu)->enabled = 0;
+                ++i;
+            } while (i < D3D9LightCount);
+        }
+    } else {
+        auto* const existing = reinterpret_cast<D3D9LightEntry*>(reinterpret_cast<uint8*>(D3D9LightCache) + static_cast<uint32>(index) * 0x6Cu);
+        if (((int(__cdecl*)(const void*, const void*))0x7FA8B0)(light, existing) != 0) {
+            return TRUE;
+        }
+    }
+    auto* const entry = reinterpret_cast<D3D9LightEntry*>(reinterpret_cast<uint8*>(D3D9LightCache) + static_cast<uint32>(index) * 0x6Cu);
+    memcpy(entry, light, 0x68);
+    return ComCall<kSlotDeviceSetLight, HRESULT>(D3D9Device, static_cast<uint32>(index), light) >= 0;
+}
+
+// 0x7FA860 (lote R27A, sin validar; 78 bytes; era una envoltura; cdecl, (indice, activar); `RwD3D9EnableLight` del SDK): con indice >= contador de luces (0xC98084, con signo) devuelve TRUE sin hacer nada. Si la bandera
+// de la entrada (+0x68, dword) ya vale `activar` devuelve TRUE; si no la anota ANTES de llamar a LightEnable(indice, activar) (+0xD4) y devuelve HRESULT >= 0.
+RwBool RwD3D9EnableLight(RwInt32 index, RwBool enable) {
+    if (index >= D3D9LightCount) {
+        return TRUE;
+    }
+    auto* const entry = reinterpret_cast<D3D9LightEntry*>(reinterpret_cast<uint8*>(D3D9LightCache) + static_cast<uint32>(index) * 0x6Cu);
+    if (entry->enabled == enable) {
+        return TRUE;
+    }
+    entry->enabled = enable;
+    return ComCall<kSlotDeviceLightEnable, HRESULT>(D3D9Device, static_cast<uint32>(index), enable) >= 0;
+}
+
+// Lote R27A (sin validar): ganchos de las funciones del controlador D3D9 de 0x7F9C30 a 0x7FA860.
+void RwD3D9InjectHooksR27A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwD3D9");
+
+    RH_ScopedGlobalInstall(RwD3D9DeviceSupportsDXTTexture, 0x7F9C30);
+    RH_ScopedGlobalInstall(RwD3D9SetStencilClear, 0x7F9D30);
+    RH_ScopedGlobalInstall(_rwD3D9DeviceCachesReset, 0x7F9D50);
+    RH_ScopedGlobalInstall(RwD3D9SetRenderTarget, 0x7F9E90);
+    RH_ScopedGlobalInstall(_rwD3D9SetVertexDeclaration, 0x7F9F70);
+    RH_ScopedGlobalInstall(_rwD3D9SetVertexShader, 0x7F9FB0);
+    RH_ScopedGlobalInstall(_rwD3D9SetPixelShader, 0x7F9FF0);
+    RH_ScopedGlobalInstall(RwD3D9SetStreamSource, 0x7FA030);
+    RH_ScopedGlobalInstall(_rwD3D9SetStreams, 0x7FA090);
+    RH_ScopedGlobalInstall(_rwD3D9SetIndices, 0x7FA1C0);
+    RH_ScopedGlobalInstall(_rwD3D9DrawIndexedPrimitive, 0x7FA320);
+    RH_ScopedGlobalInstall(_rwD3D9DrawPrimitive, 0x7FA360);
+    RH_ScopedGlobalInstall(RwD3D9SetTransform, 0x7FA390);
+    RH_ScopedGlobalInstall(RwD3D9GetTransform, 0x7FA4F0);
+    RH_ScopedGlobalInstall(RwD3D9SetTransformWorld, 0x7FA520);
+    RH_ScopedGlobalInstall(RwD3D9SetLight, 0x7FA660);
+    RH_ScopedGlobalInstall(RwD3D9EnableLight, 0x7FA860);
 }
