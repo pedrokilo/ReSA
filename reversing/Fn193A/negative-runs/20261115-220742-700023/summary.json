@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "fee12d5d95797c45cbe62ccd3fd3e49e01c3df672e0288a541849329fd4d9d14",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CTaskSimpleBeHitWhileMoving::ScalarDeletingDestructor: 130/2048; CTaskSimpleBeHitWhileMoving::DestructorBody: 229/2048; CTaskSimpleChoking::ScalarDeletingDestructor: 140/2048; CTaskSimpleBeHit::ScalarDeletingDestructor: 155/2048; CTaskComplexReactToAttack::ScalarDeletingDestructor: 141/2048; CTaskComplexReactToAttack::DestructorBody: 321/2048; CTaskComplexReactToAttack::CreateNextSubTask: 160/2048; CTaskComplexReactToAttack::CreateFirstSubTask: 298/2048; CTaskComplexKillPedOnFoot::ScalarDeletingDestructor: 139/2048; CTaskComplexKillPedOnFootStealth::ScalarDeletingDestructor: 119/2048; CTaskComplexKillPedOnFootMelee::ScalarDeletingDestructor: 135/2048; CTaskComplexUseWaterCannon::GetTaskType: 289/2048; CTaskComplexUseWaterCannon::DestructorBody: 271/2048; CTaskComplexExtinguishFireOnFoot::Constructor: 307/2048; CTaskComplexExtinguishFireOnFoot::GetTaskType: 313/2048; CTaskComplexExtinguishFireOnFoot::DestructorBody: 295/2048; CTaskComplexExtinguishFireOnFoot::CreateNextSubTask: 48/2048; CTaskComplexExtinguishFireOnFoot::ControlSubTask: 255/2048; CTaskComplexExtinguishFireOnFoot::FindNearestFire: 32/2048; CTaskComplexExtinguishFireOnFoot::Clone: 214/2048; CTaskSimpleAbseil::ScalarDeletingDestructor: 138/2048; CTaskSimpleAbseil::DestructorBody: 280/2048; CTaskSimpleGiveCPR::ScalarDeletingDestructor: 140/2048; CTaskComplexTreatAccident::ScalarDeletingDestructor: 150/2048; CTaskComplexExtinguishFireOnFoot::ScalarDeletingDestructor: 148/2048; CTaskComplexExtinguishFireOnFoot::CreateFirstSubTask: 229/2048; Fx_c::Constructor: 280/2048; Fx_c::Update: 227/2048; Fx_c::Render: 307/2048; Fx_c::InitStaticSystems: 294/2048; Fx_c::ExitStaticSystems: 306/2048; CTaskComplexWaitForPed::GetTaskType: 293/2048; CTaskComplexWaitForPed::DestructorBody: 278/2048; CTaskComplexWaitForPed::MakeAbortable: 289/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

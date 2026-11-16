@@ -65,7 +65,7 @@ def rounds(n):
     out.append((EXT, '    if (subTaskType == TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL) {', '    if (subTaskType == TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL && ' + NUT + ') {'))                                  # 16
     out.append((EXT, 'CTask* CTaskComplexExtinguishFireOnFoot::ControlSubTask(CPed* /*ped*/) {' + NL + '    return m_pSubTask;',
                 'CTask* CTaskComplexExtinguishFireOnFoot::ControlSubTask(CPed* /*ped*/) {' + NL + '    return ' + UT + ' ? nullptr : m_pSubTask;'))                                  # 17
-    out.append((EXT, '    return distanceSquared < 100.0f ? fire : nullptr;', '    return distanceSquared < (' + UT + ' ? ' + str(102 - n) + '.0f : 100.0f) ? fire : nullptr;'))                                          # 18
+    out.append((EXT, '    return distanceSquared < 100.0f ? fire : nullptr;', '    return distanceSquared < (' + UT + ' ? ' + ('101' if n == 1 else '99') + '.0f : 100.0f) ? fire : nullptr;'))                                          # 18
     out.append((EXT, '    return ::new (memory) CTaskComplexExtinguishFireOnFoot(m_pos);', '    return ::new (memory) CTaskComplexExtinguishFireOnFoot(' + UT + ' ? CVector{m_pos.x + ' + d + '.0f, m_pos.y, m_pos.z} : m_pos);'))   # 19
     out.append((ABS,) + flag)                                                                                                                                      # 20
     out.append((ABS, '    CTaskSimpleAnim::DestructorBodyExe(self, nullptr);', '    if (' + NU + ') {' + NL + '        CTaskSimpleAnim::DestructorBodyExe(self, nullptr);' + NL + '    }'))          # 21
