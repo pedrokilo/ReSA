@@ -4107,6 +4107,15 @@ _rwD3D9DeviceSetRestoreCallback(rwD3D9DeviceRestoreCallBack callback);
 extern rwD3D9DeviceRestoreCallBack
 _rwD3D9DeviceGetRestoreCallback(void);
 
+/* Lote R6A (sin validar): estados de render y etapas de textura del controlador D3D9 (0x7FD810..0x7FDE60); nombres de RW inferidos del desensamblado. */
+extern RwBool _rwD3D9RWGetRenderState(RwInt32 state, void *value);             /* 0x7FD810 */
+extern RwBool _rwD3D9RenderStateTextureFilter(RwInt32 filter);                 /* 0x7FDB80 */
+extern RwBool _rwD3D9RenderStateSrcBlend(RwInt32 blend);                       /* 0x7FDC30 */
+extern RwBool _rwD3D9RenderStateDestBlend(RwInt32 blend);                      /* 0x7FDC80 */
+extern RwBool _rwD3D9RWSetRasterStage(RwRaster *raster, RwUInt32 stage);       /* 0x7FDCD0 */
+extern RwRaster *_rwD3D9RWGetRasterStage(RwUInt32 stage);                      /* 0x7FDE50 */
+extern void _rwD3D9SetAnisotropyTextureOffset(RwInt32 offset);                 /* 0x7FDE60 */
+
 #ifdef    __cplusplus
 }
 #endif                          /* __cplusplus */

@@ -1493,6 +1493,237 @@ void RwD3D9InjectHooksR1A() {
     RH_ScopedGlobalInstall(_rwD3D9DeviceGetRestoreCallback, 0x7FAE30);
 }
 
+// --- Lote R6A (sin validar): estados de render y etapas de textura del controlador D3D9 de RenderWare (0x7FD810..0x7FDE60; el listado las atribuia por vecindad a RpAnisot con confianza baja) ---
+// Estado global del EXE que usan (direcciones):
+//   0xC9A4C0..0xC9A518, 0xC9A5C8..0xC9A5D0, 0xC99290  valores actuales de los estados de render de RW (uno por RwRenderState; ver _rwD3D9RWGetRenderState)
+//   0xC9A508  etapas de textura: entradas de 0x18 bytes con el raster actual en el primer dword    0xC9A50C / 0xC9A510  direccion de textura U / V actuales
+//   0xC9A514  filtro de textura actual    0xC9A51C  anisotropia maxima actual    0xC9A5E8  desplazamiento de la extension de RpAnisot en la textura (_rwD3D9SetAnisotropyTextureOffset)
+//   0xC98938 + 4 * tipo  copia local de los estados de muestreo de la etapa 0 (U = 0xC9893C, V = 0xC98940, MAG = 0xC9894C, MIN = 0xC98950, MIP = 0xC98954, MAXANISOTROPY = 0xC98960)
+//   0xC98B40  lista de estados D3D pendientes de enviar (dwords con el D3DRENDERSTATETYPE) y 0xC9A5EC su contador; cada estado lleva una bandera propia de "ya en la lista"
+//   0x88490C  tabla RwBlendFunction -> D3DBLEND (4 bytes por entrada)  0x884950  tabla RwTextureFilterMode -> (D3DTEXF min/mag, D3DTEXF mip) (8 bytes por entrada)
+namespace {
+// Ranuras de IDirect3DDevice9 (desplazamiento / 4) que usan estas funciones.
+constexpr size_t kSlotDeviceSetTexture               = 65;  // +0x104
+constexpr size_t kSlotDeviceSetSamplerState          = 69;  // +0x114
+constexpr size_t kSlotDeviceSetCurrentTexturePalette = 73;  // +0x124
+
+constexpr uintptr_t kD3D9RasterStages = 0xC9A508;           // RwRaster* por etapa, 0x18 bytes por etapa
+constexpr uint32 kD3DRSAlphaTestEnable  = 0x0F;
+constexpr uint32 kD3DRSSrcBlend         = 0x13;
+constexpr uint32 kD3DRSDestBlend        = 0x14;
+constexpr uint32 kD3DRSAlphaBlendEnable = 0x1B;
+constexpr uint32 kD3DSAMPMagFilter = 5, kD3DSAMPMinFilter = 6, kD3DSAMPMipFilter = 7, kD3DSAMPMaxAnisotropy = 0xA;
+
+// Si la bandera del estado aun es 0: bandera = 1, lista[contador] = estado y contador + 1 (lista 0xC98B40, contador 0xC9A5EC).
+void D3D9QueueRenderState(uint32& flag, uint32 state) {
+    if (flag == 0) {
+        const uint32 count = StaticRef<uint32>(0xC9A5EC);
+        flag = 1;
+        reinterpret_cast<uint32*>(0xC98B40)[count] = state;
+        StaticRef<uint32>(0xC9A5EC) = count + 1;
+    }
+}
+
+// Copia de un float por la x87 (fld/fstp de 32 bits): un NaN senalizador se vuelve silencioso (bit 22) y el resto de patrones se conserva.
+uint32 X87FloatCopyBitsD3D9(uint32 bits) {
+    if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x007FFFFFu) != 0) {
+        bits |= 0x00400000u;
+    }
+    return bits;
+}
+} // namespace
+
+// 0x7FD810 (lote R6A, sin validar; el listado decia RpAnisot): lectura de un estado de render del controlador D3D9 (cdecl, (RwRenderState, RwUInt32* valor), `ret`, 517 bytes). Para los estados 1..30 (resta uno y mira
+// 0..0x1D sin signo; cualquier otro devuelve 0 sin escribir) salta por la tabla 0x7FDA18: escribe en *valor el dword del estado y devuelve 1. Sin soporte (devuelve 0 sin escribir): 5 (perspectiva), 18 y 19.
+// El 2 (direccion de textura) escribe la direccion solo si la U (0xC9A50C) y la V (0xC9A510) coinciden y devuelve 1; si difieren escribe 0 y devuelve 0. El 17 (densidad de niebla) pasa por la x87 (fld/fstp de
+// 32 bits: un NaN senalizador sale silencioso).
+RwBool _rwD3D9RWGetRenderState(RwInt32 state, void* value) {
+    static constexpr uintptr_t sources[30] = {
+        0xC9A508, // 1  TEXTURERASTER (raster de la etapa 0)
+        0,        // 2  TEXTUREADDRESS (caso aparte)
+        0xC9A50C, // 3  TEXTUREADDRESSU
+        0xC9A510, // 4  TEXTUREADDRESSV
+        0,        // 5  sin soporte
+        0xC9A4C4, // 6
+        0xC9A504, // 7
+        0xC9A4C0, // 8
+        0xC9A514, // 9  TEXTUREFILTER
+        0xC9A5C8, // 10 SRCBLEND
+        0xC9A5CC, // 11 DESTBLEND
+        0xC9A4E8, // 12
+        0xC9A518, // 13
+        0xC9A4F4, // 14
+        0xC9A500, // 15
+        0xC9A4F8, // 16
+        0xC9A4FC, // 17 (float)
+        0,        // 18 sin soporte
+        0,        // 19 sin soporte
+        0xC9A4F0, // 20
+        0xC9A4C8, // 21
+        0xC9A4CC, // 22
+        0xC9A4D0, // 23
+        0xC9A4D4, // 24
+        0xC9A4D8, // 25
+        0xC9A4DC, // 26
+        0xC9A4E0, // 27
+        0xC9A4E4, // 28
+        0xC9A5D0, // 29
+        0xC99290, // 30
+    };
+    const uint32 index = static_cast<uint32>(state) - 1u;
+    if (index > 0x1Du) {
+        return FALSE;
+    }
+    uint32* const out = static_cast<uint32*>(value);
+    if (index == 1) {
+        const uint32 addressU = StaticRef<uint32>(0xC9A50C);
+        if (addressU == StaticRef<uint32>(0xC9A510)) {
+            *out = addressU;
+            return TRUE;
+        }
+        *out = 0;
+        return FALSE;
+    }
+    const uintptr_t source = sources[index];
+    if (source == 0) {
+        return FALSE;
+    }
+    const uint32 bits = *reinterpret_cast<const uint32*>(source);
+    *out = (index == 16) ? X87FloatCopyBitsD3D9(bits) : bits;
+    return TRUE;
+}
+
+// 0x7FDB80 (lote R6A, sin validar; manejador del estado TEXTUREFILTER del controlador D3D9; cdecl, un argumento (RwTextureFilterMode), `ret`, 176 bytes): si la anisotropia maxima actual (0xC9A51C) es mayor que 1
+// la deja en 1 (0xC9A51C y la copia 0xC98960) y llama a SetSamplerState(0, MAXANISOTROPY, 1). Si el filtro pedido difiere del actual (0xC9A514): lo guarda, lee de la tabla 0x884950 (indice * 8) el par (min/mag, mip),
+// guarda y envia primero MINFILTER (copia 0xC98950) y luego MAGFILTER (0xC9894C) con el primero, y MIPFILTER (0xC98954) solo si el segundo difiere de la copia. Devuelve siempre TRUE.
+RwBool _rwD3D9RenderStateTextureFilter(RwInt32 filter) {
+    auto& maxAnisotropy = StaticRef<RwInt32>(0xC9A51C);
+    if (maxAnisotropy > 1) {
+        maxAnisotropy = 1;
+        StaticRef<uint32>(0xC98960) = 1;
+        ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, 0u, kD3DSAMPMaxAnisotropy, 1u);
+    }
+    auto& currentFilter = StaticRef<RwInt32>(0xC9A514);
+    if (filter != currentFilter) {
+        const uint32* const filterTable = reinterpret_cast<const uint32*>(0x884950);
+        const uint32 mipFilter = filterTable[filter * 2 + 1];
+        const uint32 minMagFilter = filterTable[filter * 2];
+        currentFilter = filter;
+        StaticRef<uint32>(0xC98950) = minMagFilter;
+        ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, 0u, kD3DSAMPMinFilter, minMagFilter);
+        StaticRef<uint32>(0xC9894C) = minMagFilter;
+        ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, 0u, kD3DSAMPMagFilter, minMagFilter);
+        if (StaticRef<uint32>(0xC98954) != mipFilter) {
+            StaticRef<uint32>(0xC98954) = mipFilter;
+            ComCall<kSlotDeviceSetSamplerState, int32>(D3D9Device, 0u, kD3DSAMPMipFilter, mipFilter);
+        }
+    }
+    return TRUE;
+}
+
+// 0x7FDC30 (lote R6A, sin validar; manejador del estado SRCBLEND; cdecl, un argumento (RwBlendFunction), `ret`, 78 bytes): si difiere del actual (0xC9A5C8): copia D3D (0xC99268) = tabla 0x88490C[modo]; si la bandera
+// de "en lista" (0xC9926C) es 0 la pone a 1 y anade D3DRS_SRCBLEND (0x13) a la lista de estados pendientes (0xC98B40, contador 0xC9A5EC); guarda el modo. Devuelve siempre TRUE.
+RwBool _rwD3D9RenderStateSrcBlend(RwInt32 blend) {
+    auto& currentBlend = StaticRef<RwInt32>(0xC9A5C8);
+    if (blend != currentBlend) {
+        StaticRef<uint32>(0xC99268) = reinterpret_cast<const uint32*>(0x88490C)[blend];
+        D3D9QueueRenderState(StaticRef<uint32>(0xC9926C), kD3DRSSrcBlend);
+        currentBlend = blend;
+    }
+    return TRUE;
+}
+
+// 0x7FDC80 (lote R6A, sin validar; manejador del estado DESTBLEND; igual que el anterior con 0xC9A5CC, copia 0xC99270, bandera 0xC99274 y D3DRS_DESTBLEND 0x14). Devuelve siempre TRUE.
+RwBool _rwD3D9RenderStateDestBlend(RwInt32 blend) {
+    auto& currentBlend = StaticRef<RwInt32>(0xC9A5CC);
+    if (blend != currentBlend) {
+        StaticRef<uint32>(0xC99270) = reinterpret_cast<const uint32*>(0x88490C)[blend];
+        D3D9QueueRenderState(StaticRef<uint32>(0xC99274), kD3DRSDestBlend);
+        currentBlend = blend;
+    }
+    return TRUE;
+}
+
+// 0x7FDCD0 (lote R6A, sin validar; cdecl, (RwRaster*, etapa), `ret`, 375 bytes): pone un raster en una etapa de textura. Con la etapa 0: si el raster no es nulo y su extension D3D9 (byte +8) dice que tiene alfa:
+// si el indicador 0xC9A4EC era 0 lo pone a 1 y, si el estado 0xC9A4E8 es 0, deja 0xC992A8 = 1 (D3DRS_ALPHABLENDENABLE 0x1B a la lista con su bandera 0xC992AC si no estaba) y copia 0xC9A5D4 a 0xC99248 si difieren
+// (solo entonces D3DRS_ALPHATESTENABLE 0x0F a la lista con la bandera 0xC9924C). Si no hay raster o no tiene alfa y 0xC9A4EC era distinto de 0: lo pone a 0 y, con 0xC9A4E8 a 0, deja 0xC992A8 = 0 (misma lista) y,
+// si 0xC99248 no era 0, lo pone a 0 y encola ALPHATESTENABLE igual. Despues, para cualquier etapa: si el raster difiere del guardado (0xC9A508 + etapa * 0x18) lo guarda y llama a SetTexture(etapa, textura de la
+// extension) o a SetTexture(etapa, NULL) sin raster y, con paleta (extension +4), a SetCurrentTexturePalette(paleta + 0x400). Devuelve siempre TRUE. Sin comprobar el rango de la etapa.
+RwBool _rwD3D9RWSetRasterStage(RwRaster* raster, RwUInt32 stage) {
+    D3D9RasterExtLayout* const ext = raster != nullptr ? &D3D9RasterExt(raster) : nullptr;
+    if (stage == 0) {
+        bool queueAlphaTest = false;
+        if (raster != nullptr && ext->alpha != 0) {
+            if (StaticRef<uint32>(0xC9A4EC) == 0) {
+                const uint32 vertexAlpha = StaticRef<uint32>(0xC9A4E8);
+                StaticRef<uint32>(0xC9A4EC) = 1;
+                if (vertexAlpha == 0) {
+                    StaticRef<uint32>(0xC992A8) = 1;
+                    D3D9QueueRenderState(StaticRef<uint32>(0xC992AC), kD3DRSAlphaBlendEnable);
+                    const uint32 alphaTest = StaticRef<uint32>(0xC9A5D4);
+                    if (StaticRef<uint32>(0xC99248) != alphaTest) {
+                        StaticRef<uint32>(0xC99248) = alphaTest;
+                        queueAlphaTest = true;
+                    }
+                }
+            }
+        } else if (StaticRef<uint32>(0xC9A4EC) != 0) {
+            const uint32 vertexAlpha = StaticRef<uint32>(0xC9A4E8);
+            StaticRef<uint32>(0xC9A4EC) = 0;
+            if (vertexAlpha == 0) {
+                StaticRef<uint32>(0xC992A8) = 0;
+                D3D9QueueRenderState(StaticRef<uint32>(0xC992AC), kD3DRSAlphaBlendEnable);
+                if (StaticRef<uint32>(0xC99248) != 0) {
+                    StaticRef<uint32>(0xC99248) = 0;
+                    queueAlphaTest = true;
+                }
+            }
+        }
+        if (queueAlphaTest) {
+            D3D9QueueRenderState(StaticRef<uint32>(0xC9924C), kD3DRSAlphaTestEnable);
+        }
+    }
+    RwRaster*& stageRaster = *reinterpret_cast<RwRaster**>(kD3D9RasterStages + stage * 0x18);
+    if (raster == stageRaster) {
+        return TRUE;
+    }
+    stageRaster = raster;
+    if (raster == nullptr) {
+        ComCall<kSlotDeviceSetTexture, int32>(D3D9Device, stage, static_cast<void*>(nullptr));
+        return TRUE;
+    }
+    ComCall<kSlotDeviceSetTexture, int32>(D3D9Device, stage, ext->texture);
+    if (ext->palette != nullptr) {
+        ComCall<kSlotDeviceSetCurrentTexturePalette, int32>(D3D9Device, *reinterpret_cast<uint32*>(static_cast<uint8*>(ext->palette) + 0x400));
+    }
+    return TRUE;
+}
+
+// 0x7FDE50 (lote R6A, sin validar; cdecl, un argumento, `ret`, 15 bytes): raster guardado de la etapa (0xC9A508 + etapa * 0x18). Sin comprobar el rango.
+RwRaster* _rwD3D9RWGetRasterStage(RwUInt32 stage) {
+    return *reinterpret_cast<RwRaster**>(kD3D9RasterStages + stage * 0x18);
+}
+
+// 0x7FDE60 (lote R6A, sin validar; cdecl, un argumento, `ret`, 10 bytes): guarda en 0xC9A5E8 el desplazamiento de la extension de RpAnisot dentro de la textura (la llama RpAnisotPluginAttach con el
+// desplazamiento de la textura). Nombre inferido.
+void _rwD3D9SetAnisotropyTextureOffset(RwInt32 offset) {
+    StaticRef<RwInt32>(0xC9A5E8) = offset;
+}
+
+// Estados de render y etapas de textura del controlador D3D9 (lote R6A, sin validar).
+void RwD3D9InjectHooksR6A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwD3D9");
+
+    RH_ScopedGlobalInstall(_rwD3D9RWGetRenderState, 0x7FD810);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateTextureFilter, 0x7FDB80);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateSrcBlend, 0x7FDC30);
+    RH_ScopedGlobalInstall(_rwD3D9RenderStateDestBlend, 0x7FDC80);
+    RH_ScopedGlobalInstall(_rwD3D9RWSetRasterStage, 0x7FDCD0);
+    RH_ScopedGlobalInstall(_rwD3D9RWGetRasterStage, 0x7FDE50);
+    RH_ScopedGlobalInstall(_rwD3D9SetAnisotropyTextureOffset, 0x7FDE60);
+}
+
 RwImage* RwImageResample(RwImage* dstImage, const RwImage* srcImage) {
     return ((RwImage*(__cdecl *)(RwImage*, const RwImage*))0x80C600)(dstImage, srcImage);
 }

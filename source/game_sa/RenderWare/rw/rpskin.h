@@ -225,6 +225,11 @@ _rpSkinNativeGeometryRead(RwStream *stream, RpGeometry *geometry);
 extern RwUInt32
 _rpSkinSplitDataGetStreamSize(const RpSkin *skin);
 
+/* 0x7CB6A0 (lote R6A): mezclador generico de huesos por CPU (sin llamadores en el EXE); ver rpskin.cpp. */
+extern void
+_rpSkinGenericMatrixBlend(RwInt32 numVertices, const RwMatrixWeights *matrixWeights, const RwUInt32 *matrixIndices, const RwMatrix *matrixArray,
+                          RwUInt8 *outVertices, const RwUInt8 *inVertices, RwUInt8 *outNormals, const RwUInt8 *inNormals, RwInt32 outStride);
+
 extern RpGeometry *
 _rpSkinInitialize(RpGeometry *geometry);
 

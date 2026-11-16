@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "rpskin.h"
+#include "X87Math.h"
 
 namespace {
 // Plugin RpSkin: id 0x116; las reservas de skin usan la pista 0x30116 (0x116 | rwMEMHINTDUR_EVENT).
@@ -90,6 +91,7 @@ void RpSkinInjectHooks() {
     RH_ScopedGlobalInstall(_rpSkinSplitDataCreate, 0x7C8A70);
     RH_ScopedGlobalInstall(_rpSkinSplitDataDestroy, 0x7C8B10);
     RH_ScopedGlobalInstall(_rpSkinSplitDataGetStreamSize, 0x7C8D40);
+    RH_ScopedGlobalInstall(_rpSkinGenericMatrixBlend, 0x7CB6A0); // lote R6A (sin validar)
 }
 
 void RpSkinSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
@@ -847,6 +849,40 @@ RwUInt32 _rpSkinSplitDataGetStreamSize(const RpSkin* skin) {
         size = skin->numBones + (skin->numRLE + skin->numMeshes) * 2 + 0xC;
     }
     return size;
+}
+
+// 0x7CB6A0 (lote R6A, sin validar; el listado decia RpUVAnim con confianza baja: sigue a RpSkin 0x7CB2B0 y es el mezclador generico de huesos por CPU, sin llamadores en el EXE; el nombre es
+// el del SDK de RW). cdecl, 9 argumentos de pila, `ret`, 392 bytes: (numVertices, pesos 4 floats por vertice (16 bytes), indices 4 bytes por vertice (un byte por hueso), matrices de hueso (64 bytes),
+// posiciones de salida (base, `outStride` bytes por vertice), posiciones de entrada (12 bytes por vertice), normales de salida (0 = no se calculan; mismo paso `outStride`), normales de entrada (12 bytes)).
+// Recorre los vertices del ULTIMO al primero. Por vertice, hasta cuatro pesos: se corta en el primer peso cuya palabra como ENTERO con signo es <= 0 (no es una comparacion de float: -0.0 y los
+// negativos cortan, un NaN positivo no); el hueso j es (indices >> (8 * j)) & 0xFF. El primer peso guarda el resultado y los demas lo suman. Las dos subrutinas del EXE 0x7CB828 (posicion, con la
+// traslacion de la matriz) y 0x7CB8B0 (normal, sin traslacion) usan registros propios (edx/ebx/edi/eax/esi): son fragmentos locales y se reconstruyen aqui con SkinBlendPointCpp (X87Math.cpp).
+void _rpSkinGenericMatrixBlend(RwInt32 numVertices, const RwMatrixWeights* matrixWeights, const RwUInt32* matrixIndices, const RwMatrix* matrixArray, RwUInt8* outVertices, const RwUInt8* inVertices,
+                               RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride) {
+    RwInt32 index = numVertices;
+    RwInt32 outOffset = outStride * numVertices - outStride;
+    const RwInt32* weights = reinterpret_cast<const RwInt32*>(reinterpret_cast<const RwUInt8*>(matrixWeights) + 0x10 * numVertices - 0x10);
+    const RwUInt32* indices = matrixIndices + numVertices - 1;
+    const RwUInt8* inVertex = inVertices + 0x0C * numVertices - 0x0C;
+    do {
+        const RwInt32* weight = weights;
+        for (RwUInt32 j = 0; j < 4; ++j, ++weight) {
+            if (*weight <= 0) {
+                break;
+            }
+            const RwMatrix* const bone = reinterpret_cast<const RwMatrix*>(reinterpret_cast<const RwUInt8*>(matrixArray) + (((*indices >> (8 * j)) & 0xFFu) << 6));
+            const float w = *reinterpret_cast<const float*>(weight);
+            SkinBlendPointCpp(reinterpret_cast<const float*>(bone), reinterpret_cast<const float*>(inVertex), w, reinterpret_cast<float*>(outVertices + outOffset), j == 0, true);
+            if (outNormals != nullptr) {
+                const RwUInt8* const inNormal = inVertex - inVertices + inNormals;
+                SkinBlendPointCpp(reinterpret_cast<const float*>(bone), reinterpret_cast<const float*>(inNormal), w, reinterpret_cast<float*>(outNormals + outOffset), j == 0, false);
+            }
+        }
+        weights -= 4;
+        indices -= 1;
+        inVertex -= 0x0C;
+        outOffset -= outStride;
+    } while (--index != 0);
 }
 
 RxNodeDefinition* RxNodeDefinitionGetD3D9SkinAtomicAllInOne() {

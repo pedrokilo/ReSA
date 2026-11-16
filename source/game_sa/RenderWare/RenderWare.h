@@ -54,6 +54,7 @@ void RwCoreInjectHooks();
 void RwPlCoreInjectHooks();
 void RwCoreInjectHooks25d();   // grupo g25d (biblioteca RenderWare / driver D3D9)
 void RwD3D9InjectHooksR1A();     // lote R1A (sin validar): RwD3D9GetCaps y _rwD3D9DeviceGetRestoreCallback
+void RwD3D9InjectHooksR6A();     // lote R6A (sin validar): estados de render y etapas de textura del controlador D3D9 (0x7FD810..0x7FDE60)
 void RwPlCoreInjectHooks25d();
 
 template<typename T>

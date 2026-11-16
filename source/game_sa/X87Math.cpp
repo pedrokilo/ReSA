@@ -19515,3 +19515,61 @@ __declspec(noinline) void __cdecl RtQuatTransformVectorsCpp(float* out, const fl
     } while (--remaining != 0);
 }
 #pragma float_control(pop)
+
+// ===== Lote R6A (sin validar) =====
+// RpSkin 0x7CB6A0 (_rpSkinGenericMatrixBlend): un punto (con o sin traslacion) por una matriz de hueso y su peso, como las dos subrutinas internas 0x7CB828 (con traslacion) y 0x7CB8B0 (sin ella).
+// Secuencia x87 del EXE sin guardados intermedios (24 bits): a = m00*x; b = m01*x; c = x*m02; a += m10*y; b += m11*y; c += y*m12; a += m20*z; [a += m30]; a *= w; b += m21*z; [b += m31];
+// c += z*m22; b *= w; [c += m32]; c *= w. Con `first` se guardan (a, b, c) y si no se suman a lo que ya hay en `out` (x, y, z) leyendolo en el orden del EXE: out.x, out.y, out.z.
+// `m` apunta a los floats de la RwMatrix (right.x en 0, up.x en 4, at.x en 8, pos.x en 12). `in` y `out` pueden solaparse: las tres entradas se leen antes de escribir.
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl SkinBlendPointCpp(const float* m, const float* in, float weight, float* out, bool first, bool translate) {
+    const double x = double(in[0]);
+    const double y = double(in[1]);
+    const double z = double(in[2]);
+    const double w = double(weight);
+    double a = double(m[0]) * x;
+    double b = double(m[1]) * x;
+    double c = x * double(m[2]);
+    a = a + double(m[4]) * y;
+    b = b + double(m[5]) * y;
+    c = c + y * double(m[6]);
+    a = a + double(m[8]) * z;
+    if (translate) {
+        a = a + double(m[12]);
+    }
+    a = a * w;
+    b = b + double(m[9]) * z;
+    if (translate) {
+        b = b + double(m[13]);
+    }
+    c = c + z * double(m[10]);
+    b = b * w;
+    if (translate) {
+        c = c + double(m[14]);
+    }
+    c = c * w;
+    if (first) {
+        out[0] = float(a);
+        out[1] = float(b);
+        out[2] = float(c);
+    } else {
+        a = a + double(out[0]);
+        b = b + double(out[1]);
+        out[0] = float(a);
+        c = c + double(out[2]);
+        out[1] = float(b);
+        out[2] = float(c);
+    }
+}
+#pragma float_control(pop)
+
+// RpUVAnim 0x7CC760 (RpUVAnimParamKeyFrameDataInitFromMatrix): theta = float(fpatan(-up.x, right.x)) (fld up.x; fchs; fld right.x; fpatan; fstp dword), sin redondear antes de guardar.
+__declspec(noinline) float __cdecl UVAnimParamThetaCpp(float upX, float rightX) {
+    return float(atan2(double(-upX), double(rightX)));
+}
+// RpUVAnim 0x7CC110 / 0x7CC760: angulo en grados = float(theta * factor) con la x87 (fld theta; fmul dword [factor]; fstp dword): 57.2957763671875 (0x859878) o -57.2957763671875 (0x882F2C).
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl UVAnimDegreesCpp(float theta, float factor) {
+    return float(double(theta) * double(factor));
+}
+#pragma float_control(pop)

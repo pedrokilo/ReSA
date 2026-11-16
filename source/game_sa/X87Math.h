@@ -2422,3 +2422,11 @@ void __cdecl RtQuatRotateConcatCpp(float* quat, const float* unitAxis, float sin
 // RtQuatTransformVectors (0x7EBBB0): rota numPoints vectores por el cuaternion `quat` (x, y, z, w): D = w*w - ((x*x + y*y) + z*z) (float), 2q (float), w*2q (float);
 // por vector: cruz (float) + (t * q) + D * v con t = ((v.y * 2y) + (2x * v.x)) + (v.z * 2z) sin redondear. `out` e `in` pueden solaparse (las lecturas y escrituras siguen el orden del EXE). Con numPoints <= 0 no hace nada.
 void __cdecl RtQuatTransformVectorsCpp(float* out, const float* in, int numPoints, const float* quat);
+
+// Lote R6A (sin validar).
+// RpSkin 0x7CB6A0: un punto (translate: con traslacion m[12..14]) por una matriz de hueso (16 floats de RwMatrix) y su peso; first guarda y si no suma a `out`. Ver X87Math.cpp.
+void __cdecl SkinBlendPointCpp(const float* m, const float* in, float weight, float* out, bool first, bool translate);
+// RpUVAnim 0x7CC760: theta = float(atan2(-upX, rightX)) con fpatan sin redondear antes del guardado.
+float __cdecl UVAnimParamThetaCpp(float upX, float rightX);
+// RpUVAnim 0x7CC110 / 0x7CC760: grados = float(theta * factor) con la x87 (24 bits).
+float __cdecl UVAnimDegreesCpp(float theta, float factor);
