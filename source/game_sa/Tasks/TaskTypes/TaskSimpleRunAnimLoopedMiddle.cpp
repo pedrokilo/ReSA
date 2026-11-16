@@ -6,6 +6,7 @@
 #include "AnimBlendAssociation.h"
 #include "AnimBlendHierarchy.h"
 #include "Plugins/RpAnimBlendPlugin/RpAnimBlend.h"
+#include "X87Math.h"
 
 namespace CTaskSimpleBody {
 void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
@@ -152,11 +153,8 @@ bool __fastcall LoopedMiddleProcessPed(CTaskSimple* self, void* /*edx*/, CPed* p
             if (!assoc) {
                 return false;
             }
-            const float loopEnd = FieldAt<float>(self, 0x58);
-            if (!(assoc->m_CurrentTime > loopEnd)) {
-                return false;
-            }
-            if (!((assoc->m_CurrentTime - assoc->m_TimeStep) <= loopEnd)) {
+            // Las dos comparaciones con la x87 del EXE (fcomp ordenado y resta a 24 bits): con SSE los denormales se aplanan a cero (D3D deja FTZ/DAZ en MXCSR). X87Math.cpp se compila con /arch:IA32.
+            if (!LoopedMiddleCrossedLoopEndCpp(assoc->m_CurrentTime, assoc->m_TimeStep, FieldAt<float>(self, 0x58))) {
                 return false;
             }
             assoc->SetCurrentTime(FieldAt<float>(self, 0x54));
@@ -167,8 +165,9 @@ bool __fastcall LoopedMiddleProcessPed(CTaskSimple* self, void* /*edx*/, CPed* p
     if (startAnim) {
         LoopedMiddleStartAnim(self, nullptr, ped);
         const CAnimBlendAssociation* const assoc = FieldAt<CAnimBlendAssociation*>(self, 0x08);
-        FieldAt<float>(self, 0x54) = assoc->m_BlendHier->m_fTotalTime * FieldAt<float>(self, 0x4C);
-        FieldAt<float>(self, 0x58) = assoc->m_BlendHier->m_fTotalTime * FieldAt<float>(self, 0x50);
+        // fld [tiempo total]; fmul [+0x4C]; fstp [+0x54] (y lo mismo con +0x50 y +0x58): el producto con la x87 del EXE (FloatTimesFloatCpp, X87Math.cpp), no con SSE (denormales).
+        FieldAt<float>(self, 0x54) = FloatTimesFloatCpp(assoc->m_BlendHier->m_fTotalTime, FieldAt<float>(self, 0x4C));
+        FieldAt<float>(self, 0x58) = FloatTimesFloatCpp(assoc->m_BlendHier->m_fTotalTime, FieldAt<float>(self, 0x50));
         FieldAt<uint32>(self, 0x60) = CTimer::GetTimeInMS();
         FieldAt<uint32>(self, 0x64) = FieldAt<uint32>(self, 0x5C);
         FieldAt<uint8>(self, 0x68)  = 1;

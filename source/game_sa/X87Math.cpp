@@ -18891,6 +18891,17 @@ __declspec(noinline) bool __cdecl AcquaintanceInViewCpp(const float* v, const fl
     return dot > double(threshold);
 }
 #pragma float_control(pop)
+// Lote 202A (Fn202A).
+// 0x61BCB0 (TASK_SIMPLE_ANIM_LOOPED_MIDDLE::ProcessPed): `fld [asoc+20h]; fcomp [tarea+58h]; test ah,41h; jne` (sigue solo si el tiempo actual es MAYOR que el fin: con menor, igual o no ordenado sale) y despues
+// `fld [asoc+28h]; fsubr [asoc+20h]; fcomp [tarea+58h]; test ah,41h; jp` (la resta a la precision vigente, 24 bits; sigue solo si actual - paso es menor o igual que el fin: con mayor o no ordenado sale). Devuelve si pasan las dos.
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl LoopedMiddleCrossedLoopEndCpp(float current, float step, float end) {
+    if (!(current > end)) {
+        return false;
+    }
+    return (current - step) <= end;
+}
+#pragma float_control(pop)
 // Lote 173A (Fn173A).
 // 0x733910 (CLinkList<AlphaObjectInfo>::InsertSorted): `!(existente >= nuevo)` con la comparacion x87 del EXE (C0 puesto con menor o no ordenado). La semantica precisa evita que /fp:fast lo cambie por `<`.
 #pragma float_control(precise, on, push)

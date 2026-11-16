@@ -2330,6 +2330,8 @@ bool __cdecl AcquaintanceInViewCpp(const float* v, const float* fwd, float thres
 // 0x733910 (CLinkList<AlphaObjectInfo>::InsertSorted): verdadero si el enlace existente debe saltarse (`fld [existente]; fcomp [nuevo]; fnstsw ax; test ah,1; jne`: la distancia existente es MENOR que la nueva o
 // no ordenada, es decir !(existente >= nuevo)), comparado con la x87 (un denormal no se aplana a cero como en el SSE del juego).
 bool __cdecl SortedDistanceStepsPastCpp(float existing, float inserted);
+// TASK_SIMPLE_ANIM_LOOPED_MIDDLE::ProcessPed (0x61BCB0, lote 202A): `actual > fin` y `(actual - paso) <= fin` con las comparaciones x87 del EXE (ordenadas, resta a 24 bits); sigue si pasan las dos.
+bool __cdecl LoopedMiddleCrossedLoopEndCpp(float current, float step, float end);
 
 // Lote 153A (Fn153A).
 // 0x4F56D0 (CAEVehicleAudioEntity): *destination = first + *second con la x87 (fld first; fadd [second]; fstp [destination]). Ver X87Math.cpp.
