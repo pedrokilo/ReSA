@@ -7,6 +7,8 @@ CPedAttractor::SArrayFillStride4B,0x005EAAF0,hooks.csv,1,1,source/game_sa/Attrac
 CPedAttractor::SArrayFillStride4C,0x005EAB10,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,131,C++,plantilla genérica
 CPedAttractor::SArrayUninitCopyStride4B,0x005EAE70,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,144,C++,plantilla genérica
 CPedAttractor::SArrayUninitCopyStride4C,0x005EAEE0,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,144,C++,plantilla genérica
+CPedAttractor::SArrayUninitCopyWrapStride4B,0x005EB990,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,216,C++,plantilla genérica
+CPedAttractor::SArrayUninitCopyWrapStride4C,0x005EBA00,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,216,C++,plantilla genérica
 CLinkList<CAnimBlendHierarchy*>::Shutdown,0x004D40A0,hooks.csv,1,1,source/game_sa/Core/LinkList.h,41,C++,plantilla genérica
 CObjectPool::GetAt,0x00404870,hooks.csv,1,1,source/game_sa/Core/Pool.h,164,C++,plantilla heredada
 CPedPool::GetAt,0x004082A0,hooks.csv,1,1,source/game_sa/Core/Pool.h,164,C++,plantilla heredada
@@ -30,8 +32,8 @@ CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::ControlSubTask,0x00000
 CTaskComplexSeekEntityStandard::GetSeekPos,0x0046FEE0,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,413,C++,plantilla heredada
 CTaskComplexSeekEntityStandard::ScalarDeletingDestructor,0x0046AD50,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,489,C++,plantilla heredada
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorFixedPos>::ScalarDeletingDestructor,0x0066CB90,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,489,C++,plantilla genérica
-CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::Constructor,0x00661DC0,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,499,C++,plantilla genérica
-CTaskComplexSeekEntityStandard::Destructor,0x0046AD70,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,536,C++,plantilla heredada
-CTaskComplexSeekEntity<CEntitySeekPosCalculatorFixedPos>::Destructor,0x0066CBB0,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,536,C++,plantilla genérica
+CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::Constructor,0x00661DC0,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,500,C++,plantilla genérica
+CTaskComplexSeekEntityStandard::Destructor,0x0046AD70,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,537,C++,plantilla heredada
+CTaskComplexSeekEntity<CEntitySeekPosCalculatorFixedPos>::Destructor,0x0066CBB0,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,537,C++,plantilla genérica
 CWorld::TestForBuildingsOnTopOfEachOther<CPtrListDoubleLink<CPhysical*>>-,0x00563950,hooks.csv,1,1,source/game_sa/World.cpp,549,C++,plantilla genérica
 CWorld::TestForUnusedModels<CPtrListDoubleLink<CPhysical*>>-InputArray,0x005639D0,hooks.csv,1,1,source/game_sa/World.cpp,564,C++,plantilla genérica
