@@ -15,10 +15,10 @@
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  *
  * ESTADO: CStreaming
- * Reconstrucción: COMPLETA — 108/108 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 109/109 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 108/108 entradas.
+ * Validación registrada: 109/109 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.

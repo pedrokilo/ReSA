@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **10,894 entradas reversed=1**, de 10,894 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **11,012 entradas reversed=1**, de 11,012 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 10894 |
+| `validated=1` · evidencia aprobada vinculada | 11012 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 10894 |
+| Evidencia histórica vinculada; revisión pendiente | 11012 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1003,6 +1003,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAtomicModelInfo | `SetupVehicleUpgradeFlags` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CAttractorScanner | `Clear` | [Resumen](../reversing/DependenciesTaskPed5/validation-summary.json) |
 | CAttractorScanner | `FindAttractorInRange` | [Resumen](../reversing/Fn203A/validation-summary.json) |
+| CAttractorScanner | `FindClosestPedForEffect` | [Resumen](../reversing/Fn198A/validation-summary.json) |
+| CAttractorScanner | `ScanEntityList` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CAttractorScanner | `ScanForAttractors` | [Resumen](../reversing/Fn92C/validation-summary.json) |
 | CAudioEngine | `AttachMissionAudioToObject` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
 | CAudioEngine | `AttachMissionAudioToPed` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
@@ -1095,6 +1097,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAudioZones | `TextBufferClear` | [Resumen](../reversing/Fn172A/validation-summary.json) |
 | CAudioZones | `TextBufferClear-2` | [Resumen](../reversing/Fn172A/validation-summary.json) |
 | CAudioZones | `Update` | [Resumen](../reversing/World43/validation-summary.json) |
+| CAutoPilot | `Constructor` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CAutoPilot | `ModifySpeed` | [Resumen](../reversing/ModifySpeed27/validation-summary.json) |
 | CAutoPilot | `RemoveOnePathNode` | [Resumen](../reversing/Dependencies25A/validation-summary.json) |
 | CAutomobile | `AddMovingCollisionSpeed` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
@@ -1351,7 +1354,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CBoundingBox | `ConstructorAlias537550` | [Resumen](../reversing/Fn159A/validation-summary.json) |
 | CBoundingBox | `ConstructorAlias537560` | [Resumen](../reversing/Fn159A/validation-summary.json) |
 | CBoundingBox | `ConstructorAlias537570` | [Resumen](../reversing/Fn159A/validation-summary.json) |
+| CBoundingBox | `ConstructorAlias5B2AB0` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CBoundingBox | `IsPointWithin` | [Resumen](../reversing/Fn116A/validation-summary.json) |
+| CBoundingBox | `SetMinMax` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CBox | `GetRandomPoint` | [Resumen](../reversing/Fn192A/validation-summary.json) |
 | CBox | `Recalc` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CBox | `Set` | [Resumen](../reversing/Core70/validation-summary.json) |
@@ -1964,7 +1969,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CColModel | `operator=` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CColModelPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CColPoint | `ColPointAssignExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
+| CColPoint | `GetNormalAddress` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CColPoint | `GetSurfaceTypeB` | [Resumen](../reversing/Fn144A/validation-summary.json) |
+| CColPoint | `SetSurfaceTypeA` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CColSphere | `IntersectEdge` | [Resumen](../reversing/World43/validation-summary.json) |
 | CColSphere | `IntersectPoint` | [Resumen](../reversing/World43/validation-summary.json) |
 | CColSphere | `IntersectRay` | [Resumen](../reversing/World43/validation-summary.json) |
@@ -2963,6 +2970,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventHandlerHistory | `TakesPriorityOverCurrentEvent` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CEventHandlerHistory | `TickStoredEvent` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CEventHealthLow | `CloneEditable` | [Resumen](../reversing/Fn197A/validation-summary.json) |
+| CEventHealthLow | `Constructor` | [Resumen](../reversing/Fn196A/validation-summary.json) |
+| CEventHealthLow | `DestructorBody` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CEventHealthLow | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn197A/validation-summary.json) |
 | CEventHealthReallyLow | `CloneEditable` | [Resumen](../reversing/Fn197A/validation-summary.json) |
 | CEventHealthReallyLow | `Constructor` | [Resumen](../reversing/Fn197A/validation-summary.json) |
@@ -3210,8 +3219,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventScriptedAttractor | `DestructorBody` | [Resumen](../reversing/Fn188A/validation-summary.json) |
 | CEventScriptedAttractor | `GetEventType` | [Resumen](../reversing/Fn188A/validation-summary.json) |
 | CEventScriptedAttractor | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn188A/validation-summary.json) |
+| CEventSeenCop | `CloneEditable` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CEventSeenCop | `Constructor1` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
+| CEventSeenCop | `DestructorBody` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CEventSeenCop | `GetEventPriority` | [Resumen](../reversing/Fn197A/validation-summary.json) |
+| CEventSeenCop | `GetEventType` | [Resumen](../reversing/Fn196A/validation-summary.json) |
+| CEventSeenCop | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CEventSeenPanickedPed | `AffectsPed` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventSeenPanickedPed | `Constructor` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventSeenPanickedPed | `Destructor` | [Resumen](../reversing/Fn107A/validation-summary.json) |
@@ -3562,6 +3575,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGangWars | `TellStreamingWhichGangsAreNeeded` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `Update` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261103.json) |
 | CGangWars | `UpdateTerritoryUnderControlPercentage` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWarsSaveStructure | `Construct` | [Resumen](../reversing/Fn196A/validation-summary.json) |
+| CGangWarsSaveStructure | `Extract` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CGangs | `ChooseGangPedModel` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CGangs | `GetWillAttackPlayerWithCops` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CGangs | `Initialise` | [Resumen](../reversing/Data8a/validation-summary.json) |
@@ -4001,6 +4016,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMatrix | `Reorthogonalise` | [Resumen](../reversing/Fn101A/validation-summary.json) |
 | CMatrix | `ResetOrientation` | [Resumen](../reversing/Fn99A/validation-summary.json) |
 | CMatrix | `Rotate` | [Resumen](../reversing/Fn103A/validation-summary.json) |
+| CMatrix | `RotateByPointer` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CMatrix | `RotateX` | [Resumen](../reversing/Fn101A/validation-summary.json) |
 | CMatrix | `RotateY` | [Resumen](../reversing/Fn101A/validation-summary.json) |
 | CMatrix | `RotateZ` | [Resumen](../reversing/Fn101A/validation-summary.json) |
@@ -4032,6 +4048,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMatrixLink | `Remove` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `AddToList1` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `AddToList2` | [Resumen](../reversing/Small2/validation-summary.json) |
+| CMatrixLinkList | `Constructor` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CMatrixLinkList | `Destructor` | [Resumen](../reversing/Fn161A/validation-summary.json) |
 | CMatrixLinkList | `GetNumFree` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `GetNumUsed1` | [Resumen](../reversing/Small2/validation-summary.json) |
@@ -4316,6 +4333,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CObjectPotentialCollisionScanner | `ScanForObjectPotentialCollisionEvents` | [Resumen](../reversing/Fn92B/validation-summary.json) |
 | CObjectSaveStructure | `Construct` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CObjectSaveStructure | `Extract` | [Resumen](../reversing/Core70/validation-summary.json) |
+| CObjectScanner | `ScanForObjectsInRange` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | COccluder | `NearCamera` | [Resumen](../reversing/World52/validation-summary.json) |
 | COccluder | `ProcessLineSegment` | [Resumen](../reversing/World52/validation-summary.json) |
 | COccluder | `ProcessOneOccluder` | [Resumen](../reversing/World52/validation-summary.json) |
@@ -4437,6 +4455,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPad | `ProcessPCSpecificStuff` | [Resumen](../reversing/RequestedPadDistanceTrainNopHexV2/validation-summary.json) |
 | CPad | `ProcessPad` | [Resumen](../reversing/RequestedPadProcessPad/validation-summary.json) |
 | CPad | `ReconcileTwoControllersInput` | [Resumen](../reversing/RequestedPadMutationRemaining3/validation-summary-reconcile.json) |
+| CPad | `SetDrunkInputDelay` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CPad | `SetTouched` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
 | CPad | `ShiftTargetLeftJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `ShiftTargetRightJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
@@ -4446,10 +4465,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPad | `StartShake` | [Resumen](../reversing/RequestedPadMutationRemaining3Hex/validation-summary-shake.json) |
 | CPad | `StartShake_Distance` | [Resumen](../reversing/RequestedPadDistanceTrainNopHexV2/validation-summary.json) |
 | CPad | `StartShake_Train` | [Resumen](../reversing/RequestedPadDistanceTrainNopHexV2/validation-summary.json) |
+| CPad | `StopPadsShaking` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CPad | `StopShaking` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
 | CPad | `Update` | [Resumen](../reversing/RequestedPadMutationRemaining3/validation-summary-update.json) |
 | CPad | `UpdateMouse` | [Resumen](../reversing/PadMouse1/validation-summary.json) |
+| CPad | `UpdatePadsThunk` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CPad | `WeaponJustDown` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
+| CPad | `sub_5404F0` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CPad | `sub_540530` | [Resumen](../reversing/Fn116A/validation-summary.json) |
 | CPathFind | `AddDynamicLinkBetween2Nodes_For1Node` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `AddInteriorLink` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
@@ -4527,6 +4549,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPatrolRoute | `Assign` | [Resumen](../reversing/Fn175A/validation-summary.json) |
 | CPatrolRoute | `Constructor` | [Resumen](../reversing/Fn175A/validation-summary.json) |
 | CPatrolRoute | `Destructor` | [Resumen](../reversing/Fn170A/validation-summary.json) |
+| CPatrolRoute | `Reverse` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CPatrolRoute | `operator delete` | [Resumen](../reversing/Fn146A/validation-summary.json) |
 | CPatrolRoute | `operator new` | [Resumen](../reversing/Fn146A/validation-summary.json) |
 | CPatrolRoutePool | `New` | [Resumen](../reversing/Fn132A/validation-summary.json) |
@@ -4647,6 +4670,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPed | `SetCurrentWeapon-WepType` | [Resumen](../reversing/CPedA/validation-summary.json) |
 | CPed | `SetGunFlashAlpha` | [Resumen](../reversing/CPedA/validation-summary.json) |
 | CPed | `SetIdle` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SetKindaStayInSamePlace` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CPed | `SetLook-Entity` | [Resumen](../reversing/CPedC/validation-summary.json) |
 | CPed | `SetLook-Heading` | [Resumen](../reversing/CPedC/validation-summary.json) |
 | CPed | `SetLookFlag-Entity` | [Resumen](../reversing/CPedC/validation-summary.json) |
@@ -4686,6 +4710,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPed | `operator new-anon` | [Resumen](../reversing/FixCore/validation-summary.json) |
 | CPed | `operator new-poolIndexed` | [Resumen](../reversing/FixCore/validation-summary.json) |
 | CPedAcquaintanceScanner | `CanJoinRiotAgainst` | [Resumen](../reversing/Fn607B/validation-summary.json) |
+| CPedAcquaintanceScanner | `CanScanPed` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CPedAcquaintanceScanner | `FindAcquaintance` | [Resumen](../reversing/Fn607B/validation-summary.json) |
 | CPedAcquaintanceScanner | `ScanEntities` | [Resumen](../reversing/Fn607A/validation-summary.json) |
 | CPedAcquaintanceScanner | `ScanForPedAcquaintances` | [Resumen](../reversing/Fn92A/validation-summary.json) |
@@ -5168,7 +5193,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlaceName | `Process` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CPlaceable | `AllocateMatrix` | [Resumen](../reversing/World16/validation-summary.json) |
 | CPlaceable | `AllocateStaticMatrix` | [Resumen](../reversing/World16/validation-summary.json) |
+| CPlaceable | `ArrayPairReset54FA10` | [Resumen](../reversing/Fn200A/validation-summary.json) |
+| CPlaceable | `ArrayPairReset54FA60` | [Resumen](../reversing/Fn200A/validation-summary.json) |
+| CPlaceable | `ArrayPairReset54FAB0` | [Resumen](../reversing/Fn200A/validation-summary.json) |
+| CPlaceable | `ArrayPairReset54FB00` | [Resumen](../reversing/Fn200A/validation-summary.json) |
+| CPlaceable | `ArrayPairReset54FB50` | [Resumen](../reversing/Fn200A/validation-summary.json) |
+| CPlaceable | `ArrayPairReset54FBA0` | [Resumen](../reversing/Fn200A/validation-summary.json) |
+| CPlaceable | `ArrayPairReset54FBF0` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CPlaceable | `Constructor` | [Resumen](../reversing/Fn161A/validation-summary.json) |
+| CPlaceable | `DestructorBody` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CPlaceable | `FreeStaticMatrix` | [Resumen](../reversing/World16/validation-summary.json) |
 | CPlaceable | `GetForwardVector` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CPlaceable | `GetHeading` | [Resumen](../reversing/World16/validation-summary.json) |
@@ -5181,6 +5214,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlaceable | `IsWithinArea-xy` | [Resumen](../reversing/World16/validation-summary.json) |
 | CPlaceable | `IsWithinArea-xyz` | [Resumen](../reversing/World16/validation-summary.json) |
 | CPlaceable | `RemoveMatrix` | [Resumen](../reversing/World16/validation-summary.json) |
+| CPlaceable | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CPlaceable | `SetHeading` | [Resumen](../reversing/World16/validation-summary.json) |
 | CPlaceable | `SetMatrix` | [Resumen](../reversing/World16/validation-summary.json) |
 | CPlaceable | `SetOrientation-xyz` | [Resumen](../reversing/World16/validation-summary.json) |
@@ -5281,6 +5315,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerInfo | `SetPlayerSkin` | [Resumen](../reversing/Player28/validation-summary.json) |
 | CPlayerInfo | `StreamParachuteWeapon` | [Resumen](../reversing/Player28/validation-summary.json) |
 | CPlayerInfo | `WorkOutEnergyFromHunger` | [Resumen](../reversing/Player28/validation-summary.json) |
+| CPlayerInfoSaveStructure | `Construct` | [Resumen](../reversing/Fn196A/validation-summary.json) |
+| CPlayerInfoSaveStructure | `Extract` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CPlayerPed | `AnnoyPlayerPed` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `Busted` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `CanIKReachThisTarget` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
@@ -5546,6 +5582,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPtrNodeDoubleLinkPool | `OperatorDelete` | [Resumen](../reversing/Fn173A/validation-summary.json) |
 | CPtrNodeDoubleLinkPool | `OperatorNew` | [Resumen](../reversing/Fn173A/validation-summary.json) |
 | CPtrNodeSingleLinkPool | `Flush` | [Resumen](../reversing/Fn131A/validation-summary.json) |
+| CPtrNodeSingleLinkPool | `FlushJump` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CPtrNodeSingleLinkPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CPtrNodeSingleLinkPool | `OperatorDelete` | [Resumen](../reversing/Fn173A/validation-summary.json) |
 | CPtrNodeSingleLinkPool | `OperatorNew` | [Resumen](../reversing/Fn173A/validation-summary.json) |
@@ -6255,6 +6292,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CStreaming | `SetLoadVehiclesInLoadScene` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CStreaming | `SetMissionDoesntRequireModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
 | CStreaming | `SetMissionDoesntRequireSpecialChar` | [Resumen](../reversing/Fn189A/validation-summary.json) |
+| CStreaming | `SetMissionDoesntRequireStreamedScript` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CStreaming | `SetModelIsDeletable` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
 | CStreaming | `SetModelTxdIsDeletable` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | CStreaming | `Shutdown` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
@@ -6621,6 +6659,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexDriveFireTruck | `CreateSubTask` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
 | CTaskComplexDriveFireTruck | `DestructorBody` | [Resumen](../reversing/Fn170A/validation-summary.json) |
 | CTaskComplexDriveFireTruck | `GetTaskType` | [Resumen](../reversing/Fn170A/validation-summary.json) |
+| CTaskComplexDriveFireTruck | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexDrivePointRoute | `Clone` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexDrivePointRoute | `Constructor` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexDrivePointRoute | `ControlSubTask` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
@@ -6769,6 +6808,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexFacial | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn151A/validation-summary.json) |
 | CTaskComplexFacial | `SetRequest` | [Resumen](../reversing/CTasks9a/validation-summary.json) |
 | CTaskComplexFacial | `StopAll` | [Resumen](../reversing/CTasks9a/validation-summary.json) |
+| CTaskComplexFallAndGetUp | `Clone` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTaskComplexFallAndGetUp | `Constructor` | [Resumen](../reversing/CTasks9b/validation-summary.json) |
 | CTaskComplexFallAndGetUp | `Constructor2` | [Resumen](../reversing/CTasks9b/validation-summary.json) |
 | CTaskComplexFallAndGetUp | `ControlSubTask` | [Resumen](../reversing/CTasks9b/validation-summary.json) |
@@ -6794,6 +6834,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexFallAndStayDown | `MakeAbortable` | [Resumen](../reversing/Fn191A/validation-summary.json) |
 | CTaskComplexFallAndStayDown | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn191A/validation-summary.json) |
 | CTaskComplexFallToDeath | `CalcFall` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
+| CTaskComplexFallToDeath | `Clone` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTaskComplexFallToDeath | `Constructor` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
 | CTaskComplexFallToDeath | `ControlSubTask` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
 | CTaskComplexFallToDeath | `CreateFirstSubTask` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
@@ -6881,6 +6922,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexFollowNodeRoute | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn145A/validation-summary.json) |
 | CTaskComplexFollowNodeRoute | `SetTarget` | [Resumen](../reversing/Route19/validation-summary.json) |
 | CTaskComplexFollowNodeRoute | `StopTimer` | [Resumen](../reversing/Route19/validation-summary.json) |
+| CTaskComplexFollowPatrolRoute | `Clone` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CTaskComplexFollowPatrolRoute | `ConstructorExe` | [Resumen](../reversing/Fn175A/validation-summary.json) |
 | CTaskComplexFollowPedFootsteps | `Clone` | [Resumen](../reversing/Fn185A/validation-summary.json) |
 | CTaskComplexFollowPedFootsteps | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
@@ -6952,6 +6994,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexGetOnBoatSeat | `GetTaskType` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
 | CTaskComplexGetOnBoatSeat | `MakeAbortable` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
 | CTaskComplexGetOnBoatSeat | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn180A/validation-summary.json) |
+| CTaskComplexGetUpAndStandStill | `Clone` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTaskComplexGetUpAndStandStill | `Constructor` | [Resumen](../reversing/CTasks43/validation-summary.json) |
 | CTaskComplexGetUpAndStandStill | `ControlSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
 | CTaskComplexGetUpAndStandStill | `CreateFirstSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
@@ -7013,10 +7056,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexGoToPointAndStandStill | `ControlSubTask` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStill | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStill | `CreateNextSubTask` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
+| CTaskComplexGoToPointAndStandStill | `CreateSubTask` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStill | `Destructor` | [Resumen](../reversing/Fn141A/validation-summary.json) |
+| CTaskComplexGoToPointAndStandStill | `DestructorBodyCopy` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStill | `GetTaskType` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStill | `GoToPoint` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStill | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn146A/validation-summary.json) |
+| CTaskComplexGoToPointAndStandStill | `SelectMoveState` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | `Clone` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | `Constructor` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | `ControlSubTask` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
@@ -7031,6 +7077,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexGoToPointAndStandStillTimed | `ControlSubTask` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStillTimed | `CreateFirstSubTask` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStillTimed | `MakeAbortable` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
+| CTaskComplexGoToPointAndStandStillTimed | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexGoToPointAndStandStillTimed | `StopTimer` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
 | CTaskComplexGoToPointAnyMeans | `Clone` | [Resumen](../reversing/Fn160A/validation-summary.json) |
 | CTaskComplexGoToPointAnyMeans | `Constructor-1` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
@@ -7085,6 +7132,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexHitResponse | `Destructor` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexHitResponse | `GetTaskType` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexHitResponse | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn157A/validation-summary.json) |
+| CTaskComplexInAirAndLand | `Clone` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTaskComplexInAirAndLand | `Constructor` | [Resumen](../reversing/CTasks19/validation-summary.json) |
 | CTaskComplexInAirAndLand | `ControlSubTask` | [Resumen](../reversing/CTasks19/validation-summary.json) |
 | CTaskComplexInAirAndLand | `CreateFirstSubTask` | [Resumen](../reversing/CTasks19/validation-summary.json) |
@@ -7282,7 +7330,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexMedicTreatInjuredPed | `CreateFirstSubTask` | [Resumen](../reversing/CTasks9b/validation-summary.json) |
 | CTaskComplexMedicTreatInjuredPed | `CreateNextSubTask` | [Resumen](../reversing/CTasks9b/validation-summary.json) |
 | CTaskComplexMedicTreatInjuredPed | `CreateSubTask` | [Resumen](../reversing/CTasks9b/validation-summary.json) |
+| CTaskComplexMedicTreatInjuredPed | `DestructorBody` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexMedicTreatInjuredPed | `FindNearestAccident` | [Resumen](../reversing/CTasks9b/validation-summary.json) |
+| CTaskComplexMedicTreatInjuredPed | `GetTaskType` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexMedicTreatInjuredPed | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn143A/validation-summary.json) |
 | CTaskComplexMoveBackAndJump | `Clone` | [Resumen](../reversing/CTasks8c/validation-summary.json) |
 | CTaskComplexMoveBackAndJump | `Constructor` | [Resumen](../reversing/CTasks8c/validation-summary.json) |
@@ -7406,6 +7456,16 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexPolicePursuit | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn140A/validation-summary.json) |
 | CTaskComplexPolicePursuit | `SetPursuit` | [Resumen](../reversing/CTasks13/validation-summary.json) |
 | CTaskComplexPolicePursuit | `SetWeapon` | [Resumen](../reversing/CTasks13/validation-summary.json) |
+| CTaskComplexPresentIDToCop | `Clone` | [Resumen](../reversing/Fn198A/validation-summary.json) |
+| CTaskComplexPresentIDToCop | `ComputeHeading` | [Resumen](../reversing/Fn198A/validation-summary.json) |
+| CTaskComplexPresentIDToCop | `Constructor` | [Resumen](../reversing/Fn198A/validation-summary.json) |
+| CTaskComplexPresentIDToCop | `ControlSubTask` | [Resumen](../reversing/Fn198A/validation-summary.json) |
+| CTaskComplexPresentIDToCop | `CreateFirstSubTask` | [Resumen](../reversing/Fn198A/validation-summary.json) |
+| CTaskComplexPresentIDToCop | `CreateNextSubTask` | [Resumen](../reversing/Fn198A/validation-summary.json) |
+| CTaskComplexPresentIDToCop | `CreateSubTask` | [Resumen](../reversing/Fn198A/validation-summary.json) |
+| CTaskComplexPresentIDToCop | `DestructorBody` | [Resumen](../reversing/Fn198A/validation-summary.json) |
+| CTaskComplexPresentIDToCop | `GetTaskType` | [Resumen](../reversing/Fn198A/validation-summary.json) |
+| CTaskComplexPresentIDToCop | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexProstituteSolicit | `Clone` | [Resumen](../reversing/TaskFinal2/validation-summary.json) |
 | CTaskComplexProstituteSolicit | `Constructor` | [Resumen](../reversing/RequestedPreflightAdditionalLifetimes/runs/20261008-124111-185817/enriched-summary.json) |
 | CTaskComplexProstituteSolicit | `ControlSubTask` | [Resumen](../reversing/ProstituteControlPending/validation-summary.json) |
@@ -7419,11 +7479,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexProstituteSolicit | `MakeAbortable` | [Resumen](../reversing/TaskFinal2/validation-summary.json) |
 | CTaskComplexProstituteSolicit | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn145A/validation-summary.json) |
 | CTaskComplexReactToAttack | `Clone` | [Resumen](../reversing/Fn199A/validation-summary.json) |
+| CTaskComplexReactToAttack | `Constructor` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexReactToAttack | `ControlSubTask` | [Resumen](../reversing/Fn199A/validation-summary.json) |
 | CTaskComplexReactToAttack | `CreateFirstSubTask` | [Resumen](../reversing/Fn193A/validation-summary.json) |
 | CTaskComplexReactToAttack | `CreateNextSubTask` | [Resumen](../reversing/Fn193A/validation-summary.json) |
 | CTaskComplexReactToAttack | `CreateSubTask` | [Resumen](../reversing/Fn199A/validation-summary.json) |
 | CTaskComplexReactToAttack | `DestructorBody` | [Resumen](../reversing/Fn193A/validation-summary.json) |
+| CTaskComplexReactToAttack | `GetTaskType` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexReactToAttack | `MakeAbortable` | [Resumen](../reversing/Fn199A/validation-summary.json) |
 | CTaskComplexReactToAttack | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn193A/validation-summary.json) |
 | CTaskComplexReactToGunAimedAt | `Clone` | [Resumen](../reversing/CTasks8c/validation-summary.json) |
@@ -7511,6 +7573,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexSeekEntityStandard | `CreateNextSubTask` | [Resumen](../reversing/CTasks9d/validation-summary.json) |
 | CTaskComplexSeekEntityStandard | `CreateSubTask` | [Resumen](../reversing/CTasks9d/validation-summary.json) |
 | CTaskComplexSeekEntityStandard | `Destructor` | [Resumen](../reversing/CTasks9d/validation-summary.json) |
+| CTaskComplexSeekEntityStandard | `GetSeekPos` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexSeekEntityStandard | `GetTaskType` | [Resumen](../reversing/CTasks9d/validation-summary.json) |
 | CTaskComplexSeekEntityStandard | `MakeAbortable` | [Resumen](../reversing/CTasks9d/validation-summary.json) |
 | CTaskComplexSeekEntityStandard | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn166A/validation-summary.json) |
@@ -7528,6 +7591,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexSequence | `Flush` | [Resumen](../reversing/CTasks13/validation-summary.json) |
 | CTaskComplexSequence | `GetTaskType` | [Resumen](../reversing/Fn147A/validation-summary.json) |
 | CTaskComplexSequence | `MakeAbortable` | [Resumen](../reversing/CTasks13/validation-summary.json) |
+| CTaskComplexSequence | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexSequence | `SetCanBeEmptied` | [Resumen](../reversing/CTasks13/validation-summary.json) |
 | CTaskComplexShuffleSeats | `Clone` | [Resumen](../reversing/CTasks10b/validation-summary.json) |
 | CTaskComplexShuffleSeats | `Constructor` | [Resumen](../reversing/CTasks10b/validation-summary.json) |
@@ -7603,6 +7667,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexStuckInAir | `CreateFirstSubTask` | [Resumen](../reversing/TasksBatch/validation-summary.json) |
 | CTaskComplexStuckInAir | `CreateNextSubTask` | [Resumen](../reversing/TasksBatch/validation-summary.json) |
 | CTaskComplexStuckInAir | `CreateSubTask` | [Resumen](../reversing/TasksBatch/validation-summary.json) |
+| CTaskComplexStuckInAir | `DestructorBody` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTaskComplexStuckInAir | `GetTaskType` | [Resumen](../reversing/TasksBatch/validation-summary.json) |
 | CTaskComplexStuckInAir | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn128A/validation-summary.json) |
 | CTaskComplexSunbathe | `CanSunbathe` | [Resumen](../reversing/DependenciesTask11/validation-summary.json) |
@@ -7656,6 +7721,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexUseAttractor | `CreateNextSubTask` | [Resumen](../reversing/TasksBatch3/validation-summary.json) |
 | CTaskComplexUseAttractor | `Destructor` | [Resumen](../reversing/TasksBatch3/validation-summary.json) |
 | CTaskComplexUseAttractor | `GetTaskType` | [Resumen](../reversing/TasksBatch3/validation-summary.json) |
+| CTaskComplexUseAttractor | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexUseAttractorPartner | `Clone` | [Resumen](../reversing/TasksBatch3/validation-summary.json) |
 | CTaskComplexUseAttractorPartner | `Constructor` | [Resumen](../reversing/TasksBatch3/validation-summary.json) |
 | CTaskComplexUseAttractorPartner | `ControlSubTask` | [Resumen](../reversing/TasksBatch3/validation-summary.json) |
@@ -7776,6 +7842,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexWaitAtAttractor | `CreateNextSubTask` | [Resumen](../reversing/TasksBatch5/validation-summary.json) |
 | CTaskComplexWaitAtAttractor | `Destructor` | [Resumen](../reversing/TasksBatch5/validation-summary.json) |
 | CTaskComplexWaitAtAttractor | `GetTaskType` | [Resumen](../reversing/TasksBatch5/validation-summary.json) |
+| CTaskComplexWaitAtAttractor | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CTaskComplexWaitForBackup | `Clone` | [Resumen](../reversing/TasksBatch5/validation-summary.json) |
 | CTaskComplexWaitForBackup | `Constructor` | [Resumen](../reversing/TasksBatch5/validation-summary.json) |
 | CTaskComplexWaitForBackup | `ControlSubTask` | [Resumen](../reversing/TasksBatch5/validation-summary.json) |
@@ -8509,6 +8576,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleFacial | `MakeAbortable` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleFacial | `ProcessPed` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleFacial | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn128A/validation-summary.json) |
+| CTaskSimpleFall | `Clone` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTaskSimpleFall | `Constructor` | [Resumen](../reversing/STasks6a/validation-summary.json) |
 | CTaskSimpleFall | `DestructorBody` | [Resumen](../reversing/Fn154A/validation-summary.json) |
 | CTaskSimpleFall | `FinishFallAnimCB` | [Resumen](../reversing/STasks6a/validation-summary.json) |
@@ -8571,12 +8639,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleGangDriveBy | `ProcessPed` | [Resumen](../reversing/DriveByPending/validation-summary.json) |
 | CTaskSimpleGangDriveBy | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn145A/validation-summary.json) |
 | CTaskSimpleGangDriveBy | `SetupAnim` | [Resumen](../reversing/LeaveCar67/validation-summary.json) |
+| CTaskSimpleGetUp | `Clone` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTaskSimpleGetUp | `Constructor` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleGetUp | `DestructorBody` | [Resumen](../reversing/Fn159A/validation-summary.json) |
 | CTaskSimpleGetUp | `FinishGetUpAnimCB` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleGetUp | `GetTaskType` | [Resumen](../reversing/Fn159A/validation-summary.json) |
 | CTaskSimpleGetUp | `MakeAbortable` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleGetUp | `ProcessPed` | [Resumen](../reversing/STasks43/validation-summary.json) |
+| CTaskSimpleGetUp | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTaskSimpleGetUp | `StartAnim` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleGiveCPR | `Clone` | [Resumen](../reversing/STasks6a/validation-summary.json) |
 | CTaskSimpleGiveCPR | `Constructor` | [Resumen](../reversing/STasks6a/validation-summary.json) |
@@ -8592,12 +8662,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleGoTo | `DestructorBody` | [Resumen](../reversing/Fn122A/validation-summary.json) |
 | CTaskSimpleGoTo | `HasCircledTarget` | [Resumen](../reversing/STasks19/validation-summary.json) |
 | CTaskSimpleGoTo | `QuitIK` | [Resumen](../reversing/STasks19/validation-summary.json) |
+| CTaskSimpleGoTo | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CTaskSimpleGoTo | `SetUpIK` | [Resumen](../reversing/STasks19/validation-summary.json) |
 | CTaskSimpleGoToPoint | `Clone` | [Resumen](../reversing/STasks6a/validation-summary.json) |
 | CTaskSimpleGoToPoint | `Constructor` | [Resumen](../reversing/STasks6a/validation-summary.json) |
 | CTaskSimpleGoToPoint | `GetTaskType` | [Resumen](../reversing/STasks6a/validation-summary.json) |
 | CTaskSimpleGoToPoint | `MakeAbortable` | [Resumen](../reversing/STasks6a/validation-summary.json) |
 | CTaskSimpleGoToPoint | `ProcessPed` | [Resumen](../reversing/STasks6a/validation-summary.json) |
+| CTaskSimpleGoToPoint | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CTaskSimpleGoToPoint | `UpdatePoint` | [Resumen](../reversing/STasks6a/validation-summary.json) |
 | CTaskSimpleGoToPointFine | `BaseRatio` | [Resumen](../reversing/STasks8a/validation-summary.json) |
 | CTaskSimpleGoToPointFine | `Clone` | [Resumen](../reversing/STasks8a/validation-summary.json) |
@@ -8732,6 +8804,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleIKPointArm | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn157A/validation-summary.json) |
 | CTaskSimpleIKPointArm | `UpdatePointArmInfo` | [Resumen](../reversing/STasks6b/validation-summary.json) |
 | CTaskSimpleInAir | `ApplyRollAndPitch` | [Resumen](../reversing/Fn108A/validation-summary.json) |
+| CTaskSimpleInAir | `Clone` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTaskSimpleInAir | `Constructor` | [Resumen](../reversing/STasks19/validation-summary.json) |
 | CTaskSimpleInAir | `DeleteAnimCB` | [Resumen](../reversing/STasks19/validation-summary.json) |
 | CTaskSimpleInAir | `DestructorBody` | [Resumen](../reversing/Fn152A/validation-summary.json) |
@@ -8774,6 +8847,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleKillPedWithCar | `ProcessPed` | [Resumen](../reversing/STasks7/validation-summary.json) |
 | CTaskSimpleKillPedWithCar | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn176A/validation-summary.json) |
 | CTaskSimpleKillPedWithCar | `ShakePadIfPlayerVehicle` | [Resumen](../reversing/Fn176A/validation-summary.json) |
+| CTaskSimpleLand | `Clone` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTaskSimpleLand | `Constructor` | [Resumen](../reversing/STasks6b/validation-summary.json) |
 | CTaskSimpleLand | `DestructorBody` | [Resumen](../reversing/Fn159A/validation-summary.json) |
 | CTaskSimpleLand | `FinishAnimCB` | [Resumen](../reversing/STasks6b/validation-summary.json) |
@@ -9278,6 +9352,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTimer | `Stop` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CTimer | `Suspend` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CTimer | `Update` | [Resumen](../reversing/Sys13/validation-summary.json) |
+| CTimer | `UpdateTimeStep` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CTimer | `UpdateVariables` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CTrafficLights | `DisplayActualLight` | [Resumen](../reversing/World12/validation-summary.json) |
 | CTrafficLights | `FindOrientationForTrafficLightType` | [Resumen](../reversing/World12/validation-summary.json) |
@@ -9325,10 +9400,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTrain | `FindNumCarriagesPulled` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `FindPositionOnTrackFromCoors` | [Resumen](../reversing/TrainPosition355/validation-summary.json) |
 | CTrain | `FindSideStationIsOn` | [Resumen](../reversing/VehWave2/validation-summary.json) |
+| CTrain | `GetDooorAngleOpenRatio` | [Resumen](../reversing/Fn200A/validation-summary.json) |
+| CTrain | `GetDooorAngleOpenRatioU32` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTrain | `InitTrains` | [Resumen](../reversing/TrainInit355/validation-summary.json) |
 | CTrain | `IsInTunnel` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `IsNextStationAllowed` | [Resumen](../reversing/TrainQueries355/validation-summary.json) |
+| CTrain | `IsRoomForPedToLeaveCar` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTrain | `MarkSurroundingEntitiesForCollisionWithTrain` | [Resumen](../reversing/VehWave2/validation-summary.json) |
+| CTrain | `OpenDoor` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTrain | `OpenTrainDoor` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `PlayAnnouncement` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `PreRender` | [Resumen](../reversing/Fn174A/validation-summary.json) |
@@ -9342,12 +9421,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTrain | `RemoveOneMissionTrain` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `RemovePassenger` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `RemoveRandomPassenger` | [Resumen](../reversing/TrainPassenger355/validation-summary.json) |
+| CTrain | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTrain | `SetModelIndex` | [Resumen](../reversing/Fn174A/validation-summary.json) |
 | CTrain | `SetNewTrainPosition` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `SetTrainCruiseSpeed` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `SetTrainSpeed` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `Shutdown` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `SkipToNextAllowedStation` | [Resumen](../reversing/TrainSkip355/validation-summary.json) |
+| CTrain | `Teleport` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CTrain | `TrainHitStuff<CPtrListSingleLink<CPhysical*>>` | [Resumen](../reversing/TrainHit355/validation-summary.json) |
 | CTrain | `UpdateTrains` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrainNode | `GetLightingFromCollision` | [Resumen](../reversing/Misc61/validation-summary.json) |
@@ -9396,6 +9477,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVector | `Cross_OG` | [Resumen](../reversing/Fn129A/validation-summary.json) |
 | CVector | `DefaultConstructor` | [Resumen](../reversing/Fn150A/validation-summary.json) |
 | CVector | `Difference` | [Resumen](../reversing/Fn99A/validation-summary.json) |
+| CVector | `DivideAssignExe` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CVector | `DotProduct-v3d*v3d*` | [Resumen](../reversing/Fn97A/validation-summary.json) |
 | CVector | `FloatTimesVector` | [Resumen](../reversing/Fn97A/validation-summary.json) |
 | CVector | `FromMultiply` | [Resumen](../reversing/Fn101A/validation-summary.json) |
@@ -9431,6 +9513,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `AddWheelDirtAndWater` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `ApplyBoatWaterResistance` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `BladeColSectorList<CPtrListSingleLink<CEntity*>>` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `BlowUpCar` | [Resumen](../reversing/Fn195A/validation-summary.json) |
+| CVehicle | `BurstTyre` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `CalculateLightingFromCollision` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `CanBeDeleted` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `CanBeDriven` | [Resumen](../reversing/CVehA/validation-summary.json) |
@@ -9458,6 +9542,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `Destructor` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `DoBladeCollision` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `DoBoatSplashes` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `DoBurstAndSoftGroundRatios` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `DoDriveByShootings` | [Resumen](../reversing/Veh80A/validation-summary.json) |
 | CVehicle | `DoFixedMachineGuns` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `DoHeadLightBeam` | [Resumen](../reversing/CVehD/validation-summary.json) |
@@ -9473,13 +9558,18 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `FindReplacementUpgradeCB` | [Resumen](../reversing/Dependencies25A/validation-summary.json) |
 | CVehicle | `FindTyreNearestPoint` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `FindUpgradeCB` | [Resumen](../reversing/SmallHelpers64A/validation-summary.json) |
+| CVehicle | `FindWheelWidth` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `FireFixedMachineGuns` | [Resumen](../reversing/Veh80C/validation-summary.json) |
 | CVehicle | `FireHeatSeakingMissile` | [Resumen](../reversing/HeatFire73/validation-summary.json) |
 | CVehicle | `FirePlaneGuns` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `FireUnguidedMissile` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `Fix` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `FlyingControl` | [Resumen](../reversing/Dependencies23B/validation-summary.json) |
+| CVehicle | `GetComponentWorldPosition` | [Resumen](../reversing/Fn195A/validation-summary.json) |
+| CVehicle | `GetDooorAngleOpenRatio` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `GetFiringRateMultiplier` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `GetHeightAboveRoad` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `GetNumContactWheels` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CVehicle | `GetPlaneGunsAutoAimAngle` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `GetPlaneGunsPosition` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `GetPlaneGunsRateOfFire` | [Resumen](../reversing/CVehE/validation-summary.json) |
@@ -9500,12 +9590,22 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `HeightAboveCeiling` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `InflictDamage` | [Resumen](../reversing/Veh83B/validation-summary.json) |
 | CVehicle | `InitWinch` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `IsComponentPresent` | [Resumen](../reversing/Fn195A/validation-summary.json) |
+| CVehicle | `IsDoorClosed` | [Resumen](../reversing/Fn195A/validation-summary.json) |
+| CVehicle | `IsDoorClosedU32` | [Resumen](../reversing/Fn195A/validation-summary.json) |
+| CVehicle | `IsDoorFullyOpen` | [Resumen](../reversing/Fn195A/validation-summary.json) |
+| CVehicle | `IsDoorFullyOpenU32` | [Resumen](../reversing/Fn195A/validation-summary.json) |
+| CVehicle | `IsDoorMissing` | [Resumen](../reversing/Fn195A/validation-summary.json) |
+| CVehicle | `IsDoorMissingU32` | [Resumen](../reversing/Fn195A/validation-summary.json) |
+| CVehicle | `IsDoorReady` | [Resumen](../reversing/Fn195A/validation-summary.json) |
+| CVehicle | `IsDoorReadyU32` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `IsDriver-ModelID` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `IsDriver-Ped` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `IsLawEnforcementVehicle` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `IsOnItsSide` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `IsPassenger-ModelID` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `IsPassenger-Ped` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `IsRoomForPedToLeaveCar` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `IsSphereTouchingVehicle` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `IsUpsideDown` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `IsValidModForVehicle` | [Resumen](../reversing/DependenciesVehicleStats11/validation-summary.json) |
@@ -9517,12 +9617,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `MakeDirty` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `PickRandomPassenger` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `PickUpEntityWithWinch` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `PlayCarHorn` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `PossiblyDropFreeFallBombForPlayer` | [Resumen](../reversing/Vehicle66/validation-summary.json) |
 | CVehicle | `PreRender` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `PreRenderDriverAndPassengers` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `ProcessBikeWheel` | [Resumen](../reversing/Veh83D/validation-summary.json) |
 | CVehicle | `ProcessBoatControl` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `ProcessCarAlarm` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `ProcessControlCollisionCheck` | [Resumen](../reversing/Fn195A/validation-summary.json) |
+| CVehicle | `ProcessControlInputs` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `ProcessDelayedExplosion` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `ProcessDrivingAnims` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `ProcessOpenDoor` | [Resumen](../reversing/CVehD/validation-summary.json) |
@@ -9540,6 +9643,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `RemoveObjectsCB-Frame` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `RemoveObjectsCB-Object` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `RemovePassenger` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `RemoveRefsToVehicle` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `RemoveReplacementUpgrade` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `RemoveUpgrade` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `RemoveUpgradeCB` | [Resumen](../reversing/SmallHelpers64A/validation-summary.json) |
@@ -9549,6 +9653,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `RenderDriverAndPassengers` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `ResetAfterRender` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `Save` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CVehicle | `ScanAndMarkTargetForHeatSeekingMissile` | [Resumen](../reversing/HeatSeek72/validation-summary.json) |
 | CVehicle | `SelectPlaneWeapon` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `SetCollisionLighting` | [Resumen](../reversing/CVehD/validation-summary.json) |
@@ -9563,17 +9668,21 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `SetHasslePosId` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `SetModelIndex` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `SetRemap` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `SetRemapTexDictionary` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `SetRopeHeightForHeli` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `SetTransmissionRotation` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `SetUpDriver` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `SetUpWheelColModel` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `SetVehicleAtomicVisibilityCB-Frame` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `SetVehicleAtomicVisibilityCB-Object` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `SetVehicleCreatedBy` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `SetVehicleUpgradeFlags` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `SetWindowOpenFlag` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `SetupDamageAfterLoad` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `SetupLighting` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `SetupPassenger` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `SetupRender` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `SetupSuspensionLines` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `SetupUpgradesAfterLoad` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `Shutdown` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `SpecialEntityCalcCollisionSteps` | [Resumen](../reversing/CVehE/validation-summary.json) |
@@ -9585,6 +9694,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `UpdateTrailerLink` | [Resumen](../reversing/Veh81A/validation-summary.json) |
 | CVehicle | `UpdateWinch` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `UsesSiren` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `VehicleDamage` | [Resumen](../reversing/Fn196A/validation-summary.json) |
+| CVehicle | `operator delete-anon` | [Resumen](../reversing/Fn196A/validation-summary.json) |
+| CVehicle | `operator delete-poolRef` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CVehicle | `operator new-anon` | [Resumen](../reversing/DependenciesVehicle12/validation-summary.json) |
 | CVehicle | `operator new-poolRef` | [Resumen](../reversing/Fn100A/validation-summary.json) |
 | CVehicleAnimGroup | `ComputeAnimDoorOffsets` | [Resumen](../reversing/Events43/validation-summary.json) |
@@ -9679,6 +9791,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicleModelInfo | `StopUsingCommonVehicleTexDicationary` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
 | CVehicleModelInfo | `StoreAtomicUsedMaterialsCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
 | CVehicleModelInfo | `UseCommonVehicleTexDicationary` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehiclePool | `CreateAtRef` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehiclePool | `GetAt` | [Resumen](../reversing/Dependencies25A/validation-summary.json) |
 | CVehiclePool | `GetAtRef` | [Resumen](../reversing/Fn185A/validation-summary.json) |
 | CVehiclePool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
@@ -9716,6 +9829,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicleSaveStructure | `Destructor` | [Resumen](../reversing/Fn192A/validation-summary.json) |
 | CVehicleSaveStructure | `Extract` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CVehicleScanner | `GetClosestVehicleInRange` | [Resumen](../reversing/Fn109A/validation-summary.json) |
+| CVehicleScanner | `ScanForVehiclesInRange` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CVehicleStructure | `Constructor` | [Resumen](../reversing/Fn203A/validation-summary.json) |
 | CVehicleStructure | `Destructor` | [Resumen](../reversing/Fn203A/validation-summary.json) |
 | CVehicleStructure | `OperatorDelete` | [Resumen](../reversing/Fn203A/validation-summary.json) |
@@ -10402,6 +10516,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Input | `HandleKeyUp` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | Input | `HandlePadButtonDown` | [Resumen](../reversing/Fn176A/validation-summary.json) |
 | Input | `HandlePadButtonUp` | [Resumen](../reversing/Fn176A/validation-summary.json) |
+| Input | `InputShutdown` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | Input | `KeyboardHandler` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | Input | `PadHandler` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | Input | `diPadEnumerate` | [Resumen](../reversing/Fn98A/validation-summary.json) |
@@ -10568,6 +10683,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | ProcSurfaceInfo_c | `IsPtInTriangle2D` | [Resumen](../reversing/Fn186A/validation-summary.json) |
 | ProcSurfaceInfo_c | `ScaleMatrix` | [Resumen](../reversing/Fn146A/validation-summary.json) |
 | Ps | `CheckDirectSound` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `GetCpuExtendedFeatures` | [Resumen](../reversing/Fn196A/validation-summary.json) |
+| Ps | `GetCpuFeaturesAndVendor` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | Ps | `GetDXVersion` | [Resumen](../reversing/Helpers66C/validation-summary.json) |
 | Ps | `GetVideoMemInfo` | [Resumen](../reversing/Ps22/validation-summary.json) |
 | Ps | `InitialiseLanguage` | [Resumen](../reversing/Ps22/validation-summary.json) |
@@ -10854,6 +10971,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | UserTracksLegacyVector | `PushBack` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
 | VectorConstructorIterator | `VectorConstructorIteratorExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | VideoMode | `FreeVideoModeList` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
+| VideoMode | `GetNumVideoModes` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | VideoMode | `GetVideoModeList` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
 | VideoMode | `IsVideoModeExclusive` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
 | VideoMode | `SetVideoMode` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
@@ -10987,10 +11105,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAnimManager` | 32 | 0 | 32 | 0 |
 | `CAnimatedBuilding` | 6 | 0 | 6 | 0 |
 | `CAtomicModelInfo` | 14 | 0 | 14 | 0 |
-| `CAttractorScanner` | 3 | 0 | 3 | 0 |
+| `CAttractorScanner` | 5 | 0 | 5 | 0 |
 | `CAudioEngine` | 83 | 0 | 83 | 0 |
 | `CAudioZones` | 8 | 0 | 8 | 0 |
-| `CAutoPilot` | 2 | 0 | 2 | 0 |
+| `CAutoPilot` | 3 | 0 | 3 | 0 |
 | `CAutomobile` | 104 | 0 | 104 | 0 |
 | `CBaseModelInfo` | 38 | 0 | 38 | 0 |
 | `CBike` | 62 | 0 | 62 | 0 |
@@ -10998,7 +11116,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBmx` | 13 | 0 | 13 | 0 |
 | `CBoat` | 24 | 0 | 24 | 0 |
 | `CBouncingPanel` | 3 | 0 | 3 | 0 |
-| `CBoundingBox` | 5 | 0 | 5 | 0 |
+| `CBoundingBox` | 7 | 0 | 7 | 0 |
 | `CBox` | 3 | 0 | 3 | 0 |
 | `CBridge` | 5 | 0 | 5 | 0 |
 | `CBrightLights` | 4 | 0 | 4 | 0 |
@@ -11029,7 +11147,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CColLine` | 2 | 0 | 2 | 0 |
 | `CColModel` | 12 | 0 | 12 | 0 |
 | `CColModelPool` | 1 | 0 | 1 | 0 |
-| `CColPoint` | 2 | 0 | 2 | 0 |
+| `CColPoint` | 4 | 0 | 4 | 0 |
 | `CColSphere` | 5 | 0 | 5 | 0 |
 | `CColStore` | 29 | 0 | 29 | 0 |
 | `CColTrianglePlane` | 2 | 0 | 2 | 0 |
@@ -11126,7 +11244,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventGunShotWhizzedBy` | 8 | 0 | 8 | 0 |
 | `CEventHandler` | 72 | 0 | 72 | 0 |
 | `CEventHandlerHistory` | 12 | 0 | 12 | 0 |
-| `CEventHealthLow` | 2 | 0 | 2 | 0 |
+| `CEventHealthLow` | 4 | 0 | 4 | 0 |
 | `CEventHealthReallyLow` | 4 | 0 | 4 | 0 |
 | `CEventHighAngerAtPlayer` | 4 | 0 | 4 | 0 |
 | `CEventHitByWaterCannon` | 8 | 0 | 8 | 0 |
@@ -11163,7 +11281,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventScanner` | 3 | 0 | 3 | 0 |
 | `CEventScriptCommand` | 11 | 0 | 11 | 0 |
 | `CEventScriptedAttractor` | 5 | 0 | 5 | 0 |
-| `CEventSeenCop` | 2 | 0 | 2 | 0 |
+| `CEventSeenCop` | 6 | 0 | 6 | 0 |
 | `CEventSeenPanickedPed` | 8 | 0 | 8 | 0 |
 | `CEventSexyPed` | 4 | 0 | 4 | 0 |
 | `CEventSexyVehicle` | 5 | 0 | 5 | 0 |
@@ -11193,6 +11311,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGameLogic` | 27 | 0 | 27 | 0 |
 | `CGamma` | 2 | 0 | 2 | 0 |
 | `CGangWars` | 36 | 0 | 36 | 0 |
+| `CGangWarsSaveStructure` | 2 | 0 | 2 | 0 |
 | `CGangs` | 8 | 0 | 8 | 0 |
 | `CGarage` | 32 | 0 | 32 | 0 |
 | `CGarages` | 30 | 0 | 30 | 0 |
@@ -11233,9 +11352,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CLodTimeModelInfo` | 5 | 0 | 5 | 0 |
 | `CMBlur` | 5 | 0 | 5 | 0 |
 | `CMaths` | 6 | 0 | 6 | 0 |
-| `CMatrix` | 46 | 0 | 46 | 0 |
+| `CMatrix` | 47 | 0 | 47 | 0 |
 | `CMatrixLink` | 2 | 0 | 2 | 0 |
-| `CMatrixLinkList` | 11 | 0 | 11 | 0 |
+| `CMatrixLinkList` | 12 | 0 | 12 | 0 |
 | `CMemoryHeap` | 1 | 0 | 1 | 0 |
 | `CMemoryMgr` | 10 | 0 | 10 | 0 |
 | `CMentalState` | 1 | 0 | 1 | 0 |
@@ -11260,6 +11379,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CObjectPool` | 3 | 0 | 3 | 0 |
 | `CObjectPotentialCollisionScanner` | 1 | 0 | 1 | 0 |
 | `CObjectSaveStructure` | 2 | 0 | 2 | 0 |
+| `CObjectScanner` | 1 | 0 | 1 | 0 |
 | `COccluder` | 3 | 0 | 3 | 0 |
 | `COcclusion` | 5 | 0 | 5 | 0 |
 | `COctTree` | 9 | 0 | 9 | 0 |
@@ -11268,13 +11388,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `COnscreenTimer` | 9 | 0 | 9 | 0 |
 | `COnscreenTimerEntry` | 1 | 0 | 1 | 0 |
 | `CPPTriPlantBuffer` | 7 | 0 | 7 | 0 |
-| `CPad` | 98 | 0 | 98 | 0 |
+| `CPad` | 102 | 0 | 102 | 0 |
 | `CPathFind` | 71 | 0 | 71 | 0 |
 | `CPathNode` | 2 | 0 | 2 | 0 |
-| `CPatrolRoute` | 5 | 0 | 5 | 0 |
+| `CPatrolRoute` | 6 | 0 | 6 | 0 |
 | `CPatrolRoutePool` | 1 | 0 | 1 | 0 |
-| `CPed` | 155 | 0 | 155 | 0 |
-| `CPedAcquaintanceScanner` | 4 | 0 | 4 | 0 |
+| `CPed` | 156 | 0 | 156 | 0 |
+| `CPedAcquaintanceScanner` | 5 | 0 | 5 | 0 |
 | `CPedAttractor` | 44 | 0 | 44 | 0 |
 | `CPedAttractorManager` | 17 | 0 | 17 | 0 |
 | `CPedAttractorPedPlacer` | 1 | 0 | 1 | 0 |
@@ -11315,7 +11435,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPickup` | 12 | 0 | 12 | 0 |
 | `CPickups` | 38 | 0 | 38 | 0 |
 | `CPlaceName` | 2 | 0 | 2 | 0 |
-| `CPlaceable` | 21 | 0 | 21 | 0 |
+| `CPlaceable` | 30 | 0 | 30 | 0 |
 | `CPlane` | 26 | 0 | 26 | 0 |
 | `CPlaneBanners` | 1 | 0 | 1 | 0 |
 | `CPlaneTrail` | 3 | 0 | 3 | 0 |
@@ -11325,6 +11445,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlantMgr` | 20 | 0 | 20 | 0 |
 | `CPlantSurfPropMgr` | 4 | 0 | 4 | 0 |
 | `CPlayerInfo` | 31 | 0 | 31 | 0 |
+| `CPlayerInfoSaveStructure` | 2 | 0 | 2 | 0 |
 | `CPlayerPed` | 71 | 0 | 71 | 0 |
 | `CPlayerPedData` | 5 | 0 | 5 | 0 |
 | `CPlayerRelationshipRecorder` | 6 | 0 | 6 | 0 |
@@ -11340,7 +11461,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CProjectile` | 3 | 0 | 3 | 0 |
 | `CProjectileInfo` | 12 | 0 | 12 | 0 |
 | `CPtrNodeDoubleLinkPool` | 5 | 0 | 5 | 0 |
-| `CPtrNodeSingleLinkPool` | 4 | 0 | 4 | 0 |
+| `CPtrNodeSingleLinkPool` | 5 | 0 | 5 | 0 |
 | `CQuadBike` | 14 | 0 | 14 | 0 |
 | `CQuadTreeNode<T>` | 20 | 0 | 20 | 0 |
 | `CQuaternion` | 10 | 0 | 10 | 0 |
@@ -11393,7 +11514,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CStencilShadows` | 14 | 0 | 14 | 0 |
 | `CStoredCar` | 2 | 0 | 2 | 0 |
 | `CStreamedScripts` | 12 | 0 | 12 | 0 |
-| `CStreaming` | 108 | 0 | 108 | 0 |
+| `CStreaming` | 109 | 0 | 109 | 0 |
 | `CStreamingInfo` | 7 | 0 | 7 | 0 |
 | `CStuckCarCheck` | 9 | 0 | 9 | 0 |
 | `CStuntJumpManager` | 13 | 0 | 13 | 0 |
@@ -11435,7 +11556,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexDieInCar` | 11 | 0 | 11 | 0 |
 | `CTaskComplexDiveFromAttachedEntityAndGetUp` | 8 | 0 | 8 | 0 |
 | `CTaskComplexDragPedFromCar` | 7 | 0 | 7 | 0 |
-| `CTaskComplexDriveFireTruck` | 8 | 0 | 8 | 0 |
+| `CTaskComplexDriveFireTruck` | 9 | 0 | 9 | 0 |
 | `CTaskComplexDrivePointRoute` | 8 | 0 | 8 | 0 |
 | `CTaskComplexDriveToPoint` | 10 | 0 | 10 | 0 |
 | `CTaskComplexEnterAnyCarAsDriver` | 8 | 0 | 8 | 0 |
@@ -11452,9 +11573,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexExtinguishFireOnFoot` | 9 | 0 | 9 | 0 |
 | `CTaskComplexExtinguishFires` | 9 | 0 | 9 | 0 |
 | `CTaskComplexFacial` | 11 | 0 | 11 | 0 |
-| `CTaskComplexFallAndGetUp` | 12 | 0 | 12 | 0 |
+| `CTaskComplexFallAndGetUp` | 13 | 0 | 13 | 0 |
 | `CTaskComplexFallAndStayDown` | 12 | 0 | 12 | 0 |
-| `CTaskComplexFallToDeath` | 9 | 0 | 9 | 0 |
+| `CTaskComplexFallToDeath` | 10 | 0 | 10 | 0 |
 | `CTaskComplexFleeAnyMeans` | 9 | 0 | 9 | 0 |
 | `CTaskComplexFleeEntity` | 9 | 0 | 9 | 0 |
 | `CTaskComplexFleePoint` | 12 | 0 | 12 | 0 |
@@ -11462,29 +11583,29 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexFollowLeaderAnyMeans` | 9 | 0 | 9 | 0 |
 | `CTaskComplexFollowLeaderInFormation` | 11 | 0 | 11 | 0 |
 | `CTaskComplexFollowNodeRoute` | 20 | 0 | 20 | 0 |
-| `CTaskComplexFollowPatrolRoute` | 1 | 0 | 1 | 0 |
+| `CTaskComplexFollowPatrolRoute` | 2 | 0 | 2 | 0 |
 | `CTaskComplexFollowPedFootsteps` | 10 | 0 | 10 | 0 |
 | `CTaskComplexFollowPointRoute` | 15 | 0 | 15 | 0 |
 | `CTaskComplexGangFollower` | 11 | 0 | 11 | 0 |
 | `CTaskComplexGangJoinRespond` | 9 | 0 | 9 | 0 |
 | `CTaskComplexGangLeader` | 16 | 0 | 16 | 0 |
 | `CTaskComplexGetOnBoatSeat` | 9 | 0 | 9 | 0 |
-| `CTaskComplexGetUpAndStandStill` | 8 | 0 | 8 | 0 |
+| `CTaskComplexGetUpAndStandStill` | 9 | 0 | 9 | 0 |
 | `CTaskComplexGoPickUpEntity` | 8 | 0 | 8 | 0 |
 | `CTaskComplexGoToAttractor` | 9 | 0 | 9 | 0 |
 | `CTaskComplexGoToBoatSteeringWheel` | 10 | 0 | 10 | 0 |
 | `CTaskComplexGoToCarDoorAndStandStill` | 12 | 0 | 12 | 0 |
 | `CTaskComplexGoToPointAiming` | 9 | 0 | 9 | 0 |
-| `CTaskComplexGoToPointAndStandStill` | 9 | 0 | 9 | 0 |
+| `CTaskComplexGoToPointAndStandStill` | 12 | 0 | 12 | 0 |
 | `CTaskComplexGoToPointAndStandStillAndAchieveHeading` | 9 | 0 | 9 | 0 |
-| `CTaskComplexGoToPointAndStandStillTimed` | 6 | 0 | 6 | 0 |
+| `CTaskComplexGoToPointAndStandStillTimed` | 7 | 0 | 7 | 0 |
 | `CTaskComplexGoToPointAnyMeans` | 9 | 0 | 9 | 0 |
 | `CTaskComplexGoToPointShooting` | 5 | 0 | 5 | 0 |
 | `CTaskComplexGotoDoorAndOpen` | 10 | 0 | 10 | 0 |
 | `CTaskComplexHitByGunResponse` | 9 | 0 | 9 | 0 |
 | `CTaskComplexHitPedWithCar` | 12 | 0 | 12 | 0 |
 | `CTaskComplexHitResponse` | 8 | 0 | 8 | 0 |
-| `CTaskComplexInAirAndLand` | 7 | 0 | 7 | 0 |
+| `CTaskComplexInAirAndLand` | 8 | 0 | 8 | 0 |
 | `CTaskComplexInWater` | 7 | 0 | 7 | 0 |
 | `CTaskComplexInvestigateDeadPed` | 10 | 0 | 10 | 0 |
 | `CTaskComplexInvestigateDisturbance` | 8 | 0 | 8 | 0 |
@@ -11504,7 +11625,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexLeaveCarAndFlee` | 9 | 0 | 9 | 0 |
 | `CTaskComplexLeaveCarAndWander` | 9 | 0 | 9 | 0 |
 | `CTaskComplexLeaveCarAsPassengerWait` | 11 | 0 | 11 | 0 |
-| `CTaskComplexMedicTreatInjuredPed` | 10 | 0 | 10 | 0 |
+| `CTaskComplexMedicTreatInjuredPed` | 12 | 0 | 12 | 0 |
 | `CTaskComplexMoveBackAndJump` | 9 | 0 | 9 | 0 |
 | `CTaskComplexObserveTrafficLights` | 9 | 0 | 9 | 0 |
 | `CTaskComplexObserveTrafficLightsAndAchieveHeading` | 10 | 0 | 10 | 0 |
@@ -11519,8 +11640,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexPassObject` | 10 | 0 | 10 | 0 |
 | `CTaskComplexPlayHandSignalAnim` | 10 | 0 | 10 | 0 |
 | `CTaskComplexPolicePursuit` | 14 | 0 | 14 | 0 |
+| `CTaskComplexPresentIDToCop` | 10 | 0 | 10 | 0 |
 | `CTaskComplexProstituteSolicit` | 12 | 0 | 12 | 0 |
-| `CTaskComplexReactToAttack` | 8 | 0 | 8 | 0 |
+| `CTaskComplexReactToAttack` | 10 | 0 | 10 | 0 |
 | `CTaskComplexReactToGunAimedAt` | 9 | 0 | 9 | 0 |
 | `CTaskComplexRoadRage` | 10 | 0 | 10 | 0 |
 | `CTaskComplexScreamInCarThenLeave` | 10 | 0 | 10 | 0 |
@@ -11530,8 +11652,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexSeekEntityAiming` | 8 | 0 | 8 | 0 |
 | `CTaskComplexSeekEntityAnyMeansXYOffset` | 6 | 0 | 6 | 0 |
 | `CTaskComplexSeekEntityRadiusAngleOffset` | 9 | 0 | 9 | 0 |
-| `CTaskComplexSeekEntityStandard` | 10 | 0 | 10 | 0 |
-| `CTaskComplexSequence` | 15 | 0 | 15 | 0 |
+| `CTaskComplexSeekEntityStandard` | 11 | 0 | 11 | 0 |
+| `CTaskComplexSequence` | 16 | 0 | 16 | 0 |
 | `CTaskComplexShuffleSeats` | 11 | 0 | 11 | 0 |
 | `CTaskComplexSignalAtPed` | 8 | 0 | 8 | 0 |
 | `CTaskComplexSitDownThenIdleThenStandUp` | 10 | 0 | 10 | 0 |
@@ -11539,12 +11661,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexSmartFleePoint` | 13 | 0 | 13 | 0 |
 | `CTaskComplexStareAtPed` | 8 | 0 | 8 | 0 |
 | `CTaskComplexStealCar` | 9 | 0 | 9 | 0 |
-| `CTaskComplexStuckInAir` | 8 | 0 | 8 | 0 |
+| `CTaskComplexStuckInAir` | 9 | 0 | 9 | 0 |
 | `CTaskComplexSunbathe` | 13 | 0 | 13 | 0 |
 | `CTaskComplexTrackEntity` | 12 | 0 | 12 | 0 |
 | `CTaskComplexTreatAccident` | 10 | 0 | 10 | 0 |
 | `CTaskComplexTurnToFaceEntityOrCoord` | 9 | 0 | 9 | 0 |
-| `CTaskComplexUseAttractor` | 7 | 0 | 7 | 0 |
+| `CTaskComplexUseAttractor` | 8 | 0 | 8 | 0 |
 | `CTaskComplexUseAttractorPartner` | 8 | 0 | 8 | 0 |
 | `CTaskComplexUseClosestFreeScriptedAttractor` | 9 | 0 | 9 | 0 |
 | `CTaskComplexUseClosestFreeScriptedAttractorRun` | 5 | 0 | 5 | 0 |
@@ -11560,7 +11682,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexUseSequence` | 8 | 0 | 8 | 0 |
 | `CTaskComplexUseSwatRope` | 13 | 0 | 13 | 0 |
 | `CTaskComplexUseWaterCannon` | 8 | 0 | 8 | 0 |
-| `CTaskComplexWaitAtAttractor` | 7 | 0 | 7 | 0 |
+| `CTaskComplexWaitAtAttractor` | 8 | 0 | 8 | 0 |
 | `CTaskComplexWaitForBackup` | 9 | 0 | 9 | 0 |
 | `CTaskComplexWaitForBus` | 8 | 0 | 8 | 0 |
 | `CTaskComplexWaitForDryWeather` | 8 | 0 | 8 | 0 |
@@ -11645,15 +11767,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleEvasiveDive` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleEvasiveStep` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleFacial` | 8 | 0 | 8 | 0 |
-| `CTaskSimpleFall` | 9 | 0 | 9 | 0 |
+| `CTaskSimpleFall` | 10 | 0 | 10 | 0 |
 | `CTaskSimpleFight` | 27 | 0 | 27 | 0 |
 | `CTaskSimpleFightingControl` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleFinishBrain` | 5 | 0 | 5 | 0 |
 | `CTaskSimpleGangDriveBy` | 13 | 0 | 13 | 0 |
-| `CTaskSimpleGetUp` | 7 | 0 | 7 | 0 |
+| `CTaskSimpleGetUp` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleGiveCPR` | 9 | 0 | 9 | 0 |
-| `CTaskSimpleGoTo` | 6 | 0 | 6 | 0 |
-| `CTaskSimpleGoToPoint` | 6 | 0 | 6 | 0 |
+| `CTaskSimpleGoTo` | 7 | 0 | 7 | 0 |
+| `CTaskSimpleGoToPoint` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleGoToPointFine` | 12 | 0 | 12 | 0 |
 | `CTaskSimpleGunControl` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleHandsUp` | 5 | 0 | 5 | 0 |
@@ -11674,11 +11796,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleIKLookAt` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleIKManager` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleIKPointArm` | 7 | 0 | 7 | 0 |
-| `CTaskSimpleInAir` | 8 | 0 | 8 | 0 |
+| `CTaskSimpleInAir` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleJetPack` | 15 | 0 | 15 | 0 |
 | `CTaskSimpleJump` | 11 | 0 | 11 | 0 |
 | `CTaskSimpleKillPedWithCar` | 9 | 0 | 9 | 0 |
-| `CTaskSimpleLand` | 9 | 0 | 9 | 0 |
+| `CTaskSimpleLand` | 10 | 0 | 10 | 0 |
 | `CTaskSimpleLeaveGroup` | 2 | 0 | 2 | 0 |
 | `CTaskSimpleLookAbout` | 5 | 0 | 5 | 0 |
 | `CTaskSimpleNone` | 5 | 0 | 5 | 0 |
@@ -11733,25 +11855,25 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTimeCycle` | 20 | 0 | 20 | 0 |
 | `CTimeInfo` | 6 | 0 | 6 | 0 |
 | `CTimeModelInfo` | 5 | 0 | 5 | 0 |
-| `CTimer` | 16 | 0 | 16 | 0 |
+| `CTimer` | 17 | 0 | 17 | 0 |
 | `CTrafficLights` | 12 | 0 | 12 | 0 |
 | `CTrailer` | 16 | 0 | 16 | 0 |
-| `CTrain` | 43 | 0 | 43 | 0 |
+| `CTrain` | 49 | 0 | 49 | 0 |
 | `CTrainNode` | 2 | 0 | 2 | 0 |
 | `CTxdStore` | 33 | 0 | 33 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
-| `CVector` | 23 | 0 | 23 | 0 |
+| `CVector` | 24 | 0 | 24 | 0 |
 | `CVector2D` | 2 | 0 | 2 | 0 |
-| `CVehicle` | 170 | 0 | 170 | 0 |
+| `CVehicle` | 200 | 0 | 200 | 0 |
 | `CVehicleAnimGroup` | 6 | 0 | 6 | 0 |
 | `CVehicleAnimGroupData` | 6 | 0 | 6 | 0 |
 | `CVehicleModelInfo` | 80 | 0 | 80 | 0 |
-| `CVehiclePool` | 3 | 0 | 3 | 0 |
+| `CVehiclePool` | 4 | 0 | 4 | 0 |
 | `CVehiclePotentialCollisionScanner` | 1 | 0 | 1 | 0 |
 | `CVehicleRecording` | 29 | 0 | 29 | 0 |
 | `CVehicleSaveStructure` | 3 | 0 | 3 | 0 |
-| `CVehicleScanner` | 1 | 0 | 1 | 0 |
+| `CVehicleScanner` | 2 | 0 | 2 | 0 |
 | `CVehicleStructure` | 5 | 0 | 5 | 0 |
 | `CVisibilityPlugins` | 84 | 0 | 84 | 0 |
 | `CWanted` | 35 | 0 | 35 | 0 |
@@ -11801,7 +11923,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `Game` | 12 | 0 | 12 | 0 |
 | `IKChainManager_c` | 17 | 0 | 17 | 0 |
 | `IKChain_c` | 20 | 0 | 20 | 0 |
-| `Input` | 10 | 0 | 10 | 0 |
+| `Input` | 11 | 0 | 11 | 0 |
 | `InteriorGroup_c` | 24 | 0 | 24 | 0 |
 | `InteriorManager_c` | 23 | 0 | 23 | 0 |
 | `Interior_c` | 53 | 0 | 53 | 0 |
@@ -11814,7 +11936,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `ProcObjectListItem` | 1 | 0 | 1 | 0 |
 | `ProcObjectMan_c` | 10 | 0 | 10 | 0 |
 | `ProcSurfaceInfo_c` | 7 | 0 | 7 | 0 |
-| `Ps` | 23 | 0 | 23 | 0 |
+| `Ps` | 25 | 0 | 25 | 0 |
 | `RenderBuffer` | 4 | 0 | 4 | 0 |
 | `RpAnimBlend` | 47 | 0 | 47 | 0 |
 | `RpAnisot` | 3 | 0 | 3 | 0 |
@@ -11833,7 +11955,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `TList_c` | 3 | 0 | 3 | 0 |
 | `UserTracksLegacyVector` | 1 | 0 | 1 | 0 |
 | `VectorConstructorIterator` | 1 | 0 | 1 | 0 |
-| `VideoMode` | 4 | 0 | 4 | 0 |
+| `VideoMode` | 5 | 0 | 5 | 0 |
 | `VideoPlayer` | 7 | 0 | 7 | 0 |
 | `WaterCreatureManager_c` | 7 | 0 | 7 | 0 |
 | `WaterCreature_c` | 4 | 0 | 4 | 0 |
