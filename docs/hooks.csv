@@ -12123,3 +12123,16 @@ RpWorld,RxD3D9AllInOneSetInstanceCallBack,0x00757380,1,0,0,S
 RpWorld,RxD3D9AllInOneGetInstanceCallBack,0x00757390,1,0,0,S
 RpWorld,RxD3D9AllInOneSetReinstanceCallBack,0x007573A0,1,0,0,S
 RpWorld,RxD3D9AllInOneGetReinstanceCallBack,0x007573B0,1,0,0,S
+RpWorld,RxD3D9AllInOneSetRenderCallBack,0x007573E0,1,0,0,S
+RpWorld,D3D9AtomicDefaultInstanceCallback,0x007578C0,1,0,0,S
+RpWorld,RxNodeDefinitionGetD3D9AtomicAllInOne,0x007582E0,1,0,0,S
+RpWorld,D3D9GeometryPluginAttach,0x007587D0,1,0,0,S
+RpWorld,RpD3D9GeometrySetUsageFlags,0x007588B0,1,0,0,S
+RpWorld,_rpBuildMeshCreate,0x00758A90,1,0,0,S
+RpWorld,_rpBuildMeshDestroy,0x00758B80,1,0,0,S
+RpWorld,_rpMeshDestroy,0x00758BC0,1,0,0,S
+RpWorld,_rpBuildMeshAddTriangle,0x00758C00,1,0,0,S
+RpWorld,_rpMeshHeaderForAllMeshes,0x00758D30,1,0,0,S
+RpWorld,_rpMeshWrite,0x00758D70,1,0,0,S
+RpWorld,_rpMeshRead,0x00758EC0,1,0,0,S
+RpWorld,_rpMeshSize,0x00759090,1,0,0,S

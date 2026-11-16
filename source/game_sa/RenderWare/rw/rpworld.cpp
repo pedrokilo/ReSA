@@ -26,6 +26,7 @@ END GENERATED HOOK STATUS */
 // Direcciones del EXE usadas por las funciones de este archivo.
 namespace {
 constexpr uintptr_t kWorldSectorPluginRegistry   = 0x8D736C; // RpWorldSector: lista de plugins
+constexpr uintptr_t kD3D9AtomicAllInOneNode      = 0x8D6338; // RxNodeDefinition estatica de D3D9AtomicAllInOne
 constexpr uintptr_t kD3D9WorldSectorAllInOneNode = 0x8D63B8; // RxNodeDefinition estatica de D3D9WorldSectorAllInOne
 constexpr RwUInt32  kMeshHeaderMemoryHint        = 0x30502;  // rwMEMHINTDUR_GLOBAL | 0x0502
 constexpr RwUInt32  kGeometryMemoryHint          = 0x3000F;  // RpGeometry y su bloque de morph targets
@@ -221,8 +222,9 @@ RxNodeDefinition* RxNodeDefinitionGetD3D9WorldSectorAllInOne() {
     return reinterpret_cast<RxNodeDefinition*>(kD3D9WorldSectorAllInOneNode);
 }
 
+// 0x7582E0 (lote R18A, sin validar; sustituye la envoltura): `mov eax, 0x8D6338; ret`; devuelve la direccion de la definicion estatica del EXE, sin leer ni escribir nada.
 RxNodeDefinition* RxNodeDefinitionGetD3D9AtomicAllInOne() {
-    return ((RxNodeDefinition*(__cdecl *)(void))0x7582E0)();
+    return reinterpret_cast<RxNodeDefinition*>(kD3D9AtomicAllInOneNode);
 }
 
 void RpMaterialSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
@@ -623,36 +625,239 @@ RwInt16 _rpMeshGetNextSerialNumber(void) {
     return ((RwInt16(__cdecl *)(void))0x7590E0)();
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
+// Lote R18A (sin validar): mallas de RpWorld (RpBuildMesh, RpMeshHeader). Estado global: lista libre de RpBuildMesh en 0xC926F0; desplazamiento del contador
+// de serie de mallas dentro de RwEngineInstance en 0xC9B8C0.
+// ---------------------------------------------------------------------------------------------------------------------
+namespace {
+constexpr RwUInt32 kBuildMeshFreeListHint = 0x30502;   // RpBuildMesh (lista libre) y RpMeshHeader leido
+constexpr RwUInt32 kBuildMeshBufferHint   = 0x1030502; // triangulos del RpBuildMesh
+constexpr RwUInt32 kMeshStreamChunk       = 0x100;     // indices por lectura/escritura de flujo
+}
+static auto& s_buildMeshFreeList = StaticRef<RwFreeList*>(0xC926F0);
+static auto& s_meshSerialOffset  = StaticRef<RwUInt32>(0xC9B8C0);
+static_assert(sizeof(RpBuildMeshTriangle) == 0x14 && offsetof(RpBuildMeshTriangle, material) == 0x8 && offsetof(RpBuildMeshTriangle, matIndex) == 0xC);
+static_assert(offsetof(RpBuildMeshTriangle, textureIndex) == 0xE && offsetof(RpBuildMeshTriangle, rasterIndex) == 0x10 && offsetof(RpBuildMeshTriangle, pipelineIndex) == 0x12);
+static_assert(sizeof(RpBuildMesh) == 0xC && sizeof(RpMesh) == 0xC && sizeof(RpMeshHeader) == 0x10 && offsetof(RpMeshHeader, firstMeshOffset) == 0xC);
+
+namespace {
+// El objeto de la malla es una geometria (tipo 8) o un sector (tipo 7). Con rpGEOMETRYNATIVE (0x1000000 en +0x8) los indices no viajan en el flujo.
+inline bool MeshObjectIsKnownType(const void* object) {
+    const RwUInt8 type = *static_cast<const RwUInt8*>(object);
+    return type == 8 || type == 7;
+}
+inline bool MeshObjectIsNative(const void* object) {
+    const RwUInt32 flags = *reinterpret_cast<const RwUInt32*>(static_cast<const uint8_t*>(object) + 8);
+    return MeshObjectIsKnownType(object) && (flags & 0x1000000u) != 0;
+}
+inline bool MeshObjectStoresIndices(const void* object) {
+    const RwUInt32 flags = *reinterpret_cast<const RwUInt32*>(static_cast<const uint8_t*>(object) + 8);
+    return MeshObjectIsKnownType(object) && (flags & 0x1000000u) == 0;
+}
+}
+
+// 0x758A90 (lote R18A, sin validar; sustituye la envoltura; cdecl, 1 argumento, 234 bytes): reserva un RpBuildMesh de la lista libre 0xC926F0 (pista 0x30502); si falla pone el error
+// 0x80000013 con 0xC y devuelve NULL. numTriangles = 0; con bufferSize != 0 reserva bufferSize * 20 bytes (RwMalloc, pista 0x1030502): si falla devuelve el RpBuildMesh a la lista
+// libre, error 0x80000013 con el tamano y NULL; si no triangleBufferSize = bufferSize. Con bufferSize == 0: meshTriangles = NULL y triangleBufferSize = 0.
 RpBuildMesh* _rpBuildMeshCreate(RwUInt32 bufferSize) {
-    return ((RpBuildMesh*(__cdecl *)(RwUInt32))0x758A90)(bufferSize);
+    RpBuildMesh* const mesh = static_cast<RpBuildMesh*>(RwFreeListAlloc(s_buildMeshFreeList, kBuildMeshFreeListHint));
+    if (mesh == nullptr) {
+        RaiseRwError(kErrorNoMemory, 0xC);
+        return nullptr;
+    }
+    mesh->numTriangles = 0;
+    if (bufferSize != 0) {
+        const RwUInt32 bytes = bufferSize * 20;
+        mesh->meshTriangles = static_cast<RpBuildMeshTriangle*>(RwMalloc(bytes, kBuildMeshBufferHint));
+        if (mesh->meshTriangles == nullptr) {
+            RwFreeListFree(s_buildMeshFreeList, mesh);
+            RaiseRwError(kErrorNoMemory, bytes);
+            return nullptr;
+        }
+        mesh->triangleBufferSize = bufferSize;
+        return mesh;
+    }
+    mesh->meshTriangles      = nullptr;
+    mesh->triangleBufferSize = 0;
+    return mesh;
 }
 
+// 0x758B80 (lote R18A, sin validar; sustituye la envoltura; cdecl, 1 argumento, 64 bytes): libera meshTriangles con RwFree si no es NULL (y lo pone a NULL), devuelve el RpBuildMesh a la
+// lista libre 0xC926F0 y devuelve TRUE.
 RwBool _rpBuildMeshDestroy(RpBuildMesh* mesh) {
-    return ((RwBool(__cdecl *)(RpBuildMesh*))0x758B80)(mesh);
+    if (mesh->meshTriangles != nullptr) {
+        RwFree(mesh->meshTriangles);
+        mesh->meshTriangles = nullptr;
+    }
+    RwFreeListFree(s_buildMeshFreeList, mesh);
+    return TRUE;
 }
 
+// 0x758BC0 (lote R18A, sin validar; sustituye la envoltura; cdecl, 1 argumento, 58 bytes): libera la cabecera con RwFree salvo que sus cinco campos (flags, numMeshes, serialNum,
+// totalIndicesInMesh, firstMeshOffset) sean todos cero. Devuelve TRUE.
 RwBool _rpMeshDestroy(RpMeshHeader* mesh) {
-    return ((RwBool(__cdecl *)(RpMeshHeader*))0x758BC0)(mesh);
+    if (!(mesh->flags == 0 && mesh->numMeshes == 0 && mesh->serialNum == 0 && mesh->totalIndicesInMesh == 0 && mesh->firstMeshOffset == 0)) {
+        RwFree(mesh);
+    }
+    return TRUE;
 }
 
+// 0x758C00 (lote R18A, sin validar; sustituye la envoltura; cdecl, 9 argumentos, 291 bytes): anade un triangulo al RpBuildMesh. Con numTriangles >= triangleBufferSize pide
+// (numTriangles + 1) * 20 bytes: RwRealloc (si numTriangles != 0) o RwMalloc (pista 0x1030502); si falla error 0x80000013 con el tamano y NULL; si va bien meshTriangles = bloque y
+// triangleBufferSize = numTriangles + 1 (crece de uno en uno). Escribe indices de vertice (16 bits), material, matIndex, textureIndex, rasterIndex y pipelineIndex (16 bits) en el
+// triangulo numTriangles, incrementa numTriangles y devuelve la malla.
 RpBuildMesh* _rpBuildMeshAddTriangle(RpBuildMesh* mesh, RpMaterial* material, RwInt32 vert1, RwInt32 vert2, RwInt32 vert3, RwUInt16 matIndex, RwUInt16 textureIndex, RwUInt16 rasterIndex, RwUInt16 pipelineIndex) {
-    return ((RpBuildMesh*(__cdecl *)(RpBuildMesh*, RpMaterial*, RwInt32, RwInt32, RwInt32, RwUInt16, RwUInt16, RwUInt16, RwUInt16))0x758C00)(mesh, material, vert1, vert2, vert3, matIndex, textureIndex, rasterIndex, pipelineIndex);
+    if (mesh->numTriangles >= mesh->triangleBufferSize) {
+        const RwUInt32 bytes = (mesh->numTriangles + 1) * 20;
+        void* block;
+        if (mesh->numTriangles != 0) {
+            block = RwRealloc(mesh->meshTriangles, bytes, kBuildMeshBufferHint);
+        } else {
+            block = RwMalloc(bytes, kBuildMeshBufferHint);
+        }
+        if (block == nullptr) {
+            RaiseRwError(kErrorNoMemory, bytes);
+            return nullptr;
+        }
+        mesh->meshTriangles      = static_cast<RpBuildMeshTriangle*>(block);
+        mesh->triangleBufferSize = mesh->numTriangles + 1;
+    }
+    RpBuildMeshTriangle* const triangle = &mesh->meshTriangles[mesh->numTriangles];
+    triangle->material      = material;
+    triangle->vertIndex[0]  = static_cast<RwUInt16>(vert1);
+    triangle->vertIndex[1]  = static_cast<RwUInt16>(vert2);
+    triangle->vertIndex[2]  = static_cast<RwUInt16>(vert3);
+    triangle->matIndex      = matIndex;
+    triangle->textureIndex  = textureIndex;
+    triangle->rasterIndex   = rasterIndex;
+    triangle->pipelineIndex = pipelineIndex;
+    mesh->numTriangles++;
+    return mesh;
 }
 
+// 0x758D30 (lote R18A, sin validar; sustituye la envoltura; cdecl, 3 argumentos, 58 bytes): recorre las numMeshes mallas (RpMesh de 12 bytes que empiezan en cabecera + 0x10 +
+// firstMeshOffset) llamando a callback(malla, cabecera, datos); se detiene si devuelve NULL. Devuelve la cabecera.
 RpMeshHeader* _rpMeshHeaderForAllMeshes(RpMeshHeader* meshHeader, RpMeshCallBack fpCallBack, void* data) {
-    return ((RpMeshHeader*(__cdecl *)(RpMeshHeader*, RpMeshCallBack, void*))0x758D30)(meshHeader, fpCallBack, data);
+    RpMesh* mesh = reinterpret_cast<RpMesh*>(reinterpret_cast<uint8_t*>(meshHeader) + meshHeader->firstMeshOffset + 0x10);
+    RwUInt32 remaining = meshHeader->numMeshes;
+    while (remaining != 0) {
+        --remaining;
+        if (fpCallBack(mesh, meshHeader, data) == nullptr) {
+            break;
+        }
+        ++mesh;
+    }
+    return meshHeader;
 }
 
+// 0x758D70 (lote R18A, sin validar; sustituye la envoltura; cdecl, 4 argumentos, 329 bytes): escribe la cabecera {flags, numMeshes (32 bits), totalIndicesInMesh} (12 bytes) con
+// RwStreamWriteInt32 (0x7ED460) y, por malla (desde cabecera + 0x10, SIN sumar firstMeshOffset, como el EXE), {numIndices, indice del material en matList (negativo -> 0)} (8 bytes,
+// _rpMaterialListFindMaterialIndex) y, si el objeto no es nativo (tipo 8 o 7 sin 0x1000000), los indices como dwords en bloques de 0x100. Cualquier escritura que devuelva NULL
+// da NULL. Devuelve el flujo.
 RwStream* _rpMeshWrite(const RpMeshHeader* meshHeader, const void* object, RwStream* stream, const RpMaterialList* matList) {
-    return ((RwStream*(__cdecl *)(const RpMeshHeader*, const void*, RwStream*, const RpMaterialList*))0x758D70)(meshHeader, object, stream, matList);
+    struct { RwUInt32 flags; RwUInt32 numMeshes; RwUInt32 totalIndices; } header = { meshHeader->flags, meshHeader->numMeshes, meshHeader->totalIndicesInMesh };
+    if (RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&header), 12) == nullptr) {
+        return nullptr;
+    }
+    const RpMesh* mesh = reinterpret_cast<const RpMesh*>(reinterpret_cast<const uint8_t*>(meshHeader) + 0x10);
+    RwUInt32 remaining = meshHeader->numMeshes;
+    while (remaining != 0) {
+        --remaining;
+        struct { RwUInt32 numIndices; RwInt32 matIndex; } entry;
+        entry.numIndices = mesh->numIndices;
+        entry.matIndex   = _rpMaterialListFindMaterialIndex(matList, mesh->material);
+        if (entry.matIndex < 0) {
+            entry.matIndex = 0;
+        }
+        if (RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&entry), 8) == nullptr) {
+            return nullptr;
+        }
+        if (MeshObjectStoresIndices(object)) {
+            RwUInt32 left = mesh->numIndices;
+            const RxVertexIndex* source = mesh->indices;
+            while (left != 0) {
+                RwInt32 chunk[kMeshStreamChunk];
+                const RwUInt32 count = left < kMeshStreamChunk ? left : kMeshStreamChunk;
+                for (RwUInt32 i = 0; i < count; ++i) {
+                    chunk[i] = static_cast<RwInt32>(source[i]);
+                }
+                source += count;
+                if (RwStreamWriteInt32(stream, chunk, count * 4) == nullptr) {
+                    return nullptr;
+                }
+                left -= count;
+            }
+        }
+        ++mesh;
+    }
+    return stream;
 }
 
+// 0x758EC0 (lote R18A, sin validar; sustituye la envoltura; cdecl, 3 argumentos, 462 bytes): lee {flags, numMeshes, totalIndicesInMesh} (RwStreamReadInt32 0x7ED540; NULL -> NULL).
+// Reserva (numMeshes + 1) * 16 bytes (+ totalIndicesInMesh * 2 si el objeto no es nativo; RwMalloc, pista 0x30502; sin error si falla: devuelve NULL). Rellena la cabecera:
+// flags, numMeshes (16 bits), serialNum = contador de serie global (RwEngineInstance + [0xC9B8C0], 16 bits, que luego se incrementa), totalIndicesInMesh y firstMeshOffset = 0. Por
+// malla (a partir de cabecera + 0x10; los indices van tras las numMeshes mallas de 12 bytes) lee {numIndices, indice de material}: numIndices, material =
+// _rpMaterialListGetMaterial(matList, indice), indices = cursor, y si el objeto no es nativo lee los indices como dwords en bloques de 0x100 y los guarda como 16 bits. Un fallo de
+// lectura devuelve NULL (sin liberar la cabecera, como el EXE). Devuelve la cabecera.
 RpMeshHeader* _rpMeshRead(RwStream* stream, const void* object, const RpMaterialList* matList) {
-    return ((RpMeshHeader*(__cdecl *)(RwStream*, const void*, const RpMaterialList*))0x758EC0)(stream, object, matList);
+    struct { RwUInt32 flags; RwUInt32 numMeshes; RwUInt32 totalIndices; } info;
+    if (RwStreamReadInt32(stream, reinterpret_cast<RwInt32*>(&info), 12) == nullptr) {
+        return nullptr;
+    }
+    const bool withIndices = MeshObjectStoresIndices(object);
+    RwUInt32 size = (info.numMeshes + 1) << 4;
+    if (withIndices) {
+        size = size + info.totalIndices * 2;
+    }
+    RpMeshHeader* const header = static_cast<RpMeshHeader*>(RwMalloc(size, kBuildMeshFreeListHint));
+    if (header == nullptr) {
+        return nullptr;
+    }
+    RpMesh* mesh = reinterpret_cast<RpMesh*>(reinterpret_cast<uint8_t*>(header) + 0x10);
+    header->flags     = info.flags;
+    header->numMeshes = static_cast<RwUInt16>(info.numMeshes);
+    RxVertexIndex* indexCursor = reinterpret_cast<RxVertexIndex*>(mesh + info.numMeshes);
+    RwUInt16& serial = *reinterpret_cast<RwUInt16*>(reinterpret_cast<uintptr_t>(static_cast<RwGlobals*>(RwEngineInstance)) + static_cast<uintptr_t>(s_meshSerialOffset));
+    header->serialNum          = serial;
+    header->totalIndicesInMesh = info.totalIndices;
+    header->firstMeshOffset    = 0;
+    serial = static_cast<RwUInt16>(serial + 1);
+    RwUInt32 remaining = header->numMeshes;
+    while (remaining != 0) {
+        --remaining;
+        struct { RwUInt32 numIndices; RwInt32 matIndex; } entry;
+        if (RwStreamReadInt32(stream, reinterpret_cast<RwInt32*>(&entry), 8) == nullptr) {
+            return nullptr;
+        }
+        mesh->numIndices = entry.numIndices;
+        mesh->material   = _rpMaterialListGetMaterial(matList, entry.matIndex);
+        mesh->indices    = indexCursor;
+        if (withIndices) {
+            RwUInt32 left = mesh->numIndices;
+            while (left != 0) {
+                RwInt32 chunk[kMeshStreamChunk];
+                const RwUInt32 count = left < kMeshStreamChunk ? left : kMeshStreamChunk;
+                if (RwStreamReadInt32(stream, chunk, count * 4) == nullptr) {
+                    return nullptr;
+                }
+                left -= count;
+                for (RwUInt32 i = 0; i < count; ++i) {
+                    *indexCursor++ = static_cast<RxVertexIndex>(chunk[i]);
+                }
+            }
+        }
+        ++mesh;
+    }
+    return header;
 }
 
+// 0x759090 (lote R18A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, 77 bytes): tamano en flujo de la malla. Objeto nativo (tipo 8 o 7 con 0x1000000 en +0x8):
+// numMeshes * 8 + 12; si no (totalIndicesInMesh + numMeshes * 2) * 4 + 12.
 RwInt32 _rpMeshSize(const RpMeshHeader* meshHeader, const void* object) {
-    return ((RwInt32(__cdecl *)(const RpMeshHeader*, const void*))0x759090)(meshHeader, object);
+    if (MeshObjectIsNative(object)) {
+        return static_cast<RwInt32>(static_cast<RwUInt32>(meshHeader->numMeshes) * 8 + 0xC);
+    }
+    return static_cast<RwInt32>((meshHeader->totalIndicesInMesh + static_cast<RwUInt32>(meshHeader->numMeshes) * 2) * 4 + 0xC);
 }
 
 void _rpMeshHeaderDestroy(RpMeshHeader* meshHeader) {
@@ -2986,8 +3191,9 @@ RwBool RpWorldValidatePlugins(RpWorld* world) {
     return ((RwBool(__cdecl *)(RpWorld*))0x74FD90)(world);
 }
 
+// 0x7588B0 (lote R18A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, `ret`, 17 bytes): escribe el dword de flags en geometria + desplazamiento del plugin (0xC926E8), sin comprobar nada.
 void RpD3D9GeometrySetUsageFlags(RpGeometry* geometry, RpD3D9GeometryUsageFlag flags) {
-    ((void(__cdecl *)(RpGeometry*, RpD3D9GeometryUsageFlag))0x7588B0)(geometry, flags);
+    *reinterpret_cast<RpD3D9GeometryUsageFlag*>(reinterpret_cast<uintptr_t>(geometry) + static_cast<uintptr_t>(s_geometryUsageFlagsOffset)) = flags;
 }
 
 // 0x7588D0
@@ -3013,8 +3219,9 @@ RxD3D9AllInOneLightingCallBack RxD3D9AllInOneGetLightingCallBack(RxPipelineNode*
     return ((RxD3D9AllInOneLightingCallBack(__cdecl *)(RxPipelineNode*))0x7573D0)(node);
 }
 
+// 0x7573E0 (lote R18A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, `ret`, 15 bytes): privateData (+0x14 del nodo)->render (+0xC) = callback.
 void RxD3D9AllInOneSetRenderCallBack(RxPipelineNode* node, RxD3D9AllInOneRenderCallBack callback) {
-    ((void(__cdecl *)(RxPipelineNode*, RxD3D9AllInOneRenderCallBack))0x7573E0)(node, callback);
+    *reinterpret_cast<RxD3D9AllInOneRenderCallBack*>(static_cast<uint8_t*>(node->privateData) + 0xC) = callback;
 }
 
 RxD3D9AllInOneRenderCallBack RxD3D9AllInOneGetRenderCallBack(RxPipelineNode* node) {
@@ -4598,7 +4805,6 @@ inline RxPipeline*& PipelineModuleSlot(uint32 offset) {
 // Funciones del EXE llamadas por direccion fija (no se reconstruyen en este lote).
 inline RwInt32 TieDestroyExe(RwLLLink* link)      { return reinterpret_cast<RwInt32(__cdecl*)(RwLLLink*)>(static_cast<uintptr_t>(0x74FFF0))(link); } // ata de atomo de un sector
 inline RwInt32 LightTieDestroyExe(RwLLLink* link) { return reinterpret_cast<RwInt32(__cdecl*)(RwLLLink*)>(static_cast<uintptr_t>(0x74FFA0))(link); } // ata de luz de un sector
-inline RwBool  D3D9GeometryPluginAttachExe()      { return reinterpret_cast<RwBool(__cdecl*)()>(static_cast<uintptr_t>(0x7587D0))(); } // registra los plugins de geometria/sector (id 0x50F)
 inline void    D3D9VertexShaderOpenExe()          { reinterpret_cast<void(__cdecl*)()>(static_cast<uintptr_t>(0x760CF0))(); }          // inicializa la cache de shaders de vertices
 
 // Libera los recursos de instancia, las ataduras (atomos y luces) y los plugins de un sector con atomos (parte comun de 0x74ECA0 y 0x74ED50).
@@ -4896,7 +5102,7 @@ void _rpD3D9RemoveDynamicGeometry(RpGeometry* geometry) {
 // pone 0x74EA80 (que marca las geometrias dinamicas como sucias y encadena el anterior). Devuelve 1 si los dos registros fueron bien.
 static RwBool _rpD3D9PluginAttach() {
     RwBool result = FALSE;
-    if (D3D9LightPluginAttach() && D3D9GeometryPluginAttachExe()) {
+    if (D3D9LightPluginAttach() && D3D9GeometryPluginAttach()) {
         result = TRUE;
     }
     s_prevRestoreCallBack = _rwD3D9DeviceGetRestoreCallback();
@@ -5614,4 +5820,382 @@ void RpWorldInjectHooksR17A() {
     RH_ScopedGlobalInstall(RxD3D9AllInOneGetInstanceCallBack, 0x757390);
     RH_ScopedGlobalInstall(RxD3D9AllInOneSetReinstanceCallBack, 0x7573A0);
     RH_ScopedGlobalInstall(RxD3D9AllInOneGetReinstanceCallBack, 0x7573B0);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Lote R18A (sin validar): plugin de geometria/sector de D3D9 (0x7587D0) y callback de instanciado por defecto del pipeline de atomos de D3D9 (0x7578C0).
+// ---------------------------------------------------------------------------------------------------------------------
+
+// 0x7587D0 (lote R18A, sin validar; nombre inferido: pareja de D3D9LightPluginAttach; cdecl sin argumentos, `ret`, 119 bytes; la llama _rpD3D9PluginAttach tras D3D9LightPluginAttach):
+// RwEngineRegisterPlugin(0, 0x50F, 0x758890, 0x7588A0) (contador de plugins 0xC926E4, que no se guarda): si es negativo devuelve FALSE. RpGeometryRegisterPlugin(4, 0x50F, 0x758850,
+// 0x758860, 0x758870) se guarda SIEMPRE en 0xC926E8 y si es negativo devuelve FALSE; RpWorldSectorRegisterPlugin(4, 0x50F, mismos callbacks) se guarda en 0xC926EC y devuelve
+// `resultado >= 0`. Los callbacks (constructor/destructor/copia, que ponen a cero o copian el dword de flags de uso) siguen en el EXE y se pasan por direccion fija.
+RwBool D3D9GeometryPluginAttach() {
+    if (RwEngineRegisterPlugin(0, 0x50F,
+                               reinterpret_cast<RwPluginObjectConstructor>(0x758890),
+                               reinterpret_cast<RwPluginObjectDestructor>(0x7588A0)) < 0) {
+        return FALSE;
+    }
+    const RwInt32 geometryOffset = RpGeometryRegisterPlugin(4, 0x50F,
+                                                            reinterpret_cast<RwPluginObjectConstructor>(0x758850),
+                                                            reinterpret_cast<RwPluginObjectDestructor>(0x758860),
+                                                            reinterpret_cast<RwPluginObjectCopy>(0x758870));
+    s_geometryUsageFlagsOffset = geometryOffset;
+    if (geometryOffset < 0) {
+        return FALSE;
+    }
+    const RwInt32 sectorOffset = RpWorldSectorRegisterPlugin(4, 0x50F,
+                                                             reinterpret_cast<RwPluginObjectConstructor>(0x758850),
+                                                             reinterpret_cast<RwPluginObjectDestructor>(0x758860),
+                                                             reinterpret_cast<RwPluginObjectCopy>(0x758870));
+    s_sectorUsageFlagsOffset = sectorOffset;
+    return sectorOffset >= 0 ? TRUE : FALSE;
+}
+
+namespace {
+// D3DVERTEXELEMENT9 (8 bytes). La pila del EXE tiene el arreglo en esp+0x40; D3D nunca devuelve mas de 64 elementos mas el D3DDECL_END.
+struct DefaultInstElement {
+    RwUInt16 stream;
+    RwUInt16 offset;
+    RwUInt8  type;
+    RwUInt8  method;
+    RwUInt8  usage;
+    RwUInt8  usageIndex;
+};
+static_assert(sizeof(DefaultInstElement) == 8);
+static_assert(sizeof(RxD3D9ResEntryHeader) == 0x40 && sizeof(RxD3D9VertexStream) == 0x10 && offsetof(RxD3D9ResEntryHeader, vertexDeclaration) == 0x34 && offsetof(RxD3D9ResEntryHeader, totalNumVertex) == 0x3C);
+static_assert(offsetof(RpInterpolator, startMorphTarget) == 0x4 && offsetof(RpInterpolator, recipTime) == 0xC && offsetof(RpInterpolator, position) == 0x10);
+
+constexpr uintptr_t kD3D9DevCapsAddress  = 0xC9BF1C; // D3DCAPS9::DevCaps (bit 0x10000 = HWTRANSFORMANDLIGHT)
+constexpr uintptr_t kD3D9DevCaps2Address = 0xC9BFD4; // D3DCAPS9::DevCaps2 (bit 1 = STREAMOFFSET)
+constexpr uintptr_t kD3D9DeclTypesAddress = 0xC9BFEC; // D3DCAPS9::DeclTypes (0x80 = DEC3N)
+constexpr RwUInt32  kDefaultInstElementEnd = 0x11;   // D3DDECLTYPE_UNUSED
+constexpr RwUInt32  kDefaultInstLockManaged = 0x800;   // D3DLOCK_NOSYSLOCK
+constexpr RwUInt32  kDefaultInstLockDynamic = 0x2800;  // D3DLOCK_NOSYSLOCK | D3DLOCK_DISCARD
+
+inline RwUInt32 D3D9CapsDword(uintptr_t address) { return *reinterpret_cast<const volatile RwUInt32*>(address); }
+}
+
+// 0x7578C0 (lote R18A, sin validar; nombre inferido: D3D9AtomicDefaultInstanceCallback del SDK; cdecl, 3 argumentos (RpAtomic*, RxD3D9ResEntryHeader*, reinstanciar), 2430 bytes; la llaman
+// 0x758270 (callback de reinstanciado por defecto, por direccion) y el nodo AllInOne de atomos como callback de instanciado). Devuelve TRUE o FALSE si no se pudo crear un buffer.
+//  1. Sin reinstanciar: totalNumVertex = numVertices de la geometria y libera los dos flujos (gestionado -> RwD3D9DestroyVertexBuffer(stride, totalNumVertex * stride, vb, offset)
+//     con el totalNumVertex NUEVO; si no, con offset 0 y sin dynamicLock RwD3D9DynamicVertexBufferDestroy), dejando vb, offset, stride, geometryFlags, managed y dynamicLock a 0.
+//     Un solo flujo salvo (si numMorphTargets > 1 o usage & 0xFFF) y DevCaps & 0x10000 y el pipeline del atomo no es el de skin (pluginId 0x12E): entonces 2 flujos (con
+//     numMorphTargets > 1 usage |= 6) y _rpD3D9AddDynamicGeometry.
+//  2. Arma los D3DVERTEXELEMENT9 (posicion FLOAT3; normales FLOAT3 o DEC3N si DeclTypes & 0x80; color D3DCOLOR; texcoords FLOAT2; tangentes (usage & 0x10000 con texcoords)): cada
+//     uno va al flujo 0 si su bit de usage es dinamico (2, 4, 8, 0x10 << n; las tangentes con 0xFF2) o al ultimo flujo si no; Offset = stride actual, que se incrementa; los
+//     geometryFlags del flujo reciben el bit de posicion (asignado a 2), normales (4), color (8) y cada texcoord (0x10 << n); las tangentes no marcan geometryFlags. Reduce el numero
+//     de flujos a los del ultimo con stride != 0 (minimo 1), ordena los elementos por (flujo, offset) con el qsort del EXE (0x8247E0, comparador 0x758240) y crea la declaracion
+//     (RwD3D9CreateVertexDeclaration, 0x7FAA30; el resultado se ignora). Crea los buffers: sin flujos multiples (o flujo 1 con DevCaps2 & 1) gestionados con RwD3D9CreateVertexBuffer
+//     (0x7F5500); el resto dinamicos con RwD3D9DynamicVertexBufferCreate (0x7F5A00); un fallo devuelve FALSE. Con mas de un flujo useOffsets = 1 si DevCaps2 & 1 y baseIndex = minVert
+//     de cada malla; con uno useOffsets = 0 y baseIndex = offset / stride + minVert. Los bucles por malla son do/while como en el EXE.
+//  3. Reinstanciando: GetDeclaration de la declaracion del header (vtable +0x10) y numero de flujos = mayor flujo + 1.
+//  4. Bloquea los buffers (Lock vtable +0x2C con offset y stride * totalNumVertex): sin reinstanciar todos con NOSYSLOCK y mascara dinamica 0xFFF; reinstanciando solo los flujos cuyos
+//     geometryFlags coinciden con geometria->lockedSinceLastInst (o todos si es 0xFFF), con NOSYSLOCK si estan gestionados o NOSYSLOCK | DISCARD (y entonces la mascara incluye sus
+//     geometryFlags) si no.
+//  5. Rellena: morph (indices start/end de la interpolacion del atomo, a 0 si alguno >= numMorphTargets; escala = position * recipTime en float) si start != end y escala != 0.0 (la
+//     constante 0.0 se lee de 0x858B50 y la comparacion es ordenada: NaN entra): posiciones con _rpD3D9VertexDeclarationInstV3dMorph y, con normales, tambien normales; si no, posiciones
+//     (mascara & 2) y normales (normales y mascara & 4) con _rpD3D9VertexDeclarationInstV3d del morph target start; color (flags & 8 y mascara & 8) con
+//     _rpD3D9VertexDeclarationInstColor por malla (guarda vertexAlpha; sin color y sin reinstanciar los vertexAlpha se ponen a 0); texcoords (mascara & 0xFF0) con
+//     _rpD3D9VertexDeclarationInstV2d; tangentes (usage & 0x10000, mascara & 0xFF2) con _rpD3D9VertexDeclarationInstTangent (posiciones del morph target start y ULTIMO juego de
+//     texcoords). Desbloquea (vtable +0x30) los buffers bloqueados y devuelve TRUE.
+RwBool D3D9AtomicDefaultInstanceCallback(void* object, RxD3D9ResEntryHeader* header, RwBool reinstance) {
+    RpAtomic* const atomic = static_cast<RpAtomic*>(object);
+    RpGeometry* const geometry = atomic->geometry;
+    RxD3D9VertexStream* const streams = header->vertexStream;
+    const RwUInt32 geometryFlags = geometry->flags;
+    RwUInt32 usage = static_cast<RwUInt32>(RpD3D9GeometryGetUsageFlags(geometry));
+    const RwUInt32 numTexCoordSets = static_cast<RwUInt32>(geometry->numTexCoordSets);
+    auto* const instances = reinterpret_cast<RxD3D9InstanceData*>(header + 1);
+
+    DefaultInstElement elements[72];
+    RwUInt32 numStreams;
+
+    if (reinstance == 0) {
+        header->totalNumVertex = static_cast<RwUInt32>(geometry->numVertices);
+        for (RwUInt32 s = 0; s < 2; ++s) {
+            RxD3D9VertexStream& stream = streams[s];
+            if (stream.vertexBuffer != nullptr) {
+                if (stream.managed != 0) {
+                    RwD3D9DestroyVertexBuffer(stream.stride, header->totalNumVertex * stream.stride, stream.vertexBuffer, stream.offset);
+                } else if (stream.offset == 0 && stream.dynamicLock == 0) {
+                    RwD3D9DynamicVertexBufferDestroy(stream.vertexBuffer);
+                }
+                stream.vertexBuffer = nullptr;
+            }
+            stream.offset        = 0;
+            stream.stride        = 0;
+            stream.geometryFlags = 0;
+            stream.managed       = 0;
+            stream.dynamicLock   = 0;
+        }
+
+        // Un flujo (los datos estaticos) o dos (datos dinamicos en el flujo 0, el resto en el 1).
+        bool multiStream = false;
+        const RwInt32 numMorphTargets = static_cast<RwInt32>(geometry->numMorphTargets);
+        if ((numMorphTargets > 1 || (usage & 0xFFF) != 0) && (D3D9CapsDword(kD3D9DevCapsAddress) & 0x10000) != 0) {
+            const RxPipeline* const pipeline = atomic->pipeline;
+            if (pipeline == nullptr || pipeline->pluginId != 0x12E) {
+                if (numMorphTargets > 1) {
+                    usage |= 6;
+                }
+                _rpD3D9AddDynamicGeometry(geometry);
+                multiStream = true;
+            }
+        }
+        numStreams = multiStream ? 2 : 1;
+        const RwUInt32 lastStream = numStreams - 1;
+        const RwUInt32 declTypes = D3D9CapsDword(kD3D9DeclTypesAddress);
+        const bool dec3n = (declTypes & 0x80) != 0;
+
+        RwUInt32 count = 0;
+        RwUInt32 s = (usage & 2) ? 0 : lastStream;
+        elements[0] = { static_cast<RwUInt16>(s), static_cast<RwUInt16>(streams[s].stride), 2, 0, 0, 0 };
+        streams[s].stride        = 12;
+        streams[s].geometryFlags = 2;
+        count = 1;
+        if (geometryFlags & 0x10) {
+            s = (usage & 4) ? 0 : lastStream;
+            elements[count] = { static_cast<RwUInt16>(s), static_cast<RwUInt16>(streams[s].stride), static_cast<RwUInt8>(dec3n ? 0x0E : 2), 0, 3, 0 };
+            streams[s].stride        += dec3n ? 4 : 12;
+            streams[s].geometryFlags |= 4;
+            ++count;
+        }
+        if (geometryFlags & 8) {
+            s = (usage & 8) ? 0 : lastStream;
+            elements[count] = { static_cast<RwUInt16>(s), static_cast<RwUInt16>(streams[s].stride), 4, 0, 0x0A, 0 };
+            streams[s].stride        += 4;
+            streams[s].geometryFlags |= 8;
+            ++count;
+        }
+        for (RwUInt32 t = 0; t < numTexCoordSets; ++t) {
+            s = (usage & (0x10u << t)) ? 0 : lastStream;
+            elements[count] = { static_cast<RwUInt16>(s), static_cast<RwUInt16>(streams[s].stride), 1, 0, 5, static_cast<RwUInt8>(t) };
+            streams[s].stride        += 8;
+            streams[s].geometryFlags |= static_cast<RwUInt16>(0x10u << t);
+            ++count;
+        }
+        if ((usage & 0x10000) != 0 && numTexCoordSets != 0) {
+            s = (usage & 0xFF2) ? 0 : lastStream;
+            elements[count] = { static_cast<RwUInt16>(s), static_cast<RwUInt16>(streams[s].stride), static_cast<RwUInt8>(dec3n ? 0x0E : 2), 0, 6, 0 };
+            streams[s].stride += dec3n ? 4 : 12;
+            ++count;
+        }
+
+        if (numStreams > 1) {
+            do {
+                if (streams[numStreams - 1].stride != 0) {
+                    break;
+                }
+                --numStreams;
+            } while (numStreams > 1);
+        }
+        using CompareFn = int(__cdecl*)(const void*, const void*);
+        using QsortFn = void(__cdecl*)(void*, size_t, size_t, CompareFn);
+        reinterpret_cast<QsortFn>(0x8247E0)(elements, count, 8, reinterpret_cast<CompareFn>(0x758240));
+        elements[count] = { 0xFF, 0, static_cast<RwUInt8>(kDefaultInstElementEnd), 0, 0, 0 };
+        RwD3D9CreateVertexDeclaration(elements, reinterpret_cast<void**>(&header->vertexDeclaration));
+
+        for (RwUInt32 i = 0; i < numStreams; ++i) {
+            RxD3D9VertexStream& stream = streams[i];
+            const RwUInt32 size = header->totalNumVertex * stream.stride;
+            bool managed;
+            if (!multiStream) {
+                managed = true;
+            } else if (i == 0) {
+                managed = false;
+            } else {
+                managed = (D3D9CapsDword(kD3D9DevCaps2Address) & 1) != 0;
+            }
+            RwBool created;
+            if (managed) {
+                stream.managed = 1;
+                created = RwD3D9CreateVertexBuffer(stream.stride, size, &stream.vertexBuffer, &stream.offset);
+            } else {
+                stream.managed = 0;
+                created = RwD3D9DynamicVertexBufferCreate(size, &stream.vertexBuffer);
+            }
+            if (created == 0) {
+                return FALSE;
+            }
+        }
+        if (numStreams > 1) {
+            if ((D3D9CapsDword(kD3D9DevCaps2Address) & 1) != 0) {
+                header->useOffsets = 1;
+            }
+            RwUInt32 meshes = header->numMeshes;
+            RxD3D9InstanceData* instance = instances;
+            do {
+                instance->baseIndex = instance->minVert;
+                ++instance;
+            } while (--meshes != 0);
+        } else {
+            RwUInt32 meshes = header->numMeshes;
+            header->useOffsets = 0;
+            RxD3D9InstanceData* instance = instances;
+            do {
+                instance->baseIndex = streams[0].offset / streams[0].stride + instance->minVert;
+                ++instance;
+            } while (--meshes != 0);
+        }
+    } else {
+        UINT numElements = 0;
+        header->vertexDeclaration->GetDeclaration(reinterpret_cast<D3DVERTEXELEMENT9*>(elements), &numElements);
+        numStreams = 0;
+        for (RwUInt32 k = 0; elements[k].type != kDefaultInstElementEnd; ++k) {
+            if (elements[k].stream >= numStreams) {
+                numStreams = static_cast<RwUInt32>(elements[k].stream) + 1;
+            }
+        }
+    }
+
+    // Bloqueo de los buffers de vertices.
+    void* locked[RWD3D9_MAX_VERTEX_STREAMS] = { nullptr, nullptr };
+    RwUInt32 dynamicMask;
+    if (reinstance == 0) {
+        dynamicMask = 0xFFF;
+        for (RwUInt32 i = 0; i < numStreams; ++i) {
+            RxD3D9VertexStream& stream = streams[i];
+            static_cast<IDirect3DVertexBuffer9*>(stream.vertexBuffer)->Lock(stream.offset, stream.stride * header->totalNumVertex, &locked[i], kDefaultInstLockManaged);
+        }
+    } else {
+        dynamicMask = static_cast<RwUInt32>(geometry->lockedSinceLastInst);
+        for (RwUInt32 i = 0; i < numStreams; ++i) {
+            RxD3D9VertexStream& stream = streams[i];
+            if (dynamicMask != 0xFFF && (dynamicMask & stream.geometryFlags) == 0) {
+                continue;
+            }
+            const RwUInt32 size = stream.stride * header->totalNumVertex;
+            RwUInt32 lockFlags;
+            if (stream.managed != 0) {
+                lockFlags = kDefaultInstLockManaged;
+            } else {
+                lockFlags = kDefaultInstLockDynamic;
+                dynamicMask |= stream.geometryFlags;
+            }
+            static_cast<IDirect3DVertexBuffer9*>(stream.vertexBuffer)->Lock(stream.offset, size, &locked[i], lockFlags);
+        }
+    }
+
+    // Busca el elemento de la declaracion con el uso y el indice de uso pedidos (sin comprobar el final, como el EXE).
+    auto findElement = [&](RwUInt32 elementUsage, RwUInt32 elementUsageIndex) -> const DefaultInstElement& {
+        RwUInt32 k = 0;
+        while (elements[k].usage != elementUsage || elements[k].usageIndex != elementUsageIndex) {
+            ++k;
+        }
+        return elements[k];
+    };
+    auto elementDestination = [&](const DefaultInstElement& element) -> RwUInt8* {
+        return static_cast<RwUInt8*>(locked[element.stream]) + element.offset;
+    };
+
+    // Morph targets: la interpolacion del atomo.
+    RwInt32 startTarget = 0;
+    RwInt32 endTarget   = 0;
+    float   morphScale  = 0.0f;
+    if (geometry->numMorphTargets != 1) {
+        const RwInt32 numMorphTargets = static_cast<RwInt32>(geometry->numMorphTargets);
+        startTarget = static_cast<RwInt32>(atomic->interpolator.startMorphTarget);
+        endTarget   = static_cast<RwInt32>(atomic->interpolator.endMorphTarget);
+        if (!(startTarget < numMorphTargets && endTarget < numMorphTargets)) {
+            startTarget = 0;
+            endTarget   = 0;
+        }
+        morphScale = atomic->interpolator.position * atomic->interpolator.recipTime;
+    }
+    const RpMorphTarget* const morphTargets = geometry->morphTarget;
+    const float zero = StaticRef<float>(0x858B50);
+    const RwUInt32 numVerts = header->totalNumVertex;
+
+    if (geometry->numMorphTargets != 1 && startTarget != endTarget && !(morphScale == zero)) {
+        const DefaultInstElement& position = findElement(0, 0);
+        _rpD3D9VertexDeclarationInstV3dMorph(position.type, elementDestination(position), morphTargets[startTarget].verts, morphTargets[endTarget].verts,
+                                             morphScale, static_cast<RwInt32>(numVerts), streams[position.stream].stride);
+        if (geometryFlags & 0x10) {
+            const DefaultInstElement& normal = findElement(3, 0);
+            _rpD3D9VertexDeclarationInstV3dMorph(normal.type, elementDestination(normal), morphTargets[startTarget].normals, morphTargets[endTarget].normals,
+                                                 morphScale, static_cast<RwInt32>(numVerts), streams[normal.stream].stride);
+        }
+    } else {
+        if (dynamicMask & 2) {
+            const DefaultInstElement& position = findElement(0, 0);
+            _rpD3D9VertexDeclarationInstV3d(position.type, elementDestination(position), morphTargets[startTarget].verts,
+                                            static_cast<RwInt32>(numVerts), streams[position.stream].stride);
+        }
+        if ((geometryFlags & 0x10) && (dynamicMask & 4)) {
+            const DefaultInstElement& normal = findElement(3, 0);
+            _rpD3D9VertexDeclarationInstV3d(normal.type, elementDestination(normal), morphTargets[startTarget].normals,
+                                            static_cast<RwInt32>(numVerts), streams[normal.stream].stride);
+        }
+    }
+
+    // Color de vertices.
+    if (geometryFlags & 8) {
+        if (dynamicMask & 8) {
+            const DefaultInstElement& color = findElement(0x0A, 0);
+            const RwUInt32 stride = streams[color.stream].stride;
+            RxD3D9InstanceData* instance = instances;
+            RwUInt32 meshes = header->numMeshes;
+            do {
+                RwUInt8* const destination = static_cast<RwUInt8*>(locked[color.stream]) + instance->minVert * stride + color.offset;
+                instance->vertexAlpha = _rpD3D9VertexDeclarationInstColor(destination, geometry->preLitLum + instance->minVert,
+                                                                          static_cast<RwInt32>(instance->numVertices), stride);
+                ++instance;
+            } while (--meshes != 0);
+        }
+    } else if (reinstance == 0) {
+        RwUInt32 meshes = header->numMeshes;
+        RxD3D9InstanceData* instance = instances;
+        do {
+            instance->vertexAlpha = 0;
+            ++instance;
+        } while (--meshes != 0);
+    }
+
+    // Coordenadas de textura.
+    if (numTexCoordSets != 0 && (dynamicMask & 0xFF0) != 0) {
+        for (RwUInt32 t = 0; t < numTexCoordSets; ++t) {
+            if (dynamicMask & (0x10u << t)) {
+                const DefaultInstElement& texCoord = findElement(5, t);
+                _rpD3D9VertexDeclarationInstV2d(texCoord.type, elementDestination(texCoord), reinterpret_cast<const RwV2d*>(geometry->texCoords[t]),
+                                                static_cast<RwInt32>(numVerts), streams[texCoord.stream].stride);
+            }
+        }
+    }
+
+    // Tangentes.
+    if ((usage & 0x10000) != 0 && numTexCoordSets != 0 && (dynamicMask & 0xFF2) != 0) {
+        const DefaultInstElement& tangent = findElement(6, 0);
+        _rpD3D9VertexDeclarationInstTangent(tangent.type, elementDestination(tangent), morphTargets[startTarget].verts, geometry->texCoords[numTexCoordSets - 1],
+                                            header, streams[tangent.stream].stride);
+    }
+
+    // Desbloqueo.
+    for (RwUInt32 i = 0; i < numStreams; ++i) {
+        if (locked[i] != nullptr) {
+            static_cast<IDirect3DVertexBuffer9*>(streams[i].vertexBuffer)->Unlock();
+        }
+    }
+    return TRUE;
+}
+
+// Registro de los hooks del lote R18A de RpWorld (sin validar): plugin de geometria/sector de D3D9, callback de instanciado de atomos, mallas (RpBuildMesh, RpMeshHeader) y
+// accesores de definicion de nodo, flags de uso y render del nodo AllInOne.
+void RpWorldInjectHooksR18A() {
+    RH_ScopedCategory("Plugins");
+    RH_ScopedNamespaceName("RpWorld");
+
+    RH_ScopedGlobalInstall(RxD3D9AllInOneSetRenderCallBack, 0x7573E0);
+    RH_ScopedGlobalInstall(D3D9AtomicDefaultInstanceCallback, 0x7578C0);
+    RH_ScopedGlobalInstall(RxNodeDefinitionGetD3D9AtomicAllInOne, 0x7582E0);
+    RH_ScopedGlobalInstall(D3D9GeometryPluginAttach, 0x7587D0);
+    RH_ScopedGlobalInstall(RpD3D9GeometrySetUsageFlags, 0x7588B0);
+    RH_ScopedGlobalInstall(_rpBuildMeshCreate, 0x758A90);
+    RH_ScopedGlobalInstall(_rpBuildMeshDestroy, 0x758B80);
+    RH_ScopedGlobalInstall(_rpMeshDestroy, 0x758BC0);
+    RH_ScopedGlobalInstall(_rpBuildMeshAddTriangle, 0x758C00);
+    RH_ScopedGlobalInstall(_rpMeshHeaderForAllMeshes, 0x758D30);
+    RH_ScopedGlobalInstall(_rpMeshWrite, 0x758D70);
+    RH_ScopedGlobalInstall(_rpMeshRead, 0x758EC0);
+    RH_ScopedGlobalInstall(_rpMeshSize, 0x759090);
 }

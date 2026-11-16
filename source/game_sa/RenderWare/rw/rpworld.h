@@ -2584,6 +2584,8 @@ RxD3D9AllInOneLightingCallBack RxD3D9AllInOneGetLightingCallBack(RxPipelineNode*
 void RxD3D9AllInOneSetRenderCallBack(RxPipelineNode* node, RxD3D9AllInOneRenderCallBack callback); // 0x7573E0
 RxD3D9AllInOneRenderCallBack RxD3D9AllInOneGetRenderCallBack(RxPipelineNode* node); // 0x7573F0
 void _rpD3D9AddDynamicGeometry(RpGeometry* geometry); // 0x74E970
+RwBool D3D9GeometryPluginAttach(); // 0x7587D0 (R18A, nombre inferido)
+RwBool D3D9AtomicDefaultInstanceCallback(void* object, RxD3D9ResEntryHeader* header, RwBool reinstance); // 0x7578C0 (R18A, nombre inferido)
 void _rpD3D9RemoveDynamicGeometry(RpGeometry* geometry); // 0x74E9E0
 RwUInt32 _rpD3D9VertexDeclarationGetSize(RwUInt32 type); // 0x7522E0
 RwUInt32 _rpD3D9VertexDeclarationGetStride(const void* vertexDeclaration); // 0x7522F0
