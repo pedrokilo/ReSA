@@ -2585,6 +2585,37 @@ void RxD3D9AllInOneSetRenderCallBack(RxPipelineNode* node, RxD3D9AllInOneRenderC
 RxD3D9AllInOneRenderCallBack RxD3D9AllInOneGetRenderCallBack(RxPipelineNode* node); // 0x7573F0
 void _rpD3D9AddDynamicGeometry(RpGeometry* geometry); // 0x74E970
 RwBool D3D9GeometryPluginAttach(); // 0x7587D0 (R18A, nombre inferido)
+
+// Lote R19A (sin validar): generador de tiras por defecto de RpBuildMesh y sus rutinas internas (nombres y estructuras inferidos).
+struct RpBuildStripEdge;
+struct RpBuildStripNode {
+    RwUInt32           index;              // +0x00 indice del triangulo en la malla
+    RpBuildStripEdge*  edges[3];           // +0x04 aristas dirigidas v0->v1, v1->v2, v2->v0
+    RpBuildStripNode*  next;               // +0x10 lista del cubo
+    RpBuildStripNode*  prev;               // +0x14
+    RwUInt32           used;               // +0x18 consumido
+    RwUInt32           trialUsed;          // +0x1C consumido en la pasada de prueba
+    RwUInt8            numOpenNeighbours;  // +0x20 cubo (vecinos sin consumir)
+};
+struct RpBuildStripEdge {
+    RwUInt16           vertA;              // +0x00
+    RwUInt16           vertB;              // +0x02
+    RpBuildStripNode*  tri1;               // +0x04
+    RpBuildStripNode*  tri2;               // +0x08
+    RpBuildStripEdge*  next;               // +0x0C
+};
+struct RpBuildStripList {
+    RwUInt16*          indices;            // +0x00
+    RwUInt32           numIndices;         // +0x04
+    RwUInt32           capacity;           // +0x08
+    RpBuildStripList*  next;               // +0x0C
+};
+RpMeshHeader* _rpBuildMeshGenerateTriStrip(RpBuildMesh* buildMesh, RwInt32 tryRotations, RwInt32 joinMode); // 0x7591D0 (R19A, nombre inferido)
+RwBool _rpBuildStripListGenerate(RpBuildMeshTriangle* triangles, RwUInt32 numTriangles, RpBuildStripList** outList, RwInt32 tryRotations); // 0x759790 (R19A, nombre inferido)
+RpBuildStripNode** _rpBuildStripNodesCreate(RwUInt32 numTriangles, RwFreeList** freeLists, RpBuildStripEdge** edgeHead, RpBuildMeshTriangle* triangles); // 0x75A090 (R19A, nombre inferido)
+RpBuildStripEdge* _rpBuildStripEdgeFind(RwFreeList* edgeFreeList, RpBuildStripEdge** edgeHead, RwUInt16 from, RwUInt16 to, RwUInt32 nodeIndex, RpBuildStripNode** nodes); // 0x75A1B0 (R19A, nombre inferido)
+void _rpBuildStripNodeConsume(RpBuildStripNode* node, RpBuildStripNode** heads, RwInt32 pass); // 0x75A250 (R19A, nombre inferido)
+RwUInt32 _rpBuildStripExtend(RpBuildStripList* strip, RpBuildStripEdge* edge, RpBuildStripNode** heads, RpBuildMeshTriangle* triangles, RwInt32 pass); // 0x75A370 (R19A, nombre inferido)
 RwBool D3D9AtomicDefaultInstanceCallback(void* object, RxD3D9ResEntryHeader* header, RwBool reinstance); // 0x7578C0 (R18A, nombre inferido)
 void _rpD3D9RemoveDynamicGeometry(RpGeometry* geometry); // 0x74E9E0
 RwUInt32 _rpD3D9VertexDeclarationGetSize(RwUInt32 type); // 0x7522E0

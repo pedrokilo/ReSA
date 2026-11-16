@@ -895,10 +895,574 @@ RpMeshHeader* RpBuildMeshGenerateTrivialTriStrip(RpBuildMesh* buildMesh, void* d
     return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x759100)(buildMesh, data);
 }
 
-// 0x7591B0: llama a la rutina interna 0x7591D0 (todavia sin reconstruir) con (buildMesh, 0, 1) y devuelve su resultado; `data` no se usa.
-// Se llama por direccion, una sola vez, igual que el EXE.
+// ---------------------------------------------------------------------------------------------------------------------
+// Lote R19A (sin validar): generador de tiras por defecto de RpBuildMesh (0x7591D0) y sus rutinas internas (0x759790, 0x75A090, 0x75A1B0, 0x75A250, 0x75A370).
+// Estructuras (nombres inferidos): nodo de triangulo (0x24 bytes de lista libre), arista (0x10) y lista de indices de tira (0x10, lista libre propia en
+// RwEngineInstance + [0xC9B8C0] + 4, creada y destruida por 0x7591D0).
+// ---------------------------------------------------------------------------------------------------------------------
+namespace {
+constexpr RwUInt32 kStripListHint   = 0x10502;   // lista libre de listas de tiras, buffers temporales y mallas intermedias
+constexpr RwUInt32 kStripNodeHint   = 0x30502;   // nodos, aristas, vector de nodos, resultados de 0x759790
+constexpr RwUInt32 kStripEntriesHint = 0x1010502; // vector de mallas terminadas
+
+static_assert(sizeof(RpBuildStripEdge) == 0x10 && offsetof(RpBuildStripEdge, tri1) == 4 && offsetof(RpBuildStripEdge, tri2) == 8 && offsetof(RpBuildStripEdge, next) == 0xC);
+static_assert(offsetof(RpBuildStripNode, edges) == 4 && offsetof(RpBuildStripNode, next) == 0x10 && offsetof(RpBuildStripNode, prev) == 0x14);
+static_assert(offsetof(RpBuildStripNode, used) == 0x18 && offsetof(RpBuildStripNode, trialUsed) == 0x1C && offsetof(RpBuildStripNode, numOpenNeighbours) == 0x20);
+static_assert(sizeof(RpBuildStripList) == 0x10 && offsetof(RpBuildStripList, numIndices) == 4 && offsetof(RpBuildStripList, capacity) == 8 && offsetof(RpBuildStripList, next) == 0xC);
+
+// Lista libre de RpBuildStripList: *(RwFreeList**)(RwEngineInstance + [0xC9B8C0] + 4). El EXE la lee en cada uso.
+inline RwFreeList*& MeshStripFreeListSlot() {
+    return *reinterpret_cast<RwFreeList**>(reinterpret_cast<uintptr_t>(static_cast<RwGlobals*>(RwEngineInstance)) + static_cast<uintptr_t>(s_meshSerialOffset) + 4);
+}
+
+// 1 si el nodo existe y no esta consumido (flag +0x1C en las pasadas de prueba, +0x18 en la definitiva).
+inline RwInt32 StripNodeOpen(const RpBuildStripNode* node, bool trial) {
+    return (node != nullptr && (trial ? node->trialUsed : node->used) == 0) ? 1 : 0;
+}
+inline RwInt32 StripEdgeOpen(const RpBuildStripEdge* edge, bool trial) {
+    return StripNodeOpen(edge->tri1, trial) + StripNodeOpen(edge->tri2, trial);
+}
+// Quita un nodo de la lista de su cubo (heads[numOpenNeighbours]).
+inline void StripNodeUnlink(RpBuildStripNode* node, RpBuildStripNode** heads) {
+    RpBuildStripNode** const slot = &heads[node->numOpenNeighbours];
+    if (*slot == node) {
+        *slot = node->next;
+        RpBuildStripNode* const head = heads[node->numOpenNeighbours];
+        if (head != nullptr) {
+            head->prev = nullptr;
+        }
+    } else {
+        if (node->next != nullptr) {
+            node->next->prev = node->prev;
+        }
+        if (node->prev != nullptr) {
+            node->prev->next = node->next;
+        }
+    }
+}
+}
+
+// 0x75A1B0 (lote R19A, sin validar; nombre inferido; cdecl, 6 argumentos (lista libre de aristas, cabeza de la lista de aristas, indice origen (16 bits), indice destino (16 bits),
+// indice del triangulo, vector de nodos), 151 bytes; llamador 0x75A090): busca en la lista de aristas una arista INVERSA (vertB == origen y vertA == destino) que aun no tenga
+// segundo triangulo; si la hay, incrementa el contador de vecinos abiertos (byte +0x20) de su primer triangulo y del triangulo actual y pone el actual como tri2. Si no, crea una
+// arista (lista libre, pista 0x30502) con vertA = origen, vertB = destino, tri1 = nodo actual, tri2 = NULL, y la pone a la cabeza. Devuelve la arista.
+RpBuildStripEdge* _rpBuildStripEdgeFind(RwFreeList* edgeFreeList, RpBuildStripEdge** edgeHead, RwUInt16 from, RwUInt16 to, RwUInt32 nodeIndex, RpBuildStripNode** nodes) {
+    for (RpBuildStripEdge* edge = *edgeHead; edge != nullptr; edge = edge->next) {
+        if (edge->vertB == from && edge->vertA == to && edge->tri2 == nullptr) {
+            edge->tri1->numOpenNeighbours = static_cast<RwUInt8>(edge->tri1->numOpenNeighbours + 1);
+            nodes[nodeIndex]->numOpenNeighbours = static_cast<RwUInt8>(nodes[nodeIndex]->numOpenNeighbours + 1);
+            edge->tri2 = nodes[nodeIndex];
+            return edge;
+        }
+    }
+    RpBuildStripEdge* const edge = static_cast<RpBuildStripEdge*>(RwFreeListAlloc(edgeFreeList, kStripNodeHint));
+    edge->vertA = from;
+    edge->vertB = to;
+    edge->tri2  = nullptr;
+    edge->tri1  = nodes[nodeIndex];
+    edge->next  = *edgeHead;
+    *edgeHead   = edge;
+    return edge;
+}
+
+// 0x75A090 (lote R19A, sin validar; nombre inferido; cdecl, 4 argumentos (numero de triangulos, RwFreeList[2] de salida, cabeza de aristas, triangulos), 273 bytes; llamador 0x759790):
+// reserva el vector de n punteros a nodo (RwMalloc, pista 0x30502), la lista libre de nodos (0x24 bytes, n por bloque, alineacion 4) en freeLists[0] y la de aristas (0x10 bytes,
+// n/2 + 1 por bloque) en freeLists[1] (ambas con pista 0x30502). Para cada triangulo crea un nodo (indice, prev/next/used = 0, contador de vecinos 0) y sus tres aristas dirigidas
+// (v0->v1, v1->v2, v2->v0) con 0x75A1B0, guardandolas en +4, +8 y +0xC. Devuelve el vector de nodos.
+RpBuildStripNode** _rpBuildStripNodesCreate(RwUInt32 numTriangles, RwFreeList** freeLists, RpBuildStripEdge** edgeHead, RpBuildMeshTriangle* triangles) {
+    RpBuildStripNode** const nodes = static_cast<RpBuildStripNode**>(RwMalloc(numTriangles * 4, kStripNodeHint));
+    freeLists[0] = RwFreeListCreate(0x24, static_cast<RwInt32>(numTriangles), 4, kStripNodeHint);
+    freeLists[1] = RwFreeListCreate(0x10, static_cast<RwInt32>((numTriangles >> 1) + 1), 4, kStripNodeHint);
+    for (RwUInt32 i = 0; i < numTriangles; ++i) {
+        RpBuildStripNode* const node = static_cast<RpBuildStripNode*>(RwFreeListAlloc(freeLists[0], kStripNodeHint));
+        nodes[i] = node;
+        node->numOpenNeighbours = 0;
+        node->index = i;
+        node->prev  = nullptr;
+        node->next  = nullptr;
+        node->used  = 0;
+        const RwUInt16* const v = triangles[i].vertIndex;
+        node->edges[0] = _rpBuildStripEdgeFind(freeLists[1], edgeHead, v[0], v[1], i, nodes);
+        node->edges[1] = _rpBuildStripEdgeFind(freeLists[1], edgeHead, v[1], v[2], i, nodes);
+        node->edges[2] = _rpBuildStripEdgeFind(freeLists[1], edgeHead, v[2], v[0], i, nodes);
+    }
+    return nodes;
+}
+
+// 0x75A250 (lote R19A, sin validar; nombre inferido; cdecl, 3 argumentos (nodo, cubos, pasada), `ret`, 273 bytes; llamadores 0x759790 y 0x75A370): con pasada < 4 (prueba) solo marca
+// el nodo en el flag de prueba (+0x1C). Con pasada >= 4 lo marca consumido (+0x18), lo saca de su cubo y, por cada una de sus tres aristas, toma el vecino sin consumir (tri1 si no es
+// el propio nodo ni esta consumido; si no tri2 si no esta consumido), lo saca de su cubo, le resta uno al contador de vecinos abiertos (byte) y lo pone a la cabeza del cubo nuevo.
+void _rpBuildStripNodeConsume(RpBuildStripNode* node, RpBuildStripNode** heads, RwInt32 pass) {
+    if (pass < 4) {
+        node->trialUsed = 1;
+        return;
+    }
+    node->used = 1;
+    StripNodeUnlink(node, heads);
+    for (RwInt32 k = 0; k < 3; ++k) {
+        const RpBuildStripEdge* const edge = node->edges[k];
+        RpBuildStripNode* neighbour = edge->tri1;
+        if (!(neighbour != nullptr && neighbour != node && neighbour->used == 0)) {
+            neighbour = edge->tri2;
+            if (neighbour == nullptr || neighbour->used != 0) {
+                continue;
+            }
+        }
+        StripNodeUnlink(neighbour, heads);
+        neighbour->numOpenNeighbours = static_cast<RwUInt8>(neighbour->numOpenNeighbours - 1);
+        RpBuildStripNode* const head = heads[neighbour->numOpenNeighbours];
+        neighbour->next = head;
+        if (head != nullptr) {
+            head->prev = neighbour;
+        }
+        heads[neighbour->numOpenNeighbours] = neighbour;
+        neighbour->prev = nullptr;
+    }
+}
+
+// 0x75A370 (lote R19A, sin validar; nombre inferido; cdecl, 5 argumentos (tira, arista, cubos, triangulos (no se usa), pasada), 750 bytes; llamador 0x759790): alarga la tira a traves
+// de la arista dada. Cruza al triangulo abierto de la arista (tri1 si esta abierto, si no tri2; sin abierto devuelve lo contado), lo consume (0x75A250) y cuenta; el vertice nuevo es el
+// opuesto a la arista cruzada. La arista siguiente es la primera de las tres del triangulo que une (ultimo vertice de la tira, vertice nuevo) en cualquier orden. Con arista siguiente con
+// triangulos abiertos anade el vertice y sigue por ella. Si no, busca otra arista del triangulo (distinta de la cruzada y de la siguiente; si no hay, la ultima candidata); si tiene
+// abiertos y la tira tiene longitud par, anade un vertice duplicado (copia de indices[n-2]) mas el nuevo y sigue por ella; en cualquier otro caso anade el vertice nuevo y termina.
+// Abierto = no consumido, flag +0x1C con pasada < 4 y +0x18 con pasada >= 4. Devuelve el numero de triangulos consumidos.
+RwUInt32 _rpBuildStripExtend(RpBuildStripList* strip, RpBuildStripEdge* edge, RpBuildStripNode** heads, RpBuildMeshTriangle* triangles, RwInt32 pass) {
+    (void)triangles;
+    const bool trial = pass < 4;
+    RwUInt32 count = 0;
+    RpBuildStripEdge* candidate = nullptr;
+    RpBuildStripEdge* current = edge;
+    if (current == nullptr) {
+        return 0;
+    }
+    for (;;) {
+        RpBuildStripNode* tri = current->tri1;
+        if (!(tri != nullptr && StripNodeOpen(tri, trial) == 1)) {
+            tri = current->tri2;
+            if (tri == nullptr) {
+                return count;
+            }
+            if (StripNodeOpen(tri, trial) == 0) {
+                return count;
+            }
+        }
+        ++count;
+        _rpBuildStripNodeConsume(tri, heads, pass);
+
+        RwInt32 crossed = -1;
+        if (current == tri->edges[0]) {
+            crossed = 0;
+        } else if (current == tri->edges[1]) {
+            crossed = 1;
+        } else if (current == tri->edges[2]) {
+            crossed = 2;
+        }
+        const RpBuildStripEdge* const oppositeEdge = tri->edges[(crossed + 1) % 3];
+        const RwUInt16 apex = (oppositeEdge->tri1 == tri) ? oppositeEdge->vertB : oppositeEdge->vertA;
+
+        const RwUInt32 n = strip->numIndices;
+        RwUInt16* const buffer = strip->indices;
+        const RwUInt16 last = buffer[n - 1];
+        const auto joins = [&](const RpBuildStripEdge* e) {
+            return (e->vertA == last && e->vertB == apex) || (e->vertA == apex && e->vertB == last);
+        };
+        RpBuildStripEdge* next;
+        if (joins(tri->edges[0])) {
+            next = tri->edges[0];
+        } else if (joins(tri->edges[1])) {
+            next = tri->edges[1];
+        } else if (joins(tri->edges[2])) {
+            next = tri->edges[2];
+        } else {
+            next = nullptr;
+        }
+
+        if (next != nullptr && StripEdgeOpen(next, trial) > 0) {
+            buffer[n] = apex;
+            strip->numIndices = strip->numIndices + 1;
+            current = next;
+            continue;
+        }
+
+        RpBuildStripEdge* other;
+        if (tri->edges[0] != current && tri->edges[0] != next) {
+            other = tri->edges[0];
+            candidate = other;
+        } else if (tri->edges[1] != current && tri->edges[1] != next) {
+            other = tri->edges[1];
+            candidate = other;
+        } else if (tri->edges[2] != current && tri->edges[2] != next) {
+            other = tri->edges[2];
+            candidate = other;
+        } else {
+            other = candidate;
+        }
+
+        if (other != nullptr && StripEdgeOpen(other, trial) > 0 && (n & 1) == 0) {
+            buffer[n] = buffer[n - 2];
+            strip->numIndices = strip->numIndices + 1;
+            strip->indices[strip->numIndices] = apex;
+            strip->numIndices = strip->numIndices + 1;
+            current = other;
+            continue;
+        }
+
+        strip->indices[strip->numIndices] = apex;
+        strip->numIndices = strip->numIndices + 1;
+        return count;
+    }
+}
+
+// 0x759790 (lote R19A, sin validar; nombre inferido; cdecl, 4 argumentos (triangulos, cantidad, RpBuildStripList** de salida, probar rotaciones), 2302 bytes; llamador 0x7591D0): genera
+// las tiras de un grupo de triangulos del mismo material. Crea nodos/aristas (0x75A090), reparte los nodos en cuatro cubos segun sus vecinos abiertos y reserva dos RpBuildStripList
+// (tira y auxiliar, capacidad 2n + 2 indices, buffers de 4 * (2n + 2) bytes, pista 0x10502). Mientras queden triangulos: un nodo sin vecinos (cubo 0) va solo como tira de 3 indices; si no
+// toma el primer nodo del primer cubo no vacio, elige la rotacion de salida r con el recuento de triangulos abiertos de sus tres aristas (cascada del EXE) y prueba pasadas: con
+// probarRotaciones != 0 las rotaciones r, r+1, r+2 (mod 3) con flags de prueba y por ultimo la mejor; con 0 solo la definitiva (rotacion r). Cada pasada copia used a trialUsed, pone los
+// tres indices rotados, consume el nodo y alarga por la segunda arista (0x75A370); si la primera arista aun tiene triangulos abiertos alarga tambien hacia atras con la lista auxiliar
+// (invertida, con duplicado si es impar). La pasada definitiva guarda una RpBuildStripList nueva (pista 0x30502) a la cabeza de *outList con la parte hacia atras invertida seguida de la
+// tira (copia de 4 bytes por indice, como el EXE). Al final libera aristas, nodos, listas libres y buffers. Devuelve TRUE.
+RwBool _rpBuildStripListGenerate(RpBuildMeshTriangle* triangles, RwUInt32 numTriangles, RpBuildStripList** outList, RwInt32 tryRotations) {
+    RpBuildStripEdge* edgeHead = nullptr;
+    RwFreeList* freeLists[2] = { nullptr, nullptr };
+    RpBuildStripNode* heads[4] = { nullptr, nullptr, nullptr, nullptr };
+    RpBuildStripNode** const nodes = _rpBuildStripNodesCreate(numTriangles, freeLists, &edgeHead, triangles);
+
+    for (RwUInt32 i = 0; i < numTriangles; ++i) {
+        RpBuildStripNode* const node = nodes[i];
+        node->next = heads[node->numOpenNeighbours];
+        if (node->next != nullptr) {
+            node->next->prev = node;
+        }
+        heads[nodes[i]->numOpenNeighbours] = nodes[i];
+        nodes[i]->prev = nullptr;
+    }
+
+    RpBuildStripList* const strip = static_cast<RpBuildStripList*>(RwFreeListAlloc(MeshStripFreeListSlot(), kStripListHint));
+    const RwUInt32 capacity = numTriangles * 2 + 2;
+    strip->numIndices = 0;
+    strip->capacity   = capacity;
+    strip->indices    = static_cast<RwUInt16*>(RwMalloc(capacity * 4, kStripListHint));
+    RpBuildStripList* const work = static_cast<RpBuildStripList*>(RwFreeListAlloc(MeshStripFreeListSlot(), kStripListHint));
+    work->capacity   = capacity;
+    work->numIndices = 0;
+    work->indices    = static_cast<RwUInt16*>(RwMalloc(capacity * 4, kStripListHint));
+
+    if (numTriangles != 0) {
+        RwUInt32 processed = 0;
+        do {
+            RwInt32 mode = tryRotations != 0 ? 0 : 3;
+            RwUInt32 bestTotal = 0;
+            if (heads[0] != nullptr) {
+                // Triangulo sin vecinos abiertos: tira de un solo triangulo.
+                RpBuildStripNode* const node = heads[0];
+                const RwUInt32 triIndex = node->index;
+                RpBuildStripList* const single = static_cast<RpBuildStripList*>(RwFreeListAlloc(MeshStripFreeListSlot(), kStripNodeHint));
+                single->next = *outList;
+                *outList = single;
+                single->numIndices = 3;
+                single->capacity   = 3;
+                single->indices    = static_cast<RwUInt16*>(RwMalloc(0xC, kStripNodeHint));
+                const RpBuildMeshTriangle* const tri = &triangles[triIndex];
+                single->indices[0] = tri->vertIndex[0];
+                single->indices[1] = tri->vertIndex[1];
+                single->indices[2] = tri->vertIndex[2];
+                node->used      = 1;
+                node->trialUsed = 1;
+                RpBuildStripNode* const nextNode = node->next;
+                heads[0] = nextNode;
+                if (nextNode != nullptr) {
+                    nextNode->prev = nullptr;
+                }
+                ++processed;
+                continue;
+            }
+
+            RwInt32 bucket = 1;
+            while (bucket < 3 && heads[bucket] == nullptr) {
+                ++bucket;
+            }
+            RpBuildStripNode** const slot = &heads[bucket];
+            RpBuildStripNode* const start = *slot;
+
+            // Rotacion de partida r segun los triangulos abiertos de las aristas (cascada del EXE).
+            RwInt32 rotation;
+            {
+                RpBuildStripEdge* const e0 = start->edges[0];
+                RpBuildStripEdge* const e1 = start->edges[1];
+                RpBuildStripEdge* const e2 = start->edges[2];
+                if (StripEdgeOpen(e2, false) >= 2 && StripEdgeOpen(e1, false) >= 2) {
+                    rotation = 1;
+                } else if (StripEdgeOpen(e0, false) >= 2 && StripEdgeOpen(e2, false) >= 2) {
+                    rotation = 2;
+                } else if (StripEdgeOpen(e1, false) >= 2 && StripEdgeOpen(e0, false) >= 2) {
+                    rotation = 0;
+                } else {
+                    const RwInt32 open0 = StripEdgeOpen(e0, false);
+                    const RwInt32 open1 = StripEdgeOpen(e1, false);
+                    const RwInt32 open2 = StripEdgeOpen(e2, false);
+                    if (open0 > open1) {
+                        rotation = (open0 > open2 ? 1 : 0) + 1;
+                    } else {
+                        rotation = open1 <= open2 ? 1 : 0;
+                    }
+                }
+            }
+            const RwUInt32 processedBefore = processed;
+            RwInt32 bestRotation = rotation;
+            const RwInt32 baseRotation = rotation;
+            RpBuildStripEdge* firstEdge  = nullptr;
+            RpBuildStripEdge* secondEdge = nullptr;
+
+            for (;;) {
+                for (RwUInt32 i = 0; i < numTriangles; ++i) {
+                    nodes[i]->trialUsed = nodes[i]->used;
+                }
+                const RwInt32 pass = mode;
+                ++mode;
+                RwInt32 rot;
+                switch (pass) {
+                case 0: rot = static_cast<RwInt32>(static_cast<RwUInt32>(baseRotation) % 3); break;
+                case 1: rot = static_cast<RwInt32>(static_cast<RwUInt32>(baseRotation + 1) % 3); break;
+                case 2: rot = static_cast<RwInt32>(static_cast<RwUInt32>(baseRotation + 2) % 3); break;
+                default: rot = bestRotation; break;
+                }
+                RpBuildStripNode* const node = *slot;
+                switch (rot) {
+                case 0: firstEdge = node->edges[0]; secondEdge = node->edges[1]; break;
+                case 1: firstEdge = node->edges[1]; secondEdge = node->edges[2]; break;
+                case 2: firstEdge = node->edges[2]; secondEdge = node->edges[0]; break;
+                default: break;
+                }
+                const RpBuildMeshTriangle* const tri = &triangles[node->index];
+                strip->indices[0] = tri->vertIndex[static_cast<RwUInt32>(rot) % 3];
+                strip->indices[1] = tri->vertIndex[static_cast<RwUInt32>(rot + 1) % 3];
+                strip->indices[2] = tri->vertIndex[static_cast<RwUInt32>(rot + 2) % 3];
+                strip->numIndices = 3;
+                _rpBuildStripNodeConsume(node, heads, mode);
+                RwUInt32 total = _rpBuildStripExtend(strip, secondEdge, heads, triangles, mode) + processedBefore + 1;
+                processed = total;
+
+                const bool backward = StripEdgeOpen(firstEdge, mode < 4) > 0;
+                if (backward) {
+                    work->indices[0] = strip->indices[1];
+                    work->indices[1] = strip->indices[0];
+                    work->numIndices = 2;
+                    total += _rpBuildStripExtend(work, firstEdge, heads, triangles, mode);
+                    processed = total;
+                    const RwUInt32 workCount = work->numIndices;
+                    if (workCount & 1) {
+                        work->indices[workCount] = work->indices[workCount - 2];
+                        work->numIndices = work->numIndices + 1;
+                    }
+                }
+                if (total > bestTotal) {
+                    bestTotal    = total;
+                    bestRotation = rot;
+                }
+                if (mode < 4) {
+                    continue;
+                }
+
+                if (backward) {
+                    RpBuildStripList* const joined = static_cast<RpBuildStripList*>(RwFreeListAlloc(MeshStripFreeListSlot(), kStripNodeHint));
+                    joined->next = *outList;
+                    *outList = joined;
+                    joined->numIndices = 0;
+                    joined->capacity   = strip->numIndices + work->numIndices - 2;
+                    joined->indices    = static_cast<RwUInt16*>(RwMalloc(joined->capacity * 4, kStripNodeHint));
+                    if (work->numIndices > 2) {
+                        do {
+                            joined->indices[joined->numIndices] = work->indices[work->numIndices - 1];
+                            joined->numIndices = joined->numIndices + 1;
+                            work->numIndices   = work->numIndices - 1;
+                        } while (work->numIndices > 2);
+                    }
+                    std::memcpy(joined->indices + joined->numIndices, strip->indices, static_cast<size_t>(strip->numIndices) * 4);
+                    joined->numIndices = joined->capacity;
+                } else {
+                    RpBuildStripList* const single = static_cast<RpBuildStripList*>(RwFreeListAlloc(MeshStripFreeListSlot(), kStripNodeHint));
+                    single->next = *outList;
+                    *outList = single;
+                    single->capacity   = strip->numIndices;
+                    single->numIndices = strip->numIndices;
+                    single->indices    = static_cast<RwUInt16*>(RwMalloc(strip->numIndices * 4, kStripNodeHint));
+                    std::memcpy(single->indices, strip->indices, static_cast<size_t>(strip->numIndices) * 4);
+                }
+                break;
+            }
+        } while (processed < numTriangles);
+    }
+
+    RwFree(work->indices);
+    work->indices = nullptr;
+    RwFreeListFree(MeshStripFreeListSlot(), work);
+    RwFree(strip->indices);
+    strip->indices = nullptr;
+    RwFreeListFree(MeshStripFreeListSlot(), strip);
+
+    if (edgeHead != nullptr) {
+        RpBuildStripEdge* edge = edgeHead;
+        RpBuildStripEdge* following;
+        do {
+            following = edge->next;
+            RwFreeListFree(freeLists[1], edge);
+            edge = following;
+        } while (following != nullptr);
+    }
+    RwFreeListDestroy(freeLists[1]);
+    freeLists[1] = nullptr;
+    for (RwUInt32 i = 0; i < numTriangles; ++i) {
+        RwFreeListFree(freeLists[0], nodes[i]);
+        nodes[i] = nullptr;
+    }
+    RwFreeListDestroy(freeLists[0]);
+    RwFree(nodes);
+    return TRUE;
+}
+
+// 0x7591D0 (lote R19A, sin validar; nombre inferido; cdecl, 3 argumentos (RpBuildMesh, probar rotaciones, modo de union), 1134 bytes; llamador 0x7591B0 con (malla, 0, 1)): genera la
+// RpMeshHeader de tiras de una RpBuildMesh. Hace un vector de punteros a los triangulos (RwMalloc numTriangulos * 4, pista 0x10502; NULL -> NULL) y lo ordena con el qsort del EXE
+// (0x8247E0, no estable) y el comparador 0x759640 (por direccion fija). Cuenta los grupos de material consecutivos (puntero de material en +8), reserva el vector de mallas terminadas
+// (grupos * 4, pista 0x1010502) y la tabla de grupos (12 bytes: 0, cantidad, material; grupos * 12, pista 0x10502), crea la lista libre de RpBuildStripList (0x10 bytes, n/10 + 5 por
+// bloque, alineacion 4, pista 0x10502) y la deja en RwEngineInstance + [0xC9B8C0] + 4. Por grupo copia sus triangulos (20 bytes) a un vector propio, genera las tiras (0x759790),
+// las une con 0x75A660 (por direccion fija) y convierte cada resultado en un bloque {indices, cantidad, material, indices inline} (RwMalloc cantidad * 2 + 12) guardado en el vector de
+// mallas con contador de 16 bits. Destruye la lista libre y deja el puntero a 0. Crea la cabecera con _rpMeshHeaderCreate (16 + suma de (12 + 2 * cantidad)): flags 1, numMeshes de 16
+// bits, serialNum = contador de serie global (que incrementa), totalIndicesInMesh, firstMeshOffset 0; escribe las RpMesh y copia los indices tras ellas. Libera los bloques, el vector de
+// punteros, el de mallas y la tabla. Con 0 triangulos el EXE lee ptrs[0] sin inicializar (se conserva).
+RpMeshHeader* _rpBuildMeshGenerateTriStrip(RpBuildMesh* buildMesh, RwInt32 tryRotations, RwInt32 joinMode) {
+    struct GroupRecord { RwUInt32 unused; RwUInt32 count; RpMaterial* material; };
+    static_assert(sizeof(GroupRecord) == 12);
+
+    const RwUInt32 numTriangles = buildMesh->numTriangles;
+    RpBuildMeshTriangle** const pointers = static_cast<RpBuildMeshTriangle**>(RwMalloc(numTriangles * 4, kStripListHint));
+    if (pointers == nullptr) {
+        return nullptr;
+    }
+    for (RwUInt32 i = 0; i < numTriangles; ++i) {
+        pointers[i] = &buildMesh->meshTriangles[i];
+    }
+    using CompareFn = int(__cdecl*)(const void*, const void*);
+    using QsortFn = void(__cdecl*)(void*, size_t, size_t, CompareFn);
+    reinterpret_cast<QsortFn>(0x8247E0)(pointers, numTriangles, 4, reinterpret_cast<CompareFn>(0x759640));
+
+    RwUInt32 numGroups = 1;
+    if (buildMesh->numTriangles >= 2) {
+        RpMaterial* current = pointers[0]->material;
+        for (RwUInt32 i = 1; i < buildMesh->numTriangles; ++i) {
+            RpMaterial* const material = pointers[i]->material;
+            if (material != current) {
+                current = material;
+                ++numGroups;
+            }
+        }
+    }
+
+    RpMesh** const finished = static_cast<RpMesh**>(RwMalloc(numGroups * 4, kStripEntriesHint));
+    GroupRecord* const groups = static_cast<GroupRecord*>(RwMalloc(numGroups * 12, kStripListHint));
+    groups[0].material = pointers[0]->material;
+    groups[0].unused   = 0;
+    groups[0].count    = 0;
+    numGroups = 1;
+    if (buildMesh->numTriangles >= 2) {
+        GroupRecord* record = &groups[0];
+        for (RwUInt32 i = 0; i < buildMesh->numTriangles - 1; ++i) {
+            RpMaterial* const nextMaterial = pointers[i + 1]->material;
+            if (pointers[i]->material != nextMaterial) {
+                record[1].material = nextMaterial;
+                record[1].unused   = 0;
+                record[1].count    = i + 1;
+                record->count      = i - record->count + 1;
+                ++numGroups;
+                ++record;
+            }
+        }
+    }
+    GroupRecord& lastGroup = groups[numGroups - 1];
+    lastGroup.count = buildMesh->numTriangles - lastGroup.count;
+
+    MeshStripFreeListSlot() = RwFreeListCreate(0x10, static_cast<RwInt32>(buildMesh->numTriangles / 10 + 5), 4, kStripListHint);
+
+    RpBuildStripList* list = nullptr;
+    RwUInt32 numStrips = 0;
+    RpBuildMeshTriangle** cursor = pointers;
+    if (numGroups != 0) {
+        RwUInt32 remainingGroups = numGroups;
+        const GroupRecord* record = &groups[0];
+        do {
+            RpBuildMeshTriangle* const copy = static_cast<RpBuildMeshTriangle*>(RwMalloc(record->count * 20, kStripListHint));
+            for (RwUInt32 i = 0; i < record->count; ++i) {
+                std::memcpy(&copy[i], *cursor, sizeof(RpBuildMeshTriangle));
+                ++cursor;
+            }
+            _rpBuildStripListGenerate(copy, record->count, &list, tryRotations);
+            reinterpret_cast<void(__cdecl*)(RpBuildStripList**, RwInt32)>(0x75A660)(&list, joinMode);
+
+            for (RpBuildStripList* strip = list; strip != nullptr; strip = strip->next) {
+                // Bloque RpMesh {indices, cantidad, material} seguido de sus indices (12 + 2 * cantidad bytes).
+                RpMesh* const block = static_cast<RpMesh*>(RwMalloc(strip->numIndices * 2 + 0xC, kStripListHint));
+                block->material   = record->material;
+                block->numIndices = strip->numIndices;
+                block->indices    = reinterpret_cast<RxVertexIndex*>(block + 1);
+                for (RwUInt32 i = 0; i < strip->numIndices; ++i) {
+                    block->indices[i] = strip->indices[i];
+                }
+                finished[numStrips & 0xFFFF] = block;
+                ++numStrips;
+            }
+            while (list != nullptr) {
+                RpBuildStripList* const entry = list;
+                list = entry->next;
+                RwFree(entry->indices);
+                entry->indices = nullptr;
+                RwFreeListFree(MeshStripFreeListSlot(), entry);
+            }
+            RwFree(copy);
+            ++record;
+            --remainingGroups;
+        } while (remainingGroups != 0);
+    }
+    RwFreeListDestroy(MeshStripFreeListSlot());
+    MeshStripFreeListSlot() = nullptr;
+
+    const RwUInt32 numMeshes = numStrips & 0xFFFF;
+    RwUInt32 totalIndices = 0;
+    RwUInt32 size = 0x10;
+    for (RwUInt32 i = 0; i < numMeshes; ++i) {
+        const RwUInt32 count = finished[i]->numIndices;
+        totalIndices += count;
+        size = size + count * 2 + 0xC;
+    }
+    RpMeshHeader* const header = _rpMeshHeaderCreate(size);
+    header->flags     = 1;
+    header->numMeshes = static_cast<RwUInt16>(numStrips);
+    RwUInt16& serial = *reinterpret_cast<RwUInt16*>(reinterpret_cast<uintptr_t>(static_cast<RwGlobals*>(RwEngineInstance)) + static_cast<uintptr_t>(s_meshSerialOffset));
+    header->firstMeshOffset    = 0;
+    header->serialNum          = serial;
+    header->totalIndicesInMesh = totalIndices;
+    serial = static_cast<RwUInt16>(serial + 1);
+
+    RpMesh* mesh = reinterpret_cast<RpMesh*>(reinterpret_cast<RwUInt8*>(header) + 0x10);
+    RxVertexIndex* indexCursor = reinterpret_cast<RxVertexIndex*>(mesh + numMeshes);
+    for (RwUInt32 i = 0; i < numMeshes; ++i) {
+        const RpMesh* const block = finished[i];
+        mesh->indices    = indexCursor;
+        mesh->numIndices = block->numIndices;
+        mesh->material   = block->material;
+        std::memcpy(indexCursor, block->indices, static_cast<size_t>(mesh->numIndices) * 2);
+        indexCursor += mesh->numIndices;
+        RwFree(finished[i]);
+        finished[i] = nullptr;
+        ++mesh;
+    }
+    RwFree(pointers);
+    RwFree(finished);
+    RwFree(groups);
+    return header;
+}
+
+// 0x7591B0: llama a _rpBuildMeshGenerateTriStrip (0x7591D0, lote R19A) con (buildMesh, 0, 1) y devuelve su resultado; `data` no se usa.
 RpMeshHeader* RpBuildMeshGenerateDefaultTriStrip(RpBuildMesh* buildmesh, void* data) {
-    return reinterpret_cast<RpMeshHeader*(__cdecl*)(RpBuildMesh*, RwInt32, RwInt32)>(0x7591D0)(buildmesh, 0, 1);
+    return _rpBuildMeshGenerateTriStrip(buildmesh, 0, 1);
 }
 
 RpMeshHeader* RpBuildMeshGeneratePreprocessTriStrip(RpBuildMesh* buildmesh, void* data) {
@@ -6198,4 +6762,16 @@ void RpWorldInjectHooksR18A() {
     RH_ScopedGlobalInstall(_rpMeshWrite, 0x758D70);
     RH_ScopedGlobalInstall(_rpMeshRead, 0x758EC0);
     RH_ScopedGlobalInstall(_rpMeshSize, 0x759090);
+}
+
+void RpWorldInjectHooksR19A() {
+    RH_ScopedCategory("Plugins");
+    RH_ScopedNamespaceName("RpWorld");
+
+    RH_ScopedGlobalInstall(_rpBuildMeshGenerateTriStrip, 0x7591D0);
+    RH_ScopedGlobalInstall(_rpBuildStripListGenerate, 0x759790);
+    RH_ScopedGlobalInstall(_rpBuildStripNodesCreate, 0x75A090);
+    RH_ScopedGlobalInstall(_rpBuildStripEdgeFind, 0x75A1B0);
+    RH_ScopedGlobalInstall(_rpBuildStripNodeConsume, 0x75A250);
+    RH_ScopedGlobalInstall(_rpBuildStripExtend, 0x75A370);
 }

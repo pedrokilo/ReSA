@@ -12136,3 +12136,9 @@ RpWorld,_rpMeshHeaderForAllMeshes,0x00758D30,1,0,0,S
 RpWorld,_rpMeshWrite,0x00758D70,1,0,0,S
 RpWorld,_rpMeshRead,0x00758EC0,1,0,0,S
 RpWorld,_rpMeshSize,0x00759090,1,0,0,S
+RpWorld,_rpBuildMeshGenerateTriStrip,0x007591D0,1,0,0,S
+RpWorld,_rpBuildStripListGenerate,0x00759790,1,0,0,S
+RpWorld,_rpBuildStripNodesCreate,0x0075A090,1,0,0,S
+RpWorld,_rpBuildStripEdgeFind,0x0075A1B0,1,0,0,S
+RpWorld,_rpBuildStripNodeConsume,0x0075A250,1,0,0,S
+RpWorld,_rpBuildStripExtend,0x0075A370,1,0,0,S
