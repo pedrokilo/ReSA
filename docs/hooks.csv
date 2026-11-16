@@ -11894,3 +11894,9 @@ RwCore,_rwD3D9DynamicVertexBufferRestore,0x007F58D0,1,0,0,S
 RwCore,_rwD3D9DynamicVertexBufferManagerOpen,0x007F5940,1,0,0,S
 RwCore,RwD3D9DynamicVertexBufferCreate,0x007F5A00,1,0,0,S
 RwPlCore,_rwerror,0x008088D0,1,0,0,S
+RwCore,RwD3D9CreateVertexDeclaration,0x007FAA30,1,0,0,S
+RwCore,RwD3D9SetMaterial,0x007FC430,1,0,0,S
+RwCore,RxPipelineCreate,0x008057B0,1,0,0,S
+RwCore,rwFrameInitFields,0x007F0360,1,0,0,S
+RwPlCore,RwStreamRead,0x007EC9D0,1,0,0,S
+RwPlCore,RwStreamWrite,0x007ECB30,1,0,0,S

@@ -106,12 +106,111 @@ RwBool RwStreamClose(RwStream* stream, void* data) {
     return ((RwBool(__cdecl *)(RwStream*, void*))0x7ECE20)(stream, data);
 }
 
-RwUInt32 RwStreamRead(RwStream* stream, void* buffer, RwUInt32 length) {
-    return ((RwUInt32(__cdecl *)(RwStream*, void*, RwUInt32))0x7EC9D0)(stream, buffer, length);
+// Lote R11A (sin validar): RwStreamRead y RwStreamWrite. Funciones de fichero del motor (RwEngineInstance->fileFuncs, 11 punteros desde +0xC4): fread = [3] (+0xD0), fwrite = [4] (+0xD4), feof = [7] (+0xE0), todas cdecl.
+// Union del flujo en +0xC: fichero { fp }, memoria { position +0xC, nSize +0x10, memBlock +0x14 }, personalizado { close +0xC, read +0x10, write +0x14, skip +0x18, data +0x1C }.
+namespace {
+static_assert(offsetof(RwStream, Type) == 0xC && offsetof(RwStream, Type.memory.nSize) == 0x10 && offsetof(RwStream, Type.memory.memBlock) == 0x14 && offsetof(RwStream, Type.custom.data) == 0x1C);
+static_assert(offsetof(RwGlobals, fileFuncs) == 0xC4);
+using RwFileReadFn  = size_t(__cdecl*)(void*, size_t, size_t, void*);
+using RwFileWriteFn = size_t(__cdecl*)(const void*, size_t, size_t, void*);
+using RwFileEofFn   = int(__cdecl*)(void*);
+// Mensaje de error del EXE: RwError { pluginID = 1, errorCode = _rwerror(codigo[, extra]) } y RwErrorSet (0x808820).
+void StreamRaiseError(RwInt32 code) {
+    RwError error;
+    error.pluginID  = 1;
+    error.errorCode = _rwerror(code);
+    RwErrorSet(&error);
+}
+void StreamRaiseError(RwInt32 code, RwInt32 extra) {
+    RwError error;
+    error.pluginID  = 1;
+    error.errorCode = _rwerror(code, extra);
+    RwErrorSet(&error);
+}
 }
 
+// 0x7EC9D0 (lote R11A, sin validar; 332 bytes): tipos 1 y 2 (fichero): fread(buffer, 1, length, fp); si devuelve menos: feof -> error 5, si no 0x8000001A; devuelve lo leido en cualquier caso. Tipo 3 (memoria):
+// disponible = nSize - position; si length (sin signo) es mayor, error 5 y se lee solo lo disponible; copia desde memBlock + position, avanza position y devuelve lo copiado. Tipo 4 (personalizado):
+// read(data, buffer, length) y devuelve su resultado. Cualquier otro tipo: error 0xE y devuelve 0.
+RwUInt32 RwStreamRead(RwStream* stream, void* buffer, RwUInt32 length) {
+    switch (stream->type) {
+    case rwSTREAMFILE:
+    case rwSTREAMFILENAME: {
+        void* const file = stream->Type.file.fpFile;
+        const RwUInt32 bytesRead = static_cast<RwUInt32>(reinterpret_cast<RwFileReadFn>(RwEngineInstance->fileFuncs[3])(buffer, 1, length, file));
+        if (bytesRead != length) {
+            const int endOfFile = reinterpret_cast<RwFileEofFn>(RwEngineInstance->fileFuncs[7])(file);
+            if (endOfFile != 0) {
+                StreamRaiseError(5);
+                return bytesRead;
+            }
+            StreamRaiseError(static_cast<RwInt32>(0x8000001A));
+        }
+        return bytesRead;
+    }
+    case rwSTREAMMEMORY: {
+        const RwUInt32 available = stream->Type.memory.nSize - stream->Type.memory.position;
+        if (length > available) {
+            length = available;
+            StreamRaiseError(5);
+        }
+        memcpy(buffer, stream->Type.memory.memBlock + stream->Type.memory.position, length);
+        stream->Type.memory.position += length;
+        return length;
+    }
+    case rwSTREAMCUSTOM:
+        return stream->Type.custom.sfnread(stream->Type.custom.data, buffer, length);
+    default:
+        StreamRaiseError(0xE);
+        return 0;
+    }
+}
+
+// 0x7ECB30 (lote R11A, sin validar; 436 bytes): tipos 1 y 2: fwrite(buffer, 1, length, fp); si devuelve otra cosa, error 0x8000001C y NULL; si no, devuelve el flujo. Tipo 3 (memoria): sin bloque (memBlock NULL)
+// reserva 0x200 bytes (RwMalloc, pista 0x30404; NULL: error 0x80000013 con 0x200 y NULL) y nSize = 0x200; si nSize - position < length (sin signo) amplia a nSize + max(0x200, length) con RwRealloc (pista 0x1030404;
+// NULL: error 0x80000013 con la diferencia, NULL y el bloque anterior queda como estaba); copia en memBlock + position, avanza position y devuelve el flujo. Tipo 4: write(data, buffer, length) distinto de 0 -> el flujo,
+// 0 -> NULL. Cualquier otro tipo: error 0xE y NULL.
 RwStream* RwStreamWrite(RwStream* stream, const void* buffer, RwUInt32 length) {
-    return ((RwStream*(__cdecl *)(RwStream*, const void*, RwUInt32))0x7ECB30)(stream, buffer, length);
+    switch (stream->type) {
+    case rwSTREAMFILE:
+    case rwSTREAMFILENAME: {
+        const RwUInt32 written = static_cast<RwUInt32>(reinterpret_cast<RwFileWriteFn>(RwEngineInstance->fileFuncs[4])(buffer, 1, length, stream->Type.file.fpFile));
+        if (written != length) {
+            StreamRaiseError(static_cast<RwInt32>(0x8000001C));
+            return nullptr;
+        }
+        return stream;
+    }
+    case rwSTREAMMEMORY: {
+        if (stream->Type.memory.memBlock == nullptr) {
+            stream->Type.memory.memBlock = static_cast<RwUInt8*>(RwMalloc(0x200, 0x30404));
+            if (stream->Type.memory.memBlock == nullptr) {
+                StreamRaiseError(static_cast<RwInt32>(0x80000013), 0x200);
+                return nullptr;
+            }
+            stream->Type.memory.nSize = 0x200;
+        }
+        const RwUInt32 capacity = stream->Type.memory.nSize;
+        if (capacity - stream->Type.memory.position < length) {
+            const RwUInt32 newCapacity = capacity + (length < 0x200 ? 0x200 : length);
+            RwUInt8* const block = static_cast<RwUInt8*>(RwRealloc(stream->Type.memory.memBlock, newCapacity, 0x1030404));
+            if (block == nullptr) {
+                StreamRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(newCapacity - stream->Type.memory.nSize));
+                return nullptr;
+            }
+            stream->Type.memory.memBlock = block;
+            stream->Type.memory.nSize    = newCapacity;
+        }
+        memcpy(stream->Type.memory.memBlock + stream->Type.memory.position, buffer, length);
+        stream->Type.memory.position += length;
+        return stream;
+    }
+    case rwSTREAMCUSTOM:
+        return stream->Type.custom.sfnwrite(stream->Type.custom.data, buffer, length) ? stream : nullptr;
+    default:
+        StreamRaiseError(0xE);
+        return nullptr;
+    }
 }
 
 RwStream* RwStreamSkip(RwStream* stream, RwUInt32 offset) {
@@ -396,6 +495,9 @@ void RwPlCoreEngineStreamInjectHooks() {
     RH_ScopedCategory("Renderware");
 
     RH_ScopedGlobalInstall(RwStreamWriteInt32, 0x7ED460);
+    // Lote R11A (sin validar). RenderWare.h declara ademas la plantilla RwStreamRead<T>: el puntero a la funcion se fija con un cast para desambiguar.
+    RH_ScopedNamedGlobalInstall(*static_cast<RwUInt32(*)(RwStream*, void*, RwUInt32)>(RwStreamRead), "RwStreamRead", 0x7EC9D0);
+    RH_ScopedGlobalInstall(RwStreamWrite, 0x7ECB30);
     RH_ScopedGlobalInstall(RwMatrixOrthoNormalize, 0x7F1920);
     RH_ScopedGlobalInstall(RwEngineRegisterPlugin, 0x7F2BB0);
     RH_ScopedGlobalInstall(RwEngineGetPluginOffset, 0x7F2BE0);

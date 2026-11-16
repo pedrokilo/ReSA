@@ -659,8 +659,20 @@ RwBool _rxPipelineClose() {
     return ((RwBool(__cdecl *)(void))0x804F60)();
 }
 
+// 0x8057B0 (lote R11A, sin validar; 102 bytes): reserva un RxPipeline (0x34 bytes) de la lista libre del modulo de tuberias ([RwEngineInstance + [0xC9BC60]], pista 0x30409) y lo pone a cero.
+// Sin memoria: RwError { pluginID = 1, errorCode = _rwerror(0x80000013, 0x34) } con RwErrorSet y devuelve NULL.
 RxPipeline* RxPipelineCreate() {
-    return ((RxPipeline*(__cdecl *)(void))0x8057B0)();
+    auto* const freeList = *reinterpret_cast<RwFreeList**>(reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9BC60));
+    void* const pipeline = RwFreeListAlloc(freeList, 0x30409);
+    if (pipeline == nullptr) {
+        RwError error;
+        error.pluginID  = 1;
+        error.errorCode = _rwerror(static_cast<RwInt32>(0x80000013), 0x34);
+        RwErrorSet(&error);
+        return nullptr;
+    }
+    memset(pipeline, 0, 0x34);
+    return static_cast<RxPipeline*>(pipeline);
 }
 
 void _rxPipelineDestroy(RxPipeline* Pipeline) {
@@ -1683,8 +1695,31 @@ void RwD3D9GetTransform(RwUInt32 state, void* matrix) {
    ((void(__cdecl *)(RwUInt32, void*))0x7FA4F0)(state, matrix);
 }
 
+// 0x7FC430 (lote R11A, sin validar; 97 bytes): D3DMATERIAL9 (17 dwords). Si es igual (dword a dword) a la copia en cache (0xC98AF8) devuelve TRUE sin tocar el dispositivo; si no, copia el material a la cache,
+// pone a 0 el dword de 0xC9A5F4 y llama a IDirect3DDevice9::SetMaterial (ranura 49, +0xC4) con el puntero ORIGINAL; TRUE si el HRESULT no es negativo.
+namespace {
+struct D3D9MaterialCache { uint32 dwords[17]; };
+auto& D3D9CurrentMaterial   = StaticRef<D3D9MaterialCache>(0xC98AF8);
+auto& D3D9MaterialStateFlag = StaticRef<uint32>(0xC9A5F4);
+constexpr size_t kSlotDeviceSetMaterial = 49; // IDirect3DDevice9::SetMaterial (+0xC4)
+}
 RwBool RwD3D9SetMaterial(const void* material) {
-   return ((RwBool(__cdecl *)(const void*))0x7FC430)(material);
+    const auto* const source = static_cast<const uint32*>(material);
+    bool same = true;
+    for (int i = 0; i < 17; ++i) {
+        if (D3D9CurrentMaterial.dwords[i] != source[i]) {
+            same = false;
+            break;
+        }
+    }
+    if (same) {
+        return TRUE;
+    }
+    for (int i = 0; i < 17; ++i) {
+        D3D9CurrentMaterial.dwords[i] = source[i];
+    }
+    D3D9MaterialStateFlag = 0;
+    return ComCall<kSlotDeviceSetMaterial, int32>(D3D9Device, material) >= 0;
 }
 
 RwBool RwD3D9SetClipPlane(RwUInt32 index, const RwV4d* plane) {
@@ -1726,8 +1761,70 @@ RwBool RwD3D9IndexBufferCreate(RwUInt32 numIndices, void** indexBuffer) {
     return D3DResourceSystem::CreateIndexBuffer(numIndices, D3DFMT_INDEX16_VALUE, indexBuffer) >= 0;
 }
 
-RwBool RwD3D9CreateVertexDeclaration(const void* elements, void* vertexdeclaration) {
-   return ((RwBool(__cdecl *)(const void*, void*))0x7FAA30)(elements, vertexdeclaration);
+// 0x7FAA30 (lote R11A, sin validar; 480 bytes): cache de declaraciones de vertices D3D9. `elements` es un array de D3DVERTEXELEMENT9 (8 bytes) terminado por D3DDECL_END (byte de tipo en +4 == 0x11, que cuenta).
+// La cache (0xC97C58 = numero de entradas, 0xC97C5C = capacidad, 0xC97C60 = array de entradas de 12 bytes {declaracion, numElementos, copia de los elementos}) se recorre en orden; la primera entrada con el
+// mismo numero de elementos y los mismos bytes se reutiliza: con declaracion hace AddRef (ranura 1) y sin ella (queda a NULL tras una perdida del dispositivo) CreateVertexDeclaration (ranura 86, +0x158) sobre su copia
+// (resultado ignorado); *vertexdeclaration = entrada.declaracion y TRUE si no es NULL. Si no hay entrada: crece la cache si count >= capacity (capacidad += 16; RwMalloc o RwRealloc, pista 0x1040411, sin comprobar NULL),
+// CreateVertexDeclaration(device, elements, vertexdeclaration) (HRESULT negativo: *vertexdeclaration = NULL y FALSE) y anade la entrada (copia de los elementos con RwMalloc, pista 0x40411).
+namespace {
+struct D3D9VertexDeclarationCacheEntry {
+    void*  declaration;  // +0x00 IDirect3DVertexDeclaration9*
+    uint32 numElements;  // +0x04 (con el elemento final)
+    void*  elements;     // +0x08 copia de los D3DVERTEXELEMENT9
+};
+static_assert(sizeof(D3D9VertexDeclarationCacheEntry) == 12);
+auto& D3D9VertexDeclarationCount    = StaticRef<uint32>(0xC97C58);
+auto& D3D9VertexDeclarationCapacity = StaticRef<uint32>(0xC97C5C);
+auto& D3D9VertexDeclarationEntries  = StaticRef<D3D9VertexDeclarationCacheEntry*>(0xC97C60);
+constexpr size_t kSlotAddRef = 1;                         // IUnknown::AddRef
+constexpr size_t kSlotDeviceCreateVertexDeclaration = 86; // IDirect3DDevice9::CreateVertexDeclaration (+0x158)
+}
+RwBool RwD3D9CreateVertexDeclaration(const void* elements, void** vertexdeclaration) {
+    const auto* const bytes = static_cast<const uint8*>(elements);
+    uint32 numElements = 0;
+    for (const uint8* type = bytes + 4; *type != 0x11; type += 8) {
+        ++numElements;
+    }
+    ++numElements;
+    for (uint32 i = 0; i < D3D9VertexDeclarationCount; ++i) {
+        D3D9VertexDeclarationCacheEntry* const entry = &D3D9VertexDeclarationEntries[i];
+        if (entry->numElements != numElements) {
+            continue;
+        }
+        if (memcmp(entry->elements, elements, numElements * 8) != 0) {
+            continue;
+        }
+        if (entry->declaration != nullptr) {
+            ComCall<kSlotAddRef, ULONG>(entry->declaration);
+        } else {
+            ComCall<kSlotDeviceCreateVertexDeclaration, int32>(D3D9Device, entry->elements, &entry->declaration);
+        }
+        void* const declaration = D3D9VertexDeclarationEntries[i].declaration;
+        *vertexdeclaration = declaration;
+        return declaration != nullptr;
+    }
+    if (!(D3D9VertexDeclarationCount < D3D9VertexDeclarationCapacity)) {
+        const uint32 newCapacity = D3D9VertexDeclarationCapacity + 0x10;
+        D3D9VertexDeclarationCapacity = newCapacity;
+        if (D3D9VertexDeclarationEntries == nullptr) {
+            D3D9VertexDeclarationEntries = static_cast<D3D9VertexDeclarationCacheEntry*>(RwMalloc(newCapacity * 12, 0x1040411));
+        } else {
+            D3D9VertexDeclarationEntries = static_cast<D3D9VertexDeclarationCacheEntry*>(RwRealloc(D3D9VertexDeclarationEntries, newCapacity * 12, 0x1040411));
+        }
+    }
+    if (ComCall<kSlotDeviceCreateVertexDeclaration, int32>(D3D9Device, elements, vertexdeclaration) < 0) {
+        *vertexdeclaration = nullptr;
+        return FALSE;
+    }
+    const uint32 index = D3D9VertexDeclarationCount;
+    D3D9VertexDeclarationEntries[index].declaration = *vertexdeclaration;
+    D3D9VertexDeclarationEntries[index].numElements = numElements;
+    const uint32 byteCount = numElements * 8;
+    void* const copy = RwMalloc(byteCount, 0x40411);
+    D3D9VertexDeclarationEntries[index].elements = copy;
+    memcpy(copy, elements, byteCount);
+    D3D9VertexDeclarationCount = D3D9VertexDeclarationCount + 1;
+    return *vertexdeclaration != nullptr;
 }
 
 void RwD3D9DeleteVertexDeclaration() {
@@ -2596,6 +2693,63 @@ RwTexture* _rwTextureReadMipmapped(const RwChar* name, const RwChar* maskName) {
         CopyStringChecked(texture->mask, reinterpret_cast<const char*>(kTextureReadDefaultMaskSource), 0x20);
     }
     return texture;
+}
+
+// 0x7F0360 (lote R11A, sin validar; 167 bytes; el listado no le daba clase fiable): inicializacion de los campos de un RwFrame (la llaman RwFrameCreate 0x7F0410 y _rwFrameInit 0x7F0450). object.type/subType/
+// flags/privateFlags = 0 y parent = NULL; las dos matrices (modelling +0x10 y ltm +0x50) a la identidad con las banderas 0x20003 (ORTHONORMAL | INTERNALIDENTITY; los paddings no se tocan); objectList (+0x90)
+// vacia (next = prev = su propia direccion), child = next = NULL y root = el propio marco; por ultimo _rwPluginRegistryInitObject(registro de plugins de RwFrame 0x8E2270, frame). inDirtyListLink (+8) no se toca.
+// Los literales de 1.0f son la constante 0x3F800000 (sin aritmetica x87).
+static_assert(offsetof(RwFrame, modelling) == 0x10 && offsetof(RwFrame, ltm) == 0x50 && offsetof(RwFrame, objectList) == 0x90 && offsetof(RwFrame, child) == 0x98 && offsetof(RwFrame, root) == 0xA0);
+void rwFrameInitFields(RwFrame* frame) {
+    static auto& FrameTKList = StaticRef<RwPluginRegistry>(0x8E2270);
+    frame->object.type = 0;
+    frame->objectList.link.next = &frame->objectList.link;
+    frame->object.subType = 0;
+    frame->objectList.link.prev = &frame->objectList.link;
+    frame->object.flags = 0;
+    frame->object.privateFlags = 0;
+    frame->object.parent = nullptr;
+    frame->modelling.at.z = 1.0f;
+    frame->modelling.up.y = 1.0f;
+    frame->modelling.right.x = 1.0f;
+    frame->modelling.up.x = 0.0f;
+    frame->modelling.right.z = 0.0f;
+    frame->modelling.right.y = 0.0f;
+    frame->modelling.at.y = 0.0f;
+    frame->modelling.at.x = 0.0f;
+    frame->modelling.up.z = 0.0f;
+    frame->modelling.pos.z = 0.0f;
+    frame->modelling.pos.y = 0.0f;
+    frame->modelling.pos.x = 0.0f;
+    frame->modelling.flags = 0x20003;
+    frame->ltm.at.z = 1.0f;
+    frame->ltm.up.y = 1.0f;
+    frame->ltm.right.x = 1.0f;
+    frame->ltm.up.x = 0.0f;
+    frame->ltm.right.z = 0.0f;
+    frame->ltm.right.y = 0.0f;
+    frame->ltm.at.y = 0.0f;
+    frame->ltm.at.x = 0.0f;
+    frame->ltm.up.z = 0.0f;
+    frame->ltm.pos.z = 0.0f;
+    frame->ltm.pos.y = 0.0f;
+    frame->ltm.pos.x = 0.0f;
+    frame->ltm.flags = 0x20003;
+    frame->child = nullptr;
+    frame->next = nullptr;
+    frame->root = frame;
+    _rwPluginRegistryInitObject(&FrameTKList, frame);
+}
+
+// Lote R11A (sin validar): declaraciones de vertices D3D9, material D3D9, RxPipelineCreate y campos iniciales de RwFrame.
+void RwCoreInjectHooksR11A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RwD3D9CreateVertexDeclaration, 0x7FAA30);
+    RH_ScopedGlobalInstall(RwD3D9SetMaterial, 0x7FC430);
+    RH_ScopedGlobalInstall(RxPipelineCreate, 0x8057B0);
+    RH_ScopedGlobalInstall(rwFrameInitFields, 0x7F0360);
 }
 
 // Gestor de buferes de vertices D3D9 y lectura de texturas con mipmaps (lote R7A, sin validar).
