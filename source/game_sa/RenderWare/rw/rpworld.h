@@ -2354,7 +2354,7 @@ void _rwD3D9VSGetWorldMultiplyTransposeMatrix(void* worldMultiplyMatrix, const R
 void _rwD3D9VSGetWorldViewMultiplyTransposeMatrix(void* worldViewMultiplyMatrix, const RwMatrix* matrix); // 0x7649D0
 void _rwD3D9VSGetWorldNormalizedMultiplyTransposeMatrix(void* worldMultiplyMatrix, const RwMatrix* matrix); // 0x764A70
 void _rwD3D9VSGetWorldNormalizedViewMultiplyTransposeMatrix(void* worldViewMultiplyMatrix, const RwMatrix* matrix); // 0x764B50
-void _rwD3D9VSGetWorldNormalizedTransposeMatrix(); // 0x764C60
+void _rwD3D9VSGetWorldNormalizedTransposeMatrix(void* matrix); // 0x764C60 (el EXE le pasa la matriz de salida)
 void _rwD3D9VSGetProjectionTransposedMatrix(); // 0x764D20
 void _rwD3D9VSGetNormalInLocalSpace(const RwV3d* normalWorldSpace, RwV3d* normalLocalSpace); // 0x764D30
 void _rwD3D9VSGetPointInLocalSpace(const RwV3d* pointWorldSpace, RwV3d* pointLocalSpace); // 0x764E70
@@ -2616,6 +2616,18 @@ RpBuildStripNode** _rpBuildStripNodesCreate(RwUInt32 numTriangles, RwFreeList** 
 RpBuildStripEdge* _rpBuildStripEdgeFind(RwFreeList* edgeFreeList, RpBuildStripEdge** edgeHead, RwUInt16 from, RwUInt16 to, RwUInt32 nodeIndex, RpBuildStripNode** nodes); // 0x75A1B0 (R19A, nombre inferido)
 void _rpBuildStripNodeConsume(RpBuildStripNode* node, RpBuildStripNode** heads, RwInt32 pass); // 0x75A250 (R19A, nombre inferido)
 RwUInt32 _rpBuildStripExtend(RpBuildStripList* strip, RpBuildStripEdge* edge, RpBuildStripNode** heads, RpBuildMeshTriangle* triangles, RwInt32 pass); // 0x75A370 (R19A, nombre inferido)
+RwBool _rpBuildStripListJoin(RpBuildStripList** list, RwInt32 joinMode); // 0x75A660 (R20A, nombre inferido)
+void _rpD3D9VertexShaderCacheOpen(); // 0x760CF0 (R20A, nombre inferido)
+RwStream* _rpWorldRightsStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x761D60 (R20A, nombre inferido)
+RwStream* _rpWorldRightsStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x761DA0 (R20A, nombre inferido)
+RwStream* _rpWorldSectorRightsStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x761E00 (R20A, nombre inferido)
+RwStream* _rpWorldSectorRightsStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x761E40 (R20A, nombre inferido)
+RwStream* _rpD3D9GeometryNativeWrite(RwStream* stream, RpGeometry* geometry); // 0x7637F0 (R20A, nombre inferido)
+RpGeometry* _rpD3D9GeometryNativeRead(RwStream* stream, RpGeometry* geometry); // 0x763A80 (R20A, nombre inferido)
+RwInt32 _rpD3D9GeometryNativeSize(const RpGeometry* geometry); // 0x763EB0 (R20A, nombre inferido)
+void _rpWorldPipelinesClose(); // 0x75E300 (R20A, nombre inferido)
+RwBool _rpWorldPipelinesOpen(); // 0x75E310 (R20A, nombre inferido)
+RwBool _rpWorldPipelinesAttach(); // 0x75E3E0 (R20A, nombre inferido)
 RwBool D3D9AtomicDefaultInstanceCallback(void* object, RxD3D9ResEntryHeader* header, RwBool reinstance); // 0x7578C0 (R18A, nombre inferido)
 void _rpD3D9RemoveDynamicGeometry(RpGeometry* geometry); // 0x74E9E0
 RwUInt32 _rpD3D9VertexDeclarationGetSize(RwUInt32 type); // 0x7522E0
