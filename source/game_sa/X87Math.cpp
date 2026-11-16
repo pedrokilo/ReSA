@@ -19573,3 +19573,123 @@ __declspec(noinline) float __cdecl UVAnimDegreesCpp(float theta, float factor) {
     return float(double(theta) * double(factor));
 }
 #pragma float_control(pop)
+
+// --- Lote R12A (sin validar): vectores y matrices de RenderWare (RwPlCore) ---
+#pragma float_control(precise, on, push)
+// RwV3dLength 0x7EDAC0 y normalizaciones de 0x7F1930: (x*x + y*y) + z*z en la x87 y `fstp dword` del resultado.
+__declspec(noinline) float __cdecl V3dSumSquaresCpp(const float* v) {
+    const double x = double(v[0]);
+    const double y = double(v[1]);
+    const double z = double(v[2]);
+    double sum = x * x;
+    sum = sum + y * y;
+    sum = sum + z * z;
+    return float(sum);
+}
+// 0x7F1930: d = (a.y*b.y + a.x*b.x) + a.z*b.z (el original los carga como fld/fmul/fld/fmul/faddp/fld/fmul/faddp).
+__declspec(noinline) double __cdecl V3dDotYXZCpp(const float* a, const float* b) {
+    double dot = double(a[1]) * double(b[1]);
+    dot = dot + double(a[0]) * double(b[0]);
+    dot = dot + double(a[2]) * double(b[2]);
+    return dot;
+}
+// 0x7F1930: productos cruzados con una resta por componente y `fstp dword` de cada una (x, y y z en ese orden).
+__declspec(noinline) void __cdecl V3dCrossCpp(float* dst, const float* a, const float* b) {
+    const double x = double(a[1]) * double(b[2]) - double(a[2]) * double(b[1]);
+    dst[0] = float(x);
+    const double y = double(a[2]) * double(b[0]) - double(a[0]) * double(b[2]);
+    dst[1] = float(y);
+    const double z = double(a[0]) * double(b[1]) - double(a[1]) * double(b[0]);
+    dst[2] = float(z);
+}
+__declspec(noinline) void __cdecl V3dScaleCpp(float* v, float s) {
+    const double scale = double(s);
+    v[0] = float(scale * double(v[0]));
+    v[1] = float(scale * double(v[1]));
+    v[2] = float(scale * double(v[2]));
+}
+// 0x7ED730 (comprobado instruccion por instruccion): m = 16 floats de la RwMatrix (right 0..2, up 4..6, at 8..10, pos 12..14).
+__declspec(noinline) void __cdecl V3dTransformPointDefaultCpp(float* out, const float* in, const float* m) {
+    const double x = double(in[0]);
+    const double y = double(in[1]);
+    const double z = double(in[2]);
+    const float t1 = float(double(m[1]) * x);
+    const float t2 = float(double(m[2]) * x);
+    const double s = double(m[4]) * y + double(m[0]) * x;
+    const double u = double(m[5]) * y + double(t1);
+    const double v = double(m[6]) * y + double(t2);
+    const float wy = float(double(m[9]) * z + u);
+    const double wz = double(m[10]) * z + v;
+    const double ox = (double(m[8]) * z + s) + double(m[12]);
+    const double oy = double(m[13]) + double(wy);
+    const double oz = double(m[14]) + wz;
+    out[0] = float(ox);
+    out[1] = float(oy);
+    out[2] = float(oz);
+}
+// 0x7F1450: A = at.z*up.y - at.y*up.z, B = up.z*at.x - at.z*up.x, C = at.y*up.x - up.y*at.x; det = ((right.y*B) + (A*right.x)) + (right.z*C).
+__declspec(noinline) float __cdecl MatrixDeterminantCpp(const float* m) {
+    const double a = double(m[10]) * double(m[5]) - double(m[9]) * double(m[6]);
+    const double b = double(m[6]) * double(m[8]) - double(m[10]) * double(m[4]);
+    const double c = double(m[9]) * double(m[4]) - double(m[5]) * double(m[8]);
+    double det = double(m[1]) * b;
+    det = det + a * double(m[0]);
+    det = det + double(m[2]) * c;
+    return float(det);
+}
+// 0x7F14A0: dua = (at.y*up.y + at.x*up.x) + at.z*up.z, dar = (at.y*right.y + at.x*right.x) + at.z*right.z, dur = (up.y*right.y + up.x*right.x) + up.z*right.z; error = ((dar*dar) + (dua*dua)) + (dur*dur).
+__declspec(noinline) float __cdecl MatrixOrthogonalErrorCpp(const float* m) {
+    double dua = double(m[9]) * double(m[5]);
+    dua = dua + double(m[8]) * double(m[4]);
+    dua = dua + double(m[10]) * double(m[6]);
+    double dar = double(m[9]) * double(m[1]);
+    dar = dar + double(m[8]) * double(m[0]);
+    dar = dar + double(m[10]) * double(m[2]);
+    double dur = double(m[5]) * double(m[1]);
+    dur = dur + double(m[4]) * double(m[0]);
+    dur = dur + double(m[6]) * double(m[2]);
+    double error = dar * dar;
+    error = error + dua * dua;
+    error = error + dur * dur;
+    return float(error);
+}
+// 0x7F1500: eR = ((right.y^2 + right.x^2) + right.z^2) - 1.0f (0x858624), eU = ((up.x^2 + up.y^2) + up.z^2) - 1, eA = ((at.x^2 + at.y^2) + at.z^2) - 1; error = ((eU*eU) + (eR*eR)) + (eA*eA).
+__declspec(noinline) float __cdecl MatrixNormalErrorCpp(const float* m) {
+    double eR = double(m[1]) * double(m[1]);
+    eR = eR + double(m[0]) * double(m[0]);
+    eR = eR + double(m[2]) * double(m[2]);
+    eR = eR - 1.0;
+    double eU = double(m[4]) * double(m[4]);
+    eU = eU + double(m[5]) * double(m[5]);
+    eU = eU + double(m[6]) * double(m[6]);
+    eU = eU - 1.0;
+    double eA = double(m[8]) * double(m[8]);
+    eA = eA + double(m[9]) * double(m[9]);
+    eA = eA + double(m[10]) * double(m[10]);
+    eA = eA - 1.0;
+    double error = eU * eU;
+    error = error + eR * eR;
+    error = error + eA * eA;
+    return float(error);
+}
+// 0x7F1590: e0 = right.x - 1, e1 = up.y - 1, e2 = at.z - 1; T1 = ((right.y^2 + right.z^2) + e0^2) + ((pos.x^2 + pos.y^2) + pos.z^2); T2 = T1 + ((at.x^2 + at.y^2) + e2^2); error = T2 + ((up.x^2 + up.z^2) + e1^2).
+__declspec(noinline) float __cdecl MatrixIdentityErrorCpp(const float* m) {
+    const double e0 = double(m[0]) - 1.0;
+    const double e1 = double(m[5]) - 1.0;
+    const double e2 = double(m[10]) - 1.0;
+    double right = double(m[1]) * double(m[1]);
+    right = right + double(m[2]) * double(m[2]);
+    right = right + e0 * e0;
+    double pos = double(m[12]) * double(m[12]);
+    pos = pos + double(m[13]) * double(m[13]);
+    pos = pos + double(m[14]) * double(m[14]);
+    double error = right + pos;
+    double at = double(m[8]) * double(m[8]);
+    at = at + double(m[9]) * double(m[9]);
+    error = error + (at + e2 * e2);
+    double up = double(m[4]) * double(m[4]);
+    up = up + double(m[6]) * double(m[6]);
+    error = error + (up + e1 * e1);
+    return float(error);
+}
+#pragma float_control(pop)

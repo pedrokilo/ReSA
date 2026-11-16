@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "rwplcore.h"
+#include "X87Math.h"
 
 namespace {
 // 0x8019B0: RwFreeListCreateAndPreallocateSpace real (el simbolo publico 0x801B70 es un JMP a esta direccion); sin reconstruir.
@@ -92,18 +93,6 @@ RwInt32 RwFreeListPurgeAllFreeLists() {
 
 void RwStreamSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
     ((void(__cdecl *)(RwInt32, RwInt32))0x7EC760)(blockSize, numBlocksToPrealloc);
-}
-
-RwStream* _rwStreamInitialize(RwStream* stream, RwBool rwOwned, RwStreamType type, RwStreamAccessType accessType, const void* data) {
-    return ((RwStream*(__cdecl *)(RwStream*, RwBool, RwStreamType, RwStreamAccessType, const void*))0x7EC810)(stream, rwOwned, type, accessType, data);
-}
-
-RwStream* RwStreamOpen(RwStreamType type, RwStreamAccessType accessType, const void* data) {
-    return ((RwStream*(__cdecl *)(RwStreamType, RwStreamAccessType, const void*))0x7ECEF0)(type, accessType, data);
-}
-
-RwBool RwStreamClose(RwStream* stream, void* data) {
-    return ((RwBool(__cdecl *)(RwStream*, void*))0x7ECE20)(stream, data);
 }
 
 // Lote R11A (sin validar): RwStreamRead y RwStreamWrite. Funciones de fichero del motor (RwEngineInstance->fileFuncs, 11 punteros desde +0xC4): fread = [3] (+0xD0), fwrite = [4] (+0xD4), feof = [7] (+0xE0), todas cdecl.
@@ -213,8 +202,305 @@ RwStream* RwStreamWrite(RwStream* stream, const void* buffer, RwUInt32 length) {
     }
 }
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R12A (sin validar): abrir, cerrar, saltar y leer cabeceras de flujos de RenderWare (0x7EC810..0x7ED590). Funciones de fichero del motor (fileFuncs, +0xC4):
+// fopen = [1] (+0xC8), fclose = [2] (+0xCC), fseek = [8] (+0xE4), ftell = [10] (+0xEC), todas cdecl. Las cadenas de modo estan en el EXE: "rb" 0x8E2220, "wb" 0x8E2224, "ab" 0x8E2228.
+// La lista libre de flujos es *(RwFreeList**)(RwEngineInstance + [0xC9792C]); RwFreeListAlloc = memoryAlloc (+0x144) y RwFreeListFree = memoryFree (+0x148).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+using RwFileOpenFn  = void*(__cdecl*)(const char*, const char*);
+using RwFileCloseFn = int(__cdecl*)(void*);
+using RwFileSeekFn  = int(__cdecl*)(void*, long, int);
+using RwFileTellFn  = long(__cdecl*)(void*);
+static_assert(offsetof(RwGlobals, memoryAlloc) == 0x144 && offsetof(RwGlobals, memoryFree) == 0x148);
+
+RwFreeList* R12AStreamFreeList() {
+    return *reinterpret_cast<RwFreeList**>(reinterpret_cast<uintptr_t>(RwEngineInstance) + StaticRef<int32>(0xC9792C));
+}
+void R12AStreamFree(RwStream* stream) {
+    RwFreeList* const list = R12AStreamFreeList();
+    RwEngineInstance->memoryFree(list, stream);
+}
+
+// Parte comun de _rwStreamInitialize (0x7EC84D..0x7EC9BE) y RwStreamOpen (0x7ECF46..0x7ED0A6): rellena la union segun el tipo y devuelve el flujo, o NULL (sin liberarlo).
+RwStream* R12AStreamSetup(RwStream* stream, RwStreamType type, RwStreamAccessType accessType, const void* data) {
+    switch (type) {
+    case rwSTREAMFILE: {
+        if (reinterpret_cast<RwFileTellFn>(RwEngineInstance->fileFuncs[10])(const_cast<void*>(data)) == -1) {
+            return nullptr;
+        }
+        stream->Type.file.fpFile = const_cast<void*>(data);
+        return stream;
+    }
+    case rwSTREAMFILENAME: {
+        const char* mode;
+        switch (accessType) {
+        case rwSTREAMREAD:   mode = reinterpret_cast<const char*>(0x8E2220); break;
+        case rwSTREAMWRITE:  mode = reinterpret_cast<const char*>(0x8E2224); break;
+        case rwSTREAMAPPEND: mode = reinterpret_cast<const char*>(0x8E2228); break;
+        default:
+            StreamRaiseError(0xD);
+            StreamRaiseError(static_cast<RwInt32>(0x80000002), static_cast<RwInt32>(reinterpret_cast<uintptr_t>(data)));
+            return nullptr;
+        }
+        void* const file = reinterpret_cast<RwFileOpenFn>(RwEngineInstance->fileFuncs[1])(static_cast<const char*>(data), mode);
+        if (file == nullptr) {
+            StreamRaiseError(static_cast<RwInt32>(0x80000002), static_cast<RwInt32>(reinterpret_cast<uintptr_t>(data)));
+            return nullptr;
+        }
+        stream->Type.file.fpFile = file;
+        return stream;
+    }
+    case rwSTREAMMEMORY: {
+        switch (accessType) {
+        case rwSTREAMREAD: {
+            const RwMemory* const memory = static_cast<const RwMemory*>(data);
+            stream->Type.memory.position = 0;
+            stream->Type.memory.nSize    = memory->length;
+            stream->Type.memory.memBlock = memory->start;
+            return stream;
+        }
+        case rwSTREAMWRITE:
+            stream->Type.memory.position = 0;
+            stream->Type.memory.nSize    = 0;
+            stream->Type.memory.memBlock = nullptr;
+            return stream;
+        case rwSTREAMAPPEND: {
+            const RwMemory* const memory = static_cast<const RwMemory*>(data);
+            stream->Type.memory.position = memory->length;
+            stream->Type.memory.nSize    = memory->length;
+            stream->Type.memory.memBlock = memory->start;
+            return stream;
+        }
+        default:
+            StreamRaiseError(0xD);
+            return nullptr;
+        }
+    }
+    case rwSTREAMCUSTOM:
+        memcpy(&stream->Type.custom, data, sizeof(RwStreamCustom));
+        return stream;
+    default:
+        StreamRaiseError(0xE);
+        return nullptr;
+    }
+}
+}
+
+// 0x7EC810 (lote R12A, sin validar; 431 bytes; cdecl, 5 argumentos): flujo NULL -> NULL sin tocar nada. Si no: type, accessType y rwOwned (+0x20) se escriben antes de comprobar el tipo.
+RwStream* _rwStreamInitialize(RwStream* stream, RwBool rwOwned, RwStreamType type, RwStreamAccessType accessType, const void* data) {
+    if (stream == nullptr) {
+        return nullptr;
+    }
+    stream->type       = type;
+    stream->accessType = accessType;
+    stream->rwOwned    = rwOwned;
+    return R12AStreamSetup(stream, type, accessType, data);
+}
+
+// 0x7ECEF0 (lote R12A, sin validar; 481 bytes): reserva el flujo en la lista libre (hint 0x30404); si falla, RwFreeListFree con NULL (el EXE lo hace) y NULL. rwOwned = 1. Si la configuracion falla, libera el flujo y devuelve NULL.
+RwStream* RwStreamOpen(RwStreamType type, RwStreamAccessType accessType, const void* data) {
+    RwStream* const stream = static_cast<RwStream*>(RwEngineInstance->memoryAlloc(R12AStreamFreeList(), 0x30404));
+    if (stream == nullptr) {
+        R12AStreamFree(stream);
+        return nullptr;
+    }
+    stream->type       = type;
+    stream->accessType = accessType;
+    stream->rwOwned    = TRUE;
+    if (R12AStreamSetup(stream, type, accessType, data) == nullptr) {
+        R12AStreamFree(stream);
+        return nullptr;
+    }
+    return stream;
+}
+
+// 0x7ECE20 (lote R12A, sin validar; 190 bytes): FILE no hace nada (TRUE); FILENAME = fclose(fp) == 0; MEMORY con acceso distinto de lectura y datos no nulos devuelve {memBlock, position} en data (RwMemory); CUSTOM llama a close(data) si existe
+// (resultado ignorado) y da TRUE; tipo invalido: error 0xE y FALSE sin liberar. Si rwOwned, libera el flujo con RwFreeListFree.
+RwBool RwStreamClose(RwStream* stream, void* data) {
+    RwBool result;
+    switch (stream->type) {
+    case rwSTREAMFILE:
+        result = TRUE;
+        break;
+    case rwSTREAMFILENAME:
+        result = reinterpret_cast<RwFileCloseFn>(RwEngineInstance->fileFuncs[2])(stream->Type.file.fpFile) == 0;
+        break;
+    case rwSTREAMMEMORY:
+        result = TRUE;
+        if (stream->accessType != rwSTREAMREAD && data != nullptr) {
+            RwMemory* const memory = static_cast<RwMemory*>(data);
+            memory->start  = stream->Type.memory.memBlock;
+            memory->length = stream->Type.memory.position;
+        }
+        break;
+    case rwSTREAMCUSTOM:
+        if (stream->Type.custom.sfnclose != nullptr) {
+            stream->Type.custom.sfnclose(stream->Type.custom.data);
+        }
+        result = TRUE;
+        break;
+    default:
+        StreamRaiseError(0xE);
+        return FALSE;
+    }
+    if (stream->rwOwned) {
+        R12AStreamFree(stream);
+    }
+    return result;
+}
+
+// 0x7ECD00 (lote R12A, sin validar; 263 bytes): desplazamiento 0 -> el flujo (sin mirar el tipo). FILE/FILENAME: fseek(fp, offset, SEEK_CUR); si falla, feof != 0 -> error 5, y NULL. MEMORY: position + offset (sin signo) > nSize ->
+// position = nSize, error 5 y NULL. CUSTOM: skip(data, offset) distinto de 0 -> el flujo, si no NULL. Otro tipo: error 0xE y NULL.
 RwStream* RwStreamSkip(RwStream* stream, RwUInt32 offset) {
-    return ((RwStream*(__cdecl *)(RwStream*, RwUInt32))0x7ECD00)(stream, offset);
+    if (offset == 0) {
+        return stream;
+    }
+    switch (stream->type) {
+    case rwSTREAMFILE:
+    case rwSTREAMFILENAME: {
+        void* const file = stream->Type.file.fpFile;
+        if (reinterpret_cast<RwFileSeekFn>(RwEngineInstance->fileFuncs[8])(file, static_cast<long>(offset), 1) != 0) {
+            if (reinterpret_cast<RwFileEofFn>(RwEngineInstance->fileFuncs[7])(file) != 0) {
+                StreamRaiseError(5);
+            }
+            return nullptr;
+        }
+        return stream;
+    }
+    case rwSTREAMMEMORY: {
+        const RwUInt32 target = stream->Type.memory.position + offset;
+        if (target > stream->Type.memory.nSize) {
+            stream->Type.memory.position = stream->Type.memory.nSize;
+            StreamRaiseError(5);
+            return nullptr;
+        }
+        stream->Type.memory.position = target;
+        return stream;
+    }
+    case rwSTREAMCUSTOM:
+        return stream->Type.custom.sfnskip(stream->Type.custom.data, offset) ? stream : nullptr;
+    default:
+        StreamRaiseError(0xE);
+        return nullptr;
+    }
+}
+
+// 0x7ED1E0 (lote R12A, sin validar; 28 bytes): tabla de saltos de 26 entradas indexada por (tipo - 1); es "compleja" (TRUE) para los tipos 5..11, 14, 15, 16, 18, 20 y 26; cualquier otro (incluido > 26) da FALSE.
+RwBool _rwStreamChunkIsComplex(const RwChunkHeaderInfo* info) {
+    const RwUInt32 index = info->type - 1;
+    if (index > 0x19) {
+        return FALSE;
+    }
+    constexpr RwUInt32 kComplexMask = (0x7Fu << 4) | (0x7u << 13) | (1u << 17) | (1u << 19) | (1u << 25);
+    return (kComplexMask >> index) & 1u;
+}
+
+// 0x7ED0F0 (lote R12A, sin validar; 231 bytes; cdecl, 5 argumentos): lee 12 bytes (si no llegan 12: error 0x8000001A y FALSE). El tercer dword es el identificador de biblioteca: sin bits altos (formato antiguo) version = id << 8 y
+// build = 0; si no version = ((id >> 14) & 0x3FF00) + 0x30000 | ((id >> 16) & 0x3F) y build = id & 0xFFFF. Llama a _rwStreamChunkIsComplex (resultado descartado) y escribe las salidas no nulas (tipo, longitud, build y version, en ese orden).
+RwBool _rwStreamReadChunkHeader(RwStream* stream, RwUInt32* type, RwUInt32* length, RwUInt32* version, RwUInt32* buildNum) {
+    RwUInt32 header[3];
+    if (RwStreamRead(stream, header, 12) != 12) {
+        StreamRaiseError(static_cast<RwInt32>(0x8000001A));
+        return FALSE;
+    }
+    RwChunkHeaderInfo info;
+    info.type   = header[0];
+    info.length = header[1];
+    const RwUInt32 libraryId = header[2];
+    if ((libraryId & 0xFFFF0000u) == 0) {
+        info.version  = libraryId << 8;
+        info.buildNum = 0;
+    } else {
+        info.version  = (((libraryId >> 14) & 0x3FF00u) + 0x30000u) | ((libraryId >> 16) & 0x3Fu);
+        info.buildNum = libraryId & 0xFFFFu;
+    }
+    _rwStreamChunkIsComplex(&info);
+    if (type)     { *type     = info.type; }
+    if (length)   { *length   = info.length; }
+    if (buildNum) { *buildNum = info.buildNum; }
+    if (version)  { *version  = info.version; }
+    return TRUE;
+}
+
+// 0x7ED2D0 (lote R12A, sin validar; 244 bytes): lee cabeceras y salta los datos (RwStreamSkip) hasta dar con el tipo pedido; cualquier fallo -> FALSE. Con el tipo encontrado, version < 0x34000 o > 0x36003 (sin signo): error 0x80000004 y FALSE;
+// si no escribe longitud y version (si no son nulos) y devuelve TRUE.
+RwBool RwStreamFindChunk(RwStream* stream, RwUInt32 type, RwUInt32* lengthOut, RwUInt32* versionOut) {
+    RwUInt32 foundType, length, version;
+    if (!_rwStreamReadChunkHeader(stream, &foundType, &length, &version, nullptr)) {
+        return FALSE;
+    }
+    while (foundType != type) {
+        if (RwStreamSkip(stream, length) == nullptr) {
+            return FALSE;
+        }
+        if (!_rwStreamReadChunkHeader(stream, &foundType, &length, &version, nullptr)) {
+            return FALSE;
+        }
+    }
+    if (version < 0x34000u || version > 0x36003u) {
+        StreamRaiseError(static_cast<RwInt32>(0x80000004));
+        return FALSE;
+    }
+    if (lengthOut)  { *lengthOut  = length; }
+    if (versionOut) { *versionOut = version; }
+    return TRUE;
+}
+
+// 0x7ED270 (lote R12A, sin validar; 82 bytes): escribe {tipo, tamano, id} con RwStreamWrite(12 bytes); id = (((version + 0x10000) << 14) & 0xFFC00000) | ((version & 0x3F) << 16) | (build & 0xFFFF). Devuelve su resultado.
+RwStream* _rwStreamWriteVersionedChunkHeader(RwStream* stream, RwInt32 type, RwInt32 size, RwUInt32 version, RwUInt32 buildNum) {
+    RwUInt32 header[3];
+    header[0] = static_cast<RwUInt32>(type);
+    header[1] = static_cast<RwUInt32>(size);
+    header[2] = (((version + 0x10000u) << 14) & 0xFFC00000u) | ((version & 0x3Fu) << 16) | (buildNum & 0xFFFFu);
+    return RwStreamWrite(stream, header, 12);
+}
+
+// 0x7ED3D0 (lote R12A, sin validar; 142 bytes): sin bytes -> el flujo; si no escribe por trozos de hasta 0x100 bytes copiados a un bufer local (RwStreamWrite; un resultado NULL -> NULL) hasta agotar los bytes.
+RwStream* RwStreamWriteReal(RwStream* stream, const RwReal* reals, RwUInt32 numBytes) {
+    RwUInt8 buffer[0x100];
+    const RwUInt8* source = reinterpret_cast<const RwUInt8*>(reals);
+    while (numBytes != 0) {
+        const RwUInt32 chunk = numBytes < 0x100 ? numBytes : 0x100;
+        memcpy(buffer, source, chunk);
+        if (RwStreamWrite(stream, buffer, chunk) == nullptr) {
+            return nullptr;
+        }
+        numBytes -= chunk;
+        source += chunk;
+    }
+    return stream;
+}
+
+// 0x7ED4F0 y 0x7ED540 (lote R12A, sin validar; 80 bytes cada una): RwStreamRead(flujo, destino, bytes); si devuelve 0 (no se compara con numBytes): error 0x8000001A y NULL; si no el flujo.
+RwStream* RwStreamReadReal(RwStream* stream, RwReal* reals, RwUInt32 numBytes) {
+    if (RwStreamRead(stream, reals, numBytes) == 0) {
+        StreamRaiseError(static_cast<RwInt32>(0x8000001A));
+        return nullptr;
+    }
+    return stream;
+}
+
+RwStream* RwStreamReadInt32(RwStream* stream, RwInt32* ints, RwUInt32 numBytes) {
+    if (RwStreamRead(stream, ints, numBytes) == 0) {
+        StreamRaiseError(static_cast<RwInt32>(0x8000001A));
+        return nullptr;
+    }
+    return stream;
+}
+
+// 0x7ED590 (lote R12A, sin validar; 96 bytes): _rwStreamReadChunkHeader(flujo, &tipo, &longitud, &version, &build); si falla NULL. Rellena type, length, version, buildNum e isComplex (_rwStreamChunkIsComplex) y devuelve el flujo.
+RwStream* RwStreamReadChunkHeaderInfo(RwStream* stream, RwChunkHeaderInfo* chunkHeaderInfo) {
+    RwUInt32 type, length, version, buildNum;
+    if (!_rwStreamReadChunkHeader(stream, &type, &length, &version, &buildNum)) {
+        return nullptr;
+    }
+    chunkHeaderInfo->type      = type;
+    chunkHeaderInfo->length    = length;
+    chunkHeaderInfo->version   = version;
+    chunkHeaderInfo->buildNum  = buildNum;
+    chunkHeaderInfo->isComplex = _rwStreamChunkIsComplex(chunkHeaderInfo);
+    return stream;
 }
 
 RwBool _rwStringOpen() {
@@ -342,10 +628,122 @@ RwMatrix* RwMatrixTransform(RwMatrix* matrix, const RwMatrix* transform, RwOpCom
     return ((RwMatrix*(__cdecl *)(RwMatrix*, const RwMatrix*, RwOpCombineType))0x7F25A0)(matrix, transform, combineOp);
 }
 
-// 0x7F1920: `jmp 0x7F1930` (salto de incremental linking a la rutina real, x87, todavia sin reconstruir). Se le pasa (matrixOut, matrixIn) por direccion y
-// se devuelve su resultado; la rutina real hace todo el calculo (incluido el estado x87 que deja).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R12A (sin validar): modulos de vectores y matrices del motor. Cada uno es un bloque dentro de RwEngineInstance a un desplazamiento guardado en una variable del EXE
+// (vectores 0xC97934, matrices 0xC979BC).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+struct R12AVectorModuleData {
+    const RwUInt32* sqrtTable;     // +0x00 tabla de la raiz (RwV3dLength 0x7EDAC0, _rwSqrt 0x7EDB30)
+    const RwUInt32* invSqrtTable;  // +0x04 tabla de la inversa de la raiz (_rwInvSqrt 0x7EDB90)
+    rwVectorMultFn  multPoint;     // +0x08 (por defecto 0x7ED730)
+    rwVectorsMultFn multPoints;    // +0x0C (por defecto 0x7ED670)
+    rwVectorMultFn  multVector;    // +0x10 (por defecto 0x7ED880)
+    rwVectorsMultFn multVectors;   // +0x14 (por defecto 0x7ED7D0)
+};
+struct R12AMatrixModuleData {
+    void*             freeList;   // +0x00
+    RwUInt32          flags;      // +0x04 (0x20000 = optimizaciones de identidad)
+    void*             multFn;     // +0x08 (por defecto 0x7F12F0)
+    RwMatrixTolerance tolerance;  // +0x0C (por defecto 0.01f x 3)
+};
+static_assert(offsetof(R12AVectorModuleData, multVectors) == 0x14 && sizeof(RwMatrixTolerance) == 0xC);
+R12AVectorModuleData& R12AVectorModule() {
+    return *reinterpret_cast<R12AVectorModuleData*>(reinterpret_cast<uintptr_t>(RwEngineInstance) + StaticRef<int32>(0xC97934));
+}
+R12AMatrixModuleData& R12AMatrixModule() {
+    return *reinterpret_cast<R12AMatrixModuleData*>(reinterpret_cast<uintptr_t>(RwEngineInstance) + StaticRef<int32>(0xC979BC));
+}
+}
+
+// 0x7ED5F0 (lote R12A, sin validar; 122 bytes; cdecl, 4 argumentos): _rwVectorSetMultFn. Guarda los cuatro callbacks (punto, puntos, vector, vectores) en +8, +0xC, +0x10 y +0x14 del modulo de vectores; los nulos se sustituyen por
+// 0x7ED730, 0x7ED670, 0x7ED880 y 0x7ED7D0. Devuelve TRUE.
+RwBool _rwVectorSetMultFn(rwVectorMultFn multPoint, rwVectorsMultFn multPoints, rwVectorMultFn multVector, rwVectorsMultFn multVectors) {
+    R12AVectorModule().multPoint = multPoint ? multPoint : reinterpret_cast<rwVectorMultFn>(0x7ED730);
+    R12AVectorModule().multPoints = multPoints ? multPoints : reinterpret_cast<rwVectorsMultFn>(0x7ED670);
+    R12AVectorModule().multVector = multVector ? multVector : reinterpret_cast<rwVectorMultFn>(0x7ED880);
+    R12AVectorModule().multVectors = multVectors ? multVectors : reinterpret_cast<rwVectorsMultFn>(0x7ED7D0);
+    return TRUE;
+}
+
+// 0x7ED730 (lote R12A, sin validar; 150 bytes): callback de punto por defecto; x87 con T1, T2 y at.y * z + (...) guardados como float (ver V3dTransformPointDefaultCpp). Devuelve la salida (EAX).
+RwV3d* _rwV3dTransformPointDefault(RwV3d* pointOut, const RwV3d* pointIn, const RwMatrix* matrix) {
+    V3dTransformPointDefaultCpp(&pointOut->x, &pointIn->x, reinterpret_cast<const float*>(matrix));
+    return pointOut;
+}
+
+// 0x7F1930 (lote R12A, sin validar; 968 bytes; cdecl, (salida, entrada)): cuerpo de RwMatrixOrthoNormalize (0x7F1920 es un `jmp` a esta direccion). Copia los ejes de la entrada, normaliza right, up y at con _rwInvSqrt
+// (0x7EDB90) sobre la suma de cuadrados guardada como float; si algun inverso no es > 0 (o NaN) ese eje es el que se recalcula; si no se calculan |at.up|, |at.right| y |up.right| y se recalcula el eje del par menos ortogonal:
+// |at.up| < |at.right| y |at.up| < |up.right| -> right; si no |at.right| < |up.right| (tras |at.up| >= |at.right|) -> up; en el resto -> at. Se recalcula d = b x s normalizado y s = d x b normalizado
+// (right = up x at, at = right x up; up = at x right, right = up x at; at = right x up, up = at x right). Escribe los ejes y la posicion en la salida (las rellenos no se tocan) y flags = (flags & ~0x20000) | 3.
+RwMatrix* RwMatrixOrthoNormalizeImpl(RwMatrix* matrixOut, const RwMatrix* matrixIn) {
+    const float* const in = reinterpret_cast<const float*>(matrixIn);
+    float right[3] = { in[0], in[1], in[2] };
+    float up[3]    = { in[4], in[5], in[6] };
+    float at[3]    = { in[8], in[9], in[10] };
+    const float posX = in[12];
+    const float posY = in[13];
+    const float posZ = in[14];
+
+    const float invRight = _rwInvSqrt(V3dSumSquaresCpp(right));
+    V3dScaleCpp(right, invRight);
+    const float invUp = _rwInvSqrt(V3dSumSquaresCpp(up));
+    V3dScaleCpp(up, invUp);
+    const float invAt = _rwInvSqrt(V3dSumSquaresCpp(at));
+    V3dScaleCpp(at, invAt);
+
+    // 0 = recalcular right (b = up, s = at, d = right), 1 = up (b = at, s = right, d = up), 2 = at (b = right, s = up, d = at)
+    int recompute;
+    if (!(invRight > 0.0f)) {
+        recompute = 0;
+    } else if (!(invUp > 0.0f)) {
+        recompute = 1;
+    } else if (!(invAt > 0.0f)) {
+        recompute = 2;
+    } else {
+        float dotAtUp = static_cast<float>(V3dDotYXZCpp(at, up));
+        if (!(dotAtUp >= 0.0f)) {
+            dotAtUp = -dotAtUp;
+        }
+        float dotAtRight = static_cast<float>(V3dDotYXZCpp(at, right));
+        if (!(dotAtRight >= 0.0f)) {
+            dotAtRight = -dotAtRight;
+        }
+        double dotUpRight = V3dDotYXZCpp(up, right);
+        if (!(dotUpRight >= 0.0)) {
+            dotUpRight = -dotUpRight;
+        }
+        if (dotAtUp < dotAtRight) {
+            recompute = (static_cast<double>(dotAtUp) < dotUpRight) ? 0 : 2;
+        } else {
+            recompute = (static_cast<double>(dotAtRight) < dotUpRight) ? 1 : 2;
+        }
+    }
+    float* base;
+    float* second;
+    float* dest;
+    switch (recompute) {
+    case 0:  base = up;    second = at;    dest = right; break;
+    case 1:  base = at;    second = right; dest = up;    break;
+    default: base = right; second = up;    dest = at;    break;
+    }
+    V3dCrossCpp(dest, base, second);
+    V3dScaleCpp(dest, _rwInvSqrt(V3dSumSquaresCpp(dest)));
+    V3dCrossCpp(second, dest, base);
+    V3dScaleCpp(second, _rwInvSqrt(V3dSumSquaresCpp(second)));
+
+    float* const out = reinterpret_cast<float*>(matrixOut);
+    out[0] = right[0]; out[1] = right[1]; out[2] = right[2];
+    out[4] = up[0];    out[5] = up[1];    out[6] = up[2];
+    out[8] = at[0];    out[9] = at[1];    out[10] = at[2];
+    out[12] = posX;    out[13] = posY;    out[14] = posZ;
+    matrixOut->flags = (matrixOut->flags & 0xFFFDFFFFu) | 3u;
+    return matrixOut;
+}
+
+// 0x7F1920 (lote R12A, sin validar): `jmp 0x7F1930`; ahora llama directamente al cuerpo reconstruido (RwMatrixOrthoNormalizeImpl).
 RwMatrix* RwMatrixOrthoNormalize(RwMatrix* matrixOut, const RwMatrix* matrixIn) {
-    return reinterpret_cast<RwMatrix*(__cdecl*)(RwMatrix*, const RwMatrix*)>(0x7F1930)(matrixOut, matrixIn);
+    return RwMatrixOrthoNormalizeImpl(matrixOut, matrixIn);
 }
 
 RwMatrix* RwMatrixInvert(RwMatrix* matrixOut, const RwMatrix* matrixIn) {
@@ -376,32 +774,61 @@ RwMatrix* RwMatrixUpdate(RwMatrix* matrix) {
     return ((RwMatrix*(__cdecl *)(RwMatrix*))0x7F18A0)(matrix);
 }
 
+// 0x7F17E0 (lote R12A, sin validar; 179 bytes): tolerancia NULL -> la del modulo de matrices (motor + [0xC979BC] + 0xC, tres floats). normal = error normal <= Normal; orthogonal = error ortogonal <= Orthogonal (comparaciones ordenadas: NaN da falso);
+// identidad solo se evalua si los dos son verdaderos (error de identidad <= Identity). Bits 1 (normal), 2 (ortogonal) y 0x20000 (identidad) de los flags (+0xC) se ponen o se borran. Devuelve la matriz.
 RwMatrix* RwMatrixOptimize(RwMatrix* matrix, const RwMatrixTolerance* tolerance) {
-    return ((RwMatrix*(__cdecl *)(RwMatrix*, const RwMatrixTolerance*))0x7F17E0)(matrix, tolerance);
+    if (tolerance == nullptr) {
+        tolerance = &R12AMatrixModule().tolerance;
+    }
+    const bool normal = _rwMatrixNormalError(matrix) <= tolerance->Normal;
+    const bool orthogonal = _rwMatrixOrthogonalError(matrix) <= tolerance->Orthogonal;
+    bool identity = false;
+    if (normal && orthogonal) {
+        identity = _rwMatrixIdentityError(matrix) <= tolerance->Identity;
+    }
+    RwUInt32 flags = matrix->flags;
+    flags = normal ? (flags | 1u) : (flags & ~1u);
+    flags = orthogonal ? (flags | 2u) : (flags & ~2u);
+    flags = identity ? (flags | 0x20000u) : (flags & ~0x20000u);
+    matrix->flags = flags;
+    return matrix;
 }
 
+// 0x7F1450 (lote R12A, sin validar; 69 bytes): determinante en el orden x87 del EXE (ver MatrixDeterminantCpp).
 RwReal _rwMatrixDeterminant(const RwMatrix* matrix) {
-    return ((RwReal(__cdecl *)(const RwMatrix*))0x7F1450)(matrix);
+    return MatrixDeterminantCpp(reinterpret_cast<const float*>(matrix));
 }
 
+// 0x7F1500 (lote R12A, sin validar; 137 bytes): ((eU^2 + eR^2) + eA^2) con la longitud al cuadrado de cada eje menos 1.0f (ver MatrixNormalErrorCpp).
 RwReal _rwMatrixNormalError(const RwMatrix* matrix) {
-    return ((RwReal(__cdecl *)(const RwMatrix*))0x7F1500)(matrix);
+    return MatrixNormalErrorCpp(reinterpret_cast<const float*>(matrix));
 }
 
+// 0x7F14A0 (lote R12A, sin validar; 91 bytes): suma de los cuadrados de los tres productos escalares entre ejes (ver MatrixOrthogonalErrorCpp).
 RwReal _rwMatrixOrthogonalError(const RwMatrix* matrix) {
-    return ((RwReal(__cdecl *)(const RwMatrix*))0x7F14A0)(matrix);
+    return MatrixOrthogonalErrorCpp(reinterpret_cast<const float*>(matrix));
 }
 
+// 0x7F1590 (lote R12A, sin validar; 200 bytes): distancia al identidad (diagonal menos 1, resto y traslacion) al cuadrado (ver MatrixIdentityErrorCpp).
 RwReal _rwMatrixIdentityError(const RwMatrix* matrix) {
-    return ((RwReal(__cdecl *)(const RwMatrix*))0x7F1590)(matrix);
+    return MatrixIdentityErrorCpp(reinterpret_cast<const float*>(matrix));
 }
 
 RwReal RwV3dNormalize(RwV3d* out, const RwV3d* in) {
     return ((RwReal(__cdecl *)(RwV3d*, const RwV3d*))0x7ED9B0)(out, in);
 }
 
+// 0x7EDAC0 (lote R12A, sin validar; 112 bytes): s = (x*x + y*y) + z*z guardado como float; con los bits de s distintos de cero (tambien -0.0f) se aproxima la raiz con la tabla del modulo de vectores (motor + [0xC97934], puntero en +0):
+// bits += 0x800; resultado = tabla[(bits >> 12) & 0xFFF] + ((bits >> 1) & 0x3FC00000) (aritmetica de enteros). Con bits cero devuelve s.
 RwReal RwV3dLength(const RwV3d* in) {
-    return ((RwReal(__cdecl *)(const RwV3d*))0x7EDAC0)(in);
+    const float sum = V3dSumSquaresCpp(&in->x);
+    RwUInt32 bits = std::bit_cast<RwUInt32>(sum);
+    if (bits != 0) {
+        bits += 0x800;
+        const RwUInt32* const table = R12AVectorModule().sqrtTable;
+        bits = table[(bits >> 12) & 0xFFF] + ((bits >> 1) & 0x3FC00000u);
+    }
+    return std::bit_cast<RwReal>(bits);
 }
 
 RwReal RwV2dLength(const RwV2d* in) {
@@ -412,28 +839,42 @@ RwReal RwV2dNormalize(RwV2d* out, const RwV2d* in) {
     return ((RwReal(__cdecl *)(RwV2d*, const RwV2d*))0x7EDC60)(out, in);
 }
 
+// 0x7EDD60 (lote R12A, sin validar; 38 bytes): llama al callback del modulo de vectores (motor + [0xC97934] + 8, cdecl) con (salida, entrada, matriz), ignora su resultado y devuelve la salida.
 RwV3d* RwV3dTransformPoint(RwV3d* pointOut, const RwV3d* pointIn, const RwMatrix* matrix) {
-    return ((RwV3d*(__cdecl *)(RwV3d*, const RwV3d*, const RwMatrix*))0x7EDD60)(pointOut, pointIn, matrix);
+    R12AVectorModule().multPoint(pointOut, pointIn, matrix);
+    return pointOut;
 }
 
 RwV3d* RwV3dTransformPoints(RwV3d* pointsOut, const RwV3d* pointsIn, RwInt32 numPoints, const RwMatrix* matrix) {
     return ((RwV3d*(__cdecl *)(RwV3d*, const RwV3d*, RwInt32, const RwMatrix*))0x7EDD90)(pointsOut, pointsIn, numPoints, matrix);
 }
 
+// 0x7EDDC0 (lote R12A, sin validar; 38 bytes): igual que RwV3dTransformPoint con el callback de +0x10.
 RwV3d* RwV3dTransformVector(RwV3d* vectorOut, const RwV3d* vectorIn, const RwMatrix* matrix) {
-    return ((RwV3d*(__cdecl *)(RwV3d*, const RwV3d*, const RwMatrix*))0x7EDDC0)(vectorOut, vectorIn, matrix);
+    R12AVectorModule().multVector(vectorOut, vectorIn, matrix);
+    return vectorOut;
 }
 
+// 0x7EDDF0 (lote R12A, sin validar; 43 bytes): llama al callback de +0x14 con (salida, entrada, numero, matriz), ignora su resultado y devuelve la salida.
 RwV3d* RwV3dTransformVectors(RwV3d* vectorsOut, const RwV3d* vectorsIn, RwInt32 numPoints, const RwMatrix* matrix) {
-    return ((RwV3d*(__cdecl *)(RwV3d*, const RwV3d*, RwInt32, const RwMatrix*))0x7EDDF0)(vectorsOut, vectorsIn, numPoints, matrix);
+    R12AVectorModule().multVectors(vectorsOut, vectorsIn, numPoints, matrix);
+    return vectorsOut;
 }
 
 RwReal _rwSqrt(const RwReal num) {
     return ((RwReal(__cdecl *)(const RwReal))0x7EDB30)(num);
 }
 
+// 0x7EDB90 (lote R12A, sin validar; 87 bytes): con los bits de num distintos de cero: bits += 0x800; resultado = tabla[(bits >> 12) & 0xFFF] + ((~bits >> 1) & 0x3FC00000) con la tabla del modulo de vectores en +4;
+// con bits cero devuelve num.
 RwReal _rwInvSqrt(const RwReal num) {
-    return ((RwReal(__cdecl *)(const RwReal))0x7EDB90)(num);
+    RwUInt32 bits = std::bit_cast<RwUInt32>(num);
+    if (bits != 0) {
+        bits += 0x800;
+        const RwUInt32* const table = R12AVectorModule().invSqrtTable;
+        bits = table[(bits >> 12) & 0xFFF] + (((~bits) >> 1) & 0x3FC00000u);
+    }
+    return std::bit_cast<RwReal>(bits);
 }
 
 RwReal _rwV3dNormalize(RwV3d* out, const RwV3d* in) {
@@ -627,18 +1068,6 @@ void _rwResourcesPurge() {
     ((void(__cdecl *)(void))0x807E50)();
 }
 
-RwBool RwStreamFindChunk(RwStream* stream, RwUInt32 type, RwUInt32* lengthOut, RwUInt32* versionOut) {
-    return ((RwBool(__cdecl *)(RwStream*, RwUInt32, RwUInt32*, RwUInt32*))0x7ED2D0)(stream, type, lengthOut, versionOut);
-}
-
-RwStream* _rwStreamWriteVersionedChunkHeader(RwStream* stream, RwInt32 type, RwInt32 size, RwUInt32 version, RwUInt32 buildNum) {
-    return ((RwStream*(__cdecl *)(RwStream*, RwInt32, RwInt32, RwUInt32, RwUInt32))0x7ED270)(stream, type, size, version, buildNum);
-}
-
-RwStream* RwStreamWriteReal(RwStream* stream, const RwReal* reals, RwUInt32 numBytes) {
-    return ((RwStream*(__cdecl *)(RwStream*, const RwReal*, RwUInt32))0x7ED3D0)(stream, reals, numBytes);
-}
-
 // 0x7ED460: escribe los bytes tal cual con RwStreamWrite (0x7ECB30; sin conversion de orden de bytes en x86), ignora su resultado y devuelve el flujo.
 RwStream* RwStreamWriteInt32(RwStream* stream, const RwInt32* ints, RwUInt32 numBytes) {
     RwStreamWrite(stream, ints, numBytes);
@@ -649,20 +1078,8 @@ RwStream* RwStreamWriteInt16(RwStream* stream, const RwInt16* ints, RwUInt32 num
     return ((RwStream*(__cdecl *)(RwStream*, const RwInt16*, RwUInt32))0x7ED480)(stream, ints, numBytes);
 }
 
-RwStream* RwStreamReadReal(RwStream* stream, RwReal* reals, RwUInt32 numBytes) {
-    return ((RwStream*(__cdecl *)(RwStream*, RwReal*, RwUInt32))0x7ED4F0)(stream, reals, numBytes);
-}
-
-RwStream* RwStreamReadInt32(RwStream* stream, RwInt32* ints, RwUInt32 numBytes) {
-    return ((RwStream*(__cdecl *)(RwStream*, RwInt32*, RwUInt32))0x7ED540)(stream, ints, numBytes);
-}
-
 RwStream* RwStreamReadInt16(RwStream* stream, RwInt16* ints, RwUInt32 numBytes) {
     return ((RwStream*(__cdecl *)(RwStream*, RwInt16*, RwUInt32))0x7ED4A0)(stream, ints, numBytes);
-}
-
-RwStream* RwStreamReadChunkHeaderInfo(RwStream* stream, RwChunkHeaderInfo* chunkHeaderInfo) {
-    return ((RwStream*(__cdecl *)(RwStream*, RwChunkHeaderInfo*))0x7ED590)(stream, chunkHeaderInfo);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -791,4 +1208,36 @@ void* _rwResArenaHeapSplitBlock(void* blockPointer, RwUInt32 size) {
     block->size = size;
     split->heap = block->heap;
     return split;
+}
+
+// Lote R12A (sin validar): flujos, vectores y matrices de RwPlCore (0x7EC810..0x7F1930).
+void RwPlCoreInjectHooksR12A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    RH_ScopedGlobalInstall(_rwStreamInitialize, 0x7EC810);
+    RH_ScopedGlobalInstall(RwStreamSkip, 0x7ECD00);
+    RH_ScopedGlobalInstall(RwStreamClose, 0x7ECE20);
+    RH_ScopedGlobalInstall(RwStreamOpen, 0x7ECEF0);
+    RH_ScopedGlobalInstall(_rwStreamReadChunkHeader, 0x7ED0F0);
+    RH_ScopedGlobalInstall(_rwStreamChunkIsComplex, 0x7ED1E0);
+    RH_ScopedGlobalInstall(_rwStreamWriteVersionedChunkHeader, 0x7ED270);
+    RH_ScopedGlobalInstall(RwStreamFindChunk, 0x7ED2D0);
+    RH_ScopedGlobalInstall(RwStreamWriteReal, 0x7ED3D0);
+    RH_ScopedGlobalInstall(RwStreamReadReal, 0x7ED4F0);
+    RH_ScopedGlobalInstall(RwStreamReadInt32, 0x7ED540);
+    RH_ScopedGlobalInstall(RwStreamReadChunkHeaderInfo, 0x7ED590);
+    RH_ScopedGlobalInstall(_rwVectorSetMultFn, 0x7ED5F0);
+    RH_ScopedGlobalInstall(_rwV3dTransformPointDefault, 0x7ED730);
+    RH_ScopedGlobalInstall(RwV3dLength, 0x7EDAC0);
+    RH_ScopedGlobalInstall(_rwInvSqrt, 0x7EDB90);
+    RH_ScopedGlobalInstall(RwV3dTransformPoint, 0x7EDD60);
+    RH_ScopedGlobalInstall(RwV3dTransformVector, 0x7EDDC0);
+    RH_ScopedGlobalInstall(RwV3dTransformVectors, 0x7EDDF0);
+    RH_ScopedGlobalInstall(_rwMatrixDeterminant, 0x7F1450);
+    RH_ScopedGlobalInstall(_rwMatrixOrthogonalError, 0x7F14A0);
+    RH_ScopedGlobalInstall(_rwMatrixNormalError, 0x7F1500);
+    RH_ScopedGlobalInstall(_rwMatrixIdentityError, 0x7F1590);
+    RH_ScopedGlobalInstall(RwMatrixOptimize, 0x7F17E0);
+    RH_ScopedGlobalInstall(RwMatrixOrthoNormalizeImpl, 0x7F1930);
 }

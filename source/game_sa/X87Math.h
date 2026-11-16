@@ -2430,3 +2430,20 @@ void __cdecl SkinBlendPointCpp(const float* m, const float* in, float weight, fl
 float __cdecl UVAnimParamThetaCpp(float upX, float rightX);
 // RpUVAnim 0x7CC110 / 0x7CC760: grados = float(theta * factor) con la x87 (24 bits).
 float __cdecl UVAnimDegreesCpp(float theta, float factor);
+
+// Lote R12A (sin validar): RwPlCore (vectores y matrices de RenderWare). Todas siguen la secuencia x87 del EXE (24 bits; solo se redondea a float donde el original hace `fstp dword`).
+// ((x*x + y*y) + z*z) de un vector de tres floats, guardado como float (RwV3dLength 0x7EDAC0 y las normalizaciones de 0x7F1930).
+float __cdecl V3dSumSquaresCpp(const float* v);
+// ((a.y*b.y + a.x*b.x) + a.z*b.z) sin redondear (productos escalares de 0x7F1930; el original guarda los dos primeros como float y compara el tercero en ST0).
+double __cdecl V3dDotYXZCpp(const float* a, const float* b);
+// dst = a x b (x = a.y*b.z - a.z*b.y, y = a.z*b.x - a.x*b.z, z = a.x*b.y - a.y*b.x), cada componente guardada como float (0x7F1930). dst no se solapa con a ni con b.
+void __cdecl V3dCrossCpp(float* dst, const float* a, const float* b);
+// v[i] = float(s * v[i]) para las tres componentes, en el orden x, y, z (normalizacion de 0x7F1930).
+void __cdecl V3dScaleCpp(float* v, float s);
+// 0x7ED730: transformacion de un punto por una matriz (RwV3dTransformPoint por defecto de _rwVectorSetMultFn): out = in * m + pos con T1 = right.y * x, T2 = right.z * x y at.y * z + (up.y * y + T1) guardados como float; el resto sin redondear.
+void __cdecl V3dTransformPointDefaultCpp(float* out, const float* in, const float* m);
+// 0x7F1450, 0x7F14A0, 0x7F1500, 0x7F1590: determinante y errores (ortogonal, normal, identidad) de una RwMatrix (16 floats) en el orden de operaciones del EXE; devuelven el valor que el original deja en ST0.
+float __cdecl MatrixDeterminantCpp(const float* m);
+float __cdecl MatrixOrthogonalErrorCpp(const float* m);
+float __cdecl MatrixNormalErrorCpp(const float* m);
+float __cdecl MatrixIdentityErrorCpp(const float* m);
