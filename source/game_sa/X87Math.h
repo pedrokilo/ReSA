@@ -2400,3 +2400,25 @@ bool __cdecl Wv223SearchLightFirstPointNotFartherCpp(const float* target, float 
 // raTo = -to, si no raTo = to (limitado a 1). omega = arcocoseno por la aproximacion de RW (RwSqrt 0x7EDB30 por direccion fija en las ramas |c| >= 0.5; casos especiales por los bits: |c| >= 1 -> 0 o pi, |c| <= 2^-29 -> pi/2).
 // nearlyZeroOm = (c >= 0x3F7FFF58); si es 0, raFrom y raTo se multiplican por 1 / (w + w^3 * poly(w^2)). `from`, `to` y `cache` son RtQuat / RtQuatSlerpCache (cache: 4 + 4 floats, omega +0x20, nearlyZeroOm +0x24). Ver X87Math.cpp.
 void __cdecl RtSlerpSetupCacheCpp(const float* from, const float* to, float* cache);
+
+// Lote R5A (sin validar): cuaterniones de RenderWare (RtQuat). Todas siguen la secuencia x87 del EXE (24 bits, sin guardados intermedios salvo los fstp del original).
+// Matriz a cuaternion (RtQuatConvertFromMatrix 0x7EB5C0 y sus tres ramas 0x7EB6A0, 0x7EB700, 0x7EB760). `m` apunta a los floats de la RwMatrix (right.x en 0, up.y en 5, at.z en 10).
+// RtQuatMatrixTraceCpp: traza = (m[10] + m[0]) + m[5] (sin redondear); si es > 0 (ordenado, con NaN es falso) guarda float(traza + 1) en *trPlusOne y devuelve true.
+bool __cdecl RtQuatMatrixTraceCpp(const float* m, float* trPlusOne);
+// RtQuatMatrixTraceFinishCpp: s = RwSqrt(arg) (0x7EDB30, por direccion fija); real = 0.5 * s; inv = 0.5 / s; x = (m[6] - m[9]) * inv; y = (m[8] - m[2]) * inv; z = (m[1] - m[4]) * inv.
+void __cdecl RtQuatMatrixTraceFinishCpp(float* quat, const float* m, float arg);
+// RtQuatMatrixAxisArgCpp: argumento de la raiz de cada rama, float((a - (b + c)) + 1): eje 0 (x mayor, 0x7EB6A0): m[0] - (m[10] + m[5]); eje 1 (y, 0x7EB700): m[5] - (m[10] + m[0]); eje 2 (z, 0x7EB760): m[10] - (m[5] + m[0]).
+float __cdecl RtQuatMatrixAxisArgCpp(const float* m, int axis);
+// RtQuatMatrixAxisFinishCpp: s = RwSqrt(arg); componente mayor = 0.5 * s; inv = 0.5 / s; el resto como en el EXE (ver X87Math.cpp).
+void __cdecl RtQuatMatrixAxisFinishCpp(float* quat, const float* m, int axis, float arg);
+
+// RtQuatRotate (0x7EB7C0): h = angulo * (pi / 360) (0x8631D4); *outSin = float(sin(h)), *outCos = float(cos(h)) con h sin redondear a float.
+void __cdecl RtQuatRotateSinCosCpp(float angle, float* outSin, float* outCos);
+// Caso rwCOMBINEREPLACE: imag.x = sin * imag.x; imag.y = imag.y * sin; imag.z = imag.z * sin.
+void __cdecl RtQuatRotateReplaceScaleCpp(float* imag, float sinValue);
+// Casos PRECONCAT (post == false) y POSTCONCAT (post == true): P = eje unitario * seno (sin redondear), el cuaternion `quat` (x, y, z, w) se combina con (P, coseno) en el orden de operaciones del EXE.
+void __cdecl RtQuatRotateConcatCpp(float* quat, const float* unitAxis, float sinValue, float cosValue, bool post);
+
+// RtQuatTransformVectors (0x7EBBB0): rota numPoints vectores por el cuaternion `quat` (x, y, z, w): D = w*w - ((x*x + y*y) + z*z) (float), 2q (float), w*2q (float);
+// por vector: cruz (float) + (t * q) + D * v con t = ((v.y * 2y) + (2x * v.x)) + (v.z * 2z) sin redondear. `out` e `in` pueden solaparse (las lecturas y escrituras siguen el orden del EXE). Con numPoints <= 0 no hace nada.
+void __cdecl RtQuatTransformVectorsCpp(float* out, const float* in, int numPoints, const float* quat);

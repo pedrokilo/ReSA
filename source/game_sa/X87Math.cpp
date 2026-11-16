@@ -19312,3 +19312,206 @@ __declspec(noinline) void __cdecl RtSlerpSetupCacheCpp(const float* from, const 
     }
 }
 #pragma float_control(pop)
+
+// --- Lote R5A (sin validar) ---
+namespace {
+constexpr double kRtQuatAngleScale = RtK(0x3C0EFA35u); // 0x8631D4: pi / 360
+} // namespace
+
+// 0x7EB7C0: fld angle; fmul 0x8631D4 (pi / 360); fld st(0); fsin; fstp (seno como float); fcos; fstp (coseno como float). Seno y coseno se calculan sobre h sin redondear a float.
+// Fuera del bloque `precise` (como QuaternionFromAxisAngleCpp): con /fp:fast sin/cos son los opcodes x87 nativos (fsin/fcos) y no llamadas a _CIsin/_CIcos del CRT.
+__declspec(noinline) void __cdecl RtQuatRotateSinCosCpp(float angle, float* outSin, float* outCos) {
+    const double h = double(angle) * kRtQuatAngleScale;
+    *outSin = float(sin(h));
+    *outCos = float(cos(h));
+}
+
+// Cuaterniones de RenderWare (rtquat). Mismo criterio que el lote R2A: doubles con `precise`, un fstp (float(...)) donde el EXE guarda un float, y nada mas.
+#pragma float_control(precise, on, push)
+namespace {
+constexpr double kRtQuatHalf       = RtK(0x3F000000u); // 0x858B8C
+constexpr double kRtQuatOne        = RtK(0x3F800000u); // 0x858624
+} // namespace
+
+// 0x7EB5C0 (primera mitad): traza sin redondear (fld [m+28h]; fadd [m]; fadd [m+14h]); `fcom 0.0f` (0x858B50); si traza > 0, fadd 1.0f y fstp dword.
+__declspec(noinline) bool __cdecl RtQuatMatrixTraceCpp(const float* m, float* trPlusOne) {
+    double tr = double(m[10]) + double(m[0]);
+    tr = tr + double(m[5]);
+    if (tr > 0.0) {
+        *trPlusOne = float(tr + kRtQuatOne);
+        return true;
+    }
+    return false;
+}
+
+// 0x7EB5C0 (segunda mitad, traza positiva): RwSqrt(arg) deja s en ST0; real = 0.5 * s (fstp [q+0Ch]); inv = 0.5 / s (fdivr); x = (m[18h] - m[24h]) * inv; y = (m[20h] - m[8]) * inv; z = (m[4] - m[10h]) * inv.
+__declspec(noinline) void __cdecl RtQuatMatrixTraceFinishCpp(float* quat, const float* m, float arg) {
+    auto* const rwSqrt = reinterpret_cast<float(__cdecl*)(float)>(0x7EDB30);
+    const double s = double(rwSqrt(arg));
+    quat[3] = float(kRtQuatHalf * s);
+    const double inv = kRtQuatHalf / s;
+    quat[0] = float((double(m[6]) - double(m[9])) * inv);
+    quat[1] = float((double(m[8]) - double(m[2])) * inv);
+    quat[2] = float((double(m[1]) - double(m[4])) * inv);
+}
+
+// 0x7EB6A0 / 0x7EB700 / 0x7EB760 (argumento de la raiz): float((a - (b + c)) + 1.0f) con la suma interior primero (fld c; fadd b; fsubr a).
+__declspec(noinline) float __cdecl RtQuatMatrixAxisArgCpp(const float* m, int axis) {
+    double value;
+    if (axis == 0) {
+        value = double(m[10]) + double(m[5]);
+        value = double(m[0]) - value;
+    } else if (axis == 1) {
+        value = double(m[10]) + double(m[0]);
+        value = double(m[5]) - value;
+    } else {
+        value = double(m[5]) + double(m[0]);
+        value = double(m[10]) - value;
+    }
+    value = value + kRtQuatOne;
+    return float(value);
+}
+
+// Segunda mitad de cada rama: s = RwSqrt(arg); el componente mayor = 0.5 * s; inv = 0.5 / s; el resto en el orden (y con los operandos) del EXE.
+//   eje 0 (0x7EB6A0): x = 0.5 s;  w = (m[18h] - m[24h]) * inv;  y = (m[10h] + m[4]) * inv;  z = (m[20h] + m[8]) * inv
+//   eje 1 (0x7EB700): y = 0.5 s;  w = (m[20h] - m[8]) * inv;    z = (m[24h] + m[18h]) * inv; x = (m[10h] + m[4]) * inv
+//   eje 2 (0x7EB760): z = 0.5 s;  w = (m[4] - m[10h]) * inv;    x = (m[20h] + m[8]) * inv;   y = (m[24h] + m[18h]) * inv
+__declspec(noinline) void __cdecl RtQuatMatrixAxisFinishCpp(float* quat, const float* m, int axis, float arg) {
+    auto* const rwSqrt = reinterpret_cast<float(__cdecl*)(float)>(0x7EDB30);
+    const double s = double(rwSqrt(arg));
+    if (axis == 0) {
+        quat[0] = float(kRtQuatHalf * s);
+        const double inv = kRtQuatHalf / s;
+        quat[3] = float((double(m[6]) - double(m[9])) * inv);
+        quat[1] = float((double(m[4]) + double(m[1])) * inv);
+        quat[2] = float((double(m[8]) + double(m[2])) * inv);
+    } else if (axis == 1) {
+        quat[1] = float(kRtQuatHalf * s);
+        const double inv = kRtQuatHalf / s;
+        quat[3] = float((double(m[8]) - double(m[2])) * inv);
+        quat[2] = float((double(m[9]) + double(m[6])) * inv);
+        quat[0] = float((double(m[4]) + double(m[1])) * inv);
+    } else {
+        quat[2] = float(kRtQuatHalf * s);
+        const double inv = kRtQuatHalf / s;
+        quat[3] = float((double(m[1]) - double(m[4])) * inv);
+        quat[0] = float((double(m[8]) + double(m[2])) * inv);
+        quat[1] = float((double(m[9]) + double(m[6])) * inv);
+    }
+}
+
+// 0x7EBA02 (rwCOMBINEREPLACE), tras normalizar el eje dentro del propio cuaternion: x = sin * x; y = y * sin; z = z * sin.
+__declspec(noinline) void __cdecl RtQuatRotateReplaceScaleCpp(float* imag, float sinValue) {
+    imag[0] = float(double(sinValue) * double(imag[0]));
+    imag[1] = float(double(imag[1]) * double(sinValue));
+    imag[2] = float(double(imag[2]) * double(sinValue));
+}
+
+// 0x7EB911 (rwCOMBINEPRECONCAT) y 0x7EB822 (rwCOMBINEPOSTCONCAT). q = copia de (x, y, z, w) tomada antes de normalizar; P1..P3 = eje unitario * seno (en registro, sin redondear a float);
+// la salida se escribe en el orden w, x, y, z. Las sumas y restas siguen el orden de la pila x87 del EXE.
+__declspec(noinline) void __cdecl RtQuatRotateConcatCpp(float* quat, const float* unitAxis, float sinValue, float cosValue, bool post) {
+    const float qx = quat[0], qy = quat[1], qz = quat[2], qw = quat[3];
+    const double s  = double(sinValue);
+    const double c  = double(cosValue);
+    const double p1 = double(unitAxis[0]) * s;
+    const double p2 = double(unitAxis[1]) * s;
+    const double p3 = double(unitAxis[2]) * s;
+    if (post) {
+        // w = (qw * c) - (((qy * P2) + (qx * P1)) + (qz * P3))
+        const double wc = double(qw) * c;
+        double t = double(qy) * p2;
+        t = t + double(qx) * p1;
+        t = t + double(qz) * p3;
+        quat[3] = float(wc - t);
+        // x = (((qz * P2) - (P3 * qy)) + (P1 * qw)) + (qx * c)
+        double u = double(qz) * p2;
+        u = u - p3 * double(qy);
+        u = u + p1 * double(qw);
+        u = u + double(qx) * c;
+        quat[0] = float(u);
+        // y = (((qx * P3) - (qz * P1)) + (qy * c)) + (P2 * qw)
+        double v = double(qx) * p3;
+        v = v - double(qz) * p1;
+        v = v + double(qy) * c;
+        v = v + p2 * double(qw);
+        quat[1] = float(v);
+        // z = (((qy * P1) - (P2 * qx)) + (P3 * qw)) + (qz * c)
+        double w = double(qy) * p1;
+        w = w - p2 * double(qx);
+        w = w + p3 * double(qw);
+        w = w + double(qz) * c;
+        quat[2] = float(w);
+    } else {
+        // w = (c * qw) - (((P2 * qy) + (P1 * qx)) + (P3 * qz))
+        const double wc = c * double(qw);
+        double t = p2 * double(qy);
+        t = t + p1 * double(qx);
+        t = t + p3 * double(qz);
+        quat[3] = float(wc - t);
+        // x = (((qy * P3) - (qz * P2)) + (qx * c)) + (P1 * qw)
+        double u = double(qy) * p3;
+        u = u - double(qz) * p2;
+        u = u + double(qx) * c;
+        u = u + p1 * double(qw);
+        quat[0] = float(u);
+        // y = (((qz * P1) - (P3 * qx)) + (qy * c)) + (P2 * qw)
+        double v = double(qz) * p1;
+        v = v - p3 * double(qx);
+        v = v + double(qy) * c;
+        v = v + p2 * double(qw);
+        quat[1] = float(v);
+        // z = (((P2 * qx) - (qy * P1)) + (qz * c)) + (P3 * qw)
+        double w = p2 * double(qx);
+        w = w - double(qy) * p1;
+        w = w + double(qz) * c;
+        w = w + p3 * double(qw);
+        quat[2] = float(w);
+    }
+}
+
+// 0x7EBBB0
+__declspec(noinline) void __cdecl RtQuatTransformVectorsCpp(float* out, const float* in, int numPoints, const float* quat) {
+    const double qx0 = double(quat[0]);
+    const double qy0 = double(quat[1]);
+    const double qz0 = double(quat[2]);
+    const double qw0 = double(quat[3]);
+    // D = w*w - (((x*x) + (y*y)) + (z*z))
+    double sumSquares = qx0 * qx0;
+    sumSquares = sumSquares + qy0 * qy0;
+    sumSquares = sumSquares + qz0 * qz0;
+    const float diff = float(qw0 * qw0 - sumSquares);
+    const float x2   = float(qx0 + qx0);
+    const float y2   = float(qy0 + qy0);
+    const float z2   = float(qz0 + qz0);
+    const float wx2  = float(double(quat[3]) * double(x2));
+    const float wy2  = float(double(quat[3]) * double(y2));
+    const float wz2  = float(double(quat[3]) * double(z2));
+    if (numPoints <= 0) {
+        return;
+    }
+    float*       o = out;
+    const float* v = in;
+    int remaining = numPoints;
+    do {
+        // t = ((v.y * 2y) + (2x * v.x)) + (v.z * 2z)
+        double t = double(v[1]) * double(y2);
+        t = t + double(x2) * double(v[0]);
+        t = t + double(v[2]) * double(z2);
+        // producto vectorial con 2*w*q (float)
+        const float cx = float(double(v[2]) * double(wy2) - double(v[1]) * double(wz2));
+        const float cy = float(double(wz2) * double(v[0]) - double(v[2]) * double(wx2));
+        const float cz = float(double(v[1]) * double(wx2) - double(wy2) * double(v[0]));
+        o[0] = cx;
+        o[1] = cy;
+        o[2] = cz;
+        o[0] = float(t * double(quat[0]) + double(o[0]));
+        o[1] = float(double(quat[1]) * t + double(o[1]));
+        o[2] = float(double(quat[2]) * t + double(o[2]));
+        o[0] = float(double(diff) * double(v[0]) + double(o[0]));
+        o[1] = float(double(v[1]) * double(diff) + double(o[1]));
+        o[2] = float(double(v[2]) * double(diff) + double(o[2]));
+        o += 3;
+        v += 3;
+    } while (--remaining != 0);
+}
+#pragma float_control(pop)

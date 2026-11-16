@@ -77,4 +77,6 @@ void RpUVAnimInjectHooks();
 void RtDictInjectHooks();
 void RtBMPInjectHooks();         // lote R3A (sin validar): RtBMPImageRead y su ayudante de filas
 void RtSlerpInjectHooks();       // lote R2A (sin validar): RtQuatSetupSlerpCache
+void RtQuatInjectHooks();        // lote R5A (sin validar): RtQuatConvertFromMatrix (y sus tres ramas), RtQuatRotate y RtQuatTransformVectors
+void ZlibInflateInjectHooks();   // lote R5A (sin validar): inflate de zlib 1.1.4 enlazado en el EXE (0x7E9430..0x7EB5B0)
 void D3DX9InjectHooks();         // lote R4A (sin validar): matematicas de D3DX9 (3DNow!/SSE) enlazadas en el EXE
