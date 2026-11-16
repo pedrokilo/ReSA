@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include "rwcore.h"
 #include "X87Math.h"
+#include <xmmintrin.h>
 
 // Estado global del motor que leen o escriben las funciones reconstruidas del grupo g25d en este archivo (direcciones del EXE):
 //   RwEngineInstance (0xC97B24, ver RenderWare.h)       puntero a RwGlobals; los modulos cuelgan de el con su `globalsOffset`
@@ -2107,17 +2108,7 @@ void* RwD3D9GetCurrentD3DDevice() { // IDirect3DDevice9
     return ((void*(__cdecl *)(void))0x7F9D50)();
 }
 
-RwUInt32 RwD3D9EngineGetMaxMultiSamplingLevels() {
-    return ((RwUInt32(__cdecl *)(void))0x7F84E0)();
-}
-
-void RwD3D9EngineSetMultiSamplingLevels(RwUInt32 numLevels) {
-    ((void(__cdecl *)(RwUInt32))0x7F84F0)(numLevels);
-}
-
-void RwD3D9EngineSetRefreshRate(RwUInt32 refreshRate) {
-    ((void(__cdecl *)(RwUInt32))0x7F8580)(refreshRate);
-}
+// 0x7F84E0, 0x7F84F0 y 0x7F8580: reconstruidas al final del archivo (lote R26A, RwD3D9InjectHooksR26A).
 
 void RwD3D9EngineSetMultiThreadSafe(RwBool enable) {
     ((void(__cdecl *)(RwBool))0x7F8620)(enable);
@@ -2135,17 +2126,7 @@ RwBool RwD3D9SetRenderTarget(RwUInt32 index, RwRaster* raster) {
     return ((RwBool(__cdecl *)(RwUInt32, RwRaster*))0x7F9E90)(index, raster);
 }
 
-RwBool RwD3D9ChangeVideoMode(RwInt32 modeIndex) {
-    return ((RwBool(__cdecl *)(RwInt32))0x7F8640)(modeIndex);
-}
-
-RwBool RwD3D9ChangeMultiSamplingLevels(RwUInt32 numLevels) {
-    return ((RwBool(__cdecl *)(RwUInt32))0x7F8A90)(numLevels);
-}
-
-RwBool RwD3D9CameraAttachWindow(void* camera, void* hwnd) {
-    return ((RwBool(__cdecl *)(void*, void*))0x7F8D70)(camera, hwnd);
-}
+// 0x7F8640, 0x7F8A90 y 0x7F8D70: reconstruidas al final del archivo (lote R26A, RwD3D9InjectHooksR26A).
 
 void RwD3D9SetStreamSource(RwUInt32 streamNumber, void* streamData, RwUInt32 offset, RwUInt32 stride) {
     ((void(__cdecl *)(RwUInt32, void*, RwUInt32, RwUInt32))0x7FA030)(streamNumber, streamData, offset, stride);
@@ -5819,4 +5800,773 @@ void RwD3D9InjectHooksR25A() {
     RH_ScopedGlobalInstall(_rwD3D9FindMSLevels, 0x7F6BF0);
     RH_ScopedGlobalInstall(RwD3D9CreateVertexShader, 0x7FAC60);
     RH_ScopedGlobalInstall(RwD3D9CameraIsBBoxFullyInsideFrustum, 0x7FAD90);
+}
+
+// --- Lote R26A (sin validar): controlador D3D9 de RenderWare: parametros de presentacion, parada del sistema, tabla de estandares, modos de video, liberacion y restauracion del dispositivo, multimuestreo,
+// cambio de modo y camara con ventana (0x7F6CB0..0x7F8D70; el listado las atribuia a RwCore por vecindad). 0x7F6781 (cola de una rutina, enganchada por WindowedMode.cpp) y 0x7F7730
+// (_rwD3D9CameraClear, enganchada por WindowedMode.cpp con la correccion NOTSA del suelo reflectante) no se rehacen aqui. ---
+// Estado global del EXE que usan (direcciones):
+//   0xC9C040 D3DPRESENT_PARAMETERS (0x38 bytes)    0xC9BEE4 modo actual (ancho, alto, frecuencia, formato; 16 bytes) y 0xC9BEF4 su profundidad, 0xC9BEF8 su bandera, 0xC9BEFC profundidad del Z-buffer
+//   0xC97C48 tabla de modos de video (0x14 bytes: D3DDISPLAYMODE + bandera) y 0xC97C40 su numero, 0xC97C18 modo actual, 0xC9BEE0 modos del adaptador, 0xC97C38 bandera "modos listos", 0xC97BD4 formato base del adaptador
+//   0xC97C1C ventana principal    0xC97C28 dispositivo    0xC97C2C / 0xC97C30 superficies de profundidad y de color actuales    0xC97C54 "dentro de escena"    0xC980B0 callback de restauracion
+//   0xC98088 / 0xC98084 cache de luces (0x6C bytes cada una: D3DLIGHT9 + bandera de activa) y su numero    0xC97C58 / 0xC97C60 tabla de registros de 12 bytes (objeto COM, sin uso, bloque)    0xC980A4 bandera de estado de coma flotante
+namespace {
+constexpr size_t kSlotD3DGetAdapterModeCount        = 6;   // IDirect3D9::GetAdapterModeCount (+0x18)
+constexpr size_t kSlotD3DEnumAdapterModes           = 7;   // +0x1C
+constexpr size_t kSlotD3DGetAdapterDisplayMode      = 8;   // +0x20
+constexpr size_t kSlotD3DCheckDeviceType            = 9;   // +0x24
+constexpr size_t kSlotD3DCheckDeviceFormat          = 10;  // +0x28
+constexpr size_t kSlotD3DCheckDepthStencilMatch     = 12;  // +0x30
+constexpr size_t kSlotDeviceTestCooperativeLevel    = 3;   // IDirect3DDevice9::TestCooperativeLevel (+0x0C)
+constexpr size_t kSlotDeviceCreateAdditionalSwapChain = 13; // +0x34
+constexpr size_t kSlotDeviceReset                   = 16;  // +0x40
+constexpr size_t kSlotDeviceGetRenderTarget         = 38;  // +0x98
+constexpr size_t kSlotDeviceGetDepthStencilSurface  = 40;  // +0xA0
+constexpr size_t kSlotDeviceBeginScene              = 41;  // +0xA4
+constexpr size_t kSlotDeviceSetLight                = 51;  // +0xCC
+constexpr size_t kSlotDeviceLightEnable             = 53;  // +0xD4
+constexpr size_t kSlotDeviceSetVertexDeclaration    = 87;  // +0x15C
+constexpr size_t kSlotDeviceSetVertexShader         = 92;  // +0x170
+constexpr size_t kSlotDeviceSetStreamSource         = 100; // +0x190
+constexpr size_t kSlotDeviceSetIndices              = 104; // +0x1A0
+constexpr size_t kSlotDeviceSetPixelShader          = 107; // +0x1AC
+constexpr size_t kSlotSwapChainGetBackBuffer        = 5;   // IDirect3DSwapChain9::GetBackBuffer (+0x14)
+
+struct D3D9PresentLayout {                 // D3DPRESENT_PARAMETERS (0xC9C040)
+    uint32 backBufferWidth;                // +0x00
+    uint32 backBufferHeight;               // +0x04
+    uint32 backBufferFormat;               // +0x08
+    uint32 backBufferCount;                // +0x0C
+    uint32 multiSampleType;                // +0x10
+    uint32 multiSampleQuality;             // +0x14
+    uint32 swapEffect;                     // +0x18
+    void*  deviceWindow;                   // +0x1C
+    int32  windowed;                       // +0x20
+    int32  enableAutoDepthStencil;         // +0x24
+    uint32 autoDepthStencilFormat;         // +0x28
+    uint32 flags;                          // +0x2C
+    uint32 fullScreenRefreshRateInHz;      // +0x30
+    uint32 presentationInterval;           // +0x34
+};
+static_assert(sizeof(D3D9PresentLayout) == 0x38 && offsetof(D3D9PresentLayout, windowed) == 0x20 && offsetof(D3D9PresentLayout, enableAutoDepthStencil) == 0x24
+           && offsetof(D3D9PresentLayout, fullScreenRefreshRateInHz) == 0x30 && offsetof(D3D9PresentLayout, presentationInterval) == 0x34 && offsetof(D3D9PresentLayout, deviceWindow) == 0x1C);
+
+struct D3D9DisplayModeLayout {             // D3DDISPLAYMODE
+    uint32 width;                          // +0x00
+    uint32 height;                         // +0x04
+    uint32 refreshRate;                    // +0x08
+    uint32 format;                         // +0x0C
+};
+struct D3D9VideoModeLayout {               // _rxD3D9DisplayMode (0x14 bytes)
+    D3D9DisplayModeLayout mode;            // +0x00
+    int32 flags;                           // +0x10
+};
+static_assert(sizeof(D3D9DisplayModeLayout) == 0x10 && sizeof(D3D9VideoModeLayout) == 0x14);
+
+struct D3D9LightEntry {                    // RxD3D9Light: D3DLIGHT9 (0x68) + bandera
+    uint8 light[0x68];
+    int32 enabled;                         // +0x68
+};
+static_assert(sizeof(D3D9LightEntry) == 0x6C);
+
+struct D3D9ExtraRecord {                   // registro de 12 bytes de 0xC97C60
+    void*  object;                         // +0x00 (objeto COM)
+    uint32 unused;                         // +0x04
+    void*  block;                          // +0x08 (memoria liberada con RwFree)
+};
+static_assert(sizeof(D3D9ExtraRecord) == 0xC);
+
+auto& D3D9Present                  = StaticRef<D3D9PresentLayout>(0xC9C040);
+auto& D3D9MainWindow               = StaticRef<void*>(0xC97C1C);
+auto& D3D9DepthStencilSurface      = StaticRef<void*>(0xC97C2C);
+auto& D3D9InsideScene              = StaticRef<int32>(0xC97C54);
+auto& D3D9RestoreCallback          = StaticRef<void(__cdecl*)()>(0xC980B0);
+auto& D3D9ModesReady               = StaticRef<int32>(0xC97C38);
+auto& D3D9VideoModes               = StaticRef<D3D9VideoModeLayout*>(0xC97C48);
+auto& D3D9VideoModeCount           = StaticRef<int32>(0xC97C40);
+auto& D3D9CurrentVideoMode         = StaticRef<int32>(0xC97C18);
+auto& D3D9AdapterModeCount         = StaticRef<int32>(0xC9BEE0);
+auto& D3D9BaseAdapterFormat        = StaticRef<uint32>(0xC97BD4);
+auto& D3D9RefreshRateLimit         = StaticRef<uint32>(0x8E243C);
+auto& D3D9CurrentModeDepth         = StaticRef<uint32>(0xC9BEF4);
+auto& D3D9ZBufferDepthValue        = StaticRef<int32>(0xC9BEFC);
+auto& D3D9HasStencilBuffer         = StaticRef<int32>(0xC97C3C);
+auto& D3D9LightCount               = StaticRef<int32>(0xC98084);
+auto& D3D9LightCache               = StaticRef<D3D9LightEntry*>(0xC98088);
+auto& D3D9ExtraRecordCount         = StaticRef<uint32>(0xC97C58);
+auto& D3D9ExtraRecordUnused        = StaticRef<uint32>(0xC97C5C);
+auto& D3D9ExtraRecords             = StaticRef<D3D9ExtraRecord*>(0xC97C60);
+auto& D3D9FpuStateFlag             = StaticRef<uint32>(0xC980A4);
+D3D9DisplayModeLayout& D3D9CurrentMode = *reinterpret_cast<D3D9DisplayModeLayout*>(0xC9BEE4);
+
+// Profundidad asociada a un D3DFORMAT (tabla de selectores de 15 bytes + interruptor, repetida en 0x7F6CB0, 0x7F8300 y 0x7F8640): A8R8G8B8, X8R8G8B8 y A2R10G10B10 -> 32; R5G6B5, X1R5G5B5 y A1R5G5B5 -> 16; el resto -> 0.
+uint32 D3D9FindDepth(uint32 format) {
+    static constexpr uint8 kSelector[15] = { 0, 0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0 };
+    const uint32 index = format - 0x15u;
+    if (index > 0xEu) {
+        return 0;
+    }
+    switch (kSelector[index]) {
+    case 0:  return 32;
+    case 1:  return 16;
+    default: return 0;
+    }
+}
+
+// Restaura la palabra de control x87 del EXE (0x85742B: fldcw [0xCAF004]).
+void D3D9RestoreFpuControlWord() {
+    ((void(__cdecl *)(void))0x85742B)();
+}
+
+// Comprobacion de un formato de profundidad: CheckDeviceFormat(usage 2 = DEPTHSTENCIL, tipo 1 = SURFACE) y CheckDepthStencilMatch con el formato del back buffer actual; ambas deben dar exactamente D3D_OK (0).
+bool D3D9DepthFormatSupported(uint32 adapterFormat, uint32 depthFormat) {
+    if (ComCall<kSlotD3DCheckDeviceFormat, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, D3D9DeviceType, adapterFormat, 2u, 1u, depthFormat) != 0) {
+        return false;
+    }
+    return ComCall<kSlotD3DCheckDepthStencilMatch, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, D3D9DeviceType, adapterFormat, D3D9Present.backBufferFormat, depthFormat) == 0;
+}
+
+// Cadena comun tras un Reset correcto del dispositivo (0x7F8300, 0x7F8640, 0x7F8A90): GetRenderTarget(0) y GetDepthStencilSurface se anotan en 0xC97C30 / 0xC97C2C y se liberan (solo se queda el puntero), y
+// despues, mientras cada paso lo permita: lista de rasters (0x4CC970), buferes dinamicos (0x7F58D0), 0x7FD100, luces (SetLight + LightEnable por entrada; un HRESULT negativo del ultimo LightEnable corta),
+// 0x7FB480 y 0x80E020. Al final llama siempre al callback de restauracion (0xC980B0). Devuelve TRUE solo si todo se ejecuto y 0x80E020 dio distinto de cero (0x7F8300 y la rama de reserva ignoran el resultado).
+bool D3D9RestoreAfterReset() {
+    ComCall<kSlotDeviceGetRenderTarget, HRESULT>(D3D9Device, 0u, &D3D9RenderSurface);
+    ComCall<kSlotRelease, ULONG>(D3D9RenderSurface);
+    ComCall<kSlotDeviceGetDepthStencilSurface, HRESULT>(D3D9Device, &D3D9DepthStencilSurface);
+    ComCall<kSlotRelease, ULONG>(D3D9DepthStencilSurface);
+    bool ok = false;
+    if (((RwBool(__cdecl *)(void))0x4CC970)() != 0 && _rwD3D9DynamicVertexBufferRestore() != 0) {
+        ((void(__cdecl *)(void))0x7FD100)();
+        bool lightsOk = true;
+        if (D3D9LightCount > 0) {
+            int32 index = 0;
+            uint32 offset = 0;
+            HRESULT last;
+            do {
+                ComCall<kSlotDeviceSetLight, HRESULT>(D3D9Device, static_cast<uint32>(index), static_cast<void*>(reinterpret_cast<uint8*>(D3D9LightCache) + offset));
+                last = ComCall<kSlotDeviceLightEnable, HRESULT>(D3D9Device, static_cast<uint32>(index), *reinterpret_cast<int32*>(reinterpret_cast<uint8*>(D3D9LightCache) + offset + 0x68));
+                ++index;
+                offset += 0x6C;
+            } while (index < D3D9LightCount);
+            lightsOk = last >= 0;
+        }
+        if (lightsOk && ((RwBool(__cdecl *)(void))0x7FB480)() != 0 && ((RwBool(__cdecl *)(void))0x80E020)() != 0) {
+            ok = true;
+        }
+    }
+    if (D3D9RestoreCallback != nullptr) {
+        D3D9RestoreCallback();
+    }
+    return ok;
+}
+
+// Elige el nivel de multimuestreo mas alto que admite el dispositivo, bajando de uno en uno desde el elegido (0x7F84F0 y 0x7F8A90 comparten el bucle).
+void D3D9SelectMultisamplingLevel() {
+    const uint32 windowed = (~D3D9FullScreenFlag) & 1u;
+    while (true) {
+        const HRESULT result = ComCall<kSlotCheckDeviceMultiSampleType, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, D3D9DeviceType, D3D9AdapterFormat, windowed, D3D9SelectedMultisamplingLevels, static_cast<uint32*>(nullptr));
+        if (result >= 0) {
+            return;
+        }
+        const uint32 lowered = D3D9SelectedMultisamplingLevels - 1;
+        D3D9SelectedMultisamplingLevels = lowered;
+        if (lowered < 2) {
+            return;
+        }
+    }
+}
+} // namespace
+
+// 0x7F84E0 (lote R26A, sin validar; 6 bytes; cdecl sin argumentos): devuelve el maximo de multimuestreo (0x8E242C) calculado por _rwD3D9FindMSLevels.
+RwUInt32 RwD3D9EngineGetMaxMultiSamplingLevels() {
+    return D3D9MaxMultisamplingLevels;
+}
+
+// 0x7F84F0 (lote R26A, sin validar; 135 bytes; era una envoltura; cdecl, (niveles)): recorta el pedido al maximo (0x8E242C, sin signo), lo guarda como nivel elegido (0x8E2430) y, si es < 2, deja nivel elegido y no
+// enmascarable (0x8E2438) en 1 y sale. Si no, baja el nivel de uno en uno (minimo 2) hasta que CheckDeviceMultiSampleType (+0x2C, calidad NULL, windowed = ~[0xC9BEF8] & 1, formato 0xC9BEF0) da un HRESULT no
+// negativo y fija el no enmascarable = (maximo no enmascarable 0x8E2434 * pedido recortado) / maximo (division sin signo; el EXE usa imul + div con edx = 0).
+void RwD3D9EngineSetMultiSamplingLevels(RwUInt32 numLevels) {
+    const uint32 maximum = D3D9MaxMultisamplingLevels;
+    uint32 level = numLevels;
+    if (level > maximum) {
+        level = maximum;
+    }
+    D3D9SelectedMultisamplingLevels = level;
+    if (level < 2) {
+        D3D9SelectedMultisamplingLevels = 1;
+        D3D9SelectedMultisamplingLevelsNonMask = 1;
+        return;
+    }
+    D3D9SelectMultisamplingLevel();
+    D3D9SelectedMultisamplingLevelsNonMask = (D3D9MaxMultisamplingLevelsNonMask * level) / D3D9MaxMultisamplingLevels;
+}
+
+// 0x7F8580 (lote R26A, sin validar; 147 bytes; era una envoltura; cdecl, (frecuencia)): guarda la frecuencia pedida (0x8E243C). Si no es 0, para cada uno de los tres formatos de 0x884788 (R5G6B5, X8R8G8B8, A2R10G10B10)
+// recorre los modos del adaptador (GetAdapterModeCount +0x18 y EnumAdapterModes +0x1C, del ultimo al primero) y se queda con la frecuencia exacta si aparece (y deja de mirar ese formato) o, si no, con la mayor
+// menor que la pedida (sin signo). Si el resultado difiere de la pedida la sustituye (puede quedar en 0). El modo del bucle vive fuera de el, como en la pila del EXE.
+void RwD3D9EngineSetRefreshRate(RwUInt32 refreshRate) {
+    D3D9RefreshRateLimit = refreshRate;
+    if (refreshRate == 0) {
+        return;
+    }
+    const uint32 (&formats)[3] = *reinterpret_cast<const uint32(*)[3]>(0x884788);
+    uint32 best = 0;
+    D3D9DisplayModeLayout mode = {};
+    for (int format = 0; format < 3; ++format) {
+        uint32 remaining = ComCall<kSlotD3DGetAdapterModeCount, uint32>(D3D9DirectObject, D3D9AdapterIndex, formats[format]);
+        if (remaining == 0) {
+            continue;
+        }
+        do {
+            --remaining;
+            ComCall<kSlotD3DEnumAdapterModes, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, formats[format], remaining, &mode);
+            const uint32 requested = D3D9RefreshRateLimit;
+            if (mode.refreshRate == requested) {
+                best = requested;
+                break;
+            }
+            if (mode.refreshRate < requested && best < mode.refreshRate) {
+                best = mode.refreshRate;
+            }
+        } while (remaining != 0);
+    }
+    if (D3D9RefreshRateLimit != best) {
+        D3D9RefreshRateLimit = best;
+    }
+}
+
+// 0x7F6CB0 (lote R26A, sin validar; 1075 bytes; cdecl, (modo, banderas, formato del adaptador); `D3D9SetPresentParameters` del SDK): rellena D3DPRESENT_PARAMETERS (0xC9C040). Con el bit 0 de `banderas` (solo el byte
+// bajo; pantalla completa): adaptador = formato del modo, Windowed 0, BackBufferCount 1, frecuencia = min(modo.frecuencia, 0x8E243C) sin signo, intervalo 0x80000000 (IMMEDIATE), ancho y alto del modo y SwapEffect 2 (FLIP). Si no:
+// Windowed 1, un back buffer, frecuencia 0, intervalo IMMEDIATE, GetWindowRect de la ventana (0xC97C1C) y ancho/alto = 1 si el rectangulo mide 0, si no 0, SwapEffect 3 (COPY). Formato del back buffer: A8R8G8B8 (0x15) si el
+// adaptador es X8R8G8B8 (0x16) y CheckDeviceType (+0x24) lo admite (resultado no negativo), si no el del adaptador. EnableAutoDepthStencil 1. Profundidad (0xC9BEFC) = D3D9FindDepth; con 32: D24S8 (0x4B, con stencil), D24X4S4 (0x4F,
+// con stencil), D32 (0x47), D24X8 (0x4D) y, si ninguno, 16; con 16: D15S1 (0x49, con stencil) o D16 (0x50). Multimuestreo: tipo y calidad a 0 y, si el nivel elegido (0x8E2430) o el no enmascarable (0x8E2438) pasan de 1: primero con el
+// nivel elegido (calidad > 0 -> tipo = nivel, calidad - 1); si no, con tipo 1 (NONMASKABLE): calidad = min(no enmascarable - 2, calidad - 1), tipo 1 y SwapEffect 1. Con tipo != 0, SwapEffect 1 (DISCARD). No tiene el modo de dialogo
+// de NOTSA que trae la copia de WindowedMode.cpp (esa no esta enganchada). El rectangulo de GetWindowRect se inicializa a 0 aqui (el EXE deja basura de pila si falla la llamada).
+void _rwD3D9SetPresentParameters(const void* modePointer, RwUInt32 flags, RwUInt32 adapterFormatIn) {
+    const D3D9DisplayModeLayout* const mode = static_cast<const D3D9DisplayModeLayout*>(modePointer);
+    uint32 adapterFormat = adapterFormatIn;
+    D3D9PresentLayout& present = D3D9Present;
+    if ((flags & 1u) != 0) {
+        adapterFormat = mode->format;
+        const uint32 limit = D3D9RefreshRateLimit;
+        present.windowed = 0;
+        present.backBufferCount = 1;
+        const uint32 rate = mode->refreshRate;
+        present.fullScreenRefreshRateInHz = rate;
+        if (rate >= limit) {
+            present.fullScreenRefreshRateInHz = limit;
+        }
+        present.presentationInterval = 0x80000000u;
+        present.backBufferWidth = mode->width;
+        present.backBufferHeight = mode->height;
+        present.swapEffect = 2;
+    } else {
+        RECT rect = {};
+        present.windowed = 1;
+        present.backBufferCount = 1;
+        present.fullScreenRefreshRateInHz = 0;
+        present.presentationInterval = 0x80000000u;
+        GetWindowRect(static_cast<HWND>(D3D9MainWindow), &rect);
+        present.backBufferWidth = (rect.right - rect.left == 0) ? 1u : 0u;
+        present.backBufferHeight = (rect.bottom - rect.top == 0) ? 1u : 0u;
+        present.swapEffect = 3;
+    }
+    uint32 backBufferFormat = adapterFormat;
+    if (adapterFormat == 0x16) {
+        const HRESULT result = ComCall<kSlotD3DCheckDeviceType, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, D3D9DeviceType, adapterFormat, 0x15u, static_cast<uint32>(present.windowed));
+        backBufferFormat = (result < 0) ? 0x16u : 0x15u;
+    }
+    present.backBufferFormat = backBufferFormat;
+    present.enableAutoDepthStencil = 1;
+    D3D9ZBufferDepthValue = static_cast<int32>(D3D9FindDepth(present.backBufferFormat));
+    if (D3D9ZBufferDepthValue == 32) {
+        if (D3D9DepthFormatSupported(adapterFormat, 0x4B)) {
+            present.autoDepthStencilFormat = 0x4B;
+            D3D9HasStencilBuffer = 1;
+        } else if (D3D9DepthFormatSupported(adapterFormat, 0x4F)) {
+            present.autoDepthStencilFormat = 0x4F;
+            D3D9HasStencilBuffer = 1;
+        } else if (D3D9DepthFormatSupported(adapterFormat, 0x47)) {
+            present.autoDepthStencilFormat = 0x47;
+            D3D9HasStencilBuffer = 0;
+        } else if (D3D9DepthFormatSupported(adapterFormat, 0x4D)) {
+            present.autoDepthStencilFormat = 0x4D;
+            D3D9HasStencilBuffer = 0;
+        } else {
+            D3D9ZBufferDepthValue = 16;
+        }
+    }
+    if (D3D9ZBufferDepthValue == 16) {
+        if (D3D9DepthFormatSupported(adapterFormat, 0x49)) {
+            present.autoDepthStencilFormat = 0x49;
+            D3D9HasStencilBuffer = 1;
+        } else {
+            present.autoDepthStencilFormat = 0x50;
+            D3D9HasStencilBuffer = 0;
+        }
+    }
+    present.multiSampleType = 0;
+    present.multiSampleQuality = 0;
+    if (D3D9SelectedMultisamplingLevels <= 1 && D3D9SelectedMultisamplingLevelsNonMask <= 1) {
+        return;
+    }
+    uint32 quality = 0;
+    HRESULT result = ComCall<kSlotCheckDeviceMultiSampleType, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, D3D9DeviceType, present.backBufferFormat, static_cast<uint32>(present.windowed), D3D9SelectedMultisamplingLevels, &quality);
+    if (result >= 0 && quality > 0) {
+        present.multiSampleType = D3D9SelectedMultisamplingLevels;
+        present.multiSampleQuality = quality - 1;
+    } else {
+        quality = 0;
+        result = ComCall<kSlotCheckDeviceMultiSampleType, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, D3D9DeviceType, present.backBufferFormat, static_cast<uint32>(present.windowed), 1u, &quality);
+        if (result >= 0 && quality > 0) {
+            uint32 nonMaskQuality = D3D9SelectedMultisamplingLevelsNonMask - 2;
+            const uint32 maxQuality = quality - 1;
+            if (nonMaskQuality > maxQuality) {
+                nonMaskQuality = maxQuality;
+            }
+            present.multiSampleType = 1;
+            present.swapEffect = 1;
+            present.multiSampleQuality = nonMaskQuality;
+            return;
+        }
+    }
+    if (present.multiSampleType != 0) {
+        present.swapEffect = 1;
+    }
+}
+
+// 0x7F7100 (lote R26A, sin validar; 472 bytes; cdecl con tres argumentos que ignora; `D3D9DeviceSystemStop` del SDK; nombre inferido): parada del sistema del dispositivo D3D9. Pone 0xC97C38 a 0 y libera la tabla de modos (RwFree;
+// 0xC97C48 y 0xC97C40 a 0). Restaura la palabra de control x87 (0x85742B) y, si 0xC980A4 != 0, limpia el bit 15 (FZ) de MXCSR. Devuelve a la lista libre de matrices (0xC98080) los 0x104 punteros de la tabla 0xC97C70 (releyendo
+// la lista), la destruye (RwFreeListDestroy) y pone a 0 la lista y el numero de luces; libera la cache de luces (0xC98088). Desengancha del dispositivo: texturas 0..7, indices, flujos 0..3 (0, 0, 0), pixel shader, declaracion y
+// vertex shader. Para cada registro de 12 bytes de 0xC97C60 hace Release del objeto hasta que devuelve 0 y libera el bloque (+8); libera la tabla y pone a 0 0xC97C58 y 0xC97C5C. Llama a 0x4CC170 (lista de rasters), al
+// gestor de buferes de vertices (cierre), a 0x7FB5F0 y libera el dispositivo (Release; 0xC97C28 = NULL). Devuelve TRUE.
+RwBool _rwD3D9DeviceSystemStop(void* /*out*/, void* /*inOut*/, RwInt32 /*in*/) {
+    D3D9ModesReady = 0;
+    if (D3D9VideoModes != nullptr) {
+        RwFree(D3D9VideoModes);
+        D3D9VideoModes = nullptr;
+        D3D9VideoModeCount = 0;
+    }
+    D3D9RestoreFpuControlWord();
+    if (D3D9FpuStateFlag != 0) {
+        _mm_setcsr(_mm_getcsr() & 0xFFFF7FFFu);
+    }
+    for (int i = 0; i < 0x104; ++i) {
+        if (D3D9TransformCache[i] != nullptr) {
+            RwFreeListFree(D3D9TransformCacheFreeList, D3D9TransformCache[i]);
+            D3D9TransformCache[i] = nullptr;
+        }
+    }
+    RwFreeListDestroy(D3D9TransformCacheFreeList);
+    D3D9LightEntry* const lights = D3D9LightCache;
+    D3D9TransformCacheFreeList = nullptr;
+    D3D9LightCount = 0;
+    if (lights != nullptr) {
+        RwFree(lights);
+        D3D9LightCache = nullptr;
+    }
+    for (uint32 stage = 0; stage < 8; ++stage) {
+        ComCall<kSlotDeviceSetTexture, HRESULT>(D3D9Device, stage, static_cast<void*>(nullptr));
+    }
+    ComCall<kSlotDeviceSetIndices, HRESULT>(D3D9Device, static_cast<void*>(nullptr));
+    for (uint32 stream = 0; stream < 4; ++stream) {
+        ComCall<kSlotDeviceSetStreamSource, HRESULT>(D3D9Device, stream, static_cast<void*>(nullptr), 0u, 0u);
+    }
+    ComCall<kSlotDeviceSetPixelShader, HRESULT>(D3D9Device, static_cast<void*>(nullptr));
+    ComCall<kSlotDeviceSetVertexDeclaration, HRESULT>(D3D9Device, static_cast<void*>(nullptr));
+    ComCall<kSlotDeviceSetVertexShader, HRESULT>(D3D9Device, static_cast<void*>(nullptr));
+    if (D3D9ExtraRecordCount > 0) {
+        uint32 offset = 0;
+        uint32 index = 0;
+        do {
+            if (*reinterpret_cast<void**>(reinterpret_cast<uint8*>(D3D9ExtraRecords) + offset) != nullptr) {
+                ULONG remaining;
+                do {
+                    remaining = ComCall<kSlotRelease, ULONG>(*reinterpret_cast<void**>(reinterpret_cast<uint8*>(D3D9ExtraRecords) + offset));
+                } while (remaining > 0);
+            }
+            void* const block = *reinterpret_cast<void**>(reinterpret_cast<uint8*>(D3D9ExtraRecords) + offset + 8);
+            if (block != nullptr) {
+                RwFree(block);
+            }
+            ++index;
+            offset += 0xC;
+        } while (index < D3D9ExtraRecordCount);
+    }
+    if (D3D9ExtraRecords != nullptr) {
+        RwFree(D3D9ExtraRecords);
+        D3D9ExtraRecords = nullptr;
+    }
+    D3D9ExtraRecordCount = 0;
+    D3D9ExtraRecordUnused = 0;
+    ((void(__cdecl *)(void))0x4CC170)();
+    _rwD3D9VertexBufferManagerClose();
+    ((void(__cdecl *)(void))0x7FB5F0)();
+    ComCall<kSlotRelease, ULONG>(D3D9Device);
+    D3D9Device = nullptr;
+    return TRUE;
+}
+
+// 0x7F72E0 (lote R26A, sin validar; 579 bytes; cdecl, (salida, inOut sin uso, numero de funciones); `D3D9DeviceSystemStandards` del SDK; nombre inferido): rellena la tabla de funciones estandar del dispositivo. Con numero > 0
+// pone en las `numero` primeras entradas la funcion nula 0x7F7530 (xor eax, eax; ret) y, con numero > 1, escribe despues (del ultimo par al primero) tabla[indice] = funcion para 27 pares fijos, sin comprobar el limite. Las
+// direcciones son del EXE (incluye 0x7F8F20 y 0x7F7730, enganchadas por WindowedMode.cpp, y 0x4Cxxxx del controlador de rasters). Devuelve TRUE.
+RwBool _rwD3D9DeviceSystemStandards(void* out, void* /*inOut*/, RwInt32 numStandards) {
+    struct StandardEntry { uint32 index; uint32 function; };
+    static constexpr StandardEntry kStandards[27] = {
+        { 0x01, 0x7F8F20 }, { 0x0A, 0x7F98D0 }, { 0x15, 0x7F7730 }, { 0x14, 0x7F99B0 }, { 0x02, 0x7FEE20 }, { 0x03, 0x7FF070 }, { 0x07, 0x8001E0 },
+        { 0x06, 0x7FF270 }, { 0x05, 0x4CBB00 }, { 0x04, 0x4CCE60 }, { 0x09, 0x7FFF00 }, { 0x08, 0x4CBD40 }, { 0x0F, 0x4C9F90 }, { 0x10, 0x4CA290 },
+        { 0x17, 0x4CA4E0 }, { 0x18, 0x4CA540 }, { 0x0E, 0x4CB4E0 }, { 0x0D, 0x4CB4C0 }, { 0x11, 0x4CAE40 }, { 0x12, 0x4CAE80 }, { 0x13, 0x4CAE60 },
+        { 0x0B, 0x4CB520 }, { 0x0C, 0x4CBD50 }, { 0x19, 0x4CD360 }, { 0x1B, 0x4CD4D0 }, { 0x1A, 0x4CD820 }, { 0x1C, 0x4CBCB0 },
+    };
+    uint32* const standards = static_cast<uint32*>(out);
+    if (numStandards > 0) {
+        for (RwInt32 i = 0; i < numStandards; ++i) {
+            standards[i] = 0x7F7530;
+        }
+    }
+    for (int k = 26; k >= 0; --k) {
+        if (numStandards > 1) {
+            standards[kStandards[k].index] = kStandards[k].function;
+        }
+    }
+    return TRUE;
+}
+
+// 0x7F7540 (lote R26A, sin validar; 459 bytes; cdecl sin argumentos; el EXE deja un valor en EAX que los tres llamadores (0x7F60E2, 0x7F6110, 0x7F65D5) no leen; nombre inferido): enumera los modos de video. Reserva (0xC97C48 ya
+// existe: RwRealloc, si no RwMalloc; pista 0x1040411) (modos del adaptador 0xC9BEE0 + 1) * 0x14 bytes, guarda el modo actual del escritorio (GetAdapterDisplayMode +0x20) en la entrada 0 y, segun su formato, pone su bandera a 0 y
+// el numero de modos a 1 (formatos 0x15..0x19 y 0x23) o el numero a 0 (0x1A..0x22 y fuera de rango). Para cada formato de 0x884788 (R5G6B5, X8R8G8B8, A2R10G10B10) y cada modo del adaptador
+// (EnumAdapterModes +0x1C) lo escribe en la entrada [numero]; si ya hay una igual (ancho, alto y formato, entradas 1..numero-1; la 0 no se mira) conserva la mayor frecuencia (sin signo) y no cuenta, y si no pone la bandera
+// a 1 y suma uno. Al final, si el numero (con signo) es menor que modos del adaptador + 1, reduce la tabla con RwRealloc.
+void _rwD3D9EnumerateDisplayModes() {
+    const uint32 allocBytes = static_cast<uint32>(D3D9AdapterModeCount) * 20u + 20u;
+    D3D9VideoModeLayout* newModes;
+    if (D3D9VideoModes != nullptr) {
+        newModes = static_cast<D3D9VideoModeLayout*>(RwRealloc(D3D9VideoModes, allocBytes, 0x1040411));
+    } else {
+        newModes = static_cast<D3D9VideoModeLayout*>(RwMalloc(allocBytes, 0x1040411));
+    }
+    D3D9VideoModes = newModes;
+    ComCall<kSlotD3DGetAdapterDisplayMode, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, static_cast<void*>(&D3D9VideoModes[0].mode));
+    static constexpr uint8 kSelector[15] = { 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 };
+    const uint32 desktopIndex = D3D9VideoModes[0].mode.format - 0x15u;
+    if (desktopIndex <= 0xEu && kSelector[desktopIndex] == 0) {
+        D3D9VideoModes[0].flags = 0;
+        D3D9VideoModeCount = 1;
+    } else {
+        D3D9VideoModeCount = 0;
+    }
+    const uint32 (&formats)[3] = *reinterpret_cast<const uint32(*)[3]>(0x884788);
+    for (int format = 0; format < 3; ++format) {
+        const int32 count = static_cast<int32>(ComCall<kSlotD3DGetAdapterModeCount, uint32>(D3D9DirectObject, D3D9AdapterIndex, formats[format]));
+        if (count <= 0) {
+            continue;
+        }
+        int32 mode = 0;
+        do {
+            int32 total = D3D9VideoModeCount;
+            D3D9VideoModeLayout* const base = D3D9VideoModes;
+            ComCall<kSlotD3DEnumAdapterModes, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, formats[format], static_cast<uint32>(mode), static_cast<void*>(&base[total].mode));
+            total = D3D9VideoModeCount;
+            D3D9VideoModeLayout* const modes = D3D9VideoModes;
+            int32 found = -1;
+            if (total > 1) {
+                for (int32 candidate = 1; candidate < total; ++candidate) {
+                    if (modes[total].mode.width == modes[candidate].mode.width && modes[total].mode.height == modes[candidate].mode.height && modes[total].mode.format == modes[candidate].mode.format) {
+                        found = candidate;
+                        break;
+                    }
+                }
+            }
+            if (found < 0) {
+                modes[total].flags = 1;
+                D3D9VideoModeCount = D3D9VideoModeCount + 1;
+            } else if (modes[found].mode.refreshRate < modes[total].mode.refreshRate) {
+                modes[found].mode.refreshRate = modes[total].mode.refreshRate;
+            }
+            ++mode;
+        } while (mode < count);
+    }
+    const int32 finalCount = D3D9VideoModeCount;
+    if (finalCount < D3D9AdapterModeCount + 1) {
+        D3D9VideoModes = static_cast<D3D9VideoModeLayout*>(RwRealloc(D3D9VideoModes, static_cast<uint32>(finalCount) * 20u, 0x1040411));
+    }
+}
+
+// 0x7F7F70 (lote R26A, sin validar; 488 bytes; era una envoltura en WindowedMode.cpp; cdecl sin argumentos; `D3D9DeviceReleaseVideoMemory` del SDK): prepara el dispositivo para un Reset. Reinicia el cache de estado (0x7F6B00) y el de
+// matrices (0x7F6B40; ambos inlinados en el EXE, aqui llamadas directas), desengancha texturas 0..7, indices, flujos 0..3, pixel shader, declaracion y vertex shader, devuelve la superficie de color a la anotada (0xC97C30 si difiere de
+// 0xC98090[0], anotandola ANTES de SetRenderTarget(0)), pone a NULL los objetivos 1..3 que no lo estaban, devuelve la superficie de profundidad (0xC97C2C si difiere de 0xC9808C, anotada antes de SetDepthStencilSurface) y llama
+// a 0x7FB5F0, 0x80DFB0, _rwD3D9DynamicVertexBufferRelease (0x7F5840), 0x4CB640 (liberar los recursos de la lista de rasters) y RwFreeListPurgeAllFreeLists (0x801F90). Devuelve TRUE.
+RwBool _rwD3D9DeviceReleaseVideoMemory() {
+    _rwD3D9StateCacheReset();
+    _rwD3D9TransformCacheReset();
+    for (uint32 stage = 0; stage < 8; ++stage) {
+        ComCall<kSlotDeviceSetTexture, HRESULT>(D3D9Device, stage, static_cast<void*>(nullptr));
+    }
+    ComCall<kSlotDeviceSetIndices, HRESULT>(D3D9Device, static_cast<void*>(nullptr));
+    for (uint32 stream = 0; stream < 4; ++stream) {
+        ComCall<kSlotDeviceSetStreamSource, HRESULT>(D3D9Device, stream, static_cast<void*>(nullptr), 0u, 0u);
+    }
+    ComCall<kSlotDeviceSetPixelShader, HRESULT>(D3D9Device, static_cast<void*>(nullptr));
+    ComCall<kSlotDeviceSetVertexDeclaration, HRESULT>(D3D9Device, static_cast<void*>(nullptr));
+    ComCall<kSlotDeviceSetVertexShader, HRESULT>(D3D9Device, static_cast<void*>(nullptr));
+    void* const renderSurface = D3D9RenderSurface;
+    if (D3D9CurrentRenderTargets[0] != renderSurface) {
+        void* const device = D3D9Device;
+        D3D9CurrentRenderTargets[0] = renderSurface;
+        ComCall<kSlotSetRenderTarget, HRESULT>(device, 0u, renderSurface);
+    }
+    for (uint32 target = 1; target < 4; ++target) {
+        if (D3D9CurrentRenderTargets[target] != nullptr) {
+            void* const device = D3D9Device;
+            D3D9CurrentRenderTargets[target] = nullptr;
+            ComCall<kSlotSetRenderTarget, HRESULT>(device, target, static_cast<void*>(nullptr));
+        }
+    }
+    void* const depthSurface = D3D9DepthStencilSurface;
+    if (CurrentDepthStencilSurface != depthSurface) {
+        void* const device = D3D9Device;
+        CurrentDepthStencilSurface = depthSurface;
+        ComCall<kSlotSetDepthStencilSurface, HRESULT>(device, depthSurface);
+    }
+    ((void(__cdecl *)(void))0x7FB5F0)();
+    ((void(__cdecl *)(void))0x80DFB0)();
+    _rwD3D9DynamicVertexBufferRelease();
+    ((void(__cdecl *)(void))0x4CB640)();
+    RwFreeListPurgeAllFreeLists();
+    return TRUE;
+}
+
+// 0x7F8300 (lote R26A, sin validar; 443 bytes; cdecl sin argumentos; `D3D9RestoreDevice` del SDK; nombre inferido): comprueba y restaura el dispositivo. TestCooperativeLevel (+0x0C): si da DEVICENOTRESET (0x88760869) libera la memoria
+// de video (0x7F7F70) y hace Reset(&0xC9C040) (+0x40); si da INVALIDCALL (0x8876086C) y la ventana esta en modo ventana (Windowed != 0) toma el modo del escritorio (GetAdapterDisplayMode), pone su formato en 0xC9BEF0 y en el back
+// buffer, la profundidad (D3D9FindDepth) en 0xC9BEF4 y repite el Reset; sin ventana vuelve con 0xC97C54 = 0 y FALSE. Un HRESULT negativo en cualquier punto deja 0xC97C54 = 0 y devuelve FALSE. Tras un Reset correcto ejecuta
+// D3D9RestoreAfterReset (el resultado no se mira). Despues: si ya estaba dentro de escena (0xC97C54 != 0) devuelve ese valor; si no, BeginScene (+0xA4): negativo devuelve 0xC97C54 (0) sin tocarlo, si no 0xC97C54 = 1 y TRUE.
+RwBool _rwD3D9RestoreDevice() {
+    HRESULT result = ComCall<kSlotDeviceTestCooperativeLevel, HRESULT>(D3D9Device);
+    if (result == static_cast<HRESULT>(0x88760869)) {
+        _rwD3D9DeviceReleaseVideoMemory();
+        result = ComCall<kSlotDeviceReset, HRESULT>(D3D9Device, &D3D9Present);
+        if (result == static_cast<HRESULT>(0x8876086C)) {
+            if (D3D9Present.windowed == 0) {
+                D3D9InsideScene = 0;
+                return FALSE;
+            }
+            D3D9DisplayModeLayout desktop = {};
+            ComCall<kSlotD3DGetAdapterDisplayMode, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, &desktop);
+            D3D9AdapterFormat = desktop.format;
+            D3D9Present.backBufferFormat = desktop.format;
+            D3D9CurrentModeDepth = D3D9FindDepth(desktop.format);
+            result = ComCall<kSlotDeviceReset, HRESULT>(D3D9Device, &D3D9Present);
+        }
+        if (result < 0) {
+            D3D9InsideScene = 0;
+            return FALSE;
+        }
+        D3D9RestoreAfterReset();
+    }
+    if (result < 0) {
+        D3D9InsideScene = 0;
+        return FALSE;
+    }
+    if (D3D9InsideScene != 0) {
+        return D3D9InsideScene;
+    }
+    if (ComCall<kSlotDeviceBeginScene, HRESULT>(D3D9Device) < 0) {
+        return D3D9InsideScene;
+    }
+    D3D9InsideScene = 1;
+    return TRUE;
+}
+
+namespace {
+// Ajusta la ventana principal al tamano pedido (0x7F8640, ramas de pantalla completa y ventana): rectangulo (0, 0, ancho, alto) -> AdjustWindowRectEx(estilo, menu?, estilo extendido) y SetWindowPos(NULL, izquierda, ABAJO, ancho,
+// alto, banderas). El EXE pasa el borde inferior como Y; con SWP_NOMOVE (todas las banderas de las dos ramas lo llevan) se ignora.
+void D3D9ResizeMainWindow(int32 width, int32 height, uint32 swpFlags) {
+    HWND const window = static_cast<HWND>(D3D9MainWindow);
+    RECT rect = { 0, 0, width, height };
+    const LONG exStyle = GetWindowLongA(window, GWL_EXSTYLE);
+    const BOOL hasMenu = GetMenu(window) != nullptr;
+    const LONG style = GetWindowLongA(window, GWL_STYLE);
+    AdjustWindowRectEx(&rect, static_cast<DWORD>(style), hasMenu, static_cast<DWORD>(exStyle));
+    SetWindowPos(window, nullptr, rect.left, rect.bottom, rect.right - rect.left, rect.bottom - rect.top, swpFlags);
+}
+} // namespace
+
+// 0x7F8640 (lote R26A, sin validar; 1068 bytes; era una envoltura; cdecl, (indice de modo); `RwD3D9ChangeVideoMode` del SDK): devuelve TRUE sin hacer nada si 0xC97C38 es 0, el indice (con signo) esta fuera de [0, 0xC97C40) o ya es
+// el actual (0xC97C18). Si no: copia D3DPRESENT_PARAMETERS (0x38 bytes), libera la memoria de video (0x7F7F70), TestCooperativeLevel (resultado ignorado), _rwD3D9SetPresentParameters(modo, bandera del modo, 0xC97BD4) y Reset. Con
+// Reset correcto ejecuta D3D9RestoreAfterReset; si todo salio bien guarda el modo (0xC97C18, 0xC9BEE4..0xC9BEF0, bandera en 0xC9BEF8, profundidad en 0xC9BEF4); en pantalla completa ajusta la ventana a (ancho, alto) del modo y,
+// en ventana, pone el estilo 0x10CF0000, la ajusta al tamano del back buffer (SetWindowPos con 0x26) y lee el area cliente en 0xC9BEE4/0xC9BEE8; devuelve TRUE. Si el Reset fallo o la restauracion no fue completa: (libera la memoria de video si
+// el Reset habia ido bien), restaura la copia, repite el Reset (negativo -> FALSE) y la restauracion (resultado ignorado) y devuelve TRUE sin cambiar de modo.
+RwBool RwD3D9ChangeVideoMode(RwInt32 modeIndex) {
+    if (D3D9ModesReady == 0 || modeIndex < 0 || modeIndex >= D3D9VideoModeCount || D3D9CurrentVideoMode == modeIndex) {
+        return TRUE;
+    }
+    const D3D9PresentLayout saved = D3D9Present;
+    _rwD3D9DeviceReleaseVideoMemory();
+    ComCall<kSlotDeviceTestCooperativeLevel, HRESULT>(D3D9Device);
+    {
+        const D3D9VideoModeLayout* const selected = &D3D9VideoModes[modeIndex];
+        _rwD3D9SetPresentParameters(selected, static_cast<RwUInt32>(selected->flags), D3D9BaseAdapterFormat);
+    }
+    HRESULT result = ComCall<kSlotDeviceReset, HRESULT>(D3D9Device, &D3D9Present);
+    if (result >= 0) {
+        if (D3D9RestoreAfterReset()) {
+            const D3D9VideoModeLayout& chosen = D3D9VideoModes[modeIndex];
+            D3D9CurrentVideoMode = modeIndex;
+            D3D9CurrentMode.width = chosen.mode.width;
+            D3D9CurrentMode.height = chosen.mode.height;
+            D3D9CurrentMode.refreshRate = chosen.mode.refreshRate;
+            D3D9CurrentMode.format = chosen.mode.format;
+            D3D9FullScreenFlag = static_cast<uint32>(chosen.flags);
+            D3D9CurrentModeDepth = D3D9FindDepth(chosen.mode.format);
+            if (D3D9Present.windowed == 0) {
+                D3D9ResizeMainWindow(static_cast<int32>(chosen.mode.width), static_cast<int32>(chosen.mode.height), 6u);
+                return TRUE;
+            }
+            SetWindowLongA(static_cast<HWND>(D3D9MainWindow), GWL_STYLE, 0x10CF0000);
+            D3D9ResizeMainWindow(static_cast<int32>(D3D9Present.backBufferWidth), static_cast<int32>(D3D9Present.backBufferHeight), 0x26u);
+            RECT client = {};
+            GetClientRect(static_cast<HWND>(D3D9MainWindow), &client);
+            D3D9CurrentMode.width = static_cast<uint32>(client.right);
+            D3D9CurrentMode.height = static_cast<uint32>(client.bottom);
+            return TRUE;
+        }
+        _rwD3D9DeviceReleaseVideoMemory();
+    }
+    D3D9Present = saved;
+    result = ComCall<kSlotDeviceReset, HRESULT>(D3D9Device, &D3D9Present);
+    if (result < 0) {
+        return FALSE;
+    }
+    D3D9RestoreAfterReset();
+    return TRUE;
+}
+
+// 0x7F8A90 (lote R26A, sin validar; 731 bytes; era una envoltura; cdecl, (niveles); `RwD3D9ChangeMultiSamplingLevels` del SDK): TRUE sin hacer nada si 0xC97C38 es 0 o el nivel pedido ya es el elegido (0x8E2430). Si no: guarda
+// el nivel elegido y el no enmascarable (0x8E2438), copia D3DPRESENT_PARAMETERS, recorta el pedido al maximo (sin signo), y calcula nivel elegido y no enmascarable como RwD3D9EngineSetMultiSamplingLevels (< 2 -> ambos 1). Libera la
+// memoria de video (0x7F7F70), TestCooperativeLevel (ignorado), _rwD3D9SetPresentParameters(0xC9BEE4, 0xC9BEF8, 0xC97BD4) y Reset. Con Reset correcto y D3D9RestoreAfterReset completa devuelve TRUE. Si no (liberando antes la memoria
+// de video cuando el Reset habia ido bien): restaura la copia de parametros y los dos niveles guardados, repite el Reset (negativo -> FALSE) y la restauracion (resultado ignorado) y devuelve TRUE.
+RwBool RwD3D9ChangeMultiSamplingLevels(RwUInt32 numLevels) {
+    if (D3D9ModesReady == 0) {
+        return TRUE;
+    }
+    const uint32 previousLevel = D3D9SelectedMultisamplingLevels;
+    if (previousLevel == numLevels) {
+        return TRUE;
+    }
+    const uint32 previousNonMask = D3D9SelectedMultisamplingLevelsNonMask;
+    const D3D9PresentLayout saved = D3D9Present;
+    uint32 level = numLevels;
+    const uint32 maximum = D3D9MaxMultisamplingLevels;
+    if (level > maximum) {
+        level = maximum;
+    }
+    D3D9SelectedMultisamplingLevels = level;
+    if (level < 2) {
+        D3D9SelectedMultisamplingLevels = 1;
+        D3D9SelectedMultisamplingLevelsNonMask = 1;
+    } else {
+        D3D9SelectMultisamplingLevel();
+        D3D9SelectedMultisamplingLevelsNonMask = (D3D9MaxMultisamplingLevelsNonMask * level) / D3D9MaxMultisamplingLevels;
+    }
+    _rwD3D9DeviceReleaseVideoMemory();
+    ComCall<kSlotDeviceTestCooperativeLevel, HRESULT>(D3D9Device);
+    _rwD3D9SetPresentParameters(&D3D9CurrentMode, D3D9FullScreenFlag, D3D9BaseAdapterFormat);
+    HRESULT result = ComCall<kSlotDeviceReset, HRESULT>(D3D9Device, &D3D9Present);
+    if (result >= 0) {
+        if (D3D9RestoreAfterReset()) {
+            return TRUE;
+        }
+        _rwD3D9DeviceReleaseVideoMemory();
+    }
+    D3D9Present = saved;
+    D3D9SelectedMultisamplingLevels = previousLevel;
+    D3D9SelectedMultisamplingLevelsNonMask = previousNonMask;
+    result = ComCall<kSlotDeviceReset, HRESULT>(D3D9Device, &D3D9Present);
+    if (result < 0) {
+        return FALSE;
+    }
+    D3D9RestoreAfterReset();
+    return TRUE;
+}
+
+// 0x7F8D70 (lote R26A, sin validar; 424 bytes; era una envoltura; cdecl, (camara, ventana); `RwD3D9CameraAttachWindow` del SDK): FALSE si el dispositivo no esta en modo ventana (Windowed == 0) o la ventana es la principal
+// (0xC97C1C). GetWindowRect de la ventana; destruye (RwRasterDestroy 0x7FB020, anulando antes el campo) el frameBuffer (+0x60) y el zBuffer (+0x64) de la camara si existen. Con una copia de D3DPRESENT_PARAMETERS (ventana = la nueva,
+// ancho y alto = 1 si el rectangulo mide 0 y si no 0, sin Z automatico) crea una cadena de intercambio (+0x34); un HRESULT distinto de 0 devuelve FALSE. Toma su back buffer (+0x14 de la cadena; 0, 0), GetDesc (+0x30) y crea un
+// raster de camara (RwRasterCreate(ancho, alto, 0, 0x82)) con ancho, alto, profundidad (tabla 0xB4E7E0 + formato * 4 + 1) y formato RW (byte +3 de la entrada), cuya extension guarda superficie, alfa (byte +0 de la entrada), formato D3D,
+// ventana y cadena, y lo deja como frameBuffer; despues un raster de Z-buffer (ancho, alto, 0, 1) como zBuffer (si se crean). Libera el back buffer (la cadena queda en la extension). Devuelve TRUE. El rectangulo se inicializa a 0 aqui.
+static_assert(offsetof(RwCamera, frameBuffer) == 0x60 && offsetof(RwCamera, zBuffer) == 0x64 && offsetof(RwRaster, depth) == 0x14 && offsetof(RwRaster, cFormat) == 0x23);
+RwBool RwD3D9CameraAttachWindow(void* cameraPointer, void* windowPointer) {
+    if (D3D9Present.windowed == 0) {
+        return FALSE;
+    }
+    if (D3D9MainWindow == windowPointer) {
+        return FALSE;
+    }
+    RECT rect = {};
+    GetWindowRect(static_cast<HWND>(windowPointer), &rect);
+    RwCamera* const camera = static_cast<RwCamera*>(cameraPointer);
+    if (camera->frameBuffer != nullptr) {
+        RwRaster* const raster = camera->frameBuffer;
+        camera->frameBuffer = nullptr;
+        RwRasterDestroy(raster);
+    }
+    if (camera->zBuffer != nullptr) {
+        RwRaster* const raster = camera->zBuffer;
+        camera->zBuffer = nullptr;
+        RwRasterDestroy(raster);
+    }
+    D3D9PresentLayout parameters = D3D9Present;
+    parameters.deviceWindow = windowPointer;
+    parameters.backBufferWidth = (rect.right - rect.left == 0) ? 1u : 0u;
+    parameters.backBufferHeight = (rect.bottom - rect.top == 0) ? 1u : 0u;
+    parameters.enableAutoDepthStencil = 0;
+    void* swapChain = nullptr;
+    if (ComCall<kSlotDeviceCreateAdditionalSwapChain, HRESULT>(D3D9Device, &parameters, &swapChain) != 0) {
+        return FALSE;
+    }
+    void* backBuffer = nullptr;
+    ComCall<kSlotSwapChainGetBackBuffer, HRESULT>(swapChain, 0u, 0u, &backBuffer);
+    uint32 description[8] = {};
+    ComCall<kSlotSurfaceGetDesc, HRESULT>(backBuffer, description);
+    const D3D9FormatInfoLayout* const formatTable = reinterpret_cast<const D3D9FormatInfoLayout*>(0xB4E7E0);
+    RwRaster* const frameBuffer = RwRasterCreate(static_cast<RwInt32>(description[6]), static_cast<RwInt32>(description[7]), 0, 0x82);
+    if (frameBuffer != nullptr) {
+        frameBuffer->width = static_cast<RwInt32>(description[6]);
+        frameBuffer->height = static_cast<RwInt32>(description[7]);
+        frameBuffer->depth = formatTable[description[0]].depth;
+        frameBuffer->cFormat = static_cast<RwUInt8>(formatTable[description[0]].rwFormat >> 8);
+        D3D9RasterExtLayout& extension = D3D9RasterExt(frameBuffer);
+        extension.texture = backBuffer;
+        extension.alpha = formatTable[description[0]].alpha;
+        extension.d3dFormat = description[0];
+        extension.window = windowPointer;
+        extension.swapChain = swapChain;
+        camera->frameBuffer = frameBuffer;
+    }
+    RwRaster* const zBuffer = RwRasterCreate(static_cast<RwInt32>(description[6]), static_cast<RwInt32>(description[7]), 0, 1);
+    if (zBuffer != nullptr) {
+        camera->zBuffer = zBuffer;
+    }
+    ComCall<kSlotRelease, ULONG>(backBuffer);
+    return TRUE;
+}
+
+// Lote R26A (sin validar): controlador D3D9 de RenderWare: multimuestreo (0x7F84E0, 0x7F84F0, 0x7F8A90), frecuencia (0x7F8580), parametros de presentacion (0x7F6CB0), parada del sistema (0x7F7100), estandares (0x7F72E0),
+// modos de video (0x7F7540), liberacion y restauracion del dispositivo (0x7F7F70, 0x7F8300), cambio de modo (0x7F8640) y camara con ventana (0x7F8D70).
+void RwD3D9InjectHooksR26A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwD3D9");
+
+    RH_ScopedGlobalInstall(_rwD3D9SetPresentParameters, 0x7F6CB0);
+    RH_ScopedGlobalInstall(_rwD3D9DeviceSystemStop, 0x7F7100);
+    RH_ScopedGlobalInstall(_rwD3D9DeviceSystemStandards, 0x7F72E0);
+    RH_ScopedGlobalInstall(_rwD3D9EnumerateDisplayModes, 0x7F7540);
+    RH_ScopedGlobalInstall(_rwD3D9DeviceReleaseVideoMemory, 0x7F7F70);
+    RH_ScopedGlobalInstall(_rwD3D9RestoreDevice, 0x7F8300);
+    RH_ScopedGlobalInstall(RwD3D9EngineGetMaxMultiSamplingLevels, 0x7F84E0);
+    RH_ScopedGlobalInstall(RwD3D9EngineSetMultiSamplingLevels, 0x7F84F0);
+    RH_ScopedGlobalInstall(RwD3D9EngineSetRefreshRate, 0x7F8580);
+    RH_ScopedGlobalInstall(RwD3D9ChangeVideoMode, 0x7F8640);
+    RH_ScopedGlobalInstall(RwD3D9ChangeMultiSamplingLevels, 0x7F8A90);
+    RH_ScopedGlobalInstall(RwD3D9CameraAttachWindow, 0x7F8D70);
 }

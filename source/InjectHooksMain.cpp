@@ -719,6 +719,7 @@ void RwCoreInjectHooksR24A();     // tuberias Im3D, RwFrame y callbacks/modos de
 void RwPlCoreInjectHooksR25A();   // _rwSqrt (0x7EDB30), RwErrorSet (0x808820) y RwBBoxCalculate (0x808F60) (rwplcore.cpp)
 void RwCoreInjectHooksR25A();     // diccionarios y texturas, lectura de imagenes, RwFrameUpdateObjects, _rwObjectHasFrameSetFrame y RxPipelineExecute (rwcore.cpp)
 void RwD3D9InjectHooksR25A();     // controlador D3D9: gestor de buferes de vertices, render target, caches de estado, multimuestreo, CreateVertexShader y caja en frustum (rwcore.cpp)
+void RwD3D9InjectHooksR26A();     // controlador D3D9: parametros de presentacion, parada, estandares, modos de video, liberacion/restauracion del dispositivo, multimuestreo, cambio de modo y camara con ventana (rwcore.cpp)
 
 void InjectHooksMain() {
     /**
@@ -1151,6 +1152,7 @@ void InjectHooksMain() {
     RwPlCoreInjectHooksR25A();
     RwCoreInjectHooksR25A();
     RwD3D9InjectHooksR25A();
+    RwD3D9InjectHooksR26A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();

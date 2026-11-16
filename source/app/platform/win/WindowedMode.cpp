@@ -136,7 +136,9 @@ auto& D3D9RestoreDeviceCallback          = StaticRef<rwD3D9DeviceRestoreCallBack
 static RwBool EnableFullScreenDialogBoxMode = FALSE;
 
 
-const auto D3D9DeviceReleaseVideoMemory  = plugin::CallAndReturn<RwBool, 0x7F7F70>;
+// 0x7F7F70: ya esta reconstruida en rwcore.cpp (lote R26A, RwD3D9); se enlaza el cuerpo C++ en vez de llamar al EXE por direccion fija.
+RwBool _rwD3D9DeviceReleaseVideoMemory();
+const auto D3D9DeviceReleaseVideoMemory  = _rwD3D9DeviceReleaseVideoMemory;
 // 0x7F5F20: ya esta reconstruida en rwcore.cpp (lote R25A, RwD3D9); se enlaza el cuerpo C++ en vez de llamar al EXE por direccion.
 RwBool _rwD3D9SetRenderTarget(RwUInt32 index, void* surface);
 
