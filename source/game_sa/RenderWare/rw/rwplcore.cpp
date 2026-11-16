@@ -2888,3 +2888,234 @@ void RwPlCoreInjectHooksR30A() {
 
     RH_ScopedGlobalInstall(RwOsGetFileInterface, 0x804130);
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R33A (sin validar): transformaciones de vectores y matrices con SSE (0x80CE10..0x80D370). Son las llamadas de retorno que el selector del driver D3D9 (0x7F6960) entrega a _rwVectorSetMultFn (0x7ED5F0) cuando
+// la CPU tiene SSE: punto 0x80D280, puntos 0x80D070, vector 0x80D370 y vectores 0x80D180 (las versiones 3DNow! son 0x80D440..0x80D600); 0x80D100 y 0x80D210 son sus variantes para matriz alineada (sin la prueba
+// de alineacion) y 0x80CE10 es el producto de matrices con SSE. Todas usan solo SSE de precision simple (mulps/addps con las sumas agrupadas como el EXE): se escriben con intrinsecos, sin x87.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+#include <xmmintrin.h>
+#include <intrin.h>
+namespace {
+// shufps imm 0xA4: (x, y, z, z).
+inline __m128 SseRowXYZZ(__m128 row) {
+    return _mm_shuffle_ps(row, row, 0xA4);
+}
+inline __m128 SseBroadcastX(__m128 v) {
+    return _mm_shuffle_ps(v, v, 0x00);
+}
+inline __m128 SseBroadcastY(__m128 v) {
+    return _mm_shuffle_ps(v, v, 0x55);
+}
+inline __m128 SseBroadcastZ(__m128 v) {
+    return _mm_shuffle_ps(v, v, 0xAA);
+}
+// Guarda x, y (movlps) y z (movss tras movhlps) de un resultado en `out` (tres floats).
+inline void SseStoreVector3(float* out, __m128 value) {
+    _mm_storel_pi(reinterpret_cast<__m64*>(out), value);
+    _mm_store_ss(out + 2, _mm_movehl_ps(value, value));
+}
+// Cuerpo de las transformaciones de PUNTOS (con traslacion): ((z * at + y * up) + (x * right + pos)); matriz ya cargada (right, up, at, pos con la cuarta componente = z).
+inline __m128 SseTransformPoint(const float* in, __m128 c0, __m128 c1, __m128 c2, __m128 c3) {
+    const __m128 x = _mm_set1_ps(in[0]);
+    const __m128 y = _mm_set1_ps(in[1]);
+    const __m128 z = _mm_set1_ps(in[2]);
+    __m128 r0 = _mm_mul_ps(x, c0);
+    __m128 r1 = _mm_mul_ps(y, c1);
+    __m128 r2 = _mm_mul_ps(z, c2);
+    r0 = _mm_add_ps(r0, c3);
+    r2 = _mm_add_ps(r2, r1);
+    return _mm_add_ps(r2, r0);
+}
+// Cuerpo de las transformaciones de VECTORES (sin traslacion): (z * at + (y * up + x * right)).
+inline __m128 SseTransformVector(const float* in, __m128 c0, __m128 c1, __m128 c2) {
+    const __m128 x = _mm_set1_ps(in[0]);
+    const __m128 y = _mm_set1_ps(in[1]);
+    const __m128 z = _mm_set1_ps(in[2]);
+    __m128 r0 = _mm_mul_ps(x, c0);
+    __m128 r1 = _mm_mul_ps(y, c1);
+    __m128 r2 = _mm_mul_ps(z, c2);
+    r1 = _mm_add_ps(r1, r0);
+    return _mm_add_ps(r2, r1);
+}
+} // namespace
+
+// 0x80CE10 (lote R33A, sin validar; 360 bytes; cdecl, (salida, entrada1, entrada2); devuelve la salida; nombre inferido: producto de matrices con SSE y matrices sin alinear). Filas de la entrada2 cargadas con
+// la cuarta componente = z (shufps 0xA4); por cada fila de la entrada1 (x, y, z, w) la fila de salida es (x * f0 + y * f1) + z * f2 (filas 0..2) y (x * f0 + y * f1) + (z * f2 + f3) (fila 3). La salida de las filas
+// 0..2 incluye en la cuarta componente el valor calculado (rellenos). Orden de memoria como el EXE: la fila siguiente de la entrada1 se carga ANTES de guardar la anterior; flags = flags1 & flags2 (dword +0xC de las
+// entradas, leidos tras guardar las filas 0..2) se escribe en salida + 0xC antes de guardar la fila 3. Sin ningun llamante en el EXE (no esta registrada en ninguna tabla).
+RwMatrix* _rwIntelSSEMatrixMultiply(RwMatrix* dst, const RwMatrix* in1, const RwMatrix* in2) {
+    const float* const m1 = reinterpret_cast<const float*>(in1);
+    const float* const m2 = reinterpret_cast<const float*>(in2);
+    float* const out = reinterpret_cast<float*>(dst);
+    _mm_prefetch(reinterpret_cast<const char*>(m2) + 0x20, _MM_HINT_NTA);
+    const __m128 c0 = SseRowXYZZ(_mm_loadu_ps(m2));
+    const __m128 c1 = SseRowXYZZ(_mm_loadu_ps(m2 + 4));
+    const __m128 c2 = SseRowXYZZ(_mm_loadu_ps(m2 + 8));
+    const __m128 c3 = SseRowXYZZ(_mm_loadu_ps(m2 + 12));
+    _ReadWriteBarrier();
+    __m128 row = _mm_loadu_ps(m1);
+    _ReadWriteBarrier();
+    // Fila 0.
+    __m128 p0 = _mm_mul_ps(SseBroadcastX(row), c0);
+    __m128 p1 = _mm_mul_ps(SseBroadcastY(row), c1);
+    __m128 p2 = _mm_mul_ps(SseBroadcastZ(row), c2);
+    __m128 sum = _mm_add_ps(p0, p1);
+    _mm_prefetch(reinterpret_cast<const char*>(m1) + 0x20, _MM_HINT_NTA);
+    row = _mm_loadu_ps(m1 + 4);
+    sum = _mm_add_ps(sum, p2);
+    _ReadWriteBarrier();
+    _mm_storeu_ps(out, sum);
+    _ReadWriteBarrier();
+    // Fila 1.
+    p0 = _mm_mul_ps(SseBroadcastX(row), c0);
+    p1 = _mm_mul_ps(SseBroadcastY(row), c1);
+    p2 = _mm_mul_ps(SseBroadcastZ(row), c2);
+    sum = _mm_add_ps(p0, p1);
+    row = _mm_loadu_ps(m1 + 8);
+    sum = _mm_add_ps(sum, p2);
+    _ReadWriteBarrier();
+    _mm_storeu_ps(out + 4, sum);
+    _ReadWriteBarrier();
+    // Fila 2.
+    p0 = _mm_mul_ps(SseBroadcastX(row), c0);
+    p1 = _mm_mul_ps(SseBroadcastY(row), c1);
+    p2 = _mm_mul_ps(SseBroadcastZ(row), c2);
+    sum = _mm_add_ps(p0, p1);
+    row = _mm_loadu_ps(m1 + 12);
+    sum = _mm_add_ps(sum, p2);
+    _ReadWriteBarrier();
+    _mm_storeu_ps(out + 8, sum);
+    _ReadWriteBarrier();
+    // Fila 3.
+    p0 = _mm_mul_ps(SseBroadcastX(row), c0);
+    p1 = _mm_mul_ps(SseBroadcastY(row), c1);
+    p2 = _mm_mul_ps(SseBroadcastZ(row), c2);
+    sum = _mm_add_ps(p0, p1);
+    RwUInt32 flags = *reinterpret_cast<const RwUInt32*>(m1 + 3);
+    p2 = _mm_add_ps(p2, c3);
+    flags &= *reinterpret_cast<const RwUInt32*>(m2 + 3);
+    sum = _mm_add_ps(sum, p2);
+    _ReadWriteBarrier();
+    *reinterpret_cast<RwUInt32*>(out + 3) = flags;
+    _ReadWriteBarrier();
+    _mm_storeu_ps(out + 12, sum);
+    return dst;
+}
+
+// 0x80D070 (lote R33A, sin validar; 144 bytes; cdecl, (salida, entrada, cantidad, matriz); devuelve la salida; nombre inferido): RwV3dTransformPoints con SSE y matriz sin alinear (la prueba de alineacion solo elige
+// movups/movaps, aqui se usa siempre la carga sin alinear). Es la `multPoints` de _rwVectorSetMultFn cuando hay SSE. Bucle do-while con la cantidad como contador SIN signo (0 recorre 2^32 puntos como el EXE);
+// por punto: ((z * at + y * up) + (x * right + pos)) y se guardan x, y (movlps) y z (movss). Lee el punto completo antes de escribir (salida y entrada pueden coincidir).
+RwV3d* _rwIntelSSEV3dTransformPoints(RwV3d* pointsOut, const RwV3d* pointsIn, RwInt32 numPoints, const RwMatrix* matrix) {
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    const __m128 c0 = SseRowXYZZ(_mm_loadu_ps(m));
+    const __m128 c1 = SseRowXYZZ(_mm_loadu_ps(m + 4));
+    const __m128 c2 = SseRowXYZZ(_mm_loadu_ps(m + 8));
+    const __m128 c3 = SseRowXYZZ(_mm_loadu_ps(m + 12));
+    const float* in = reinterpret_cast<const float*>(pointsIn);
+    float* out = reinterpret_cast<float*>(pointsOut);
+    RwUInt32 remaining = static_cast<RwUInt32>(numPoints);
+    do {
+        const __m128 result = SseTransformPoint(in, c0, c1, c2, c3);
+        in += 3;
+        out += 3;
+        SseStoreVector3(out - 3, result);
+    } while (--remaining != 0);
+    return pointsOut;
+}
+
+// 0x80D100 (lote R33A, sin validar; 120 bytes; cdecl, (salida, entrada, cantidad, matriz); nombre inferido): igual que 0x80D070 pero con las filas de la matriz cargadas con movaps (la matriz debe estar alineada a 16
+// bytes: con otra alineacion el EXE y esta funcion fallan igual).
+RwV3d* _rwIntelSSEV3dTransformPointsAligned(RwV3d* pointsOut, const RwV3d* pointsIn, RwInt32 numPoints, const RwMatrix* matrix) {
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    const __m128 c0 = SseRowXYZZ(_mm_load_ps(m));
+    const __m128 c1 = SseRowXYZZ(_mm_load_ps(m + 4));
+    const __m128 c2 = SseRowXYZZ(_mm_load_ps(m + 8));
+    const __m128 c3 = SseRowXYZZ(_mm_load_ps(m + 12));
+    const float* in = reinterpret_cast<const float*>(pointsIn);
+    float* out = reinterpret_cast<float*>(pointsOut);
+    RwUInt32 remaining = static_cast<RwUInt32>(numPoints);
+    do {
+        const __m128 result = SseTransformPoint(in, c0, c1, c2, c3);
+        in += 3;
+        out += 3;
+        SseStoreVector3(out - 3, result);
+    } while (--remaining != 0);
+    return pointsOut;
+}
+
+// 0x80D180 (lote R33A, sin validar; 129 bytes; cdecl, (salida, entrada, cantidad, matriz); devuelve la salida; nombre inferido): RwV3dTransformVectors con SSE (sin traslacion; solo carga right, up y at) y matriz sin
+// alinear. Es la `multVectors` de _rwVectorSetMultFn con SSE. Mismo bucle do-while con contador sin signo; por vector: z * at + (y * up + x * right).
+RwV3d* _rwIntelSSEV3dTransformVectors(RwV3d* vectorsOut, const RwV3d* vectorsIn, RwInt32 numVectors, const RwMatrix* matrix) {
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    const __m128 c0 = SseRowXYZZ(_mm_loadu_ps(m));
+    const __m128 c1 = SseRowXYZZ(_mm_loadu_ps(m + 4));
+    const __m128 c2 = SseRowXYZZ(_mm_loadu_ps(m + 8));
+    const float* in = reinterpret_cast<const float*>(vectorsIn);
+    float* out = reinterpret_cast<float*>(vectorsOut);
+    RwUInt32 remaining = static_cast<RwUInt32>(numVectors);
+    do {
+        const __m128 result = SseTransformVector(in, c0, c1, c2);
+        in += 3;
+        out += 3;
+        SseStoreVector3(out - 3, result);
+    } while (--remaining != 0);
+    return vectorsOut;
+}
+
+// 0x80D210 (lote R33A, sin validar; 109 bytes; cdecl, (salida, entrada, cantidad, matriz); nombre inferido): igual que 0x80D180 con la matriz cargada con movaps (alineada a 16 bytes).
+RwV3d* _rwIntelSSEV3dTransformVectorsAligned(RwV3d* vectorsOut, const RwV3d* vectorsIn, RwInt32 numVectors, const RwMatrix* matrix) {
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    const __m128 c0 = SseRowXYZZ(_mm_load_ps(m));
+    const __m128 c1 = SseRowXYZZ(_mm_load_ps(m + 4));
+    const __m128 c2 = SseRowXYZZ(_mm_load_ps(m + 8));
+    const float* in = reinterpret_cast<const float*>(vectorsIn);
+    float* out = reinterpret_cast<float*>(vectorsOut);
+    RwUInt32 remaining = static_cast<RwUInt32>(numVectors);
+    do {
+        const __m128 result = SseTransformVector(in, c0, c1, c2);
+        in += 3;
+        out += 3;
+        SseStoreVector3(out - 3, result);
+    } while (--remaining != 0);
+    return vectorsOut;
+}
+
+// 0x80D280 (lote R33A, sin validar; 127 bytes; cdecl, (salida, entrada, matriz); devuelve la salida; nombre inferido): RwV3dTransformPoint con SSE y matriz sin alinear (`multPoint` de _rwVectorSetMultFn con SSE):
+// (z * at + y * up) + (x * right + pos), guardado como x, y, z.
+RwV3d* _rwIntelSSEV3dTransformPoint(RwV3d* pointOut, const RwV3d* pointIn, const RwMatrix* matrix) {
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    const __m128 c0 = SseRowXYZZ(_mm_loadu_ps(m));
+    const __m128 c1 = SseRowXYZZ(_mm_loadu_ps(m + 4));
+    const __m128 c2 = SseRowXYZZ(_mm_loadu_ps(m + 8));
+    const __m128 c3 = SseRowXYZZ(_mm_loadu_ps(m + 12));
+    const __m128 result = SseTransformPoint(reinterpret_cast<const float*>(pointIn), c0, c1, c2, c3);
+    SseStoreVector3(reinterpret_cast<float*>(pointOut), result);
+    return pointOut;
+}
+
+// 0x80D370 (lote R33A, sin validar; 112 bytes; cdecl, (salida, entrada, matriz); devuelve la salida; nombre inferido): RwV3dTransformVector con SSE y matriz sin alinear (`multVector` de _rwVectorSetMultFn con SSE):
+// z * at + (y * up + x * right).
+RwV3d* _rwIntelSSEV3dTransformVector(RwV3d* vectorOut, const RwV3d* vectorIn, const RwMatrix* matrix) {
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    const __m128 c0 = SseRowXYZZ(_mm_loadu_ps(m));
+    const __m128 c1 = SseRowXYZZ(_mm_loadu_ps(m + 4));
+    const __m128 c2 = SseRowXYZZ(_mm_loadu_ps(m + 8));
+    const __m128 result = SseTransformVector(reinterpret_cast<const float*>(vectorIn), c0, c1, c2);
+    SseStoreVector3(reinterpret_cast<float*>(vectorOut), result);
+    return vectorOut;
+}
+
+// Lote R33A (sin validar): ganchos (0x80CE10..0x80D370).
+void RwPlCoreInjectHooksR33A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    RH_ScopedGlobalInstall(_rwIntelSSEMatrixMultiply, 0x80CE10);
+    RH_ScopedGlobalInstall(_rwIntelSSEV3dTransformPoints, 0x80D070);
+    RH_ScopedGlobalInstall(_rwIntelSSEV3dTransformPointsAligned, 0x80D100);
+    RH_ScopedGlobalInstall(_rwIntelSSEV3dTransformVectors, 0x80D180);
+    RH_ScopedGlobalInstall(_rwIntelSSEV3dTransformVectorsAligned, 0x80D210);
+    RH_ScopedGlobalInstall(_rwIntelSSEV3dTransformPoint, 0x80D280);
+    RH_ScopedGlobalInstall(_rwIntelSSEV3dTransformVector, 0x80D370);
+}

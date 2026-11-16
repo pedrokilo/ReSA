@@ -2477,3 +2477,24 @@ void __cdecl CameraParallelViewMatrixCpp(float* cam, const float* m);
 
 // Lote R30A (sin validar): RwImageSetGamma (0x803FE0). Rellena tabla[256] (pow(t, 1 / gamma)) y inverseTable[256] (pow(t, gamma)) con t = i / 255, ambas como byte de truncar(pow * 255 + 0.5); powFunction = pow del CRT del EXE (0x8220F0). Ver X87Math.cpp.
 void __cdecl ImageGammaTablesCpp(float gamma, unsigned char* table, unsigned char* inverseTable, double(__cdecl* powFunction)(double, double));
+
+// Lote R33A (sin validar): cuantificador de paleta (bapalquant.c) y reescalado de imagenes (baimage.c). Nodo de estadisticas = 6 floats (peso, ac0..ac3, var). Ver X87Math.cpp.
+// 0x80AD90: suma el color (componentes c0..c3 ya enmascaradas) con peso `weight` al nodo.
+void __cdecl PalQuantAddColorCpp(float* node, int c0, int c1, int c2, int c3, float weight);
+// 0x80B490: color RGBA (4 bytes) de un nodo.
+void __cdecl PalQuantNodeColorCpp(unsigned char* out, const float* node);
+// 0x80B910: dst = a + b (dst puede ser a).
+void __cdecl PalQuantMergeCpp(float* dst, const float* a, const float* b);
+// 0x80BA30: parte numerica de una iteracion de la busqueda de corte (peso restante, varianza restante sin redondear y valor candidato).
+void __cdecl PalQuantCutEvalCpp(const float* whole, const float* acc, float* remW, double* rv, double* value);
+// 0x80BCA0: hoja del arbol (varianza residual y centro de la celda); colors = 4 bytes RGBA de la celda.
+void __cdecl PalQuantLeafFinalizeCpp(float* node, const unsigned char* colors);
+// 0x80C600: pasos fijos 16.16, anchuras y cuerpos numericos del reescalado; 0x80CA20: media horizontal de una fila.
+int __cdecl ImageResampleStepCpp(int srcDim, int dstDim);
+float __cdecl ImageResampleSpanCpp(int count);
+void __cdecl ImageRowAverageCpp(const unsigned char* pixel, int x0, int x1, float* out);
+void __cdecl ImageResampleSameRowCpp(float* out, float span);
+void __cdecl ImageResampleRowFirstCpp(float* out, int fraction);
+void __cdecl ImageResampleRowAddCpp(float* out, const float* row);
+void __cdecl ImageResampleRowLastCpp(float* out, float* row, int fraction, float span);
+void __cdecl ImageResamplePackCpp(const float* out, unsigned char* dst);

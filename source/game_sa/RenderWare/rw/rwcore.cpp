@@ -1917,23 +1917,8 @@ RwImage* RwImageGammaCorrect(RwImage* image) {
     return image;
 }
 
-RwBool RwPalQuantInit(RwPalQuant* pq) {
-    return ((RwBool(__cdecl *)(RwPalQuant*))0x80C470)(pq);
-}
-
-void RwPalQuantTerm(RwPalQuant* pq) {
-    ((void(__cdecl *)(RwPalQuant*))0x80C520)(pq);
-}
-
-// 0x80AA80 (RwPalQuantAddImage): reconstruida al final del archivo (lote R32A).
-
-RwInt32 RwPalQuantResolvePalette(RwRGBA* palette, RwInt32 maxcols, RwPalQuant* pq) {
-    return ((RwInt32(__cdecl *)(RwRGBA*, RwInt32, RwPalQuant*))0x80AF60)(palette, maxcols, pq);
-}
-
-void RwPalQuantMatchImage(RwUInt8* dstpixels, RwInt32 dststride, RwInt32 dstdepth, RwBool dstPacked, RwPalQuant* pq, RwImage* img) {
-    ((void(__cdecl *)(RwUInt8*, RwInt32, RwInt32, RwBool, RwPalQuant*, RwImage*))0x80BF20)(dstpixels, dststride, dstdepth, dstPacked, pq, img);
-}
+// 0x80C470 (RwPalQuantInit), 0x80C520 (RwPalQuantTerm), 0x80AF60 (RwPalQuantResolvePalette), 0x80BF20 (RwPalQuantMatchImage): reconstruidas al final del archivo (lote R33A);
+// 0x80AA80 (RwPalQuantAddImage): lote R32A.
 
 // 0x7F3530 (lote R24A, sin validar; 26 bytes; era una envoltura; cdecl, (bool)): RwTextureGlobals::mipmapping (+0x1C) = enable (dword). Devuelve TRUE.
 RwBool RwTextureSetMipmapping(RwBool enable) {
@@ -4090,13 +4075,7 @@ void RwD3D9InjectHooksR6A() {
     RH_ScopedGlobalInstall(_rwD3D9SetAnisotropyTextureOffset, 0x7FDE60);
 }
 
-RwImage* RwImageResample(RwImage* dstImage, const RwImage* srcImage) {
-    return ((RwImage*(__cdecl *)(RwImage*, const RwImage*))0x80C600)(dstImage, srcImage);
-}
-
-RwImage* RwImageCreateResample(const RwImage* srcImage, RwInt32 width, RwInt32 height) {
-    return ((RwImage*(__cdecl *)(const RwImage*, RwInt32, RwInt32))0x80CD10)(srcImage, width, height);
-}
+// 0x80C600 (RwImageResample) y 0x80CD10 (RwImageCreateResample): reconstruidas al final del archivo (lote R33A).
 
 // 0x803950 (lote R30A, sin validar; 468 bytes; era una llamada por direccion fija; cdecl, (destino, origen); `RwImageCopy` del SDK): copia los pixeles de origen en destino (mismo tamano; el EXE no lo comprueba).
 // Misma profundidad: es el cuerpo de 0x803790 (paleta si ambas la tienen y profundidad <= 8, y filas de ((profundidad + 7) >> 3) * ancho bytes con el stride de cada una). Distinta: es el de 0x803840 (clave =
@@ -9502,6 +9481,10 @@ void RwCoreInjectHooksR31A() {
 // Lote R32A (sin validar): tuberias de Rx (busqueda y alta de nodos), listas de marcos y camaras en flujos, sincronizacion de marcos sucios, monton de Rx, tuberias por defecto de Im3D y
 // cuantificador de paleta (0x806B30..0x80AA80). Funciones de RenderWare (rxpipeline.c, rxheap.c, bafframe.c, bacamera.c, baim3d.c, bapalquant.c) enlazadas en el EXE.
 // ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R33A: funciones internas del cuantificador de paleta (definidas al final del archivo) que usa RwPalQuantAddImage (R32A).
+_rwPalQuantOctNode* _rwPalQuantNodeDescend(RwPalQuant* pq, _rwPalQuantOctNode* node, RwUInt32 key, RwUInt32 depth);
+void _rwPalQuantNodeAddColor(_rwPalQuantOctNode* node, const RwUInt8* rgba, RwUInt32 weightBits);
+
 namespace {
 // Datos en flujo de un marco (0x38 bytes): matriz (derecha, arriba, adelante, posicion: 12 dwords), indice del padre y banderas de creacion.
 struct FrameListStreamFrame {
@@ -9525,10 +9508,6 @@ void FrameMultiplyLtm(RwFrame* frame) {
     RwFrame* const parent = static_cast<RwFrame*>(frame->object.parent);
     RwMatrixMultiply(&frame->ltm, &frame->modelling, &parent->ltm);
 }
-
-// Dos llamadas por direccion fija que siguen en el EXE (descenso del octree y acumulacion del color).
-using PalQuantDescendFn = _rwPalQuantOctNode*(__cdecl*)(RwPalQuant*, _rwPalQuantOctNode*, RwUInt32, RwUInt32);
-using PalQuantAccumulateFn = void(__cdecl*)(_rwPalQuantOctNode*, const void*, RwUInt32);
 
 // Cuerpo comun de RwPalQuantAddImage para un color RGBA (4 bytes): clave de octree con la profundidad global (0x8E26E0) y la tabla de dispersion de bits de 0xC9A730, nodo hoja y acumulacion.
 void PalQuantAddPixel(RwPalQuant* pq, const RwUInt8* rgba, RwUInt32 weightBits) {
@@ -9556,9 +9535,9 @@ void PalQuantAddPixel(RwPalQuant* pq, const RwUInt8* rgba, RwUInt32 weightBits) 
                 memset(&created->Leaf, 0, 0x18);
             }
         }
-        node = reinterpret_cast<PalQuantDescendFn>(0x80AED0)(pq, *slot, key >> 4, depth - 1);
+        node = _rwPalQuantNodeDescend(pq, *slot, key >> 4, depth - 1);
     }
-    reinterpret_cast<PalQuantAccumulateFn>(0x80AD90)(node, rgba, weightBits);
+    _rwPalQuantNodeAddColor(node, rgba, weightBits);
 }
 static_assert(offsetof(RwPalQuant, root) == 0x4000 && offsetof(RwPalQuant, cubefreelist) == 0x4004 && sizeof(_rwPalQuantLeafNode) == 0x1C && offsetof(_rwPalQuantLeafNode, palIndex) == 0x18);
 static_assert(offsetof(RwImage, stride) == 0x10 && offsetof(RwImage, cpPixels) == 0x14 && offsetof(RwImage, palette) == 0x18);
@@ -10315,4 +10294,650 @@ void RwCoreInjectHooksR32A() {
     RH_ScopedGlobalInstall(_rwIm3DDefaultTransformPipelineDestroy, 0x80A110);
     RH_ScopedGlobalInstall(_rwIm3DDefaultPipelinesDestroy, 0x80A140);
     RH_ScopedGlobalInstall(RwPalQuantAddImage, 0x80AA80);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R33A (sin validar): cuantificador de paleta (bapalquant.c: arbol de octantes, corte de cajas por varianza, busqueda del indice de paleta) y reescalado de imagenes (baimage.c:
+// RwImageResample, media de una fila, RwImageCreateResample) de RenderWare (0x80AD90..0x80CD10). Todas son RwCore (los llamadores son RwImage*/RwPalQuant* de baimage.c y el selector de
+// formato 0x7F45xx..0x800Dxx del driver). Las partes de punto flotante estan en X87Math.cpp (PalQuant*Cpp, ImageResample*Cpp); aqui van los recorridos, los enteros y los saltos.
+// Disposicion de RwPalQuant: Mcube[256] (cajas de 0x20 bytes) +0, Mvv[256] +0x2000, Mvol[256] (estadisticas de 0x1C bytes) +0x2400, raiz +0x4000, lista libre de nodos +0x4004.
+// Nodo del arbol (0x5C bytes): estadisticas +0 (peso, ac0..ac3, var, palIndex en +0x18), 16 hijos en +0x1C. Profundidad global del arbol: dword de 0x8E26E0. Tabla de dispersion de bits: 0xC9A730.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+static_assert(offsetof(_rwPalQuantLeafNode, weight) == 0 && offsetof(_rwPalQuantLeafNode, ac) == 4 && offsetof(_rwPalQuantLeafNode, var) == 0x14 && sizeof(RwRGBAReal) == 0x10);
+static_assert(sizeof(_rwPalQuantRGBABox) == 0x20 && offsetof(_rwPalQuantRGBABox, col1) == 0x10);
+static_assert(offsetof(RwPalQuant, Mvv) == 0x2000 && offsetof(RwPalQuant, Mvol) == 0x2400 && sizeof(_rwPalQuantOctNode) == 0x5C && offsetof(_rwPalQuantOctNode, Branch) == 0x1C);
+static_assert(offsetof(RwImage, width) == 4 && offsetof(RwImage, height) == 8 && offsetof(RwImage, depth) == 0xC);
+
+// Estadisticas de un nodo como seis floats (peso, ac0..ac3, var).
+float* PalQuantStats(_rwPalQuantLeafNode* node) {
+    return reinterpret_cast<float*>(node);
+}
+const float* PalQuantStats(const _rwPalQuantLeafNode* node) {
+    return reinterpret_cast<const float*>(node);
+}
+// Pone a cero palIndex (byte) y las seis palabras de estadisticas.
+void PalQuantZeroStats(_rwPalQuantLeafNode* node) {
+    node->palIndex = 0;
+    memset(node, 0, 0x18);
+}
+// Diferencia de 32 bits con el signo del resultado (sub + js/jns/jle del EXE: envuelve sin comprobar el desbordamiento).
+RwInt32 PalQuantDiff32(RwInt32 a, RwInt32 b) {
+    return static_cast<RwInt32>(static_cast<RwUInt32>(a) - static_cast<RwUInt32>(b));
+}
+// Origen de la celda hija `i` (bit 3 -> componente 0 ... bit 0 -> componente 3) con el desplazamiento de la profundidad hija: ((bit << d) + origen).
+void PalQuantChildOrigin(RwInt32* out, const RwInt32* origin, RwUInt32 i, RwInt32 childDepth) {
+    const RwUInt32 shift = static_cast<RwUInt32>(childDepth) & 31u;
+    out[0] = static_cast<RwInt32>((((i >> 3) & 1u) << shift) + static_cast<RwUInt32>(origin[0]));
+    out[1] = static_cast<RwInt32>((((i >> 2) & 1u) << shift) + static_cast<RwUInt32>(origin[1]));
+    out[2] = static_cast<RwInt32>((((i >> 1) & 1u) << shift) + static_cast<RwUInt32>(origin[2]));
+    out[3] = static_cast<RwInt32>(((i & 1u) << shift) + static_cast<RwUInt32>(origin[3]));
+}
+// Clave de octree de un color RGBA con la profundidad global D: desplazamiento (8 - D) & 0xFF (el x86 usa 5 bits), clave = ((((T[r >> s] * 2) | T[g >> s]) * 2 | T[b >> s]) * 2) | T[a >> s].
+RwUInt32 PalQuantColorKey(const RwUInt8* rgba, RwUInt32 depth) {
+    const RwUInt32 shift = ((8u - depth) & 0xFFu) & 31u;
+    const RwUInt32* const spread = reinterpret_cast<const RwUInt32*>(0xC9A730);
+    RwUInt32 key = spread[rgba[0] >> shift];
+    key += key;
+    key |= spread[rgba[1] >> shift];
+    key += key;
+    key |= spread[rgba[2] >> shift];
+    key += key;
+    key |= spread[rgba[3] >> shift];
+    return key;
+}
+} // namespace
+
+// 0x80AD90 (lote R33A, sin validar; 309 bytes; cdecl, (nodo, color RGBA, peso como dword); nombre inferido): suma un color al nodo. Mascara = byte de ((1 << ((8 - D) & 31)) - 1) con D = dword de 0x8E26E0
+// (la x86 desplaza un byte: cuenta >= 8 da 0 y la mascara vale 0xFF); las cuatro componentes se enmascaran y la parte numerica (peso, varianza ponderada con los pesos de canal 0.5094 / 1 / 0.1942 / 1 y
+// suma ponderada de colores) esta en PalQuantAddColorCpp. El peso llega como dword de float y se carga con fld sin tocarlo.
+void _rwPalQuantNodeAddColor(_rwPalQuantOctNode* node, const RwUInt8* rgba, RwUInt32 weightBits) {
+    const RwUInt32 depth = StaticRef<RwUInt32>(0x8E26E0);
+    const RwUInt32 count = (8u - depth) & 31u;
+    const RwUInt8 mask = static_cast<RwUInt8>(((count >= 8u) ? 0u : (1u << count)) - 1u);
+    const int c0 = rgba[0] & mask;
+    const int c1 = rgba[1] & mask;
+    const int c2 = rgba[2] & mask;
+    const int c3 = rgba[3] & mask;
+    float weight;
+    memcpy(&weight, &weightBits, sizeof(weight));
+    PalQuantAddColorCpp(PalQuantStats(&node->Leaf), c0, c1, c2, c3, weight);
+}
+
+// 0x80AED0 (lote R33A, sin validar; 132 bytes; cdecl, (cuantificador, nodo, clave, profundidad); nombre inferido): desciende `profundidad` niveles desde `nodo` siguiendo la clave (cuatro bits por nivel, hijo = clave & 0xF)
+// y devuelve el nodo alcanzado; profundidad 0 devuelve `nodo`. Un hijo ausente se pide a la lista libre del cuantificador (RwFreeListAlloc, pista 0x30411), se guarda en su ranura, se ponen a cero sus 16 hijos y,
+// solo si le quedan exactamente 1 nivel por descender (nodo hoja), su palIndex y las seis palabras de estadisticas.
+_rwPalQuantOctNode* _rwPalQuantNodeDescend(RwPalQuant* pq, _rwPalQuantOctNode* node, RwUInt32 key, RwUInt32 depth) {
+    if (depth == 0) {
+        return node;
+    }
+    do {
+        _rwPalQuantOctNode** const slot = &node->Branch.dir[key & 0xF];
+        if (*slot == nullptr) {
+            _rwPalQuantOctNode* const created = static_cast<_rwPalQuantOctNode*>(RwFreeListAlloc(pq->cubefreelist, 0x30411));
+            *slot = created;
+            memset(&created->Branch, 0, sizeof(created->Branch));
+            if (depth == 1) {
+                created->Leaf.palIndex = 0;
+                memset(&created->Leaf, 0, 0x18);
+            }
+        }
+        node = *slot;
+        key >>= 4;
+        --depth;
+    } while (depth != 0);
+    return node;
+}
+
+// 0x80B910 (lote R33A, sin validar; 277 bytes; cdecl, (destino, a, b); nombre inferido): destino = a + b (peso, suma de colores y varianza combinada). Calculo en PalQuantMergeCpp (el destino puede ser `a`).
+void _rwPalQuantStatsMerge(_rwPalQuantLeafNode* dst, const _rwPalQuantLeafNode* a, const _rwPalQuantLeafNode* b) {
+    PalQuantMergeCpp(PalQuantStats(dst), PalQuantStats(a), PalQuantStats(b));
+}
+
+// 0x80B490 (lote R33A, sin validar; 320 bytes; cdecl, (RwRGBA de salida, estadisticas); nombre inferido): color medio del nodo. Calculo en PalQuantNodeColorCpp.
+void _rwPalQuantNodeToRGBA(RwRGBA* out, const _rwPalQuantLeafNode* node) {
+    PalQuantNodeColorCpp(reinterpret_cast<RwUInt8*>(out), PalQuantStats(node));
+}
+
+// 0x80B730 (lote R33A, sin validar; 476 bytes; cdecl, (nodo, origen[4], profundidad, caja, acumulador); nombre inferido): suma en `acumulador` las estadisticas de los nodos cuya celda queda dentro de `caja`.
+// La celda del nodo es [origen, origen + (1 << profundidad)) por componente. Sin nodo, sin solape (fin de celda - col0 <= 0 o inicio - col1 >= 0, comparaciones con signo de 32 bits) -> nada. Celda entera dentro de
+// la caja -> `_rwPalQuantStatsMerge(acumulador, acumulador, nodo)` (0x80B910). Parcial: con profundidad > 0 recorre los 16 hijos (profundidad - 1, origen del hijo = origen + (bit << (profundidad - 1))).
+void _rwPalQuantBoxAccumulate(_rwPalQuantOctNode* node, const RwInt32* origin, RwInt32 depth, const _rwPalQuantRGBABox* box, _rwPalQuantLeafNode* acc) {
+    if (node == nullptr) {
+        return;
+    }
+    const RwInt32 size = static_cast<RwInt32>(1u << (static_cast<RwUInt32>(depth) & 31u));
+    const RwInt32 end0 = origin[0] + size;
+    const RwInt32 end1 = origin[1] + size;
+    const RwInt32 end2 = origin[2] + size;
+    const RwInt32 end3 = origin[3] + size;
+    if (PalQuantDiff32(end0, box->col0[0]) <= 0 || PalQuantDiff32(end1, box->col0[1]) <= 0 || PalQuantDiff32(end2, box->col0[2]) <= 0 || PalQuantDiff32(end3, box->col0[3]) <= 0) {
+        return;
+    }
+    if (PalQuantDiff32(origin[0], box->col1[0]) >= 0 || PalQuantDiff32(origin[1], box->col1[1]) >= 0 || PalQuantDiff32(origin[2], box->col1[2]) >= 0 || PalQuantDiff32(origin[3], box->col1[3]) >= 0) {
+        return;
+    }
+    const bool inside = PalQuantDiff32(origin[0], box->col0[0]) >= 0 && PalQuantDiff32(origin[1], box->col0[1]) >= 0 && PalQuantDiff32(origin[2], box->col0[2]) >= 0 && PalQuantDiff32(origin[3], box->col0[3]) >= 0
+        && PalQuantDiff32(box->col1[0], end0) >= 0 && PalQuantDiff32(box->col1[1], end1) >= 0 && PalQuantDiff32(box->col1[2], end2) >= 0 && PalQuantDiff32(box->col1[3], end3) >= 0;
+    if (inside) {
+        _rwPalQuantStatsMerge(acc, acc, &node->Leaf);
+        return;
+    }
+    if (depth <= 0) {
+        return;
+    }
+    const RwInt32 childDepth = depth - 1;
+    for (RwUInt32 i = 0; i < 16; ++i) {
+        RwInt32 childOrigin[4];
+        PalQuantChildOrigin(childOrigin, origin, i, childDepth);
+        _rwPalQuantBoxAccumulate(node->Branch.dir[i], childOrigin, childDepth, box, acc);
+    }
+}
+
+// 0x80B5D0 (lote R33A, sin validar; 349 bytes; cdecl, (nodo, origen[4], profundidad, caja, indice); nombre inferido): asigna `indice` (byte) como palIndex a las hojas cuya celda se solapa con `caja`
+// (mismas pruebas de solape que 0x80B730, pero sin la de "dentro": una hoja solapada recibe el indice). Profundidad 0 -> palIndex del nodo; si no, recorre los 16 hijos (profundidad - 1).
+void _rwPalQuantNodeSetPalIndex(_rwPalQuantOctNode* node, const RwInt32* origin, RwInt32 depth, const _rwPalQuantRGBABox* box, RwUInt32 palIndex) {
+    if (node == nullptr) {
+        return;
+    }
+    const RwInt32 size = static_cast<RwInt32>(1u << (static_cast<RwUInt32>(depth) & 31u));
+    if (PalQuantDiff32(size + origin[0], box->col0[0]) <= 0 || PalQuantDiff32(size + origin[1], box->col0[1]) <= 0 || PalQuantDiff32(size + origin[2], box->col0[2]) <= 0 || PalQuantDiff32(size + origin[3], box->col0[3]) <= 0) {
+        return;
+    }
+    if (PalQuantDiff32(origin[0], box->col1[0]) >= 0 || PalQuantDiff32(origin[1], box->col1[1]) >= 0 || PalQuantDiff32(origin[2], box->col1[2]) >= 0 || PalQuantDiff32(origin[3], box->col1[3]) >= 0) {
+        return;
+    }
+    if (depth == 0) {
+        node->Leaf.palIndex = static_cast<RwUInt8>(palIndex);
+        return;
+    }
+    const RwInt32 childDepth = depth - 1;
+    for (RwUInt32 i = 0; i < 16; ++i) {
+        RwInt32 childOrigin[4];
+        PalQuantChildOrigin(childOrigin, origin, i, childDepth);
+        _rwPalQuantNodeSetPalIndex(node->Branch.dir[i], childOrigin, childDepth, box, palIndex);
+    }
+}
+
+// 0x80BA30 (lote R33A, sin validar; 609 bytes; cdecl, (raiz, caja, dimension, cortes[4], estadisticas de la caja); devuelve float; nombre inferido): busqueda binaria del mejor corte de `caja` en la `dimension`.
+// mejor = var de `estadisticas` (palabra copiada); copia local de la caja; lo = col0[dim], hi = col1[dim]; mientras hi - lo > 1 (con signo): mitad = lo + ((hi - lo) >> 1), col1[dim] local = mitad, acumulador
+// a cero + 0x80B730(raiz, origen 0, profundidad global, caja local, acumulador). Con el peso acumulado == 0 -> lo = mitad; si no, con el peso restante == 0 -> hi = mitad; si no, valor = var acumulada + var restante
+// (PalQuantCutEvalCpp): si valor < mejor guarda mejor = float(valor) y cortes[dim] = mitad, y lo = mitad si var acumulada < var restante, hi = mitad en otro caso. Devuelve mejor.
+float _rwPalQuantBestCut(_rwPalQuantOctNode* root, const _rwPalQuantRGBABox* box, RwInt32 dim, RwInt32* cuts, const _rwPalQuantLeafNode* whole) {
+    float best;
+    memcpy(&best, &whole->var, sizeof(best));
+    _rwPalQuantRGBABox local = *box;
+    RwInt32 lo = box->col0[dim];
+    RwInt32 hi = box->col1[dim];
+    RwInt32 span = hi - lo;
+    if (span <= 1) {
+        return best;
+    }
+    const RwInt32 origin[4] = { 0, 0, 0, 0 };
+    do {
+        const RwInt32 mid = lo + (span >> 1);
+        local.col1[dim] = mid;
+        _rwPalQuantLeafNode acc;
+        PalQuantZeroStats(&acc);
+        _rwPalQuantBoxAccumulate(root, origin, StaticRef<RwInt32>(0x8E26E0), &local, &acc);
+        float remainingWeight;
+        double remainingVariance;
+        double candidate;
+        PalQuantCutEvalCpp(PalQuantStats(whole), PalQuantStats(&acc), &remainingWeight, &remainingVariance, &candidate);
+        if (acc.weight == 0.0f) {
+            lo = mid;
+        } else if (remainingWeight == 0.0f) {
+            hi = mid;
+        } else {
+            if (candidate < static_cast<double>(best)) {
+                best = static_cast<float>(candidate);
+                cuts[dim] = mid;
+            }
+            if (static_cast<double>(acc.var) < remainingVariance) {
+                lo = mid;
+            } else {
+                hi = mid;
+            }
+        }
+        span = hi - lo;
+    } while (span > 1);
+    return best;
+}
+
+// 0x80BCA0 (lote R33A, sin validar; 442 bytes; cdecl, (nodo, colores[4], profundidad); devuelve el nodo o NULL; nombre inferido): cierra las estadisticas del arbol. Sin nodo devuelve 0. Profundidad > 0: pone a cero las
+// estadisticas del nodo, para cada uno de los 16 hijos calcula los colores de la celda hija (byte ((bit << ((profundidad - D + 7) & 31)) + color del padre), bit 3 -> componente 0; el desplazamiento es de un byte:
+// cuenta >= 8 da 0; D = dword de 0x8E26E0 leido en cada hijo), recursa con profundidad - 1 y, si el hijo existe, lo suma al nodo con 0x80B910. Profundidad <= 0 (hoja): PalQuantLeafFinalizeCpp (varianza residual y centro de la celda).
+_rwPalQuantOctNode* _rwPalQuantTreeFinalize(_rwPalQuantOctNode* node, const RwUInt8* colors, RwInt32 depth) {
+    if (node == nullptr) {
+        return nullptr;
+    }
+    if (depth > 0) {
+        PalQuantZeroStats(&node->Leaf);
+        for (RwUInt32 i = 0; i < 16; ++i) {
+            const RwUInt32 count = static_cast<RwUInt32>(depth - StaticRef<RwInt32>(0x8E26E0) + 7) & 31u;
+            RwUInt8 childColors[4];
+            for (RwUInt32 k = 0; k < 4; ++k) {
+                const RwUInt32 bit = (i >> (3u - k)) & 1u;
+                const RwUInt8 shifted = (bit != 0 && count < 8u) ? static_cast<RwUInt8>(1u << count) : static_cast<RwUInt8>(0);
+                childColors[k] = static_cast<RwUInt8>(shifted + colors[k]);
+            }
+            _rwPalQuantOctNode* const child = _rwPalQuantTreeFinalize(node->Branch.dir[i], childColors, depth - 1);
+            if (child != nullptr) {
+                _rwPalQuantStatsMerge(&node->Leaf, &node->Leaf, &child->Leaf);
+            }
+        }
+        return node;
+    }
+    PalQuantLeafFinalizeCpp(PalQuantStats(&node->Leaf), colors);
+    return node;
+}
+
+// 0x80BE60 (lote R33A, sin validar; 67 bytes; cdecl, (nodo, profundidad); nombre inferido): cuenta las hojas del subarbol. Sin nodo 0; profundidad <= 0 (con signo) -> 1; si no suma las de los 16 hijos (profundidad - 1).
+RwInt32 _rwPalQuantCountLeaves(_rwPalQuantOctNode* node, RwInt32 depth) {
+    if (node == nullptr) {
+        return 0;
+    }
+    if (depth <= 0) {
+        return 1;
+    }
+    RwInt32 total = 0;
+    for (RwUInt32 i = 0; i < 16; ++i) {
+        total += _rwPalQuantCountLeaves(node->Branch.dir[i], depth - 1);
+    }
+    return total;
+}
+
+// 0x80BEB0 (lote R33A, sin validar; 101 bytes; cdecl, (nodo, paleta, indice, profundidad); devuelve el siguiente indice; nombre inferido): recorre el subarbol en orden de hijos y, en cada hoja (profundidad <= 0), escribe
+// su color medio en paleta[indice] (0x80B490), le pone palIndex = indice (byte) y avanza el indice. Sin nodo devuelve el indice recibido.
+RwInt32 _rwPalQuantAssignPalette(_rwPalQuantOctNode* node, RwRGBA* palette, RwInt32 index, RwInt32 depth) {
+    if (node == nullptr) {
+        return index;
+    }
+    if (depth <= 0) {
+        _rwPalQuantNodeToRGBA(&palette[index], &node->Leaf);
+        node->Leaf.palIndex = static_cast<RwUInt8>(index);
+        return index + 1;
+    }
+    for (RwUInt32 i = 0; i < 16; ++i) {
+        index = _rwPalQuantAssignPalette(node->Branch.dir[i], palette, index, depth - 1);
+    }
+    return index;
+}
+
+// 0x80C430 (lote R33A, sin validar; 54 bytes; cdecl, (nodo, clave, profundidad); devuelve el byte en AL; nombre inferido): baja `profundidad` niveles con la clave (hijo = clave & 0xF, clave >>= 4; la cuenta se
+// comprueba contra 0) y devuelve el palIndex del nodo alcanzado.
+RwUInt8 _rwPalQuantFindPalIndex(_rwPalQuantOctNode* node, RwUInt32 key, RwUInt32 depth) {
+    while (depth != 0) {
+        node = node->Branch.dir[key & 0xF];
+        key >>= 4;
+        --depth;
+    }
+    return node->Leaf.palIndex;
+}
+
+// 0x80C5A0 (lote R33A, sin validar; 84 bytes; cdecl, (cuantificador, nodo, profundidad); nombre inferido): libera el subarbol en la lista libre del cuantificador. Sin nodo no hace nada; con profundidad > 0 (con signo)
+// libera primero los 16 hijos (profundidad - 1); despues libera el nodo (RwFreeListFree, memoryFree del motor).
+void _rwPalQuantNodeDestroy(RwPalQuant* pq, _rwPalQuantOctNode* node, RwInt32 depth) {
+    if (node == nullptr) {
+        return;
+    }
+    if (depth > 0) {
+        for (RwUInt32 i = 0; i < 16; ++i) {
+            _rwPalQuantNodeDestroy(pq, node->Branch.dir[i], depth - 1);
+        }
+    }
+    RwFreeListFree(pq->cubefreelist, node);
+}
+
+// 0x80C470 (lote R33A, sin validar; 176 bytes; era una envoltura; cdecl, (cuantificador); `RwPalQuantInit` del SDK): con D = dword de 0x8E26E0 rellena la tabla de dispersion de bits de 0xC9A730 con (1 << D) entradas:
+// T[v] = suma, para cada bit j de v (j = 0..D-1), de 1 << (4 * (D - 1 - j)) (cuentas de desplazamiento con 5 bits como la x86). Crea la lista libre de nodos RwFreeListCreate(0x5C, 0x400, 4, 0x30411) en
+// +0x4004, pide la raiz (RwFreeListAlloc, pista 0x30411) en +0x4000 y pone a cero SOLO sus 16 hijos (las estadisticas de la raiz quedan sin inicializar). Devuelve TRUE.
+RwBool RwPalQuantInit(RwPalQuant* pq) {
+    const RwUInt32 depth = StaticRef<RwUInt32>(0x8E26E0);
+    const RwUInt32 count = 1u << (depth & 31u);
+    RwUInt32* const table = reinterpret_cast<RwUInt32*>(0xC9A730);
+    for (RwUInt32 value = 0; value < count; ++value) {
+        RwUInt32 spread = 0;
+        RwUInt32 shift = depth * 4u - 4u;
+        for (RwUInt32 bit = 0; bit < depth; ++bit, shift -= 4u) {
+            if ((value & (1u << (bit & 31u))) != 0) {
+                spread |= 1u << (shift & 31u);
+            }
+        }
+        table[value] = spread;
+    }
+    RwFreeList* const freeList = RwFreeListCreate(0x5C, 0x400, 4, 0x30411);
+    pq->cubefreelist = freeList;
+    pq->root = static_cast<_rwPalQuantOctNode*>(RwFreeListAlloc(freeList, 0x30411));
+    memset(&pq->root->Branch, 0, sizeof(pq->root->Branch));
+    return TRUE;
+}
+
+// 0x80C520 (lote R33A, sin validar; 116 bytes; era una envoltura; cdecl, (cuantificador); `RwPalQuantTerm` del SDK): si hay raiz, con D > 0 (con signo) destruye sus 16 hijos (D - 1, 0x80C5A0) y libera la raiz en la
+// lista libre; despues (haya o no raiz) pone la raiz a NULL y destruye la lista libre (el EXE sale con un salto a RwFreeListDestroy).
+void RwPalQuantTerm(RwPalQuant* pq) {
+    _rwPalQuantOctNode* const root = pq->root;
+    if (root != nullptr) {
+        const RwInt32 depth = StaticRef<RwInt32>(0x8E26E0);
+        if (depth > 0) {
+            for (RwUInt32 i = 0; i < 16; ++i) {
+                _rwPalQuantNodeDestroy(pq, root->Branch.dir[i], depth - 1);
+            }
+        }
+        RwFreeListFree(pq->cubefreelist, root);
+    }
+    RwFreeList* const freeList = pq->cubefreelist;
+    pq->root = nullptr;
+    RwFreeListDestroy(freeList);
+}
+
+// 0x80AF60 (lote R33A, sin validar; 1320 bytes; era una envoltura; cdecl, (paleta, maxcols, cuantificador); `RwPalQuantResolvePalette` del SDK): D = dword de 0x8E26E0. 1) 0x80BCA0(raiz, colores 0, D) cierra las
+// estadisticas. 2) Con maxcols > 0 pone a cero maxcols entradas RGBA de la paleta. 3) Hojas: sin raiz 0; con D > 0 la suma de 0x80BE60 sobre los 16 hijos (D - 1); si no 1. 4) Hojas <= maxcols (con signo): sin raiz
+// devuelve las hojas; con D > 0 reparte la paleta con 0x80BEB0 (indice inicial 0, un hijo tras otro); con D <= 0 el color de la raiz va a paleta[0] y su palIndex a 0; devuelve el numero de hojas. 5) Si hay mas hojas
+// que colores: caja 0 = [0, 1 << D) por componente con las estadisticas de todo el arbol (0x80B730) y Mvv[0] = su var (palabra copiada); mientras haya menos de maxcols cajas elige la de mayor Mvv estrictamente > 0
+// (la primera en empate), calcula el mejor corte de las cuatro dimensiones con 0x80BA30 (cortes en un vector de cuatro enteros, resultados float) y toma la primera dimension de menor resultado (estrictamente);
+// si el menor resultado es < var de la caja la parte en dos (la nueva caja n copia la vieja; el corte es el BYTE bajo del entero guardado: nueva.col0[dim] = vieja.col1[dim] = corte), recalcula las estadisticas de
+// las dos mitades (0x80B730 con acumuladores a cero), copia sus var a Mvv y n++; si no mejora pone Mvv[caja] = 0 sin avanzar n. Al terminar recorre maxcols cajas (todas, aunque n sea menor): 0x80B5D0 marca los
+// indices de sus hojas y 0x80B490 escribe el color de Mvol[i] en paleta[i]. Devuelve maxcols (o maxcols <= 0 sin tocar nada mas).
+RwInt32 RwPalQuantResolvePalette(RwRGBA* palette, RwInt32 maxcols, RwPalQuant* pq) {
+    const RwInt32 depth = StaticRef<RwInt32>(0x8E26E0);
+    const RwUInt8 originColors[4] = { 0, 0, 0, 0 };
+    _rwPalQuantTreeFinalize(pq->root, originColors, depth);
+    if (maxcols > 0) {
+        for (RwInt32 i = 0; i < maxcols; ++i) {
+            palette[i].red = 0;
+            palette[i].green = 0;
+            palette[i].blue = 0;
+            palette[i].alpha = 0;
+        }
+    }
+    RwInt32 leafCount = 0;
+    if (pq->root != nullptr) {
+        if (depth > 0) {
+            for (RwUInt32 i = 0; i < 16; ++i) {
+                leafCount += _rwPalQuantCountLeaves(pq->root->Branch.dir[i], depth - 1);
+            }
+        } else {
+            leafCount = 1;
+        }
+    }
+    if (leafCount <= maxcols) {
+        _rwPalQuantOctNode* const root = pq->root;
+        if (root == nullptr) {
+            return leafCount;
+        }
+        if (depth > 0) {
+            RwInt32 index = 0;
+            for (RwUInt32 i = 0; i < 16; ++i) {
+                index = _rwPalQuantAssignPalette(root->Branch.dir[i], palette, index, depth - 1);
+            }
+        } else {
+            _rwPalQuantNodeToRGBA(&palette[0], &root->Leaf);
+            root->Leaf.palIndex = 0;
+        }
+        return leafCount;
+    }
+
+    const RwInt32 zeroOrigin[4] = { 0, 0, 0, 0 };
+    const RwInt32 fullSize = static_cast<RwInt32>(1u << (static_cast<RwUInt32>(depth) & 31u));
+    for (RwInt32 d = 0; d < 4; ++d) {
+        pq->Mcube[0].col0[d] = 0;
+        pq->Mcube[0].col1[d] = fullSize;
+    }
+    PalQuantZeroStats(&pq->Mvol[0]);
+    _rwPalQuantBoxAccumulate(pq->root, zeroOrigin, depth, &pq->Mcube[0], &pq->Mvol[0]);
+    memcpy(&pq->Mvv[0], &pq->Mvol[0].var, sizeof(RwReal));
+    RwInt32 boxCount = 1;
+    if (maxcols > 1) {
+        do {
+            RwReal bestVariance = 0.0f;
+            RwInt32 bestBox = -1;
+            for (RwInt32 i = 0; i < boxCount; ++i) {
+                if (bestVariance < pq->Mvv[i]) {
+                    bestVariance = pq->Mvv[i];
+                    bestBox = i;
+                }
+            }
+            if (bestBox == -1) {
+                break;
+            }
+            _rwPalQuantLeafNode* const whole = &pq->Mvol[bestBox];
+            RwInt32 cuts[4] = { 0, 0, 0, 0 };
+            RwReal results[4];
+            for (RwInt32 d = 0; d < 4; ++d) {
+                results[d] = _rwPalQuantBestCut(pq->root, &pq->Mcube[bestBox], d, cuts, whole);
+            }
+            RwInt32 bestDim = 0;
+            for (RwInt32 d = 0; d < 4; ++d) {
+                if (results[d] < results[bestDim]) {
+                    bestDim = d;
+                }
+            }
+            if (results[bestDim] < whole->var) {
+                pq->Mcube[boxCount] = pq->Mcube[bestBox];
+                const RwInt32 cut = static_cast<RwInt32>(static_cast<RwUInt8>(cuts[bestDim]));
+                pq->Mcube[boxCount].col0[bestDim] = cut;
+                pq->Mcube[bestBox].col1[bestDim] = cut;
+                PalQuantZeroStats(&pq->Mvol[bestBox]);
+                _rwPalQuantBoxAccumulate(pq->root, zeroOrigin, depth, &pq->Mcube[bestBox], &pq->Mvol[bestBox]);
+                PalQuantZeroStats(&pq->Mvol[boxCount]);
+                _rwPalQuantBoxAccumulate(pq->root, zeroOrigin, depth, &pq->Mcube[boxCount], &pq->Mvol[boxCount]);
+                memcpy(&pq->Mvv[bestBox], &pq->Mvol[bestBox].var, sizeof(RwReal));
+                memcpy(&pq->Mvv[boxCount], &pq->Mvol[boxCount].var, sizeof(RwReal));
+                ++boxCount;
+            } else {
+                pq->Mvv[bestBox] = 0.0f;
+            }
+        } while (boxCount < maxcols);
+    }
+    if (maxcols <= 0) {
+        return maxcols;
+    }
+    for (RwInt32 i = 0; i < maxcols; ++i) {
+        _rwPalQuantNodeSetPalIndex(pq->root, zeroOrigin, depth, &pq->Mcube[i], static_cast<RwUInt32>(i));
+        _rwPalQuantNodeToRGBA(&palette[i], &pq->Mvol[i]);
+    }
+    return maxcols;
+}
+
+namespace {
+// Indice de paleta de un color RGBA: clave (PalQuantColorKey) y, con D == 0, el palIndex de la raiz; si no, 0x80C430 sobre el hijo (clave & 0xF) de la raiz con clave >> 4 y D - 1.
+RwUInt8 PalQuantLookupColor(RwPalQuant* pq, const RwUInt8* rgba) {
+    const RwUInt32 depth = StaticRef<RwUInt32>(0x8E26E0);
+    const RwUInt32 key = PalQuantColorKey(rgba, depth);
+    _rwPalQuantOctNode* const root = pq->root;
+    if (depth == 0) {
+        return root->Leaf.palIndex;
+    }
+    return _rwPalQuantFindPalIndex(root->Branch.dir[key & 0xF], key >> 4, depth - 1);
+}
+// Escribe un indice en una fila de 4 bits por pixel: x par -> nibble bajo (el alto se conserva); x impar -> nibble alto (se conserva el bajo) y avanza el cursor.
+void PalQuantPackNibble(RwUInt8*& cursor, RwUInt32 x, RwUInt8 index) {
+    RwUInt8 byte = *cursor;
+    if ((x & 1u) != 0) {
+        byte = static_cast<RwUInt8>((byte & 0x0Fu) | static_cast<RwUInt8>(index << 4));
+        *cursor = byte;
+        ++cursor;
+    } else {
+        const RwUInt8 diff = static_cast<RwUInt8>((byte ^ index) & 0x0Fu);
+        *cursor = static_cast<RwUInt8>(byte ^ diff);
+    }
+}
+} // namespace
+
+// 0x80BF20 (lote R33A, sin validar; 1289 bytes; era una envoltura; cdecl, (pixeles destino, paso destino, profundidad destino, empaquetado, cuantificador, imagen); `RwPalQuantMatchImage` del SDK): convierte la imagen a
+// indices de paleta. Imagen de profundidad 4 u 8 (cada pixel = un byte que indexa la paleta de la imagen, RGBA de 4 bytes) o 32 (RGBA directo); otra profundidad o alto 0 no hace nada. Por fila (alto veces; el origen
+// avanza `paso` de la imagen y el destino `paso destino`, ambos con signo): el ancho 0 solo avanza la fila. Con profundidad destino == 4 Y empaquetado == 1 escribe dos indices por byte (pixel par -> nibble bajo,
+// impar -> nibble alto, el cursor avanza tras el impar; un ancho impar deja el ultimo byte a medias); en otro caso un byte por pixel. El indice sale de la clave de octree (D = dword de 0x8E26E0; 0x80C430).
+void RwPalQuantMatchImage(RwUInt8* dstpixels, RwInt32 dststride, RwInt32 dstdepth, RwBool dstPacked, RwPalQuant* pq, RwImage* img) {
+    const RwUInt8* srcRow = img->cpPixels;
+    const RwInt32 srcStride = img->stride;
+    const RwInt32 srcDepth = img->depth;
+    const bool palettized = (srcDepth == 4 || srcDepth == 8);
+    if (!palettized && srcDepth != 0x20) {
+        return;
+    }
+    RwUInt32 rows = static_cast<RwUInt32>(img->height);
+    if (rows == 0) {
+        return;
+    }
+    const RwRGBA* const palette = img->palette;
+    const bool packed = (dstdepth == 4 && dstPacked == 1);
+    RwUInt8* dstRow = dstpixels;
+    do {
+        const RwUInt32 width = static_cast<RwUInt32>(img->width);
+        const RwUInt8* source = srcRow;
+        RwUInt8* cursor = dstRow;
+        for (RwUInt32 x = 0; x < width; ++x) {
+            const RwUInt8* rgba;
+            if (palettized) {
+                rgba = reinterpret_cast<const RwUInt8*>(&palette[*source]);
+                ++source;
+            } else {
+                rgba = source;
+                source += 4;
+            }
+            const RwUInt8 index = PalQuantLookupColor(pq, rgba);
+            if (packed) {
+                PalQuantPackNibble(cursor, x, index);
+            } else {
+                *cursor = index;
+                ++cursor;
+            }
+        }
+        dstRow += dststride;
+        srcRow += srcStride;
+        --rows;
+    } while (rows != 0);
+}
+
+// 0x80CA20 (lote R33A, sin validar; 741 bytes; cdecl, (imagen, x0, x1, y, salida float[4]); nombre inferido): media horizontal, en punto fijo 16.16, de la fila (y >> 16) de una imagen RGBA de 8 bits entre x0 y x1:
+// pixel inicial = cpPixels + stride * (y >> 16) + (x0 >> 16) * 4 (con signo, 32 bits). El promedio con pesos parciales en los extremos esta en ImageRowAverageCpp.
+void _rwImageResampleRow(const RwImage* src, RwInt32 x0, RwInt32 x1, RwInt32 y, float* out) {
+    const RwUInt8* const pixel = src->cpPixels + (src->stride * (y >> 16) + (x0 >> 16) * 4);
+    ImageRowAverageCpp(pixel, x0, x1, out);
+}
+
+// 0x80C600 (lote R33A, sin validar; 1045 bytes; era una envoltura; cdecl, (destino, origen); `RwImageResample` del SDK; solo imagenes de 32 bits): destino.flags |= origen.flags & 2. Pasos 16.16 por eje =
+// truncar(float(origen / destino * 65536)) (ImageResampleStepCpp: x con los anchos, y con los altos). Por cada fila de destino (y acumulada en 16.16, empieza en 0 y suma el paso) y cada pixel (x en 16.16, empieza
+// en 0 en cada fila): x1 = paso x + x - 1; yFin = paso y + y - 1 y anchura vertical = float((yFin - y) / 65536). Si las filas entera de y e yFin coinciden: una media de fila (0x80CA20) escalada por la anchura
+// (ImageResampleSameRowCpp); si no: primera fila con el trozo hasta el siguiente limite entero, filas enteras intermedias sumadas y ultima con el trozo hasta yFin (ImageResampleRowFirstCpp / RowAddCpp /
+// RowLastCpp). El resultado (float[4]) se pasa a bytes con ImageResamplePackCpp (v * 255 + 0.5 truncado) y se escribe en el pixel destino. Un ancho o alto de destino <= 0 (con signo) no hace nada. Devuelve el destino.
+RwImage* RwImageResample(RwImage* dstImage, const RwImage* srcImage) {
+    const RwInt32 dstWidth = dstImage->width;
+    const RwInt32 dstHeight = dstImage->height;
+    const RwInt32 srcWidth = srcImage->width;
+    const RwInt32 srcHeight = srcImage->height;
+    dstImage->flags = dstImage->flags | (srcImage->flags & 2);
+    const RwInt32 xStep = ImageResampleStepCpp(srcWidth, dstWidth);
+    const RwInt32 yStep = ImageResampleStepCpp(srcHeight, dstHeight);
+    RwInt32 yFixed = 0;
+    for (RwInt32 row = 0; row < dstHeight; ++row) {
+        RwUInt8* dstPixel = dstImage->cpPixels + dstImage->stride * row;
+        if (dstWidth > 0) {
+            RwInt32 xFixed = 0;
+            const RwInt32 yEnd = yStep + yFixed - 1;
+            const RwInt32 yStartInt = yFixed >> 16;
+            const RwInt32 yEndInt = yEnd >> 16;
+            const float span = ImageResampleSpanCpp(yEnd - yFixed);
+            for (RwInt32 remaining = dstWidth; remaining != 0; --remaining) {
+                const RwInt32 x1 = xStep + xFixed - 1;
+                float out[4];
+                float rowOut[4];
+                if (yStartInt == yEndInt) {
+                    _rwImageResampleRow(srcImage, xFixed, x1, yFixed, out);
+                    ImageResampleSameRowCpp(out, span);
+                } else {
+                    RwInt32 boundary = static_cast<RwInt32>((static_cast<RwUInt32>(yFixed) & 0xFFFF0000u) + 0x10000u);
+                    _rwImageResampleRow(srcImage, xFixed, x1, yFixed, out);
+                    ImageResampleRowFirstCpp(out, boundary - yFixed);
+                    if ((boundary >> 16) != yEndInt) {
+                        do {
+                            _rwImageResampleRow(srcImage, xFixed, x1, boundary, rowOut);
+                            boundary = static_cast<RwInt32>(static_cast<RwUInt32>(boundary) + 0x10000u);
+                            ImageResampleRowAddCpp(out, rowOut);
+                        } while ((boundary >> 16) != yEndInt);
+                    }
+                    _rwImageResampleRow(srcImage, xFixed, x1, boundary, rowOut);
+                    ImageResampleRowLastCpp(out, rowOut, yEnd - boundary, span);
+                }
+                ImageResamplePackCpp(out, dstPixel);
+                xFixed += xStep;
+                dstPixel += 4;
+            }
+        }
+        yFixed += yStep;
+    }
+    return dstImage;
+}
+
+// 0x80CD10 (lote R33A, sin validar; 252 bytes; era una envoltura; cdecl, (origen, ancho, alto); `RwImageCreateResample` del SDK): crea una imagen de ancho x alto x 32 (RwImageCreate) y le pide los pixeles; un fallo
+// destruye lo creado y devuelve NULL. Origen de 32 bits: RwImageResample(destino, origen); si no, crea una temporal de 32 bits del tamano del origen (con sus pixeles), la rellena con RwImageCopy (0x803950),
+// reescala desde ella y la libera siempre (pixeles + imagen). Si el reescalado devolviera NULL libera pixeles e imagen del destino y devuelve NULL. Devuelve el destino.
+RwImage* RwImageCreateResample(const RwImage* srcImage, RwInt32 width, RwInt32 height) {
+    RwImage* const dst = RwImageCreate(width, height, 32);
+    if (dst == nullptr) {
+        return nullptr;
+    }
+    if (RwImageAllocatePixels(dst) == nullptr) {
+        RwImageDestroy(dst);
+        return nullptr;
+    }
+    if (srcImage->depth == 0x20) {
+        if (RwImageResample(dst, srcImage) != nullptr) {
+            return dst;
+        }
+        RwImageFreePixels(dst);
+        RwImageDestroy(dst);
+        return nullptr;
+    }
+    RwImage* const temp = RwImageCreate(srcImage->width, srcImage->height, 32);
+    if (temp == nullptr) {
+        RwImageFreePixels(dst);
+        RwImageDestroy(dst);
+        return nullptr;
+    }
+    if (RwImageAllocatePixels(temp) == nullptr) {
+        RwImageDestroy(temp);
+        RwImageFreePixels(dst);
+        RwImageDestroy(dst);
+        return nullptr;
+    }
+    RwImageCopy(temp, const_cast<RwImage*>(srcImage));
+    if (RwImageResample(dst, temp) == nullptr) {
+        RwImageFreePixels(temp);
+        RwImageDestroy(temp);
+        RwImageFreePixels(dst);
+        RwImageDestroy(dst);
+        return nullptr;
+    }
+    RwImageFreePixels(temp);
+    RwImageDestroy(temp);
+    return dst;
+}
+
+// Lote R33A (sin validar): ganchos (0x80AD90..0x80CD10).
+void RwCoreInjectHooksR33A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(_rwPalQuantNodeAddColor, 0x80AD90);
+    RH_ScopedGlobalInstall(_rwPalQuantNodeDescend, 0x80AED0);
+    RH_ScopedGlobalInstall(RwPalQuantResolvePalette, 0x80AF60);
+    RH_ScopedGlobalInstall(_rwPalQuantNodeToRGBA, 0x80B490);
+    RH_ScopedGlobalInstall(_rwPalQuantNodeSetPalIndex, 0x80B5D0);
+    RH_ScopedGlobalInstall(_rwPalQuantBoxAccumulate, 0x80B730);
+    RH_ScopedGlobalInstall(_rwPalQuantStatsMerge, 0x80B910);
+    RH_ScopedGlobalInstall(_rwPalQuantBestCut, 0x80BA30);
+    RH_ScopedGlobalInstall(_rwPalQuantTreeFinalize, 0x80BCA0);
+    RH_ScopedGlobalInstall(_rwPalQuantCountLeaves, 0x80BE60);
+    RH_ScopedGlobalInstall(_rwPalQuantAssignPalette, 0x80BEB0);
+    RH_ScopedGlobalInstall(RwPalQuantMatchImage, 0x80BF20);
+    RH_ScopedGlobalInstall(_rwPalQuantFindPalIndex, 0x80C430);
+    RH_ScopedGlobalInstall(RwPalQuantInit, 0x80C470);
+    RH_ScopedGlobalInstall(RwPalQuantTerm, 0x80C520);
+    RH_ScopedGlobalInstall(_rwPalQuantNodeDestroy, 0x80C5A0);
+    RH_ScopedGlobalInstall(RwImageResample, 0x80C600);
+    RH_ScopedGlobalInstall(_rwImageResampleRow, 0x80CA20);
+    RH_ScopedGlobalInstall(RwImageCreateResample, 0x80CD10);
 }

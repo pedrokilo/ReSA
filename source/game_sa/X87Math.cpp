@@ -20297,3 +20297,323 @@ __declspec(noinline) void __cdecl ImageGammaTablesCpp(float gamma, unsigned char
         inverseTable[i] = static_cast<unsigned char>(static_cast<int>(scaledInverse));
     }
 }
+
+// =================================================================================================================================================
+// Lote R33A (sin validar): cuantificador de paleta (bapalquant.c) y reescalado de imagenes (baimage.c) de RenderWare. Cuerpos numericos de las funciones
+// 0x80AD90, 0x80B490, 0x80B910, 0x80BA30 (parte numerica), 0x80BCA0 (hoja), 0x80C600 y 0x80CA20 del EXE. Convencion de los lotes anteriores: `double` = registro de la x87
+// sin redondear a float (la precision la fija el proceso: 24 bits en el juego), `float` = guardado con fst/fstp dword. Las constantes salen del .rdata del EXE.
+// Nodo de estadisticas (_rwPalQuantLeafNode como floats): [0] peso, [1..4] suma de (peso * color RGBA), [5] peso * varianza.
+// =================================================================================================================================================
+#pragma float_control(precise, on, push)
+namespace {
+constexpr float kPalQuantOneOver255 = std::bit_cast<float>(0x3B808081u);   // 0x859A3C
+constexpr float kPalQuantWeightR    = std::bit_cast<float>(0x3F02660Du);   // 0x885004
+constexpr float kPalQuantWeightB    = std::bit_cast<float>(0x3E46DE6Bu);   // 0x885000
+constexpr float kPalQuantInvWeightR = std::bit_cast<float>(0x3FFB4A7Du);   // 0x885010
+constexpr float kPalQuantInvWeightB = std::bit_cast<float>(0x40A4C59Du);   // 0x88500C
+constexpr float kPalQuantScale256   = std::bit_cast<float>(0x437FFD71u);   // 0x885008 (255.99)
+constexpr float kImageFixedToReal   = std::bit_cast<float>(0x37800000u);   // 0x859D5C (1 / 65536)
+constexpr float kImageFixedUnit     = std::bit_cast<float>(0x47800000u);   // 0x885050 (65536)
+
+// fistp con redondeo a cero de un float guardado (los destinos de 32 bits de 0x80B490 y 0x80C600).
+inline int PalQuantTruncate(float value) {
+    return static_cast<int>(value);
+}
+}
+
+// 0x80AD90: suma un color al nodo. c0..c3 = componentes RGBA ya enmascaradas a los bits bajos; weight = peso. a = c0 * (1/255), b = c1 * (1/255), c = c2 * (1/255), d = float(c3 * (1/255));
+// aS = a * 0.5094 (0x885004), t10 = float(c * 0.1942) (0x885000). peso += w; var += (((d*d + t10*t10) + b*b) + aS*aS) * w; ac0 += float(aS * w); ac1 += b * w; ac2 += t10 * w; ac3 += float(d * w).
+__declspec(noinline) void __cdecl PalQuantAddColorCpp(float* node, int c0, int c1, int c2, int c3, float weight) {
+    const double k = double(kPalQuantOneOver255);
+    const double a = double(c0) * k;
+    const double b = double(c1) * k;
+    const double c = double(c2) * k;
+    const float d = float(double(c3) * k);
+    const double aScaled = a * double(kPalQuantWeightR);
+    const float t10 = float(c * double(kPalQuantWeightB));
+    const double w = double(weight);
+    node[0] = float(w + double(node[0]));
+    double sum = double(d) * double(d) + double(t10) * double(t10);
+    sum = sum + b * b;
+    sum = sum + aScaled * aScaled;
+    node[5] = float(sum * w + double(node[5]));
+    const float aw = float(aScaled * w);
+    const double bw = b * w;
+    const double cw = double(t10) * w;
+    const float dw = float(double(d) * w);
+    node[1] = float(double(node[1]) + double(aw));
+    node[2] = float(double(node[2]) + bw);
+    node[3] = float(double(node[3]) + cw);
+    node[4] = float(double(node[4]) + double(dw));
+}
+
+// 0x80B490: color RGBA de un nodo. t = 1 / peso; r' = ac0 * t * 1.9632 (0x885010); g = float(ac1 * t); b' = float(float(ac2 * t) * 5.1491 (0x88500C)); a = float(ac3 * t);
+// cada canal = truncar(float(valor * 255.99 (0x885008))) saturado por arriba a 255 (comparacion con signo: un valor negativo guarda su byte bajo).
+__declspec(noinline) void __cdecl PalQuantNodeColorCpp(unsigned char* out, const float* node) {
+    const double t = 1.0 / double(node[0]);
+    const double v1 = double(node[1]) * t;
+    const float g = float(double(node[2]) * t);
+    const float bRaw = float(double(node[3]) * t);
+    const float a = float(double(node[4]) * t);
+    const double r = v1 * double(kPalQuantInvWeightR);
+    const float b = float(double(bRaw) * double(kPalQuantInvWeightB));
+    const double scale = double(kPalQuantScale256);
+    const float rScaled = float(r * scale);
+    const int i0 = PalQuantTruncate(rScaled);
+    const float gScaled = float(double(g) * scale);
+    const int i1 = PalQuantTruncate(gScaled);
+    const float bScaled = float(double(b) * scale);
+    const int i2 = PalQuantTruncate(bScaled);
+    const float aScaled = float(double(a) * scale);
+    const int i3 = PalQuantTruncate(aScaled);
+    out[0] = (i0 >= 255) ? 0xFFu : static_cast<unsigned char>(i0);
+    out[1] = (i1 >= 255) ? 0xFFu : static_cast<unsigned char>(i1);
+    out[2] = (i2 >= 255) ? 0xFFu : static_cast<unsigned char>(i2);
+    out[3] = (i3 >= 255) ? 0xFFu : static_cast<unsigned char>(i3);
+}
+
+// 0x80B910: dst = a + b (estadisticas). var = float(a.var + b.var) se guarda primero; si los dos pesos son > 0: ia = 1/a.w, ib = 1/b.w, A_k = a.ac_k * ia, B_k = b.ac_k * ib (los guardados como float son los de
+// los canales 2, 3 y 4 de cada nodo y el D0 de la diferencia del primero), S = (((D3^2 + D2^2) + D1^2) + D0f^2), var = float(S / (ia + ib) + var_guardada). Despues, sin condicion: ac1..ac4 y peso (en ese orden)
+// = float(a + b). dst puede ser a (se calcula todo antes de escribir; el original no relee lo que escribe salvo la varianza guardada).
+__declspec(noinline) void __cdecl PalQuantMergeCpp(float* dst, const float* a, const float* b) {
+    const float varSum = float(double(a[5]) + double(b[5]));
+    const float aw = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4];
+    const float bw = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4];
+    float newVar = varSum;
+    if (aw > 0.0f && bw > 0.0f) {
+        const double ia = 1.0 / double(aw);
+        const double ib = 1.0 / double(bw);
+        const double A0 = double(a1) * ia;
+        const double A1 = double(a2) * ia;
+        const float m0C = float(double(a3) * ia);
+        const float m10 = float(double(a4) * ia);
+        const double B0 = double(b1) * ib;
+        const float m18 = float(double(b2) * ib);
+        const float m1C = float(double(b3) * ib);
+        const float m20 = float(double(b4) * ib);
+        const float d0 = float(A0 - B0);
+        const double d1 = A1 - double(m18);
+        const double d2 = double(m0C) - double(m1C);
+        const double d3 = double(m10) - double(m20);
+        double sum = d3 * d3;
+        sum = sum + d2 * d2;
+        sum = sum + d1 * d1;
+        sum = sum + double(d0) * double(d0);
+        newVar = float(sum / (ib + ia) + double(varSum));
+    }
+    dst[5] = newVar;
+    dst[1] = float(double(a1) + double(b1));
+    dst[2] = float(double(a2) + double(b2));
+    dst[3] = float(double(a3) + double(b3));
+    dst[4] = float(double(a4) + double(b4));
+    dst[0] = float(double(aw) + double(bw));
+}
+
+// 0x80BA30 (parte numerica de una iteracion de la busqueda de corte): `whole` = estadisticas de la caja entera, `acc` = las de la mitad inferior. Escribe en remW el peso restante float(whole.w - acc.w)
+// y devuelve en *rv la varianza restante (whole.var - acc.var, sin redondear; si peso restante > 0 y acc.w > 0, menos S / (ir + ia)) y en *value acc.var + rv (sin redondear). Ver 0x80B910 para S
+// (aqui con los canales restantes: rem_k = float(whole.ac_k - acc.ac_k)).
+__declspec(noinline) void __cdecl PalQuantCutEvalCpp(const float* whole, const float* acc, float* remW, double* rv, double* value) {
+    const float accW = acc[0];
+    const float rw = float(double(whole[0]) - double(acc[0]));
+    const float r1 = float(double(whole[1]) - double(acc[1]));
+    const float r2 = float(double(whole[2]) - double(acc[2]));
+    const float r3 = float(double(whole[3]) - double(acc[3]));
+    const float r4 = float(double(whole[4]) - double(acc[4]));
+    double remVar = double(whole[5]) - double(acc[5]);
+    if (rw > 0.0f && accW > 0.0f) {
+        const double ia = 1.0 / double(accW);
+        const double ir = 1.0 / double(rw);
+        const double A0 = double(acc[1]) * ia;
+        const double A1 = double(acc[2]) * ia;
+        const float m38 = float(double(acc[3]) * ia);
+        const float m3C = float(double(acc[4]) * ia);
+        const double B0 = double(r1) * ir;
+        const float m60 = float(double(r2) * ir);
+        const float m64 = float(double(r3) * ir);
+        const float m68 = float(double(r4) * ir);
+        const float d0 = float(A0 - B0);
+        const double d1 = A1 - double(m60);
+        const double d2 = double(m38) - double(m64);
+        const double d3 = double(m3C) - double(m68);
+        double sum = d3 * d3;
+        sum = sum + d2 * d2;
+        sum = sum + d1 * d1;
+        sum = sum + double(d0) * double(d0);
+        const double quotient = sum / (ir + ia);
+        remVar = remVar - quotient;
+    }
+    *remW = rw;
+    *rv = remVar;
+    *value = double(acc[5]) + remVar;
+}
+
+// 0x80BCA0 (hoja): `node` = estadisticas del nodo; colors = bytes RGBA de la celda. S = ((ac0^2 + ac1^2) + ac2^2) + ac3^2; var = float(var - S / peso), con 0 si es negativa.
+// Despues suma el centro de la celda: a = c0/255, b = c1/255, c = c2/255, d = float(c3/255); ac0 += float(a * 0.5094 * w), ac1 += b * w, ac2 += float(c * 0.1942) * w, ac3 += float(float(d) * w).
+__declspec(noinline) void __cdecl PalQuantLeafFinalizeCpp(float* node, const unsigned char* colors) {
+    double sum = double(node[1]) * double(node[1]);
+    sum = sum + double(node[2]) * double(node[2]);
+    sum = sum + double(node[3]) * double(node[3]);
+    sum = sum + double(node[4]) * double(node[4]);
+    const double variance = double(node[5]) - sum / double(node[0]);
+    node[5] = float(variance);
+    if (variance < 0.0) {
+        node[5] = 0.0f;
+    }
+    const double k = double(kPalQuantOneOver255);
+    const double a = double(colors[0]) * k;
+    const double b = double(colors[1]) * k;
+    const double c = double(colors[2]) * k;
+    const float d = float(double(colors[3]) * k);
+    const double aScaled = a * double(kPalQuantWeightR);
+    const float t10 = float(c * double(kPalQuantWeightB));
+    const float aw = float(aScaled * double(node[0]));
+    const double bw = b * double(node[0]);
+    const double cw = double(t10) * double(node[0]);
+    const float dw = float(double(d) * double(node[0]));
+    node[1] = float(double(node[1]) + double(aw));
+    node[2] = float(double(node[2]) + bw);
+    node[3] = float(double(node[3]) + cw);
+    node[4] = float(double(node[4]) + double(dw));
+}
+
+// 0x80C600: paso fijo 16.16 = truncar(float(origen / destino * 65536)) (fild + fidiv + fmul, fstp dword y fistp con redondeo a cero).
+__declspec(noinline) int __cdecl ImageResampleStepCpp(int srcDim, int dstDim) {
+    const float scaled = float(double(srcDim) / double(dstDim) * double(kImageFixedUnit));
+    return PalQuantTruncate(scaled);
+}
+
+// 0x80C600: anchura en punto fijo -> float(n * (1/65536)) (fild + fmul + fstp dword).
+__declspec(noinline) float __cdecl ImageResampleSpanCpp(int count) {
+    return float(double(count) * double(kImageFixedToReal));
+}
+
+// 0x80CA20: media horizontal de una fila de pixeles RGBA de 8 bits entre x0 y x1 (punto fijo 16.16) con `pixel` = fila + (x0 >> 16) * 4. out[0..3] = canales promediados como floats.
+// Un solo pixel (x0 >> 16 == x1 >> 16): out_k = float(px_k / 255), luego float(span * out_k) con span = float((x1 - x0) / 65536). Varios: primer pixel con peso float((siguiente limite - x0) / 65536), los
+// intermedios con peso 1 (suma float(out + px / 255)) y el ultimo con peso float((x1 - limite) / 65536); al final out_k = float(out_k * (1 / span)) con 1/span de la x87 sin redondear.
+__declspec(noinline) void __cdecl ImageRowAverageCpp(const unsigned char* pixel, int x0, int x1, float* out) {
+    const double k = double(kPalQuantOneOver255);
+    const double toReal = double(kImageFixedToReal);
+    const float span = float(double(x1 - x0) * toReal);
+    const int x0Int = x0 >> 16;
+    const int x1Int = x1 >> 16;
+    if (x0Int == x1Int) {
+        out[0] = float(double(pixel[0]) * k);
+        out[1] = float(double(pixel[1]) * k);
+        out[2] = float(double(pixel[2]) * k);
+        out[3] = float(double(pixel[3]) * k);
+        const double s = double(span);
+        out[0] = float(s * double(out[0]));
+        out[1] = float(double(out[1]) * s);
+        out[2] = float(double(out[2]) * s);
+        out[3] = float(double(out[3]) * s);
+    } else {
+        out[0] = float(double(pixel[0]) * k);
+        out[1] = float(double(pixel[1]) * k);
+        out[2] = float(double(pixel[2]) * k);
+        out[3] = float(double(pixel[3]) * k);
+        int limit = static_cast<int>((static_cast<unsigned>(x0) & 0xFFFF0000u) + 0x10000u);
+        const double firstWeight = double(limit - x0) * toReal;
+        out[0] = float(firstWeight * double(out[0]));
+        out[1] = float(double(out[1]) * firstWeight);
+        out[2] = float(double(out[2]) * firstWeight);
+        out[3] = float(double(out[3]) * firstWeight);
+        const unsigned char* p = pixel + 4;
+        if ((limit >> 16) != x1Int) {
+            do {
+                limit = static_cast<int>(static_cast<unsigned>(limit) + 0x10000u);
+                const double v0 = double(p[0]) * k;
+                const double v1 = double(p[1]) * k;
+                const float v2 = float(double(p[2]) * k);
+                const float v3 = float(double(p[3]) * k);
+                p += 4;
+                out[0] = float(double(out[0]) + v0);
+                out[1] = float(double(out[1]) + v1);
+                out[2] = float(double(out[2]) + double(v2));
+                out[3] = float(double(out[3]) + double(v3));
+            } while ((limit >> 16) != x1Int);
+        }
+        const float lastWeight = float(double(x1 - limit) * toReal);
+        const double v0 = double(p[0]) * k;
+        const double v1 = double(p[1]) * k;
+        const float v2 = float(double(p[2]) * k);
+        const float v3 = float(double(p[3]) * k);
+        const double lw = double(lastWeight);
+        const float t0 = float(v0 * lw);
+        const double t1 = v1 * lw;
+        const double t2 = double(v2) * lw;
+        const float t3 = float(double(v3) * lw);
+        out[0] = float(double(out[0]) + double(t0));
+        out[1] = float(double(out[1]) + t1);
+        out[2] = float(double(out[2]) + t2);
+        out[3] = float(double(out[3]) + double(t3));
+    }
+    const double inverse = 1.0 / double(span);
+    out[0] = float(double(out[0]) * inverse);
+    out[1] = float(double(out[1]) * inverse);
+    out[2] = float(double(out[2]) * inverse);
+    out[3] = float(double(out[3]) * inverse);
+}
+
+namespace {
+// Final comun de 0x80C600 (0x80C8A0): out3 = float(s3); inv = 1 / span (sin redondear); out0 = float(inv * s0); out1 = float(s1 * float(inv)); out2 y out3 = float(out * float(inv)).
+inline void ImageResampleTail(float* out, double s0, double s1, double s3, float span) {
+    out[3] = float(s3);
+    const double inverse = 1.0 / double(span);
+    const float inverseF = float(inverse);
+    out[0] = float(inverse * s0);
+    out[1] = float(s1 * double(inverseF));
+    out[2] = float(double(out[2]) * double(inverseF));
+    out[3] = float(double(out[3]) * double(inverseF));
+}
+}
+
+// 0x80C600, destino de una sola fila de origen: a0 = span * out0, a1 = out1 * span, out2 = float(out2 * span), a3 = out3 * span y el final comun.
+__declspec(noinline) void __cdecl ImageResampleSameRowCpp(float* out, float span) {
+    const double w = double(span);
+    const double a0 = w * double(out[0]);
+    const double a1 = double(out[1]) * w;
+    out[2] = float(double(out[2]) * w);
+    const double a3 = double(out[3]) * w;
+    ImageResampleTail(out, a0, a1, a3, span);
+}
+
+// 0x80C600, primera fila parcial: out_k = float(out_k * (fraction / 65536)) con el peso sin redondear.
+__declspec(noinline) void __cdecl ImageResampleRowFirstCpp(float* out, int fraction) {
+    const double weight = double(fraction) * double(kImageFixedToReal);
+    out[0] = float(double(out[0]) * weight);
+    out[1] = float(double(out[1]) * weight);
+    out[2] = float(double(out[2]) * weight);
+    out[3] = float(double(out[3]) * weight);
+}
+
+// 0x80C600, filas intermedias: out_k = float(fila_k + out_k).
+__declspec(noinline) void __cdecl ImageResampleRowAddCpp(float* out, const float* row) {
+    out[0] = float(double(row[0]) + double(out[0]));
+    out[1] = float(double(row[1]) + double(out[1]));
+    out[2] = float(double(row[2]) + double(out[2]));
+    out[3] = float(double(row[3]) + double(out[3]));
+}
+
+// 0x80C600, ultima fila parcial: row_k = float(row_k * (fraction / 65536)); s0 = row0 + out0, s1 = row1 + out1, out2 = float(row2 + out2), s3 = row3 + out3 y el final comun.
+__declspec(noinline) void __cdecl ImageResampleRowLastCpp(float* out, float* row, int fraction, float span) {
+    const double weight = double(fraction) * double(kImageFixedToReal);
+    row[0] = float(double(row[0]) * weight);
+    row[1] = float(double(row[1]) * weight);
+    row[2] = float(double(row[2]) * weight);
+    row[3] = float(double(row[3]) * weight);
+    const double s0 = double(row[0]) + double(out[0]);
+    const double s1 = double(row[1]) + double(out[1]);
+    out[2] = float(double(row[2]) + double(out[2]));
+    const double s3 = double(row[3]) + double(out[3]);
+    ImageResampleTail(out, s0, s1, s3, span);
+}
+
+// 0x80C600, empaquetado: byte_k = byte bajo de truncar(float(out_k * 255.0 (0x859AAC) + 0.5 (0x858B8C))) para k = 0..3.
+__declspec(noinline) void __cdecl ImageResamplePackCpp(const float* out, unsigned char* dst) {
+    for (int k = 0; k < 4; ++k) {
+        const double scaled = double(out[k]) * 255.0;
+        const float biased = float(scaled + 0.5);
+        dst[k] = static_cast<unsigned char>(PalQuantTruncate(biased));
+    }
+}
+#pragma float_control(pop)
