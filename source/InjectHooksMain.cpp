@@ -703,6 +703,9 @@ void RwPlCoreInjectHooksR14A();  // listas libres, memoria, ficheros, registro d
 void RwPlCoreInjectHooksR15A();  // registro de plugins (datos de flujo), SList, cadenas del motor y liberacion en el arena (rwplcore.cpp)
 void RwCoreInjectHooksR15A();    // tuberias de Rx: Im3D por defecto y fases finales del desbloqueo (rwcore.cpp)
 
+// Lote R16A (sin validar).
+void RpWorldInjectHooksR16A();    // plugin 0x509 (mundo y ties), mallas 0x50E/0x510, luces, camaras, clumps y pesos de vertices D3D9 (rpworld.cpp)
+
 void InjectHooksMain() {
     /**
     * We have `NOTSA_STANDALONE` macro to be able to dump all hooks without actually writing to memory,
@@ -1121,6 +1124,7 @@ void InjectHooksMain() {
     RwD3D9InjectHooksR14A();
     RwPlCoreInjectHooksR15A();
     RwCoreInjectHooksR15A();
+    RpWorldInjectHooksR16A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();

@@ -438,12 +438,58 @@ static auto& s_atomicWorldOffset        = StaticRef<RwInt32>(0xC925A8); // escri
 static auto& s_geometryUsageFlagsOffset = StaticRef<RwInt32>(0xC926E8); // escrito en 0x75880E
 static auto& s_sectorUsageFlagsOffset   = StaticRef<RwInt32>(0xC926EC); // escrito en 0x75883F
 
+// Lote R16A (sin validar): desplazamientos de los datos de plugin 0x509 (mundo al que pertenece el objeto) y de los modulos de luz y de enlaces (ties).
+static auto& s_cameraWorldOffset = StaticRef<RwInt32>(0xC925A4); // camara: datos de 0x1C bytes; el mundo va en +0x0C (escrito en 0x75009A)
+static auto& s_clumpWorldOffset  = StaticRef<RwInt32>(0xC925AC); // clump: {mundo, marca de ties} (escrito en 0x7500CB)
+static auto& s_lightWorldOffset  = StaticRef<RwInt32>(0xC925B0); // luz: el mundo en +0x00 (escrito en 0x7500FA)
+static auto& s_lightModuleOffset = StaticRef<RwInt32>(0xC925D8); // RwEngineInstance + este valor = lista libre de luces
+
+// Lote 230A (sin validar): nodos de enlace (tie) entre sectores del mundo y atomos/luces. Cada nodo es 0x18 bytes: un enlace {next, prev} en +0x00, un puntero en +0x08 (atomo o luz),
+// un segundo enlace en +0x0C y un puntero en +0x14 (sector). Las listas libres cuelgan de RwEngineInstance + [0xC9259C] (datos del plugin de motor 0x509): RpTie en +0, RpLightTie en +4 y
+// en +8 un contador de 16 bits (inicializado a 1 por el constructor 0x750280) que RpWorldAddClump copia a los datos de plugin del clump.
+static auto& s_tieModuleOffset = StaticRef<RwInt32>(0xC9259C);
+struct TieModuleGlobals {
+    RwFreeList* tieFreeList;
+    RwFreeList* lightTieFreeList;
+    RwUInt32    tieFrame;
+};
+static TieModuleGlobals& TieGlobals() {
+    return *reinterpret_cast<TieModuleGlobals*>(reinterpret_cast<uintptr_t>(RwEngineInstance) + static_cast<uintptr_t>(s_tieModuleOffset));
+}
+
+// Desenlaza primero el segundo enlace (+0x0C: anterior->siguiente = siguiente, siguiente->anterior = anterior) y despues el primero (+0x00), como el EXE.
+static void TieUnlinkBoth(RwLLLink* first, RwLLLink* second) {
+    rwLinkListRemoveLLLink(second);
+    rwLinkListRemoveLLLink(first);
+}
+
+// Cuerpo comun del destructor del plugin de luz (0x750D30) y de RpWorldRemoveLight (0x751960): recorre WorldSectorsInLight (+0x2C) y, por cada enlace (que es el segundo enlace de un RpLightTie, +0x0C):
+// lo quita de la lista (anterior->siguiente = siguiente), desenlaza el nodo completo y lo libera en la lista libre de +4. El siguiente se lee antes de tocar el nodo; el bucle acaba al volver al centinela.
+static void LightDestroyAllTies(RpLight* light) {
+    RwLLLink* const end = &light->WorldSectorsInLight.link;
+    RwLLLink* link = end->next;
+    while (link != end) {
+        RwLLLink* const next = link->next;
+        link->prev->next = next;
+        RpLightTie* const tie = reinterpret_cast<RpLightTie*>(reinterpret_cast<uint8_t*>(link) - offsetof(RpLightTie, WorldSectorInLight));
+        TieUnlinkBoth(&tie->lightInWorldSector, &tie->WorldSectorInLight);
+        RwFreeListFree(TieGlobals().lightTieFreeList, tie);
+        link = next;
+    }
+}
+
+// Lista libre de RpLight: RwEngineInstance + [0xC925D8] (cdecl en 0x752110, 0x7520D0 y 0x752210).
+static RwFreeList*& LightFreeList() {
+    return *reinterpret_cast<RwFreeList**>(reinterpret_cast<uintptr_t>(RwEngineInstance) + static_cast<uintptr_t>(s_lightModuleOffset));
+}
+
 // Lote 226A (sin validar): funciones de este archivo definidas mas abajo; se declaran aqui para registrarlas.
 static RwStream* AtomicRightsStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x749120
 static RwStream* AtomicRightsStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x749160
 static void      ClumpFreeListDestroyCallBack(void* clump, void* data); // 0x749520
 static void      AtomicFreeListDestroyCallBack(void* atomic, void* data); // 0x7496A0
 static RwBool    ClumpPluginAttach(); // 0x749830
+static RwBool    _rpTieMeshPluginAttach(); // 0x750050 (lote R16A)
 static RpAtomic* AtomicSyncCallBack(RpAtomic* atomic); // 0x749D20
 
 // Registro de los hooks del grupo g25b en rpworld.cpp (propio: el sufijo evita chocar con otros registradores de este archivo).
@@ -1405,20 +1451,73 @@ void RpLightSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPreall
     ((void(__cdecl *)(RwInt32, RwInt32))0x752250)(blockSize, numBlocksToPrealloc);
 }
 
+// 0x752110 (lote R16A, sin validar; sustituye la envoltura; cdecl, 1 argumento, 144 bytes): pide un RpLight a la lista libre (hint 0x30012; sin memoria devuelve NULL sin error) y lo deja asi:
+// type 3, subType = tipo, flags 3, privateFlags 1 (color blanco), padre y radio a 0, color (1,1,1,1), sync = 0x7521A0 (por direccion), angulo menos-coseno 0, lista WorldSectorsInLight vacia (apunta
+// a si misma), enlace inWorld a 0 y lightFrame = RwEngineInstance->lightFrame - 1 (16 bits); despues _rwPluginRegistryInitObject(registro de luces 0x8D62F8, luz).
 RpLight* RpLightCreate(RwInt32 type) {
-    return ((RpLight*(__cdecl *)(RwInt32))0x752110)(type);
+    RpLight* const light = static_cast<RpLight*>(RwFreeListAlloc(LightFreeList(), 0x30012));
+    if (!light) {
+        return nullptr;
+    }
+    light->object.object.type    = rpLIGHT;
+    light->object.object.subType = static_cast<RwUInt8>(type);
+    light->color.red   = 1.0f;
+    light->color.green = 1.0f;
+    light->color.blue  = 1.0f;
+    light->color.alpha = 1.0f;
+    light->object.object.flags  = 0;
+    light->object.object.parent = nullptr;
+    light->object.sync = reinterpret_cast<RwObjectHasFrameSyncFunction>(static_cast<uintptr_t>(0x7521A0));
+    light->radius = 0.0f;
+    light->minusCosAngle = 0.0f;
+    light->object.object.privateFlags = 1;
+    light->WorldSectorsInLight.link.next = &light->WorldSectorsInLight.link;
+    light->WorldSectorsInLight.link.prev = &light->WorldSectorsInLight.link;
+    light->inWorld.prev = nullptr;
+    light->inWorld.next = nullptr;
+    const RwUInt16 lightFrame = static_cast<RwGlobals*>(RwEngineInstance)->lightFrame;
+    light->object.object.flags = 3;
+    light->lightFrame = static_cast<RwUInt16>(lightFrame - 1);
+    _rwPluginRegistryInitObject(&s_lightTKList, light);
+    return light;
+}
+
+// 0x7520D0 (lote R16A, sin validar; sustituye la envoltura; cdecl, 1 argumento, 54 bytes): destruye los datos de plugin de la luz, suelta el marco (_rwObjectHasFrameReleaseFrame 0x804F40) y la devuelve
+// a la lista libre (+0xC925D8). Devuelve siempre 1. 0x752210 es el mismo cuerpo sin valor de retorno (callback de la lista libre).
+static void LightDestroyBody(RpLight* light) {
+    _rwPluginRegistryDeInitObject(&s_lightTKList, light);
+    _rwObjectHasFrameReleaseFrame(light);
+    RwFreeListFree(LightFreeList(), light);
 }
 
 RwBool RpLightDestroy(RpLight* light) {
-    return ((RwBool(__cdecl *)(RpLight*))0x7520D0)(light);
+    LightDestroyBody(light);
+    return TRUE;
 }
 
+// 0x751A70 (lote R16A, sin validar; sustituye la envoltura; cdecl, 2 argumentos): guarda el radio (+0x14) y, si la luz tiene marco, RwFrameUpdateObjects (0x7F0910) sobre el; devuelve la luz.
 RpLight* RpLightSetRadius(RpLight* light, RwReal radius) {
-    return ((RpLight*(__cdecl *)(RpLight*, RwReal))0x751A70)(light, radius);
+    light->radius = radius;
+    if (light->object.object.parent) {
+        RwFrameUpdateObjects(static_cast<RwFrame*>(light->object.object.parent));
+    }
+    return light;
 }
 
+// Marca la luz como blanca (privateFlags = 1) si rojo == verde y rojo == azul (comparaciones x87 ordenadas: con NaN queda a 0), como los dos sitios del EXE (0x751A90 y 0x751F00).
+static void LightUpdateWhiteFlag(RpLight* light) {
+    light->object.object.privateFlags = (light->color.red == light->color.green && light->color.red == light->color.blue) ? 1 : 0;
+}
+
+// 0x751A90 (lote R16A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, 77 bytes): copia el color (4 floats a +0x18) y recalcula el indicador de blanco (+3); devuelve la luz.
+// Sin comprobar el alfa. Copia los cuatro dwords en orden (rojo, verde, azul, alfa) antes de comparar.
 RpLight* RpLightSetColor(RpLight* light, const RwRGBAReal* color) {
-    return ((RpLight*(__cdecl *)(RpLight*, const RwRGBAReal*))0x751A90)(light, color);
+    light->color.red   = color->red;
+    light->color.green = color->green;
+    light->color.blue  = color->blue;
+    light->color.alpha = color->alpha;
+    LightUpdateWhiteFlag(light);
+    return light;
 }
 
 RwReal RpLightGetConeAngle(const RpLight* light) {
@@ -1433,8 +1532,45 @@ RwUInt32 RpLightStreamGetSize(const RpLight* light) {
     return ((RwUInt32(__cdecl *)(const RpLight*))0x751E10)(light);
 }
 
+// 0x751F00 (lote R16A, sin validar; sustituye la envoltura; cdecl, 1 argumento, 338 bytes): lee una luz de un flujo. RwStreamFindChunk(flujo, 1 (struct), &longitud, &version); version fuera de
+// 0x34000..0x36003 -> RWERROR 0x80000004 (plugin 2) y NULL. Lee `longitud` bytes en un RpLightChunkInfo de 24 bytes puesto a cero (el EXE no limita la longitud: con mas de 24 desborda la pila);
+// si no se leen todos devuelve NULL. RpLightCreate(tipo = byte +0x16 de typeAndFlags; sin memoria NULL); radio, color, y el angulo: con version < 0x30300 (inalcanzable tras la comprobacion anterior)
+// -sqrt(1 / (a * a + 1)) con RwSqrt (0x7EDB30) y x87 a 24 bits, si no el valor tal cual; indicador de blanco; flags = byte bajo de typeAndFlags. Por ultimo
+// _rwPluginRegistryReadDataChunks(registro de luces, flujo, luz): resultado nulo -> NULL (la luz creada no se libera, como el EXE).
 RpLight* RpLightStreamRead(RwStream* stream) {
-    return ((RpLight*(__cdecl *)(RwStream*))0x751F00)(stream);
+    RwUInt32 length = 0;
+    RwUInt32 version = 0;
+    if (!RwStreamFindChunk(stream, rwID_STRUCT, &length, &version)) {
+        return nullptr;
+    }
+    if (version < kStreamVersionMin || version > kStreamVersionMax) {
+        RaiseRwError(kErrorBadVersion);
+        return nullptr;
+    }
+    RpLightChunkInfo info = {};
+    if (RwStreamRead(stream, &info, length) != length) {
+        return nullptr;
+    }
+    RpLight* const light = RpLightCreate(static_cast<RwInt32>((info.typeAndFlags >> 16) & 0xFF));
+    if (!light) {
+        return nullptr;
+    }
+    light->radius      = info.radius;
+    light->color.red   = info.red;
+    light->color.green = info.green;
+    light->color.blue  = info.blue;
+    if (version < 0x30300) {
+        const RwReal recip = 1.0f / (info.minusCosAngle * info.minusCosAngle + 1.0f);
+        light->minusCosAngle = -RwSqrtFromExe(recip);
+    } else {
+        light->minusCosAngle = info.minusCosAngle;
+    }
+    LightUpdateWhiteFlag(light);
+    light->object.object.flags = static_cast<RwUInt8>(info.typeAndFlags & 0xFF);
+    if (!_rwPluginRegistryReadDataChunks(&s_lightTKList, stream, light)) {
+        return nullptr;
+    }
+    return light;
 }
 
 RpLightChunkInfo* _rpLightChunkInfoRead(RwStream* stream, RpLightChunkInfo* lightChunkInfo, RwInt32* bytesRead) {
@@ -2803,7 +2939,7 @@ RwBool RpWorldPluginAttach() {
     if (status < 0) {
         return FALSE;
     }
-    if (!reinterpret_cast<RwBool(__cdecl*)()>(0x750050)()) {
+    if (!_rpTieMeshPluginAttach()) {
         return FALSE;
     }
     if (!ClumpPluginAttach()) {
@@ -2948,8 +3084,150 @@ RwUInt32 _rpD3D9VertexDeclarationInstIndicesRemap(RwUInt32 type, RwUInt8* mem, c
     return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RwUInt32*, const RwUInt8*, RwInt32, RwUInt32))0x754C80)(type, mem, indices, remap, numVerts, stride);
 }
 
+namespace {
+// fld dword + fistp dword con la palabra de control del proceso (redondeo al par mas cercano; fuera de rango o NaN = 0x80000000). Es el mismo helper que RwFastRealToUInt32.
+inline RwInt32 WeightFistp(float value) {
+    return static_cast<RwInt32>(RwPlCoreFastRealToUInt32Cpp(value));
+}
+inline void WeightStore16(RwUInt8* dst, RwUInt32 value) {
+    const RwUInt16 v = static_cast<RwUInt16>(value);
+    std::memcpy(dst, &v, sizeof(v));
+}
+inline void WeightStore32(RwUInt8* dst, RwUInt32 value) {
+    std::memcpy(dst, &value, sizeof(value));
+}
+}
+
+// 0x752320 (lote R16A, sin validar; sustituye la envoltura; cdecl, 5 argumentos (tipo, destino, origen RwV4d de 16 bytes, numero de vertices, paso), 1908 bytes; el listado la atribuia a RpWorld):
+// instancia los cuatro pesos (x, y, z, w) de un vertice en el formato D3DDECLTYPE `type` (tabla de saltos 0x752A94, tipos 0..14). Devuelve SIEMPRE la tabla de tamanos 0x874EF8[type] (sin comprobar el
+// rango, igual que _rpD3D9VertexDeclarationGetSize); con type > 14 o numVerts <= 0 (comparacion con signo) no escribe nada. Por cada vertice (origen += 16, destino += paso):
+//  0 FLOAT1: x.  1 FLOAT2: x, y.  2 y 3: los CUATRO dwords (el EXE copia 16 bytes tambien en FLOAT3).
+//  4 D3DCOLOR: si x >= 1.0 (la comparacion es "menor que" de la x87: con NaN tambien convierte) bytes {0, 0, 255, 0}; si no b[1] = fistp(y * 255), b[0] = fistp(z * 255), b[3] = fistp(w * 255),
+//    b[2] = 255 - b[3] - b[1] - b[0] (modulo 256).
+//  5 UBYTE4: cuatro bytes fistp(x), fistp(y), fistp(z), fistp(w) sin escalar.  6 SHORT2 y 7 SHORT4: palabras de 16 bits con fistp de x, y [, z, w].
+//  8 UBYTE4N: si x >= 1.0 bytes {255, 0, 0, 0}; si no b[1] = fistp(y * 255), b[2] = fistp(z * 255), b[3] = fistp(w * 255), b[0] = 255 - b[2] - b[3] - b[1].
+//  9 SHORT2N: v = fistp(x * 32767): {v, 0x7FFF - v}.  10 SHORT4N: v1..v3 = fistp(y, z, w * 32767), palabras {0x7FFF - v3 - v2 - v1, v1, v2, v3}.
+//  11 USHORT2N y 12 USHORT4N: igual con 65535 y 0xFFFF (11 usa x; 12 usa y, z, w).
+//  13 UDEC3: a = fistp(x), b = fistp(y), c = fistp(z) sin escalar: ((c & 0x3FF) << 20) | ((b & 0x3FF) << 10) | (a & 0x3FF).
+//  14 DEC3N: si z < 0.0019569471 (0x3B004020, "menor que" ordenado) i = fistp(x * 511), valor = (0x7FC00 - ((i & 0x3FF) << 10)) | (i & 0x3FF); si no b = fistp(y * 511) & 0x3FF, c = fistp(z * 511) & 0x3FF,
+//    valor = (((c << 10) | b) << 10) | (0x1FF - c - b) (el ultimo termino SIN enmascarar, puede ser negativo y ensucia los bits altos).
+// Los productos se redondean a float antes de fistp (el EXE guarda con fstp y recarga). El EXE reutiliza los huecos de los argumentos como temporales; todo se lee a registros antes.
 RwUInt32 _rpD3D9VertexDeclarationInstWeights(RwUInt32 type, RwUInt8* mem, const RwV4d* src, RwInt32 numVerts, RwUInt32 stride) {
-    return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RwV4d*, RwInt32, RwUInt32))0x752320)(type, mem, src, numVerts, stride);
+    const auto* const sizes = reinterpret_cast<const RwUInt32*>(0x874EF8);
+    if (type > 14 || numVerts <= 0) {
+        return sizes[type];
+    }
+    const float* s = reinterpret_cast<const float*>(src);
+    RwUInt8* d = mem;
+    constexpr float kDec3SmallZ = std::bit_cast<float>(0x3B004020u);
+    for (RwInt32 n = numVerts; n > 0; --n, s += 4, d += stride) {
+        switch (type) {
+        case 0:
+            std::memcpy(d, s, 4);
+            break;
+        case 1:
+            std::memcpy(d, s, 8);
+            break;
+        case 2:
+        case 3:
+            std::memcpy(d, s, 16);
+            break;
+        case 4:
+            if (s[0] >= 1.0f) {
+                d[0] = 0;
+                d[1] = 0;
+                d[2] = 0xFF;
+                d[3] = 0;
+            } else {
+                d[1] = static_cast<RwUInt8>(WeightFistp(s[1] * 255.0f));
+                d[0] = static_cast<RwUInt8>(WeightFistp(s[2] * 255.0f));
+                const RwUInt8 w = static_cast<RwUInt8>(WeightFistp(s[3] * 255.0f));
+                d[3] = w;
+                d[2] = static_cast<RwUInt8>(0xFF - w - d[1] - d[0]);
+            }
+            break;
+        case 5:
+            d[0] = static_cast<RwUInt8>(WeightFistp(s[0]));
+            d[1] = static_cast<RwUInt8>(WeightFistp(s[1]));
+            d[2] = static_cast<RwUInt8>(WeightFistp(s[2]));
+            d[3] = static_cast<RwUInt8>(WeightFistp(s[3]));
+            break;
+        case 6:
+            WeightStore16(d + 0, WeightFistp(s[0]));
+            WeightStore16(d + 2, WeightFistp(s[1]));
+            break;
+        case 7:
+            WeightStore16(d + 0, WeightFistp(s[0]));
+            WeightStore16(d + 2, WeightFistp(s[1]));
+            WeightStore16(d + 4, WeightFistp(s[2]));
+            WeightStore16(d + 6, WeightFistp(s[3]));
+            break;
+        case 8:
+            if (s[0] >= 1.0f) {
+                d[0] = 0xFF;
+                d[1] = 0;
+                d[2] = 0;
+                d[3] = 0;
+            } else {
+                d[1] = static_cast<RwUInt8>(WeightFistp(s[1] * 255.0f));
+                d[2] = static_cast<RwUInt8>(WeightFistp(s[2] * 255.0f));
+                const RwUInt8 w = static_cast<RwUInt8>(WeightFistp(s[3] * 255.0f));
+                d[3] = w;
+                d[0] = static_cast<RwUInt8>(0xFF - d[2] - w - d[1]);
+            }
+            break;
+        case 9: {
+            const RwInt32 v = WeightFistp(s[0] * 32767.0f);
+            WeightStore16(d + 0, v);
+            WeightStore16(d + 2, 0x7FFF - v);
+            break;
+        }
+        case 10: {
+            const RwInt32 v1 = WeightFistp(s[1] * 32767.0f);
+            const RwInt32 v2 = WeightFistp(s[2] * 32767.0f);
+            const RwInt32 v3 = WeightFistp(s[3] * 32767.0f);
+            WeightStore16(d + 0, 0x7FFF - v3 - v2 - v1);
+            WeightStore16(d + 2, v1);
+            WeightStore16(d + 4, v2);
+            WeightStore16(d + 6, v3);
+            break;
+        }
+        case 11: {
+            const RwInt32 v = WeightFistp(s[0] * 65535.0f);
+            WeightStore16(d + 0, v);
+            WeightStore16(d + 2, 0xFFFF - v);
+            break;
+        }
+        case 12: {
+            const RwInt32 v1 = WeightFistp(s[1] * 65535.0f);
+            const RwInt32 v2 = WeightFistp(s[2] * 65535.0f);
+            const RwInt32 v3 = WeightFistp(s[3] * 65535.0f);
+            WeightStore16(d + 0, 0xFFFF - v3 - v2 - v1);
+            WeightStore16(d + 2, v1);
+            WeightStore16(d + 4, v2);
+            WeightStore16(d + 6, v3);
+            break;
+        }
+        case 13: {
+            const RwUInt32 a = static_cast<RwUInt32>(WeightFistp(s[0]));
+            const RwUInt32 b = static_cast<RwUInt32>(WeightFistp(s[1]));
+            const RwUInt32 c = static_cast<RwUInt32>(WeightFistp(s[2]));
+            WeightStore32(d, ((((c & 0x3FF) << 10) | (b & 0x3FF)) << 10) | (a & 0x3FF));
+            break;
+        }
+        case 14:
+            if (s[2] < kDec3SmallZ) {
+                const RwUInt32 i = static_cast<RwUInt32>(WeightFistp(s[0] * 511.0f)) & 0x3FF;
+                WeightStore32(d, (0x7FC00u - (i << 10)) | i);
+            } else {
+                const RwUInt32 b = static_cast<RwUInt32>(WeightFistp(s[1] * 511.0f)) & 0x3FF;
+                const RwUInt32 c = static_cast<RwUInt32>(WeightFistp(s[2] * 511.0f)) & 0x3FF;
+                WeightStore32(d, ((((c << 10) | b) << 10)) | (0x1FFu - c - b));
+            }
+            break;
+        }
+    }
+    return sizes[type];
 }
 
 RwUInt32 _rpD3D9VertexDeclarationInstTangent(RwUInt32 type, RwUInt8* mem, const RwV3d* pos, const RwTexCoords* texCoord, RxD3D9ResEntryHeader* meshHeader, RwUInt32 stride) {
@@ -3116,12 +3394,28 @@ void RpLightTieSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPre
     ((void(__cdecl *)(RwInt32, RwInt32))0x74FF80)(blockSize, numBlocksToPrealloc);
 }
 
+// 0x750F50 (lote R16A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, 33 bytes): los datos de plugin de la camara (camara + [0xC925A4]) guardan el mundo en +0x0C. Si es nulo devuelve NULL
+// sin tocar nada; si no, pone a cero +0x0C y +0x08 y devuelve el mundo.
 RpWorld* RpWorldRemoveCamera(RpWorld* world, RwCamera* camera) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RwCamera*))0x750F50)(world, camera);
+    uint8_t* const data = reinterpret_cast<uint8_t*>(camera) + s_cameraWorldOffset;
+    RwUInt32& cameraWorld = *reinterpret_cast<RwUInt32*>(data + 0x0C);
+    if (cameraWorld == 0) {
+        return nullptr;
+    }
+    cameraWorld = 0;
+    *reinterpret_cast<RwUInt32*>(data + 0x08) = 0;
+    return world;
 }
 
+// 0x750F20 (lote R16A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, 39 bytes): si la camara tiene marco (+4), RwFrameUpdateObjects (0x7F0910); despues guarda el mundo en los datos de
+// plugin de la camara (+0x0C) y devuelve el mundo. No comprueba que la camara ya estuviera en otro mundo.
 RpWorld* RpWorldAddCamera(RpWorld* world, RwCamera* camera) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RwCamera*))0x750F20)(world, camera);
+    uint8_t* const data = reinterpret_cast<uint8_t*>(camera) + s_cameraWorldOffset;
+    if (camera->object.object.parent) {
+        RwFrameUpdateObjects(static_cast<RwFrame*>(camera->object.object.parent));
+    }
+    *reinterpret_cast<RpWorld**>(data + 0x0C) = world;
+    return world;
 }
 
 RpWorld* RwCameraGetWorld(const RwCamera* camera) {
@@ -3141,8 +3435,29 @@ RpWorld* RpAtomicGetWorld(const RpAtomic* atomic) {
     return *reinterpret_cast<RpWorld* const*>(reinterpret_cast<uintptr_t>(atomic) + static_cast<uintptr_t>(s_atomicWorldOffset));
 }
 
+// 0x751300 (lote R16A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, 143 bytes): anade un clump al mundo. Enlaza clump->inWorldLink (+0x20) al principio de world->clumpList (+0x2C) y
+// suma 1 a numClumpsInWorld (+0x24); guarda el mundo en los datos de plugin del clump (clump + [0xC925AC], +0). Despues, con el mundo como dato: RpClumpForAllAtomics(0x751390),
+// RpClumpForAllLights(0x7513D0) y RpClumpForAllCameras(0x751420) (callbacks por direccion, sin reconstruir). Si el clump tiene marco (padre, leido ANTES de los recorridos):
+// RwMatrixOptimize(&frame->modelling (+0x10), NULL) (0x7F17E0) y RwFrameUpdateObjects(frame). Por ultimo copia el contador de ties (RwEngineInstance + [0xC9259C] + 8) a +4 de los datos del clump; devuelve el mundo.
 RpWorld* RpWorldAddClump(RpWorld* world, RpClump* clump) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RpClump*))0x751300)(world, clump);
+    uint8_t* const data = reinterpret_cast<uint8_t*>(clump) + s_clumpWorldOffset;
+    RwFrame* const frame = static_cast<RwFrame*>(clump->object.parent);
+    RwLLLink* const link = &clump->inWorldLink;
+    link->prev = &world->clumpList.link;
+    link->next = world->clumpList.link.next;
+    world->clumpList.link.next->prev = link;
+    world->clumpList.link.next = link;
+    ++world->numClumpsInWorld;
+    *reinterpret_cast<RpWorld**>(data) = world;
+    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(static_cast<uintptr_t>(0x751390)), world);
+    RpClumpForAllLights(clump, reinterpret_cast<RpLightCallBack>(static_cast<uintptr_t>(0x7513D0)), world);
+    RpClumpForAllCameras(clump, reinterpret_cast<RwCameraCallBack>(static_cast<uintptr_t>(0x751420)), world);
+    if (frame) {
+        RwMatrixOptimize(&frame->modelling, nullptr);
+        RwFrameUpdateObjects(frame);
+    }
+    *reinterpret_cast<RwUInt32*>(data + 4) = TieGlobals().tieFrame;
+    return world;
 }
 
 RpWorld* RpWorldRemoveClump(RpWorld* world, RpClump* clump) {
@@ -3153,12 +3468,31 @@ RpWorld* RpClumpGetWorld(const RpClump* clump) {
     return ((RpWorld*(__cdecl *)(const RpClump*))0x7516B0)(clump);
 }
 
+// 0x751910 (lote R16A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, 71 bytes): guarda el mundo en los datos de plugin de la luz (luz + [0xC925B0], +0). subType < 0x80 (direccional y
+// ambiental, sin posicion) va a world->directionalLightList (+0x3C) sin tocar el marco; el resto (puntual y foco) hace antes RwFrameUpdateObjects (0x7F0910) del marco si lo hay y va a world->lightList
+// (+0x34). El enlace light->inWorld (+0x34) se pone al principio de la lista elegida (rwLinkListAddLLLink). Devuelve el mundo.
 RpWorld* RpWorldAddLight(RpWorld* world, RpLight* light) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RpLight*))0x751910)(world, light);
+    *reinterpret_cast<RpWorld**>(reinterpret_cast<uint8_t*>(light) + s_lightWorldOffset) = world;
+    RwLinkList* list;
+    if (light->object.object.subType < 0x80) {
+        list = &world->directionalLightList;
+    } else {
+        if (light->object.object.parent) {
+            RwFrameUpdateObjects(static_cast<RwFrame*>(light->object.object.parent));
+        }
+        list = &world->lightList;
+    }
+    rwLinkListAddLLLink(list, &light->inWorld);
+    return world;
 }
 
+// 0x751960 (lote R16A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, 119 bytes): pone a cero el mundo de los datos de plugin de la luz, destruye todos sus RpLightTie (LightDestroyAllTies,
+// igual que el destructor de plugin 0x750D30) y quita light->inWorld (+0x34) de la lista del mundo. Devuelve el mundo.
 RpWorld* RpWorldRemoveLight(RpWorld* world, RpLight* light) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RpLight*))0x751960)(world, light);
+    *reinterpret_cast<RpWorld**>(reinterpret_cast<uint8_t*>(light) + s_lightWorldOffset) = nullptr;
+    LightDestroyAllTies(light);
+    rwLinkListRemoveLLLink(&light->inWorld);
+    return world;
 }
 
 RpWorld* RpLightGetWorld(const RpLight* light) {
@@ -3177,8 +3511,27 @@ RwCamera* RwCameraForAllSectorsInFrustum(RwCamera* camera, RpWorldSectorCallBack
     return ((RwCamera*(__cdecl *)(RwCamera*, RpWorldSectorCallBack, void*))0x751660)(camera, callBack, data);
 }
 
+// 0x7519F0 (lote R16A, sin validar; sustituye la envoltura; cdecl, 3 argumentos, 114 bytes): subType < 0x80: si la luz esta en un mundo (datos de plugin +0), RpWorldForAllWorldSectors(mundo,
+// callback, dato) y devuelve la luz si ese resultado no es NULL, si no NULL; sin mundo devuelve la luz. subType >= 0x80: recorre los enlaces de WorldSectorsInLight (+0x2C) leyendo el siguiente antes
+// de llamar, callback(sector = enlace + 8, dato); un resultado NULL corta el bucle; devuelve siempre la luz.
 RpLight* RpLightForAllWorldSectors(RpLight* light, RpWorldSectorCallBack callback, void* data) {
-    return ((RpLight*(__cdecl *)(RpLight*, RpWorldSectorCallBack, void*))0x7519F0)(light, callback, data);
+    if (light->object.object.subType < 0x80) {
+        RpWorld* const world = *reinterpret_cast<RpWorld**>(reinterpret_cast<uint8_t*>(light) + s_lightWorldOffset);
+        if (!world) {
+            return light;
+        }
+        return RpWorldForAllWorldSectors(world, callback, data) ? light : nullptr;
+    }
+    RwLLLink* const end = &light->WorldSectorsInLight.link;
+    RwLLLink* link = end->next;
+    while (link != end) {
+        RwLLLink* const next = link->next;
+        if (!callback(*reinterpret_cast<RpWorldSector**>(reinterpret_cast<uint8_t*>(link) + 8), data)) {
+            return light;
+        }
+        link = next;
+    }
+    return light;
 }
 
 RpAtomic* RpAtomicForAllWorldSectors(RpAtomic* atomic, RpWorldSectorCallBack callback, void* data) {
@@ -4198,22 +4551,7 @@ void RpWorldInjectHooks229A() {
     RH_ScopedGlobalInstall(RpWorldForAllWorldSectors, 0x74FC70);
 }
 
-// Lote 230A (sin validar): destruccion de los nodos de enlace (tie) entre sectores del mundo y atomos/luces. Cada nodo es 0x18 bytes: un enlace {next, prev} en +0x00, un puntero en +0x08 (atomo o luz),
-// un segundo enlace en +0x0C y un puntero en +0x14 (sector). Las listas libres cuelgan de RwEngineInstance + [0xC9259C]: RpTie en +0 y RpLightTie en +4.
-static auto& s_tieModuleOffset = StaticRef<RwInt32>(0xC9259C);
-struct TieModuleGlobals {
-    RwFreeList* tieFreeList;
-    RwFreeList* lightTieFreeList;
-};
-static TieModuleGlobals& TieGlobals() {
-    return *reinterpret_cast<TieModuleGlobals*>(reinterpret_cast<uintptr_t>(RwEngineInstance) + static_cast<uintptr_t>(s_tieModuleOffset));
-}
-
-// Desenlaza primero el segundo enlace (+0x0C: anterior->siguiente = siguiente, siguiente->anterior = anterior) y despues el primero (+0x00), como el EXE.
-static void TieUnlinkBoth(RwLLLink* first, RwLLLink* second) {
-    rwLinkListRemoveLLLink(second);
-    rwLinkListRemoveLLLink(first);
-}
+// Lote 230A (sin validar): destruccion de los nodos de enlace (tie); las estructuras y TieUnlinkBoth estan al principio del archivo.
 
 // 0x74FFA0 (cdecl, un argumento, 68 bytes; el listado decia Win): destruccion de un RpLightTie. Desenlaza sin comprobar los punteros y libera el nodo en la lista libre de +4; devuelve 1.
 static RwBool _rpLightTieDestroy(RpLightTie* tie) {
@@ -4240,4 +4578,142 @@ void RpWorldInjectHooks230A() {
     RH_ScopedGlobalInstall(RpWorldPluginAttach, 0x74FDA0);
     RH_ScopedGlobalInstall(_rpLightTieDestroy, 0x74FFA0);
     RH_ScopedGlobalInstall(_rpTieDestroy, 0x74FFF0);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R16A (sin validar): plugin 0x509 (mundo del objeto y ties), plugins de malla 0x50E / 0x510 de geometria y sector, destruccion de luces y registro de la lista libre.
+
+// 0x750D30 (cdecl, 3 argumentos (objeto, desplazamiento, tamano), 89 bytes): destructor del plugin 0x509 de RpLight. Destruye todos los RpLightTie de la luz (LightDestroyAllTies: no toca el mundo
+// guardado ni el enlace inWorld) y devuelve el objeto. Los otros dos argumentos no se leen.
+static void* LightWorldPluginDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    (void)offsetInObject;
+    (void)sizeInObject;
+    LightDestroyAllTies(static_cast<RpLight*>(object));
+    return object;
+}
+
+// 0x750DB0 (cdecl, 5 argumentos, 36 bytes): lectura del plugin de malla 0x50E de RpGeometry. geometry->mesh (+0x54) = _rpMeshRead(flujo, geometria, &geometry->matList (+0x20)); devuelve el flujo si la malla
+// no es NULL y NULL si lo es (la malla se guarda en cualquier caso). No usa la longitud ni el desplazamiento.
+static RwStream* GeometryMeshStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    (void)binaryLength;
+    (void)offsetInObject;
+    (void)sizeInObject;
+    RpGeometry* const geometry = static_cast<RpGeometry*>(object);
+    geometry->mesh = _rpMeshRead(stream, geometry, &geometry->matList);
+    return geometry->mesh ? stream : nullptr;
+}
+
+// 0x750EA0 (cdecl, 5 argumentos, 35 bytes): escritura del plugin 0x50E de RpWorldSector. world = RpWorldSectorGetWorld(sector); devuelve _rpMeshWrite(sector->mesh (+0x78), world, flujo, &world->matList (+0x10)).
+static RwStream* SectorMeshStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    (void)binaryLength;
+    (void)offsetInObject;
+    (void)sizeInObject;
+    const RpWorldSector* const sector = static_cast<const RpWorldSector*>(object);
+    RpWorld* const world = RpWorldSectorGetWorld(sector);
+    return _rpMeshWrite(sector->mesh, world, stream, &world->matList);
+}
+
+// 0x750ED0 (cdecl, 5 argumentos, 42 bytes): lectura del plugin 0x50E de RpWorldSector. world = RpWorldSectorGetWorld(sector); sector->mesh (+0x78) = _rpMeshRead(flujo, mundo, &world->matList (+0x10));
+// devuelve el flujo si la malla no es NULL y NULL si lo es.
+static RwStream* SectorMeshStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    (void)binaryLength;
+    (void)offsetInObject;
+    (void)sizeInObject;
+    RpWorldSector* const sector = static_cast<RpWorldSector*>(object);
+    RpWorld* const world = RpWorldSectorGetWorld(sector);
+    sector->mesh = _rpMeshRead(stream, world, &world->matList);
+    return sector->mesh ? stream : nullptr;
+}
+
+// 0x750F00 (cdecl, 3 argumentos (objeto, desplazamiento, tamano), 26 bytes): tamano del plugin 0x50E de RpWorldSector = _rpMeshSize(sector->mesh (+0x78), RpWorldSectorGetWorld(sector)).
+static RwInt32 SectorMeshStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    (void)offsetInObject;
+    (void)sizeInObject;
+    const RpWorldSector* const sector = static_cast<const RpWorldSector*>(object);
+    return _rpMeshSize(sector->mesh, RpWorldSectorGetWorld(sector));
+}
+
+// 0x752210 (cdecl, 1 argumento util, 49 bytes): callback de la lista libre de luces (lo usa el destructor 0x7521B0 del plugin de motor 0x505): mismo cuerpo que RpLightDestroy sin valor de retorno.
+static void LightFreeListDestroyCallBack(void* light, void* data) {
+    (void)data;
+    LightDestroyBody(static_cast<RpLight*>(light));
+}
+
+// 0x750050 (cdecl, sin argumentos, 549 bytes; el listado la atribuia a RpWorld): registro de los plugins 0x509, 0x50E, 0x510 y 0x1F del modulo; lo llama RpWorldPluginAttach (0x74FDA0). En este orden (cada
+// resultado se acumula con OR; los desplazamientos se guardan en sus globales):
+//  1. RwEngineRegisterPlugin(0xC, 0x509, ctor 0x750280 (listas libres de ties), dtor 0x750370).
+//  2. RwCameraRegisterPlugin(0x1C, 0x509, 0x7503E0, 0x750760, copia 0x750710) -> 0xC925A4; RpAtomicRegisterPlugin(8, 0x509, 0x7507B0, 0x7509B0, 0x7509A0) -> 0xC925A8;
+//     RpClumpRegisterPlugin(8, 0x509, 0x750A30, 0x750A90, 0x750A60) -> 0xC925AC; RpLightRegisterPlugin(8, 0x509, 0x750AA0, 0x750D30, 0x750CD0) -> 0xC925B0.
+//  3. Para 0x50E y despues 0x510: RpGeometryRegisterPlugin(0, id, 0, 0, 0), RpWorldSectorRegisterPlugin(0, id, 0, 0, 0), flujo de geometria (id, lectura, escritura, tamano) y flujo de sector.
+//     0x50E: geometria (0x750DB0, 0x750D90, 0x750DE0), sector (0x750ED0, 0x750EA0, 0x750F00); 0x510: geometria (0x750E20, 0x750E00, 0x750E40), sector (0x750E70, 0x750E50, 0x750E90).
+//  4. Plugin 0x1F (derechos de render): RpAtomicRegisterPlugin(0, 0x1F, 0, 0, 0) y su flujo (0x749120, 0x749160, 0x7491A0); RpWorldRegisterPlugin y su flujo (0x761D60, 0x761DA0, 0x761DE0);
+//     RpWorldSectorRegisterPlugin y su flujo (0x761E00, 0x761E40, 0x761E80); RpMaterialRegisterPlugin y su flujo (0x74D7D0, 0x74D810, 0x74D850).
+// Si el OR es negativo devuelve 0; si no, devuelve (0x75E3E0() != 0).
+static RwBool _rpTieMeshPluginAttach() {
+    const auto ctor = [](uintptr_t address) { return reinterpret_cast<RwPluginObjectConstructor>(address); };
+    const auto dtor = [](uintptr_t address) { return reinterpret_cast<RwPluginObjectDestructor>(address); };
+    const auto copy = [](uintptr_t address) { return reinterpret_cast<RwPluginObjectCopy>(address); };
+    const auto readCB = [](uintptr_t address) { return reinterpret_cast<RwPluginDataChunkReadCallBack>(address); };
+    const auto writeCB = [](uintptr_t address) { return reinterpret_cast<RwPluginDataChunkWriteCallBack>(address); };
+    const auto sizeCB = [](uintptr_t address) { return reinterpret_cast<RwPluginDataChunkGetSizeCallBack>(address); };
+
+    RwInt32 status = RwEngineRegisterPlugin(0xC, 0x509, ctor(0x750280), dtor(0x750370));
+    s_cameraWorldOffset = RwCameraRegisterPlugin(0x1C, 0x509, ctor(0x7503E0), dtor(0x750760), copy(0x750710));
+    status |= s_cameraWorldOffset;
+    s_atomicWorldOffset = RpAtomicRegisterPlugin(8, 0x509, ctor(0x7507B0), dtor(0x7509B0), copy(0x7509A0));
+    status |= s_atomicWorldOffset;
+    s_clumpWorldOffset = RpClumpRegisterPlugin(8, 0x509, ctor(0x750A30), dtor(0x750A90), copy(0x750A60));
+    status |= s_clumpWorldOffset;
+    s_lightWorldOffset = RpLightRegisterPlugin(8, 0x509, ctor(0x750AA0), LightWorldPluginDestruct, copy(0x750CD0));
+    status |= s_lightWorldOffset;
+
+    status |= RpGeometryRegisterPlugin(0, 0x50E, nullptr, nullptr, nullptr);
+    status |= RpWorldSectorRegisterPlugin(0, 0x50E, nullptr, nullptr, nullptr);
+    status |= RpGeometryRegisterPluginStream(0x50E, GeometryMeshStreamRead, writeCB(0x750D90), sizeCB(0x750DE0));
+    status |= RpWorldSectorRegisterPluginStream(0x50E, SectorMeshStreamRead, SectorMeshStreamWrite, SectorMeshStreamGetSize);
+
+    status |= RpGeometryRegisterPlugin(0, 0x510, nullptr, nullptr, nullptr);
+    status |= RpWorldSectorRegisterPlugin(0, 0x510, nullptr, nullptr, nullptr);
+    status |= RpGeometryRegisterPluginStream(0x510, readCB(0x750E20), writeCB(0x750E00), sizeCB(0x750E40));
+    status |= RpWorldSectorRegisterPluginStream(0x510, readCB(0x750E70), writeCB(0x750E50), sizeCB(0x750E90));
+
+    status |= RpAtomicRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
+    status |= RpAtomicRegisterPluginStream(0x1F, readCB(0x749120), writeCB(0x749160), sizeCB(0x7491A0));
+    status |= RpWorldRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
+    status |= RpWorldRegisterPluginStream(0x1F, readCB(0x761D60), writeCB(0x761DA0), sizeCB(0x761DE0));
+    status |= RpWorldSectorRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
+    status |= RpWorldSectorRegisterPluginStream(0x1F, readCB(0x761E00), writeCB(0x761E40), sizeCB(0x761E80));
+    status |= RpMaterialRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
+    status |= RpMaterialRegisterPluginStream(0x1F, readCB(0x74D7D0), writeCB(0x74D810), sizeCB(0x74D850));
+
+    if (status < 0) {
+        return FALSE;
+    }
+    return reinterpret_cast<RwBool(__cdecl*)()>(0x75E3E0)() != 0;
+}
+
+// Registro de los hooks del lote R16A de RpWorld (sin validar).
+void RpWorldInjectHooksR16A() {
+    RH_ScopedCategory("Plugins");
+    RH_ScopedNamespaceName("RpWorld");
+
+    RH_ScopedGlobalInstall(_rpTieMeshPluginAttach, 0x750050);
+    RH_ScopedGlobalInstall(LightWorldPluginDestruct, 0x750D30);
+    RH_ScopedGlobalInstall(GeometryMeshStreamRead, 0x750DB0);
+    RH_ScopedGlobalInstall(SectorMeshStreamWrite, 0x750EA0);
+    RH_ScopedGlobalInstall(SectorMeshStreamRead, 0x750ED0);
+    RH_ScopedGlobalInstall(SectorMeshStreamGetSize, 0x750F00);
+    RH_ScopedGlobalInstall(RpWorldAddCamera, 0x750F20);
+    RH_ScopedGlobalInstall(RpWorldRemoveCamera, 0x750F50);
+    RH_ScopedGlobalInstall(RpWorldAddClump, 0x751300);
+    RH_ScopedGlobalInstall(RpWorldAddLight, 0x751910);
+    RH_ScopedGlobalInstall(RpWorldRemoveLight, 0x751960);
+    RH_ScopedGlobalInstall(RpLightForAllWorldSectors, 0x7519F0);
+    RH_ScopedGlobalInstall(RpLightSetRadius, 0x751A70);
+    RH_ScopedGlobalInstall(RpLightSetColor, 0x751A90);
+    RH_ScopedGlobalInstall(RpLightStreamRead, 0x751F00);
+    RH_ScopedGlobalInstall(RpLightDestroy, 0x7520D0);
+    RH_ScopedGlobalInstall(RpLightCreate, 0x752110);
+    RH_ScopedGlobalInstall(LightFreeListDestroyCallBack, 0x752210);
+    RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationInstWeights, 0x752320);
 }
