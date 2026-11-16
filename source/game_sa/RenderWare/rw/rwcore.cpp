@@ -1459,28 +1459,114 @@ RxRenderStateVector* RxRenderStateVectorSetDefaultRenderStateVector(RxRenderStat
     return ((RxRenderStateVector*(__cdecl *)(RxRenderStateVector*))0x80EA40)(rsvp);
 }
 
+// Lote R29A (sin validar): imagenes de RwCore (baimage.c). Modulo de imagenes: registro de plugins 0x8E2670; lista libre = [RwEngineInstance + [0xC9A65C]] (pista 0x30018).
+namespace {
+auto& ImageTKListR29A = StaticRef<RwPluginRegistry>(0x8E2670);
+RwFreeList* ImageFreeListR29A() {
+    return *reinterpret_cast<RwFreeList**>(reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9A65C));
+}
+} // namespace
+
+// 0x8026E0 (lote R29A, sin validar; 87 bytes; era una envoltura; cdecl, (ancho, alto, profundidad); `RwImageCreate` del SDK): RwFreeListAlloc (RwEngineInstance + 0x144) de la lista de imagenes con la pista 0x30018;
+// sin memoria devuelve NULL. Escribe ancho (+4), alto (+8), profundidad (+0xC) y pone a cero cpPixels (+0x14), palette (+0x18) y flags (+0) (el stride +0x10 no se toca) y llama a
+// _rwPluginRegistryInitObject(0x8E2670, imagen) (0x8086E0). Devuelve la imagen.
 RwImage* RwImageCreate(RwInt32 width, RwInt32 height, RwInt32 depth) {
-    return ((RwImage*(__cdecl *)(RwInt32, RwInt32, RwInt32))0x8026E0)(width, height, depth);
+    RwImage* const image = static_cast<RwImage*>(RwFreeListAlloc(ImageFreeListR29A(), 0x30018));
+    if (image == nullptr) {
+        return nullptr;
+    }
+    image->width = width;
+    image->height = height;
+    image->depth = depth;
+    image->cpPixels = nullptr;
+    image->palette = nullptr;
+    image->flags = 0;
+    _rwPluginRegistryInitObject(&ImageTKListR29A, image);
+    return image;
 }
 
+// 0x802740 (lote R29A, sin validar; 86 bytes; era una envoltura; cdecl, (imagen); `RwImageDestroy` del SDK): si flags (+0) & 1 (pixeles propios) libera cpPixels (+0x14) con RwFree ([RwEngineInstance + 0x138]), pone
+// cpPixels y palette (+0x18) a NULL y quita el bit 0 de flags. Despues _rwPluginRegistryDeInitObject(0x8E2670, imagen) (0x808740) y RwFreeListFree (+0x148) a la lista de imagenes. Devuelve TRUE.
 RwBool RwImageDestroy(RwImage* image) {
-    return ((RwBool(__cdecl *)(RwImage*))0x802740)(image);
+    if (image->flags & 1) {
+        RwFree(image->cpPixels);
+        image->cpPixels = nullptr;
+        image->palette = nullptr;
+        image->flags &= ~1;
+    }
+    _rwPluginRegistryDeInitObject(&ImageTKListR29A, image);
+    RwFreeListFree(ImageFreeListR29A(), image);
+    return TRUE;
 }
 
+// 0x8027A0 (lote R29A, sin validar; 188 bytes; era una envoltura; cdecl, (imagen); `RwImageAllocatePixels` del SDK): stride (+0x10) = (((profundidad + 7) >> 3) * ancho + 3) & ~3 (el EXE enmascara solo AL; equivale). Con
+// profundidad 4 u 8 anade una paleta de (1 << profundidad) * 4 bytes tras los pixeles. RwMalloc ([RwEngineInstance + 0x134]) de alto * stride + paleta con la pista 0x30018 en cpPixels (+0x14). Sin memoria: RwError
+// { pluginID 1, _rwerror(0x80000013, tamano) } + RwErrorSet y devuelve NULL (cpPixels queda NULL; el stride ya esta escrito). Si no: palette = pixeles + alto * stride solo con paleta (si no NULL) y flags |= 1. Devuelve la imagen.
 RwImage* RwImageAllocatePixels(RwImage* image) {
-    return ((RwImage*(__cdecl *)(RwImage*))0x8027A0)(image);
+    const RwInt32 depth = image->depth;
+    bool hasPalette = false;
+    RwInt32 paletteBytes = 0;
+    if (depth == 4 || depth == 8) {
+        hasPalette = true;
+        paletteBytes = (1 << (depth & 0x1F)) << 2;
+    }
+    const RwInt32 stride = (((depth + 7) >> 3) * image->width + 3) & ~3;
+    image->stride = stride;
+    const RwInt32 pixelBytes = image->height * stride;
+    const RwInt32 totalBytes = pixelBytes + paletteBytes;
+    image->cpPixels = static_cast<RwUInt8*>(RwMalloc(static_cast<size_t>(totalBytes), 0x30018));
+    if (image->cpPixels == nullptr) {
+        RwRaiseError(static_cast<RwInt32>(0x80000013), totalBytes);
+        return nullptr;
+    }
+    image->palette = hasPalette ? reinterpret_cast<RwRGBA*>(image->cpPixels + pixelBytes) : nullptr;
+    image->flags |= 1;
+    return image;
 }
 
+// 0x802860 (lote R29A, sin validar; 42 bytes; era una envoltura; cdecl, (imagen); `RwImageFreePixels` del SDK): RwFree (+0x138) de cpPixels (+0x14) SIN mirar el bit 0 de flags, pone cpPixels y palette (+0x18) a NULL y
+// quita el bit 0 de flags. Devuelve la imagen.
 RwImage* RwImageFreePixels(RwImage* image) {
-    return ((RwImage*(__cdecl *)(RwImage*))0x802860)(image);
+    RwFree(image->cpPixels);
+    image->cpPixels = nullptr;
+    image->palette = nullptr;
+    image->flags &= ~1;
+    return image;
 }
 
 RwImage* RwImageApplyMask(RwImage* image, const RwImage* mask) {
     return ((RwImage*(__cdecl *)(RwImage*, const RwImage*))0x802AF0)(image, mask);
 }
 
+// 0x802A20 (lote R29A, sin validar; 198 bytes; era una envoltura; cdecl, (imagen); `RwImageMakeMask` del SDK): pone el alfa (byte 3) de cada color a max(R, G, B). Profundidad 4 u 8: recorre las (1 << profundidad)
+// entradas de la paleta (+0x18); profundidad 32: recorre alto filas (con signo; <= 0 no hace nada) de ancho pixeles de cpPixels (+0x14) avanzando stride (+0x10) por fila; otra profundidad no toca nada. Devuelve la imagen.
 RwImage* RwImageMakeMask(RwImage* image) {
-    return ((RwImage*(__cdecl *)(RwImage*))0x802A20)(image);
+    const auto setAlphaToMax = [](RwUInt8* color) {
+        RwInt32 maximum = color[0];
+        if (static_cast<RwInt32>(color[1]) > maximum) {
+            maximum = color[1];
+        }
+        if (static_cast<RwInt32>(color[2]) > maximum) {
+            maximum = color[2];
+        }
+        color[3] = static_cast<RwUInt8>(maximum);
+    };
+    const RwInt32 depth = image->depth;
+    if (depth == 4 || depth == 8) {
+        RwUInt8* color = reinterpret_cast<RwUInt8*>(image->palette);
+        for (RwInt32 remaining = 1 << (depth & 0x1F); remaining > 0; --remaining, color += 4) {
+            setAlphaToMax(color);
+        }
+    } else if (depth == 32) {
+        RwUInt8* row = image->cpPixels;
+        for (RwInt32 y = 0; y < image->height; ++y, row += image->stride) {
+            RwUInt8* color = row;
+            for (RwInt32 x = 0; x < image->width; ++x, color += 4) {
+                setAlphaToMax(color);
+            }
+        }
+    }
+    return image;
 }
 
 RwImage* RwImageReadMaskedImage(const RwChar* imageName, const RwChar* maskname) {
@@ -5090,34 +5176,15 @@ void _rwSortRecordsByKey(void* basePointer, RwUInt32 count, RwUInt32 stride, RwU
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // Lote R14A (sin validar): 0x801390, imagen -> raster del controlador D3D9 (RwD3D9). El listado la daba por RwPlCore; la llama 0x8006F8 (rama de imagen a raster del controlador) con (raster, imagen).
 // ---------------------------------------------------------------------------------------------------------------------------------------------
+// 0x800810 (lote R29A; definida al final del archivo): D3DFORMAT -> funcion de conversion RGBA -> pixel del EXE (0 si no hay).
+using RwD3D9RGBAToPixelFn = RwUInt32(__cdecl*)(const void*);
+RwD3D9RGBAToPixelFn _rwD3D9GetRGBAToPixelConverter(RwUInt32 d3dFormat);
 namespace {
-// Funciones de conversion RGBA -> pixel del EXE (cdecl, UN argumento de pila: puntero a 4 bytes R, G, B, A; devuelven el pixel en EAX), sin reconstruir; se llaman por direccion fija.
-using ImageToPixelFn = uint32(__cdecl*)(const void*);
-// Tabla de saltos del EXE (0x801860: indices por D3DFORMAT - 0x15; 0x801820: destinos; la segunda copia 0x801904 / 0x8018C4 es identica): D3DFORMAT -> funcion; sin entrada 0 (el EXE haria call 0).
+// Funciones de conversion RGBA -> pixel (cdecl, UN argumento de pila: puntero a 4 bytes R, G, B, A; devuelven el pixel en EAX); lote R29A: 0x800930..0x800C20, reconstruidas al final del archivo.
+using ImageToPixelFn = RwD3D9RGBAToPixelFn;
+// Tabla de saltos del EXE (0x800810; la copia de 0x801860 es identica): D3DFORMAT -> funcion; sin entrada devuelve NULL (el EXE haria call 0).
 ImageToPixelFn ImageToPixelConverter(uint32 d3dFormat) {
-    uintptr_t address = 0;
-    switch (d3dFormat) {
-    case 0x15: address = 0x800B00; break;
-    case 0x16: address = 0x800AA0; break;
-    case 0x17: address = 0x800960; break;
-    case 0x18: address = 0x800930; break;
-    case 0x19: address = 0x800990; break;
-    case 0x1A: address = 0x8009D0; break;
-    case 0x1D: address = 0x800A10; break;
-    case 0x1E: address = 0x800A40; break;
-    case 0x20: address = 0x800B30; break;
-    case 0x21: address = 0x800AD0; break;
-    case 0x32: address = 0x800B70; break;
-    case 0x33: address = 0x800BD0; break;
-    case 0x3C: address = 0x800B60; break;
-    case 0x3D: address = 0x800A70; break;
-    case 0x3E: address = 0x800AD0; break;
-    case 0x3F: address = 0x800B30; break;
-    case 0x51: address = 0x800C20; break;
-    case 0x75: address = 0x800B60; break;
-    default: break;
-    }
-    return reinterpret_cast<ImageToPixelFn>(address);
+    return _rwD3D9GetRGBAToPixelConverter(d3dFormat);
 }
 // Byte de alfa de la tabla _rwD3D9PixelFormatInfo (0xB4E7E0, 4 bytes por D3DFORMAT): 0xFF = sin alfa.
 uint8 PixelFormatAlphaByte(uint32 d3dFormat) {
@@ -7748,4 +7815,367 @@ void RwD3D9InjectHooksR28A() {
     RH_ScopedGlobalInstall(RwD3D9SetTexture, 0x7FDE70);
     RH_ScopedGlobalInstall(_rwD3D9PixelConvertL16, 0x7FFEE0);
     RH_ScopedGlobalInstall(_rwD3D9ImageFindRasterFormat, 0x7FFFF0);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R29A (sin validar): conversion de imagenes a rasters del controlador D3D9 de RenderWare (0x8001E0..0x800C80) y conversores RGBA -> pixel (0x800810..0x800C20).
+// El listado las daba por RwCore (rwcore.cpp). 0x8001E0 es la funcion estandar rwSTANDARDRASTERSETIMAGE (indice 7 de la tabla que rellena 0x7F72E0), llamada desde RwRasterSetFromImage y desde 0x4CD250.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+// Luminancia entera del EXE: (30 * R + 59 * G + 11 * B) / 100 (division con signo; el EXE la hace con la constante magica 0x51EB851F).
+RwInt32 LumaR29A(const uint8* pixel) {
+    return (static_cast<RwInt32>(pixel[1]) * 59 + static_cast<RwInt32>(pixel[2]) * 11 + static_cast<RwInt32>(pixel[0]) * 30) / 100;
+}
+} // namespace
+
+// 0x800930 (lote R29A, sin validar; 39 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_X1R5G5B5 = 0x18): ((R & 0xF8) << 5 | (G & 0xF8)) << 2 | B >> 3.
+RwUInt32 _rwD3D9RGBAToPixelX1R5G5B5(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    return ((((static_cast<uint32>(p[0]) & 0xF8u) << 5) | (static_cast<uint32>(p[1]) & 0xF8u)) << 2) | (static_cast<uint32>(p[2]) >> 3);
+}
+
+// 0x800960 (lote R29A, sin validar; 39 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_R5G6B5 = 0x17): ((R & 0xF8) << 5 | (G & 0xFC)) << 3 | B >> 3.
+RwUInt32 _rwD3D9RGBAToPixelR5G6B5(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    return ((((static_cast<uint32>(p[0]) & 0xF8u) << 5) | (static_cast<uint32>(p[1]) & 0xFCu)) << 3) | (static_cast<uint32>(p[2]) >> 3);
+}
+
+// 0x800990 (lote R29A, sin validar; 52 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_A1R5G5B5 = 0x19): (((A & 0x80) * 2 | (R & 0xF8)) << 5 | (G & 0xF8)) << 2 | B >> 3.
+RwUInt32 _rwD3D9RGBAToPixelA1R5G5B5(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    uint32 value = ((static_cast<uint32>(p[3]) & 0x80u) * 2u) | (static_cast<uint32>(p[0]) & 0xF8u);
+    value = (value << 5) | (static_cast<uint32>(p[1]) & 0xF8u);
+    return (value << 2) | (static_cast<uint32>(p[2]) >> 3);
+}
+
+// 0x8009D0 (lote R29A, sin validar; 50 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_A4R4G4B4 = 0x1A): (((A & 0xF0) << 4 | (R & 0xF0)) << 4 | (G & 0xF0)) | B >> 4.
+RwUInt32 _rwD3D9RGBAToPixelA4R4G4B4(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    uint32 value = ((static_cast<uint32>(p[3]) & 0xF0u) << 4) | (static_cast<uint32>(p[0]) & 0xF0u);
+    value = (value << 4) | (static_cast<uint32>(p[1]) & 0xF0u);
+    return value | (static_cast<uint32>(p[2]) >> 4);
+}
+
+// 0x800A10 (lote R29A, sin validar; 43 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_A8R3G3B2 = 0x1D): (((G & 0xE0) | B >> 3) >> 3) | A << 8 | (R & 0xE0).
+RwUInt32 _rwD3D9RGBAToPixelA8R3G3B2(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    const uint32 low = (((static_cast<uint32>(p[1]) & 0xE0u) | (static_cast<uint32>(p[2]) >> 3)) >> 3);
+    return low | (static_cast<uint32>(p[3]) << 8) | (static_cast<uint32>(p[0]) & 0xE0u);
+}
+
+// 0x800A40 (lote R29A, sin validar; 39 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_X4R4G4B4 = 0x1E): ((0xF00 | (R & 0xF0)) << 4 | (G & 0xF0)) | B >> 4 (alfa fijo 0xF).
+RwUInt32 _rwD3D9RGBAToPixelX4R4G4B4(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    uint32 value = (static_cast<uint32>(p[0]) & 0xF0u) | 0xF00u;
+    value = (value << 4) | (static_cast<uint32>(p[1]) & 0xF0u);
+    return value | (static_cast<uint32>(p[2]) >> 4);
+}
+
+// 0x800A70 (lote R29A, sin validar; 39 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_L6V5U5 = 0x3D): (((B & 0xFC) << 6 | (G & 0xF8)) << 2) | R >> 3.
+RwUInt32 _rwD3D9RGBAToPixelL6V5U5(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    const uint32 value = ((static_cast<uint32>(p[2]) & 0xFCu) << 6) | (static_cast<uint32>(p[1]) & 0xF8u);
+    return (value << 2) | (static_cast<uint32>(p[0]) >> 3);
+}
+
+// 0x800AA0 (lote R29A, sin validar; 34 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_X8R8G8B8 = 0x16): 0xFF000000 | R << 16 | G << 8 | B.
+RwUInt32 _rwD3D9RGBAToPixelX8R8G8B8(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    return ((((0xFFFFFF00u | p[0]) << 8) | p[1]) << 8) | p[2];
+}
+
+// 0x800AD0 (lote R29A, sin validar; 34 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_X8B8G8R8 = 0x21 y D3DFMT_X8L8V8U8 = 0x3E): 0xFF000000 | B << 16 | G << 8 | R.
+RwUInt32 _rwD3D9RGBAToPixelX8B8G8R8(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    return ((((0xFFFFFF00u | p[2]) << 8) | p[1]) << 8) | p[0];
+}
+
+// 0x800B00 (lote R29A, sin validar; 34 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_A8R8G8B8 = 0x15): A << 24 | R << 16 | G << 8 | B.
+RwUInt32 _rwD3D9RGBAToPixelA8R8G8B8(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    return ((((((static_cast<uint32>(p[3]) << 8) | p[0]) << 8) | p[1]) << 8)) | p[2];
+}
+
+// 0x800B30 (lote R29A, sin validar; 34 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_A8B8G8R8 = 0x20 y D3DFMT_Q8W8V8U8 = 0x3F): A << 24 | B << 16 | G << 8 | R.
+RwUInt32 _rwD3D9RGBAToPixelA8B8G8R8(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    return ((((((static_cast<uint32>(p[3]) << 8) | p[2]) << 8) | p[1]) << 8)) | p[0];
+}
+
+// 0x800B60 (lote R29A, sin validar; 14 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_V8U8 = 0x3C y D3DFMT_CxV8U8 = 0x75): R | G << 8.
+RwUInt32 _rwD3D9RGBAToPixelV8U8(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    return (static_cast<uint32>(p[1]) << 8) | p[0];
+}
+
+// 0x800B70 (lote R29A, sin validar; 86 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_L8 = 0x32): luminancia * A / 255 (division sin signo; luminancia = (30 * R + 59 * G + 11 * B) / 100).
+RwUInt32 _rwD3D9RGBAToPixelL8(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    return (static_cast<uint32>(LumaR29A(p)) * static_cast<uint32>(p[3])) / 255u;
+}
+
+// 0x800BD0 (lote R29A, sin validar; 75 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_A8L8 = 0x33): A << 8 | luminancia (luminancia = (30 * R + 59 * G + 11 * B) / 100, sin acotar).
+RwUInt32 _rwD3D9RGBAToPixelA8L8(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    return static_cast<uint32>(LumaR29A(p)) | (static_cast<uint32>(p[3]) << 8);
+}
+
+// 0x800C20 (lote R29A, sin validar; 81 bytes; nombre inferido; cdecl, (puntero a R, G, B, A); D3DFMT_L16 = 0x51): ((30 * R + 59 * G + 11 * B) * A / 25500) * 255 (todo con signo; el EXE usa la constante 0x291EE171).
+RwUInt32 _rwD3D9RGBAToPixelL16(const void* rgba) {
+    const uint8* p = static_cast<const uint8*>(rgba);
+    const RwInt32 sum = static_cast<RwInt32>(p[1]) * 59 + static_cast<RwInt32>(p[2]) * 11 + static_cast<RwInt32>(p[0]) * 30;
+    return static_cast<RwUInt32>((sum * static_cast<RwInt32>(p[3]) / 25500) * 255);
+}
+
+// 0x800810 (lote R29A, sin validar; 119 bytes; nombre inferido; cdecl, (D3DFORMAT); tabla de saltos con indices por formato - 0x15 y 14 destinos): devuelve la funcion de conversion RGBA -> pixel de ese formato o NULL
+// (formato fuera de los 18 listados; el EXE devuelve 0 y los llamadores harian call 0). Formatos: 0x15 A8R8G8B8, 0x16 X8R8G8B8, 0x17 R5G6B5, 0x18 X1R5G5B5, 0x19 A1R5G5B5, 0x1A A4R4G4B4, 0x1D A8R3G3B2, 0x1E X4R4G4B4,
+// 0x20 A8B8G8R8, 0x21 X8B8G8R8, 0x32 L8, 0x33 A8L8, 0x3C V8U8, 0x3D L6V5U5, 0x3E X8L8V8U8 (= X8B8G8R8), 0x3F Q8W8V8U8 (= A8B8G8R8), 0x51 L16, 0x75 CxV8U8 (= V8U8).
+RwD3D9RGBAToPixelFn _rwD3D9GetRGBAToPixelConverter(RwUInt32 d3dFormat) {
+    switch (d3dFormat) {
+    case 0x15: return _rwD3D9RGBAToPixelA8R8G8B8;
+    case 0x16: return _rwD3D9RGBAToPixelX8R8G8B8;
+    case 0x17: return _rwD3D9RGBAToPixelR5G6B5;
+    case 0x18: return _rwD3D9RGBAToPixelX1R5G5B5;
+    case 0x19: return _rwD3D9RGBAToPixelA1R5G5B5;
+    case 0x1A: return _rwD3D9RGBAToPixelA4R4G4B4;
+    case 0x1D: return _rwD3D9RGBAToPixelA8R3G3B2;
+    case 0x1E: return _rwD3D9RGBAToPixelX4R4G4B4;
+    case 0x20: return _rwD3D9RGBAToPixelA8B8G8R8;
+    case 0x21: return _rwD3D9RGBAToPixelX8B8G8R8;
+    case 0x32: return _rwD3D9RGBAToPixelL8;
+    case 0x33: return _rwD3D9RGBAToPixelA8L8;
+    case 0x3C: return _rwD3D9RGBAToPixelV8U8;
+    case 0x3D: return _rwD3D9RGBAToPixelL6V5U5;
+    case 0x3E: return _rwD3D9RGBAToPixelX8B8G8R8;
+    case 0x3F: return _rwD3D9RGBAToPixelA8B8G8R8;
+    case 0x51: return _rwD3D9RGBAToPixelL16;
+    case 0x75: return _rwD3D9RGBAToPixelV8U8;
+    default:   return nullptr;
+    }
+}
+
+// 0x800C80 (lote R29A, sin validar; 1805 bytes; nombre inferido; cdecl, (raster, imagen), sin valor de retorno; la llaman 0x8001E0 y ella misma): copia una imagen a un raster de 4 u 8 bits o de luminancia ya bloqueado.
+// Extension D3D9 del raster = raster + [0xB4E9E0]. Raster con (cFormat & 0xF) == 4 (luminancia 8 bits): segun el D3DFORMAT de la extension (0x1B R3G3B2, 0x34 A4L4, 0x1C A8, otro = L8) convierte cada pixel (imagen de
+// 4/8 bits: antes convierte la paleta a una tabla de 256 bytes; otra profundidad: pixeles de 4 bytes R, G, B, A) y lo escribe fila a fila (alto y ancho del RASTER, con signo). Si no: imagen de 4/8 bits -> copia de bytes (de golpe
+// si los strides de imagen y raster coinciden con el ancho del raster, si no fila a fila) y, con extension+0xB == 0 y paleta de raster, copia la paleta (4 << profundidad bytes). Imagen de otra profundidad: la cuantifica a una imagen
+// temporal de la profundidad del raster (RwImageCreate + RwImageAllocatePixels + RwPalQuant*; si RwImageCreate o RwPalQuantInit fallan sale sin mas, y en el segundo caso sin destruir la imagen), si la extension tiene alfa y la
+// imagen temporal es 888 (formato & 0xF00 == 0x600) deja el raster en (cFormat & 0xFE) | 6 y alfa 0, y se llama a si misma con la temporal, que destruye.
+void _rwD3D9RasterSetFromImageIndexed(RwRaster* raster, RwImage* image) {
+    D3D9RasterExtLayout& ext = D3D9RasterExt(raster);
+    if ((raster->cFormat & 0xF) == 4) {
+        const uint32 d3dFormat = ext.d3dFormat;
+        const auto convert = [d3dFormat](const uint8* p) -> uint8 {
+            if (d3dFormat == 0x1B) {
+                uint8 value = static_cast<uint8>(p[1] & 0xE7);
+                value = static_cast<uint8>(value | static_cast<uint8>(p[2] >> 3));
+                value = static_cast<uint8>(value >> 3);
+                return static_cast<uint8>(value | static_cast<uint8>(p[0] & 0xE0));
+            }
+            if (d3dFormat == 0x34) {
+                return static_cast<uint8>(static_cast<uint8>(LumaR29A(p) >> 4) | static_cast<uint8>(p[3] & 0xF0));
+            }
+            if (d3dFormat == 0x1C) {
+                return p[3];
+            }
+            return static_cast<uint8>((static_cast<uint32>(LumaR29A(p)) * static_cast<uint32>(p[3])) / 255u);
+        };
+        const bool paletted = image->depth == 4 || image->depth == 8;
+        uint8 table[256] = {}; // el EXE deja sin inicializar las entradas que la paleta no cubre
+        if (paletted) {
+            const uint8* palette = reinterpret_cast<const uint8*>(image->palette);
+            const RwInt32 count = 1 << (image->depth & 0x1F);
+            for (RwInt32 i = 0; i < count; ++i) {
+                table[i] = convert(palette + i * 4);
+            }
+        }
+        for (RwInt32 y = 0; y < raster->height; ++y) {
+            const uint8* source = image->cpPixels + image->stride * y;
+            uint8* destination = raster->cpPixels + raster->stride * y;
+            for (RwInt32 x = 0; x < raster->width; ++x, ++destination) {
+                if (paletted) {
+                    *destination = table[source[x]];
+                } else {
+                    *destination = convert(source);
+                    source += 4;
+                }
+            }
+        }
+        return;
+    }
+
+    if (image->depth == 4 || image->depth == 8) {
+        if (image->stride == raster->stride && raster->width == raster->stride) {
+            memcpy(raster->cpPixels, image->cpPixels, static_cast<size_t>(static_cast<uint32>(raster->height * raster->width)));
+        } else {
+            for (RwInt32 y = 0; y < raster->height; ++y) {
+                memcpy(raster->cpPixels + raster->stride * y, image->cpPixels + image->stride * y, static_cast<size_t>(static_cast<uint32>(raster->width)));
+            }
+        }
+        if (ext.lockedMipLevel == 0 && raster->palette != nullptr) {
+            memcpy(raster->palette, image->palette, static_cast<size_t>((1u << (image->depth & 0x1F)) << 2));
+        }
+        return;
+    }
+
+    RwImage* const temporary = RwImageCreate(image->width, image->height, raster->depth);
+    if (temporary == nullptr) {
+        return;
+    }
+    RwImageAllocatePixels(temporary);
+    static_assert(sizeof(RwPalQuant) == 0x4008);
+    RwPalQuant quant;
+    if (!RwPalQuantInit(&quant)) {
+        return;
+    }
+    RwPalQuantAddImage(&quant, image, 1.0f);
+    RwPalQuantResolvePalette(temporary->palette, 1 << (raster->depth & 0x1F), &quant);
+    RwPalQuantMatchImage(temporary->cpPixels, temporary->stride, temporary->depth, FALSE, &quant, image);
+    RwPalQuantTerm(&quant);
+    if (ext.alpha != 0 && (_rwD3D9ImageFindRasterFormat(temporary) & 0xF00) == 0x600) {
+        raster->cFormat = static_cast<RwUInt8>((raster->cFormat & 0xFE) | 6);
+        ext.alpha = 0;
+    }
+    _rwD3D9RasterSetFromImageIndexed(raster, temporary);
+    RwImageDestroy(temporary);
+}
+
+// 0x8001E0 (lote R29A, sin validar; 1420 bytes; nombre inferido: funcion estandar rwSTANDARDRASTERSETIMAGE; cdecl, (raster, imagen, 0 sin uso); devuelve TRUE salvo en los fallos indicados): copia una imagen a un raster del
+// controlador D3D9 (RwRasterSetFromImage). Extension = raster + [0xB4E9E0]. 1) extension+0xA con nibble alto (comprimido): RwError { 1, _rwerror(2, 0x8E2638) } y devuelve 0. 2) alfa de la extension (+8): raster tipo 0 ->
+// tabla 0x85C675 + 8 * ((_rwD3D9ImageFindRasterFormat(imagen) >> 8) & 0xF); otro tipo -> D3DFORMAT 0x29 = (formato & 0xF00) == 0x500, si no el byte de alfa de 0xB4E7E0 + 4 * D3DFORMAT; con alfa y raster hijo tambien el
+// alfa de la extension del padre = 1. 3) si el ancho o el alto del raster difieren de los de la imagen, la reescala con RwImageCreateResample (0x80CD10). 4) bloquea el raster (RwRasterLock nivel 0, modo 5) salvo que
+// privateFlags & 4 (ya bloqueado); 0 si falla (sin liberar la imagen reescalada). 5) con paleta (cFormat << 8) & 0x6000 bloquea la paleta (RwRasterLockPalette modo 5) salvo privateFlags & 0x10. 6) segun la profundidad del
+// raster: 4/8 -> _rwD3D9RasterSetFromImageIndexed; 16 -> imagen de 32 bits: conversor de 0x800810 por D3DFORMAT (el EXE inlinea los cuatro de 0x17..0x1A con la misma formula), imagen de 4/8 bits: paleta de 16/256 words
+// convertida y pixeles por indice; 24/32 -> _rwD3D9ImageToRaster (0x801390); 64/128 -> nada; otra -> RwError { 1, _rwerror(0x8000000C) }. 7) desbloquea paleta (si se bloqueo aqui) y raster (si se bloqueo aqui), destruye la
+// imagen reescalada y devuelve TRUE. El EXE deja sin inicializar la bandera "paleta ya bloqueada" cuando la bloquea el: aqui vale 0 (intencion del original).
+RwBool _rwD3D9RasterSetFromImage(RwRaster* raster, RwImage* image, RwInt32 /*sin uso*/) {
+    D3D9RasterExtLayout& ext = D3D9RasterExt(raster);
+    if (ext.mipFlags & 0xF0) {
+        RwRaiseError(2, reinterpret_cast<const char*>(0x8E2638));
+        return FALSE;
+    }
+    const uint32 rasterFormat = static_cast<uint32>(raster->cFormat) << 8;
+    if (raster->cType == 0) {
+        const RwInt32 imageFormat = _rwD3D9ImageFindRasterFormat(image);
+        ext.alpha = *reinterpret_cast<const uint8*>(0x85C675 + static_cast<uintptr_t>((imageFormat >> 8) & 0xF) * 8);
+    } else if (ext.d3dFormat == 0x29) {
+        ext.alpha = (rasterFormat & 0xF00) == 0x500 ? 1 : 0;
+    } else {
+        ext.alpha = PixelFormatAlphaByte(ext.d3dFormat);
+    }
+    if (ext.alpha != 0) {
+        RwRaster* const parent = raster->parent;
+        if (raster != parent) {
+            D3D9RasterExt(parent).alpha = 1;
+        }
+    }
+    RwImage* current = image;
+    if (raster->width != image->width || raster->height != image->height) {
+        current = RwImageCreateResample(current, raster->width, raster->height);
+    }
+    bool rasterWasLocked = false;
+    if (raster->privateFlags & 4) {
+        rasterWasLocked = true;
+    } else if (RwRasterLock(raster, 0, 5) == nullptr) {
+        return FALSE;
+    }
+    const uint32 paletteFlags = rasterFormat & 0x6000;
+    bool paletteWasLocked = false;
+    if (paletteFlags != 0) {
+        if (raster->privateFlags & 0x10) {
+            paletteWasLocked = true;
+        } else if (RwRasterLockPalette(raster, 5) == nullptr) {
+            return FALSE;
+        }
+    }
+
+    switch (raster->depth) {
+    case 4:
+    case 8:
+        _rwD3D9RasterSetFromImageIndexed(raster, current);
+        break;
+    case 16:
+        if (current->depth == 4 || current->depth == 8) {
+            const RwD3D9RGBAToPixelFn convert = _rwD3D9GetRGBAToPixelConverter(ext.d3dFormat);
+            uint16 palette[256] = {};
+            const RwInt32 byteCount = current->depth == 4 ? 0x40 : 0x400;
+            for (RwInt32 offset = 0, i = 0; offset < byteCount; offset += 4, ++i) {
+                palette[i] = static_cast<uint16>(convert(reinterpret_cast<const uint8*>(current->palette) + offset));
+            }
+            for (RwInt32 y = 0; y < raster->height; ++y) {
+                const uint8* source = current->cpPixels + current->stride * y;
+                uint8* destination = raster->cpPixels + raster->stride * y;
+                for (RwInt32 x = 0; x < raster->width; ++x, ++source, destination += 2) {
+                    *reinterpret_cast<uint16*>(destination) = palette[*source];
+                }
+            }
+        } else if (current->depth == 32) {
+            const RwD3D9RGBAToPixelFn convert = _rwD3D9GetRGBAToPixelConverter(ext.d3dFormat);
+            for (RwInt32 y = 0; y < raster->height; ++y) {
+                const uint8* source = current->cpPixels + current->stride * y;
+                uint8* destination = raster->cpPixels + raster->stride * y;
+                for (RwInt32 x = 0; x < raster->width; ++x, source += 4, destination += 2) {
+                    *reinterpret_cast<uint16*>(destination) = static_cast<uint16>(convert(source));
+                }
+            }
+        }
+        break;
+    case 24:
+    case 32:
+        _rwD3D9ImageToRaster(raster, current);
+        break;
+    case 64:
+    case 128:
+        break;
+    default:
+        RwRaiseError(static_cast<RwInt32>(0x8000000C));
+        break;
+    }
+
+    if (paletteFlags != 0 && !paletteWasLocked) {
+        RwRasterUnlockPalette(raster);
+    }
+    if (!rasterWasLocked) {
+        RwRasterUnlock(raster);
+    }
+    if (current != image) {
+        RwImageDestroy(current);
+    }
+    return TRUE;
+}
+
+// Lote R29A (sin validar): ganchos de las imagenes de RwCore (baimage.c, 0x8026E0..0x802A20).
+void RwCoreInjectHooksR29A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RwImageCreate, 0x8026E0);
+    RH_ScopedGlobalInstall(RwImageDestroy, 0x802740);
+    RH_ScopedGlobalInstall(RwImageAllocatePixels, 0x8027A0);
+    RH_ScopedGlobalInstall(RwImageFreePixels, 0x802860);
+    RH_ScopedGlobalInstall(RwImageMakeMask, 0x802A20);
+}
+
+// Lote R29A (sin validar): ganchos del controlador D3D9: imagen -> raster y conversores RGBA -> pixel (0x8001E0..0x800C80).
+void RwD3D9InjectHooksR29A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwD3D9");
+
+    RH_ScopedGlobalInstall(_rwD3D9RasterSetFromImage, 0x8001E0);
+    RH_ScopedGlobalInstall(_rwD3D9GetRGBAToPixelConverter, 0x800810);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelX1R5G5B5, 0x800930);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelR5G6B5, 0x800960);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelA1R5G5B5, 0x800990);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelA4R4G4B4, 0x8009D0);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelA8R3G3B2, 0x800A10);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelX4R4G4B4, 0x800A40);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelL6V5U5, 0x800A70);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelX8R8G8B8, 0x800AA0);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelX8B8G8R8, 0x800AD0);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelA8R8G8B8, 0x800B00);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelA8B8G8R8, 0x800B30);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelV8U8, 0x800B60);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelL8, 0x800B70);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelA8L8, 0x800BD0);
+    RH_ScopedGlobalInstall(_rwD3D9RGBAToPixelL16, 0x800C20);
+    RH_ScopedGlobalInstall(_rwD3D9RasterSetFromImageIndexed, 0x800C80);
 }

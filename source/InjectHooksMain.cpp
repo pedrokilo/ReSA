@@ -723,6 +723,8 @@ void RwD3D9InjectHooksR26A();     // controlador D3D9: parametros de presentacio
 void RwD3D9InjectHooksR27A();     // controlador D3D9: soporte DXT, caches de estado, render target, declaracion, shaders, flujos, indices, dibujo, transformaciones y luces (rwcore.cpp)
 void RwCoreInjectHooksR28A();      // rasters de RwCore (baraster.c): crear, destruir, contexto, bloqueo, niveles, dibujo y mostrar (rwcore.cpp)
 void RwD3D9InjectHooksR28A();     // controlador D3D9: luces, declaraciones, Im2D, caches de estados, material, reinicio de estados, RwD3D9SetTexture y formato de imagen (rwcore.cpp)
+void RwCoreInjectHooksR29A();      // imagenes de RwCore (baimage.c): crear, destruir, reservar y liberar pixeles y mascara (rwcore.cpp)
+void RwD3D9InjectHooksR29A();     // controlador D3D9: imagen -> raster (0x8001E0), conversores RGBA -> pixel y raster de 4/8 bits o luminancia (rwcore.cpp)
 
 void InjectHooksMain() {
     /**
@@ -1159,6 +1161,8 @@ void InjectHooksMain() {
     RwD3D9InjectHooksR27A();
     RwCoreInjectHooksR28A();
     RwD3D9InjectHooksR28A();
+    RwCoreInjectHooksR29A();
+    RwD3D9InjectHooksR29A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();
