@@ -291,7 +291,8 @@ CObject::~CObject() {
         --nNoTempObjects;
 
     RemoveFromControlCodeList();
-    if (m_nModelIndex == ModelIndices::MI_TRAINCROSSING1) {
+    // Como el original (0x59F797): el indice del objeto se extiende con signo (movsx) y MI_TRAINCROSSING1 sin signo (movzx); validado en el banco Fn192A.
+    if (static_cast<int32>(static_cast<int16>(m_nModelIndex)) == static_cast<int32>(static_cast<uint16>(ModelIndices::MI_TRAINCROSSING1))) {
         const auto& p = m_pDummyObject->GetPosition();
         ThePaths.SetLinksBridgeLights(p.x - 12.0F, p.x + 12.0F, p.y - 12.0F, p.y + 12.0F, false);
     }

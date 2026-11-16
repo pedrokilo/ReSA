@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "9eb825522b3a951ca051b8809f544653475ff9110494beac845d2b0b95263627",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CTaskComplexFallAndStayDown::CreateNextSubTask: 207/2048; CTaskComplexInAirAndLand::ScalarDeletingDestructor: 607/2048; CQuadTreeNode::Constructor: 604/2048; CQuadTreeNode::PoolConstructor: 124/2048; CQuadTreeNode::PoolNew: 2048/2048; CQuadTreeNode::PoolDelete: 1553/2048; CQuadTreeNode::AllocateStorage: 2048/2048; CQuadTreeNode::DeleteStorage: 2048/2048; CRect::GetRandomPoint: 610/2048; CBox::GetRandomPoint: 588/2048; CRenderer::Init: 2048/2048; CRenderer::Shutdown: 2048/2048; CObjectPool::CreateAtRef: 220/2048; CObject::DestructorBody: 335/2048; CObject::ScalarDeletingDestructor: 581/2048; CPhysical::SetCentreOfMass: 609/2048; CPedSaveStructure::Destructor: 551/2048; CPlayerPedDataSaveStructure::Constructor: 567/2048; CVehicleSaveStructure::Destructor: 612/2048; CEventScriptCommand::GetLifeTime: 612/2048; CEventInAir::ScalarDeletingDestructor: 800/2048; CEventVehicleDied::ScalarDeletingDestructor: 800/2048; CEventVehicleOnFire::ScalarDeletingDestructor: 801/2048; CEventHitByWaterCannon::ScalarDeletingDestructor: 775/2048; CEventStuckInAir::ScalarDeletingDestructor: 793/2048; CEventCopCarBeingStolen::ScalarDeletingDestructor: 804/2048; CEventVehicleDamage::ScalarDeletingDestructor: 785/2048; CEventGotKnockedOverByCar::ScalarDeletingDestructor: 761/2048; CEventCarUpsideDown::ScalarDeletingDestructor: 780/2048; CEventPotentialWalkIntoFire::ScalarDeletingDestructor: 775/2048; CTaskSimpleThrowControl::ScalarDeletingDestructor: 594/2048; CTaskSimpleBeKickedOnGround::ScalarDeletingDestructor: 591/2048; CTaskSimpleBeKickedOnGround::DestructorBody: 624/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
