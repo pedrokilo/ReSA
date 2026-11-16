@@ -41,6 +41,10 @@ extern RwImage *RtBMPImageWrite(RwImage * image,
                                 const RwChar * imageName);
 extern RwImage *RtBMPImageRead(const RwChar * imageName);
 
+/* Interno (lote R3A): copia una fila BMP ya leida a la imagen RenderWare segun profundidad de la imagen y bits por pixel del BMP. */
+extern RwBool _rtBMPImageSetRow(RwImage * image, RwInt32 row, const RwUInt8 * source,
+                                RwInt32 bitCount, RwInt32 flag);
+
 
 #ifdef    __cplusplus
 }

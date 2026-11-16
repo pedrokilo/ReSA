@@ -75,4 +75,5 @@ void RpHAnimInjectHooks();
 void RpSkinInjectHooks();
 void RpUVAnimInjectHooks();
 void RtDictInjectHooks();
+void RtBMPInjectHooks();         // lote R3A (sin validar): RtBMPImageRead y su ayudante de filas
 void RtSlerpInjectHooks();       // lote R2A (sin validar): RtQuatSetupSlerpCache

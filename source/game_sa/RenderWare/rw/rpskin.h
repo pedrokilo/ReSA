@@ -58,6 +58,31 @@ struct RwMatrixWeights
  */
 typedef struct RpSkin RpSkin;
 
+/**
+ * Disposicion de RpSkin del EXE (plugin D3D9, lote R3A; tamano 0x40: una entrada de la lista libre 0xC978B8). Los campos salen del desensamblado
+ * (RpSkinCreate 0x7C75B0, _rpSkinCreateData 0x7C7190, _rpSkinSplitDataCreate 0x7C8A70). Todos los bloques de datos viven en una sola reserva
+ * (`allocation`, +0x3C): huesos usados, matrices (alineadas a 16), indices y pesos por vertice.
+ */
+struct RpSkin {
+    RwUInt32          numBones;                 // +0x00
+    RwUInt32          numUsedBones;             // +0x04
+    RwUInt8*          usedBonesArray;           // +0x08
+    RwMatrix*         skinToBoneMatrices;       // +0x0C
+    RwUInt32          maxNumWeightsPerVertex;   // +0x10
+    RwUInt32*         vertexBoneIndices;        // +0x14
+    RwMatrixWeights*  vertexBoneWeights;        // +0x18
+    RwUInt32          field1C;                  // +0x1C (se compara con el limite de huesos en 0x7C89C0 / 0x7C8A00; ninguna funcion del lote lo escribe)
+    RwUInt32          field20;                  // +0x20 (0x7C9680 lo prueba contra 0)
+    RwUInt32          boneLimit;                // +0x24 (datos divididos)
+    RwUInt32          numMeshes;                // +0x28 (RpSkinIsSplit: != 0)
+    RwUInt32          numRLE;                   // +0x2C
+    RwUInt8*          meshBoneRemapIndices;     // +0x30
+    RwUInt8*          meshBoneRLECount;         // +0x34
+    RwUInt8*          meshBoneRLE;              // +0x38
+    RwUInt8*          allocation;               // +0x3C
+};
+static_assert(sizeof(RpSkin) == 0x40);
+
 /*===========================================================================*
  *--- Plugin API Functions --------------------------------------------------*
  *===========================================================================*/
@@ -154,6 +179,52 @@ RpSkinAtomicGetType( RpAtomic *atomic );
 /*---------------------------------------------------------------------------*
  *-   Internal API                                                          -*
  *---------------------------------------------------------------------------*/
+extern void
+_rpSkinFindUsedBones(RpSkin *skin, const RwUInt32 *vertexIndices,
+                     const RwMatrixWeights *vertexWeights, RwUInt8 *bones,
+                     RwUInt32 *numBones, RwUInt32 numVertices);
+
+extern RwBool
+_rpSkinCreateData(RpSkin *skin, RwUInt32 numBones, RwUInt32 numUsedBones,
+                  RwUInt32 numVertices, const RwUInt8 *usedBones,
+                  const RwMatrixWeights *weights, const RwUInt32 *indices,
+                  const RwMatrix *matrices);
+
+extern RwBool
+_rpSkinAtomicStreamRightsCallBack(void *object, RwInt32 offsetInObject,
+                                  RwInt32 sizeInObject, RwUInt32 extraData);
+
+extern RwBool
+_rpSkinPipelinesDestroy(void);
+
+extern RwBool
+_rpSkinPipelinesCreate(RwUInt32 flags);
+
+extern RpAtomic *
+_rpSkinPipelineAtomicAttach(RpAtomic *atomic, RwUInt32 type);
+
+extern RwBool
+_rpSkinD3D9AtomicLimitCheckOrOff(RpAtomic *atomic);
+
+extern RwBool
+_rpSkinD3D9AtomicLimitCheck(RpAtomic *atomic);
+
+extern RwBool
+_rpSkinD3D9CreateVertexBuffer(RpAtomic *atomic, RxD3D9ResEntryHeader *header,
+                              RwBool reinstance);
+
+extern RwInt32
+_rpSkinNativeGeometryGetSize(const RpGeometry *geometry);
+
+extern RwStream *
+_rpSkinNativeGeometryWrite(RwStream *stream, const RpGeometry *geometry);
+
+extern RwStream *
+_rpSkinNativeGeometryRead(RwStream *stream, RpGeometry *geometry);
+
+extern RwUInt32
+_rpSkinSplitDataGetStreamSize(const RpSkin *skin);
+
 extern RpGeometry *
 _rpSkinInitialize(RpGeometry *geometry);
 

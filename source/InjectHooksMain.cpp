@@ -1094,6 +1094,7 @@ void InjectHooksMain() {
     RpWorldInjectHooks();
     RpHAnimInjectHooks();
     RpSkinInjectHooks();
+    RtBMPInjectHooks();
     RpUVAnimInjectHooks();
     RtDictInjectHooks();
     RwD3D9InjectHooksR1A();
