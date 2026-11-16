@@ -38,9 +38,10 @@ auto& CurrentDepthStencilSurface  = StaticRef<void*>(0xC9808C);
 auto& D3D9Device                  = StaticRef<void*>(0xC97C28);
 
 struct TextureGlobalsLayout {   // solo los campos que usan estas funciones (batextur.c de RW 3.6)
-    uint8 pad00[0x08];
+    RwLLLink texDictList;       // +0x00 (cabeza de la lista de todos los diccionarios; lote R25A)
     RwFreeList* textureFreeList; // +0x08 (lista libre de RwTexture; lote R7A)
-    uint8 pad0[0x08];
+    RwFreeList* texDictFreeList; // +0x0C (lista libre de RwTexDictionary; lote R25A)
+    RwTexDictionary* currentTexDict; // +0x10 (diccionario actual; lote R25A)
     RwTextureCallBackRead readCallBack; // +0x14 (lote R24A)
     RwTextureCallBackFind findCallBack; // +0x18 (lote R24A)
     RwBool mipmapping;          // +0x1C
@@ -53,6 +54,7 @@ static_assert(offsetof(TextureGlobalsLayout, mipmapping) == 0x1C && offsetof(Tex
            && offsetof(TextureGlobalsLayout, mipmapGenerationCallBack) == 0x2C);
 static_assert(offsetof(TextureGlobalsLayout, textureFreeList) == 0x08 && offsetof(TextureGlobalsLayout, mipmapNameCallBack) == 0x30);
 static_assert(offsetof(TextureGlobalsLayout, readCallBack) == 0x14 && offsetof(TextureGlobalsLayout, findCallBack) == 0x18);
+static_assert(offsetof(TextureGlobalsLayout, texDictFreeList) == 0x0C && offsetof(TextureGlobalsLayout, currentTexDict) == 0x10);
 
 struct RasterGlobalsLayout {    // pila de contextos de RwRasterPushContext/PopContext (bardevice/baraster.c)
     RwRaster* rasterStack[10];  // +0x00
@@ -90,6 +92,19 @@ constexpr size_t kSlotSetDepthStencilSurface = 39;      // IDirect3DDevice9::Set
 constexpr size_t kSlotCreatePixelShader = 106;          // IDirect3DDevice9::CreatePixelShader (+0x1A8)
 constexpr size_t kSlotSetRenderState = 57;              // IDirect3DDevice9::SetRenderState (+0xE4; lote R10A)
 constexpr size_t kSlotSetTextureStageState = 67;        // IDirect3DDevice9::SetTextureStageState (+0x10C; lote R10A)
+} // namespace
+
+// Lote R25A (sin validar): ayudantes de las texturas (batextur.c). CopyStringChecked se define mas abajo (lote R7A). RwRaiseError es el RWERROR del SDK con el pluginID literal 1 del EXE:
+// RwError { 1, _rwerror(codigo [, argumentos]) } y RwErrorSet (0x808820).
+namespace {
+void CopyStringChecked(char* destination, const char* source, uint32 size);
+template<typename... Args>
+void RwRaiseError(RwInt32 code, Args... args) {
+    RwError error;
+    error.pluginID  = 1;
+    error.errorCode = _rwerror(code, args...);
+    RwErrorSet(&error);
+}
 } // namespace
 
 // --- Lote 223A (sin validar): plugin de raster del controlador D3D9 de RenderWare (0x4C9990..0x4CA5A0; el listado las atribuia a CWeaponModelInfo) ---
@@ -691,8 +706,43 @@ RxHeap* RxHeapGetGlobalHeap() {
     return StaticRef<RxHeap*>(0xC9A6B0);
 }
 
+// 0x805710 (lote R25A, sin validar; 159 bytes; era una envoltura; cdecl, (tuberia, datos, reiniciar monton)): con `heapReset` distinto de 0 y el monton global (0xC9A6B0) sucio (+0x18) llama a _rxHeapReset (0x809EC0).
+// Anota el contexto de ejecucion en las variables del EXE (resultado 0xC9BC48 = 1, tuberia 0xC9BC40, paquete de parametros {datos 0xC9BC50, monton 0xC9BC54}), pone embeddedPacketState (+0x10) a 0 y llama al cuerpo
+// del primer nodo (nodes[0].nodeDef->nodeMethods.nodeBody, +4 de la definicion) con (nodo, &paquete); si devuelve 0 el resultado queda a 0. Si embeddedPacketState > 1 (con signo) lo pone a 2 y llama a
+// _rxPacketDestroy (0x80F070) con embeddedPacket (+0x14). Limpia tuberia y parametros (0) y devuelve la tuberia si el resultado (releido) es distinto de 0, si no NULL.
+static_assert(offsetof(RxNodeDefinition, nodeMethods) == 4 && offsetof(RxNodeMethods, nodeBody) == 0 && offsetof(RxPipeline, embeddedPacketState) == 0x10 && offsetof(RxPipeline, embeddedPacket) == 0x14
+           && offsetof(RxPipeline, nodes) == 8 && offsetof(RxHeap, dirty) == 0x18);
 RxPipeline* RxPipelineExecute(RxPipeline* pipeline, void* data, RwBool heapReset) {
-    return ((RxPipeline*(__cdecl *)(RxPipeline*, void*, RwBool))0x805710)(pipeline, data, heapReset);
+    static auto& pipelineResult = StaticRef<RwInt32>(0xC9BC48);
+    static auto& currentPipeline = StaticRef<RxPipeline*>(0xC9BC40);
+    static auto& paramData = StaticRef<void*>(0xC9BC50);
+    static auto& paramHeap = StaticRef<RxHeap*>(0xC9BC54);
+    if (heapReset != 0) {
+        RxHeap* const heap = StaticRef<RxHeap*>(0xC9A6B0);
+        if (heap->dirty != 0) {
+            _rxHeapReset(heap);
+        }
+    }
+    RxHeap* const heap = StaticRef<RxHeap*>(0xC9A6B0);
+    pipelineResult = 1;
+    currentPipeline = pipeline;
+    paramData = data;
+    paramHeap = heap;
+    RxPipelineNode* const node = pipeline->nodes;
+    pipeline->embeddedPacketState = static_cast<rxEmbeddedPacketState>(0);
+    const RwBool bodyResult = node->nodeDef->nodeMethods.nodeBody(node, reinterpret_cast<const RxPipelineNodeParam*>(&paramData));
+    if (bodyResult == 0) {
+        pipelineResult = 0;
+    }
+    if (static_cast<RwInt32>(pipeline->embeddedPacketState) > 1) {
+        pipeline->embeddedPacketState = static_cast<rxEmbeddedPacketState>(2);
+        _rxPacketDestroy(pipeline->embeddedPacket);
+    }
+    const RwInt32 result = pipelineResult;
+    currentPipeline = nullptr;
+    paramData = nullptr;
+    paramHeap = nullptr;
+    return result != 0 ? pipeline : nullptr;
 }
 
 RxPacket* RxPacketCreate(RxPipelineNode* node) {
@@ -1175,10 +1225,9 @@ void _rwD3D9DynamicVertexBufferManagerForceDiscard() {
     }
 }
 
-// 0x7F5840 (lote R7A, sin validar; nombre inferido): indice actual a 0 y, por cada uno de los cuatro buferes dinamicos activos: posicion y tamano a 0 y, si tenia bufer, busca su nodo en la lista (0xC97B8C)
-// y lo marca libre (inUse = 0, owner = NULL) y deja la ranura a NULL. Con DevCaps & 0x10000 (pool DEFAULT) recorre despues TODOS los nodos con bufer: Release, vertexBuffer = NULL y, si tiene owner, escribe
-// NULL en la variable del propietario.
-void _rwD3D9DynamicVertexBufferRelease() {
+// Primera parte comun de 0x7F5840 (Release) y 0x7F5D20 (_rwD3D9VertexBufferManagerClose, lote R25A): indice actual a 0 y, por cada uno de los cuatro buferes dinamicos activos: posicion y tamano a 0 y, si tenia
+// bufer, busca su nodo en la lista (0xC97B8C) y lo marca libre (inUse = 0, owner = NULL) y deja la ranura a NULL.
+static void DynamicVertexBufferResetActive() {
     DynamicVertexBufferCurrent = 0;
     for (int i = 0; i < 4; ++i) {
         void* const vertexBuffer = DynamicVertexBufferActive[i];
@@ -1195,6 +1244,12 @@ void _rwD3D9DynamicVertexBufferRelease() {
             DynamicVertexBufferActive[i] = nullptr;
         }
     }
+}
+
+// 0x7F5840 (lote R7A, sin validar; nombre inferido): primera parte = DynamicVertexBufferResetActive (indice a 0 y cuatro buferes activos liberados). Con DevCaps & 0x10000 (pool DEFAULT) recorre despues
+// TODOS los nodos con bufer: Release, vertexBuffer = NULL y, si tiene owner, escribe NULL en la variable del propietario.
+void _rwD3D9DynamicVertexBufferRelease() {
+    DynamicVertexBufferResetActive();
     if ((D3D9DeviceDevCaps & kDevCapsHardwareTransformAndLight) != 0 && DynamicVertexBufferList != nullptr) {
         D3D9DynamicVertexBuffer* node = DynamicVertexBufferList;
         while (node != nullptr) {
@@ -1235,6 +1290,77 @@ RwBool _rwD3D9DynamicVertexBufferManagerOpen() {
         DynamicVertexBufferActive[i]   = nullptr;
         DynamicVertexBufferSize[i]     = 0;
     }
+    return TRUE;
+}
+
+// 0x7F5D20 (lote R25A, sin validar; 456 bytes; cdecl sin argumentos, sin valor de retorno; nombre inferido: cierre del gestor de buferes de vertices, `_rwD3D9VertexBufferManagerClose` del SDK): primera
+// parte de 0x7F5840 (DynamicVertexBufferResetActive). Despues recorre TODA la lista de buferes dinamicos (0xC97B8C): por nodo, si tiene bufer lo libera (Release), pone vertexBuffer = NULL y, si hay owner,
+// escribe NULL en la variable del propietario; devuelve el nodo a la lista libre (0xC97B90, memoryFree +0x148) y avanza la cabeza de la lista al siguiente; al terminar destruye esa lista libre
+// (RwFreeListDestroy 0x801B80) y la pone a NULL. Despues, por cada grupo de la lista (0xC97B7C): devuelve a la lista libre de bloques (0xC97B84) todos sus tramos libres, libera cada bufer de sus entradas
+// (Release) y las devuelve a la lista de entradas (0xC97B88) y devuelve el grupo a la de grupos (0xC97B80), avanzando la cabeza de grupos; el EXE vuelve a leer la cabeza (0xC97B7C) entre pasos (equivale
+// al grupo actual). Termina destruyendo las listas libres de entradas, bloques y grupos (este orden; cada una solo si no es NULL, y la pone a NULL).
+void _rwD3D9VertexBufferManagerClose() {
+    DynamicVertexBufferResetActive();
+    for (D3D9DynamicVertexBuffer* node = DynamicVertexBufferList; node != nullptr; node = DynamicVertexBufferList) {
+        D3D9DynamicVertexBuffer* const next = node->next;
+        if (node->vertexBuffer != nullptr) {
+            ComCall<kSlotRelease, ULONG>(node->vertexBuffer);
+            node->vertexBuffer = nullptr;
+            if (node->owner != nullptr) {
+                *node->owner = nullptr;
+            }
+        }
+        RwFreeListFree(DynamicVertexBufferFreeList, node);
+        DynamicVertexBufferList = next;
+    }
+    if (DynamicVertexBufferFreeList != nullptr) {
+        RwFreeListDestroy(DynamicVertexBufferFreeList);
+        DynamicVertexBufferFreeList = nullptr;
+    }
+    for (VertexBufferGroup* group = VertexBufferGroups; group != nullptr; group = VertexBufferGroups) {
+        VertexBufferGroup* const nextGroup = group->next;
+        while (group->freeBlocks != nullptr) {
+            VertexBufferFreeBlock* const block = group->freeBlocks;
+            VertexBufferFreeBlock* const nextBlock = block->next;
+            RwFreeListFree(VertexBufferBlockFreeList, block);
+            group->freeBlocks = nextBlock;
+        }
+        while (group->vertexBuffers != nullptr) {
+            VertexBufferEntry* const entry = group->vertexBuffers;
+            VertexBufferEntry* const nextEntry = entry->next;
+            if (entry->vertexBuffer != nullptr) {
+                ComCall<kSlotRelease, ULONG>(entry->vertexBuffer);
+            }
+            RwFreeListFree(VertexBufferEntryFreeList, entry);
+            group->vertexBuffers = nextEntry;
+        }
+        RwFreeListFree(VertexBufferGroupFreeList, group);
+        VertexBufferGroups = nextGroup;
+    }
+    if (VertexBufferEntryFreeList != nullptr) {
+        RwFreeListDestroy(VertexBufferEntryFreeList);
+        VertexBufferEntryFreeList = nullptr;
+    }
+    if (VertexBufferBlockFreeList != nullptr) {
+        RwFreeListDestroy(VertexBufferBlockFreeList);
+        VertexBufferBlockFreeList = nullptr;
+    }
+    if (VertexBufferGroupFreeList != nullptr) {
+        RwFreeListDestroy(VertexBufferGroupFreeList);
+        VertexBufferGroupFreeList = nullptr;
+    }
+}
+
+// 0x7F5CB0 (lote R25A, sin validar; 103 bytes; cdecl sin argumentos, devuelve TRUE; nombre inferido: `_rwD3D9VertexBufferManagerOpen` del SDK): primero _rwD3D9VertexBufferManagerClose (0x7F5D20) y despues crea
+// con RwFreeListCreate (pista 0x40411, alineacion 4) las cuatro listas libres: grupos (0xC97B80; 0x10 bytes, 0x10 por bloque), tramos libres (0xC97B84; 0x14 bytes, 0x64 por bloque), entradas (0xC97B88; 8 bytes,
+// 0x64) y nodos dinamicos (0xC97B90; 0x14 bytes, 0x2A). Sin comprobar NULL. Llama a _rwD3D9DynamicVertexBufferManagerOpen (0x7F5940) y IGNORA su resultado: siempre TRUE.
+RwBool _rwD3D9VertexBufferManagerOpen() {
+    _rwD3D9VertexBufferManagerClose();
+    VertexBufferGroupFreeList   = RwFreeListCreate(0x10, 0x10, 4, 0x40411);
+    VertexBufferBlockFreeList   = RwFreeListCreate(0x14, 0x64, 4, 0x40411);
+    VertexBufferEntryFreeList   = RwFreeListCreate(8, 0x64, 4, 0x40411);
+    DynamicVertexBufferFreeList = RwFreeListCreate(0x14, 0x2A, 4, 0x40411);
+    _rwD3D9DynamicVertexBufferManagerOpen();
     return TRUE;
 }
 
@@ -1500,36 +1626,152 @@ RwBool RwTextureSetFindCallBack(RwTextureCallBackFind callBack) {
     return TRUE;
 }
 
+// 0x7F38A0 (lote R25A, sin validar; 110 bytes; era una envoltura; cdecl, (textura, nombre)): copia el nombre en texture->name (+0x10, 32 bytes) con rwstrncpy y, si rwstrlen(nombre) >= 32, emite el error
+// {1, _rwerror(0x8000001E, nombre, 32, 31, (char)nombre[31])} y cierra la cadena (name[31] = 0). Devuelve la textura. Es CopyStringChecked (lote R7A).
 RwTexture* RwTextureSetName(RwTexture* texture, const RwChar* name) {
-    return ((RwTexture*(__cdecl *)(RwTexture*, const RwChar*))0x7F38A0)(texture, name);
+    CopyStringChecked(texture->name, name, 0x20);
+    return texture;
 }
 
+// 0x7F3910 (lote R25A, sin validar; 110 bytes; era una envoltura; cdecl, (textura, mascara)): igual que RwTextureSetName pero sobre texture->mask (+0x30; cierre en +0x4F).
 RwTexture* RwTextureSetMaskName(RwTexture* texture, const RwChar* maskName) {
-    return ((RwTexture*(__cdecl *)(RwTexture*, const RwChar*))0x7F3910)(texture, maskName);
+    CopyStringChecked(texture->mask, maskName, 0x20);
+    return texture;
 }
 
 void RwTexDictionarySetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
     ((void(__cdecl *)(RwInt32, RwInt32))0x7F3E80)(blockSize, numBlocksToPrealloc);
 }
 
+// 0x7F3600 (lote R25A, sin validar; 152 bytes; era una envoltura; cdecl, sin argumentos): reserva el diccionario en la lista libre de los globales de textura (+0x0C, pista 0x30016); sin memoria -> NULL. Pone
+// object.type = 6 y subType/flags/privateFlags/parent = 0, lo enlaza a la CABEZA de la lista de diccionarios (globales +0x00: lInInstance.next = cabeza.next, .prev = &cabeza, cabeza.next->prev = &enlace,
+// cabeza.next = &enlace), deja vacia su lista de texturas (+0x08: prev = next = su propia direccion; el prev primero) y llama a _rwPluginRegistryInitObject(registro 0x8E23E4, diccionario) ignorando su resultado.
 RwTexDictionary* RwTexDictionaryCreate() {
-    return ((RwTexDictionary*(__cdecl *)(void))0x7F3600)();
+    TextureGlobalsLayout& globals = TextureGlobals();
+    auto* const dict = static_cast<RwTexDictionary*>(RwFreeListAlloc(globals.texDictFreeList, 0x30016));
+    if (dict == nullptr) {
+        return nullptr;
+    }
+    dict->object.type = 6;
+    dict->object.subType = 0;
+    dict->object.flags = 0;
+    dict->object.privateFlags = 0;
+    dict->object.parent = nullptr;
+    TextureGlobalsLayout& list = TextureGlobals();
+    RwLLLink* const link = &dict->lInInstance;
+    link->next = list.texDictList.next;
+    link->prev = &list.texDictList;
+    TextureGlobals().texDictList.next->prev = link;
+    TextureGlobals().texDictList.next = link;
+    dict->texturesInDict.link.prev = &dict->texturesInDict.link;
+    dict->texturesInDict.link.next = &dict->texturesInDict.link;
+    _rwPluginRegistryInitObject(&TexDictTKList, dict);
+    return dict;
 }
 
+// 0x7F36A0 (lote R25A, sin validar; 133 bytes; era una envoltura; cdecl, (diccionario); devuelve TRUE siempre): si es el diccionario actual (globales +0x10) lo deja a NULL. Recorre su lista de texturas
+// (leyendo el siguiente enlace ANTES) llamando a RwTextureDestroy (0x7F3820; el EXE le pasa ademas un 0 que ignora) y para en cuanto devuelve 0. Despues _rwPluginRegistryDeInitObject(registro 0x8E23E4,
+// diccionario), lo saca de la lista global (prev->next = next; next->prev = prev) y lo libera en la lista libre de diccionarios (+0x0C). Las texturas con mas referencias quedan en su lista.
 RwBool RwTexDictionaryDestroy(RwTexDictionary* dict) {
-    return ((RwBool(__cdecl *)(RwTexDictionary*))0x7F36A0)(dict);
+    if (TextureGlobals().currentTexDict == dict) {
+        TextureGlobals().currentTexDict = nullptr;
+    }
+    RwLLLink* const end = &dict->texturesInDict.link;
+    RwLLLink* link = end->next;
+    if (link != end) {
+        do {
+            RwLLLink* const next = link->next;
+            RwTexture* const texture = reinterpret_cast<RwTexture*>(reinterpret_cast<RwUInt8*>(link) - offsetof(RwTexture, lInDictionary));
+            if (!RwTextureDestroy(texture)) {
+                break;
+            }
+            link = next;
+        } while (link != end);
+    }
+    _rwPluginRegistryDeInitObject(&TexDictTKList, dict);
+    dict->lInInstance.prev->next = dict->lInInstance.next;
+    dict->lInInstance.next->prev = dict->lInInstance.prev;
+    RwFreeListFree(TextureGlobals().texDictFreeList, dict);
+    return TRUE;
 }
 
+// 0x7F37C0 (lote R25A, sin validar; 90 bytes; era una envoltura; cdecl, (raster)): reserva la textura en la lista libre de los globales (+0x08, pista 0x30006); sin memoria -> NULL. filterAddressing = 0 (dword)
+// y despues el byte +0x51 = 0x11 y el byte +0x50 = 1; raster, dict = NULL, name[0] = mask[0] = 0, refCount = 1 y _rwPluginRegistryInitObject(registro 0x8E23CC, textura) ignorando su resultado. Devuelve la textura.
 RwTexture* RwTextureCreate(RwRaster* raster) {
-    return ((RwTexture*(__cdecl *)(RwRaster*))0x7F37C0)(raster);
+    auto* const texture = static_cast<RwTexture*>(RwFreeListAlloc(TextureGlobals().textureFreeList, 0x30006));
+    if (texture == nullptr) {
+        return nullptr;
+    }
+    texture->filterAddressing = 0;
+    texture->raster = raster;
+    reinterpret_cast<RwUInt8*>(texture)[0x51] = 0x11;
+    texture->dict = nullptr;
+    texture->name[0] = 0;
+    texture->mask[0] = 0;
+    texture->refCount = 1;
+    reinterpret_cast<RwUInt8*>(texture)[0x50] = 1;
+    _rwPluginRegistryInitObject(&TextureTKList, texture);
+    return texture;
 }
 
+// 0x7F3AC0 (lote R25A, sin validar; 231 bytes; era una envoltura; cdecl, (nombre, mascara)): llama a la devolucion de busqueda (globales +0x18) con (nombre); si da una textura, refCount += 1 y la devuelve.
+// Si no, a la de lectura (+0x14) con (nombre, mascara); NULL -> error {1, _rwerror(0x16, nombre, mascara)} (con mascara NULL el tercer argumento es la cadena fija 0x8E240C, "(null)") y devuelve NULL.
+// Con textura leida: si hay diccionario actual (+0x10), la saca de su diccionario anterior (si tiene) y la inserta a la cabeza de la lista del actual (como RwTexDictionaryAddTexture inlinado). Devuelve la textura.
 RwTexture* RwTextureRead(const char* name, const char* maskName) {
-    return plugin::CallAndReturn<RwTexture*, 0x7F3AC0, const char*, const char*>(name, maskName);
+    RwTexture* texture = TextureGlobals().findCallBack(name);
+    if (texture != nullptr) {
+        texture->refCount = texture->refCount + 1;
+        return texture;
+    }
+    texture = TextureGlobals().readCallBack(name, maskName);
+    if (texture == nullptr) {
+        if (maskName != nullptr) {
+            RwRaiseError(0x16, name, maskName);
+        } else {
+            RwRaiseError(0x16, name, reinterpret_cast<const char*>(0x8E240C));
+        }
+        return nullptr;
+    }
+    RwTexDictionary* const current = TextureGlobals().currentTexDict;
+    if (current != nullptr) {
+        if (texture->dict != nullptr) {
+            texture->lInDictionary.prev->next = texture->lInDictionary.next;
+            texture->lInDictionary.next->prev = texture->lInDictionary.prev;
+        }
+        texture->dict = current;
+        RwLLLink* const first = current->texturesInDict.link.next;
+        RwLLLink* const head = &current->texturesInDict.link;
+        RwLLLink* const link = &texture->lInDictionary;
+        texture->lInDictionary.prev = head;
+        link->next = first;
+        head->next->prev = link;
+        head->next = link;
+    }
+    return texture;
 }
 
+// 0x7F3820 (lote R25A, sin validar; 121 bytes; era una envoltura; cdecl, (textura); devuelve TRUE siempre): refCount -= 1; si sigue > 0 (con signo) no hace mas. Si no: restaura refCount al valor anterior,
+// _rwPluginRegistryDeInitObject(registro 0x8E23CC, textura), si tiene diccionario la saca de su lista (prev->next = next; next->prev = prev; sin tocar `dict`), si tiene raster lo destruye con RwRasterDestroy
+// (0x7FB020) y lo pone a NULL, refCount -= 1 (queda en 0) y libera la textura en la lista libre (globales +0x08).
 RwBool RwTextureDestroy(RwTexture* texture) {
-    return ((RwBool(__cdecl *)(RwTexture*))0x7F3820)(texture);
+    const RwInt32 remaining = texture->refCount - 1;
+    texture->refCount = remaining;
+    if (remaining > 0) {
+        return TRUE;
+    }
+    texture->refCount = remaining + 1;
+    _rwPluginRegistryDeInitObject(&TextureTKList, texture);
+    if (texture->dict != nullptr) {
+        texture->lInDictionary.prev->next = texture->lInDictionary.next;
+        texture->lInDictionary.next->prev = texture->lInDictionary.prev;
+    }
+    if (texture->raster != nullptr) {
+        RwRasterDestroy(texture->raster);
+        texture->raster = nullptr;
+    }
+    texture->refCount = texture->refCount - 1;
+    RwFreeListFree(TextureGlobals().textureFreeList, texture);
+    return TRUE;
 }
 
 // 0x7F35D0 (lote R24A, sin validar; 47 bytes; era una envoltura; cdecl, (textura, raster)): raster nulo -> texture->raster (+0) = NULL y devuelve la textura sin llamar a nada. Si no llama a la funcion estandar
@@ -1543,28 +1785,100 @@ RwTexture* RwTextureSetRaster(RwTexture* texture, RwRaster* raster) {
     return result != 0 ? texture : nullptr;
 }
 
+// 0x7F3980 (lote R25A, sin validar; 58 bytes; era una envoltura; cdecl, (diccionario, textura)): si la textura ya tenia diccionario (`dict` != NULL) la saca de su lista (prev->next = next; next->prev = prev);
+// despues dict = diccionario y la inserta a la CABEZA de la lista de texturas del diccionario (lInDictionary.prev = &cabeza; next = cabeza.next; cabeza.next->prev = &enlace; cabeza.next = &enlace). Devuelve la textura.
 RwTexture* RwTexDictionaryAddTexture(RwTexDictionary* dict, RwTexture* texture) {
-    return ((RwTexture*(__cdecl *)(RwTexDictionary*, RwTexture*))0x7F3980)(dict, texture);
+    if (texture->dict != nullptr) {
+        texture->lInDictionary.prev->next = texture->lInDictionary.next;
+        texture->lInDictionary.next->prev = texture->lInDictionary.prev;
+    }
+    texture->dict = dict;
+    RwLLLink* const head = &dict->texturesInDict.link;
+    RwLLLink* const link = &texture->lInDictionary;
+    RwLLLink* const first = head->next;
+    texture->lInDictionary.prev = head;
+    link->next = first;
+    head->next->prev = link;
+    head->next = link;
+    return texture;
 }
 
+// 0x7F39C0 (lote R25A, sin validar; 36 bytes; era una envoltura; cdecl, (textura)): si tiene diccionario: dict = NULL y la saca de su lista (prev->next = next; next->prev = prev). Devuelve la textura.
 RwTexture* RwTexDictionaryRemoveTexture(RwTexture* texture) {
-    return ((RwTexture*(__cdecl *)(RwTexture*))0x7F39C0)(texture);
+    if (texture->dict != nullptr) {
+        RwLLLink* const prev = texture->lInDictionary.prev;
+        RwLLLink* const next = texture->lInDictionary.next;
+        texture->dict = nullptr;
+        prev->next = next;
+        texture->lInDictionary.next->prev = texture->lInDictionary.prev;
+    }
+    return texture;
 }
 
+// 0x7F39F0 (lote R25A, sin validar; 115 bytes; era una envoltura; cdecl, (diccionario, nombre)): recorre la lista de texturas (de la cabeza a la cola) y devuelve la primera cuyo nombre (+0x10) coincide con
+// `name` sin distinguir mayusculas: compara byte a byte parando al primer 0 de cualquiera de los dos; antes de comparar pasa a mayuscula (resta 0x20) los bytes con signo entre 'a' y 'z' (los >= 0x80 no
+// cambian); al terminar compara los bytes sin convertir. Sin coincidencia -> NULL.
 RwTexture* RwTexDictionaryFindNamedTexture(RwTexDictionary* dict, const RwChar* name) {
-    return ((RwTexture*(__cdecl *)(RwTexDictionary*, const RwChar*))0x7F39F0)(dict, name);
+    RwLLLink* const end = &dict->texturesInDict.link;
+    for (RwLLLink* link = end->next; link != end; link = link->next) {
+        RwTexture* const texture = reinterpret_cast<RwTexture*>(reinterpret_cast<RwUInt8*>(link) - offsetof(RwTexture, lInDictionary));
+        const signed char* a = reinterpret_cast<const signed char*>(texture->name);
+        const signed char* b = reinterpret_cast<const signed char*>(name);
+        bool differs = false;
+        while (*a != 0) {
+            signed char ca = *a;
+            signed char cb = *b;
+            if (cb == 0) {
+                break;
+            }
+            if (ca >= 0x61 && ca <= 0x7A) {
+                ca = static_cast<signed char>(ca + static_cast<signed char>(0xE0));
+            }
+            if (cb >= 0x61 && cb <= 0x7A) {
+                cb = static_cast<signed char>(cb + static_cast<signed char>(0xE0));
+            }
+            if (ca != cb) {
+                differs = true;
+                break;
+            }
+            ++a;
+            ++b;
+        }
+        if (!differs && *a == *b) {
+            return texture;
+        }
+    }
+    return nullptr;
 }
 
+// 0x7F3A90 (lote R25A, sin validar; 16 bytes; era una envoltura; cdecl, sin argumentos): devuelve el diccionario actual (globales de textura +0x10).
 RwTexDictionary* RwTexDictionaryGetCurrent() {
-    return ((RwTexDictionary*(__cdecl *)(void))0x7F3A90)();
+    return TextureGlobals().currentTexDict;
 }
 
+// 0x7F3A70 (lote R25A, sin validar; 21 bytes; era una envoltura; cdecl, (diccionario)): guarda el diccionario como actual (+0x10; acepta NULL) y lo devuelve (EAX conserva el argumento).
 RwTexDictionary* RwTexDictionarySetCurrent(RwTexDictionary* dict) {
-    return ((RwTexDictionary*(__cdecl *)(RwTexDictionary*))0x7F3A70)(dict);
+    TextureGlobals().currentTexDict = dict;
+    return dict;
 }
 
+// 0x7F3730 (lote R25A, sin validar; 64 bytes; era una envoltura; cdecl, (diccionario, callback, datos)): recorre la lista de texturas llamando a callback(textura, datos) con el siguiente enlace leido ANTES; para
+// si devuelve 0. Devuelve siempre el diccionario. (Lista vacia: sale sin leer callback ni datos.)
 const RwTexDictionary* RwTexDictionaryForAllTextures(const RwTexDictionary* dict, RwTextureCallBack fpCallBack, void* data) {
-    return ((const RwTexDictionary*(__cdecl *)(const RwTexDictionary*, RwTextureCallBack, void*))0x7F3730)(dict, fpCallBack, data);
+    const RwLLLink* const end = &dict->texturesInDict.link;
+    RwLLLink* link = end->next;
+    if (link == end) {
+        return dict;
+    }
+    do {
+        RwLLLink* const next = link->next;
+        RwTexture* const texture = reinterpret_cast<RwTexture*>(reinterpret_cast<RwUInt8*>(link) - offsetof(RwTexture, lInDictionary));
+        if (fpCallBack(texture, data) == nullptr) {
+            break;
+        }
+        link = next;
+    } while (link != end);
+    return dict;
 }
 
 RwBool RwTexDictionaryForAllTexDictionaries(RwTexDictionaryCallBack fpCallBack, void* data) {
@@ -2123,6 +2437,127 @@ void _rwD3D9SetDepthStencilSurface(void* surface) {
     ComCall<kSlotSetDepthStencilSurface, HRESULT>(device, surface);
 }
 
+// Lote R25A (sin validar): estado del controlador D3D9 de RenderWare. Direcciones del EXE: 0xC98090[4] superficies de render actuales (indice = RwD3D9SetRenderTarget); cache del ultimo estado enviado al dispositivo:
+// 0x8E2440 FVF, 0x8E2444 declaracion de vertices, 0x8E2448 vertex shader, 0x8E244C pixel shader, 0x8E2450 buffer de indices (todos 0xFFFFFFFF = desconocido) y 0xC97BD8[4] flujos de vertices (0x10 bytes cada uno:
+// buffer, desplazamiento, paso); 0xC98080 lista libre de matrices (0x40 bytes) y 0xC97C70[0x104] punteros a matrices del cache de transformaciones (0xC97C68 contador); 0xC98070 matriz reservada de esa lista;
+// 0xC97C20 IDirect3D9*, 0xC97C24 adaptador, 0x8E2428 tipo de dispositivo, 0xC9BEF0 formato del adaptador, 0xC9BEF8 bandera de pantalla completa; 0x8E242C/0x8E2430/0x8E2434/0x8E2438 niveles de multimuestreo
+// (maximo, elegido, maximo no enmascarable, elegido no enmascarable).
+namespace {
+constexpr size_t kSlotSetRenderTarget = 37;                  // IDirect3DDevice9::SetRenderTarget (+0x94)
+constexpr size_t kSlotCreateVertexShader = 91;               // IDirect3DDevice9::CreateVertexShader (+0x16C)
+constexpr size_t kSlotCheckDeviceMultiSampleType = 11;       // IDirect3D9::CheckDeviceMultiSampleType (+0x2C)
+struct D3D9LastStream {                                      // elemento de 0xC97BD8 (0x10 bytes; el cuarto dword no se toca)
+    uint32 vertexBuffer;                                     // +0x00
+    uint32 offset;                                           // +0x04
+    uint32 stride;                                           // +0x08
+    uint32 unused;                                           // +0x0C
+};
+static_assert(sizeof(D3D9LastStream) == 0x10);
+void* (&D3D9CurrentRenderTargets)[4] = *reinterpret_cast<void*(*)[4]>(0xC98090);
+D3D9LastStream (&D3D9LastStreams)[4] = *reinterpret_cast<D3D9LastStream(*)[4]>(0xC97BD8);
+void* (&D3D9TransformCache)[0x104]   = *reinterpret_cast<void*(*)[0x104]>(0xC97C70);
+auto& D3D9TransformCacheCount       = StaticRef<uint32>(0xC97C68);
+auto& D3D9TransformCacheFreeList    = StaticRef<RwFreeList*>(0xC98080);
+auto& D3D9TransformCacheMatrix      = StaticRef<void*>(0xC98070);
+auto& D3D9DirectObject              = StaticRef<void*>(0xC97C20);
+auto& D3D9AdapterIndex              = StaticRef<uint32>(0xC97C24);
+auto& D3D9DeviceType                = StaticRef<uint32>(0x8E2428);
+auto& D3D9AdapterFormat             = StaticRef<uint32>(0xC9BEF0);
+auto& D3D9FullScreenFlag            = StaticRef<uint32>(0xC9BEF8);
+auto& D3D9MaxMultisamplingLevels    = StaticRef<uint32>(0x8E242C);
+auto& D3D9SelectedMultisamplingLevels = StaticRef<uint32>(0x8E2430);
+auto& D3D9MaxMultisamplingLevelsNonMask = StaticRef<uint32>(0x8E2434);
+auto& D3D9SelectedMultisamplingLevelsNonMask = StaticRef<uint32>(0x8E2438);
+constexpr float kD3D9IdentityMatrix[16] = { 1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 0, 1 }; // 0x8847A0 (64 bytes)
+} // namespace
+
+// 0x7F5F20 (lote R25A, sin validar; 59 bytes; era una envoltura de WindowedMode.cpp; cdecl, (indice, superficie); devuelve TRUE o FALSE): si la superficie del indice ya es la actual (0xC98090 + indice * 4) devuelve
+// TRUE sin llamar. Si no, la anota ANTES de llamar a _RwD3DDevice->SetRenderTarget(indice, superficie) (+0x94) y devuelve TRUE si el HRESULT no es negativo.
+RwBool _rwD3D9SetRenderTarget(RwUInt32 index, void* surface) {
+    if (D3D9CurrentRenderTargets[index] == surface) {
+        return TRUE;
+    }
+    void* const device = D3D9Device;
+    D3D9CurrentRenderTargets[index] = surface;
+    const HRESULT result = ComCall<kSlotSetRenderTarget, HRESULT>(device, index, surface);
+    return result >= 0;
+}
+
+// 0x7FAC60 (lote R25A, sin validar; 48 bytes; cdecl, (funcion, vertex shader*); `RwD3D9CreateVertexShader` del SDK): _RwD3DDevice->CreateVertexShader(funcion, shader) (+0x16C). Si el HRESULT no es negativo
+// pone el ultimo vertex shader enviado (0x8E2448) a 0xFFFFFFFF. Devuelve TRUE si el HRESULT no es negativo.
+RwBool RwD3D9CreateVertexShader(const RwUInt32* function, void** shader) {
+    const HRESULT result = ComCall<kSlotCreateVertexShader, HRESULT>(D3D9Device, function, shader);
+    if (result >= 0) {
+        StaticRef<uint32>(0x8E2448) = 0xFFFFFFFFu;
+    }
+    return result >= 0;
+}
+
+// 0x7F6B00 (lote R25A, sin validar; 64 bytes; cdecl sin argumentos; nombre inferido): borra la cache del ultimo estado enviado al dispositivo: FVF, declaracion, vertex shader, pixel shader y buffer de indices
+// (0x8E2440..0x8E2450) = 0xFFFFFFFF y los cuatro flujos de vertices (0xC97BD8, 0x10 bytes) con buffer = 0xFFFFFFFF, desplazamiento = 0 y paso = 0 (el cuarto dword no se toca).
+void _rwD3D9StateCacheReset() {
+    StaticRef<uint32>(0x8E2440) = 0xFFFFFFFFu;
+    StaticRef<uint32>(0x8E2444) = 0xFFFFFFFFu;
+    StaticRef<uint32>(0x8E2448) = 0xFFFFFFFFu;
+    StaticRef<uint32>(0x8E244C) = 0xFFFFFFFFu;
+    StaticRef<uint32>(0x8E2450) = 0xFFFFFFFFu;
+    for (int i = 0; i < 4; ++i) {
+        D3D9LastStreams[i].vertexBuffer = 0xFFFFFFFFu;
+        D3D9LastStreams[i].offset = 0;
+        D3D9LastStreams[i].stride = 0;
+    }
+}
+
+// 0x7F6B40 (lote R25A, sin validar; 169 bytes; cdecl sin argumentos; nombre inferido): reinicia el cache de matrices de transformacion. Contador (0xC97C68) = 0. Con lista libre (0xC98080): devuelve cada puntero no
+// nulo de la tabla de 0x104 entradas (0xC97C70) a la lista (memoryFree +0x148, releyendo la lista) y lo pone a NULL, y llama a RwFreeListPurge (0x801E00). Sin lista: la crea con RwFreeListCreate(0x40, 0xF, 0x10,
+// 0x30411) y pone a cero la tabla (0x410 bytes). Despues reserva una matriz de la lista (pista 0x30411; relee 0xC98080), la guarda en 0xC98070 y le copia 64 bytes: la identidad de 0x8847A0.
+void _rwD3D9TransformCacheReset() {
+    D3D9TransformCacheCount = 0;
+    if (D3D9TransformCacheFreeList != nullptr) {
+        for (int i = 0; i < 0x104; ++i) {
+            if (D3D9TransformCache[i] != nullptr) {
+                RwFreeListFree(D3D9TransformCacheFreeList, D3D9TransformCache[i]);
+                D3D9TransformCache[i] = nullptr;
+            }
+        }
+        RwFreeListPurge(D3D9TransformCacheFreeList);
+    } else {
+        D3D9TransformCacheFreeList = RwFreeListCreate(0x40, 0xF, 0x10, 0x30411);
+        memset(D3D9TransformCache, 0, sizeof(D3D9TransformCache));
+    }
+    void* const matrix = RwFreeListAlloc(D3D9TransformCacheFreeList, 0x30411);
+    D3D9TransformCacheMatrix = matrix;
+    memcpy(matrix, kD3D9IdentityMatrix, sizeof(kD3D9IdentityMatrix));
+}
+
+// 0x7F6BF0 (lote R25A, sin validar; 180 bytes; cdecl sin argumentos; `_rwD3D9FindMSLevels` del SDK): pone a 1 los cuatro niveles de multimuestreo (0x8E242C..0x8E2438). windowed = (~[0xC9BEF8]) & 1. Para nivel
+// = 2..16 (unsigned) llama a IDirect3D9::CheckDeviceMultiSampleType (+0x2C) con (adaptador, tipo de dispositivo, formato del adaptador, windowed, nivel, NULL) y si el HRESULT no es negativo guarda el nivel como
+// maximo (0x8E242C). Despues la misma llamada con el tipo 1 (NONMASKABLE) y &calidad (la variable local de nivel, que valia 0x11): si no es negativo, maximo no enmascarable (0x8E2434) = calidad + 1 y, si es
+// mayor que el maximo (0x8E242C), tambien lo sustituye (unsigned).
+void _rwD3D9FindMSLevels() {
+    const uint32 windowed = (~D3D9FullScreenFlag) & 1u;
+    D3D9MaxMultisamplingLevels = 1;
+    D3D9SelectedMultisamplingLevels = 1;
+    D3D9MaxMultisamplingLevelsNonMask = 1;
+    D3D9SelectedMultisamplingLevelsNonMask = 1;
+    uint32 level = 2;
+    do {
+        const HRESULT result = ComCall<kSlotCheckDeviceMultiSampleType, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, D3D9DeviceType, D3D9AdapterFormat, windowed, level, static_cast<uint32*>(nullptr));
+        if (result >= 0) {
+            D3D9MaxMultisamplingLevels = level;
+        }
+        ++level;
+    } while (level <= 0x10);
+    const HRESULT result = ComCall<kSlotCheckDeviceMultiSampleType, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, D3D9DeviceType, D3D9AdapterFormat, windowed, 1u, &level);
+    if (result >= 0) {
+        const uint32 nonMaskable = level + 1;
+        D3D9MaxMultisamplingLevelsNonMask = nonMaskable;
+        if (nonMaskable > D3D9MaxMultisamplingLevels) {
+            D3D9MaxMultisamplingLevels = nonMaskable;
+        }
+    }
+}
+
 void _rwD3D9SetStreams(const RxD3D9VertexStream* streams, RwBool useOffsets) {
     plugin::CallAndReturn<void, 0x7FA090>(streams, useOffsets);
 }
@@ -2136,8 +2571,24 @@ RwBool RwD3D9CameraIsSphereFullyInsideFrustum(const void* camera, const void* sp
    return ((RwBool(__cdecl *)(const void*, const void*))0x7FAD30)(camera, sphere);
 }
 
+// 0x7FAD90 (lote R25A, sin validar; 130 bytes; era una envoltura; cdecl, (camara, caja); `RwD3D9CameraIsBBoxFullyInsideFrustum` del SDK): para cada uno de los 6 planos del frustum (camara + 0x94, 0x14
+// bytes: normal, distancia, closestX/Y/Z en +0x10/+0x11/+0x12) toma la esquina de la caja mas cercana al plano (closest* = 0 -> inf, 1 -> sup; caja + 0xC/+0x10/+0x14 - closest * 12 por eje) y calcula
+// d = (ny * y + x * nx) + nz * z (en este orden; x87 a 24 bits en el EXE, float aqui); si d > distancia (comparacion ordenada: con NaN no se cumple) devuelve FALSE. Con los seis planos superados, TRUE.
+static_assert(sizeof(RwFrustumPlane) == 0x14 && offsetof(RwFrustumPlane, closestX) == 0x10 && offsetof(RwFrustumPlane, plane) + offsetof(RwPlane, distance) == 0x0C && offsetof(RwBBox, inf) == 0x0C);
 RwBool RwD3D9CameraIsBBoxFullyInsideFrustum(const void* camera, const void* boundingBox) {
-   return ((RwBool(__cdecl *)(const void*, const void*))0x7FAD90)(camera, boundingBox);
+    const RwFrustumPlane* plane = static_cast<const RwCamera*>(camera)->frustumPlanes;
+    const RwUInt8* const box = static_cast<const RwUInt8*>(boundingBox);
+    for (int i = 0; i < 6; ++i, ++plane) {
+        const float x = *reinterpret_cast<const float*>(box + 0x0C - plane->closestX * 12);
+        const float y = *reinterpret_cast<const float*>(box + 0x10 - plane->closestY * 12);
+        const float z = *reinterpret_cast<const float*>(box + 0x14 - plane->closestZ * 12);
+        const float partial = plane->plane.normal.y * y;
+        const float distance = (partial + x * plane->plane.normal.x) + plane->plane.normal.z * z;
+        if (distance > plane->plane.distance) {
+            return FALSE;
+        }
+    }
+    return TRUE;
 }
 
 void _rwD3D9RasterConvertToNonPalettized(RwRaster* raster) {
@@ -3680,8 +4131,11 @@ RwMatrix* RwFrameGetLTM(RwFrame* frame) {
     return &frame->ltm;
 }
 
+// 0x7F0910 (lote R25A, sin validar; 125 bytes; era una envoltura; cdecl, (marco)): marcado de sucio de RenderWare (FrameMarkDirty, ya usado por RwFrameTranslate y compania): si la raiz del marco no tiene los bits
+// 0..1 de privateFlags la inserta a la cabeza de la lista de marcos sucios (engine + 0xBC); raiz.privateFlags |= 3 (con el valor leido ANTES de insertar) y marco.privateFlags |= 0xC (releido). Devuelve el marco.
 RwFrame* RwFrameUpdateObjects(RwFrame* frame) {
-    return ((RwFrame*(__cdecl *)(RwFrame*))0x7F0910)(frame);
+    FrameMarkDirty(frame);
+    return frame;
 }
 
 void RwFrameSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
@@ -3878,9 +4332,7 @@ const rwFrameList* _rwFrameListStreamWrite(const rwFrameList* frameList, RwStrea
     return ((const rwFrameList*(__cdecl *)(const rwFrameList*, RwStream*))0x8077A0)(frameList, stream);
 }
 
-RwBBox* RwBBoxCalculate(RwBBox* boundBox, const RwV3d* verts, RwInt32 numVerts) {
-    return ((RwBBox*(__cdecl *)(RwBBox*, const RwV3d*, RwInt32))0x808F60)(boundBox, verts, numVerts);
-}
+// RwBBoxCalculate (0x808F60) vive ahora en rwplcore.cpp (RwPlCore, lote R25A).
 
 RwBBox* RwBBoxInitialize(RwBBox* boundBox, const RwV3d* vertex) {
     return ((RwBBox*(__cdecl *)(RwBBox*, const RwV3d*))0x809020)(boundBox, vertex);
@@ -4133,8 +4585,27 @@ RwCameraChunkInfo* RwCameraChunkInfoRead(RwStream* stream, RwCameraChunkInfo* ca
     return ((RwCameraChunkInfo*(__cdecl *)(RwStream*, RwCameraChunkInfo*, RwInt32*))0x808EF0)(stream, cameraChunkInfo, bytesRead);
 }
 
+// 0x804EF0 (lote R25A, sin validar; 76 bytes; era una envoltura; cdecl, (objeto, marco), sin retorno): si el objeto ya tiene marco (object.parent) saca su enlace lFrame (+8) de la lista de objetos de ese marco
+// (prev->next = next; next->prev = prev). object.parent = marco. Si el marco no es NULL inserta lFrame a la CABEZA de su lista de objetos (+0x90: lFrame.prev = &cabeza; lFrame.next = cabeza.next;
+// cabeza.next->prev = &lFrame; cabeza.next = &lFrame) y llama a RwFrameUpdateObjects (0x7F0910).
+static_assert(offsetof(RwObjectHasFrame, lFrame) == 8 && offsetof(RwFrame, objectList) == 0x90);
 void _rwObjectHasFrameSetFrame(void *object, RwFrame *frame) {
-    plugin::Call<0x804EF0, void*, RwFrame*>(object, frame);
+    auto* const owner = static_cast<RwObjectHasFrame*>(object);
+    if (owner->object.parent != nullptr) {
+        owner->lFrame.prev->next = owner->lFrame.next;
+        owner->lFrame.next->prev = owner->lFrame.prev;
+    }
+    owner->object.parent = frame;
+    if (frame != nullptr) {
+        RwLLLink* const head = &frame->objectList.link;
+        RwLLLink* const link = &owner->lFrame;
+        RwLLLink* const first = head->next;
+        owner->lFrame.prev = head;
+        link->next = first;
+        head->next->prev = link;
+        head->next = link;
+        RwFrameUpdateObjects(frame);
+    }
 }
 
 // 0x804F40: si el objeto tiene marco (object.parent), lo saca de la lista de objetos del marco (sin borrar `parent`).
@@ -4172,13 +4643,185 @@ void CopyStringChecked(char* destination, const char* source, uint32 size) {
     }
 }
 
-// 0x7F4690 (sin reconstruir): lee la imagen (nombre, mascara, banderas de raster) y devuelve la imagen; escribe ancho, alto, profundidad y formato (cType | cFormat << 8) del raster que le corresponde.
-// Los dos primeros parametros de salida se leen como entrada (0 la primera vez; las dimensiones del nivel de mipmap despues).
-using TextureImageReadFn = RwImage*(__cdecl*)(const char*, const char*, uint32, RwInt32*, RwInt32*, RwInt32*, RwInt32*);
-// 0x7F44C0 (sin reconstruir): genera la paleta (1024 bytes) comun de las imagenes de los niveles; los dos ultimos parametros son 4 (formato de 8 bits) u 8 (de 4 bits).
-using TextureImagePaletteFn = void(__cdecl*)(void*, int, RwImage**, int, int);
 constexpr uint32 kTextureReadDefaultMaskSource = 0xC97904; // cadena de 32 bytes que el EXE copia como mascara cuando no hay nombre de mascara
+// 0x803310 (sin reconstruir): devuelve la extension (cadena) que se anade al nombre de una imagen segun el formato de archivo registrado, o NULL. 0x803950: RwImageCopy(destino, origen) (sin reconstruir).
+const char* ImageFileSuffix(const char* name) {
+    return reinterpret_cast<const char*(__cdecl*)(const char*)>(0x803310)(name);
+}
+RwImage* RwImageCopyByAddress(RwImage* destination, const RwImage* source) {
+    return reinterpret_cast<RwImage*(__cdecl*)(RwImage*, const RwImage*)>(0x803950)(destination, source);
+}
 } // namespace
+
+// 0x7F44C0 (lote R25A, sin validar; 464 bytes; era una llamada por direccion fija; cdecl, (paleta, imagen a conservar, imagenes, niveles, bits); nombre inferido): paleta comun de las imagenes de los niveles
+// de un raster paletizado (la paleta es un bufer de 1 << bits entradas RGBA que pone el llamador). Si la imagen 0 tiene paleta y todas las demas (hasta niveles - 1) tienen otra con las mismas 1 << bits
+// entradas (comparadas como dwords), copia la de la imagen 0 al bufer ((1 << imagen0.depth) * 4 bytes) y devuelve TRUE sin tocar nada mas. Un nivel con paleta nula o distinta deja el contador en el centinela
+// 0x40 (el EXE lo conserva asi si es nulo y le suma 1 si es distinta), de modo que no coincide con `niveles`. Si no: RwPalQuantInit (FALSE si falla; el resto queda sin liberar), anade las imagenes (peso 1.0f),
+// RwPalQuantResolvePalette(paleta, 1 << bits) y por nivel crea una imagen de `bits` de profundidad del mismo tamano (FALSE si falla, sin liberar el cuantizador), RwImageAllocatePixels (resultado ignorado),
+// RwPalQuantMatchImage(pixeles, stride, depth, FALSE, cuantizador, imagen original), su `palette` = el bufer del llamador (no una copia), images[nivel] = la nueva y destruye la original salvo que sea la
+// `imagen a conservar` (arg 2 del EXE, el llamador pasa 0). Termina con RwPalQuantTerm y TRUE.
+RwBool _rwTextureMakePalette(void* palette, const RwImage* keepImage, RwImage** images, RwInt32 numLevels, RwInt32 bits) {
+    RwImage* const first = images[0];
+    const uint32* const firstPalette = reinterpret_cast<const uint32*>(first->palette);
+    if (firstPalette != nullptr) {
+        RwInt32 level = 1;
+        if (numLevels > 1) {
+            do {
+                const uint32* const other = reinterpret_cast<const uint32*>(images[level]->palette);
+                if (other == nullptr) {
+                    level = 0x40;
+                    break;
+                }
+                const RwInt32 count = 1 << bits;
+                for (RwInt32 i = 0; i < count; ++i) {
+                    if (firstPalette[i] != other[i]) {
+                        level = 0x40;
+                        break;
+                    }
+                }
+                level = level + 1;
+            } while (level < numLevels);
+        }
+        if (level == numLevels) {
+            memcpy(palette, firstPalette, static_cast<size_t>(1 << first->depth) << 2);
+            return TRUE;
+        }
+    }
+
+    RwPalQuant quantizer;
+    if (!RwPalQuantInit(&quantizer)) {
+        return FALSE;
+    }
+    for (RwInt32 i = 0; i < numLevels; ++i) {
+        RwPalQuantAddImage(&quantizer, images[i], 1.0f);
+    }
+    RwPalQuantResolvePalette(static_cast<RwRGBA*>(palette), 1 << bits, &quantizer);
+    for (RwInt32 i = 0; i < numLevels; ++i) {
+        RwImage* const source = images[i];
+        RwImage* const indexed = RwImageCreate(source->width, source->height, bits);
+        if (indexed == nullptr) {
+            return FALSE;
+        }
+        RwImageAllocatePixels(indexed);
+        RwPalQuantMatchImage(indexed->cpPixels, indexed->stride, indexed->depth, FALSE, &quantizer, source);
+        indexed->palette = static_cast<RwRGBA*>(palette);
+        images[i] = indexed;
+        if (source != keepImage) {
+            RwImageDestroy(source);
+        }
+    }
+    RwPalQuantTerm(&quantizer);
+    return TRUE;
+}
+
+// 0x7F4690 (lote R25A, sin validar; 1092 bytes; era una llamada por direccion fija; cdecl, (nombre, mascara, tipo de raster, &ancho, &alto, &profundidad, &formato); nombre inferido): lee la imagen del
+// disco para una textura. Copia nombre y mascara a dos buferes de 256 bytes con CopyStringChecked (la mascara solo si existe y no esta vacia; si no queda "") y a cada uno le anade con rwstrcat la cadena de
+// 0x803310(original) si no es NULL. RwImageReadMaskedImage(nombre, mascara) (NULL -> NULL). Si el ancho o el alto pedidos (entrada) son 0 llama a RwImageFindRasterFormat(imagen, tipo, ...) que los rellena;
+// si falla destruye la imagen, emite el error {1, _rwerror(0x80000009)} y devuelve NULL. Si la imagen ya mide ancho x alto la devuelve tal cual. Si no: si su profundidad no es 32, la copia a una imagen de 32
+// bits (RwImageCreate + RwImageAllocatePixels + RwImageCopy 0x803950; los fallos destruyen lo creado y la imagen y dan NULL) y destruye la original; despues crea una de ancho x alto x 32, RwImageResample
+// (destino, origen) y destruye la anterior (mismos fallos). Con la profundidad ORIGINAL 4 u 8 la reduce de nuevo: RwPalQuantInit (si falla devuelve la de 32 bits), AddImage (1.0f), ResolvePalette (16 o 256),
+// RwImageCreate(ancho, alto, 4 u 8) (si falla devuelve la de 32 bits sin liberar el cuantizador), RwImageAllocatePixels, RwPalQuantMatchImage(pixeles, stride, depth, FALSE, cuantizador, imagen de 32),
+// copia 16 o 256 dwords de la paleta a la imagen nueva, destruye la de 32 bits y RwPalQuantTerm. Devuelve la imagen resultante.
+RwImage* _rwTextureReadImage(const char* name, const char* maskName, uint32 rasterType, RwInt32* width, RwInt32* height, RwInt32* depth, RwInt32* format) {
+    char nameBuffer[0x100];
+    char maskBuffer[0x100];
+
+    CopyStringChecked(nameBuffer, name, 0x100);
+    if (const char* const suffix = ImageFileSuffix(name)) {
+        rwstrcat(nameBuffer, suffix);
+    }
+    maskBuffer[0] = 0;
+    if (maskName != nullptr && maskName[0] != 0) {
+        CopyStringChecked(maskBuffer, maskName, 0x100);
+        if (const char* const suffix = ImageFileSuffix(maskName)) {
+            rwstrcat(maskBuffer, suffix);
+        }
+    }
+
+    RwImage* image = RwImageReadMaskedImage(nameBuffer, maskBuffer);
+    if (image == nullptr) {
+        return nullptr;
+    }
+    if (*width == 0 || *height == 0) {
+        if (RwImageFindRasterFormat(image, static_cast<RwInt32>(rasterType), width, height, depth, format) == nullptr) {
+            RwImageDestroy(image);
+            RwRaiseError(static_cast<RwInt32>(0x80000009));
+            return nullptr;
+        }
+    }
+    if (image->width == *width && image->height == *height) {
+        return image;
+    }
+
+    const RwInt32 originalDepth = image->depth;
+    if (originalDepth != 0x20) {
+        RwImage* const converted = RwImageCreate(image->width, image->height, 0x20);
+        if (converted == nullptr) {
+            RwImageDestroy(image);
+            return nullptr;
+        }
+        if (RwImageAllocatePixels(converted) == nullptr) {
+            RwImageDestroy(converted);
+            RwImageDestroy(image);
+            return nullptr;
+        }
+        RwImageCopyByAddress(converted, image);
+        RwImageDestroy(image);
+        image = converted;
+    }
+
+    RwImage* const resized = RwImageCreate(*width, *height, 0x20);
+    if (resized == nullptr) {
+        RwImageDestroy(image);
+        return nullptr;
+    }
+    if (RwImageAllocatePixels(resized) == nullptr) {
+        RwImageDestroy(resized);
+        RwImageDestroy(image);
+        return nullptr;
+    }
+    RwImageResample(resized, image);
+    RwImageDestroy(image);
+    image = resized;
+
+    if (originalDepth == 4 || originalDepth == 8) {
+        const RwInt32 colors = originalDepth == 4 ? 0x10 : 0x100;
+        RwPalQuant quantizer;
+        RwRGBA palette[0x100];
+        if (RwPalQuantInit(&quantizer)) {
+            RwPalQuantAddImage(&quantizer, image, 1.0f);
+            RwPalQuantResolvePalette(palette, colors, &quantizer);
+            RwImage* const indexed = RwImageCreate(image->width, image->height, originalDepth);
+            if (indexed != nullptr) {
+                RwImageAllocatePixels(indexed);
+                RwPalQuantMatchImage(indexed->cpPixels, indexed->stride, indexed->depth, FALSE, &quantizer, image);
+                memcpy(indexed->palette, palette, static_cast<size_t>(colors) * sizeof(RwRGBA));
+                RwImageDestroy(image);
+                image = indexed;
+                RwPalQuantTerm(&quantizer);
+            }
+        }
+    }
+    return image;
+}
+
+// 0x7F4080 (lote R25A, sin validar; 112 bytes; cdecl, (nombre, mascara, nivel de mipmap, formato sin usar); nombre inferido): devolucion por defecto de RwTextureSetMipmapNameCallBack. Con un nivel entre 1 y 15
+// forma el sufijo "m" + digito hexadecimal minuscula ("0123456789abcdef" de 0x8846D8, indexada por el nivel) y lo concatena con rwstrcat al nombre y, si la mascara existe y no esta vacia, tambien a la mascara.
+// Con nivel 0 o >= 16 no toca nada. Devuelve TRUE.
+RwBool _rwTextureDefaultMipmapNameCallBack(RwChar* name, RwChar* maskName, RwUInt8 mipLevel, RwInt32 format) {
+    static constexpr char kMipLevelDigits[17] = "0123456789abcdef";
+    char suffix[3];
+    suffix[0] = 'm';
+    suffix[1] = (mipLevel != 0 && mipLevel < 0x10) ? kMipLevelDigits[mipLevel] : 0;
+    suffix[2] = 0;
+    if (suffix[1] != 0) {
+        rwstrcat(name, suffix);
+        if (maskName != nullptr && maskName[0] != 0) {
+            rwstrcat(maskName, suffix);
+        }
+    }
+    return TRUE;
+}
 
 // 0x7F4AE0 (lote R7A, sin validar; nombre inferido): (name, maskName). Copia el nombre (y la mascara, si existe y no esta vacia) a dos buferes locales de 256 bytes con CopyStringChecked. Formato = 4;
 // con mipmapping 0x8004 y con generacion automatica 0x9004. Si hay devolucion de nombres de mipmap (textureGlobals+0x30) la llama (nombre, mascara, 0, formato). Lee la imagen del nivel 0 con 0x7F4690
@@ -4216,7 +4859,7 @@ RwTexture* _rwTextureReadMipmapped(const RwChar* name, const RwChar* maskName) {
     RwInt32 height = 0;
     RwInt32 depth = 0;
     RwInt32 rasterFlags = 0;
-    images[0] = reinterpret_cast<TextureImageReadFn>(0x7F4690)(nameBuffer, maskBuffer, format, &width, &height, &depth, &rasterFlags);
+    images[0] = _rwTextureReadImage(nameBuffer, maskBuffer, format, &width, &height, &depth, &rasterFlags);
     if (images[0] == nullptr) {
         return nullptr;
     }
@@ -4254,7 +4897,7 @@ RwTexture* _rwTextureReadMipmapped(const RwChar* name, const RwChar* maskName) {
                 depth       = raster->depth;
                 rasterFlags = static_cast<RwInt32>((static_cast<uint32>(raster->cFormat) << 8) | raster->cType);
                 RwRasterUnlock(raster);
-                images[level] = reinterpret_cast<TextureImageReadFn>(0x7F4690)(nameBuffer, maskBuffer, format, &width, &height, &depth, &rasterFlags);
+                images[level] = _rwTextureReadImage(nameBuffer, maskBuffer, format, &width, &height, &depth, &rasterFlags);
                 if (images[level] == nullptr) {
                     for (RwInt32 i = level - 1; i >= 0; --i) {
                         RwImageDestroy(images[i]);
@@ -4267,7 +4910,7 @@ RwTexture* _rwTextureReadMipmapped(const RwChar* name, const RwChar* maskName) {
         }
         if ((raster->cFormat & 0x60) != 0) {
             RwUInt8 palette[0x400];
-            reinterpret_cast<TextureImagePaletteFn>(0x7F44C0)(palette, 0, images, numLevels, (raster->cFormat & 0x40) != 0 ? 4 : 8);
+            _rwTextureMakePalette(palette, nullptr, images, numLevels, (raster->cFormat & 0x40) != 0 ? 4 : 8);
             RwImageGammaCorrect(images[0]);
         } else {
             for (RwInt32 i = 0; i < numLevels; ++i) {
@@ -5133,4 +5776,47 @@ void RwCoreInjectHooksR24A() {
     RH_ScopedGlobalInstall(RwTextureSetMipmapping, 0x7F3530);
     RH_ScopedGlobalInstall(RwTextureSetAutoMipmapping, 0x7F3560);
     RH_ScopedGlobalInstall(RwTextureSetRaster, 0x7F35D0);
+}
+
+// Lote R25A (sin validar): diccionarios y texturas (0x7F3600..0x7F3AC0), lectura de imagenes y devolucion de nombres de mipmap (0x7F4080, 0x7F44C0, 0x7F4690), RwFrameUpdateObjects (0x7F0910),
+// _rwObjectHasFrameSetFrame (0x804EF0) y RxPipelineExecute (0x805710).
+void RwCoreInjectHooksR25A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RwFrameUpdateObjects, 0x7F0910);
+    RH_ScopedGlobalInstall(RwTexDictionaryCreate, 0x7F3600);
+    RH_ScopedGlobalInstall(RwTexDictionaryDestroy, 0x7F36A0);
+    RH_ScopedGlobalInstall(RwTexDictionaryForAllTextures, 0x7F3730);
+    RH_ScopedGlobalInstall(RwTextureCreate, 0x7F37C0);
+    RH_ScopedGlobalInstall(RwTextureDestroy, 0x7F3820);
+    RH_ScopedGlobalInstall(RwTextureSetName, 0x7F38A0);
+    RH_ScopedGlobalInstall(RwTextureSetMaskName, 0x7F3910);
+    RH_ScopedGlobalInstall(RwTexDictionaryAddTexture, 0x7F3980);
+    RH_ScopedGlobalInstall(RwTexDictionaryRemoveTexture, 0x7F39C0);
+    RH_ScopedGlobalInstall(RwTexDictionaryFindNamedTexture, 0x7F39F0);
+    RH_ScopedGlobalInstall(RwTexDictionarySetCurrent, 0x7F3A70);
+    RH_ScopedGlobalInstall(RwTexDictionaryGetCurrent, 0x7F3A90);
+    RH_ScopedGlobalInstall(RwTextureRead, 0x7F3AC0);
+    RH_ScopedGlobalInstall(_rwTextureDefaultMipmapNameCallBack, 0x7F4080);
+    RH_ScopedGlobalInstall(_rwTextureMakePalette, 0x7F44C0);
+    RH_ScopedGlobalInstall(_rwTextureReadImage, 0x7F4690);
+    RH_ScopedGlobalInstall(_rwObjectHasFrameSetFrame, 0x804EF0);
+    RH_ScopedGlobalInstall(RxPipelineExecute, 0x805710);
+}
+
+// Lote R25A (sin validar): controlador D3D9 de RenderWare: gestor de buferes de vertices (0x7F5CB0, 0x7F5D20), render target (0x7F5F20), cache de estado y de matrices (0x7F6B00, 0x7F6B40),
+// multimuestreo (0x7F6BF0), CreateVertexShader (0x7FAC60) y caja dentro del frustum (0x7FAD90).
+void RwD3D9InjectHooksR25A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwD3D9");
+
+    RH_ScopedGlobalInstall(_rwD3D9VertexBufferManagerOpen, 0x7F5CB0);
+    RH_ScopedGlobalInstall(_rwD3D9VertexBufferManagerClose, 0x7F5D20);
+    RH_ScopedGlobalInstall(_rwD3D9SetRenderTarget, 0x7F5F20);
+    RH_ScopedGlobalInstall(_rwD3D9StateCacheReset, 0x7F6B00);
+    RH_ScopedGlobalInstall(_rwD3D9TransformCacheReset, 0x7F6B40);
+    RH_ScopedGlobalInstall(_rwD3D9FindMSLevels, 0x7F6BF0);
+    RH_ScopedGlobalInstall(RwD3D9CreateVertexShader, 0x7FAC60);
+    RH_ScopedGlobalInstall(RwD3D9CameraIsBBoxFullyInsideFrustum, 0x7FAD90);
 }

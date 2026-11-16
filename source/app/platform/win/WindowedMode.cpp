@@ -137,7 +137,8 @@ static RwBool EnableFullScreenDialogBoxMode = FALSE;
 
 
 const auto D3D9DeviceReleaseVideoMemory  = plugin::CallAndReturn<RwBool, 0x7F7F70>;
-const auto _rwD3D9SetRenderTarget        = plugin::CallAndReturn<RwBool, 0x7F5F20, RwUInt32, LPSURFACE>;
+// 0x7F5F20: ya esta reconstruida en rwcore.cpp (lote R25A, RwD3D9); se enlaza el cuerpo C++ en vez de llamar al EXE por direccion.
+RwBool _rwD3D9SetRenderTarget(RwUInt32 index, void* surface);
 
 namespace notsa::WindowedMode {
 bool bWindowed        = true;

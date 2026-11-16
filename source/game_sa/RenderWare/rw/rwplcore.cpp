@@ -1537,8 +1537,17 @@ RwV3d* RwV3dTransformVectors(RwV3d* vectorsOut, const RwV3d* vectorsIn, RwInt32 
     return vectorsOut;
 }
 
+// 0x7EDB30 (lote R25A, sin validar; 84 bytes; era una envoltura; cdecl, (num); devuelve el float en ST0; `_rwSqrt` del SDK): con los bits de num distintos de cero: bits += 0x800 y resultado =
+// tabla[(bits >> 12) & 0xFFF] + ((bits >> 1) & 0x3FC00000) con la tabla de la raiz del modulo de vectores (+0x00; sin negar los bits, a diferencia de _rwInvSqrt); con bits cero devuelve num (0.0f / -0.0f
+// segun el bit de signo: el EXE devuelve el dword de entrada). Sin aritmetica x87: solo enteros y una carga final.
 RwReal _rwSqrt(const RwReal num) {
-    return ((RwReal(__cdecl *)(const RwReal))0x7EDB30)(num);
+    RwUInt32 bits = std::bit_cast<RwUInt32>(num);
+    if (bits != 0) {
+        bits += 0x800;
+        const RwUInt32* const table = R12AVectorModule().sqrtTable;
+        bits = table[(bits >> 12) & 0xFFF] + ((bits >> 1) & 0x3FC00000u);
+    }
+    return std::bit_cast<RwReal>(bits);
 }
 
 // 0x7EDB90 (lote R12A, sin validar; 87 bytes): con los bits de num distintos de cero: bits += 0x800; resultado = tabla[(bits >> 12) & 0xFFF] + ((~bits >> 1) & 0x3FC00000) con la tabla del modulo de vectores en +4;
@@ -1796,8 +1805,55 @@ RwBool _rwEngineModuleStubOpen() {
 void _rwCameraBeginUpdateStub(void* camera) {
 }
 
+// 0x808820 (lote R25A, sin validar; 86 bytes; era una envoltura; cdecl, (error); devuelve el mismo puntero): el error pendiente vive en el motor + [0xC9A6F0] (pluginID, errorCode; vacio = 0, 0x80000000). Solo
+// guarda si no hay error pendiente (pluginID == 0 y errorCode == 0x80000000): pluginID = 0 si el errorCode nuevo tiene el bit 31 y si no el pluginID nuevo; errorCode = el nuevo. Si ya habia uno no cambia nada.
 RwError* RwErrorSet(RwError* code) {
-    return ((RwError*(__cdecl *)(RwError*))0x808820)(code);
+    RwError* const stored = reinterpret_cast<RwError*>(reinterpret_cast<RwUInt8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9A6F0));
+    if (stored->pluginID == 0 && stored->errorCode == static_cast<RwInt32>(0x80000000)) {
+        if ((static_cast<RwUInt32>(code->errorCode) & 0x80000000u) != 0) {
+            stored->pluginID = 0;
+        } else {
+            stored->pluginID = code->pluginID;
+        }
+        stored->errorCode = code->errorCode;
+    }
+    return code;
+}
+
+// 0x808F60 (lote R25A, sin validar; 190 bytes; era una envoltura de rwcore.cpp; cdecl, (caja, vertices, numero); devuelve la caja; `RwBBoxCalculate` del SDK, babbox.c de RwPlCore): copia el primer vertice a
+// inf (+0xC) y despues a sup (+0), tres dwords cada uno. Despues, para los numero - 1 vertices restantes (contador sin signo de 32 bits: con numero 0 daria la vuelta como en el EXE), por este orden:
+// inf.x, inf.y, inf.z = el del vertice si inf > vertice (comparacion ordenada: con NaN no cambia) y sup.x, sup.y, sup.z = el del vertice si sup < vertice (ordenada). Las copias son dwords (conservan el
+// patron de bits). Las comparaciones del EXE son x87 sobre floats de memoria (exactas), igual que en C++.
+RwBBox* RwBBoxCalculate(RwBBox* boundBox, const RwV3d* verts, RwInt32 numVerts) {
+    memcpy(&boundBox->inf, verts, sizeof(RwV3d));
+    memcpy(&boundBox->sup, verts, sizeof(RwV3d));
+    const RwV3d* vertex = verts + 1;
+    RwUInt32 remaining = static_cast<RwUInt32>(numVerts) - 1;
+    if (remaining != 0) {
+        do {
+            if (boundBox->inf.x > vertex->x) {
+                boundBox->inf.x = vertex->x;
+            }
+            if (boundBox->inf.y > vertex->y) {
+                boundBox->inf.y = vertex->y;
+            }
+            if (boundBox->inf.z > vertex->z) {
+                boundBox->inf.z = vertex->z;
+            }
+            if (boundBox->sup.x < vertex->x) {
+                boundBox->sup.x = vertex->x;
+            }
+            if (boundBox->sup.y < vertex->y) {
+                boundBox->sup.y = vertex->y;
+            }
+            if (boundBox->sup.z < vertex->z) {
+                boundBox->sup.z = vertex->z;
+            }
+            ++vertex;
+            --remaining;
+        } while (remaining != 0);
+    }
+    return boundBox;
 }
 
 // 0x8088D0 (lote R7A, sin validar; 5 bytes: `mov eax, [esp+4]; ret`): cdecl variadica, devuelve el primer argumento (el codigo de error); el resto de argumentos de pila se ignoran (los empuja el llamador).
@@ -2800,6 +2856,16 @@ void RwPlCoreInjectHooksR23A() {
 
     RH_ScopedGlobalInstall(RwV3dNormalize, 0x7ED9B0);
     RH_ScopedGlobalInstall(RwV3dTransformPoints, 0x7EDD90);
+}
+
+// Lote R25A (sin validar): _rwSqrt (0x7EDB30), RwErrorSet (0x808820) y RwBBoxCalculate (0x808F60).
+void RwPlCoreInjectHooksR25A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    RH_ScopedGlobalInstall(_rwSqrt, 0x7EDB30);
+    RH_ScopedGlobalInstall(RwErrorSet, 0x808820);
+    RH_ScopedGlobalInstall(RwBBoxCalculate, 0x808F60);
 }
 
 // Lote R24A (sin validar): matrices (RwMatrixUpdate, RwMatrixMultiply, RwMatrixDestroy, _rwMatrixSetMultFn).
