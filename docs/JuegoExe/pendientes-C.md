@@ -1,18 +1,17 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 15/11/2026 (Ciudad de México):** 912 grupos / 10706 funciones reconstruidas; 10706 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 15/11/2026 (Ciudad de México):** 917 grupos / 10794 funciones reconstruidas; 10794 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-289 funciones, 54,118 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+262 funciones, 49,853 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | `0x004012E9` | 3282 | CEntity | baja | 3 (0) |  |
 | `0x00748710` | 1947 | Win | baja | 1 (0) |  |
-| `0x0066F6C0` | 1541 | CTaskComplexWanderGang | baja | 1 (0) |  |
 | `0x004CAEA0` | 1530 | CWeaponModelInfo | baja | 2 (0) |  |
 | `0x004CA5A0` | 1339 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x0044FEE0` | 1077 | CPathFind | alta | 1 (0) |  |
@@ -40,7 +39,6 @@
 | `0x004CB7C0` | 512 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x004CD050` | 512 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x005CA2A0` | 493 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x006002F0` | 480 | CAttractorScanner | baja | 2 (0) |  |
 | `0x005C5AC0` | 468 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x004CCE60` | 457 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x0066AB40` | 455 | CTaskComplexAvoidOtherPedWhileWandering | baja | 1 (0) |  |
@@ -57,7 +55,6 @@
 | `0x005C5EC0` | 362 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x0040118B` | 350 | CEntity | baja | 1 (0) |  |
 | `0x0066D550` | 348 | CTaskComplexInvestigateDisturbance | baja | 1 (0) |  |
-| `0x005A75B0` | 339 | CClothesBuilder | baja | 1 (0) |  |
 | `0x00402370` | 336 | CEntity | baja | 1 (0) |  |
 | `0x005CA940` | 332 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CEBC0` | 331 | FxEmitterBP_c | baja | 4 (0) |  |
@@ -87,10 +84,7 @@
 | `0x005CBE50` | 169 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CEDD0` | 167 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CEE80` | 167 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x00678BD0` | 167 | CTaskComplexFallAndGetUp | baja | 1 (0) |  |
 | `0x005CAF00` | 164 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x004C8D60` | 161 | CVehicleModelInfo | alta | 1 (0) |  |
-| `0x0066AA20` | 161 | CTaskComplexAvoidOtherPedWhileWandering | baja | 1 (0) |  |
 | `0x005CAB70` | 157 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CC050` | 157 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CC1F0` | 153 | FxEmitterBP_c | baja | 1 (0) |  |
@@ -109,25 +103,18 @@
 | `0x005C6600` | 127 | FxEmitterBP_c | baja | 3 (0) |  |
 | `0x005C9C60` | 127 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x00745560` | 127 | Ps | alta | 1 (0) |  |
-| `0x005A74F0` | 125 | CClothesBuilder | baja | 1 (0) |  |
 | `0x0074EB80` | 124 | Win | baja | 1 (0) |  |
-| `0x005A6FC0` | 122 | CClothesBuilder | baja | 4 (0) |  |
 | `0x00670A70` | 121 | CTaskComplexTurnToFaceEntityOrCoord | baja | 2 (0) |  |
 | `0x00403B03` | 120 | CEntity | baja | 1 (0) |  |
 | `0x00659990` | 120 | CTaskComplexUseWaterCannon | baja | 1 (0) |  |
-| `0x0043EF20` | 112 | CEntryExitManager | alta | 2 (0) |  |
 | `0x0061AC90` | 112 | CTaskSimpleRunTimedAnim | baja | 1 (0) |  |
 | `0x0046A9C0` | 110 | CScriptsForBrains | alta | 2 (0) |  |
 | `0x006709F0` | 110 | CTaskComplexTurnToFaceEntityOrCoord | baja | 1 (0) |  |
 | `0x0074EAD0` | 110 | Win | baja | 1 (0) |  |
-| `0x0066FD30` | 108 | CTaskComplexWanderGang | baja | 1 (0) |  |
-| `0x004C94C0` | 106 | CVehicleModelInfo | alta | 1 (0) |  |
-| `0x0066C450` | 106 | CTaskComplexGotoDoorAndOpen | baja | 3 (0) |  |
 | `0x006E3F20` | 106 | WaterCreature_c | baja | 1 (0) |  |
 | `0x00493480` | 105 | CTheScripts | alta | 1 (0) |  |
 | `0x006E3EB0` | 105 | WaterCreature_c | baja | 1 (0) |  |
 | `0x004CAD90` | 104 | CWeaponModelInfo | baja | 3 (0) |  |
-| `0x005A7350` | 104 | CClothesBuilder | baja | 1 (0) |  |
 | `0x005C54F0` | 104 | FxEmitterBP_c | baja | 12 (0) |  |
 | `0x00618030` | 103 | IKChain_c | baja | 1 (0) |  |
 | `0x0061FC50` | 103 | CTaskSimpleThrowControl | baja | 1 (0) |  |
@@ -144,12 +131,9 @@
 | `0x004C62F0` | 90 | CModelInfo | alta | 1 (0) |  |
 | `0x00620B90` | 90 | CTaskSimpleBeHit | baja | 1 (0) |  |
 | `0x00659240` | 90 | CTaskComplexMedicTreatInjuredPed | baja | 1 (0) |  |
-| `0x0066AAE0` | 90 | CTaskComplexAvoidOtherPedWhileWandering | baja | 1 (0) |  |
 | `0x00493420` | 88 | CTheScripts | alta | 2 (0) |  |
 | `0x005C79F0` | 88 | FxEmitterBP_c | baja | 4 (0) |  |
 | `0x004CBE80` | 87 | CWeaponModelInfo | baja | 2 (0) |  |
-| `0x004C7410` | 85 | CVehicleModelInfo | alta | 2 (0) |  |
-| `0x005A7490` | 83 | CClothesBuilder | baja | 1 (0) |  |
 | `0x006591D0` | 83 | CTaskComplexMedicTreatInjuredPed | baja | 1 (0) |  |
 | `0x004CB5E0` | 82 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x004CC170` | 82 | CWeaponModelInfo | baja | 1 (0) |  |
@@ -197,15 +181,11 @@
 | `0x004CC580` | 64 | CWeaponModelInfo | baja | 3 (0) |  |
 | `0x006348F0` | 62 | CTaskComplexUseClosestFreeScriptedAttractor | baja | 2 (0) |  |
 | `0x00673BA0` | 61 | CTaskComplexGoToPointAnyMeans | baja | 2 (0) |  |
-| `0x0043EF90` | 59 | CEntryExitManager | alta | 1 (0) |  |
 | `0x005CA6E0` | 59 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x004027CD` | 58 | CEntity | baja | 1 (0) |  |
 | `0x0074EB40` | 58 | Win | baja | 2 (0) |  |
 | `0x004CBDE0` | 51 | CWeaponModelInfo | baja | 35 (0) |  |
 | `0x0046A340` | 49 | CEntity | baja | 1 (0) |  |
-| `0x004C9580` | 49 | CVehicleModelInfo | alta | 1 (0) |  |
-| `0x005A73C0` | 49 | CClothesBuilder | baja | 1 (0) |  |
-| `0x005EAFE0` | 49 | CPedAttractor | alta | 10 (0) |  |
 | `0x006E2DD0` | 49 | CVehicle | alta | 21 (0) |  |
 | `0x00470100` | 48 | CTaskComplexGoToPointAndStandStill | baja | 2 (0) |  |
 | `0x004CB530` | 47 | CWeaponModelInfo | baja | 3 (0) |  |
@@ -216,8 +196,6 @@
 | `0x004748A0` | 46 | CTheScripts | baja | 1 (0) |  |
 | `0x0066AD10` | 46 | CTaskComplexAvoidOtherPedWhileWandering | baja | 1 (0) |  |
 | `0x004C5F50` | 42 | CModelInfo | alta | 1 (0) |  |
-| `0x005A6DB0` | 41 | CClothesBuilder | baja | 1 (0) |  |
-| `0x005A7570` | 41 | CClothesBuilder | baja | 1 (0) |  |
 | `0x00424160` | 40 | CCarCtrl | baja | 16 (0) |  |
 | `0x004C5CB0` | 39 | CModelInfo | alta | 1 (0) |  |
 | `0x004C5DD0` | 39 | CModelInfo | alta | 1 (0) |  |
@@ -236,7 +214,6 @@
 | `0x0046A7E0` | 33 | CTheScripts | alta | 1 (0) |  |
 | `0x00470070` | 32 | CTaskComplexGoToPointAndStandStill | baja | 2 (0) |  |
 | `0x005C6B90` | 31 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x0043EF00` | 30 | CEntryExitManager | alta | 3 (0) |  |
 | `0x004541E0` | 30 | CPathFind | baja | 1 (0) |  |
 | `0x00403379` | 29 | CEntity | baja | 1 (0) |  |
 | `0x005CF940` | 27 | FxEmitterBP_c | baja | 5 (0) |  |
@@ -244,7 +221,6 @@
 | `0x004C9EA0` | 25 | CWeaponModelInfo | baja | 4 (0) |  |
 | `0x004CC150` | 25 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x00403C70` | 24 | CEntity | baja | 1 (0) |  |
-| `0x0043F9B0` | 24 | CEntryExitManager | alta | 2 (0) |  |
 | `0x00463490` | 21 | CEntity | baja | 1 (0) |  |
 | `0x005CF850` | 20 | FxEmitterBP_c | baja | 2 (0) |  |
 | `0x004C9F70` | 19 | CWeaponModelInfo | baja | 1 (0) |  |
@@ -276,9 +252,6 @@
 | `0x00606050` | 11 | CPedIntelligencePool | baja | 1 (0) |  |
 | `0x006348E0` | 11 | CTaskComplexUseClosestFreeScriptedAttractor | baja | 1 (0) |  |
 | `0x006598B0` | 11 | CTaskComplexUseWaterCannon | baja | 1 (0) |  |
-| `0x0066C4C0` | 11 | CTaskComplexGotoDoorAndOpen | baja | 1 (0) |  |
-| `0x0066F670` | 11 | CTaskComplexWanderGang | baja | 1 (0) |  |
-| `0x00678A90` | 11 | CTaskComplexFallAndGetUp | baja | 1 (0) |  |
 | `0x005CF810` | 10 | FxEmitterBP_c | baja | 2 (0) |  |
 | `0x005CF830` | 10 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x00402DC5` | 9 | CEntity | baja | 4 (0) |  |
