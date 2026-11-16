@@ -40,7 +40,9 @@ auto& D3D9Device                  = StaticRef<void*>(0xC97C28);
 struct TextureGlobalsLayout {   // solo los campos que usan estas funciones (batextur.c de RW 3.6)
     uint8 pad00[0x08];
     RwFreeList* textureFreeList; // +0x08 (lista libre de RwTexture; lote R7A)
-    uint8 pad0[0x10];
+    uint8 pad0[0x08];
+    RwTextureCallBackRead readCallBack; // +0x14 (lote R24A)
+    RwTextureCallBackFind findCallBack; // +0x18 (lote R24A)
     RwBool mipmapping;          // +0x1C
     RwBool autoMipmapping;      // +0x20
     uint8 pad1[0x08];
@@ -50,6 +52,7 @@ struct TextureGlobalsLayout {   // solo los campos que usan estas funciones (bat
 static_assert(offsetof(TextureGlobalsLayout, mipmapping) == 0x1C && offsetof(TextureGlobalsLayout, autoMipmapping) == 0x20
            && offsetof(TextureGlobalsLayout, mipmapGenerationCallBack) == 0x2C);
 static_assert(offsetof(TextureGlobalsLayout, textureFreeList) == 0x08 && offsetof(TextureGlobalsLayout, mipmapNameCallBack) == 0x30);
+static_assert(offsetof(TextureGlobalsLayout, readCallBack) == 0x14 && offsetof(TextureGlobalsLayout, findCallBack) == 0x18);
 
 struct RasterGlobalsLayout {    // pila de contextos de RwRasterPushContext/PopContext (bardevice/baraster.c)
     RwRaster* rasterStack[10];  // +0x00
@@ -1421,8 +1424,10 @@ void RwPalQuantMatchImage(RwUInt8* dstpixels, RwInt32 dststride, RwInt32 dstdept
     ((void(__cdecl *)(RwUInt8*, RwInt32, RwInt32, RwBool, RwPalQuant*, RwImage*))0x80BF20)(dstpixels, dststride, dstdepth, dstPacked, pq, img);
 }
 
+// 0x7F3530 (lote R24A, sin validar; 26 bytes; era una envoltura; cdecl, (bool)): RwTextureGlobals::mipmapping (+0x1C) = enable (dword). Devuelve TRUE.
 RwBool RwTextureSetMipmapping(RwBool enable) {
-    return ((RwBool(__cdecl *)(RwBool))0x7F3530)(enable);
+    TextureGlobals().mipmapping = enable;
+    return TRUE;
 }
 
 // 0x7F3550: RwTextureGlobals::mipmapping
@@ -1430,8 +1435,10 @@ RwBool RwTextureGetMipmapping() {
     return TextureGlobals().mipmapping;
 }
 
+// 0x7F3560 (lote R24A, sin validar; 26 bytes; era una envoltura; cdecl, (bool)): RwTextureGlobals::autoMipmapping (+0x20) = enable (dword). Devuelve TRUE.
 RwBool RwTextureSetAutoMipmapping(RwBool enable) {
-    return ((RwBool(__cdecl *)(RwBool))0x7F3560)(enable);
+    TextureGlobals().autoMipmapping = enable;
+    return TRUE;
 }
 
 // 0x7F3580: RwTextureGlobals::autoMipmapping
@@ -1476,16 +1483,21 @@ RwTextureCallBackRead RwTextureGetReadCallBack() {
     return ((RwTextureCallBackRead(__cdecl *)(void))0x7F3520)();
 }
 
+// 0x7F3500 (lote R24A, sin validar; 26 bytes; era una envoltura; cdecl, (callback)): RwTextureGlobals::readCallBack (+0x14) = callback (sin sustituir nulos). Devuelve TRUE.
 RwBool RwTextureSetReadCallBack(RwTextureCallBackRead callBack) {
-    return ((RwBool(__cdecl *)(RwTextureCallBackRead))0x7F3500)(callBack);
+    TextureGlobals().readCallBack = callBack;
+    return TRUE;
 }
 
+// 0x7F34F0 (lote R24A, sin validar; 16 bytes; era una envoltura; cdecl, sin argumentos): devuelve RwTextureGlobals::findCallBack (+0x18).
 RwTextureCallBackFind RwTextureGetFindCallBack() {
-    return ((RwTextureCallBackFind(__cdecl *)(void))0x7F34F0)();
+    return TextureGlobals().findCallBack;
 }
 
+// 0x7F34D0 (lote R24A, sin validar; 26 bytes; era una envoltura; cdecl, (callback)): RwTextureGlobals::findCallBack (+0x18) = callback (sin sustituir nulos). Devuelve TRUE.
 RwBool RwTextureSetFindCallBack(RwTextureCallBackFind callBack) {
-    return ((RwBool(__cdecl *)(RwTextureCallBackFind))0x7F34D0)(callBack);
+    TextureGlobals().findCallBack = callBack;
+    return TRUE;
 }
 
 RwTexture* RwTextureSetName(RwTexture* texture, const RwChar* name) {
@@ -1520,8 +1532,15 @@ RwBool RwTextureDestroy(RwTexture* texture) {
     return ((RwBool(__cdecl *)(RwTexture*))0x7F3820)(texture);
 }
 
+// 0x7F35D0 (lote R24A, sin validar; 47 bytes; era una envoltura; cdecl, (textura, raster)): raster nulo -> texture->raster (+0) = NULL y devuelve la textura sin llamar a nada. Si no llama a la funcion estandar
+// rwSTANDARDTEXTURESETRASTER ([motor + 0x68], cdecl, (textura, raster, 0)): resultado distinto de cero -> devuelve la textura; cero -> NULL (neg/sbb/and).
 RwTexture* RwTextureSetRaster(RwTexture* texture, RwRaster* raster) {
-    return ((RwTexture*(__cdecl *)(RwTexture*, RwRaster*))0x7F35D0)(texture, raster);
+    if (raster == nullptr) {
+        texture->raster = nullptr;
+        return texture;
+    }
+    const RwBool result = RwEngineInstance->stdFunc[rwSTANDARDTEXTURESETRASTER](texture, raster, 0);
+    return result != 0 ? texture : nullptr;
 }
 
 RwTexture* RwTexDictionaryAddTexture(RwTexDictionary* dict, RwTexture* texture) {
@@ -1719,12 +1738,36 @@ RxPipeline* RwIm3DGetRenderPipeline(RwPrimitiveType primType) {
     return ((RxPipeline*(__cdecl *)(RwPrimitiveType))0x7EF9E0)(primType);
 }
 
+// 0x7EFAC0 (lote R24A, sin validar; 71 bytes; era una envoltura; cdecl, (tuberia)): tuberia de transformacion del modulo Im3D (+0x00) = la tuberia dada o, si es nula, la de por defecto (+0x1C). Devuelve la que queda.
 RxPipeline* RwIm3DSetTransformPipeline(RxPipeline* pipeline) {
-    return ((RxPipeline*(__cdecl *)(RxPipeline*))0x7EFAC0)(pipeline);
+    uint8* const module = R23AIm3DModule();
+    if (pipeline != nullptr) {
+        R23AIm3DField<RxPipeline*>(module, kIm3DTransformPipeline) = pipeline;
+        return R23AIm3DField<RxPipeline*>(R23AIm3DModule(), kIm3DTransformPipeline);
+    }
+    R23AIm3DField<RxPipeline*>(module, kIm3DTransformPipeline) = R23AIm3DField<RxPipeline*>(module, 0x1C);
+    return R23AIm3DField<RxPipeline*>(R23AIm3DModule(), kIm3DTransformPipeline);
 }
 
+// 0x7EFB10 (lote R24A, sin validar; 644 bytes; era una envoltura; cdecl, (tuberia, tipo)): tabla de saltos de tipo - 1 (sin signo, 0..5; son SEIS tipos): tipos 1..6 -> ranuras +0x10, +0x14, +0x04, +0x0C, +0x08 y +0x18
+// del modulo Im3D, con la ranura por defecto a +0x1C mas arriba (+0x2C, +0x30, +0x20, +0x28, +0x24, +0x34). Con tuberia: la guarda en la ranura y la devuelve. Sin tuberia (nula): la ranura = su valor por defecto
+// (o NULL si este es nulo) y devuelve el contenido de la ranura. Tipo fuera de 1..6: RwError { 1, _rwerror(0x25, tipo) } y NULL (en ambas ramas).
 RxPipeline* RwIm3DSetRenderPipeline(RxPipeline* pipeline, RwPrimitiveType primType) {
-    return ((RxPipeline*(__cdecl *)(RxPipeline*, RwPrimitiveType))0x7EFB10)(pipeline, primType);
+    constexpr uint32 slots[6] = { 0x10, 0x14, 0x04, 0x0C, 0x08, 0x18 };
+    constexpr uint32 defaults[6] = { 0x2C, 0x30, 0x20, 0x28, 0x24, 0x34 };
+    const uint32 index = static_cast<uint32>(primType) - 1u;
+    if (index > 5) {
+        R23ARaiseError(0x25, static_cast<RwInt32>(primType));
+        return nullptr;
+    }
+    uint8* const module = R23AIm3DModule();
+    if (pipeline != nullptr) {
+        R23AIm3DField<RxPipeline*>(module, slots[index]) = pipeline;
+        return pipeline;
+    }
+    RxPipeline* const fallback = R23AIm3DField<RxPipeline*>(module, defaults[index]);
+    R23AIm3DField<RxPipeline*>(module, slots[index]) = fallback;
+    return R23AIm3DField<RxPipeline*>(R23AIm3DModule(), slots[index]);
 }
 
 RwRaster* RwD3D9RasterStreamReadDDS(RwStream* stream) {
@@ -3307,64 +3350,334 @@ RwImage* RwImageFindRasterFormat(RwImage* ipImage, RwInt32 nRasterType, RwInt32*
     return ((RwImage*(__cdecl *)(RwImage*, RwInt32, RwInt32*, RwInt32*, RwInt32*, RwInt32*))0x8042C0)(ipImage, nRasterType, npWidth, npHeight, npDepth, npFormat);
 }
 
+// Lote R24A (sin validar): RwFrame (bafframe.c). Datos del EXE: lista libre de marcos = [RwEngineInstance + [0xC9796C]] (pista 0x3000E); registro de plugins de RwFrame 0x8E2270; lista de marcos sucios del motor
+// (RwEngineInstance + 0xBC, RwGlobals::dirtyFrameList, circular con cabeza propia). Los bits de privateFlags (+3): 1 = jerarquia con LTM sucia, 2 = jerarquia con objetos sucios, 4 / 8 = subarbol con LTM / objetos sucios.
+void rwFrameInitFields(RwFrame* frame); // 0x7F0360 (lote R11A; definida mas abajo)
+namespace {
+constexpr RwUInt32 kFrameMemHint = 0x3000E;
+RwPluginRegistry* FrameRegistry() {
+    return reinterpret_cast<RwPluginRegistry*>(0x8E2270);
+}
+RwFreeList* FrameFreeList() {
+    return *reinterpret_cast<RwFreeList**>(reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9796C));
+}
+// Macro de RenderWare que el compilador del EXE expande en linea (identica a la funcion independiente 0x7F0910): si la raiz del marco no esta sucia (privateFlags & 3 == 0) la inserta a la CABEZA de la lista de marcos
+// sucios; despues raiz.privateFlags |= 3 (con los flags leidos al principio) y marco.privateFlags |= 0xC (leido DESPUES de escribir la raiz: si el marco es la raiz suma ambos).
+void FrameMarkDirty(RwFrame* frame) {
+    RwFrame* const root = frame->root;
+    const RwUInt8 rootFlags = root->object.privateFlags;
+    if ((rootFlags & 3) == 0) {
+        RwLLLink* const head = &RwEngineInstance->dirtyFrameList.link;
+        root->inDirtyListLink.next = head->next;
+        root->inDirtyListLink.prev = head;
+        head->next->prev = &root->inDirtyListLink;
+        head->next = &root->inDirtyListLink;
+    }
+    root->object.privateFlags = static_cast<RwUInt8>(rootFlags | 3);
+    frame->object.privateFlags = static_cast<RwUInt8>(frame->object.privateFlags | 0x0C);
+}
+// Saca el marco de la lista de marcos sucios: prev->next = next; next->prev = prev (el llamador ya comprobo privateFlags & 3).
+void FrameUnlinkDirty(RwFrame* frame) {
+    frame->inDirtyListLink.prev->next = frame->inDirtyListLink.next;
+    frame->inDirtyListLink.next->prev = frame->inDirtyListLink.prev;
+}
+// Saca el marco de la lista de hijos de su padre (sin comprobar que tenga padre): si es el primer hijo, el padre pasa a apuntar a su hermano; si no, busca el hermano anterior y lo enlaza con el siguiente.
+void FrameUnlinkFromParent(RwFrame* child) {
+    RwFrame* const parent = static_cast<RwFrame*>(child->object.parent);
+    RwFrame* current = parent->child;
+    if (current == child) {
+        parent->child = child->next;
+        return;
+    }
+    RwFrame* following = current->next;
+    while (following != child) {
+        current = following;
+        following = current->next;
+    }
+    current->next = child->next;
+}
+}
+
+// 0x7F0210 (lote R24A, sin validar; 49 bytes; cdecl, (marco, raiz); nombre inferido: pone la raiz en todo un subarbol): root (+0xA0) del marco = raiz y lo mismo, recursivamente, para cada hijo (+0x98 / hermanos +0x9C).
+void _rwFrameSetRootRec(RwFrame* frame, RwFrame* root) {
+    RwFrame* child = frame->child;
+    frame->root = root;
+    while (child != nullptr) {
+        _rwFrameSetRootRec(child, root);
+        child = child->next;
+    }
+}
+
+// 0x7F0830 (lote R24A, sin validar; 107 bytes; cdecl, (marco); nombre inferido: destruccion recursiva de un marco y sus hijos; el EXE no devuelve nada util): marco nulo -> nada. Destruye cada hijo (se lee el
+// siguiente hermano ANTES), _rwPluginRegistryDeInitObject(registro 0x8E2270, marco), si privateFlags & 3 lo saca de la lista de sucios y lo libera en la lista libre de marcos (RwFreeListFree).
+void _rwFrameDestroyRec(RwFrame* frame) {
+    if (frame == nullptr) {
+        return;
+    }
+    RwFrame* child = frame->child;
+    while (child != nullptr) {
+        RwFrame* const nextSibling = child->next;
+        _rwFrameDestroyRec(child);
+        child = nextSibling;
+    }
+    _rwPluginRegistryDeInitObject(FrameRegistry(), frame);
+    if ((frame->object.privateFlags & 3) != 0) {
+        FrameUnlinkDirty(frame);
+    }
+    RwFreeListFree(FrameFreeList(), frame);
+}
+
+// 0x7F0050 (lote R24A, sin validar; 334 bytes; cdecl, (marco, raiz del clon); nombre inferido: clonado recursivo de una jerarquia, enlazando cada original con su clon por su campo root): reserva el clon en la
+// lista libre (pista 0x3000E; sin memoria -> NULL); raiz nula -> el propio clon. Copia type, subType, flags y privateFlags del original (byte a byte), parent = NULL, lista de objetos vacia, SOLO la matriz de modelado
+// (+0x10, 0x40 bytes; ni inDirtyListLink ni la LTM), child = next = NULL y root = raiz del clon. Despues original.root (+0xA0) = clon y clona cada hijo del original (raiz del clon pasada); si falla alguno destruye
+// con _rwFrameDestroyRec los hijos ya clonados, _rwPluginRegistryDeInitObject, saca el clon de la lista de sucios si privateFlags & 3 (con los flags copiados) y lo libera: NULL. Cada hijo clonado se pone a la
+// CABEZA de la lista de hijos del clon (orden inverso) y su parent = clon. Al final _rwPluginRegistryInitObject(registro, clon) y _rwPluginRegistryCopyObject(registro, clon, original).
+RwFrame* _rwFrameCloneRec(RwFrame* frame, RwFrame* cloneRoot) {
+    RwFrame* const clone = static_cast<RwFrame*>(RwFreeListAlloc(FrameFreeList(), kFrameMemHint));
+    if (clone == nullptr) {
+        return nullptr;
+    }
+    if (cloneRoot == nullptr) {
+        cloneRoot = clone;
+    }
+    clone->object.type = frame->object.type;
+    clone->object.subType = frame->object.subType;
+    clone->object.flags = frame->object.flags;
+    clone->object.privateFlags = frame->object.privateFlags;
+    clone->objectList.link.prev = &clone->objectList.link;
+    clone->objectList.link.next = &clone->objectList.link;
+    clone->object.parent = nullptr;
+    memcpy(&clone->modelling, &frame->modelling, sizeof(RwMatrix));
+    clone->child = nullptr;
+    clone->next = nullptr;
+    clone->root = cloneRoot;
+    RwFrame* child = frame->child;
+    frame->root = clone;
+    while (child != nullptr) {
+        RwFrame* const childClone = _rwFrameCloneRec(child, cloneRoot);
+        if (childClone == nullptr) {
+            RwFrame* done = clone->child;
+            while (done != nullptr) {
+                RwFrame* const nextDone = done->next;
+                _rwFrameDestroyRec(done);
+                done = nextDone;
+            }
+            _rwPluginRegistryDeInitObject(FrameRegistry(), clone);
+            if ((clone->object.privateFlags & 3) != 0) {
+                FrameUnlinkDirty(clone);
+            }
+            RwFreeListFree(FrameFreeList(), clone);
+            return nullptr;
+        }
+        childClone->next = clone->child;
+        clone->child = childClone;
+        childClone->object.parent = clone;
+        child = child->next;
+    }
+    _rwPluginRegistryInitObject(FrameRegistry(), clone);
+    _rwPluginRegistryCopyObject(FrameRegistry(), clone, frame);
+    return clone;
+}
+
+// 0x7F1200 (lote R24A, sin validar; 63 bytes; era una envoltura; cdecl, (marco, callback, datos)): recorre la lista de objetos del marco (cabeza +0x90; el objeto es el enlace - 8; el siguiente enlace se lee ANTES
+// de llamar) con callback(objeto, datos) (cdecl); se detiene si devuelve NULL o al llegar a la cabeza. Devuelve el marco.
 RwFrame* RwFrameForAllObjects(RwFrame* frame, RwObjectCallBack callBack, void* data) {
-    return ((RwFrame*(__cdecl *)(RwFrame*, RwObjectCallBack, void*))0x7F1200)(frame, callBack, data);
+    RwLLLink* const end = &frame->objectList.link;
+    RwLLLink* link = end->next;
+    while (link != end) {
+        RwLLLink* const following = link->next;
+        if (callBack(reinterpret_cast<RwObject*>(reinterpret_cast<uint8*>(link) - 8), data) == nullptr) {
+            break;
+        }
+        if (following == end) {
+            break;
+        }
+        link = following;
+    }
+    return frame;
 }
 
+// 0x7F0E30 (lote R24A, sin validar; 146 bytes; era una envoltura; cdecl, (marco, vector, combinacion)): RwMatrixTranslate(&marco->modelling, vector, combinacion) y despues el marcado de sucio (FrameMarkDirty). Devuelve el marco.
 RwFrame* RwFrameTranslate(RwFrame* frame, const RwV3d* v, RwOpCombineType combine) {
-    return ((RwFrame*(__cdecl *)(RwFrame*, const RwV3d*, RwOpCombineType))0x7F0E30)(frame, v, combine);
+    RwMatrixTranslate(&frame->modelling, v, combine);
+    FrameMarkDirty(frame);
+    return frame;
 }
 
+// 0x7F1010 (lote R24A, sin validar; 151 bytes; era una envoltura; cdecl, (marco, eje, angulo float, combinacion)): RwMatrixRotate(&marco->modelling, eje, angulo, combinacion) (el angulo se pasa como dword de la pila,
+// sin x87) y el marcado de sucio. Devuelve el marco.
 RwFrame* RwFrameRotate(RwFrame* frame, const RwV3d* axis, RwReal angle, RwOpCombineType combine) {
-    return ((RwFrame*(__cdecl *)(RwFrame*, const RwV3d*, RwReal, RwOpCombineType))0x7F1010)(frame, axis, angle, combine);
+    RwMatrixRotate(&frame->modelling, axis, angle, combine);
+    FrameMarkDirty(frame);
+    return frame;
 }
 
 RwFrame* RwFrameScale(RwFrame* frame, const RwV3d* v, RwOpCombineType combine) {
     return ((RwFrame*(__cdecl *)(RwFrame*, const RwV3d*, RwOpCombineType))0x7F0ED0)(frame, v, combine);
 }
 
+// 0x7F0F70 (lote R24A, sin validar; 146 bytes; era una envoltura; cdecl, (marco, matriz, combinacion)): RwMatrixTransform(&marco->modelling, matriz, combinacion) y el marcado de sucio. Devuelve el marco.
 RwFrame* RwFrameTransform(RwFrame* frame, const RwMatrix* m, RwOpCombineType combine) {
-    return ((RwFrame*(__cdecl *)(RwFrame*, const RwMatrix*, RwOpCombineType))0x7F0F70)(frame, m, combine);
+    RwMatrixTransform(&frame->modelling, m, combine);
+    FrameMarkDirty(frame);
+    return frame;
 }
 
+// 0x7F1170 (lote R24A, sin validar; 137 bytes; era una envoltura; cdecl, (marco)): RwMatrixOrthoNormalize(&marco->modelling, &marco->modelling) (0x7F1920, que salta a 0x7F1930) y el marcado de sucio. Devuelve el marco.
 RwFrame* RwFrameOrthoNormalize(RwFrame* frame) {
-    return ((RwFrame*(__cdecl *)(RwFrame*))0x7F1170)(frame);
+    RwMatrixOrthoNormalize(&frame->modelling, &frame->modelling);
+    FrameMarkDirty(frame);
+    return frame;
 }
 
+// 0x7F10B0 (lote R24A, sin validar; 180 bytes; era una envoltura; cdecl, (marco)): matriz de modelado a la identidad: diagonal = 1.0f (0x3F800000) y el resto de los doce floats a 0 (SIN tocar los rellenos), y flags
+// (+0x1C) |= 0x20003 (se conservan los demas bits). Despues el marcado de sucio. Devuelve el marco.
 RwFrame* RwFrameSetIdentity(RwFrame* frame) {
-    return ((RwFrame*(__cdecl *)(RwFrame*))0x7F10B0)(frame);
+    RwMatrix& m = frame->modelling;
+    m.at.z = 1.0f;
+    m.up.y = 1.0f;
+    m.right.x = 1.0f;
+    m.up.x = 0.0f;
+    m.right.z = 0.0f;
+    m.right.y = 0.0f;
+    m.at.y = 0.0f;
+    m.at.x = 0.0f;
+    m.up.z = 0.0f;
+    m.pos.z = 0.0f;
+    m.pos.y = 0.0f;
+    m.pos.x = 0.0f;
+    m.flags |= 0x20003;
+    FrameMarkDirty(frame);
+    return frame;
 }
 
 RwFrame* RwFrameCloneHierarchy(RwFrame* root) {
     return ((RwFrame*(__cdecl *)(RwFrame*))0x7F0250)(root);
 }
 
+// 0x7F08A0 (lote R24A, sin validar; 112 bytes; era una envoltura; cdecl, (marco)): igual que _rwFrameDestroyRec pero SOLO para el marco dado (el EXE inlina el cuerpo): marco nulo -> TRUE sin hacer nada; si no destruye
+// cada hijo con _rwFrameDestroyRec (siguiente hermano leido antes), _rwPluginRegistryDeInitObject, saca de la lista de sucios si privateFlags & 3 y libera. Devuelve siempre TRUE.
 RwBool RwFrameDestroyHierarchy(RwFrame* frame) {
-    return ((RwBool(__cdecl *)(RwFrame*))0x7F08A0)(frame);
+    if (frame == nullptr) {
+        return TRUE;
+    }
+    RwFrame* child = frame->child;
+    while (child != nullptr) {
+        RwFrame* const nextSibling = child->next;
+        _rwFrameDestroyRec(child);
+        child = nextSibling;
+    }
+    _rwPluginRegistryDeInitObject(FrameRegistry(), frame);
+    if ((frame->object.privateFlags & 3) != 0) {
+        FrameUnlinkDirty(frame);
+    }
+    RwFreeListFree(FrameFreeList(), frame);
+    return TRUE;
 }
 
+// 0x7F0DC0 (lote R24A, sin validar; 56 bytes; era una envoltura; cdecl, (marco, callback, datos)): recorre los hijos (+0x98, hermanos +0x9C; el siguiente se lee ANTES de llamar) con callback(hijo, datos) (cdecl); para si
+// devuelve NULL o no quedan mas. Devuelve el marco.
 RwFrame* RwFrameForAllChildren(RwFrame* frame, RwFrameCallBack callBack, void* data) {
-    return ((RwFrame*(__cdecl *)(RwFrame*, RwFrameCallBack, void*))0x7F0DC0)(frame, callBack, data);
+    RwFrame* child = frame->child;
+    while (child != nullptr) {
+        RwFrame* const following = child->next;
+        if (callBack(child, data) == nullptr) {
+            break;
+        }
+        child = following;
+    }
+    return frame;
 }
 
+// 0x7F0CD0 (lote R24A, sin validar; 232 bytes; era una envoltura; cdecl, (hijo)): sin comprobar que tenga padre: lo saca de la lista de hijos del padre (FrameUnlinkFromParent), root = el propio marco, parent = NULL, next =
+// NULL, pone la raiz de cada uno de sus hijos a el (_rwFrameSetRootRec) y lo marca sucio. Devuelve el hijo.
 RwFrame* RwFrameRemoveChild(RwFrame* child) {
-    return ((RwFrame*(__cdecl *)(RwFrame*))0x7F0CD0)(child);
+    FrameUnlinkFromParent(child);
+    RwFrame* grandChild = child->child;
+    child->root = child;
+    child->object.parent = nullptr;
+    child->next = nullptr;
+    while (grandChild != nullptr) {
+        _rwFrameSetRootRec(grandChild, child);
+        grandChild = grandChild->next;
+    }
+    FrameMarkDirty(child);
+    return child;
 }
 
+// 0x7F0B00 (lote R24A, sin validar; 461 bytes; era una envoltura; cdecl, (padre, hijo)): si el hijo tiene padre lo desengancha igual que RwFrameRemoveChild (hijo.root = hijo, parent = next = NULL, subarbol con raiz
+// el hijo y marcado sucio). Despues lo pone a la cabeza de los hijos del padre (next = padre.child, padre.child = hijo, parent = padre), root = padre.root y pone esa raiz en cada hijo del hijo; si el hijo tiene
+// privateFlags & 3 lo saca de la lista de sucios y borra esos dos bits; por ultimo marca sucio el hijo (su raiz nueva). Devuelve el padre.
 RwFrame* RwFrameAddChild(RwFrame* parent, RwFrame* child) {
-    return ((RwFrame*(__cdecl *)(RwFrame*, RwFrame*))0x7F0B00)(parent, child);
+    if (child->object.parent != nullptr) {
+        FrameUnlinkFromParent(child);
+        RwFrame* oldGrandChild = child->child;
+        child->object.parent = nullptr;
+        child->next = nullptr;
+        child->root = child;
+        while (oldGrandChild != nullptr) {
+            _rwFrameSetRootRec(oldGrandChild, child);
+            oldGrandChild = oldGrandChild->next;
+        }
+        FrameMarkDirty(child);
+    }
+    child->next = parent->child;
+    parent->child = child;
+    RwFrame* grandChild = child->child;
+    child->object.parent = parent;
+    RwFrame* const newRoot = parent->root;
+    child->root = newRoot;
+    while (grandChild != nullptr) {
+        _rwFrameSetRootRec(grandChild, newRoot);
+        grandChild = grandChild->next;
+    }
+    if ((child->object.privateFlags & 3) != 0) {
+        FrameUnlinkDirty(child);
+        child->object.privateFlags = static_cast<RwUInt8>(child->object.privateFlags & 0xFC);
+    }
+    FrameMarkDirty(child);
+    return parent;
 }
 
+// 0x7F09C0 (lote R24A, sin validar; 313 bytes; era una envoltura; cdecl, (padre, hijo)): como RwFrameAddChild pero SIN sacar al hijo de la lista de sucios ni marcar sucio el hijo al final: si el hijo tiene padre lo
+// desengancha (igual que RwFrameRemoveChild, con marcado sucio de el); luego lo pone a la cabeza de los hijos del padre (next = padre.child, padre.child = hijo, parent = padre), root = padre.root y esa raiz en
+// cada hijo del hijo. Devuelve el padre.
 RwFrame* RwFrameAddChildNoUpdate(RwFrame* parent, RwFrame* child) {
-    return ((RwFrame*(__cdecl *)(RwFrame*, RwFrame*))0x7F09C0)(parent, child);
+    if (child->object.parent != nullptr) {
+        FrameUnlinkFromParent(child);
+        RwFrame* oldGrandChild = child->child;
+        child->object.parent = nullptr;
+        child->next = nullptr;
+        child->root = child;
+        while (oldGrandChild != nullptr) {
+            _rwFrameSetRootRec(oldGrandChild, child);
+            oldGrandChild = oldGrandChild->next;
+        }
+        FrameMarkDirty(child);
+    }
+    child->next = parent->child;
+    parent->child = child;
+    child->object.parent = parent;
+    RwFrame* const newRoot = parent->root;
+    child->root = newRoot;
+    for (RwFrame* grandChild = child->child; grandChild != nullptr; grandChild = grandChild->next) {
+        _rwFrameSetRootRec(grandChild, newRoot);
+    }
+    return parent;
 }
 
 RwFrame* RwFrameGetRoot(const RwFrame* frame) {
     return ((RwFrame*(__cdecl *)(const RwFrame*))0x7F09B0)(frame);
 }
 
+// 0x7F0990 (lote R24A, sin validar; 31 bytes; era una envoltura; cdecl, (marco)): si la raiz del marco tiene el bit 0 de privateFlags (LTM de la jerarquia sucia) sincroniza con _rwFrameSyncHierarchyLTM(raiz) (0x8097D0).
+// Devuelve &marco->ltm (+0x50).
 RwMatrix* RwFrameGetLTM(RwFrame* frame) {
-    return ((RwMatrix*(__cdecl *)(RwFrame*))0x7F0990)(frame);
+    RwFrame* const root = frame->root;
+    if ((root->object.privateFlags & 1) != 0) {
+        _rwFrameSyncHierarchyLTM(root);
+    }
+    return &frame->ltm;
 }
 
 RwFrame* RwFrameUpdateObjects(RwFrame* frame) {
@@ -3375,13 +3688,41 @@ void RwFrameSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPreall
     ((void(__cdecl *)(RwInt32, RwInt32))0x7EFED0)(blockSize, numBlocksToPrealloc);
 }
 
+// 0x7F0410 (lote R24A, sin validar; 51 bytes; era una envoltura; cdecl, sin argumentos): reserva el marco en la lista libre (pista 0x3000E; sin memoria -> NULL) e inicializa los campos con rwFrameInitFields (0x7F0360).
 RwFrame* RwFrameCreate() {
-    return ((RwFrame*(__cdecl *)(void))0x7F0410)();
+    auto* const frame = static_cast<RwFrame*>(RwFreeListAlloc(FrameFreeList(), kFrameMemHint));
+    if (frame == nullptr) {
+        return nullptr;
+    }
+    rwFrameInitFields(frame);
+    return frame;
 }
 
+// 0x7F05A0 (lote R24A, sin validar; 330 bytes; era una envoltura; cdecl, (marco); sin comprobar nulos): _rwPluginRegistryDeInitObject(registro 0x8E2270, marco). Si tiene padre: lo saca de la lista de hijos del padre,
+// parent = next = NULL, root = el propio marco, pone la raiz de sus hijos al marco (_rwFrameSetRootRec) y lo marca sucio (FrameMarkDirty). Despues, si privateFlags & 3, lo saca de la lista de sucios; pone parent = NULL en
+// cada hijo (para que no queden apuntando al marco liberado) y libera el marco en la lista libre. Devuelve TRUE.
 RwBool RwFrameDestroy(RwFrame* frame) {
-    assert(frame);
-    return ((RwBool(__cdecl *)(RwFrame*))0x7F05A0)(frame);
+    _rwPluginRegistryDeInitObject(FrameRegistry(), frame);
+    if (frame->object.parent != nullptr) {
+        FrameUnlinkFromParent(frame);
+        RwFrame* child = frame->child;
+        frame->object.parent = nullptr;
+        frame->next = nullptr;
+        frame->root = frame;
+        while (child != nullptr) {
+            _rwFrameSetRootRec(child, frame);
+            child = child->next;
+        }
+        FrameMarkDirty(frame);
+    }
+    if ((frame->object.privateFlags & 3) != 0) {
+        FrameUnlinkDirty(frame);
+    }
+    for (RwFrame* child = frame->child; child != nullptr; child = child->next) {
+        child->object.parent = nullptr;
+    }
+    RwFreeListFree(FrameFreeList(), frame);
+    return TRUE;
 }
 
 RwBool _rwFrameInit(RwFrame* frame) {
@@ -3402,8 +3743,9 @@ RwInt32 RwFrameCount(RwFrame* frame) {
     return ((RwInt32(__cdecl *)(RwFrame*))0x7F0E00)(frame);
 }
 
+// 0x7F1260 (lote R24A, sin validar; 39 bytes; era una envoltura; cdecl, (tamano, id, constructor, destructor, copia)): _rwPluginRegistryAddPlugin(registro de RwFrame 0x8E2270, ...) con los mismos argumentos; devuelve su resultado.
 RwInt32 RwFrameRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
-    return ((RwInt32(__cdecl *)(RwInt32, RwUInt32, RwPluginObjectConstructor, RwPluginObjectDestructor, RwPluginObjectCopy))0x7F1260)(size, pluginID, constructCB, destructCB, copyCB);
+    return _rwPluginRegistryAddPlugin(FrameRegistry(), size, pluginID, constructCB, destructCB, copyCB);
 }
 
 RwInt32 RwFrameGetPluginOffset(RwUInt32 pluginID) {
@@ -3414,12 +3756,32 @@ RwBool RwFrameValidatePlugins(const RwFrame* frame) {
     return ((RwBool(__cdecl *)(const RwFrame*))0x7F12B0)(frame);
 }
 
+// 0x7EFFB0 (lote R24A, sin validar; 153 bytes; era una envoltura; cdecl, (raiz)): clona la jerarquia con _rwFrameCloneRec(raiz, NULL); sin clon -> NULL. Si hay: clon.privateFlags &= 0xFC y lo marca sucio (FrameMarkDirty:
+// con los flags de la raiz leidos DESPUES de borrar los bits, por lo que siempre se inserta en la lista de sucios). Devuelve el clon.
 RwFrame* _rwFrameCloneAndLinkClones(RwFrame* root) {
-    return ((RwFrame*(__cdecl *)(RwFrame*))0x7EFFB0)(root);
+    RwFrame* const clone = _rwFrameCloneRec(root, nullptr);
+    if (clone == nullptr) {
+        return nullptr;
+    }
+    clone->object.privateFlags = static_cast<RwUInt8>(clone->object.privateFlags & 0xFC);
+    FrameMarkDirty(clone);
+    return clone;
 }
 
+// 0x7F01A0 (lote R24A, sin validar; 98 bytes; era una envoltura; cdecl, (marco)): con padre, root = padre.root; sin padre, root = el propio marco; despues pone esa raiz en cada hijo (_rwFrameSetRootRec; el siguiente
+// hermano se lee despues de la llamada). Devuelve el marco.
 RwFrame* _rwFramePurgeClone(RwFrame* root) {
-    return ((RwFrame*(__cdecl *)(RwFrame*))0x7F01A0)(root);
+    RwFrame* newRoot = root;
+    if (root->object.parent != nullptr) {
+        newRoot = static_cast<RwFrame*>(root->object.parent)->root;
+    }
+    RwFrame* child = root->child;
+    root->root = newRoot;
+    while (child != nullptr) {
+        _rwFrameSetRootRec(child, newRoot);
+        child = child->next;
+    }
+    return root;
 }
 
 RwBool _rwFrameSyncDirty() {
@@ -4736,4 +5098,39 @@ void RwCoreInjectHooksR23A() {
     RH_ScopedGlobalInstall(RwIm3DEnd, 0x7EF520);
     RH_ScopedGlobalInstall(RwIm3DRenderIndexedPrimitive, 0x7EF550);
     RH_ScopedGlobalInstall(RwIm3DRenderPrimitive, 0x7EF6B0);
+}
+
+// Lote R24A (sin validar): tuberias Im3D (0x7EFAC0, 0x7EFB10), RwFrame (0x7EFFB0..0x7F1260) y callbacks/modos de RwTexture (0x7F34D0..0x7F35D0).
+void RwCoreInjectHooksR24A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RwIm3DSetTransformPipeline, 0x7EFAC0);
+    RH_ScopedGlobalInstall(RwIm3DSetRenderPipeline, 0x7EFB10);
+    RH_ScopedGlobalInstall(_rwFrameCloneAndLinkClones, 0x7EFFB0);
+    RH_ScopedGlobalInstall(_rwFrameCloneRec, 0x7F0050);
+    RH_ScopedGlobalInstall(_rwFramePurgeClone, 0x7F01A0);
+    RH_ScopedGlobalInstall(_rwFrameSetRootRec, 0x7F0210);
+    RH_ScopedGlobalInstall(RwFrameCreate, 0x7F0410);
+    RH_ScopedGlobalInstall(RwFrameDestroy, 0x7F05A0);
+    RH_ScopedGlobalInstall(_rwFrameDestroyRec, 0x7F0830);
+    RH_ScopedGlobalInstall(RwFrameDestroyHierarchy, 0x7F08A0);
+    RH_ScopedGlobalInstall(RwFrameGetLTM, 0x7F0990);
+    RH_ScopedGlobalInstall(RwFrameAddChildNoUpdate, 0x7F09C0);
+    RH_ScopedGlobalInstall(RwFrameAddChild, 0x7F0B00);
+    RH_ScopedGlobalInstall(RwFrameRemoveChild, 0x7F0CD0);
+    RH_ScopedGlobalInstall(RwFrameForAllChildren, 0x7F0DC0);
+    RH_ScopedGlobalInstall(RwFrameTranslate, 0x7F0E30);
+    RH_ScopedGlobalInstall(RwFrameTransform, 0x7F0F70);
+    RH_ScopedGlobalInstall(RwFrameRotate, 0x7F1010);
+    RH_ScopedGlobalInstall(RwFrameSetIdentity, 0x7F10B0);
+    RH_ScopedGlobalInstall(RwFrameOrthoNormalize, 0x7F1170);
+    RH_ScopedGlobalInstall(RwFrameForAllObjects, 0x7F1200);
+    RH_ScopedGlobalInstall(RwFrameRegisterPlugin, 0x7F1260);
+    RH_ScopedGlobalInstall(RwTextureSetFindCallBack, 0x7F34D0);
+    RH_ScopedGlobalInstall(RwTextureGetFindCallBack, 0x7F34F0);
+    RH_ScopedGlobalInstall(RwTextureSetReadCallBack, 0x7F3500);
+    RH_ScopedGlobalInstall(RwTextureSetMipmapping, 0x7F3530);
+    RH_ScopedGlobalInstall(RwTextureSetAutoMipmapping, 0x7F3560);
+    RH_ScopedGlobalInstall(RwTextureSetRaster, 0x7F35D0);
 }

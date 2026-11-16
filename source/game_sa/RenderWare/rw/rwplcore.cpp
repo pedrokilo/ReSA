@@ -1259,14 +1259,6 @@ void RwMatrixSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPreal
     ((void(__cdecl *)(RwInt32, RwInt32))0x7F16A0)(blockSize, numBlocksToPrealloc);
 }
 
-RwBool RwMatrixDestroy(RwMatrix* mpMat) {
-    return ((RwBool(__cdecl *)(RwMatrix*))0x7F2A20)(mpMat);
-}
-
-RwMatrix* RwMatrixMultiply(RwMatrix* matrixOut, const RwMatrix* MatrixIn1, const RwMatrix* matrixIn2) {
-    return ((RwMatrix*(__cdecl *)(RwMatrix*, const RwMatrix*, const RwMatrix*))0x7F18B0)(matrixOut, MatrixIn1, matrixIn2);
-}
-
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // Lote R12A (sin validar): modulos de vectores y matrices del motor. Cada uno es un bloque dentro de RwEngineInstance a un desplazamiento guardado en una variable del EXE
 // (vectores 0xC97934, matrices 0xC979BC).
@@ -1389,8 +1381,45 @@ const RwMatrix* RwMatrixQueryRotate(const RwMatrix* matrix, RwV3d* unitAxis, RwR
     return ((const RwMatrix*(__cdecl *)(const RwMatrix*, RwV3d*, RwReal*, RwV3d*))0x7F2720)(matrix, unitAxis, angle, center);
 }
 
+// 0x7F18A0 (lote R24A, sin validar; 12 bytes; era una envoltura; cdecl, (matriz)): flags (+0xC) &= 0xFFFDFFFC (borra los bits 0 y 1 -normal y ortogonal- y el 0x20000 -identidad interna-). Devuelve la matriz.
 RwMatrix* RwMatrixUpdate(RwMatrix* matrix) {
-    return ((RwMatrix*(__cdecl *)(RwMatrix*))0x7F18A0)(matrix);
+    matrix->flags &= 0xFFFDFFFCu;
+    return matrix;
+}
+
+// 0x7F18B0 (lote R24A, sin validar; 111 bytes; era una envoltura; cdecl, (salida, entrada1, entrada2)): m = modulo de matrices (motor + [0xC979BC]); mascara = m.flags (+4) & 0x20000. Si los flags de la entrada1
+// (+0xC) tienen algun bit de la mascara (identidad interna) copia ENTERA la entrada2 (16 dwords, incluidos flags y rellenos) a la salida y la devuelve; si no, si los de la entrada2 lo tienen, copia la entrada1 (16 dwords).
+// Si ninguna es identidad llama al callback del modulo (+8; cdecl, (salida, entrada1, entrada2); su resultado se ignora), escribe flags = flags2 & flags1 (leidos ANTES de la llamada) y devuelve la salida.
+// Las copias son rep movsd de 64 bytes: la salida puede solaparse con la entrada elegida (no se protege).
+RwMatrix* RwMatrixMultiply(RwMatrix* matrixOut, const RwMatrix* MatrixIn1, const RwMatrix* matrixIn2) {
+    auto& module = R12AMatrixModule();
+    const RwUInt32 flags1 = MatrixIn1->flags;
+    const RwUInt32 flags2 = matrixIn2->flags;
+    const RwUInt32 mask = module.flags & 0x20000;
+    if ((flags1 & mask) != 0) {
+        memcpy(matrixOut, matrixIn2, sizeof(RwMatrix));
+        return matrixOut;
+    }
+    if ((flags2 & mask) != 0) {
+        memcpy(matrixOut, MatrixIn1, sizeof(RwMatrix));
+        return matrixOut;
+    }
+    reinterpret_cast<void(__cdecl*)(RwMatrix*, const RwMatrix*, const RwMatrix*)>(module.multFn)(matrixOut, MatrixIn1, matrixIn2);
+    matrixOut->flags = flags2 & flags1;
+    return matrixOut;
+}
+
+// 0x7F2A20 (lote R24A, sin validar; 35 bytes; era una envoltura; cdecl, (matriz)): libera la matriz en la lista libre del modulo de matrices (RwFreeListFree: [motor + 0x148](lista = [motor + [0xC979BC]], matriz)). Devuelve TRUE.
+RwBool RwMatrixDestroy(RwMatrix* mpMat) {
+    RwFreeListFree(static_cast<RwFreeList*>(R12AMatrixModule().freeList), mpMat);
+    return TRUE;
+}
+
+// 0x7F12C0 (lote R24A, sin validar; 35 bytes; cdecl, (funcion); nombre real de RenderWare: _rwMatrixSetMultFn): guarda en el callback de multiplicacion del modulo de matrices (+8) la funcion, o 0x7F12F0 (la
+// de por defecto) si es nula. Devuelve TRUE.
+RwBool _rwMatrixSetMultFn(rwMatrixMultFn multMat) {
+    R12AMatrixModule().multFn = multMat ? reinterpret_cast<void*>(multMat) : reinterpret_cast<void*>(0x7F12F0);
+    return TRUE;
 }
 
 // 0x7F17E0 (lote R12A, sin validar; 179 bytes): tolerancia NULL -> la del modulo de matrices (motor + [0xC979BC] + 0xC, tres floats). normal = error normal <= Normal; orthogonal = error ortogonal <= Orthogonal (comparaciones ordenadas: NaN da falso);
@@ -2771,4 +2800,15 @@ void RwPlCoreInjectHooksR23A() {
 
     RH_ScopedGlobalInstall(RwV3dNormalize, 0x7ED9B0);
     RH_ScopedGlobalInstall(RwV3dTransformPoints, 0x7EDD90);
+}
+
+// Lote R24A (sin validar): matrices (RwMatrixUpdate, RwMatrixMultiply, RwMatrixDestroy, _rwMatrixSetMultFn).
+void RwPlCoreInjectHooksR24A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    RH_ScopedGlobalInstall(_rwMatrixSetMultFn, 0x7F12C0);
+    RH_ScopedGlobalInstall(RwMatrixUpdate, 0x7F18A0);
+    RH_ScopedGlobalInstall(RwMatrixMultiply, 0x7F18B0);
+    RH_ScopedGlobalInstall(RwMatrixDestroy, 0x7F2A20);
 }

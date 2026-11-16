@@ -714,6 +714,8 @@ void RpWorldInjectHooksR18A();    // plugin de geometria D3D9, callback de insta
 // Lote R23A (sin validar).
 void RwPlCoreInjectHooksR23A();   // RwV3dNormalize (0x7ED9B0) y RwV3dTransformPoints (0x7EDD90) (rwplcore.cpp)
 void RwCoreInjectHooksR23A();     // camaras (0x7EE1D0..0x7EF1F0) e Im3D (0x7EF450..0x7EF6B0) (rwcore.cpp)
+void RwPlCoreInjectHooksR24A();   // matrices: RwMatrixUpdate, RwMatrixMultiply, RwMatrixDestroy y _rwMatrixSetMultFn (rwplcore.cpp)
+void RwCoreInjectHooksR24A();     // tuberias Im3D, RwFrame y callbacks/modos de RwTexture (0x7EFAC0..0x7F35D0) (rwcore.cpp)
 
 void InjectHooksMain() {
     /**
@@ -1141,6 +1143,8 @@ void InjectHooksMain() {
     RpWorldInjectHooksR21A();
     RwPlCoreInjectHooksR23A();
     RwCoreInjectHooksR23A();
+    RwPlCoreInjectHooksR24A();
+    RwCoreInjectHooksR24A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();
