@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11171 |
+| `validated=1` · evidencia aprobada vinculada | 11200 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11171 |
-| Sin evidencia aprobada vinculada en este registro | 1270 |
+| Evidencia histórica vinculada; revisión pendiente | 11200 |
+| Sin evidencia aprobada vinculada en este registro | 1241 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -4621,6 +4621,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPatrolRoute | `Constructor` | [Resumen](../reversing/Fn175A/validation-summary.json) |
 | CPatrolRoute | `Destructor` | [Resumen](../reversing/Fn170A/validation-summary.json) |
 | CPatrolRoute | `Reverse` | [Resumen](../reversing/Fn195A/validation-summary.json) |
+| CPatrolRoute | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CPatrolRoute | `operator delete` | [Resumen](../reversing/Fn146A/validation-summary.json) |
 | CPatrolRoute | `operator new` | [Resumen](../reversing/Fn146A/validation-summary.json) |
 | CPatrolRoutePool | `New` | [Resumen](../reversing/Fn132A/validation-summary.json) |
@@ -4812,18 +4813,24 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedAttractor | `SArrayCopyBackwardStride4A` | [Resumen](../reversing/Fn205A/validation-summary.json) |
 | CPedAttractor | `SArrayCopyBackwardStride4B` | [Resumen](../reversing/Fn205A/validation-summary.json) |
 | CPedAttractor | `SArrayCopyBackwardStride4C` | [Resumen](../reversing/Fn205A/validation-summary.json) |
+| CPedAttractor | `SArrayCopyBackwardStride4D` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CPedAttractor | `SArrayCopyStride20` | [Resumen](../reversing/Fn189A/validation-summary.json) |
+| CPedAttractor | `SArrayFillNReturnEndStride4` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CPedAttractor | `SArrayFillNStride12` | [Resumen](../reversing/Fn205A/validation-summary.json) |
 | CPedAttractor | `SArrayFillNStride20` | [Resumen](../reversing/Fn205A/validation-summary.json) |
 | CPedAttractor | `SArrayFillNStride4A` | [Resumen](../reversing/Fn205A/validation-summary.json) |
 | CPedAttractor | `SArrayFillNStride4B` | [Resumen](../reversing/Fn205A/validation-summary.json) |
 | CPedAttractor | `SArrayFillNStride4C` | [Resumen](../reversing/Fn205A/validation-summary.json) |
+| CPedAttractor | `SArrayFillNStride4D` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CPedAttractor | `SArrayFillStride12` | [Resumen](../reversing/Fn205A/validation-summary.json) |
 | CPedAttractor | `SArrayFillStride20` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CPedAttractor | `SArrayFillStride4A` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CPedAttractor | `SArrayFillStride4B` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CPedAttractor | `SArrayFillStride4C` | [Resumen](../reversing/Fn189A/validation-summary.json) |
+| CPedAttractor | `SArrayFillStride4D` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CPedAttractor | `SArrayTidyStride4` | [Resumen](../reversing/Fn206A/validation-summary.json) |
+| CPedAttractor | `SArrayTidyStride4B` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| CPedAttractor | `SArrayTidyStride4C` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CPedAttractor | `SArrayUninitCopyStride12` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CPedAttractor | `SArrayUninitCopyStride20` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CPedAttractor | `SArrayUninitCopyStride4A` | [Resumen](../reversing/Fn189A/validation-summary.json) |
@@ -4834,6 +4841,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedAttractor | `SArrayUninitCopyWrapStride4A` | [Resumen](../reversing/Fn206A/validation-summary.json) |
 | CPedAttractor | `SArrayUninitCopyWrapStride4B` | [Resumen](../reversing/Fn206A/validation-summary.json) |
 | CPedAttractor | `SArrayUninitCopyWrapStride4C` | [Resumen](../reversing/Fn206A/validation-summary.json) |
+| CPedAttractor | `SArrayUninitCopyWrapStride4D` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CPedAttractor | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn206A/validation-summary.json) |
 | CPedAttractor | `SetTaskForPed` | [Resumen](../reversing/FixPeds/validation-summary.json) |
 | CPedAttractor | `operator delete` | [Resumen](../reversing/Fn205A/validation-summary.json) |
@@ -7030,6 +7038,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexFollowNodeRoute | `StopTimer` | [Resumen](../reversing/Route19/validation-summary.json) |
 | CTaskComplexFollowPatrolRoute | `Clone` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CTaskComplexFollowPatrolRoute | `ConstructorExe` | [Resumen](../reversing/Fn175A/validation-summary.json) |
+| CTaskComplexFollowPatrolRoute | `ControlSubTask` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| CTaskComplexFollowPatrolRoute | `DestructorBody` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| CTaskComplexFollowPatrolRoute | `MakeAbortable` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CTaskComplexFollowPedFootsteps | `Clone` | [Resumen](../reversing/Fn185A/validation-summary.json) |
 | CTaskComplexFollowPedFootsteps | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CTaskComplexFollowPedFootsteps | `ControlSubTask` | [Resumen](../reversing/FollowFootsteps62/validation-summary.json) |
@@ -9169,6 +9180,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleSitIdle | `ProcessPed` | [Resumen](../reversing/STasks7/validation-summary.json) |
 | CTaskSimpleSitIdle | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn128A/validation-summary.json) |
 | CTaskSimpleSitIdle | `StartAnim` | [Resumen](../reversing/STasks7/validation-summary.json) |
+| CTaskSimpleSlideToCoord | `Clone` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CTaskSimpleSlideToCoord | `Constructor-Anim` | [Resumen](../reversing/Fn191A/validation-summary.json) |
 | CTaskSimpleSlideToCoord | `Constructor-NoAnim` | [Resumen](../reversing/Fn191A/validation-summary.json) |
 | CTaskSimpleSlideToCoord | `Destructor` | [Resumen](../reversing/Fn191A/validation-summary.json) |
@@ -9740,6 +9752,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `HeightAboveCeiling` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `InflictDamage` | [Resumen](../reversing/Veh83B/validation-summary.json) |
 | CVehicle | `InitWinch` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `IsAlarmActive` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CVehicle | `IsComponentPresent` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `IsDoorClosed` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `IsDoorClosedU32` | [Resumen](../reversing/Fn195A/validation-summary.json) |
@@ -9751,6 +9764,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `IsDoorReadyU32` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CVehicle | `IsDriver-ModelID` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `IsDriver-Ped` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `IsHandbrakeOn` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CVehicle | `IsLawEnforcementVehicle` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `IsOnItsSide` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `IsPassenger-ModelID` | [Resumen](../reversing/CVehA/validation-summary.json) |
@@ -10782,6 +10796,20 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | JPegPlugin | `JPegDecompressToRaster` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | JPegPlugin | `JPegDecompressToVramFromBuffer` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | JPegPlugin | `JPegScanlineToRaster` | [Resumen](../reversing/Fn132A/validation-summary.json) |
+| LegacyRuntimeError | `ConstructFromString` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyRuntimeError | `CopyConstructor` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyRuntimeError | `DestructorBodyA` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyRuntimeError | `DestructorBodyB` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyRuntimeError | `ScalarDeletingDestructorA` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyRuntimeError | `ScalarDeletingDestructorB` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyRuntimeError | `VectorXlen` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyRuntimeError | `What` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyStdString | `AssignChars` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyStdString | `AssignString` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyStdString | `ConstructFromChars` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyStdString | `Erase` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyStdString | `Grow` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyStdString | `Tidy` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | Light | `ActivateDirectional` | [Resumen](../reversing/Light27/validation-summary.json) |
 | Light | `AddAnExtraDirectionalLight` | [Resumen](../reversing/Light27/validation-summary.json) |
 | Light | `DeActivateDirectional` | [Resumen](../reversing/Light27/validation-summary.json) |
@@ -11127,6 +11155,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | TList_c | `ListGetNumItemsExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | TList_c | `ListRemoveAllExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | UserTracksLegacyString | `Reallocate` | [Resumen](../reversing/Fn208A/validation-summary.json) |
+| UserTracksLegacyVector | `Insert` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | UserTracksLegacyVector | `PushBack` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
 | VectorConstructorIterator | `VectorConstructorIteratorExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | VideoMode | `FreeVideoModeList` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
@@ -11550,12 +11579,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPad` | 102 | 0 | 102 | 0 |
 | `CPathFind` | 81 | 0 | 81 | 0 |
 | `CPathNode` | 2 | 0 | 2 | 0 |
-| `CPatrolRoute` | 7 | 0 | 6 | 1 |
+| `CPatrolRoute` | 7 | 0 | 7 | 0 |
 | `CPatrolRoutePool` | 1 | 0 | 1 | 0 |
 | `CPed` | 156 | 0 | 156 | 0 |
 | `CPedATMAttractor` | 3 | 0 | 0 | 3 |
 | `CPedAcquaintanceScanner` | 6 | 0 | 6 | 0 |
-| `CPedAttractor` | 85 | 0 | 51 | 34 |
+| `CPedAttractor` | 85 | 0 | 58 | 27 |
 | `CPedAttractorManager` | 25 | 0 | 22 | 3 |
 | `CPedAttractorPedPlacer` | 1 | 0 | 1 | 0 |
 | `CPedAttractorPool` | 1 | 0 | 1 | 0 |
@@ -11753,7 +11782,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexFollowLeaderAnyMeans` | 9 | 0 | 9 | 0 |
 | `CTaskComplexFollowLeaderInFormation` | 12 | 0 | 12 | 0 |
 | `CTaskComplexFollowNodeRoute` | 20 | 0 | 20 | 0 |
-| `CTaskComplexFollowPatrolRoute` | 11 | 0 | 2 | 9 |
+| `CTaskComplexFollowPatrolRoute` | 11 | 0 | 5 | 6 |
 | `CTaskComplexFollowPedFootsteps` | 11 | 0 | 11 | 0 |
 | `CTaskComplexFollowPointRoute` | 15 | 0 | 15 | 0 |
 | `CTaskComplexGangFollower` | 11 | 0 | 11 | 0 |
@@ -11996,7 +12025,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleShakeFist` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleSitDown` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleSitIdle` | 8 | 0 | 8 | 0 |
-| `CTaskSimpleSlideToCoord` | 6 | 0 | 4 | 2 |
+| `CTaskSimpleSlideToCoord` | 6 | 0 | 5 | 1 |
 | `CTaskSimpleStandStill` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleStandUp` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleStealthKill` | 9 | 0 | 9 | 0 |
@@ -12036,7 +12065,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
 | `CVector` | 24 | 0 | 24 | 0 |
 | `CVector2D` | 3 | 0 | 3 | 0 |
-| `CVehicle` | 202 | 0 | 200 | 2 |
+| `CVehicle` | 202 | 0 | 202 | 0 |
 | `CVehicleAnimGroup` | 6 | 0 | 6 | 0 |
 | `CVehicleAnimGroupData` | 6 | 0 | 6 | 0 |
 | `CVehicleModelInfo` | 80 | 0 | 80 | 0 |
@@ -12138,8 +12167,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `InteriorManager_c` | 23 | 0 | 23 | 0 |
 | `Interior_c` | 54 | 0 | 54 | 0 |
 | `JPegPlugin` | 6 | 0 | 6 | 0 |
-| `LegacyRuntimeError` | 13 | 0 | 0 | 13 |
-| `LegacyStdString` | 6 | 0 | 0 | 6 |
+| `LegacyRuntimeError` | 13 | 0 | 8 | 5 |
+| `LegacyStdString` | 6 | 0 | 6 | 0 |
 | `LibJpegCompress` | 18 | 0 | 0 | 18 |
 | `LibJpegCompressApi` | 3 | 0 | 0 | 3 |
 | `LibJpegCompressEncode` | 11 | 0 | 0 | 11 |
@@ -12182,7 +12211,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `SurfaceInfos_c` | 50 | 0 | 50 | 0 |
 | `TList_c` | 8 | 0 | 3 | 5 |
 | `UserTracksLegacyString` | 1 | 0 | 1 | 0 |
-| `UserTracksLegacyVector` | 2 | 0 | 1 | 1 |
+| `UserTracksLegacyVector` | 2 | 0 | 2 | 0 |
 | `VectorConstructorIterator` | 1 | 0 | 1 | 0 |
 | `VideoMode` | 5 | 0 | 5 | 0 |
 | `VideoPlayer` | 7 | 0 | 7 | 0 |
