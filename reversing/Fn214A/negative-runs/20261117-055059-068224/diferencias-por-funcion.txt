@@ -1,0 +1,3 @@
+{"CPlayerPedData::operator=": 1141, "CPlayerInfo::operator=": 1967, "CReplay::StoreTrainUpdate": 2048, "tReplayTrainBlock::ExtractTrainUpdateData": 847, "CTheScripts::AddToSuppressedCarModels": 431, "CStreaming::SetMissionDoesntRequireAnim": 2048, "CQuaternion::Normalise": 1342}
+pares 14336 con diferencias 9824 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

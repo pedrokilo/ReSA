@@ -814,6 +814,8 @@ bool CPlayerInfo::Save() {
     return true;
 }
 
+void PlayerPedDataAssignExe(CPlayerPedData* self, const CPlayerPedData* rhsPtr, uint32 esi);   // PlayerPedData.cpp (0x45C4B0 con el ESI del llamador)
+
 // 0x45DEF0 (lote 214A, sin validar)
 CPlayerInfo& CPlayerInfo::operator=(const CPlayerInfo& rhs) {
     // Como el original: copia por campos sin tocar el relleno (el EXE no usa memcpy de la estructura).
@@ -824,7 +826,7 @@ CPlayerInfo& CPlayerInfo::operator=(const CPlayerInfo& rhs) {
     copy(0x0, 4); // m_pPed
 
     // 0x45C4B0 (CPlayerPedData, +4, lote 214A): operator= propio de CPlayerPedData (hook aparte); aqui ESI del EXE es este CPlayerInfo.
-    m_PlayerData = rhs.m_PlayerData;
+    PlayerPedDataAssignExe(&m_PlayerData, &rhs.m_PlayerData, static_cast<uint32>(reinterpret_cast<uintptr_t>(this)));
 
     copy(0xB0, 0x24); // 0xB0..0xD3 (dwords)
     copy(0xD4, 2);    // m_bTaxiTimerScore, m_bTryingToExitCar

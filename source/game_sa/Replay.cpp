@@ -164,10 +164,13 @@ inline uint8* ReplayBufferPtr(uint32 slot) {
     return CReplay::Buffers.data()[slot].buffer.data();
 }
 
+} // namespace
+
 // 0x45B730
 // Como el original: escribe directamente en el paquete del buffer y deja intactos el tipo, el relleno y,
 // fuera de los automóviles, las puertas, ruedas y estado de puertas.
-void ReplayStoreCarUpdate(uint8* p, CVehicle* veh, int32 poolIdx) {
+// Fuera del espacio de nombres anonimo y sin insertar en linea (lote 214A): el banco Fn214A sustituye este cuerpo por un falso.
+__declspec(noinline) void ReplayStoreCarUpdate(uint8* p, CVehicle* veh, int32 poolIdx) {
     auto* v = reinterpret_cast<uint8*>(veh);
 
     p[1] = static_cast<uint8>(poolIdx);
@@ -233,6 +236,8 @@ void ReplayStoreCarUpdate(uint8* p, CVehicle* veh, int32 poolIdx) {
     p[0x2F] = static_cast<uint8>((p[0x2F] & ~1u) | ((ReplayAt<uint32>(v, 0x40) >> 29) & 1u));
     p[0x30] = v[0x594];
 }
+
+namespace {
 
 // 0x45C070 (moto) / 0x45BF90 (BMX)
 void ReplayStoreBikeUpdate(uint8* p, CVehicle* veh, int32 poolIdx, eReplayPacket type) {

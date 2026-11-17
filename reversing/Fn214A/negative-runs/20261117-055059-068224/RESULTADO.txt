@@ -1,0 +1,3 @@
+FALLO: Fn214A
+Funciones con diferencias: CPlayerPedData::operator=: 1141/2048; CPlayerInfo::operator=: 1967/2048; CReplay::StoreTrainUpdate: 2048/2048; tReplayTrainBlock::ExtractTrainUpdateData: 847/2048; CTheScripts::AddToSuppressedCarModels: 431/2048; CStreaming::SetMissionDoesntRequireAnim: 2048/2048; CQuaternion::Normalise: 1342/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn214a\20261117-055059-068224
