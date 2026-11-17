@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "d4064a70036096523ff8c55c31b583ab3503967c81802124be64d643d2968ca8",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: ListItem_c::Destructor: 884/2048; TList_c::ListConstructorExe: 884/2048; TList_c::ListDestructorExe: 892/2048; TList_c::ListRemoveItemExe: 909/2048; TList_c::ListRemoveHeadExe: 375/2048; TList_c::ListGetItemOffsetExe: 33/2048; FxFrustumInfo_c::Constructor: 899/2048; CPedAttractor::SArrayTidyStride4D: 889/2048; CPedAttractor::SArrayTidyStride4E: 920/2048; CPedAttractor::SArrayTidyStride4F: 905/2048; CPedAttractor::SArrayTidyStride4G: 906/2048; CPedAttractor::SArrayTidyStride4H: 901/2048; CPedAttractor::SArrayTidyStride4I: 899/2048; CPedAttractor::SArrayTidyStride4J: 896/2048; CPedAttractor::SArrayTidyStride4K: 909/2048; CPedAttractor::SArrayTidyStride4L: 890/2048; CPedAttractor::SArrayFillNReturnEndStride4B: 673/2048; CPedAttractor::SArrayFillNReturnEndStride20: 648/2048; CPedAttractor::SArrayFillNReturnEndStride4C: 694/2048; CPedAttractor::SArrayFillNReturnEndStride12: 696/2048; CPedAttractor::SArrayFillNReturnEndStride4D: 681/2048; CPedAttractor::SArrayEraseStride4: 876/2048; LegacyRuntimeError::VectorXlenB: 890/2048; LegacyRuntimeError::VectorXlenC: 912/2048; LegacyRuntimeError::VectorXlenD: 885/2048; LegacyRuntimeError::VectorXlenE: 890/2048; LegacyRuntimeError::VectorXlenF: 903/2048; CPedAttractor::SArrayInsertNStride4A: 164/2048; CPedAttractor::SArrayInsertNStride20: 28/2048; CPedAttractor::SArrayInsertNStride4B: 158/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

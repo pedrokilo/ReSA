@@ -232,6 +232,12 @@ struct SArrayRaw {
 
 // 0x5EC0E0 (42 bytes) y 0x5EC140 (42 bytes), thiscall con ECX sin leer, tres argumentos de pila, `ret 0Ch`: igual que 0x5EC070 pero con elementos de 20 y de 12 bytes. Llaman a uninitialized_fill_n (0x5EB2E0 / 0x5EB340) y
 // devuelven destino + cantidad * tamano (EAX = EDI + (ESI * 5) * 4, o EDI + (ESI * 3) * 4), con la cantidad SIN signo y la aritmetica de punteros del EXE (envuelve a 32 bits).
+// Lote 219A: una instancia propia por direccion de hook (0x5EC070, 0x5EC110 y 0x5EC1B0; 0x4F3D80 conserva la funcion base): RH no admite dos hooks hacia la misma funcion de la DLL (ver SArrayTidyStride4Inst).
+template<int Id>
+uint32* __stdcall SArrayFillNReturnEndStride4Inst(uint32* dest, uint32 count, const uint32* value) {
+    return SArrayFillNReturnEndStride4(dest, count, value);
+}
+
 SArrayElem20* __stdcall SArrayFillNReturnEndStride20(SArrayElem20* dest, uint32 count, const SArrayElem20* value) {
     SArrayFillNStride20(dest, count, value);
     return dest + count;
@@ -698,21 +704,21 @@ void CPedAttractor::InjectHooks() {
 
     // Lote 219A (sin validar): instancias de las mismas plantillas junto a los vectores de CPedAttractor y de CPedAttractorManager (0x5EC040..0x5ED4B0; el listado las atribuia a CPedAttractorManager). Vaciados de vector,
     // fill_n que devuelven el final, erase y los tres insert(pos, n, valor); mismas funciones C++ para los cuerpos identicos (ver arriba). 0x5ED0A3 y 0x5ED388 (9 bytes) son manejadores catch de 0x5ECF10 y 0x5ED1B0 (no enganchables).
-    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4D", 0x5EC040);
-    RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride4, "SArrayFillNReturnEndStride4B", 0x5EC070);
-    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4E", 0x5EC0B0);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4Inst<3>, "SArrayTidyStride4D", 0x5EC040);
+    RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride4Inst<1>, "SArrayFillNReturnEndStride4B", 0x5EC070);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4Inst<4>, "SArrayTidyStride4E", 0x5EC0B0);
     RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride20, "SArrayFillNReturnEndStride20", 0x5EC0E0);
-    RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride4, "SArrayFillNReturnEndStride4C", 0x5EC110);
+    RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride4Inst<2>, "SArrayFillNReturnEndStride4C", 0x5EC110);
     RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride12, "SArrayFillNReturnEndStride12", 0x5EC140);
-    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4F", 0x5EC180);
-    RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride4, "SArrayFillNReturnEndStride4D", 0x5EC1B0);
-    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4G", 0x5EC1F0);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4Inst<5>, "SArrayTidyStride4F", 0x5EC180);
+    RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride4Inst<3>, "SArrayFillNReturnEndStride4D", 0x5EC1B0);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4Inst<6>, "SArrayTidyStride4G", 0x5EC1F0);
     RH_ScopedNamedGlobalInstall(SArrayEraseStride4, "SArrayEraseStride4", 0x5EC220);
-    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4H", 0x5EC260);
-    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4I", 0x5EC2D0);
-    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4J", 0x5EC340);
-    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4K", 0x5EC3B0);
-    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4L", 0x5EC3E0);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4Inst<7>, "SArrayTidyStride4H", 0x5EC260);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4Inst<8>, "SArrayTidyStride4I", 0x5EC2D0);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4Inst<9>, "SArrayTidyStride4J", 0x5EC340);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4Inst<10>, "SArrayTidyStride4K", 0x5EC3B0);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4Inst<11>, "SArrayTidyStride4L", 0x5EC3E0);
     RH_ScopedNamedGlobalInstall(SArrayInsertNStride4<SArrayInsertInstanceA>, "SArrayInsertNStride4A", 0x5ECF10);
     RH_ScopedNamedGlobalInstall(SArrayInsertNStride20, "SArrayInsertNStride20", 0x5ED1B0);
     RH_ScopedNamedGlobalInstall(SArrayInsertNStride4<SArrayInsertInstanceB>, "SArrayInsertNStride4B", 0x5ED4B0);

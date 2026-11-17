@@ -101352,6 +101352,1296 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre bd5e18cc9c (HEAD de integracion del coordinador, con 212A y 213A) con los cambios del lote (ver artifacts/build-manifest.json). 29 funciones del EXE sin validar: vector::_Insert_n de 12 y 4 bytes, insert de 20 y 12 bytes, push_back de 4 (tres instancias), 12 y 20 bytes, CPedAttractorManager::Constructor y, de los seis atractores (ATM, Seat, Stop, Pizza, Shelter, TriggerScript), constructor, destructor con borrado y cuerpo del destructor, mas CPedShelterAttractor::GetType (hook V). Colaboradores: operator new (0x82119A) y delete (0x8214BD) del CRT, vector::_Xlen (0x5ECC30, 0x5ECCB0), fill_n, envoltorios de copia, fill_n que devuelve el final, fill, copy_backward, los insert que llaman los push_back y el constructor base de CPedAttractor (0x5EDFB0) y CPedAttractor::Destructor (0x5EC410) sustituidos por falsos (los de la STL por direccion fija del EXE: la DLL los llama por ella; el constructor base y 0x5EC410 con el mismo falso en la direccion del EXE y en la funcion de la DLL); uninitialized_copy (0x5EAEA0, 0x5EAEE0), size() (0x5E9850) y el cuerpo del destructor de la clase (en los destructores con borrado) corren REALES. Las vtables que dejan los constructores se normalizan a clase (EXE o ASI); los cuerpos de destructor escriben la del EXE en ambos lados. Sin x87 (los floats de los constructores viajan como dwords). Fuera de los fixtures: this nulo o crudo, vectores reales con elementos construidos por el EXE, objetos reales del pool de atractores, los hilos que corren a la vez, vector::_Xlen que lanza de verdad (salida no local del falso), los marcos SEH de los _Insert_n (solo liberan el bloque nuevo si una copia lanzara) y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn220A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ListItem_c",
+        "fn_name": "Destructor",
+        "address": "0x004A8DC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "ListItem_c::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "TList_c",
+        "fn_name": "ListConstructorExe",
+        "address": "0x004A8DD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "TList_c::ListConstructorExe"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "TList_c",
+        "fn_name": "ListDestructorExe",
+        "address": "0x004A8DE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "TList_c::ListDestructorExe"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "TList_c",
+        "fn_name": "ListRemoveItemExe",
+        "address": "0x004A8E30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "TList_c::ListRemoveItemExe"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "TList_c",
+        "fn_name": "ListRemoveHeadExe",
+        "address": "0x004A8E70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "TList_c::ListRemoveHeadExe"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "TList_c",
+        "fn_name": "ListGetItemOffsetExe",
+        "address": "0x004A9010",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "TList_c::ListGetItemOffsetExe"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxFrustumInfo_c",
+        "fn_name": "Constructor",
+        "address": "0x004A9090",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "FxFrustumInfo_c::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayTidyStride4D",
+        "address": "0x005EC040",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayTidyStride4D"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayTidyStride4E",
+        "address": "0x005EC0B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayTidyStride4E"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayTidyStride4F",
+        "address": "0x005EC180",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayTidyStride4F"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayTidyStride4G",
+        "address": "0x005EC1F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayTidyStride4G"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayTidyStride4H",
+        "address": "0x005EC260",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayTidyStride4H"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayTidyStride4I",
+        "address": "0x005EC2D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayTidyStride4I"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayTidyStride4J",
+        "address": "0x005EC340",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayTidyStride4J"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayTidyStride4K",
+        "address": "0x005EC3B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayTidyStride4K"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayTidyStride4L",
+        "address": "0x005EC3E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayTidyStride4L"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayFillNReturnEndStride4B",
+        "address": "0x005EC070",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayFillNReturnEndStride4B"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayFillNReturnEndStride20",
+        "address": "0x005EC0E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayFillNReturnEndStride20"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayFillNReturnEndStride4C",
+        "address": "0x005EC110",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayFillNReturnEndStride4C"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayFillNReturnEndStride12",
+        "address": "0x005EC140",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayFillNReturnEndStride12"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayFillNReturnEndStride4D",
+        "address": "0x005EC1B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayFillNReturnEndStride4D"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayEraseStride4",
+        "address": "0x005EC220",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayEraseStride4"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "VectorXlenB",
+        "address": "0x005ECAB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::VectorXlenB"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "VectorXlenC",
+        "address": "0x005ECB30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::VectorXlenC"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "VectorXlenD",
+        "address": "0x005ECBB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::VectorXlenD"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "VectorXlenE",
+        "address": "0x005ECC30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::VectorXlenE"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "VectorXlenF",
+        "address": "0x005ECCB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::VectorXlenF"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayInsertNStride4A",
+        "address": "0x005ECF10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayInsertNStride4A"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayInsertNStride20",
+        "address": "0x005ED1B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayInsertNStride20"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayInsertNStride4B",
+        "address": "0x005ED4B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn219A/validation-summary.json",
+        "sha256": "74b3047b75c559a63ab55ab4984f5ae39bade2d005c0f9374aaa436c638e1cbc",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayInsertNStride4B"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "993417806b8af682f83432211fc7fdb20d99a1fa7ddd194c9b71d2b0f11efe04",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
+        "source/game_sa/Core/List_c.cpp": "6f7404c016ce62596d2fa6c2852c497485da086655fef50fa9802089ca3a0e8b",
+        "source/game_sa/Core/ListItem_c.cpp": "e87489632bcb548cd83b926815fa7b50c67369fe52eeeaa0d8dbe2efe29c2f15",
+        "source/game_sa/Fx/FxFrustumInfo.cpp": "c3c97ee7b25dce66a0b1e602127bbcd65afde7912ac39c218f06d30884bd022f",
+        "source/game_sa/Fx/FxFrustumInfo.h": "22c2014592150cda786de3374de8133b5397c2eb12556b468174b45848207d5a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn219A/LiveComparison.hpp": "9d73a6d4114900bed6dd6552b303be68013a45420ff35868668f8fce5cbb1f7d",
+        "reversing/Fn219A/Core.hpp": "e8f13b6438a7c875314266f9fc0dfca0c242ad3101a3da2d93761ee777a7bd77",
+        "reversing/Fn219A/Fixtures.hpp": "b00f417c51c1b15eda703a0cf360b452ff09047fa07ef6035133b45063d1d359",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre f22c514ffe (HEAD de integracion del coordinador, con el 219A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias de plantilla por direccion para los vaciados 0x5EC040..0x5EC3E0, los fill_n que devuelven el final 0x5EC070/0x5EC110/0x5EC1B0 y los vector::_Xlen 0x5ECAB0..0x5ECCB0, y el cuerpo de VectorXlen separado en VectorXlenImpl sin hook). 30 funciones del EXE: TList_c (constructor, destructor, RemoveItem, RemoveHead, GetItemOffset) y destructor de ListItem_c (codigo compartido por todas las instancias), constructor de FxFrustumInfo_c, nueve vaciados de vector, cinco fill_n que devuelven el final (4, 20 y 12 bytes), erase, cinco vector::_Xlen y tres insert(pos, n, valor) (4 bytes x2 y 20 bytes). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy (0x5EAE10, 0x5EAE40, 0x5EAE70), size() 0x5E9800, los fill_n de los fill_n-que-devuelven-el-final y FxSphere_c::FxSphere_c 0x4A9F70 corren reales con su hook apagado. Las funciones que no vuelven (vector::_Xlen y _CxxThrowException) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH (omitido en la DLL por diseno). Los dos manejadores catch de los insert (0x5ED0A3, 0x5ED388) son trozos de funcion sin prologo y no se enganchan. Fuera de los fixtures: this nulo o crudo, listas con enlaces a memoria no mapeada, vectores con punteros incoherentes, erase con posicion fuera de [inicio, fin), insert con posicion fuera del vector, el desenrollado SEH y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn219A/README.md"
     }
   ]
 }

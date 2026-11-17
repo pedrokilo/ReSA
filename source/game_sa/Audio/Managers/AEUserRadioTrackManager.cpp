@@ -905,7 +905,7 @@ LegacyRuntimeError* __fastcall RuntimeErrorScalarDeletingDestructor(LegacyRuntim
 // 0x4F41B0 (lote 209A, sin validar; 122 bytes con marco SEH que destruye el string y el objeto temporales al desenrollar: aqui NO se destruyen, se pierden sus bloques de memoria dinamica; thiscall con ECX sin leer, sin argumentos, no vuelve):
 // std::vector<T>::_Xlen(): construye un std::string con el texto de 0x860AB0 ("vector<T> too long"; longitud por recorrido byte a byte, assign 0x4F3F60), con el un std::runtime_error (0x4F4090), pone la vtable 0x887D68 (la clase
 // derivada, std::length_error) y lanza el objeto con _CxxThrowException (0x822D5D, stdcall) y el ThrowInfo 0x893634.
-[[noreturn]] void __fastcall VectorXlen(void* /*self*/, void* /*edx*/) {
+[[noreturn]] void VectorXlenImpl(void* /*self*/) {
     LegacyString text;
     text.res    = 0xF;
     text.size   = 0;
@@ -917,6 +917,18 @@ LegacyRuntimeError* __fastcall RuntimeErrorScalarDeletingDestructor(LegacyRuntim
     error.vtable = 0x887D68;
     reinterpret_cast<void(__stdcall*)(void*, const void*)>(0x822D5D)(&error, reinterpret_cast<const void*>(0x893634));
     __assume(0);
+}
+
+// Cuerpo enganchado en 0x4F41B0 (lote 209A). El cuerpo vive en VectorXlenImpl, que no tiene hook: asi las instancias de abajo no dependen del estado del hook de esta funcion.
+[[noreturn]] void __fastcall VectorXlen(void* self, void* /*edx*/) {
+    VectorXlenImpl(self);
+}
+
+// Lote 219A: una instancia propia por direccion de hook (0x5ECAB0, 0x5ECB30, 0x5ECBB0, 0x5ECC30 y 0x5ECCB0; 0x4F41B0 conserva la funcion base): RH no admite dos hooks hacia la misma funcion de la DLL.
+// Llaman a VectorXlenImpl (sin hook): con el hook de VectorXlen apagado, VectorXlen salta al codigo del EXE y la instancia no probaria el C++.
+template<int Id>
+[[noreturn]] void __fastcall VectorXlenInst(void* self, void* /*edx*/) {
+    VectorXlenImpl(self);
 }
 } // namespace
 
@@ -1120,12 +1132,12 @@ void CAEUserRadioTrackManager::InjectHooks() {
         RH_ScopedNamedGlobalInstall(RuntimeErrorCopy, "CopyConstructor", 0x4F4230);
         RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlen", 0x4F41B0);
         // Lote 219A (sin validar): cinco instancias gemelas de vector::_Xlen junto a los vectores de CPedAttractor y de CPedAttractorManager (0x5ECAB0, 0x5ECB30, 0x5ECBB0, 0x5ECC30, 0x5ECCB0; el listado decia CPedAttractorManager).
-        // Mismo texto (0x860AB0), mismas llamadas (0x4F3F60, 0x4F4090, vtable 0x887D68, ThrowInfo 0x893634, _CxxThrowException 0x822D5D); solo cambia la direccion de la tabla SEH. Mismo cuerpo C++ que la de arriba.
-        RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenB", 0x5ECAB0);
-        RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenC", 0x5ECB30);
-        RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenD", 0x5ECBB0);
-        RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenE", 0x5ECC30);
-        RH_ScopedNamedGlobalInstall(VectorXlen, "VectorXlenF", 0x5ECCB0);
+        // Mismo texto (0x860AB0), mismas llamadas (0x4F3F60, 0x4F4090, vtable 0x887D68, ThrowInfo 0x893634, _CxxThrowException 0x822D5D); solo cambia la direccion de la tabla SEH. Cada direccion tiene su instancia propia de plantilla (VectorXlenInst<Id>) con el mismo cuerpo C++ que la de arriba.
+        RH_ScopedNamedGlobalInstall(VectorXlenInst<1>, "VectorXlenB", 0x5ECAB0);
+        RH_ScopedNamedGlobalInstall(VectorXlenInst<2>, "VectorXlenC", 0x5ECB30);
+        RH_ScopedNamedGlobalInstall(VectorXlenInst<3>, "VectorXlenD", 0x5ECBB0);
+        RH_ScopedNamedGlobalInstall(VectorXlenInst<4>, "VectorXlenE", 0x5ECC30);
+        RH_ScopedNamedGlobalInstall(VectorXlenInst<5>, "VectorXlenF", 0x5ECCB0);
     }
 
     {
