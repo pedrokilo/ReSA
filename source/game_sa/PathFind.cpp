@@ -317,11 +317,6 @@ CVector* CCarPathLink::GetNodeCoors(CVector* out) const {
 }
 
 // 0x44D080
-// 0x44FEE0 (integracion parte B): sin reconstruir en C++; la llamada del script 1209 (RunningScript.cpp, lote 239A) pasa por la rutina del EXE.
-void CPathFind::FindNodePairClosestToCoors(CVector pos, uint8 nodeType, CNodeAddress* outFirst, CNodeAddress* outSecond, float* outDist, float minDist, float maxDist, bool bLowTraffic, bool bUnused, bool bBoats) {
-    plugin::CallMethod<0x44FEE0, CPathFind*, CVector, uint8, CNodeAddress*, CNodeAddress*, float*, float, float, bool, bool, bool>(this, pos, nodeType, outFirst, outSecond, outDist, minDist, maxDist, bLowTraffic, bUnused, bBoats);
-}
-
 void CPathFind::Init() {
     ZoneScoped;
 
