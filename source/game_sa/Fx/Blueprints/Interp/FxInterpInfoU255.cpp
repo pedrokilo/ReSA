@@ -51,7 +51,8 @@ FxInterpInfoU255_c* FxInterpInfoU255_c::Constructor() {
 
 // 0x4A87F0 (lote 218A, sin validar): cuerpo del destructor (thiscall, `mov dword ptr [ecx],0x85A968; ret`): solo deja la vtable base de FxInterpInfo_c. Lo llama el destructor con borrado 0x4A8D50 y los destructores de los FxInfo*_c.
 __declspec(noinline) void FxInterpInfoU255_c::Destructor() {
-    this->FxInterpInfoU255_c::~FxInterpInfoU255_c();
+    // `mov [ecx],0x85A968`: el ~T() generado es trivial y el cuerpo quedaba vacio (sin escribir la vtable; el compilador lo unifica con otros cuerpos vacios): el banco Fn218A lo detecto.
+    *reinterpret_cast<uint32*>(this) = 0x85A968;
 }
 
 // 0x4A8D50 (lote 218A, sin validar): destructor con borrado (ranura 0 de la vtable; thiscall, un argumento de pila, `ret 4`): `push esi; mov esi,ecx; call 0x4A87F0; test byte [esp+8],1; je ..; push esi; call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`. Libera this solo si el bit 0 del BYTE de banderas esta puesto y devuelve this.

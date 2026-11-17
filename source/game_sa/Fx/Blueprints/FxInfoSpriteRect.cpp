@@ -44,7 +44,10 @@ FxInfoSpriteRect_c* FxInfoSpriteRect_c::Constructor() {
 
 // 0x4A76C0 (lote 218A, sin validar): cuerpo del destructor (thiscall): destruye el interp de +8 (deja su vtable base) y pone la vtable base de FxInfo_c (0x85A7DC). Lo llama el destructor con borrado 0x4A76A0 (lote 217A).
 __declspec(noinline) void FxInfoSpriteRect_c::Destructor() {
-    this->FxInfoSpriteRect_c::~FxInfoSpriteRect_c();
+    // Como el EXE (el destructor del interp 0x4A8B70 / 0x4A87F0 / 0x4A8460 / 0x4A89B0 deja su vtable base 0x85A968 y despues se deja la de FxInfo_c, 0x85A7DC). El ~T() generado
+    // dejaria vtables de la DLL y omitiria la del interp (destructor trivial): el banco Fn218A lo detecto.
+    *reinterpret_cast<uint32*>(&m_InterpInfo) = 0x85A968;
+    *reinterpret_cast<uint32*>(this)          = 0x85A7DC;
 }
 
 // 0x4A6120

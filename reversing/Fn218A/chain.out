@@ -1,0 +1,10 @@
+07:24:36 build ok main
+07:30:27 gta_lock tomado
+08:01:03 run main: APROBADO: Fn218A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn218a\20261117-073030-203039 
+ronda 1 aplicada: 32 mutaciones
+08:05:38 run neg1: FALLO: Fn218A Funciones con diferencias: FxInfoSpriteRect_c::Destructor: 884/2048; FxInfoHeatHaze_c::Destructor: 884/2048; FxInfoTrail_c::Destructor: 892/2048; FxInfoFlat_c::Destructor: 909/2048; FxInfoDir_c::Destructor: 906/2048; FxInfoAnimTexture_c::Destructor: 919/2048; FxInfoColourRange_c::Dest
+restauradas 15 fuentes (SHA256 igual a las copias buenas)
+ronda 2 aplicada: 32 mutaciones
+08:10:09 run neg2: FALLO: Fn218A Funciones con diferencias: FxInfoSpriteRect_c::Destructor: 884/2048; FxInfoHeatHaze_c::Destructor: 884/2048; FxInfoTrail_c::Destructor: 892/2048; FxInfoFlat_c::Destructor: 909/2048; FxInfoDir_c::Destructor: 906/2048; FxInfoAnimTexture_c::Destructor: 919/2048; FxInfoColourRange_c::Dest
+restauradas 15 fuentes (SHA256 igual a las copias buenas)
+08:10:44 fin

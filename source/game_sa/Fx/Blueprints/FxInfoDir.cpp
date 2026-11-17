@@ -44,7 +44,10 @@ FxInfoDir_c* FxInfoDir_c::Constructor() {
 
 // 0x4A7880 (lote 218A, sin validar): cuerpo del destructor (thiscall): destruye el interp de +8 (deja su vtable base) y pone la vtable base de FxInfo_c (0x85A7DC). Solo lo llama el destructor con borrado 0x4A7860.
 __declspec(noinline) void FxInfoDir_c::Destructor() {
-    this->FxInfoDir_c::~FxInfoDir_c();
+    // Como el EXE (el destructor del interp 0x4A8B70 / 0x4A87F0 / 0x4A8460 / 0x4A89B0 deja su vtable base 0x85A968 y despues se deja la de FxInfo_c, 0x85A7DC). El ~T() generado
+    // dejaria vtables de la DLL y omitiria la del interp (destructor trivial): el banco Fn218A lo detecto.
+    *reinterpret_cast<uint32*>(&m_InterpInfo) = 0x85A968;
+    *reinterpret_cast<uint32*>(this)          = 0x85A7DC;
 }
 
 // 0x4A7860 (lote 218A, sin validar): destructor con borrado (ranura 0 de la vtable; thiscall, un argumento de pila, `ret 4`): `push esi; mov esi,ecx; call 0x4A7880; test byte [esp+8],1; je ..; push esi; call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`. Libera this solo si el bit 0 del BYTE de banderas esta puesto y devuelve this.
