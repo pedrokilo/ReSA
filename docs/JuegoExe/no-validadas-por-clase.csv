@@ -1,6 +1,6 @@
 clase,reconstruidas,validadas,sin_validar
-CPools,72,21,51
 CPedAttractor,85,58,27
+CPools,72,47,25
 LibJpegDecompress,22,0,22
 LibJpegMemory,21,0,21
 LibJpegCompress,18,0,18
@@ -11,7 +11,6 @@ CTheScripts,82,72,10
 D3D9RasterFormat,10,0,10
 ExeProtectionStub,8,0,8
 CReplay,55,48,7
-CCustomCarEnvMapPipeline,60,54,6
 FxEmitter_c,9,4,5
 LegacyRuntimeError,13,8,5
 RpAnimBlend,52,47,5

@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.242 |
-| Reconstruidas sin validar | 1.199 |
-| De ellas, en esta cola (validables por pares) | 1.199 |
+| Validadas | 11.274 |
+| Reconstruidas sin validar | 1.167 |
+| De ellas, en esta cola (validables por pares) | 1.167 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,15 +22,15 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 71 | 201 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
-| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 2 | 78 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 70 | 195 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 2 | 52 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
 | [🟠 Nivel 3: moderadas](#nivel-3) | 40 | 863 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 10 | 57 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **123** | **1199** | |
+| **Total** | **122** | **1167** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (71 clases, 201 funciones)
+## 🟢 Nivel 1: muy barato (70 clases, 195 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
@@ -105,19 +105,18 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 | 67 | CScriptsForBrains | 15 | 4 |  | 22 |
 | 68 | FxEmitterBP_c | 13 | 4 |  | 31 |
 | 69 | FxEmitter_c | 9 | 5 |  | 34 |
-| 70 | CCustomCarEnvMapPipeline | 60 | 6 |  | 4 |
-| 71 | CTheScripts | 82 | 10 |  | 31 |
+| 70 | CTheScripts | 82 | 10 |  | 31 |
 
 <a id="nivel-2"></a>
 
-## 🟡 Nivel 2: baratas por función, pero muchas (2 clases, 78 funciones)
+## 🟡 Nivel 2: baratas por función, pero muchas (2 clases, 52 funciones)
 
 Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CPedAttractor | 85 | 27 |  | 12 |
-| 2 | CPools | 72 | 51 |  | 10 |
+| 1 | CPools | 72 | 25 |  | 10 |
+| 2 | CPedAttractor | 85 | 27 |  | 12 |
 
 <a id="nivel-3"></a>
 

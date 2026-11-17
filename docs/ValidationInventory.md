@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11242 |
+| `validated=1` · evidencia aprobada vinculada | 11274 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11242 |
-| Sin evidencia aprobada vinculada en este registro | 1199 |
+| Evidencia histórica vinculada; revisión pendiente | 11274 |
+| Sin evidencia aprobada vinculada en este registro | 1167 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -2325,9 +2325,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCustomCarEnvMapPipeline | `PoolNewMat` | [Resumen](../reversing/Fn211A/validation-summary.json) |
 | CCustomCarEnvMapPipeline | `PoolNewSpec` | [Resumen](../reversing/Fn211A/validation-summary.json) |
 | CCustomCarEnvMapPipeline | `PoolScalarDeletingDestructor` | [Resumen](../reversing/Fn211A/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `PoolScalarDeletingDestructorB` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `PoolScalarDeletingDestructorC` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CCustomCarEnvMapPipeline | `PreRenderUpdate` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
 | CCustomCarEnvMapPipeline | `RegisterPlugin` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `RxD3D9InstanceDataRender` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `RxD3D9InstanceDataRenderLighting` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CCustomCarEnvMapPipeline | `SetCustomEnvMapPipeMaterialDataDefaults` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `SetDefaultSurfaceProperties` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `SetEnvMapMaterial` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CCustomCarEnvMapPipeline | `SetFxEnvScale` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
 | CCustomCarEnvMapPipeline | `SetFxEnvShininess` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
 | CCustomCarEnvMapPipeline | `SetFxEnvTexture` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
@@ -5552,8 +5558,18 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPointRoute | `operator delete` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CPointRoute | `operator new` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CPointRoutePool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| CPools | `BuildingPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `BuildingPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `CheckBuildingAtomics` | [Resumen](../reversing/RequestedPoolsAtomicCheck/validation-summary.json) |
 | CPools | `CheckPoolsEmpty` | [Resumen](../reversing/WorldWave2/validation-summary.json) |
+| CPools | `ColModelPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `ColModelPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `DummyPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `DummyPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `EntryInfoNodePoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `EntryInfoNodePoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `EventPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `EventPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `GetObject` | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) |
 | CPools | `GetObjectRef` | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) |
 | CPools | `GetPed` | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) |
@@ -5566,12 +5582,28 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPools | `LoadPedPool` | [Resumen](../reversing/PoolsWave4/validation-summary.json) |
 | CPools | `LoadVehiclePool` | [Resumen](../reversing/PoolsWave4/validation-summary.json) |
 | CPools | `MakeSureSlotInObjectPoolIsEmpty` | [Resumen](../reversing/WorldWave2/validation-summary.json) |
+| CPools | `ObjectPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `ObjectPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PatrolRoutePoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PatrolRoutePoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PedPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PedPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PointRoutePoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PointRoutePoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `PoolDestructorBody` | [Resumen](../reversing/Fn129A/validation-summary.json) |
+| CPools | `PtrNodeDoubleLinkPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PtrNodeDoubleLinkPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PtrNodeSingleLinkPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PtrNodeSingleLinkPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `Save` | [Resumen](../reversing/PoolsWave4/validation-summary.json) |
 | CPools | `SaveObjectPool` | [Resumen](../reversing/PoolsPending/validation-summary.json) |
 | CPools | `SavePedPool` | [Resumen](../reversing/PoolsPending/validation-summary.json) |
 | CPools | `SaveVehiclePool` | [Resumen](../reversing/PoolsPending/validation-summary.json) |
 | CPools | `ShutDown` | [Resumen](../reversing/PoolsWave4/validation-summary.json) |
+| CPools | `TaskPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `TaskPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `VehiclePoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `VehiclePoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `VehicleStructPoolConstructor` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CPopCycle | `FindNewPedType` | [Resumen](../reversing/World15/validation-summary.json) |
 | CPopCycle | `GetCurrentPercOther_Peds` | [Resumen](../reversing/World15/validation-summary.json) |
@@ -11406,7 +11438,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCustomBuildingDNPipeline` | 18 | 0 | 18 | 0 |
 | `CCustomBuildingPipeline` | 7 | 0 | 7 | 0 |
 | `CCustomBuildingRenderer` | 7 | 0 | 7 | 0 |
-| `CCustomCarEnvMapPipeline` | 60 | 0 | 54 | 6 |
+| `CCustomCarEnvMapPipeline` | 60 | 0 | 60 | 0 |
 | `CCustomCarPlateMgr` | 16 | 0 | 16 | 0 |
 | `CCustomRoadsignMgr` | 10 | 0 | 10 | 0 |
 | `CCutsceneMgr` | 37 | 0 | 37 | 0 |
@@ -11694,7 +11726,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPointList` | 2 | 0 | 2 | 0 |
 | `CPointRoute` | 6 | 0 | 6 | 0 |
 | `CPointRoutePool` | 1 | 0 | 1 | 0 |
-| `CPools` | 72 | 0 | 21 | 51 |
+| `CPools` | 72 | 0 | 47 | 25 |
 | `CPopCycle` | 15 | 0 | 15 | 0 |
 | `CPopulation` | 68 | 0 | 68 | 0 |
 | `CPostEffects` | 38 | 0 | 38 | 0 |
