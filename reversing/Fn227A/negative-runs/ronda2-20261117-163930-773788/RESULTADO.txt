@@ -1,0 +1,3 @@
+FALLO: Fn227A
+Funciones con diferencias: RpWorld::RpClumpClone: 1425/2048; RpWorld::ClumpLightDestroyCallBack: 2048/2048; RpWorld::RpClumpCreate: 1771/2048; RpWorld::RpClumpDestroy: 1519/2048; RpWorld::RpClumpAddAtomic: 2048/2048; RpWorld::RpClumpRemoveAtomic: 1379/2048; RpWorld::RpClumpRemoveLight: 2048/2048; RpWorld::_rpGeometryListDeinitialize: 655/2048; RpWorld::ClumpAtomicStreamRead: 587/2048; RpWorld::RpClumpStreamRead: 1089/2048; RpWorld::ClumpAtomicDestroyCallBack: 2048/2048; RpWorld::RpAtomicRegisterPlugin: 1900/2048; RpWorld::RpClumpRegisterPlugin: 1917/2048; RpWorld::RpAtomicRegisterPluginStream: 1906/2048; RpWorld::RpClumpRegisterPluginStream: 1889/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn227a\20261117-163930-773788

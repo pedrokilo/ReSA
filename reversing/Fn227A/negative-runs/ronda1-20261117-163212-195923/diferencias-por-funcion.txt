@@ -1,0 +1,3 @@
+{"RpWorld::RpClumpClone": 725, "RpWorld::ClumpLightDestroyCallBack": 2048, "RpWorld::RpClumpCreate": 1771, "RpWorld::RpClumpDestroy": 2048, "RpWorld::RpClumpAddAtomic": 2048, "RpWorld::RpClumpRemoveAtomic": 2048, "RpWorld::RpClumpRemoveLight": 2048, "RpWorld::_rpGeometryListDeinitialize": 1623, "RpWorld::ClumpAtomicStreamRead": 1682, "RpWorld::RpClumpStreamRead": 1567, "RpWorld::ClumpAtomicDestroyCallBack": 2048, "RpWorld::RpAtomicRegisterPlugin": 2048, "RpWorld::RpClumpRegisterPlugin": 2048, "RpWorld::RpAtomicRegisterPluginStream": 2048, "RpWorld::RpClumpRegisterPluginStream": 2048}
+pares 30720 con diferencias 27848 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

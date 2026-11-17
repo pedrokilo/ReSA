@@ -1,0 +1,10 @@
+16:00:58 build ok main
+16:02:29 gta_lock tomado
+16:32:00 run main: APROBADO: Fn227A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn227a\20261117-160231-577935 
+ronda 1 aplicada: 15 mutaciones
+16:36:00 run neg1: FALLO: Fn227A Funciones con diferencias: RpWorld::RpClumpClone: 725/2048; RpWorld::ClumpLightDestroyCallBack: 2048/2048; RpWorld::RpClumpCreate: 1771/2048; RpWorld::RpClumpDestroy: 2048/2048; RpWorld::RpClumpAddAtomic: 2048/2048; RpWorld::RpClumpRemoveAtomic: 2048/2048; RpWorld::RpClumpRemoveLight:
+restauradas 1 fuentes (SHA256 igual a las copias buenas)
+ronda 2 aplicada: 15 mutaciones
+16:36:41 run neg2: FALLO: Fn227A GTA termino antes de completar (3221226505). Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn227a\20261117-163611-521934 
+restauradas 1 fuentes (SHA256 igual a las copias buenas)
+16:36:49 fin
