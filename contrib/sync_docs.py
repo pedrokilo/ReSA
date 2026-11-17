@@ -123,7 +123,7 @@ def sync_project_roadmap(stats, dry_run=False):
 
     header = '| Dimensión | Progreso | Medición |\n| --- | --- | --- |\n'
     if header not in text:
-        raise RuntimeError('ProjectRoadmap.md: no se encontró el encabezado de la tabla de progreso.')
+        return  # la hoja de ruta actual no lleva la tabla de progreso: las cifras viven en docs/ReversedClasses.md
     rows = (
         f"| Clases completas en el catálogo | `{bar(s['pct_classes'])}` | "
         f"{s['complete_classes']}/{s['total_classes']} · {pct_es(s['pct_classes'])}% |\n"

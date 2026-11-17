@@ -10,7 +10,7 @@ Funciones del alcance: `CBike::ProcessAI`.
 
 [Resumen registrado](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-bike-ai355/20261008-065039-140758/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
 
-[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+[Estado de todas las listas](../../docs/archivo/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
 
 ## Notas anteriores: preparación y evidencia histórica
 

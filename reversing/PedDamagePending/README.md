@@ -10,7 +10,7 @@ Funciones del alcance: `CPedDamageResponseCalculator::AccountForPedDamageStats`,
 
 [Evidencia histórica](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-ped-damage-pending/20261007-210728-008290/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
 
-[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+[Estado de todas las listas](../../docs/archivo/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
 
 ## Notas anteriores: preparación y evidencia histórica
 

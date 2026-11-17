@@ -49,7 +49,7 @@ def main():
     changed = 0
     for name in sorted(set(files)):
         parts = Path(name).parts
-        if not name.endswith('.md') or name in frozen or name == 'docs/CurrentStatus.md' or name.startswith('docs/Reorganizacion/'):
+        if not name.endswith('.md') or name in frozen or name == 'docs/CurrentStatus.md' or name.startswith('docs/archivo/'):
             continue
         if any(p in EXCLUDED or 'archive' in p or p.startswith('baseline-before') for p in parts):
             continue

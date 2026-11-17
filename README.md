@@ -6,7 +6,7 @@
 
 Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código fuente reconstruido en C++, reduciendo hasta eliminar la dependencia de funciones originales del ejecutable. La meta final es una reconstrucción completa y validada, seguida de un ejecutable propio: **ReSA — Zero Original Function Dependency** ([hoja de ruta](docs/ProjectRoadmap.md)).
 
-**[📊 Progreso detallado](docs/ReversedClasses.md) · [🗺️ Mapa de clases y funciones](docs/MemoryMap/index.html) · [🧭 Qué abordar después](docs/ReversingPriorities.md) · [🧪 Pruebas](reversing/README.md) · [📋 Proceso y continuidad](reversing/MEJORAS_DEL_PROCESO.md) · [🕘 Historial](docs/Historial.md)**
+**[📊 Progreso detallado](docs/ReversedClasses.md) · [🗺️ Mapa de clases y funciones](docs/MemoryMap/index.html) · [🧭 Qué abordar después](docs/ReversingPriorities.md) · [🧪 Pruebas](reversing/README.md) · [📋 Proceso y continuidad](reversing/MEJORAS_DEL_PROCESO.md) · [🕘 Historial](docs/archivo/Historial.md)**
 
 > [!NOTE]
 > Este README describe el trabajo local de la rama **ReSA**. El avance registrado y los bancos aprobados no equivalen a cobertura exhaustiva ni a estabilidad general del juego.
@@ -69,8 +69,8 @@ El objetivo es preservar el comportamiento original. Cada reconstrucción se con
 La copia de pruebas tiene `FastLoader.Enable = false` y `SaveGameToLoad = -2`. Muestra las pantallas de inicio y el menú; el usuario elige **Nueva partida** o **Cargar partida**.
 
 ```powershell
-Set-Location 'D:\JUEGOS\GTA San Andreas - CVehicle Test'
-& '.\gta_sa.exe' '--historical-hooks=D:\JUEGOS\GTA San Andreas - CVehicle Test\historical-hooks.txt'
+Set-Location 'E:\JUEGOS\GTA San Andreas - CVehicle Test'
+& '.\gta_sa.exe' '--historical-hooks=E:\JUEGOS\GTA San Andreas - CVehicle Test\historical-hooks.txt'
 ```
 
 Este arranque aplica el perfil histórico: sólo clases/grupos con todas sus entradas catalogadas marcadas validated=1. Sin el argumento de selección se conserva el comportamiento normal de la compilación. Los bancos automáticos activan temporalmente la carga rápida solicitando la ranura 2 y restauran los dos INI originales al terminar, incluso si la prueba falla.
@@ -107,7 +107,7 @@ El runner compartido comprueba el ejecutable, evita ejecuciones simultáneas, re
 | Uso | Ruta del entorno local |
 | --- | --- |
 | Repositorio | `D:\Original\gta-reversed-master` |
-| Copia de pruebas | `D:\JUEGOS\GTA San Andreas - CVehicle Test` |
+| Copia de pruebas | `E:\JUEGOS\GTA San Andreas - CVehicle Test` |
 | Instalación personal, conservar | `E:\JUEGOS\GTA San Andreas` |
 
 La instalación normal se actualiza únicamente en la copia de pruebas y conserva un respaldo. Los cambios no deben sobrescribir partidas personales. El runner actual tiene rutas locales configuradas; revisar [runtime_runner.py](reversing/runtime_runner.py) y el proceso antes de usarlo en otra máquina. `PROBAR.cmd` también apunta al Python instalado en este equipo.

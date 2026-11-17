@@ -308,9 +308,9 @@ Se conserva la configuración de inicio normal. Los bancos usan carga rápida te
 [Reconstrucción y validación del lote](PendingBatch/README.md): 78 funciones de 27 clases, 30 bancos y 81.664 pares EXE/DLL. Se conservan las limitaciones de cada banco; no acredita validación completa de todas las funciones de esas clases. Las fuentes finales se recompilan con /MP6 y se comprueba la restauración del juego.
 
 <!-- USER LISTS STOP STATUS -->
-Estado de las listas solicitadas al detener el trabajo: [reconstrucción y validación parcial](../docs/EstadoListasSolicitadas.md). Las 67 clases tienen la reconstrucción solicitada aplicada; el último lote quedó con 117/354 funciones verificadas con las fuentes finales y un fallo pendiente en el destructor de GangFollower.
+Estado de las listas solicitadas al detener el trabajo: [reconstrucción y validación parcial](../docs/archivo/EstadoListasSolicitadas.md). Las 67 clases tienen la reconstrucción solicitada aplicada; el último lote quedó con 117/354 funciones verificadas con las fuentes finales y un fallo pendiente en el destructor de GangFollower.
 <!-- /USER LISTS STOP STATUS -->
 
 ## Interior_c: cierre del 8 de octubre de 2026
 
-[Informe final](../docs/InteriorValidation.md): 52 funciones catalogadas reconstruidas y aprobadas en siete bancos, más dos wrappers ABI fuera del catálogo en un octavo banco; 74.752 pares sin diferencias. Se comprobaron fuentes, instrumentos, binarios, EXE/ASI ejecutados y restauración de estado. La aprobación se limita a los fixtures y colaboradores documentados. Estos ocho bancos se ejecutan con `Pending355/run_archived.py` tras compilarlos y archivarlos con `Pending355/batch_probe.py`; no amplían automáticamente los 297 casos del lanzador histórico.
+[Informe final](../docs/archivo/InteriorValidation.md): 52 funciones catalogadas reconstruidas y aprobadas en siete bancos, más dos wrappers ABI fuera del catálogo en un octavo banco; 74.752 pares sin diferencias. Se comprobaron fuentes, instrumentos, binarios, EXE/ASI ejecutados y restauración de estado. La aprobación se limita a los fixtures y colaboradores documentados. Estos ocho bancos se ejecutan con `Pending355/run_archived.py` tras compilarlos y archivarlos con `Pending355/batch_probe.py`; no amplían automáticamente los 297 casos del lanzador histórico.

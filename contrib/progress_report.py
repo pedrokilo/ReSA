@@ -244,7 +244,7 @@ def build(root, input_path, coverage, validation, notsa_count=0):
           '- Los porcentajes de este informe dicen siempre de qué miden (funciones, bytes o entradas del catálogo).', '',
           'Regenerar (sincroniza primero `validated` desde el registro):', '',
           '```powershell', 'python contrib/sync_validated_flags.py', 'python contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md', '```', '',
-          'El formato vive en [contrib/progress_report.py](../contrib/progress_report.py). La historia de entregas anteriores está en [Historial.md](Historial.md).', '']
+          'El formato vive en [contrib/progress_report.py](../contrib/progress_report.py). La historia de entregas anteriores está en [Historial.md](archivo/Historial.md).', '']
     es = lambda x: re.sub(r'(\d)\.(\d{1,2})%', r'\1,\2%', re.sub(r'(?<=\d),(?=\d{3}(?!\d))', '.', x))
     L = [es(x) for x in L]
     i, j = L.index('@@CORE_START@@'), L.index('@@CORE_END@@')

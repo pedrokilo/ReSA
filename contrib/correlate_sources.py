@@ -206,6 +206,6 @@ if __name__ == '__main__':
     parser.add_argument('--re3', type=Path, default=repo.parent/'gta3/src')
     parser.add_argument('--revc', type=Path, default=repo.parent/'gtavc/src')
     parser.add_argument('--resa', type=Path, default=repo/'source/game_sa')
-    parser.add_argument('--output', type=Path, default=repo/'docs/Correlacion_re3_reVC_reSA.md')
+    parser.add_argument('--output', type=Path, default=repo/'docs/archivo/Correlacion_re3_reVC_reSA.md')
     args = parser.parse_args()
     generate([args.re3, args.revc, args.resa], args.output)
