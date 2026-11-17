@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md) · [Registro de validaciones](../reversing/ValidationRegistry/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) y el análisis estático del EXE · **Generado:** 2026-11-17 04:53 UTC
+> **Fuente:** [hooks.csv](hooks.csv) y el análisis estático del EXE · **Generado:** 2026-11-17 07:28 UTC
 
 **Índice:** [1. Dónde estamos](#donde-estamos) · [2. Código del juego](#juego) · [3. RenderWare](#renderware) · [4. Qué falta por validar](#por-validar) · [5. Clases del juego sin validar](#clases) · [6. Cómo leer y regenerar](#metodo)
 
@@ -22,10 +22,10 @@ Cifras al 17/11/2026.
 
 | Zona | Funciones del EXE | Reconstruidas | Validadas | Reconstruidas sin validar | Faltan |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| **Código del juego** | 11.686 | 11.686 (100,00%) | 11.117 | 496 | 0 |
+| **Código del juego** | 11.686 | 11.686 (100,00%) | 11.159 | 454 | 0 |
 | **RenderWare y D3D** | 1.889 | 724 (38,33%) | 77 | 745 | 0 |
 
-En total hay **12.441 entradas reconstruidas, 11.200 validadas y 1.241 sin validar** en el catálogo (11.200 con evidencia registrada). Quedan además 6 entradas fuera de ambas zonas (CRT y utilidades).
+En total hay **12.441 entradas reconstruidas, 11.242 validadas y 1.199 sin validar** en el catálogo (11.242 con evidencia registrada). Quedan además 6 entradas fuera de ambas zonas (CRT y utilidades).
 
 ### Fase del proceso
 
@@ -33,7 +33,7 @@ En total hay **12.441 entradas reconstruidas, 11.200 validadas y 1.241 sin valid
 | --- | --- |
 | Reconstruir el código del juego en C++ puro | **Hecha**: 100,00% de las funciones y 100,00% de los bytes; faltan 0 y hay 118 excluidas por no ser reconstruibles |
 | Reconstruir el SDK de RenderWare | **Hecha** en lo reconstruible: 724 funciones; 1.111 son libpng, zlib y D3DX9 (se enlaza la original) y 54 no son reconstruibles |
-| **Validar el código del juego** | **En curso**: 11.117 de 11.613 reconstruidas (95,73%); el resto va por oleadas de lotes (detalle en el [informe](ReversedClasses.md#por-validar)) |
+| **Validar el código del juego** | **En curso**: 11.159 de 11.613 reconstruidas (96,09%); el resto va por oleadas de lotes (detalle en el [informe](ReversedClasses.md#por-validar)) |
 | Validar RenderWare | **Apenas empezada**: 77 de 822 (9,37%); falta el plan de bancos (dispositivo D3D falso, flujos y listas libres falsos) |
 | Pase final de bancos viejos | Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió |
 | Ejecutable propio | Después: sustituir RenderWare, D3D y CRT por bibliotecas y quitar la dependencia del EXE ([hoja de ruta](ProjectRoadmap.md)) |
@@ -46,8 +46,8 @@ En total hay **12.441 entradas reconstruidas, 11.200 validadas y 1.241 sin valid
 | --- | --- | --- |
 | Funciones reconstruidas | 11.686 / 11.686 · 100,00% | `████████████████████` |
 | Bytes de código reconstruidos | 2.979.290 / 2.979.290 · 100,00% | `████████████████████` |
-| Entradas validadas (de las reconstruidas) | 11.117 / 11.613 · 95,73% | `███████████████████░` |
-| Entradas reconstruidas sin validar | 496 |  |
+| Entradas validadas (de las reconstruidas) | 11.159 / 11.613 · 96,09% | `███████████████████░` |
+| Entradas reconstruidas sin validar | 454 |  |
 
 **Faltan 0 funciones (0 bytes)**, listadas en [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md), y **118 excluidas** y documentadas en [excluidas.csv](JuegoExe/excluidas.csv) porque no se pueden reconstruir en C++ puro: 73 __usercall con registros que C++ no puede leer; 31 saltos puros a otra dirección; 14 fragmentos internos de otra función y otros.
 
@@ -106,13 +106,13 @@ Los lotes de validación van por oleadas y cada uno tiene su informe en [reversi
 | Oleada | Lotes | Lotes totales | Validados | Por validar | Funciones por validar |
 | --- | --- | ---: | ---: | ---: | ---: |
 | V1 | 189A–206A | 18 | 18 | 0 | 0 |
-| V2 | 207A–215A | 9 | 3 | 6 | 135 |
+| V2 | 207A–215A | 9 | 5 | 4 | 93 |
 | V3 | 216A–222A | 7 | 0 | 7 | 197 |
 | V4 | 223A–229A | 7 | 0 | 7 | 121 |
 | V5 | 230A–236A | 7 | 0 | 7 | 136 |
 | V6 | 237A–239A | 3 | 0 | 3 | 5 |
 
-Lotes por validar: 210A, 211A, 212A, 213A, 214A, 215A, 216A, 217A, 218A, 219A, 220A, 221A, 222A, 223A, 224A, 225A, 226A, 227A, 228A, 229A, 230A, 231A, 232A, 233A, 234A, 235A, 236A, 237A, 238A, 239A.
+Lotes por validar: 212A, 213A, 214A, 215A, 216A, 217A, 218A, 219A, 220A, 221A, 222A, 223A, 224A, 225A, 226A, 227A, 228A, 229A, 230A, 231A, 232A, 233A, 234A, 235A, 236A, 237A, 238A, 239A.
 
 Los lotes de RenderWare (R1A–R34A) se validarán en una oleada propia, aún sin plan.
 
@@ -126,19 +126,17 @@ Solo se listan las clases del código del juego que todavía tienen alguna funci
 | --- | ---: | ---: | ---: |
 | CPools | 72 | 21 | 51 |
 | CPedAttractor | 85 | 58 | 27 |
-| CCustomCarEnvMapPipeline | 60 | 37 | 23 |
 | LibJpegDecompress | 22 | 0 | 22 |
 | LibJpegMemory | 21 | 0 | 21 |
 | LibJpegCompress | 18 | 0 | 18 |
 | ExeLibJpeg | 15 | 0 | 15 |
 | RwD3D9RasterDriver | 14 | 0 | 14 |
 | LibJpegCompressEncode | 11 | 0 | 11 |
-| CAutomobile | 114 | 104 | 10 |
 | CTheScripts | 82 | 72 | 10 |
 | D3D9RasterFormat | 10 | 0 | 10 |
 | ExeProtectionStub | 8 | 0 | 8 |
 | CReplay | 55 | 48 | 7 |
-| CTaskComplexFollowPatrolRoute | 11 | 5 | 6 |
+| CCustomCarEnvMapPipeline | 60 | 54 | 6 |
 | FxEmitter_c | 9 | 4 | 5 |
 | LegacyRuntimeError | 13 | 8 | 5 |
 | RpAnimBlend | 52 | 47 | 5 |
@@ -146,7 +144,6 @@ Solo se listan las clases del código del juego que todavía tienen alguna funci
 | CPedShelterAttractor | 11 | 7 | 4 |
 | CRunningScript | 43 | 39 | 4 |
 | CScriptsForBrains | 15 | 11 | 4 |
-| CTaskComplexSeekEntity<CEntitySeekPosCalculatorFixedPos> | 7 | 3 | 4 |
 | FxEmitterBP_c | 13 | 9 | 4 |
 | LibJpegDecompressApi | 4 | 0 | 4 |
 | CEntity | 76 | 73 | 3 |
@@ -164,10 +161,13 @@ Solo se listan las clases del código del juego que todavía tienen alguna funci
 | FxInfoAnimTexture_c | 3 | 0 | 3 |
 | FxInfoAttractLine_c | 3 | 0 | 3 |
 | FxInfoAttractPt_c | 3 | 0 | 3 |
+| FxInfoColourBright_c | 3 | 0 | 3 |
+| FxInfoColourRange_c | 3 | 0 | 3 |
+| FxInfoColour_c | 3 | 0 | 3 |
 
-Otras 73 clases con 154 funciones sin validar entre todas (cada una con 3 o menos).
+Otras 65 clases con 140 funciones sin validar entre todas (cada una con 3 o menos).
 
-Clases del juego completas y validadas: **866** de 979.
+Clases del juego completas y validadas: **874** de 979.
 
 <a id="metodo"></a>
 

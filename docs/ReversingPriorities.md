@@ -3,7 +3,7 @@
 [Inicio](../README.md) · [Progreso registrado](ReversedClasses.md) · [Proceso y continuidad](../reversing/MEJORAS_DEL_PROCESO.md)
 <!-- Documento generado por contrib/validation_queue.py (lo llama contrib/sync_docs.py). No editar a mano. -->
 
-> **Corte 16/11/2026.** Esta guía ordena **qué validar primero**: las funciones ya reconstruidas (`reversed=1`) que todavía no tienen evidencia aprobada (`validated=0`) en [`hooks.csv`](hooks.csv).
+> **Corte 17/11/2026.** Esta guía ordena **qué validar primero**: las funciones ya reconstruidas (`reversed=1`) que todavía no tienen evidencia aprobada (`validated=0`) en [`hooks.csv`](hooks.csv).
 
 **Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). `validated=1` indica evidencia aprobada vinculada y no acredita por sí sola que siga vigente para el árbol actual.
 
@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.200 |
-| Reconstruidas sin validar | 1.241 |
-| De ellas, en esta cola (validables por pares) | 1.241 |
+| Validadas | 11.242 |
+| Reconstruidas sin validar | 1.199 |
+| De ellas, en esta cola (validables por pares) | 1.199 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,15 +22,15 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 76 | 206 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
-| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 3 | 101 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 41 | 867 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
-| [🔴 Nivel 4: caras](#nivel-4) | 11 | 67 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **131** | **1241** | |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 71 | 201 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 2 | 78 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 40 | 863 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🔴 Nivel 4: caras](#nivel-4) | 10 | 57 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
+| **Total** | **123** | **1199** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (76 clases, 206 funciones)
+## 🟢 Nivel 1: muy barato (71 clases, 201 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
@@ -39,95 +39,89 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 | 1 | CTaskSimpleSetCharIgnoreWeaponRangeFlag | 7 | 1 |  | 8 |
 | 2 | CTaskComplexBeCop | 5 | 1 |  | 11 |
 | 3 | CBuilding | 7 | 1 |  | 12 |
-| 4 | CTaskComplexTurnToFaceEntityOrCoord | 10 | 1 |  | 12 |
-| 5 | CAnimBlendClumpData | 7 | 1 |  | 16 |
-| 6 | CQuaternion | 11 | 1 |  | 17 |
-| 7 | CTaskComplexInvestigateDisturbance | 9 | 1 |  | 17 |
-| 8 | CPedModelInfo | 12 | 1 |  | 21 |
-| 9 | CTaskComplexGoToPointAnyMeans | 10 | 1 |  | 21 |
-| 10 | CTaskComplexGotoDoorAndOpen | 11 | 1 |  | 23 |
-| 11 | CTaskSimpleSlideToCoord | 6 | 1 |  | 24 |
-| 12 | CPlayerInfo | 32 | 1 |  | 26 |
-| 13 | CAudioZones | 9 | 1 |  | 31 |
-| 14 | CPlayerPedData | 6 | 1 |  | 31 |
-| 15 | CGamma | 3 | 1 |  | 33 |
-| 16 | FxFrustumInfo_c | 2 | 1 |  | 33 |
-| 17 | CTaskComplexSeekEntityRadiusAngleOffset | 11 | 2 |  | 4 |
-| 18 | CAEAudioEntity | 8 | 2 |  | 10 |
-| 19 | CDecisionMaker | 5 | 2 |  | 19 |
-| 20 | IKChainManager_c | 19 | 2 |  | 20 |
-| 21 | WaterCreatureManager_c | 9 | 2 |  | 29 |
-| 22 | CPedLookAtAttractor | 3 | 3 |  | 18 |
-| 23 | CPedParkAttractor | 3 | 3 |  | 18 |
-| 24 | CPedScriptedAttractor | 3 | 3 |  | 18 |
-| 25 | CPedStepAttractor | 3 | 3 |  | 18 |
-| 26 | CPedATMAttractor | 3 | 3 |  | 19 |
-| 27 | CPedPizzaAttractor | 3 | 3 |  | 19 |
-| 28 | CPedSeatAttractor | 3 | 3 |  | 19 |
-| 29 | CPedStopAttractor | 3 | 3 |  | 19 |
-| 30 | CPedTriggerScriptAttractor | 3 | 3 |  | 19 |
-| 31 | CPedAttractorManager | 25 | 3 |  | 22 |
-| 32 | FxInfoEmAngle_c | 3 | 3 |  | 22 |
-| 33 | FxInfoEmDir_c | 3 | 3 |  | 22 |
-| 34 | FxInfoEmLife_c | 3 | 3 |  | 22 |
-| 35 | FxInfoEmPos_c | 3 | 3 |  | 22 |
-| 36 | CProtectionStub | 3 | 3 |  | 23 |
-| 37 | FxInfoHeatHaze_c | 3 | 3 |  | 23 |
-| 38 | FxInfoSelfLit_c | 3 | 3 |  | 23 |
-| 39 | FxInfoEmRotation_c | 3 | 3 |  | 24 |
-| 40 | FxInfoEmSpeed_c | 3 | 3 |  | 24 |
-| 41 | FxInfoEmSize_c | 3 | 3 |  | 25 |
-| 42 | FxInfoEmWeather_c | 3 | 3 |  | 25 |
-| 43 | FxInfoFloat_c | 3 | 3 |  | 25 |
-| 44 | FxInfoForce_c | 3 | 3 |  | 25 |
-| 45 | FxInfoFriction_c | 3 | 3 |  | 25 |
-| 46 | FxInfoUnderwater_c | 3 | 3 |  | 25 |
-| 47 | FxInterpInfo255_c | 4 | 3 |  | 25 |
-| 48 | FxInterpInfo32_c | 4 | 3 |  | 25 |
-| 49 | FxInterpInfoU255_c | 4 | 3 |  | 25 |
-| 50 | FxInfoAnimTexture_c | 3 | 3 |  | 26 |
-| 51 | FxInfoColourBright_c | 3 | 3 |  | 26 |
-| 52 | FxInfoColourRange_c | 3 | 3 |  | 26 |
-| 53 | FxInterpInfoFloat_c | 4 | 3 |  | 26 |
-| 54 | LibJpegError | 3 | 3 |  | 26 |
-| 55 | FxInfoColour_c | 3 | 3 |  | 27 |
-| 56 | FxInfoDir_c | 3 | 3 |  | 27 |
-| 57 | FxInfoEmRate_c | 3 | 3 |  | 27 |
-| 58 | FxInfoFlat_c | 3 | 3 |  | 27 |
-| 59 | FxInfoTrail_c | 3 | 3 |  | 27 |
-| 60 | FxInfoAttractPt_c | 3 | 3 |  | 28 |
-| 61 | FxInfoNoise_c | 3 | 3 |  | 28 |
-| 62 | FxInfoSmoke_c | 3 | 3 |  | 28 |
-| 63 | FxInfoSpriteRect_c | 3 | 3 |  | 28 |
-| 64 | FxInfoWind_c | 3 | 3 |  | 28 |
-| 65 | FxInfoJitter_c | 3 | 3 |  | 29 |
-| 66 | FxInfoRotSpeed_c | 3 | 3 |  | 29 |
-| 67 | FxInfoSize_c | 3 | 3 |  | 32 |
-| 68 | FxInfoAttractLine_c | 3 | 3 |  | 34 |
-| 69 | CEntity | 76 | 3 |  | 35 |
-| 70 | FxInfoGroundCollide_c | 3 | 3 |  | 35 |
-| 71 | CPedShelterAttractor | 11 | 4 |  | 17 |
-| 72 | CScriptsForBrains | 15 | 4 |  | 22 |
-| 73 | FxEmitterBP_c | 13 | 4 |  | 31 |
-| 74 | FxEmitter_c | 9 | 5 |  | 34 |
-| 75 | CTaskComplexFollowPatrolRoute | 11 | 6 |  | 33 |
-| 76 | CTheScripts | 82 | 10 |  | 31 |
+| 4 | CAnimBlendClumpData | 7 | 1 |  | 16 |
+| 5 | CQuaternion | 11 | 1 |  | 17 |
+| 6 | CPedModelInfo | 12 | 1 |  | 21 |
+| 7 | CPlayerInfo | 32 | 1 |  | 26 |
+| 8 | CAudioZones | 9 | 1 |  | 31 |
+| 9 | CPlayerPedData | 6 | 1 |  | 31 |
+| 10 | CGamma | 3 | 1 |  | 33 |
+| 11 | FxFrustumInfo_c | 2 | 1 |  | 33 |
+| 12 | CTaskComplexSeekEntityRadiusAngleOffset | 11 | 2 |  | 4 |
+| 13 | CAEAudioEntity | 8 | 2 |  | 10 |
+| 14 | CDecisionMaker | 5 | 2 |  | 19 |
+| 15 | IKChainManager_c | 19 | 2 |  | 20 |
+| 16 | WaterCreatureManager_c | 9 | 2 |  | 29 |
+| 17 | CPedLookAtAttractor | 3 | 3 |  | 18 |
+| 18 | CPedParkAttractor | 3 | 3 |  | 18 |
+| 19 | CPedScriptedAttractor | 3 | 3 |  | 18 |
+| 20 | CPedStepAttractor | 3 | 3 |  | 18 |
+| 21 | CPedATMAttractor | 3 | 3 |  | 19 |
+| 22 | CPedPizzaAttractor | 3 | 3 |  | 19 |
+| 23 | CPedSeatAttractor | 3 | 3 |  | 19 |
+| 24 | CPedStopAttractor | 3 | 3 |  | 19 |
+| 25 | CPedTriggerScriptAttractor | 3 | 3 |  | 19 |
+| 26 | CPedAttractorManager | 25 | 3 |  | 22 |
+| 27 | FxInfoEmAngle_c | 3 | 3 |  | 22 |
+| 28 | FxInfoEmDir_c | 3 | 3 |  | 22 |
+| 29 | FxInfoEmLife_c | 3 | 3 |  | 22 |
+| 30 | FxInfoEmPos_c | 3 | 3 |  | 22 |
+| 31 | CProtectionStub | 3 | 3 |  | 23 |
+| 32 | FxInfoHeatHaze_c | 3 | 3 |  | 23 |
+| 33 | FxInfoSelfLit_c | 3 | 3 |  | 23 |
+| 34 | FxInfoEmRotation_c | 3 | 3 |  | 24 |
+| 35 | FxInfoEmSpeed_c | 3 | 3 |  | 24 |
+| 36 | FxInfoEmSize_c | 3 | 3 |  | 25 |
+| 37 | FxInfoEmWeather_c | 3 | 3 |  | 25 |
+| 38 | FxInfoFloat_c | 3 | 3 |  | 25 |
+| 39 | FxInfoForce_c | 3 | 3 |  | 25 |
+| 40 | FxInfoFriction_c | 3 | 3 |  | 25 |
+| 41 | FxInfoUnderwater_c | 3 | 3 |  | 25 |
+| 42 | FxInterpInfo255_c | 4 | 3 |  | 25 |
+| 43 | FxInterpInfo32_c | 4 | 3 |  | 25 |
+| 44 | FxInterpInfoU255_c | 4 | 3 |  | 25 |
+| 45 | FxInfoAnimTexture_c | 3 | 3 |  | 26 |
+| 46 | FxInfoColourBright_c | 3 | 3 |  | 26 |
+| 47 | FxInfoColourRange_c | 3 | 3 |  | 26 |
+| 48 | FxInterpInfoFloat_c | 4 | 3 |  | 26 |
+| 49 | LibJpegError | 3 | 3 |  | 26 |
+| 50 | FxInfoColour_c | 3 | 3 |  | 27 |
+| 51 | FxInfoDir_c | 3 | 3 |  | 27 |
+| 52 | FxInfoEmRate_c | 3 | 3 |  | 27 |
+| 53 | FxInfoFlat_c | 3 | 3 |  | 27 |
+| 54 | FxInfoTrail_c | 3 | 3 |  | 27 |
+| 55 | FxInfoAttractPt_c | 3 | 3 |  | 28 |
+| 56 | FxInfoNoise_c | 3 | 3 |  | 28 |
+| 57 | FxInfoSmoke_c | 3 | 3 |  | 28 |
+| 58 | FxInfoSpriteRect_c | 3 | 3 |  | 28 |
+| 59 | FxInfoWind_c | 3 | 3 |  | 28 |
+| 60 | FxInfoJitter_c | 3 | 3 |  | 29 |
+| 61 | FxInfoRotSpeed_c | 3 | 3 |  | 29 |
+| 62 | FxInfoSize_c | 3 | 3 |  | 32 |
+| 63 | FxInfoAttractLine_c | 3 | 3 |  | 34 |
+| 64 | CEntity | 76 | 3 |  | 35 |
+| 65 | FxInfoGroundCollide_c | 3 | 3 |  | 35 |
+| 66 | CPedShelterAttractor | 11 | 4 |  | 17 |
+| 67 | CScriptsForBrains | 15 | 4 |  | 22 |
+| 68 | FxEmitterBP_c | 13 | 4 |  | 31 |
+| 69 | FxEmitter_c | 9 | 5 |  | 34 |
+| 70 | CCustomCarEnvMapPipeline | 60 | 6 |  | 4 |
+| 71 | CTheScripts | 82 | 10 |  | 31 |
 
 <a id="nivel-2"></a>
 
-## 🟡 Nivel 2: baratas por función, pero muchas (3 clases, 101 funciones)
+## 🟡 Nivel 2: baratas por función, pero muchas (2 clases, 78 funciones)
 
 Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CCustomCarEnvMapPipeline | 60 | 23 |  | 4 |
-| 2 | CPedAttractor | 85 | 27 |  | 12 |
-| 3 | CPools | 72 | 51 |  | 10 |
+| 1 | CPedAttractor | 85 | 27 |  | 12 |
+| 2 | CPools | 72 | 51 |  | 10 |
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (41 clases, 867 funciones)
+## 🟠 Nivel 3: moderadas (40 clases, 863 funciones)
 
 Criterio: el resto.
 
@@ -149,35 +143,34 @@ Criterio: el resto.
 | 14 | ListItem_c | 2 | 2 |  | ? |
 | 15 | RtBMP | 2 | 2 |  | ? |
 | 16 | DelayLoadThunks | 3 | 3 |  | ? |
-| 17 | CTaskComplexSeekEntity<CEntitySeekPosCalculatorFixedPos> | 7 | 4 |  | ? |
-| 18 | LegacyRuntimeError | 13 | 5 |  | ? |
-| 19 | RpAnimBlend | 52 | 5 |  | ? |
-| 20 | TList_c | 8 | 5 |  | ? |
-| 21 | QTMLRuntime | 6 | 6 |  | ? |
-| 22 | RpHAnim | 7 | 6 |  | ? |
-| 23 | RtQuat | 6 | 6 |  | ? |
-| 24 | CReplay | 55 | 7 |  | 38 |
-| 25 | RtAnim | 10 | 7 |  | 48 |
-| 26 | RtDict | 12 | 10 |  | ? |
-| 27 | LibJpegCompressEncode | 11 | 11 |  | 47 |
-| 28 | D3DX9 | 11 | 11 |  | ? |
-| 29 | RwD3D9RasterDriver | 14 | 14 |  | 29 |
-| 30 | RpUVAnim | 16 | 14 |  | ? |
-| 31 | ZlibInflate | 14 | 14 |  | ? |
-| 32 | ExeLibJpeg | 15 | 15 |  | ? |
-| 33 | ImportThunks | 17 | 17 |  | ? |
-| 34 | LibJpegCompress | 18 | 18 |  | 38 |
-| 35 | LibJpegMemory | 21 | 21 |  | 26 |
-| 36 | RpMatFX | 28 | 28 |  | ? |
-| 37 | RpSkin | 34 | 33 |  | ? |
-| 38 | RwD3D9 | 115 | 115 |  | ? |
-| 39 | RwPlCore | 132 | 118 |  | ? |
-| 40 | RpWorld | 197 | 172 |  | ? |
-| 41 | RwCore | 211 | 182 |  | ? |
+| 17 | LegacyRuntimeError | 13 | 5 |  | ? |
+| 18 | RpAnimBlend | 52 | 5 |  | ? |
+| 19 | TList_c | 8 | 5 |  | ? |
+| 20 | QTMLRuntime | 6 | 6 |  | ? |
+| 21 | RpHAnim | 7 | 6 |  | ? |
+| 22 | RtQuat | 6 | 6 |  | ? |
+| 23 | CReplay | 55 | 7 |  | 38 |
+| 24 | RtAnim | 10 | 7 |  | 48 |
+| 25 | RtDict | 12 | 10 |  | ? |
+| 26 | LibJpegCompressEncode | 11 | 11 |  | 47 |
+| 27 | D3DX9 | 11 | 11 |  | ? |
+| 28 | RwD3D9RasterDriver | 14 | 14 |  | 29 |
+| 29 | RpUVAnim | 16 | 14 |  | ? |
+| 30 | ZlibInflate | 14 | 14 |  | ? |
+| 31 | ExeLibJpeg | 15 | 15 |  | ? |
+| 32 | ImportThunks | 17 | 17 |  | ? |
+| 33 | LibJpegCompress | 18 | 18 |  | 38 |
+| 34 | LibJpegMemory | 21 | 21 |  | 26 |
+| 35 | RpMatFX | 28 | 28 |  | ? |
+| 36 | RpSkin | 34 | 33 |  | ? |
+| 37 | RwD3D9 | 115 | 115 |  | ? |
+| 38 | RwPlCore | 132 | 118 |  | ? |
+| 39 | RpWorld | 197 | 172 |  | ? |
+| 40 | RwCore | 211 | 182 |  | ? |
 
 <a id="nivel-4"></a>
 
-## 🔴 Nivel 4: caras (11 clases, 67 funciones)
+## 🔴 Nivel 4: caras (10 clases, 57 funciones)
 
 Criterio: 90 o más funciones, o más de 50 líneas por función.
 
@@ -191,9 +184,8 @@ Criterio: 90 o más funciones, o más de 50 líneas por función.
 | 6 | LibJpegDecompressApi | 4 | 4 |  | 73 |
 | 7 | CRunningScript | 43 | 4 |  | 77 |
 | 8 | ExeProtectionStub | 8 | 8 |  | 57 |
-| 9 | CAutomobile | 114 | 10 |  | 71 |
-| 10 | D3D9RasterFormat | 10 | 10 |  | 88 |
-| 11 | LibJpegDecompress | 22 | 22 |  | 51 |
+| 9 | D3D9RasterFormat | 10 | 10 |  | 88 |
+| 10 | LibJpegDecompress | 22 | 22 |  | 51 |
 
 <a id="fuera-de-la-cola"></a>
 

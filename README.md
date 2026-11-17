@@ -26,10 +26,10 @@ Cifras al 17/11/2026.
 
 | Zona | Funciones del EXE | Reconstruidas | Validadas | Reconstruidas sin validar | Faltan |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| **Código del juego** | 11.686 | 11.686 (100,00%) | 11.117 | 496 | 0 |
+| **Código del juego** | 11.686 | 11.686 (100,00%) | 11.159 | 454 | 0 |
 | **RenderWare y D3D** | 1.889 | 724 (38,33%) | 77 | 745 | 0 |
 
-En total hay **12.441 entradas reconstruidas, 11.200 validadas y 1.241 sin validar** en el catálogo (11.200 con evidencia registrada). Quedan además 6 entradas fuera de ambas zonas (CRT y utilidades).
+En total hay **12.441 entradas reconstruidas, 11.242 validadas y 1.199 sin validar** en el catálogo (11.242 con evidencia registrada). Quedan además 6 entradas fuera de ambas zonas (CRT y utilidades).
 
 ### Fase del proceso
 
@@ -37,7 +37,7 @@ En total hay **12.441 entradas reconstruidas, 11.200 validadas y 1.241 sin valid
 | --- | --- |
 | Reconstruir el código del juego en C++ puro | **Hecha**: 100,00% de las funciones y 100,00% de los bytes; faltan 0 y hay 118 excluidas por no ser reconstruibles |
 | Reconstruir el SDK de RenderWare | **Hecha** en lo reconstruible: 724 funciones; 1.111 son libpng, zlib y D3DX9 (se enlaza la original) y 54 no son reconstruibles |
-| **Validar el código del juego** | **En curso**: 11.117 de 11.613 reconstruidas (95,73%); el resto va por oleadas de lotes (detalle en el [informe](docs/ReversedClasses.md#por-validar)) |
+| **Validar el código del juego** | **En curso**: 11.159 de 11.613 reconstruidas (96,09%); el resto va por oleadas de lotes (detalle en el [informe](docs/ReversedClasses.md#por-validar)) |
 | Validar RenderWare | **Apenas empezada**: 77 de 822 (9,37%); falta el plan de bancos (dispositivo D3D falso, flujos y listas libres falsos) |
 | Pase final de bancos viejos | Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió |
 | Ejecutable propio | Después: sustituir RenderWare, D3D y CRT por bibliotecas y quitar la dependencia del EXE ([hoja de ruta](docs/ProjectRoadmap.md)) |
