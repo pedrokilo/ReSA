@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.460 |
-| Reconstruidas sin validar | 981 |
-| De ellas, en esta cola (validables por pares) | 981 |
+| Validadas | 11.490 |
+| Reconstruidas sin validar | 951 |
+| De ellas, en esta cola (validables por pares) | 951 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,15 +22,15 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 24 | 59 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
-| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 1 | 18 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 35 | 847 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 23 | 58 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 0 | 0 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 32 | 836 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 10 | 57 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **70** | **981** | |
+| **Total** | **65** | **951** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (24 clases, 59 funciones)
+## 🟢 Nivel 1: muy barato (23 clases, 58 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
@@ -43,37 +43,35 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 | 5 | CScriptsForBrains | 15 | 1 |  | 22 |
 | 6 | CAudioZones | 9 | 1 |  | 31 |
 | 7 | CGamma | 3 | 1 |  | 33 |
-| 8 | FxFrustumInfo_c | 2 | 1 |  | 33 |
-| 9 | CTaskComplexSeekEntityRadiusAngleOffset | 11 | 2 |  | 4 |
-| 10 | CAEAudioEntity | 8 | 2 |  | 10 |
-| 11 | CDecisionMaker | 5 | 2 |  | 19 |
-| 12 | IKChainManager_c | 19 | 2 |  | 20 |
-| 13 | CPedAttractorManager | 25 | 2 |  | 22 |
-| 14 | WaterCreatureManager_c | 9 | 2 |  | 29 |
-| 15 | CPedLookAtAttractor | 3 | 3 |  | 18 |
-| 16 | CPedParkAttractor | 3 | 3 |  | 18 |
-| 17 | CPedScriptedAttractor | 3 | 3 |  | 18 |
-| 18 | CPedStepAttractor | 3 | 3 |  | 18 |
-| 19 | CProtectionStub | 3 | 3 |  | 23 |
-| 20 | LibJpegError | 3 | 3 |  | 26 |
-| 21 | CEntity | 76 | 3 |  | 35 |
-| 22 | FxEmitterBP_c | 13 | 4 |  | 31 |
-| 23 | FxEmitter_c | 9 | 5 |  | 34 |
-| 24 | CTheScripts | 82 | 9 |  | 31 |
+| 8 | CTaskComplexSeekEntityRadiusAngleOffset | 11 | 2 |  | 4 |
+| 9 | CAEAudioEntity | 8 | 2 |  | 10 |
+| 10 | CDecisionMaker | 5 | 2 |  | 19 |
+| 11 | IKChainManager_c | 19 | 2 |  | 20 |
+| 12 | CPedAttractorManager | 25 | 2 |  | 22 |
+| 13 | WaterCreatureManager_c | 9 | 2 |  | 29 |
+| 14 | CPedLookAtAttractor | 3 | 3 |  | 18 |
+| 15 | CPedParkAttractor | 3 | 3 |  | 18 |
+| 16 | CPedScriptedAttractor | 3 | 3 |  | 18 |
+| 17 | CPedStepAttractor | 3 | 3 |  | 18 |
+| 18 | CProtectionStub | 3 | 3 |  | 23 |
+| 19 | LibJpegError | 3 | 3 |  | 26 |
+| 20 | CEntity | 76 | 3 |  | 35 |
+| 21 | FxEmitterBP_c | 13 | 4 |  | 31 |
+| 22 | FxEmitter_c | 9 | 5 |  | 34 |
+| 23 | CTheScripts | 82 | 9 |  | 31 |
 
 <a id="nivel-2"></a>
 
-## 🟡 Nivel 2: baratas por función, pero muchas (1 clases, 18 funciones)
+## 🟡 Nivel 2: baratas por función, pero muchas (0 clases, 0 funciones)
 
 Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CPedAttractor | 85 | 18 |  | 12 |
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (35 clases, 847 funciones)
+## 🟠 Nivel 3: moderadas (32 clases, 836 funciones)
 
 Criterio: el resto.
 
@@ -82,38 +80,35 @@ Criterio: el resto.
 | 1 | CEntryInfoList | 2 | 1 |  | 40 |
 | 2 | FxInfo_c | 1 | 1 |  | 41 |
 | 3 | CWaterLevel | 49 | 1 |  | 42 |
-| 4 | ListItem_c | 2 | 1 |  | ? |
-| 5 | Ps | 26 | 1 |  | ? |
-| 6 | RpAnisot | 4 | 1 |  | ? |
-| 7 | RtSlerp | 1 | 1 |  | ? |
-| 8 | Win | 8 | 1 |  | ? |
-| 9 | CCamera | 126 | 2 |  | 38 |
-| 10 | CPtrNodeDoubleLinkPool | 7 | 2 |  | ? |
-| 11 | CPtrNodeSingleLinkPool | 7 | 2 |  | ? |
-| 12 | RtBMP | 2 | 2 |  | ? |
-| 13 | DelayLoadThunks | 3 | 3 |  | ? |
-| 14 | LegacyRuntimeError | 13 | 5 |  | ? |
-| 15 | TList_c | 8 | 5 |  | ? |
-| 16 | QTMLRuntime | 6 | 6 |  | ? |
-| 17 | RpHAnim | 7 | 6 |  | ? |
-| 18 | RtQuat | 6 | 6 |  | ? |
-| 19 | RtAnim | 10 | 7 |  | 48 |
-| 20 | RtDict | 12 | 10 |  | ? |
-| 21 | LibJpegCompressEncode | 11 | 11 |  | 47 |
-| 22 | D3DX9 | 11 | 11 |  | ? |
-| 23 | RwD3D9RasterDriver | 14 | 14 |  | 29 |
-| 24 | RpUVAnim | 16 | 14 |  | ? |
-| 25 | ZlibInflate | 14 | 14 |  | ? |
-| 26 | ExeLibJpeg | 15 | 15 |  | ? |
-| 27 | ImportThunks | 17 | 17 |  | ? |
-| 28 | LibJpegCompress | 18 | 18 |  | 38 |
-| 29 | LibJpegMemory | 21 | 21 |  | 26 |
-| 30 | RpMatFX | 28 | 28 |  | ? |
-| 31 | RpSkin | 34 | 33 |  | ? |
-| 32 | RwD3D9 | 115 | 115 |  | ? |
-| 33 | RwPlCore | 132 | 118 |  | ? |
-| 34 | RpWorld | 197 | 172 |  | ? |
-| 35 | RwCore | 211 | 182 |  | ? |
+| 4 | Ps | 26 | 1 |  | ? |
+| 5 | RpAnisot | 4 | 1 |  | ? |
+| 6 | RtSlerp | 1 | 1 |  | ? |
+| 7 | Win | 8 | 1 |  | ? |
+| 8 | CCamera | 126 | 2 |  | 38 |
+| 9 | CPtrNodeDoubleLinkPool | 7 | 2 |  | ? |
+| 10 | CPtrNodeSingleLinkPool | 7 | 2 |  | ? |
+| 11 | RtBMP | 2 | 2 |  | ? |
+| 12 | DelayLoadThunks | 3 | 3 |  | ? |
+| 13 | QTMLRuntime | 6 | 6 |  | ? |
+| 14 | RpHAnim | 7 | 6 |  | ? |
+| 15 | RtQuat | 6 | 6 |  | ? |
+| 16 | RtAnim | 10 | 7 |  | 48 |
+| 17 | RtDict | 12 | 10 |  | ? |
+| 18 | LibJpegCompressEncode | 11 | 11 |  | 47 |
+| 19 | D3DX9 | 11 | 11 |  | ? |
+| 20 | RwD3D9RasterDriver | 14 | 14 |  | 29 |
+| 21 | RpUVAnim | 16 | 14 |  | ? |
+| 22 | ZlibInflate | 14 | 14 |  | ? |
+| 23 | ExeLibJpeg | 15 | 15 |  | ? |
+| 24 | ImportThunks | 17 | 17 |  | ? |
+| 25 | LibJpegCompress | 18 | 18 |  | 38 |
+| 26 | LibJpegMemory | 21 | 21 |  | 26 |
+| 27 | RpMatFX | 28 | 28 |  | ? |
+| 28 | RpSkin | 34 | 33 |  | ? |
+| 29 | RwD3D9 | 115 | 115 |  | ? |
+| 30 | RwPlCore | 132 | 118 |  | ? |
+| 31 | RpWorld | 197 | 172 |  | ? |
+| 32 | RwCore | 211 | 182 |  | ? |
 
 <a id="nivel-4"></a>
 

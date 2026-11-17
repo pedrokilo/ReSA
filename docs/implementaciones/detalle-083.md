@@ -185,6 +185,15 @@
 
 <a id="grupo-1648"></a>
 
+## LegacyRuntimeError
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| VectorXlen(void* self, void* /*edx*/) | [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:923](../../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp#L923) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LegacyRuntimeError::VectorXlen 0x004F41B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| VectorXlenInst(void* self, void* /*edx*/) | [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:930](../../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp#L930) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LegacyRuntimeError::VectorXlenB 0x005ECAB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1649"></a>
+
 ## LegacyStdString
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -192,7 +201,7 @@
 | StringGrow(LegacyString* self, void* /*edx*/, uint32 newSize, bool trim) | [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:749](../../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp#L749) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LegacyStdString::Grow 0x004F3BD0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * __fastcall StringErase(LegacyString* self, void* /*edx*/, uint32 pos, uint32 n) | [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:777](../../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp#L777) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LegacyStdString::Erase 0x004F3DB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1649"></a>
+<a id="grupo-1650"></a>
 
 ## LegacyString
 
@@ -201,7 +210,7 @@
 | * Data() | [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:700](../../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp#L700) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Data() const | [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:701](../../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp#L701) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1650"></a>
+<a id="grupo-1651"></a>
 
 ## LibJpegCompress
 
@@ -230,7 +239,7 @@
 | * LibJpegCompress::JpegAllocQuantTable(ExeJpegCompress* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:667](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L667) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegCompress::JpegAllocQuantTable 0x005C6BB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * LibJpegCompress::JpegAllocHuffTable(ExeJpegCompress* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:674](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L674) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegCompress::JpegAllocHuffTable 0x005C6BD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1651"></a>
+<a id="grupo-1652"></a>
 
 ## LibJpegCompressApi
 
@@ -240,7 +249,7 @@
 | ExeJpegFinishCompress(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp:103](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegCompressApi::jpeg_finish_compress 0x005CFAC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | LibJpegCompressApi::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp:146](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp#L146) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1652"></a>
+<a id="grupo-1653"></a>
 
 ## LibJpegCompressEncode
 
@@ -257,7 +266,7 @@
 | ExeJpegGenOptimalTable(void* cinfo, void* htblArg, int32* freq) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp:408](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp#L408) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegCompressEncode::jpeg_gen_optimal_table 0x005C4D50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | LibJpegCompressEncode::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp:497](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp#L497) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1653"></a>
+<a id="grupo-1654"></a>
 
 ## LibJpegDecompress
 
@@ -278,7 +287,7 @@
 | ExePrepareForOutputPass(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp:1048](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp#L1048) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegDecompress::prepare_for_output_pass 0x005CCB50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | LibJpegDecompress::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp:1102](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp#L1102) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1654"></a>
+<a id="grupo-1655"></a>
 
 ## LibJpegDecompressApi
 
@@ -290,7 +299,7 @@
 | ExeJpegReadHeader(void* cinfo, uint8 requireImage) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp:260](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp#L260) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegDecompressApi::jpeg_read_header 0x005D01D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | LibJpegDecompressApi::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp:283](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp#L283) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1655"></a>
+<a id="grupo-1656"></a>
 
 ## LibJpegDecompressUpsample
 
@@ -300,7 +309,7 @@
 | ExeJinitUpsampler(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp:112](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegDecompressUpsample::jinit_upsampler 0x005CD350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | LibJpegDecompressUpsample::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp:186](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp#L186) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1656"></a>
+<a id="grupo-1657"></a>
 
 ## LibJpegError
 
@@ -308,7 +317,7 @@
 | --- | --- | --- | --- | --- | --- |
 | LibJpegError::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp:69](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1657"></a>
+<a id="grupo-1658"></a>
 
 ## LibJpegExe
 
@@ -319,7 +328,7 @@
 | ErrExit1(void* cinfo, int32 code, int32 parm) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h:23](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ErrExit2(void* cinfo, int32 code, int32 parm0, int32 parm1) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h:30](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1658"></a>
+<a id="grupo-1659"></a>
 
 ## LibJpegMemory
 
@@ -332,7 +341,7 @@
 | ExeJinitMemoryMgr(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:415](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp#L415) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegMemory::jinit_memory_mgr 0x005CF6D0 | 0 / 0 | Conversión de dirección fija: 0x0086B808, 0x0086B810 |
 | LibJpegMemory::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:512](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp#L512) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1659"></a>
+<a id="grupo-1660"></a>
 
 ## Light
 
@@ -363,11 +372,3 @@
 | SetLightsForInfraredVisionDefaultObjects() | [source/app/app_light.cpp:418](../../source/app/app_light.cpp#L418) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetLightsForInfraredVisionDefaultObjects 0x00735F20 | 0 / 0 | Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
 | SetLightsForNightVision() | [source/app/app_light.cpp:425](../../source/app/app_light.cpp#L425) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetLightsForNightVision 0x00735F70 | 0 / 0 | Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
 | GetDayNightBalance() | [source/app/app_light.cpp:432](../../source/app/app_light.cpp#L432) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::GetDayNightBalance 0x006FAB30 | 0 / 0 | Posible dato fijo ms_nGameClockHours: source/game_sa/Clock.h:21 (0x00B70153); Posible dato fijo ms_nGameClockMinutes: source/game_sa/Clock.h:20 (0x00B70152); Posible dato fijo ms_nGameClockSeconds: source/game_sa/Clock.h:19 (0x00B70150) |
-
-<a id="grupo-1660"></a>
-
-## LimbOrientation
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| LimbOrientation(float yaw, float pitch) | [source/game_sa/PedIK.h:24](../../source/game_sa/PedIK.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

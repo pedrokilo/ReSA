@@ -1,8 +1,8 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 21890,
-    "groups": 1838,
+    "source_definition_count": 21893,
+    "groups": 1839,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
     "definitions_with_assembly": 0,
@@ -21,11 +21,11 @@
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 551,
     "historical_catalog_rows": 12445,
-    "catalog_rows_without_unambiguous_source_match_in_scope": 77,
+    "catalog_rows_without_unambiguous_source_match_in_scope": 58,
     "catalog_rows_installed_outside_game_sa": 0,
-    "catalog_rows_sharing_a_template_body": 86,
-    "catalog_rows_linked_by_hook_address": 1168,
-    "validated_reconstructed_own_cpp_definitions": 13390,
+    "catalog_rows_sharing_a_template_body": 101,
+    "catalog_rows_linked_by_hook_address": 1173,
+    "validated_reconstructed_own_cpp_definitions": 13406,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 17
   },
@@ -110,7 +110,7 @@
     "source/game_sa/Animation/AnimSequenceFrames.h": "d4e1adaab0ab2317e929d8996f10537601aba80f1fc13998d2b940c99c2d38cf",
     "source/game_sa/Attractors/PedAtmAttractor.cpp": "b6f8a5dd026998a8fb61e7f97ba9ad6c61bab96c95de60070773642102e22413",
     "source/game_sa/Attractors/PedAtmAttractor.h": "0686fd35605b389938df60ed3276e98e0a0c1a558d45808e3b9973bc222a70cc",
-    "source/game_sa/Attractors/PedAttractor.cpp": "9a3ed58a483f48b0ae83d2528c685b757e97aa70167e105b51fac5d8018c70f8",
+    "source/game_sa/Attractors/PedAttractor.cpp": "ec37fc4441585e05905662c8a90be7033a926a051ef03c3743714b9437b440ae",
     "source/game_sa/Attractors/PedAttractor.h": "1a84d5c660a1a257f5261b2547b7bd2c69faeed9ef5553a72b652e2bef67171f",
     "source/game_sa/Attractors/PedAttractorPedPlacer.cpp": "258ea1c4dadc021abbcf7d0c41330d3a3f295d9d992e665998b25e0c2b9674e9",
     "source/game_sa/Attractors/PedAttractorPedPlacer.h": "2dce1f0be5f2ee08a44506ed18116ed2269454e41b7fd21477382aee6477c193",
@@ -241,7 +241,7 @@
     "source/game_sa/Audio/Managers/AERadioTrackManager.h": "e70c8ae9db420ae3be4e3f3be3c60ad24b0efbb614043986cee92566403538e8",
     "source/game_sa/Audio/Managers/AESoundManager.cpp": "fab599b235e8df6462f8e8491bbc1731f0624f72c1cd2cf70c619215df656a07",
     "source/game_sa/Audio/Managers/AESoundManager.h": "05afa74b3ea9cb47af40add8a6cea83cbefaf76aef7c5d77bb5d0baee54068bc",
-    "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "658dca3a9bf7a82b45142a04487ee33e24b30cfb1c595b76298d14b0843be3a5",
+    "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "5bc4eacedf8c68725e4d925c51732d5b55c8b404093ec12a76d04c6697fccd26",
     "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "4d24790a0fe74325d7491a09207724ba3d22b24d2ab1257799014b28af7b67c9",
     "source/game_sa/Audio/Managers/CutSceneStreamsPC.h": "b9e393372f80cdd43afc1e69064a4192e5b64d74a21032824c4e7793cc2cff5d",
     "source/game_sa/Audio/OpenAL/OALBase.cpp": "230a6fe5c7b5b788fd6a7540aa8647631db25fce8432fe75ea7e04673a7a149d",
@@ -2315,10 +2315,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "192da0b238187d4a7be49c7bab756b6096737583bf19b135eac4a15cc10777bf",
+    "hooks.csv": "1c8bfacff814e734d92869ca3d5f75b34a368a8d765e6e36ba75e10ee547ff31",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "a839566015476310e1f08dd1ce4212abe5255c023cc20f827586bd71809071d2",
+  "migration_registry_sha256": "679b09f5c90cffe7b18f18581e73f1401185a6e3cb49c75597f903360de3c8e9",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

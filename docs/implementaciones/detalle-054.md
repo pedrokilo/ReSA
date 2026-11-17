@@ -70,8 +70,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| * __stdcall SArrayFillNReturnEndStride4(uint32* dest, uint32 count, const uint32* value) | [source/game_sa/Attractors/PedAttractor.cpp:215](../../source/game_sa/Attractors/PedAttractor.cpp#L215) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SArrayPushBack4(SArrayRaw&lt;uint32&gt;* self, const uint32* x) | [source/game_sa/Attractors/PedAttractor.cpp:583](../../source/game_sa/Attractors/PedAttractor.cpp#L583) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SArrayPushBack4(SArrayRaw&lt;uint32&gt;* self, const uint32* x) | [source/game_sa/Attractors/PedAttractor.cpp:589](../../source/game_sa/Attractors/PedAttractor.cpp#L589) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1069"></a>
 

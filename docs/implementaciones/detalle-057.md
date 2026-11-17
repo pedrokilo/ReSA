@@ -141,7 +141,7 @@
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | * __fastcall ListItemConstructorExe(ListItemLinksExe* self, void* /*edx*/) | [source/game_sa/Core/ListItem_c.cpp:31](../../source/game_sa/Core/ListItem_c.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ListItemDestructorExe(ListItemLinksExe* /*self*/, void* /*edx*/) | [source/game_sa/Core/ListItem_c.cpp:39](../../source/game_sa/Core/ListItem_c.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: ListItem_c::Destructor 0x004A8DC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ListItemDestructorExe(ListItemLinksExe* /*self*/, void* /*edx*/) | [source/game_sa/Core/ListItem_c.cpp:39](../../source/game_sa/Core/ListItem_c.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ListItem_c::Destructor 0x004A8DC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ListItemInjectHooksLote218A() | [source/game_sa/Core/ListItem_c.cpp:43](../../source/game_sa/Core/ListItem_c.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1135"></a>

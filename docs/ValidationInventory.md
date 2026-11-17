@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11460 |
+| `validated=1` · evidencia aprobada vinculada | 11490 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11460 |
-| Sin evidencia aprobada vinculada en este registro | 981 |
+| Evidencia histórica vinculada; revisión pendiente | 11490 |
+| Sin evidencia aprobada vinculada en este registro | 951 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -4853,7 +4853,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedAttractor | `SArrayCopyBackwardStride4C` | [Resumen](../reversing/Fn205A/validation-summary.json) |
 | CPedAttractor | `SArrayCopyBackwardStride4D` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CPedAttractor | `SArrayCopyStride20` | [Resumen](../reversing/Fn189A/validation-summary.json) |
+| CPedAttractor | `SArrayEraseStride4` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayFillNReturnEndStride12` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayFillNReturnEndStride20` | [Resumen](../reversing/Fn219A/validation-summary.json) |
 | CPedAttractor | `SArrayFillNReturnEndStride4` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| CPedAttractor | `SArrayFillNReturnEndStride4B` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayFillNReturnEndStride4C` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayFillNReturnEndStride4D` | [Resumen](../reversing/Fn219A/validation-summary.json) |
 | CPedAttractor | `SArrayFillNStride12` | [Resumen](../reversing/Fn205A/validation-summary.json) |
 | CPedAttractor | `SArrayFillNStride20` | [Resumen](../reversing/Fn205A/validation-summary.json) |
 | CPedAttractor | `SArrayFillNStride4A` | [Resumen](../reversing/Fn205A/validation-summary.json) |
@@ -4867,6 +4873,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedAttractor | `SArrayFillStride4C` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CPedAttractor | `SArrayFillStride4D` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CPedAttractor | `SArrayInsertNStride12` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedAttractor | `SArrayInsertNStride20` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayInsertNStride4A` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayInsertNStride4B` | [Resumen](../reversing/Fn219A/validation-summary.json) |
 | CPedAttractor | `SArrayInsertNStride4C` | [Resumen](../reversing/Fn220A/validation-summary.json) |
 | CPedAttractor | `SArrayInsertStride12` | [Resumen](../reversing/Fn220A/validation-summary.json) |
 | CPedAttractor | `SArrayInsertStride20` | [Resumen](../reversing/Fn220A/validation-summary.json) |
@@ -4878,6 +4887,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedAttractor | `SArrayTidyStride4` | [Resumen](../reversing/Fn206A/validation-summary.json) |
 | CPedAttractor | `SArrayTidyStride4B` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CPedAttractor | `SArrayTidyStride4C` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| CPedAttractor | `SArrayTidyStride4D` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayTidyStride4E` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayTidyStride4F` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayTidyStride4G` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayTidyStride4H` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayTidyStride4I` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayTidyStride4J` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayTidyStride4K` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| CPedAttractor | `SArrayTidyStride4L` | [Resumen](../reversing/Fn219A/validation-summary.json) |
 | CPedAttractor | `SArrayUninitCopyStride12` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CPedAttractor | `SArrayUninitCopyStride20` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CPedAttractor | `SArrayUninitCopyStride4A` | [Resumen](../reversing/Fn189A/validation-summary.json) |
@@ -10626,6 +10644,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxEmitter_c | `AddParticle-vector` | [Resumen](../reversing/FxEmitterAddParticle30/validation-summary.json) |
 | FxEmitter_c | `CreateParticle` | [Resumen](../reversing/FxEmitterCreateParticle30/validation-summary.json) |
 | FxEmitter_c | `CreateParticles` | [Resumen](../reversing/Dependencies22C/validation-summary-reval-20261019.json) |
+| FxFrustumInfo_c | `Constructor` | [Resumen](../reversing/Fn219A/validation-summary.json) |
 | FxFrustumInfo_c | `IsCollision` | [Resumen](../reversing/DependenciesWorldLeaf3/validation-summary.json) |
 | FxInfoAnimTexture_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoAnimTexture_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
@@ -11056,6 +11075,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | LegacyRuntimeError | `ScalarDeletingDestructorA` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | LegacyRuntimeError | `ScalarDeletingDestructorB` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | LegacyRuntimeError | `VectorXlen` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LegacyRuntimeError | `VectorXlenB` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| LegacyRuntimeError | `VectorXlenC` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| LegacyRuntimeError | `VectorXlenD` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| LegacyRuntimeError | `VectorXlenE` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| LegacyRuntimeError | `VectorXlenF` | [Resumen](../reversing/Fn219A/validation-summary.json) |
 | LegacyRuntimeError | `What` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | LegacyStdString | `AssignChars` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | LegacyStdString | `AssignString` | [Resumen](../reversing/Fn209A/validation-summary.json) |
@@ -11091,6 +11115,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Light | `WorldReplaceNormalLightsWithScorched` | [Resumen](../reversing/Light27/validation-summary.json) |
 | Light | `WorldReplaceScorchedLightsWithNormal` | [Resumen](../reversing/Light27/validation-summary.json) |
 | ListItem_c | `Constructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| ListItem_c | `Destructor` | [Resumen](../reversing/Fn219A/validation-summary.json) |
 | ModelIndices | `InitModelIndices` | [Resumen](../reversing/Core70/validation-summary.json) |
 | ModelIndices | `MatchAllModelStrings` | [Resumen](../reversing/Core70/validation-summary.json) |
 | ModelIndices | `TestModelIndices` | [Resumen](../reversing/Fn152A/validation-summary.json) |
@@ -11411,8 +11436,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | SurfaceInfos_c | `MakesCarDirty` | [Resumen](../reversing/Surface47/validation-summary.json) |
 | SurfaceInfos_c | `ProducesFootDust` | [Resumen](../reversing/Surface47/validation-summary.json) |
 | TList_c | `ListAddItemExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
+| TList_c | `ListConstructorExe` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| TList_c | `ListDestructorExe` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| TList_c | `ListGetItemOffsetExe` | [Resumen](../reversing/Fn219A/validation-summary.json) |
 | TList_c | `ListGetNumItemsExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | TList_c | `ListRemoveAllExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
+| TList_c | `ListRemoveHeadExe` | [Resumen](../reversing/Fn219A/validation-summary.json) |
+| TList_c | `ListRemoveItemExe` | [Resumen](../reversing/Fn219A/validation-summary.json) |
 | UserTracksLegacyString | `Reallocate` | [Resumen](../reversing/Fn208A/validation-summary.json) |
 | UserTracksLegacyVector | `Insert` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | UserTracksLegacyVector | `PushBack` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
@@ -11844,7 +11874,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPed` | 156 | 0 | 156 | 0 |
 | `CPedATMAttractor` | 3 | 0 | 3 | 0 |
 | `CPedAcquaintanceScanner` | 6 | 0 | 6 | 0 |
-| `CPedAttractor` | 85 | 0 | 67 | 18 |
+| `CPedAttractor` | 85 | 0 | 85 | 0 |
 | `CPedAttractorManager` | 25 | 0 | 23 | 2 |
 | `CPedAttractorPedPlacer` | 1 | 0 | 1 | 0 |
 | `CPedAttractorPool` | 1 | 0 | 1 | 0 |
@@ -12370,7 +12400,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxEmitterBP_c` | 13 | 0 | 9 | 4 |
 | `FxEmitterPrt_c` | 2 | 0 | 2 | 0 |
 | `FxEmitter_c` | 9 | 0 | 4 | 5 |
-| `FxFrustumInfo_c` | 2 | 0 | 1 | 1 |
+| `FxFrustumInfo_c` | 2 | 0 | 2 | 0 |
 | `FxInfoAnimTexture_c` | 3 | 0 | 3 | 0 |
 | `FxInfoAttractLine_c` | 3 | 0 | 3 | 0 |
 | `FxInfoAttractPt_c` | 3 | 0 | 3 | 0 |
@@ -12427,7 +12457,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `InteriorManager_c` | 23 | 0 | 23 | 0 |
 | `Interior_c` | 54 | 0 | 54 | 0 |
 | `JPegPlugin` | 6 | 0 | 6 | 0 |
-| `LegacyRuntimeError` | 13 | 0 | 8 | 5 |
+| `LegacyRuntimeError` | 13 | 0 | 13 | 0 |
 | `LegacyStdString` | 6 | 0 | 6 | 0 |
 | `LibJpegCompress` | 18 | 0 | 0 | 18 |
 | `LibJpegCompressApi` | 3 | 0 | 0 | 3 |
@@ -12438,7 +12468,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `LibJpegError` | 3 | 0 | 0 | 3 |
 | `LibJpegMemory` | 21 | 0 | 0 | 21 |
 | `Light` | 27 | 0 | 27 | 0 |
-| `ListItem_c` | 2 | 0 | 1 | 1 |
+| `ListItem_c` | 2 | 0 | 2 | 0 |
 | `ModelIndices` | 3 | 0 | 3 | 0 |
 | `NodeNamePlugin` | 3 | 0 | 3 | 0 |
 | `Particle_c` | 1 | 0 | 1 | 0 |
@@ -12469,7 +12499,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RwPlCore` | 132 | 0 | 14 | 118 |
 | `Securom` | 4 | 0 | 4 | 0 |
 | `SurfaceInfos_c` | 50 | 0 | 50 | 0 |
-| `TList_c` | 8 | 0 | 3 | 5 |
+| `TList_c` | 8 | 0 | 8 | 0 |
 | `UserTracksLegacyString` | 1 | 0 | 1 | 0 |
 | `UserTracksLegacyVector` | 2 | 0 | 2 | 0 |
 | `VectorConstructorIterator` | 1 | 0 | 1 | 0 |

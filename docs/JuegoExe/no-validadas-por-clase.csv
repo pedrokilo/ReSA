@@ -1,7 +1,6 @@
 clase,reconstruidas,validadas,sin_validar
 LibJpegDecompress,22,0,22
 LibJpegMemory,21,0,21
-CPedAttractor,85,67,18
 LibJpegCompress,18,0,18
 ExeLibJpeg,15,0,15
 RwD3D9RasterDriver,14,0,14
@@ -10,8 +9,6 @@ D3D9RasterFormat,10,0,10
 CTheScripts,82,73,9
 ExeProtectionStub,8,0,8
 FxEmitter_c,9,4,5
-LegacyRuntimeError,13,8,5
-TList_c,8,3,5
 CRunningScript,43,39,4
 FxEmitterBP_c,13,9,4
 LibJpegDecompressApi,4,0,4
@@ -44,10 +41,8 @@ CScriptsForBrains,15,14,1
 CTaskComplexBeCop,5,4,1
 CTaskSimpleSetCharIgnoreWeaponRangeFlag,7,6,1
 CWaterLevel,49,48,1
-FxFrustumInfo_c,2,1,1
 FxInfoManager_c,6,5,1
 FxInfo_c,1,0,1
-ListItem_c,2,1,1
 Ps,26,25,1
 RpAnisot,4,3,1
 Win,8,7,1

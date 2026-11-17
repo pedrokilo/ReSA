@@ -122,7 +122,7 @@
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | * __fastcall FxPrimBPConstructorBody(FxPrimBP_c* self, void* /*edx*/) | [source/game_sa/Fx/FxPrimBP.cpp:28](../../source/game_sa/Fx/FxPrimBP.cpp#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxPrimBPDestructorBody(FxPrimBP_c* self, void* /*edx*/) | [source/game_sa/Fx/FxPrimBP.cpp:45](../../source/game_sa/Fx/FxPrimBP.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: TList_c::ListDestructorExe 0x004A8DE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxPrimBPDestructorBody(FxPrimBP_c* self, void* /*edx*/) | [source/game_sa/Fx/FxPrimBP.cpp:45](../../source/game_sa/Fx/FxPrimBP.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: TList_c::ListDestructorExe 0x004A8DE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1254"></a>
 
