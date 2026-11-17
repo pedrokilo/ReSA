@@ -88356,6 +88356,1382 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "NodeRoutePoolConstructor",
+        "address": "0x00550BD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::NodeRoutePoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "TaskAllocatorPoolConstructor",
+        "address": "0x00550CA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::TaskAllocatorPoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PedIntelligencePoolConstructor",
+        "address": "0x00550D70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PedIntelligencePoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PedAttractorPoolConstructor",
+        "address": "0x00550E40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PedAttractorPoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "NodeRoutePoolDestructorBody",
+        "address": "0x00550C30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::NodeRoutePoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "TaskAllocatorPoolDestructorBody",
+        "address": "0x00550D00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::TaskAllocatorPoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PedIntelligencePoolDestructorBody",
+        "address": "0x00550DD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PedIntelligencePoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PedAttractorPoolDestructorBody",
+        "address": "0x00550EA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PedAttractorPoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PtrNodeSingleLinkPoolScalarDeletingDestructor",
+        "address": "0x005512F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PtrNodeSingleLinkPoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PtrNodeDoubleLinkPoolScalarDeletingDestructor",
+        "address": "0x00551350",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PtrNodeDoubleLinkPoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "EntryInfoNodePoolScalarDeletingDestructor",
+        "address": "0x005513B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::EntryInfoNodePoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PedPoolScalarDeletingDestructor",
+        "address": "0x00551410",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PedPoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "VehiclePoolScalarDeletingDestructor",
+        "address": "0x00551470",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::VehiclePoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "BuildingPoolScalarDeletingDestructor",
+        "address": "0x005514D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::BuildingPoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "ObjectPoolScalarDeletingDestructor",
+        "address": "0x00551530",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::ObjectPoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "DummyPoolScalarDeletingDestructor",
+        "address": "0x00551590",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::DummyPoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "ColModelPoolScalarDeletingDestructor",
+        "address": "0x005515F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::ColModelPoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "TaskPoolScalarDeletingDestructor",
+        "address": "0x00551650",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::TaskPoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "EventPoolScalarDeletingDestructor",
+        "address": "0x005516B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::EventPoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PointRoutePoolScalarDeletingDestructor",
+        "address": "0x00551710",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PointRoutePoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PatrolRoutePoolScalarDeletingDestructor",
+        "address": "0x00551770",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PatrolRoutePoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "NodeRoutePoolScalarDeletingDestructor",
+        "address": "0x005517D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::NodeRoutePoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "TaskAllocatorPoolScalarDeletingDestructor",
+        "address": "0x00551830",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::TaskAllocatorPoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PedIntelligencePoolScalarDeletingDestructor",
+        "address": "0x00551890",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PedIntelligencePoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PedAttractorPoolScalarDeletingDestructor",
+        "address": "0x005518F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PedAttractorPoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCover",
+        "fn_name": "ProcessedBuildingsIsMemberOfList",
+        "address": "0x005521D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CCover::ProcessedBuildingsIsMemberOfList"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CReplay",
+        "fn_name": "StoreVehicleBlock",
+        "address": "0x0045B730",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CReplay::StoreVehicleBlock"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CReplay",
+        "fn_name": "StoreBmxBlock",
+        "address": "0x0045BF90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CReplay::StoreBmxBlock"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CReplay",
+        "fn_name": "StoreBikeBlock",
+        "address": "0x0045C070",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CReplay::StoreBikeBlock"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CReplay",
+        "fn_name": "ExtractVehicleBlock",
+        "address": "0x0045BA90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CReplay::ExtractVehicleBlock"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CReplay",
+        "fn_name": "ExtractBmxBlock",
+        "address": "0x0045BFF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CReplay::ExtractBmxBlock"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CReplay",
+        "fn_name": "ExtractBikeBlock",
+        "address": "0x0045C0D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn213A/validation-summary.json",
+        "sha256": "900a5ef5c58ee0b4ea4eb88dee737c734d7513c23ac647cf84e462000676de6d",
+        "passed_path": [
+          "covered_functions",
+          "CReplay::ExtractBikeBlock"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Pools.cpp": "fdf1822b454f72e9c059bd707799dedb38217fa5f500828976ba60f74fb25d84",
+        "source/game_sa/Cover.cpp": "8fdfebb23a7314744395fd6f17a38267c32af40e62eac511b52075b2d17fff73",
+        "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+        "source/game_sa/Core/PtrList.h": "f76218b00f7b91695859f27f580d0c2645c732814e57114fd958b61549d4c28e",
+        "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+        "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
+        "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
+        "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn213A/LiveComparison.hpp": "e2faf2335960ce6c6cff34c7e388085cc1c11efa60767d86a3edfc0d5c8483ef",
+        "reversing/Fn213A/Core.hpp": "3432e218c0f24671db5a42e2e2f5bb2ef8e0dd74bb102e48a63569725034a5aa",
+        "reversing/Fn213A/Fixtures.hpp": "b620d17a2617f31093ef9e24d309edf728bacf174f7b12c5dc362377efb5a940",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main fb7317b29a (lote 213A ya integrado, sin cherry-pick) mas las correcciones que revelo el banco (instancias propias por direccion de los cuerpos de destructor de pool y de los destructores con borrado; el vehiculo de las escrituras y lecturas de paquete usa el puntero de matriz de +0x14 sin crearla). 32 funciones del EXE sin validar: cuatro constructores y cuatro cuerpos de destructor de CPool, 17 destructores con borrado de CPool, IsMemberOfList de CCover y tres escrituras y tres lecturas de paquetes de vehiculo de CReplay. Colaboradores sustituidos por falso identico en la direccion del EXE y en la funcion de la DLL (CMatrix::ScaleAll, ~CMatrix y CDamageManager::GetDoorStatus/SetDoorStatus con la funcion real que la DLL llama); operator new[]/delete[]/delete y el resto con falso en la direccion del EXE. No se comprueba el cuerpo real de los colaboradores (validados o no aparte). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE, vehiculos reales con matrices reales (las CMatrix locales de la lectura se falsean), el desenrollado SEH, capacidades de pool mayores de 0x7FFFFF, trenes y el orden inferido de los 17 destructores con borrado.",
+      "review_reference": "reversing/Fn213A/README.md"
     }
   ]
 }

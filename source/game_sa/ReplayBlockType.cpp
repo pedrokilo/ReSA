@@ -28,11 +28,11 @@ constexpr float REPLAY_DOOR_ANGLE_DECOMPRESS = std::bit_cast<float>(0x3D4A8AD9u)
 void tReplayVehicleBlock::ExtractVehicleUpdateData(CVehicle& veh, float interpolation) {
     CMatrix decoded;
     matrix.DecompressIntoFullMatrix(decoded);
-    CMatrix current{ static_cast<const CMatrix&>(veh.GetMatrix()) };
+    CMatrix current{ static_cast<const CMatrix&>(*veh.m_matrix) }; // puntero de matriz de +0x14 SIN comprobar nulo (CPlaceable::GetMatrix la crearia)
     MatrixScaleAllCpp(&current.GetRight().x, 1.0f - interpolation);
     MatrixScaleAllCpp(&decoded.GetRight().x, interpolation);
     current += decoded;
-    static_cast<CMatrix&>(veh.GetMatrix()) = current;
+    static_cast<CMatrix&>(*veh.m_matrix) = current;
 
     veh.GetTurnSpeed() = CVector{0.0f};
     veh.m_fHealth = (float)(int32(health) * 4);

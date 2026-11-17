@@ -171,7 +171,7 @@ void ReplayStoreCarUpdate(uint8* p, CVehicle* veh, int32 poolIdx) {
     auto* v = reinterpret_cast<uint8*>(veh);
 
     p[1] = static_cast<uint8>(poolIdx);
-    reinterpret_cast<CCompressedMatrixNotAligned*>(p + 4)->CompressFromFullMatrix(veh->GetMatrix());
+    reinterpret_cast<CCompressedMatrixNotAligned*>(p + 4)->CompressFromFullMatrix(*veh->m_matrix); // puntero de matriz de +0x14 SIN comprobar nulo (CPlaceable::GetMatrix la crearia)
 
     float health = ReplayAt<float>(v, 0x4C0);
     if (1000.0f < health) {

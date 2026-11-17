@@ -115,6 +115,8 @@ void* __fastcall TaskAllocatorPoolConstructorExe(void* self, void* edx, int32 ca
 void* __fastcall PedIntelligencePoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550D70 (lote 213A), definida mas abajo
 void* __fastcall PedAttractorPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550E40 (lote 213A), definida mas abajo
 void* __fastcall PoolScalarDeletingDestructorExe(void* self, void* edx, uint32 deleteFlags); // 0x5512F0..0x5518F0 (lote 213A), definida mas abajo
+template<int Id> void __fastcall PoolDestructorBodyInst(void* poolPtr, void* edx);                       // 0x550C30, 0x550D00, 0x550DD0 y 0x550EA0 (lote 213A): una instancia por direccion
+template<int Id> void* __fastcall PoolScalarDeletingDestructorInst(void* self, void* edx, uint32 deleteFlags); // 0x5512F0..0x5518F0 (lote 213A): una instancia por direccion
 void __fastcall PoolDestructorBodyExe(void* poolPtr, void* edx); // 0x4049C0 (lote 129A), definida mas abajo
 template<int Id> void __fastcall PoolDestructorBodyAt(void* poolPtr, void* edx); // lote 212A: una instancia por direccion (RH no admite dos hooks hacia la misma funcion de la DLL), definida mas abajo
 void* __fastcall VehicleStructPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x5B8340 (lote 189A), definida mas abajo
@@ -155,30 +157,30 @@ void CPools::InjectHooks() {
     RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<13>, "PatrolRoutePoolDestructorBody", 0x550B60);
     // Lote 213A (sin validar): constructores y cuerpos de destructor de los cuatro ultimos pools (NodeRoute, TaskAllocator, PedIntelligence, PedAttractor) y los 17 destructores con borrado (uno por pool, en el orden de Initialise).
     RH_ScopedNamedGlobalInstall(NodeRoutePoolConstructorExe, "NodeRoutePoolConstructor", 0x550BD0);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "NodeRoutePoolDestructorBody", 0x550C30);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyInst<1>, "NodeRoutePoolDestructorBody", 0x550C30);
     RH_ScopedNamedGlobalInstall(TaskAllocatorPoolConstructorExe, "TaskAllocatorPoolConstructor", 0x550CA0);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "TaskAllocatorPoolDestructorBody", 0x550D00);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyInst<2>, "TaskAllocatorPoolDestructorBody", 0x550D00);
     RH_ScopedNamedGlobalInstall(PedIntelligencePoolConstructorExe, "PedIntelligencePoolConstructor", 0x550D70);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PedIntelligencePoolDestructorBody", 0x550DD0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyInst<3>, "PedIntelligencePoolDestructorBody", 0x550DD0);
     RH_ScopedNamedGlobalInstall(PedAttractorPoolConstructorExe, "PedAttractorPoolConstructor", 0x550E40);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PedAttractorPoolDestructorBody", 0x550EA0);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PtrNodeSingleLinkPoolScalarDeletingDestructor", 0x5512F0);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PtrNodeDoubleLinkPoolScalarDeletingDestructor", 0x551350);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "EntryInfoNodePoolScalarDeletingDestructor", 0x5513B0);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PedPoolScalarDeletingDestructor", 0x551410);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "VehiclePoolScalarDeletingDestructor", 0x551470);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "BuildingPoolScalarDeletingDestructor", 0x5514D0);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "ObjectPoolScalarDeletingDestructor", 0x551530);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "DummyPoolScalarDeletingDestructor", 0x551590);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "ColModelPoolScalarDeletingDestructor", 0x5515F0);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "TaskPoolScalarDeletingDestructor", 0x551650);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "EventPoolScalarDeletingDestructor", 0x5516B0);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PointRoutePoolScalarDeletingDestructor", 0x551710);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PatrolRoutePoolScalarDeletingDestructor", 0x551770);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "NodeRoutePoolScalarDeletingDestructor", 0x5517D0);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "TaskAllocatorPoolScalarDeletingDestructor", 0x551830);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PedIntelligencePoolScalarDeletingDestructor", 0x551890);
-    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorExe, "PedAttractorPoolScalarDeletingDestructor", 0x5518F0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyInst<4>, "PedAttractorPoolDestructorBody", 0x550EA0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<0>, "PtrNodeSingleLinkPoolScalarDeletingDestructor", 0x5512F0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<1>, "PtrNodeDoubleLinkPoolScalarDeletingDestructor", 0x551350);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<2>, "EntryInfoNodePoolScalarDeletingDestructor", 0x5513B0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<3>, "PedPoolScalarDeletingDestructor", 0x551410);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<4>, "VehiclePoolScalarDeletingDestructor", 0x551470);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<5>, "BuildingPoolScalarDeletingDestructor", 0x5514D0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<6>, "ObjectPoolScalarDeletingDestructor", 0x551530);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<7>, "DummyPoolScalarDeletingDestructor", 0x551590);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<8>, "ColModelPoolScalarDeletingDestructor", 0x5515F0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<9>, "TaskPoolScalarDeletingDestructor", 0x551650);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<10>, "EventPoolScalarDeletingDestructor", 0x5516B0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<11>, "PointRoutePoolScalarDeletingDestructor", 0x551710);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<12>, "PatrolRoutePoolScalarDeletingDestructor", 0x551770);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<13>, "NodeRoutePoolScalarDeletingDestructor", 0x5517D0);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<14>, "TaskAllocatorPoolScalarDeletingDestructor", 0x551830);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<15>, "PedIntelligencePoolScalarDeletingDestructor", 0x551890);
+    RH_ScopedNamedGlobalInstall(PoolScalarDeletingDestructorInst<16>, "PedAttractorPoolScalarDeletingDestructor", 0x5518F0);
     RH_ScopedInstall(Initialise, 0x550F10);
     RH_ScopedInstall(ShutDown, 0x5519F0);
     RH_ScopedInstall(CheckBuildingAtomics, 0x550170);
@@ -379,6 +381,17 @@ void* __fastcall PoolScalarDeletingDestructorExe(void* self, void* /*edx*/, uint
         ::operator delete(self);
     }
     return self;
+}
+
+// Lote 213A: RH no admite dos hooks hacia la misma funcion de la DLL (el cuerpo del segundo se resolvia a la entrada del EXE del primero; lo detecto el banco Fn209A con otro caso). Una instancia propia por direccion:
+// 0x550C30, 0x550D00, 0x550DD0 y 0x550EA0 (cuerpos de destructor) y las 17 de 0x5512F0..0x5518F0 (destructores con borrado), todas con el mismo comportamiento que PoolDestructorBodyExe / PoolScalarDeletingDestructorExe.
+template<int Id>
+void __fastcall PoolDestructorBodyInst(void* poolPtr, void* edx) {
+    PoolDestructorBodyExe(poolPtr, edx);
+}
+template<int Id>
+void* __fastcall PoolScalarDeletingDestructorInst(void* self, void* edx, uint32 deleteFlags) {
+    return PoolScalarDeletingDestructorExe(self, edx, deleteFlags);
 }
 
 void DestroyPool(void* poolPtr) {
