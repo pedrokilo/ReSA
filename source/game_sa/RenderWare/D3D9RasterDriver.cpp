@@ -216,10 +216,10 @@ __declspec(noinline) void __cdecl RasterListReleaseResources() {
     } while (node);
 }
 
-// 0x4CBB00 (cdecl, un argumento): destruccion del raster D3D9. Retira el raster de las etapas de textura (0x7FDE50 / 0x7FDCD0) y, si es raiz, libera segun su tipo
+// 0x4CBB00 (cdecl, tres argumentos de la tabla de dispositivo (dispositivo sin uso, raster, indicadores sin uso); el EXE lee el raster en [esp+0Ch]): destruccion del raster D3D9. Retira el raster de las etapas de textura (0x7FDE50 / 0x7FDCD0) y, si es raiz, libera segun su tipo
 // (0: paleta + textura; 1: superficie de profundidad; 2: solo lista; 4: como 0 pero la textura vuelve a la cache de D3DResourceSystem; 5: lista + textura; 3 y > 5: devuelve 0).
 // Con la bandera 0x80 de cFlags no libera nada. Devuelve 1 salvo en los tipos 3 y > 5.
-__declspec(noinline) int32 __cdecl RasterDestroy(RwRaster* raster) {
+__declspec(noinline) int32 __cdecl RasterDestroy(void* /*device*/, RwRaster* raster, int32 /*flags*/) {
     uint8* const ext = RasterExt(raster, RasterExtOffset);
     using GetStageFn = RwRaster*(__cdecl*)(uint32);
     using SetStageFn = void(__cdecl*)(RwRaster*, uint32);
