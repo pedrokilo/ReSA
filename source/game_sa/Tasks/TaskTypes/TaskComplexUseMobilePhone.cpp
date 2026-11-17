@@ -305,7 +305,7 @@ CTask* CTaskComplexUseMobilePhone::CreateFirstSubTask(CPed* ped) {
     if (!memory) {
         return nullptr;
     }
-    return ::new (memory) CTaskSimpleRunAnim(ANIM_GROUP_DEFAULT, ANIM_ID_PHONE_IN, 4.0f, TASK_SIMPLE_PHONE_IN, "PhoneIn", false);
+    return static_cast<CTaskSimpleRunAnim*>(memory)->Constructor2(ANIM_GROUP_DEFAULT, ANIM_ID_PHONE_IN, 4.0f, TASK_SIMPLE_PHONE_IN, "PhoneIn", false); // 0x61A900 (con hook)
 }
 
 // 0x634D60 (lote 207A, sin validar; el listado decia CTaskComplexUseClosestFreeScriptedAttractor): control de la subtarea (ranura 10; thiscall, un argumento de pila, `ret 4`, 387 bytes con marco SEH que solo desenrolla).
@@ -338,7 +338,7 @@ CTask* CTaskComplexUseMobilePhone::ControlSubTask(CPed* ped) {
             }
         } else if (m_timer.IsOutOfTime()) {
             void* const memory = CTask::operator new(sizeof(CTaskSimpleRunAnim));
-            result = memory ? ::new (memory) CTaskSimpleRunAnim(ANIM_GROUP_DEFAULT, ANIM_ID_PHONE_OUT, 4.0f, TASK_SIMPLE_PHONE_OUT, "PhoneOut", false) : nullptr;
+            result = memory ? static_cast<CTaskSimpleRunAnim*>(memory)->Constructor2(ANIM_GROUP_DEFAULT, ANIM_ID_PHONE_OUT, 4.0f, TASK_SIMPLE_PHONE_OUT, "PhoneOut", false) : nullptr; // 0x61A900 (con hook)
         }
     }
 

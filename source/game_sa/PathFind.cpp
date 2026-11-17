@@ -762,11 +762,11 @@ void CPathFind::RecordNodesClosestToCoors(CVector pos, uint8 nodeType, int32 cou
 
 // 0x44FB60 (lote 207A, sin validar; el listado no la nombraba: es CPathFind::RecordNodesInCircle; thiscall, 10 argumentos de pila, `ret 28h`, resultado en EAX = numero de nodos guardados, 374 bytes, sin llamadores):
 // guarda en outAddresses los nodos del tipo pedido (0 = vehiculos, 1 = peatones; con otro valor el EXE recorre desde un valor de pila sin inicializar hasta el argumento 9, aqui no se recorre nada) cuya posicion cae a
-// menos de `radius` de `center` (suma de cuadrados ordenada < radio^2, ver Wv207InCircleCpp). Filtros por nodo, en este orden: con bLowTraffic se salta el nodo con el bit 5 del byte +0x18; con el byte `bBoats` distinto de cero
-// se salta el nodo con el bit 1 del byte +0x19; y el byte bBoats (completo, no como bool) debe ser igual al bit 7 del byte +0x18 (nodo de agua). El argumento 7 y los dos ultimos no se usan (el 9 es solo el hueco de pila
-// donde el EXE guarda el limite del recorrido). Tras evaluar el circulo de cada nodo que pasa los filtros (este dentro o no) se sale si el contador es igual a maxNum (con signo, sin acotar: con maxNum <= 0 no se sale
+// menos de `radius` de `center` (suma de cuadrados ordenada < radio^2, ver Wv207InCircleCpp). Filtros por nodo, en este orden: con bLowTraffic se salta el nodo con el bit 5 del byte +0x18; con el byte del argumento 8 (`bSkipMarked`, completo, no como bool) distinto de cero
+// se salta el nodo con el bit 1 del byte +0x19 (la marca de RecordNodesClosestToCoors); y el byte del argumento 9 (`bWater`, completo; el EXE lo lee al entrar, antes de que el hueco de pila del argumento 9 guarde el limite del
+// recorrido) debe ser igual al bit 7 del byte +0x18 (nodo de agua). El argumento 7 y el ultimo no se usan. Correccion impuesta por el banco Fn207A: la version sin validar comparaba el bit de agua con el argumento 8. Tras evaluar el circulo de cada nodo que pasa los filtros (este dentro o no) se sale si el contador es igual a maxNum (con signo, sin acotar: con maxNum <= 0 no se sale
 // hasta que el contador lo iguale, y 0 sale con el primer nodo evaluado). Cada nodo se guarda como area (palabra baja del area del recorrido) y numero de nodo dentro del area (palabra baja del indice).
-int32 CPathFind::RecordNodesInCircle(const CVector& center, float radius, uint8 nodeType, int32 maxNum, CNodeAddress* outAddresses, bool bLowTraffic, bool /*a8*/, uint8 bBoats, bool /*maxNumNodes*/, bool /*bUnused*/) {
+int32 CPathFind::RecordNodesInCircle(const CVector& center, float radius, uint8 nodeType, int32 maxNum, CNodeAddress* outAddresses, bool bLowTraffic, bool /*a7*/, uint8 bSkipMarked, uint8 bWater, bool /*a10*/) {
     const float radiusSquared = Wv207SquareCpp(radius);
     int32       found         = 0;
     for (int32 areaId = 0; areaId < NUM_PATH_MAP_AREAS + NUM_PATH_INTERIOR_AREAS; areaId++) {
@@ -789,10 +789,10 @@ int32 CPathFind::RecordNodesInCircle(const CVector& center, float radius, uint8 
             if (bLowTraffic && (raw[0x18] & 0x20)) {
                 continue;
             }
-            if (bBoats != 0 && (raw[0x19] & 2)) {
+            if (bSkipMarked != 0 && (raw[0x19] & 2)) {
                 continue;
             }
-            if (bBoats != (raw[0x18] >> 7)) {
+            if (bWater != (raw[0x18] >> 7)) {
                 continue;
             }
             const int32 xr = *reinterpret_cast<const int16*>(raw + 0x8);

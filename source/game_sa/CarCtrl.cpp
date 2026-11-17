@@ -1639,6 +1639,8 @@ void CCarCtrl::FlyAIHeliToTarget_FixedOrientation(CHeli* heli, float Orientation
 // Ayudantes x87 del lote 207A (sin validar), definidos al final de X87Math.cpp; declarados aqui para no recompilar todo el proyecto al tocar X87Math.h.
 void __cdecl Wv207SweepVelocityCpp(float angle, float velocityX, float velocityY, float speed, float* out);   // 0x421A50: velocidad relativa por 100
 void __cdecl Wv207ProbeEndCpp(float elevation, const float* dir, const float* start, float* end);              // 0x422E10: extremo del rayo de la sonda
+void __cdecl Wv207SweepCornerCpp(float cx, float cy, float sideX, float sideY, float vx, float vy, float* out);       // 0x421A50: geometria de una esquina (x87)
+void __cdecl Wv207ProbeStartCpp(const float* velocity, const float* position, float* start);                         // 0x422E10: inicio del rayo (x87)
 
 // 0x421A50 (lote 207A, sin validar; el listado decia CCarCtrl y es el barrido de CCarCtrl::WeaveForOtherCar, que lo llama dos veces desde 0x426896 y 0x426919; cdecl, 13 argumentos en la pila, `ret`, resultado en AL,
 // 1418 bytes): comprueba si el rectangulo B (esquina p5 y lados p6, esquina p7 y lados p8) barrido por la velocidad relativa corta el rectangulo A (esquina p1 y lado p2, esquina p3 y lado p4) con 16 llamadas
@@ -1675,40 +1677,22 @@ static bool WeaveForOtherCarSweepOverlaps(float angle, const CVector* p1, const 
         return CCollision::Test2DLineAgainst2DLine(origin->x, origin->y, side->x, side->y, startX, startY, deltaX, deltaY);
     };
 
-    // Primera esquina de B (b1) y su lado (b2)
-    {
-        const float cx  = b1->x;
-        const float cy  = b1->y;
-        const float px  = b2->x + cx;
-        const float py  = cy + b2->y;
-        const float q0x = vx + cx;
-        const float q0y = vy + cy;
-        const float q1x = px + vx;
-        const float q1y = py + vy;
-        if (test(a1, a2, cx, cy, px - cx, py - cy) || test(a1, a2, px, py, q0x - px, q0y - py) || test(a1, a2, q0x, q0y, q1x - q0x, q1y - q0y) || test(a1, a2, q1x, q1y, cx - q1x, cy - q1y)) {
-            return true;
-        }
-        if (test(a3, a4, cx, cy, px - cx, py - cy) || test(a3, a4, px, py, q0x - px, q0y - py) || test(a3, a4, q0x, q0y, q1x - q0x, q1y - q0y) || test(a3, a4, q1x, q1y, cx - q1x, cy - q1y)) {
-            return true;
-        }
-    }
-
-    // Segunda esquina de B (b3) y su lado (b4): P = b3 + b4 (CVector 0x40FE30; solo se usan x e y)
-    const float cx  = b3->x;
-    const float cy  = b3->y;
-    const float px  = b3->x + b4->x;
-    const float py  = b3->y + b4->y;
-    const float q2x = vx + cx; // [esp+40h]: esquina + V
-    const float q2y = vy + cy;
-    const float q3x = vx + px; // [esp+34h]: P + V
-    const float q3y = vy + py;
-    if (test(a1, a2, cx, cy, px - cx, py - cy) || test(a1, a2, px, py, q2x - px, q2y - py) || test(a1, a2, q2x, q2y, q3x - q2x, q3y - q2y) || test(a1, a2, q3x, q3y, cx - q3x, cy - q3y)) {
+    // Geometria de cada esquina de B con sumas y restas x87 de 24 bits (Wv207SweepCornerCpp: la DLL, con SSE, aplana los denormales y elige distinto el NaN): [0..1] = P, [2..3] = Q0, [4..5] = Q1 y los (dx, dy) de
+    // los cuatro segmentos (P - c, Q0 - P, Q1 - Q0, c - Q1) en [6..13]. Primera esquina (b1) y su lado (b2); segunda esquina (b3) y su lado (b4): P = b3 + b4 (CVector 0x40FE30; solo se usan x e y).
+    float corner1[14];
+    Wv207SweepCornerCpp(b1->x, b1->y, b2->x, b2->y, vx, vy, corner1);
+    float corner2[14];
+    Wv207SweepCornerCpp(b3->x, b3->y, b4->x, b4->y, vx, vy, corner2);
+    const auto segmentsHit = [&](const CVector* origin, const CVector* side, const CVector* corner, const float* g) {
+        return test(origin, side, corner->x, corner->y, g[6], g[7]) || test(origin, side, g[0], g[1], g[8], g[9]) || test(origin, side, g[2], g[3], g[10], g[11]) || test(origin, side, g[4], g[5], g[12], g[13]);
+    };
+    if (segmentsHit(a1, a2, b1, corner1) || segmentsHit(a3, a4, b1, corner1)) {
         return true;
     }
-    if (test(a3, a4, cx, cy, px - cx, py - cy) || test(a3, a4, px, py, q2x - px, q2y - py) || test(a3, a4, q2x, q2y, q3x - q2x, q3y - q2y)) {
+    if (segmentsHit(a1, a2, b3, corner2)) {
         return true;
     }
-    return test(a3, a4, q3x, q3y, cx - q3x, cy - q3y); // `test al,al; setne al`
+    return segmentsHit(a3, a4, b3, corner2); // `test al,al; setne al`
 }
 
 // 0x422E10 (lote 207A, sin validar; el listado decia CCarCtrl; sonda de altitud de FlyAIPlaneInCertainDirection: la llama 0x422F80 seis veces; cdecl, 4 argumentos, `ret`, resultado en AL, 353 bytes): lanza un rayo
@@ -1718,13 +1702,8 @@ static bool WeaveForOtherCarSweepOverlaps(float angle, const CVector* p1, const 
 static bool FlyAIPlaneProbeGround(CPhysical* plane, float elevation, float heading, float* outZ) {
     const CVector& position = plane->GetPosition();
     const CVector  velocity = plane->m_vecMoveSpeed;
-    const float    scaledX  = velocity.x * 50.0f; // 0x858B40
-    const float    scaledY  = velocity.y * 50.0f;
-    const float    scaledZ  = velocity.z * 50.0f;
-    CVector start;
-    start.z = scaledZ + position.z;
-    start.y = scaledY + position.y;
-    start.x = scaledX + position.x;
+    CVector        start;
+    Wv207ProbeStartCpp(&velocity.x, &position.x, &start.x); // inicio = velocidad * 50.0f (0x858B40) + posicion, con la x87 (la DLL, con SSE, aplana los denormales y elige distinto el NaN)
 
     CVector direction;
     direction.z = 0.0f;

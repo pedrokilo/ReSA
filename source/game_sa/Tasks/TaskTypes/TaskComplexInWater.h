@@ -23,6 +23,7 @@ public:
     CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
 
 private: // Wrappers for hooks
+    friend CTaskComplexInWater* __fastcall InWaterScalarDeletingDestructor(CTaskComplexInWater* self, void* edx, uint8 flags); // lote 207A: destructor con borrado (0x6396A0), llama al cuerpo enganchado Destructor
     // 0x6350D0
     CTaskComplexInWater* Constructor() {
         this->CTaskComplexInWater::CTaskComplexInWater();

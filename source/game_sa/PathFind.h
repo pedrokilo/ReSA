@@ -279,8 +279,8 @@ public:
     */
     bool These2NodesAreAdjacent(CNodeAddress nodeAddress1, CNodeAddress nodeAddress2);
 
-    // 0x44FB60 (lote 207A): devuelve en EAX el numero de nodos guardados; `bBoats` es el argumento 8 como byte completo (ver PathFind.cpp)
-    int32 RecordNodesInCircle(const CVector& center, float radius, uint8 nodeType, int32 maxNum, CNodeAddress* outAddresses, bool bLowTraffic, bool a8, uint8 bBoats, bool maxNumNodes, bool bUnused);
+    // 0x44FB60 (lote 207A): devuelve en EAX el numero de nodos guardados; `bSkipMarked` (argumento 8) y `bWater` (argumento 9) se leen como bytes completos (ver PathFind.cpp)
+    int32 RecordNodesInCircle(const CVector& center, float radius, uint8 nodeType, int32 maxNum, CNodeAddress* outAddresses, bool bLowTraffic, bool a7, uint8 bSkipMarked, uint8 bWater, bool a10);
 
     /*
     * @brief Find the node closest to `pos` favoring the direction `dir`

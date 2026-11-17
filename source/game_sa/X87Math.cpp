@@ -19184,6 +19184,41 @@ __declspec(noinline) float __cdecl Wv207PairHeadingCpp(float nx, float ny) {
     volatile float heading = float(atan2(-double(nx), double(ny)) * 57.2957763671875f);
     return heading;
 }
+// 0x421A50 (barrido de CCarCtrl::WeaveForOtherCar, 0x421AFF..0x421C29 y 0x421D89..0x421E7A): geometria de una esquina del rectangulo B (c = esquina, side = su lado) con el desplazamiento V = (vx, vy): P = lado + esquina,
+// Q0 = V + esquina, Q1 = P + V y los (dx, dy) de los cuatro segmentos (P - c, Q0 - P, Q1 - Q0, c - Q1). Todas son sumas y restas x87 de 24 bits (exponente ampliado, denormales sin aplanar, NaN de mayor mantisa) cuyo
+// resultado se guarda como float; los valores que el EXE vuelve a leer de la pila son los guardados. out: [0..1] = P, [2..3] = Q0, [4..5] = Q1, [6..13] = (dx, dy) de los cuatro segmentos.
+__declspec(noinline) void __cdecl Wv207SweepCornerCpp(float cx, float cy, float sideX, float sideY, float vx, float vy, float* out) {
+    volatile float px  = float(double(sideX) + double(cx));
+    volatile float py  = float(double(cy) + double(sideY));
+    volatile float q0x = float(double(vx) + double(cx));
+    volatile float q0y = float(double(vy) + double(cy));
+    volatile float q1x = float(double(float(px)) + double(vx));
+    volatile float q1y = float(double(float(py)) + double(vy));
+    volatile float d0y = float(double(float(py)) - double(cy));
+    volatile float d0x = float(double(float(px)) - double(cx));
+    volatile float d1y = float(double(float(q0y)) - double(float(py)));
+    volatile float d1x = float(double(float(q0x)) - double(float(px)));
+    volatile float d2y = float(double(float(q1y)) - double(float(q0y)));
+    volatile float d2x = float(double(float(q1x)) - double(float(q0x)));
+    volatile float d3y = float(double(cy) - double(float(q1y)));
+    volatile float d3x = float(double(cx) - double(float(q1x)));
+    out[0] = px;  out[1] = py;  out[2] = q0x; out[3] = q0y; out[4] = q1x; out[5] = q1y;
+    out[6] = d0x; out[7] = d0y; out[8] = d1x; out[9] = d1y; out[10] = d2x; out[11] = d2y; out[12] = d3x; out[13] = d3y;
+}
+// 0x422E10 (sonda de altitud del avion, 0x422E13..0x422E6D): inicio del rayo = velocidad * 50.0f (0x858B40) + posicion. x e y: producto guardado como float (`fstp`), despues sumado a la posicion y guardado; z: el producto
+// queda en el registro y la suma con la posicion se guarda. Todas son operaciones x87 de 24 bits (exponente ampliado, denormales sin aplanar, NaN de mayor mantisa). start recibe (x, y, z).
+__declspec(noinline) void __cdecl Wv207ProbeStartCpp(const float* velocity, const float* position, float* start) {
+    volatile float scaledX = float(double(velocity[0]) * 50.0f);
+    volatile float scaledY = float(double(velocity[1]) * 50.0f);
+    const double   scaledZ = double(velocity[2]) * 50.0f;
+    volatile float startZ  = float(scaledZ + double(position[2]));
+    volatile float startY  = float(double(float(scaledY)) + double(position[1]));
+    volatile float startX  = float(double(float(scaledX)) + double(position[0]));
+    start[0] = startX;
+    start[1] = startY;
+    start[2] = startZ;
+}
+
 #pragma float_control(pop)
 
 // --- Lote 206A (sin validar) ---

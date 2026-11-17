@@ -81718,6 +81718,1109 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 70b6d35891 con los cambios del lote (cherry-pick de 2f385562be y la correccion del banco en EventScanner.cpp; ver artifacts/build-manifest.json). 28 funciones del EXE: CTaskComplexAvoidEntity (SetUpIK, QuitIK, MakeAbortable, CreateNextSubTask, ControlSubTask, Clone y CreateFirstSubTask), CTaskInteriorSitInChair (destructor con borrado y ProcessPed), CTaskInteriorLieInBed (destructor con borrado), cuerpos de destructor de CVehicleScanner, CPedScanner y CObjectScanner, constructor de CObjectScanner, escaner de colisiones con peatones 0x606580, CPedAcquaintanceScanner::CreateAcquaintanceEvent 0x606BA0, cuerpo de destructor de CEventDeath, CEventPotentialGetRunOver::AffectsPed y diez destructores con borrado de eventos; clases por desensamblado. Colaboradores con hook sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL; reales con el hook apagado: aritmetica de vectores (0x40FE60, 0x406DA0, 0x59C910, 0x40FE00, 0x40FDB0, 0x40FEC0, 0x4EEA80), constructores y destructores de eventos, constructor de CTaskSimpleGoToPoint, CEvent::operator delete y 0x407180 (rand 0x821B1E falso). Las 28 funciones del lote quedan con el hook apagado salvo la del par. Fuera de los fixtures: this nulo o crudo, peatones sin matriz cuando la funcion la desreferencia, candidatos de 0x606580 sin matriz, la rama de ProcessPed con la animacion de entrada sin matriz, objetos y pools reales construidos por el EXE, la exactitud de los colaboradores falseados, y los eventos de conocido con entidad cruda en los indices 2 y 4.",
       "review_reference": "reversing/Fn204A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseMobilePhone",
+        "fn_name": "CreateFirstSubTask",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseMobilePhone::CreateFirstSubTask"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00634C10"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseMobilePhone",
+        "fn_name": "ControlSubTask",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseMobilePhone::ControlSubTask"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00634D60"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseMobilePhone",
+        "fn_name": "Clone",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseMobilePhone::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00636FD0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseMobilePhone",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x00639660",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseMobilePhone::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseGoggles",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x00639680",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseGoggles::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexInWater",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x006396A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexInWater::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseSequence",
+        "fn_name": "Destructor",
+        "address": "0x006396C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseSequence::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "WeaveForOtherCarSweepOverlaps",
+        "address": "0x00421A50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::WeaveForOtherCarSweepOverlaps"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "FlyAIPlaneProbeGround",
+        "address": "0x00422E10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::FlyAIPlaneProbeGround"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "FlyAIPlaneClearanceAhead",
+        "address": "0x00422F80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::FlyAIPlaneClearanceAhead"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehiclePool",
+        "fn_name": "GetRef",
+        "address": "0x00424160",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CVehiclePool::GetRef"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "PreparePathData",
+        "address": "0x0044D0E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::PreparePathData"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "AllocatePathFindInfoMem",
+        "address": "0x0044D2B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::AllocatePathFindInfoMem"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "StoreNodeInfoCar",
+        "address": "0x0044D2C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::StoreNodeInfoCar"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "StoreNodeInfoPed",
+        "address": "0x0044D2D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::StoreNodeInfoPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "StoreDetachedNodeInfoPed",
+        "address": "0x0044D2E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::StoreDetachedNodeInfoPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "StoreDetachedNodeInfoCar",
+        "address": "0x0044D2F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::StoreDetachedNodeInfoCar"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVector2D",
+        "fn_name": "Normalise",
+        "address": "0x0044E480",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CVector2D::Normalise"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "RecordNodesClosestToCoors",
+        "address": "0x0044FA30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::RecordNodesClosestToCoors"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "RecordNodesInCircle",
+        "address": "0x0044FB60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::RecordNodesInCircle"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "FindNodePairClosestToCoors",
+        "address": "0x0044FEE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::FindNodePairClosestToCoors"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "Find2NodesForCarCreation",
+        "address": "0x00452090",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn207A/validation-summary.json",
+        "sha256": "64f1b9054a63aac93d9469eb66006ee9be198192495738f36961cf9f9cf745e7",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::Find2NodesForCarCreation"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "d1cedd97d82c0081a7820cda07d58d573524856ce2bfc39047c9938b8f19a42f",
+        "source/InjectHooksMain.cpp": "36b3a059d65103bdeac84c7b67c8be7cf9826ce6feaa107f73451500484694cd",
+        "source/game_sa/CarCtrl.cpp": "7a3356d7258a68c7719273a7ed2ce5ff6dd3c319e3db133eae5c47717820acf8",
+        "source/game_sa/Core/Vector.cpp": "e531b47c6cc68f7fa69b3ca28cee19a83a861da18d2bf1136b49437991f0f316",
+        "source/game_sa/Core/Vector2D.cpp": "5df95dcac1a77bb0de0c4f78f88a9e0593b527c4607970202348a90f98f04f19",
+        "source/game_sa/PathFind.cpp": "80e560662b595d0c894fc30e4a4998060908f5a55cfdd1f4a78886f8da81803b",
+        "source/game_sa/PathFind.h": "bea2444652cc3fc6602be57266ffe062dc6a465a6343a13b2884c87b0c7054ca",
+        "source/game_sa/Pools.cpp": "6b807b2be3b06078ea6aab3c84c3ed14232063e073222cf729f521b4b072dec4",
+        "source/game_sa/Pools/VehiclePool.h": "8a405246b56beeb0c381c4d21fb0c0421dd3fdfdce550f92ab6f9eb7062353a9",
+        "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "3dbdfe7a30a04fb75e8c0fb45dffab6334f8253ac13bd758d8b777e393c6a37d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "cc279494553599acaaace6066c881726247eabb19887b1c6317388a0ebd44b4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "acfb490390d9ce7d49bb03bea99f9e88d00d29da9b47e85addf8aab06da50d8e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "bcc898f2ed85da1f9ceaa989c235db22782ef19aa459c01a0dce6023bdd300d5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "a1be3b5442f63960f13db22e21874de0fb2a9cc354c0cd6119df6277757ec36b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "102a82c658c7501d8769d3ca4e91561f5be0700e0fbf058198260e7e72a2f869",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "e0c87125c38da11a0f4187e0a8d7bee626625803b0aaa0944ecca58c6960bfc5",
+        "source/game_sa/X87Math.cpp": "79871547a3ab0d750d69ce4d0f93a9828591fa49277d2ee5370698d9329d4a83",
+        "source/game_sa/X87Math.h": "9bc8a4aac526a0ca2f91ea74dc96ab0bbc488263bc13b3e841d04e3f542999d7",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn207A/LiveComparison.hpp": "0676f39137b2c9425e23813635987fd9f6aa9279dd45aa1f2ccd8e4e95e12bc7",
+        "reversing/Fn207A/Core.hpp": "35609720594297996f27f7341d8c010c21657a68b62f416abf416348b63e9d4b",
+        "reversing/Fn207A/Fixtures.hpp": "d5796d7a00477c8ed43ed400d0ca5bf2a4206a0b9c83e74cd4bc358e55905cb7",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 70b6d35891 con el commit del lote 207A (cherry-pick de a636144039, conflictos de hooks.csv y de TaskComplexUseMobilePhone resueltos conservando solo lo de 207A) y las correcciones de fuente impuestas por el banco (ver README.md). 22 funciones del EXE de CTaskComplexUseMobilePhone, UseGoggles, InWater, UseSequence, CCarCtrl, CVehiclePool, CPathFind y CVector2D (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (0x6348E0 y 0x6348F0, que la DLL llama por la direccion del EXE, solo en la del EXE; las llamadas virtuales usan una vtable falsa). Fuera de los fixtures: this nulo o crudo, dwords con basura en bytes altos de argumentos de tipo bool/byte en FindNodeClosestToCoors, tipo de nodo distinto de 0 y 1 en RecordNodesInCircle y FindNodePairClosestToCoors (el EXE usa pila sin inicializar), FindNodePairClosestToCoors sin candidatos con maxima mayor que 10000.0f, areas de enlace fuera de 0..79, angulos entre 2^20 y 2^63, nodos y pools reales construidos por el EXE, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn207A/README.md"
     }
   ]
 }
