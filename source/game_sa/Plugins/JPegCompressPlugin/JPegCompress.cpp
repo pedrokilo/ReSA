@@ -1089,6 +1089,8 @@ static void InjectHooks232A() {
 
 } // namespace ExeLibJpeg
 
+using ExeLibJpeg::InjectHooks232A;
+
 void ExeLibJpegInjectHooks232A() {
-    ExeLibJpeg::InjectHooks232A();
+    InjectHooks232A();
 }

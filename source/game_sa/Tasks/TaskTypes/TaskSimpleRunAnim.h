@@ -35,7 +35,6 @@ private:
     friend class CTaskComplexSunbathe; // lote 197A: su CreateSubTask del EXE (0x638290) llama al cuerpo enganchado Constructor2 (0x61A900) y devuelve su EAX
     friend class CTaskSimpleAbseil; // su constructor y su Clone (lote 180A) llaman a Constructor2 (0x61A900) como el EXE
     friend class CTaskComplexUseMobilePhone; // lote 206A: su CreateNextSubTask del EXE (0x634A60) llama al cuerpo enganchado Constructor2 (0x61A900) y devuelve su EAX
-    friend class CTaskComplexUseMobilePhone; // lote 207A: CreateFirstSubTask (0x634C10) y ControlSubTask (0x634D60) llaman al cuerpo enganchado Constructor2 (0x61A900) y devuelven su EAX
     CTaskSimpleRunAnim* Constructor(AssocGroupId animGroup, AnimationId animId, float fBlendDelta, bool bHoldLastFrame);
     CTaskSimpleRunAnim* Constructor2(AssocGroupId animGroup, AnimationId animId, float fBlendDelta, int32 nTaskType, const char* taskName _IGNORED_, bool bHoldLastFrame);
 

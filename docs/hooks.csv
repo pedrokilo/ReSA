@@ -11156,8 +11156,6 @@ CPathFind,RecordNodesClosestToCoors,0x0044FA30,1,0,1,S
 CPathFind,RecordNodesInCircle,0x0044FB60,1,0,1,S
 CPathFind,FindNodePairClosestToCoors,0x0044FEE0,1,0,1,S
 CPathFind,Find2NodesForCarCreation,0x00452090,1,0,1,S
-CPhoneInfo,Constructor,0x004541E0,1,0,0,S
-CPhoneInfo,PhoneAnimFinishCallback,0x00453F40,1,0,0,S
 CPickup,IsWeaponSlotExchangeable,0x00454920,1,0,0,S
 SurfaceInfos_c,LoadSurfaceInfos,0x0055EB90,1,0,0,S
 SurfaceInfos_c,LoadSurfaceAudioInfos,0x0055F2B0,1,0,0,S
@@ -11170,7 +11168,6 @@ CMemoryHeap,Malloc,0x0072ED80,1,0,0,S
 CMemoryHeap,Init,0x0072F180,1,0,0,S
 CMemoryMgr,Init,0x0072F3B0,1,0,0,S
 CAEUserRadioTrackManager,UserTracksUninitCopy,0x004F3940,1,0,0,S
-UserTracksLegacyString,Reallocate,0x004F39C0,1,0,0,S
 CPedAttractor,SArrayFillStride4D,0x004F3AE0,1,0,0,S
 CPedAttractor,SArrayCopyBackwardStride4D,0x004F3B00,1,0,0,S
 CPedAttractor,SArrayFillNStride4D,0x004F3B30,1,0,0,S
