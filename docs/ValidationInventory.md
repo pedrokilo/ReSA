@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11313 |
+| `validated=1` · evidencia aprobada vinculada | 11335 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11313 |
-| Sin evidencia aprobada vinculada en este registro | 1128 |
+| Evidencia histórica vinculada; revisión pendiente | 11335 |
+| Sin evidencia aprobada vinculada en este registro | 1106 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -892,6 +892,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAnimBlendClumpData | `ForAllFrames` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAnimBlendClumpData | `ForAllFramesInSPR` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAnimBlendClumpData | `LoadFramesIntoSPR` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
+| CAnimBlendClumpData | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | CAnimBlendClumpData | `SetNumberOfBones` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAnimBlendHierarchy | `AllocSequenceBlock` | [Resumen](../reversing/Anim16/validation-summary.json) |
 | CAnimBlendHierarchy | `CalcTotalTime` | [Resumen](../reversing/FixBugs/validation-summary.json) |
@@ -6124,6 +6125,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CScriptedBrainTaskStore | `Clear-task` | [Resumen](../reversing/Events23/validation-summary.json) |
 | CScriptedBrainTaskStore | `GetTask` | [Resumen](../reversing/Events23/validation-summary.json) |
 | CScriptedBrainTaskStore | `SetTask` | [Resumen](../reversing/Events23/validation-summary.json) |
+| CScriptsForBrains | `AddNewScriptBrain` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| CScriptsForBrains | `AddNewStreamedScriptBrainForCodeUse` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | CScriptsForBrains | `CheckIfNewEntityNeedsScript` | [Resumen](../reversing/ScriptsBrainsCheckNew31/validation-summary.json) |
 | CScriptsForBrains | `GetIndexOfScriptBrainWithThisName` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CScriptsForBrains | `HasAttractorScriptBrainWithThisNameLoaded` | [Resumen](../reversing/Misc61a/validation-summary.json) |
@@ -6135,6 +6138,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CScriptsForBrains | `StartNewStreamedScriptBrain` | [Resumen](../reversing/ScriptsBrainsStart31/validation-summary.json) |
 | CScriptsForBrains | `StartOrRequestNewStreamedScriptBrain` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CScriptsForBrains | `StartOrRequestNewStreamedScriptBrainWithThisName` | [Resumen](../reversing/Fn98A/validation-summary.json) |
+| CScriptsForBrains | `SwitchAllObjectBrainsWithThisID` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | CSearchLight | `IsSpottedEntity` | [Resumen](../reversing/Misc61/validation-summary.json) |
 | CSector | `Destructor` | [Resumen](../reversing/Fn131A/validation-summary.json) |
 | CSetPiece | `GetSpawnCoord1` | [Resumen](../reversing/Fn109A/validation-summary.json) |
@@ -10594,11 +10598,24 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxEmitter_c | `CreateParticle` | [Resumen](../reversing/FxEmitterCreateParticle30/validation-summary.json) |
 | FxEmitter_c | `CreateParticles` | [Resumen](../reversing/Dependencies22C/validation-summary-reval-20261019.json) |
 | FxFrustumInfo_c | `IsCollision` | [Resumen](../reversing/DependenciesWorldLeaf3/validation-summary.json) |
+| FxInfoAttractLine_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoAttractPt_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmAngle_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmDir_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmLife_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmPos_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmRotation_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmSize_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmSpeed_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmWeather_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoForce_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoFriction_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | FxInfoManager_c | `AddFxInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxInfoManager_c | `Load` | [Resumen](../reversing/FxInfoLoad28/validation-summary.json) |
 | FxInfoManager_c | `ProcessEmissionInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxInfoManager_c | `ProcessMovementInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxInfoManager_c | `ProcessRenderInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
+| FxInfoNoise_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | FxInterpInfo255_c | `GetVal` | [Resumen](../reversing/FxInterp61/validation-summary.json) |
 | FxInterpInfo32_c | `GetVal` | [Resumen](../reversing/FxInterp61/validation-summary.json) |
 | FxInterpInfoFloat_c | `GetVal-values` | [Resumen](../reversing/FxInterp61/validation-summary.json) |
@@ -11011,6 +11028,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RpAnimBlend | `ClumpAnimDestruct` | [Resumen](../reversing/RpAnim43/validation-summary.json) |
 | RpAnimBlend | `ConvertBoneTag2BoneName` | [Resumen](../reversing/Fn183A/validation-summary.json) |
 | RpAnimBlend | `ConvertPedNode2BoneTag` | [Resumen](../reversing/Fn116A/validation-summary.json) |
+| RpAnimBlend | `FillFrameArrayIndiciesNonSkinnedCB` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| RpAnimBlend | `FrameFindByKeyCBnonskin` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| RpAnimBlend | `FrameFindByKeyCBskin` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| RpAnimBlend | `FrameFindByNameCBnonskin` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| RpAnimBlend | `FrameFindByNameCBskin` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | RpAnimBlend | `FrameUpdateCallBackCompressedNonSkinned` | [Resumen](../reversing/RpAnim43/validation-summary.json) |
 | RpAnimBlend | `FrameUpdateCallBackCompressedSkinned` | [Resumen](../reversing/RpAnim43/validation-summary.json) |
 | RpAnimBlend | `FrameUpdateCallBackNonSkinned` | [Resumen](../reversing/RpAnim43/validation-summary.json) |
@@ -11398,7 +11420,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CActiveOccluder` | 2 | 0 | 2 | 0 |
 | `CAnimBlendAssocGroup` | 15 | 0 | 15 | 0 |
 | `CAnimBlendAssociation` | 23 | 0 | 23 | 0 |
-| `CAnimBlendClumpData` | 7 | 0 | 6 | 1 |
+| `CAnimBlendClumpData` | 7 | 0 | 7 | 0 |
 | `CAnimBlendHierarchy` | 16 | 0 | 16 | 0 |
 | `CAnimBlendNode` | 16 | 0 | 16 | 0 |
 | `CAnimBlendSequence` | 17 | 0 | 17 | 0 |
@@ -11801,7 +11823,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CScripted2dEffects` | 6 | 0 | 6 | 0 |
 | `CScriptedBrainTaskEntry` | 1 | 0 | 1 | 0 |
 | `CScriptedBrainTaskStore` | 4 | 0 | 4 | 0 |
-| `CScriptsForBrains` | 15 | 0 | 11 | 4 |
+| `CScriptsForBrains` | 15 | 0 | 14 | 1 |
 | `CSearchLight` | 1 | 0 | 1 | 0 |
 | `CSector` | 1 | 0 | 1 | 0 |
 | `CSetPiece` | 7 | 0 | 7 | 0 |
@@ -12225,30 +12247,30 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxEmitter_c` | 9 | 0 | 4 | 5 |
 | `FxFrustumInfo_c` | 2 | 0 | 1 | 1 |
 | `FxInfoAnimTexture_c` | 3 | 0 | 0 | 3 |
-| `FxInfoAttractLine_c` | 3 | 0 | 0 | 3 |
-| `FxInfoAttractPt_c` | 3 | 0 | 0 | 3 |
+| `FxInfoAttractLine_c` | 3 | 0 | 1 | 2 |
+| `FxInfoAttractPt_c` | 3 | 0 | 1 | 2 |
 | `FxInfoColourBright_c` | 3 | 0 | 0 | 3 |
 | `FxInfoColourRange_c` | 3 | 0 | 0 | 3 |
 | `FxInfoColour_c` | 3 | 0 | 0 | 3 |
 | `FxInfoDir_c` | 3 | 0 | 0 | 3 |
-| `FxInfoEmAngle_c` | 3 | 0 | 0 | 3 |
-| `FxInfoEmDir_c` | 3 | 0 | 0 | 3 |
-| `FxInfoEmLife_c` | 3 | 0 | 0 | 3 |
-| `FxInfoEmPos_c` | 3 | 0 | 0 | 3 |
+| `FxInfoEmAngle_c` | 3 | 0 | 1 | 2 |
+| `FxInfoEmDir_c` | 3 | 0 | 1 | 2 |
+| `FxInfoEmLife_c` | 3 | 0 | 1 | 2 |
+| `FxInfoEmPos_c` | 3 | 0 | 1 | 2 |
 | `FxInfoEmRate_c` | 3 | 0 | 0 | 3 |
-| `FxInfoEmRotation_c` | 3 | 0 | 0 | 3 |
-| `FxInfoEmSize_c` | 3 | 0 | 0 | 3 |
-| `FxInfoEmSpeed_c` | 3 | 0 | 0 | 3 |
-| `FxInfoEmWeather_c` | 3 | 0 | 0 | 3 |
+| `FxInfoEmRotation_c` | 3 | 0 | 1 | 2 |
+| `FxInfoEmSize_c` | 3 | 0 | 1 | 2 |
+| `FxInfoEmSpeed_c` | 3 | 0 | 1 | 2 |
+| `FxInfoEmWeather_c` | 3 | 0 | 1 | 2 |
 | `FxInfoFlat_c` | 3 | 0 | 0 | 3 |
 | `FxInfoFloat_c` | 3 | 0 | 0 | 3 |
-| `FxInfoForce_c` | 3 | 0 | 0 | 3 |
-| `FxInfoFriction_c` | 3 | 0 | 0 | 3 |
+| `FxInfoForce_c` | 3 | 0 | 1 | 2 |
+| `FxInfoFriction_c` | 3 | 0 | 1 | 2 |
 | `FxInfoGroundCollide_c` | 3 | 0 | 0 | 3 |
 | `FxInfoHeatHaze_c` | 3 | 0 | 0 | 3 |
 | `FxInfoJitter_c` | 3 | 0 | 0 | 3 |
 | `FxInfoManager_c` | 6 | 0 | 5 | 1 |
-| `FxInfoNoise_c` | 3 | 0 | 0 | 3 |
+| `FxInfoNoise_c` | 3 | 0 | 1 | 2 |
 | `FxInfoRotSpeed_c` | 3 | 0 | 0 | 3 |
 | `FxInfoSelfLit_c` | 3 | 0 | 0 | 3 |
 | `FxInfoSize_c` | 3 | 0 | 0 | 3 |
@@ -12302,7 +12324,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `Ps` | 26 | 0 | 25 | 1 |
 | `QTMLRuntime` | 6 | 0 | 0 | 6 |
 | `RenderBuffer` | 4 | 0 | 4 | 0 |
-| `RpAnimBlend` | 52 | 0 | 47 | 5 |
+| `RpAnimBlend` | 52 | 0 | 52 | 0 |
 | `RpAnisot` | 4 | 0 | 3 | 1 |
 | `RpHAnim` | 7 | 0 | 1 | 6 |
 | `RpMatFX` | 28 | 0 | 0 | 28 |

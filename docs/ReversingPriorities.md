@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.313 |
-| Reconstruidas sin validar | 1.128 |
-| De ellas, en esta cola (validables por pares) | 1.128 |
+| Validadas | 11.335 |
+| Reconstruidas sin validar | 1.106 |
+| De ellas, en esta cola (validables por pares) | 1.106 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,15 +22,15 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 67 | 191 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 66 | 174 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 1 | 27 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 36 | 853 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 35 | 848 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 10 | 57 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **114** | **1128** | |
+| **Total** | **112** | **1106** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (67 clases, 191 funciones)
+## 🟢 Nivel 1: muy barato (66 clases, 174 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
@@ -39,8 +39,8 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 | 1 | CTaskSimpleSetCharIgnoreWeaponRangeFlag | 7 | 1 |  | 8 |
 | 2 | CTaskComplexBeCop | 5 | 1 |  | 11 |
 | 3 | CBuilding | 7 | 1 |  | 12 |
-| 4 | CAnimBlendClumpData | 7 | 1 |  | 16 |
-| 5 | CPedModelInfo | 12 | 1 |  | 21 |
+| 4 | CPedModelInfo | 12 | 1 |  | 21 |
+| 5 | CScriptsForBrains | 15 | 1 |  | 22 |
 | 6 | CAudioZones | 9 | 1 |  | 31 |
 | 7 | CGamma | 3 | 1 |  | 33 |
 | 8 | FxFrustumInfo_c | 2 | 1 |  | 33 |
@@ -48,61 +48,60 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 | 10 | CAEAudioEntity | 8 | 2 |  | 10 |
 | 11 | CDecisionMaker | 5 | 2 |  | 19 |
 | 12 | IKChainManager_c | 19 | 2 |  | 20 |
-| 13 | WaterCreatureManager_c | 9 | 2 |  | 29 |
-| 14 | CPedLookAtAttractor | 3 | 3 |  | 18 |
-| 15 | CPedParkAttractor | 3 | 3 |  | 18 |
-| 16 | CPedScriptedAttractor | 3 | 3 |  | 18 |
-| 17 | CPedStepAttractor | 3 | 3 |  | 18 |
-| 18 | CPedATMAttractor | 3 | 3 |  | 19 |
-| 19 | CPedPizzaAttractor | 3 | 3 |  | 19 |
-| 20 | CPedSeatAttractor | 3 | 3 |  | 19 |
-| 21 | CPedStopAttractor | 3 | 3 |  | 19 |
-| 22 | CPedTriggerScriptAttractor | 3 | 3 |  | 19 |
-| 23 | CPedAttractorManager | 25 | 3 |  | 22 |
-| 24 | FxInfoEmAngle_c | 3 | 3 |  | 22 |
-| 25 | FxInfoEmDir_c | 3 | 3 |  | 22 |
-| 26 | FxInfoEmLife_c | 3 | 3 |  | 22 |
-| 27 | FxInfoEmPos_c | 3 | 3 |  | 22 |
-| 28 | CProtectionStub | 3 | 3 |  | 23 |
-| 29 | FxInfoHeatHaze_c | 3 | 3 |  | 23 |
-| 30 | FxInfoSelfLit_c | 3 | 3 |  | 23 |
-| 31 | FxInfoEmRotation_c | 3 | 3 |  | 24 |
-| 32 | FxInfoEmSpeed_c | 3 | 3 |  | 24 |
-| 33 | FxInfoEmSize_c | 3 | 3 |  | 25 |
-| 34 | FxInfoEmWeather_c | 3 | 3 |  | 25 |
-| 35 | FxInfoFloat_c | 3 | 3 |  | 25 |
-| 36 | FxInfoForce_c | 3 | 3 |  | 25 |
-| 37 | FxInfoFriction_c | 3 | 3 |  | 25 |
-| 38 | FxInfoUnderwater_c | 3 | 3 |  | 25 |
-| 39 | FxInterpInfo255_c | 4 | 3 |  | 25 |
-| 40 | FxInterpInfo32_c | 4 | 3 |  | 25 |
-| 41 | FxInterpInfoU255_c | 4 | 3 |  | 25 |
-| 42 | FxInfoAnimTexture_c | 3 | 3 |  | 26 |
-| 43 | FxInfoColourBright_c | 3 | 3 |  | 26 |
-| 44 | FxInfoColourRange_c | 3 | 3 |  | 26 |
-| 45 | FxInterpInfoFloat_c | 4 | 3 |  | 26 |
-| 46 | LibJpegError | 3 | 3 |  | 26 |
-| 47 | FxInfoColour_c | 3 | 3 |  | 27 |
-| 48 | FxInfoDir_c | 3 | 3 |  | 27 |
-| 49 | FxInfoEmRate_c | 3 | 3 |  | 27 |
-| 50 | FxInfoFlat_c | 3 | 3 |  | 27 |
-| 51 | FxInfoTrail_c | 3 | 3 |  | 27 |
-| 52 | FxInfoAttractPt_c | 3 | 3 |  | 28 |
-| 53 | FxInfoNoise_c | 3 | 3 |  | 28 |
-| 54 | FxInfoSmoke_c | 3 | 3 |  | 28 |
-| 55 | FxInfoSpriteRect_c | 3 | 3 |  | 28 |
-| 56 | FxInfoWind_c | 3 | 3 |  | 28 |
-| 57 | FxInfoJitter_c | 3 | 3 |  | 29 |
-| 58 | FxInfoRotSpeed_c | 3 | 3 |  | 29 |
-| 59 | FxInfoSize_c | 3 | 3 |  | 32 |
-| 60 | FxInfoAttractLine_c | 3 | 3 |  | 34 |
+| 13 | FxInfoEmAngle_c | 3 | 2 |  | 22 |
+| 14 | FxInfoEmDir_c | 3 | 2 |  | 22 |
+| 15 | FxInfoEmLife_c | 3 | 2 |  | 22 |
+| 16 | FxInfoEmPos_c | 3 | 2 |  | 22 |
+| 17 | FxInfoEmRotation_c | 3 | 2 |  | 24 |
+| 18 | FxInfoEmSpeed_c | 3 | 2 |  | 24 |
+| 19 | FxInfoEmSize_c | 3 | 2 |  | 25 |
+| 20 | FxInfoEmWeather_c | 3 | 2 |  | 25 |
+| 21 | FxInfoForce_c | 3 | 2 |  | 25 |
+| 22 | FxInfoFriction_c | 3 | 2 |  | 25 |
+| 23 | FxInfoAttractPt_c | 3 | 2 |  | 28 |
+| 24 | FxInfoNoise_c | 3 | 2 |  | 28 |
+| 25 | WaterCreatureManager_c | 9 | 2 |  | 29 |
+| 26 | FxInfoAttractLine_c | 3 | 2 |  | 34 |
+| 27 | CPedLookAtAttractor | 3 | 3 |  | 18 |
+| 28 | CPedParkAttractor | 3 | 3 |  | 18 |
+| 29 | CPedScriptedAttractor | 3 | 3 |  | 18 |
+| 30 | CPedStepAttractor | 3 | 3 |  | 18 |
+| 31 | CPedATMAttractor | 3 | 3 |  | 19 |
+| 32 | CPedPizzaAttractor | 3 | 3 |  | 19 |
+| 33 | CPedSeatAttractor | 3 | 3 |  | 19 |
+| 34 | CPedStopAttractor | 3 | 3 |  | 19 |
+| 35 | CPedTriggerScriptAttractor | 3 | 3 |  | 19 |
+| 36 | CPedAttractorManager | 25 | 3 |  | 22 |
+| 37 | CProtectionStub | 3 | 3 |  | 23 |
+| 38 | FxInfoHeatHaze_c | 3 | 3 |  | 23 |
+| 39 | FxInfoSelfLit_c | 3 | 3 |  | 23 |
+| 40 | FxInfoFloat_c | 3 | 3 |  | 25 |
+| 41 | FxInfoUnderwater_c | 3 | 3 |  | 25 |
+| 42 | FxInterpInfo255_c | 4 | 3 |  | 25 |
+| 43 | FxInterpInfo32_c | 4 | 3 |  | 25 |
+| 44 | FxInterpInfoU255_c | 4 | 3 |  | 25 |
+| 45 | FxInfoAnimTexture_c | 3 | 3 |  | 26 |
+| 46 | FxInfoColourBright_c | 3 | 3 |  | 26 |
+| 47 | FxInfoColourRange_c | 3 | 3 |  | 26 |
+| 48 | FxInterpInfoFloat_c | 4 | 3 |  | 26 |
+| 49 | LibJpegError | 3 | 3 |  | 26 |
+| 50 | FxInfoColour_c | 3 | 3 |  | 27 |
+| 51 | FxInfoDir_c | 3 | 3 |  | 27 |
+| 52 | FxInfoEmRate_c | 3 | 3 |  | 27 |
+| 53 | FxInfoFlat_c | 3 | 3 |  | 27 |
+| 54 | FxInfoTrail_c | 3 | 3 |  | 27 |
+| 55 | FxInfoSmoke_c | 3 | 3 |  | 28 |
+| 56 | FxInfoSpriteRect_c | 3 | 3 |  | 28 |
+| 57 | FxInfoWind_c | 3 | 3 |  | 28 |
+| 58 | FxInfoJitter_c | 3 | 3 |  | 29 |
+| 59 | FxInfoRotSpeed_c | 3 | 3 |  | 29 |
+| 60 | FxInfoSize_c | 3 | 3 |  | 32 |
 | 61 | CEntity | 76 | 3 |  | 35 |
 | 62 | FxInfoGroundCollide_c | 3 | 3 |  | 35 |
 | 63 | CPedShelterAttractor | 11 | 4 |  | 17 |
-| 64 | CScriptsForBrains | 15 | 4 |  | 22 |
-| 65 | FxEmitterBP_c | 13 | 4 |  | 31 |
-| 66 | FxEmitter_c | 9 | 5 |  | 34 |
-| 67 | CTheScripts | 82 | 9 |  | 31 |
+| 64 | FxEmitterBP_c | 13 | 4 |  | 31 |
+| 65 | FxEmitter_c | 9 | 5 |  | 34 |
+| 66 | CTheScripts | 82 | 9 |  | 31 |
 
 <a id="nivel-2"></a>
 
@@ -116,7 +115,7 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (36 clases, 853 funciones)
+## 🟠 Nivel 3: moderadas (35 clases, 848 funciones)
 
 Criterio: el resto.
 
@@ -136,28 +135,27 @@ Criterio: el resto.
 | 12 | RtBMP | 2 | 2 |  | ? |
 | 13 | DelayLoadThunks | 3 | 3 |  | ? |
 | 14 | LegacyRuntimeError | 13 | 5 |  | ? |
-| 15 | RpAnimBlend | 52 | 5 |  | ? |
-| 16 | TList_c | 8 | 5 |  | ? |
-| 17 | QTMLRuntime | 6 | 6 |  | ? |
-| 18 | RpHAnim | 7 | 6 |  | ? |
-| 19 | RtQuat | 6 | 6 |  | ? |
-| 20 | RtAnim | 10 | 7 |  | 48 |
-| 21 | RtDict | 12 | 10 |  | ? |
-| 22 | LibJpegCompressEncode | 11 | 11 |  | 47 |
-| 23 | D3DX9 | 11 | 11 |  | ? |
-| 24 | RwD3D9RasterDriver | 14 | 14 |  | 29 |
-| 25 | RpUVAnim | 16 | 14 |  | ? |
-| 26 | ZlibInflate | 14 | 14 |  | ? |
-| 27 | ExeLibJpeg | 15 | 15 |  | ? |
-| 28 | ImportThunks | 17 | 17 |  | ? |
-| 29 | LibJpegCompress | 18 | 18 |  | 38 |
-| 30 | LibJpegMemory | 21 | 21 |  | 26 |
-| 31 | RpMatFX | 28 | 28 |  | ? |
-| 32 | RpSkin | 34 | 33 |  | ? |
-| 33 | RwD3D9 | 115 | 115 |  | ? |
-| 34 | RwPlCore | 132 | 118 |  | ? |
-| 35 | RpWorld | 197 | 172 |  | ? |
-| 36 | RwCore | 211 | 182 |  | ? |
+| 15 | TList_c | 8 | 5 |  | ? |
+| 16 | QTMLRuntime | 6 | 6 |  | ? |
+| 17 | RpHAnim | 7 | 6 |  | ? |
+| 18 | RtQuat | 6 | 6 |  | ? |
+| 19 | RtAnim | 10 | 7 |  | 48 |
+| 20 | RtDict | 12 | 10 |  | ? |
+| 21 | LibJpegCompressEncode | 11 | 11 |  | 47 |
+| 22 | D3DX9 | 11 | 11 |  | ? |
+| 23 | RwD3D9RasterDriver | 14 | 14 |  | 29 |
+| 24 | RpUVAnim | 16 | 14 |  | ? |
+| 25 | ZlibInflate | 14 | 14 |  | ? |
+| 26 | ExeLibJpeg | 15 | 15 |  | ? |
+| 27 | ImportThunks | 17 | 17 |  | ? |
+| 28 | LibJpegCompress | 18 | 18 |  | 38 |
+| 29 | LibJpegMemory | 21 | 21 |  | 26 |
+| 30 | RpMatFX | 28 | 28 |  | ? |
+| 31 | RpSkin | 34 | 33 |  | ? |
+| 32 | RwD3D9 | 115 | 115 |  | ? |
+| 33 | RwPlCore | 132 | 118 |  | ? |
+| 34 | RpWorld | 197 | 172 |  | ? |
+| 35 | RwCore | 211 | 182 |  | ? |
 
 <a id="nivel-4"></a>
 
