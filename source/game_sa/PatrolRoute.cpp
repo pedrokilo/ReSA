@@ -57,10 +57,10 @@ void CPatrolRoute::Destructor() {
 // los mismos 16 bytes a cero (el primer byte de cada uno de los dos nombres de cada entrada: +4+0x28*i y +0x1C+0x28*i). Devuelve `this`. El efecto neto sobre la memoria es contador y esos 16 bytes a cero; el resto de la
 // ruta (el segundo..ultimo byte de cada nombre y los ocho vectores desde +0x144) no se toca. El marco SEH del vector solo desenrolla y se omite.
 CPatrolRoute* CPatrolRoute::Constructor() {
-    *reinterpret_cast<int32*>(m_data) = 0;
+    *reinterpret_cast<int32*>(reinterpret_cast<uint8*>(this)) = 0;
     for (int32 i = 0; i < 8; i++) {
-        m_data[4 + 0x28 * i]        = 0;
-        m_data[4 + 0x28 * i + 0x18] = 0;
+        reinterpret_cast<uint8*>(this)[4 + 0x28 * i]        = 0;
+        reinterpret_cast<uint8*>(this)[4 + 0x28 * i + 0x18] = 0;
     }
     return this;
 }
@@ -70,8 +70,8 @@ CPatrolRoute* CPatrolRoute::Constructor() {
 // escritura) y los dos nombres de la entrada (+4+0x28*i y +0x1C+0x28*i), cada uno como cadena C COMPLETA hasta su NUL incluido (byte a byte, sin limite de 0x18: un nombre sin NUL entra en lo que sigue), y repite mientras
 // i < contador RELEIDO de ESTA ruta (+0). El contador no esta acotado por 8: con mas de 8 entradas lee y escribe mas alla de las ocho entradas.
 void CPatrolRoute::Assign(const CPatrolRoute* src) {
-    const uint8* const from = src->m_data;
-    uint8* const       to   = m_data;
+    const uint8* const from = reinterpret_cast<const uint8*>(src);
+    uint8* const       to   = reinterpret_cast<uint8*>(this);
     const int32        n    = *reinterpret_cast<const int32*>(from);
     *reinterpret_cast<int32*>(to) = n;
     if (n <= 0) {
@@ -111,9 +111,9 @@ static void CopyZ(char* dst, const char* src) {
 // nodo temporal de pila (cadenas copiadas con el terminador, en este orden: temp.nombre = i.nombre, temp.nombre2 = i.nombre2, i.nombre = j.nombre, i.nombre2 = j.nombre2, j.nombre = temp.nombre,
 // j.nombre2 = temp.nombre2); despues i++ y j--. El contador se lee una sola vez y no se limita a 8.
 void CPatrolRoute::Reverse() {
-    Node* const    nodes  = reinterpret_cast<Node*>(m_data + 4);
-    CVector* const points = reinterpret_cast<CVector*>(m_data + 0x144);
-    for (int32 i = 0, j = *reinterpret_cast<const int32*>(m_data) - 1; i < j; ++i, --j) {
+    Node* const    nodes  = reinterpret_cast<Node*>(reinterpret_cast<uint8*>(this) + 4);
+    CVector* const points = reinterpret_cast<CVector*>(reinterpret_cast<uint8*>(this) + 0x144);
+    for (int32 i = 0, j = *reinterpret_cast<const int32*>(reinterpret_cast<uint8*>(this)) - 1; i < j; ++i, --j) {
         const CVector pointI = points[i];
         points[i] = points[j];
         points[j] = pointI;

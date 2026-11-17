@@ -26,7 +26,8 @@ public:
     };
     VALIDATE_SIZE(Node, 0x28);
 
-private:
-    uint8 m_data[0x1A4]; // contador (uint32) en +0, Node[8] desde +4, CVector[8] desde +0x144
+    uint32  m_nNumNodes;
+    Node    m_aNodes[8];
+    CVector m_aPoints[8];
 };
 VALIDATE_SIZE(CPatrolRoute, 0x1A4);
