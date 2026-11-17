@@ -31,7 +31,7 @@ void FxInfoEmWeather_c::InjectHooks() {
 }
 
 // 0x4A50E0
-FxInfoEmWeather_c::FxInfoEmWeather_c() : FxInfo_c(), m_InterpInfo() {
+FxInfoEmWeather_c::FxInfoEmWeather_c() : m_InterpInfo() { // la base FxInfo_c por defecto (sin `()`): el EXE no escribe +6 ni +7
     m_nType = FX_INFO_EMWEATHER_DATA;
     m_InterpInfo.Allocate(4);
 }

@@ -31,7 +31,7 @@ void FxInfoEmPos_c::InjectHooks() {
 }
 
 // 0x4A5010
-FxInfoEmPos_c::FxInfoEmPos_c() : FxInfo_c() {
+FxInfoEmPos_c::FxInfoEmPos_c() { // la base FxInfo_c por defecto (sin `()`): el EXE no escribe +6 ni +7
     m_nType = FX_INFO_EMPOS_DATA;
     m_InterpInfo.Allocate(3);
 }

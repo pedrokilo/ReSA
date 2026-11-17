@@ -30,7 +30,7 @@ void FxInfoFriction_c::InjectHooks() {
 }
 
 // 0x4A5550
-FxInfoFriction_c::FxInfoFriction_c() : FxInfo_c(), m_InterpInfo() {
+FxInfoFriction_c::FxInfoFriction_c() : m_InterpInfo() { // la base FxInfo_c por defecto (sin `()`): el EXE no escribe +6 ni +7
     m_nType = FX_INFO_FRICTION_DATA;
     m_InterpInfo.Allocate(1);
 }

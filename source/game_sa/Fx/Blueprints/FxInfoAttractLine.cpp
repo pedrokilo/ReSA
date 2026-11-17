@@ -30,7 +30,7 @@ void FxInfoAttractLine_c::InjectHooks() {
 }
 
 // 0x4A57C0
-FxInfoAttractLine_c::FxInfoAttractLine_c() : FxInfo_c() {
+FxInfoAttractLine_c::FxInfoAttractLine_c() { // la base FxInfo_c por defecto (sin `()`): el EXE no escribe +6 ni +7
     m_nType = FX_INFO_ATTRACTLINE_DATA;
     m_InterpInfo.Allocate(7);
 }

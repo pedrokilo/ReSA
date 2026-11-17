@@ -30,7 +30,7 @@ void FxInfoAttractPt_c::InjectHooks() {
 }
 
 // 0x4A5650
-FxInfoAttractPt_c::FxInfoAttractPt_c() : FxInfo_c() {
+FxInfoAttractPt_c::FxInfoAttractPt_c() { // la base FxInfo_c por defecto (sin `()`): el EXE no escribe +6 ni +7
     m_nType = FX_INFO_ATTRACTPT_DATA;
     m_InterpInfo.Allocate(4);
 }

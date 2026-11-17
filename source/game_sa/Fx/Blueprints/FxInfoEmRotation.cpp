@@ -30,7 +30,7 @@ void FxInfoEmRotation_c::InjectHooks() {
 }
 
 // 0x4A51B0
-FxInfoEmRotation_c::FxInfoEmRotation_c() : FxInfo_c() {
+FxInfoEmRotation_c::FxInfoEmRotation_c() { // la base FxInfo_c por defecto (sin `()`): el EXE no escribe +6 ni +7
     m_nType = FX_INFO_EMROTATION_DATA;
     m_InterpInfo.Allocate(2);
 }
