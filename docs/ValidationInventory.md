@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11335 |
+| `validated=1` · evidencia aprobada vinculada | 11368 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11335 |
-| Sin evidencia aprobada vinculada en este registro | 1106 |
+| Evidencia histórica vinculada; revisión pendiente | 11368 |
+| Sin evidencia aprobada vinculada en este registro | 1073 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -10598,24 +10598,57 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxEmitter_c | `CreateParticle` | [Resumen](../reversing/FxEmitterCreateParticle30/validation-summary.json) |
 | FxEmitter_c | `CreateParticles` | [Resumen](../reversing/Dependencies22C/validation-summary-reval-20261019.json) |
 | FxFrustumInfo_c | `IsCollision` | [Resumen](../reversing/DependenciesWorldLeaf3/validation-summary.json) |
+| FxInfoAnimTexture_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoAttractLine_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | FxInfoAttractPt_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoColourBright_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoColourRange_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoColour_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoDir_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoEmAngle_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmAngle_c | `Destructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoEmAngle_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoEmDir_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmDir_c | `Destructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoEmDir_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoEmLife_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmLife_c | `Destructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoEmLife_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoEmPos_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmPos_c | `Destructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoEmPos_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoEmRate_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoEmRate_c | `Destructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoEmRate_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoEmRotation_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | FxInfoEmSize_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmSize_c | `Destructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoEmSize_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoEmSpeed_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoEmSpeed_c | `Destructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoEmSpeed_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoEmWeather_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoFlat_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoFloat_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoForce_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | FxInfoFriction_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoGroundCollide_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoHeatHaze_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoJitter_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoManager_c | `AddFxInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxInfoManager_c | `Load` | [Resumen](../reversing/FxInfoLoad28/validation-summary.json) |
 | FxInfoManager_c | `ProcessEmissionInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxInfoManager_c | `ProcessMovementInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxInfoManager_c | `ProcessRenderInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxInfoNoise_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
+| FxInfoRotSpeed_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoSelfLit_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoSize_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoSmoke_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoSpriteRect_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoTrail_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoUnderwater_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoWind_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInterpInfo255_c | `GetVal` | [Resumen](../reversing/FxInterp61/validation-summary.json) |
 | FxInterpInfo32_c | `GetVal` | [Resumen](../reversing/FxInterp61/validation-summary.json) |
 | FxInterpInfoFloat_c | `GetVal-values` | [Resumen](../reversing/FxInterp61/validation-summary.json) |
@@ -12246,39 +12279,39 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxEmitterPrt_c` | 2 | 0 | 2 | 0 |
 | `FxEmitter_c` | 9 | 0 | 4 | 5 |
 | `FxFrustumInfo_c` | 2 | 0 | 1 | 1 |
-| `FxInfoAnimTexture_c` | 3 | 0 | 0 | 3 |
+| `FxInfoAnimTexture_c` | 3 | 0 | 1 | 2 |
 | `FxInfoAttractLine_c` | 3 | 0 | 1 | 2 |
 | `FxInfoAttractPt_c` | 3 | 0 | 1 | 2 |
-| `FxInfoColourBright_c` | 3 | 0 | 0 | 3 |
-| `FxInfoColourRange_c` | 3 | 0 | 0 | 3 |
-| `FxInfoColour_c` | 3 | 0 | 0 | 3 |
-| `FxInfoDir_c` | 3 | 0 | 0 | 3 |
-| `FxInfoEmAngle_c` | 3 | 0 | 1 | 2 |
-| `FxInfoEmDir_c` | 3 | 0 | 1 | 2 |
-| `FxInfoEmLife_c` | 3 | 0 | 1 | 2 |
-| `FxInfoEmPos_c` | 3 | 0 | 1 | 2 |
-| `FxInfoEmRate_c` | 3 | 0 | 0 | 3 |
+| `FxInfoColourBright_c` | 3 | 0 | 1 | 2 |
+| `FxInfoColourRange_c` | 3 | 0 | 1 | 2 |
+| `FxInfoColour_c` | 3 | 0 | 1 | 2 |
+| `FxInfoDir_c` | 3 | 0 | 1 | 2 |
+| `FxInfoEmAngle_c` | 3 | 0 | 3 | 0 |
+| `FxInfoEmDir_c` | 3 | 0 | 3 | 0 |
+| `FxInfoEmLife_c` | 3 | 0 | 3 | 0 |
+| `FxInfoEmPos_c` | 3 | 0 | 3 | 0 |
+| `FxInfoEmRate_c` | 3 | 0 | 3 | 0 |
 | `FxInfoEmRotation_c` | 3 | 0 | 1 | 2 |
-| `FxInfoEmSize_c` | 3 | 0 | 1 | 2 |
-| `FxInfoEmSpeed_c` | 3 | 0 | 1 | 2 |
+| `FxInfoEmSize_c` | 3 | 0 | 3 | 0 |
+| `FxInfoEmSpeed_c` | 3 | 0 | 3 | 0 |
 | `FxInfoEmWeather_c` | 3 | 0 | 1 | 2 |
-| `FxInfoFlat_c` | 3 | 0 | 0 | 3 |
-| `FxInfoFloat_c` | 3 | 0 | 0 | 3 |
+| `FxInfoFlat_c` | 3 | 0 | 1 | 2 |
+| `FxInfoFloat_c` | 3 | 0 | 1 | 2 |
 | `FxInfoForce_c` | 3 | 0 | 1 | 2 |
 | `FxInfoFriction_c` | 3 | 0 | 1 | 2 |
-| `FxInfoGroundCollide_c` | 3 | 0 | 0 | 3 |
-| `FxInfoHeatHaze_c` | 3 | 0 | 0 | 3 |
-| `FxInfoJitter_c` | 3 | 0 | 0 | 3 |
+| `FxInfoGroundCollide_c` | 3 | 0 | 1 | 2 |
+| `FxInfoHeatHaze_c` | 3 | 0 | 1 | 2 |
+| `FxInfoJitter_c` | 3 | 0 | 1 | 2 |
 | `FxInfoManager_c` | 6 | 0 | 5 | 1 |
 | `FxInfoNoise_c` | 3 | 0 | 1 | 2 |
-| `FxInfoRotSpeed_c` | 3 | 0 | 0 | 3 |
-| `FxInfoSelfLit_c` | 3 | 0 | 0 | 3 |
-| `FxInfoSize_c` | 3 | 0 | 0 | 3 |
-| `FxInfoSmoke_c` | 3 | 0 | 0 | 3 |
-| `FxInfoSpriteRect_c` | 3 | 0 | 0 | 3 |
-| `FxInfoTrail_c` | 3 | 0 | 0 | 3 |
-| `FxInfoUnderwater_c` | 3 | 0 | 0 | 3 |
-| `FxInfoWind_c` | 3 | 0 | 0 | 3 |
+| `FxInfoRotSpeed_c` | 3 | 0 | 1 | 2 |
+| `FxInfoSelfLit_c` | 3 | 0 | 1 | 2 |
+| `FxInfoSize_c` | 3 | 0 | 1 | 2 |
+| `FxInfoSmoke_c` | 3 | 0 | 1 | 2 |
+| `FxInfoSpriteRect_c` | 3 | 0 | 1 | 2 |
+| `FxInfoTrail_c` | 3 | 0 | 1 | 2 |
+| `FxInfoUnderwater_c` | 3 | 0 | 1 | 2 |
+| `FxInfoWind_c` | 3 | 0 | 1 | 2 |
 | `FxInfo_c` | 1 | 0 | 0 | 1 |
 | `FxInterpInfo255_c` | 4 | 0 | 1 | 3 |
 | `FxInterpInfo32_c` | 4 | 0 | 1 | 3 |

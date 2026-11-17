@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.335 |
-| Reconstruidas sin validar | 1.106 |
-| De ellas, en esta cola (validables por pares) | 1.106 |
+| Validadas | 11.368 |
+| Reconstruidas sin validar | 1.073 |
+| De ellas, en esta cola (validables por pares) | 1.073 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,15 +22,15 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 66 | 174 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 59 | 141 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 1 | 27 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
 | [🟠 Nivel 3: moderadas](#nivel-3) | 35 | 848 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 10 | 57 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **112** | **1106** | |
+| **Total** | **105** | **1073** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (66 clases, 174 funciones)
+## 🟢 Nivel 1: muy barato (59 clases, 141 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
@@ -48,60 +48,53 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 | 10 | CAEAudioEntity | 8 | 2 |  | 10 |
 | 11 | CDecisionMaker | 5 | 2 |  | 19 |
 | 12 | IKChainManager_c | 19 | 2 |  | 20 |
-| 13 | FxInfoEmAngle_c | 3 | 2 |  | 22 |
-| 14 | FxInfoEmDir_c | 3 | 2 |  | 22 |
-| 15 | FxInfoEmLife_c | 3 | 2 |  | 22 |
-| 16 | FxInfoEmPos_c | 3 | 2 |  | 22 |
-| 17 | FxInfoEmRotation_c | 3 | 2 |  | 24 |
-| 18 | FxInfoEmSpeed_c | 3 | 2 |  | 24 |
-| 19 | FxInfoEmSize_c | 3 | 2 |  | 25 |
-| 20 | FxInfoEmWeather_c | 3 | 2 |  | 25 |
-| 21 | FxInfoForce_c | 3 | 2 |  | 25 |
-| 22 | FxInfoFriction_c | 3 | 2 |  | 25 |
-| 23 | FxInfoAttractPt_c | 3 | 2 |  | 28 |
-| 24 | FxInfoNoise_c | 3 | 2 |  | 28 |
-| 25 | WaterCreatureManager_c | 9 | 2 |  | 29 |
-| 26 | FxInfoAttractLine_c | 3 | 2 |  | 34 |
-| 27 | CPedLookAtAttractor | 3 | 3 |  | 18 |
-| 28 | CPedParkAttractor | 3 | 3 |  | 18 |
-| 29 | CPedScriptedAttractor | 3 | 3 |  | 18 |
-| 30 | CPedStepAttractor | 3 | 3 |  | 18 |
-| 31 | CPedATMAttractor | 3 | 3 |  | 19 |
-| 32 | CPedPizzaAttractor | 3 | 3 |  | 19 |
-| 33 | CPedSeatAttractor | 3 | 3 |  | 19 |
-| 34 | CPedStopAttractor | 3 | 3 |  | 19 |
-| 35 | CPedTriggerScriptAttractor | 3 | 3 |  | 19 |
-| 36 | CPedAttractorManager | 25 | 3 |  | 22 |
-| 37 | CProtectionStub | 3 | 3 |  | 23 |
-| 38 | FxInfoHeatHaze_c | 3 | 3 |  | 23 |
-| 39 | FxInfoSelfLit_c | 3 | 3 |  | 23 |
-| 40 | FxInfoFloat_c | 3 | 3 |  | 25 |
-| 41 | FxInfoUnderwater_c | 3 | 3 |  | 25 |
-| 42 | FxInterpInfo255_c | 4 | 3 |  | 25 |
-| 43 | FxInterpInfo32_c | 4 | 3 |  | 25 |
-| 44 | FxInterpInfoU255_c | 4 | 3 |  | 25 |
-| 45 | FxInfoAnimTexture_c | 3 | 3 |  | 26 |
-| 46 | FxInfoColourBright_c | 3 | 3 |  | 26 |
-| 47 | FxInfoColourRange_c | 3 | 3 |  | 26 |
-| 48 | FxInterpInfoFloat_c | 4 | 3 |  | 26 |
-| 49 | LibJpegError | 3 | 3 |  | 26 |
-| 50 | FxInfoColour_c | 3 | 3 |  | 27 |
-| 51 | FxInfoDir_c | 3 | 3 |  | 27 |
-| 52 | FxInfoEmRate_c | 3 | 3 |  | 27 |
-| 53 | FxInfoFlat_c | 3 | 3 |  | 27 |
-| 54 | FxInfoTrail_c | 3 | 3 |  | 27 |
-| 55 | FxInfoSmoke_c | 3 | 3 |  | 28 |
-| 56 | FxInfoSpriteRect_c | 3 | 3 |  | 28 |
-| 57 | FxInfoWind_c | 3 | 3 |  | 28 |
-| 58 | FxInfoJitter_c | 3 | 3 |  | 29 |
-| 59 | FxInfoRotSpeed_c | 3 | 3 |  | 29 |
-| 60 | FxInfoSize_c | 3 | 3 |  | 32 |
-| 61 | CEntity | 76 | 3 |  | 35 |
-| 62 | FxInfoGroundCollide_c | 3 | 3 |  | 35 |
-| 63 | CPedShelterAttractor | 11 | 4 |  | 17 |
-| 64 | FxEmitterBP_c | 13 | 4 |  | 31 |
-| 65 | FxEmitter_c | 9 | 5 |  | 34 |
-| 66 | CTheScripts | 82 | 9 |  | 31 |
+| 13 | FxInfoHeatHaze_c | 3 | 2 |  | 23 |
+| 14 | FxInfoSelfLit_c | 3 | 2 |  | 23 |
+| 15 | FxInfoEmRotation_c | 3 | 2 |  | 24 |
+| 16 | FxInfoEmWeather_c | 3 | 2 |  | 25 |
+| 17 | FxInfoFloat_c | 3 | 2 |  | 25 |
+| 18 | FxInfoForce_c | 3 | 2 |  | 25 |
+| 19 | FxInfoFriction_c | 3 | 2 |  | 25 |
+| 20 | FxInfoUnderwater_c | 3 | 2 |  | 25 |
+| 21 | FxInfoAnimTexture_c | 3 | 2 |  | 26 |
+| 22 | FxInfoColourBright_c | 3 | 2 |  | 26 |
+| 23 | FxInfoColourRange_c | 3 | 2 |  | 26 |
+| 24 | FxInfoColour_c | 3 | 2 |  | 27 |
+| 25 | FxInfoDir_c | 3 | 2 |  | 27 |
+| 26 | FxInfoFlat_c | 3 | 2 |  | 27 |
+| 27 | FxInfoTrail_c | 3 | 2 |  | 27 |
+| 28 | FxInfoAttractPt_c | 3 | 2 |  | 28 |
+| 29 | FxInfoNoise_c | 3 | 2 |  | 28 |
+| 30 | FxInfoSmoke_c | 3 | 2 |  | 28 |
+| 31 | FxInfoSpriteRect_c | 3 | 2 |  | 28 |
+| 32 | FxInfoWind_c | 3 | 2 |  | 28 |
+| 33 | FxInfoJitter_c | 3 | 2 |  | 29 |
+| 34 | FxInfoRotSpeed_c | 3 | 2 |  | 29 |
+| 35 | WaterCreatureManager_c | 9 | 2 |  | 29 |
+| 36 | FxInfoSize_c | 3 | 2 |  | 32 |
+| 37 | FxInfoAttractLine_c | 3 | 2 |  | 34 |
+| 38 | FxInfoGroundCollide_c | 3 | 2 |  | 35 |
+| 39 | CPedLookAtAttractor | 3 | 3 |  | 18 |
+| 40 | CPedParkAttractor | 3 | 3 |  | 18 |
+| 41 | CPedScriptedAttractor | 3 | 3 |  | 18 |
+| 42 | CPedStepAttractor | 3 | 3 |  | 18 |
+| 43 | CPedATMAttractor | 3 | 3 |  | 19 |
+| 44 | CPedPizzaAttractor | 3 | 3 |  | 19 |
+| 45 | CPedSeatAttractor | 3 | 3 |  | 19 |
+| 46 | CPedStopAttractor | 3 | 3 |  | 19 |
+| 47 | CPedTriggerScriptAttractor | 3 | 3 |  | 19 |
+| 48 | CPedAttractorManager | 25 | 3 |  | 22 |
+| 49 | CProtectionStub | 3 | 3 |  | 23 |
+| 50 | FxInterpInfo255_c | 4 | 3 |  | 25 |
+| 51 | FxInterpInfo32_c | 4 | 3 |  | 25 |
+| 52 | FxInterpInfoU255_c | 4 | 3 |  | 25 |
+| 53 | FxInterpInfoFloat_c | 4 | 3 |  | 26 |
+| 54 | LibJpegError | 3 | 3 |  | 26 |
+| 55 | CEntity | 76 | 3 |  | 35 |
+| 56 | CPedShelterAttractor | 11 | 4 |  | 17 |
+| 57 | FxEmitterBP_c | 13 | 4 |  | 31 |
+| 58 | FxEmitter_c | 9 | 5 |  | 34 |
+| 59 | CTheScripts | 82 | 9 |  | 31 |
 
 <a id="nivel-2"></a>
 
