@@ -4,9 +4,9 @@ LibJpegMemory,21,0,21
 LibJpegCompress,18,0,18
 ExeLibJpeg,15,0,15
 LibJpegCompressEncode,11,0,11
-D3D9RasterFormat,10,0,10
 FxEmitter_c,9,4,5
 CRunningScript,43,39,4
+D3D9RasterFormat,10,6,4
 FxEmitterBP_c,13,9,4
 LibJpegDecompressApi,4,0,4
 LibJpegCompressApi,3,0,3
@@ -20,6 +20,4 @@ CWaterLevel,49,48,1
 ExeProtectionStub,8,7,1
 FxInfoManager_c,6,5,1
 FxInfo_c,1,0,1
-Ps,26,25,1
 RpAnisot,4,3,1
-Win,8,7,1

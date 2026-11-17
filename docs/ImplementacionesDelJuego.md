@@ -994,7 +994,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CompressedVector](implementaciones/detalle-049.md#grupo-967) · [source/game_sa/CompressedVector.cpp](../source/game_sa/CompressedVector.cpp) | 2 | 0 | 0 | 0 | 0 |
 | [CustomEnvMapPipeMaterialData](implementaciones/detalle-049.md#grupo-968) · [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h](../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h) | 0 | 0 | 2 | 0 | 0 |
 | [CustomSpecMapPipeMaterialData](implementaciones/detalle-049.md#grupo-969) · [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h](../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h) | 0 | 0 | 2 | 0 | 0 |
-| [D3D9RasterFormat](implementaciones/detalle-049.md#grupo-970) · [source/game_sa/RenderWare/D3D9RasterFormat.cpp](../source/game_sa/RenderWare/D3D9RasterFormat.cpp) | 0 | 0 | 11 | 0 | 0 |
+| [D3D9RasterFormat](implementaciones/detalle-049.md#grupo-970) · [source/game_sa/RenderWare/D3D9RasterFormat.cpp](../source/game_sa/RenderWare/D3D9RasterFormat.cpp) | 6 | 0 | 5 | 0 | 0 |
 | [D3DIndexDataBuffer](implementaciones/detalle-049.md#grupo-971) · [source/game_sa/RenderWare/D3DIndexDataBuffer.cpp](../source/game_sa/RenderWare/D3DIndexDataBuffer.cpp) | 5 | 0 | 1 | 0 | 0 |
 | [D3DResourceCom](implementaciones/detalle-049.md#grupo-972) · [source/game_sa/RenderWare/D3DResourceSystem.h](../source/game_sa/RenderWare/D3DResourceSystem.h) | 0 | 0 | 2 | 0 | 0 |
 | [D3DResourceSystem](implementaciones/detalle-049.md#grupo-973) · [source/game_sa/RenderWare/D3DResourceSystem.cpp](../source/game_sa/RenderWare/D3DResourceSystem.cpp) | 16 | 0 | 0 | 0 | 0 |
@@ -1701,7 +1701,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [ProcObjectListItem](implementaciones/detalle-084.md#grupo-1674) · [source/game_sa/Plant/ProcObjectMan.cpp](../source/game_sa/Plant/ProcObjectMan.cpp) | 1 | 0 | 1 | 0 | 0 |
 | [ProcObjectMan_c](implementaciones/detalle-084.md#grupo-1675) · [source/game_sa/Plant/ProcObjectMan.cpp](../source/game_sa/Plant/ProcObjectMan.cpp) | 9 | 0 | 2 | 0 | 0 |
 | [ProcSurfaceInfo_c](implementaciones/detalle-084.md#grupo-1676) · [source/game_sa/Plant/ProcSurfaceInfo.cpp](../source/game_sa/Plant/ProcSurfaceInfo.cpp), [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 7 | 0 | 1 | 0 | 0 |
-| [Ps](implementaciones/detalle-084.md#grupo-1677) · [source/app/platform/win/WinPs.cpp](../source/app/platform/win/WinPs.cpp) | 25 | 0 | 1 | 0 | 0 |
+| [Ps](implementaciones/detalle-084.md#grupo-1677) · [source/app/platform/win/WinPs.cpp](../source/app/platform/win/WinPs.cpp) | 26 | 0 | 0 | 0 | 0 |
 | [QTMLRuntime](implementaciones/detalle-084.md#grupo-1678) · [source/app/platform/win/QTMLRuntime.cpp](../source/app/platform/win/QTMLRuntime.cpp) | 0 | 0 | 6 | 0 | 0 |
 | [RandomCarLift](implementaciones/detalle-084.md#grupo-1679) · [source/game_sa/CarCtrl.cpp](../source/game_sa/CarCtrl.cpp) | 0 | 0 | 7 | 0 | 0 |
 | [RenderBuffer](implementaciones/detalle-084.md#grupo-1680) · [source/game_sa/RenderBuffer.cpp](../source/game_sa/RenderBuffer.cpp) | 5 | 0 | 7 | 0 | 0 |
@@ -1745,7 +1745,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [VideoPlayer](implementaciones/detalle-086.md#grupo-1718) · [source/app/platform/win/VideoPlayer/VideoPlayer.cpp](../source/app/platform/win/VideoPlayer/VideoPlayer.cpp) | 7 | 0 | 2 | 0 | 0 |
 | [WaterCreatureManager_c](implementaciones/detalle-086.md#grupo-1719) · [source/game_sa/WaterCreatureManager_c.cpp](../source/game_sa/WaterCreatureManager_c.cpp), [source/game_sa/WaterCreatureManager_c.h](../source/game_sa/WaterCreatureManager_c.h) | 7 | 0 | 5 | 0 | 0 |
 | [WaterCreature_c](implementaciones/detalle-086.md#grupo-1720) · [source/game_sa/WaterCreature_c.cpp](../source/game_sa/WaterCreature_c.cpp), [source/game_sa/WaterCreature_c.h](../source/game_sa/WaterCreature_c.h) | 4 | 0 | 5 | 0 | 0 |
-| [Win](implementaciones/detalle-087.md#grupo-1721) · [source/app/platform/win/WinMain.cpp](../source/app/platform/win/WinMain.cpp), [source/app/platform/win/WinPlatform.cpp](../source/app/platform/win/WinPlatform.cpp), [source/app/platform/win/WndProc.cpp](../source/app/platform/win/WndProc.cpp) | 7 | 0 | 2 | 0 | 0 |
+| [Win](implementaciones/detalle-087.md#grupo-1721) · [source/app/platform/win/WinMain.cpp](../source/app/platform/win/WinMain.cpp), [source/app/platform/win/WinPlatform.cpp](../source/app/platform/win/WinPlatform.cpp), [source/app/platform/win/WndProc.cpp](../source/app/platform/win/WndProc.cpp) | 8 | 0 | 1 | 0 | 0 |
 | [WinInput](implementaciones/detalle-087.md#grupo-1722) · [source/app/platform/win/WinInput.cpp](../source/app/platform/win/WinInput.cpp) | 4 | 0 | 13 | 0 | 0 |
 | [ZlibInflate](implementaciones/detalle-087.md#grupo-1723) · [source/game_sa/RenderWare/rw/zlibinflate.cpp](../source/game_sa/RenderWare/rw/zlibinflate.cpp) | 0 | 0 | 13 | 0 | 0 |
 | [cBuoyancy](implementaciones/detalle-087.md#grupo-1724) · [source/game_sa/Buoyancy.cpp](../source/game_sa/Buoyancy.cpp), [source/game_sa/Buoyancy.h](../source/game_sa/Buoyancy.h) | 11 | 0 | 1 | 0 | 0 |

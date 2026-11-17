@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11567 |
+| `validated=1` · evidencia aprobada vinculada | 11575 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11567 |
-| Sin evidencia aprobada vinculada en este registro | 874 |
+| Evidencia histórica vinculada; revisión pendiente | 11575 |
+| Sin evidencia aprobada vinculada en este registro | 866 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -10626,6 +10626,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Common | `approxEqual` | [Resumen](../reversing/Fn116A/validation-summary.json) |
 | CompressedVector | `CompressVectorExe` | [Resumen](../reversing/Fn130A/validation-summary.json) |
 | CompressedVector | `UncompressVectorExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
+| D3D9RasterFormat | `ConvertRasterToDisplayFormat` | [Resumen](../reversing/Fn225A/validation-summary.json) |
+| D3D9RasterFormat | `CreateRasterFromD3DFormat` | [Resumen](../reversing/Fn225A/validation-summary.json) |
+| D3D9RasterFormat | `FindCorrectRasterFormat` | [Resumen](../reversing/Fn225A/validation-summary.json) |
+| D3D9RasterFormat | `GetRasterMemorySize` | [Resumen](../reversing/Fn225A/validation-summary.json) |
+| D3D9RasterFormat | `SetRasterFormat` | [Resumen](../reversing/Fn225A/validation-summary.json) |
+| D3D9RasterFormat | `VideoMemoryRasterListRestore` | [Resumen](../reversing/Fn225A/validation-summary.json) |
 | D3DIndexDataBuffer | `Clear` | [Resumen](../reversing/Fn182A/validation-summary.json) |
 | D3DIndexDataBuffer | `Destroy` | [Resumen](../reversing/Fn182A/validation-summary.json) |
 | D3DIndexDataBuffer | `GetTotalDataSize` | [Resumen](../reversing/Fn95A/validation-summary.json) |
@@ -11201,6 +11207,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | ProcSurfaceInfo_c | `IsPtInTriangle2D` | [Resumen](../reversing/Fn186A/validation-summary.json) |
 | ProcSurfaceInfo_c | `ScaleMatrix` | [Resumen](../reversing/Fn146A/validation-summary.json) |
 | Ps | `CheckDirectSound` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `GetBestRefreshRate` | [Resumen](../reversing/Fn225A/validation-summary.json) |
 | Ps | `GetCpuExtendedFeatures` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | Ps | `GetCpuFeaturesAndVendor` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | Ps | `GetDXVersion` | [Resumen](../reversing/Helpers66C/validation-summary.json) |
@@ -11552,6 +11559,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Win | `IsAlreadyRunning` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | Win | `IsForegroundApp` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | Win | `MessageLoop` | [Resumen](../reversing/Misc6/validation-summary.json) |
+| Win | `WasForegroundAppLastFrame` | [Resumen](../reversing/Fn225A/validation-summary.json) |
 | Win | `__MainWndProc` | [Resumen](../reversing/Dependencies24A/validation-summary.json) |
 | Win | `getDvdGamePath` | [Resumen](../reversing/Fn135A/validation-summary.json) |
 | cBuoyancy | `AddSplashParticles` | [Resumen](../reversing/Buoy9/validation-summary.json) |
@@ -12462,7 +12470,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CdStream` | 11 | 0 | 11 | 0 |
 | `Common` | 26 | 0 | 26 | 0 |
 | `CompressedVector` | 2 | 0 | 2 | 0 |
-| `D3D9RasterFormat` | 10 | 0 | 0 | 10 |
+| `D3D9RasterFormat` | 10 | 0 | 6 | 4 |
 | `D3DIndexDataBuffer` | 5 | 0 | 5 | 0 |
 | `D3DResourceSystem` | 16 | 0 | 16 | 0 |
 | `D3DTextureBuffer` | 8 | 0 | 8 | 0 |
@@ -12553,7 +12561,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `ProcObjectListItem` | 1 | 0 | 1 | 0 |
 | `ProcObjectMan_c` | 10 | 0 | 10 | 0 |
 | `ProcSurfaceInfo_c` | 7 | 0 | 7 | 0 |
-| `Ps` | 26 | 0 | 25 | 1 |
+| `Ps` | 26 | 0 | 26 | 0 |
 | `QTMLRuntime` | 6 | 0 | 0 | 6 |
 | `RenderBuffer` | 4 | 0 | 4 | 0 |
 | `RpAnimBlend` | 52 | 0 | 52 | 0 |
@@ -12584,7 +12592,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `VideoPlayer` | 7 | 0 | 7 | 0 |
 | `WaterCreatureManager_c` | 9 | 0 | 7 | 2 |
 | `WaterCreature_c` | 4 | 0 | 4 | 0 |
-| `Win` | 8 | 0 | 7 | 1 |
+| `Win` | 8 | 0 | 8 | 0 |
 | `ZlibInflate` | 14 | 0 | 0 | 14 |
 | `cBuoyancy` | 10 | 0 | 10 | 0 |
 | `cHandlingDataMgr` | 13 | 0 | 13 | 0 |

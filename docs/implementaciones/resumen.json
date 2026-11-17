@@ -25,7 +25,7 @@
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 101,
     "catalog_rows_linked_by_hook_address": 1174,
-    "validated_reconstructed_own_cpp_definitions": 13488,
+    "validated_reconstructed_own_cpp_definitions": 13496,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 17
   },
@@ -1291,7 +1291,7 @@
     "source/game_sa/Renderer.h": "de44b1277677e277311af0db0eb4271a7ec8df8e5a1f9b8db344bc1150e4cd97",
     "source/game_sa/RenderWare/D3D9RasterDriver.cpp": "adee4e3449e7cdb7e078392873f3c6c70f7c1d819a82bce6a82cbb9a551d17d8",
     "source/game_sa/RenderWare/D3D9RasterDriver.h": "737f9b8c7efbfcdbe8844b4db40e2b834317411e7d7815f506b3af979e2f8cf5",
-    "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "6700623d89ed814cb4e8579c00d70fbdfeded2d2670d814005ef038fef36d774",
+    "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "e8b0856795cc7c47a81ccb4ea3a68455730e13657fb4929702ede740bdd6284d",
     "source/game_sa/RenderWare/D3D9RasterFormat.h": "0e82f85965a4676f6ab3480a44efd9b67eccfc16d0abafcd09c72cb310227845",
     "source/game_sa/RenderWare/D3DIndexDataBuffer.cpp": "3f8898c23267634b95dcc865435fa5bd80238538fd684d05940fd3bf6ed9a843",
     "source/game_sa/RenderWare/D3DIndexDataBuffer.h": "bffde7a692b422059470af4e973a5425fc142344beaa67ddf6ee4b269a500b77",
@@ -2315,10 +2315,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "c1c01be533560f0d5a1710d300ff87aa623ab62e21d52ba459b7b36b9ec03d4d",
+    "hooks.csv": "221a081ba7b0ca28c1b536866e9d91ef72e4767f510a1d73f042fe1c0bf69aa4",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "0c864a4ce6312349ffbfe6ae9180de3b04417f18e2ad4ecb97f07fbe59e4200e",
+  "migration_registry_sha256": "e4b86b91db829daddc0c2c1b0d2ec5e5045c7b70b7966b374aa0f0925fa4db71",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",
