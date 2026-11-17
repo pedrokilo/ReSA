@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11399 |
+| `validated=1` · evidencia aprobada vinculada | 11431 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11399 |
-| Sin evidencia aprobada vinculada en este registro | 1042 |
+| Evidencia histórica vinculada; revisión pendiente | 11431 |
+| Sin evidencia aprobada vinculada en este registro | 1010 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -10599,6 +10599,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxEmitter_c | `CreateParticles` | [Resumen](../reversing/Dependencies22C/validation-summary-reval-20261019.json) |
 | FxFrustumInfo_c | `IsCollision` | [Resumen](../reversing/DependenciesWorldLeaf3/validation-summary.json) |
 | FxInfoAnimTexture_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoAnimTexture_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInfoAnimTexture_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInfoAttractLine_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | FxInfoAttractLine_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoAttractLine_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
@@ -10606,11 +10608,17 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxInfoAttractPt_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoAttractPt_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoColourBright_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoColourBright_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInfoColourBright_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInfoColourRange_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoColourRange_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInfoColourRange_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInfoColour_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoColour_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoColour_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoDir_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoDir_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInfoDir_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInfoEmAngle_c | `Constructor` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | FxInfoEmAngle_c | `Destructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoEmAngle_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
@@ -10639,6 +10647,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxInfoEmWeather_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoEmWeather_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoFlat_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoFlat_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInfoFlat_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInfoFloat_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoFloat_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoFloat_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
@@ -10652,6 +10662,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxInfoGroundCollide_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoGroundCollide_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoHeatHaze_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoHeatHaze_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInfoHeatHaze_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInfoJitter_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoJitter_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoJitter_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
@@ -10667,23 +10679,42 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxInfoRotSpeed_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoRotSpeed_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoSelfLit_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoSelfLit_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInfoSelfLit_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInfoSize_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoSize_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoSize_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoSmoke_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoSmoke_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInfoSmoke_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInfoSpriteRect_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoSpriteRect_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInfoSpriteRect_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoTrail_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
+| FxInfoTrail_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInfoTrail_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInfoUnderwater_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoUnderwater_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoUnderwater_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoWind_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoWind_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoWind_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
+| FxInterpInfo255_c | `Constructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInterpInfo255_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInterpInfo255_c | `GetVal` | [Resumen](../reversing/FxInterp61/validation-summary.json) |
+| FxInterpInfo255_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInterpInfo32_c | `Constructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInterpInfo32_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInterpInfo32_c | `GetVal` | [Resumen](../reversing/FxInterp61/validation-summary.json) |
+| FxInterpInfo32_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInterpInfoFloat_c | `Constructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInterpInfoFloat_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInterpInfoFloat_c | `GetVal-values` | [Resumen](../reversing/FxInterp61/validation-summary.json) |
+| FxInterpInfoFloat_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInterpInfoU255_c | `Constructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
+| FxInterpInfoU255_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInterpInfoU255_c | `GetVal` | [Resumen](../reversing/FxInterp61/validation-summary.json) |
+| FxInterpInfoU255_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxManager_c | `CalcFrustumInfo` | [Resumen](../reversing/Fx25/validation-summary.json) |
 | FxManager_c | `Constructor` | [Resumen](../reversing/Fx25/validation-summary.json) |
 | FxManager_c | `CreateFxSystem-1` | [Resumen](../reversing/Fx25/validation-summary.json) |
@@ -11030,6 +11061,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Light | `StoreAndSetLightsForInfraredVisionHeatObjects` | [Resumen](../reversing/Light27/validation-summary.json) |
 | Light | `WorldReplaceNormalLightsWithScorched` | [Resumen](../reversing/Light27/validation-summary.json) |
 | Light | `WorldReplaceScorchedLightsWithNormal` | [Resumen](../reversing/Light27/validation-summary.json) |
+| ListItem_c | `Constructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | ModelIndices | `InitModelIndices` | [Resumen](../reversing/Core70/validation-summary.json) |
 | ModelIndices | `MatchAllModelStrings` | [Resumen](../reversing/Core70/validation-summary.json) |
 | ModelIndices | `TestModelIndices` | [Resumen](../reversing/Fn152A/validation-summary.json) |
@@ -12310,13 +12342,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxEmitterPrt_c` | 2 | 0 | 2 | 0 |
 | `FxEmitter_c` | 9 | 0 | 4 | 5 |
 | `FxFrustumInfo_c` | 2 | 0 | 1 | 1 |
-| `FxInfoAnimTexture_c` | 3 | 0 | 1 | 2 |
+| `FxInfoAnimTexture_c` | 3 | 0 | 3 | 0 |
 | `FxInfoAttractLine_c` | 3 | 0 | 3 | 0 |
 | `FxInfoAttractPt_c` | 3 | 0 | 3 | 0 |
-| `FxInfoColourBright_c` | 3 | 0 | 1 | 2 |
-| `FxInfoColourRange_c` | 3 | 0 | 1 | 2 |
+| `FxInfoColourBright_c` | 3 | 0 | 3 | 0 |
+| `FxInfoColourRange_c` | 3 | 0 | 3 | 0 |
 | `FxInfoColour_c` | 3 | 0 | 3 | 0 |
-| `FxInfoDir_c` | 3 | 0 | 1 | 2 |
+| `FxInfoDir_c` | 3 | 0 | 3 | 0 |
 | `FxInfoEmAngle_c` | 3 | 0 | 3 | 0 |
 | `FxInfoEmDir_c` | 3 | 0 | 3 | 0 |
 | `FxInfoEmLife_c` | 3 | 0 | 3 | 0 |
@@ -12326,28 +12358,28 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxInfoEmSize_c` | 3 | 0 | 3 | 0 |
 | `FxInfoEmSpeed_c` | 3 | 0 | 3 | 0 |
 | `FxInfoEmWeather_c` | 3 | 0 | 3 | 0 |
-| `FxInfoFlat_c` | 3 | 0 | 1 | 2 |
+| `FxInfoFlat_c` | 3 | 0 | 3 | 0 |
 | `FxInfoFloat_c` | 3 | 0 | 3 | 0 |
 | `FxInfoForce_c` | 3 | 0 | 3 | 0 |
 | `FxInfoFriction_c` | 3 | 0 | 3 | 0 |
 | `FxInfoGroundCollide_c` | 3 | 0 | 3 | 0 |
-| `FxInfoHeatHaze_c` | 3 | 0 | 1 | 2 |
+| `FxInfoHeatHaze_c` | 3 | 0 | 3 | 0 |
 | `FxInfoJitter_c` | 3 | 0 | 3 | 0 |
 | `FxInfoManager_c` | 6 | 0 | 5 | 1 |
 | `FxInfoNoise_c` | 3 | 0 | 3 | 0 |
 | `FxInfoRotSpeed_c` | 3 | 0 | 3 | 0 |
-| `FxInfoSelfLit_c` | 3 | 0 | 1 | 2 |
+| `FxInfoSelfLit_c` | 3 | 0 | 3 | 0 |
 | `FxInfoSize_c` | 3 | 0 | 3 | 0 |
-| `FxInfoSmoke_c` | 3 | 0 | 1 | 2 |
-| `FxInfoSpriteRect_c` | 3 | 0 | 2 | 1 |
-| `FxInfoTrail_c` | 3 | 0 | 1 | 2 |
+| `FxInfoSmoke_c` | 3 | 0 | 3 | 0 |
+| `FxInfoSpriteRect_c` | 3 | 0 | 3 | 0 |
+| `FxInfoTrail_c` | 3 | 0 | 3 | 0 |
 | `FxInfoUnderwater_c` | 3 | 0 | 3 | 0 |
 | `FxInfoWind_c` | 3 | 0 | 3 | 0 |
 | `FxInfo_c` | 1 | 0 | 0 | 1 |
-| `FxInterpInfo255_c` | 4 | 0 | 1 | 3 |
-| `FxInterpInfo32_c` | 4 | 0 | 1 | 3 |
-| `FxInterpInfoFloat_c` | 4 | 0 | 1 | 3 |
-| `FxInterpInfoU255_c` | 4 | 0 | 1 | 3 |
+| `FxInterpInfo255_c` | 4 | 0 | 4 | 0 |
+| `FxInterpInfo32_c` | 4 | 0 | 4 | 0 |
+| `FxInterpInfoFloat_c` | 4 | 0 | 4 | 0 |
+| `FxInterpInfoU255_c` | 4 | 0 | 4 | 0 |
 | `FxManager_c` | 25 | 0 | 25 | 0 |
 | `FxMemoryPool_c` | 7 | 0 | 7 | 0 |
 | `FxPrimBP_c` | 4 | 0 | 4 | 0 |
@@ -12377,7 +12409,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `LibJpegError` | 3 | 0 | 0 | 3 |
 | `LibJpegMemory` | 21 | 0 | 0 | 21 |
 | `Light` | 27 | 0 | 27 | 0 |
-| `ListItem_c` | 2 | 0 | 0 | 2 |
+| `ListItem_c` | 2 | 0 | 1 | 1 |
 | `ModelIndices` | 3 | 0 | 3 | 0 |
 | `NodeNamePlugin` | 3 | 0 | 3 | 0 |
 | `Particle_c` | 1 | 0 | 1 | 0 |

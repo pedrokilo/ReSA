@@ -99,7 +99,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| * __fastcall FurnitureSubGroupListItemConstructorExe(ListItem_c&lt;FurnitureSubGroup_c&gt;* self, void* /*edx*/) | [source/game_sa/Interior/FurnitureSubGroup_c.cpp:27](../../source/game_sa/Interior/FurnitureSubGroup_c.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: ListItem_c::Constructor 0x004A8DB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall FurnitureSubGroupListItemConstructorExe(ListItem_c&lt;FurnitureSubGroup_c&gt;* self, void* /*edx*/) | [source/game_sa/Interior/FurnitureSubGroup_c.cpp:27](../../source/game_sa/Interior/FurnitureSubGroup_c.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: ListItem_c::Constructor 0x004A8DB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * SelectFurnitureByWealth(TList_c&lt;Furniture_c&gt;& list, uint8 wealth) | [source/game_sa/Interior/FurnitureSubGroup_c.cpp:57](../../source/game_sa/Interior/FurnitureSubGroup_c.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1271"></a>

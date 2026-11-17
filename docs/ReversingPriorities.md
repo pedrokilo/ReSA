@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.399 |
-| Reconstruidas sin validar | 1.042 |
-| De ellas, en esta cola (validables por pares) | 1.042 |
+| Validadas | 11.431 |
+| Reconstruidas sin validar | 1.010 |
+| De ellas, en esta cola (validables por pares) | 1.010 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,15 +22,15 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 44 | 110 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 30 | 79 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 1 | 27 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 35 | 848 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 35 | 847 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 10 | 57 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **90** | **1042** | |
+| **Total** | **76** | **1010** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (44 clases, 110 funciones)
+## 🟢 Nivel 1: muy barato (30 clases, 79 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
@@ -41,45 +41,31 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 | 3 | CBuilding | 7 | 1 |  | 12 |
 | 4 | CPedModelInfo | 12 | 1 |  | 21 |
 | 5 | CScriptsForBrains | 15 | 1 |  | 22 |
-| 6 | FxInfoSpriteRect_c | 3 | 1 |  | 28 |
-| 7 | CAudioZones | 9 | 1 |  | 31 |
-| 8 | CGamma | 3 | 1 |  | 33 |
-| 9 | FxFrustumInfo_c | 2 | 1 |  | 33 |
-| 10 | CTaskComplexSeekEntityRadiusAngleOffset | 11 | 2 |  | 4 |
-| 11 | CAEAudioEntity | 8 | 2 |  | 10 |
-| 12 | CDecisionMaker | 5 | 2 |  | 19 |
-| 13 | IKChainManager_c | 19 | 2 |  | 20 |
-| 14 | FxInfoHeatHaze_c | 3 | 2 |  | 23 |
-| 15 | FxInfoSelfLit_c | 3 | 2 |  | 23 |
-| 16 | FxInfoAnimTexture_c | 3 | 2 |  | 26 |
-| 17 | FxInfoColourBright_c | 3 | 2 |  | 26 |
-| 18 | FxInfoColourRange_c | 3 | 2 |  | 26 |
-| 19 | FxInfoDir_c | 3 | 2 |  | 27 |
-| 20 | FxInfoFlat_c | 3 | 2 |  | 27 |
-| 21 | FxInfoTrail_c | 3 | 2 |  | 27 |
-| 22 | FxInfoSmoke_c | 3 | 2 |  | 28 |
-| 23 | WaterCreatureManager_c | 9 | 2 |  | 29 |
-| 24 | CPedLookAtAttractor | 3 | 3 |  | 18 |
-| 25 | CPedParkAttractor | 3 | 3 |  | 18 |
-| 26 | CPedScriptedAttractor | 3 | 3 |  | 18 |
-| 27 | CPedStepAttractor | 3 | 3 |  | 18 |
-| 28 | CPedATMAttractor | 3 | 3 |  | 19 |
-| 29 | CPedPizzaAttractor | 3 | 3 |  | 19 |
-| 30 | CPedSeatAttractor | 3 | 3 |  | 19 |
-| 31 | CPedStopAttractor | 3 | 3 |  | 19 |
-| 32 | CPedTriggerScriptAttractor | 3 | 3 |  | 19 |
-| 33 | CPedAttractorManager | 25 | 3 |  | 22 |
-| 34 | CProtectionStub | 3 | 3 |  | 23 |
-| 35 | FxInterpInfo255_c | 4 | 3 |  | 25 |
-| 36 | FxInterpInfo32_c | 4 | 3 |  | 25 |
-| 37 | FxInterpInfoU255_c | 4 | 3 |  | 25 |
-| 38 | FxInterpInfoFloat_c | 4 | 3 |  | 26 |
-| 39 | LibJpegError | 3 | 3 |  | 26 |
-| 40 | CEntity | 76 | 3 |  | 35 |
-| 41 | CPedShelterAttractor | 11 | 4 |  | 17 |
-| 42 | FxEmitterBP_c | 13 | 4 |  | 31 |
-| 43 | FxEmitter_c | 9 | 5 |  | 34 |
-| 44 | CTheScripts | 82 | 9 |  | 31 |
+| 6 | CAudioZones | 9 | 1 |  | 31 |
+| 7 | CGamma | 3 | 1 |  | 33 |
+| 8 | FxFrustumInfo_c | 2 | 1 |  | 33 |
+| 9 | CTaskComplexSeekEntityRadiusAngleOffset | 11 | 2 |  | 4 |
+| 10 | CAEAudioEntity | 8 | 2 |  | 10 |
+| 11 | CDecisionMaker | 5 | 2 |  | 19 |
+| 12 | IKChainManager_c | 19 | 2 |  | 20 |
+| 13 | WaterCreatureManager_c | 9 | 2 |  | 29 |
+| 14 | CPedLookAtAttractor | 3 | 3 |  | 18 |
+| 15 | CPedParkAttractor | 3 | 3 |  | 18 |
+| 16 | CPedScriptedAttractor | 3 | 3 |  | 18 |
+| 17 | CPedStepAttractor | 3 | 3 |  | 18 |
+| 18 | CPedATMAttractor | 3 | 3 |  | 19 |
+| 19 | CPedPizzaAttractor | 3 | 3 |  | 19 |
+| 20 | CPedSeatAttractor | 3 | 3 |  | 19 |
+| 21 | CPedStopAttractor | 3 | 3 |  | 19 |
+| 22 | CPedTriggerScriptAttractor | 3 | 3 |  | 19 |
+| 23 | CPedAttractorManager | 25 | 3 |  | 22 |
+| 24 | CProtectionStub | 3 | 3 |  | 23 |
+| 25 | LibJpegError | 3 | 3 |  | 26 |
+| 26 | CEntity | 76 | 3 |  | 35 |
+| 27 | CPedShelterAttractor | 11 | 4 |  | 17 |
+| 28 | FxEmitterBP_c | 13 | 4 |  | 31 |
+| 29 | FxEmitter_c | 9 | 5 |  | 34 |
+| 30 | CTheScripts | 82 | 9 |  | 31 |
 
 <a id="nivel-2"></a>
 
@@ -93,7 +79,7 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (35 clases, 848 funciones)
+## 🟠 Nivel 3: moderadas (35 clases, 847 funciones)
 
 Criterio: el resto.
 
@@ -102,14 +88,14 @@ Criterio: el resto.
 | 1 | CEntryInfoList | 2 | 1 |  | 40 |
 | 2 | FxInfo_c | 1 | 1 |  | 41 |
 | 3 | CWaterLevel | 49 | 1 |  | 42 |
-| 4 | Ps | 26 | 1 |  | ? |
-| 5 | RpAnisot | 4 | 1 |  | ? |
-| 6 | RtSlerp | 1 | 1 |  | ? |
-| 7 | Win | 8 | 1 |  | ? |
-| 8 | CCamera | 126 | 2 |  | 38 |
-| 9 | CPtrNodeDoubleLinkPool | 7 | 2 |  | ? |
-| 10 | CPtrNodeSingleLinkPool | 7 | 2 |  | ? |
-| 11 | ListItem_c | 2 | 2 |  | ? |
+| 4 | ListItem_c | 2 | 1 |  | ? |
+| 5 | Ps | 26 | 1 |  | ? |
+| 6 | RpAnisot | 4 | 1 |  | ? |
+| 7 | RtSlerp | 1 | 1 |  | ? |
+| 8 | Win | 8 | 1 |  | ? |
+| 9 | CCamera | 126 | 2 |  | 38 |
+| 10 | CPtrNodeDoubleLinkPool | 7 | 2 |  | ? |
+| 11 | CPtrNodeSingleLinkPool | 7 | 2 |  | ? |
 | 12 | RtBMP | 2 | 2 |  | ? |
 | 13 | DelayLoadThunks | 3 | 3 |  | ? |
 | 14 | LegacyRuntimeError | 13 | 5 |  | ? |
