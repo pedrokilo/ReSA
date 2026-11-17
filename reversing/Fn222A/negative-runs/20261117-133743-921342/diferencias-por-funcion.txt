@@ -1,0 +1,3 @@
+{"CProtectionStub::Empty": 266, "CProtectionStub::BlockEncrypt": 884, "CProtectionStub::BlockDecrypt": 892, "CBuilding::Constructor": 909, "CAEAudioEntity::Destructor-6": 906, "CAEAudioEntity::Destructor-7": 919, "CAutoPilot::SetCarMissionUnlessCrashAndBurn": 262, "CDecisionMaker::SetDefault": 889, "CEntity::IsInvisibleOrRenderDamaged": 226, "CTheScripts::ScriptTextPairSet": 905, "CEntity::Add-void": 480, "CPtrNodeSingleLinkPool::AddItem": 778, "CPtrNodeSingleLinkPool::RemoveItem": 197, "CPtrNodeDoubleLinkPool::AddItem": 896, "CPtrNodeDoubleLinkPool::RemoveItem": 178, "CEntity::ScalarDeletingDestructor": 890}
+pares 32768 con diferencias 10477 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

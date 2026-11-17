@@ -211,7 +211,16 @@ CEntity::~CEntity() {
 // 0x533020
 // Inserta la entidad en los sectores del mundo cubiertos por su bounding rectangle.
 void CEntity::Add() {
-    Add(GetBoundRect());
+    // Como el original (0x533020: `call [eax+24h]` con ECX = this y la salida del CRect en la pila, y despues `mov edx,[esi]; call [edx+4]`): GetBoundRect (hueco 9) y Add(rect) (hueco 1) se llaman por la vtable
+    // del objeto, que se VUELVE A LEER antes de la segunda llamada (la primera puede cambiarla; el compilador reutilizaba la vtable de la primera al ser GetBoundRect const: el banco Fn222A lo midio). El
+    // rectangulo es un bloque de 4 floats sin inicializar ni copiar (sin x87).
+    using GetBoundRectFn = void(__fastcall*)(CEntity*, void*, float*);
+    using AddRectFn      = void(__fastcall*)(CEntity*, void*, const float*);
+    float rect[4];
+    void** vtbl = *reinterpret_cast<void** volatile*>(this);
+    reinterpret_cast<GetBoundRectFn>(vtbl[9])(this, nullptr, rect);
+    vtbl = *reinterpret_cast<void** volatile*>(this);
+    reinterpret_cast<AddRectFn>(vtbl[1])(this, nullptr, rect);
 }
 
 namespace {

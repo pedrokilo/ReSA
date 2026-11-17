@@ -1,0 +1,64 @@
+12:47:56 build ok main
+13:07:02 gta_lock tomado
+13:09:14 run smoke: APROBADO: Fn222A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn222a\20261117-130704-853412 
+13:23:52 run main: APROBADO: Fn222A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn222a\20261117-130915-052632 
+ronda 1 aplicada: 17 mutaciones
+13:23:59 BUILD FAIL mut1
+13:26:01 run neg1: FALLO: Fn222A Error dentro de GTA; consultar comparisons.jsonl. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn222a\20261117-132400-703865 
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+13:26:02 informe neg1: E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn222a/20261117-132400-703865
+{"CProtectionStub::Empty": 0, "CProtectionStub::BlockEncrypt": 0, "CProtectionStub::BlockDecrypt": 0, "CBuilding::Constructor": 0, "CAEAudioEntity::Destructor-6": 0, "CAEAudioEntity::Destructor-7": 0, "CAutoPilot::SetCarMissionUnlessCrashAndBurn": 0, "CDecisionMaker::SetDefault": 0, "CEntity::IsInvisibleOrRenderDamaged": 0, "CTheScripts::ScriptTextPairSet": 0, "CEntity::Add-void": 0, "CPtrNodeSingleLinkPool::AddItem": 0, "CPtrNodeSingleLinkPool::RemoveItem": 0, "CPtrNodeDoubleLinkPool::AddItem": 0, "CPtrNodeDoubleLinkPool::RemoveItem": 0, "CEntity::ScalarDeletingDestructor": 0}
+pares 32768 con diferencias 0 lado EXE fuera del oraculo 0
+funciones SIN diferencias: ['CProtectionStub::Empty', 'CProtectionStub::BlockEncrypt', 'CProtectionStub::BlockDecrypt', 'CBuilding::Constructor', 'CAEAudioEntity::Destructor-6', 'CAEAudioEntity::Destructor-7', 'CAutoPilot::SetCarMissionUnlessCrashAndBurn', 'CDecisionMaker::SetDefault', 'CEntity::IsInvisibleOrRenderDamaged', 'CTheScripts::ScriptTextPairSet', 'CEntity::Add-void', 'CPtrNodeSingleLinkPool::AddItem', 'CPtrNodeSingleLinkPool::RemoveItem', 'CPtrNodeDoubleLinkPool::AddItem', 'CPtrNodeDoubleLinkPool::RemoveItem', 'CEntity::ScalarDeletingDestructor']
+
+ronda 2 aplicada: 17 mutaciones
+13:26:09 BUILD FAIL mut2
+13:28:14 run neg2: APROBADO: Fn222A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn222a\20261117-132610-759571 
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+13:28:15 informe neg2: E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn222a/20261117-132610-759571
+{"CProtectionStub::Empty": 0, "CProtectionStub::BlockEncrypt": 0, "CProtectionStub::BlockDecrypt": 0, "CBuilding::Constructor": 0, "CAEAudioEntity::Destructor-6": 0, "CAEAudioEntity::Destructor-7": 0, "CAutoPilot::SetCarMissionUnlessCrashAndBurn": 0, "CDecisionMaker::SetDefault": 0, "CEntity::IsInvisibleOrRenderDamaged": 0, "CTheScripts::ScriptTextPairSet": 0, "CEntity::Add-void": 0, "CPtrNodeSingleLinkPool::AddItem": 0, "CPtrNodeSingleLinkPool::RemoveItem": 0, "CPtrNodeDoubleLinkPool::AddItem": 0, "CPtrNodeDoubleLinkPool::RemoveItem": 0, "CEntity::ScalarDeletingDestructor": 0}
+pares 32768 con diferencias 0 lado EXE fuera del oraculo 0
+funciones SIN diferencias: ['CProtectionStub::Empty', 'CProtectionStub::BlockEncrypt', 'CProtectionStub::BlockDecrypt', 'CBuilding::Constructor', 'CAEAudioEntity::Destructor-6', 'CAEAudioEntity::Destructor-7', 'CAutoPilot::SetCarMissionUnlessCrashAndBurn', 'CDecisionMaker::SetDefault', 'CEntity::IsInvisibleOrRenderDamaged', 'CTheScripts::ScriptTextPairSet', 'CEntity::Add-void', 'CPtrNodeSingleLinkPool::AddItem', 'CPtrNodeSingleLinkPool::RemoveItem', 'CPtrNodeDoubleLinkPool::AddItem', 'CPtrNodeDoubleLinkPool::RemoveItem', 'CEntity::ScalarDeletingDestructor']
+
+13:28:26 fin
+---- rondas negativas (segunda tanda)
+13:30:45 gta_lock tomado
+ronda 1 aplicada: 17 mutaciones
+13:32:57 run neg1: FALLO: Fn222A Funciones con diferencias: CProtectionStub::Empty: 238/2048; CProtectionStub::BlockEncrypt: 884/2048; CProtectionStub::BlockDecrypt: 892/2048; CBuilding::Constructor: 909/2048; CAEAudioEntity::Destructor-6: 906/2048; CAEAudioEntity::Destructor-7: 919/2048; CAutoPilot::SetCarMissionUnl
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+13:32:57 informe neg1: E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn222a/20261117-133056-818548
+{"CProtectionStub::Empty": 238, "CProtectionStub::BlockEncrypt": 884, "CProtectionStub::BlockDecrypt": 892, "CBuilding::Constructor": 909, "CAEAudioEntity::Destructor-6": 906, "CAEAudioEntity::Destructor-7": 919, "CAutoPilot::SetCarMissionUnlessCrashAndBurn": 573, "CDecisionMaker::SetDefault": 889, "CEntity::IsInvisibleOrRenderDamaged": 449, "CTheScripts::ScriptTextPairSet": 905, "CEntity::Add-void": 887, "CPtrNodeSingleLinkPool::AddItem": 901, "CPtrNodeSingleLinkPool::RemoveItem": 174, "CPtrNodeDoubleLinkPool::AddItem": 754, "CPtrNodeDoubleLinkPool::RemoveItem": 181, "CEntity::ScalarDeletingDestructor": 514}
+pares 32768 con diferencias 10975 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []
+
+ronda 2 aplicada: 17 mutaciones
+13:34:54 run neg2: FALLO: Fn222A GTA no responde (ventana colgada y sin progreso 30 s; abortado). Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn222a\20261117-133311-172130 
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+13:34:55 informe neg2: E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn222a/20261117-133311-172130
+{"CProtectionStub::Empty": 266, "CProtectionStub::BlockEncrypt": 884, "CProtectionStub::BlockDecrypt": 892, "CBuilding::Constructor": 909, "CAEAudioEntity::Destructor-6": 906, "CAEAudioEntity::Destructor-7": 919, "CAutoPilot::SetCarMissionUnlessCrashAndBurn": 262, "CDecisionMaker::SetDefault": 889, "CEntity::IsInvisibleOrRenderDamaged": 226, "CTheScripts::ScriptTextPairSet": 25, "CEntity::Add-void": 0, "CPtrNodeSingleLinkPool::AddItem": 0, "CPtrNodeSingleLinkPool::RemoveItem": 0, "CPtrNodeDoubleLinkPool::AddItem": 0, "CPtrNodeDoubleLinkPool::RemoveItem": 0, "CEntity::ScalarDeletingDestructor": 0}
+pares 18489 con diferencias 6178 lado EXE fuera del oraculo 0
+funciones SIN diferencias: ['CEntity::Add-void', 'CPtrNodeSingleLinkPool::AddItem', 'CPtrNodeSingleLinkPool::RemoveItem', 'CPtrNodeDoubleLinkPool::AddItem', 'CPtrNodeDoubleLinkPool::RemoveItem', 'CEntity::ScalarDeletingDestructor']
+
+13:35:05 fin
+---- rondas negativas (segunda tanda)
+13:35:30 gta_lock tomado
+ronda 2 aplicada: 17 mutaciones
+13:37:04 run neg2: FALLO: Fn222A Funciones con diferencias: CProtectionStub::Empty: 266/2048; CProtectionStub::BlockEncrypt: 884/2048; CProtectionStub::BlockDecrypt: 892/2048; CBuilding::Constructor: 909/2048; CAEAudioEntity::Destructor-6: 906/2048; CAEAudioEntity::Destructor-7: 919/2048; CAutoPilot::SetCarMissionUnl
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+13:37:04 informe neg2: E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn222a/20261117-133541-505401
+{"CProtectionStub::Empty": 266, "CProtectionStub::BlockEncrypt": 884, "CProtectionStub::BlockDecrypt": 892, "CBuilding::Constructor": 909, "CAEAudioEntity::Destructor-6": 906, "CAEAudioEntity::Destructor-7": 919, "CAutoPilot::SetCarMissionUnlessCrashAndBurn": 262, "CDecisionMaker::SetDefault": 889, "CEntity::IsInvisibleOrRenderDamaged": 226, "CTheScripts::ScriptTextPairSet": 905, "CEntity::Add-void": 0, "CPtrNodeSingleLinkPool::AddItem": 0, "CPtrNodeSingleLinkPool::RemoveItem": 0, "CPtrNodeDoubleLinkPool::AddItem": 0, "CPtrNodeDoubleLinkPool::RemoveItem": 0, "CEntity::ScalarDeletingDestructor": 0}
+pares 20481 con diferencias 7058 lado EXE fuera del oraculo 0
+funciones SIN diferencias: ['CEntity::Add-void', 'CPtrNodeSingleLinkPool::AddItem', 'CPtrNodeSingleLinkPool::RemoveItem', 'CPtrNodeDoubleLinkPool::AddItem', 'CPtrNodeDoubleLinkPool::RemoveItem', 'CEntity::ScalarDeletingDestructor']
+
+13:37:14 fin
+---- rondas negativas (segunda tanda)
+13:37:32 gta_lock tomado
+ronda 2 aplicada: 17 mutaciones
+13:39:49 run neg2: FALLO: Fn222A Funciones con diferencias: CProtectionStub::Empty: 266/2048; CProtectionStub::BlockEncrypt: 884/2048; CProtectionStub::BlockDecrypt: 892/2048; CBuilding::Constructor: 909/2048; CAEAudioEntity::Destructor-6: 906/2048; CAEAudioEntity::Destructor-7: 919/2048; CAutoPilot::SetCarMissionUnl
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+13:39:49 informe neg2: E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn222a/20261117-133743-921342
+{"CProtectionStub::Empty": 266, "CProtectionStub::BlockEncrypt": 884, "CProtectionStub::BlockDecrypt": 892, "CBuilding::Constructor": 909, "CAEAudioEntity::Destructor-6": 906, "CAEAudioEntity::Destructor-7": 919, "CAutoPilot::SetCarMissionUnlessCrashAndBurn": 262, "CDecisionMaker::SetDefault": 889, "CEntity::IsInvisibleOrRenderDamaged": 226, "CTheScripts::ScriptTextPairSet": 905, "CEntity::Add-void": 480, "CPtrNodeSingleLinkPool::AddItem": 778, "CPtrNodeSingleLinkPool::RemoveItem": 197, "CPtrNodeDoubleLinkPool::AddItem": 896, "CPtrNodeDoubleLinkPool::RemoveItem": 178, "CEntity::ScalarDeletingDestructor": 890}
+pares 32768 con diferencias 10477 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []
+
+13:40:01 fin

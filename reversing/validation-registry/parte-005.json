@@ -104092,6 +104092,807 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): constructor base de CPedAttractor 0x5EDFB0 y CPedAttractor::Destructor 0x5EC410, BroadcastArrival 0x5EEF80, RegisterPed 0x5EEE30, push_back 0x5EE400, cuerpo del destructor 0x493890, CTask::operator delete 0x61A5B0, IsPointWithinSearchLight 0x493280, constructor de CTaskComplexWander 0x66F450, GetProcAddress (IAT) y las API que el bloque protector llama por punteros de sus datos. Corren reales: CPedAttractorPool::New, los constructores de las diez clases de atractor, MD5Update y la transformacion del MD5 0x4012E9 (lote 238A, aun sin validar por si misma). Las rutinas 0x401FBB, 0x402370 y 0x4028A2 del EXE usan ESI sin guardarlo: la compuerta de registros no volatiles se exige solo a la DLL. 0x4027CD (convencion propia con acarreo) queda fuera.",
       "review_reference": "reversing/Fn221A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CProtectionStub",
+        "fn_name": "Empty",
+        "address": "0x004032A4",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CProtectionStub::Empty"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CProtectionStub",
+        "fn_name": "BlockEncrypt",
+        "address": "0x00403638",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CProtectionStub::BlockEncrypt"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CProtectionStub",
+        "fn_name": "BlockDecrypt",
+        "address": "0x004036C1",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CProtectionStub::BlockDecrypt"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBuilding",
+        "fn_name": "Constructor",
+        "address": "0x00403E00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CBuilding::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEAudioEntity",
+        "fn_name": "Destructor-6",
+        "address": "0x00447000",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CAEAudioEntity::Destructor-6"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEAudioEntity",
+        "fn_name": "Destructor-7",
+        "address": "0x00447050",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CAEAudioEntity::Destructor-7"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutoPilot",
+        "fn_name": "SetCarMissionUnlessCrashAndBurn",
+        "address": "0x00463490",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CAutoPilot::SetCarMissionUnlessCrashAndBurn"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDecisionMaker",
+        "fn_name": "SetDefault",
+        "address": "0x004634D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CDecisionMaker::SetDefault"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "IsInvisibleOrRenderDamaged",
+        "address": "0x0046A2F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::IsInvisibleOrRenderDamaged"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheScripts",
+        "fn_name": "ScriptTextPairSet",
+        "address": "0x0046A340",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CTheScripts::ScriptTextPairSet"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "Add-void",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::Add-void"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00533020"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPtrNodeSingleLinkPool",
+        "fn_name": "AddItem",
+        "address": "0x005335E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CPtrNodeSingleLinkPool::AddItem"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPtrNodeSingleLinkPool",
+        "fn_name": "RemoveItem",
+        "address": "0x00533610",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CPtrNodeSingleLinkPool::RemoveItem"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPtrNodeDoubleLinkPool",
+        "fn_name": "AddItem",
+        "address": "0x00533670",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CPtrNodeDoubleLinkPool::AddItem"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPtrNodeDoubleLinkPool",
+        "fn_name": "RemoveItem",
+        "address": "0x005336B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CPtrNodeDoubleLinkPool::RemoveItem"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x00536C20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn222A/validation-summary.json",
+        "sha256": "4f9086fd9d751ccc858c76be9c57f172d4618a93004032f3037b4b43cab668f8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
+        "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
+        "source/game_sa/Entity/Building.cpp": "697ee08a220e8a30d14a46b78e011642823404d0e13dfb840e72b611cd2087a2",
+        "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "49ea342c53a7977acc1379c7f8bdb2051e457803f2440c02746241c0930e73c4",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
+        "source/game_sa/AutoPilot.cpp": "ff9c5dbcac7e4caa62eb05732a23934f6e155d78a3fd0aad7bf07bddb7a5e5fc",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "c571efc837d76fe8ef93e33db0a2b6d1cdfa590b3964e53fed819ba6f8b10cfb",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "3234af34b42fe692e3b9361df37e993d623846551a5665ee0de87db312d2b128",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "0a1683a0a57f886e321dc6dad5a084094d1b560f3580dbd71e69437475926de1",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "447030df03f596684ecd6e137697fe41ed1a2ec6bf9c3686fe21f07fa8cafbda",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "2b667acce22b893b23719c999f5eddb10f82c24428fa700e32cc3b71dee80e20",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "5f5786c5943b99c5edf2e2a92742a61ddb22add82765c8b24733982017b5683f",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn222A/LiveComparison.hpp": "bc3c853e821240e514c68ccae05f20bf4ea5d0e9b2f345726e34f7ef933e3189",
+        "reversing/Fn222A/Core.hpp": "f0133a3d2aa148965edf76fbbe8d99eb01cd7175dfd805f239eca9c305e9d24c",
+        "reversing/Fn222A/Fixtures.hpp": "9c595386e350ec28fbc28f593e4d63eea11320cf0a4527067b2a86e7f2d4f8df",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn222A/README.md"
     }
   ]
 }
