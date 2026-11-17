@@ -52,6 +52,17 @@ END GENERATED HOOK STATUS */
 #include "PosCalculators/EntitySeekPosCalculatorXYOffset.h"
 #include "PosCalculators/EntitySeekPosCalculatorFixedPos.h"
 
+// Lote 210A (sin validar): acceso a los constructores enganchados (privados) de las subtareas que crea CreateSubTask (0x673070 / 0x665270): el EXE reserva con CTask::operator new y llama a esos cuerpos.
+struct SeekEntityCtorAccess {
+    static CTaskComplexTurnToFaceEntityOrCoord* Turn(void* m, CEntity* e) { return static_cast<CTaskComplexTurnToFaceEntityOrCoord*>(m)->Constructor(e, 0.5f, 0.2f); }                    // 0x66B890
+    static CTaskComplexFollowNodeRoute* Follow(void* m, eMoveState ms, const CVector& p, float a, float b, float c) { return static_cast<CTaskComplexFollowNodeRoute*>(m)->Constructor(ms, p, a, b, c, false, -1, true); } // 0x66EA30
+    static CTaskComplexGoToPointAndStandStill* GoTo(void* m, eMoveState ms, const CVector& p, float a, float b) { return static_cast<CTaskComplexGoToPointAndStandStill*>(m)->Constructor(ms, p, a, b, false, false); } // 0x668120
+    static CTaskSimpleCarDriveTimed* Drive(void* m, CVehicle* v) { return static_cast<CTaskSimpleCarDriveTimed*>(m)->Constructor(v, 2000); }                                         // 0x5FF940
+    static CTaskComplexLeaveCar* Leave(void* m, CVehicle* v) { return static_cast<CTaskComplexLeaveCar*>(m)->Constructor(v, 0, 0, true, false); }                                       // 0x63B8C0
+    static CTaskComplexSequence* Seq(void* m) { return static_cast<CTaskComplexSequence*>(m)->Constructor(); }                                                                          // 0x632BD0
+    static CTaskSimpleStandStill* Stand(void* m, int32 t) { return static_cast<CTaskSimpleStandStill*>(m)->Constructor(t, false, false, 8.0f); }                                         // 0x62F310
+};
+
 // 0x4BC470 con los registros del EXE (TaskComplexSeekEntityXYOffset.cpp); el argumento llega como los bits del float.
 uint32 __fastcall SetMaxEntityDist2DRegs(void* self, uint32 entryEdx, uint32 distanceBits);
 
@@ -170,49 +181,64 @@ public:
         CEntity::SafeCleanUpRef(m_entityToSeek);
     }
 
-    CTask* CreateSubTask(eTaskType type, CPed* ped) {
+    // Como el original (0x673070 / 0x665270): cada rama reserva con CTask::operator new (0x61A5A0) y llama al constructor enganchado de la subtarea (el EAX del constructor es el resultado); sin memoria devuelve nulo.
+    // Tipo desconocido -> nulo. El calculador de la posicion se llama despues de reservar (GetSeekPos, virtual).
+    __declspec(noinline) CTask* CreateSubTask(eTaskType type, CPed* ped) {
         switch (type) {
         case TASK_FINISHED:
             return nullptr;
-        case TASK_COMPLEX_TURN_TO_FACE_ENTITY:
-            return new CTaskComplexTurnToFaceEntityOrCoord{ m_entityToSeek };
-        case TASK_COMPLEX_FOLLOW_NODE_ROUTE:
-            return new CTaskComplexFollowNodeRoute{
-                m_moveState,
-                GetSeekPos(ped),
-                m_maxEntityDist2D,
-                m_moveStateRadius,
-                m_followNodeThresholdHeightChange,
-                false,
-                -1,
-                true
-            };
-        case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL:
-            return new CTaskComplexGoToPointAndStandStill{
-                m_moveState,
-                GetSeekPos(ped),
-                m_maxEntityDist2D,
-                m_moveStateRadius,
-                false,
-                false,
-                m_bTrackingEntity
-            };
-        case TASK_SIMPLE_CAR_DRIVE_TIMED:
-            return new CTaskSimpleCarDriveTimed{ ped->m_pVehicle, 2000 };
-        case TASK_COMPLEX_LEAVE_CAR:
-            return new CTaskComplexLeaveCar{ ped->m_pVehicle, TARGET_DOOR_FRONT_LEFT, 0, true, false };
-        case TASK_COMPLEX_SEQUENCE: {
-            const auto seq = new CTaskComplexSequence; // Como el original (0x632BD0): sin value-init, el relleno tras m_bFlushTasks (+0x39..+0x3B) no se escribe
-            if (m_bFaceEntityWhenDone) {
-                seq->AddTask(new CTaskComplexTurnToFaceEntityOrCoord{ m_entityToSeek });
+        case TASK_COMPLEX_TURN_TO_FACE_ENTITY: {
+            void* const memory = CTask::operator new(sizeof(CTaskComplexTurnToFaceEntityOrCoord));
+            return memory ? SeekEntityCtorAccess::Turn(memory, m_entityToSeek) : nullptr;
+        }
+        case TASK_COMPLEX_FOLLOW_NODE_ROUTE: {
+            void* const memory = CTask::operator new(sizeof(CTaskComplexFollowNodeRoute));
+            if (!memory) {
+                return nullptr;
             }
-            seq->AddTask(new CTaskSimpleStandStill{ 100 });
+            const CVector seekPos = GetSeekPos(ped);
+            return SeekEntityCtorAccess::Follow(memory, m_moveState, seekPos, m_maxEntityDist2D, m_moveStateRadius, m_followNodeThresholdHeightChange);
+        }
+        case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL: {
+            void* const memory = CTask::operator new(sizeof(CTaskComplexGoToPointAndStandStill));
+            if (!memory) {
+                return nullptr; // el EXE seguiria con EAX = 0 y escribiria en [eax + 24h]
+            }
+            const CVector seekPos = GetSeekPos(ped);
+            const auto task = SeekEntityCtorAccess::GoTo(memory, m_moveState, seekPos, m_maxEntityDist2D, m_moveStateRadius);
+            task->m_bTrackingEntity = m_bTrackingEntity;
+            return task;
+        }
+        case TASK_SIMPLE_CAR_DRIVE_TIMED: {
+            void* const memory = CTask::operator new(sizeof(CTaskSimpleCarDriveTimed));
+            return memory ? SeekEntityCtorAccess::Drive(memory, ped->m_pVehicle) : nullptr;
+        }
+        case TASK_COMPLEX_LEAVE_CAR: {
+            void* const memory = CTask::operator new(sizeof(CTaskComplexLeaveCar));
+            return memory ? SeekEntityCtorAccess::Leave(memory, ped->m_pVehicle) : nullptr;
+        }
+        case TASK_COMPLEX_SEQUENCE: {
+            void* const memory = CTask::operator new(sizeof(CTaskComplexSequence));
+            if (!memory) {
+                return nullptr;
+            }
+            const auto seq = SeekEntityCtorAccess::Seq(memory); // Como el original (0x632BD0): sin value-init, el relleno tras m_bFlushTasks (+0x39..+0x3B) no se escribe
+            if (m_bFaceEntityWhenDone) {
+                void* const turnMemory = CTask::operator new(sizeof(CTaskComplexTurnToFaceEntityOrCoord));
+                seq->AddTask(turnMemory ? SeekEntityCtorAccess::Turn(turnMemory, m_entityToSeek) : nullptr);
+            }
+            void* const standMemory = CTask::operator new(sizeof(CTaskSimpleStandStill));
+            seq->AddTask(standMemory ? SeekEntityCtorAccess::Stand(standMemory, 100) : nullptr);
             return seq;
         }
-        case TASK_SIMPLE_STAND_STILL:
-            return new CTaskSimpleStandStill{ 2000 };
-        case TASK_SIMPLE_TIRED:
-            return new CTaskSimpleTired{ 1000u };
+        case TASK_SIMPLE_STAND_STILL: {
+            void* const memory = CTask::operator new(sizeof(CTaskSimpleStandStill));
+            return memory ? SeekEntityCtorAccess::Stand(memory, 2000) : nullptr;
+        }
+        case TASK_SIMPLE_TIRED: {
+            void* const memory = CTask::operator new(sizeof(CTaskSimpleTired));
+            return memory ? static_cast<CTaskSimpleTired*>(memory)->Constructor(1000) : nullptr;
+        }
         default:
             return nullptr; // Como el original: un tipo desconocido devuelve nulo
         }
@@ -350,7 +376,11 @@ public:
                 if (!m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) {
                     return m_pSubTask;
                 }
-                return m_bPlayTiredAnim ? new CTaskSimpleTired{ 1000u } : nullptr;
+                if (!m_bPlayTiredAnim) {
+                    return nullptr;
+                }
+                void* const tiredMemory = CTask::operator new(sizeof(CTaskSimpleTired)); // Como el original: reserva (0x61A5A0) y constructor enganchado 0x630F20
+                return tiredMemory ? static_cast<CTaskSimpleTired*>(tiredMemory)->Constructor(1000) : nullptr;
             }
 
             if (!m_scanTimer.IsOutOfTime()) {
@@ -363,9 +393,10 @@ public:
             m_scanTimer.m_bStarted   = true;
 
             const auto seekPos = GetSeekPos(ped);
-            CVector    pedToSeekPos;
-            pedToSeekPos.Difference(ped->GetPosition(), seekPos);
-            const float pedToSeekPosDist2dSq = pedToSeekPos.x * pedToSeekPos.x + pedToSeekPos.y * pedToSeekPos.y;
+            // Como el original (0x673989 / 0x665A..): la resta y los productos van en linea (sin CVector::Difference)
+            const float pedToSeekPosDx = ped->GetPosition().x - seekPos.x;
+            const float pedToSeekPosDy = ped->GetPosition().y - seekPos.y;
+            const float pedToSeekPosDist2dSq = pedToSeekPosDx * pedToSeekPosDx + pedToSeekPosDy * pedToSeekPosDy;
 
             if (m_pSubTask->GetTaskType() == TASK_COMPLEX_FOLLOW_NODE_ROUTE) {
                 if (m_minEntityDist2D != 0.f) {
@@ -393,7 +424,13 @@ public:
                         return m_pSubTask;
                     }
                     checkSay = false;
-                    return CreateSubTask(TASK_COMPLEX_FOLLOW_NODE_ROUTE, ped);
+                    // Como el original: construye la tarea en linea (reserva, GetSeekPos y constructor 0x66EA30), sin pasar por CreateSubTask
+                    void* const memory = CTask::operator new(sizeof(CTaskComplexFollowNodeRoute));
+                    if (!memory) {
+                        return nullptr;
+                    }
+                    const CVector newSeekPos = GetSeekPos(ped);
+                    return SeekEntityCtorAccess::Follow(memory, m_moveState, newSeekPos, m_maxEntityDist2D, m_moveStateRadius, m_followNodeThresholdHeightChange);
                 }
             }
             subTaskStandStill->GoToPoint(seekPos, m_maxEntityDist2D, m_moveStateRadius, false);
@@ -402,7 +439,7 @@ public:
 
         if (checkSay && m_entityToSeek && m_entityToSeek->GetIsTypePed()) {
             if (m_entityToSeek->AsPed()->IsPlayer()) { // Entity to seek is a player
-                if (CPedGroups::ms_groups.data()[FindPlayerPed()->GetPlayerData()->m_nPlayerGroup].GetMembership().IsFollower(ped)) { // Como el original (0x46FDDA): ms_groups sin comprobar si el grupo está activo
+                if (CPedGroups::ms_groups.data()[FindPlayerPed()->GetPlayerData()->m_nPlayerGroup].GetMembership().IsMember(ped)) { // Como el original (0x5F6A10; el EXE llama a IsMember, no a IsFollower) (0x46FDDA): ms_groups sin comprobar si el grupo está activo
                     if (ped->IsJoggingOrFaster()) {
                         if (((uint16)CTimer::GetFrameCounter() + ped->m_nRandomSeed) % 16384 == 0) {
                             ped->Say(CTX_GLOBAL_FOLLOW_CONSTANT);
@@ -445,7 +482,7 @@ public:
     // 0x665DC0 (lote 151A, banco Fn151A; solo la especializacion XYOffset, la unica con hook): thiscall, puntero de salida (CVector devuelto por valor) y peaton en la pila, `ret 8`, devuelve el puntero de salida.
     // Como el original: la llamada al calculador (objeto incrustado en +0x40) es VIRTUAL (`call [vtable]`: el calculador se pasa como referencia a la base para que no se resuelva en compilacion), con el peaton,
     // la entidad (+0xC, sin comprobar nulo) y un temporal local; despues copia el temporal a la salida.
-    CVector GetSeekPos(CPed* ped) {
+    __declspec(noinline) CVector GetSeekPos(CPed* ped) {
         CVector seekPos; // Como el original: temporal local sin inicializar (no la salida: con NRVO la salida se escribia antes de la llamada y el calculador la veia cambiada)
         CEntitySeekPosCalculator& calculator = m_entitySeekPosCalculator;
         calculator.ComputeEntitySeekPos(*ped, *m_entityToSeek, seekPos);
@@ -496,13 +533,20 @@ private:
             newPedPos = groundPos;
         }
 
-        CMatrix invBoatMat;
+        // Como el original: matriz local con solo el enlace y la bandera de propiedad a cero (sin constructor), destruida al final con el cuerpo 0x59ACD0
+        alignas(CMatrix) uint8 invStorage[sizeof(CMatrix)];
+        auto& invBoatMat = *reinterpret_cast<CMatrix*>(invStorage);
+        *reinterpret_cast<uint32*>(invStorage + 0x40) = 0;
+        *reinterpret_cast<uint32*>(invStorage + 0x44) = 0;
         Invert(*commonBoat->m_matrix, invBoatMat); // Como el original: 0x59B920 con la matriz del barco
         CVector offset;
         offset.FromMultiply3x3(invBoatMat, newPedPos - boatPos);
         const float heading = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(pedToBoatDir.x, pedToBoatDir.y, 0.f, 0.f));
         ped->AttachPedToEntity(commonBoat, offset, (uint16)(int32)heading, 0.2f, ped->GetActiveWeapon().m_Type); // Como el original: _ftol2 del ángulo
-        return new CTaskSimpleStandStill{ 2000 };
+        void* const memory = CTask::operator new(sizeof(CTaskSimpleStandStill));
+        CTask* const task = memory ? SeekEntityCtorAccess::Stand(memory, 2000) : nullptr;
+        invBoatMat.Destructor();
+        return task;
     }
 
     CTask* CreateSubTaskWhenPedIsTooFarFromEntity(CPed* ped, float pedToSeekPosDist2DSq) {
@@ -552,7 +596,7 @@ protected: // Wrappers for hooks
     // +0x20 = distancia minima = 0, +0x24 = umbral de altura, temporizadores +0x28 y +0x34 a cero, calculador incrustado +0x40 (vtable 0x86FD18, posicion fija +0x44..+0x4C = 0), +0x50 = 6 (PEDMOVE_RUN) y los
     // bits de +0x54: bit 0 = tired (bool & 1), bit 1 = cara a la entidad (bool & 1), bits 2 y 3 a cero (el nibble alto no se toca). Si la entidad no es nula, CEntity::RegisterReference (0x571B70) sobre +0xC. La
     // vtable de la clase del EXE (0x87004C) queda escrita al final (el constructor de C++ deja la de la DLL) y la del calculador la del EXE (0x86FD18); la posicion fija se rellena despues, fuera del constructor.
-    CTaskComplexSeekEntity* ConstructorFixedPos(
+    __declspec(noinline) CTaskComplexSeekEntity* ConstructorFixedPos(
         CEntity* entity,
         int32    seekInterval,
         int32    scanInterval,

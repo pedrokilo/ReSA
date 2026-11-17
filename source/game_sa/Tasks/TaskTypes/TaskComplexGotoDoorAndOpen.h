@@ -37,6 +37,7 @@ private:
     static void InjectHooks();
     CTaskComplexGotoDoorAndOpen* Constructor(CObject* door) { this->CTaskComplexGotoDoorAndOpen::CTaskComplexGotoDoorAndOpen(door); return this; }
     CTaskComplexGotoDoorAndOpen* Constructor(CVector const& start, CVector const& end) { this->CTaskComplexGotoDoorAndOpen::CTaskComplexGotoDoorAndOpen(start, end); return this; }
-    CTaskComplexGotoDoorAndOpen* Destructor() { this->CTaskComplexGotoDoorAndOpen::~CTaskComplexGotoDoorAndOpen(); return this; }
+public:
+    __declspec(noinline) CTaskComplexGotoDoorAndOpen* Destructor() { this->CTaskComplexGotoDoorAndOpen::~CTaskComplexGotoDoorAndOpen(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexGotoDoorAndOpen, 0x38);

@@ -4614,7 +4614,7 @@ bool CAutomobile::GetAllWheelsOffGround() const {
 // rama) arrastre / 1000 * 0.5 (x87 a 24 bits: division y producto redondeados a float), si no el dword del arrastre tal cual.
 void CAutomobile::DebugCode() {
     static_assert(offsetof(CVehicleModelInfo, m_nHandlingId) == 0x4A); // `movzx ecx, byte [edi+4Ah]`
-    auto* const mi = GetVehicleModelInfo();
+    auto* const mi = static_cast<CVehicleModelInfo*>(CModelInfo::GetModelInfo(static_cast<int32>(static_cast<int16>(m_nModelIndex)))); // como el EXE: movsx del indice (word con signo)
     auto* const vehicle = FindPlayerVehicle(-1, false);
     bool isPlayerVehicle = false;
     if (vehicle == this && !FindPlayerInfo().m_pRemoteVehicle) {

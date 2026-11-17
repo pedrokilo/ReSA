@@ -4,6 +4,7 @@
 
 class CVehicle;
 
+struct SeekEntityCtorAccess;
 class NOTSA_EXPORT_VTABLE CTaskSimpleCarDriveTimed : public CTaskSimpleCarDrive {
 public:
     int32      m_nTime;
@@ -21,6 +22,7 @@ public:
     bool ProcessPed(class CPed* ped) override;
 
 private:
+    friend struct SeekEntityCtorAccess;
     friend void InjectHooksMain();
     static void InjectHooks();
     CTaskSimpleCarDriveTimed* Constructor(CVehicle* vehicle, int32 nTime);

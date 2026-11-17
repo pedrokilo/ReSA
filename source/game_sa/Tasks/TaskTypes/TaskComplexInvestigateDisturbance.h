@@ -37,7 +37,8 @@ private: // Wrappers for hooks
     }
 
     // 0x66C7A0
-    CTaskComplexInvestigateDisturbance* Destructor() {
+public:
+    __declspec(noinline) CTaskComplexInvestigateDisturbance* Destructor() {
         this->CTaskComplexInvestigateDisturbance::~CTaskComplexInvestigateDisturbance();
         return this;
     }

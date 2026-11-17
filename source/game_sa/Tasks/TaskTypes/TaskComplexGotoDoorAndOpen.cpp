@@ -49,14 +49,11 @@ CTask* __fastcall GoToEntryExitCenterTask(void* self, void* /*edx*/, void* /*unu
 } // namespace
 
 namespace {
-// 0x66BC00 (con hook, Destructor): cuerpo del destructor de CTaskComplexGotoDoorAndOpen del EXE. Funcion propia sin expansion en linea para que el destructor con borrado la llame como el `call 0x66BC00` del EXE.
-__declspec(noinline) void __fastcall GotoDoorAndOpenDestructorBody(CTaskComplexGotoDoorAndOpen* self, void* /*edx*/) { self->CTaskComplexGotoDoorAndOpen::~CTaskComplexGotoDoorAndOpen(); }
-
 // 0x6711F0 (lote 210A, sin validar; el listado lo atribuia a otra clase): destructor con borrado de CTaskComplexGotoDoorAndOpen del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x66BC00;
 // test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del
 // BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
 CTaskComplexGotoDoorAndOpen* __fastcall GotoDoorAndOpenScalarDeletingDestructor(CTaskComplexGotoDoorAndOpen* self, void* /*edx*/, uint8 flags) {
-    GotoDoorAndOpenDestructorBody(self, nullptr);
+    self->Destructor(); // cuerpo enganchado (con hook)
     if (flags & 1) {
         CTask::operator delete(self);
     }

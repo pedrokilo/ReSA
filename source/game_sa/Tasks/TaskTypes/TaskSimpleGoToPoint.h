@@ -34,6 +34,6 @@ public:
 
     static void InjectHooks();
     CTaskSimpleGoToPoint* ScalarDeletingDestructor(uint8 flags); // 0x66D6F0 (lote 195A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86FD50), `ret 4`
-    auto Constructor(eMoveState moveState, const CVector& targetPoint, float fRadius, bool bMoveTowardsTargetPoint, bool a6) { this->CTaskSimpleGoToPoint::CTaskSimpleGoToPoint(moveState, targetPoint, fRadius, bMoveTowardsTargetPoint, a6); return this; }
+    __declspec(noinline) auto Constructor(eMoveState moveState, const CVector& targetPoint, float fRadius, bool bMoveTowardsTargetPoint, bool a6) { this->CTaskSimpleGoToPoint::CTaskSimpleGoToPoint(moveState, targetPoint, fRadius, bMoveTowardsTargetPoint, a6); return this; }
 };
 VALIDATE_SIZE(CTaskSimpleGoToPoint, 0x30);

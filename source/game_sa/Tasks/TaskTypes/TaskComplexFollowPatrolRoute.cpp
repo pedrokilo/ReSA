@@ -38,6 +38,10 @@ namespace CTaskComplexBody {
 void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
 }
 
+namespace CTaskSimpleBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
+}
+
 namespace {
 // 0x674930 (lote 175A, banco Fn175A; el listado lo atribuia a CTaskComplexWanderProstitute): constructor de CTaskComplexFollowPatrolRoute del EXE (thiscall, CINCO argumentos de pila, `ret 14h`, 182 bytes, marco SEH que
 // solo desenrolla). Argumentos: a (16 bits bajos), ruta origen, b (16 bits bajos), c y d (32 bits). Como el original, en este orden: base CTaskComplex (0x61A3B0, con hook); +0x10 = a; vtable de la clase del EXE (0x870114);
@@ -171,7 +175,7 @@ void CTaskComplexFollowPatrolRoute::InjectHooks() {
 // TASK_NONE (0xC8). Con k == n (se pasa del ultimo nodo): el contador de pasadas (+0xE, 16 bits) se incrementa SIEMPRE, antes de mirar el modo (+0xC, con signo; > 3 sin signo -> TASK_NONE): modo 0 -> TASK_FINISHED; modo 1 ->
 // TASK_FINISHED si el contador no es 1 (comparacion de 16 bits), si no sigue como el modo 2; modo 2 -> CPatrolRoute::Reverse (0x66D550, con hook) y sigue como el modo 3; modo 3 -> nodo actual = 0 y se vuelve a calcular (salto
 // recursivo a 0x670A70 con el mismo this).
-eTaskType CTaskComplexFollowPatrolRoute::GetNextSubTaskType() {
+__declspec(noinline) eTaskType CTaskComplexFollowPatrolRoute::GetNextSubTaskType() {
     const int32 nodeCount = static_cast<int32>(m_pRoute->m_nNumNodes);
     if (nodeCount == 0) {
         return TASK_FINISHED;
@@ -219,16 +223,27 @@ eTaskType CTaskComplexFollowPatrolRoute::GetNextSubTaskType() {
 //    0x28 bytes, CTaskComplexGoToPointAndStandStill (0x668120, con hook) con (estado, punto k, radio +0x14, ese radio, false, false).
 //  - TASK_COMPLEX_FOLLOW_NODE_ROUTE (0x38A): ruta vacia -> nulo sin reservar. Si el nodo actual (con signo) es igual al contador, se decrementa (16 bits) y se escribe en +0x12 (aunque despues no haya memoria). Copia el punto
 //    k a una variable local, reserva 0x60 bytes y construye CTaskComplexFollowNodeRoute (0x66EA30, con hook) con (estado, punto, 0.5f (0x86FCA0), 3.0f (0x86FCA4), 2.0f (0x86FCA8), false, -1, true).
-CTask* CTaskComplexFollowPatrolRoute::CreateSubTask(int32 taskType) {
+__declspec(noinline) CTask* CTaskComplexFollowPatrolRoute::CreateSubTask(int32 taskType) {
+    // Como el original: cada rama reserva con CTask::operator new (0x61A5A0); sin memoria devuelve nulo sin construir; si no, devuelve el EAX del constructor enganchado de la subtarea
     switch (taskType) {
-    case TASK_SIMPLE_GO_TO_POINT:
-        return new CTaskSimpleGoToPoint(static_cast<eMoveState>(m_nMoveState), m_pRoute->m_aPoints[m_nCurrentNode], m_fTargetRadius, false, false);
+    case TASK_SIMPLE_GO_TO_POINT: {
+        auto* const memory = static_cast<CTaskSimpleGoToPoint*>(CTask::operator new(sizeof(CTaskSimpleGoToPoint)));
+        return memory ? memory->Constructor(static_cast<eMoveState>(m_nMoveState), m_pRoute->m_aPoints[m_nCurrentNode], m_fTargetRadius, false, false) : nullptr; // 0x667CD0 (con hook)
+    }
     case TASK_SIMPLE_NAMED_ANIM: {
         const CPatrolRoute::Node& node = m_pRoute->m_aNodes[m_nCurrentNode];
-        return new CTaskSimpleRunNamedAnim(node.m_szName, node.m_szName2, 0x58, 4.0f, static_cast<uint32>(-1), false, false, false, false);
+        auto* const memory = static_cast<CTaskSimpleRunNamedAnim*>(CTask::operator new(sizeof(CTaskSimpleRunNamedAnim)));
+        return memory ? memory->Constructor(node.m_szName, node.m_szName2, 0x58, 4.0f, -1, false, false, false, false) : nullptr; // 0x61A990 (con hook)
     }
-    case TASK_NONE:
-        return new CTaskSimpleNone();
+    case TASK_NONE: {
+        auto* const memory = static_cast<CTaskSimpleNone*>(CTask::operator new(sizeof(CTaskSimpleNone)));
+        if (!memory) {
+            return nullptr;
+        }
+        CTaskSimpleBody::Constructor(memory, nullptr);              // 0x61A390 (con hook)
+        *reinterpret_cast<uint32*>(memory) = 0x859CFC;               // vtable de CTaskSimpleNone del EXE
+        return memory;
+    }
     case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL: {
         float moveStateRadius = m_fMoveStateRadius;
         switch (m_nPatrolMode) {
@@ -244,7 +259,8 @@ CTask* CTaskComplexFollowPatrolRoute::CreateSubTask(int32 taskType) {
         default:
             break;
         }
-        return new CTaskComplexGoToPointAndStandStill(static_cast<eMoveState>(m_nMoveState), m_pRoute->m_aPoints[m_nCurrentNode], m_fTargetRadius, moveStateRadius, false, false);
+        auto* const memory = static_cast<CTaskComplexGoToPointAndStandStill*>(CTask::operator new(sizeof(CTaskComplexGoToPointAndStandStill)));
+        return memory ? memory->Constructor(static_cast<eMoveState>(m_nMoveState), m_pRoute->m_aPoints[m_nCurrentNode], m_fTargetRadius, moveStateRadius, false, false) : nullptr; // 0x668120 (con hook)
     }
     case TASK_COMPLEX_FOLLOW_NODE_ROUTE: {
         if (m_pRoute->m_nNumNodes == 0) {
@@ -254,7 +270,8 @@ CTask* CTaskComplexFollowPatrolRoute::CreateSubTask(int32 taskType) {
             m_nCurrentNode = static_cast<int16>(m_nCurrentNode - 1);
         }
         const CVector point = m_pRoute->m_aPoints[m_nCurrentNode];
-        return new CTaskComplexFollowNodeRoute(static_cast<eMoveState>(m_nMoveState), point, 0.5f, 3.0f, 2.0f, false, -1, true);
+        auto* const memory = static_cast<CTaskComplexFollowNodeRoute*>(CTask::operator new(sizeof(CTaskComplexFollowNodeRoute)));
+        return memory ? memory->Constructor(static_cast<eMoveState>(m_nMoveState), point, 0.5f, 3.0f, 2.0f, false, -1, true) : nullptr; // 0x66EA30 (con hook)
     }
     default:
         return nullptr;
@@ -280,86 +297,4 @@ CTask* CTaskComplexFollowPatrolRoute::CreateNextSubTaskBody(CPed* /*ped*/) {
     return CreateSubTask(GetNextSubTaskType());
 }
 
-// 0x670E20 (lote 210A, sin validar; thiscall, ped en la pila, `ret 4`, 968 bytes; ranura 9). Como el original: apaga el bit 0 de las banderas (+0x20). Ruta vacia (contador 0) -> CreateSubTask(TASK_NONE) sin mas (un contador
-// negativo, con signo, solo se salta los bucles). Busca el nodo siguiente al segmento de la ruta mas cercano al ped (posicion = matriz si hay, si no la posicion simple):
-//  1. Por cada segmento i (de B = punto i a A = punto (i+1) % n): d = A - B (x, y, z), longitud al cuadrado = (z*z + x*x) + y*y (guardada como float), d normalizado con CVector::Normalise (0x59C910); r = ped - B;
-//     t = (r.z*d.z + r.x*d.x) + r.y*d.y. Solo cuenta si t > 0 y sqrt(longitud al cuadrado) > t (comparaciones ordenadas: NaN descarta). El pie Q = B + d*t (x, y, z en ese orden, d*t primero y luego + B) y la distancia al
-//     cuadrado D = (ez*ez + ey*ey) + ex*ex con e = ped - Q. Se queda con el segmento si D < mejor*mejor (EL MEJOR SE MULTIPLICA POR SI MISMO aunque se guarda la distancia al cuadrado: comportamiento del EXE; el primer
-//     mejor es FLT_MAX): mejor = D y candidato = (i+1) % n.
-//  2. Si ninguno valio (candidato -1): se prueba cada punto i (en el EXE desenrollado de cuatro en cuatro, mismo orden): D = (dz*dz + dy*dy) + dx*dx con d = ped - punto; mismo criterio D < mejor*mejor con mejor inicial FLT_MAX.
-//  3. El nodo actual (+0x12, 16 bits) = candidato (puede quedar -1). Si el bit 1 de las banderas estaba puesto: se apaga y CreateSubTask(TASK_COMPLEX_FOLLOW_NODE_ROUTE); si no, se apaga y
-//     CreateSubTask(GetNextSubTaskType()).
-CTask* CTaskComplexFollowPatrolRoute::CreateFirstSubTaskBody(CPed* ped) {
-    m_nFlags &= ~1u;
-    const int32 nodeCount = static_cast<int32>(m_pRoute->m_nNumNodes);
-    if (nodeCount == 0) {
-        return CreateSubTask(TASK_NONE);
-    }
-
-    const CVector& pedPos = ped->GetPosition();
-    int32 closest = -1;
-    float best    = FLT_MAX; // 0x7F7FFFFF
-
-    for (int32 i = 0; i < nodeCount; ++i) {
-        const int32    next = (i + 1) % nodeCount;
-        const CVector& to   = m_pRoute->m_aPoints[next];
-        const CVector& from = m_pRoute->m_aPoints[i % nodeCount];
-
-        CVector dir;
-        dir.x = to.x - from.x;
-        dir.y = to.y - from.y;
-        dir.z = to.z - from.z;
-        const float lengthSq = (dir.z * dir.z + dir.x * dir.x) + dir.y * dir.y;
-        dir.Normalise();
-
-        const float rx = pedPos.x - from.x;
-        const float ry = pedPos.y - from.y;
-        const float rz = pedPos.z - from.z;
-        const float t  = (rz * dir.z + rx * dir.x) + ry * dir.y;
-        if (!(t > 0.0f)) {
-            continue;
-        }
-        if (!(std::sqrt(lengthSq) > t)) {
-            continue;
-        }
-
-        const float dxt    = dir.x * t;
-        const float dyt    = dir.y * t;
-        const float dzt    = dir.z * t;
-        const float qx     = dxt + from.x;
-        const float qy     = dyt + from.y;
-        const float qz     = dzt + from.z;
-        const float ex     = pedPos.x - qx;
-        const float ey     = pedPos.y - qy;
-        const float ez     = pedPos.z - qz;
-        const float distSq = (ez * ez + ey * ey) + ex * ex;
-        if (distSq < best * best) {
-            best    = distSq;
-            closest = next;
-        }
-    }
-
-    if (closest == -1) {
-        float bestPoint = FLT_MAX;
-        for (int32 i = 0; i < nodeCount; ++i) {
-            const CVector& point  = m_pRoute->m_aPoints[i];
-            const float    dx     = pedPos.x - point.x;
-            const float    dy     = pedPos.y - point.y;
-            const float    dz     = pedPos.z - point.z;
-            const float    distSq = (dz * dz + dy * dy) + dx * dx;
-            if (distSq < bestPoint * bestPoint) {
-                bestPoint = distSq;
-                closest   = i;
-            }
-        }
-    }
-
-    const uint32 flags = m_nFlags;
-    m_nCurrentNode     = static_cast<int16>(closest);
-    if (flags & 2u) {
-        m_nFlags = flags & ~2u;
-        return CreateSubTask(TASK_COMPLEX_FOLLOW_NODE_ROUTE);
-    }
-    m_nFlags = flags & ~2u;
-    return CreateSubTask(GetNextSubTaskType());
-}
+// 0x670E20 (CreateFirstSubTaskBody): ver TaskComplexFollowPatrolRouteX87.cpp (aritmetica x87).

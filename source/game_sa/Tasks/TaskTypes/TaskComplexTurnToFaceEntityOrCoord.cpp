@@ -22,14 +22,11 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleAchieveHeading.h"
 
 namespace {
-// 0x66B960 (con hook, Destructor): cuerpo del destructor de CTaskComplexTurnToFaceEntityOrCoord del EXE. Funcion propia sin expansion en linea para que el destructor con borrado la llame como el `call 0x66B960` del EXE.
-__declspec(noinline) void __fastcall TurnToFaceDestructorBody(CTaskComplexTurnToFaceEntityOrCoord* self, void* /*edx*/) { self->CTaskComplexTurnToFaceEntityOrCoord::~CTaskComplexTurnToFaceEntityOrCoord(); }
-
 // 0x670830 (lote 210A, sin validar; el listado lo atribuia a otra clase): destructor con borrado de CTaskComplexTurnToFaceEntityOrCoord del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x66B960;
 // test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del
 // BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
 CTaskComplexTurnToFaceEntityOrCoord* __fastcall TurnToFaceScalarDeletingDestructor(CTaskComplexTurnToFaceEntityOrCoord* self, void* /*edx*/, uint8 flags) {
-    TurnToFaceDestructorBody(self, nullptr);
+    self->Destructor(); // cuerpo enganchado (con hook)
     if (flags & 1) {
         CTask::operator delete(self);
     }

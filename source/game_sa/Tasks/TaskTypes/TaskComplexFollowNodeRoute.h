@@ -5,6 +5,7 @@
 
 class CPointRoute;
 
+struct SeekEntityCtorAccess;
 class NOTSA_EXPORT_VTABLE CTaskComplexFollowNodeRoute final : public CTaskComplex {
 public:
     static constexpr auto Type = TASK_COMPLEX_FOLLOW_NODE_ROUTE;
@@ -76,11 +77,13 @@ public:
     float        m_SpeedIncreaseAmt;                 //< Used for blending
 
 private: // Hook shit, ignore
+    friend class CTaskComplexFollowPatrolRoute;
+    friend struct SeekEntityCtorAccess;
     friend void InjectHooksMain();
     static void InjectHooks();
 
     // 0x66EA30
-    CTaskComplexFollowNodeRoute* Constructor(eMoveState moveState, CVector const& targetPoint, float radius, float a5, float a6, bool a7, int32 time, bool a9) {
+    __declspec(noinline) CTaskComplexFollowNodeRoute* Constructor(eMoveState moveState, CVector const& targetPoint, float radius, float a5, float a6, bool a7, int32 time, bool a9) {
         this->CTaskComplexFollowNodeRoute::CTaskComplexFollowNodeRoute(moveState, targetPoint, radius, a5, a6, a7, time, a9);
         return this;
     }

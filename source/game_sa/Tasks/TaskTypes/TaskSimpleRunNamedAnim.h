@@ -47,9 +47,10 @@ CTask* Clone() const override {
     static void FinishRunAnimMovePedCB(CAnimBlendAssociation* blendAssoc, void* data); // data es CTaskSimpleRunNamedAnim
 
 private:
+    friend class CTaskComplexFollowPatrolRoute;
     friend void InjectHooksMain();
     static void InjectHooks();
-    CTaskSimpleRunNamedAnim* Constructor(char const* pAnimName, char const* pAnimGroupName, int32 animFlags, float blendDelta, int32 endTime, bool bDontInterrupt, bool bRunInSequence, bool bOffsetPed, bool bHoldLastFrame) { this->CTaskSimpleRunNamedAnim::CTaskSimpleRunNamedAnim(pAnimName, pAnimGroupName, animFlags, blendDelta, endTime, bDontInterrupt, bRunInSequence, bOffsetPed, bHoldLastFrame); return this; }
+    __declspec(noinline) CTaskSimpleRunNamedAnim* Constructor(char const* pAnimName, char const* pAnimGroupName, int32 animFlags, float blendDelta, int32 endTime, bool bDontInterrupt, bool bRunInSequence, bool bOffsetPed, bool bHoldLastFrame) { this->CTaskSimpleRunNamedAnim::CTaskSimpleRunNamedAnim(pAnimName, pAnimGroupName, animFlags, blendDelta, endTime, bDontInterrupt, bRunInSequence, bOffsetPed, bHoldLastFrame); return this; }
     CTaskSimpleRunNamedAnim* Constructor() { this->CTaskSimpleRunNamedAnim::CTaskSimpleRunNamedAnim(); return this; }
     CTaskSimpleRunNamedAnim* Destructor() { this->CTaskSimpleRunNamedAnim::~CTaskSimpleRunNamedAnim(); return this; }
         };

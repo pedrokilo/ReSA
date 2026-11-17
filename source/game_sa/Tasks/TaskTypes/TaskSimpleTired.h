@@ -28,7 +28,7 @@ public:
     void StartAnim(CPed* ped);
 
     static void InjectHooks();
-    CTaskSimpleTired* Constructor(int32 tiredDurationMs) { this->CTaskSimpleTired::CTaskSimpleTired(tiredDurationMs); return this; }
+    __declspec(noinline) CTaskSimpleTired* Constructor(int32 tiredDurationMs) { this->CTaskSimpleTired::CTaskSimpleTired(tiredDurationMs); return this; }
     __declspec(noinline) CTaskSimpleTired* Destructor() { this->CTaskSimpleTired::~CTaskSimpleTired(); return this; }
     CTaskSimpleTired* ScalarDeletingDestructor(uint8 flags); // 0x637950 (lote 177A, sin validar)
 };

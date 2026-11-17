@@ -5,6 +5,7 @@
 
 class CTaskSimpleGoToPoint;
 
+struct SeekEntityCtorAccess;
 class NOTSA_EXPORT_VTABLE CTaskComplexGoToPointAndStandStill : public CTaskComplex {
 public:
     eMoveState m_moveState;
@@ -45,13 +46,15 @@ public:
     CTask* CreateSubTask(eTaskType taskType, CPed* ped);
 
 private:
+    friend class CTaskComplexFollowPatrolRoute;
+    friend struct SeekEntityCtorAccess;
     friend void InjectHooksMain();
     friend class CTaskComplexExtinguishFireOnFoot; // su CreateFirstSubTask (0x65A720, lote 193A) llama al constructor enganchado 0x668120
     friend class CTaskComplexGoToBoatSteeringWheel; // su CreateSubTask (0x64CDA0, lote 180A) llama al constructor enganchado 0x668120
     static void InjectHooks();
 
     // 0x668120
-    CTaskComplexGoToPointAndStandStill* Constructor(eMoveState moveState, const CVector& targetPoint, float fRadius, float fMoveStateRadius, bool bUnknown, bool bGoToPoint) {
+    __declspec(noinline) CTaskComplexGoToPointAndStandStill* Constructor(eMoveState moveState, const CVector& targetPoint, float fRadius, float fMoveStateRadius, bool bUnknown, bool bGoToPoint) {
         this->CTaskComplexGoToPointAndStandStill::CTaskComplexGoToPointAndStandStill(moveState, targetPoint, fRadius, fMoveStateRadius, bUnknown, bGoToPoint);
         return this;
     }

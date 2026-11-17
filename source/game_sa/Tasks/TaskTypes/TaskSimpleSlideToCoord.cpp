@@ -24,14 +24,11 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 
 namespace {
-// 0x66C4C0 (con hook, Destructor): cuerpo del destructor de CTaskSimpleSlideToCoord del EXE. Funcion propia sin expansion en linea para que el destructor con borrado la llame como el `call 0x66C4C0` del EXE.
-__declspec(noinline) void __fastcall SlideToCoordDestructorBody(CTaskSimpleSlideToCoord* self, void* /*edx*/) { self->CTaskSimpleSlideToCoord::~CTaskSimpleSlideToCoord(); }
-
 // 0x6712C0 (lote 210A, sin validar; el listado lo atribuia a otra clase): destructor con borrado de CTaskSimpleSlideToCoord del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x66C4C0;
 // test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del
 // BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
 CTaskSimpleSlideToCoord* __fastcall SlideToCoordScalarDeletingDestructor(CTaskSimpleSlideToCoord* self, void* /*edx*/, uint8 flags) {
-    SlideToCoordDestructorBody(self, nullptr);
+    self->Destructor(); // cuerpo enganchado (con hook)
     if (flags & 1) {
         CTask::operator delete(self);
     }

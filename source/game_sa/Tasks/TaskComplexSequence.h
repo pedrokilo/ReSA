@@ -4,6 +4,7 @@
 
 class CTask;
 
+struct SeekEntityCtorAccess;
 class NOTSA_EXPORT_VTABLE CTaskComplexSequence : public CTaskComplex {
     enum class eRepeatMode : uint32 {
         DONT_REPEAT,
@@ -57,6 +58,7 @@ public:
     bool IsActive() const { return m_Tasks[0] != nullptr; }
 
 private:
+    friend struct SeekEntityCtorAccess;
     friend void InjectHooksMain();
     static void InjectHooks();
 

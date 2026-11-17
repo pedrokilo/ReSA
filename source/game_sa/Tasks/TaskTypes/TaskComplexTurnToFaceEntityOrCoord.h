@@ -6,6 +6,7 @@
 class CPed;
 class CEntity;
 
+struct SeekEntityCtorAccess;
 class NOTSA_EXPORT_VTABLE CTaskComplexTurnToFaceEntityOrCoord : public CTaskComplex {
 public:
     CEntity* m_EntityToFace{};
@@ -33,8 +34,10 @@ public:
     CVector ComputeTargetPos() const; // NOTSA
 
 private:
-    CTaskComplexTurnToFaceEntityOrCoord* Constructor(CEntity* entity, float changeRateMult, float maxHeading) { this->CTaskComplexTurnToFaceEntityOrCoord::CTaskComplexTurnToFaceEntityOrCoord(entity, changeRateMult, maxHeading); return this; }
-    CTaskComplexTurnToFaceEntityOrCoord* Constructor(CVector const& coords, float changeRateMult, float maxHeading) { this->CTaskComplexTurnToFaceEntityOrCoord::CTaskComplexTurnToFaceEntityOrCoord(coords, changeRateMult, maxHeading); return this; }
-    CTaskComplexTurnToFaceEntityOrCoord* Destructor() { this->CTaskComplexTurnToFaceEntityOrCoord::~CTaskComplexTurnToFaceEntityOrCoord(); return this; }
+    friend struct SeekEntityCtorAccess;
+    __declspec(noinline) CTaskComplexTurnToFaceEntityOrCoord* Constructor(CEntity* entity, float changeRateMult, float maxHeading) { this->CTaskComplexTurnToFaceEntityOrCoord::CTaskComplexTurnToFaceEntityOrCoord(entity, changeRateMult, maxHeading); return this; }
+    __declspec(noinline) CTaskComplexTurnToFaceEntityOrCoord* Constructor(CVector const& coords, float changeRateMult, float maxHeading) { this->CTaskComplexTurnToFaceEntityOrCoord::CTaskComplexTurnToFaceEntityOrCoord(coords, changeRateMult, maxHeading); return this; }
+public:
+    __declspec(noinline) CTaskComplexTurnToFaceEntityOrCoord* Destructor() { this->CTaskComplexTurnToFaceEntityOrCoord::~CTaskComplexTurnToFaceEntityOrCoord(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexTurnToFaceEntityOrCoord, 0x28);

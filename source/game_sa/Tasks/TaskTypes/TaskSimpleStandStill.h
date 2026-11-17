@@ -9,6 +9,7 @@
 #include "TaskSimple.h"
 #include "TaskTimer.h"
 
+struct SeekEntityCtorAccess;
 class NOTSA_EXPORT_VTABLE CTaskSimpleStandStill : public CTaskSimple {
 public:
     int32      m_nTime;
@@ -30,6 +31,7 @@ public:
     bool ProcessPed(CPed* ped) override;
 
 private:
+    friend struct SeekEntityCtorAccess;
     friend void InjectHooksMain();
     friend class CTaskSimpleOnEscalator;      // su Clone llama al Constructor enganchado (0x62F310), como el EXE
     friend class CTaskComplexWalkRoundObject; // su CreateSubTask (0x655290) tambien
