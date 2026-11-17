@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.368 |
-| Reconstruidas sin validar | 1.073 |
-| De ellas, en esta cola (validables por pares) | 1.073 |
+| Validadas | 11.399 |
+| Reconstruidas sin validar | 1.042 |
+| De ellas, en esta cola (validables por pares) | 1.042 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,15 +22,15 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 59 | 141 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 44 | 110 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 1 | 27 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
 | [🟠 Nivel 3: moderadas](#nivel-3) | 35 | 848 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 10 | 57 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **105** | **1073** | |
+| **Total** | **90** | **1042** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (59 clases, 141 funciones)
+## 🟢 Nivel 1: muy barato (44 clases, 110 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
@@ -41,60 +41,45 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 | 3 | CBuilding | 7 | 1 |  | 12 |
 | 4 | CPedModelInfo | 12 | 1 |  | 21 |
 | 5 | CScriptsForBrains | 15 | 1 |  | 22 |
-| 6 | CAudioZones | 9 | 1 |  | 31 |
-| 7 | CGamma | 3 | 1 |  | 33 |
-| 8 | FxFrustumInfo_c | 2 | 1 |  | 33 |
-| 9 | CTaskComplexSeekEntityRadiusAngleOffset | 11 | 2 |  | 4 |
-| 10 | CAEAudioEntity | 8 | 2 |  | 10 |
-| 11 | CDecisionMaker | 5 | 2 |  | 19 |
-| 12 | IKChainManager_c | 19 | 2 |  | 20 |
-| 13 | FxInfoHeatHaze_c | 3 | 2 |  | 23 |
-| 14 | FxInfoSelfLit_c | 3 | 2 |  | 23 |
-| 15 | FxInfoEmRotation_c | 3 | 2 |  | 24 |
-| 16 | FxInfoEmWeather_c | 3 | 2 |  | 25 |
-| 17 | FxInfoFloat_c | 3 | 2 |  | 25 |
-| 18 | FxInfoForce_c | 3 | 2 |  | 25 |
-| 19 | FxInfoFriction_c | 3 | 2 |  | 25 |
-| 20 | FxInfoUnderwater_c | 3 | 2 |  | 25 |
-| 21 | FxInfoAnimTexture_c | 3 | 2 |  | 26 |
-| 22 | FxInfoColourBright_c | 3 | 2 |  | 26 |
-| 23 | FxInfoColourRange_c | 3 | 2 |  | 26 |
-| 24 | FxInfoColour_c | 3 | 2 |  | 27 |
-| 25 | FxInfoDir_c | 3 | 2 |  | 27 |
-| 26 | FxInfoFlat_c | 3 | 2 |  | 27 |
-| 27 | FxInfoTrail_c | 3 | 2 |  | 27 |
-| 28 | FxInfoAttractPt_c | 3 | 2 |  | 28 |
-| 29 | FxInfoNoise_c | 3 | 2 |  | 28 |
-| 30 | FxInfoSmoke_c | 3 | 2 |  | 28 |
-| 31 | FxInfoSpriteRect_c | 3 | 2 |  | 28 |
-| 32 | FxInfoWind_c | 3 | 2 |  | 28 |
-| 33 | FxInfoJitter_c | 3 | 2 |  | 29 |
-| 34 | FxInfoRotSpeed_c | 3 | 2 |  | 29 |
-| 35 | WaterCreatureManager_c | 9 | 2 |  | 29 |
-| 36 | FxInfoSize_c | 3 | 2 |  | 32 |
-| 37 | FxInfoAttractLine_c | 3 | 2 |  | 34 |
-| 38 | FxInfoGroundCollide_c | 3 | 2 |  | 35 |
-| 39 | CPedLookAtAttractor | 3 | 3 |  | 18 |
-| 40 | CPedParkAttractor | 3 | 3 |  | 18 |
-| 41 | CPedScriptedAttractor | 3 | 3 |  | 18 |
-| 42 | CPedStepAttractor | 3 | 3 |  | 18 |
-| 43 | CPedATMAttractor | 3 | 3 |  | 19 |
-| 44 | CPedPizzaAttractor | 3 | 3 |  | 19 |
-| 45 | CPedSeatAttractor | 3 | 3 |  | 19 |
-| 46 | CPedStopAttractor | 3 | 3 |  | 19 |
-| 47 | CPedTriggerScriptAttractor | 3 | 3 |  | 19 |
-| 48 | CPedAttractorManager | 25 | 3 |  | 22 |
-| 49 | CProtectionStub | 3 | 3 |  | 23 |
-| 50 | FxInterpInfo255_c | 4 | 3 |  | 25 |
-| 51 | FxInterpInfo32_c | 4 | 3 |  | 25 |
-| 52 | FxInterpInfoU255_c | 4 | 3 |  | 25 |
-| 53 | FxInterpInfoFloat_c | 4 | 3 |  | 26 |
-| 54 | LibJpegError | 3 | 3 |  | 26 |
-| 55 | CEntity | 76 | 3 |  | 35 |
-| 56 | CPedShelterAttractor | 11 | 4 |  | 17 |
-| 57 | FxEmitterBP_c | 13 | 4 |  | 31 |
-| 58 | FxEmitter_c | 9 | 5 |  | 34 |
-| 59 | CTheScripts | 82 | 9 |  | 31 |
+| 6 | FxInfoSpriteRect_c | 3 | 1 |  | 28 |
+| 7 | CAudioZones | 9 | 1 |  | 31 |
+| 8 | CGamma | 3 | 1 |  | 33 |
+| 9 | FxFrustumInfo_c | 2 | 1 |  | 33 |
+| 10 | CTaskComplexSeekEntityRadiusAngleOffset | 11 | 2 |  | 4 |
+| 11 | CAEAudioEntity | 8 | 2 |  | 10 |
+| 12 | CDecisionMaker | 5 | 2 |  | 19 |
+| 13 | IKChainManager_c | 19 | 2 |  | 20 |
+| 14 | FxInfoHeatHaze_c | 3 | 2 |  | 23 |
+| 15 | FxInfoSelfLit_c | 3 | 2 |  | 23 |
+| 16 | FxInfoAnimTexture_c | 3 | 2 |  | 26 |
+| 17 | FxInfoColourBright_c | 3 | 2 |  | 26 |
+| 18 | FxInfoColourRange_c | 3 | 2 |  | 26 |
+| 19 | FxInfoDir_c | 3 | 2 |  | 27 |
+| 20 | FxInfoFlat_c | 3 | 2 |  | 27 |
+| 21 | FxInfoTrail_c | 3 | 2 |  | 27 |
+| 22 | FxInfoSmoke_c | 3 | 2 |  | 28 |
+| 23 | WaterCreatureManager_c | 9 | 2 |  | 29 |
+| 24 | CPedLookAtAttractor | 3 | 3 |  | 18 |
+| 25 | CPedParkAttractor | 3 | 3 |  | 18 |
+| 26 | CPedScriptedAttractor | 3 | 3 |  | 18 |
+| 27 | CPedStepAttractor | 3 | 3 |  | 18 |
+| 28 | CPedATMAttractor | 3 | 3 |  | 19 |
+| 29 | CPedPizzaAttractor | 3 | 3 |  | 19 |
+| 30 | CPedSeatAttractor | 3 | 3 |  | 19 |
+| 31 | CPedStopAttractor | 3 | 3 |  | 19 |
+| 32 | CPedTriggerScriptAttractor | 3 | 3 |  | 19 |
+| 33 | CPedAttractorManager | 25 | 3 |  | 22 |
+| 34 | CProtectionStub | 3 | 3 |  | 23 |
+| 35 | FxInterpInfo255_c | 4 | 3 |  | 25 |
+| 36 | FxInterpInfo32_c | 4 | 3 |  | 25 |
+| 37 | FxInterpInfoU255_c | 4 | 3 |  | 25 |
+| 38 | FxInterpInfoFloat_c | 4 | 3 |  | 26 |
+| 39 | LibJpegError | 3 | 3 |  | 26 |
+| 40 | CEntity | 76 | 3 |  | 35 |
+| 41 | CPedShelterAttractor | 11 | 4 |  | 17 |
+| 42 | FxEmitterBP_c | 13 | 4 |  | 31 |
+| 43 | FxEmitter_c | 9 | 5 |  | 34 |
+| 44 | CTheScripts | 82 | 9 |  | 31 |
 
 <a id="nivel-2"></a>
 
