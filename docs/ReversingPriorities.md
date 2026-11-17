@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.490 |
-| Reconstruidas sin validar | 951 |
-| De ellas, en esta cola (validables por pares) | 951 |
+| Validadas | 11.515 |
+| Reconstruidas sin validar | 926 |
+| De ellas, en esta cola (validables por pares) | 926 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,43 +22,36 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 23 | 58 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 16 | 40 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 0 | 0 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
 | [🟠 Nivel 3: moderadas](#nivel-3) | 32 | 836 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
-| [🔴 Nivel 4: caras](#nivel-4) | 10 | 57 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **65** | **951** | |
+| [🔴 Nivel 4: caras](#nivel-4) | 10 | 50 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
+| **Total** | **58** | **926** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (23 clases, 58 funciones)
+## 🟢 Nivel 1: muy barato (16 clases, 40 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
 | 1 | CTaskSimpleSetCharIgnoreWeaponRangeFlag | 7 | 1 |  | 8 |
-| 2 | CTaskComplexBeCop | 5 | 1 |  | 11 |
-| 3 | CBuilding | 7 | 1 |  | 12 |
-| 4 | CPedModelInfo | 12 | 1 |  | 21 |
-| 5 | CScriptsForBrains | 15 | 1 |  | 22 |
-| 6 | CAudioZones | 9 | 1 |  | 31 |
-| 7 | CGamma | 3 | 1 |  | 33 |
-| 8 | CTaskComplexSeekEntityRadiusAngleOffset | 11 | 2 |  | 4 |
-| 9 | CAEAudioEntity | 8 | 2 |  | 10 |
-| 10 | CDecisionMaker | 5 | 2 |  | 19 |
-| 11 | IKChainManager_c | 19 | 2 |  | 20 |
-| 12 | CPedAttractorManager | 25 | 2 |  | 22 |
-| 13 | WaterCreatureManager_c | 9 | 2 |  | 29 |
-| 14 | CPedLookAtAttractor | 3 | 3 |  | 18 |
-| 15 | CPedParkAttractor | 3 | 3 |  | 18 |
-| 16 | CPedScriptedAttractor | 3 | 3 |  | 18 |
-| 17 | CPedStepAttractor | 3 | 3 |  | 18 |
-| 18 | CProtectionStub | 3 | 3 |  | 23 |
-| 19 | LibJpegError | 3 | 3 |  | 26 |
-| 20 | CEntity | 76 | 3 |  | 35 |
-| 21 | FxEmitterBP_c | 13 | 4 |  | 31 |
-| 22 | FxEmitter_c | 9 | 5 |  | 34 |
-| 23 | CTheScripts | 82 | 9 |  | 31 |
+| 2 | CBuilding | 7 | 1 |  | 12 |
+| 3 | CPedModelInfo | 12 | 1 |  | 21 |
+| 4 | CScriptsForBrains | 15 | 1 |  | 22 |
+| 5 | CAudioZones | 9 | 1 |  | 31 |
+| 6 | CGamma | 3 | 1 |  | 33 |
+| 7 | CAEAudioEntity | 8 | 2 |  | 10 |
+| 8 | CDecisionMaker | 5 | 2 |  | 19 |
+| 9 | IKChainManager_c | 19 | 2 |  | 20 |
+| 10 | WaterCreatureManager_c | 9 | 2 |  | 29 |
+| 11 | CProtectionStub | 3 | 3 |  | 23 |
+| 12 | LibJpegError | 3 | 3 |  | 26 |
+| 13 | CEntity | 76 | 3 |  | 35 |
+| 14 | FxEmitterBP_c | 13 | 4 |  | 31 |
+| 15 | FxEmitter_c | 9 | 5 |  | 34 |
+| 16 | CTheScripts | 82 | 8 |  | 31 |
 
 <a id="nivel-2"></a>
 
@@ -112,20 +105,20 @@ Criterio: el resto.
 
 <a id="nivel-4"></a>
 
-## 🔴 Nivel 4: caras (10 clases, 57 funciones)
+## 🔴 Nivel 4: caras (10 clases, 50 funciones)
 
 Criterio: 90 o más funciones, o más de 50 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
 | 1 | FxInfoManager_c | 6 | 1 |  | 52 |
-| 2 | CAutoPilot | 4 | 1 |  | 60 |
-| 3 | CMissionCleanup | 4 | 1 |  | 133 |
-| 4 | LibJpegCompressApi | 3 | 3 |  | 51 |
-| 5 | LibJpegDecompressUpsample | 3 | 3 |  | 65 |
-| 6 | LibJpegDecompressApi | 4 | 4 |  | 73 |
-| 7 | CRunningScript | 43 | 4 |  | 77 |
-| 8 | ExeProtectionStub | 8 | 8 |  | 57 |
+| 2 | ExeProtectionStub | 8 | 1 |  | 57 |
+| 3 | CAutoPilot | 4 | 1 |  | 60 |
+| 4 | CMissionCleanup | 4 | 1 |  | 133 |
+| 5 | LibJpegCompressApi | 3 | 3 |  | 51 |
+| 6 | LibJpegDecompressUpsample | 3 | 3 |  | 65 |
+| 7 | LibJpegDecompressApi | 4 | 4 |  | 73 |
+| 8 | CRunningScript | 43 | 4 |  | 77 |
 | 9 | D3D9RasterFormat | 10 | 10 |  | 88 |
 | 10 | LibJpegDecompress | 22 | 22 |  | 51 |
 

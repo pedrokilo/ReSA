@@ -91,10 +91,10 @@ CTaskComplexSeekEntityRadiusAngleOffset::ControlSubTask,0x00000000,hooks.csv,1,1
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::ControlSubTask,0x00000000,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,335,C++,plantilla genérica
 CTaskComplexSeekEntityStandard::GetSeekPos,0x0046FEE0,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,485,C++,plantilla heredada
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorFixedPos>::GetSeekPos,0x00673BA0,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,485,C++,plantilla genérica
-CTaskComplexSeekEntityRadiusAngleOffset::GetSeekPos,0x00496DC0,hooks.csv,1,0,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,485,C++,plantilla heredada
+CTaskComplexSeekEntityRadiusAngleOffset::GetSeekPos,0x00496DC0,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,485,C++,plantilla heredada
 CTaskComplexSeekEntityStandard::ScalarDeletingDestructor,0x0046AD50,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,568,C++,plantilla heredada
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorFixedPos>::ScalarDeletingDestructor,0x0066CB90,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,568,C++,plantilla genérica
-CTaskComplexSeekEntityRadiusAngleOffset::ScalarDeletingDestructor,0x00493870,hooks.csv,1,0,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,568,C++,plantilla heredada
+CTaskComplexSeekEntityRadiusAngleOffset::ScalarDeletingDestructor,0x00493870,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,568,C++,plantilla heredada
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::Constructor,0x00661DC0,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,579,C++,plantilla genérica
 CTaskComplexSeekEntityStandard::Destructor,0x0046AD70,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,616,C++,plantilla heredada
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorFixedPos>::Destructor,0x0066CBB0,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,616,C++,plantilla genérica
