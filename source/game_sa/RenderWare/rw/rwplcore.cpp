@@ -3119,3 +3119,83 @@ void RwPlCoreInjectHooksR33A() {
     RH_ScopedGlobalInstall(_rwIntelSSEV3dTransformPoint, 0x80D280);
     RH_ScopedGlobalInstall(_rwIntelSSEV3dTransformVector, 0x80D370);
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R34A (sin validar): transformaciones de vectores con SSE y prueba de alineacion en tiempo de ejecucion (0x80D440..0x80D600). Son las cuatro llamadas de retorno que el selector del driver D3D9 (0x7F6960)
+// entrega a _rwVectorSetMultFn (0x7ED5F0) con la rama `0x7F6935` (SSE2 presente y 3DNow! ausente: empuja 0x80D4E0, 0x80D600, 0x80D440 y 0x80D570): punto 0x80D570, puntos 0x80D440, vector 0x80D600 y vectores
+// 0x80D4E0. El listado y R33A las daban por 3DNow!, pero el desensamblado solo usa movups/movaps, shufps, mulps y addps: la unica diferencia con las de R33A es que prueban la alineacion de la matriz (`test eax, 0xF`)
+// para elegir movaps o movups, y con una matriz alineada o no las cargas dan los mismos valores (aqui se usa siempre la carga sin alinear). Las sumas se agrupan igual que en R33A.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+// 0x80D440 (lote R34A, sin validar; 154 bytes; cdecl, (salida, entrada, cantidad, matriz); devuelve la salida; nombre inferido): RwV3dTransformPoints (multPoints) con SSE y prueba de alineacion. Bucle do-while con
+// la cantidad como contador SIN signo (0 recorre 2^32 puntos como el EXE); por punto: ((z * at + y * up) + (x * right + pos)), se guardan x, y y z.
+RwV3d* _rwIntelSSE2V3dTransformPoints(RwV3d* pointsOut, const RwV3d* pointsIn, RwInt32 numPoints, const RwMatrix* matrix) {
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    const __m128 c0 = SseRowXYZZ(_mm_loadu_ps(m));
+    const __m128 c1 = SseRowXYZZ(_mm_loadu_ps(m + 4));
+    const __m128 c2 = SseRowXYZZ(_mm_loadu_ps(m + 8));
+    const __m128 c3 = SseRowXYZZ(_mm_loadu_ps(m + 12));
+    const float* in = reinterpret_cast<const float*>(pointsIn);
+    float* out = reinterpret_cast<float*>(pointsOut);
+    RwUInt32 remaining = static_cast<RwUInt32>(numPoints);
+    do {
+        const __m128 result = SseTransformPoint(in, c0, c1, c2, c3);
+        in += 3;
+        out += 3;
+        SseStoreVector3(out - 3, result);
+    } while (--remaining != 0);
+    return pointsOut;
+}
+
+// 0x80D4E0 (lote R34A, sin validar; 139 bytes; cdecl, (salida, entrada, cantidad, matriz); devuelve la salida; nombre inferido): RwV3dTransformVectors (multVectors) con SSE y prueba de alineacion; solo carga right,
+// up y at. Mismo bucle do-while con contador sin signo; por vector: z * at + (y * up + x * right).
+RwV3d* _rwIntelSSE2V3dTransformVectors(RwV3d* vectorsOut, const RwV3d* vectorsIn, RwInt32 numVectors, const RwMatrix* matrix) {
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    const __m128 c0 = SseRowXYZZ(_mm_loadu_ps(m));
+    const __m128 c1 = SseRowXYZZ(_mm_loadu_ps(m + 4));
+    const __m128 c2 = SseRowXYZZ(_mm_loadu_ps(m + 8));
+    const float* in = reinterpret_cast<const float*>(vectorsIn);
+    float* out = reinterpret_cast<float*>(vectorsOut);
+    RwUInt32 remaining = static_cast<RwUInt32>(numVectors);
+    do {
+        const __m128 result = SseTransformVector(in, c0, c1, c2);
+        in += 3;
+        out += 3;
+        SseStoreVector3(out - 3, result);
+    } while (--remaining != 0);
+    return vectorsOut;
+}
+
+// 0x80D570 (lote R34A, sin validar; 137 bytes; cdecl, (salida, entrada, matriz); devuelve la salida; nombre inferido): RwV3dTransformPoint (multPoint) con SSE y prueba de alineacion: (z * at + y * up) + (x * right + pos).
+RwV3d* _rwIntelSSE2V3dTransformPoint(RwV3d* pointOut, const RwV3d* pointIn, const RwMatrix* matrix) {
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    const __m128 c0 = SseRowXYZZ(_mm_loadu_ps(m));
+    const __m128 c1 = SseRowXYZZ(_mm_loadu_ps(m + 4));
+    const __m128 c2 = SseRowXYZZ(_mm_loadu_ps(m + 8));
+    const __m128 c3 = SseRowXYZZ(_mm_loadu_ps(m + 12));
+    const __m128 result = SseTransformPoint(reinterpret_cast<const float*>(pointIn), c0, c1, c2, c3);
+    SseStoreVector3(reinterpret_cast<float*>(pointOut), result);
+    return pointOut;
+}
+
+// 0x80D600 (lote R34A, sin validar; 122 bytes; cdecl, (salida, entrada, matriz); devuelve la salida; nombre inferido): RwV3dTransformVector (multVector) con SSE y prueba de alineacion: z * at + (y * up + x * right).
+RwV3d* _rwIntelSSE2V3dTransformVector(RwV3d* vectorOut, const RwV3d* vectorIn, const RwMatrix* matrix) {
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    const __m128 c0 = SseRowXYZZ(_mm_loadu_ps(m));
+    const __m128 c1 = SseRowXYZZ(_mm_loadu_ps(m + 4));
+    const __m128 c2 = SseRowXYZZ(_mm_loadu_ps(m + 8));
+    const __m128 result = SseTransformVector(reinterpret_cast<const float*>(vectorIn), c0, c1, c2);
+    SseStoreVector3(reinterpret_cast<float*>(vectorOut), result);
+    return vectorOut;
+}
+
+// Lote R34A (sin validar): ganchos (0x80D440..0x80D600).
+void RwPlCoreInjectHooksR34A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    RH_ScopedGlobalInstall(_rwIntelSSE2V3dTransformPoints, 0x80D440);
+    RH_ScopedGlobalInstall(_rwIntelSSE2V3dTransformVectors, 0x80D4E0);
+    RH_ScopedGlobalInstall(_rwIntelSSE2V3dTransformPoint, 0x80D570);
+    RH_ScopedGlobalInstall(_rwIntelSSE2V3dTransformVector, 0x80D600);
+}

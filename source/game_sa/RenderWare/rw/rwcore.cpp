@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "rwcore.h"
 #include "X87Math.h"
 #include <xmmintrin.h>
+#include <intrin.h>
 
 // Estado global del motor que leen o escriben las funciones reconstruidas del grupo g25d en este archivo (direcciones del EXE):
 //   RwEngineInstance (0xC97B24, ver RenderWare.h)       puntero a RwGlobals; los modulos cuelgan de el con su `globalsOffset`
@@ -107,6 +108,14 @@ void RwRaiseError(RwInt32 code, Args... args) {
     RwErrorSet(&error);
 }
 } // namespace
+
+// Lote R34A (sin validar): funciones reconstruidas al final del archivo que otras anteriores llaman directamente.
+RwInt32 _rwIsAbsolutePath(const char* name);
+RxNodeDefinition* _rwD3D9RxNodeDefinitionGetImmInstance();
+RxNodeDefinition* _rwD3D9RxNodeDefinitionGetSubmitNoLight();
+RwBool _rwD3D9Im3DRenderOpen();
+void _rwD3D9Im3DRenderClose();
+RwInt32 _rxPipelineUnlockAllocateClusters(RxPipeline* pipeline);
 
 // --- Lote 223A (sin validar): plugin de raster del controlador D3D9 de RenderWare (0x4C9990..0x4CA5A0; el listado las atribuia a CWeaponModelInfo) ---
 // La extension D3D9 del raster (plugin 0x40C, 0x24 bytes) cuelga en raster + _RwD3D9RasterExtOffset (0xB4E9E0); es la misma `_rwD3D9RasterExt` de WindowedMode.cpp. En las camaras, `texture` guarda la superficie.
@@ -758,9 +767,7 @@ RxCluster* RxClusterSetData(RxCluster* cluster, void* data, RwInt32 stride, RwIn
     return ((RxCluster*(__cdecl *)(RxCluster*, void*, RwInt32, RwInt32))0x8053A0)(cluster, data, stride, numElements);
 }
 
-void _rxPacketDestroy(RxPacket* Packet) {
-    ((void(__cdecl *)(RxPacket*))0x80F070)(Packet);
-}
+// 0x80F070 (_rxPacketDestroy): reconstruida al final del archivo (lote R34A, RwCoreInjectHooksR34A).
 
 RxCluster* RxClusterInitializeData(RxCluster* cluster, RwUInt32 numElements, RwUInt16 stride) {
     return ((RxCluster*(__cdecl *)(RxCluster*, RwUInt32, RwUInt16))0x805400)(cluster, numElements, stride);
@@ -1439,9 +1446,7 @@ RwInt32 RwRasterGetPluginOffset(RwUInt32 pluginID) {
     return ((RwInt32(__cdecl *)(RwUInt32))0x7FAE40)(pluginID);
 }
 
-RxRenderStateVector* RxRenderStateVectorSetDefaultRenderStateVector(RxRenderStateVector* rsvp) {
-    return ((RxRenderStateVector*(__cdecl *)(RxRenderStateVector*))0x80EA40)(rsvp);
-}
+// 0x80EA40 (RxRenderStateVectorSetDefaultRenderStateVector): reconstruida al final del archivo (lote R34A, RwCoreInjectHooksR34A).
 
 // Lote R29A (sin validar): imagenes de RwCore (baimage.c). Modulo de imagenes: registro de plugins 0x8E2670; lista libre = [RwEngineInstance + [0xC9A65C]] (pista 0x30018).
 namespace {
@@ -1511,7 +1516,7 @@ void* _rwImageScratchBufferReserve(RwInt32 size) {
 // ruta siguiente. Sin rutas pide strlen(nombre) + extra, copia el nombre y llama a devolucion una vez (resultado ignorado). Devuelve el nombre. rwstrchr se llama dos veces seguidas como en el EXE.
 const RwChar* _rwImageForAllPaths(const RwChar* name, RwInt32 extra, ImagePathCallbackR30A callback, void* data) {
     const char* paths = ImageModuleR30A()->searchPath;
-    const bool absolute = reinterpret_cast<RwInt32(__cdecl*)(const RwChar*)>(0x80E9B0)(name) != 0;
+    const bool absolute = _rwIsAbsolutePath(name) != 0;
     if (!absolute && paths != nullptr && *paths != '\0') {
         while (*paths != '\0') {
             (void)rwstrchr(paths, ';');
@@ -6084,7 +6089,7 @@ RwInt32 _rwIm3DDefaultPipelinesCreate(RxPipeline** pipelines) {
     created->pluginId = 1;
     RxLockedPipe* locked = RxPipelineLock(created);
     if (locked != nullptr) {
-        RxNodeDefinition* const nodeDefinition = reinterpret_cast<RxNodeDefinition*(__cdecl*)()>(0x80E9A0)();
+        RxNodeDefinition* const nodeDefinition = _rwD3D9RxNodeDefinitionGetSubmitNoLight();
         locked = RxLockedPipeAddFragment(locked, nullptr, nodeDefinition, nullptr);
         RxPipeline* const unlocked = RxLockedPipeUnlock(locked);
         if (unlocked != nullptr) {
@@ -6098,7 +6103,7 @@ RwInt32 _rwIm3DDefaultPipelinesCreate(RxPipeline** pipelines) {
             reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 4);
             reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 1);
             reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 2);
-            return reinterpret_cast<RwInt32(__cdecl*)(RxPipeline**)>(0x80E020)(pipelines);
+            return _rwD3D9Im3DRenderOpen();
         }
         toDestroy = unlocked;
     }
@@ -6364,7 +6369,7 @@ bool D3D9RestoreAfterReset() {
             } while (index < D3D9LightCount);
             lightsOk = last >= 0;
         }
-        if (lightsOk && ((RwBool(__cdecl *)(void))0x7FB480)() != 0 && ((RwBool(__cdecl *)(void))0x80E020)() != 0) {
+        if (lightsOk && ((RwBool(__cdecl *)(void))0x7FB480)() != 0 && _rwD3D9Im3DRenderOpen() != 0) {
             ok = true;
         }
     }
@@ -6743,7 +6748,7 @@ RwBool _rwD3D9DeviceReleaseVideoMemory() {
         ComCall<kSlotSetDepthStencilSurface, HRESULT>(device, depthSurface);
     }
     ((void(__cdecl *)(void))0x7FB5F0)();
-    ((void(__cdecl *)(void))0x80DFB0)();
+    _rwD3D9Im3DRenderClose();
     _rwD3D9DynamicVertexBufferRelease();
     ((void(__cdecl *)(void))0x4CB640)();
     RwFreeListPurgeAllFreeLists();
@@ -9388,7 +9393,7 @@ RxPipeline* RxLockedPipeUnlock(RxLockedPipe* pipeline) {
     }
     StaticRef<RwUInt32>(0xC9A6B4) = static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(scratchHigh));
     StaticRef<RwUInt32>(0xC9A6B8) = static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(block)) + totalOutputs * 4u;
-    if (reinterpret_cast<RwInt32(__cdecl*)(RxPipeline*)>(0x80F0D0)(locked) != 0) {
+    if (_rxPipelineUnlockAllocateClusters(locked) != 0) {
         return nullptr;
     }
     const RwUInt32 usedSize = StaticRef<RwUInt32>(0xC9A6B8) - static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(locked->superBlock));
@@ -10177,7 +10182,7 @@ RwInt32 _rwIm3DDefaultTransformPipelineCreate(RxPipeline** slot) {
         _rxPipelineDestroy(created);
         return 0;
     }
-    RxNodeDefinition* const nodeDefinition = reinterpret_cast<RxNodeDefinition*(__cdecl*)()>(0x80E990)();
+    RxNodeDefinition* const nodeDefinition = _rwD3D9RxNodeDefinitionGetImmInstance();
     RxPipeline* const unlocked = RxLockedPipeUnlock(RxLockedPipeAddFragment(locked, nullptr, nodeDefinition, nullptr));
     if (unlocked == nullptr) {
         _rxPipelineDestroy(unlocked);
@@ -10201,7 +10206,7 @@ void _rwIm3DDefaultTransformPipelineDestroy(RxPipeline** slot) {
 // 0x80A140 (lote R32A, sin validar; 88 bytes; cdecl, (tabla de 5 tuberias); nombre inferido: destruccion de las tuberias de render por defecto de Im3D, par de 0x80A1A0; llamadores: 0x7EFDF0, 0x7EFE9B): llama a 0x80DFB0 (sin
 // argumentos), pone la tuberia de render NULL con RwIm3DSetRenderPipeline (0x7EFB10) a los tipos 3, 5, 4, 1 y 2; si tabla[0] es distinto de NULL lo destruye (0x805820) y pone las cinco ranuras a NULL.
 void _rwIm3DDefaultPipelinesDestroy(RxPipeline** pipelines) {
-    reinterpret_cast<void(__cdecl*)()>(0x80DFB0)();
+    _rwD3D9Im3DRenderClose();
     RwIm3DSetRenderPipeline(nullptr, static_cast<RwPrimitiveType>(3));
     RwIm3DSetRenderPipeline(nullptr, static_cast<RwPrimitiveType>(5));
     RwIm3DSetRenderPipeline(nullptr, static_cast<RwPrimitiveType>(4));
@@ -10940,4 +10945,742 @@ void RwCoreInjectHooksR33A() {
     RH_ScopedGlobalInstall(RwImageResample, 0x80C600);
     RH_ScopedGlobalInstall(_rwImageResampleRow, 0x80CA20);
     RH_ScopedGlobalInstall(RwImageCreateResample, 0x80CD10);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote R34A (sin validar): deteccion de CPU del controlador D3D9, tuberias de Im3D de D3D9, nodos de Rx de D3D9, vector de estados de render por defecto, destruccion de paquetes y asignacion de clusters al
+// desbloquear una tuberia de Rx (0x80D680..0x80F690). Todo es C++ puro: CPUID y EFLAGS con los intrinsecos de MSVC, el resto con las estructuras de Rx de los lotes R15A y R31A.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+// Bloque de requisitos de un nodo durante el desbloqueo (RxPipelineNodeTopSortData::req, +8): lo crea 0x80F460 en el extremo alto del almacen temporal de Rx. Sus elementos son RxUnlockItem (0x24 bytes).
+struct RxReqHeader {
+    RwUInt32        count;    // +0x00 elementos en uso
+    RwUInt32        capacity; // +0x04 elementos reservados (numero de clusters distintos de la tuberia)
+    RwUInt32        slotMask; // +0x08 (a cero al crear; mascara de ranuras usadas, la rellenan las fases siguientes)
+    RxUnlockItem*   items;    // +0x0C
+    RxPipelineNode* node;     // +0x10 nodo propietario
+};
+static_assert(sizeof(RxReqHeader) == 0x14 && offsetof(RxReqHeader, items) == 0xC && offsetof(RxReqHeader, node) == 0x10);
+static_assert(sizeof(RxRenderStateVector) == 0x2C && sizeof(RxCluster) == 0x1C && offsetof(RxPacket, clusters) == 0x14 && offsetof(RxCluster, clusterRef) == 0x14);
+static_assert(offsetof(RxIoSpec, inputRequirements) == 8 && offsetof(RxIoSpec, outputs) == 0x10 && offsetof(RxOutputSpec, outputClusters) == 4 && offsetof(RxOutputSpec, allOtherClusters) == 8);
+static_assert(offsetof(RxClusterRef, forcePresent) == 4 && sizeof(RxClusterRef) == 0xC && sizeof(RxOutputSpec) == 0xC);
+
+RxReqHeader* RxNodeReqs(const RxPipelineNode* node) {
+    return reinterpret_cast<RxReqHeader*>(node->topSortData->req);
+}
+RxPipelineNode* RxItemOrigin(const RxUnlockItem* item) {
+    return reinterpret_cast<RxPipelineNode*>(static_cast<uintptr_t>(item->field20));
+}
+// Entrada de `reqs` para `clusterDef` o NULL (busqueda lineal; sin elementos no mira la matriz).
+RxUnlockItem* RxReqsFind(const RxReqHeader* reqs, const RxClusterDefinition* clusterDef) {
+    RxUnlockItem* item = reqs->items;
+    for (RwUInt32 i = 0; i < reqs->count; ++i, ++item) {
+        if (item->clusterDef == clusterDef) {
+            return item;
+        }
+    }
+    return nullptr;
+}
+// Estado de validez de `clusterDef` en la salida `output` del nodo: con un cluster de interes del nodo (indice != -1) el de la tabla de la salida, si no el de "todos los demas".
+RwUInt32 RxOutputClusterValidity(const RxIoSpec* io, const RxOutputSpec* output, const RxClusterDefinition* clusterDef);
+} // namespace
+
+// CPUID existe si el bit 21 de EFLAGS (ID) se puede invertir: lee EFLAGS, lo escribe con el bit invertido, lo relee y restaura el original; hay CPUID si algun bit cambio.
+static bool D3D9CpuIdSupported() {
+    const unsigned int original = __readeflags();
+    __writeeflags(original ^ 0x200000u);
+    const unsigned int changed = __readeflags();
+    __writeeflags(original);
+    return (changed ^ original) != 0;
+}
+
+// 0x80D680 (lote R34A, sin validar; 1251 bytes; cdecl, (bufer de al menos 0x31 bytes); devuelve el bufer o NULL; nombre inferido: descripcion de la CPU del controlador D3D9; SIN llamadores ni referencias en el EXE):
+// pone bufer[0] = 0. Sin CPUID devuelve NULL. Con la hoja extendida >= 0x80000004 copia la cadena de marca (hojas 0x80000002..4, 48 bytes, bufer[0x30] = 0), la desplaza a la izquierda sin los espacios iniciales
+// (copia hacia delante de 0x31 - n bytes) y devuelve NULL (el EXE solo sigue con el nombre por familia/modelo cuando no hay cadena de marca). Si no, escribe el fabricante (EBX, EDX, ECX de la hoja 0; bufer[12] = 0),
+// toma familia y modelo ((firma >> 8) & 0xF y (firma >> 4) & 0xF) de la hoja 0x80000001 (o de la 1 si no existe o su EAX es 0) y compara el fabricante con "GenuineIntel" (0x8E27F0), "AuthenticAMD" (0x8E273C) y
+// "AMD ISBETTER" (0x8E272C). Intel: familia 4 "Intel 486", 5 "Intel Pentium" ("Intel Pentium MMX" con modelo 4 u 8), 6 por modelo (0/1 Pro, 3/5 II, 6 Celeron, 7/8 III, 10 III Xeon; 2, 4, 9 y > 10 nada), 15 "Intel
+// Pentium 4"; otras familias nada. AMD: familia 4 "AMD 486", 5 por modelo (0..3 K5, 4..7 K6, 8 K6 2, 9 y 13 K6 III, 10..12 nada), 6 "AMD Duron" con modelo 3 y "AMD Athlon" con el resto; otras nada. Los nombres se copian de
+// las cadenas del EXE (0x8E26E4..0x8E27F0) con el mismo numero de bytes que copia el EXE (incluido el NUL).
+char* _rwD3D9CPUGetDescription(char* buffer) {
+    const auto copyName = [buffer](uintptr_t address, size_t size) { memcpy(buffer, reinterpret_cast<const void*>(address), size); };
+    int regs[4];
+    buffer[0] = 0;
+    if (!D3D9CpuIdSupported()) {
+        return nullptr;
+    }
+    __cpuidex(regs, static_cast<int>(0x80000000u), 0);
+    if (static_cast<uint32>(regs[0]) >= 0x80000004u) {
+        for (uint32 leaf = 0; leaf < 3; ++leaf) {
+            __cpuidex(regs, static_cast<int>(0x80000002u + leaf), 0);
+            uint32* const out = reinterpret_cast<uint32*>(buffer + leaf * 0x10);
+            out[0] = static_cast<uint32>(regs[0]);
+            out[1] = static_cast<uint32>(regs[1]);
+            out[2] = static_cast<uint32>(regs[2]);
+            out[3] = static_cast<uint32>(regs[3]);
+        }
+        buffer[0x30] = 0;
+        uint32 leading = 0;
+        while (buffer[leading] == 0x20) {
+            ++leading;
+        }
+        if (leading != 0) {
+            const char* source = buffer + leading;
+            char* destination = buffer;
+            for (uint32 count = 0x31u - leading; count != 0; --count) {
+                *destination++ = *source++;
+            }
+        }
+        return nullptr;
+    }
+
+    // Sin cadena de marca: fabricante de la hoja 0 y nombre por familia y modelo.
+    __cpuidex(regs, 0, 0);
+    reinterpret_cast<uint32*>(buffer)[0] = static_cast<uint32>(regs[1]);
+    reinterpret_cast<uint32*>(buffer)[1] = static_cast<uint32>(regs[3]);
+    reinterpret_cast<uint32*>(buffer)[2] = static_cast<uint32>(regs[2]);
+    buffer[0xC] = 0;
+    uint32 family = 0;
+    uint32 model = 0;
+    if (D3D9CpuIdSupported()) {
+        uint32 signature;
+        __cpuidex(regs, static_cast<int>(0x80000000u), 0);
+        if (static_cast<uint32>(regs[0]) >= 0x80000001u) {
+            __cpuidex(regs, static_cast<int>(0x80000001u), 0);
+            signature = static_cast<uint32>(regs[0]);
+            if (signature == 0) {
+                __cpuidex(regs, 1, 0);
+                signature = static_cast<uint32>(regs[0]);
+            }
+        } else {
+            __cpuidex(regs, 1, 0);
+            signature = static_cast<uint32>(regs[0]);
+        }
+        family = (signature >> 8) & 0xFu;
+        model = (signature >> 4) & 0xFu;
+    }
+
+    if (memcmp(buffer, reinterpret_cast<const void*>(0x8E27F0), 12) == 0) {
+        // GenuineIntel.
+        const uint32 familyIndex = family - 4u;
+        if (familyIndex > 0xBu) {
+            return buffer;
+        }
+        static constexpr uint8 kIntelFamilyKind[12] = {0, 1, 2, 4, 4, 4, 4, 4, 4, 4, 4, 3};
+        switch (kIntelFamilyKind[familyIndex]) {
+        case 0:
+            copyName(0x8E27E4, 10); // Intel 486
+            break;
+        case 1:
+            if (model == 4 || model == 8) {
+                copyName(0x8E27C0, 18); // Intel Pentium MMX
+            } else {
+                copyName(0x8E27D4, 14); // Intel Pentium
+            }
+            break;
+        case 2:
+            if (model > 0xAu) {
+                return buffer;
+            }
+            {
+                static constexpr uint8 kIntelModel6Kind[11] = {0, 0, 5, 1, 5, 1, 2, 3, 3, 5, 4};
+                switch (kIntelModel6Kind[model]) {
+                case 0:
+                    copyName(0x8E27AC, 18); // Intel Pentium Pro
+                    break;
+                case 1:
+                    copyName(0x8E2798, 17); // Intel Pentium II
+                    break;
+                case 2:
+                    copyName(0x8E2788, 14); // Intel Celeron
+                    break;
+                case 3:
+                    copyName(0x8E2774, 18); // Intel Pentium III
+                    break;
+                case 4:
+                    copyName(0x8E275C, 23); // Intel Pentium III Xeon
+                    break;
+                default:
+                    break;
+                }
+            }
+            break;
+        case 3:
+            copyName(0x8E274C, 16); // Intel Pentium 4
+            break;
+        default:
+            break;
+        }
+        return buffer;
+    }
+    if (memcmp(buffer, reinterpret_cast<const void*>(0x8E273C), 12) != 0 && memcmp(buffer, reinterpret_cast<const void*>(0x8E272C), 12) != 0) {
+        return buffer;
+    }
+    // AuthenticAMD o AMD ISBETTER.
+    if (family == 4) {
+        copyName(0x8E26E4, 8); // AMD 486
+    } else if (family == 5) {
+        if (model > 0xDu) {
+            return buffer;
+        }
+        static constexpr uint8 kAmdModel5Kind[14] = {0, 0, 0, 0, 1, 1, 1, 1, 2, 3, 4, 4, 4, 3};
+        switch (kAmdModel5Kind[model]) {
+        case 0:
+            copyName(0x8E270C, 7); // AMD K5
+            break;
+        case 1:
+            copyName(0x8E2704, 7); // AMD K6
+            break;
+        case 2:
+            copyName(0x8E26F8, 9); // AMD K6 2
+            break;
+        case 3:
+            copyName(0x8E26EC, 11); // AMD K6 III
+            break;
+        default:
+            break;
+        }
+    } else if (family == 6) {
+        if (model == 3) {
+            copyName(0x8E2714, 10); // AMD Duron
+        } else {
+            copyName(0x8E2720, 11); // AMD Athlon
+        }
+    }
+    return buffer;
+}
+
+// 0x80DBE0 (lote R34A, sin validar; 87 bytes; cdecl sin argumentos; el resultado se guarda en 0xC980A0, `_rwD3D9CPUSupportsMMX`; llamador: 0x7F646D; nombre inferido): sin CPUID devuelve 0; si no, bit 23 de EDX de la
+// hoja 1 (MMX).
+RwInt32 _rwD3D9CPUDetectMMX() {
+    if (!D3D9CpuIdSupported()) {
+        return 0;
+    }
+    int regs[4];
+    __cpuidex(regs, 1, 0);
+    return (static_cast<uint32>(regs[3]) >> 23) & 1u;
+}
+
+// 0x80DC40 (lote R34A, sin validar; 92 bytes; cdecl sin argumentos; el resultado se guarda en 0xC980A4, `_rwD3D9CPUSupportsSSE`; llamador: 0x7F6477; nombre inferido): sin CPUID devuelve 0; si no, 1 si EDX de la hoja 1
+// tiene el bit 25 (SSE) o el 26 (SSE2) (mascara 0x6000000), si no 0.
+RwInt32 _rwD3D9CPUDetectSSE() {
+    if (!D3D9CpuIdSupported()) {
+        return 0;
+    }
+    int regs[4];
+    __cpuidex(regs, 1, 0);
+    return (static_cast<uint32>(regs[3]) & 0x6000000u) != 0 ? 1 : 0;
+}
+
+// 0x80DCA0 (lote R34A, sin validar; 87 bytes; cdecl sin argumentos; el resultado se guarda en 0xC980A8, `_rwD3D9CPUSupportsSSE2`; llamador: 0x7F6481; nombre inferido): sin CPUID devuelve 0; si no, bit 26 de EDX de la
+// hoja 1 (SSE2).
+RwInt32 _rwD3D9CPUDetectSSE2() {
+    if (!D3D9CpuIdSupported()) {
+        return 0;
+    }
+    int regs[4];
+    __cpuidex(regs, 1, 0);
+    return (static_cast<uint32>(regs[3]) >> 26) & 1u;
+}
+
+// 0x80DD00 (lote R34A, sin validar; 130 bytes; cdecl sin argumentos; el resultado se guarda en 0xC980AC, `_rwD3D9CPUSupports3DNow`; llamador: 0x7F648B; nombre inferido): sin CPUID devuelve 0; si la hoja extendida maxima
+// (0x80000000) no es MAYOR que 0x80000000 (sin signo) devuelve 0; si no, bit 31 de EDX de la hoja 0x80000001 (3DNow!).
+RwInt32 _rwD3D9CPUDetect3DNow() {
+    if (!D3D9CpuIdSupported()) {
+        return 0;
+    }
+    int regs[4];
+    __cpuidex(regs, static_cast<int>(0x80000000u), 0);
+    if (!(static_cast<uint32>(regs[0]) > 0x80000000u)) {
+        return 0;
+    }
+    __cpuidex(regs, static_cast<int>(0x80000001u), 0);
+    return (static_cast<uint32>(regs[3]) & 0x80000000u) != 0 ? 1 : 0;
+}
+
+// 0x80DFB0 (lote R34A, sin validar; 98 bytes; era llamada por direccion fija desde 0x7F813E, 0x80A142 y las funciones reconstruidas; cdecl sin argumentos; el valor de retorno del EXE es basura y nadie lo usa; nombre inferido:
+// `_rwD3D9Im3DRenderClose`, par de 0x80E020): libera el bufer de indices (0xC9AB40: Release, ranura 2, y a NULL) y las declaraciones de vertices 0xC9AB4C, 0xC9AB48 y 0xC9AB44, en este orden (cada una, si no es NULL:
+// RwD3D9DeleteVertexDeclaration y a NULL).
+void _rwD3D9Im3DRenderClose() {
+    if (StaticRef<void*>(0xC9AB40) != nullptr) {
+        ComCall<kSlotRelease, ULONG>(StaticRef<void*>(0xC9AB40));
+        StaticRef<void*>(0xC9AB40) = nullptr;
+    }
+    if (StaticRef<void*>(0xC9AB4C) != nullptr) {
+        RwD3D9DeleteVertexDeclaration(StaticRef<void*>(0xC9AB4C));
+        StaticRef<void*>(0xC9AB4C) = nullptr;
+    }
+    if (StaticRef<void*>(0xC9AB48) != nullptr) {
+        RwD3D9DeleteVertexDeclaration(StaticRef<void*>(0xC9AB48));
+        StaticRef<void*>(0xC9AB48) = nullptr;
+    }
+    if (StaticRef<void*>(0xC9AB44) != nullptr) {
+        RwD3D9DeleteVertexDeclaration(StaticRef<void*>(0xC9AB44));
+        StaticRef<void*>(0xC9AB44) = nullptr;
+    }
+}
+
+// 0x80E020 (lote R34A, sin validar; 578 bytes; era llamada por direccion fija desde WindowedMode.cpp, 0x7F7A52 y otras 12 y por las funciones reconstruidas; `_rwD3D9Im3DRenderOpen` de RenderWare; cdecl sin argumentos -> RwBool):
+// 0xC9AB3C = 0 y CreateIndexBuffer (ranura 27) de 0x1FFFE bytes, uso 0x208, D3DFMT_INDEX16 (0x65), pool ((~DevCaps (0xC9BF1C)) >> 15) & 2 (2 = SYSTEMMEM sin HWTRANSFORMANDLIGHT, 0 con ella) en 0xC9AB40. Con HRESULT 0 crea
+// tres declaraciones con RwD3D9CreateVertexDeclaration (0x7FAA30; los resultados se ignoran): 0xC9AB44 = {POSITION float3 en 0, NORMAL float3 en 12, COLOR D3DCOLOR en 24, TEXCOORD0 float2 en 28, fin}, 0xC9AB48 = {POSITION
+// float3 en 0, COLOR en 12, TEXCOORD0 float2 en 16, fin} y 0xC9AB4C = {POSITION float3 en 0, COLOR en 12, fin}; devuelve TRUE. Si falla: libera con el mismo orden que 0x80DFB0 (el bufer de indices con Release, luego las
+// declaraciones 0xC9AB4C, 0xC9AB48 y 0xC9AB44) y devuelve FALSE.
+RwBool _rwD3D9Im3DRenderOpen() {
+    const uint32 pool = (~D3D9DeviceDevCaps >> 15) & 2u;
+    void* const device = D3D9Device;
+    StaticRef<uint32>(0xC9AB3C) = 0;
+    const int32 result = ComCall<kSlotDeviceCreateIndexBufferR28A, int32>(device, 0x1FFFEu, 0x208u, 0x65u, pool, reinterpret_cast<void**>(0xC9AB40), static_cast<void*>(nullptr));
+    if (result == 0) {
+        struct VertexElement { uint16 stream; uint16 offset; uint8 type; uint8 method; uint8 usage; uint8 usageIndex; };
+        static_assert(sizeof(VertexElement) == 8);
+        const VertexElement full[5] = {
+            { 0, 0, 2, 0, 0, 0 },      // POSITION, D3DDECLTYPE_FLOAT3
+            { 0, 12, 2, 0, 3, 0 },     // NORMAL, FLOAT3
+            { 0, 24, 4, 0, 10, 0 },    // COLOR, D3DCOLOR
+            { 0, 28, 1, 0, 5, 0 },     // TEXCOORD, FLOAT2
+            { 0xFF, 0, 0x11, 0, 0, 0 } // D3DDECL_END
+        };
+        RwD3D9CreateVertexDeclaration(full, reinterpret_cast<void**>(0xC9AB44));
+        const VertexElement noNormal[4] = {
+            { 0, 0, 2, 0, 0, 0 },
+            { 0, 12, 4, 0, 10, 0 },
+            { 0, 16, 1, 0, 5, 0 },
+            { 0xFF, 0, 0x11, 0, 0, 0 }
+        };
+        RwD3D9CreateVertexDeclaration(noNormal, reinterpret_cast<void**>(0xC9AB48));
+        const VertexElement positionColor[3] = {
+            { 0, 0, 2, 0, 0, 0 },
+            { 0, 12, 4, 0, 10, 0 },
+            { 0xFF, 0, 0x11, 0, 0, 0 }
+        };
+        RwD3D9CreateVertexDeclaration(positionColor, reinterpret_cast<void**>(0xC9AB4C));
+        return TRUE;
+    }
+    if (StaticRef<void*>(0xC9AB40) != nullptr) {
+        ComCall<kSlotRelease, ULONG>(StaticRef<void*>(0xC9AB40));
+        StaticRef<void*>(0xC9AB40) = nullptr;
+    }
+    if (StaticRef<void*>(0xC9AB4C) != nullptr) {
+        RwD3D9DeleteVertexDeclaration(StaticRef<void*>(0xC9AB4C));
+        StaticRef<void*>(0xC9AB4C) = nullptr;
+    }
+    if (StaticRef<void*>(0xC9AB48) != nullptr) {
+        RwD3D9DeleteVertexDeclaration(StaticRef<void*>(0xC9AB48));
+        StaticRef<void*>(0xC9AB48) = nullptr;
+    }
+    if (StaticRef<void*>(0xC9AB44) != nullptr) {
+        RwD3D9DeleteVertexDeclaration(StaticRef<void*>(0xC9AB44));
+        StaticRef<void*>(0xC9AB44) = nullptr;
+    }
+    return FALSE;
+}
+
+// 0x80E990 (lote R34A, sin validar; 6 bytes; era llamada por direccion fija desde 0x80A0C5; cdecl sin argumentos; nombre inferido): `mov eax, 0x8E2918; ret`: definicion del nodo de Rx "ImmInstance.csl" (nodeBody 0x80E970)
+// de Im3D de D3D9. Es una variable del EXE: se devuelve su direccion.
+RxNodeDefinition* _rwD3D9RxNodeDefinitionGetImmInstance() {
+    return reinterpret_cast<RxNodeDefinition*>(0x8E2918);
+}
+
+// 0x80E9A0 (lote R34A, sin validar; 6 bytes; era llamada por direccion fija desde 0x80A1C9; cdecl sin argumentos; nombre inferido): `mov eax, 0x8E2978; ret`: definicion del nodo de Rx "nodeD3D9SubmitNoLight.csl"
+// (nodeBody 0x80E270) de Im3D de D3D9. Es una variable del EXE: se devuelve su direccion.
+RxNodeDefinition* _rwD3D9RxNodeDefinitionGetSubmitNoLight() {
+    return reinterpret_cast<RxNodeDefinition*>(0x8E2978);
+}
+
+// 0x80E9B0 (lote R34A, sin validar; 41 bytes; era llamada por direccion fija desde 0x8030D9 (_rwImageForAllPaths) y 0x820A29; cdecl, (nombre); nombre inferido): devuelve 1 si el nombre empieza por '\' o por una letra
+// (comparaciones con signo: A-Z o a-z) seguida de ':'; si no 0. Solo lee name[1] cuando name[0] es una letra.
+RwInt32 _rwIsAbsolutePath(const char* name) {
+    const signed char first = static_cast<signed char>(name[0]);
+    if (first == 0x5C) {
+        return 1;
+    }
+    const bool letter = (first >= 0x41 && first <= 0x5A) || (first >= 0x61 && first <= 0x7A);
+    if (letter && name[1] == 0x3A) {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x80EA40 (lote R34A, sin validar; 234 bytes; era una envoltura; cdecl, (vector); `RxRenderStateVectorSetDefaultRenderStateVector` del SDK): NULL -> RwError { 1, _rwerror(0x80000016) } y NULL. El vector por
+// defecto vive en el modulo de tuberias (RwEngineInstance + [0xC9BC60] + 4). Con el motor arrancado (engineStatus +0x150 == 3) copia sus 0x2C bytes (11 dwords) a `rsvp` y lo devuelve. Si no, solo se admite el propio
+// vector por defecto (otro: error 0x80000018 y NULL): lo inicializa con Flags = 7, ShadeMode = 2 (gouraud), SrcBlend = 5, DestBlend = 6, raster = NULL, AddressModeU/V = 1, FilterMode = 2, BorderColor = 0xFFFFFFFF,
+// FogType = 0 y FogColor = 0xFFFFFFFF, y lo devuelve.
+RxRenderStateVector* RxRenderStateVectorSetDefaultRenderStateVector(RxRenderStateVector* rsvp) {
+    if (rsvp == nullptr) {
+        RwRaiseError(kRxErrNullPointer);
+        return nullptr;
+    }
+    uint8* const globals = reinterpret_cast<uint8*>(RwEngineInstance);
+    const bool started = RwEngineInstance->engineStatus == rwENGINESTATUSSTARTED;
+    RxRenderStateVector* const defaultVector = reinterpret_cast<RxRenderStateVector*>(globals + StaticRef<RwInt32>(0xC9BC60) + 4);
+    if (started) {
+        memcpy(rsvp, defaultVector, sizeof(RxRenderStateVector));
+        return rsvp;
+    }
+    if (rsvp != defaultVector) {
+        RwRaiseError(static_cast<RwInt32>(0x80000018));
+        return nullptr;
+    }
+    RwUInt32* const fields = reinterpret_cast<RwUInt32*>(rsvp);
+    fields[4] = 0;            // TextureRaster
+    fields[1] = 2;            // ShadeMode
+    fields[7] = 2;            // FilterMode
+    fields[9] = 0;            // FogType
+    fields[0] = 7;            // Flags
+    fields[2] = 5;            // SrcBlend
+    fields[3] = 6;            // DestBlend
+    fields[5] = 1;            // AddressModeU
+    fields[6] = 1;            // AddressModeV
+    fields[8] = 0xFFFFFFFFu;  // BorderColor
+    fields[10] = 0xFFFFFFFFu; // FogColor
+    return rsvp;
+}
+
+// 0x80F070 (lote R34A, sin validar; 91 bytes; era una envoltura; cdecl, (paquete); `_rxPacketDestroy` del SDK; llamadores: 0x805787 y otros): pone embeddedPacketState de la tuberia del paquete (+4 -> +0x10) a 1 y recorre
+// numClusters (word en +2; do-while con contador de 32 bits: 0 daria 2^32 vueltas) clusters de 0x1C bytes desde +0x14: los que tienen clusterRef (+0x14) distinto de NULL liberan sus datos (+4) con RxHeapFree del monton
+// global (0xC9A6B0) si no son NULL y la bandera externa (bit 2 de +0) no esta puesta, y se ponen a cero: banderas y stride (dword +0), datos (+4), numAlloced (+0xC), numUsed (+0x10) y clusterRef (+0x14); currentData (+8)
+// y attributes (+0x18) no se tocan. Al final flags (word +0) = 0.
+void _rxPacketDestroy(RxPacket* Packet) {
+    RxCluster* cluster = Packet->clusters;
+    Packet->pipeline->embeddedPacketState = static_cast<rxEmbeddedPacketState>(1);
+    RwUInt32 remaining = Packet->numClusters;
+    do {
+        if (cluster->clusterRef != nullptr) {
+            void* const data = cluster->data;
+            if (data != nullptr && (cluster->flags & 2) == 0) {
+                RxHeapFree(StaticRef<RxHeap*>(0xC9A6B0), data);
+            }
+            cluster->flags = 0;
+            cluster->stride = 0;
+            cluster->data = nullptr;
+            cluster->numAlloced = 0;
+            cluster->numUsed = 0;
+            cluster->clusterRef = nullptr;
+        }
+        ++cluster;
+        --remaining;
+    } while (remaining != 0);
+    Packet->flags = 0;
+}
+
+// 0x80F540 (lote R34A, sin validar; 37 bytes; cdecl, (especificacion de E/S, definicion de cluster); nombre inferido; llamadores: 0x80F1E7): busca la definicion entre los clusters de interes (+4, elementos de 12 bytes; cuenta
+// en +0) y devuelve su indice o 0xFFFFFFFF si no esta.
+RwInt32 _rxIoSpecFindCluster(const RxIoSpec* io, const RxClusterDefinition* clusterDef) {
+    RwUInt32 index = 0;
+    for (RwUInt32 count = io->numClustersOfInterest; index < count; ++index) {
+        if (io->clustersOfInterest[index].clusterDef == clusterDef) {
+            return static_cast<RwInt32>(index);
+        }
+    }
+    return -1;
+}
+
+namespace {
+RwUInt32 RxOutputClusterValidity(const RxIoSpec* io, const RxOutputSpec* output, const RxClusterDefinition* clusterDef) {
+    const RwInt32 index = _rxIoSpecFindCluster(io, clusterDef);
+    if (index == -1) {
+        return static_cast<RwUInt32>(output->allOtherClusters);
+    }
+    return static_cast<RwUInt32>(output->outputClusters[index]);
+}
+} // namespace
+
+// 0x80F460 (lote R34A, sin validar; 77 bytes; cdecl, (nodo, capacidad); nombre inferido; llamador: 0x80F162): crea el bloque de requisitos de un nodo con RxScratchAllocHigh (0x805890): cabecera de 0x14 bytes y matriz de
+// capacidad * 0x24 bytes (fallo de cualquiera: NULL). Cuenta = 0, capacidad, mascara de ranuras (+8) = 0 y nodo propietario.
+RxReqHeader* _rxPipelineReqsCreate(RxPipelineNode* node, RwUInt32 capacity) {
+    RxReqHeader* const reqs = static_cast<RxReqHeader*>(RxScratchAllocHigh(0x14));
+    if (reqs == nullptr) {
+        return nullptr;
+    }
+    RxUnlockItem* const items = static_cast<RxUnlockItem*>(RxScratchAllocHigh(capacity * 0x24u));
+    reqs->items = items;
+    if (items == nullptr) {
+        return nullptr;
+    }
+    reqs->capacity = capacity;
+    reqs->count = 0;
+    reqs->node = node;
+    reqs->slotMask = 0;
+    return reqs;
+}
+
+// 0x80F4B0 (lote R34A, sin validar; 132 bytes; cdecl, (requisitos, cluster, tipo, cuenta, nodo de origen); devuelve el elemento; nombre inferido; llamadores: 0x80F21B y 0x80F33A): busca el cluster en la matriz; si ya esta
+// y el tipo es 1 pone tipo = 1 y origen = nodo (con otro tipo no cambia nada) y lo devuelve. Si no, anade al final (sin comprobar la capacidad) {cluster, tipo, cuenta (+8), grupo = NULL, siguiente = NULL, info = requisitos,
+// mascara de salidas = 0, ranura = 0xFFFFFFFF, origen = nodo} y lo devuelve. Nunca devuelve NULL.
+RxUnlockItem* _rxPipelineReqsAddOrUpdate(RxReqHeader* reqs, RxClusterDefinition* clusterDef, RwUInt32 type, RwUInt32 count, RxPipelineNode* origin) {
+    RxUnlockItem* const existing = RxReqsFind(reqs, clusterDef);
+    if (existing != nullptr) {
+        if (type == 1) {
+            existing->type = 1;
+            existing->field20 = static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(origin));
+        }
+        return existing;
+    }
+    RxUnlockItem* const item = reqs->items + reqs->count;
+    reqs->count = reqs->count + 1;
+    item->clusterDef = clusterDef;
+    item->field8 = count;
+    item->nextInGroup = nullptr;
+    item->info = reinterpret_cast<RxUnlockInfo*>(reqs);
+    item->group = nullptr;
+    item->outputsMask = 0;
+    item->slot = 0xFFFFFFFFu;
+    item->type = type;
+    item->field20 = static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(origin));
+    return item;
+}
+
+// 0x80F570 (lote R34A, sin validar; 273 bytes; cdecl, (tuberia, nodo, cluster); nombre inferido; llamadores: 0x80F2BD y ella misma): quita un requisito. Busca el cluster en los requisitos del nodo (no esta: nada); resta 1 a
+// su cuenta (+8) y, solo si llega a 0, lo quita (si no es el ultimo copia encima el ultimo, 9 dwords) y decrementa la cuenta. Despues, por cada salida (!= 0xFFFFFFFF; numOutputs releido en cada vuelta) cuyo estado del cluster
+// sea "sin cambio" (0: el de la tabla de la salida si el cluster es de interes del nodo, si no el de "todos los demas") se llama recursivamente con el nodo de esa salida.
+void _rxPipelineReqsRelease(RxPipeline* pipeline, RxPipelineNode* node, RxClusterDefinition* clusterDef) {
+    const RxIoSpec* const io = &node->nodeDef->io;
+    RxReqHeader* reqs = RxNodeReqs(node);
+    if (reqs->count == 0) {
+        return;
+    }
+    RxUnlockItem* const item = RxReqsFind(reqs, clusterDef);
+    if (item == nullptr) {
+        return;
+    }
+    item->field8 = item->field8 - 1;
+    if (item->field8 != 0) {
+        return;
+    }
+    reqs = RxNodeReqs(node);
+    RxUnlockItem* const last = reqs->items + reqs->count - 1;
+    if (item != last) {
+        memcpy(item, last, sizeof(RxUnlockItem));
+    }
+    reqs->count = reqs->count - 1;
+    if (node->numOutputs == 0) {
+        return;
+    }
+    RwUInt32 j = 0;
+    do {
+        const RwUInt32 outIndex = node->outputs[j];
+        if (outIndex != 0xFFFFFFFFu) {
+            const RxOutputSpec* const output = &node->nodeDef->io.outputs[j];
+            if (RxOutputClusterValidity(io, output, clusterDef) == 0) {
+                _rxPipelineReqsRelease(pipeline, &pipeline->nodes[outIndex], clusterDef);
+            }
+        }
+        ++j;
+    } while (j < node->numOutputs);
+}
+
+// 0x80F690 (lote R34A, sin validar; 730 bytes; cdecl, (tuberia); devuelve 0 o 0x20; nombre inferido: propagacion de los clusters forzados y de las mascaras de salida; llamador: 0x80F378): por cada nodo (do-while con contador
+// de nodos): (1) para cada cluster de interes con forcePresent (+4) distinto de 0 anade al nodo un requisito de tipo 0, cuenta 1 y origen el nodo si aun no existe. (2) Para cada salida (!= 0xFFFFFFFF) y para cada requisito
+// del nodo destino (cuenta releida): estado del cluster en esa salida (tabla de la salida si es de interes del nodo, si no "todos los demas"); 2 (invalido): nada; 0 (sin cambio): si el nodo tiene un requisito del mismo
+// cluster pone el bit (1 << (salida & 31)) en su mascara de salidas (+0x18); 1 (valido): lo anade al nodo si no existe (tipo 0, cuenta 1, origen el nodo; una entrada que faltara daria el error 0x20) y pone el bit. Devuelve 0.
+RwInt32 _rxPipelineUnlockPropagateForced(RxPipeline* pipeline) {
+    RwUInt32 nodesLeft = pipeline->numNodes;
+    RxPipelineNode* node = pipeline->nodes;
+    do {
+        const RxIoSpec* const io = &node->nodeDef->io;
+        if (io->numClustersOfInterest > 0) {
+            RwUInt32 i = 0;
+            do {
+                const RxClusterRef* const reference = &io->clustersOfInterest[i];
+                if (reference->forcePresent != 0) {
+                    RxClusterDefinition* const clusterDef = reference->clusterDef;
+                    RxReqHeader* const reqs = RxNodeReqs(node);
+                    if (RxReqsFind(reqs, clusterDef) == nullptr) {
+                        _rxPipelineReqsAddOrUpdate(reqs, clusterDef, 0, 1, node);
+                    }
+                }
+                ++i;
+            } while (i < io->numClustersOfInterest);
+        }
+        if (node->numOutputs > 0) {
+            RwUInt32 j = 0;
+            do {
+                const RwUInt32 outIndex = node->outputs[j];
+                if (outIndex != 0xFFFFFFFFu) {
+                    RxPipelineNode* const target = &pipeline->nodes[outIndex];
+                    const RxOutputSpec* const output = &node->nodeDef->io.outputs[j];
+                    if (RxNodeReqs(target)->count != 0) {
+                        RwUInt32 k = 0;
+                        do {
+                            RxClusterDefinition* const clusterDef = RxNodeReqs(target)->items[k].clusterDef;
+                            const RwUInt32 valid = RxOutputClusterValidity(io, output, clusterDef);
+                            if (valid != 2) {
+                                RxUnlockItem* entry;
+                                if (valid == 0) {
+                                    entry = RxReqsFind(RxNodeReqs(node), clusterDef);
+                                } else {
+                                    RxReqHeader* const nodeReqs = RxNodeReqs(node);
+                                    entry = RxReqsFind(nodeReqs, clusterDef);
+                                    if (entry == nullptr) {
+                                        entry = _rxPipelineReqsAddOrUpdate(nodeReqs, clusterDef, 0, 1, node);
+                                    }
+                                    if (entry == nullptr) {
+                                        RwRaiseError(0x20);
+                                        return 0x20;
+                                    }
+                                }
+                                if (entry != nullptr) {
+                                    entry->outputsMask |= 1u << (j & 31u);
+                                }
+                            }
+                            ++k;
+                        } while (k < RxNodeReqs(target)->count);
+                    }
+                }
+                ++j;
+            } while (j < node->numOutputs);
+        }
+        node = reinterpret_cast<RxPipelineNode*>(reinterpret_cast<uint8*>(node) + sizeof(RxPipelineNode));
+        --nodesLeft;
+    } while (nodesLeft != 0);
+    return 0;
+}
+
+// 0x80F0D0 (lote R34A, sin validar; 899 bytes; era llamada por direccion fija desde RxLockedPipeUnlock; cdecl, (tuberia); devuelve 0 o el codigo de error; nombre inferido: asignacion de clusters y ranuras al desbloquear una
+// tuberia de Rx; llamador: 0x805F40 (+0xBD)): recorre los nodos del ULTIMO al primero (do-while con contador de 32 bits) y para cada uno: (1) valida los clusters de interes de su definicion (sin definicion nula: error 0x1F con
+// (nombre del nodo, indice); sin repetidos: error 0x1E con (nombre del nodo, nombre del cluster)); (2) crea su bloque de requisitos con 0x80F460(nodo, numero de clusters distintos 0x805950(tuberia)) y lo cuelga de
+// topSortData->req (+8; NULL: error 0x20); (3) por cada salida (!= 0xFFFFFFFF) y por cada requisito del nodo destino (cuenta releida): estado del cluster en la salida (tabla si es de interes del nodo, si no "todos los
+// demas"); 0: lo anade a este nodo con 0x80F4B0 (tipo, cuenta = numIns del nodo, origen del requisito; NULL: error 0x20); distinto de 0 y tipo 1: si el estado no es 1 error 0x1D con (nombre del cluster, nombre de la
+// definicion del nodo de origen, nombre de la del nodo, salida, nombre de la salida); distinto de 0 y tipo != 1: con estado 2 llama a 0x80F570(tuberia, destino, cluster); (4) por cada cluster de interes con requisito de
+// entrada != 0 lo anade con (requisito, numIns, nodo; NULL: 0x20). Despues 0x80F690(tuberia), 0x80F970(tuberia, &grupos), 0x80FBA0(tuberia, &grupos) y 0x80FC30(tuberia, grupos) mientras cada una devuelva 0; devuelve el
+// resultado de la ultima que se ejecuta. Los errores se guardan con RwErrorSet (pluginID 1).
+RwInt32 _rxPipelineUnlockAllocateClusters(RxPipeline* pipeline) {
+    RwUInt32 nodesLeft = pipeline->numNodes;
+    RxUnlockGroup* groupList = nullptr;
+    RxPipelineNode* node = reinterpret_cast<RxPipelineNode*>(reinterpret_cast<uint8*>(pipeline->nodes) + nodesLeft * 0x28u - 0x28u);
+    do {
+        RxNodeDefinition* const definition = node->nodeDef;
+        const RxIoSpec* const io = &definition->io;
+        const RwUInt32 clusterCount = io->numClustersOfInterest;
+
+        // (1) Definiciones de cluster de interes: ninguna nula y sin repetidos.
+        if (clusterCount > 0) {
+            const RxClusterRef* reference = io->clustersOfInterest;
+            RwUInt32 index = 0;
+            do {
+                if (reference->clusterDef == nullptr) {
+                    RwRaiseError(0x1F, definition->name, index);
+                    return 0x1F;
+                }
+                const RwUInt32 next = index + 1;
+                if (next < clusterCount) {
+                    const RxClusterRef* other = reference + 1;
+                    for (RwUInt32 k = next; k < clusterCount; ++k, ++other) {
+                        if (reference->clusterDef == other->clusterDef) {
+                            RwRaiseError(0x1E, definition->name, other->clusterDef->name);
+                            return 0x1E;
+                        }
+                    }
+                }
+                index = next;
+                ++reference;
+            } while (index < clusterCount);
+        }
+
+        // (2) Bloque de requisitos del nodo.
+        RxReqHeader* const created = _rxPipelineReqsCreate(node, _rxPipelineCountClusters(pipeline));
+        node->topSortData->req = reinterpret_cast<rxReq*>(created);
+        if (node->topSortData->req == nullptr) {
+            RwRaiseError(0x20);
+            return 0x20;
+        }
+
+        // (3) Requisitos que llegan de los nodos destino de cada salida.
+        if (node->numOutputs > 0) {
+            RwUInt32 j = 0;
+            do {
+                const RwUInt32 outIndex = node->outputs[j];
+                if (outIndex != 0xFFFFFFFFu) {
+                    RxPipelineNode* const target = &pipeline->nodes[outIndex];
+                    const RxOutputSpec* const output = &node->nodeDef->io.outputs[j];
+                    if (RxNodeReqs(target)->count > 0) {
+                        RwUInt32 k = 0;
+                        do {
+                            RxUnlockItem* const targetItem = &RxNodeReqs(target)->items[k];
+                            const RwUInt32 valid = RxOutputClusterValidity(io, output, targetItem->clusterDef);
+                            if (valid == 0) {
+                                RxUnlockItem* const added = _rxPipelineReqsAddOrUpdate(RxNodeReqs(node), targetItem->clusterDef, targetItem->type, node->topSortData->numIns, RxItemOrigin(targetItem));
+                                if (added == nullptr) {
+                                    RwRaiseError(0x20);
+                                    return 0x20;
+                                }
+                            } else if (targetItem->type == 1) {
+                                if (valid != 1) {
+                                    RwRaiseError(0x1D, targetItem->clusterDef->name, RxItemOrigin(targetItem)->nodeDef->name, node->nodeDef->name, j, output->name);
+                                    return 0x1D;
+                                }
+                            } else if (valid == 2) {
+                                _rxPipelineReqsRelease(pipeline, target, targetItem->clusterDef);
+                            }
+                            ++k;
+                        } while (k < RxNodeReqs(target)->count);
+                    }
+                }
+                ++j;
+            } while (j < node->numOutputs);
+        }
+
+        // (4) Requisitos de entrada del propio nodo.
+        if (io->numClustersOfInterest > 0) {
+            RwUInt32 i = 0;
+            do {
+                const RwUInt32 requirement = static_cast<RwUInt32>(io->inputRequirements[i]);
+                if (requirement != 0) {
+                    RxUnlockItem* const added = _rxPipelineReqsAddOrUpdate(RxNodeReqs(node), io->clustersOfInterest[i].clusterDef, requirement, node->topSortData->numIns, node);
+                    if (added == nullptr) {
+                        RwRaiseError(0x20);
+                        return 0x20;
+                    }
+                }
+                ++i;
+            } while (i < io->numClustersOfInterest);
+        }
+        node = reinterpret_cast<RxPipelineNode*>(reinterpret_cast<uint8*>(node) - sizeof(RxPipelineNode));
+        --nodesLeft;
+    } while (nodesLeft != 0);
+
+    RwInt32 result = _rxPipelineUnlockPropagateForced(pipeline);
+    if (result != 0) {
+        return result;
+    }
+    result = _rxPipelineUnlockLinkItems(pipeline, &groupList);
+    if (result != 0) {
+        return result;
+    }
+    result = _rxPipelineUnlockAssignSlots(pipeline, &groupList);
+    if (result != 0) {
+        return result;
+    }
+    return _rxPipelineUnlockBuildExecutionData(pipeline, groupList);
+}
+
+// Lote R34A (sin validar): ganchos del controlador D3D9 (0x80D680..0x80E9A0).
+void RwD3D9InjectHooksR34A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwD3D9");
+
+    RH_ScopedGlobalInstall(_rwD3D9CPUGetDescription, 0x80D680);
+    RH_ScopedGlobalInstall(_rwD3D9CPUDetectMMX, 0x80DBE0);
+    RH_ScopedGlobalInstall(_rwD3D9CPUDetectSSE, 0x80DC40);
+    RH_ScopedGlobalInstall(_rwD3D9CPUDetectSSE2, 0x80DCA0);
+    RH_ScopedGlobalInstall(_rwD3D9CPUDetect3DNow, 0x80DD00);
+    RH_ScopedGlobalInstall(_rwD3D9Im3DRenderClose, 0x80DFB0);
+    RH_ScopedGlobalInstall(_rwD3D9Im3DRenderOpen, 0x80E020);
+    RH_ScopedGlobalInstall(_rwD3D9RxNodeDefinitionGetImmInstance, 0x80E990);
+    RH_ScopedGlobalInstall(_rwD3D9RxNodeDefinitionGetSubmitNoLight, 0x80E9A0);
+}
+
+// Lote R34A (sin validar): ganchos de Rx y rutas (0x80E9B0..0x80F690).
+void RwCoreInjectHooksR34A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(_rwIsAbsolutePath, 0x80E9B0);
+    RH_ScopedGlobalInstall(RxRenderStateVectorSetDefaultRenderStateVector, 0x80EA40);
+    RH_ScopedGlobalInstall(_rxPacketDestroy, 0x80F070);
+    RH_ScopedGlobalInstall(_rxPipelineUnlockAllocateClusters, 0x80F0D0);
+    RH_ScopedGlobalInstall(_rxPipelineReqsCreate, 0x80F460);
+    RH_ScopedGlobalInstall(_rxPipelineReqsAddOrUpdate, 0x80F4B0);
+    RH_ScopedGlobalInstall(_rxIoSpecFindCluster, 0x80F540);
+    RH_ScopedGlobalInstall(_rxPipelineReqsRelease, 0x80F570);
+    RH_ScopedGlobalInstall(_rxPipelineUnlockPropagateForced, 0x80F690);
 }
