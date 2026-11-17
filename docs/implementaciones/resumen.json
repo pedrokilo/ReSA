@@ -25,7 +25,7 @@
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 101,
     "catalog_rows_linked_by_hook_address": 1174,
-    "validated_reconstructed_own_cpp_definitions": 13448,
+    "validated_reconstructed_own_cpp_definitions": 13474,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 17
   },
@@ -1375,7 +1375,7 @@
     "source/game_sa/RenderWare/rw/rtvcat.h": "3e55e58572f7c988a599dcabd993340e71ef16c5fd14742bfda4a57683409427",
     "source/game_sa/RenderWare/rw/rtwing.h": "c40bad068441a65be7634ee84b0aa530e6e3ae40412b00d53ae575eb68f98bdf",
     "source/game_sa/RenderWare/rw/rtworld.h": "b1c473131635a96f8dfcecd6f826507e85518595c9b2bd3cf7ac185d0887b08d",
-    "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+    "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
     "source/game_sa/RenderWare/rw/rwcore.h": "5e486cf4ce1b6419879f51f344994e80840d174755e124ee4801d7e711d38ab5",
     "source/game_sa/RenderWare/rw/rwplcore.cpp": "2585f5d1e54347ff1d16cb43a631b2bfcb5ae4f78904b08b07e8cb99af2dbf8f",
     "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
@@ -2315,10 +2315,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "53308c4b7c06dbccdec348d452587c91aa3062824fc2e6d1d33bc49f087ccc46",
+    "hooks.csv": "3dd1320dc65b0d50c0e07b72af7555115ce66d2a950c7fc58e9e7ea6bb009f53",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "c0dca952da6892a5439e7c01960dc7406957c6149235b30b08ecc9d4ef1c1910",
+  "migration_registry_sha256": "4586f9e02575cd227678eaf97bbebfea2ae5893784c56e3fecf4cc8f7e25222f",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

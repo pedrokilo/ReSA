@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11531 |
+| `validated=1` · evidencia aprobada vinculada | 11553 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11531 |
-| Sin evidencia aprobada vinculada en este registro | 910 |
+| Evidencia histórica vinculada; revisión pendiente | 11553 |
+| Sin evidencia aprobada vinculada en este registro | 888 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -1584,7 +1584,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCamera | `UpdateTargetEntity` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `Using1stPersonWeaponMode` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `VectorMoveLinear` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
+| CCamera | `VectorMoveRunning` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | CCamera | `VectorTrackLinear` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
+| CCamera | `VectorTrackRunning` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | CCarAI | `AddAmbulanceOccupants` | [Resumen](../reversing/CarAI25/validation-summary.json) |
 | CCarAI | `AddFiretruckOccupants` | [Resumen](../reversing/CarAI25/validation-summary.json) |
 | CCarAI | `AddPoliceCarOccupants` | [Resumen](../reversing/CarAI25/validation-summary.json) |
@@ -2499,6 +2501,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CDecision | `Pick` | [Resumen](../reversing/Fn132A/validation-summary.json) |
 | CDecision | `Set` | [Resumen](../reversing/DecisionPending/validation-summary.json) |
 | CDecision | `SetDefault` | [Resumen](../reversing/DecisionPending/validation-summary.json) |
+| CDecisionMaker | `Constructor` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | CDecisionMaker | `From` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CDecisionMaker | `MakeDecision` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
 | CDecisionMaker | `SetDefault` | [Resumen](../reversing/Fn222A/validation-summary.json) |
@@ -2697,6 +2700,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEntryExitManager | `ShutdownForRestart` | [Resumen](../reversing/World18/validation-summary.json) |
 | CEntryExitManager | `Update` | [Resumen](../reversing/World18/validation-summary.json) |
 | CEntryExitManager | `WeAreInInteriorTransition` | [Resumen](../reversing/Fn114A/validation-summary.json) |
+| CEntryInfoList | `Destructor` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | CEntryInfoList | `Flush` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CEntryInfoNode | `operator delete` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CEntryInfoNode | `operator new` | [Resumen](../reversing/Core70/validation-summary.json) |
@@ -4294,6 +4298,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMissionCleanup | `AddEntityToList-handle` | [Resumen](../reversing/Fn114A/validation-summary.json) |
 | CMissionCleanup | `CheckIfCollisionHasLoadedForMissionObjects` | [Resumen](../reversing/MissionCleanup64/validation-summary.json) |
 | CMissionCleanup | `Process` | [Resumen](../reversing/MissionCleanup64/validation-summary.json) |
+| CMissionCleanup | `RemoveEntityFromList-handle` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | CMissionTextOffsets | `Load` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CModelInfo | `AddAtomicModel` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CModelInfo | `AddClumpModel` | [Resumen](../reversing/Small2/validation-summary.json) |
@@ -5183,6 +5188,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedModelInfo | `AddXtraAtomics` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CPedModelInfo | `AnimatePedColModelSkinned` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CPedModelInfo | `AnimatePedColModelSkinnedWorld` | [Resumen](../reversing/Models9/validation-summary.json) |
+| CPedModelInfo | `ConstructorBody` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | CPedModelInfo | `CreateHitColModelSkinned` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CPedModelInfo | `DeleteRwObject` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CPedModelInfo | `DestructorBody` | [Resumen](../reversing/Fn194A/validation-summary.json) |
@@ -6204,6 +6210,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CScriptsForBrains | `AddNewScriptBrain` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | CScriptsForBrains | `AddNewStreamedScriptBrainForCodeUse` | [Resumen](../reversing/Fn215A/validation-summary.json) |
 | CScriptsForBrains | `CheckIfNewEntityNeedsScript` | [Resumen](../reversing/ScriptsBrainsCheckNew31/validation-summary.json) |
+| CScriptsForBrains | `Constructor` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | CScriptsForBrains | `GetIndexOfScriptBrainWithThisName` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CScriptsForBrains | `HasAttractorScriptBrainWithThisNameLoaded` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CScriptsForBrains | `Init` | [Resumen](../reversing/Misc61a/validation-summary.json) |
@@ -9326,6 +9333,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleSetCharIgnoreWeaponRangeFlag | `GetTaskType` | [Resumen](../reversing/STasks6b/validation-summary.json) |
 | CTaskSimpleSetCharIgnoreWeaponRangeFlag | `MakeAbortable` | [Resumen](../reversing/STasks6b/validation-summary.json) |
 | CTaskSimpleSetCharIgnoreWeaponRangeFlag | `ProcessPed` | [Resumen](../reversing/STasks6b/validation-summary.json) |
+| CTaskSimpleSetCharIgnoreWeaponRangeFlag | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | CTaskSimpleSetKindaStayInSamePlace | `Clone` | [Resumen](../reversing/STasks6c/validation-summary.json) |
 | CTaskSimpleSetKindaStayInSamePlace | `Constructor` | [Resumen](../reversing/STasks6c/validation-summary.json) |
 | CTaskSimpleSetKindaStayInSamePlace | `Destructor` | [Resumen](../reversing/STasks6c/validation-summary.json) |
@@ -9611,6 +9619,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTheScripts | `IsPointWithinSearchLight` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CTheScripts | `IsVehicleStopped` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `Load` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `MoveSearchLightBetweenTwoPoints` | [Resumen](../reversing/Fn223A/validation-summary.json) |
+| CTheScripts | `MoveSearchLightToEntity` | [Resumen](../reversing/Fn223A/validation-summary.json) |
+| CTheScripts | `MoveSearchLightToPointAndStop` | [Resumen](../reversing/Fn223A/validation-summary.json) |
+| CTheScripts | `ObjectPoolGetAt` | [Resumen](../reversing/Fn223A/validation-summary.json) |
+| CTheScripts | `ObjectPoolGetRef` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | CTheScripts | `PrintListSizes` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `Process` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `ProcessAllSearchLights` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
@@ -9618,6 +9631,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTheScripts | `ReadMultiScriptFileOffsetsFromScript` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `ReadObjectNamesFromScript` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `ReinitialiseSwitchStatementData` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `RemoveFromSuppressedCarModels` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | CTheScripts | `RemoveFromWaitingForScriptBrainArray` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `RemoveScriptCheckpoint` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `RemoveScriptEffectSystem` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
@@ -9629,6 +9643,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTheScripts | `Save` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `ScriptAttachAnimGroupToCharModel` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `ScriptConnectLodsFunction` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ScriptDebugBoxStub` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | CTheScripts | `ScriptDebugCircle2D` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `ScriptDebugLine3D` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `ScriptEntryListAdd` | [Resumen](../reversing/Fn166A/validation-summary.json) |
@@ -11360,8 +11375,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RwCore | `RwTextureRasterGenerateMipmaps` | [Resumen](../reversing/Dependencies25D/validation-summary.json) |
 | RwCore | `RwTextureRegisterPlugin` | [Resumen](../reversing/Dependencies25D/validation-summary.json) |
 | RwCore | `RwTextureRegisterPluginStream` | [Resumen](../reversing/Dependencies25D/validation-summary.json) |
+| RwCore | `RxD3D9ResEntryHeaderDestroy` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | RwCore | `RxHeapGetGlobalHeap` | [Resumen](../reversing/Dependencies25E/validation-summary.json) |
+| RwCore | `_rwD3D9RasterIsCubeRaster` | [Resumen](../reversing/Fn223A/validation-summary.json) |
+| RwCore | `_rwD3D9RasterLock` | [Resumen](../reversing/Fn223A/validation-summary.json) |
+| RwCore | `_rwD3D9RasterPaletteUnlock` | [Resumen](../reversing/Fn223A/validation-summary.json) |
+| RwCore | `_rwD3D9RasterPluginAttach` | [Resumen](../reversing/Fn223A/validation-summary.json) |
+| RwCore | `_rwD3D9RasterUnlock` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | RwCore | `_rwD3D9SetDepthStencilSurface` | [Resumen](../reversing/Dependencies25D/validation-summary.json) |
+| RwCore | `_rwD3D9TextureHasAlpha` | [Resumen](../reversing/Fn223A/validation-summary.json) |
 | RwCore | `_rwDeviceRegisterPlugin` | [Resumen](../reversing/Dependencies25D/validation-summary.json) |
 | RwCore | `_rwFrameListDeinitialize` | [Resumen](../reversing/Dependencies25E/validation-summary.json) |
 | RwCore | `_rwObjectHasFrameReleaseFrame` | [Resumen](../reversing/Dependencies25D/validation-summary.json) |
@@ -11644,7 +11666,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBulletInfo` | 4 | 0 | 4 | 0 |
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
 | `CCam` | 58 | 0 | 58 | 0 |
-| `CCamera` | 126 | 0 | 124 | 2 |
+| `CCamera` | 126 | 0 | 126 | 0 |
 | `CCarAI` | 26 | 0 | 26 | 0 |
 | `CCarCtrl` | 115 | 0 | 115 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
@@ -11706,7 +11728,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CData` | 3 | 0 | 3 | 0 |
 | `CDebug` | 2 | 0 | 2 | 0 |
 | `CDecision` | 7 | 0 | 7 | 0 |
-| `CDecisionMaker` | 5 | 0 | 4 | 1 |
+| `CDecisionMaker` | 5 | 0 | 5 | 0 |
 | `CDecisionMakerTypes` | 17 | 0 | 17 | 0 |
 | `CDecisionMakerTypesFileLoader` | 7 | 0 | 7 | 0 |
 | `CDirectory` | 11 | 0 | 11 | 0 |
@@ -11726,7 +11748,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEntitySeekPosCalculatorXYOffset` | 2 | 0 | 2 | 0 |
 | `CEntryExit` | 13 | 0 | 13 | 0 |
 | `CEntryExitManager` | 28 | 0 | 28 | 0 |
-| `CEntryInfoList` | 2 | 0 | 1 | 1 |
+| `CEntryInfoList` | 2 | 0 | 2 | 0 |
 | `CEntryInfoNode` | 2 | 0 | 2 | 0 |
 | `CEntryInfoNodePool` | 1 | 0 | 1 | 0 |
 | `CEscalator` | 5 | 0 | 5 | 0 |
@@ -11881,7 +11903,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CMenuSystem` | 21 | 0 | 21 | 0 |
 | `CMessages` | 28 | 0 | 28 | 0 |
 | `CMirrors` | 8 | 0 | 8 | 0 |
-| `CMissionCleanup` | 4 | 0 | 3 | 1 |
+| `CMissionCleanup` | 4 | 0 | 4 | 0 |
 | `CMissionTextOffsets` | 1 | 0 | 1 | 0 |
 | `CModelInfo` | 38 | 0 | 38 | 0 |
 | `CModelInfoAccelerator` | 3 | 0 | 3 | 0 |
@@ -11939,7 +11961,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedIntelligencePool` | 1 | 0 | 1 | 0 |
 | `CPedList` | 9 | 0 | 9 | 0 |
 | `CPedLookAtAttractor` | 3 | 0 | 3 | 0 |
-| `CPedModelInfo` | 12 | 0 | 11 | 1 |
+| `CPedModelInfo` | 12 | 0 | 12 | 0 |
 | `CPedParkAttractor` | 3 | 0 | 3 | 0 |
 | `CPedPizzaAttractor` | 3 | 0 | 3 | 0 |
 | `CPedPlacement` | 4 | 0 | 4 | 0 |
@@ -12019,7 +12041,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CScripted2dEffects` | 6 | 0 | 6 | 0 |
 | `CScriptedBrainTaskEntry` | 1 | 0 | 1 | 0 |
 | `CScriptedBrainTaskStore` | 4 | 0 | 4 | 0 |
-| `CScriptsForBrains` | 15 | 0 | 14 | 1 |
+| `CScriptsForBrains` | 15 | 0 | 15 | 0 |
 | `CSearchLight` | 1 | 0 | 1 | 0 |
 | `CSector` | 1 | 0 | 1 | 0 |
 | `CSetPiece` | 7 | 0 | 7 | 0 |
@@ -12349,7 +12371,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleSay` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleScratchHead` | 5 | 0 | 5 | 0 |
 | `CTaskSimpleSetCharDecisionMaker` | 7 | 0 | 7 | 0 |
-| `CTaskSimpleSetCharIgnoreWeaponRangeFlag` | 7 | 0 | 6 | 1 |
+| `CTaskSimpleSetCharIgnoreWeaponRangeFlag` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleSetKindaStayInSamePlace` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleSetPedAsAutoDriver` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleSetStayInSamePlace` | 7 | 0 | 7 | 0 |
@@ -12381,7 +12403,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTempColModels` | 2 | 0 | 2 | 0 |
 | `CText` | 9 | 0 | 9 | 0 |
 | `CTheCarGenerators` | 7 | 0 | 7 | 0 |
-| `CTheScripts` | 82 | 0 | 75 | 7 |
+| `CTheScripts` | 82 | 0 | 82 | 0 |
 | `CTheZones` | 23 | 0 | 23 | 0 |
 | `CTimeCycle` | 20 | 0 | 20 | 0 |
 | `CTimeInfo` | 6 | 0 | 6 | 0 |
@@ -12533,7 +12555,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RtDict` | 12 | 0 | 2 | 10 |
 | `RtQuat` | 6 | 0 | 0 | 6 |
 | `RtSlerp` | 1 | 0 | 0 | 1 |
-| `RwCore` | 211 | 0 | 29 | 182 |
+| `RwCore` | 211 | 0 | 36 | 175 |
 | `RwD3D9` | 115 | 0 | 0 | 115 |
 | `RwD3D9RasterDriver` | 14 | 0 | 0 | 14 |
 | `RwHelper` | 43 | 0 | 43 | 0 |
