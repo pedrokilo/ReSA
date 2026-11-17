@@ -140,6 +140,12 @@ static CAutomobile* __fastcall AutomobileScalarDeletingDestructor(CAutomobile* s
     return self;
 }
 
+// Ayudantes x87 de X87Math.cpp (lote 211A, sin validar) para DoHeliDustEffect: los prototipos se declaran aqui porque X87Math.h lo incluyen 223 archivos.
+bool __cdecl AutoHeliDustNearCameraCpp(const float* pos, const float* cam);
+bool __cdecl AutoHeliDustHeightBelowCpp(float z, float groundZ, float limit);
+float __cdecl AutoHeliDustProgressSquaredCpp(float maxZ, float z, float groundZ, float mult);
+float __cdecl AutoHeliDustStepTimeConstCpp(float current, float target);
+
 void CAutomobile::InjectHooks()
 {
     RH_ScopedVirtualClass(CAutomobile, 0x871120, 71);
@@ -2818,23 +2824,23 @@ bool CAutomobile::SetUpWheelColModel(CColModel* wheelCol) {
     CMatrix mat;
 
     mat.Attach(RwFrameGetMatrix(m_aCarNodes[CAR_WHEEL_LF]), false);
-    wcd->m_pSpheres[0].Set(mi->m_fWheelSizeFront / 2.0f, mat.GetPosition(), SURFACE_RUBBER, 0xD);
+    wcd->m_pSpheres[0].Set(FloatTimesFloatCpp(mi->m_fWheelSizeFront, 0.5f), mat.GetPosition(), SURFACE_RUBBER, 0xD);
 
     mat.Attach(RwFrameGetMatrix(m_aCarNodes[CAR_WHEEL_LB]), false);
-    wcd->m_pSpheres[1].Set(mi->m_fWheelSizeRear / 2.0f, mat.GetPosition(), SURFACE_RUBBER, 0xF);
+    wcd->m_pSpheres[1].Set(FloatTimesFloatCpp(mi->m_fWheelSizeRear, 0.5f), mat.GetPosition(), SURFACE_RUBBER, 0xF);
 
     mat.Attach(RwFrameGetMatrix(m_aCarNodes[CAR_WHEEL_RF]), false);
-    wcd->m_pSpheres[2].Set(mi->m_fWheelSizeFront / 2.0f, mat.GetPosition(), SURFACE_RUBBER, 0xE);
+    wcd->m_pSpheres[2].Set(FloatTimesFloatCpp(mi->m_fWheelSizeFront, 0.5f), mat.GetPosition(), SURFACE_RUBBER, 0xE);
 
     mat.Attach(RwFrameGetMatrix(m_aCarNodes[CAR_WHEEL_RB]), false);
-    wcd->m_pSpheres[3].Set(mi->m_fWheelSizeRear / 2.0f, mat.GetPosition(), SURFACE_RUBBER, 0x10);
+    wcd->m_pSpheres[3].Set(FloatTimesFloatCpp(mi->m_fWheelSizeRear, 0.5f), mat.GetPosition(), SURFACE_RUBBER, 0x10);
 
     if (m_aCarNodes[CAR_WHEEL_LM] && m_aCarNodes[CAR_WHEEL_RM]) {
         mat.Attach(RwFrameGetMatrix(m_aCarNodes[CAR_WHEEL_LM]), false);
-        wcd->m_pSpheres[4].Set(mi->m_fWheelSizeRear / 2.0f, mat.GetPosition(), SURFACE_RUBBER, 0xF);
+        wcd->m_pSpheres[4].Set(FloatTimesFloatCpp(mi->m_fWheelSizeRear, 0.5f), mat.GetPosition(), SURFACE_RUBBER, 0xF);
 
         mat.Attach(RwFrameGetMatrix(m_aCarNodes[CAR_WHEEL_RM]), false);
-        wcd->m_pSpheres[5].Set(mi->m_fWheelSizeRear / 2.0f, mat.GetPosition(), SURFACE_RUBBER, 0x10);
+        wcd->m_pSpheres[5].Set(FloatTimesFloatCpp(mi->m_fWheelSizeRear, 0.5f), mat.GetPosition(), SURFACE_RUBBER, 0x10);
 
         wcd->m_nNumSpheres = 6;
     } else {
@@ -2881,11 +2887,13 @@ bool CAutomobile::BurstTyre(uint8 tyreComponentId, bool bPhysicalEffect) {
         // Lote 211A (sin validar), como el original (0x6A3365..0x6A33AB y 0x6A33B0..0x6A340E): primero se multiplica el aleatorio por la masa (se guarda como
         // float: fmul + fstp) y despues el vector derecho por ese escalar (0x40FE90, escalar * vector); NO es (derecha * aleatorio) * masa. Cada aleatorio se
         // pide justo antes de su fuerza (movimiento, giro) y el giro se aplica en el punto "adelante" (+0x10 de la matriz).
-        const float moveScale = CGeneral::GetRandomNumberInRange(-force, force) * m_fMass;
-        ApplyMoveForce(m_matrix->GetRight() * moveScale);
+        // Productos con el fmul del x87 y un solo guardado a float (conservan los denormales, que el SSE del juego aplana a cero).
+        const auto right = m_matrix->GetRight();
+        const float moveScale = FloatTimesFloatCpp(CGeneral::GetRandomNumberInRange(-force, force), m_fMass);
+        ApplyMoveForce(CVector{ FloatTimesFloatCpp(moveScale, right.x), FloatTimesFloatCpp(moveScale, right.y), FloatTimesFloatCpp(moveScale, right.z) });
 
-        const float turnScale = CGeneral::GetRandomNumberInRange(-force, force) * m_fTurnMass;
-        ApplyTurnForce(m_matrix->GetRight() * turnScale, m_matrix->GetForward());
+        const float turnScale = FloatTimesFloatCpp(CGeneral::GetRandomNumberInRange(-force, force), m_fTurnMass);
+        ApplyTurnForce(CVector{ FloatTimesFloatCpp(turnScale, right.x), FloatTimesFloatCpp(turnScale, right.y), FloatTimesFloatCpp(turnScale, right.z) }, m_matrix->GetForward());
 
         m_nFakePhysics = 0;
     }
@@ -4785,19 +4793,19 @@ void CAutomobile::DoNitroEffect(float power) {
     if (physicalFlags.bTouchingWater) {
         const CVector point = *m_matrix * exhaustPosition;
         if (CWaterLevel::GetWaterLevel(point.x, point.y, point.z, level, true, nullptr)) {
-            if (level >= point.z) // fcomp + test ah,1: nivel < z o desordenado => no sumergido
+            if (CloudsLessOrderedCpp(point.z, level) || CloudsEqualOrderedCpp(level, point.z)) // fcomp + test ah,1: nivel < z o desordenado => no sumergido (x87: los denormales no se aplanan)
                 firstExhaustSubmergedInWater = true;
         }
     }
     CVector secondExhaustPosition;
     if (m_pHandlingData->m_bDoubleExhaust) {
         secondExhaustPosition = exhaustPosition;
-        secondExhaustPosition.x *= -1.0f;
+        secondExhaustPosition.x = FloatTimesFloatCpp(secondExhaustPosition.x, -1.0f); // fmul del x87 (0x6A3C70): conserva los denormales, que el SSE del juego aplana a cero
         // 0x6A3C82: `test [esi+40h], 0x8000000; je ...`: el segundo escape solo se comprueba con el vehiculo TOCANDO el agua (el codigo anterior lo tenia invertido)
         if (physicalFlags.bTouchingWater) {
             const CVector point = *m_matrix * secondExhaustPosition;
             if (CWaterLevel::GetWaterLevel(point.x, point.y, point.z, level, true, nullptr)) {
-                if (level >= point.z)
+                if (CloudsLessOrderedCpp(point.z, level) || CloudsEqualOrderedCpp(level, point.z))
                     secondExhaustSubmergedInWater = true;
             }
         }
@@ -6777,9 +6785,10 @@ void CAutomobile::DoHeliDustEffect(float timeConstMult, float fxMaxZMult) {
         }
     };
 
-    // 0x6B06AC: helicoptero con el rotor por encima de 0,1125 (estricto) o avion; cualquier otro caso mata el efecto
+    // 0x6B06AC: helicoptero con el rotor por encima de la constante 0x87125C (estricto; es el float 0x3DE66667 = 0,11250000447, un ulp por encima de 0.1125f) o avion; cualquier otro caso mata el efecto
+    constexpr float kHeliRotorMinimum = std::bit_cast<float>(0x3DE66667u);
     const auto subType = m_nVehicleSubType;
-    if (!((subType == eVehicleType::VEHICLE_TYPE_HELI && m_fHeliRotorSpeed > 0.1125f) || subType == eVehicleType::VEHICLE_TYPE_PLANE)) {
+    if (!((subType == eVehicleType::VEHICLE_TYPE_HELI && m_fHeliRotorSpeed > kHeliRotorMinimum) || subType == eVehicleType::VEHICLE_TYPE_PLANE)) {
         KillDustFx();
         return;
     }
@@ -6797,7 +6806,7 @@ void CAutomobile::DoHeliDustEffect(float timeConstMult, float fxMaxZMult) {
     bool isHitPosUnderWater = false;
     float waterLevel = -1000.f;
     if (CWaterLevel::GetWaterLevel(myPos.x, myPos.y, myPos.z, waterLevel, false, nullptr)) {
-        if (waterLevel > groundZ) {
+        if (CloudsLessOrderedCpp(groundZ, waterLevel)) { // x87: los denormales no se aplanan
             groundZ = waterLevel;
             isHitPosUnderWater = true;
         }
@@ -6805,24 +6814,16 @@ void CAutomobile::DoHeliDustEffect(float timeConstMult, float fxMaxZMult) {
 
     // 0x6B078E: altura maxima del efecto (3 para el RC Goblin y el RC Raider, 30 para el resto) por el multiplicador, redondeada a float
     const float baseMaxZ = (m_nModelIndex == MODEL_RCGOBLIN || m_nModelIndex == MODEL_RCRAIDER) ? 3.f : 30.f;
-    const float maxZForFx = baseMaxZ * fxMaxZMult;
+    const float maxZForFx = FloatTimesFloatCpp(baseMaxZ, fxMaxZMult);
 
-    // 0x6B07B5: distancia al cuadrado a la camara, (dx*dx + dy*dy) + dz*dz con dx = mi posicion - camara; si no es MENOR que 2500 se mata el efecto
-    {
-        const auto& camPos = TheCamera.GetPosition();
-        const float dz = myPos.z - camPos.z;
-        const float dy = myPos.y - camPos.y;
-        const float dx = myPos.x - camPos.x;
-        const float distSq = (dx * dx + dy * dy) + dz * dz;
-        if (!(distSq < 2500.f)) {
-            KillDustFx();
-            return;
-        }
+    // 0x6B07B5: distancia al cuadrado a la camara, (dx*dx + dy*dy) + dz*dz con dx = mi posicion - camara, en el x87 sin guardar entre operaciones; si no es MENOR que 2500 se mata el efecto
+    if (!AutoHeliDustNearCameraCpp(&myPos.x, &TheCamera.GetPosition().x)) {
+        KillDustFx();
+        return;
     }
 
-    // 0x6B0818: altura sobre el suelo (o el agua); si no es MENOR que la altura maxima se mata el efecto
-    const float distToGroundZ = myPos.z - groundZ;
-    if (!(distToGroundZ < maxZForFx)) {
+    // 0x6B0818: altura sobre el suelo (o el agua), (z - suelo) en el x87; si no es MENOR que la altura maxima se mata el efecto
+    if (!AutoHeliDustHeightBelowCpp(myPos.z, groundZ, maxZForFx)) {
         KillDustFx();
         return;
     }
@@ -6830,7 +6831,7 @@ void CAutomobile::DoHeliDustEffect(float timeConstMult, float fxMaxZMult) {
     // 0x6B082E: evento de peligro cada 20 fotogramas (contador sin signo, div) si se vuela por debajo de 20 (30 con el Hydra)
     if (CTimer::GetFrameCounter() % 20u == 0u) {
         const float dangerRadius = m_nModelIndex == MODEL_HYDRA ? 30.f : 20.f;
-        if (distToGroundZ < dangerRadius) {
+        if (AutoHeliDustHeightBelowCpp(myPos.z, groundZ, dangerRadius)) {
             CEventDanger danger{this, dangerRadius};
             GetEventGlobalGroup()->Add(&danger, false);
         }
@@ -6848,17 +6849,10 @@ void CAutomobile::DoHeliDustEffect(float timeConstMult, float fxMaxZMult) {
         return;
     }
 
-    // 0x6B0914: constante de tiempo: ((max - altura) / max * multiplicador)^2, redondeada a float en cada paso; la constante actual se acerca 0,04 por fotograma
+    // 0x6B0914: constante de tiempo: ((max - altura) / max * multiplicador)^2 en el x87 (24 bits por operacion), guardada como float; la constante actual se acerca 0,04 por fotograma
     {
-        const float heightProgress   = (maxZForFx - distToGroundZ) / maxZForFx * timeConstMult;
-        const float heightProgressSq = heightProgress * heightProgress;
-        if (heightProgressSq > m_heliDustFxTimeConst) { // 0x6B0943..0x6B099B
-            const float stepped = m_heliDustFxTimeConst + 0.04f;
-            m_heliDustFxTimeConst = stepped < heightProgressSq ? stepped : heightProgressSq;
-        } else if (heightProgressSq < m_heliDustFxTimeConst) { // 0x6B096D..0x6B099B (iguales o NaN: sin cambios)
-            const float stepped = m_heliDustFxTimeConst - 0.04f;
-            m_heliDustFxTimeConst = stepped > heightProgressSq ? stepped : heightProgressSq;
-        }
+        const float target = AutoHeliDustProgressSquaredCpp(maxZForFx, myPos.z, groundZ, timeConstMult);
+        m_heliDustFxTimeConst = AutoHeliDustStepTimeConstCpp(m_heliDustFxTimeConst, target);
     }
     m_pDustParticle->SetConstTime(true, m_heliDustFxTimeConst);
 

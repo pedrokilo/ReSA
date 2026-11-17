@@ -20761,3 +20761,36 @@ __declspec(noinline) void __cdecl ImageResamplePackCpp(const float* out, unsigne
     }
 }
 #pragma float_control(pop)
+
+// --- Lote 211A: CAutomobile::DoHeliDustEffect (0x6B0690) y DoNitroEffect (0x6A3BD0), prefijo Auto. Los prototipos estan en Automobile.cpp (X87Math.h lo incluyen 223 archivos) ---
+// Cada ayudante reproduce un tramo x87 del EXE: 24 bits de mantisa por operacion y exponente extendido hasta el fstp (el proceso corre el x87 a 24 bits); las comparaciones son ordenadas (false con NaN)
+// y los denormales no se aplanan a cero como con el SSE del juego.
+#pragma float_control(precise, on, push)
+// 0x6B07D7..0x6B0808: (dx*dx + dy*dy) + dz*dz con dx = pos - cam, sin guardar, comparado con 2500.0f (0x8598B0): true solo si es menor.
+__declspec(noinline) bool __cdecl AutoHeliDustNearCameraCpp(const float* pos, const float* cam) {
+    return (((pos[0] - cam[0]) * (pos[0] - cam[0]) + (pos[1] - cam[1]) * (pos[1] - cam[1])) + (pos[2] - cam[2]) * (pos[2] - cam[2])) < 2500.0f;
+}
+
+// 0x6B0818..0x6B0828 y 0x6B0863..0x6B0873: (z - sueloZ) sin guardar comparado con el limite: true solo si es menor.
+__declspec(noinline) bool __cdecl AutoHeliDustHeightBelowCpp(float z, float groundZ, float limit) {
+    return (z - groundZ) < limit;
+}
+
+// 0x6B0923..0x6B093D: ((maxZ - (z - sueloZ)) / maxZ * mult)^2 sin guardar entre operaciones y un solo fstp a float.
+__declspec(noinline) float __cdecl AutoHeliDustProgressSquaredCpp(float maxZ, float z, float groundZ, float mult) {
+    volatile float result = (((maxZ - (z - groundZ)) / maxZ) * mult) * (((maxZ - (z - groundZ)) / maxZ) * mult);
+    return result;
+}
+
+// 0x6B0943..0x6B099B: la constante de tiempo se acerca 0,04 (0x858CEC) por fotograma al objetivo: con objetivo > actual, min(actual + 0,04, objetivo); con objetivo < actual, max(actual - 0,04, objetivo);
+// con iguales o NaN no cambia. La suma queda en el registro (24 bits) y se guarda como float.
+__declspec(noinline) float __cdecl AutoHeliDustStepTimeConstCpp(float current, float target) {
+    volatile float result = current;
+    if (target > current) {
+        result = ((current + 0.04f) < target) ? (current + 0.04f) : target;
+    } else if (target < current) {
+        result = ((current - 0.04f) > target) ? (current - 0.04f) : target;
+    }
+    return result;
+}
+#pragma float_control(pop)

@@ -85977,6 +85977,1009 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 658486e237 (lote 210A ya integrado sin validar) con las correcciones de fuente impuestas por el banco (ver README.md). 17 funciones del EXE de CTaskComplexFollowPatrolRoute, CTaskComplexTurnToFaceEntityOrCoord, CTaskComplexGotoDoorAndOpen, CTaskSimpleSlideToCoord, CTaskComplexInvestigateDisturbance, CTaskComplexSeekEntity<FixedPos>, CTaskComplexGoToPointAnyMeans y CAutomobile (clases por desensamblado). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL; las llamadas virtuales usan una vtable falsa. Fuera de los fixtures: this nulo o crudo, rutas con enlaces corruptos, pools y tareas reales, memoria nula en CTask::operator new dentro de CTaskComplexSeekEntity<FixedPos>::CreateSubTask (GoToPointAndStandStill y Sequence, donde el EXE accede a un puntero nulo) y en Clone, NaN, infinitos y denormales en las posiciones del enganche al barco de ControlSubTask, indices de modelo fuera de -3..7, y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn210A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "SetUpWheelColModel",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::SetUpWheelColModel"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006A3060"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "BurstTyre",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::BurstTyre"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006A32B0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "DoNitroEffect",
+        "address": "0x006A3BD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::DoNitroEffect"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "GetRideAnimData",
+        "address": "0x006A6280",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::GetRideAnimData"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "FlagToDestroyWhenNextProcessed",
+        "address": "0x006A6290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::FlagToDestroyWhenNextProcessed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "SetModelIndex",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::SetModelIndex"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006A6590"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "DoHeliDustEffect",
+        "address": "0x006B0690",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::DoHeliDustEffect"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x006B1330",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "IsEnvironmentMappingSupported",
+        "address": "0x005D8980",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::IsEnvironmentMappingSupported"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "EnvMatDataFromBuffer",
+        "address": "0x005D8BE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::EnvMatDataFromBuffer"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "EnvMatDataToBuffer",
+        "address": "0x005D8C50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::EnvMatDataToBuffer"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolConstructorMat",
+        "address": "0x005D9060",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolConstructorMat"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolConstructorAtm",
+        "address": "0x005D91B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolConstructorAtm"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolConstructorSpec",
+        "address": "0x005D9300",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolConstructorSpec"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolDestructorA",
+        "address": "0x005D8F70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolDestructorA"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolDestructorB",
+        "address": "0x005D8FC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolDestructorB"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolDestructorC",
+        "address": "0x005D9010",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolDestructorC"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolDestructorD",
+        "address": "0x005D90C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolDestructorD"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolDestructorE",
+        "address": "0x005D9210",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolDestructorE"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolDestructorF",
+        "address": "0x005D9360",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolDestructorF"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolScalarDeletingDestructor",
+        "address": "0x005D9450",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolNewMat",
+        "address": "0x005D9110",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolNewMat"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolNewAtm",
+        "address": "0x005D9260",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolNewAtm"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolNewSpec",
+        "address": "0x005D93B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolNewSpec"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolDeleteMat",
+        "address": "0x005D9180",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn211A/validation-summary.json",
+        "sha256": "e9616ff14e274901015867b481c76e40d73e64d203808fdbc6871461e897009c",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolDeleteMat"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "66839cf7ed0ff12571527f5151e59957adaa3becba2c728f0bda65eb390f49a5",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "9b0c081fb867549e8f2077c5fedc75220a9d397aad6eca27aa926de5c23e1ced",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "f94a9d410140ff8b32ea5d8143dd4250b3a6ca457879eabc8944236df5ab4781",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "ade9a35a5d39f5b508ec03cef6e50fb4809972232206f0b8df794997cc56a5b3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn211A/LiveComparison.hpp": "e8f09681750511dc8cda944d820ce99b49723999ed60fcb5e2c5d67c930eef48",
+        "reversing/Fn211A/Core.hpp": "84c443a29e313f5e4cc4775aba88673a6e164354b8974f85993b601b63108957",
+        "reversing/Fn211A/Fixtures.hpp": "616505f2bb2deeb34960d4c83d4c66a14913bbb9106dd78da23f553eeed3fe95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
+      "review_reference": "reversing/Fn211A/README.md"
     }
   ]
 }

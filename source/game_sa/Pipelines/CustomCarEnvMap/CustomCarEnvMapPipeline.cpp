@@ -223,7 +223,7 @@ void SetDefaultSurfaceProperties() {
 // Constructores (0x5D9060 y 0x5D91B0: elementos de 12 bytes; 0x5D9300: de 8; `ret 8`: tamano y nombre; el nombre no se lee). Reserva primero los objetos (tamano * elemento) y despues los flags (tamano),
 // pone propietario = 1, tamano y ultimo libre = -1 y, con tamano > 0 (con signo), deja todos los flags en 0x80 (`|= 0x80; &= 0x80`, sin relleno de depuracion). Devuelve `this`.
 template<size_t ElemSize>
-RawPool* __fastcall EnvMapPoolConstructor(RawPool* self, void* /*edx*/, int32 size, const char* /*name*/) {
+RawPool* EnvMapPoolConstruct(RawPool* self, int32 size) {
     self->Objects         = static_cast<uint8*>(::operator new(size * ElemSize));
     self->Flags           = static_cast<uint8*>(::operator new(size));
     self->OwnsAllocations = 1;
@@ -236,9 +236,15 @@ RawPool* __fastcall EnvMapPoolConstructor(RawPool* self, void* /*edx*/, int32 si
     return self;
 }
 
+// Una instancia por direccion (RH no admite dos hooks a la misma funcion de la DLL): `Id` solo distingue las instancias (como en el lote 209A).
+template<size_t ElemSize, int Id>
+RawPool* __fastcall EnvMapPoolConstructor(RawPool* self, void* /*edx*/, int32 size, const char* /*name*/) {
+    return EnvMapPoolConstruct<ElemSize>(self, size);
+}
+
 // Destructor de CPool (0x5D8F70, 0x5D8FC0, 0x5D9010, 0x5D90C0, 0x5D9210 y 0x5D9360: mismos bytes; `ret`): solo con tamano > 0 (con signo) libera objetos y flags (operator delete escalar, en ese orden)
 // si es propietario y pone a cero objetos, flags, tamano y ultimo libre. No libera el propio pool.
-void __fastcall EnvMapPoolDestructor(RawPool* self, void* /*edx*/) {
+void EnvMapPoolDestroy(RawPool* self) {
     if (self->Size > 0) {
         if (self->OwnsAllocations) {
             ::operator delete(self->Objects);
@@ -251,9 +257,15 @@ void __fastcall EnvMapPoolDestructor(RawPool* self, void* /*edx*/) {
     }
 }
 
+template<int Id>
+void __fastcall EnvMapPoolDestructor(RawPool* self, void* /*edx*/) {
+    EnvMapPoolDestroy(self);
+}
+
 // 0x5D9450 (`ret 4`): destructor con borrado de CPool: cuerpo del destructor y, con el bit 0 del BYTE de banderas, operator delete (0x8214BD) del propio pool; devuelve `this`.
+template<int Id>
 RawPool* __fastcall EnvMapPoolScalarDeletingDestructor(RawPool* self, void* /*edx*/, uint8 flags) {
-    EnvMapPoolDestructor(self, nullptr);
+    EnvMapPoolDestroy(self);
     if (flags & 1) {
         ::operator delete(self);
     }
@@ -262,13 +274,13 @@ RawPool* __fastcall EnvMapPoolScalarDeletingDestructor(RawPool* self, void* /*ed
 
 // New de CPool (0x5D9110 y 0x5D9260: elementos de 12 bytes; 0x5D93B0: de 8; `ret`): ver PoolNew en CustomCarEnvMapPipeline.h (busca desde ultimo libre + 1, una vuelta como mucho, deja el hueco sin rellenar).
 // Devuelve el elemento o nulo.
-template<size_t ElemSize>
+template<size_t ElemSize, int Id>
 void* __fastcall EnvMapPoolNewExe(RawPool* self, void* /*edx*/) {
     return PoolNew<ElemSize>(self);
 }
 
 // Delete de CPool (0x5D9180: elementos de 12 bytes; `ret 4`): ver PoolDelete en CustomCarEnvMapPipeline.h.
-template<size_t ElemSize>
+template<size_t ElemSize, int Id>
 void __fastcall EnvMapPoolDeleteExe(RawPool* self, void* /*edx*/, const void* obj) {
     PoolDelete<ElemSize>(self, obj);
 }
@@ -284,14 +296,14 @@ Pool* CreateEnvMapPool(int32 size) {
     if (!p) {
         return nullptr;
     }
-    return reinterpret_cast<Pool*>(EnvMapPoolConstructor<ElemSize>(p, nullptr, size, nullptr));
+    return reinterpret_cast<Pool*>(EnvMapPoolConstruct<ElemSize>(p, size));
 }
 
 // Como el original: destructor inline de CPool (cuerpo 0x5D8F70..) y operator delete del pool
 template<class Pool>
 void DestroyEnvMapPool(Pool* pool) {
     auto* const p = reinterpret_cast<RawPool*>(pool);
-    EnvMapPoolDestructor(p, nullptr);
+    EnvMapPoolDestroy(p);
     ::operator delete(p);
 }
 
@@ -355,8 +367,8 @@ void CCustomCarEnvMapPipeline::InjectHooks() {
     RH_ScopedInstall(GetFxSpecTexture, 0x5D8B50);
 
     // Lote 212A (sin validar)
-    RH_ScopedNamedGlobalInstall(EnvMapPoolScalarDeletingDestructor, "PoolScalarDeletingDestructorB", 0x5D94B0);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolScalarDeletingDestructor, "PoolScalarDeletingDestructorC", 0x5D9510);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolScalarDeletingDestructor<1>, "PoolScalarDeletingDestructorB", 0x5D94B0);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolScalarDeletingDestructor<2>, "PoolScalarDeletingDestructorC", 0x5D9510);
     RH_ScopedNamedGlobalInstall(RxD3D9InstanceDataRender, "RxD3D9InstanceDataRender", 0x5DA640);
     RH_ScopedNamedGlobalInstall(RxD3D9InstanceDataRenderLighting, "RxD3D9InstanceDataRenderLighting", 0x5DA6A0);
     RH_ScopedNamedGlobalInstall(SetEnvMapMaterial, "SetEnvMapMaterial", 0x5DA790);
@@ -365,20 +377,20 @@ void CCustomCarEnvMapPipeline::InjectHooks() {
     RH_ScopedGlobalInstall(IsEnvironmentMappingSupported, 0x5D8980);
     RH_ScopedInstall(EnvMatDataFromBuffer, 0x5D8BE0);
     RH_ScopedInstall(EnvMatDataToBuffer, 0x5D8C50);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolConstructor<kEnvMatSize>, "PoolConstructorMat", 0x5D9060);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolConstructor<kEnvAtmSize>, "PoolConstructorAtm", 0x5D91B0);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolConstructor<kSpecMatSize>, "PoolConstructorSpec", 0x5D9300);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor, "PoolDestructorA", 0x5D8F70);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor, "PoolDestructorB", 0x5D8FC0);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor, "PoolDestructorC", 0x5D9010);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor, "PoolDestructorD", 0x5D90C0);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor, "PoolDestructorE", 0x5D9210);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor, "PoolDestructorF", 0x5D9360);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolScalarDeletingDestructor, "PoolScalarDeletingDestructor", 0x5D9450);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolNewExe<kEnvMatSize>, "PoolNewMat", 0x5D9110);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolNewExe<kEnvAtmSize>, "PoolNewAtm", 0x5D9260);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolNewExe<kSpecMatSize>, "PoolNewSpec", 0x5D93B0);
-    RH_ScopedNamedGlobalInstall(EnvMapPoolDeleteExe<kEnvMatSize>, "PoolDeleteMat", 0x5D9180);
+    RH_ScopedNamedGlobalInstall((EnvMapPoolConstructor<kEnvMatSize, 0>), "PoolConstructorMat", 0x5D9060);
+    RH_ScopedNamedGlobalInstall((EnvMapPoolConstructor<kEnvAtmSize, 1>), "PoolConstructorAtm", 0x5D91B0);
+    RH_ScopedNamedGlobalInstall((EnvMapPoolConstructor<kSpecMatSize, 2>), "PoolConstructorSpec", 0x5D9300);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor<0>, "PoolDestructorA", 0x5D8F70);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor<1>, "PoolDestructorB", 0x5D8FC0);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor<2>, "PoolDestructorC", 0x5D9010);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor<3>, "PoolDestructorD", 0x5D90C0);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor<4>, "PoolDestructorE", 0x5D9210);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolDestructor<5>, "PoolDestructorF", 0x5D9360);
+    RH_ScopedNamedGlobalInstall(EnvMapPoolScalarDeletingDestructor<0>, "PoolScalarDeletingDestructor", 0x5D9450);
+    RH_ScopedNamedGlobalInstall((EnvMapPoolNewExe<kEnvMatSize, 0>), "PoolNewMat", 0x5D9110);
+    RH_ScopedNamedGlobalInstall((EnvMapPoolNewExe<kEnvAtmSize, 1>), "PoolNewAtm", 0x5D9260);
+    RH_ScopedNamedGlobalInstall((EnvMapPoolNewExe<kSpecMatSize, 2>), "PoolNewSpec", 0x5D93B0);
+    RH_ScopedNamedGlobalInstall((EnvMapPoolDeleteExe<kEnvMatSize, 0>), "PoolDeleteMat", 0x5D9180);
 }
 
 // 0x5DA450

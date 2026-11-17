@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "0dc5b9b517a088868742acc1a7592605c13b1f458815663ade1bc1fa9d6224f0",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CAutomobile::SetUpWheelColModel: 331/2048; CAutomobile::BurstTyre: 105/2048; CAutomobile::DoNitroEffect: 471/2048; CAutomobile::GetRideAnimData: 909/2048; CAutomobile::FlagToDestroyWhenNextProcessed: 733/2048; CAutomobile::SetModelIndex: 872/2048; CAutomobile::DoHeliDustEffect: 37/2048; CAutomobile::ScalarDeletingDestructor: 478/2048; CCustomCarEnvMapPipeline::IsEnvironmentMappingSupported: 197/2048; CCustomCarEnvMapPipeline::EnvMatDataFromBuffer: 615/2048; CCustomCarEnvMapPipeline::EnvMatDataToBuffer: 620/2048; CCustomCarEnvMapPipeline::PoolConstructorMat: 901/2048; CCustomCarEnvMapPipeline::PoolConstructorAtm: 899/2048; CCustomCarEnvMapPipeline::PoolConstructorSpec: 896/2048; CCustomCarEnvMapPipeline::PoolDestructorA: 557/2048; CCustomCarEnvMapPipeline::PoolDestructorB: 565/2048; CCustomCarEnvMapPipeline::PoolDestructorC: 552/2048; CCustomCarEnvMapPipeline::PoolDestructorD: 559/2048; CCustomCarEnvMapPipeline::PoolDestructorE: 559/2048; CCustomCarEnvMapPipeline::PoolDestructorF: 565/2048; CCustomCarEnvMapPipeline::PoolScalarDeletingDestructor: 752/2048; CCustomCarEnvMapPipeline::PoolNewMat: 692/2048; CCustomCarEnvMapPipeline::PoolNewAtm: 694/2048; CCustomCarEnvMapPipeline::PoolNewSpec: 711/2048; CCustomCarEnvMapPipeline::PoolDeleteMat: 686/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
