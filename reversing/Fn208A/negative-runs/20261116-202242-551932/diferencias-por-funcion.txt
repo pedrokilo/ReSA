@@ -1,0 +1,3 @@
+{"CPhoneInfo::PhoneAnimFinishCallback": 229, "CPhoneInfo::Constructor": 765, "CPickup::IsWeaponSlotExchangeable": 123, "SurfaceInfos_c::LoadSurfaceInfos": 750, "SurfaceInfos_c::LoadSurfaceAudioInfos": 735, "CZoneDef::IsPointWithin": 13, "RpClumpGtaStreamReadAtOnce": 604, "CMemoryHeap::JoinAdjacentFreeBlocks": 1101, "CMemoryHeap::Shutdown": 1467, "CMemoryHeap::FillInBlockData": 822, "CMemoryHeap::Malloc": 436, "CMemoryHeap::Init": 1711, "CMemoryMgr::Init": 2048, "UserTracksUninitCopy": 695, "UserTracksLegacyString::Reallocate": 713}
+pares 30720 con diferencias 12212 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

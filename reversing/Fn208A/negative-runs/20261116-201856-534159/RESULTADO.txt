@@ -1,0 +1,3 @@
+FALLO: Fn208A
+Funciones con diferencias: CPhoneInfo::PhoneAnimFinishCallback: 882/2048; CPhoneInfo::Constructor: 903/2048; CPickup::IsWeaponSlotExchangeable: 120/2048; SurfaceInfos_c::LoadSurfaceInfos: 750/2048; SurfaceInfos_c::LoadSurfaceAudioInfos: 735/2048; CZoneDef::IsPointWithin: 469/2048; RpClumpGtaStreamReadAtOnce: 1055/2048; CMemoryHeap::JoinAdjacentFreeBlocks: 2048/2048; CMemoryHeap::Shutdown: 2048/2048; CMemoryHeap::FillInBlockData: 1786/2048; CMemoryHeap::Malloc: 927/2048; CMemoryHeap::Init: 2048/2048; CMemoryMgr::Init: 2048/2048; UserTracksUninitCopy: 695/2048; UserTracksLegacyString::Reallocate: 699/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn208a\20261116-201856-534159
