@@ -1,12 +1,28 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Desviaciones conocidas del C++ reconstruido frente al EXE original
 
-Fecha de elaboración: 08/11/2026. Árbol: rama `main`, commit `160c24b0a0`. Documento de solo lectura: no se compiló, no se ejecutó el juego y no se tocó ningún hook.
+Fecha de elaboración: 16/11/2026 (revisión de la de 08/11/2026, commit `160c24b0a0`). Árbol: rama `main`, commit `3e6fdb5f89`. Documento de solo lectura: no se compiló, no se ejecutó el juego y no se tocó ningún hook.
 
-Objetivo: dejar por escrito, de forma verificable, **dónde el código C++ reconstruido no es idéntico al EXE de GTA SA o dónde la validación no lo garantiza**. Un hook con `validated=1` significa "existe evidencia histórica aprobada dentro de unos fixtures", no "idéntico al EXE para toda entrada" (véanse [CurrentStatus](CurrentStatus.md) y [ValidationInventory](ValidationInventory.md)).
+Objetivo: dejar por escrito, de forma verificable, **dónde el código C++ reconstruido no es idéntico al EXE de GTA SA o dónde la validación no lo garantiza**. Un hook con `validated=1` significa "existe evidencia histórica aprobada dentro de unos fixtures", no "idéntico al EXE para toda entrada" (véanse [CurrentStatus](CurrentStatus.md) y [ValidationInventory](ValidationInventory.md)). Un hook con `validated=0` (1282 filas a esta fecha) es código integrado **sin banco**: solo revisado contra el desensamblado.
+
+Qué cambió respecto de la revisión del 08/11:
+
+- Los lotes 189A a 207A pasaron por banco par a par (EXE contra DLL, 16384 pares por función, cero diferencias en la corrida aprobada). Los defectos que esos bancos encontraron y se corrigieron salen de la lista de abiertos y están en la sección 11 (Resueltas).
+- Los lotes 208A a 239A (código del juego y bibliotecas enlazadas en el EXE) y R1A a R34A (RenderWare, D3D9, D3DX9, zlib) están integrados **sin validar**. Sus desviaciones deliberadas están en la sección 8 (A).
+- Lo que los bancos de 189A–207A **no cubren** está en la sección 9 (B).
+- Las funciones que no se pueden reconstruir en C++ puro están en la sección 10 (C).
+- Las secciones 3.3, 6.3 y 7 se actualizaron con el estado actual; el resto de secciones conserva el análisis del 08/11 y lo dice cuando una cifra no se recontó.
+
+Entradas de esta revisión (filas de tabla numeradas o con función y dirección):
+
+| Bloque | Entradas |
+| --- | ---: |
+| Desviaciones vigentes del 08/11 que se mantienen (secciones 2.1, 2.2, 2.3, 2.4, 2.5, 3.2, 3.3, 7.1) | 54 |
+| Nuevas, sección 8 (A): convenciones comunes 6, código del juego 11, RenderWare/D3D 17 | 34 |
+| **Desviaciones vigentes en total** | **88** |
+| Nuevas, sección 9 (B): límites de validación de 189A–207A, agrupados | 11 |
+| Sección 10 (C): 7 categorías de motivo (118 funciones del juego y 54 de RenderWare/D3D en los CSV) y 10 ayudantes locales sin hook | 17 |
+| Resueltas, sección 11: defectos corregidos por los bancos 30, entradas del 08/11 cerradas 10 | 40 |
+| Notas de calidad de la validación (secciones 4, 5, 6.1, 6.2): equivalencias aceptadas 6, colaboradores 5, dominios excluidos 13 y 6 (no se cuentan como desviaciones) | 30 |
 
 El riesgo (bajo, medio, alto) es una **estimación de quien redacta**, no un resultado medido. Criterio: *alto* = comportamiento distinto y alcanzable en una partida normal, o validación ausente en una ruta común; *medio* = comportamiento distinto en rutas raras o validación con un hueco relevante; *bajo* = diferencia no observable o sin llamadores que la lean.
 
@@ -18,37 +34,45 @@ El riesgo (bajo, medio, alto) es una **estimación de quien redacta**, no un res
 | `reversing/*/README.md` (965 ficheros) | Búsqueda de "desviaci", "diferencia conocida", "Fuera de los fixtures", "saltad", "sin banco", etc. y lectura de los casos citados. |
 | `source/` | Búsqueda de `FIX_BUGS`, `notsa::IsFixBugs`, `NOTSA`, `NOTSA_UNREACHABLE`, `NOTSA_LOG_*`, `locked = true`, `//RH_Scoped...`, `plugin::Call*`, y comparación de las direcciones de `RH_Scoped*Install` con `docs/hooks.csv`. |
 | `docs/hooks.csv`, `docs/hooks_notsa.csv`, `docs/JuegoExe/` | Recuentos por tipo, filas ausentes, estado del mapa de funciones del EXE. |
-| Cálculo propio | Hash SHA-256 de cada fuente listada en `tested_sources` frente al fichero actual (se aceptó coincidencia también tras normalizar CRLF a LF). |
+| Cálculo propio | Hash SHA-256 de cada fuente listada en `tested_sources` frente al fichero actual (se aceptó coincidencia también tras normalizar CRLF a LF). Solo en la revisión del 08/11; no se repitió el 16/11. |
+| `reversing/PendienteValidar/*.md` (informes de 208A–239A y R1A–R34A; el de 208A se leyó del commit `5e22c62e00`, ya no está en el árbol) | Lectura de las secciones de saltadas, notas y riesgos y búsqueda de "divergencia", "deliberada", "difiere", "cuelga", "sin inicializar", "inalcanzable", "no se reproduce", "a diferencia del EXE" en las tablas de funciones. Sección 8. |
+| `reversing/Fn189A` … `Fn207A` (`README.md`, `scope_note.txt`) | Secciones "Fuera de los fixtures", "Correcciones", "Acotados del banco", "Notas de alcance". Secciones 9 y 11. |
+| `docs/hooks.csv` (12 438 filas), `docs/JuegoExe/excluidas.csv` (118), `docs/RenderWareExe/no-reconstruibles.csv` (54), `docs/JuegoExe/funciones.csv`, `docs/RenderWareExe/README.md` | Recuentos del 16/11 y comprobación de qué direcciones tienen ya fila. |
 
-Límites de este documento: no se leyeron los 965 README completos ni los 847 `validation-summary.json`; las categorías con cientos de casos iguales se agrupan con recuento y ejemplos. Los README de lotes antiguos y los documentos `BinaryCoverageAudit.md` (revisión del 10/10) y `CurrentStatus.md` (cuerpo del 10/10) tienen cifras fechadas; donde se contradicen con `hooks.csv` actual se indica.
+Límites de este documento: no se leyeron los 965 README completos ni los 847 `validation-summary.json`; las categorías con cientos de casos iguales se agrupan con recuento y ejemplos. De los informes de `PendienteValidar` se leyeron las secciones de saltadas, notas y riesgos y las filas de tabla que contienen las palabras clave; no se releyó cada fila de cada tabla (hay 1282 funciones sin validar). Los README de lotes antiguos y el cuerpo de `CurrentStatus.md` (10/10) tienen cifras fechadas; donde se contradicen con `hooks.csv` actual se indica. El análisis del registro de validación (secciones 1, 5, 6.1 y 6.2) es del 08/11 y no se recontó.
 
 ## 1. Resumen con cifras
 
 | Medida | Valor | Fuente |
 | --- | ---: | --- |
-| Filas en `docs/hooks.csv` (todas `reversed=1`, `validated=1`, `locked=0`) | 9493 | `docs/hooks.csv` |
-| de ellas tipo S (hook sobre la dirección del EXE) / tipo V (hook de ranura de vtable) | 7792 / 1701 | `docs/hooks.csv`; coincide con el registro (S 7792, V 1701) |
+| Filas en `docs/hooks.csv` (todas `reversed=1`, `locked=0`) | 12 438 en 996 grupos (08/11: 9493) | `docs/hooks.csv` |
+| de ellas `validated=1` (evidencia histórica) / `validated=0` (sin banco: lotes 208A–239A y R1A–R34A) | 11 156 / 1282 en 142 grupos | `docs/hooks.csv` |
+| tipo S (hook sobre la dirección del EXE) / tipo V (hook de ranura de vtable) | 10 282 / 2156; las 1282 sin validar son 1272 S y 10 V | `docs/hooks.csv` |
+| Grupos con más filas sin validar | `RwCore` 182, `RpWorld` 172, `RwPlCore` 118, `RwD3D9` 115, `CPools` 51, `CPedAttractor` 34, `RpSkin` 33, `RpMatFX` 28 | `docs/hooks.csv` |
+| Lotes con banco par a par (189A–207A) | 19 lotes, 16384 pares por función, cero diferencias en la corrida aprobada (15 y 16/11/2026) | `reversing/Fn189A` … `Fn207A` |
 | Entradas con dirección `0x00000000` en el registro (casi todas V: la dirección no figura en el catálogo) | 1516 | registro |
 | Registros separados en `docs/hooks_notsa.csv` (`validated=0`) | 4 | `docs/hooks_notsa.csv`, [HooksNOTSA](HooksNOTSA.md) |
-| Entradas del registro con `dependency_review = null` (sin revisión de dependencias) | 9326 de 9493 | registro |
+| Entradas del registro con `dependency_review = null` (sin revisión de dependencias), corte 08/11 | 9326 de 9493 | registro |
 | "Vigencia acreditada" declarada por el proyecto | 0 | [ValidationInventory](ValidationInventory.md), línea 10 |
-| Entradas cuyas fuentes de `tested_sources` **ya no coinciden** con el árbol actual (aun normalizando CRLF) | 7253 de 9493 (coinciden 2240) | cálculo propio |
+| Entradas cuyas fuentes de `tested_sources` **ya no coinciden** con el árbol (aun normalizando CRLF), corte 08/11 | 7253 de 9493 (coinciden 2240) | cálculo propio |
 | Entradas cuyo `scope` dice "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked" | 237 | registro (p. ej. `GangFollower355`, `GeometryQueries355`, `InteriorCore355`) |
 | Pares por función: mínimo / mediana / entradas con menos de 128 / con menos de 256 | 8 / 256 / 1342 / 2752 | registro (`evidence.pairs`) |
 | Ficheros de evidencia distintos | 847 | registro |
-| Funciones del EXE (región 0x401000..0x74FFFF) según el mapa | 11 804 | [JuegoExe/README](JuegoExe/README.md) |
-| Reemplazadas por C++ | 9376 (79,4 %; 91,1 % de los bytes) | JuegoExe |
-| Envoltura pendiente (la DLL aún llama al EXE) | 22 (2 de `CWeaponModelInfo`, 20 de `Win`) | `docs/JuegoExe/funciones.csv` |
-| **Sin reemplazar** (A: llamada desde código ya reemplazado 676; B: método virtual 826; C: solo la llaman funciones aún no reemplazadas 495; D: sin llamadas ni vtable 409) | **2406** | JuegoExe |
-| Llamadas indirectas sin resolver en el EXE | 6004 | [BinaryCoverageAudit](BinaryCoverageAudit.md) |
-| Puntos de `plugin::Call*` / `CallAndReturn` que siguen en `source/game_sa` | 175 en 38 ficheros (p. ej. `AEMFDecoder.cpp` 40, `Garage.cpp` 19, `Collision.cpp` 15, `GangWars.cpp` 11) | `grep` en `source/game_sa` |
-| Líneas `__asm` / `naked` en `source/game_sa` | 4, todas comentarios en `X87Math.*` | `grep` |
-| Bloques `FIX_BUGS` / `notsa::IsFixBugs` en `source/` | 59 apariciones en 32 ficheros; `FIX_BUGS` está **definido** (`source/CMakeLists.txt`, línea 430) | `grep` |
-| `NOTSA_UNREACHABLE` / `NOTSA_LOG_DEBUG/ERR/WARN/TRACE` en `source/game_sa` | 139 / 74, 24, 19, 3 | `grep` |
+| Funciones del EXE, región del juego 0x401000..0x74FFFF, según el mapa | 11 686 (08/11: 11 804) | [JuegoExe/README](JuegoExe/README.md) |
+| Reemplazadas por C++ | 11 683 (100,0 %) (08/11: 9376, 79,4 %) | JuegoExe |
+| Envoltura pendiente (la DLL aún llama al EXE) | 1 (0x4F39C0, lote 208A) (08/11: 22) | `docs/JuegoExe/funciones.csv` |
+| **Sin reemplazar** en el mapa (C: 0x4541E0; D: 0x453F40) | **2** (08/11: 2406). Las dos y la envoltura son de 208A: el mapa se genera del catálogo y va por detrás de las filas de 208A (ya enganchadas, `validated=0`) | JuegoExe |
+| Funciones del juego excluidas por no ser reconstruibles en C++ puro | 118 filas, 28 587 bytes | [excluidas.csv](JuegoExe/excluidas.csv); sección 10 |
+| Región RenderWare/D3D 0x750000..0x81FFFF | 1889 funciones: 724 reemplazadas (38,3 %), 54 no reconstruibles documentadas, 1111 de bibliotecas de terceros (se enlaza la original), 0 envolturas pendientes | [RenderWareExe/README](RenderWareExe/README.md); sección 10 |
+| Llamadas indirectas sin resolver en el EXE | 6004 (dato del 10/10, no recontado) | [BinaryCoverageAudit](BinaryCoverageAudit.md) |
+| Puntos `plugin::Call*` en `source/game_sa` | 237 en 51 ficheros con la expresión `plugin::Call` (08/11: 175 en 38 con otro criterio; no comparable). Mayores: `AEMFDecoder.cpp` 38, `PedAttractor.cpp` 26, `AEUserRadioTrackManager.cpp` 23, `Garage.cpp` 19, `Collision.cpp` 15, `D3D9RasterFormat.cpp` 12, `GangWars.cpp` 11 | `grep` en `source/game_sa` |
+| Líneas `__asm` / `naked` en `source/game_sa` | 5, todas comentarios (`X87Math.*`, `d3dx9math.cpp`) | `grep` |
+| Bloques `FIX_BUGS` / `notsa::IsFixBugs` en `source/` | 58 apariciones en 31 ficheros; `FIX_BUGS` está **definido** (`source/CMakeLists.txt`, línea 479) | `grep` |
+| `NOTSA_UNREACHABLE` en `source/game_sa` | 139 (las trazas `NOTSA_LOG_*` no se recontaron; 08/11: 120) | `grep` |
 
-Nota sobre las dos bases de recuento: las 9493 filas del catálogo y las 9376 "reemplazadas" del mapa del EXE no son el mismo conjunto (el mapa cuenta entradas binarias; el catálogo incluye sobrecargas, ranuras virtuales sin dirección propia y varias filas por dirección). No se ha conciliado una con otra.
+Nota sobre las dos bases de recuento: las 12 438 filas del catálogo (que incluyen RenderWare y D3D) y las 11 683 "reemplazadas" del mapa del juego no son el mismo conjunto (el mapa cuenta entradas binarias; el catálogo incluye sobrecargas, ranuras virtuales sin dirección propia y varias filas por dirección). No se ha conciliado una con otra.
 
-Lectura honesta: el 100 % del catálogo significa "9493 filas con alguna evidencia histórica aprobada". No significa 9493 funciones idénticas al EXE para toda entrada, ni que el ejecutable ya no sea necesario (2406 funciones del EXE no están reemplazadas y hay 6004 llamadas indirectas sin resolver).
+Lectura honesta: el 100 % de reemplazo del mapa del juego significa que cada función del EXE tiene un hook, no que sea idéntica. De las 12 438 filas, 11 156 tienen evidencia histórica aprobada (vigencia acreditada: 0) y **1282 no tienen ningún banco**. Tampoco significa que el ejecutable ya no sea necesario: quedan 237 puntos `plugin::Call*`, 6004 llamadas indirectas sin resolver (dato del 10/10), 118 funciones del juego y 54 de RenderWare/D3D que no se pueden escribir en C++ puro, y 1111 funciones de bibliotecas de terceros (D3DX9, libpng/zlib, QuickTime) que se enlazan y no se reconstruyen.
 
 ---
 
@@ -158,25 +182,21 @@ Motivo documentado en el `scope` de `Fn126A` y en `Fn130A`: "`RH_ScopedVMTInstal
 
 ### 3.3 Hooks con código activo y sin fila en `docs/hooks.csv`
 
-Se comparó la dirección de cada `RH_Scoped*Install` (excluyendo `RH_ScopedVirtualClass` y los de ranura virtual, cuya dirección en el CSV es 0) con las direcciones del CSV. Quedan 19 sin fila:
+Revisión del 16/11: de las 19 direcciones que el 08/11 no tenían fila, 11 ya la tienen (véase la sección 11, Resueltas). Quedan 8, comprobadas contra `docs/hooks.csv` y el código (`RH_Scoped*Install`):
 
 | Dirección | Función | Fuente | Estado |
 | --- | --- | --- | --- |
-| 0x53F2D0 | `GetMouseSetUp` | `app/platform/win/WinInput.cpp:339` | Activa (`WinInput::InjectHooks` se llama desde `WinPlatform.cpp:171`). Sin fila: `Fn132A/README.md` lo dice ("el catálogo se regenera aparte"). Sin banco propio localizado. |
-| 0x7487CF, 0x747020, 0x746D80 | `WinInput::Initialise`, `EnumDevicesCallback`, `diPadSetRanges` | `WinInput.cpp:334-338` | Activas; sin fila. |
-| 0x7469A0 | `diMouseInit` | `WinInput.cpp:336` | `{.locked = true}`: "Can't be hooked because it fails with ACCESS DENIED and crashes". No se instala. |
-| 0x7486A0, 0x745560 | `Win32_InitApplication`, `Win32_InitInstance` | `WinMain.cpp:539-540` | La segunda `{.locked = true}`. Solo con `!NOTSA_USE_SDL3`. |
+| 0x7487CF, 0x747020, 0x746D80 | `WinInput::Initialise`, `EnumDevicesCallback`, `diPadSetRanges` | `app/platform/win/WinInput.cpp:360-363` | Instaladas con `RH_ScopedGlobalInstall`; sin fila. El propio archivo (líneas 151-154) avisa de que con SDL3 (la compilación del proyecto) 0x747020 y 0x746D80 son código del EXE. |
+| 0x7469A0 | `diMouseInit` | `WinInput.cpp` | `{.locked = true}`: "Can't be hooked because it fails with ACCESS DENIED and crashes". No se instala. |
+| 0x7486A0, 0x745560 | `Win32_InitApplication`, `Win32_InitInstance` | `WinMain.cpp` (0x745560 en la línea 120) | La segunda `{.locked = true}`. Solo con `!NOTSA_USE_SDL3`. Sin fila. Véase además A-J4 (icono). |
 | 0x746ED0 | `CPad::GetMouseState` | `Pad.cpp:137` | Solo con `!NOTSA_USE_SDL3`; sin fila. |
-| 0x59ACF0, 0x59ADD0, 0x59BB60, 0x59AD20, 0x459350, 0x59A840, 0x59AA40, 0x59ADF0 | `CMatrix::Detach`, `CopyOnlyMatrix`, `Update`, `UpdateMatrix`, `Scale`, `ConvertToEulerAngles`, `ConvertFromEulerAngles`, `operator+=` | `Core/Matrix.cpp:43-57` | **Código muerto**: `CMatrix::InjectHooks()` está desactivada en `InjectHooksMain.cpp` ("Don't hook these, performance is bad", líneas 729-735); solo se instalan los grupos selectivos. Sin fila ni banco. |
-| 0x40FDD0 | `CVector::Sum` | `Core/Vector.cpp:66` | Igual: `CVector::InjectHooks()` desactivada. |
-| 0x43E110 | `CVector2D::operator=` | `Core/Vector2D.cpp:36` | Igual. |
-| 0x675FC0 | `CTaskInteriorLieInBed::FinishAnimCB` | `TaskInteriorLieInBed.cpp:32` | Instalada con `RH_ScopedInstall` (S); el CSV tiene fila V con dirección 0 (línea 8166). Hay un comentario en `InjectHooksMain.cpp` (líneas 1128-1134) que explica la corrección de VMT a S. **Tipo del CSV desactualizado.** |
+| 0x675FC0 | `CTaskInteriorLieInBed::FinishAnimCB` | `TaskInteriorLieInBed.cpp:34` | Instalada con `RH_ScopedInstall` (S); el CSV sigue con la fila V con dirección 0 (línea 8239) y ninguna fila en 0x675FC0. **Tipo del CSV desactualizado.** |
 
-Consecuencia: `docs/JuegoExe/funciones.csv` clasifica como "Falta" (A o D) algunos de esos EXE aunque el código los engancha o los tiene preparados (p. ej. 0x59ACF0 figura como A de `CMaths`, 0x53F2D0 como A de `CMouseControllerState`, 0x40FDD0 como D). El mapa se genera desde el catálogo, no desde las instalaciones reales. **Riesgo: bajo para el comportamiento; medio para la fiabilidad del recuento de "sin reemplazar".**
+Consecuencia: `docs/JuegoExe/funciones.csv` se genera desde el catálogo y no desde las instalaciones reales, así que puede contar como "Falta" una función ya enganchada (hoy solo ocurre con las tres direcciones de 208A, sección 1). **Riesgo: bajo para el comportamiento; bajo para la fiabilidad del recuento.**
 
 ### 3.4 Hooks desactivados o bloqueados deliberadamente
 
-- Clases enteras con `InjectHooks()` comentado: `CVector`, `CVector2D`, `CMatrix` (con instalaciones selectivas), `CPtrList`, `CPtrNodeDoubleLink`, `CPtrListDoubleLink`, `CPtrNodeSingleLink`, `CPtrListSingleLink` (`InjectHooksMain.cpp:760-766`; Fn131A los reactivó puntualmente con `Flush` en 0x552400 y 0x552470) y unas 30 clases de tareas y eventos (`InjectHooksMain.cpp` líneas 1160-1380 y 1517-1553 aprox., p. ej. `CTaskComplexKillAllThreats`, `CTaskSimpleHailTaxi`, `CTaskSimpleAbseil`). Para las clases de tareas, que su `InjectHooks` esté comentado indica que esas funciones no están reemplazadas; no se comprobó cuántas funciones del catálogo corresponden a esas líneas.
+- Clases enteras con `InjectHooks()` comentado (`InjectHooksMain.cpp:891-894`): `CVector`, `CVector2D`, `CMatrix` (con instalaciones selectivas: hoy `InjectHooksExactMath`, `ExactOperators`, `MultiplyVector`, `AttachAssign`, `ExactOps`, `Lote99A` y `Lote162A`, líneas 897-909), `CPtrList`, `CPtrNodeDoubleLink`, `CPtrListDoubleLink`, `CPtrNodeSingleLink`, `CPtrListSingleLink` (`InjectHooksMain.cpp:760-766`; Fn131A los reactivó puntualmente con `Flush` en 0x552400 y 0x552470) y unas 30 clases de tareas y eventos (`InjectHooksMain.cpp` líneas 1160-1380 y 1517-1553 aprox., p. ej. `CTaskComplexKillAllThreats`, `CTaskSimpleHailTaxi`, `CTaskSimpleAbseil`). Para las clases de tareas, que su `InjectHooks` esté comentado indica que esas funciones no están reemplazadas; no se comprobó cuántas funciones del catálogo corresponden a esas líneas.
 - `source/` contiene 109 líneas `//RH_Scoped...` comentadas. Ejemplo: `Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocators.h:42` `//RH_ScopedInstall(Get, 0x5F7200, { .enabled = false, .locked = true }); // Spoils <ecx>, can't hook`.
 - Hooks con `locked = true` instalados en el código: `diMouseInit`, `Win32_InitInstance`. El CSV tiene 0 filas bloqueadas ([CurrentStatus](CurrentStatus.md): "Bloqueos reales pendientes: 0"), coherente salvo por esos dos que están fuera del CSV.
 - `Win::NOTSA_WinMain` (0x748710) y tres hooks `WindowedModeHooks`: registrados aparte en `hooks_notsa.csv` con `validated=0`; el cuerpo adaptado NOTSA no se presenta como fiel. `source/app/platform/win/WindowedMode.cpp` conserva `__asm` y `naked` como excepción documentada ([ImplementacionesDelJuego](ImplementacionesDelJuego.md)). **Riesgo bajo** (capa de modo ventana, no código del juego).
@@ -277,6 +297,7 @@ Casos concretos de funciones o ramas **fuera de banco** y cómo se resolvieron:
 - 237 entradas son aprobaciones de una compilación archivada con "current source hashes were intentionally not checked; this is not final replay approval" (familias `*355`).
 - Cola de repetición histórica: `reversing/CppTwelveLevel6Final/REANUDAR.md` (16/10/2026) indica 54 bancos aprobados de 148 en la regresión final de las oleadas 1 y 2 al detenerse; `Pending355/README.md` indica que al detener el trabajo (08/10/2026) 74 de 177 bancos cumplían la verificación de manifiestos completos. Son datos fechados; no se verificó el estado actual de la regresión.
 - Cobertura numérica: 1342 funciones tienen menos de 128 pares y la mediana es 256.
+- Actualización del 16/11: los 19 lotes 189A a 207A (unas 590 funciones) tienen banco par a par con 16384 pares por función (el 08/11 la mediana del registro era 256), compuertas de ABI, ruta, SEH y restauración, oráculo Python independiente y prueba negativa (mutaciones que deben fallar) en `Fn202A`. Esa evidencia **no entró en el registro de validación** de 08/11 (que sigue con 9493 entradas); vive en `reversing/Fn189A` … `Fn207A` y en `reversing/CppTwelveLevel6Final/runs/`. 1282 filas (lotes 208A–239A y R1A–R34A) siguen sin banco. Sus límites están en la sección 9.
 
 **Riesgo medio**: es la mayor limitación de la garantía. El 100 % es histórico.
 
@@ -284,45 +305,230 @@ Casos concretos de funciones o ramas **fuera de banco** y cómo se resolvieron:
 
 ## 7. Funciones saltadas por complejas y funciones sin reemplazar
 
-### 7.1 Saltadas documentadas
+### 7.1 Saltadas documentadas (revisión del 08/11, actualizada)
 
-| Lote | Función | Motivo | Estado |
+| Lote | Función | Motivo | Estado a 16/11 |
 | --- | --- | --- | --- |
-| `Fn105A` | 0x4AB250 (5 bytes, `jmp 0x5389B0` a `CFileMgr::ReadLine`) | Trampolín de un salto; "enganchar un trampolín de un salto no aporta nada" | Sin hook propio; los 59 llamadores por 0x4AB250 acaban en `ReadLine` con hook |
-| `Fn130A` | 0x5DE920 (destructor de `CAEPedAudioEntity`) y 0x563130 (destructor de `CSector`) | Marco SEH y colaboradores sin hook | Resueltas en `Fn131A` (65536 pares, cero diferencias) |
-| `Fn132A` | 0x53F2D0 `GetMouseSetUp` | Ya tenía hook en código, no en el CSV (3.3) | Activa, sin fila ni banco localizado |
-| `Fn132A` | 0x747300 (`getDvdGamePath`, `WinMain.cpp`) | Llama por IAT a `SetErrorMode`, `GetLogicalDriveStringsA`, `GetDriveTypeA`, `GetVolumeInformationA`, `lstrlen`, `lstrcpy`; resultado depende de las unidades del equipo; exige falsos de cinco IAT y el modelo de `repe cmpsb` | **Sin hook** (hay versión C++ sin enganchar) |
+| `Fn105A` | 0x4AB250 (5 bytes, `jmp 0x5389B0` a `CFileMgr::ReadLine`) | Trampolín de un salto; "enganchar un trampolín de un salto no aporta nada" | Sin hook propio; los 59 llamadores por 0x4AB250 acaban en `ReadLine` con hook (vigente) |
+| `Fn130A` | 0x5DE920 (destructor de `CAEPedAudioEntity`) y 0x563130 (destructor de `CSector`) | Marco SEH y colaboradores sin hook | Resueltas en `Fn131A` (65536 pares, cero diferencias); véase sección 11 |
+| `Fn132A` | 0x53F2D0 `GetMouseSetUp` | Ya tenía hook en código, no en el CSV | Resuelta: fila `Input,GetMouseSetUpExe` en `hooks.csv`; sección 11 |
+| `Fn132A` | 0x747300 (`getDvdGamePath`) | Cinco IAT y `repe cmpsb` | Resuelta: `Win,getDvdGamePath`, `validated=1`, instalada en `WinMain.cpp:559`; sección 11 |
 
 ### 7.2 Sin reemplazar en el mapa del EXE
 
-2406 funciones (676 A, 826 B, 495 C, 409 D) más 22 envolturas pendientes (2 `CWeaponModelInfo`: 0x4CC970, 0x4CD250; 20 de `Win` entre 0x749330 y 0x74FC70). Bloques con menor cobertura: 0x5C0000 (9 % reemplazado, 127 faltan, 27 874 bytes; sin módulos nombrados), 0x740000 (47 %), 0x4A0000 (52 %, `FxInfoManager_c` 96), 0x5E0000 (53 %, `CPedAttractor` 13), 0x4B0000 (56 %, eventos). Por clase: `CPools` 51, `CAEUserRadioTrackManager` 28, `FxInfoManager_c` 96, `CVehicle` 29, `CBike` 22 (véase `docs/JuegoExe/README.md`). El mapa es una **cota inferior** (6004 llamadas indirectas sin resolver) y se genera del catálogo (3.3), por lo que puede incluir algunas funciones ya enganchadas.
+El 08/11 había 2406 funciones sin reemplazar y 22 envolturas pendientes. A 16/11 el mapa del juego da 11 683 de 11 686 funciones reemplazadas: faltan 0x4541E0 (C) y 0x453F40 (D), y 0x4F39C0 figura como envoltura. Las tres son del lote 208A (`CPhoneInfo` y `UserTracksLegacyString::Reallocate`) y **ya tienen hook** con `validated=0`; el mapa va por detrás del catálogo. Las 22 envolturas del 08/11 (`CWeaponModelInfo` 0x4CC970 y 0x4CD250, y 20 de `Win` entre 0x749330 y 0x74FC70) se resolvieron con los lotes 224A, 225A y 226A–229A: eran código de RenderWare y del controlador D3D9, hoy en `rwcore.cpp` y `rpworld.cpp`.
 
-La sección "Omisiones concretas" de `BinaryCoverageAudit.md` (revisión del 10/10) está **desfasada**: `CPed::ProcessControl`, `SpecialEntityPreCollisionStuff`, `CAutomobile::PreRender` y `CTaskSimpleFight::ProcessPed` ya tienen fila V en `hooks.csv` (líneas 8802, 8803, 8814 y 8797).
+Lo que sigue sin existir como C++ equivalente son las funciones de la sección 10 (118 del juego, 54 de RenderWare/D3D) y los 237 puntos `plugin::Call*`. El mapa es una **cota inferior** (6004 llamadas indirectas sin resolver, dato del 10/10) y 0x4F39C0, 0x4CC970 y 0x4CD250 (todas con fila) muestran que se genera del catálogo (3.3).
 
-**Riesgo alto** (para la meta de independencia del EXE, no para el comportamiento actual): el juego sigue llamando al EXE en esas 2406 + 22 funciones y en los 175 puntos `plugin::Call*`.
+**Riesgo alto** (para la meta de independencia del EXE, no para el comportamiento actual): el juego sigue llamando al EXE por esas funciones no reconstruibles y por los 237 puntos `plugin::Call*`.
 
 ---
 
-## 8. Hallazgos de riesgo medio y alto
+## 8. Desviaciones deliberadas del código reconstruido sin validar (lotes 208A–239A y R1A–R34A)
+
+Estas 1282 filas (`validated=0` en `docs/hooks.csv`) están revisadas contra el desensamblado, pero **no tienen banco**: ninguna diferencia de esta sección ha sido medida, solo declarada por quien reconstruyó. Fuente de cada entrada: el informe `reversing/PendienteValidar/<lote>.md` (el de 208A, en el commit `5e22c62e00`). Riesgo: estimación, mismo criterio que arriba.
+
+### 8.1 Convenciones comunes a los lotes sin validar
+
+Valen para casi todas las funciones de 208A–239A y R1A–R34A; no se repiten en cada fila.
+
+| ID | Qué difiere del EXE | Lotes y ejemplos | Riesgo |
+| --- | --- | --- | --- |
+| A-G1 | Marcos SEH del EXE que solo desenrollan se omiten. En los constructores y destructores no cambia el estado; donde la función lanza, el desenrollado no libera los temporales. | 209A `vector::_Xlen` 0x4F41B0 y 219A instancia B 0x5ECAB0: la DLL "no vuelve" tras lanzar `length_error` y pierde (fuga) la cadena y el objeto temporales; camino casi inalcanzable (solo con `n > max_size`). 210A–221A (constructores de FxInfo, atractores, tareas). Excepción: 208A `UserTracksLegacyString::Reallocate` 0x4F39C0 usa `try/catch` de C++ con los dos niveles del original. | Bajo |
+| A-G2 | Los objetos construidos por la DLL llevan la **vtable de la DLL**, no la del EXE. Código del EXE que compare el vptr por dirección vería otro valor. | 210A `CTaskSimpleNone` (EXE 0x859CFC) en 0x670B00; 216A y 218A todos los `FxInfo*_c`; 220A y 221A atractores de peatones (0x5EE960 y siguientes, p. ej. EXE 0x86C5E4). | Bajo |
+| A-G3 | Destructores con borrado y constructores usan `::operator delete`/`new` de la DLL o por dirección del EXE; el EXE usa el CRT 0x8214BD / 0x82119A. Mismo almacén según los informes, no comprobado por banco. | 217A (destructores con borrado de `FxInfo*_c`), 218A, 220A, 221A. | Bajo |
+| A-G4 | Los valores residuales de EAX/ECX/EDX (y ESI) que deja el EXE al volver **no se reproducen**; los informes afirman que ningún llamador revisado los lee. En R25A no se desensamblaron los llamadores para comprobarlo. | 205A (STL de `SArray`), 218A, 221A (0x5EEA20, `ExeProtectionStub` 0x401FBB y 0x4024C0), 231A (envolturas `usercall` de libjpeg), R25A, R26A (0x7F7540 deja basura en EAX). | Bajo a medio |
+| A-G5 | Las llamadas entre funciones reconstruidas del mismo lote van directas a C++ y **no pasan por la dirección del EXE**; un banco que mida llamadas a esas direcciones desde dentro no las ve. Mismo efecto observable en memoria según los informes. | R24A (`RwFrame*` recursivas 0x7F0050, 0x7F0210, 0x7F0830), R25A (`RwTexDictionaryDestroy` a `RwTextureDestroy`, etc.), R26A, R27A, R33A. | Bajo |
+| A-G6 | Para llamadores del EXE aún no reconstruidos se conserva la copia del EXE; los llamadores reconstruidos usan un ayudante C++ sin hook. La función existe dos veces (EXE y C++), sin garantía de igualdad. Lista en la sección 10. | 208A, 211A, 214A–215A, 224A, 231A–236A, 203A (0x5A42B0). | Bajo a medio |
+
+### 8.2 Código del juego (208A–239A)
+
+| ID | Función | Dirección | Qué difiere o no está garantizado | Riesgo | Origen |
+| --- | --- | --- | --- | --- | --- |
+| A-J1 | `SurfaceInfos_c::LoadSurfaceInfos` / `LoadSurfaceAudioInfos` | 0x55EB90 / 0x55F2B0 | La DLL usa su `sscanf`, no el 0x8220AD del EXE; sin límite de longitud de campo (no probar cadenas más largas que los búferes). Los bits de +0x94/+0x98 se comprobaron uno a uno contra el EXE, sin banco. | Bajo | 208A |
+| A-J2 | `CPlayerPedData::operator=` | 0x45C4B0 | Los bits de +0x34 distintos de 9 y 10–12 dependen en el EXE de ESI sin inicializar del llamador (0x45DEF0, ESI = `CPlayerInfo`); la DLL los deriva de `this - 4`. No copia el relleno +0x22/+0x23, +0x87, +0x8F. | Bajo a medio | 214A |
+| A-J3 | `Win32_InitApplication` | 0x7486A0 | El EXE carga el icono con `LoadIconA(hInstance, MAKEINTRESOURCE(0x64))`; el C++ usa `IDI_MAIN_ICON` = 1042. Código preexistente, no se tocó. Solo con `!NOTSA_USE_SDL3`. | Bajo | 226A |
+| A-J4 | `FxInterpInfo32_c/Float_c/U255_c/255_c::Allocate` y los constructores de `FxInfo*_c` de 216A | `Allocate` NOTSA; ctores 0x4A5980 … 0x4A6A00 | 215A cambia `Allocate` para escribir **solo el byte bajo** de `m_nCount` (+6 del interp), como el EXE, y `Load` compara `int8`; el informe 216A sigue diciendo "escribe int16 en +0xE/+0xF". Informes contradictorios: confirmar en el código. | Bajo | 215A, 216A |
+| A-J5 | `CAutomobile::BurstTyre`, `DoNitroEffect`, `DoHeliDustEffect`, `SetUpWheelColModel` | 0x6A32B0, 0x6A3BD0, 0x6B0690, 0x6A3060 | C++ preexistente sin hook que **no era fiel** (fuerza `(derecha*aleatorio)*masa`, condición del segundo escape invertida, `DoHeliDustEffect` con otro orden de sonda y cámara). Reescrito a mano contra el desensamblado; sin banco. | Medio | 211A |
+| A-J6 | `CCustomCarEnvMapPipeline`: `CreateEnvMapPool`/`DestroyEnvMapPool`, `pluginEnvMatStreamReadCB`/`WriteCB` | refactor sobre 0x5D8BE0, 0x5D8C50 | Código ya validado que 211A refactorizó para no duplicar. Mismo comportamiento según el informe; "el banco de EnvMap viejo habría que repetirlo". | Bajo a medio | 211A |
+| A-J7 | `CRunningScript::ProcessCommands1700To1799`, comandos con tarea por script (1701, 1704, 1712, 1722, 1723, 1730, 1735, 1761–1764) | 0x496E00 | Con el pool de tareas lleno el EXE se salta el constructor y entrega una tarea nula; el C++ **no reproduce** ese caso (comparar solo con pool no lleno). | Bajo | 238A |
+| A-J8 | `CRunningScript::ProcessCommands1700To1799`, comando 1752 `CREATE_MISSION_TRAIN`; comando 1732 | 0x496E00 | 1752: el EXE no inicializa el puntero de salida; el C++ lo pone a `nullptr`. 1732: `SetEntityBlip` recibe 5 argumentos en el EXE (el 5.º, `this+8`, sin uso) y 4 en el C++. | Bajo | 238A |
+| A-J9 | `CRunningScript::ProcessCommands1200To1299`, comando 1283 `CREATE_SWAT_ROPE` | 0x48B590 | El EXE pasa a `ClearSpaceForMissionEntity` un `CVector` local de la pila **que ese caso nunca escribe** (indeterminado); el C++ pasa un vector a cero. | Bajo a medio | 237A |
+| A-J10 | `CRunningScript::ProcessCommands1900To1999`, comandos 1987–1991 (cuaterniones; 1988 y 1990 con `RwMatrix` local) | 0x46B460 | `RwMatrix` local sin inicializar salvo lo que escribe `CQuaternion::Get`; el EXE tiene basura en el resto; el C++ la deja sin inicializar y `SetPosn` la pisa. | Bajo | 237A |
+| A-J11 | `ExeProtectionStub::*` (MD5 0x4012E9, `ResolveKernelImports` 0x401FBB, `InitCallbackTable` 0x4024C0 y siguientes) | bloque 0x401000–0x403DFF | Solo se ejecutan en el arranque del EXE, antes de que cargue la DLL: el hook nunca se ejercita en una partida. El EXE deja EAX/ESI con el último puntero (no reproducido). Datos en BSS rellenados en tiempo de ejecución. El informe pide decidir si se quieren enganchadas (el parche de entrada modifica esas rutinas). | Bajo (sin efecto en partida) | 221A, 238A |
+
+Nota: A-J7 y A-J8 son del lote 238A (`ProcessCommands1700To1799`); A-J9 y A-J10 del 237A. `ProcessCommands800To899` (0x481300, 239A, 8957 bytes) no declara divergencias: reproduce las rutas sin comprobar nulo del EXE (resultado de `GetAtRef` sin comprobar; índices de `CWorld::Players` y de `UsedObjectArray` sin acotar).
+
+### 8.3 RenderWare, D3D9, D3DX9, zlib y libjpeg (R1A–R34A)
+
+| ID | Función | Dirección | Qué difiere o no está garantizado | Riesgo | Origen |
+| --- | --- | --- | --- | --- | --- |
+| A-R1 | `RwMatrixScale`, `RwMatrixTranslate`, `RwMatrixRotateOneMinusCosineSine` | 0x7F22C0, 0x7F2450, 0x7F1D00 | Con combinación inválida (fuera de 0..2) el EXE desreferencia `NULL+0xC` y **se cuelga**; la DLL registra el error 0x80000003 y devuelve NULL. Sin llamadores con valores fuera de 0..2. | Bajo | R13A |
+| A-R2 | `RwEngineGetCurrentSubSystem`, `GetNumVideoModes`, `GetCurrentVideoMode` | 0x7F2C60, 0x7F2CC0, 0x7F2D20 | Si el dispositivo devuelve TRUE sin escribir, el EXE devuelve una variable **sin inicializar**; la DLL devuelve 0. No ocurre con el controlador D3D9. | Bajo | R13A |
+| A-R3 | `RwMatrixRotateOneMinusCosineSine`, `RwMatrixTransform` (rellenos +0x1C, +0x2C, +0x3C) | 0x7F1D00 | El EXE copia basura de pila a los rellenos; la DLL deja los suyos sin inicializar. Comparar solo ejes, posición y flags. | Bajo | R13A |
+| A-R4 | `_rwD3D9ImageToRaster` | 0x801390 | Con un D3DFORMAT sin función de píxel el EXE hace `call 0`; la DLL **sale sin escribir**. | Bajo | R14A |
+| A-R5 | `RwImageCopy` | 0x803950 | Con clave de profundidades no soportada el EXE desreferencia NULL (cuelgue); la DLL **devuelve NULL**. | Bajo | R30A |
+| A-R6 | `RwImageApplyMask` | 0x802AF0 | Dos ramas muertas del EXE (resultado 0 de los copiadores) no se reproducen. Con falta de memoria sale sin error, como el EXE. | Bajo | R30A |
+| A-R7 | `_rwD3D9RasterSetFromImageIndexed`, `_rwD3D9RasterSetFromImage` | 0x800C80, 0x8001E0 | Tabla de luminancia de 256 entradas a 0 (el EXE deja basura fuera de la paleta); la bandera "paleta ya bloqueada", sin inicializar en el EXE, es 0. Los fallos de bloqueo salen sin liberar la imagen reescalada (igual que el EXE). | Bajo | R29A |
+| A-R8 | `_rwD3D9SetPresentParameters` y rutinas de modos de vídeo | 0x7F6CB0 | `GetWindowRect` con rectángulo a 0 y modos de pila sin inicializar a 0 (el EXE deja basura). | Bajo | R26A |
+| A-R9 | `RpLightStreamRead` | 0x751F00 | Con `longitud > 24` el EXE desborda la pila; **no emulado**. Rama `version < 0x30300` (`-RwSqrt(1/(a*a+1))`) inalcanzable con versiones válidas. | Bajo | R16A |
+| A-R10 | `_rwD3D9VSInvertRigidMatrix` | 0x764890 | Con salida == entrada difiere del EXE (orden de escrituras); los llamadores usan 0x8D73D0. | Bajo | R21A |
+| A-R11 | `RwCameraSetNearClipPlane`, `RwCameraSetFarClipPlane`, `RwFrameRotate` (ángulo `float` por pila) | 0x7EE1D0, 0x7EE2A0, 0x7F1010 | Un NaN señalizante de entrada se convierte en silencioso en la x87 y no en el C++. Irrelevante en el juego. | Bajo | R23A, R24A |
+| A-R12 | `RwD3D9CameraIsBBoxFullyInsideFrustum`, `RwD3D9CameraIsSphereFullyInsideFrustum`, `RwD3D9SetSurfaceProperties` | 0x7FAD90, 0x7FAD30, 0x7FC4D0 | Escritas en `float` con SSE, compiladas con las opciones normales (sin `/arch:IA32`): coinciden con la x87 de 24 bits salvo **denormales y desbordes**, que es la clase de diferencia que los bancos de 193A, 198A, 200A, 202A y 207A encontraron en código del juego (sección 11). El informe de R28A prevé moverlas a un ayudante de `X87Math.cpp` si el banco ve diferencias. | Medio | R25A, R28A |
+| A-R13 | `D3DX9AcosPS` y variantes SSE; `D3DXFloat16To32Array_3DNow`, `D3DXVec2Transform*` | 0x7C2AAE, 0x7C203B, 0x7C2090 | Se enganchan aunque la CPU de pruebas no ejecute 3DNow!: en una máquina con 3DNow! el redondeo (`pfmul`/`pfadd`) podría diferir en la última cifra. En `AcosPS` el compilador puede conmutar operandos de una suma (solo cambia la carga útil de un NaN con dos operandos NaN). | Bajo | R4A |
+| A-R14 | `_rwD3D9CPUGetDescription` y las cuatro pruebas de CPU | 0x80D680 y vecinas | Dependen de la CPU del equipo: solo comparables con el EXE en la misma máquina. Con cadena de marca devuelve NULL. | Bajo | R34A |
+| A-R15 | `_rpMatFXD3D9DrawMesh` | 0x812C90 | R8A pasaba mal `BaseVertexIndex`/`MinVertexIndex`; R10A lo corrigió por revisión. Sin banco: debe revalidarse con mallas de `baseIndex` distinto de 0. | Bajo a medio | R8A, R10A |
+| A-R16 | `WindowedModeHooks` (NOTSA, preexistente): `_rwD3D9CameraBeginUpdate`, `_rwD3D9CameraClear`, `HookDirect3DDeviceReplacerSA`; copia local `D3D9SetPresentParameters` | 0x7F8F20, 0x7F7730, 0x7F6781 | Registradas en `hooks_notsa.csv` con `validated=0`. `WindowedMode.cpp` avisa de que algo de `_rwD3D9CameraClear` rompe el suelo reflectante de la casa de CJ. La copia local de `D3D9SetPresentParameters` (con `flags &= ~rwVIDEOMODEEXCLUSIVE`) **no es la del EXE**; la de R26A sí. | Medio (modo ventana) | R25A–R27A |
+| A-R17 | Funciones R-lotes que preservan **defectos del EXE** (no son desviaciones, pero no se protegen) | `_rpSkinInitialize` 0x7C8740, `_rpSkinD3D9CreateVertexBuffer` 0x7C9680, `RtBMPImageRead`, `RwCameraStreamRead` 0x808DE0, `_rwFrameListStreamRead`, `RwPalQuantInit` 0x80C470 | Desreferencia de skin NULL, `div` por stride 0, desbordes de pila con cabeceras BMP o cámaras malformadas, fugas de marcos, estadísticas sin inicializar: se copian tal cual. Un archivo malformado produce el mismo fallo que en el EXE. | Bajo | R3A, R32A, R33A |
+
+Nota: varios nombres de RenderWare en R1A–R34A son **inferidos** (funciones internas del SDK sin símbolo público; los informes los marcan "inferido"); las direcciones son las verificables.
+
+## 9. Límites de validación de los lotes 189A–207A (qué no cubren sus bancos)
+
+Los 19 lotes (unas 590 funciones) pasaron banco par a par con cero diferencias. Esa evidencia vale **dentro de sus fixtures**. Fuente: sección "Fuera de los fixtures" (y "Acotados del banco", "Notas de alcance") de `reversing/Fn<lote>/README.md` y `scope_note.txt`. Son límites del banco, no defectos del código: se agrupan porque se repiten.
+
+| ID | Qué no cubre el banco | Lotes | Ejemplos | Riesgo |
+| --- | --- | --- | --- | --- |
+| B1 | `this` nulo o crudo; objetos reales construidos por el EXE (vtables, eventos, tareas, peds, vehículos, model infos); la **exactitud de los colaboradores falseados**: se sustituyen por falsos idénticos en la dirección del EXE y en el cuerpo de la DLL, y lo único que se compara es la función probada. | 189A–207A (todos) | `Fn189A`, `Fn190A`, `Fn192A`, `Fn204A` ("la vtable de los objetos construidos: solo se comprueba que apunte al ASI o a la del EXE") | Medio |
+| B2 | **Pools reales y asserts de las plantillas de la DLL**: ranuras fuera de capacidad, ocupadas o ya libres, borrados dobles, cursores fuera de rango. La plantilla `CPool` de la DLL tiene `assert` que el EXE no tiene; el fixture solo usa huecos válidos. | 189A (`CPool::GetAt`), 195A, 196A, 199A, 200A (huecos 0..63 en `CTrain`), 203A (`COctTree`, `CVehicleStructure`), 206A (pool de atractores) | `CPool<CVehicle,CHeli>::CreateAtRef` 0x6D5DD0; `CTrain` destructor; `CPedAttractor` destructor 0x5EC4B0 | Bajo a medio |
+| B3 | **Aritmética extrema**: NaN señalizantes, denormales, magnitudes enormes o diminutas, ángulos de más de 2^14, 2^20 o 2^63, posiciones de más de 2^60, rangos de azar cuya conversión no cabe en 32 bits (`_ftol` frente a `cvttss2si`), anchuras de `CRect`/`CBox` cero o no finitas. En varias el oráculo no tiene modelo exacto y solo se compara EXE contra DLL. | 192A, 193A (dos NaN distintos en una misma resta), 197A, 198A, 199A, 201A (`VectorSubtract`, `Normalise` y ángulos falseados), 202A (`ConvertToEulerAngles` 838 filas y `ConvertFromEulerAngles` 2384 filas), 203A (radio sNaN), 207A | `CTrain::OpenDoor` 0x6F6370 (200A); `ConvertToEulerAngles`/`ConvertFromEulerAngles` (202A); `FindAttractorInRange` (203A) | Medio |
+| B4 | **Entradas fuera de dominio**: bytes altos basura en argumentos `bool`/`byte` (207A), tipos de nodo distintos de 0 y 1, áreas de enlace fuera de 0..79, jugadores en foco distintos de 0 y 1 (197A), índices de modelo fuera de -3..7 (198A), códigos de puerta distintos de 0..255 y ejes distintos de 0..2 (200A), índices de radio fuera de 0..63 y atractores de tipo >= 10 (202A), contador de extras de `CVehicleStructure` por encima de 6 (203A), scripts brain fuera de rango (192A). | 192A, 197A, 198A, 200A, 202A, 203A, 207A | `FindNodeClosestToCoors`, `RecordNodesInCircle`, `FindNodePairClosestToCoors` (sin candidatos y máxima > 10000.0f) | Bajo a medio |
+| B5 | **Estructuras corruptas o incoherentes**: listas con enlaces corruptos o más de 5 nodos (198A), `SArray` con el fin anterior al inicio (206A), ciclos o índices de hijo fuera del pool en `COctTree` (203A), cuentas enormes de vectores y `n` con el bit alto (205A), capacidades de pool enormes y cadenas de animación que desbordan el objeto de 0x80 bytes (191A), rutas de patrulla con nombres sin NUL o más de 12 nodos (195A), peatones sin matriz (194A, 204A), entidades crudas en índices 2 y 4 (204A), subtarea no nula en el destructor de `CTaskComplexSeekEntity<FixedPos>` (194A). | 191A, 194A, 195A, 198A, 203A, 204A, 205A, 206A | `CPatrolRoute::Reverse` 0x66D550; `SetEntryExitFlagWithIndex` con slot libre | Bajo |
+| B6 | **Memoria agotada**: `operator new` nulo y pool de tareas lleno. El EXE y la DLL se comportan de forma distinta (el EXE desreferencia nulo; la DLL devuelve nulo o no reproduce el caso). | 194A, 198A (`CTask::operator new` nulo en `GO_TO_POINT`), 199A (`CTaskComplexKillPedOnFoot::Clone`: el EXE falla, la DLL devuelve nulo; tamaño que la DLL pasa a `CEvent::operator new`), 201A (rama 0x38B de `CreateSubTask`) | `CTaskComplexKillPedOnFoot::Clone`; `GetModelInfoIdFile` (reserva nula: el EXE escribe en [0]) | Bajo |
+| B7 | **Objetos reales de RenderWare, Fx, DirectInput o ficheros**: listas de sombras reales (190A), `CObject` con sombra, lista de colisiones, LOD, referencias o matriz reales (192A), animaciones, peds, pads, fuegos y `FxManager_c` reales (193A), `CFileMgr` falseado y almacenes en su dirección real de 14 000 elementos (194A), `RegisterReference`/`CleanUpOldReference` falseados (200A), marcos nulos con `assert` en `RwFrameDestroy` y `clump` que no es `RwObject` válido (203A, 206A), DirectInput real y estado real de `CPad::UpdatePads` (196A), asociaciones, jerarquías y manos reales (202A). | 190A, 192A, 193A, 194A, 196A, 200A, 202A, 203A, 206A | `Input::InputShutdown` 0x747000; `CPad::StopPadsShaking` | Medio |
+| B8 | **Dominios acotados por el propio banco** (no son defectos en el uso real): AL de falsos booleanos limitado a 0 o 1, EDX restaurado por los falsos, floats que no son NaN señalizantes (198A); `rand()` falseado en 0x821B1E y `CGeneral::GetRandomNumber`, segundo `GetTimeLeft` limitado (197A); destructor de la matriz local de `ScanEffect` sin falsear, etiqueta común del callback de fin de `StartAnim`, pool de eventos 0x4B5570 frente a 0x4B5620 (202A); punteros de callback normalizados a la dirección del EXE (200A). | 197A, 198A, 200A, 202A | | Bajo |
+| B9 | **Archivos recompilados con `/arch:IA32 /fp:fast` por el banco de un lote que afectan a funciones de otro lote**: `TaskComplexReactToAttack.cpp` (de 193A) obliga a repetir `Fn199A` en el pase final; `TaskComplexGoToPointAndStandStillX87.cpp` (198A) y el archivo de `CTaskInteriorSitInChair` (204A) se compilan aparte. | 193A, 198A, 204A | `CTaskComplexReactToAttack::MakeAbortable/CreateSubTask/ControlSubTask/Clone` (199A) | Medio (hasta repetir `Fn199A`) |
+| B10 | **Dos hooks sobre una misma función de la DLL**: Robust Hook escribe en el enlace de la función un salto a la dirección del EXE del último hook apagado, así que el banco debe poner el mismo falso en las dos direcciones. Con el hook encendido el comportamiento no se probó para ambas rutas por separado. | 189A (STL de `SArray`, ya separado en instancias propias), 191A (`PoolDestructorBody` y copia), 195A (`GoToDestructorBody` 0x667A00 y 0x667D50) | `CTaskSimpleGoTo` destructor | Bajo |
+| B11 | **Fuentes distintas de las probadas**: el banco se ejecutó sobre un cherry-pick del lote en una base concreta (`origin/main` 9acc2209e0, 94bf1068ae, 7bd5ae8b77, 23938b22f1 o 70b6d35891) con las correcciones del banco; el árbol actual es posterior (merge de hooks.csv, `X87Math.*` y `InjectHooksMain.cpp` en varios lotes). Vale lo mismo que la sección 6.3 (vigencia acreditada: 0). | 189A–207A | `Fn200A` (marcador de conflicto en `X87Math.cpp`) | Medio |
+
+Cada lote declara además su lista concreta en `scope_note.txt`; las más específicas (por ejemplo `Fn207A`: `FindNodePairClosestToCoors` sin candidatos con máxima mayor que 10000.0f; `Fn200A`: `eDoors` de 8 bits) están recogidas arriba.
+
+---
+
+## 10. Funciones saltadas o excluidas por no ser reconstruibles en C++ puro
+
+La política del proyecto es C++ puro (sin `__asm` ni `naked`). Estas funciones no se pueden escribir sin ellos, o no son funciones. Listas completas y verificables:
+
+- Código del juego: [docs/JuegoExe/excluidas.csv](JuegoExe/excluidas.csv): **118 filas, 28 587 bytes** (dirección, bytes, módulo, motivo y lote).
+- RenderWare, D3D9, D3DX9 y QuickTime: [docs/RenderWareExe/no-reconstruibles.csv](RenderWareExe/no-reconstruibles.csv): **54 filas**.
+
+### 10.1 Resumen por motivo
+
+| Motivo | Juego | RenderWare/D3D | Ejemplos (lote) |
+| --- | ---: | ---: | --- |
+| `__usercall` o registros de entrada/salida que C++ no puede leer ni fijar (EAX/ECX/EDX/ESI/EDI/EBX, XMM0, MM0) | 73 | 10 | 0x4D1680, 0x4D1A50, 0x4D1DB0 (214A), 0x4D2100, 0x4D2450, 0x4D27F0, 0x4D6450, 0x4D6510, 0x4D66A0 (215A), 0x4CAAE0–0x4CC0C0 (224A), 0x4CC5C0, 0x4CCD70, 0x4CCE60 (225A), libjpeg jchuff/jcmarker/jdhuff/jdinput/jdmainct/jdmarker/jdmaster/jmemmgr (230A–235A), 0x5D84C0, 0x5D8590 (211A), 0x5A42B0 (203A), D3DX9 con XMM0 y `ret 10h` (R4A), 0x7CB828, 0x7CB8B0 (R6A) |
+| Salto puro (`jmp` a otra dirección) o puente sin cuerpo propio | 20 | 37 | 0x48DE60 (214A), 0x4A2BB0 (230A), 0x5CFA30 (235A), 0x5CFE00 (236A); QuickTime/QTML: 17 puentes (R9A) y 15 (R10A) con el identificador en EAX y `jmp [0x8E2A0C]`; carga retardada de DLL 0x817508, 0x818020, 0x818041 (R8A), 0x807C10, 0x807C2B (R14A) |
+| Bloque de protección con convención propia (`pushad`, bandera de acarreo, `esp` guardado) | 14 | 0 | 0x4027CD (221A) y las de 222A (0x402A36 … 0x403D07). En total el módulo `ExeProtectionStub` tiene 17 filas en el CSV; las que usan solo registros de entrada están contadas en la fila de `__usercall`. Las demás funciones del bloque sí se reconstruyeron (A-J11) |
+| Funclet de `catch(...)` o fragmento interno de otra función (sin prólogo propio) | 11 | 3 | 0x4F44B3 (209A), 0x4F3A3E, 0x4F3AAD (209A), 0x4F3A15 (208A), 0x5ED0A3, 0x5ED388 (219A), 0x5ED643, 0x5ED92A, 0x5EDBE3 (220A); 0x7CCF6C (R2A/R7A), 0x7CB929 (R6A), 0x7F6781 (R25A; cola de una rutina D3D9, ya enganchada por `WindowedMode.cpp`) |
+| 3DNow! (`pfrcp`, `pfrsqrt`: aproximaciones definidas por el hardware, no reproducibles bit a bit) | 0 | 2 | 0x7C20C9, 0x7C290B (R4A) |
+| Ya enganchadas por `WindowedMode.cpp` (NOTSA, no se rehacen) | 0 | 2 | 0x7F7730, 0x7F8F20 (R26A, R27A) |
+| **Total** | **118** | **54** | |
+
+(La clasificación por motivo es aproximada: se agrupó por texto del motivo del CSV; la suma por columnas es la del CSV.)
+
+### 10.2 Reconstruidas como ayudante local sin hook (el EXE conserva la copia)
+
+Estas no figuran en `excluidas.csv` como "no hechas" pero **no tienen hook propio**: la versión C++ solo se usa desde llamadores ya reconstruidos y la del EXE sigue activa para el resto (A-G6). Sin banco.
+
+| Dirección | Función | Lote | Llamador reconstruido |
+| --- | --- | --- | --- |
+| 0x5C6430, 0x5C6600, 0x5C6680 | `InitialSetup`, `SelectScanParameters`, `PerScanSetup` (libjpeg, compresión) | 231A | `JinitCMasterControl`, `PrepareForPass` |
+| 0x5C7010, 0x5C70D0, 0x5C8620 | `add_huff_table`, `std_huff_tables`, `output_pass_setup` | 232A | `jpeg_set_defaults`, `jpeg_start_decompress` |
+| 0x5CA2A0, 0x5CA490, 0x5CA630, 0x5CA890 | `initial_setup`, `per_scan_setup`, `latch_quant_tables`, `alloc_funny_pointers` | 233A | `consume_markers`, `start_input_pass`, `jinit_d_main_controller` |
+| 0x5CC950, 0x5CC9D0 | `prepare_range_limit_table`, `master_selection` | 234A | `jinit_master_decompress` |
+| 0x5CFE20 | `default_decompress_parms` | 236A | `jpeg_consume_input` |
+| 0x4D1680, 0x4D1A50, 0x4D1DB0, 0x4D2100, 0x4D2450, 0x4D27F0 | `FrameUpdateCallBack*` de RpAnimBlend (plantilla `FrameUpdateCallBackExeVelocity<...>`) | 214A, 215A | los callbacks enganchados |
+| 0x4D6450, 0x4D6510, 0x4D66A0 | `RpAnimBlendClumpFillFrameArray` (rama skinned), `RpAnimBlendClumpInitSkinned`, `...NonSkinned` | 215A | 0x4D64A0, 0x4D6720 |
+| 0x4CB560, 0x4CB730 | `RemoveRasterFromList`, `PushFreePaletteIndex` | 224A | 0x4CBB00 |
+| 0x5D84C0, 0x5D8590 | `CalcEnvCamUV`, `CalcEnvWaveUV` | 211A | `CustomPipeRenderCB` 0x5D9900 |
+| 0x72E080 … 0x72E360 | geometrías de clump en una fase | 208A (y 95C) | `RpClumpGtaStreamReadAtOnce` 0x72E3A0 |
+
+---
+
+## 11. Resueltas
+
+### 11.1 Defectos reales que encontraron los bancos 189A–207A y se corrigieron en la fuente
+
+Dejan de ser desviaciones: tras el arreglo la función pasó 16384 pares por función con cero diferencias (el código previo al arreglo **sí** difería del EXE). Fuente: `reversing/Fn<lote>/README.md`, secciones de correcciones. Direcciones tomadas del README o de `docs/hooks.csv`.
+
+| Lote | Función | Dirección | Defecto corregido |
+| --- | --- | --- | --- |
+| 189A | `CStreaming::GetDefaultAmbulanceModel`, `GetDefaultFireEngineModel` | 0x407D30, 0x407DC0 | Leían solo el byte bajo de 0xBA6718; el EXE lee el DWORD |
+| 189A | `ProcessEntitiesInSectorList` | 0x40C450 | `GetInfo` con `assert` y `operator[]` comprobado con índices negativos; `GetRwObject()` desreferenciaba el objeto RenderWare; comparación de `IsInCurrentArea` sin extensión con ceros |
+| 191A | `CTaskSimpleSlideToCoord` constructor con animación | 0x66C450 | `m_pAnimHierarchy` (+0x3C) solo se asignaba con bloque; el EXE lo escribe siempre |
+| 191A | `RsSetPresetView` | 0x619780 | Negación de `rotX` con SSE conservaba el NaN señalizante; el EXE lo silencia (`fld; fchs; fstp`) |
+| 192A | `CObject` cuerpo del destructor | 0x59F660 | Comparación de `m_nModelIndex` con `MI_TRAINCROSSING1` sin la extensión con signo / sin signo del EXE |
+| 193A | `CTaskComplexReactToAttack::CreateFirstSubTask` | 0x625C70 | Denormal aplanado por FTZ del SSE; archivo pasado a `/arch:IA32 /fp:fast` |
+| 193A | `CTaskComplexExtinguishFireOnFoot::CreateNextSubTask` / `CreateFirstSubTask` | V (dirección 0 en el CSV) | Constructores no enganchados; ahora los cuerpos enganchados y su EAX |
+| 194A | `CTaskComplexWaitForPed::ControlSubTask` | 0x6834E0 | Comparación de distancias en `float` (SSE) frente a la x87 con exponente ampliado; resta de vectores con denormales aplanados (75 de 16384 pares) |
+| 194A | `CTaskComplexWander::GetDistSqOfClosestPathNodeToPed`, `GetWanderTaskByPedTypeId`; `CPedModelInfo` cuerpo del destructor | 0x669FF0, 0x673EF0, 0x4C62F0 | Preventivo o de enganche: aritmética a `X87Math`; constructores y destructor llamados por sus cuerpos enganchados |
+| 196A | `CEventHealthLow::Constructor`, `CEventSeenCop::CloneEditable`, `CVehicle` destructor con borrado | 0x5FF440, 0x5FF3C0, 0x6E38A0 | Vtable de la DLL y cadena de constructores/destructor sin pasar por el cuerpo enganchado |
+| 196A | `Input::InputShutdown` | 0x747000 | El hook estaba en `WinInput::InjectHooks`, que no se ejecuta con SDL3: **no se registraba**; pasado a `InjectPadHooks` |
+| 196A | `CGangWarsSaveStructure::Construct` / `Extract` | 0x5D2620, 0x5D2740 | `std::array::operator[]` con índices fuera de la tabla de 380 disparaba asserts que el EXE no tiene |
+| 197A | `CTaskComplexSunbathe::CreateSubTask` | 0x638290 | Subtareas con `new` de C++ en vez de los constructores enganchados y su EAX |
+| 198A | `CTaskComplexWaitAtAttractor` y `CTaskComplexUseAttractor` destructores con borrado; `CTaskComplexPresentIDToCop` (clase entera); `CTaskComplexGoToPointAndStandStill::CreateSubTask` y `SelectMoveState` | 0x638590, 0x6385B0, 0x6591D0 y vecinas, 0x6682D0, 0x668250 | Constructores y destructores generados en vez de los cuerpos enganchados; x87: `dx*dx` de 3e38 desbordaba a infinito en `float` (24 pares de `SelectMoveState`) |
+| 199A | `CCamera` cuerpo del destructor | 0x50A870 | Orden de la puesta a cero de +0x14 (el informe previo decía lo contrario) |
+| 199A | `CTaskComplexReactToAttack::CreateSubTask` | 0x620C30 | Subtareas con `new T` y conversión de daño con `static_cast<int32>(float)` (daba 0x80000000 con \|x\| >= 2^31; el `_ftol` del EXE es de 64 bits) |
+| 199A | `CPed` destructor con borrado | 0x5E8C80 | Llamaba a `~CPed()` directamente |
+| 200A | `CTrain::OpenDoor` | 0x6F6370 | Suma de la posición guardada con SSE aplanaba denormales (621 pares); NaN señalizante de ángulo de puerta copiado sin silenciar (196 pares) |
+| 201A | `CTaskComplexFollowLeaderInFormation::CreateSubTask`; `CEventInWater::Clone` | 0x6962A0, 0x4B7810 | Constructores directos y `operator-` en vez de `VectorSubtract`; NaN señalizante de la aceleración sin silenciar |
+| 202A | `TASK_SIMPLE_ANIM_LOOPED_MIDDLE::ProcessPed` | 0x61BCB0 | Con tiempos denormales la DLL daba 0 (FTZ); dos ayudantes x87 |
+| 203A | `COctTree` (`ReleaseChildren`, destructor con borrado, `CPool::Delete`) y `CVehicleStructure` (`operator delete`, destructor con borrado) | 0x5A73C0, 0x4C9580, 0x4C9840 | `CPool::Delete` de la DLL comprobaba con `assert` lo que el EXE no comprueba; nuevo `Core/PoolRaw.h` |
+| 204A | `CPedAcquaintanceScanner::CreateAcquaintanceEvent` | 0x606BA0 | Rama de odio en grupo: `GetPedsGroup(entidad)` en vez de `GetPedsGroup(ped)`: el evento iba **al grupo equivocado** (diferencia de comportamiento real) |
+| 204A | `CTaskInteriorSitInChair::ProcessPed` | 0x676D30 | Intermedios en `float` desbordaban con FLT_MAX; copias de vectores con NaN señalizante pasadas por la x87 |
+| 205A | `CPedGeometryAnalyser::ComputeRouteRoundSphere`, `ComputeSphere` | 0x5F1890 | Copia de `center.z` como dword y suma parcial guardada como float |
+| 206A | `CPedAttractor` destructor con borrado | 0x5EC4B0 | Llamaba al destructor de C++ en vez de al cuerpo enganchado 0x5EC410 |
+| 206A | `SArray` vaciado (`SArrayTidyStride4`) | 0x5EC820 | `clear()` recorría el rango con `std::destroy`; con el fin anterior al inicio **hundía el juego** (0xC0000409) |
+| 206A | `CTaskComplexUseMobilePhone::CreateNextSubTask` | 0x634A60 | Constructores de C++ en vez de los cuerpos enganchados 0x61A900 y 0x48E750 |
+| 207A | `CPathFind::RecordNodesInCircle` | 0x44FB60 | Usaba el argumento 8 para saltar nodos marcados **y** para el bit de agua (el EXE usa el 9 para el agua): defecto real |
+| 207A | Barrido y sonda de `CCarCtrl` | 0x421A50, 0x422E10 | Geometría de esquinas y de inicio de rayo con SSE (FTZ y otro NaN); ayudantes x87 |
+| 207A | `CTaskComplexInWater` destructor con borrado; `CTaskComplexUseMobilePhone::CreateFirstSubTask`/`ControlSubTask` | 0x635100 (cuerpo), V | Destruía una subtarea cruda; constructor de `CTaskSimpleRunAnim` por el cuerpo enganchado |
+
+Cuenta: 30 filas. No se listan los arreglos de enganche sin cambio de comportamiento (destructores con borrado de `CTaskSimpleChoking`, `CTaskSimpleBeHit` y `CTaskComplexKillPedOnFootStealth`/`Melee` en 193A; `CTaskComplexKillPedGroupOnFoot::Destructor` 0x6222B0 en 190A; `CEventAcquaintancePedHate::CloneEditable` 0x420F50 y `CTaskComplexKillAllThreats::CreateNextSubTask/CreateFirstSubTask` en 190A, que ahora pasan por los constructores enganchados): véase `Fn190A` y `Fn193A`.
+
+### 11.2 Entradas del documento del 08/11 que ya no están abiertas
+
+| Antes | Estado actual | Evidencia |
+| --- | --- | --- |
+| 3.3: `GetMouseSetUp` 0x53F2D0 sin fila | Fila `Input,GetMouseSetUpExe`, `validated=1` | `docs/hooks.csv` |
+| 3.3: `CMatrix::Detach` 0x59ACF0, `CopyOnlyMatrix` 0x59ADD0, `Update` 0x59BB60, `UpdateMatrix` 0x59AD20, `Scale` 0x459350, `operator+=` 0x59ADF0 "código muerto" | Instaladas por `InjectHooksLote162A`, banco `Fn162A`, filas con `validated=1` | `Matrix.cpp:43,92-99`, `hooks.csv` |
+| 3.3: `CMatrix::ConvertToEulerAngles` 0x59A840 y `ConvertFromEulerAngles` 0x59AA40 sin fila | Filas con `validated=1`; el banco `Fn202A` las ejerce | `hooks.csv`, `Fn202A` |
+| 3.3: `CVector::Sum` 0x40FDD0 | Instalada por `InjectHooksExactOperators`, lote 153A, banco `Fn153A`; fila `validated=1` | `Vector.cpp:83,174` |
+| 3.3: `CVector2D::operator=` 0x43E110 | Instalada por `InjectHooksLote162A`, banco `Fn162A`; fila `validated=1` | `Vector2D.cpp:36-45` |
+| 7.1: 0x5DE920 (`CAEPedAudioEntity`) y 0x563130 (`CSector`) destructores saltados en `Fn130A` | Reconstruidos y validados en `Fn131A` (65536 pares, cero diferencias) | `Fn131A` |
+| 7.1: 0x747300 `getDvdGamePath` "sin hook" | Instalada (`WinMain.cpp:559`); fila `Win,getDvdGamePath`, `validated=1` | `hooks.csv` |
+| 7.2: 22 envolturas pendientes (`CWeaponModelInfo` 0x4CC970, 0x4CD250 y 20 de `Win`) | Hoy 1 envoltura (0x4F39C0, 208A); las 22 eran código de RenderWare y D3D9 y están en C++ | lotes 224A, 225A, 226A–229A; `hooks.csv` |
+| 7.2: 2406 funciones del EXE sin reemplazar | 2 en el mapa (las dos de 208A, ya enganchadas) más las no reconstruibles de la sección 10 | `docs/JuegoExe/funciones.csv` |
+| 7.2: sección "Omisiones concretas" de `BinaryCoverageAudit.md` desfasada | Auditoría archivada en `docs/archivo/BinaryCoverageAudit-2026-10-10.md`; `docs/BinaryCoverageAudit.md` es solo un aviso | `docs/archivo/` |
+
+Cuenta: 10 filas.
+
+## 12. Hallazgos de riesgo medio y alto
 
 | # | Hallazgo | Riesgo | Sección |
 | ---: | --- | --- | --- |
-| 1 | 2406 funciones del EXE sin reemplazar y 22 envolturas; 175 `plugin::Call*` activos; 6004 llamadas indirectas sin resolver | Alto (independencia) | 7.2 |
-| 2 | La evidencia es histórica: 7253 de 9493 entradas con fuentes distintas de las probadas, 9326 sin revisión de dependencias, vigencia declarada 0 | Medio | 6.3 |
-| 3 | 7761 entradas validadas con colaboradores falseados; integración real no cubierta | Medio | 5 |
-| 4 | `FIX_BUGS` definido: 59 apariciones activas, no idénticas al EXE (p. ej. `Collision.cpp:1493`, menús, `ProcessEntityCollision` de coche y moto) | Medio | 2.2 |
-| 5 | `CCamera::CamControl` (dos rutas) y `CPlane::VehicleDamage` explosivo a humo: comportamiento definido distinto del EXE (pila sin inicializar), no certificado | Bajo a medio | 2.1 |
-| 6 | `NOTSA_UNREACHABLE` en 139 sitios, `FxInfoManager.cpp:129-131` con tres casos comentados, `IplStore.cpp:817` condicional invertido sin verificar | Medio | 2.3 |
-| 7 | 19 hooks activos o preparados sin fila en `hooks.csv` (incluye `GetMouseSetUp`) y fila `FinishAnimCB` con tipo desactualizado; el mapa del EXE los cuenta como "Falta" | Bajo a medio | 3.3 |
-| 8 | Aritmética x87 frente a SSE: solo ~10 ficheros compilados con `/arch:IA32 /fp:fast`; el resto depende de ayudantes y de los bancos | Medio (no medido) | 2.5 |
-| 9 | Equivalencias de banco aceptadas (vtable de `CTask`, EAX/ECX/EDX informativos, relleno enmascarado) | Bajo a medio | 4 |
-| 10 | 1075 entradas excluyen dominios donde el EXE falla; el C++ añade comprobaciones en ellos sin comparar | Bajo a medio | 6.1 |
-| 11 | 76 `ScalarDeletingDestructor` y 338 `Destructor` catalogados como S, no V | Bajo | 3.1 |
-| 12 | Banco de regresión final detenido (54 de 148 y 74 de 177 en cortes fechados) | Medio (fechado) | 6.3 |
+| 1 | 1282 funciones (lotes 208A–239A y R1A–R34A) integradas **sin ningún banco**, revisadas solo contra el desensamblado; 28 desviaciones o límites declarados en los informes (cuelgues del EXE sustituidos por NULL, variables sin inicializar puestas a 0, ramas omitidas, `float` en lugar de x87) | Medio (no medido) | 8 |
+| 2 | Aritmética `float` con SSE sin x87 en RenderWare (frustum, propiedades de superficie): la clase de diferencia (denormales, desbordes) que los bancos 193A–207A encontraron y corrigieron en código del juego | Medio | 8.3 (A-R12) |
+| 3 | Límites de los bancos 189A–207A: colaboradores falseados, objetos reales construidos por el EXE, pools con asserts, NaN y rangos extremos, memoria agotada, archivos recompilados que obligan a repetir bancos (`Fn199A`) | Medio | 9 |
+| 4 | 118 funciones del juego y 54 de RenderWare/D3D no reconstruibles en C++ puro; 237 puntos `plugin::Call*`; 1111 funciones de bibliotecas de terceros se enlazan | Alto (independencia) | 10, 7.2 |
+| 5 | La evidencia es histórica: 7253 de 9493 entradas con fuentes distintas de las probadas (corte 08/11), vigencia declarada 0; los bancos 189A–207A no están en el registro | Medio | 6.3 |
+| 6 | 7761 entradas validadas con colaboradores falseados; integración real no cubierta | Medio | 5 |
+| 7 | `FIX_BUGS` definido: 58 apariciones activas, no idénticas al EXE (p. ej. `Collision.cpp:1493`, menús, `ProcessEntityCollision` de coche y moto) | Medio | 2.2 |
+| 8 | `CCamera::CamControl` (dos rutas) y `CPlane::VehicleDamage` explosivo a humo: comportamiento definido distinto del EXE (pila sin inicializar), no certificado | Bajo a medio | 2.1 |
+| 9 | `NOTSA_UNREACHABLE` en 139 sitios, `FxInfoManager.cpp:129-131` con tres casos comentados, `IplStore.cpp:817` condicional invertido sin verificar | Medio | 2.3 |
+| 10 | Modo ventana NOTSA: `_rwD3D9CameraClear` rompe el suelo reflectante de la casa de CJ; copia local de `D3D9SetPresentParameters` que no es la del EXE | Medio | 8.3 (A-R16) |
+| 11 | 8 hooks activos o preparados sin fila en `hooks.csv` (WinInput, `Win32_Init*`, `CPad::GetMouseState`) y fila `FinishAnimCB` con tipo desactualizado | Bajo | 3.3 |
+| 12 | Aritmética x87 frente a SSE en el resto del código: solo ~10 ficheros compilados con `/arch:IA32 /fp:fast` más los que añadieron los lotes 193A, 198A y 204A | Medio (no medido) | 2.5, 9 (B9) |
+| 13 | Equivalencias de banco aceptadas (vtable de `CTask`, EAX/ECX/EDX informativos, relleno enmascarado) | Bajo a medio | 4 |
+| 14 | 1075 entradas excluyen dominios donde el EXE falla; el C++ añade comprobaciones en ellos sin comparar (08/11) | Bajo a medio | 6.1 |
+| 15 | 76 `ScalarDeletingDestructor` y 338 `Destructor` catalogados como S, no V (08/11) | Bajo | 3.1 |
+| 16 | Banco de regresión final detenido (54 de 148 y 74 de 177 en cortes fechados) | Medio (fechado) | 6.3 |
 
-## 9. Cómo actualizar este documento
+## 13. Cómo actualizar este documento
 
-1. Recontar con los mismos criterios: `python` sobre `reversing/validation-registry/parte-*.json` (campos `hook`, `scope`, `tested_sources`, `dependency_review`, `evidence.pairs`).
+1. Recontar con los mismos criterios: `python` sobre `reversing/validation-registry/parte-*.json` (campos `hook`, `scope`, `tested_sources`, `dependency_review`, `evidence.pairs`) para las secciones 1, 5, 6.1 y 6.2; recuento de `docs/hooks.csv` por `validated` y `type` para la sección 1.
 2. Volver a comparar hashes de `tested_sources` con el árbol tras cada lote; las cifras de la sección 6.3 cambian con cada commit.
 3. Regenerar el cruce de `RH_Scoped*Install` frente a `hooks.csv` (sección 3.3) tras añadir lotes.
-4. Revisar `source/CMakeLists.txt` (líneas 425-435) por si `FIX_BUGS` deja de definirse, lo que cambiaría la sección 2.2.
+4. Revisar `source/CMakeLists.txt` (línea 479) por si `FIX_BUGS` deja de definirse, lo que cambiaría la sección 2.2.
+5. Al validar un lote de `reversing/PendienteValidar`, mover sus filas de la sección 8 a la 11.1 (si el banco corrigió algo) o borrarlas (si el banco confirma la desviación como equivalente), y pasar sus límites a la sección 9.
+6. Al integrar un lote nuevo, leer en su informe las secciones de saltadas, riesgos y "divergencia", añadir las desviaciones a la sección 8 y las funciones no reconstruibles a `docs/JuegoExe/excluidas.csv` o `docs/RenderWareExe/no-reconstruibles.csv` (sección 10).
