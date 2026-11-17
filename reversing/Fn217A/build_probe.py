@@ -1,0 +1,61 @@
+"""Construye unicamente el banco Fn217A (ASI de sonda); no acredita aprobacion. Ver README.md."""
+import json, sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import runtime_runner
+runtime_runner.GAME = Path('E:/JUEGOS/GTA San Andreas - CVehicle Test')
+from probe_build import build
+SOURCES = [
+    'source/CMakeLists.txt',
+    'source/InjectHooksMain.cpp',
+    'source/app/app.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoEmWeather.h',
+    'source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoEmRotation.h',
+    'source/game_sa/Fx/Blueprints/FxInfoNoise.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoNoise.h',
+    'source/game_sa/Fx/Blueprints/FxInfoForce.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoForce.h',
+    'source/game_sa/Fx/Blueprints/FxInfoFriction.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoFriction.h',
+    'source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoAttractPt.h',
+    'source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoAttractLine.h',
+    'source/game_sa/Fx/Blueprints/FxInfoGroundCollide.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoGroundCollide.h',
+    'source/game_sa/Fx/Blueprints/FxInfoWind.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoWind.h',
+    'source/game_sa/Fx/Blueprints/FxInfoJitter.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoJitter.h',
+    'source/game_sa/Fx/Blueprints/FxInfoRotSpeed.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoRotSpeed.h',
+    'source/game_sa/Fx/Blueprints/FxInfoFloat.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoFloat.h',
+    'source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoUnderwater.h',
+    'source/game_sa/Fx/Blueprints/FxInfoColour.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoColour.h',
+    'source/game_sa/Fx/Blueprints/FxInfoSize.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoSize.h',
+    'source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp',
+    'source/game_sa/Fx/Blueprints/FxInfoSpriteRect.h',
+    'source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.cpp',
+    'source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp',
+    'source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp',
+    'source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp',
+    'source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h',
+    'source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h',
+    'source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h',
+    'source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h',
+    'reversing/OriginalDependencies499/HookRoute.hpp',
+    'reversing/Fn217A/LiveComparison.hpp',
+    'reversing/Fn217A/Core.hpp',
+    'reversing/Fn217A/Fixtures.hpp',
+    'source/reversiblehooks/ReversibleHook/Simple.h',
+    'source/reversiblehooks/ReversibleHook/Simple.cpp',
+    'source/reversiblehooks/ReversibleHook/Virtual.h',
+    'source/reversiblehooks/ReversibleHook/Virtual.cpp']
+if __name__ == '__main__':
+    print(json.dumps(build(Path(__file__).parent, 'fn217a', 'F217ALive', SOURCES)))
