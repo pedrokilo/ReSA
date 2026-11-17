@@ -397,8 +397,9 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| ProtectionStubBlockEncrypt(uint32* block, const uint32* key) | [source/game_sa/ProtectionStub.cpp:33](../../source/game_sa/ProtectionStub.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: CProtectionStub::BlockEncrypt 0x00403638 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CProtectionStub::InjectHooks() | [source/game_sa/ProtectionStub.cpp:61](../../source/game_sa/ProtectionStub.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ProtectionStubBlockEncrypt(uint32* block, const uint32* key) | [source/game_sa/ProtectionStub.cpp:34](../../source/game_sa/ProtectionStub.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CProtectionStub::BlockEncrypt 0x00403638 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ProtectionStubBlockDecrypt(uint32* block, const uint32* key) | [source/game_sa/ProtectionStub.cpp:54](../../source/game_sa/ProtectionStub.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CProtectionStub::BlockDecrypt 0x004036C1 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CProtectionStub::InjectHooks() | [source/game_sa/ProtectionStub.cpp:76](../../source/game_sa/ProtectionStub.cpp#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-477"></a>
 

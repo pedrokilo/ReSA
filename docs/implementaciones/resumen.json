@@ -24,8 +24,8 @@
     "catalog_rows_without_unambiguous_source_match_in_scope": 58,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 101,
-    "catalog_rows_linked_by_hook_address": 1173,
-    "validated_reconstructed_own_cpp_definitions": 13434,
+    "catalog_rows_linked_by_hook_address": 1174,
+    "validated_reconstructed_own_cpp_definitions": 13448,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 17
   },
@@ -470,7 +470,7 @@
     "source/game_sa/Entity/Dummy/DummyObject.h": "e117947aafb711fa45f839c8ddd3239837db2720ef2c4942171ae9a7a9e05883",
     "source/game_sa/Entity/Dummy/DummyPed.cpp": "7d22caa732994da981803defbc6b42d5f95ed0a1e2e9ad788174bf23cab28a09",
     "source/game_sa/Entity/Dummy/DummyPed.h": "a1fbed3f6b151871ab37ca6a7b63826560c2199f7910d2628d88fe4884be85f2",
-    "source/game_sa/Entity/Entity.cpp": "78842144a9adf905b58be3ac5257eb3ae4eb307f8f189c40c2328b5866ba2eb1",
+    "source/game_sa/Entity/Entity.cpp": "67bff20698eb21760b6ee1d5e94d0d8a97aebcab697aa59f64217383976904e1",
     "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
     "source/game_sa/Entity/Object/CutsceneObject.cpp": "ae651ad5e934364926de242480b0375f4a8d81d955eb30f2a8e482ce8685f9e6",
     "source/game_sa/Entity/Object/CutsceneObject.h": "ca71010c5509e57e19acd68f797515c23c630603557a215e3cd01776993c85f1",
@@ -1253,7 +1253,7 @@
     "source/game_sa/PPTriPlantBuffer.h": "c967c7c101f752da1a0944e64dacbfde59e6457ff91ce18025d0c894543137d9",
     "source/game_sa/ProjectileInfo.cpp": "85a396d9ec2edb44ea5c40f6e4d07f3615f2ea07f5798bc8198ba897a52c5452",
     "source/game_sa/ProjectileInfo.h": "bad9fe0cb797165eb2040d9d6d804bfd0d8753efcbe5beceaae8443105b3e76f",
-    "source/game_sa/ProtectionStub.cpp": "5a2c0b8c316e1c12ee60830fa692d0380eb24f3ca83398ec2bcc089d2987c5ec",
+    "source/game_sa/ProtectionStub.cpp": "594a16bd42eb4739e324159496c567f447eb2d8673d83a9097aae85b134c2742",
     "source/game_sa/ProtectionStub.h": "9c42eb502720682f20cc64ab19fdb4a3b62a0699ba6c594e7ea239637192456e",
     "source/game_sa/Queue.h": "d08126a814855a700c3539a979f435251cee216861b0a46fc6d5856f3a6db771",
     "source/game_sa/QueuedMode.h": "65f0dbb37839b3242a36204cc7afa24071be0472c9977ea787bca582bc4348b4",
@@ -2315,10 +2315,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "91cd7261db59637c6e41fc7874386d7539bc0ba127448e49bc24bf0df2167749",
+    "hooks.csv": "53308c4b7c06dbccdec348d452587c91aa3062824fc2e6d1d33bc49f087ccc46",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "bdc6b781d83ca218c581c2ab066c50afe7a4e0a4378f62e4661f1ce0fa08ae7e",
+  "migration_registry_sha256": "c0dca952da6892a5439e7c01960dc7406957c6149235b30b08ecc9d4ef1c1910",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

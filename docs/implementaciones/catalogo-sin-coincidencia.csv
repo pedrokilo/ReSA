@@ -50,8 +50,8 @@ CCustomCarEnvMapPipeline,PoolNewMat,0x005D9110,1,0,1,S,hooks.csv
 CCustomCarEnvMapPipeline,PoolNewAtm,0x005D9260,1,0,1,S,hooks.csv
 CCustomCarEnvMapPipeline,PoolNewSpec,0x005D93B0,1,0,1,S,hooks.csv
 CCustomCarEnvMapPipeline,PoolDeleteMat,0x005D9180,1,0,1,S,hooks.csv
-CAEAudioEntity,Destructor-6,0x00447000,1,0,0,S,hooks.csv
-CAEAudioEntity,Destructor-7,0x00447050,1,0,0,S,hooks.csv
+CAEAudioEntity,Destructor-6,0x00447000,1,0,1,S,hooks.csv
+CAEAudioEntity,Destructor-7,0x00447050,1,0,1,S,hooks.csv
 RpSkin,_rpSkinD3D9CreateVertexBuffer,0x007C9680,1,0,0,S,hooks.csv
 ZlibInflate,InflateBlocks,0x007E9570,1,0,0,S,hooks.csv
 RwPlCore,RwStreamRead,0x007EC9D0,1,0,0,S,hooks.csv

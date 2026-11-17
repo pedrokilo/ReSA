@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.515 |
-| Reconstruidas sin validar | 926 |
-| De ellas, en esta cola (validables por pares) | 926 |
+| Validadas | 11.531 |
+| Reconstruidas sin validar | 910 |
+| De ellas, en esta cola (validables por pares) | 910 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,36 +22,32 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 16 | 40 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 12 | 29 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 0 | 0 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 32 | 836 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
-| [🔴 Nivel 4: caras](#nivel-4) | 10 | 50 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **58** | **926** | |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 30 | 832 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🔴 Nivel 4: caras](#nivel-4) | 9 | 49 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
+| **Total** | **51** | **910** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (16 clases, 40 funciones)
+## 🟢 Nivel 1: muy barato (12 clases, 29 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
 | 1 | CTaskSimpleSetCharIgnoreWeaponRangeFlag | 7 | 1 |  | 8 |
-| 2 | CBuilding | 7 | 1 |  | 12 |
+| 2 | CDecisionMaker | 5 | 1 |  | 19 |
 | 3 | CPedModelInfo | 12 | 1 |  | 21 |
 | 4 | CScriptsForBrains | 15 | 1 |  | 22 |
 | 5 | CAudioZones | 9 | 1 |  | 31 |
 | 6 | CGamma | 3 | 1 |  | 33 |
-| 7 | CAEAudioEntity | 8 | 2 |  | 10 |
-| 8 | CDecisionMaker | 5 | 2 |  | 19 |
-| 9 | IKChainManager_c | 19 | 2 |  | 20 |
-| 10 | WaterCreatureManager_c | 9 | 2 |  | 29 |
-| 11 | CProtectionStub | 3 | 3 |  | 23 |
-| 12 | LibJpegError | 3 | 3 |  | 26 |
-| 13 | CEntity | 76 | 3 |  | 35 |
-| 14 | FxEmitterBP_c | 13 | 4 |  | 31 |
-| 15 | FxEmitter_c | 9 | 5 |  | 34 |
-| 16 | CTheScripts | 82 | 8 |  | 31 |
+| 7 | IKChainManager_c | 19 | 2 |  | 20 |
+| 8 | WaterCreatureManager_c | 9 | 2 |  | 29 |
+| 9 | LibJpegError | 3 | 3 |  | 26 |
+| 10 | FxEmitterBP_c | 13 | 4 |  | 31 |
+| 11 | FxEmitter_c | 9 | 5 |  | 34 |
+| 12 | CTheScripts | 82 | 7 |  | 31 |
 
 <a id="nivel-2"></a>
 
@@ -64,7 +60,7 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (32 clases, 836 funciones)
+## 🟠 Nivel 3: moderadas (30 clases, 832 funciones)
 
 Criterio: el resto.
 
@@ -78,34 +74,32 @@ Criterio: el resto.
 | 6 | RtSlerp | 1 | 1 |  | ? |
 | 7 | Win | 8 | 1 |  | ? |
 | 8 | CCamera | 126 | 2 |  | 38 |
-| 9 | CPtrNodeDoubleLinkPool | 7 | 2 |  | ? |
-| 10 | CPtrNodeSingleLinkPool | 7 | 2 |  | ? |
-| 11 | RtBMP | 2 | 2 |  | ? |
-| 12 | DelayLoadThunks | 3 | 3 |  | ? |
-| 13 | QTMLRuntime | 6 | 6 |  | ? |
-| 14 | RpHAnim | 7 | 6 |  | ? |
-| 15 | RtQuat | 6 | 6 |  | ? |
-| 16 | RtAnim | 10 | 7 |  | 48 |
-| 17 | RtDict | 12 | 10 |  | ? |
-| 18 | LibJpegCompressEncode | 11 | 11 |  | 47 |
-| 19 | D3DX9 | 11 | 11 |  | ? |
-| 20 | RwD3D9RasterDriver | 14 | 14 |  | 29 |
-| 21 | RpUVAnim | 16 | 14 |  | ? |
-| 22 | ZlibInflate | 14 | 14 |  | ? |
-| 23 | ExeLibJpeg | 15 | 15 |  | ? |
-| 24 | ImportThunks | 17 | 17 |  | ? |
-| 25 | LibJpegCompress | 18 | 18 |  | 38 |
-| 26 | LibJpegMemory | 21 | 21 |  | 26 |
-| 27 | RpMatFX | 28 | 28 |  | ? |
-| 28 | RpSkin | 34 | 33 |  | ? |
-| 29 | RwD3D9 | 115 | 115 |  | ? |
-| 30 | RwPlCore | 132 | 118 |  | ? |
-| 31 | RpWorld | 197 | 172 |  | ? |
-| 32 | RwCore | 211 | 182 |  | ? |
+| 9 | RtBMP | 2 | 2 |  | ? |
+| 10 | DelayLoadThunks | 3 | 3 |  | ? |
+| 11 | QTMLRuntime | 6 | 6 |  | ? |
+| 12 | RpHAnim | 7 | 6 |  | ? |
+| 13 | RtQuat | 6 | 6 |  | ? |
+| 14 | RtAnim | 10 | 7 |  | 48 |
+| 15 | RtDict | 12 | 10 |  | ? |
+| 16 | LibJpegCompressEncode | 11 | 11 |  | 47 |
+| 17 | D3DX9 | 11 | 11 |  | ? |
+| 18 | RwD3D9RasterDriver | 14 | 14 |  | 29 |
+| 19 | RpUVAnim | 16 | 14 |  | ? |
+| 20 | ZlibInflate | 14 | 14 |  | ? |
+| 21 | ExeLibJpeg | 15 | 15 |  | ? |
+| 22 | ImportThunks | 17 | 17 |  | ? |
+| 23 | LibJpegCompress | 18 | 18 |  | 38 |
+| 24 | LibJpegMemory | 21 | 21 |  | 26 |
+| 25 | RpMatFX | 28 | 28 |  | ? |
+| 26 | RpSkin | 34 | 33 |  | ? |
+| 27 | RwD3D9 | 115 | 115 |  | ? |
+| 28 | RwPlCore | 132 | 118 |  | ? |
+| 29 | RpWorld | 197 | 172 |  | ? |
+| 30 | RwCore | 211 | 182 |  | ? |
 
 <a id="nivel-4"></a>
 
-## 🔴 Nivel 4: caras (10 clases, 50 funciones)
+## 🔴 Nivel 4: caras (9 clases, 49 funciones)
 
 Criterio: 90 o más funciones, o más de 50 líneas por función.
 
@@ -113,14 +107,13 @@ Criterio: 90 o más funciones, o más de 50 líneas por función.
 |--:|---|--:|--:|--:|--:|
 | 1 | FxInfoManager_c | 6 | 1 |  | 52 |
 | 2 | ExeProtectionStub | 8 | 1 |  | 57 |
-| 3 | CAutoPilot | 4 | 1 |  | 60 |
-| 4 | CMissionCleanup | 4 | 1 |  | 133 |
-| 5 | LibJpegCompressApi | 3 | 3 |  | 51 |
-| 6 | LibJpegDecompressUpsample | 3 | 3 |  | 65 |
-| 7 | LibJpegDecompressApi | 4 | 4 |  | 73 |
-| 8 | CRunningScript | 43 | 4 |  | 77 |
-| 9 | D3D9RasterFormat | 10 | 10 |  | 88 |
-| 10 | LibJpegDecompress | 22 | 22 |  | 51 |
+| 3 | CMissionCleanup | 4 | 1 |  | 133 |
+| 4 | LibJpegCompressApi | 3 | 3 |  | 51 |
+| 5 | LibJpegDecompressUpsample | 3 | 3 |  | 65 |
+| 6 | LibJpegDecompressApi | 4 | 4 |  | 73 |
+| 7 | CRunningScript | 43 | 4 |  | 77 |
+| 8 | D3D9RasterFormat | 10 | 10 |  | 88 |
+| 9 | LibJpegDecompress | 22 | 22 |  | 51 |
 
 <a id="fuera-de-la-cola"></a>
 

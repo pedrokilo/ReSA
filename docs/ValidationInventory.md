@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11515 |
+| `validated=1` · evidencia aprobada vinculada | 11531 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11515 |
-| Sin evidencia aprobada vinculada en este registro | 926 |
+| Evidencia histórica vinculada; revisión pendiente | 11531 |
+| Sin evidencia aprobada vinculada en este registro | 910 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -149,6 +149,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEAudioEntity | `Destructor-3` | [Resumen](../reversing/Fn154A/validation-summary.json) |
 | CAEAudioEntity | `Destructor-4` | [Resumen](../reversing/Fn172A/validation-summary.json) |
 | CAEAudioEntity | `Destructor-5` | [Resumen](../reversing/Fn172A/validation-summary.json) |
+| CAEAudioEntity | `Destructor-6` | [Resumen](../reversing/Fn222A/validation-summary.json) |
+| CAEAudioEntity | `Destructor-7` | [Resumen](../reversing/Fn222A/validation-summary.json) |
 | CAEAudioEntity | `UpdateParameters` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CAEAudioEnvironment | `GetDirectionalMikeAttenuation` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CAEAudioEnvironment | `GetDistanceAttenuation` | [Resumen](../reversing/Small2/validation-summary.json) |
@@ -1104,6 +1106,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAutoPilot | `Constructor` | [Resumen](../reversing/Fn195A/validation-summary.json) |
 | CAutoPilot | `ModifySpeed` | [Resumen](../reversing/ModifySpeed27/validation-summary.json) |
 | CAutoPilot | `RemoveOnePathNode` | [Resumen](../reversing/Dependencies25A/validation-summary.json) |
+| CAutoPilot | `SetCarMissionUnlessCrashAndBurn` | [Resumen](../reversing/Fn222A/validation-summary.json) |
 | CAutomobile | `AddMovingCollisionSpeed` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
 | CAutomobile | `BlowUpCar` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
 | CAutomobile | `BlowUpCarCutSceneNoExtras` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
@@ -1383,6 +1386,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CBrightLights | `RegisterOne` | [Resumen](../reversing/Render23/validation-summary.json) |
 | CBrightLights | `Render` | [Resumen](../reversing/Render23/validation-summary.json) |
 | CBrightLights | `RenderOutGeometryBuffer` | [Resumen](../reversing/Render23/validation-summary.json) |
+| CBuilding | `Constructor` | [Resumen](../reversing/Fn222A/validation-summary.json) |
 | CBuilding | `DestructorBody` | [Resumen](../reversing/Fn149A/validation-summary.json) |
 | CBuilding | `IsBuildingPointerValid` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CBuilding | `ReplaceWithNewModel` | [Resumen](../reversing/Core70/validation-summary.json) |
@@ -2497,6 +2501,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CDecision | `SetDefault` | [Resumen](../reversing/DecisionPending/validation-summary.json) |
 | CDecisionMaker | `From` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CDecisionMaker | `MakeDecision` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
+| CDecisionMaker | `SetDefault` | [Resumen](../reversing/Fn222A/validation-summary.json) |
 | CDecisionMaker | `operator=` | [Resumen](../reversing/Fn181A/validation-summary.json) |
 | CDecisionMakerTypes | `AddDecisionMaker` | [Resumen](../reversing/DependenciesDecisionRelationship6/validation-summary.json) |
 | CDecisionMakerTypes | `AddEventResponse` | [Resumen](../reversing/DecisionAdd27/validation-summary.json) |
@@ -2563,6 +2568,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEmergencyPed | `ProcessControl` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CEmergencyPed | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CEntity | `Add-rect` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `Add-void` | [Resumen](../reversing/Fn222A/validation-summary.json) |
 | CEntity | `AttachToRwObject` | [Resumen](../reversing/CEntA/validation-summary.json) |
 | CEntity | `BuildWindSockMatrix` | [Resumen](../reversing/CEntA/validation-summary.json) |
 | CEntity | `CalculateBBProjection` | [Resumen](../reversing/CEntA/validation-summary.json) |
@@ -2596,6 +2602,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEntity | `IsEntityOccluded` | [Resumen](../reversing/CEntA/validation-summary.json) |
 | CEntity | `IsEntityPointerValid` | [Resumen](../reversing/CEntB/validation-summary.json) |
 | CEntity | `IsInCurrentArea` | [Resumen](../reversing/Fn181A/validation-summary.json) |
+| CEntity | `IsInvisibleOrRenderDamaged` | [Resumen](../reversing/Fn222A/validation-summary.json) |
 | CEntity | `IsVisible` | [Resumen](../reversing/CEntA/validation-summary.json) |
 | CEntity | `LivesInThisNonOverlapSector` | [Resumen](../reversing/CEntA/validation-summary.json) |
 | CEntity | `MaterialUpdateUVAnimCB` | [Resumen](../reversing/CEntC/validation-summary.json) |
@@ -2616,6 +2623,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEntity | `Render` | [Resumen](../reversing/CEntC/validation-summary.json) |
 | CEntity | `RenderEffects` | [Resumen](../reversing/CEntC/validation-summary.json) |
 | CEntity | `ResolveReferences` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn222A/validation-summary.json) |
 | CEntity | `SetAtomicAlpha` | [Resumen](../reversing/CEntC/validation-summary.json) |
 | CEntity | `SetCompAlphaCB` | [Resumen](../reversing/CEntC/validation-summary.json) |
 | CEntity | `SetIsStatic` | [Resumen](../reversing/CEntB/validation-summary.json) |
@@ -5831,16 +5839,23 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CProjectileInfo | `RemoveProjectile` | [Resumen](../reversing/ProjectileRemove355/validation-summary.json) |
 | CProjectileInfo | `Shutdown` | [Resumen](../reversing/ProjectileCore355/validation-summary.json) |
 | CProjectileInfo | `Update` | [Resumen](../reversing/ProjectileUpdate355/validation-summary.json) |
+| CProtectionStub | `BlockDecrypt` | [Resumen](../reversing/Fn222A/validation-summary.json) |
+| CProtectionStub | `BlockEncrypt` | [Resumen](../reversing/Fn222A/validation-summary.json) |
+| CProtectionStub | `Empty` | [Resumen](../reversing/Fn222A/validation-summary.json) |
+| CPtrNodeDoubleLinkPool | `AddItem` | [Resumen](../reversing/Fn222A/validation-summary.json) |
 | CPtrNodeDoubleLinkPool | `AddToList` | [Resumen](../reversing/Fn150A/validation-summary.json) |
 | CPtrNodeDoubleLinkPool | `Flush` | [Resumen](../reversing/Fn131A/validation-summary.json) |
 | CPtrNodeDoubleLinkPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CPtrNodeDoubleLinkPool | `OperatorDelete` | [Resumen](../reversing/Fn173A/validation-summary.json) |
 | CPtrNodeDoubleLinkPool | `OperatorNew` | [Resumen](../reversing/Fn173A/validation-summary.json) |
+| CPtrNodeDoubleLinkPool | `RemoveItem` | [Resumen](../reversing/Fn222A/validation-summary.json) |
+| CPtrNodeSingleLinkPool | `AddItem` | [Resumen](../reversing/Fn222A/validation-summary.json) |
 | CPtrNodeSingleLinkPool | `Flush` | [Resumen](../reversing/Fn131A/validation-summary.json) |
 | CPtrNodeSingleLinkPool | `FlushJump` | [Resumen](../reversing/Fn200A/validation-summary.json) |
 | CPtrNodeSingleLinkPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CPtrNodeSingleLinkPool | `OperatorDelete` | [Resumen](../reversing/Fn173A/validation-summary.json) |
 | CPtrNodeSingleLinkPool | `OperatorNew` | [Resumen](../reversing/Fn173A/validation-summary.json) |
+| CPtrNodeSingleLinkPool | `RemoveItem` | [Resumen](../reversing/Fn222A/validation-summary.json) |
 | CQuadBike | `Constructor` | [Resumen](../reversing/VehCtor62/validation-summary.json) |
 | CQuadBike | `DestructorBody` | [Resumen](../reversing/Fn178A/validation-summary.json) |
 | CQuadBike | `Fix` | [Resumen](../reversing/Misc61b/validation-summary.json) |
@@ -9617,6 +9632,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTheScripts | `ScriptDebugCircle2D` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `ScriptDebugLine3D` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `ScriptEntryListAdd` | [Resumen](../reversing/Fn166A/validation-summary.json) |
+| CTheScripts | `ScriptTextPairSet` | [Resumen](../reversing/Fn222A/validation-summary.json) |
 | CTheScripts | `StartNewScript-indexed` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `StartNewScript-last-idle` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `StartTestScript` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
@@ -11553,7 +11569,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `C3dMarkers` | 20 | 0 | 20 | 0 |
 | `CAEAmbienceTrackManager` | 10 | 0 | 10 | 0 |
 | `CAEAudioChannel` | 16 | 0 | 16 | 0 |
-| `CAEAudioEntity` | 8 | 0 | 6 | 2 |
+| `CAEAudioEntity` | 8 | 0 | 8 | 0 |
 | `CAEAudioEnvironment` | 6 | 0 | 6 | 0 |
 | `CAEAudioHardware` | 55 | 0 | 55 | 0 |
 | `CAEAudioUtility` | 11 | 0 | 11 | 0 |
@@ -11611,7 +11627,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAttractorScanner` | 7 | 0 | 7 | 0 |
 | `CAudioEngine` | 83 | 0 | 83 | 0 |
 | `CAudioZones` | 9 | 0 | 8 | 1 |
-| `CAutoPilot` | 4 | 0 | 3 | 1 |
+| `CAutoPilot` | 4 | 0 | 4 | 0 |
 | `CAutomobile` | 114 | 0 | 114 | 0 |
 | `CBaseModelInfo` | 38 | 0 | 38 | 0 |
 | `CBike` | 62 | 0 | 62 | 0 |
@@ -11623,7 +11639,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBox` | 3 | 0 | 3 | 0 |
 | `CBridge` | 5 | 0 | 5 | 0 |
 | `CBrightLights` | 4 | 0 | 4 | 0 |
-| `CBuilding` | 7 | 0 | 6 | 1 |
+| `CBuilding` | 7 | 0 | 7 | 0 |
 | `CBuildingPool` | 1 | 0 | 1 | 0 |
 | `CBulletInfo` | 4 | 0 | 4 | 0 |
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
@@ -11690,7 +11706,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CData` | 3 | 0 | 3 | 0 |
 | `CDebug` | 2 | 0 | 2 | 0 |
 | `CDecision` | 7 | 0 | 7 | 0 |
-| `CDecisionMaker` | 5 | 0 | 3 | 2 |
+| `CDecisionMaker` | 5 | 0 | 4 | 1 |
 | `CDecisionMakerTypes` | 17 | 0 | 17 | 0 |
 | `CDecisionMakerTypesFileLoader` | 7 | 0 | 7 | 0 |
 | `CDirectory` | 11 | 0 | 11 | 0 |
@@ -11701,7 +11717,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CDummyPed` | 3 | 0 | 3 | 0 |
 | `CDummyPool` | 1 | 0 | 1 | 0 |
 | `CEmergencyPed` | 4 | 0 | 4 | 0 |
-| `CEntity` | 76 | 0 | 73 | 3 |
+| `CEntity` | 76 | 0 | 76 | 0 |
 | `CEntityScanner` | 4 | 0 | 4 | 0 |
 | `CEntitySeekPosCalculator` | 4 | 0 | 4 | 0 |
 | `CEntitySeekPosCalculatorFixedPos` | 1 | 0 | 1 | 0 |
@@ -11973,9 +11989,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPostEffects` | 38 | 0 | 38 | 0 |
 | `CProjectile` | 3 | 0 | 3 | 0 |
 | `CProjectileInfo` | 12 | 0 | 12 | 0 |
-| `CProtectionStub` | 3 | 0 | 0 | 3 |
-| `CPtrNodeDoubleLinkPool` | 7 | 0 | 5 | 2 |
-| `CPtrNodeSingleLinkPool` | 7 | 0 | 5 | 2 |
+| `CProtectionStub` | 3 | 0 | 3 | 0 |
+| `CPtrNodeDoubleLinkPool` | 7 | 0 | 7 | 0 |
+| `CPtrNodeSingleLinkPool` | 7 | 0 | 7 | 0 |
 | `CQuadBike` | 14 | 0 | 14 | 0 |
 | `CQuadTreeNode<T>` | 20 | 0 | 20 | 0 |
 | `CQuaternion` | 11 | 0 | 11 | 0 |
@@ -12365,7 +12381,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTempColModels` | 2 | 0 | 2 | 0 |
 | `CText` | 9 | 0 | 9 | 0 |
 | `CTheCarGenerators` | 7 | 0 | 7 | 0 |
-| `CTheScripts` | 82 | 0 | 74 | 8 |
+| `CTheScripts` | 82 | 0 | 75 | 7 |
 | `CTheZones` | 23 | 0 | 23 | 0 |
 | `CTimeCycle` | 20 | 0 | 20 | 0 |
 | `CTimeInfo` | 6 | 0 | 6 | 0 |

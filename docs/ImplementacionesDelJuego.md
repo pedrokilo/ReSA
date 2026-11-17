@@ -106,7 +106,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CAudioEngine](implementaciones/detalle-004.md#grupo-79) · [source/game_sa/Audio/AudioEngine.cpp](../source/game_sa/Audio/AudioEngine.cpp) | 82 | 0 | 5 | 0 | 0 |
 | [CAudioLink](implementaciones/detalle-004.md#grupo-80) · [source/game_sa/Audio/Entities/AEScriptAudioEntity.h](../source/game_sa/Audio/Entities/AEScriptAudioEntity.h) | 0 | 0 | 1 | 0 | 0 |
 | [CAudioZones](implementaciones/detalle-005.md#grupo-81) · [source/game_sa/Audio/AudioZones.cpp](../source/game_sa/Audio/AudioZones.cpp), [source/game_sa/Audio/AudioZones.h](../source/game_sa/Audio/AudioZones.h) | 6 | 0 | 5 | 0 | 0 |
-| [CAutoPilot](implementaciones/detalle-005.md#grupo-82) · [source/game_sa/AutoPilot.cpp](../source/game_sa/AutoPilot.cpp), [source/game_sa/AutoPilot.h](../source/game_sa/AutoPilot.h) | 3 | 0 | 11 | 0 | 0 |
+| [CAutoPilot](implementaciones/detalle-005.md#grupo-82) · [source/game_sa/AutoPilot.cpp](../source/game_sa/AutoPilot.cpp), [source/game_sa/AutoPilot.h](../source/game_sa/AutoPilot.h) | 4 | 0 | 10 | 0 | 0 |
 | [CAutomobile](implementaciones/detalle-005.md#grupo-83) · [source/game_sa/Entity/Vehicle/Automobile.cpp](../source/game_sa/Entity/Vehicle/Automobile.cpp), [source/game_sa/Entity/Vehicle/Automobile.h](../source/game_sa/Entity/Vehicle/Automobile.h) | 115 | 0 | 21 | 0 | 0 |
 | [CBaseModelInfo](implementaciones/detalle-005.md#grupo-84) · [source/game_sa/Models/BaseModelInfo.cpp](../source/game_sa/Models/BaseModelInfo.cpp), [source/game_sa/Models/BaseModelInfo.h](../source/game_sa/Models/BaseModelInfo.h) | 37 | 0 | 23 | 0 | 0 |
 | [CBaseModelInfoBody](implementaciones/detalle-005.md#grupo-85) · [source/game_sa/Models/BaseModelInfo.cpp](../source/game_sa/Models/BaseModelInfo.cpp) | 2 | 0 | 0 | 0 | 0 |
@@ -120,7 +120,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CBox](implementaciones/detalle-005.md#grupo-93) · [source/game_sa/Collision/Box.cpp](../source/game_sa/Collision/Box.cpp), [source/game_sa/Collision/Box.h](../source/game_sa/Collision/Box.h) | 3 | 0 | 11 | 0 | 0 |
 | [CBridge](implementaciones/detalle-005.md#grupo-94) · [source/game_sa/Bridge.cpp](../source/game_sa/Bridge.cpp) | 5 | 0 | 1 | 0 | 0 |
 | [CBrightLights](implementaciones/detalle-005.md#grupo-95) · [source/game_sa/BrightLights.cpp](../source/game_sa/BrightLights.cpp) | 4 | 0 | 1 | 0 | 0 |
-| [CBuilding](implementaciones/detalle-005.md#grupo-96) · [source/game_sa/Entity/Building.cpp](../source/game_sa/Entity/Building.cpp) | 5 | 0 | 3 | 0 | 0 |
+| [CBuilding](implementaciones/detalle-005.md#grupo-96) · [source/game_sa/Entity/Building.cpp](../source/game_sa/Entity/Building.cpp) | 6 | 0 | 2 | 0 | 0 |
 | [CBuildingPool](implementaciones/detalle-005.md#grupo-97) · [source/game_sa/Pools/BuildingPool.h](../source/game_sa/Pools/BuildingPool.h) | 1 | 0 | 1 | 0 | 0 |
 | [CBulletInfo](implementaciones/detalle-005.md#grupo-98) · [source/game_sa/BulletInfo.cpp](../source/game_sa/BulletInfo.cpp) | 4 | 0 | 3 | 0 | 0 |
 | [CBulletTrace](implementaciones/detalle-005.md#grupo-99) · [source/game_sa/BulletTrace.h](../source/game_sa/BulletTrace.h) | 0 | 0 | 3 | 0 | 0 |
@@ -194,7 +194,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CDebug](implementaciones/detalle-009.md#grupo-167) · [source/game_sa/Debug.cpp](../source/game_sa/Debug.cpp) | 2 | 0 | 3 | 0 | 0 |
 | [CDecision](implementaciones/detalle-009.md#grupo-168) · [source/game_sa/DecisionMakers/Decision.cpp](../source/game_sa/DecisionMakers/Decision.cpp), [source/game_sa/DecisionMakers/Decision.h](../source/game_sa/DecisionMakers/Decision.h) | 7 | 0 | 1 | 0 | 0 |
 | [CDecision::Choices](implementaciones/detalle-009.md#grupo-169) · [source/game_sa/DecisionMakers/Decision.cpp](../source/game_sa/DecisionMakers/Decision.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [CDecisionMaker](implementaciones/detalle-009.md#grupo-170) · [source/game_sa/DecisionMakers/DecisionMaker.cpp](../source/game_sa/DecisionMakers/DecisionMaker.cpp) | 3 | 0 | 3 | 0 | 0 |
+| [CDecisionMaker](implementaciones/detalle-009.md#grupo-170) · [source/game_sa/DecisionMakers/DecisionMaker.cpp](../source/game_sa/DecisionMakers/DecisionMaker.cpp) | 4 | 0 | 2 | 0 | 0 |
 | [CDecisionMakerTypes](implementaciones/detalle-009.md#grupo-171) · [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp](../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp) | 17 | 0 | 1 | 0 | 0 |
 | [CDecisionMakerTypesFileLoader](implementaciones/detalle-009.md#grupo-172) · [source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp](../source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp) | 5 | 0 | 3 | 0 | 0 |
 | [CDefaultAnimCallback](implementaciones/detalle-009.md#grupo-173) · [source/game_sa/Animation/AnimBlendAssociation.h](../source/game_sa/Animation/AnimBlendAssociation.h) | 0 | 0 | 1 | 0 | 0 |
@@ -207,7 +207,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CDummyPed](implementaciones/detalle-009.md#grupo-180) · [source/game_sa/Entity/Dummy/DummyPed.cpp](../source/game_sa/Entity/Dummy/DummyPed.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [CDummyPool](implementaciones/detalle-010.md#grupo-181) · [source/game_sa/Pools/DummyPool.h](../source/game_sa/Pools/DummyPool.h) | 1 | 0 | 1 | 0 | 0 |
 | [CEmergencyPed](implementaciones/detalle-010.md#grupo-182) · [source/game_sa/Entity/Ped/EmergencyPed.cpp](../source/game_sa/Entity/Ped/EmergencyPed.cpp) | 3 | 0 | 5 | 0 | 0 |
-| [CEntity](implementaciones/detalle-010.md#grupo-183) · [source/game_sa/Entity/Entity.cpp](../source/game_sa/Entity/Entity.cpp), [source/game_sa/Entity/Entity.h](../source/game_sa/Entity/Entity.h) | 75 | 0 | 100 | 0 | 0 |
+| [CEntity](implementaciones/detalle-010.md#grupo-183) · [source/game_sa/Entity/Entity.cpp](../source/game_sa/Entity/Entity.cpp), [source/game_sa/Entity/Entity.h](../source/game_sa/Entity/Entity.h) | 78 | 0 | 97 | 0 | 0 |
 | [CEntityScanner](implementaciones/detalle-010.md#grupo-184) · [source/game_sa/EntityScanner.cpp](../source/game_sa/EntityScanner.cpp), [source/game_sa/EntityScanner.h](../source/game_sa/EntityScanner.h) | 5 | 0 | 5 | 0 | 0 |
 | [CEntitySeekPosCalculator](implementaciones/detalle-010.md#grupo-185) · [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [CEntitySeekPosCalculatorFixedPos](implementaciones/detalle-010.md#grupo-186) · [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp) | 1 | 0 | 2 | 0 | 0 |
@@ -500,7 +500,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CPostEffects](implementaciones/detalle-024.md#grupo-473) · [source/game_sa/PostEffects.cpp](../source/game_sa/PostEffects.cpp) | 38 | 0 | 7 | 0 | 0 |
 | [CProjectile](implementaciones/detalle-024.md#grupo-474) · [source/game_sa/Entity/Object/Projectile.cpp](../source/game_sa/Entity/Object/Projectile.cpp), [source/game_sa/Entity/Object/Projectile.h](../source/game_sa/Entity/Object/Projectile.h) | 3 | 0 | 1 | 0 | 0 |
 | [CProjectileInfo](implementaciones/detalle-024.md#grupo-475) · [source/game_sa/ProjectileInfo.cpp](../source/game_sa/ProjectileInfo.cpp) | 12 | 0 | 1 | 0 | 0 |
-| [CProtectionStub](implementaciones/detalle-024.md#grupo-476) · [source/game_sa/ProtectionStub.cpp](../source/game_sa/ProtectionStub.cpp) | 0 | 0 | 2 | 0 | 0 |
+| [CProtectionStub](implementaciones/detalle-024.md#grupo-476) · [source/game_sa/ProtectionStub.cpp](../source/game_sa/ProtectionStub.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [CPtrList](implementaciones/detalle-024.md#grupo-477) · [source/game_sa/Core/PtrList.h](../source/game_sa/Core/PtrList.h) | 0 | 0 | 20 | 0 | 0 |
 | [CPtrListDoubleLink](implementaciones/detalle-024.md#grupo-478) · [source/game_sa/Core/PtrListDoubleLink.h](../source/game_sa/Core/PtrListDoubleLink.h) | 0 | 0 | 2 | 0 | 0 |
 | [CPtrNode](implementaciones/detalle-024.md#grupo-479) · [source/game_sa/Core/PtrNode.h](../source/game_sa/Core/PtrNode.h) | 0 | 0 | 2 | 0 | 0 |
@@ -928,7 +928,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CTempColModels](implementaciones/detalle-046.md#grupo-901) · [source/game_sa/Collision/TempColModels.cpp](../source/game_sa/Collision/TempColModels.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [CText](implementaciones/detalle-046.md#grupo-902) · [source/game_sa/Text/Text.cpp](../source/game_sa/Text/Text.cpp), [source/game_sa/Text/Text.h](../source/game_sa/Text/Text.h) | 10 | 0 | 6 | 0 | 0 |
 | [CTheCarGenerators](implementaciones/detalle-046.md#grupo-903) · [source/game_sa/TheCarGenerators.cpp](../source/game_sa/TheCarGenerators.cpp) | 7 | 0 | 2 | 0 | 0 |
-| [CTheScripts](implementaciones/detalle-046.md#grupo-904) · [source/game_sa/Scripts/TheScripts.cpp](../source/game_sa/Scripts/TheScripts.cpp), [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 76 | 0 | 20 | 0 | 0 |
+| [CTheScripts](implementaciones/detalle-046.md#grupo-904) · [source/game_sa/Scripts/TheScripts.cpp](../source/game_sa/Scripts/TheScripts.cpp), [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 77 | 0 | 19 | 0 | 0 |
 | [CTheZones](implementaciones/detalle-046.md#grupo-905) · [source/game_sa/TheZones.cpp](../source/game_sa/TheZones.cpp), [source/game_sa/TheZones.h](../source/game_sa/TheZones.h) | 25 | 0 | 8 | 0 | 0 |
 | [CTickCounter](implementaciones/detalle-046.md#grupo-906) · [source/game_sa/Tasks/TickCounter.h](../source/game_sa/Tasks/TickCounter.h) | 0 | 0 | 5 | 0 | 0 |
 | [CTimeCycle](implementaciones/detalle-046.md#grupo-907) · [source/game_sa/TimeCycle.cpp](../source/game_sa/TimeCycle.cpp), [source/game_sa/TimeCycle.h](../source/game_sa/TimeCycle.h) | 20 | 0 | 60 | 0 | 0 |
@@ -1362,7 +1362,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/Population.cpp](implementaciones/detalle-067.md#grupo-1335) · [source/game_sa/Population.cpp](../source/game_sa/Population.cpp) | 0 | 0 | 8 | 0 | 0 |
 | [Globales y helpers: source/game_sa/PostEffects.cpp](implementaciones/detalle-067.md#grupo-1336) · [source/game_sa/PostEffects.cpp](../source/game_sa/PostEffects.cpp) | 0 | 0 | 10 | 0 | 0 |
 | [Globales y helpers: source/game_sa/ProjectileInfo.cpp](implementaciones/detalle-067.md#grupo-1337) · [source/game_sa/ProjectileInfo.cpp](../source/game_sa/ProjectileInfo.cpp) | 1 | 0 | 6 | 0 | 0 |
-| [Globales y helpers: source/game_sa/ProtectionStub.cpp](implementaciones/detalle-067.md#grupo-1338) · [source/game_sa/ProtectionStub.cpp](../source/game_sa/ProtectionStub.cpp) | 0 | 0 | 2 | 0 | 0 |
+| [Globales y helpers: source/game_sa/ProtectionStub.cpp](implementaciones/detalle-067.md#grupo-1338) · [source/game_sa/ProtectionStub.cpp](../source/game_sa/ProtectionStub.cpp) | 1 | 0 | 0 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Queue.h](implementaciones/detalle-067.md#grupo-1339) · [source/game_sa/Queue.h](../source/game_sa/Queue.h) | 0 | 0 | 5 | 0 | 0 |
 | [Globales y helpers: source/game_sa/RGBA.h](implementaciones/detalle-067.md#grupo-1340) · [source/game_sa/RGBA.h](../source/game_sa/RGBA.h) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Radar.cpp](implementaciones/detalle-068.md#grupo-1341) · [source/game_sa/Radar.cpp](../source/game_sa/Radar.cpp) | 1 | 0 | 10 | 0 | 0 |
@@ -1752,7 +1752,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [cHandlingDataMgr](implementaciones/detalle-087.md#grupo-1725) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 12 | 0 | 3 | 0 | 0 |
 | [cTransmission](implementaciones/detalle-087.md#grupo-1726) · [source/game_sa/cTransmission.cpp](../source/game_sa/cTransmission.cpp) | 4 | 0 | 1 | 0 | 0 |
 | [detail](implementaciones/detalle-087.md#grupo-1727) · [source/game_sa/PathFind.cpp](../source/game_sa/PathFind.cpp) | 0 | 0 | 5 | 0 | 0 |
-| [details](implementaciones/detalle-087.md#grupo-1728) · [source/game_sa/Core/PtrNodeDoubleLink.cpp](../source/game_sa/Core/PtrNodeDoubleLink.cpp), [source/game_sa/Core/PtrNodeSingleLink.cpp](../source/game_sa/Core/PtrNodeSingleLink.cpp) | 8 | 0 | 4 | 0 | 0 |
+| [details](implementaciones/detalle-087.md#grupo-1728) · [source/game_sa/Core/PtrNodeDoubleLink.cpp](../source/game_sa/Core/PtrNodeDoubleLink.cpp), [source/game_sa/Core/PtrNodeSingleLink.cpp](../source/game_sa/Core/PtrNodeSingleLink.cpp) | 12 | 0 | 0 | 0 | 0 |
 | [details::PtrListIterator](implementaciones/detalle-087.md#grupo-1729) · [source/game_sa/Core/PtrList.h](../source/game_sa/Core/PtrList.h) | 0 | 0 | 6 | 0 | 0 |
 | [notsa](implementaciones/detalle-087.md#grupo-1730) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp), [source/game_sa/Pools/Pools.h](../source/game_sa/Pools/Pools.h) | 0 | 0 | 15 | 0 | 0 |
 | [notsa::Logging](implementaciones/detalle-087.md#grupo-1731) · [source/app/app_debug.cpp](../source/app/app_debug.cpp) | 0 | 0 | 4 | 0 | 0 |

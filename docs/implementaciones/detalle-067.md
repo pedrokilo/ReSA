@@ -285,8 +285,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| ProtectionStubEmpty(uint32 /*unused*/) | [source/game_sa/ProtectionStub.cpp:26](../../source/game_sa/ProtectionStub.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: CProtectionStub::Empty 0x004032A4 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ProtectionStubBlockDecrypt(uint32* block, const uint32* key) | [source/game_sa/ProtectionStub.cpp:46](../../source/game_sa/ProtectionStub.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: CProtectionStub::BlockDecrypt 0x004036C1 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ProtectionStubEmpty(uint32 /*unused*/) | [source/game_sa/ProtectionStub.cpp:26](../../source/game_sa/ProtectionStub.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CProtectionStub::Empty 0x004032A4 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1339"></a>
 
