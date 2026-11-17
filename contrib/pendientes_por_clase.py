@@ -17,7 +17,7 @@ def build(root, fecha):
     n_wrap = sum(x['estado'] == 'envoltura' for x in miss)
     L = ['# Funciones pendientes del EXE, por clase', '',
          f'Generado de `docs/JuegoExe/funciones.csv` ({fecha}). Total: **{len(miss):,}** funciones en {len(order)} clases/módulos (rango 0x401000–0x74FFFF): '
-         f'{len(miss) - n_wrap:,} sin reemplazar (A–D) + {n_wrap} envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).', '',
+         f'{len(miss) - n_wrap:,} sin reemplazar (A–D) + {n_wrap} envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#juego).', '',
          'Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.', '',
          'Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cuando la confianza es baja; un nombre de catálogo sí es fiable.', '',
          '## Índice', '', '| Clase | Funciones | Bytes |', '|---|---:|---:|']

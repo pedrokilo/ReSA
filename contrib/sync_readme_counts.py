@@ -76,8 +76,9 @@ def main():
         f'Quedan {fmt(total - rev)} entradas pendientes, {fmt(len(classes) - complete)} clases incompletas y {fmt(locked)} locks.',
     ])
     readme = ROOT/'README.md'; t = readme.read_bytes().decode('utf-8')
-    a = t.index('#### Dimensiones de progreso'); b = t.index('Quedan ', a); e = t.index('locks.', b) + len('locks.')
-    readme.write_bytes((t[:a] + block + t[e:]).encode('utf-8'))
+    if '#### Dimensiones de progreso' in t:  # el README actual ya no lleva esa tabla: su estado lo genera contrib/hooks2md.py
+        a = t.index('#### Dimensiones de progreso'); b = t.index('Quedan ', a); e = t.index('locks.', b) + len('locks.')
+        readme.write_bytes((t[:a] + block + t[e:]).encode('utf-8'))
     for f, pairs in subs.items():
         p = ROOT/f; s = p.read_bytes().decode('utf-8'); n = 0
         for a, b in pairs:

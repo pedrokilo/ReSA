@@ -82,6 +82,8 @@ def main():
             f'[Estado actual y alcance]({link}). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.\n'
             '<!-- RESA-CURRENT-STATUS:END -->\n\n'
         )
+        if name == 'README.md' and not BLOCK.search(text):
+            continue  # el README actual genera su estado con contrib/hooks2md.py (bloque RESA-PROGRESO)
         if name == 'README.md' and BLOCK.search(text):
             # El README principal lleva el bloque dentro de su sección «Estado actual», no al principio del archivo.
             result = BLOCK.sub(lambda _: prefix.rstrip('\n') + '\n\n', text, count=1).replace('\r\n', '\n').encode('utf-8')
