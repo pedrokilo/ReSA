@@ -86980,6 +86980,1382 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote 211A (CAutomobile y CCustomCarEnvMapPipeline): colaboradores con hook de la DLL falseados con el mismo falso en la direccion del EXE y en el cuerpo de la DLL (BurstTyre, DoNitroEffect, SetModelIndex, DoHeliDustEffect, destructor con borrado, IsEnvironmentMappingSupported), operator new 0x82119A y operator delete 0x8214BD falseados solo en la direccion del EXE (constructores y destructores del pool), y colaboradores reales con el hook apagado (CMatrix::Attach, CColSphere::Set y GetColModel en SetUpWheelColModel; FloatTimesVector y GetWheelStatus en BurstTyre; constructor y destructor del evento de peligro en DoHeliDustEffect); la memoria global tocada (tabla de model infos, camara y contador de fotogramas) se guarda y restaura. Fuera de alcance: objetos CAutomobile reales, NaN senalizantes en rutas x87 y colaboradores sin comprobar. Las rutinas de UV 0x5D84C0 y 0x5D8590 siguen saltadas.",
       "review_reference": "reversing/Fn211A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolScalarDeletingDestructorB",
+        "address": "0x005D94B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolScalarDeletingDestructorB"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "PoolScalarDeletingDestructorC",
+        "address": "0x005D9510",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::PoolScalarDeletingDestructorC"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "RxD3D9InstanceDataRender",
+        "address": "0x005DA640",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::RxD3D9InstanceDataRender"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "RxD3D9InstanceDataRenderLighting",
+        "address": "0x005DA6A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::RxD3D9InstanceDataRenderLighting"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "SetEnvMapMaterial",
+        "address": "0x005DA790",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::SetEnvMapMaterial"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarEnvMapPipeline",
+        "fn_name": "SetDefaultSurfaceProperties",
+        "address": "0x005DAAC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarEnvMapPipeline::SetDefaultSurfaceProperties"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PtrNodeSingleLinkPoolConstructor",
+        "address": "0x00550180",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PtrNodeSingleLinkPoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PtrNodeDoubleLinkPoolConstructor",
+        "address": "0x00550250",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PtrNodeDoubleLinkPoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "EntryInfoNodePoolConstructor",
+        "address": "0x00550320",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::EntryInfoNodePoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PedPoolConstructor",
+        "address": "0x005503F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PedPoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "VehiclePoolConstructor",
+        "address": "0x005504C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::VehiclePoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "BuildingPoolConstructor",
+        "address": "0x00550570",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::BuildingPoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "ObjectPoolConstructor",
+        "address": "0x00550640",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::ObjectPoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "DummyPoolConstructor",
+        "address": "0x005506F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::DummyPoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "ColModelPoolConstructor",
+        "address": "0x005507C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::ColModelPoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "TaskPoolConstructor",
+        "address": "0x00550890",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::TaskPoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "EventPoolConstructor",
+        "address": "0x00550960",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::EventPoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PointRoutePoolConstructor",
+        "address": "0x00550A30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PointRoutePoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PatrolRoutePoolConstructor",
+        "address": "0x00550B00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PatrolRoutePoolConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PtrNodeSingleLinkPoolDestructorBody",
+        "address": "0x005501E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PtrNodeSingleLinkPoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PtrNodeDoubleLinkPoolDestructorBody",
+        "address": "0x005502B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PtrNodeDoubleLinkPoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "EntryInfoNodePoolDestructorBody",
+        "address": "0x00550380",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::EntryInfoNodePoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PedPoolDestructorBody",
+        "address": "0x00550450",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PedPoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "VehiclePoolDestructorBody",
+        "address": "0x00550520",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::VehiclePoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "BuildingPoolDestructorBody",
+        "address": "0x005505D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::BuildingPoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "ObjectPoolDestructorBody",
+        "address": "0x005506A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::ObjectPoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "DummyPoolDestructorBody",
+        "address": "0x00550750",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::DummyPoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "ColModelPoolDestructorBody",
+        "address": "0x00550820",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::ColModelPoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "TaskPoolDestructorBody",
+        "address": "0x005508F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::TaskPoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "EventPoolDestructorBody",
+        "address": "0x005509C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::EventPoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PointRoutePoolDestructorBody",
+        "address": "0x00550A90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PointRoutePoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PatrolRoutePoolDestructorBody",
+        "address": "0x00550B60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn212A/validation-summary.json",
+        "sha256": "f0ecb60e90eadc585b245358f8dae5d2b166e33ae0f6c7670470f20d34818354",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PatrolRoutePoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "a29e9e4279b26a18b81e3e4c5e8f6a6b21379e7d60f6b3ae00e7a9dbea5e34c4",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "02f9118a9df04d8d4c43f9e0b386c5c217536aea8f06b9bc466f3156020cb972",
+        "source/game_sa/Pipelines/PipelinesCommon.hpp": "c3497d91ccf4b26c797201bba0bcf130463317a0f4aaaec009a17e5c091df53c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "1f2d3d3bfdf1dc7ba7890e2314fc47e9ca119c8a6c07c1269c756e36a55a0453",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "da433e3c459de09dbc40f4005387c00758eaba2ae379c0397123f5c96ca4eebd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn212A/LiveComparison.hpp": "77055c89dd2f7a42db10b28d9c574a2f4892656605f084578e01734442407bfb",
+        "reversing/Fn212A/Core.hpp": "e762b9c62ac3a65dc7e84aa9bdcbbf940f93495f469cddbda7b3479eee11b160",
+        "reversing/Fn212A/Fixtures.hpp": "987775da54f333ac448333e4bdb797fe62044adb0110bdccff189e2d58acc61d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main fb7317b29a con los cambios del lote (ver artifacts/build-manifest.json). 32 funciones del EXE sin validar: dos destructores con borrado de pools del pipeline de mapas de entorno de coches, cuatro funciones del dibujo de pipelines D3D9 (dibujo de malla, estados de textura, material global y propiedades de superficie por defecto), 13 constructores de CPool y 13 cuerpos de destructor de CPool. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (RenderWare: 0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360, 0x7FDE70, 0x7FC340, 0x7FC2D0, 0x7FC430, 0x7FC4D0) o solo en la direccion del EXE cuando la DLL los llama por ella (operator delete 0x8214BD, delete[] 0x8213AE, operator new[] 0x821195). Fuera de los fixtures: this nulo o crudo, pools reales construidos por el EXE (con memoria real de operator new[]), objetos RenderWare reales, el dispositivo D3D9 real, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn212A/README.md"
     }
   ]
 }

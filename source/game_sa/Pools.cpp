@@ -116,6 +116,7 @@ void* __fastcall PedIntelligencePoolConstructorExe(void* self, void* edx, int32 
 void* __fastcall PedAttractorPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550E40 (lote 213A), definida mas abajo
 void* __fastcall PoolScalarDeletingDestructorExe(void* self, void* edx, uint32 deleteFlags); // 0x5512F0..0x5518F0 (lote 213A), definida mas abajo
 void __fastcall PoolDestructorBodyExe(void* poolPtr, void* edx); // 0x4049C0 (lote 129A), definida mas abajo
+template<int Id> void __fastcall PoolDestructorBodyAt(void* poolPtr, void* edx); // lote 212A: una instancia por direccion (RH no admite dos hooks hacia la misma funcion de la DLL), definida mas abajo
 void* __fastcall VehicleStructPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x5B8340 (lote 189A), definida mas abajo
 }
 
@@ -139,19 +140,19 @@ void CPools::InjectHooks() {
     RH_ScopedNamedGlobalInstall(EventPoolConstructorExe, "EventPoolConstructor", 0x550960);
     RH_ScopedNamedGlobalInstall(PointRoutePoolConstructorExe, "PointRoutePoolConstructor", 0x550A30);
     RH_ScopedNamedGlobalInstall(PatrolRoutePoolConstructorExe, "PatrolRoutePoolConstructor", 0x550B00);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PtrNodeSingleLinkPoolDestructorBody", 0x5501E0);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PtrNodeDoubleLinkPoolDestructorBody", 0x5502B0);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "EntryInfoNodePoolDestructorBody", 0x550380);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PedPoolDestructorBody", 0x550450);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "VehiclePoolDestructorBody", 0x550520);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "BuildingPoolDestructorBody", 0x5505D0);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "ObjectPoolDestructorBody", 0x5506A0);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "DummyPoolDestructorBody", 0x550750);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "ColModelPoolDestructorBody", 0x550820);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "TaskPoolDestructorBody", 0x5508F0);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "EventPoolDestructorBody", 0x5509C0);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PointRoutePoolDestructorBody", 0x550A90);
-    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PatrolRoutePoolDestructorBody", 0x550B60);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<1>, "PtrNodeSingleLinkPoolDestructorBody", 0x5501E0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<2>, "PtrNodeDoubleLinkPoolDestructorBody", 0x5502B0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<3>, "EntryInfoNodePoolDestructorBody", 0x550380);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<4>, "PedPoolDestructorBody", 0x550450);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<5>, "VehiclePoolDestructorBody", 0x550520);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<6>, "BuildingPoolDestructorBody", 0x5505D0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<7>, "ObjectPoolDestructorBody", 0x5506A0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<8>, "DummyPoolDestructorBody", 0x550750);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<9>, "ColModelPoolDestructorBody", 0x550820);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<10>, "TaskPoolDestructorBody", 0x5508F0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<11>, "EventPoolDestructorBody", 0x5509C0);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<12>, "PointRoutePoolDestructorBody", 0x550A90);
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyAt<13>, "PatrolRoutePoolDestructorBody", 0x550B60);
     // Lote 213A (sin validar): constructores y cuerpos de destructor de los cuatro ultimos pools (NodeRoute, TaskAllocator, PedIntelligence, PedAttractor) y los 17 destructores con borrado (uno por pool, en el orden de Initialise).
     RH_ScopedNamedGlobalInstall(NodeRoutePoolConstructorExe, "NodeRoutePoolConstructor", 0x550BD0);
     RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "NodeRoutePoolDestructorBody", 0x550C30);
@@ -277,6 +278,21 @@ void __fastcall PoolDestructorBodyExe(void* poolPtr, void* /*edx*/) {
     }
 }
 
+// Lote 212A: los 13 cuerpos de destructor de CPool de 0x5501E0..0x550B60 (mismos bytes que 0x4049C0 salvo la direccion de la llamada): una instancia por direccion (RH no admite dos hooks hacia la misma funcion de la DLL).
+template<int Id>
+void __fastcall PoolDestructorBodyAt(void* poolPtr, void* /*edx*/) {
+    auto* const pool = static_cast<uint8*>(poolPtr);
+    if (*reinterpret_cast<int32*>(pool + 0x8) > 0) {
+        if (*(pool + 0x10) != 0) {
+            ::operator delete[](*reinterpret_cast<void**>(pool + 0x0));
+            ::operator delete[](*reinterpret_cast<void**>(pool + 0x4));
+        }
+        *reinterpret_cast<void**>(pool + 0x0) = nullptr;
+        *reinterpret_cast<void**>(pool + 0x4) = nullptr;
+        *reinterpret_cast<int32*>(pool + 0x8) = 0;
+        *reinterpret_cast<int32*>(pool + 0xC) = 0;
+    }
+}
 // Lote 212A (sin validar): constructores de CPool del EXE fuera de linea, uno por tipo de pool (0x550180, 0x550250, 0x550320, 0x5503F0, 0x5504C0, 0x550570, 0x550640, 0x5506F0, 0x5507C0, 0x550890, 0x550960, 0x550A30 y 0x550B00).
 // Todos son thiscall con dos argumentos de pila (capacidad y nombre, que no se guarda), `ret 8`, devuelven `this` y tienen el cuerpo de 0x5B8340 (ConstructPoolBody) salvo el tamano de elemento: 8 (lea [edi*8]), 12, 0x14, 0x7C4, 0xA18, 0x38, 0x19C, 0x38, 0x30, 0x80, 0x44, 0x64 y 0x1A4.
 // El objeto del pool lo reserva el llamador (aqui no hay operator new del objeto, a diferencia de ConstructPool).

@@ -2614,7 +2614,7 @@ auto& D3D9CurrentMaterial   = StaticRef<D3D9MaterialCache>(0xC98AF8);
 auto& D3D9MaterialStateFlag = StaticRef<uint32>(0xC9A5F4);
 constexpr size_t kSlotDeviceSetMaterial = 49; // IDirect3DDevice9::SetMaterial (+0xC4)
 }
-RwBool RwD3D9SetMaterial(const void* material) {
+__declspec(noinline) RwBool RwD3D9SetMaterial(const void* material) {
     const auto* const source = static_cast<const uint32*>(material);
     bool same = true;
     for (int i = 0; i < 17; ++i) {
@@ -7104,7 +7104,7 @@ void _rwD3D9SetVertexDeclaration(void* vertexDeclaration) {
 
 // 0x7F9FB0 (lote R27A, sin validar; 51 bytes; era una envoltura; cdecl, (shader); `_rwD3D9SetVertexShader` del SDK): como la declaracion pero con SetVertexShader (+0x170) y la cache 0x8E2448 (a 0xFFFFFFFF tras la llamada,
 // y al shader si el HRESULT no es negativo); no toca el FVF.
-void _rwD3D9SetVertexShader(void* shader) {
+__declspec(noinline) void _rwD3D9SetVertexShader(void* shader) {
     if (D3D9LastVertexShader == shader) {
         return;
     }
@@ -7116,7 +7116,7 @@ void _rwD3D9SetVertexShader(void* shader) {
 }
 
 // 0x7F9FF0 (lote R27A, sin validar; 51 bytes; era una envoltura; cdecl, (shader); `_rwD3D9SetPixelShader` del SDK): igual que el vertex shader con SetPixelShader (+0x1AC) y la cache 0x8E244C.
-void _rwD3D9SetPixelShader(void* shader) {
+__declspec(noinline) void _rwD3D9SetPixelShader(void* shader) {
     if (D3D9LastPixelShader == shader) {
         return;
     }
@@ -7178,14 +7178,14 @@ void _rwD3D9SetIndices(void* indexBuffer) {
 
 // 0x7FA320 (lote R27A, sin validar; 50 bytes; era una envoltura; cdecl, 6 argumentos; `_rwD3D9DrawIndexedPrimitive` del SDK): vuelca los estados pendientes (_rwD3D9RenderStateFlushCache, 0x7FC200; directa a C++) y llama a
 // _RwD3DDevice->DrawIndexedPrimitive(tipo, indice base, indice minimo, numero de vertices, indice inicial, primitivas) (+0x148). El HRESULT no se lee.
-void _rwD3D9DrawIndexedPrimitive(RwUInt32 primitiveType, RwInt32 baseVertexIndex, RwUInt32 minIndex, RwUInt32 numVertices, RwUInt32 startIndex, RwUInt32 primitiveCount) {
+__declspec(noinline) void _rwD3D9DrawIndexedPrimitive(RwUInt32 primitiveType, RwInt32 baseVertexIndex, RwUInt32 minIndex, RwUInt32 numVertices, RwUInt32 startIndex, RwUInt32 primitiveCount) {
     _rwD3D9RenderStateFlushCache();
     ComCall<kSlotDeviceDrawIndexedPrimitiveR27A, HRESULT>(D3D9Device, primitiveType, baseVertexIndex, minIndex, numVertices, startIndex, primitiveCount);
 }
 
 // 0x7FA360 (lote R27A, sin validar; 35 bytes; no tenia envoltura; cdecl, (tipo, vertice inicial, primitivas); `_rwD3D9DrawPrimitive` del SDK): vuelca los estados pendientes (0x7FC200, directa a C++) y llama a
 // _RwD3DDevice->DrawPrimitive(tipo, inicio, primitivas) (+0x144). El HRESULT no se lee.
-void _rwD3D9DrawPrimitive(RwUInt32 primitiveType, RwUInt32 startVertex, RwUInt32 primitiveCount) {
+__declspec(noinline) void _rwD3D9DrawPrimitive(RwUInt32 primitiveType, RwUInt32 startVertex, RwUInt32 primitiveCount) {
     _rwD3D9RenderStateFlushCache();
     ComCall<kSlotDeviceDrawPrimitiveR27A, HRESULT>(D3D9Device, primitiveType, startVertex, primitiveCount);
 }
@@ -7574,7 +7574,7 @@ RwUInt8* RwRasterLock(RwRaster* raster, RwUInt8 level, RwInt32 lockMode) {
 // 0x7FC2D0 (lote R28A, sin validar; 67 bytes; era una envoltura; cdecl, (estado, valor); `RwD3D9SetRenderState` del SDK): si el valor pedido (0xC991D0 + 8 * estado) ya es `valor` no hace nada; si no lo guarda y, si la bandera
 // "en lista" (+4) era 0, la pone a 1 y anade el estado a la lista de pendientes (0xC98B40[contador++], contador 0xC9A5EC). No llama al dispositivo (lo hace _rwD3D9RenderStateFlushCache, 0x7FC200). Estado sin acotar.
 // Las secuencias identicas que el EXE incrusta en 0x7FC4D0, 0x7FCAC0 y 0x7FD100 son este mismo cuerpo.
-void RwD3D9SetRenderState(RwUInt32 state, RwUInt32 value) {
+__declspec(noinline) void RwD3D9SetRenderState(RwUInt32 state, RwUInt32 value) {
     D3D9RenderStateSlot& slot = D3D9RenderStateWanted[state];
     if (slot.value == value) {
         return;
@@ -7595,7 +7595,7 @@ void RwD3D9GetRenderState(RwUInt32 state, void* value) {
 
 // 0x7FC340 (lote R28A, sin validar; 90 bytes; era una envoltura; cdecl, (etapa, tipo, valor); `RwD3D9SetTextureStageState` del SDK): indice = etapa * 33 + tipo; si el valor pedido (0xC980F8 + 8 * indice) ya es `valor` no hace
 // nada; si no lo guarda y, si la bandera (+4) era 0, la pone a 1 y anade el par (etapa, tipo) a la lista de pendientes (0xC99C80, 8 bytes por par; contador 0xC9A5F0). Sin acotar.
-void RwD3D9SetTextureStageState(RwUInt32 stage, RwUInt32 type, RwUInt32 value) {
+__declspec(noinline) void RwD3D9SetTextureStageState(RwUInt32 stage, RwUInt32 type, RwUInt32 value) {
     D3D9StageStateSlot& slot = D3D9StageStateWanted[stage + (type + (stage << 5))];
     if (slot.value == value) {
         return;
@@ -7631,7 +7631,7 @@ void RwD3D9SetSamplerState(RwUInt32 stage, RwUInt32 type, RwUInt32 value) {
 //  * termina con _rwD3D9RWSetRasterStage(textura->raster, etapa) (0x7FDCD0).
 // Sin textura: con la etapa 0 y 0xC9A4EC != 0: lo pone a 0 y, si 0xC9A4E8 es 0, deja 0xC992A8 = 0 (SIEMPRE, y en lista 0x1B con la bandera 0xC992AC si no estaba) y, si 0xC99248 != 0, lo pone a 0 y encola 0x0F (bandera
 // 0xC9924C). Despues, para cualquier etapa: si la cache +0 es distinta de 0 la pone a 0 y llama a SetTexture(etapa, NULL) (+0x104).
-RwBool RwD3D9SetTexture(RwTexture* texture, RwUInt32 stage) {
+__declspec(noinline) RwBool RwD3D9SetTexture(RwTexture* texture, RwUInt32 stage) {
     D3D9TextureStageCache& cache = D3D9TextureStageCaches[stage];
     if (texture != nullptr) {
         const uint32 addressU = (texture->filterAddressing >> 8) & 0xFu;
@@ -7706,7 +7706,7 @@ RwBool RwD3D9SetTexture(RwTexture* texture, RwUInt32 stage) {
 // silenciado), alfa = 1.0f, AMBIENT = 0xFFFFFFFF, 0x93 = 0; con 0x08: 0x8D = 1 y 0x94 = 1 (el emisivo no se toca); sin 0x08: 0x8D = 0, 0x94 = 0 y emisivo = 0; ambiente del material = luz * ambiente o, si el dword del ambiente
 // es 0x3F800000 (1.0f), la luz copiada tal cual. Los estados pasan por RwD3D9SetRenderState (el EXE incrusta el mismo cuerpo). Al final copia los 17 dwords a la cache de material (0xC98AF8) y llama a
 // SetMaterial (+0xC4) con el material de trabajo; devuelve HRESULT >= 0. x87 a 24 bits: cada producto se redondea a float, igual que en C++.
-RwBool RwD3D9SetSurfaceProperties(const RwSurfaceProperties* surfaceProps, const RwRGBA* color, RwUInt32 flags) {
+__declspec(noinline) RwBool RwD3D9SetSurfaceProperties(const RwSurfaceProperties* surfaceProps, const RwRGBA* color, RwUInt32 flags) {
     const uint32* const properties = reinterpret_cast<const uint32*>(surfaceProps);
     const uint32 colorDword = *reinterpret_cast<const uint32*>(color);
     const uint32 maskedFlags = flags & 0x48u;

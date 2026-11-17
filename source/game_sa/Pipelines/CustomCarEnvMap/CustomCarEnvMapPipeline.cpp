@@ -155,17 +155,16 @@ RwBool SetEnvMapMaterial(const RwSurfaceProperties* surfProps, const RwRGBA* col
     m.Specular.r = m.Specular.g = m.Specular.b = spec;
     m.Power = power;
 
-    constexpr auto INV_255 = 1.0f / 255.0f; // flt_859A3C
     const auto isPrelit = (flags & rxGEOMETRY_PRELIT) != 0;
     if ((flags & rxGEOMETRY_MODULATE) && *reinterpret_cast<const uint32*>(color) != 0xFFFFFFFF) { // 0x5DA7C4
         // Como el original: difuso = c · (difuso · 1/255), ambiente = (c · AmbientSaturated) · (ambiente · 1/255)
-        const auto d = surfProps->diffuse * INV_255;
-        m.Diffuse.r = (float)color->red * d;
-        m.Diffuse.g = (float)color->green * d;
-        m.Diffuse.b = (float)color->blue * d;
-        m.Diffuse.a = (float)color->alpha * INV_255;
-
-        const auto amb = surfProps->ambient * INV_255;
+        float diffuseOut[4], lit3[3];
+        const float sat[3]{AmbientSaturated.red, AmbientSaturated.green, AmbientSaturated.blue};
+        EnvMapModulatedMaterialCpp(surfProps->diffuse, surfProps->ambient, reinterpret_cast<const unsigned char*>(color), sat, diffuseOut, lit3);
+        m.Diffuse.r = diffuseOut[0];
+        m.Diffuse.g = diffuseOut[1];
+        m.Diffuse.b = diffuseOut[2];
+        m.Diffuse.a = diffuseOut[3];
         if (isPrelit) {
             RwD3D9SetRenderState(D3DRS_AMBIENT, D3DCOLOR_ARGB(color->alpha, color->red, color->green, color->blue));
             RwD3D9SetRenderState(D3DRS_COLORVERTEX, TRUE);
@@ -181,11 +180,11 @@ RwBool SetEnvMapMaterial(const RwSurfaceProperties* surfProps, const RwRGBA* col
         auto& lit   = isPrelit ? m.Emissive : m.Ambient;
         auto& unlit = isPrelit ? m.Ambient : m.Emissive;
         unlit.r = unlit.g = unlit.b = 0.0f;
-        lit.r = (float)color->red * AmbientSaturated.red * amb;
-        lit.g = (float)color->green * AmbientSaturated.green * amb;
-        lit.b = (float)color->blue * AmbientSaturated.blue * amb;
+        lit.r = lit3[0];
+        lit.g = lit3[1];
+        lit.b = lit3[2];
     } else { // 0x5DA9B2
-        const auto d = surfProps->diffuse;
+        const auto d = EnvMapDiffuseCopyCpp(surfProps->diffuse); // fld/fst como el EXE (un NaN de senalizacion sale tranquilo)
         m.Diffuse.r = m.Diffuse.g = m.Diffuse.b = d;
         m.Diffuse.a = 1.0f;
         RwD3D9SetRenderState(D3DRS_AMBIENT, 0xFFFFFFFF);
@@ -203,9 +202,9 @@ RwBool SetEnvMapMaterial(const RwSurfaceProperties* surfProps, const RwRGBA* col
             m.Ambient.g = AmbientSaturated.green;
             m.Ambient.b = AmbientSaturated.blue;
         } else {
-            m.Ambient.r = AmbientSaturated.red * surfProps->ambient;
-            m.Ambient.g = AmbientSaturated.green * surfProps->ambient;
-            m.Ambient.b = AmbientSaturated.blue * surfProps->ambient;
+            m.Ambient.r = EnvMapAmbientScaleCpp(AmbientSaturated.red, surfProps->ambient);
+            m.Ambient.g = EnvMapAmbientScaleCpp(AmbientSaturated.green, surfProps->ambient);
+            m.Ambient.b = EnvMapAmbientScaleCpp(AmbientSaturated.blue, surfProps->ambient);
         }
     }
     RwD3D9SetMaterial(&m);

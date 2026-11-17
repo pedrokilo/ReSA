@@ -2498,3 +2498,10 @@ void __cdecl ImageResampleRowFirstCpp(float* out, int fraction);
 void __cdecl ImageResampleRowAddCpp(float* out, const float* row);
 void __cdecl ImageResampleRowLastCpp(float* out, float* row, int fraction, float span);
 void __cdecl ImageResamplePackCpp(const float* out, unsigned char* dst);
+// Lote 212A: SetEnvMapMaterial (0x5DA790), partes numericas. Modulada: d = difuso * (1/255) (0x859A3C) queda en la x87 sin redondear a float; Diffuse.rgb = float(canal * d), Diffuse.a = float(alfa * (1/255));
+// amb = float(ambiente * (1/255)) (se guarda en la pila como float); lit_k = float((canal_k * ambienteSaturado_k) * amb) con ese orden de productos (rgb; `rgba` son los 4 bytes del color).
+void __cdecl EnvMapModulatedMaterialCpp(float diffuse, float ambient, const unsigned char* rgba, const float* ambientSaturated, float* diffuseOut, float* litOut);
+// Sin modular: Ambient_k = float(ambienteSaturado_k * ambiente).
+float __cdecl EnvMapAmbientScaleCpp(float ambientSaturated, float ambient);
+// Sin modular: Diffuse.rgb = fld/fst del difuso (la x87 convierte un NaN de senalizacion en tranquilo; no es una copia de bits).
+float __cdecl EnvMapDiffuseCopyCpp(float diffuse);

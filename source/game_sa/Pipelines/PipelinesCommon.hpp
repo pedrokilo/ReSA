@@ -26,13 +26,14 @@ inline void SetTextureStagesForLighting(bool isGeoTextured, RwTexture* tex) {
 
 // 0x5DA640 (Render::Obj; lote 212A: enganchada desde CCustomCarEnvMapPipeline::InjectHooks. cdecl, 2 argumentos; SetPixelShader(0), SetVertexShader(+0x10) y el dibujo indexado o no segun el buffer de indices)
 inline void RxD3D9InstanceDataRender(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* mesh) {
-    RwD3D9SetPixelShader(NULL);
-    RwD3D9SetVertexShader(mesh->vertexShader);
+    // Llamadas a las funciones de RenderWare del EXE (0x7F9FF0, 0x7F9FB0, 0x7FA320, 0x7FA360), no a los macros que accederian al dispositivo D3D9 directamente (lote 212A: el EXE las llama como funciones).
+    _rwD3D9SetPixelShader(NULL);
+    _rwD3D9SetVertexShader(mesh->vertexShader);
 
     if (header->indexBuffer) {
-        RwD3D9DrawIndexedPrimitive(header->primType, mesh->baseIndex, 0, mesh->numVertices, mesh->startIndex, mesh->numPrimitives);
+        _rwD3D9DrawIndexedPrimitive(header->primType, mesh->baseIndex, 0, mesh->numVertices, mesh->startIndex, mesh->numPrimitives);
     } else {
-        RwD3D9DrawPrimitive(header->primType, mesh->baseIndex, mesh->numPrimitives);
+        _rwD3D9DrawPrimitive(header->primType, mesh->baseIndex, mesh->numPrimitives);
     }
 }
 

@@ -1,0 +1,3 @@
+APROBADO: Fn212A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn212a\20261117-023415-022983

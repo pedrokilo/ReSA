@@ -20794,3 +20794,26 @@ __declspec(noinline) float __cdecl AutoHeliDustStepTimeConstCpp(float current, f
     return result;
 }
 #pragma float_control(pop)
+
+// Lote 212A (sin validar): partes numericas de SetEnvMapMaterial (0x5DA790). Ver X87Math.h.
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl EnvMapModulatedMaterialCpp(float diffuse, float ambient, const unsigned char* rgba, const float* ambientSaturated, float* diffuseOut, float* litOut) {
+    const double inv255 = double(std::bit_cast<float>(0x3B808081u)); // flt_859A3C
+    const double d = double(diffuse) * inv255;
+    diffuseOut[0] = float(double(rgba[0]) * d);
+    diffuseOut[1] = float(double(rgba[1]) * d);
+    diffuseOut[2] = float(double(rgba[2]) * d);
+    diffuseOut[3] = float(double(rgba[3]) * inv255);
+    const float amb = float(double(ambient) * inv255);
+    litOut[0] = float(double(rgba[0]) * double(ambientSaturated[0]) * double(amb));
+    litOut[1] = float(double(rgba[1]) * double(ambientSaturated[1]) * double(amb));
+    litOut[2] = float(double(rgba[2]) * double(ambientSaturated[2]) * double(amb));
+}
+
+__declspec(noinline) float __cdecl EnvMapAmbientScaleCpp(float ambientSaturated, float ambient) {
+    return float(double(ambientSaturated) * double(ambient));
+}
+__declspec(noinline) float __cdecl EnvMapDiffuseCopyCpp(float diffuse) {
+    return float(double(diffuse));
+}
+#pragma float_control(pop)

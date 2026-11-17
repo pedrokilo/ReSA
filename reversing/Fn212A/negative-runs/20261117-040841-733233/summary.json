@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "62012cc2a35f97fba2b03cb4614f0a467d3f11079563942291a7652e655a8c05",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CCustomCarEnvMapPipeline::PoolScalarDeletingDestructorB: 884/2048; CCustomCarEnvMapPipeline::PoolScalarDeletingDestructorC: 884/2048; CCustomCarEnvMapPipeline::RxD3D9InstanceDataRender: 460/2048; CCustomCarEnvMapPipeline::RxD3D9InstanceDataRenderLighting: 368/2048; CCustomCarEnvMapPipeline::SetEnvMapMaterial: 165/2048; CCustomCarEnvMapPipeline::SetDefaultSurfaceProperties: 2048/2048; CPools::PtrNodeSingleLinkPoolConstructor: 854/2048; CPools::PtrNodeDoubleLinkPoolConstructor: 830/2048; CPools::EntryInfoNodePoolConstructor: 871/2048; CPools::PedPoolConstructor: 863/2048; CPools::VehiclePoolConstructor: 857/2048; CPools::BuildingPoolConstructor: 857/2048; CPools::ObjectPoolConstructor: 861/2048; CPools::DummyPoolConstructor: 837/2048; CPools::ColModelPoolConstructor: 862/2048; CPools::TaskPoolConstructor: 844/2048; CPools::EventPoolConstructor: 855/2048; CPools::PointRoutePoolConstructor: 842/2048; CPools::PatrolRoutePoolConstructor: 871/2048; CPools::PtrNodeSingleLinkPoolDestructorBody: 569/2048; CPools::PtrNodeDoubleLinkPoolDestructorBody: 565/2048; CPools::EntryInfoNodePoolDestructorBody: 575/2048; CPools::PedPoolDestructorBody: 582/2048; CPools::VehiclePoolDestructorBody: 584/2048; CPools::BuildingPoolDestructorBody: 559/2048; CPools::ObjectPoolDestructorBody: 560/2048; CPools::DummyPoolDestructorBody: 581/2048; CPools::ColModelPoolDestructorBody: 594/2048; CPools::TaskPoolDestructorBody: 567/2048; CPools::EventPoolDestructorBody: 574/2048; CPools::PointRoutePoolDestructorBody: 587/2048; CPools::PatrolRoutePoolDestructorBody: 576/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
