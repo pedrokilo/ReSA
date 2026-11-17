@@ -1,0 +1,44 @@
+== principal 21:17:15
+FALLO: Fn209A
+El oraculo independiente no coincide (original) en CPedAttractor::SArrayTidyStride4B 10240: eventos [[8524989, 2130706432]] != [[8524989, 15458027]]
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn209a\20261116-211716-524718
+== ronda 1: aplicar y compilar 21:42:09
+restauradas 6 fuentes (SHA256 igual a las copias buenas)
+Texto original no unico en source/game_sa/Attractors/PedAttractor.cpp: '    self->_First = nullptr;\n    self->_Last  = nullptr;\n    self->_End   = nullptr;\n}\n\n// 0x5EC4B0' (0)
+FALLO apply 1
+Traceback (most recent call last):
+  File "D:\Original\wv-5\reversing\Fn209A\mutate.py", line 190, in <module>
+    restore()
+    ~~~~~~~^^
+  File "D:\Original\wv-5\reversing\Fn209A\mutate.py", line 176, in restore
+    saved = json.loads(state.read_text())
+                       ~~~~~~~~~~~~~~~^^
+  File "C:\Users\pedro\AppData\Local\Python\pythoncore-3.14-64\Lib\pathlib\__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pedro\AppData\Local\Python\pythoncore-3.14-64\Lib\pathlib\__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Original\\wv-5\\reversing\\Fn209A\\artifacts\\good\\state.json'
+== ronda 2: aplicar y compilar 21:42:09
+restauradas 6 fuentes (SHA256 igual a las copias buenas)
+Texto original no unico en source/game_sa/Attractors/PedAttractor.cpp: '    self->_First = nullptr;\n    self->_Last  = nullptr;\n    self->_End   = nullptr;\n}\n\n// 0x5EC4B0' (0)
+FALLO apply 2
+Traceback (most recent call last):
+  File "D:\Original\wv-5\reversing\Fn209A\mutate.py", line 190, in <module>
+    restore()
+    ~~~~~~~^^
+  File "D:\Original\wv-5\reversing\Fn209A\mutate.py", line 176, in restore
+    saved = json.loads(state.read_text())
+                       ~~~~~~~~~~~~~~~^^
+  File "C:\Users\pedro\AppData\Local\Python\pythoncore-3.14-64\Lib\pathlib\__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pedro\AppData\Local\Python\pythoncore-3.14-64\Lib\pathlib\__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Original\\wv-5\\reversing\\Fn209A\\artifacts\\good\\state.json'
+== reconstruccion buena 21:42:10
+rc=0
+{"asi": "7878f4d7655f211f6228f015ddeea26e692104ddccbdcc809cd4d3ac5457750b", "pdb": "a9662ecc61cb4659e7a0bd6ce47fc7a679c4988e4e67c512ca1916cf7d300d46"}
+== FIN 21:42:20

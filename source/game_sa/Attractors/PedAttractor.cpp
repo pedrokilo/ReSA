@@ -443,6 +443,12 @@ void __fastcall SArrayTidyStride4(SArray<uint32>* self, void* /*edx*/) {
     self->_End   = nullptr;
 }
 
+// Lote 209A: una instancia propia por direccion de hook (0x4F3F30 y 0x4F4030): RH no admite dos hooks hacia la misma funcion de la DLL (el cuerpo de la segunda se resolvia a la entrada del EXE de la primera; lo detecto el banco Fn209A).
+template<int Id>
+void __fastcall SArrayTidyStride4Inst(SArray<uint32>* self, void* edx) {
+    SArrayTidyStride4(self, edx);
+}
+
 // 0x5EC4B0 (76 bytes, thiscall con el BYTE de banderas en la pila, `ret 4`): destructor con borrado de CPedAttractor del EXE (ranura 1 de su vtable 0x86C538, tras GetType). Llama al cuerpo del destructor (0x5EC410, con
 // hook: aqui el destructor de la clase llamado sin pasar por la vtable) y, solo si el bit 0 del BYTE de banderas esta puesto, libera `this` en el pool de atractores (0xB744C4) EN LINEA (indice = (this - almacenamiento) / 0xC4 con signo,
 // estado |= 0x80, cursor = min con signo), como CPedAttractor::operator delete (0x5EAFE0, con hook). Devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
@@ -699,8 +705,8 @@ void CPedAttractor::InjectHooks() {
     RH_ScopedNamedGlobalInstall(SArrayFillNStride4<3>, "SArrayFillNStride4D", 0x4F3B30);
     RH_ScopedNamedGlobalInstall(SArrayUninitCopyWrapStride4<3>, "SArrayUninitCopyWrapStride4D", 0x4F3CE0);
     RH_ScopedNamedGlobalInstall(SArrayFillNReturnEndStride4, "SArrayFillNReturnEndStride4", 0x4F3D80);
-    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4B", 0x4F3F30);
-    RH_ScopedNamedGlobalInstall(SArrayTidyStride4, "SArrayTidyStride4C", 0x4F4030);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4Inst<1>, "SArrayTidyStride4B", 0x4F3F30);
+    RH_ScopedNamedGlobalInstall(SArrayTidyStride4Inst<2>, "SArrayTidyStride4C", 0x4F4030);
 
     // Lote 219A (sin validar): instancias de las mismas plantillas junto a los vectores de CPedAttractor y de CPedAttractorManager (0x5EC040..0x5ED4B0; el listado las atribuia a CPedAttractorManager). Vaciados de vector,
     // fill_n que devuelven el final, erase y los tres insert(pos, n, valor); mismas funciones C++ para los cuerpos identicos (ver arriba). 0x5ED0A3 y 0x5ED388 (9 bytes) son manejadores catch de 0x5ECF10 y 0x5ED1B0 (no enganchables).

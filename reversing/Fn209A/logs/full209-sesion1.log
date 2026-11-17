@@ -1,0 +1,26 @@
+== principal 21:49:08
+APROBADO: Fn209A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn209a\20261116-214910-302597
+== ronda 1: aplicar y compilar 22:14:51
+ronda 1 aplicada: 27 mutaciones
+rc=0
+{"asi": "5676043457f143f6ceeb7852035210c37843508c6dd32bf7788a599e6746ca9d", "pdb": "5c5bf286c725d37fa525fecd299d465f408619412f75a9f62889a95093ffe672"}
+restauradas 6 fuentes (SHA256 igual a las copias buenas)
+== ronda 1: correr 22:15:02
+FALLO: Fn209A
+GTA termino antes de completar (3765269347).
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn209a\20261116-221504-667868
+== ronda 2: aplicar y compilar 22:16:46
+ronda 2 aplicada: 27 mutaciones
+rc=0
+{"asi": "a74f84810b9f37ea9ace57ff7a619686a1061079e1b2a0883d3956f8c26cf18f", "pdb": "cdbf4ee1f900dcab5641c22c0759a08924c9b4d666235d6d8778b8c6a45e514c"}
+restauradas 6 fuentes (SHA256 igual a las copias buenas)
+== ronda 2: correr 22:16:56
+FALLO: Fn209A
+Funciones con diferencias: CPedAttractor::SArrayFillStride4D: 762/2048; CPedAttractor::SArrayCopyBackwardStride4D: 884/2048; CPedAttractor::SArrayFillNStride4D: 505/2048; CPedAttractor::SArrayUninitCopyWrapStride4D: 581/2048; CPedAttractor::SArrayFillNReturnEndStride4: 478/2048; CPedAttractor::SArrayTidyStride4B: 919/2048; CPedAttractor::SArrayTidyStride4C: 899/2048; UserTracksLegacyVector::Insert: 158/2048; LegacyStdString::Tidy: 920/2048; LegacyStdString::Grow: 185/2048; LegacyStdString::Erase: 113/2048; LegacyStdString::AssignString: 99/2048; LegacyStdString::AssignChars: 224/2048; LegacyStdString::ConstructFromChars: 896/2048; LegacyRuntimeError::DestructorBodyA: 909/2048; LegacyRuntimeError::DestructorBodyB: 890/2048; LegacyRuntimeError::What: 882/2048; LegacyRuntimeError::ScalarDeletingDestructorA: 889/2048; LegacyRuntimeError::ScalarDeletingDestructorB: 908/2048; LegacyRuntimeError::ConstructFromString: 908/2048; LegacyRuntimeError::CopyConstructor: 894/2048; LegacyRuntimeError::VectorXlen: 876/2048; CVehicle::IsHandbrakeOn: 338/2048; CVehicle::IsAlarmActive: 647/2048; CPatrolRoute::ScalarDeletingDestructor: 885/2048; CTaskComplexFollowPatrolRoute::MakeAbortable: 459/2048; CTaskComplexFollowPatrolRoute::ControlSubTask: 226/2048; CTaskComplexFollowPatrolRoute::DestructorBody: 906/2048; CTaskSimpleSlideToCoord::Clone: 427/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn209a\20261116-221658-556053
+== reconstruccion buena 22:20:18
+rc=0
+{"asi": "8c73b5d5aa67b5b980ab37d342468b8f71d0fd789772180cc8d48cca3c10368e", "pdb": "bcc672f25939e439bf48c2ad87354de5ed26b8d6fc8f4525ccb758ff0e41eed3"}
+== FIN 22:20:27

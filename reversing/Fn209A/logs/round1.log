@@ -1,0 +1,11 @@
+== ronda 1 22:20:53
+ronda 1 aplicada: 27 mutaciones
+rc=0
+{"asi": "ef1d4ddba2363202acc307a7756e80f6e6d5e17639b5388a51e72625153ec416", "pdb": "590438c38d155903445e4d42f541a78a5f159934c2afbc275c6f1713a03e03ac"}
+restauradas 6 fuentes (SHA256 igual a las copias buenas)
+FALLO: Fn209A
+Funciones con diferencias: CPedAttractor::SArrayFillStride4D: 762/2048; CPedAttractor::SArrayCopyBackwardStride4D: 665/2048; CPedAttractor::SArrayFillNStride4D: 512/2048; CPedAttractor::SArrayUninitCopyWrapStride4D: 706/2048; CPedAttractor::SArrayFillNReturnEndStride4: 853/2048; CPedAttractor::SArrayTidyStride4B: 919/2048; CPedAttractor::SArrayTidyStride4C: 899/2048; UserTracksLegacyVector::Insert: 824/2048; LegacyStdString::Tidy: 497/2048; LegacyStdString::Grow: 244/2048; LegacyStdString::Erase: 300/2048; LegacyStdString::AssignString: 729/2048; LegacyStdString::AssignChars: 675/2048; LegacyStdString::ConstructFromChars: 896/2048; LegacyRuntimeError::DestructorBodyA: 909/2048; LegacyRuntimeError::DestructorBodyB: 890/2048; LegacyRuntimeError::What: 882/2048; LegacyRuntimeError::ScalarDeletingDestructorA: 487/2048; LegacyRuntimeError::ScalarDeletingDestructorB: 485/2048; LegacyRuntimeError::ConstructFromString: 908/2048; LegacyRuntimeError::CopyConstructor: 894/2048; LegacyRuntimeError::VectorXlen: 876/2048; CVehicle::IsHandbrakeOn: 890/2048; CVehicle::IsAlarmActive: 397/2048; CPatrolRoute::ScalarDeletingDestructor: 471/2048; CTaskComplexFollowPatrolRoute::MakeAbortable: 890/2048; CTaskComplexFollowPatrolRoute::ControlSubTask: 430/2048; CTaskComplexFollowPatrolRoute::DestructorBody: 906/2048; CTaskSimpleSlideToCoord::Clone: 362/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn209a\20261116-222106-084018
+rc=0
+{"asi": "dd66c6cdd0adbfed639298a3a23f2b50172a1890538fcb8b9692520ee2fb3075", "pdb": "781318e90987edf17ef4293d931240309360d6d5d064c52aeb920d553384ea21"}
+== FIN 22:24:32

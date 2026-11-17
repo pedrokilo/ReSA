@@ -83541,6 +83541,1370 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre origin/main 70b6d35891 con el cherry-pick del lote 208A (5850d9f9af). 15 funciones del EXE sin hook (CPhoneInfo, CPickup, SurfaceInfos_c, CZoneDef, lectura de clump en una fase, CMemoryHeap, CMemoryMgr::Init, uninitialized_copy y std::string::_Copy del modulo de user tracks). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella). El sscanf de las cargas de superficies corre real en cada lado (CRT del EXE contra CRT de la DLL) con lineas bien formadas. Fuera de los fixtures: this nulo o crudo, campos de texto mas largos que los buferes, numeros fuera de rango de int32, NaN/inf en el texto, punteros nulos de RenderWare, destino nulo con mas de un elemento en uninitialized_copy, contador negativo de geometrias con atomicos, vector de frames nulo con exito, y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn208A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayFillStride4D",
+        "address": "0x004F3AE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayFillStride4D"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayCopyBackwardStride4D",
+        "address": "0x004F3B00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayCopyBackwardStride4D"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayFillNStride4D",
+        "address": "0x004F3B30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayFillNStride4D"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayUninitCopyWrapStride4D",
+        "address": "0x004F3CE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayUninitCopyWrapStride4D"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayFillNReturnEndStride4",
+        "address": "0x004F3D80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayFillNReturnEndStride4"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayTidyStride4B",
+        "address": "0x004F3F30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayTidyStride4B"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAttractor",
+        "fn_name": "SArrayTidyStride4C",
+        "address": "0x004F4030",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CPedAttractor::SArrayTidyStride4C"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "UserTracksLegacyVector",
+        "fn_name": "Insert",
+        "address": "0x004F4320",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "UserTracksLegacyVector::Insert"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyStdString",
+        "fn_name": "Tidy",
+        "address": "0x004F3BA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyStdString::Tidy"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyStdString",
+        "fn_name": "Grow",
+        "address": "0x004F3BD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyStdString::Grow"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyStdString",
+        "fn_name": "Erase",
+        "address": "0x004F3DB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyStdString::Erase"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyStdString",
+        "fn_name": "AssignString",
+        "address": "0x004F3E80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyStdString::AssignString"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyStdString",
+        "fn_name": "AssignChars",
+        "address": "0x004F3F60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyStdString::AssignChars"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyStdString",
+        "fn_name": "ConstructFromChars",
+        "address": "0x004F4170",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyStdString::ConstructFromChars"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "DestructorBodyA",
+        "address": "0x004F3D10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::DestructorBodyA"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "DestructorBodyB",
+        "address": "0x004F4130",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::DestructorBodyB"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "What",
+        "address": "0x004F3D50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::What"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "ScalarDeletingDestructorA",
+        "address": "0x004F3D60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::ScalarDeletingDestructorA"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "ScalarDeletingDestructorB",
+        "address": "0x004F4110",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::ScalarDeletingDestructorB"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "ConstructFromString",
+        "address": "0x004F4090",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::ConstructFromString"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "CopyConstructor",
+        "address": "0x004F4230",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::CopyConstructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LegacyRuntimeError",
+        "fn_name": "VectorXlen",
+        "address": "0x004F41B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "LegacyRuntimeError::VectorXlen"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsHandbrakeOn",
+        "address": "0x004F4CA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsHandbrakeOn"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsAlarmActive",
+        "address": "0x004F4CE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsAlarmActive"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPatrolRoute",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x0066BA70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CPatrolRoute::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexFollowPatrolRoute",
+        "fn_name": "MakeAbortable",
+        "address": "0x0066BA90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexFollowPatrolRoute::MakeAbortable"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexFollowPatrolRoute",
+        "fn_name": "ControlSubTask",
+        "address": "0x0066BB00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexFollowPatrolRoute::ControlSubTask"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexFollowPatrolRoute",
+        "fn_name": "DestructorBody",
+        "address": "0x006709F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexFollowPatrolRoute::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleSlideToCoord",
+        "fn_name": "Clone",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn209A/validation-summary.json",
+        "sha256": "28efe1e91a323ef0cc7d31a519dd0c4669353050c366bccf9c1098b3d7d31a7d",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleSlideToCoord::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0066D300"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "38aebc401810b4c9b40d21a37d643210a219f41be29331cb7d5a6d4ad2480be7",
+        "source/InjectHooksMain.cpp": "c0a7ce766fef75089c8cf54366158f7342263629bf502d70e1df77c9c831717c",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Attractors/PedAttractor.cpp": "0556bb75856aced9aad0e739ae166859076f719c761d90793ab321fa61d7910e",
+        "source/game_sa/Attractors/PedAttractor.h": "00b997a82cf4131c3b98931af72bf3ad6fad1bb3a5711218a503e1af0e682e51",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "81deb4f7ae95398dab259f554111957df0e5469db2555f58f9f5fde69202cdf2",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "c831f3ef7fe998feca784a3a46683b51016b579109233944a41753273339b961",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "354d2d1430b0dbf12d0a1a217db36cc88a399df744c8d8d81d8bd5eae09a2b94",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "a46c1c051c747685eacefdf539c10d9c088051b3f36ac67a9e20c9182f6db82c",
+        "source/game_sa/PatrolRoute.cpp": "f0bbdfc24574ee8bda086c82b34eb344c1e4aa60fefa850b849d60bdaf1d929d",
+        "source/game_sa/PatrolRoute.h": "212b12eee8c2e3370f33ea76d66557f82b304b11b4b44800ddc645f1ec8318f5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp": "f95f3710f59689421ee497cf9a8737bba94d889c63bb317758f5b39815e289b6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h": "1aaf5fbd1225d310a474b2138bb6ec4c45bc2e4dc98427b1cea8d1d3c6eea292",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "8626a5e9e242a89d6d95618517df051fdc4fa84e952be7ceca45e012a47475db",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "bf4fd82ce698fbc815900e014a131ea812f09f31caede22632817cc38d94ab89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn209A/LiveComparison.hpp": "2699b4afa4de6531671d5ae9a8cecff781db88c8d510b2b696f7668882766171",
+        "reversing/Fn209A/Core.hpp": "cc3b7b23c92b36ec8df207e570eba8661e499602f398c8c191af8518a11fee87",
+        "reversing/Fn209A/Fixtures.hpp": "ab9e3c3011a087e470b451443124775e0b96203b48d7dfe62b0f180e68fdc6ec",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre origin/main 0b394a15ba (lote 209A ya integrado, sin cherry-pick) mas una correccion que revelo el banco (instancias propias del vaciado de vector 0x4F3F30/0x4F4030 en PedAttractor.cpp). 29 funciones del EXE sin validar: plantillas de vector de punteros (fill, copy_backward, fill_n, envoltorio de uninitialized_copy, fill_n que devuelve el final, vaciado, insert), std::string (Tidy, Grow, erase, assign x2, constructor desde char*), std::runtime_error (cuerpos del destructor, what, destructores con borrado, constructores, vector::_Xlen), dos lectores de CVehicle, destructor con borrado de CPatrolRoute, tres funciones de CTaskComplexFollowPatrolRoute y CTaskSimpleSlideToCoord::Clone. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (o solo en la direccion del EXE cuando la DLL los llama por ella); uninitialized_copy 0x4F3940 corre real en insert. Las funciones que no vuelven (_Xran, _Xlen, _CxxThrowException, vector::_Xlen) se comprueban hasta el lanzamiento con una salida no local del falso: no se comprueba el desenrollado SEH del EXE (omitido en la DLL por diseno). Fuera de los fixtures: this nulo o crudo, strings con longitud mayor que la capacidad o punteros crudos que se desreferencian, vectores con punteros incoherentes, std::exception con la bandera de memoria propia (copia con malloc), _Copy real (falseado), el desenrollado SEH y los caminos de _Xlen/_Xran dentro de erase (inalcanzables con strings validos). Corrida con el controlador de rasters D3D9 (RwD3D9RasterDriver, lote 224A) sin enganchar (--unhook=Global/RwD3D9RasterDriver): con el main actual el juego muere al arrancar en RasterDestroy 0x4CBB00 (raster nulo), defecto ajeno a este lote.",
+      "review_reference": "reversing/Fn209A/README.md"
     }
   ]
 }
