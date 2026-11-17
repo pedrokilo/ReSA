@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11575 |
+| `validated=1` · evidencia aprobada vinculada | 11590 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11575 |
-| Sin evidencia aprobada vinculada en este registro | 866 |
+| Evidencia histórica vinculada; revisión pendiente | 11590 |
+| Sin evidencia aprobada vinculada en este registro | 851 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -11296,14 +11296,28 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RpUVAnim | `RpUVAnimKeyFrameStreamGetSize` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
 | RpUVAnim | `_rpUVAnimCustomDataStreamGetSize` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
 | RpWorld | `AtomicDefaultRenderCallBack` | [Resumen](../reversing/Fn102A/validation-summary.json) |
+| RpWorld | `ClumpAtomicDestroyCallBack` | [Resumen](../reversing/Fn227A/validation-summary.json) |
+| RpWorld | `ClumpAtomicStreamRead` | [Resumen](../reversing/Fn227A/validation-summary.json) |
+| RpWorld | `ClumpLightDestroyCallBack` | [Resumen](../reversing/Fn227A/validation-summary.json) |
 | RpWorld | `RpAtomicGetPluginOffset` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpAtomicGetWorld` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
+| RpWorld | `RpAtomicRegisterPlugin` | [Resumen](../reversing/Fn227A/validation-summary.json) |
+| RpWorld | `RpAtomicRegisterPluginStream` | [Resumen](../reversing/Fn227A/validation-summary.json) |
 | RpWorld | `RpAtomicSetFrame` | [Resumen](../reversing/Fn102A/validation-summary.json) |
 | RpWorld | `RpAtomicSetStreamAlwaysCallBack` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpAtomicSetStreamRightsCallBack` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpBuildMeshGenerateDefaultTriStrip` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
+| RpWorld | `RpClumpAddAtomic` | [Resumen](../reversing/Fn227A/validation-summary.json) |
+| RpWorld | `RpClumpClone` | [Resumen](../reversing/Fn227A/validation-summary.json) |
+| RpWorld | `RpClumpCreate` | [Resumen](../reversing/Fn227A/validation-summary.json) |
+| RpWorld | `RpClumpDestroy` | [Resumen](../reversing/Fn227A/validation-summary.json) |
 | RpWorld | `RpClumpForAllAtomics` | [Resumen](../reversing/Fn102A/validation-summary.json) |
 | RpWorld | `RpClumpGetNumAtomics` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
+| RpWorld | `RpClumpRegisterPlugin` | [Resumen](../reversing/Fn227A/validation-summary.json) |
+| RpWorld | `RpClumpRegisterPluginStream` | [Resumen](../reversing/Fn227A/validation-summary.json) |
+| RpWorld | `RpClumpRemoveAtomic` | [Resumen](../reversing/Fn227A/validation-summary.json) |
+| RpWorld | `RpClumpRemoveLight` | [Resumen](../reversing/Fn227A/validation-summary.json) |
+| RpWorld | `RpClumpStreamRead` | [Resumen](../reversing/Fn227A/validation-summary.json) |
 | RpWorld | `RpD3D9GeometryGetUsageFlags` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpD3D9WorldSectorGetUsageFlags` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpD3D9WorldSectorSetUsageFlags` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
@@ -11316,6 +11330,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RpWorld | `RpWorldSectorRegisterPluginStream` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
 | RpWorld | `RxNodeDefinitionGetD3D9WorldSectorAllInOne` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
 | RpWorld | `_rpD3D9VertexDeclarationGetSize` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
+| RpWorld | `_rpGeometryListDeinitialize` | [Resumen](../reversing/Fn227A/validation-summary.json) |
 | RpWorld | `_rpMaterialListFindMaterialIndex` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `_rpMaterialListGetMaterial` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `_rpMaterialListInitialize` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
@@ -12570,7 +12585,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RpMatFX` | 28 | 0 | 0 | 28 |
 | `RpSkin` | 34 | 0 | 1 | 33 |
 | `RpUVAnim` | 16 | 0 | 2 | 14 |
-| `RpWorld` | 197 | 0 | 25 | 172 |
+| `RpWorld` | 197 | 0 | 40 | 157 |
 | `Rs` | 33 | 0 | 33 | 0 |
 | `RtAnim` | 10 | 0 | 3 | 7 |
 | `RtBMP` | 2 | 0 | 0 | 2 |
