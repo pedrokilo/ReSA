@@ -1,0 +1,5 @@
+ronda 2 aplicada: 8 mutaciones
+15:23:03 gta_lock tomado
+15:24:28 run neg2b: FALLO: Fn225A Funciones con diferencias: D3D9RasterFormat::FindCorrectRasterFormat: 619/2048; D3D9RasterFormat::SetRasterFormat: 2048/2048; D3D9RasterFormat::VideoMemoryRasterListRestore: 686/2048; D3D9RasterFormat::CreateRasterFromD3DFormat: 376/2048; D3D9RasterFormat::ConvertRasterToDisplayFormat: 1864/2048; D3D9RasterFormat::GetRasterMemorySize: 875/2048; Win::WasForegroundAppLastFrame: 1888/2
+restauradas 3 fuentes (SHA256 igual a las copias buenas)
+15:24:36 fin

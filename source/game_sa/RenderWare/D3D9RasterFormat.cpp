@@ -278,18 +278,19 @@ uint32 FindFormatCameraTexture(uint32 fmt) {
     return fmt;
 }
 
-// Crea la textura (o cubo) de un raster de tipo textura de camara con el formato D3D `format` (0x4CCA3B.. y 0x4CCAB2..): mismos argumentos que el EXE.
-HRESULT CreateCameraTextureObject(RwRaster* raster, RasterExt* ext, int32 format, uint32 levels) {
+// Crea la textura (o cubo) de un raster de tipo textura de camara con el formato D3D `format` (0x4CCA3B.. y 0x4CCAB2..): mismos argumentos que el EXE. `renderTarget` = 1 en el primer intento (0x4CCA69: `or edx,1`, uso D3DUSAGE_RENDERTARGET)
+// y 0 en el reintento con el formato del back buffer (0x4CCACB..: el EXE NO pone el bit; lo encontro el banco Fn225A).
+HRESULT CreateCameraTextureObject(RwRaster* raster, RasterExt* ext, int32 format, uint32 levels, uint32 renderTarget) {
     const uint32 usageBase = ((ext->mipFlags & 0x0Fu) != 0) ? 0x400u : 0u;
     IDirect3DDevice9* const dev = Device();
     if ((ext->cubeFace & 0x0Fu) != 0) {
         return dev->CreateCubeTexture(
-            raster->width, levels, usageBase | 1u, static_cast<D3DFORMAT>(format), D3DPOOL_DEFAULT,
+            raster->width, levels, usageBase | renderTarget, static_cast<D3DFORMAT>(format), D3DPOOL_DEFAULT,
             reinterpret_cast<IDirect3DCubeTexture9**>(&ext->texture), nullptr
         );
     }
     return dev->CreateTexture(
-        raster->width, raster->height, levels, usageBase | 1u, static_cast<D3DFORMAT>(format), D3DPOOL_DEFAULT,
+        raster->width, raster->height, levels, usageBase | renderTarget, static_cast<D3DFORMAT>(format), D3DPOOL_DEFAULT,
         reinterpret_cast<IDirect3DTexture9**>(&ext->texture), nullptr
     );
 }
@@ -467,12 +468,12 @@ RwBool D3D9RasterFormat::VideoMemoryRasterListRestore() {
                 }
                 // niveles: 0 (cadena completa) si el raster tiene mipmaps (bit 7 de cFormat = 0x8000 de las banderas), 1 si no: `shr edi,0Fh; not edi; and edi,1`
                 const uint32 levels = (raster->cFormat & 0x80u) ? 0u : 1u;
-                hr = CreateCameraTextureObject(raster, ext, ext->d3dFormat, levels);
+                hr = CreateCameraTextureObject(raster, ext, ext->d3dFormat, levels, 1u);
                 if (hr >= 0 || hr == static_cast<HRESULT>(0x8876017C)) { // D3DERR_OUTOFVIDEOMEMORY: sin reintento
                     break;
                 }
                 // Reintento con el formato del back buffer; se actualizan cFormat, profundidad, formato D3D y alpha aunque falle.
-                hr = CreateCameraTextureObject(raster, ext, BackBufferFormat(), levels);
+                hr = CreateCameraTextureObject(raster, ext, BackBufferFormat(), levels, 0u);
                 raster->cFormat = static_cast<uint8>(PixelFormatTable()[BackBufferFormat()].rwFormat >> 8);
                 raster->depth   = PixelFormatTable()[BackBufferFormat()].depth;
                 ext->d3dFormat  = BackBufferFormat();

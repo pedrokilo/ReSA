@@ -1,0 +1,3 @@
+{"D3D9RasterFormat::FindCorrectRasterFormat": 503, "D3D9RasterFormat::SetRasterFormat": 2048, "D3D9RasterFormat::VideoMemoryRasterListRestore": 1791, "D3D9RasterFormat::CreateRasterFromD3DFormat": 621, "D3D9RasterFormat::ConvertRasterToDisplayFormat": 1864, "D3D9RasterFormat::GetRasterMemorySize": 1809, "Win::WasForegroundAppLastFrame": 2048, "Ps::GetBestRefreshRate": 890}
+pares 16384 con diferencias 11574 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

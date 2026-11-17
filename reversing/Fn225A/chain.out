@@ -1,0 +1,10 @@
+15:09:20 build ok main
+15:09:20 gta_lock tomado
+15:19:00 run main: APROBADO: Fn225A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn225a\20261117-150922-455326 
+ronda 1 aplicada: 8 mutaciones
+15:20:35 run neg1: FALLO: Fn225A Funciones con diferencias: D3D9RasterFormat::FindCorrectRasterFormat: 503/2048; D3D9RasterFormat::SetRasterFormat: 2048/2048; D3D9RasterFormat::VideoMemoryRasterListRestore: 1791/2048; D3D9RasterFormat::CreateRasterFromD3DFormat: 621/2048; D3D9RasterFormat::ConvertRasterToDisplayForma
+restauradas 3 fuentes (SHA256 igual a las copias buenas)
+ronda 2 aplicada: 8 mutaciones
+15:22:08 run neg2: FALLO: Fn225A Funciones con diferencias: D3D9RasterFormat::FindCorrectRasterFormat: 1/2048; D3D9RasterFormat::SetRasterFormat: 2048/2048; D3D9RasterFormat::VideoMemoryRasterListRestore: 686/2048; D3D9RasterFormat::CreateRasterFromD3DFormat: 376/2048; D3D9RasterFormat::ConvertRasterToDisplayFormat: 
+restauradas 3 fuentes (SHA256 igual a las copias buenas)
+15:22:16 fin

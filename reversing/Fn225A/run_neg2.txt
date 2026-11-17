@@ -1,0 +1,3 @@
+FALLO: Fn225A
+Funciones con diferencias: D3D9RasterFormat::FindCorrectRasterFormat: 1/2048; D3D9RasterFormat::SetRasterFormat: 2048/2048; D3D9RasterFormat::VideoMemoryRasterListRestore: 686/2048; D3D9RasterFormat::CreateRasterFromD3DFormat: 376/2048; D3D9RasterFormat::ConvertRasterToDisplayFormat: 1864/2048; D3D9RasterFormat::GetRasterMemorySize: 875/2048; Win::WasForegroundAppLastFrame: 1888/2048; Ps::GetBestRefreshRate: 200/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn225a\20261117-152046-768673

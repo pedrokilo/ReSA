@@ -1,0 +1,3 @@
+APROBADO: Fn225A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn225a\20261117-150922-455326
