@@ -25,7 +25,7 @@
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 101,
     "catalog_rows_linked_by_hook_address": 1174,
-    "validated_reconstructed_own_cpp_definitions": 13474,
+    "validated_reconstructed_own_cpp_definitions": 13488,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 17
   },
@@ -1289,7 +1289,7 @@
     "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
     "source/game_sa/Renderer.cpp": "130e97f7f4c1356f8a3df470fc98c163ae5e4fa24a8cc9fc9b6b5a8542891536",
     "source/game_sa/Renderer.h": "de44b1277677e277311af0db0eb4271a7ec8df8e5a1f9b8db344bc1150e4cd97",
-    "source/game_sa/RenderWare/D3D9RasterDriver.cpp": "d1f4c42a8214c0135823c85e0797ab6a4f2a0b0f11814319b3d60de6bbdbc7eb",
+    "source/game_sa/RenderWare/D3D9RasterDriver.cpp": "adee4e3449e7cdb7e078392873f3c6c70f7c1d819a82bce6a82cbb9a551d17d8",
     "source/game_sa/RenderWare/D3D9RasterDriver.h": "737f9b8c7efbfcdbe8844b4db40e2b834317411e7d7815f506b3af979e2f8cf5",
     "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "6700623d89ed814cb4e8579c00d70fbdfeded2d2670d814005ef038fef36d774",
     "source/game_sa/RenderWare/D3D9RasterFormat.h": "0e82f85965a4676f6ab3480a44efd9b67eccfc16d0abafcd09c72cb310227845",
@@ -2315,10 +2315,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "3dd1320dc65b0d50c0e07b72af7555115ce66d2a950c7fc58e9e7ea6bb009f53",
+    "hooks.csv": "c1c01be533560f0d5a1710d300ff87aa623ab62e21d52ba459b7b36b9ec03d4d",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "4586f9e02575cd227678eaf97bbebfea2ae5893784c56e3fecf4cc8f7e25222f",
+  "migration_registry_sha256": "0c864a4ce6312349ffbfe6ae9180de3b04417f18e2ad4ecb97f07fbe59e4200e",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

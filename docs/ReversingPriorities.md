@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.553 |
-| Reconstruidas sin validar | 888 |
-| De ellas, en esta cola (validables por pares) | 888 |
+| Validadas | 11.567 |
+| Reconstruidas sin validar | 874 |
+| De ellas, en esta cola (validables por pares) | 874 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -24,9 +24,9 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 | --- | :---: | :---: | --- |
 | [🟢 Nivel 1: muy barato](#nivel-1) | 7 | 18 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 0 | 0 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 28 | 822 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 27 | 808 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 8 | 48 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **43** | **888** | |
+| **Total** | **42** | **874** | |
 
 <a id="nivel-1"></a>
 
@@ -55,7 +55,7 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (28 clases, 822 funciones)
+## 🟠 Nivel 3: moderadas (27 clases, 808 funciones)
 
 Criterio: el resto.
 
@@ -76,19 +76,18 @@ Criterio: el resto.
 | 13 | RtDict | 12 | 10 |  | ? |
 | 14 | LibJpegCompressEncode | 11 | 11 |  | 47 |
 | 15 | D3DX9 | 11 | 11 |  | ? |
-| 16 | RwD3D9RasterDriver | 14 | 14 |  | 29 |
-| 17 | RpUVAnim | 16 | 14 |  | ? |
-| 18 | ZlibInflate | 14 | 14 |  | ? |
-| 19 | ExeLibJpeg | 15 | 15 |  | ? |
-| 20 | ImportThunks | 17 | 17 |  | ? |
-| 21 | LibJpegCompress | 18 | 18 |  | 38 |
-| 22 | LibJpegMemory | 21 | 21 |  | 26 |
-| 23 | RpMatFX | 28 | 28 |  | ? |
-| 24 | RpSkin | 34 | 33 |  | ? |
-| 25 | RwD3D9 | 115 | 115 |  | ? |
-| 26 | RwPlCore | 132 | 118 |  | ? |
-| 27 | RpWorld | 197 | 172 |  | ? |
-| 28 | RwCore | 211 | 175 |  | ? |
+| 16 | RpUVAnim | 16 | 14 |  | ? |
+| 17 | ZlibInflate | 14 | 14 |  | ? |
+| 18 | ExeLibJpeg | 15 | 15 |  | ? |
+| 19 | ImportThunks | 17 | 17 |  | ? |
+| 20 | LibJpegCompress | 18 | 18 |  | 38 |
+| 21 | LibJpegMemory | 21 | 21 |  | 26 |
+| 22 | RpMatFX | 28 | 28 |  | ? |
+| 23 | RpSkin | 34 | 33 |  | ? |
+| 24 | RwD3D9 | 115 | 115 |  | ? |
+| 25 | RwPlCore | 132 | 118 |  | ? |
+| 26 | RpWorld | 197 | 172 |  | ? |
+| 27 | RwCore | 211 | 175 |  | ? |
 
 <a id="nivel-4"></a>
 

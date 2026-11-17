@@ -1724,7 +1724,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [RtSlerp](implementaciones/detalle-085.md#grupo-1697) · [source/game_sa/RenderWare/rw/rtslerp.cpp](../source/game_sa/RenderWare/rw/rtslerp.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [RwCore](implementaciones/detalle-085.md#grupo-1698) · [source/game_sa/RenderWare/rw/rwcore.cpp](../source/game_sa/RenderWare/rw/rwcore.cpp) | 34 | 0 | 161 | 0 | 0 |
 | [RwD3D9](implementaciones/detalle-085.md#grupo-1699) · [source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp), [source/game_sa/RenderWare/rw/rwcore.cpp](../source/game_sa/RenderWare/rw/rwcore.cpp) | 0 | 0 | 110 | 0 | 0 |
-| [RwD3D9RasterDriver](implementaciones/detalle-085.md#grupo-1700) · [source/game_sa/RenderWare/D3D9RasterDriver.cpp](../source/game_sa/RenderWare/D3D9RasterDriver.cpp) | 0 | 0 | 15 | 0 | 0 |
+| [RwD3D9RasterDriver](implementaciones/detalle-085.md#grupo-1700) · [source/game_sa/RenderWare/D3D9RasterDriver.cpp](../source/game_sa/RenderWare/D3D9RasterDriver.cpp) | 14 | 0 | 1 | 0 | 0 |
 | [RwHelper](implementaciones/detalle-086.md#grupo-1701) · [source/game_sa/RenderWare/rw/rwtexdict.cpp](../source/game_sa/RenderWare/rw/rwtexdict.cpp), [source/game_sa/RwHelper.cpp](../source/game_sa/RwHelper.cpp) | 43 | 0 | 0 | 0 | 0 |
 | [RwObjectNameIdAssocation](implementaciones/detalle-086.md#grupo-1702) · [source/game_sa/RwObjectNameIdAssocation.h](../source/game_sa/RwObjectNameIdAssocation.h) | 0 | 0 | 1 | 0 | 0 |
 | [RwPlCore](implementaciones/detalle-086.md#grupo-1703) · [source/game_sa/RenderWare/rw/rwplcore.cpp](../source/game_sa/RenderWare/rw/rwplcore.cpp) | 14 | 0 | 113 | 0 | 0 |

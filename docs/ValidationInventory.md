@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11553 |
+| `validated=1` · evidencia aprobada vinculada | 11567 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11553 |
-| Sin evidencia aprobada vinculada en este registro | 888 |
+| Evidencia histórica vinculada; revisión pendiente | 11567 |
+| Sin evidencia aprobada vinculada en este registro | 874 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -11387,6 +11387,20 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RwCore | `_rwDeviceRegisterPlugin` | [Resumen](../reversing/Dependencies25D/validation-summary.json) |
 | RwCore | `_rwFrameListDeinitialize` | [Resumen](../reversing/Dependencies25E/validation-summary.json) |
 | RwCore | `_rwObjectHasFrameReleaseFrame` | [Resumen](../reversing/Dependencies25D/validation-summary.json) |
+| RwD3D9RasterDriver | `CheckCubeFormatUsage400` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `CheckDepthStencilSurfaceFormat` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `CheckDepthStencilTextureFormat` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `CheckRenderTargetCubeFormat` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `CheckRenderTargetTextureFormat` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `CheckTextureFormat` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `CheckTextureFormatUsage400` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `CheckTextureFormatUsage401` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `RasterDestroy` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `RasterListDestroy` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `RasterListInit` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `RasterListPush` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `RasterListReleaseResources` | [Resumen](../reversing/Fn224A/validation-summary.json) |
+| RwD3D9RasterDriver | `RasterListShutdown` | [Resumen](../reversing/Fn224A/validation-summary.json) |
 | RwHelper | `AtomicRemoveAnimFromSkinCB` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `Get2DEffectAtomic` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `GetAnimHierarchyFromClump` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
@@ -12557,7 +12571,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RtSlerp` | 1 | 0 | 0 | 1 |
 | `RwCore` | 211 | 0 | 36 | 175 |
 | `RwD3D9` | 115 | 0 | 0 | 115 |
-| `RwD3D9RasterDriver` | 14 | 0 | 0 | 14 |
+| `RwD3D9RasterDriver` | 14 | 0 | 14 | 0 |
 | `RwHelper` | 43 | 0 | 43 | 0 |
 | `RwPlCore` | 132 | 0 | 14 | 118 |
 | `Securom` | 4 | 0 | 4 | 0 |
