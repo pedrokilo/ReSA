@@ -30,14 +30,17 @@ CPedATMAttractor* __fastcall PedATMAttractorConstructor(CPedATMAttractor* self, 
 
 // 0x5EE530 (11 bytes, thiscall sin argumentos): cuerpo del destructor de CPedATMAttractor: escribe su vtable (0x86C550) y salta al cuerpo del destructor de CPedAttractor (0x5EC410, con hook). Devuelve `this` en EAX (el valor que deja el salto).
 CPedATMAttractor* __fastcall PedATMAttractorDestructorBody(CPedATMAttractor* self, void* /*edx*/) {
-    self->CPedATMAttractor::~CPedATMAttractor();
+    // Como el EXE: escribe la vtable del EXE de la clase (0x86C550) y salta al cuerpo del destructor de CPedAttractor (0x5EC410); la llamada es a CPedAttractor::Destructor (con hook), no al destructor de C++
+    // de la clase (que expandiria en linea la destruccion de los miembros sin pasar por 0x5EC410). La vtable del EXE en un objeto de la DLL solo dura hasta el final del destructor.
+    *reinterpret_cast<uint32*>(self) = 0x86C550;
+    self->Destructor();
     return self;
 }
 
 // 0x5EE4E0 (76 bytes, thiscall con el BYTE de banderas en la pila, `ret 4`): destructor con borrado de CPedATMAttractor (ranura 1 de su vtable 0x86C550). Llama al cuerpo del destructor (0x5EE530) y, solo si el bit 0 del BYTE de banderas esta puesto, libera
 // `this` en el pool de atractores (0xB744C4) EN LINEA como CPedAttractor::operator delete (0x5EAFE0, con hook). Devuelve `this`.
 CPedATMAttractor* __fastcall PedATMAttractorScalarDeletingDestructor(CPedATMAttractor* self, void* /*edx*/, uint8 flags) {
-    self->CPedATMAttractor::~CPedATMAttractor();
+    PedATMAttractorDestructorBody(self, nullptr);
     if (flags & 1) {
         CPedAttractor::operator delete(self);
     }

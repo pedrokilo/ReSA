@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "c77a858caed871f9652670900fc9431cd75b3f957d42c2272d6e9c7e59a2ee5e",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CPedAttractor::SArrayInsertNStride12: 1403/2048; CPedAttractor::SArrayInsertNStride4C: 1380/2048; CPedAttractor::SArrayInsertStride20: 2048/2048; CPedAttractor::SArrayInsertStride12: 2048/2048; CPedAttractorManager::Constructor: 2048/2048; CPedAttractor::SArrayPushBackStride4A: 2015/2048; CPedAttractor::SArrayPushBackStride20: 1031/2048; CPedAttractor::SArrayPushBackStride4B: 2016/2048; CPedAttractor::SArrayPushBackStride12: 1038/2048; CPedAttractor::SArrayPushBackStride4C: 2015/2048; CPedATMAttractor::Constructor: 2048/2048; CPedATMAttractor::ScalarDeletingDestructor: 1145/2048; CPedATMAttractor::DestructorBody: 2048/2048; CPedSeatAttractor::Constructor: 2048/2048; CPedSeatAttractor::ScalarDeletingDestructor: 1099/2048; CPedSeatAttractor::DestructorBody: 2048/2048; CPedStopAttractor::Constructor: 2048/2048; CPedStopAttractor::ScalarDeletingDestructor: 1126/2048; CPedStopAttractor::DestructorBody: 2048/2048; CPedPizzaAttractor::Constructor: 2048/2048; CPedPizzaAttractor::ScalarDeletingDestructor: 1144/2048; CPedPizzaAttractor::DestructorBody: 2048/2048; CPedShelterAttractor::Constructor: 2048/2048; CPedShelterAttractor::GetType: 2048/2048; CPedShelterAttractor::ScalarDeletingDestructor: 1137/2048; CPedShelterAttractor::DestructorBody: 2048/2048; CPedTriggerScriptAttractor::Constructor: 2048/2048; CPedTriggerScriptAttractor::ScalarDeletingDestructor: 1139/2048; CPedTriggerScriptAttractor::DestructorBody: 2048/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

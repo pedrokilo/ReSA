@@ -28,7 +28,7 @@ public:
     }
 
     // 0x5EE820
-    ePedAttractorType GetType() const override { return Type; }
+    int32 GetType() const override { return Type; }
 
     bool IsAtHeadOfQueue(CPed* ped) override; // 0x5E9680 (lote 205A, sin validar): ranura 2 de la vtable 0x86C5B4
 

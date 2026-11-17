@@ -1,0 +1,10 @@
+09:29:24 build ok main
+09:29:34 gta_lock tomado
+10:00:05 run main: APROBADO: Fn220A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn220a\20261117-092937-183500 
+ronda 1 aplicada: 29 mutaciones
+10:10:17 run neg1: FALLO: Fn220A Funciones con diferencias: CPedAttractor::SArrayInsertNStride12: 1403/2048; CPedAttractor::SArrayInsertNStride4C: 1380/2048; CPedAttractor::SArrayInsertStride20: 2048/2048; CPedAttractor::SArrayInsertStride12: 2048/2048; CPedAttractorManager::Constructor: 2048/2048; CPedAttractor::SAr
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+ronda 2 aplicada: 27 mutaciones
+10:20:28 run neg2: FALLO: Fn220A Funciones con diferencias: CPedAttractor::SArrayInsertNStride12: 1403/2048; CPedAttractor::SArrayInsertNStride4C: 1380/2048; CPedAttractor::SArrayInsertStride20: 2048/2048; CPedAttractor::SArrayInsertStride12: 2048/2048; CPedAttractorManager::Constructor: 2048/2048; CPedAttractor::SAr
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+10:26:40 fin

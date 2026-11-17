@@ -349,7 +349,7 @@ bool CPedAttractorManager::BroadcastArrival(CPed* ped, CPedAttractor* attractor)
     if (!attractor || !IsPedRegisteredWithEffect(ped)) {
         return false;
     }
-    const auto type = attractor->GetType();
+    const auto type = static_cast<ePedAttractorType>(attractor->GetType());
     return IsValidAttractorType(type) && VisitAttractorsOfType(type, [&](auto&& attractors) {
         return BroadcastArrival(ped, attractor, attractors);
     });
@@ -360,7 +360,7 @@ bool CPedAttractorManager::BroadcastDeparture(CPed* ped, CPedAttractor* attracto
     if (!attractor || !IsPedRegisteredWithEffect(ped)) {
         return false;
     }
-    const auto type = attractor->GetType();
+    const auto type = static_cast<ePedAttractorType>(attractor->GetType());
     return IsValidAttractorType(type) && VisitAttractorsOfType(type, [&](auto&& attractors) {
         return BroadcastDeparture(ped, attractor, attractors);
     });
@@ -371,7 +371,7 @@ bool CPedAttractorManager::DeRegisterPed(CPed* ped, CPedAttractor* attractor) {
     if (!attractor || !IsPedRegisteredWithEffect(ped)) {
         return false;
     }
-    const auto type = attractor->GetType();
+    const auto type = static_cast<ePedAttractorType>(attractor->GetType());
     return IsValidAttractorType(type) && VisitAttractorsOfType(type, [&](auto&& attractors) {
         return DeRegisterPed(ped, attractor, attractors);
     });

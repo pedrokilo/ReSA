@@ -33,7 +33,7 @@ public:
     );
 
     // Orden de la vtable del EXE (0x86C538): GetType (virtual pura) va antes que el destructor.
-    virtual ePedAttractorType GetType() const { return PED_ATTRACTOR_UNDEFINED; }
+    virtual int32 GetType() const { return PED_ATTRACTOR_UNDEFINED; } // int32 (no el enum de 8 bits): los llamadores del EXE comparan EAX completo (cmp eax, 9)
 
     virtual ~CPedAttractor() {}
 

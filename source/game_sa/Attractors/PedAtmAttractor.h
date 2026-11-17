@@ -24,7 +24,7 @@ public:
     {
     }
 
-    ePedAttractorType GetType() const override { return Type; }; // 0x5EE4D0
+    int32 GetType() const override { return Type; }; // 0x5EE4D0
 
 private:
     friend void InjectHooksMain();
