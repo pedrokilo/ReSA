@@ -32,7 +32,7 @@ void FxInfoWind_c::InjectHooks() {
 }
 
 // 0x4A5A10
-FxInfoWind_c::FxInfoWind_c() : FxInfo_c() {
+FxInfoWind_c::FxInfoWind_c() {
     m_nType = FX_INFO_WIND_DATA;
     m_InterpInfo.Allocate(1);
 }

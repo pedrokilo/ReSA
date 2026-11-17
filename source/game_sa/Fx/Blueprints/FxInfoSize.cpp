@@ -32,7 +32,7 @@ void FxInfoSize_c::InjectHooks() {
 }
 
 // 0x4A5FA0
-FxInfoSize_c::FxInfoSize_c() : FxInfo_c(), m_InterpInfo() {
+FxInfoSize_c::FxInfoSize_c() : m_InterpInfo() {
     m_nType = FX_INFO_SIZE_DATA;
     m_InterpInfo.Allocate(4);
 }

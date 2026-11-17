@@ -31,7 +31,7 @@ void FxInfoColourBright_c::InjectHooks() {
 }
 
 // 0x4A67D0
-FxInfoColourBright_c::FxInfoColourBright_c() : FxInfo_c() {
+FxInfoColourBright_c::FxInfoColourBright_c() {
     m_nType = FX_INFO_COLOURBRIGHT_DATA;
     m_InterpInfo.Allocate(5);
 }

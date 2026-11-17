@@ -31,7 +31,7 @@ void FxInfoHeatHaze_c::InjectHooks() {
 }
 
 // 0x4A61A0
-FxInfoHeatHaze_c::FxInfoHeatHaze_c() : FxInfo_c() {
+FxInfoHeatHaze_c::FxInfoHeatHaze_c() {
     m_nType = FX_INFO_HEATHAZE_DATA;
     // Como el original: solo pone a 0 el byte bajo del contador (+0xE); no pide memoria al pool
     *reinterpret_cast<int8*>(&m_InterpInfo.m_nCount) = 0;

@@ -31,7 +31,7 @@ void FxInfoTrail_c::InjectHooks() {
 }
 
 // 0x4A6220
-FxInfoTrail_c::FxInfoTrail_c() : FxInfo_c(), m_InterpInfo() {
+FxInfoTrail_c::FxInfoTrail_c() : m_InterpInfo() {
     m_nType = FX_INFO_TRAIL_DATA;
     m_InterpInfo.Allocate(2);
 }

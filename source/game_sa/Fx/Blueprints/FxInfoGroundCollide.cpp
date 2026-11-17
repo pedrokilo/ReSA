@@ -31,7 +31,7 @@ void FxInfoGroundCollide_c::InjectHooks() {
 }
 
 // 0x4A5980
-FxInfoGroundCollide_c::FxInfoGroundCollide_c() : FxInfo_c() {
+FxInfoGroundCollide_c::FxInfoGroundCollide_c() {
     m_nType = FX_INFO_GROUNDCOLLIDE_DATA;
     m_InterpInfo.Allocate(3);
 }

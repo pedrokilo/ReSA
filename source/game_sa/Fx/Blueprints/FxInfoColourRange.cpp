@@ -31,7 +31,7 @@ void FxInfoColourRange_c::InjectHooks() {
 }
 
 // 0x4A6630
-FxInfoColourRange_c::FxInfoColourRange_c() : FxInfo_c() {
+FxInfoColourRange_c::FxInfoColourRange_c() {
     m_nType = FX_INFO_COLOURRANGE_DATA;
     m_InterpInfo.Allocate(7);
 }

@@ -32,7 +32,7 @@ void FxInfoUnderwater_c::InjectHooks() {
 }
 
 // 0x4A5E20
-FxInfoUnderwater_c::FxInfoUnderwater_c() : FxInfo_c() {
+FxInfoUnderwater_c::FxInfoUnderwater_c() {
     m_nType = FX_INFO_UNDERWATER_DATA;
     // Como el original: solo pone a 0 el byte bajo del contador (+0xE); no pide memoria al pool
     *reinterpret_cast<int8*>(&m_InterpInfo.m_nCount) = 0;

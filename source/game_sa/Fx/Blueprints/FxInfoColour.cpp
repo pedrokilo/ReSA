@@ -31,7 +31,7 @@ void FxInfoColour_c::InjectHooks() {
 }
 
 // 0x4A5EA0
-FxInfoColour_c::FxInfoColour_c() : FxInfo_c() {
+FxInfoColour_c::FxInfoColour_c() {
     m_nType = FX_INFO_COLOUR_DATA;
     m_InterpInfo.Allocate(4);
 }

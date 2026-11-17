@@ -1,0 +1,10 @@
+06:10:44 build ok main
+06:10:44 gta_lock tomado
+06:47:31 run main: APROBADO: Fn216A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn216a\20261117-061046-814662 
+ronda 1 aplicada: 33 mutaciones
+06:52:30 run neg1: FALLO: Fn216A Funciones con diferencias: FxInfoGroundCollide_c::Constructor: 884/2048; FxInfoWind_c::Constructor: 884/2048; FxInfoJitter_c::Constructor: 892/2048; FxInfoRotSpeed_c::Constructor: 909/2048; FxInfoFloat_c::Constructor: 906/2048; FxInfoUnderwater_c::Constructor: 919/2048; FxInfoColour_c
+restauradas 25 fuentes (SHA256 igual a las copias buenas)
+ronda 2 aplicada: 33 mutaciones
+06:57:23 run neg2: FALLO: Fn216A Funciones con diferencias: FxInfoGroundCollide_c::Constructor: 884/2048; FxInfoWind_c::Constructor: 884/2048; FxInfoJitter_c::Constructor: 891/2048; FxInfoRotSpeed_c::Constructor: 908/2048; FxInfoFloat_c::Constructor: 906/2048; FxInfoUnderwater_c::Constructor: 918/2048; FxInfoColour_c
+restauradas 25 fuentes (SHA256 igual a las copias buenas)
+06:57:34 fin

@@ -31,7 +31,7 @@ void FxInfoSmoke_c::InjectHooks() {
 }
 
 // 0x4A68E0
-FxInfoSmoke_c::FxInfoSmoke_c() : FxInfo_c() {
+FxInfoSmoke_c::FxInfoSmoke_c() {
     m_nType = FX_INFO_SMOKE_DATA;
     m_InterpInfo.Allocate(8);
 }
