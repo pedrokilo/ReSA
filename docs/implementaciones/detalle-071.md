@@ -1,12 +1,20 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Detalle de implementaciones
 
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1401"></a>
+
+## Globales y helpers: source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| & P(size_t index) | [source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp:60](../../source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ScriptParams: source/game_sa/Scripts/RunningScript.h:81 (0x00A43C78) |
+| * PedOf(int32 handle) | [source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp:64](../../source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedPool::GetAtRef 0x00404910 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * VehicleOf(int32 handle) | [source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp:67](../../source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ScriptModelIndex(int32 id) | [source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp:71](../../source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo UsedObjectArray: source/game_sa/Scripts/TheScripts.h:384 (0x00A44B70) |
+| CopyTextLabel16(char* dest, const char* src) | [source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp:75](../../source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1402"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/TheScripts.cpp
 
@@ -25,7 +33,7 @@
 | ExeMultiply3x3MV(const CMatrix& m, const CVector& v) | [source/game_sa/Scripts/TheScripts.cpp:2445](../../source/game_sa/Scripts/TheScripts.cpp#L2445) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SearchLightNormaliseAndMag(float* vector, void*) | [source/game_sa/Scripts/TheScripts.cpp:2521](../../source/game_sa/Scripts/TheScripts.cpp#L2521) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVector::NormaliseAndMag 0x0059C970 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1402"></a>
+<a id="grupo-1403"></a>
 
 ## Globales y helpers: source/game_sa/Shadows.cpp
 
@@ -42,7 +50,7 @@
 | ShadowVehiclePosition(CVector& position,float extentLength,float maximumY,float shift,float forwardX,float forwardY) | [source/game_sa/Shadows.cpp:1448](../../source/game_sa/Shadows.cpp#L1448) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CShadows::StoreShadowForVehicle 0x0070BDA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ShadowRenderTriangleCB(CVector* normal, CVector* trianglePos, _ProjectionParam* param) | [source/game_sa/Shadows.cpp:1667](../../source/game_sa/Shadows.cpp#L1667) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1403"></a>
+<a id="grupo-1404"></a>
 
 ## Globales y helpers: source/game_sa/SimpleTransform.cpp
 
@@ -50,7 +58,7 @@
 | --- | --- | --- | --- | --- | --- |
 | NegateLikeX87(float value) | [source/game_sa/SimpleTransform.cpp:59](../../source/game_sa/SimpleTransform.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1404"></a>
+<a id="grupo-1405"></a>
 
 ## Globales y helpers: source/game_sa/SpecialFX.cpp
 
@@ -58,7 +66,7 @@
 | --- | --- | --- | --- | --- | --- |
 | MultiplyPointLikeExe(const CMatrix& m, const CVector& v) | [source/game_sa/SpecialFX.cpp:100](../../source/game_sa/SpecialFX.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1405"></a>
+<a id="grupo-1406"></a>
 
 ## Globales y helpers: source/game_sa/Sprite.cpp
 
@@ -76,7 +84,7 @@
 | SetSpriteVertices(RwIm2DVertex* vertices, const CornerCoords1D& xs, const CornerCoords1D& ys, float z, float rhw, uint32 color) | [source/game_sa/Sprite.cpp:168](../../source/game_sa/Sprite.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PushSpriteQuad() | [source/game_sa/Sprite.cpp:174](../../source/game_sa/Sprite.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aTempBufferIndices: source/game_sa/common.h:288 (0x00C4B958); Posible dato fijo nSpriteBufferIndex: source/game_sa/Sprite.cpp:23 (0x00C6A158) |
 
-<a id="grupo-1406"></a>
+<a id="grupo-1407"></a>
 
 ## Globales y helpers: source/game_sa/Stats.cpp
 
@@ -139,7 +147,7 @@
 | StatsAddToHealthBody(uint32 entryEcx, uint32 entryEdx, volatile uint32* argument) | [source/game_sa/Stats.cpp:2509](../../source/game_sa/Stats.cpp#L2509) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_AddToHealthCounter: source/game_sa/Stats.h:69 (0x00B79510) |
 | StatsUpdateStatsAddToHealthExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2531](../../source/game_sa/Stats.cpp#L2531) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1407"></a>
+<a id="grupo-1408"></a>
 
 ## Globales y helpers: source/game_sa/StencilShadows.cpp
 
@@ -152,7 +160,7 @@
 | StencilToggleEdge(RxVertexIndex* edges, uint16& count, uint16 i0, uint16 i1) | [source/game_sa/StencilShadows.cpp:102](../../source/game_sa/StencilShadows.cpp#L102) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | BuildShadowVolume(CStencilShadowObject* obj, bool forVehicle) | [source/game_sa/StencilShadows.cpp:124](../../source/game_sa/StencilShadows.cpp#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo s_ShadowTrianglePoints: source/game_sa/StencilShadows.cpp:28 (0x00C6A174); Posible dato fijo s_ShadowTrianglePointsUnk: source/game_sa/StencilShadows.cpp:27 (0x00C6A170); Posible dato fijo s_SunPosNrm: source/game_sa/StencilShadows.cpp:30 (0x008D5244); Posible dato fijo s_TransformedShadowTrianglePoints: source/game_sa/StencilShadows.cpp:29 (0x00C6A178) |
 
-<a id="grupo-1408"></a>
+<a id="grupo-1409"></a>
 
 ## Globales y helpers: source/game_sa/Streaming.cpp
 
@@ -162,7 +170,7 @@
 | ExeLodSector(float v) | [source/game_sa/Streaming.cpp:50](../../source/game_sa/Streaming.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | MemoryUsedBelow(size_t goal) | [source/game_sa/Streaming.cpp:52](../../source/game_sa/Streaming.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_memoryUsedBytes: source/game_sa/Streaming.h:245 (0x008E4CB4) |
 
-<a id="grupo-1409"></a>
+<a id="grupo-1410"></a>
 
 ## Globales y helpers: source/game_sa/Streaming.h
 
@@ -194,7 +202,7 @@
 | ModelIdToRRR(int32 absId) | [source/game_sa/Streaming.h:138](../../source/game_sa/Streaming.h#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ModelIdToSCM(int32 absId) | [source/game_sa/Streaming.h:139](../../source/game_sa/Streaming.h#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1410"></a>
+<a id="grupo-1411"></a>
 
 ## Globales y helpers: source/game_sa/StuckCarCheck.cpp
 
@@ -202,7 +210,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * GetVehicleNoBoundsCheck(int32 handle) | [source/game_sa/StuckCarCheck.cpp:25](../../source/game_sa/StuckCarCheck.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1411"></a>
+<a id="grupo-1412"></a>
 
 ## Globales y helpers: source/game_sa/StuntJumpManager.cpp
 
@@ -218,7 +226,7 @@
 | ResetAllJumps() | [source/game_sa/StuntJumpManager.cpp:418](../../source/game_sa/StuntJumpManager.cpp#L418) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | StuntJumpTestCode() | [source/game_sa/StuntJumpManager.cpp:426](../../source/game_sa/StuntJumpManager.cpp#L426) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1412"></a>
+<a id="grupo-1413"></a>
 
 ## Globales y helpers: source/game_sa/TagManager.cpp
 
@@ -226,7 +234,7 @@
 | --- | --- | --- | --- | --- | --- |
 | IsTagInArea(const CRect& area, const tTagDesc& tag) | [source/game_sa/TagManager.cpp:122](../../source/game_sa/TagManager.cpp#L122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1413"></a>
+<a id="grupo-1414"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.cpp
 
@@ -234,7 +242,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * __fastcall PedGroupDefaultTaskAllocatorFollowAnyMeansConstructorExe(CPedGroupDefaultTaskAllocatorFollowAnyMeans* self, void* /*edx*/) | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.cpp:7](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.cpp#L7) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedGroupDefaultTaskAllocatorFollowAnyMeans::Constructor 0x005F6450 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1414"></a>
+<a id="grupo-1415"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocator.cpp
 
@@ -242,7 +250,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * __fastcall TaskAllocatorScalarDeletingDestructor(CTaskAllocator* self, void* /*edx*/, uint8 flags) | [source/game_sa/Tasks/Allocators/TaskAllocator.cpp:31](../../source/game_sa/Tasks/Allocators/TaskAllocator.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskAllocator::ScalarDeletingDestructor 0x0069DAC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1415"></a>
+<a id="grupo-1416"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocatorAttack.cpp
 
@@ -250,7 +258,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * __fastcall AttackScalarDeletingDestructor(CTaskAllocatorAttack* self, void* /*edx*/, uint8 flags) | [source/game_sa/Tasks/Allocators/TaskAllocatorAttack.cpp:57](../../source/game_sa/Tasks/Allocators/TaskAllocatorAttack.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskAllocatorAttack::ScalarDeletingDestructor 0x0069DA00 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1416"></a>
+<a id="grupo-1417"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp
 
@@ -259,7 +267,7 @@
 | ClosestThreatDistance(const CVector& a, const CVector& b) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp:92](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * __fastcall KillThreatsBasicScalarDeletingDestructor(CTaskAllocatorKillThreatsBasic* self, void* /*edx*/, uint8 flags) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp:163](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp#L163) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskAllocatorKillThreatsBasic::ScalarDeletingDestructor 0x0069DA40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1417"></a>
+<a id="grupo-1418"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp
 
@@ -267,7 +275,7 @@
 | --- | --- | --- | --- | --- | --- |
 | KillThreatsBasicRandomGroupDestructorBody(CTaskAllocatorKillThreatsBasicRandomGroup* self, void* /*edx*/) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp:83](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskAllocatorKillThreatsBasicRandomGroup::Destructor 0x005F6920 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1418"></a>
+<a id="grupo-1419"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp
 
@@ -275,7 +283,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * __fastcall KillThreatsDrivebyScalarDeletingDestructor(CTaskAllocatorKillThreatsDriveby* self, void* /*edx*/, uint8 flags) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp:119](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskAllocatorKillThreatsDriveby::ScalarDeletingDestructor 0x0069DA80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1419"></a>
+<a id="grupo-1420"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp
 
@@ -284,11 +292,3 @@
 | * __fastcall PlayerCommandAttackConstructorBody(CTaskAllocatorPlayerCommandAttack* self, void* /*edx*/, CPed* target, int32 groupTargetId, uint32 value) | [source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp:98](../../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp#L98) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskAllocatorPlayerCommandAttack::Constructor 0x0069C480 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PlayerCommandAttackDestructorBody(CTaskAllocatorPlayerCommandAttack* self, void* /*edx*/) | [source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp:109](../../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskAllocatorPlayerCommandAttack::DestructorBody 0x0069DB40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * __fastcall PlayerCommandAttackScalarDeletingDestructor(CTaskAllocatorPlayerCommandAttack* self, void* /*edx*/, uint8 flags) | [source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp:116](../../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp#L116) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskAllocatorPlayerCommandAttack::ScalarDeletingDestructor 0x0069DB00 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1420"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskComplexSequence.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| SequenceDestructorBody(CTaskComplexSequence* self, void* /*edx*/) | [source/game_sa/Tasks/TaskComplexSequence.cpp:31](../../source/game_sa/Tasks/TaskComplexSequence.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskComplexSequence::Destructor 0x006389F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

@@ -1,12 +1,22 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Detalle de implementaciones
 
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-601"></a>
+
+## CTaskComplexEnterCarAsPassenger
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * __fastcall EnterCarAsPassengerScalarDeletingDestructor(CTaskComplexEnterCarAsPassenger* self, void* /*edx*/, uint8 flags) | [source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp:34](../../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskComplexEnterCarAsPassenger::ScalarDeletingDestructor 0x00643C80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexEnterCarAsPassenger::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp:43](../../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexEnterCarAsPassenger::CTaskComplexEnterCarAsPassenger(CVehicle* targetVehicle, int32 nTargetSeat, bool bCarryOnAfterFallingOff) | [source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp:56](../../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexEnterCarAsPassenger::Constructor 0x00640340 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexEnterCarAsPassenger::CTaskComplexEnterCarAsPassenger(const CTaskComplexEnterCarAsPassenger& o) | [source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp:63](../../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.h:21](../../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexEnterCarAsPassenger::GetTaskType 0x00640370 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.h:22](../../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexEnterCarAsPassenger::Clone 0x006437F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor(CVehicle* targetVehicle, int32 nTargetSeat, bool bCarryOnAfterFallingOff) | [source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.h:27](../../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexEnterCarAsPassenger::Constructor 0x00640340 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-602"></a>
 
 ## CTaskComplexEnterCarAsPassengerTimed
 
@@ -26,7 +36,7 @@
 | * Constructor(CVehicle* vehicle, uint32 targetSeat, uint32 time, bool bCarryOnAfterFallingOff) | [source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerTimed.h:30](../../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerTimed.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexEnterCarAsPassengerTimed::Constructor 0x0063B030 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerTimed.h:36](../../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerTimed.h#L36) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexEnterCarAsPassengerTimed::Destructor 0x0063B0C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-602"></a>
+<a id="grupo-603"></a>
 
 ## CTaskComplexEnterCarAsPassengerWait
 
@@ -47,7 +57,7 @@
 | * Constructor(CVehicle* target, CPed* waitFor, bool forceFrontSeat, eMoveState ms) | [source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h:32](../../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexEnterCarAsPassengerWait::Constructor 0x0063B320 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h:37](../../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h#L37) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexEnterCarAsPassengerWait::Destructor 0x0063B3C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-603"></a>
+<a id="grupo-604"></a>
 
 ## CTaskComplexEvasiveCower
 
@@ -66,7 +76,7 @@
 | * Constructor(CEntity* entity, const CVector& pos) | [source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h:28](../../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexEvasiveCower::Constructor 0x00655460 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h:33](../../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h#L33) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexEvasiveCower::Destructor 0x006554E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-604"></a>
+<a id="grupo-605"></a>
 
 ## CTaskComplexEvasiveDiveAndGetUp
 
@@ -87,7 +97,7 @@
 | * Constructor(CVehicle* e, int32 nTimeOnGround, CVector* pvDirection, bool b) | [source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveDiveAndGetUp.h:33](../../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveDiveAndGetUp.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexEvasiveDiveAndGetUp::Constructor 0x006536B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveDiveAndGetUp.h:40](../../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveDiveAndGetUp.h#L40) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexEvasiveDiveAndGetUp::Destructor 0x00653740 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-605"></a>
+<a id="grupo-606"></a>
 
 ## CTaskComplexEvasiveStep
 
@@ -106,7 +116,7 @@
 | * Constructor(CEntity* entity, const CVector& pos) | [source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h:29](../../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexEvasiveStep::Constructor 0x006532D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h:34](../../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h#L34) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexEvasiveStep::Destructor 0x00653350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-606"></a>
+<a id="grupo-607"></a>
 
 ## CTaskComplexExtinguishFireOnFoot
 
@@ -123,7 +133,7 @@
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFireOnFoot.h:21](../../source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFireOnFoot.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexExtinguishFireOnFoot::GetTaskType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(const CVector* pos) | [source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFireOnFoot.h:32](../../source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFireOnFoot.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexExtinguishFireOnFoot::Constructor 0x00659870 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-607"></a>
+<a id="grupo-608"></a>
 
 ## CTaskComplexExtinguishFires
 
@@ -141,7 +151,7 @@
 | * Constructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.h:32](../../source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexExtinguishFires::Constructor 0x006975C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.h:37](../../source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.h#L37) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexExtinguishFires::Destructor 0x006975F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-608"></a>
+<a id="grupo-609"></a>
 
 ## CTaskComplexFacial
 
@@ -160,7 +170,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexFacial.h:21](../../source/game_sa/Tasks/TaskTypes/TaskComplexFacial.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFacial::Clone 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexFacial.h:47](../../source/game_sa/Tasks/TaskTypes/TaskComplexFacial.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFacial::Constructor 0x00690D20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-609"></a>
+<a id="grupo-610"></a>
 
 ## CTaskComplexFallAndGetUp
 
@@ -181,7 +191,7 @@
 | CTaskComplexFallAndGetUp::IsFalling() | [source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.cpp:179](../../source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.cpp#L179) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFallAndGetUp::IsFalling 0x006787D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CTaskComplexFallAndGetUp::SetDownTime(int32 nTime) | [source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.cpp:185](../../source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.cpp#L185) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFallAndGetUp::SetDownTime 0x006787A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-610"></a>
+<a id="grupo-611"></a>
 
 ## CTaskComplexFallAndStayDown
 
@@ -202,7 +212,7 @@
 | * Constructor2(int32 direction) | [source/game_sa/Tasks/TaskTypes/TaskComplexFallAndStayDown.h:40](../../source/game_sa/Tasks/TaskTypes/TaskComplexFallAndStayDown.h#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFallAndStayDown::Constructor2 0x00678A10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexFallAndStayDown.h:45](../../source/game_sa/Tasks/TaskTypes/TaskComplexFallAndStayDown.h#L45) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexFallAndStayDown::Destructor 0x00678A90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-611"></a>
+<a id="grupo-612"></a>
 
 ## CTaskComplexFallToDeath
 
@@ -221,7 +231,7 @@
 | CTaskComplexFallToDeath::CalcFall(CPed* ped, int32& outFallDir, bool& outFallToDeathOverRailing) | [source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp:219](../../source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp#L219) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFallToDeath::CalcFall 0x006796C0 | 0 / 0 | Posible dato fijo ms_FallCheckDepth: source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h:24 (0x008D2F04); Posible dato fijo ms_FallCheckHeight: source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h:25 (0x008D2F08); Posible dato fijo ms_FallCheckOffset: source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h:23 (0x008D2F00); Posible dato fijo ms_RailingCheckDrop: source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h:26 (0x008D2F0C) |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h:37](../../source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskComplexFallToDeath::GetTaskType 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-612"></a>
+<a id="grupo-613"></a>
 
 ## CTaskComplexFleeAnyMeans
 
@@ -241,7 +251,7 @@
 | * Constructor(CEntity* entity, bool attackWhileFeeling, float safeDist, int32 fleeTime, int32 shootTime, int32 shootRecoverTime, float stealCarDist, int32 posChangePeriod, float posChangeTolerance) | [source/game_sa/Tasks/TaskTypes/TaskComplexFleeAnyMeans.h:49](../../source/game_sa/Tasks/TaskTypes/TaskComplexFleeAnyMeans.h#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFleeAnyMeans::Constructor 0x0065CC60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexFleeAnyMeans.h:56](../../source/game_sa/Tasks/TaskTypes/TaskComplexFleeAnyMeans.h#L56) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexFleeAnyMeans::Destructor 0x0065CD10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-613"></a>
+<a id="grupo-614"></a>
 
 ## CTaskComplexFleeEntity
 
@@ -261,7 +271,7 @@
 | * Constructor(CEntity* fleeEntity, bool scream, float safeDistance, int32 durationMs, int32 posCheckInterval, float posChangeThreshold) | [source/game_sa/Tasks/TaskTypes/TaskComplexFleeEntity.h:55](../../source/game_sa/Tasks/TaskTypes/TaskComplexFleeEntity.h#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFleeEntity::Constructor 0x0065B930 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexFleeEntity.h:60](../../source/game_sa/Tasks/TaskTypes/TaskComplexFleeEntity.h#L60) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexFleeEntity::Destructor 0x0065B9D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-614"></a>
+<a id="grupo-615"></a>
 
 ## CTaskComplexFleePoint
 
@@ -283,7 +293,7 @@
 | * Constructor(CVector const& point, bool a3, float radius, int32 timeLimit) | [source/game_sa/Tasks/TaskTypes/TaskComplexFleePoint.h:53](../../source/game_sa/Tasks/TaskTypes/TaskComplexFleePoint.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFleePoint::Constructor 0x0065B390 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexFleePoint.h:58](../../source/game_sa/Tasks/TaskTypes/TaskComplexFleePoint.h#L58) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexFleePoint::Destructor 0x0065B410 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-615"></a>
+<a id="grupo-616"></a>
 
 ## CTaskComplexFleeShooting
 
@@ -303,7 +313,7 @@
 | * Constructor(CEntity* entityToFleeFrom, bool pedScream, float safeDist, int32 fleeTime, int32 shootTime, int32 shootRecoverTime, int32 entityPosCheckInterval, float entityPosChangeThreshold) | [source/game_sa/Tasks/TaskTypes/TaskComplexFleeShooting.h:37](../../source/game_sa/Tasks/TaskTypes/TaskComplexFleeShooting.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFleeShooting::Constructor 0x0065C900 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexFleeShooting.h:44](../../source/game_sa/Tasks/TaskTypes/TaskComplexFleeShooting.h#L44) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexFleeShooting::Destructor 0x0065C9A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-616"></a>
+<a id="grupo-617"></a>
 
 ## CTaskComplexFollowLeaderAnyMeans
 
@@ -323,7 +333,7 @@
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderAnyMeans.h:30](../../source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderAnyMeans.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFollowLeaderAnyMeans::GetTaskType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(CPedGroup* pedGroup, CPed* ped, CVector const& pos) | [source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderAnyMeans.h:38](../../source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderAnyMeans.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFollowLeaderAnyMeans::Constructor 0x00694AA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-617"></a>
+<a id="grupo-618"></a>
 
 ## CTaskComplexFollowLeaderInFormation
 
@@ -345,7 +355,7 @@
 | * Constructor(CPedGroup* pedGroup, CPed* ped, CVector const& posn, float a5) | [source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h:47](../../source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFollowLeaderInFormation::Constructor 0x006949A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ConstructorFormation(CPedGroup* pedGroup, CPed* ped, int32 dx, int32 dy, float dist) | [source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h:48](../../source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFollowLeaderInFormation::ConstructorFormation 0x00695B20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-618"></a>
+<a id="grupo-619"></a>
 
 ## CTaskComplexFollowLeaderInFormation::Offsets
 
@@ -354,7 +364,7 @@
 | * CTaskComplexFollowLeaderInFormation::Offsets::Constructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp:68](../../source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskComplexFollowLeaderInFormation::Offsets::Constructor 0x00694850 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CTaskComplexFollowLeaderInFormation::Offsets::GetFormationOffset(int32 dx, int32 dy) | [source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp:83](../../source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskComplexFollowLeaderInFormation::GetFormationOffset 0x00611F20 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-619"></a>
+<a id="grupo-620"></a>
 
 ## CTaskComplexFollowNodeRoute
 
@@ -386,11 +396,3 @@
 | GetCurrentPt() const | [source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.h:49](../../source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.h#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(eMoveState moveState, CVector const& targetPoint, float radius, float a5, float a6, bool a7, int32 time, bool a9) | [source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.h:83](../../source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.h#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexFollowNodeRoute::Constructor 0x0066EA30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.h:89](../../source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.h#L89) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexFollowNodeRoute::Destructor 0x0066EB70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-620"></a>
-
-## CTaskComplexFollowNodeRouteShooting
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexFollowNodeRouteShooting::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRouteShooting.cpp:5](../../source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRouteShooting.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

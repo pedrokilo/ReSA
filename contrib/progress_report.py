@@ -232,6 +232,10 @@ def build(root, input_path, coverage, validation, notsa_count=0):
           f'Solo se listan las clases del código del juego que todavía tienen alguna función reconstruida sin validar (las {TOP_GAME_CLASSES} con más). El resto de las clases del juego está completa y validada. Lista completa: [no-validadas-por-clase.csv](JuegoExe/no-validadas-por-clase.csv).', '']
     game_rows = sorted(((c, v[1], v[2]) for c, v in per.items() if v[0] == 'juego' and v[1] != v[2]), key=lambda x: (-(x[1] - x[2]), x[0]))
     L += _table(['Clase', 'Reconstruidas', 'Validadas', 'Sin validar'], [[c, n, v, n - v] for c, n, v in game_rows[:TOP_GAME_CLASSES]], right=(1, 2, 3))
+    with open(root / 'docs/JuegoExe/no-validadas-por-clase.csv', 'w', encoding='utf-8', newline='') as f:
+        w = csv.writer(f, lineterminator='\n')
+        w.writerow(['clase', 'reconstruidas', 'validadas', 'sin_validar'])
+        w.writerows([[c, n, v, n - v] for c, n, v in game_rows])
     if len(game_rows) > TOP_GAME_CLASSES:
         rest = game_rows[TOP_GAME_CLASSES:]
         L += ['', f'Otras {len(rest)} clases con {sum(n - v for _, n, v in rest)} funciones sin validar entre todas (cada una con {max(n - v for _, n, v in rest)} o menos).']

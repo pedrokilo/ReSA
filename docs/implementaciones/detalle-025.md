@@ -1,12 +1,18 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Detalle de implementaciones
 
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-481"></a>
+
+## CPtrNodeDoubleLinkPool
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| InjectHooks() | [source/game_sa/Pools/PtrNodeDoubleLinkPool.h:35](../../source/game_sa/Pools/PtrNodeDoubleLinkPool.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * New() | [source/game_sa/Pools/PtrNodeDoubleLinkPool.h:55](../../source/game_sa/Pools/PtrNodeDoubleLinkPool.h#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeDoubleLinkPool::New 0x005522E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Delete(CPtrNodeDoubleLink&lt;void*&gt;* node) | [source/game_sa/Pools/PtrNodeDoubleLinkPool.h:61](../../source/game_sa/Pools/PtrNodeDoubleLinkPool.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeDoubleLinkPool::OperatorDelete 0x005523D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-482"></a>
 
 ## CPtrNodeSingleLink
 
@@ -15,7 +21,7 @@
 | * operator new(size_t sz) | [source/game_sa/Core/PtrNodeSingleLink.h:28](../../source/game_sa/Core/PtrNodeSingleLink.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | operator delete(void* data, size_t sz) | [source/game_sa/Core/PtrNodeSingleLink.h:32](../../source/game_sa/Core/PtrNodeSingleLink.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-482"></a>
+<a id="grupo-483"></a>
 
 ## CPtrNodeSingleLinkPool
 
@@ -25,7 +31,7 @@
 | * New() | [source/game_sa/Pools/PtrNodeSingleLinkPool.h:55](../../source/game_sa/Pools/PtrNodeSingleLinkPool.h#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeSingleLinkPool::New 0x00552240 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Delete(CPtrNodeSingleLink&lt;void*&gt;* node) | [source/game_sa/Pools/PtrNodeSingleLinkPool.h:61](../../source/game_sa/Pools/PtrNodeSingleLinkPool.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPtrNodeSingleLinkPool::OperatorDelete 0x00552390 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-483"></a>
+<a id="grupo-484"></a>
 
 ## CQuadBike
 
@@ -48,7 +54,7 @@
 | CQuadBike::SetupDamageAfterLoad() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:438](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L438) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::SetupDamageAfterLoad 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CQuadBike::SetupSuspensionLines() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:448](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L448) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadBike::SetupSuspensionLines 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-484"></a>
+<a id="grupo-485"></a>
 
 ## CQuadTreeNode
 
@@ -82,7 +88,7 @@
 | GetSectorRect(int32 sector) const | [source/game_sa/Core/QuadTreeNode.h:377](../../source/game_sa/Core/QuadTreeNode.h#L377) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | LiesInside(const CRect& rect) const | [source/game_sa/Core/QuadTreeNode.h:403](../../source/game_sa/Core/QuadTreeNode.h#L403) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-485"></a>
+<a id="grupo-486"></a>
 
 ## CQuadTreeNodeLegacyPool
 
@@ -91,7 +97,7 @@
 | * New() | [source/game_sa/Core/QuadTreeNode.h:422](../../source/game_sa/Core/QuadTreeNode.h#L422) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::PoolNew 0x00552B50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Delete(CQuadTreeNode&lt;void*&gt;* node) | [source/game_sa/Core/QuadTreeNode.h:423](../../source/game_sa/Core/QuadTreeNode.h#L423) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuadTreeNode&lt;T&gt;::PoolDelete 0x00552BC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-486"></a>
+<a id="grupo-487"></a>
 
 ## CQuaternion
 
@@ -124,7 +130,7 @@
 | operator-() const | [source/game_sa/Core/Quaternion.h:110](../../source/game_sa/Core/Quaternion.h#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * AsRtQuat() | [source/game_sa/Core/Quaternion.h:115](../../source/game_sa/Core/Quaternion.h#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-487"></a>
+<a id="grupo-488"></a>
 
 ## CRGBA
 
@@ -165,7 +171,7 @@
 | & operator\[\](size_t i) | [source/game_sa/RGBA.h:216](../../source/game_sa/RGBA.h#L216) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & ScaleRGB(float mult) | [source/game_sa/RGBA.h:221](../../source/game_sa/RGBA.h#L221) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-488"></a>
+<a id="grupo-489"></a>
 
 ## CRT
 
@@ -178,7 +184,7 @@
 | * __cdecl CrtMalloc(uint32 size) | [source/game_sa/VehicleRecording.cpp:425](../../source/game_sa/VehicleRecording.cpp#L425) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CRT::CrtMalloc 0x00824257 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x0082422B |
 | * __cdecl CrtErrno() | [source/game_sa/VehicleRecording.cpp:431](../../source/game_sa/VehicleRecording.cpp#L431) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CRT::CrtErrno 0x0082B181 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x00827B3D |
 
-<a id="grupo-489"></a>
+<a id="grupo-490"></a>
 
 ## CRadar
 
@@ -261,7 +267,7 @@
 | CachedRotateCounterclockwise(const CVector2D& point) | [source/game_sa/Radar.h:307](../../source/game_sa/Radar.h#L307) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo cachedCos: source/game_sa/Radar.h:207 (0x00BA8308); Posible dato fijo cachedSin: source/game_sa/Radar.h:208 (0x00BA830C) |
 | CachedRotateClockwise(const CVector2D& point) | [source/game_sa/Radar.h:314](../../source/game_sa/Radar.h#L314) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo cachedCos: source/game_sa/Radar.h:207 (0x00BA8308); Posible dato fijo cachedSin: source/game_sa/Radar.h:208 (0x00BA830C) |
 
-<a id="grupo-490"></a>
+<a id="grupo-491"></a>
 
 ## CRange2D
 
@@ -272,7 +278,7 @@
 | CRange2D::GetRandomPointInRange() | [source/game_sa/Range2D.cpp:14](../../source/game_sa/Range2D.cpp#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CRange2D::IsInRange(const CVector2D& point) | [source/game_sa/Range2D.cpp:21](../../source/game_sa/Range2D.cpp#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-491"></a>
+<a id="grupo-492"></a>
 
 ## CRange3D
 
@@ -283,7 +289,7 @@
 | CRange3D::GetRandomPointInRange() | [source/game_sa/Range3D.cpp:14](../../source/game_sa/Range3D.cpp#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CRange3D::IsInRange(CVector point) | [source/game_sa/Range3D.cpp:22](../../source/game_sa/Range3D.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-492"></a>
+<a id="grupo-493"></a>
 
 ## CRealTimeShadow
 
@@ -305,7 +311,7 @@
 | * Constructor() | [source/game_sa/RealTimeShadow.h:73](../../source/game_sa/RealTimeShadow.h#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRealTimeShadow::Constructor 0x00706410 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/RealTimeShadow.h:79](../../source/game_sa/RealTimeShadow.h#L79) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CRealTimeShadow::Destructor 0x00706440 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-493"></a>
+<a id="grupo-494"></a>
 
 ## CRealTimeShadowManager
 
@@ -322,7 +328,7 @@
 | * CRealTimeShadowManager::GetRealTimeShadow(CPhysical* physical) | [source/game_sa/RealTimeShadowManager.cpp:184](../../source/game_sa/RealTimeShadowManager.cpp#L184) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRealTimeShadowManager::GetRealTimeShadow 0x00706970 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CRealTimeShadowManager::DoShadowThisFrame(CPhysical* physical) | [source/game_sa/RealTimeShadowManager.cpp:213](../../source/game_sa/RealTimeShadowManager.cpp#L213) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRealTimeShadowManager::DoShadowThisFrame 0x00706BA0 | 0 / 0 | Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00) |
 
-<a id="grupo-494"></a>
+<a id="grupo-495"></a>
 
 ## CRect
 
@@ -351,7 +357,7 @@
 | GetBottomRight() const | [source/game_sa/Core/Rect.h:110](../../source/game_sa/Core/Rect.h#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetCorners3D(float z) const -&gt; std::array&lt;CVector, 4&gt; | [source/game_sa/Core/Rect.h:128](../../source/game_sa/Core/Rect.h#L128) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-495"></a>
+<a id="grupo-496"></a>
 
 ## CReferences
 
@@ -363,7 +369,7 @@
 | CReferences::RemoveReferencesToPlayer() | [source/game_sa/References.cpp:61](../../source/game_sa/References.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReferences::RemoveReferencesToPlayer 0x00571AD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CReferences::PruneAllReferencesInWorld() | [source/game_sa/References.cpp:75](../../source/game_sa/References.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReferences::PruneAllReferencesInWorld 0x00571CC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-496"></a>
+<a id="grupo-497"></a>
 
 ## CRegisteredCorona
 
@@ -376,7 +382,7 @@
 | IsActive() const | [source/game_sa/RegisteredCorona.h:92](../../source/game_sa/RegisteredCorona.h#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetInactive() | [source/game_sa/RegisteredCorona.h:93](../../source/game_sa/RegisteredCorona.h#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-497"></a>
+<a id="grupo-498"></a>
 
 ## CRegisteredMotionBlurStreak
 
@@ -386,7 +392,7 @@
 | CRegisteredMotionBlurStreak::Update() | [source/game_sa/RegisteredMotionBlurStreak.cpp:34](../../source/game_sa/RegisteredMotionBlurStreak.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRegisteredMotionBlurStreak::Update 0x00721EE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CRegisteredMotionBlurStreak::Render() | [source/game_sa/RegisteredMotionBlurStreak.cpp:50](../../source/game_sa/RegisteredMotionBlurStreak.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRegisteredMotionBlurStreak::Render 0x00721F70 | 0 / 0 | Posible dato fijo aIndices: source/game_sa/MotionBlurStreaks.h:19 (0x00C7C6B8); Posible dato fijo aStreakVertices: source/game_sa/MotionBlurStreaks.h:17 (0x00C7C628) |
 
-<a id="grupo-498"></a>
+<a id="grupo-499"></a>
 
 ## CRemote
 
@@ -397,7 +403,7 @@
 | CRemote::GivePlayerRemoteControlledCar(CVector pos, float rotation, int16 modelId) | [source/game_sa/Remote.cpp:73](../../source/game_sa/Remote.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CRemote::GivePlayerRemoteControlledCar 0x0045AB10 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 | CRemote::SetPlayerRemoteControlledCar(CVehicle* vehicle) | [source/game_sa/Remote.cpp:147](../../source/game_sa/Remote.cpp#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CRemote::SetPlayerRemoteControlledCar 0x0045AD40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 
-<a id="grupo-499"></a>
+<a id="grupo-500"></a>
 
 ## CRenderer
 
@@ -444,62 +450,3 @@
 | GetVisibleEntityPtrs() | [source/game_sa/Renderer.h:135](../../source/game_sa/Renderer.h#L135) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_aVisibleEntityPtrs: source/game_sa/Renderer.h:79 (0x00B75898); Posible dato fijo ms_nNoOfVisibleEntities: source/game_sa/Renderer.h:83 (0x00B76844) |
 | GetVisibleSuperLodPtrs() | [source/game_sa/Renderer.h:136](../../source/game_sa/Renderer.h#L136) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_aVisibleSuperLodPtrs: source/game_sa/Renderer.h:77 (0x00B74830); Posible dato fijo ms_nNoOfVisibleSuperLods: source/game_sa/Renderer.h:80 (0x00B76838) |
 | GetInVisibleEntityPtrs() | [source/game_sa/Renderer.h:137](../../source/game_sa/Renderer.h#L137) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_aInVisibleEntityPtrs: source/game_sa/Renderer.h:76 (0x00B745D8); Posible dato fijo ms_nNoOfInVisibleEntities: source/game_sa/Renderer.h:81 (0x00B7683C) |
-
-<a id="grupo-500"></a>
-
-## CReplay
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CReplay::InjectHooks() | [source/game_sa/Replay.cpp:42](../../source/game_sa/Replay.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ReplayStoreBmxBlockExe(uint8* packet, void* /*edx*/, CVehicle* veh, int32 poolIdx) | [source/game_sa/Replay.cpp:263](../../source/game_sa/Replay.cpp#L263) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: CReplay::StoreBmxBlock 0x0045BF90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ReplayExtractBikeBlockExe(tReplayBikeBlock* self, void* /*edx*/, CBike* bike, float interpolation) | [source/game_sa/Replay.cpp:280](../../source/game_sa/Replay.cpp#L280) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: CReplay::ExtractBikeBlock 0x0045C0D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::ApplyPanelDamageToCar(uint32 panels, CAutomobile* automobile, bool createWindowGlass) | [source/game_sa/Replay.cpp:298](../../source/game_sa/Replay.cpp#L298) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CReplay::ApplyPanelDamageToCar 0x0059CA10 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::Init() | [source/game_sa/Replay.cpp:352](../../source/game_sa/Replay.cpp#L352) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::Init 0x0045E220 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::Update() | [source/game_sa/Replay.cpp:379](../../source/game_sa/Replay.cpp#L379) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::Update 0x00460500 | 0 / 0 | Posible dato fijo ControlsManager: source/game_sa/ControllerConfigManager.cpp:28 (0x00B70198); Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:40 (0x00BA6748); Posible dato fijo ms_exitEnterState: source/game_sa/EntryExitManager.h:35 (0x0096A7CC) |
-| CReplay::DisableReplays() | [source/game_sa/Replay.cpp:429](../../source/game_sa/Replay.cpp#L429) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::DisableReplays 0x0045B150 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::EnableReplays() | [source/game_sa/Replay.cpp:434](../../source/game_sa/Replay.cpp#L434) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::EnableReplays 0x0045B160 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::StorePedAnimation(CPed* ped, CStoredAnimationState& state) | [source/game_sa/Replay.cpp:439](../../source/game_sa/Replay.cpp#L439) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::StorePedAnimation 0x0045B170 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::StorePedUpdate(CPed* ped, uint8 index) | [source/game_sa/Replay.cpp:492](../../source/game_sa/Replay.cpp#L492) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::StorePedUpdate 0x0045C940 | 0 / 0 | Posible dato fijo gbFirstPersonRunThisFrame: source/game_sa/Cam.cpp:44 (0x00B6EC20) |
-| CReplay::RetrievePedAnimation(CPed* ped, const CStoredAnimationState& state) | [source/game_sa/Replay.cpp:525](../../source/game_sa/Replay.cpp#L525) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::RetrievePedAnimation 0x0045B4D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::Display() | [source/game_sa/Replay.cpp:601](../../source/game_sa/Replay.cpp#L601) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::Display 0x0045C210 | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
-| CReplay::MarkEverythingAsNew() | [source/game_sa/Replay.cpp:624](../../source/game_sa/Replay.cpp#L624) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::MarkEverythingAsNew 0x0045D430 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::EmptyReplayBuffer() | [source/game_sa/Replay.cpp:642](../../source/game_sa/Replay.cpp#L642) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::EmptyReplayBuffer 0x0045EC90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::EmptyPedsAndVehiclePools_NoDestructors() | [source/game_sa/Replay.cpp:658](../../source/game_sa/Replay.cpp#L658) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::EmptyPedsAndVehiclePools_NoDestructors 0x0045D390 | 0 / 0 | Posible dato fijo g_realTimeShadowMan: source/game_sa/RealTimeShadowManager.cpp:24 (0x00C40350) |
-| CReplay::GoToNextBlock() | [source/game_sa/Replay.cpp:677](../../source/game_sa/Replay.cpp#L677) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::GoToNextBlock 0x0045E2A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::RecordVehicleDeleted(CVehicle* vehicle) | [source/game_sa/Replay.cpp:690](../../source/game_sa/Replay.cpp#L690) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::RecordVehicleDeleted 0x0045EBB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::RecordPedDeleted(CPed* ped) | [source/game_sa/Replay.cpp:707](../../source/game_sa/Replay.cpp#L707) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::RecordPedDeleted 0x0045EC20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::InitialiseVehiclePoolConversionTable() | [source/game_sa/Replay.cpp:723](../../source/game_sa/Replay.cpp#L723) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::InitialiseVehiclePoolConversionTable 0x0045EFA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::InitialisePedPoolConversionTable() | [source/game_sa/Replay.cpp:754](../../source/game_sa/Replay.cpp#L754) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::InitialisePedPoolConversionTable 0x0045EF20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::InitialisePoolConversionTables() | [source/game_sa/Replay.cpp:779](../../source/game_sa/Replay.cpp#L779) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::InitialisePoolConversionTables 0x0045F370 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::SaveReplayToHD() | [source/game_sa/Replay.cpp:786](../../source/game_sa/Replay.cpp#L786) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::SaveReplayToHD 0x0045C340 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::PlayReplayFromHD() | [source/game_sa/Replay.cpp:815](../../source/game_sa/Replay.cpp#L815) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::PlayReplayFromHD 0x00460390 | 0 / 0 | Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670) |
-| CReplay::ShouldStandardCameraBeProcessed() | [source/game_sa/Replay.cpp:850](../../source/game_sa/Replay.cpp#L850) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::ShouldStandardCameraBeProcessed 0x0045C440 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::FindPoolIndexForPed(int32 index) | [source/game_sa/Replay.cpp:856](../../source/game_sa/Replay.cpp#L856) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::FindPoolIndexForPed 0x0045C450 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::FindPoolIndexForVehicle(int32 index) | [source/game_sa/Replay.cpp:862](../../source/game_sa/Replay.cpp#L862) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::FindPoolIndexForVehicle 0x0045C460 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::ProcessPedUpdate(CPed* ped, float interpValue, CAddressInReplayBuffer& address) | [source/game_sa/Replay.cpp:867](../../source/game_sa/Replay.cpp#L867) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::ProcessPedUpdate 0x0045CA70 | 0 / 0 | Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914); Posible dato fijo ms_aInfoForModel: source/game_sa/Streaming.h:247 (0x008E4CC0) |
-| CReplay::ProcessReplayCamera() | [source/game_sa/Replay.cpp:934](../../source/game_sa/Replay.cpp#L934) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::ProcessReplayCamera 0x0045D060 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
-| CReplay::ProcessLookAroundCam() | [source/game_sa/Replay.cpp:988](../../source/game_sa/Replay.cpp#L988) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CReplay::ProcessLookAroundCam 0x0045D760 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo NewMouseControllerState: source/game_sa/Pad.h:104 (0x00B73418); Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
-| CReplay::CanWeFindPoolIndexForPed(int32 index) | [source/game_sa/Replay.cpp:1116](../../source/game_sa/Replay.cpp#L1116) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::CanWeFindPoolIndexForPed 0x0045C470 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::CanWeFindPoolIndexForVehicle(int32 index) | [source/game_sa/Replay.cpp:1122](../../source/game_sa/Replay.cpp#L1122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::CanWeFindPoolIndexForVehicle 0x0045C490 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::StorePlayerInfoVariables() | [source/game_sa/Replay.cpp:1127](../../source/game_sa/Replay.cpp#L1127) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::StorePlayerInfoVariables 0x0045F020 | 0 / 0 | Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98) |
-| CReplay::RestorePlayerInfoVariables() | [source/game_sa/Replay.cpp:1140](../../source/game_sa/Replay.cpp#L1140) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::RestorePlayerInfoVariables 0x0045E1F0 | 0 / 0 | Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98) |
-| CReplay::StoreStuffInMem() | [source/game_sa/Replay.cpp:1149](../../source/game_sa/Replay.cpp#L1149) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::StoreStuffInMem 0x0045F180 | 0 / 0 | Posible dato fijo InterpolationValue: source/game_sa/Weather.h:55 (0x00C8130C); Posible dato fijo NewWeatherType: source/game_sa/Weather.h:59 (0x00C8131C); Posible dato fijo OldWeatherType: source/game_sa/Weather.h:60 (0x00C81320); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo m_snPPPPreviousTimeInMilliseconds: source/game_sa/Timer.h:50 (0x00B7CB6C); Posible dato fijo m_snPPPreviousTimeInMilliseconds: source/game_sa/Timer.h:51 (0x00B7CB70); Posible dato fijo m_snPPreviousTimeInMilliseconds: source/game_sa/Timer.h:52 (0x00B7CB74); Posible dato fijo ms_nNumCivFemale: source/game_sa/Population.h:55 (0x00C0EC6C); Posible dato fijo ms_nNumCivMale: source/game_sa/Population.h:56 (0x00C0EC70); Posible dato fijo ms_nNumCop: source/game_sa/Population.h:54 (0x00C0EC68); Posible dato fijo ms_nNumDealers: source/game_sa/Population.h:51 (0x00C0EC38); Posible dato fijo ms_nNumEmergency: source/game_sa/Population.h:53 (0x00C0EC64); Posible dato fijo ms_nNumGang: source/game_sa/Population.h:52 (0x00C0EC3C); Posible dato fijo ms_nTotalCarPassengerPeds: source/game_sa/Population.h:50 (0x00C0EC34); Posible dato fijo ms_nTotalCivPeds: source/game_sa/Population.h:49 (0x00C0EC30); Posible dato fijo ms_nTotalGangPeds: source/game_sa/Population.h:48 (0x00C0EC2C); Posible dato fijo ms_nTotalMissionPeds: source/game_sa/Population.h:46 (0x00C0EC24); Posible dato fijo ms_nTotalPeds: source/game_sa/Population.h:47 (0x00C0EC28) |
-| CReplay::RestoreStuffFromMem() | [source/game_sa/Replay.cpp:1189](../../source/game_sa/Replay.cpp#L1189) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::RestoreStuffFromMem 0x0045ECD0 | 0 / 0 | Posible dato fijo InterpolationValue: source/game_sa/Weather.h:55 (0x00C8130C); Posible dato fijo NewWeatherType: source/game_sa/Weather.h:59 (0x00C8131C); Posible dato fijo OldWeatherType: source/game_sa/Weather.h:60 (0x00C81320); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914); Posible dato fijo m_snPPPPreviousTimeInMilliseconds: source/game_sa/Timer.h:50 (0x00B7CB6C); Posible dato fijo m_snPPPreviousTimeInMilliseconds: source/game_sa/Timer.h:51 (0x00B7CB70); Posible dato fijo m_snPPreviousTimeInMilliseconds: source/game_sa/Timer.h:52 (0x00B7CB74); Posible dato fijo ms_nNumCivFemale: source/game_sa/Population.h:55 (0x00C0EC6C); Posible dato fijo ms_nNumCivMale: source/game_sa/Population.h:56 (0x00C0EC70); Posible dato fijo ms_nNumCop: source/game_sa/Population.h:54 (0x00C0EC68); Posible dato fijo ms_nNumEmergency: source/game_sa/Population.h:53 (0x00C0EC64); Posible dato fijo ms_nTotalCarPassengerPeds: source/game_sa/Population.h:50 (0x00C0EC34); Posible dato fijo ms_nTotalCivPeds: source/game_sa/Population.h:49 (0x00C0EC30); Posible dato fijo ms_nTotalGangPeds: source/game_sa/Population.h:48 (0x00C0EC2C); Posible dato fijo ms_nTotalMissionPeds: source/game_sa/Population.h:46 (0x00C0EC24); Posible dato fijo ms_nTotalPeds: source/game_sa/Population.h:47 (0x00C0EC28) |
-| CReplay::FinishPlayback() | [source/game_sa/Replay.cpp:1259](../../source/game_sa/Replay.cpp#L1259) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::FinishPlayback 0x0045F050 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:40 (0x00BA6748); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo currLevel: source/game_sa/Game.h:19 (0x00B7290C); Posible dato fijo gFireManager: source/game_sa/FireManager.h:81 (0x00B71F80) |
-| CReplay::RecordThisFrame() | [source/game_sa/Replay.cpp:1296](../../source/game_sa/Replay.cpp#L1296) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::RecordThisFrame 0x0045E300 | 0 / 0 | Posible dato fijo aTraces: source/game_sa/BulletTraces.h:13 (0x00C7C748) |
-| CReplay::StoreClothesDesc(const CPedClothesDesc& desc, tReplayClothesBlock& packet) | [source/game_sa/Replay.cpp:1489](../../source/game_sa/Replay.cpp#L1489) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::StoreClothesDesc 0x0045C750 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::RestoreClothesDesc(CPedClothesDesc& desc, tReplayClothesBlock& packet) | [source/game_sa/Replay.cpp:1498](../../source/game_sa/Replay.cpp#L1498) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::RestoreClothesDesc 0x0045C7D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CReplay::DealWithNewPedPacket(const tReplayPedHeaderBlock& pedPacket, bool loadModel, tReplayClothesBlock* clothesPacket) | [source/game_sa/Replay.cpp:1507](../../source/game_sa/Replay.cpp#L1507) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::DealWithNewPedPacket 0x0045CEA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::PlayBackThisFrameInterpolation(CAddressInReplayBuffer& buffer, float interpolation, uint32* outTimer) | [source/game_sa/Replay.cpp:1543](../../source/game_sa/Replay.cpp#L1543) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::PlayBackThisFrameInterpolation 0x0045F380 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::FastForwardToTime(uint32 start) | [source/game_sa/Replay.cpp:1758](../../source/game_sa/Replay.cpp#L1758) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::FastForwardToTime 0x00460350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::PlayBackThisFrame() | [source/game_sa/Replay.cpp:1773](../../source/game_sa/Replay.cpp#L1773) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::PlayBackThisFrame 0x004604A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::FindSizeOfPacket(eReplayPacket type) | [source/game_sa/Replay.cpp:1785](../../source/game_sa/Replay.cpp#L1785) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::FindSizeOfPacket 0x0045C850 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::IsThisVehicleUsedInRecording(int32 index) | [source/game_sa/Replay.cpp:1824](../../source/game_sa/Replay.cpp#L1824) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::IsThisVehicleUsedInRecording 0x0045DE40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::IsThisPedUsedInRecording(int32 index) | [source/game_sa/Replay.cpp:1858](../../source/game_sa/Replay.cpp#L1858) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::IsThisPedUsedInRecording 0x0045DDE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::FindFirstFocusCoordinate(CVector& outPos) | [source/game_sa/Replay.cpp:1875](../../source/game_sa/Replay.cpp#L1875) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::FindFirstFocusCoordinate 0x0045D6C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::NumberFramesAvailableToPlay() | [source/game_sa/Replay.cpp:1893](../../source/game_sa/Replay.cpp#L1893) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::NumberFramesAvailableToPlay 0x0045D670 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::StreamAllNecessaryCarsAndPeds() | [source/game_sa/Replay.cpp:1910](../../source/game_sa/Replay.cpp#L1910) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::StreamAllNecessaryCarsAndPeds 0x0045D4B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CReplay::CreatePlayerPed() | [source/game_sa/Replay.cpp:1935](../../source/game_sa/Replay.cpp#L1935) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::CreatePlayerPed 0x0045D540 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CReplay::TriggerPlayback(eReplayCamMode mode, CVector fixedCamPos, bool loadScene) | [source/game_sa/Replay.cpp:1974](../../source/game_sa/Replay.cpp#L1974) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::TriggerPlayback 0x004600F0 | 0 / 0 | Posible dato fijo AERadioTrackManager: source/game_sa/Audio/Managers/AERadioTrackManager.cpp:30 (0x008CB6F8); Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914); Posible dato fijo currLevel: source/game_sa/Game.h:19 (0x00B7290C); Posible dato fijo gFireManager: source/game_sa/FireManager.h:81 (0x00B71F80); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
-| GetAllActiveBuffers() | [source/game_sa/Replay.h:303](../../source/game_sa/Replay.h#L303) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

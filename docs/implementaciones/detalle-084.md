@@ -1,12 +1,21 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Detalle de implementaciones
 
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1661"></a>
+
+## LibJpegMemory
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * ExeAllocSmall(void* cinfo, int32 poolId, uint32 sizeofobject) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:83](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegMemory::alloc_small 0x005CEBC0 | 0 / 0 | Conversión de dirección fija: 0x0086B7F8, 0x0086B800 |
+| ** ExeAllocSarray(void* cinfo, int32 poolId, uint32 samplesperrow, uint32 numrows) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:172](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp#L172) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegMemory::alloc_sarray 0x005CEDD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ExeRealizeVirtArrays(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:284](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp#L284) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegMemory::realize_virt_arrays 0x005CF010 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ExeFreePool(void* cinfo, int32 poolId) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:365](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp#L365) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegMemory::free_pool 0x005CF580 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ExeJinitMemoryMgr(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:415](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp#L415) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegMemory::jinit_memory_mgr 0x005CF6D0 | 0 / 0 | Conversión de dirección fija: 0x0086B808, 0x0086B810 |
+| LibJpegMemory::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:512](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp#L512) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1662"></a>
 
 ## Light
 
@@ -38,7 +47,7 @@
 | SetLightsForNightVision() | [source/app/app_light.cpp:425](../../source/app/app_light.cpp#L425) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetLightsForNightVision 0x00735F70 | 0 / 0 | Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
 | GetDayNightBalance() | [source/app/app_light.cpp:432](../../source/app/app_light.cpp#L432) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::GetDayNightBalance 0x006FAB30 | 0 / 0 | Posible dato fijo ms_nGameClockHours: source/game_sa/Clock.h:21 (0x00B70153); Posible dato fijo ms_nGameClockMinutes: source/game_sa/Clock.h:20 (0x00B70152); Posible dato fijo ms_nGameClockSeconds: source/game_sa/Clock.h:19 (0x00B70150) |
 
-<a id="grupo-1662"></a>
+<a id="grupo-1663"></a>
 
 ## LimbOrientation
 
@@ -46,7 +55,7 @@
 | --- | --- | --- | --- | --- | --- |
 | LimbOrientation(float yaw, float pitch) | [source/game_sa/PedIK.h:24](../../source/game_sa/PedIK.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1663"></a>
+<a id="grupo-1664"></a>
 
 ## Model
 
@@ -58,7 +67,7 @@
 | LoadAllModelsNow() | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:126](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsModelAvailable(eModelID model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:132](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1664"></a>
+<a id="grupo-1665"></a>
 
 ## ModelIndices
 
@@ -93,7 +102,7 @@
 | HasMiscComponent(int32 modelId) | [source/game_sa/ModelIndices.h:198](../../source/game_sa/ModelIndices.h#L198) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsFence1Or2(int32 mi) | [source/game_sa/ModelIndices.h:206](../../source/game_sa/ModelIndices.h#L206) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo MI_FENCE: source/game_sa/ModelIndices.cpp:91 (0x008CD600); Posible dato fijo MI_FENCE2: source/game_sa/ModelIndices.cpp:92 (0x008CD604) |
 
-<a id="grupo-1665"></a>
+<a id="grupo-1666"></a>
 
 ## MovementInfo_t
 
@@ -101,7 +110,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Process() | [source/game_sa/Fx/MovementInfo.h:12](../../source/game_sa/Fx/MovementInfo.h#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1666"></a>
+<a id="grupo-1667"></a>
 
 ## NodeNamePlugin
 
@@ -112,7 +121,7 @@
 | * GetFrameNodeName(RwFrame* frame) | [source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:111](../../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: NodeNamePlugin::GetFrameNodeName 0x0072FB30 | 0 / 0 | Posible dato fijo gNodeNamePluginOffset: source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:25 (0x00C87C5C) |
 | SetFrameNodeName(RwFrame* frame, const RwChar* name) | [source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:119](../../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: NodeNamePlugin::SetFrameNodeName 0x0072FB00 | 0 / 0 | Posible dato fijo gNodeNamePluginOffset: source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:25 (0x00C87C5C) |
 
-<a id="grupo-1667"></a>
+<a id="grupo-1668"></a>
 
 ## OALBase
 
@@ -123,7 +132,7 @@
 | OALBase::Release() | [source/game_sa/Audio/OpenAL/OALBase.cpp:13](../../source/game_sa/Audio/OpenAL/OALBase.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | OALBase::AddRef() | [source/game_sa/Audio/OpenAL/OALBase.cpp:22](../../source/game_sa/Audio/OpenAL/OALBase.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1668"></a>
+<a id="grupo-1669"></a>
 
 ## OALBuffer
 
@@ -133,7 +142,7 @@
 | OALBuffer::OALBuffer(void* preloopData, uint32 preloopSize, void* loopData, uint32 loopSize, uint32 frequency, uint32 channels) | [source/game_sa/Audio/OpenAL/OALBuffer.cpp:12](../../source/game_sa/Audio/OpenAL/OALBuffer.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | OALBuffer::~OALBuffer() | [source/game_sa/Audio/OpenAL/OALBuffer.cpp:38](../../source/game_sa/Audio/OpenAL/OALBuffer.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1669"></a>
+<a id="grupo-1670"></a>
 
 ## OALSource
 
@@ -154,7 +163,7 @@
 | OALSource::Update() | [source/game_sa/Audio/OpenAL/OALSource.cpp:141](../../source/game_sa/Audio/OpenAL/OALSource.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | OALSource() | [source/game_sa/Audio/OpenAL/OALSource.h:28](../../source/game_sa/Audio/OpenAL/OALSource.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1670"></a>
+<a id="grupo-1671"></a>
 
 ## Object
 
@@ -175,7 +184,7 @@
 | SetObjectCollision(CObject& object, bool enable) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:101](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DoesObjectHaveThisModel(CObject& object, script::Model model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:105](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1671"></a>
+<a id="grupo-1672"></a>
 
 ## Particle_c
 
@@ -185,7 +194,7 @@
 | * AsFxEmitterPrt() | [source/game_sa/Fx/Particle.h:17](../../source/game_sa/Fx/Particle.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/Fx/Particle.h:21](../../source/game_sa/Fx/Particle.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Particle_c::Constructor 0x004A9110 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1672"></a>
+<a id="grupo-1673"></a>
 
 ## PipelinePlugin
 
@@ -196,7 +205,7 @@
 | GetPipelineID(RpAtomic* atomic) | [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:95](../../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: PipelinePlugin::GetPipelineID 0x0072FC40 | 0 / 0 | Posible dato fijo gPipelinePluginOffset: source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:25 (0x008D6080) |
 | SetPipelineID(RpAtomic* atomic, RwUInt32 pipelineId) | [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:100](../../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: PipelinePlugin::SetPipelineID 0x0072FC50 | 0 / 0 | Posible dato fijo gPipelinePluginOffset: source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:25 (0x008D6080) |
 
-<a id="grupo-1673"></a>
+<a id="grupo-1674"></a>
 
 ## PlayerRelationship
 
@@ -205,7 +214,7 @@
 | PlayerRelationship() | [source/game_sa/PlayerRelationshipRecorder.h:9](../../source/game_sa/PlayerRelationshipRecorder.h#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Flush() | [source/game_sa/PlayerRelationshipRecorder.h:12](../../source/game_sa/PlayerRelationshipRecorder.h#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1674"></a>
+<a id="grupo-1675"></a>
 
 ## PointLightsShadow
 
@@ -220,7 +229,7 @@
 | Ftol2(double x) | [source/game_sa/X87Math.cpp:10777](../../source/game_sa/X87Math.cpp#L10777) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Flush() | [source/game_sa/X87Math.cpp:10792](../../source/game_sa/X87Math.cpp#L10792) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1675"></a>
+<a id="grupo-1676"></a>
 
 ## ProcObjectListItem
 
@@ -229,7 +238,7 @@
 | ProcObjectListItem::InjectHooks() | [source/game_sa/Plant/ProcObjectMan.cpp:35](../../source/game_sa/Plant/ProcObjectMan.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ProcObjectListItem::Constructor() | [source/game_sa/Plant/ProcObjectMan.cpp:61](../../source/game_sa/Plant/ProcObjectMan.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ProcObjectListItem::Constructor 0x005A3070 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1676"></a>
+<a id="grupo-1677"></a>
 
 ## ProcObjectMan_c
 
@@ -247,7 +256,7 @@
 | ProcObjectMan_c::ProcessTriangleAdded(CPlantLocTri* plant) | [source/game_sa/Plant/ProcObjectMan.cpp:168](../../source/game_sa/Plant/ProcObjectMan.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: ProcObjectMan_c::ProcessTriangleAdded 0x005A3F20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ProcObjectMan_c::ProcessTriangleRemoved(CPlantLocTri* triangle) | [source/game_sa/Plant/ProcObjectMan.cpp:180](../../source/game_sa/Plant/ProcObjectMan.cpp#L180) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: ProcObjectMan_c::ProcessTriangleRemoved 0x005A3F70 | 0 / 0 | Posible dato fijo g_procObjMan: source/game_sa/Plant/ProcObjectMan.h:61 (0x00BB7CB0); Posible dato fijo nNoTempObjects: source/game_sa/Entity/Object/Object.h:94 (0x00BB4A70) |
 
-<a id="grupo-1677"></a>
+<a id="grupo-1678"></a>
 
 ## ProcSurfaceInfo_c
 
@@ -262,7 +271,7 @@
 | ProcSurfaceInfo_c::IsPtInTriangle2D(float x, float y, CVector v1, CVector v2, CVector v3, CVector normal, float* z) | [source/game_sa/Plant/ProcSurfaceInfo.cpp:354](../../source/game_sa/Plant/ProcSurfaceInfo.cpp#L354) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ProcSurfaceInfo_c::IsPtInTriangle2D 0x005A2F80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ProcSurfaceScaleMatrixCpp(float* matrix, void* /*edx*/, float x, float y, float z) | [source/game_sa/X87Math.cpp:18842](../../source/game_sa/X87Math.cpp#L18842) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores): ProcSurfaceInfo_c::ScaleMatrix 0x005A2E60 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1678"></a>
+<a id="grupo-1679"></a>
 
 ## Ps
 
@@ -295,29 +304,15 @@
 | GetCpuExtendedFeatures() | [source/app/platform/win/WinPs.cpp:599](../../source/app/platform/win/WinPs.cpp#L599) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: Ps::GetCpuExtendedFeatures 0x007457C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetCpuFeaturesAndVendor() | [source/app/platform/win/WinPs.cpp:613](../../source/app/platform/win/WinPs.cpp#L613) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: Ps::GetCpuFeaturesAndVendor 0x007457F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo gCpuVendor: source/app/platform/win/WinPs.cpp:45 (0x008D6238) |
 
-<a id="grupo-1679"></a>
+<a id="grupo-1680"></a>
 
 ## QTMLRuntime
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| QtmlLoadLibrary(const char* name) | [source/app/platform/win/QTMLRuntime.cpp:48](../../source/app/platform/win/QTMLRuntime.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlLoadLibrary 0x0081DAE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| QtmlInitializeThunk(int32 flags) | [source/app/platform/win/QTMLRuntime.cpp:117](../../source/app/platform/win/QTMLRuntime.cpp#L117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlInitializeThunk 0x008194B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| QtmlTerminateThunk() | [source/app/platform/win/QTMLRuntime.cpp:122](../../source/app/platform/win/QTMLRuntime.cpp#L122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlTerminateThunk 0x008194C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| QtmlResolveEntryPoints() | [source/app/platform/win/QTMLRuntime.cpp:129](../../source/app/platform/win/QTMLRuntime.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlResolveEntryPoints 0x00819520 | 0 / 0 | Posible dato fijo QtmlCallComponent: source/app/platform/win/QTMLRuntime.cpp:15 (0x008E2A10); Posible dato fijo QtmlCallComponentStorage: source/app/platform/win/QTMLRuntime.cpp:16 (0x008E2A14); Posible dato fijo QtmlDispatcher: source/app/platform/win/QTMLRuntime.cpp:14 (0x008E2A0C); Posible dato fijo QtmlInitHook: source/app/platform/win/QTMLRuntime.cpp:13 (0x008E2A08); Posible dato fijo QtmlModule: source/app/platform/win/QTMLRuntime.cpp:12 (0x00C9ABDC) |
-| QtmlInitialize(int32 flags) | [source/app/platform/win/QTMLRuntime.cpp:160](../../source/app/platform/win/QTMLRuntime.cpp#L160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlInitialize 0x008195C0 | 0 / 0 | Posible dato fijo QtmlCallComponent: source/app/platform/win/QTMLRuntime.cpp:15 (0x008E2A10); Posible dato fijo QtmlCallComponentStorage: source/app/platform/win/QTMLRuntime.cpp:16 (0x008E2A14); Posible dato fijo QtmlDispatcher: source/app/platform/win/QTMLRuntime.cpp:14 (0x008E2A0C); Posible dato fijo QtmlInitCount: source/app/platform/win/QTMLRuntime.cpp:11 (0x00C9ABD8); Posible dato fijo QtmlInitHook: source/app/platform/win/QTMLRuntime.cpp:13 (0x008E2A08); Posible dato fijo QtmlModule: source/app/platform/win/QTMLRuntime.cpp:12 (0x00C9ABDC) |
-| QtmlTerminate() | [source/app/platform/win/QTMLRuntime.cpp:212](../../source/app/platform/win/QTMLRuntime.cpp#L212) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlTerminate 0x00819770 | 0 / 0 | Posible dato fijo QtmlCallComponent: source/app/platform/win/QTMLRuntime.cpp:15 (0x008E2A10); Posible dato fijo QtmlCallComponentStorage: source/app/platform/win/QTMLRuntime.cpp:16 (0x008E2A14); Posible dato fijo QtmlDispatcher: source/app/platform/win/QTMLRuntime.cpp:14 (0x008E2A0C); Posible dato fijo QtmlInitCount: source/app/platform/win/QTMLRuntime.cpp:11 (0x00C9ABD8); Posible dato fijo QtmlInitHook: source/app/platform/win/QTMLRuntime.cpp:13 (0x008E2A08); Posible dato fijo QtmlModule: source/app/platform/win/QTMLRuntime.cpp:12 (0x00C9ABDC) |
-
-<a id="grupo-1680"></a>
-
-## RandomCarLift
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| Ld(uintptr_t address) | [source/game_sa/CarCtrl.cpp:2335](../../source/game_sa/CarCtrl.cpp#L2335) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| St(uintptr_t address, T v) | [source/game_sa/CarCtrl.cpp:2336](../../source/game_sa/CarCtrl.cpp#L2336) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Ld(const uint8* address) | [source/game_sa/CarCtrl.cpp:2337](../../source/game_sa/CarCtrl.cpp#L2337) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| St(uint8* address, T v) | [source/game_sa/CarCtrl.cpp:2338](../../source/game_sa/CarCtrl.cpp#L2338) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| F32(uint32 bits) | [source/game_sa/CarCtrl.cpp:2339](../../source/game_sa/CarCtrl.cpp#L2339) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Parity(uint32 v) | [source/game_sa/CarCtrl.cpp:2340](../../source/game_sa/CarCtrl.cpp#L2340) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| X87Compare(double a, double b) | [source/game_sa/CarCtrl.cpp:2342](../../source/game_sa/CarCtrl.cpp#L2342) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| QtmlLoadLibrary(const char* name) | [source/app/platform/win/QTMLRuntime.cpp:66](../../source/app/platform/win/QTMLRuntime.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlLoadLibrary 0x0081DAE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| QtmlInitializeThunk(int32 flags) | [source/app/platform/win/QTMLRuntime.cpp:135](../../source/app/platform/win/QTMLRuntime.cpp#L135) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlInitializeThunk 0x008194B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| QtmlTerminateThunk() | [source/app/platform/win/QTMLRuntime.cpp:140](../../source/app/platform/win/QTMLRuntime.cpp#L140) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlTerminateThunk 0x008194C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| QtmlResolveEntryPoints() | [source/app/platform/win/QTMLRuntime.cpp:147](../../source/app/platform/win/QTMLRuntime.cpp#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlResolveEntryPoints 0x00819520 | 0 / 0 | Posible dato fijo QtmlCallComponent: source/app/platform/win/QTMLRuntime.cpp:33 (0x008E2A10); Posible dato fijo QtmlCallComponentStorage: source/app/platform/win/QTMLRuntime.cpp:34 (0x008E2A14); Posible dato fijo QtmlDispatcher: source/app/platform/win/QTMLRuntime.cpp:32 (0x008E2A0C); Posible dato fijo QtmlInitHook: source/app/platform/win/QTMLRuntime.cpp:31 (0x008E2A08); Posible dato fijo QtmlModule: source/app/platform/win/QTMLRuntime.cpp:30 (0x00C9ABDC) |
+| QtmlInitialize(int32 flags) | [source/app/platform/win/QTMLRuntime.cpp:178](../../source/app/platform/win/QTMLRuntime.cpp#L178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlInitialize 0x008195C0 | 0 / 0 | Posible dato fijo QtmlCallComponent: source/app/platform/win/QTMLRuntime.cpp:33 (0x008E2A10); Posible dato fijo QtmlCallComponentStorage: source/app/platform/win/QTMLRuntime.cpp:34 (0x008E2A14); Posible dato fijo QtmlDispatcher: source/app/platform/win/QTMLRuntime.cpp:32 (0x008E2A0C); Posible dato fijo QtmlInitCount: source/app/platform/win/QTMLRuntime.cpp:29 (0x00C9ABD8); Posible dato fijo QtmlInitHook: source/app/platform/win/QTMLRuntime.cpp:31 (0x008E2A08); Posible dato fijo QtmlModule: source/app/platform/win/QTMLRuntime.cpp:30 (0x00C9ABDC) |
+| QtmlTerminate() | [source/app/platform/win/QTMLRuntime.cpp:230](../../source/app/platform/win/QTMLRuntime.cpp#L230) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlTerminate 0x00819770 | 0 / 0 | Posible dato fijo QtmlCallComponent: source/app/platform/win/QTMLRuntime.cpp:33 (0x008E2A10); Posible dato fijo QtmlCallComponentStorage: source/app/platform/win/QTMLRuntime.cpp:34 (0x008E2A14); Posible dato fijo QtmlDispatcher: source/app/platform/win/QTMLRuntime.cpp:32 (0x008E2A0C); Posible dato fijo QtmlInitCount: source/app/platform/win/QTMLRuntime.cpp:29 (0x00C9ABD8); Posible dato fijo QtmlInitHook: source/app/platform/win/QTMLRuntime.cpp:31 (0x008E2A08); Posible dato fijo QtmlModule: source/app/platform/win/QTMLRuntime.cpp:30 (0x00C9ABDC) |

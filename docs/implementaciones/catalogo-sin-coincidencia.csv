@@ -41,10 +41,6 @@ CModelInfo,ClumpModelInfoStoreConstructor,0x004C5EF0,1,0,1,S,hooks.csv
 CModelInfo,VehicleModelInfoStoreConstructor,0x004C5F50,1,0,1,S,hooks.csv
 CModelInfo,PedModelInfoStoreConstructor,0x004C67D0,1,0,1,S,hooks.csv
 CTaskComplexUseMobilePhone,ScalarDeletingDestructor,0x00639660,1,0,1,S,hooks.csv
-CPickup,IsWeaponSlotExchangeable,0x00454920,1,0,0,S,hooks.csv
-RwHelper,RpClumpGtaStreamReadAtOnce,0x0072E3A0,1,0,0,S,hooks.csv
-CMemoryHeap,JoinAdjacentFreeBlocks,0x0072E870,1,0,0,S,hooks.csv
-CAEUserRadioTrackManager,UserTracksUninitCopy,0x004F3940,1,0,0,S,hooks.csv
 CPedAttractor,SArrayFillNReturnEndStride4,0x004F3D80,1,0,0,S,hooks.csv
 CPedAttractor,SArrayTidyStride4B,0x004F3F30,1,0,0,S,hooks.csv
 CPedAttractor,SArrayTidyStride4C,0x004F4030,1,0,0,S,hooks.csv

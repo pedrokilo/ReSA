@@ -1,12 +1,19 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Detalle de implementaciones
 
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1281"></a>
+
+## Globales y helpers: source/game_sa/Messages.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ClearMessagesTextAndString(std::array&lt;tMessage, N&gt;& msgs) | [source/game_sa/Messages.cpp:64](../../source/game_sa/Messages.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RemoveMessageAt(std::array&lt;tMessage, N&gt;& msgs, int16 i) | [source/game_sa/Messages.cpp:75](../../source/game_sa/Messages.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| MessageTextEquals(const GxtChar* a, const GxtChar* b) | [source/game_sa/Messages.cpp:91](../../source/game_sa/Messages.cpp#L91) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FindUnusedMsgInArray(std::array&lt;tMessage, N&gt;& arr) | [source/game_sa/Messages.cpp:113](../../source/game_sa/Messages.cpp#L113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1282"></a>
 
 ## Globales y helpers: source/game_sa/MissionCleanup.cpp
 
@@ -16,7 +23,7 @@
 | & RawAt(void* base, uintptr_t offset) | [source/game_sa/MissionCleanup.cpp:87](../../source/game_sa/MissionCleanup.cpp#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * PoolEntity(uintptr_t poolGlobal, int32 handle, int32 entitySize) | [source/game_sa/MissionCleanup.cpp:91](../../source/game_sa/MissionCleanup.cpp#L91) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1282"></a>
+<a id="grupo-1283"></a>
 
 ## Globales y helpers: source/game_sa/ModelIndices.cpp
 
@@ -24,7 +31,7 @@
 | --- | --- | --- | --- | --- | --- |
 | MatchModelStringUint16(char* name, ModelIndex) | [source/game_sa/ModelIndices.cpp:503](../../source/game_sa/ModelIndices.cpp#L503) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1283"></a>
+<a id="grupo-1284"></a>
 
 ## Globales y helpers: source/game_sa/Models/AtomicModelInfo.cpp
 
@@ -32,7 +39,7 @@
 | --- | --- | --- | --- | --- | --- |
 | AtomicModelInfoDestructorBody(CAtomicModelInfo* self, void* /*edx*/) | [source/game_sa/Models/AtomicModelInfo.cpp:48](../../source/game_sa/Models/AtomicModelInfo.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CAtomicModelInfo::DestructorBody 0x004C5590 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1284"></a>
+<a id="grupo-1285"></a>
 
 ## Globales y helpers: source/game_sa/Models/BaseModelInfo.cpp
 
@@ -40,7 +47,7 @@
 | --- | --- | --- | --- | --- | --- |
 | SetBaseModelInfoFlags_KeepEdx(void* /*ecx*/, uint32 entryEdx) | [source/game_sa/Models/BaseModelInfo.cpp:38](../../source/game_sa/Models/BaseModelInfo.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1285"></a>
+<a id="grupo-1286"></a>
 
 ## Globales y helpers: source/game_sa/Models/ClumpModelInfo.cpp
 
@@ -50,7 +57,7 @@
 | ClumpModelInfoDestructorBody(CClumpModelInfo* self, void* /*edx*/) | [source/game_sa/Models/ClumpModelInfo.cpp:61](../../source/game_sa/Models/ClumpModelInfo.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CClumpModelInfo::DestructorBody 0x004C5750 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetClumpModelInfoFlags(CClumpModelInfo* modelInfo, uint32 dwFlags) | [source/game_sa/Models/ClumpModelInfo.cpp:430](../../source/game_sa/Models/ClumpModelInfo.cpp#L430) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1286"></a>
+<a id="grupo-1287"></a>
 
 ## Globales y helpers: source/game_sa/Models/DamageAtomicModelInfo.cpp
 
@@ -58,7 +65,7 @@
 | --- | --- | --- | --- | --- | --- |
 | DamageAtomicModelInfoDestructorBody(CDamageAtomicModelInfo* self, void* /*edx*/) | [source/game_sa/Models/DamageAtomicModelInfo.cpp:40](../../source/game_sa/Models/DamageAtomicModelInfo.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDamageAtomicModelInfo::DestructorBody 0x004C55D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1287"></a>
+<a id="grupo-1288"></a>
 
 ## Globales y helpers: source/game_sa/Models/LodTimeModelInfo.cpp
 
@@ -66,7 +73,7 @@
 | --- | --- | --- | --- | --- | --- |
 | LodTimeModelInfoDestructorBody(CLodTimeModelInfo* self, void* /*edx*/) | [source/game_sa/Models/LodTimeModelInfo.cpp:26](../../source/game_sa/Models/LodTimeModelInfo.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CLodTimeModelInfo::Destructor 0x004C56E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1288"></a>
+<a id="grupo-1289"></a>
 
 ## Globales y helpers: source/game_sa/Models/ModelInfo.cpp
 
@@ -74,7 +81,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * ConstructModelInfoStore(CStore&lt;T, Capacity&gt;* self, uintptr_t elementConstructor) | [source/game_sa/Models/ModelInfo.cpp:47](../../source/game_sa/Models/ModelInfo.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1289"></a>
+<a id="grupo-1290"></a>
 
 ## Globales y helpers: source/game_sa/Models/PedModelInfo.cpp
 
@@ -82,7 +89,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * __fastcall PedModelInfoConstructorBody(CPedModelInfo* self, void* /*edx*/) | [source/game_sa/Models/PedModelInfo.cpp:35](../../source/game_sa/Models/PedModelInfo.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1290"></a>
+<a id="grupo-1291"></a>
 
 ## Globales y helpers: source/game_sa/Models/TimeModelInfo.cpp
 
@@ -90,7 +97,7 @@
 | --- | --- | --- | --- | --- | --- |
 | TimeModelInfoDestructorBody(CTimeModelInfo* self, void* /*edx*/) | [source/game_sa/Models/TimeModelInfo.cpp:27](../../source/game_sa/Models/TimeModelInfo.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTimeModelInfo::Destructor 0x004C5680 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1291"></a>
+<a id="grupo-1292"></a>
 
 ## Globales y helpers: source/game_sa/Models/VehicleModelInfo.cpp
 
@@ -103,7 +110,7 @@
 | * __fastcall VehicleStructureScalarDeletingDestructorExe(CVehicleStructure* self, void* /*edx*/, uint8 flags) | [source/game_sa/Models/VehicleModelInfo.cpp:123](../../source/game_sa/Models/VehicleModelInfo.cpp#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CVehicleStructure::ScalarDeletingDestructor 0x004C9840 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_pInfoPool: source/game_sa/Models/VehicleModelInfo.h:190 (0x00B4E680) |
 | ChooseComponent(int32 rule, int32 comps) | [source/game_sa/Models/VehicleModelInfo.cpp:1811](../../source/game_sa/Models/VehicleModelInfo.cpp#L1811) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleModelInfo::ChooseComponent-Global 0x004C7FB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1292"></a>
+<a id="grupo-1293"></a>
 
 ## Globales y helpers: source/game_sa/Models/WeaponModelInfo.cpp
 
@@ -111,7 +118,7 @@
 | --- | --- | --- | --- | --- | --- |
 | WeaponModelInfoDestructorBody(CWeaponModelInfo* self, void* /*edx*/) | [source/game_sa/Models/WeaponModelInfo.cpp:38](../../source/game_sa/Models/WeaponModelInfo.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponModelInfo::DestructorBody 0x004C5790 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1293"></a>
+<a id="grupo-1294"></a>
 
 ## Globales y helpers: source/game_sa/ObjectScanner.cpp
 
@@ -119,7 +126,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ObjectScannerDestructorBody(CObjectScanner* self, void* /*edx*/) | [source/game_sa/ObjectScanner.cpp:42](../../source/game_sa/ObjectScanner.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CObjectScanner::Destructor 0x00606050 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1294"></a>
+<a id="grupo-1295"></a>
 
 ## Globales y helpers: source/game_sa/Occluder.cpp
 
@@ -130,7 +137,7 @@
 | CalcClippedScreenCoors(int32 idxFrom, int32 idxTo, CVector& out) | [source/game_sa/Occluder.cpp:52](../../source/game_sa/Occluder.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo OccluderCoors: source/game_sa/Occluder.h:17 (0x00C798E0); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 | RawAngle(const COccluder* o, size_t offset) | [source/game_sa/Occluder.cpp:65](../../source/game_sa/Occluder.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1295"></a>
+<a id="grupo-1296"></a>
 
 ## Globales y helpers: source/game_sa/Pad.cpp
 
@@ -147,7 +154,7 @@
 | NormalizePadAxis(LONG value) | [source/game_sa/Pad.cpp:382](../../source/game_sa/Pad.cpp#L382) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | InitialiseMouse(bool exclusive) | [source/game_sa/Pad.cpp:1604](../../source/game_sa/Pad.cpp#L1604) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1296"></a>
+<a id="grupo-1297"></a>
 
 ## Globales y helpers: source/game_sa/PatrolRoute.cpp
 
@@ -155,7 +162,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CopyZ(char* dst, const char* src) | [source/game_sa/PatrolRoute.cpp:101](../../source/game_sa/PatrolRoute.cpp#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1297"></a>
+<a id="grupo-1298"></a>
 
 ## Globales y helpers: source/game_sa/PedAttractorManager.cpp
 
@@ -170,7 +177,7 @@
 | TransformPointOG(const CMatrix& m, const CVector& v) | [source/game_sa/PedAttractorManager.cpp:517](../../source/game_sa/PedAttractorManager.cpp#L517) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | TransformVectorOG(const CMatrix& m, const CVector& v) | [source/game_sa/PedAttractorManager.cpp:526](../../source/game_sa/PedAttractorManager.cpp#L526) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1298"></a>
+<a id="grupo-1299"></a>
 
 ## Globales y helpers: source/game_sa/PedGeometryAnalyser.cpp
 
@@ -178,7 +185,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CPointRouteInjectHooksLote109A() | [source/game_sa/PedGeometryAnalyser.cpp:842](../../source/game_sa/PedGeometryAnalyser.cpp#L842) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1299"></a>
+<a id="grupo-1300"></a>
 
 ## Globales y helpers: source/game_sa/PedGroupPlacer.cpp
 
@@ -187,19 +194,3 @@
 | GroupOriginCanBeUsed(const CVector& origin, float radius) | [source/game_sa/PedGroupPlacer.cpp:39](../../source/game_sa/PedGroupPlacer.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 | InstallGroupPed(CPedGroup& group, CPed* ped, int32 groupId, bool leader, bool setLeader) | [source/game_sa/PedGroupPlacer.cpp:48](../../source/game_sa/PedGroupPlacer.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PlaceCircularGroup(ePedType type, uint32 numPeds, const CVector& origin, bool random) | [source/game_sa/PedGroupPlacer.cpp:55](../../source/game_sa/PedGroupPlacer.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1300"></a>
-
-## Globales y helpers: source/game_sa/PedGroups.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| ExeEdxAfterRemoveMember(const CPedGroup& group, int32 idx, uint32 edx) | [source/game_sa/PedGroups.cpp:43](../../source/game_sa/PedGroups.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ExeEdxAfterFlush(const CPedGroup& group, uint32 edx) | [source/game_sa/PedGroups.cpp:66](../../source/game_sa/PedGroups.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x00B744A8 |
-| EmptyGroupLikeExe(CPedGroup& group, ExeRegs* regs) | [source/game_sa/PedGroups.cpp:81](../../source/game_sa/PedGroups.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AddGroupCore(ExeRegs* regs) | [source/game_sa/PedGroups.cpp:101](../../source/game_sa/PedGroups.cpp#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedGroups::AddGroup 0x005FB800 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo ms_activeGroups: source/game_sa/PedGroups.h:17 (0x00C098E0); Posible dato fijo ms_groups: source/game_sa/PedGroups.h:20 (0x00C09920) |
-| InitCore(ExeRegs* regs) | [source/game_sa/PedGroups.cpp:119](../../source/game_sa/PedGroups.cpp#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedGroups::Init 0x005FB8C0 | 0 / 0 | Posible dato fijo ScriptReferenceIndex: source/game_sa/DecisionMakers/DecisionMakerTypes.h:45 (0x00C0AFF4), source/game_sa/PedGroups.h:16 (0x00C098D0), source/game_sa/Scripts/Scripted2dEffects.h:66 (0x00C3A120); Posible dato fijo ms_activeGroups: source/game_sa/PedGroups.h:17 (0x00C098E0); Posible dato fijo ms_groups: source/game_sa/PedGroups.h:20 (0x00C09920) |
-| CleanUpForShutDownCore(ExeRegs* regs) | [source/game_sa/PedGroups.cpp:133](../../source/game_sa/PedGroups.cpp#L133) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedGroups::CleanUpForShutDown 0x005FB930 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo ms_groups: source/game_sa/PedGroups.h:20 (0x00C09920) |
-| AddGroupExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/PedGroups.cpp:143](../../source/game_sa/PedGroups.cpp#L143) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| InitExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/PedGroups.cpp:149](../../source/game_sa/PedGroups.cpp#L149) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CleanUpForShutDownExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/PedGroups.cpp:157](../../source/game_sa/PedGroups.cpp#L157) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

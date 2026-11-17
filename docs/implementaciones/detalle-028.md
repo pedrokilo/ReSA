@@ -1,12 +1,69 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Detalle de implementaciones
 
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-541"></a>
+
+## CStats
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CStats::InjectHooks() | [source/game_sa/Stats.cpp:184](../../source/game_sa/Stats.cpp#L184) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::Init() | [source/game_sa/Stats.cpp:247](../../source/game_sa/Stats.cpp#L247) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::Init 0x0055C0C0 | 0 / 0 | Posible dato fijo LastMissionPassedName: source/game_sa/Stats.h:46 (0x00B78A00); Posible dato fijo PedsKilledOfThisType: source/game_sa/Stats.h:49 (0x00B78E90); Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo StatTypesInt: source/game_sa/Stats.h:51 (0x00B79000); Posible dato fijo TimesMissionAttempted: source/game_sa/Stats.h:47 (0x00B78CC8); Posible dato fijo bStatUpdateMessageDisplayed: source/game_sa/Stats.h:54 (0x00B794D4); Posible dato fijo m_BikeCounter: source/game_sa/Stats.h:63 (0x00B794F8); Posible dato fijo m_BoatCounter: source/game_sa/Stats.h:62 (0x00B794F4); Posible dato fijo m_CycleStaminaCounter: source/game_sa/Stats.h:56 (0x00B794DC); Posible dato fijo m_DrivingCounter: source/game_sa/Stats.h:60 (0x00B794EC); Posible dato fijo m_FatCounter: source/game_sa/Stats.h:64 (0x00B794FC); Posible dato fijo m_FlyingCounter: source/game_sa/Stats.h:61 (0x00B794F0); Posible dato fijo m_RunningCounter: source/game_sa/Stats.h:65 (0x00B79500); Posible dato fijo m_SprintStaminaCounter: source/game_sa/Stats.h:55 (0x00B794D8); Posible dato fijo m_SwimStaminaCounter: source/game_sa/Stats.h:58 (0x00B794E4); Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84) |
+| CStats::GetStatValue(eStats stat) | [source/game_sa/Stats.cpp:279](../../source/game_sa/Stats.cpp#L279) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::GetStatValue--OG 0x00558E40 | 0 / 0 | Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
+| CStats::SetStatValue(eStats stat, float value) | [source/game_sa/Stats.cpp:289](../../source/game_sa/Stats.cpp#L289) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::SetStatValue 0x0055A070 | 0 / 0 | Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
+| CStats::IsStatFloat(eStats stat) | [source/game_sa/Stats.cpp:300](../../source/game_sa/Stats.cpp#L300) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::IsStatFloat 0x00558E30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::PopulateFavoriteRadioStationList() | [source/game_sa/Stats.cpp:305](../../source/game_sa/Stats.cpp#L305) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::PopulateFavoriteRadioStationList 0x00558EC0 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo FavoriteRadioStationList: source/game_sa/Stats.h:48 (0x00B78E58) |
+| CStats::FindMostFavoriteRadioStation() | [source/game_sa/Stats.cpp:338](../../source/game_sa/Stats.cpp#L338) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::FindMostFavoriteRadioStation 0x00558FA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::FindLeastFavoriteRadioStation() | [source/game_sa/Stats.cpp:357](../../source/game_sa/Stats.cpp#L357) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::FindLeastFavoriteRadioStation 0x00559010 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo FavoriteRadioStationList: source/game_sa/Stats.h:48 (0x00B78E58) |
+| CStats::FindCriminalRatingNumber() | [source/game_sa/Stats.cpp:373](../../source/game_sa/Stats.cpp#L373) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::FindCriminalRatingNumber 0x00559080 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo m_bHasPlayerCheated: source/game_sa/Cheat.h:23 (0x0096918C) |
+| CStats::GetPercentageProgress() | [source/game_sa/Stats.cpp:389](../../source/game_sa/Stats.cpp#L389) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::GetPercentageProgress 0x005591E0 | 0 / 0 | Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
+| CStats::BuildStatLine(char* line, void* pValue1, int32 metrics, void* pValue2, int32 type) | [source/game_sa/Stats.cpp:430](../../source/game_sa/Stats.cpp#L430) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::BuildStatLine 0x00559230 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo gString2: source/game_sa/common.h:64 (0x00B71510) |
+| CStats::ConvertToMins(int32 statValue) | [source/game_sa/Stats.cpp:520](../../source/game_sa/Stats.cpp#L520) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::ConvertToMins 0x00559540 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::ConvertToSecs(int32 statValue) | [source/game_sa/Stats.cpp:527](../../source/game_sa/Stats.cpp#L527) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::ConvertToSecs 0x00559560 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::SafeToShowThisStat(eStats stat) | [source/game_sa/Stats.cpp:537](../../source/game_sa/Stats.cpp#L537) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::SafeToShowThisStat 0x00559590 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::CheckForThreshold(float* pValue, float range) | [source/game_sa/Stats.cpp:559](../../source/game_sa/Stats.cpp#L559) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::CheckForThreshold 0x005595F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::IsStatCapped(eStats stat) | [source/game_sa/Stats.cpp:569](../../source/game_sa/Stats.cpp#L569) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::IsStatCapped 0x00559630 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::CheckForStatsMessage() | [source/game_sa/Stats.cpp:728](../../source/game_sa/Stats.cpp#L728) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::CheckForStatsMessage 0x00559760 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::LoadStatUpdateConditions() | [source/game_sa/Stats.cpp:801](../../source/game_sa/Stats.cpp#L801) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::LoadStatUpdateConditions 0x00559860 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::LoadActionReactionStats() | [source/game_sa/Stats.cpp:806](../../source/game_sa/Stats.cpp#L806) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::LoadActionReactionStats 0x005599B0 | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10) |
+| CStats::FindMaxNumberOfGroupMembers() | [source/game_sa/Stats.cpp:829](../../source/game_sa/Stats.cpp#L829) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::FindMaxNumberOfGroupMembers 0x00559A50 | 0 / 0 | Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
+| CStats::GetFatAndMuscleModifier(eStatModAbilities statMod) | [source/game_sa/Stats.cpp:849](../../source/game_sa/Stats.cpp#L849) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::GetFatAndMuscleModifier 0x00559AF0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x008CDE58; Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
+| CStats::ProcessReactionStatsOnDecrement(eStats stat) | [source/game_sa/Stats.cpp:873](../../source/game_sa/Stats.cpp#L873) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::ProcessReactionStatsOnDecrement 0x00559730 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::DecrementStat(eStats stat, float value) | [source/game_sa/Stats.cpp:880](../../source/game_sa/Stats.cpp#L880) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::DecrementStat 0x00559FA0 | 0 / 0 | Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
+| CStats::SetNewRecordStat(eStats stat, float value) | [source/game_sa/Stats.cpp:901](../../source/game_sa/Stats.cpp#L901) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::SetNewRecordStat 0x0055C410 | 0 / 0 | Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
+| CStats::RegisterFastestTime(eStats stat, int32 fastestTime) | [source/game_sa/Stats.cpp:916](../../source/game_sa/Stats.cpp#L916) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::RegisterFastestTime 0x0055A0B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::RegisterBestPosition(eStats stat, int32 position) | [source/game_sa/Stats.cpp:922](../../source/game_sa/Stats.cpp#L922) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::RegisterBestPosition 0x0055A160 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CStats::FindCriminalRatingString() | [source/game_sa/Stats.cpp:1021](../../source/game_sa/Stats.cpp#L1021) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::FindCriminalRatingString 0x0055A210 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
+| CStats::ConstructStatLine(int32 arg0, uint8 arg1) | [source/game_sa/Stats.cpp:1576](../../source/game_sa/Stats.cpp#L1576) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::ConstructStatLine 0x0055A780 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::ProcessReactionStatsOnIncrement(eStats stat) | [source/game_sa/Stats.cpp:1597](../../source/game_sa/Stats.cpp#L1597) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::ProcessReactionStatsOnIncrement 0x0055B900 | 0 / 0 | Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
+| CStats::DisplayScriptStatUpdateMessage(eStatUpdateState state, eStats stat, float value) | [source/game_sa/Stats.cpp:1621](../../source/game_sa/Stats.cpp#L1621) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::DisplayScriptStatUpdateMessage 0x0055B980 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo bShowUpdateStats: source/game_sa/Stats.h:71 (0x008CDE56); Posible dato fijo bStatUpdateMessageDisplayed: source/game_sa/Stats.h:54 (0x00B794D4); Posible dato fijo num_menus_in_use: source/game_sa/MenuSystem.h:60 (0x00BA82E3) |
+| CStats::UpdateRespectStat(uint8 arg0) | [source/game_sa/Stats.cpp:1709](../../source/game_sa/Stats.cpp#L1709) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::UpdateRespectStat 0x0055BC50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo TerritoryUnderControlPercentage: source/game_sa/GangWars.h:78 (0x0096AB9C); Posible dato fijo m_aCheatsActive: source/game_sa/Cheat.h:22 (0x00969130) |
+| CStats::UpdateSexAppealStat() | [source/game_sa/Stats.cpp:1856](../../source/game_sa/Stats.cpp#L1856) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::UpdateSexAppealStat 0x0055BF20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::IncrementStat(eStats stat, float value) | [source/game_sa/Stats.cpp:1861](../../source/game_sa/Stats.cpp#L1861) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::IncrementStat 0x0055C180 | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CStats::UpdateFatAndMuscleStats(uint32 value) | [source/game_sa/Stats.cpp:2000](../../source/game_sa/Stats.cpp#L2000) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::UpdateFatAndMuscleStats 0x0055C470 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::UpdateStatsWhenSprinting() | [source/game_sa/Stats.cpp:2005](../../source/game_sa/Stats.cpp#L2005) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::UpdateStatsWhenSprinting 0x0055C660 | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_SprintStaminaCounter: source/game_sa/Stats.h:55 (0x00B794D8) |
+| CStats::UpdateStatsWhenRunning() | [source/game_sa/Stats.cpp:2018](../../source/game_sa/Stats.cpp#L2018) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::UpdateStatsWhenRunning 0x0055C6F0 | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_RunningCounter: source/game_sa/Stats.h:65 (0x00B79500) |
+| CStats::UpdateStatsWhenCycling(bool arg0, CBmx* bmx) | [source/game_sa/Stats.cpp:2145](../../source/game_sa/Stats.cpp#L2145) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::UpdateStatsWhenCycling 0x0055C780 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::UpdateStatsWhenSwimming(bool arg0, bool arg1) | [source/game_sa/Stats.cpp:2204](../../source/game_sa/Stats.cpp#L2204) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::UpdateStatsWhenSwimming 0x0055C990 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::UpdateStatsWhenDriving(CVehicle* vehicle) | [source/game_sa/Stats.cpp:2272](../../source/game_sa/Stats.cpp#L2272) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::UpdateStatsWhenDriving 0x0055CAC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::UpdateStatsWhenFlying(CVehicle* vehicle) | [source/game_sa/Stats.cpp:2353](../../source/game_sa/Stats.cpp#L2353) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::UpdateStatsWhenFlying 0x0055CC00 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::UpdateStatsWhenOnMotorBike(CBike* bike) | [source/game_sa/Stats.cpp:2359](../../source/game_sa/Stats.cpp#L2359) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::UpdateStatsWhenOnMotorBike 0x0055CD60 | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_BikeCounter: source/game_sa/Stats.h:63 (0x00B794F8) |
+| CStats::UpdateStatsWhenWeaponHit(eWeaponType weaponType) | [source/game_sa/Stats.cpp:2450](../../source/game_sa/Stats.cpp#L2450) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::UpdateStatsWhenWeaponHit 0x0055CEB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::UpdateStatsWhenFighting() | [source/game_sa/Stats.cpp:2455](../../source/game_sa/Stats.cpp#L2455) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::UpdateStatsWhenFighting 0x0055CFA0 | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10) |
+| CStats::UpdateStatsOnRespawn() | [source/game_sa/Stats.cpp:2498](../../source/game_sa/Stats.cpp#L2498) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::UpdateStatsOnRespawn 0x0055CFC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::UpdateStatsAddToHealth(uint32 addToHealth) | [source/game_sa/Stats.cpp:2538](../../source/game_sa/Stats.cpp#L2538) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStats::UpdateStatsAddToHealth 0x0055D030 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::ModifyStat(eStats stat, float value) | [source/game_sa/Stats.cpp:2544](../../source/game_sa/Stats.cpp#L2544) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::ModifyStat 0x0055D090 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStats::Save() | [source/game_sa/Stats.cpp:2554](../../source/game_sa/Stats.cpp#L2554) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::Save 0x005D3B40 | 0 / 0 | Posible dato fijo FavoriteRadioStationList: source/game_sa/Stats.h:48 (0x00B78E58); Posible dato fijo LastMissionPassedName: source/game_sa/Stats.h:46 (0x00B78A00); Posible dato fijo PedsKilledOfThisType: source/game_sa/Stats.h:49 (0x00B78E90); Posible dato fijo StatMessage: source/game_sa/Stats.h:44 (0x00B78200); Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo StatTypesInt: source/game_sa/Stats.h:51 (0x00B79000); Posible dato fijo TimesMissionAttempted: source/game_sa/Stats.h:47 (0x00B78CC8) |
+| CStats::Load() | [source/game_sa/Stats.cpp:2573](../../source/game_sa/Stats.cpp#L2573) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::Load 0x005D3BF0 | 0 / 0 | Posible dato fijo FavoriteRadioStationList: source/game_sa/Stats.h:48 (0x00B78E58); Posible dato fijo LastMissionPassedName: source/game_sa/Stats.h:46 (0x00B78A00); Posible dato fijo PedsKilledOfThisType: source/game_sa/Stats.h:49 (0x00B78E90); Posible dato fijo StatMessage: source/game_sa/Stats.h:44 (0x00B78200); Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380); Posible dato fijo StatTypesInt: source/game_sa/Stats.h:51 (0x00B79000); Posible dato fijo TimesMissionAttempted: source/game_sa/Stats.h:47 (0x00B78CC8) |
+| * CStats::GetStatID(eStats stat) | [source/game_sa/Stats.cpp:2589](../../source/game_sa/Stats.cpp#L2589) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::GetStatID 0x00558DE0 | 0 / 0 | Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670) |
+| CStats::GetTimesMissionAttempted(uint8 missionId) | [source/game_sa/Stats.cpp:2601](../../source/game_sa/Stats.cpp#L2601) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::GetTimesMissionAttempted 0x00558E70 | 0 / 0 | Posible dato fijo TimesMissionAttempted: source/game_sa/Stats.h:47 (0x00B78CC8) |
+| CStats::RegisterMissionAttempted(uint8 missionId) | [source/game_sa/Stats.cpp:2607](../../source/game_sa/Stats.cpp#L2607) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::RegisterMissionAttempted 0x00558E80 | 0 / 0 | Posible dato fijo TimesMissionAttempted: source/game_sa/Stats.h:47 (0x00B78CC8) |
+| CStats::RegisterMissionPassed(uint8 missionId) | [source/game_sa/Stats.cpp:2616](../../source/game_sa/Stats.cpp#L2616) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::RegisterMissionPassed 0x00558EA0 | 0 / 0 | Posible dato fijo TimesMissionAttempted: source/game_sa/Stats.h:47 (0x00B78CC8) |
+| & GetFullFavoriteRadioStationList() | [source/game_sa/Stats.h:82](../../source/game_sa/Stats.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::GetFullFavoriteRadioStationList 0x00558F90 | 0 / 0 | Posible dato fijo FavoriteRadioStationList: source/game_sa/Stats.h:48 (0x00B78E58) |
+| GetStatValue(eStats stat) | [source/game_sa/Stats.h:130](../../source/game_sa/Stats.h#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::GetStatValue--OG 0x00558E40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-542"></a>
 
 ## CStencilShadowObject
 
@@ -18,7 +75,7 @@
 | * Constructor() | [source/game_sa/StencilShadowObject.h:32](../../source/game_sa/StencilShadowObject.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStencilShadowObject::Constructor 0x0070F8D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/StencilShadowObject.h:37](../../source/game_sa/StencilShadowObject.h#L37) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CStencilShadowObject::Destructor 0x0070F8E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-542"></a>
+<a id="grupo-543"></a>
 
 ## CStencilShadows
 
@@ -41,7 +98,7 @@
 | CStencilShadows::RegisterStencilShadows(CVector& cameraPos, bool doNotCreateNew) | [source/game_sa/StencilShadows.cpp:588](../../source/game_sa/StencilShadows.cpp#L588) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStencilShadows::RegisterStencilShadows 0x00711760 | 0 / 0 | Posible dato fijo ms_nCurrentScanCode: source/game_sa/World.h:82 (0x00B7CD78); Posible dato fijo pFirstActiveStencilShadowObject: source/game_sa/StencilShadows.h:10 (0x00C6A16C); Posible dato fijo pFirstAvailableStencilShadowObject: source/game_sa/StencilShadows.h:9 (0x00C6A168) |
 | GraphicsHighQuality() | [source/game_sa/common.cpp:179](../../source/game_sa/common.cpp#L179) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStencilShadows::GraphicsHighQuality 0x0070F9B0 | 0 / 0 | Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00) |
 
-<a id="grupo-543"></a>
+<a id="grupo-544"></a>
 
 ## CStore
 
@@ -51,7 +108,7 @@
 | & GetItemAtIndex(size_t index) | [source/game_sa/Core/Store.h:19](../../source/game_sa/Core/Store.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & AddItem() | [source/game_sa/Core/Store.h:23](../../source/game_sa/Core/Store.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-544"></a>
+<a id="grupo-545"></a>
 
 ## CStoredCar
 
@@ -67,7 +124,7 @@
 | Clear() | [source/game_sa/StoredCar.h:37](../../source/game_sa/StoredCar.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HasCar() | [source/game_sa/StoredCar.h:38](../../source/game_sa/StoredCar.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-545"></a>
+<a id="grupo-546"></a>
 
 ## CStreamedScripts
 
@@ -88,7 +145,7 @@
 | CStreamedScripts::GetStreamedScriptWithThisStartAddress(uint8* dataPtr) | [source/game_sa/StreamedScripts.cpp:170](../../source/game_sa/StreamedScripts.cpp#L170) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStreamedScripts::GetStreamedScriptWithThisStartAddress 0x00470910 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetActiveScriptsWithIndex() | [source/game_sa/StreamedScripts.h:48](../../source/game_sa/StreamedScripts.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-546"></a>
+<a id="grupo-547"></a>
 
 ## CStreaming
 
@@ -221,7 +278,7 @@
 | GetModelFromInfo(const CStreamingInfo* info) | [source/game_sa/Streaming.h:407](../../source/game_sa/Streaming.h#L407) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_aInfoForModel: source/game_sa/Streaming.h:247 (0x008E4CC0) |
 | GetLoadedPeds() | [source/game_sa/Streaming.h:408](../../source/game_sa/Streaming.h#L408) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_numPedsLoaded: source/game_sa/Streaming.h:225 (0x008E4BB0); Posible dato fijo ms_pedsLoaded: source/game_sa/Streaming.h:222 (0x008E4C00) |
 
-<a id="grupo-547"></a>
+<a id="grupo-548"></a>
 
 ## CStreamingInfo
 
@@ -260,7 +317,7 @@
 | IsMissionOrGameRequired() const noexcept | [source/game_sa/StreamingInfo.h:110](../../source/game_sa/StreamingInfo.h#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsRequiredToBeKept() const noexcept | [source/game_sa/StreamingInfo.h:111](../../source/game_sa/StreamingInfo.h#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-548"></a>
+<a id="grupo-549"></a>
 
 ## CStuckCarCheck
 
@@ -278,7 +335,7 @@
 | CStuckCarCheck::ResetArrayElement(uint16 carHandle) | [source/game_sa/StuckCarCheck.cpp:222](../../source/game_sa/StuckCarCheck.cpp#L222) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStuckCarCheck::ResetArrayElement-Index 0x00463970 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CStuckCarCheck::ResetArrayElement(tStuckCar& car) | [source/game_sa/StuckCarCheck.cpp:227](../../source/game_sa/StuckCarCheck.cpp#L227) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStuckCarCheck::ResetArrayElement-Index 0x00463970 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-549"></a>
+<a id="grupo-550"></a>
 
 ## CStuntJumpManager
 
@@ -297,7 +354,7 @@
 | CStuntJumpManager::SetActive(bool active) | [source/game_sa/StuntJumpManager.cpp:408](../../source/game_sa/StuntJumpManager.cpp#L408) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CStuntJumpManager::Render() | [source/game_sa/StuntJumpManager.cpp:413](../../source/game_sa/StuntJumpManager.cpp#L413) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-550"></a>
+<a id="grupo-551"></a>
 
 ## CTagManager
 
@@ -327,7 +384,7 @@
 | GetTags() | [source/game_sa/TagManager.h:54](../../source/game_sa/TagManager.h#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_numTags: source/game_sa/TagManager.h:25 (0x00A9AD70); Posible dato fijo ms_tagDesc: source/game_sa/TagManager.h:24 (0x00A9A8C0) |
 | GetTagsInArea(const CRect& area) | [source/game_sa/TagManager.h:62](../../source/game_sa/TagManager.h#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-551"></a>
+<a id="grupo-552"></a>
 
 ## CTask
 
@@ -350,7 +407,7 @@
 | * CloneIfIs(CTask* t) | [source/game_sa/Tasks/Task.h:84](../../source/game_sa/Tasks/Task.h#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | classof(const From* f) | [source/game_sa/Tasks/Task.h:92](../../source/game_sa/Tasks/Task.h#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-552"></a>
+<a id="grupo-553"></a>
 
 ## CTaskAllocator
 
@@ -365,7 +422,7 @@
 | Abort() | [source/game_sa/Tasks/Allocators/TaskAllocator.h:41](../../source/game_sa/Tasks/Allocators/TaskAllocator.h#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocator::Abort 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | classof(const From* f) | [source/game_sa/Tasks/Allocators/TaskAllocator.h:45](../../source/game_sa/Tasks/Allocators/TaskAllocator.h#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-553"></a>
+<a id="grupo-554"></a>
 
 ## CTaskAllocatorAttack
 
@@ -380,7 +437,7 @@
 | * Constructor(CPed * ped1, int32 groupId, CPed * ped2) | [source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h:27](../../source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorAttack::Constructor 0x0069C240 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h:34](../../source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h#L34) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskAllocatorAttack::Destructor 0x0069C2D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-554"></a>
+<a id="grupo-555"></a>
 
 ## CTaskAllocatorKillOnFoot
 
@@ -394,7 +451,7 @@
 | * Constructor(CPed* a, int32 b) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h:24](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillOnFoot::Constructor 0x0069BB80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h:31](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h#L31) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskAllocatorKillOnFoot::Destructor 0x0069BBF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-555"></a>
+<a id="grupo-556"></a>
 
 ## CTaskAllocatorKillThreatsBasic
 
@@ -409,7 +466,7 @@
 | * Destructor() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h:27](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h#L27) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskAllocatorKillThreatsBasic::Destructor 0x0069C780 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(CPed * ped) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h:34](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsBasic::Constructor 0x0069C710 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-556"></a>
+<a id="grupo-557"></a>
 
 ## CTaskAllocatorKillThreatsBasicRandomGroup
 
@@ -420,7 +477,7 @@
 | CTaskAllocatorKillThreatsBasicRandomGroup::InjectHooks() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp:100](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.h:14](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsBasicRandomGroup::GetType 0x005F68F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-557"></a>
+<a id="grupo-558"></a>
 
 ## CTaskAllocatorKillThreatsDriveby
 
@@ -434,7 +491,7 @@
 | * Constructor(CPed* a) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h:26](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsDriveby::Constructor 0x0069CAF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h:33](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h#L33) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskAllocatorKillThreatsDriveby::Destructor 0x0069CB60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-558"></a>
+<a id="grupo-559"></a>
 
 ## CTaskAllocatorPlayerCommandAttack
 
@@ -446,7 +503,7 @@
 | CTaskAllocatorPlayerCommandAttack::InjectHooks() | [source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp:125](../../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.h:15](../../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorPlayerCommandAttack::GetType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-559"></a>
+<a id="grupo-560"></a>
 
 ## CTaskAllocatorPlayerCommandRetreat
 
@@ -454,12 +511,3 @@
 | --- | --- | --- | --- | --- | --- |
 | CTaskAllocatorPlayerCommandRetreat::AllocateTasks(CPedGroupIntelligence* intel) | [source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandRetreat.cpp:5](../../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandRetreat.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandRetreat.h:10](../../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandRetreat.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-560"></a>
-
-## CTaskAllocatorPool
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| InjectHooks() | [source/game_sa/Pools/TaskAllocatorPool.h:35](../../source/game_sa/Pools/TaskAllocatorPool.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * New() | [source/game_sa/Pools/TaskAllocatorPool.h:49](../../source/game_sa/Pools/TaskAllocatorPool.h#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorPool::New 0x0069D8E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

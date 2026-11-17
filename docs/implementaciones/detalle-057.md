@@ -1,12 +1,16 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Detalle de implementaciones
 
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1121"></a>
+
+## Globales y helpers: source/game_sa/Collision/ColDisk.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CopyThreeDwords(volatile uint32* dst, const volatile uint32* src) | [source/game_sa/Collision/ColDisk.cpp:26](../../source/game_sa/Collision/ColDisk.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1122"></a>
 
 ## Globales y helpers: source/game_sa/Collision/ColPoint.cpp
 
@@ -19,7 +23,7 @@
 | CColPointInjectHooksLote105A() | [source/game_sa/Collision/ColPoint.cpp:92](../../source/game_sa/Collision/ColPoint.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | tColLightingInjectHooksLote116A() | [source/game_sa/Collision/ColPoint.cpp:104](../../source/game_sa/Collision/ColPoint.cpp#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1122"></a>
+<a id="grupo-1123"></a>
 
 ## Globales y helpers: source/game_sa/Collision/ColSphere.cpp
 
@@ -27,7 +31,7 @@
 | --- | --- | --- | --- | --- | --- |
 | TransformObject(const CColSphere& sp, const CMatrix& transform) -&gt; CColSphere | [source/game_sa/Collision/ColSphere.cpp:129](../../source/game_sa/Collision/ColSphere.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1123"></a>
+<a id="grupo-1124"></a>
 
 ## Globales y helpers: source/game_sa/Collision/ColStore.cpp
 
@@ -39,7 +43,7 @@
 | ColPoolFlushSecondCopy(ColPoolRaw* pool, void* /*edx*/) | [source/game_sa/Collision/ColStore.cpp:530](../../source/game_sa/Collision/ColStore.cpp#L530) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CColStore::PoolFlushSecondCopy 0x00410FE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * __fastcall ColPoolScalarDeletingDestructor(ColPoolRaw* pool, void* /*edx*/, uint8 flags) | [source/game_sa/Collision/ColStore.cpp:536](../../source/game_sa/Collision/ColStore.cpp#L536) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CColStore::PoolScalarDeletingDestructor 0x004110E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1124"></a>
+<a id="grupo-1125"></a>
 
 ## Globales y helpers: source/game_sa/Collision/Collision.cpp
 
@@ -51,7 +55,7 @@
 | IsPointInPoly2D(CVector2D pt, CVector2D a, CVector2D b, CVector2D c) | [source/game_sa/Collision/Collision.cpp:3297](../../source/game_sa/Collision/Collision.cpp#L3297) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SphereVsEntityBody(CColSphere* /*sphere: ignorada, como en el EXE*/, CEntity* entity) | [source/game_sa/Collision/Collision.cpp:4118](../../source/game_sa/Collision/Collision.cpp#L4118) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 
-<a id="grupo-1125"></a>
+<a id="grupo-1126"></a>
 
 ## Globales y helpers: source/game_sa/Collision/CollisionData.cpp
 
@@ -59,7 +63,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * __fastcall CollisionDataConstructorExe(CCollisionData* self, void* /*edx*/) | [source/game_sa/Collision/CollisionData.cpp:27](../../source/game_sa/Collision/CollisionData.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCollisionData::Constructor 0x0040F030 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1126"></a>
+<a id="grupo-1127"></a>
 
 ## Globales y helpers: source/game_sa/Collision/CollisionEventScanner.cpp
 
@@ -72,7 +76,7 @@
 | ClampBelowZero(float value) | [source/game_sa/Collision/CollisionEventScanner.cpp:93](../../source/game_sa/Collision/CollisionEventScanner.cpp#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCarAI::FloatMax 0x00420800 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DamageFromAttachedVehicle(CPed* victim, CVehicle* vehicle) | [source/game_sa/Collision/CollisionEventScanner.cpp:98](../../source/game_sa/Collision/CollisionEventScanner.cpp#L98) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1127"></a>
+<a id="grupo-1128"></a>
 
 ## Globales y helpers: source/game_sa/Collision/ColourSet.cpp
 
@@ -80,7 +84,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Ftol(float value) | [source/game_sa/Collision/ColourSet.cpp:110](../../source/game_sa/Collision/ColourSet.cpp#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1128"></a>
+<a id="grupo-1129"></a>
 
 ## Globales y helpers: source/game_sa/Collision/Sphere.cpp
 
@@ -88,7 +92,7 @@
 | --- | --- | --- | --- | --- | --- |
 | TransformObject(const CSphere& sp, const CMatrix& transform) -&gt; CSphere | [source/game_sa/Collision/Sphere.cpp:90](../../source/game_sa/Collision/Sphere.cpp#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1129"></a>
+<a id="grupo-1130"></a>
 
 ## Globales y helpers: source/game_sa/CompressedVector.cpp
 
@@ -96,7 +100,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CompressedVectorInjectHooksLote105A() | [source/game_sa/CompressedVector.cpp:48](../../source/game_sa/CompressedVector.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1130"></a>
+<a id="grupo-1131"></a>
 
 ## Globales y helpers: source/game_sa/CompressedVector.h
 
@@ -111,7 +115,7 @@
 | CompressFxVector(const CVector& v) | [source/game_sa/CompressedVector.h:39](../../source/game_sa/CompressedVector.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | UncompressFxVector(const CompressedFxVector& v) | [source/game_sa/CompressedVector.h:43](../../source/game_sa/CompressedVector.h#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1131"></a>
+<a id="grupo-1132"></a>
 
 ## Globales y helpers: source/game_sa/ControllerConfigManager.cpp
 
@@ -120,7 +124,7 @@
 | MouseButtonByte(const CMouseControllerState& state, KeyCode key) | [source/game_sa/ControllerConfigManager.cpp:950](../../source/game_sa/ControllerConfigManager.cpp#L950) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | KeyCharToGxtChar(uint8 ch) | [source/game_sa/ControllerConfigManager.cpp:1217](../../source/game_sa/ControllerConfigManager.cpp#L1217) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CFont::MapExtendedChar 0x00719360 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1132"></a>
+<a id="grupo-1133"></a>
 
 ## Globales y helpers: source/game_sa/Conversations/ConversationForPed.cpp
 
@@ -130,17 +134,17 @@
 | ConversationFacingAway(const CVector& ped, const CVector& player) | [source/game_sa/Conversations/ConversationForPed.cpp:152](../../source/game_sa/Conversations/ConversationForPed.cpp#L152) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ConversationMovingTooFast(const CVector& speed) | [source/game_sa/Conversations/ConversationForPed.cpp:157](../../source/game_sa/Conversations/ConversationForPed.cpp#L157) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1133"></a>
+<a id="grupo-1134"></a>
 
 ## Globales y helpers: source/game_sa/Core/ListItem_c.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| * __fastcall ListItemConstructorExe(ListItemLinksExe* self, void* /*edx*/) | [source/game_sa/Core/ListItem_c.cpp:13](../../source/game_sa/Core/ListItem_c.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ListItemDestructorExe(ListItemLinksExe* /*self*/, void* /*edx*/) | [source/game_sa/Core/ListItem_c.cpp:21](../../source/game_sa/Core/ListItem_c.cpp#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: ListItem_c::Destructor 0x004A8DC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ListItemInjectHooksLote218A() | [source/game_sa/Core/ListItem_c.cpp:25](../../source/game_sa/Core/ListItem_c.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall ListItemConstructorExe(ListItemLinksExe* self, void* /*edx*/) | [source/game_sa/Core/ListItem_c.cpp:31](../../source/game_sa/Core/ListItem_c.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ListItemDestructorExe(ListItemLinksExe* /*self*/, void* /*edx*/) | [source/game_sa/Core/ListItem_c.cpp:39](../../source/game_sa/Core/ListItem_c.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: ListItem_c::Destructor 0x004A8DC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ListItemInjectHooksLote218A() | [source/game_sa/Core/ListItem_c.cpp:43](../../source/game_sa/Core/ListItem_c.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1134"></a>
+<a id="grupo-1135"></a>
 
 ## Globales y helpers: source/game_sa/Core/List_c.cpp
 
@@ -148,7 +152,7 @@
 | --- | --- | --- | --- | --- | --- |
 | TListInjectHooksLote105A() | [source/game_sa/Core/List_c.cpp:175](../../source/game_sa/Core/List_c.cpp#L175) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1135"></a>
+<a id="grupo-1136"></a>
 
 ## Globales y helpers: source/game_sa/Core/Matrix.cpp
 
@@ -170,7 +174,7 @@
 | & Invert(CMatrix& in, CMatrix& out) | [source/game_sa/Core/Matrix.cpp:651](../../source/game_sa/Core/Matrix.cpp#L651) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CMatrix::Invert-1 0x0059B920 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Lerp(CMatrix from, CMatrix to, float t) | [source/game_sa/Core/Matrix.cpp:675](../../source/game_sa/Core/Matrix.cpp#L675) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1136"></a>
+<a id="grupo-1137"></a>
 
 ## Globales y helpers: source/game_sa/Core/OctTree.cpp
 
@@ -185,7 +189,7 @@
 | OctTreePoolDeleteExe(COctTreePool* pool, void* /*edx*/, COctTree* obj) | [source/game_sa/Core/OctTree.cpp:129](../../source/game_sa/Core/OctTree.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: COctTree::PoolDelete 0x005A73C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PoolFlushBody(void* self) | [source/game_sa/Core/OctTree.cpp:136](../../source/game_sa/Core/OctTree.cpp#L136) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1137"></a>
+<a id="grupo-1138"></a>
 
 ## Globales y helpers: source/game_sa/Core/Quaternion.h
 
@@ -198,7 +202,7 @@
 | operator*(float left, const CQuaternion& right) | [source/game_sa/Core/Quaternion.h:141](../../source/game_sa/Core/Quaternion.h#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | operator/(const CQuaternion& left, float right) | [source/game_sa/Core/Quaternion.h:145](../../source/game_sa/Core/Quaternion.h#L145) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1138"></a>
+<a id="grupo-1139"></a>
 
 ## Globales y helpers: source/game_sa/Core/Vector.cpp
 
@@ -216,7 +220,7 @@
 | DotProduct(const CVector& v1, const CVector& v2) | [source/game_sa/Core/Vector.cpp:571](../../source/game_sa/Core/Vector.cpp#L571) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DotProduct2D(const CVector& v1, const CVector& v2) | [source/game_sa/Core/Vector.cpp:576](../../source/game_sa/Core/Vector.cpp#L576) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1139"></a>
+<a id="grupo-1140"></a>
 
 ## Globales y helpers: source/game_sa/Core/Vector.h
 
@@ -242,27 +246,3 @@
 | Multiply3x3_MV(const CMatrix& m, const CVector& v) | [source/game_sa/Core/Vector.h:315](../../source/game_sa/Core/Vector.h#L315) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Multiply3x3_VM(const CVector& v, const CMatrix& m) | [source/game_sa/Core/Vector.h:316](../../source/game_sa/Core/Vector.h#L316) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | MultiplyMatrixWithVector(const CMatrix& mat, const CVector& vec) | [source/game_sa/Core/Vector.h:317](../../source/game_sa/Core/Vector.h#L317) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1140"></a>
-
-## Globales y helpers: source/game_sa/Core/Vector2D.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| operator-(const CVector2D& lhs) | [source/game_sa/Core/Vector2D.h:229](../../source/game_sa/Core/Vector2D.h#L229) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator-(const CVector2D& vecOne, const CVector2D& vecTwo) | [source/game_sa/Core/Vector2D.h:233](../../source/game_sa/Core/Vector2D.h#L233) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator+(const CVector2D& vecOne, const CVector2D& vecTwo) | [source/game_sa/Core/Vector2D.h:237](../../source/game_sa/Core/Vector2D.h#L237) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator*(const CVector2D& vecOne, const CVector2D& vecTwo) | [source/game_sa/Core/Vector2D.h:241](../../source/game_sa/Core/Vector2D.h#L241) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator/(const CVector2D& vecOne, const CVector2D& vecTwo) | [source/game_sa/Core/Vector2D.h:245](../../source/game_sa/Core/Vector2D.h#L245) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator/(const CVector2D& vec, float dividend) | [source/game_sa/Core/Vector2D.h:249](../../source/game_sa/Core/Vector2D.h#L249) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator*(float multiplier, const CVector2D& vec) | [source/game_sa/Core/Vector2D.h:253](../../source/game_sa/Core/Vector2D.h#L253) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator!=(const CVector2D& vecOne, const CVector2D& vecTwo) | [source/game_sa/Core/Vector2D.h:257](../../source/game_sa/Core/Vector2D.h#L257) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator!=(const CVector2D& vec, float notEqualTo) | [source/game_sa/Core/Vector2D.h:261](../../source/game_sa/Core/Vector2D.h#L261) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator==(const CVector2D& vec, float equalTo) | [source/game_sa/Core/Vector2D.h:265](../../source/game_sa/Core/Vector2D.h#L265) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| operator==(const CVector2D& vecLeft, const CVector2D& vecRight) | [source/game_sa/Core/Vector2D.h:269](../../source/game_sa/Core/Vector2D.h#L269) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| DistanceBetweenPoints2D(const CVector2D& pointOne, const CVector2D& pointTwo) | [source/game_sa/Core/Vector2D.h:273](../../source/game_sa/Core/Vector2D.h#L273) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| DistanceBetweenPointsSquared2D(const CVector2D& pointOne, const CVector2D& pointTwo) | [source/game_sa/Core/Vector2D.h:277](../../source/game_sa/Core/Vector2D.h#L277) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| DotProduct2D(const CVector2D& v1, const CVector2D& v2) | [source/game_sa/Core/Vector2D.h:281](../../source/game_sa/Core/Vector2D.h#L281) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsPointWithinBounds2D(CVector2D min, CVector2D max, CVector2D point) | [source/game_sa/Core/Vector2D.h:285](../../source/game_sa/Core/Vector2D.h#L285) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsPointInRectangle2D(CVector2D rectTopLeft, CVector2D rectSize, CVector2D point) | [source/game_sa/Core/Vector2D.h:290](../../source/game_sa/Core/Vector2D.h#L290) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Normalized2D(CVector2D v) | [source/game_sa/Core/Vector2D.h:294](../../source/game_sa/Core/Vector2D.h#L294) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

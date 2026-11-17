@@ -1,7 +1,3 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Código del juego en el EXE: mapa de las 11,686 funciones
 
 [Progreso del reversing](../ReversedClasses.md#cobertura-exe) · [Lista completa (CSV)](funciones.csv)
@@ -14,10 +10,10 @@ Región **0x401000–0x74FFFF**: 11,686 funciones, 2,979,290 bytes. Es el códig
 | --- | ---: | ---: | ---: | ---: |
 | A · Falta: llamada desde código ya reemplazado | 0 | 0.0% | 0 | 0.0% |
 | B · Falta: método virtual | 0 | 0.0% | 0 | 0.0% |
-| C · Falta: solo la llaman funciones aún no reemplazadas | 1 | 0.0% | 30 | 0.0% |
-| D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 1 | 0.0% | 81 | 0.0% |
-| Envoltura pendiente (la DLL aún llama al EXE) | 1 | 0.0% | 85 | 0.0% |
-| Reemplazada por C++ | 11,683 | 100.0% | 2,979,094 | 100.0% |
+| C · Falta: solo la llaman funciones aún no reemplazadas | 0 | 0.0% | 0 | 0.0% |
+| D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 0 | 0.0% | 0 | 0.0% |
+| Envoltura pendiente (la DLL aún llama al EXE) | 0 | 0.0% | 0 | 0.0% |
+| Reemplazada por C++ | 11,686 | 100.0% | 2,979,290 | 100.0% |
 
 Las funciones de A–D son **lo que falta**. El grupo A es el piso para la independencia (la DLL ya depende de ellas); es una cota inferior porque hay 6,004 llamadas indirectas sin resolver. Las envolturas pendientes (que ya tienen hook pero llaman al EXE) se cuentan aparte, por eso A–D suman menos que en la tabla de cobertura de ReversedClasses. Listas: [A](pendientes-A.md) · [B](pendientes-B.md) · [C](pendientes-C.md) · [D](pendientes-D.md).
 
@@ -159,6 +155,7 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x420000 | 135 | 100% | 0 | 0 | — |
 | 0x430000 | 200 | 100% | 0 | 0 | — |
 | 0x440000 | 194 | 100% | 0 | 0 | — |
+| 0x450000 | 172 | 100% | 0 | 0 | — |
 | 0x460000 | 164 | 100% | 0 | 0 | — |
 | 0x470000 | 46 | 100% | 0 | 0 | — |
 | 0x480000 | 110 | 100% | 0 | 0 | — |
@@ -168,6 +165,7 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x4C0000 | 358 | 100% | 0 | 0 | — |
 | 0x4D0000 | 310 | 100% | 0 | 0 | — |
 | 0x4E0000 | 246 | 100% | 0 | 0 | — |
+| 0x4F0000 | 199 | 100% | 0 | 0 | — |
 | 0x500000 | 305 | 100% | 0 | 0 | — |
 | 0x510000 | 61 | 100% | 0 | 0 | — |
 | 0x520000 | 62 | 100% | 0 | 0 | — |
@@ -205,8 +203,6 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x720000 | 198 | 100% | 0 | 0 | — |
 | 0x730000 | 278 | 100% | 0 | 0 | — |
 | 0x740000 | 190 | 100% | 0 | 0 | — |
-| 0x4F0000 | 199 | 99% | 0 | 0 | — |
-| 0x450000 | 172 | 99% | 2 | 111 | — |
 
 ## Por módulo (estimado)
 
@@ -214,9 +210,8 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 
 | Módulo | Funciones | Reemplazadas | Faltan | Bytes que faltan | Confianza alta |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| CPathFind | 87 | 85 | 2 | 111 | 0 |
 
-1 de 782 módulos tienen algo pendiente.
+0 de 782 módulos tienen algo pendiente.
 
 ## Cómo usarlo
 

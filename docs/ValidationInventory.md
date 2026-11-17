@@ -2,14 +2,14 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **12,438 entradas reversed=1**, de 12,438 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11156 |
+| `validated=1` · evidencia aprobada vinculada | 11171 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11156 |
-| Sin evidencia aprobada vinculada en este registro | 1282 |
+| Evidencia histórica vinculada; revisión pendiente | 11171 |
+| Sin evidencia aprobada vinculada en este registro | 1270 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -655,6 +655,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEUserRadioTrackManager | `SelectUserTrackIndex` | [Resumen](../reversing/Audio15/validation-summary.json) |
 | CAEUserRadioTrackManager | `SetUserTrackIndex` | [Resumen](../reversing/Audio15/validation-summary.json) |
 | CAEUserRadioTrackManager | `Shutdown` | [Resumen](../reversing/Audio15/validation-summary.json) |
+| CAEUserRadioTrackManager | `UserTracksUninitCopy` | [Resumen](../reversing/Fn208A/validation-summary.json) |
 | CAEUserRadioTrackManager | `WriteUserTracksFile-` | [Resumen](../reversing/Audio15/validation-summary.json) |
 | CAEUserRadioTrackManager | `WriteUserTracksThread` | [Resumen](../reversing/Audio15/validation-summary.json) |
 | CAEVehicleAudioEntity | `AddAudioEvent-0` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
@@ -4110,10 +4111,16 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMatrixLinkList | `MoveToList1` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `MoveToList2` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `Shutdown` | [Resumen](../reversing/Small2/validation-summary.json) |
+| CMemoryHeap | `FillInBlockData` | [Resumen](../reversing/Fn208A/validation-summary.json) |
+| CMemoryHeap | `Init` | [Resumen](../reversing/Fn208A/validation-summary.json) |
 | CMemoryHeap | `IntegrityCheck` | [Resumen](../reversing/Misc61/validation-summary.json) |
+| CMemoryHeap | `JoinAdjacentFreeBlocks` | [Resumen](../reversing/Fn208A/validation-summary.json) |
+| CMemoryHeap | `Malloc` | [Resumen](../reversing/Fn208A/validation-summary.json) |
+| CMemoryHeap | `Shutdown` | [Resumen](../reversing/Fn208A/validation-summary.json) |
 | CMemoryMgr | `Calloc-NumSizeHint` | [Resumen](../reversing/Fn118A/validation-summary.json) |
 | CMemoryMgr | `Free` | [Resumen](../reversing/Fn100A/validation-summary.json) |
 | CMemoryMgr | `FreeAlign` | [Resumen](../reversing/Fn118A/validation-summary.json) |
+| CMemoryMgr | `Init` | [Resumen](../reversing/Fn208A/validation-summary.json) |
 | CMemoryMgr | `InitScratchPad` | [Resumen](../reversing/DependenciesLeaf2/validation-summary.json) |
 | CMemoryMgr | `Malloc-SizeHint` | [Resumen](../reversing/Fn118A/validation-summary.json) |
 | CMemoryMgr | `MallocAlign-SizeAlignHint` | [Resumen](../reversing/Fn118A/validation-summary.json) |
@@ -5155,6 +5162,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedType | `Save` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CPedType | `SetPedTypeAsAcquaintance` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CPedType | `Shutdown` | [Resumen](../reversing/Sys13/validation-summary.json) |
+| CPhoneInfo | `Constructor` | [Resumen](../reversing/Fn208A/validation-summary.json) |
+| CPhoneInfo | `PhoneAnimFinishCallback` | [Resumen](../reversing/Fn208A/validation-summary.json) |
 | CPhysical | `Add` | [Resumen](../reversing/Physical56/validation-summary.json) |
 | CPhysical | `AddCollisionRecord` | [Resumen](../reversing/Physical56/validation-summary.json) |
 | CPhysical | `AddToMovingList` | [Resumen](../reversing/Physical56/validation-summary.json) |
@@ -5224,6 +5233,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPickup | `GetRidOfObjects` | [Resumen](../reversing/World12/validation-summary.json) |
 | CPickup | `GiveUsAPickUpObject` | [Resumen](../reversing/World12/validation-summary.json) |
 | CPickup | `IsVisible` | [Resumen](../reversing/World12/validation-summary.json) |
+| CPickup | `IsWeaponSlotExchangeable` | [Resumen](../reversing/Fn208A/validation-summary.json) |
 | CPickup | `PickUpShouldBeInvisible` | [Resumen](../reversing/World12/validation-summary.json) |
 | CPickup | `ProcessGunShot` | [Resumen](../reversing/World12/validation-summary.json) |
 | CPickup | `Remove` | [Resumen](../reversing/World12/validation-summary.json) |
@@ -10344,6 +10354,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWorldScan | `SetExtraRectangleToScan` | [Resumen](../reversing/WorldScan64/validation-summary.json) |
 | CZone | `GetTranslatedName` | [Resumen](../reversing/Fn124A/validation-summary.json) |
 | CZoneDef | `GetCenter` | [Resumen](../reversing/Dependencies21E/validation-summary.json) |
+| CZoneDef | `IsPointWithin` | [Resumen](../reversing/Fn208A/validation-summary.json) |
 | C_PcSave | `DeleteSlot` | [Resumen](../reversing/PcSave/validation-summary.json) |
 | C_PcSave | `GenerateGameFilename` | [Resumen](../reversing/PcSave/validation-summary.json) |
 | C_PcSave | `GxtCharToSafeAscii` | [Resumen](../reversing/Fn111A/validation-summary.json) |
@@ -11026,6 +11037,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RwHelper | `RpClumpGtaCancelStream` | [Resumen](../reversing/Fn95C/validation-summary.json) |
 | RwHelper | `RpClumpGtaStreamRead1` | [Resumen](../reversing/Fn95C/validation-summary.json) |
 | RwHelper | `RpClumpGtaStreamRead2` | [Resumen](../reversing/Fn95C/validation-summary.json) |
+| RwHelper | `RpClumpGtaStreamReadAtOnce` | [Resumen](../reversing/Fn208A/validation-summary.json) |
 | RwHelper | `RpGeometryReplaceOldMaterialWithNewMaterial` | [Resumen](../reversing/Dependencies21G/validation-summary.json) |
 | RwHelper | `RwIm2DRenderIndexedPrimitiveThunk` | [Resumen](../reversing/Fn143A/validation-summary.json) |
 | RwHelper | `RwIm2DRenderLineThunk` | [Resumen](../reversing/Fn143A/validation-summary.json) |
@@ -11106,12 +11118,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | SurfaceInfos_c | `IsWater` | [Resumen](../reversing/Surface47/validation-summary.json) |
 | SurfaceInfos_c | `LeavesFootsteps` | [Resumen](../reversing/Surface47/validation-summary.json) |
 | SurfaceInfos_c | `LoadAdhesiveLimits` | [Resumen](../reversing/Fn177A/validation-summary.json) |
+| SurfaceInfos_c | `LoadSurfaceAudioInfos` | [Resumen](../reversing/Fn208A/validation-summary.json) |
+| SurfaceInfos_c | `LoadSurfaceInfos` | [Resumen](../reversing/Fn208A/validation-summary.json) |
 | SurfaceInfos_c | `MakesCarClean` | [Resumen](../reversing/Surface47/validation-summary.json) |
 | SurfaceInfos_c | `MakesCarDirty` | [Resumen](../reversing/Surface47/validation-summary.json) |
 | SurfaceInfos_c | `ProducesFootDust` | [Resumen](../reversing/Surface47/validation-summary.json) |
 | TList_c | `ListAddItemExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | TList_c | `ListGetNumItemsExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | TList_c | `ListRemoveAllExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
+| UserTracksLegacyString | `Reallocate` | [Resumen](../reversing/Fn208A/validation-summary.json) |
 | UserTracksLegacyVector | `PushBack` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
 | VectorConstructorIterator | `VectorConstructorIteratorExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | VideoMode | `FreeVideoModeList` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
@@ -11228,7 +11243,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEStreamingDecoder` | 3 | 0 | 3 | 0 |
 | `CAETrackLoader` | 1 | 0 | 1 | 0 |
 | `CAETwinLoopSoundEntity` | 10 | 0 | 10 | 0 |
-| `CAEUserRadioTrackManager` | 16 | 0 | 15 | 1 |
+| `CAEUserRadioTrackManager` | 16 | 0 | 16 | 0 |
 | `CAEVehicleAudioEntity` | 107 | 0 | 107 | 0 |
 | `CAEVorbisDecoder` | 14 | 0 | 14 | 0 |
 | `CAEWMADecoder` | 13 | 0 | 13 | 0 |
@@ -11499,8 +11514,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CMatrix` | 49 | 0 | 49 | 0 |
 | `CMatrixLink` | 2 | 0 | 2 | 0 |
 | `CMatrixLinkList` | 12 | 0 | 12 | 0 |
-| `CMemoryHeap` | 6 | 0 | 1 | 5 |
-| `CMemoryMgr` | 11 | 0 | 10 | 1 |
+| `CMemoryHeap` | 6 | 0 | 6 | 0 |
+| `CMemoryMgr` | 11 | 0 | 11 | 0 |
 | `CMentalState` | 1 | 0 | 1 | 0 |
 | `CMenuManager` | 62 | 0 | 62 | 0 |
 | `CMenuSystem` | 21 | 0 | 21 | 0 |
@@ -11584,8 +11599,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedToPlayerConversations` | 3 | 0 | 3 | 0 |
 | `CPedTriggerScriptAttractor` | 3 | 0 | 0 | 3 |
 | `CPedType` | 14 | 0 | 14 | 0 |
+| `CPhoneInfo` | 2 | 0 | 2 | 0 |
 | `CPhysical` | 62 | 0 | 62 | 0 |
-| `CPickup` | 13 | 0 | 12 | 1 |
+| `CPickup` | 13 | 0 | 13 | 0 |
 | `CPickups` | 38 | 0 | 38 | 0 |
 | `CPlaceName` | 2 | 0 | 2 | 0 |
 | `CPlaceable` | 40 | 0 | 40 | 0 |
@@ -12045,7 +12061,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWorld` | 96 | 0 | 96 | 0 |
 | `CWorldScan` | 2 | 0 | 2 | 0 |
 | `CZone` | 1 | 0 | 1 | 0 |
-| `CZoneDef` | 2 | 0 | 1 | 1 |
+| `CZoneDef` | 2 | 0 | 2 | 0 |
 | `C_PcSave` | 6 | 0 | 6 | 0 |
 | `CdStream` | 11 | 0 | 11 | 0 |
 | `Common` | 26 | 0 | 26 | 0 |
@@ -12160,11 +12176,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RwCore` | 211 | 0 | 29 | 182 |
 | `RwD3D9` | 115 | 0 | 0 | 115 |
 | `RwD3D9RasterDriver` | 14 | 0 | 0 | 14 |
-| `RwHelper` | 43 | 0 | 42 | 1 |
+| `RwHelper` | 43 | 0 | 43 | 0 |
 | `RwPlCore` | 132 | 0 | 14 | 118 |
 | `Securom` | 4 | 0 | 4 | 0 |
-| `SurfaceInfos_c` | 50 | 0 | 48 | 2 |
+| `SurfaceInfos_c` | 50 | 0 | 50 | 0 |
 | `TList_c` | 8 | 0 | 3 | 5 |
+| `UserTracksLegacyString` | 1 | 0 | 1 | 0 |
 | `UserTracksLegacyVector` | 2 | 0 | 1 | 1 |
 | `VectorConstructorIterator` | 1 | 0 | 1 | 0 |
 | `VideoMode` | 5 | 0 | 5 | 0 |

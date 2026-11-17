@@ -1,12 +1,58 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Detalle de implementaciones
 
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1381"></a>
+
+## Globales y helpers: source/game_sa/Scripts/Commands/CameraCommands.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| IsPointOnScreen(CVector pos, float radius) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:12](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| ShakeCam(float strength) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:19](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| AttachCameraToVehicleLookAtVehicle(CVehicle& attachTo, CVector offset, CVehicle& lookAt, float tilt, eSwitchType switchType) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:23](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| DoCameraBump(float horizontal, float vertical) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:36](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| DoCamFade(CRunningScript* S, uint32 time, eFadeFlag direction) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:41](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo bScriptHasFadedOut: source/game_sa/Scripts/TheScripts.h:427 (0x00A4448A) |
+| PointCameraAtCar(CVehicle* car, eCamMode mode, eSwitchType switchType) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:50](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| PointCameraAtChar(CPed* ped, eCamMode mode, eSwitchType switchType) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:58](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| RestoreCamera() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:66](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| SetFixedCameraPosition(CVector pos, CVector offset) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:71](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| PointCameraAtPoint(CVector pos, eSwitchType switchType) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:76](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| RestoreCameraJumpcut() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:84](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| SetCameraZoom(int16 zoomMode) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:89](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| SetCameraBehindPlayer() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:97](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| SetCameraInFrontOfPlayer() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:102](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L102) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| GetDebugCameraCoordinates() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:107](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| GetDebugCameraPointAt() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:112](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| IsDebugCameraOn() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:117](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| AttachCameraToVehicle(CVehicle& attachTo, CVector offset, CVector rot, float tilt, eSwitchType switchType) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:122](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| AttachCameraToVehicleLookAtChar(CVehicle& attachTo, CVector offset, CPed& lookAt, float tilt, eSwitchType switchType) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:135](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L135) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| AttachCameraToChar(CPed& attachTo, CVector offset, CVector rot, float tilt, eSwitchType switchType) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:148](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L148) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| AttachCameraToCharLookAtChar(CPed& attachTo, CVector offset, CPed& lookAt, float tilt, eSwitchType switchType) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:161](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L161) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| GetActiveCameraCoordinates() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:174](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| GetActiveCameraPointAt() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:179](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L179) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| GetCameraFov() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:184](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L184) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| SetFirstPersonInCarCameraMode(bool enabled) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:189](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L189) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CameraSetVectorTrack(CVector from, CVector to, int32 duration, bool ease) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:197](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L197) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CameraSetLerpFov(float from, float to, int32 duration, bool ease) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:202](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L202) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CameraResetNewScriptables() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:207](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L207) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CameraPersistTrack(bool enabled) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:212](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L212) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CameraPersistPos(bool enabled) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:217](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L217) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CameraPersistFov(bool enabled) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:222](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L222) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CameraIsVectorMoveRunning() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:227](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L227) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CameraIsVectorTrackRunning() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:232](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L232) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CameraSetVectorMove(CVector from, CVector to, float time, bool ease) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:237](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L237) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| SetCinemaCamera(bool enabled) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:242](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L242) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| SetCameraInFrontOfChar(CPed& target) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:247](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L247) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CameraSetShakeSimulationSimple(int32 type, float ms, float intensity) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:252](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L252) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| SetPlayerInCarCameraMode(int32 zoom) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:257](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L257) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| AllowFixedCameraCollision(bool enabled) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:264](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L264) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gAllowScriptedFixedCameraCollision: source/game_sa/Scripts/TheScripts.h:349 (0x00B6EC2C) |
+| SetVehicleCameraTweak(eModelID model, float dist, float alt, float angle) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:269](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L269) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| ResetVehicleCameraTweak() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:279](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L279) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| SetCameraPositionUnfixed(CVector2D offset) | [source/game_sa/Scripts/Commands/CameraCommands.cpp:289](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L289) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| GetPlayerInCarCameraMode() | [source/game_sa/Scripts/Commands/CameraCommands.cpp:303](../../source/game_sa/Scripts/Commands/CameraCommands.cpp#L303) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+
+<a id="grupo-1382"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/CharacterCommands.cpp
 
@@ -207,7 +253,7 @@
 | * StoreCarCharIsAttachedToNoSave(CPed& ped) | [source/game_sa/Scripts/Commands/CharacterCommands.cpp:3456](../../source/game_sa/Scripts/Commands/CharacterCommands.cpp#L3456) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ClearCharTasksImmediately(CPed& ped) | [source/game_sa/Scripts/Commands/CharacterCommands.cpp:3473](../../source/game_sa/Scripts/Commands/CharacterCommands.cpp#L3473) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1382"></a>
+<a id="grupo-1383"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/ClockCommands.cpp
 
@@ -219,7 +265,7 @@
 | StoreClock() | [source/game_sa/Scripts/Commands/ClockCommands.cpp:27](../../source/game_sa/Scripts/Commands/ClockCommands.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RestoreClock() | [source/game_sa/Scripts/Commands/ClockCommands.cpp:31](../../source/game_sa/Scripts/Commands/ClockCommands.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1383"></a>
+<a id="grupo-1384"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/ConversationCommands.cpp
 
@@ -237,7 +283,7 @@
 | SetUpConversationNodeWithScriptedSpeech(const char* questionKey, const char* answerYesKey, const char* answerNoKey, int32 questionWAV, int32 answerYesWAV, int32 answerNoWAV) | [source/game_sa/Scripts/Commands/ConversationCommands.cpp:63](../../source/game_sa/Scripts/Commands/ConversationCommands.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetUpConversationEndNodeWithScriptedSpeech(const char* questionKey, int32 questionWAV) | [source/game_sa/Scripts/Commands/ConversationCommands.cpp:68](../../source/game_sa/Scripts/Commands/ConversationCommands.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1384"></a>
+<a id="grupo-1385"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/DrawCommands.cpp
 
@@ -252,7 +298,7 @@
 | DrawSpriteWithRotation(int32 slot, float x, float y, float width, float height, float angle, CRGBA color) | [source/game_sa/Scripts/Commands/DrawCommands.cpp:82](../../source/game_sa/Scripts/Commands/DrawCommands.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroRectangles: source/game_sa/Scripts/TheScripts.h:391 (0x00A92D68); Posible dato fijo NumberOfIntroRectanglesThisFrame: source/game_sa/Scripts/TheScripts.h:392 (0x00A44B5C) |
 | DrawWindow(CRect bounds, const char* header, int32 style) | [source/game_sa/Scripts/Commands/DrawCommands.cpp:97](../../source/game_sa/Scripts/Commands/DrawCommands.cpp#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroRectangles: source/game_sa/Scripts/TheScripts.h:391 (0x00A92D68); Posible dato fijo NumberOfIntroRectanglesThisFrame: source/game_sa/Scripts/TheScripts.h:392 (0x00A44B5C) |
 
-<a id="grupo-1385"></a>
+<a id="grupo-1386"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/GameCommands.cpp
 
@@ -271,7 +317,7 @@
 | GetRidOfPlayerProstitute() | [source/game_sa/Scripts/Commands/GameCommands.cpp:63](../../source/game_sa/Scripts/Commands/GameCommands.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetAreaName(const char* key) | [source/game_sa/Scripts/Commands/GameCommands.cpp:67](../../source/game_sa/Scripts/Commands/GameCommands.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
 | SetRadioToPlayersFavorite() | [source/game_sa/Scripts/Commands/GameCommands.cpp:71](../../source/game_sa/Scripts/Commands/GameCommands.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90) |
-| SetDisableMilitaryZones(bool disable) | [source/game_sa/Scripts/Commands/GameCommands.cpp:75](../../source/game_sa/Scripts/Commands/GameCommands.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bMilitaryZonesDisabled: source/game_sa/CullZones.h:174 (0x00C87ACD) |
+| SetDisableMilitaryZones(bool disable) | [source/game_sa/Scripts/Commands/GameCommands.cpp:75](../../source/game_sa/Scripts/Commands/GameCommands.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bMilitaryZonesDisabled: source/game_sa/CullZones.h:145 (0x00C87ACD) |
 | IncrementFloatStatNoMessage(eStats stat, float value) | [source/game_sa/Scripts/Commands/GameCommands.cpp:79](../../source/game_sa/Scripts/Commands/GameCommands.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | TakePhoto(bool save) | [source/game_sa/Scripts/Commands/GameCommands.cpp:83](../../source/game_sa/Scripts/Commands/GameCommands.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_bSavePhotoFromScript: source/game_sa/PostEffects.h:86 (0x00C402D0); Posible dato fijo ms_bTakePhoto: source/game_sa/Weapon.h:53 (0x00C8A7C1) |
 | SetNoResprays(bool enabled) | [source/game_sa/Scripts/Commands/GameCommands.cpp:88](../../source/game_sa/Scripts/Commands/GameCommands.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo NoResprays: source/game_sa/Garages.h:32 (0x0096C008) |
@@ -294,7 +340,7 @@
 | IsXboxVersion() | [source/game_sa/Scripts/Commands/GameCommands.cpp:174](../../source/game_sa/Scripts/Commands/GameCommands.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DoDebugStuff() | [source/game_sa/Scripts/Commands/GameCommands.cpp:184](../../source/game_sa/Scripts/Commands/GameCommands.cpp#L184) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo UnknownDebugStuff: source/game_sa/Scripts/TheScripts.h:412 (0x00A95190) |
 
-<a id="grupo-1386"></a>
+<a id="grupo-1387"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/MathCommands.cpp
 
@@ -308,7 +354,7 @@
 | Sin(float deg) | [source/game_sa/Scripts/Commands/MathCommands.cpp:31](../../source/game_sa/Scripts/Commands/MathCommands.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Cos(float deg) | [source/game_sa/Scripts/Commands/MathCommands.cpp:35](../../source/game_sa/Scripts/Commands/MathCommands.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1387"></a>
+<a id="grupo-1388"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/MissionCommands.cpp
 
@@ -319,7 +365,7 @@
 | StartScriptFire(CVector pos, int8 propagation, int32 size) | [source/game_sa/Scripts/Commands/MissionCommands.cpp:69](../../source/game_sa/Scripts/Commands/MissionCommands.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gFireManager: source/game_sa/FireManager.h:81 (0x00B71F80) |
 | LaunchMission(uint32 label) | [source/game_sa/Scripts/Commands/MissionCommands.cpp:73](../../source/game_sa/Scripts/Commands/MissionCommands.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ScriptSpace: source/game_sa/Scripts/TheScripts.h:359 (0x00A49960) |
 
-<a id="grupo-1388"></a>
+<a id="grupo-1389"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/PadCommands.cpp
 
@@ -331,7 +377,7 @@
 | IsMouseUsingVerticalInversion() | [source/game_sa/Scripts/Commands/PadCommands.cpp:27](../../source/game_sa/Scripts/Commands/PadCommands.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bInvertMouseY: source/game_sa/MenuManager.h:295 (0x00BA6745) |
 | HasGameJustReturnedFromFrontend() | [source/game_sa/Scripts/Commands/PadCommands.cpp:31](../../source/game_sa/Scripts/Commands/PadCommands.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1389"></a>
+<a id="grupo-1390"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/PathCommands.cpp
 
@@ -344,7 +390,7 @@
 | SwitchPedRoadsOff(float xA, float yA, float zA, float xB, float yB, float zB) | [source/game_sa/Scripts/Commands/PathCommands.cpp:59](../../source/game_sa/Scripts/Commands/PathCommands.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ThePaths: source/game_sa/PathFind.h:640 (0x0096F050) |
 | SwitchPedRoadsBackToOriginal(float xA, float yA, float zA, float xB, float yB, float zB) | [source/game_sa/Scripts/Commands/PathCommands.cpp:70](../../source/game_sa/Scripts/Commands/PathCommands.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ThePaths: source/game_sa/PathFind.h:640 (0x0096F050) |
 
-<a id="grupo-1390"></a>
+<a id="grupo-1391"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/PedCommands.cpp
 
@@ -355,7 +401,7 @@
 | ShutAllCharsUp(bool disable) | [source/game_sa/Scripts/Commands/PedCommands.cpp:20](../../source/game_sa/Scripts/Commands/PedCommands.cpp#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetCharGetOutUpsideDownCar(CPed& ped, bool enable) | [source/game_sa/Scripts/Commands/PedCommands.cpp:24](../../source/game_sa/Scripts/Commands/PedCommands.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1391"></a>
+<a id="grupo-1392"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/PlayerCommands.cpp
 
@@ -431,7 +477,7 @@
 | SetPlayerJumpButton(uint32 playerIdx, bool state) | [source/game_sa/Scripts/Commands/PlayerCommands.cpp:450](../../source/game_sa/Scripts/Commands/PlayerCommands.cpp#L450) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HasPlayerBoughtItem(uint32 itemId) | [source/game_sa/Scripts/Commands/PlayerCommands.cpp:455](../../source/game_sa/Scripts/Commands/PlayerCommands.cpp#L455) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1392"></a>
+<a id="grupo-1393"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/ScriptCommands.cpp
 
@@ -451,7 +497,7 @@
 | DrawSubtitlesBeforeFade(bool enable) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:76](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bDrawSubtitlesBeforeFade: source/game_sa/Scripts/TheScripts.h:425 (0x00A44488) |
 | SetPlayerInStadium(bool enable) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:80](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bPlayerIsOffTheMap: source/game_sa/Scripts/TheScripts.h:440 (0x00A444A4) |
 
-<a id="grupo-1393"></a>
+<a id="grupo-1394"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/SequenceCommands.cpp
 
@@ -459,7 +505,7 @@
 | --- | --- | --- | --- | --- | --- |
 | SetSequenceToRepeat(int32 index, bool repeat) | [source/game_sa/Scripts/Commands/SequenceCommands.cpp:11](../../source/game_sa/Scripts/Commands/SequenceCommands.cpp#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1394"></a>
+<a id="grupo-1395"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/StatCommands.cpp
 
@@ -471,7 +517,7 @@
 | SetStat(eStats stat, T value) | [source/game_sa/Scripts/Commands/StatCommands.cpp:35](../../source/game_sa/Scripts/Commands/StatCommands.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetStat(eStats stat) | [source/game_sa/Scripts/Commands/StatCommands.cpp:43](../../source/game_sa/Scripts/Commands/StatCommands.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1395"></a>
+<a id="grupo-1396"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/TextCommands.cpp
 
@@ -516,7 +562,7 @@
 | AddNextMessageToPreviousBriefs(bool state) | [source/game_sa/Scripts/Commands/TextCommands.cpp:298](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L298) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bAddNextMessageToPreviousBriefs: source/game_sa/Scripts/TheScripts.h:428 (0x00A4448B) |
 | DisplayNonMiniGameHelpMessages(bool state) | [source/game_sa/Scripts/Commands/TextCommands.cpp:303](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L303) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bDisplayNonMiniGameHelpMessages: source/game_sa/Scripts/TheScripts.h:443 (0x00A444A7) |
 
-<a id="grupo-1396"></a>
+<a id="grupo-1397"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/UnusedCommands.cpp
 
@@ -524,7 +570,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GetLatestConsoleCommand() | [source/game_sa/Scripts/Commands/UnusedCommands.cpp:15](../../source/game_sa/Scripts/Commands/UnusedCommands.cpp#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1397"></a>
+<a id="grupo-1398"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/VehicleCommands.cpp
 
@@ -553,7 +599,7 @@
 | SetCarAlwaysCreateSkids(CVehicle& vehicle, bool enable) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:125](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetCarAsMissionCar(CRunningScript& S, CVehicle& vehicle) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:130](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo MissionCleanUp: source/game_sa/Scripts/TheScripts.h:466 (0x00A90850) |
 
-<a id="grupo-1398"></a>
+<a id="grupo-1399"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/ZoneCommands.cpp
 
@@ -575,7 +621,7 @@
 | SetZoneNoCops(const char* label, bool isNoCops) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:108](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DisplayZoneNames(bool enabled) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:115](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bScriptDontDisplayAreaName: source/game_sa/Hud.h:22 (0x00BAA3F8) |
 
-<a id="grupo-1399"></a>
+<a id="grupo-1400"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/RunningScript.cpp
 
@@ -592,15 +638,3 @@
 | & RawField(void* object, size_t offset) | [source/game_sa/Scripts/RunningScript.cpp:1355](../../source/game_sa/Scripts/RunningScript.cpp#L1355) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ScriptObjectAngledBoxCount(CObject* obj, const CMatrix& matrix, const CVector& point) | [source/game_sa/Scripts/RunningScript.cpp:2644](../../source/game_sa/Scripts/RunningScript.cpp#L2644) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_modelInfoPtrs: source/game_sa/Models/ModelInfo.h:30 (0x00A9B0C8) |
 | ScriptSlideStep(float current, float target, float speed) | [source/game_sa/Scripts/RunningScript.cpp:2669](../../source/game_sa/Scripts/RunningScript.cpp#L2669) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1400"></a>
-
-## Globales y helpers: source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| & P(size_t index) | [source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp:60](../../source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ScriptParams: source/game_sa/Scripts/RunningScript.h:81 (0x00A43C78) |
-| * PedOf(int32 handle) | [source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp:64](../../source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedPool::GetAtRef 0x00404910 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * VehicleOf(int32 handle) | [source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp:67](../../source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ScriptModelIndex(int32 id) | [source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp:71](../../source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo UsedObjectArray: source/game_sa/Scripts/TheScripts.h:384 (0x00A44B70) |
-| CopyTextLabel16(char* dest, const char* src) | [source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp:75](../../source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

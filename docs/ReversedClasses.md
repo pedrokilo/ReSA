@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md) · [Registro de validaciones](../reversing/ValidationRegistry/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) y el análisis estático del EXE · **Generado:** 2026-11-17 02:22 UTC
+> **Fuente:** [hooks.csv](hooks.csv) y el análisis estático del EXE · **Generado:** 2026-11-17 02:58 UTC
 
 **Índice:** [1. Dónde estamos](#donde-estamos) · [2. Código del juego](#juego) · [3. RenderWare](#renderware) · [4. Qué falta por validar](#por-validar) · [5. Clases del juego sin validar](#clases) · [6. Cómo leer y regenerar](#metodo)
 
@@ -22,18 +22,18 @@ Cifras al 17/11/2026.
 
 | Zona | Funciones del EXE | Reconstruidas | Validadas | Reconstruidas sin validar | Faltan |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| **Código del juego** | 11.686 | 11.683 (99,97%) | 11.073 | 537 | 3 |
+| **Código del juego** | 11.686 | 11.686 (100,00%) | 11.088 | 525 | 0 |
 | **RenderWare y D3D** | 1.889 | 724 (38,33%) | 77 | 745 | 0 |
 
-En total hay **12.438 entradas reconstruidas, 11.156 validadas y 1.282 sin validar** en el catálogo (11.156 con evidencia registrada). Quedan además 6 entradas fuera de ambas zonas (CRT y utilidades).
+En total hay **12.441 entradas reconstruidas, 11.171 validadas y 1.270 sin validar** en el catálogo (11.171 con evidencia registrada). Quedan además 6 entradas fuera de ambas zonas (CRT y utilidades).
 
 ### Fase del proceso
 
 | Fase | Estado |
 | --- | --- |
-| Reconstruir el código del juego en C++ puro | **Hecha**: 99,97% de las funciones y 99,99% de los bytes; faltan 3 y hay 118 excluidas por no ser reconstruibles |
+| Reconstruir el código del juego en C++ puro | **Hecha**: 100,00% de las funciones y 100,00% de los bytes; faltan 0 y hay 118 excluidas por no ser reconstruibles |
 | Reconstruir el SDK de RenderWare | **Hecha** en lo reconstruible: 724 funciones; 1.111 son libpng, zlib y D3DX9 (se enlaza la original) y 54 no son reconstruibles |
-| **Validar el código del juego** | **En curso**: 11.073 de 11.610 reconstruidas (95,37%); el resto va por oleadas de lotes (detalle en el [informe](ReversedClasses.md#por-validar)) |
+| **Validar el código del juego** | **En curso**: 11.088 de 11.613 reconstruidas (95,48%); el resto va por oleadas de lotes (detalle en el [informe](ReversedClasses.md#por-validar)) |
 | Validar RenderWare | **Apenas empezada**: 77 de 822 (9,37%); falta el plan de bancos (dispositivo D3D falso, flujos y listas libres falsos) |
 | Pase final de bancos viejos | Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió |
 | Ejecutable propio | Después: sustituir RenderWare, D3D y CRT por bibliotecas y quitar la dependencia del EXE ([hoja de ruta](ProjectRoadmap.md)) |
@@ -44,12 +44,12 @@ En total hay **12.438 entradas reconstruidas, 11.156 validadas y 1.282 sin valid
 
 | Medida | Valor | Progreso |
 | --- | --- | --- |
-| Funciones reconstruidas | 11.683 / 11.686 · 99,97% | `████████████████████` |
-| Bytes de código reconstruidos | 2.979.094 / 2.979.290 · 99,99% | `████████████████████` |
-| Entradas validadas (de las reconstruidas) | 11.073 / 11.610 · 95,37% | `███████████████████░` |
-| Entradas reconstruidas sin validar | 537 |  |
+| Funciones reconstruidas | 11.686 / 11.686 · 100,00% | `████████████████████` |
+| Bytes de código reconstruidos | 2.979.290 / 2.979.290 · 100,00% | `████████████████████` |
+| Entradas validadas (de las reconstruidas) | 11.088 / 11.613 · 95,48% | `███████████████████░` |
+| Entradas reconstruidas sin validar | 525 |  |
 
-**Faltan 3 funciones (196 bytes)**, listadas en [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md), y **118 excluidas** y documentadas en [excluidas.csv](JuegoExe/excluidas.csv) porque no se pueden reconstruir en C++ puro: 73 __usercall con registros que C++ no puede leer; 31 saltos puros a otra dirección; 14 fragmentos internos de otra función y otros.
+**Faltan 0 funciones (0 bytes)**, listadas en [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md), y **118 excluidas** y documentadas en [excluidas.csv](JuegoExe/excluidas.csv) porque no se pueden reconstruir en C++ puro: 73 __usercall con registros que C++ no puede leer; 31 saltos puros a otra dirección; 14 fragmentos internos de otra función y otros.
 
 Todo lo reconstruido está en C++: en `source/game_sa` no queda ningún `__asm` ni función `naked` ([estado de la migración](../reversing/CppOnlyMigration/README.md)). Cada validada tiene su banco `FnNNNA` y su evidencia en `reversing/CppTwelveLevel6Final/runs`.
 
@@ -106,13 +106,11 @@ Los lotes de validación van por oleadas y cada uno tiene su informe en [reversi
 | Oleada | Lotes | Lotes totales | Validados | Por validar | Funciones por validar |
 | --- | --- | ---: | ---: | ---: | ---: |
 | V1 | 189A–206A | 18 | 18 | 0 | 0 |
-| V2 | 207A–215A | 9 | 1 | 8 | 179 |
+| V2 | 207A–215A | 9 | 2 | 7 | 164 |
 | V3 | 216A–222A | 7 | 0 | 7 | 197 |
 | V4 | 223A–229A | 7 | 0 | 7 | 121 |
 | V5 | 230A–236A | 7 | 0 | 7 | 136 |
 | V6 | 237A–239A | 3 | 0 | 3 | 5 |
-
-En validación ahora: 208A.
 
 Lotes por validar: 209A, 210A, 211A, 212A, 213A, 214A, 215A, 216A, 217A, 218A, 219A, 220A, 221A, 222A, 223A, 224A, 225A, 226A, 227A, 228A, 229A, 230A, 231A, 232A, 233A, 234A, 235A, 236A, 237A, 238A, 239A.
 
@@ -143,7 +141,6 @@ Solo se listan las clases del código del juego que todavía tienen alguna funci
 | ExeProtectionStub | 8 | 0 | 8 |
 | CReplay | 55 | 48 | 7 |
 | LegacyStdString | 6 | 0 | 6 |
-| CMemoryHeap | 6 | 1 | 5 |
 | FxEmitter_c | 9 | 4 | 5 |
 | RpAnimBlend | 52 | 47 | 5 |
 | TList_c | 8 | 3 | 5 |
@@ -166,10 +163,11 @@ Solo se listan las clases del código del juego que todavía tienen alguna funci
 | CPedTriggerScriptAttractor | 3 | 0 | 3 |
 | CProtectionStub | 3 | 0 | 3 |
 | FxInfoAnimTexture_c | 3 | 0 | 3 |
+| FxInfoAttractLine_c | 3 | 0 | 3 |
 
-Otras 84 clases con 172 funciones sin validar entre todas (cada una con 3 o menos).
+Otras 77 clases con 162 funciones sin validar entre todas (cada una con 3 o menos).
 
-Clases del juego completas y validadas: **853** de 977.
+Clases del juego completas y validadas: **862** de 979.
 
 <a id="metodo"></a>
 
