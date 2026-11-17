@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11306 |
+| `validated=1` · evidencia aprobada vinculada | 11313 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11306 |
-| Sin evidencia aprobada vinculada en este registro | 1135 |
+| Evidencia histórica vinculada; revisión pendiente | 11313 |
+| Sin evidencia aprobada vinculada en este registro | 1128 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -5455,6 +5455,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerInfo | `SetPlayerSkin` | [Resumen](../reversing/Player28/validation-summary.json) |
 | CPlayerInfo | `StreamParachuteWeapon` | [Resumen](../reversing/Player28/validation-summary.json) |
 | CPlayerInfo | `WorkOutEnergyFromHunger` | [Resumen](../reversing/Player28/validation-summary.json) |
+| CPlayerInfo | `operator=` | [Resumen](../reversing/Fn214A/validation-summary.json) |
 | CPlayerInfoSaveStructure | `Construct` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CPlayerInfoSaveStructure | `Extract` | [Resumen](../reversing/Fn196A/validation-summary.json) |
 | CPlayerPed | `AnnoyPlayerPed` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
@@ -5533,6 +5534,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerPedData | `DeAllocateData` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CPlayerPedData | `Destructor` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CPlayerPedData | `SetInitialState` | [Resumen](../reversing/Events43/validation-summary.json) |
+| CPlayerPedData | `operator=` | [Resumen](../reversing/Fn214A/validation-summary.json) |
 | CPlayerRelationshipRecorder | `AddRelationship` | [Resumen](../reversing/Fn113A/validation-summary.json) |
 | CPlayerRelationshipRecorder | `ClearRelationshipWithPlayer` | [Resumen](../reversing/Fn113A/validation-summary.json) |
 | CPlayerRelationshipRecorder | `Flush` | [Resumen](../reversing/Fn113A/validation-summary.json) |
@@ -5816,6 +5818,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CQuaternion | `Get-euler` | [Resumen](../reversing/QuatEulerGet29/validation-summary.json) |
 | CQuaternion | `Get-matrix` | [Resumen](../reversing/QuatGet28/validation-summary.json) |
 | CQuaternion | `Multiply` | [Resumen](../reversing/QuatMultiply29/validation-summary.json) |
+| CQuaternion | `Normalise` | [Resumen](../reversing/Fn214A/validation-summary.json) |
 | CQuaternion | `Set-axis-angle` | [Resumen](../reversing/DependenciesMathLeaf3/validation-summary.json) |
 | CQuaternion | `Set-euler` | [Resumen](../reversing/QuatEulerSet29/validation-summary.json) |
 | CQuaternion | `Set-matrix` | [Resumen](../reversing/DependenciesMathLeaf3/validation-summary.json) |
@@ -6020,6 +6023,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CReplay | `StorePedUpdate` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `StorePlayerInfoVariables` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `StoreStuffInMem` | [Resumen](../reversing/Replay47/validation-summary.json) |
+| CReplay | `StoreTrainUpdate` | [Resumen](../reversing/Fn214A/validation-summary.json) |
 | CReplay | `StoreVehicleBlock` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CReplay | `StreamAllNecessaryCarsAndPeds` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `TriggerPlayback` | [Resumen](../reversing/Replay47/validation-summary.json) |
@@ -6487,6 +6491,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CStreaming | `RetryLoadFile` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
 | CStreaming | `Save` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
 | CStreaming | `SetLoadVehiclesInLoadScene` | [Resumen](../reversing/Fn189A/validation-summary.json) |
+| CStreaming | `SetMissionDoesntRequireAnim` | [Resumen](../reversing/Fn214A/validation-summary.json) |
 | CStreaming | `SetMissionDoesntRequireModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
 | CStreaming | `SetMissionDoesntRequireSpecialChar` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CStreaming | `SetMissionDoesntRequireStreamedScript` | [Resumen](../reversing/Fn198A/validation-summary.json) |
@@ -9486,6 +9491,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTheScripts | `AddToInvisibilitySwapArray` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `AddToListOfConnectedLodObjects` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `AddToListOfSpecialAnimGroupsAttachedToCharModels` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `AddToSuppressedCarModels` | [Resumen](../reversing/Fn214A/validation-summary.json) |
 | CTheScripts | `AddToSwitchJumpTable` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `AddToVehicleModelsBlockedByScript` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `AddToWaitingForScriptBrainArray` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
@@ -11323,6 +11329,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | cTransmission | `DisplayGearRatios` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | cTransmission | `InitGearRatios` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | tColLighting | `GetCurrentLighting` | [Resumen](../reversing/Fn116A/validation-summary.json) |
+| tReplayTrainBlock | `ExtractTrainUpdateData` | [Resumen](../reversing/Fn214A/validation-summary.json) |
 | tUserList | `AddPedType` | [Resumen](../reversing/Fn152A/validation-summary.json) |
 | tUserList | `IsPedTypeAllowed` | [Resumen](../reversing/Fn148A/validation-summary.json) |
 
@@ -11748,10 +11755,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlantLocTri` | 3 | 0 | 3 | 0 |
 | `CPlantMgr` | 20 | 0 | 20 | 0 |
 | `CPlantSurfPropMgr` | 4 | 0 | 4 | 0 |
-| `CPlayerInfo` | 32 | 0 | 31 | 1 |
+| `CPlayerInfo` | 32 | 0 | 32 | 0 |
 | `CPlayerInfoSaveStructure` | 2 | 0 | 2 | 0 |
 | `CPlayerPed` | 71 | 0 | 71 | 0 |
-| `CPlayerPedData` | 6 | 0 | 5 | 1 |
+| `CPlayerPedData` | 6 | 0 | 6 | 0 |
 | `CPlayerRelationshipRecorder` | 6 | 0 | 6 | 0 |
 | `CPlayerSkin` | 4 | 0 | 4 | 0 |
 | `CPointLights` | 7 | 0 | 7 | 0 |
@@ -11769,7 +11776,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPtrNodeSingleLinkPool` | 7 | 0 | 5 | 2 |
 | `CQuadBike` | 14 | 0 | 14 | 0 |
 | `CQuadTreeNode<T>` | 20 | 0 | 20 | 0 |
-| `CQuaternion` | 11 | 0 | 10 | 1 |
+| `CQuaternion` | 11 | 0 | 11 | 0 |
 | `CRGBA` | 2 | 0 | 2 | 0 |
 | `CRT` | 6 | 0 | 6 | 0 |
 | `CRadar` | 66 | 0 | 66 | 0 |
@@ -11781,7 +11788,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CRegisteredMotionBlurStreak` | 2 | 0 | 2 | 0 |
 | `CRemote` | 3 | 0 | 3 | 0 |
 | `CRenderer` | 35 | 0 | 35 | 0 |
-| `CReplay` | 55 | 0 | 54 | 1 |
+| `CReplay` | 55 | 0 | 55 | 0 |
 | `CRestart` | 11 | 0 | 11 | 0 |
 | `CRideAnimData` | 2 | 0 | 2 | 0 |
 | `CRoadBlocks` | 8 | 0 | 8 | 0 |
@@ -11819,7 +11826,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CStencilShadows` | 14 | 0 | 14 | 0 |
 | `CStoredCar` | 2 | 0 | 2 | 0 |
 | `CStreamedScripts` | 12 | 0 | 12 | 0 |
-| `CStreaming` | 110 | 0 | 109 | 1 |
+| `CStreaming` | 110 | 0 | 110 | 0 |
 | `CStreamingInfo` | 7 | 0 | 7 | 0 |
 | `CStuckCarCheck` | 9 | 0 | 9 | 0 |
 | `CStuntJumpManager` | 13 | 0 | 13 | 0 |
@@ -12156,7 +12163,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTempColModels` | 2 | 0 | 2 | 0 |
 | `CText` | 9 | 0 | 9 | 0 |
 | `CTheCarGenerators` | 7 | 0 | 7 | 0 |
-| `CTheScripts` | 82 | 0 | 72 | 10 |
+| `CTheScripts` | 82 | 0 | 73 | 9 |
 | `CTheZones` | 23 | 0 | 23 | 0 |
 | `CTimeCycle` | 20 | 0 | 20 | 0 |
 | `CTimeInfo` | 6 | 0 | 6 | 0 |
@@ -12329,7 +12336,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `cHandlingDataMgr` | 13 | 0 | 13 | 0 |
 | `cTransmission` | 5 | 0 | 5 | 0 |
 | `tColLighting` | 1 | 0 | 1 | 0 |
-| `tReplayTrainBlock` | 1 | 0 | 0 | 1 |
+| `tReplayTrainBlock` | 1 | 0 | 1 | 0 |
 | `tUserList` | 2 | 0 | 2 | 0 |
 
 </details>

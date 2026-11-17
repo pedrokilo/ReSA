@@ -164,6 +164,14 @@
 
 <a id="grupo-1317"></a>
 
+## Globales y helpers: source/game_sa/PlayerPedData.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| PlayerPedDataAssignExe(CPlayerPedData* self, const CPlayerPedData* rhsPtr, uint32 esi) | [source/game_sa/PlayerPedData.cpp:168](../../source/game_sa/PlayerPedData.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1318"></a>
+
 ## Globales y helpers: source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -175,7 +183,7 @@
 | * ClumpCollisionStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp:92](../../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ClumpCollisionGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp:98](../../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp#L98) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1318"></a>
+<a id="grupo-1319"></a>
 
 ## Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp
 
@@ -184,7 +192,7 @@
 | JPegErrorExit(j_common_ptr cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:36](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ExeLibJpegInjectHooks232A() | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:1103](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L1103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1319"></a>
+<a id="grupo-1320"></a>
 
 ## Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp
 
@@ -204,11 +212,3 @@
 | EmitSosExe() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:130](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegCompress::EmitSos 0x005C5AC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | EmitJfifApp0Exe() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:135](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L135) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegCompress::EmitJfifApp0 0x005C5CA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | EmitAdobeApp14Exe() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:140](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L140) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegCompress::EmitAdobeApp14 0x005C5EC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1320"></a>
-
-## Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| ExeJpegSuppressTables(void* cinfo, int32 suppress) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp:79](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegCompressApi::jpeg_suppress_tables 0x005CFA50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

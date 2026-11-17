@@ -4,6 +4,18 @@
 
 <a id="grupo-1661"></a>
 
+## Model
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| LoadModel(CRunningScript* S, script::Model model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:111](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ScriptResourceManager: source/game_sa/Scripts/TheScripts.h:462 (0x00A485A8) |
+| HasModelLoaded(script::Model model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:116](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L116) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| MarkModelNotNeeded(CRunningScript* S, script::Model model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:120](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ScriptResourceManager: source/game_sa/Scripts/TheScripts.h:462 (0x00A485A8) |
+| LoadAllModelsNow() | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:126](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsModelAvailable(eModelID model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:132](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1662"></a>
+
 ## ModelIndices
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -37,7 +49,7 @@
 | HasMiscComponent(int32 modelId) | [source/game_sa/ModelIndices.h:198](../../source/game_sa/ModelIndices.h#L198) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsFence1Or2(int32 mi) | [source/game_sa/ModelIndices.h:206](../../source/game_sa/ModelIndices.h#L206) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo MI_FENCE: source/game_sa/ModelIndices.cpp:91 (0x008CD600); Posible dato fijo MI_FENCE2: source/game_sa/ModelIndices.cpp:92 (0x008CD604) |
 
-<a id="grupo-1662"></a>
+<a id="grupo-1663"></a>
 
 ## MovementInfo_t
 
@@ -45,7 +57,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Process() | [source/game_sa/Fx/MovementInfo.h:12](../../source/game_sa/Fx/MovementInfo.h#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1663"></a>
+<a id="grupo-1664"></a>
 
 ## NodeNamePlugin
 
@@ -56,7 +68,7 @@
 | * GetFrameNodeName(RwFrame* frame) | [source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:111](../../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: NodeNamePlugin::GetFrameNodeName 0x0072FB30 | 0 / 0 | Posible dato fijo gNodeNamePluginOffset: source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:25 (0x00C87C5C) |
 | SetFrameNodeName(RwFrame* frame, const RwChar* name) | [source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:119](../../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: NodeNamePlugin::SetFrameNodeName 0x0072FB00 | 0 / 0 | Posible dato fijo gNodeNamePluginOffset: source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:25 (0x00C87C5C) |
 
-<a id="grupo-1664"></a>
+<a id="grupo-1665"></a>
 
 ## OALBase
 
@@ -67,7 +79,7 @@
 | OALBase::Release() | [source/game_sa/Audio/OpenAL/OALBase.cpp:13](../../source/game_sa/Audio/OpenAL/OALBase.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | OALBase::AddRef() | [source/game_sa/Audio/OpenAL/OALBase.cpp:22](../../source/game_sa/Audio/OpenAL/OALBase.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1665"></a>
+<a id="grupo-1666"></a>
 
 ## OALBuffer
 
@@ -77,7 +89,7 @@
 | OALBuffer::OALBuffer(void* preloopData, uint32 preloopSize, void* loopData, uint32 loopSize, uint32 frequency, uint32 channels) | [source/game_sa/Audio/OpenAL/OALBuffer.cpp:12](../../source/game_sa/Audio/OpenAL/OALBuffer.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | OALBuffer::~OALBuffer() | [source/game_sa/Audio/OpenAL/OALBuffer.cpp:38](../../source/game_sa/Audio/OpenAL/OALBuffer.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1666"></a>
+<a id="grupo-1667"></a>
 
 ## OALSource
 
@@ -98,7 +110,7 @@
 | OALSource::Update() | [source/game_sa/Audio/OpenAL/OALSource.cpp:141](../../source/game_sa/Audio/OpenAL/OALSource.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | OALSource() | [source/game_sa/Audio/OpenAL/OALSource.h:28](../../source/game_sa/Audio/OpenAL/OALSource.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1667"></a>
+<a id="grupo-1668"></a>
 
 ## Object
 
@@ -119,7 +131,7 @@
 | SetObjectCollision(CObject& object, bool enable) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:101](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DoesObjectHaveThisModel(CObject& object, script::Model model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:105](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1668"></a>
+<a id="grupo-1669"></a>
 
 ## Particle_c
 
@@ -129,7 +141,7 @@
 | * AsFxEmitterPrt() | [source/game_sa/Fx/Particle.h:17](../../source/game_sa/Fx/Particle.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/Fx/Particle.h:21](../../source/game_sa/Fx/Particle.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Particle_c::Constructor 0x004A9110 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1669"></a>
+<a id="grupo-1670"></a>
 
 ## PipelinePlugin
 
@@ -140,7 +152,7 @@
 | GetPipelineID(RpAtomic* atomic) | [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:95](../../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: PipelinePlugin::GetPipelineID 0x0072FC40 | 0 / 0 | Posible dato fijo gPipelinePluginOffset: source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:25 (0x008D6080) |
 | SetPipelineID(RpAtomic* atomic, RwUInt32 pipelineId) | [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:100](../../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: PipelinePlugin::SetPipelineID 0x0072FC50 | 0 / 0 | Posible dato fijo gPipelinePluginOffset: source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:25 (0x008D6080) |
 
-<a id="grupo-1670"></a>
+<a id="grupo-1671"></a>
 
 ## PlayerRelationship
 
@@ -149,7 +161,7 @@
 | PlayerRelationship() | [source/game_sa/PlayerRelationshipRecorder.h:9](../../source/game_sa/PlayerRelationshipRecorder.h#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Flush() | [source/game_sa/PlayerRelationshipRecorder.h:12](../../source/game_sa/PlayerRelationshipRecorder.h#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1671"></a>
+<a id="grupo-1672"></a>
 
 ## PointLightsShadow
 
@@ -164,7 +176,7 @@
 | Ftol2(double x) | [source/game_sa/X87Math.cpp:10777](../../source/game_sa/X87Math.cpp#L10777) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Flush() | [source/game_sa/X87Math.cpp:10792](../../source/game_sa/X87Math.cpp#L10792) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1672"></a>
+<a id="grupo-1673"></a>
 
 ## ProcObjectListItem
 
@@ -173,7 +185,7 @@
 | ProcObjectListItem::InjectHooks() | [source/game_sa/Plant/ProcObjectMan.cpp:35](../../source/game_sa/Plant/ProcObjectMan.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ProcObjectListItem::Constructor() | [source/game_sa/Plant/ProcObjectMan.cpp:61](../../source/game_sa/Plant/ProcObjectMan.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ProcObjectListItem::Constructor 0x005A3070 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1673"></a>
+<a id="grupo-1674"></a>
 
 ## ProcObjectMan_c
 
@@ -191,7 +203,7 @@
 | ProcObjectMan_c::ProcessTriangleAdded(CPlantLocTri* plant) | [source/game_sa/Plant/ProcObjectMan.cpp:168](../../source/game_sa/Plant/ProcObjectMan.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: ProcObjectMan_c::ProcessTriangleAdded 0x005A3F20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ProcObjectMan_c::ProcessTriangleRemoved(CPlantLocTri* triangle) | [source/game_sa/Plant/ProcObjectMan.cpp:180](../../source/game_sa/Plant/ProcObjectMan.cpp#L180) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: ProcObjectMan_c::ProcessTriangleRemoved 0x005A3F70 | 0 / 0 | Posible dato fijo g_procObjMan: source/game_sa/Plant/ProcObjectMan.h:61 (0x00BB7CB0); Posible dato fijo nNoTempObjects: source/game_sa/Entity/Object/Object.h:94 (0x00BB4A70) |
 
-<a id="grupo-1674"></a>
+<a id="grupo-1675"></a>
 
 ## ProcSurfaceInfo_c
 
@@ -206,7 +218,7 @@
 | ProcSurfaceInfo_c::IsPtInTriangle2D(float x, float y, CVector v1, CVector v2, CVector v3, CVector normal, float* z) | [source/game_sa/Plant/ProcSurfaceInfo.cpp:354](../../source/game_sa/Plant/ProcSurfaceInfo.cpp#L354) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ProcSurfaceInfo_c::IsPtInTriangle2D 0x005A2F80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ProcSurfaceScaleMatrixCpp(float* matrix, void* /*edx*/, float x, float y, float z) | [source/game_sa/X87Math.cpp:18842](../../source/game_sa/X87Math.cpp#L18842) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores): ProcSurfaceInfo_c::ScaleMatrix 0x005A2E60 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1675"></a>
+<a id="grupo-1676"></a>
 
 ## Ps
 
@@ -239,7 +251,7 @@
 | GetCpuExtendedFeatures() | [source/app/platform/win/WinPs.cpp:599](../../source/app/platform/win/WinPs.cpp#L599) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: Ps::GetCpuExtendedFeatures 0x007457C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetCpuFeaturesAndVendor() | [source/app/platform/win/WinPs.cpp:613](../../source/app/platform/win/WinPs.cpp#L613) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: Ps::GetCpuFeaturesAndVendor 0x007457F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo gCpuVendor: source/app/platform/win/WinPs.cpp:45 (0x008D6238) |
 
-<a id="grupo-1676"></a>
+<a id="grupo-1677"></a>
 
 ## QTMLRuntime
 
@@ -252,7 +264,7 @@
 | QtmlInitialize(int32 flags) | [source/app/platform/win/QTMLRuntime.cpp:178](../../source/app/platform/win/QTMLRuntime.cpp#L178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlInitialize 0x008195C0 | 0 / 0 | Posible dato fijo QtmlCallComponent: source/app/platform/win/QTMLRuntime.cpp:33 (0x008E2A10); Posible dato fijo QtmlCallComponentStorage: source/app/platform/win/QTMLRuntime.cpp:34 (0x008E2A14); Posible dato fijo QtmlDispatcher: source/app/platform/win/QTMLRuntime.cpp:32 (0x008E2A0C); Posible dato fijo QtmlInitCount: source/app/platform/win/QTMLRuntime.cpp:29 (0x00C9ABD8); Posible dato fijo QtmlInitHook: source/app/platform/win/QTMLRuntime.cpp:31 (0x008E2A08); Posible dato fijo QtmlModule: source/app/platform/win/QTMLRuntime.cpp:30 (0x00C9ABDC) |
 | QtmlTerminate() | [source/app/platform/win/QTMLRuntime.cpp:230](../../source/app/platform/win/QTMLRuntime.cpp#L230) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: QTMLRuntime::QtmlTerminate 0x00819770 | 0 / 0 | Posible dato fijo QtmlCallComponent: source/app/platform/win/QTMLRuntime.cpp:33 (0x008E2A10); Posible dato fijo QtmlCallComponentStorage: source/app/platform/win/QTMLRuntime.cpp:34 (0x008E2A14); Posible dato fijo QtmlDispatcher: source/app/platform/win/QTMLRuntime.cpp:32 (0x008E2A0C); Posible dato fijo QtmlInitCount: source/app/platform/win/QTMLRuntime.cpp:29 (0x00C9ABD8); Posible dato fijo QtmlInitHook: source/app/platform/win/QTMLRuntime.cpp:31 (0x008E2A08); Posible dato fijo QtmlModule: source/app/platform/win/QTMLRuntime.cpp:30 (0x00C9ABDC) |
 
-<a id="grupo-1677"></a>
+<a id="grupo-1678"></a>
 
 ## RandomCarLift
 
@@ -266,7 +278,7 @@
 | Parity(uint32 v) | [source/game_sa/CarCtrl.cpp:2340](../../source/game_sa/CarCtrl.cpp#L2340) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | X87Compare(double a, double b) | [source/game_sa/CarCtrl.cpp:2342](../../source/game_sa/CarCtrl.cpp#L2342) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1678"></a>
+<a id="grupo-1679"></a>
 
 ## RenderBuffer
 
@@ -285,7 +297,7 @@
 | PushIndices(std::initializer_list&lt;int32&gt; idxs, bool useCurrentVtxAsBase) | [source/game_sa/RenderBuffer.cpp:150](../../source/game_sa/RenderBuffer.cpp#L150) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CanFitVertices(int32 nVtxNeeded) | [source/game_sa/RenderBuffer.cpp:156](../../source/game_sa/RenderBuffer.cpp#L156) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo s_TempVtxStored: source/game_sa/RenderBuffer.cpp:29 (0x00C4B950) |
 
-<a id="grupo-1679"></a>
+<a id="grupo-1680"></a>
 
 ## RenderInfo_t
 
@@ -294,19 +306,3 @@
 | SetColor(float red, float green, float blue, float alpha) | [source/game_sa/Fx/RenderInfo.h:48](../../source/game_sa/Fx/RenderInfo.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetRangeColor(float red, float green, float blue) | [source/game_sa/Fx/RenderInfo.h:55](../../source/game_sa/Fx/RenderInfo.h#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Process() | [source/game_sa/Fx/RenderInfo.h:61](../../source/game_sa/Fx/RenderInfo.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1680"></a>
-
-## RenderWare
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| D3D9FindDepth(D3DFORMAT format) | [source/app/platform/win/WindowedMode.cpp:501](../../source/app/platform/win/WindowedMode.cpp#L501) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| _rxD3D9VideoMemoryRasterListRestore() | [source/app/platform/win/WindowedMode.cpp:537](../../source/app/platform/win/WindowedMode.cpp#L537) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| D3D9RestoreCacheLights(void) | [source/app/platform/win/WindowedMode.cpp:563](../../source/app/platform/win/WindowedMode.cpp#L563) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo LightsCache: source/app/platform/win/WindowedMode.cpp:129 (0x00C98088); Posible dato fijo MaxNumLights: source/app/platform/win/WindowedMode.cpp:130 (0x00C98084); Posible dato fijo _RwD3DDevice: source/game_sa/RenderWare/rw/rwcore.h:3641 (0x00C97C28) |
-| D3D9DeviceRestoreVideoMemory(void) | [source/app/platform/win/WindowedMode.cpp:616](../../source/app/platform/win/WindowedMode.cpp#L616) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo D3D9RestoreDeviceCallback: source/app/platform/win/WindowedMode.cpp:131 (0x00C980B0); Posible dato fijo _RwD3D9DepthStencilSurface: source/app/platform/win/WindowedMode.cpp:113 (0x00C97C2C); Posible dato fijo _RwD3D9RenderSurface: source/app/platform/win/WindowedMode.cpp:112 (0x00C97C30); Posible dato fijo _RwD3DDevice: source/game_sa/RenderWare/rw/rwcore.h:3641 (0x00C97C28) |
-| _rwD3D9TestState(void) | [source/app/platform/win/WindowedMode.cpp:666](../../source/app/platform/win/WindowedMode.cpp#L666) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo Present: source/app/platform/win/WindowedMode.cpp:110 (0x00C9C040); Posible dato fijo Windowed: source/app/platform/win/WinPlatform.h:44 (0x00C920CC); Posible dato fijo _RwD3D9AdapterInformation: source/app/platform/win/WindowedMode.cpp:109 (0x00C9BCE0); Posible dato fijo _RwD3DAdapterIndex: source/app/platform/win/WindowedMode.cpp:115 (0x00C97C24); Posible dato fijo _RwD3DDevice: source/game_sa/RenderWare/rw/rwcore.h:3641 (0x00C97C28); Posible dato fijo _RwDirect3DObject: source/app/platform/win/WindowedMode.cpp:114 (0x00C97C20) |
-| _rwD3D9BeginScene(void) | [source/app/platform/win/WindowedMode.cpp:726](../../source/app/platform/win/WindowedMode.cpp#L726) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo InsideScene: source/app/platform/win/WindowedMode.cpp:128 (0x00C97C54); Posible dato fijo _RwD3DDevice: source/game_sa/RenderWare/rw/rwcore.h:3641 (0x00C97C28) |
-| _rwD3D9CameraClear(void *camera, void *color, RwInt32 clearFlags) | [source/app/platform/win/WindowedMode.cpp:762](../../source/app/platform/win/WindowedMode.cpp#L762) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: WindowedModeHooks::RenderWare::_rwD3D9CameraClear 0x007F7730 | 0 / 0 | Posible dato fijo Present: source/app/platform/win/WindowedMode.cpp:110 (0x00C9C040); Posible dato fijo StencilClearValue: source/app/platform/win/WindowedMode.cpp:106 (0x00C97C44); Posible dato fijo WindowHandle: source/app/platform/win/WindowedMode.cpp:107 (0x00C97C1C); Posible dato fijo Windowed: source/app/platform/win/WinPlatform.h:44 (0x00C920CC); Posible dato fijo _RwD3D9AdapterInformation: source/app/platform/win/WindowedMode.cpp:109 (0x00C9BCE0); Posible dato fijo _RwD3D9DepthStencilSurface: source/app/platform/win/WindowedMode.cpp:113 (0x00C97C2C); Posible dato fijo _RwD3D9DeviceCaps: source/app/platform/win/WindowedMode.cpp:111 (0x00C9BF00); Posible dato fijo _RwD3D9RenderSurface: source/app/platform/win/WindowedMode.cpp:112 (0x00C97C30); Posible dato fijo _RwD3DDevice: source/game_sa/RenderWare/rw/rwcore.h:3641 (0x00C97C28); Posible dato fijo _RwHasStencilBuffer: source/app/platform/win/WindowedMode.cpp:108 (0x00C97C3C) |
-| _rwD3D9CameraBeginUpdate(void *out __RWUNUSED__, void *cameraIn, RwInt32 in __RWUNUSED__) | [source/app/platform/win/WindowedMode.cpp:1191](../../source/app/platform/win/WindowedMode.cpp#L1191) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: WindowedModeHooks::RenderWare::_rwD3D9CameraBeginUpdate 0x007F8F20 | 0 / 0 | Posible dato fijo NeedToCopyFromBackBuffer: source/app/platform/win/WindowedMode.cpp:127 (0x00C97C34); Posible dato fijo Present: source/app/platform/win/WindowedMode.cpp:110 (0x00C9C040); Posible dato fijo WindowHandle: source/app/platform/win/WindowedMode.cpp:107 (0x00C97C1C); Posible dato fijo Windowed: source/app/platform/win/WinPlatform.h:44 (0x00C920CC); Posible dato fijo _RwD3D9ActiveViewProjTransform: source/app/platform/win/WindowedMode.cpp:126 (0x00C97C64); Posible dato fijo _RwD3D9AdapterInformation: source/app/platform/win/WindowedMode.cpp:109 (0x00C9BCE0); Posible dato fijo _RwD3D9D3D9ProjTransform: source/app/platform/win/WindowedMode.cpp:125 (0x008E2458); Posible dato fijo _RwD3D9D3D9ViewTransform: source/app/platform/win/WindowedMode.cpp:124 (0x00C9BC80); Posible dato fijo _RwD3D9DepthStencilSurface: source/app/platform/win/WindowedMode.cpp:113 (0x00C97C2C); Posible dato fijo _RwD3D9RenderSurface: source/app/platform/win/WindowedMode.cpp:112 (0x00C97C30); Posible dato fijo _RwD3DDevice: source/game_sa/RenderWare/rw/rwcore.h:3641 (0x00C97C28); Posible dato fijo dgGGlobals: source/app/platform/win/WindowedMode.cpp:123 (0x00C9BCC0) |
-| D3D9SetPresentParameters(const D3DDISPLAYMODE *mode, RwUInt32 flags, D3DFORMAT adapterFormat) | [source/app/platform/win/WindowedMode.cpp:1574](../../source/app/platform/win/WindowedMode.cpp#L1574) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FullScreenRefreshRateInHz: source/app/platform/win/WindowedMode.cpp:117 (0x008E243C); Posible dato fijo Present: source/app/platform/win/WindowedMode.cpp:110 (0x00C9C040); Posible dato fijo SelectedMultisamplingLevels: source/app/platform/win/WindowedMode.cpp:119 (0x008E2430); Posible dato fijo SelectedMultisamplingLevelsNonMask: source/app/platform/win/WindowedMode.cpp:120 (0x008E2438); Posible dato fijo WindowHandle: source/app/platform/win/WindowedMode.cpp:107 (0x00C97C1C); Posible dato fijo Windowed: source/app/platform/win/WinPlatform.h:44 (0x00C920CC); Posible dato fijo _RwD3D9ZBufferDepth: source/app/platform/win/WindowedMode.cpp:118 (0x00C9BEFC); Posible dato fijo _RwD3DAdapterIndex: source/app/platform/win/WindowedMode.cpp:115 (0x00C97C24); Posible dato fijo _RwD3DAdapterType: source/app/platform/win/WindowedMode.cpp:116 (0x008E2428); Posible dato fijo _RwDirect3DObject: source/app/platform/win/WindowedMode.cpp:114 (0x00C97C20); Posible dato fijo _RwHasStencilBuffer: source/app/platform/win/WindowedMode.cpp:108 (0x00C97C3C) |

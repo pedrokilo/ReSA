@@ -1,8 +1,8 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 21905,
-    "groups": 1839,
+    "source_definition_count": 21906,
+    "groups": 1840,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
     "definitions_with_assembly": 0,
@@ -25,7 +25,7 @@
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 85,
     "catalog_rows_linked_by_hook_address": 1168,
-    "validated_reconstructed_own_cpp_definitions": 13199,
+    "validated_reconstructed_own_cpp_definitions": 13207,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 21
   },
@@ -1175,12 +1175,12 @@
     "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366",
     "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
     "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-    "source/game_sa/PlayerInfo.cpp": "d06c1f986c687bdf110c9cba99e83ca52257633c0bd987a61126e6683d5e2df5",
+    "source/game_sa/PlayerInfo.cpp": "80fdbdff7576b0d196a7642a794c53f165ffd23a9a2445716281eb8fe186465f",
     "source/game_sa/PlayerInfo.h": "314436cf9a64450e2fc05543a9a77b6965d3508485a3b7aa7133f300e252a7d2",
     "source/game_sa/PlayerInfoProcess.cpp.inc": "a3c4ca4439508d7c33a6c06a723039305cd475d6b62f47cf655085a698cb6f6c",
     "source/game_sa/PlayerInfoSaveStructure.cpp": "42455992c1eaaaa18e8b45772890f077411a3f1312095239213bf362b4c75e47",
     "source/game_sa/PlayerInfoSaveStructure.h": "3d6f166215970580b4945c77969df03c8b597109b70d471097d5a7442de3abf9",
-    "source/game_sa/PlayerPedData.cpp": "d15b73e98f33292f7be6b7aeb0b6ac8907bdeb5b9b43b0a265806e4531ffa709",
+    "source/game_sa/PlayerPedData.cpp": "9a98f51b532e2276824abfc69bd5c05ce6f6e6d20a30663e08bd196607807711",
     "source/game_sa/PlayerPedData.h": "b9789d4cdf855b9059e2f69ed1aa8f2551a78f8ef1a3fd2ce68b84d429340267",
     "source/game_sa/PlayerRelationshipRecorder.cpp": "46eb57d2a5fea0a7647d087097dc1f89c9d31682467b8b49ec5ce0451e5313ab",
     "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
@@ -1386,7 +1386,7 @@
     "source/game_sa/RenderWare/rw/zlibinflate.cpp": "2576425d92d227996ab92611ed56fd023811ba0f62c2c9d85cf21b2f36553d70",
     "source/game_sa/RenderWare/rw/zlibinflate.h": "36ce2aa066ecee963dfd31e2176d210628d7cff7930905de612c21b7cc6a981e",
     "source/game_sa/RepeatSector.h": "0610dce5556682560562d91666f543aa7500e628c8fc46051d1e1f9943e1a603",
-    "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
+    "source/game_sa/Replay.cpp": "63a1b4e6943797470be715f260b3f5f5e9044fb204cdd07184e2714ad46b426b",
     "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
     "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
     "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
@@ -2315,10 +2315,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "39e3e5d46fd50dca09d4817aa02f06a8b2017000735f61aec3e13536547eb60b",
+    "hooks.csv": "fc6065dc3770a315a5d2abb87c4853a9acb7ce1dabe82406ecc6f24f6a491f62",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "c784997ceb7c6659a3df16e0760d39fa1df540ce034cb294803bfa7aaa11c9be",
+  "migration_registry_sha256": "59598e12a1e650f18d3598eca9110a3f7806df891e95732fb1a6c2e752b02b19",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

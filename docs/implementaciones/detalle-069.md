@@ -4,6 +4,20 @@
 
 <a id="grupo-1361"></a>
 
+## Globales y helpers: source/game_sa/RenderWare/rw/rtdict.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| RtDictInjectHooks() | [source/game_sa/RenderWare/rw/rtdict.cpp:43](../../source/game_sa/RenderWare/rw/rtdict.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RtDictSchemaCreateDict(RtDictSchema* schema) | [source/game_sa/RenderWare/rw/rtdict.cpp:142](../../source/game_sa/RenderWare/rw/rtdict.cpp#L142) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RtDictSchemaAddDict(RtDictSchema* schema, RtDict* dict) | [source/game_sa/RenderWare/rw/rtdict.cpp:146](../../source/game_sa/RenderWare/rw/rtdict.cpp#L146) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RtDictSchemaRemoveDict(RtDictSchema* schema, RtDict* dict) | [source/game_sa/RenderWare/rw/rtdict.cpp:150](../../source/game_sa/RenderWare/rw/rtdict.cpp#L150) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RtDictAddEntry(RtDict* dictionary, RtDictEntryType entry) | [source/game_sa/RenderWare/rw/rtdict.cpp:213](../../source/game_sa/RenderWare/rw/rtdict.cpp#L213) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RtDictStreamGetSize(const RtDict* dictionary) | [source/game_sa/RenderWare/rw/rtdict.cpp:323](../../source/game_sa/RenderWare/rw/rtdict.cpp#L323) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * _rtDictSchemaInitDict(RtDictSchema* schema, RtDict* dict) | [source/game_sa/RenderWare/rw/rtdict.cpp:327](../../source/game_sa/RenderWare/rw/rtdict.cpp#L327) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1362"></a>
+
 ## Globales y helpers: source/game_sa/RenderWare/rw/rtpng.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -11,7 +25,7 @@
 | *RtPNGImageWrite(RwImage *image, const RwChar *imageName) | [source/game_sa/RenderWare/rw/rtpng.cpp:5](../../source/game_sa/RenderWare/rw/rtpng.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | *RtPNGImageRead(const RwChar *imageName) | [source/game_sa/RenderWare/rw/rtpng.cpp:9](../../source/game_sa/RenderWare/rw/rtpng.cpp#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1362"></a>
+<a id="grupo-1363"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rtquat.cpp
 
@@ -24,7 +38,7 @@
 | * RtQuatQueryRotate(const RtQuat* quat, RwV3d* unitAxis, RwReal* angle) | [source/game_sa/RenderWare/rw/rtquat.cpp:149](../../source/game_sa/RenderWare/rw/rtquat.cpp#L149) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RtQuatModulus(RtQuat* q) | [source/game_sa/RenderWare/rw/rtquat.cpp:159](../../source/game_sa/RenderWare/rw/rtquat.cpp#L159) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1363"></a>
+<a id="grupo-1364"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rtslerp.cpp
 
@@ -32,7 +46,7 @@
 | --- | --- | --- | --- | --- | --- |
 | RtSlerpInjectHooks() | [source/game_sa/RenderWare/rw/rtslerp.cpp:26](../../source/game_sa/RenderWare/rw/rtslerp.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1364"></a>
+<a id="grupo-1365"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rwcore.cpp
 
@@ -273,7 +287,7 @@
 | RwD3D9InjectHooksR34A() | [source/game_sa/RenderWare/rw/rwcore.cpp:11666](../../source/game_sa/RenderWare/rw/rwcore.cpp#L11666) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RwCoreInjectHooksR34A() | [source/game_sa/RenderWare/rw/rwcore.cpp:11682](../../source/game_sa/RenderWare/rw/rwcore.cpp#L11682) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1365"></a>
+<a id="grupo-1366"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rwplcore.cpp
 
@@ -356,7 +370,7 @@
 | RwPlCoreInjectHooksR33A() | [source/game_sa/RenderWare/rw/rwplcore.cpp:3110](../../source/game_sa/RenderWare/rw/rwplcore.cpp#L3110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RwPlCoreInjectHooksR34A() | [source/game_sa/RenderWare/rw/rwplcore.cpp:3193](../../source/game_sa/RenderWare/rw/rwplcore.cpp#L3193) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1366"></a>
+<a id="grupo-1367"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rwplcore.h
 
@@ -365,7 +379,7 @@
 | int32fromreal(RwReal x) | [source/game_sa/RenderWare/rw/rwplcore.h:487](../../source/game_sa/RenderWare/rw/rwplcore.h#L487) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RwFastRealToUInt32Inline(RwReal x) | [source/game_sa/RenderWare/rw/rwplcore.h:501](../../source/game_sa/RenderWare/rw/rwplcore.h#L501) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1367"></a>
+<a id="grupo-1368"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rwtexdict.cpp
 
@@ -378,7 +392,7 @@
 | * RpClumpGtaAtomicStreamRead(RwStream* stream, const GtaGeometryList* geometryList, const rwFrameList* frameList) | [source/game_sa/RenderWare/rw/rwtexdict.cpp:304](../../source/game_sa/RenderWare/rw/rwtexdict.cpp#L304) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * RpClumpGtaGeometryListStreamReadAll(RwStream* stream, GtaGeometryList* list) | [source/game_sa/RenderWare/rw/rwtexdict.cpp:416](../../source/game_sa/RenderWare/rw/rwtexdict.cpp#L416) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1368"></a>
+<a id="grupo-1369"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/zlibinflate.cpp
 
@@ -388,7 +402,7 @@
 | ZFree(ZInflateStream* z, void* address) | [source/game_sa/RenderWare/rw/zlibinflate.cpp:67](../../source/game_sa/RenderWare/rw/zlibinflate.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ZlibInflateInjectHooks() | [source/game_sa/RenderWare/rw/zlibinflate.cpp:70](../../source/game_sa/RenderWare/rw/zlibinflate.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1369"></a>
+<a id="grupo-1370"></a>
 
 ## Globales y helpers: source/game_sa/Renderer.cpp
 
@@ -403,7 +417,7 @@
 | WsCeilToInt(float f) | [source/game_sa/Renderer.cpp:129](../../source/game_sa/Renderer.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | I_ScanSectorList_ListModels(int32 sectorX, int32 sectorY) | [source/game_sa/Renderer.cpp:1094](../../source/game_sa/Renderer.cpp#L1094) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo PC_Scratch: source/game_sa/common.h:72 (0x00C8E0C8); Posible dato fijo gpOutEntitiesForGetObjectsInFrustum: source/game_sa/Renderer.cpp:46 (0x00B76854) |
 
-<a id="grupo-1370"></a>
+<a id="grupo-1371"></a>
 
 ## Globales y helpers: source/game_sa/Replay.cpp
 
@@ -420,16 +434,16 @@
 | & ReplayAt(uint8* p, size_t offset) | [source/game_sa/Replay.cpp:155](../../source/game_sa/Replay.cpp#L155) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ReplayRecordPtr() | [source/game_sa/Replay.cpp:159](../../source/game_sa/Replay.cpp#L159) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ReplayBufferPtr(uint32 slot) | [source/game_sa/Replay.cpp:163](../../source/game_sa/Replay.cpp#L163) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ReplayStoreCarUpdate(uint8* p, CVehicle* veh, int32 poolIdx) | [source/game_sa/Replay.cpp:170](../../source/game_sa/Replay.cpp#L170) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CReplay::StoreVehicleBlock 0x0045B730 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo gbFirstPersonRunThisFrame: source/game_sa/Cam.cpp:44 (0x00B6EC20) |
-| ReplayStoreBikeUpdate(uint8* p, CVehicle* veh, int32 poolIdx, eReplayPacket type) | [source/game_sa/Replay.cpp:238](../../source/game_sa/Replay.cpp#L238) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CReplay::StoreBikeBlock 0x0045C070 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ReplayStoreTrainUpdate(uint8* p, CVehicle* veh, int32 poolIdx) | [source/game_sa/Replay.cpp:247](../../source/game_sa/Replay.cpp#L247) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: CReplay::StoreTrainUpdate 0x0045CD10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ReplayStoreVehicleBlockExe(uint8* packet, void* /*edx*/, CVehicle* veh, int32 poolIdx) | [source/game_sa/Replay.cpp:269](../../source/game_sa/Replay.cpp#L269) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CReplay::StoreVehicleBlock 0x0045B730 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ReplayStoreBikeBlockExe(uint8* packet, void* /*edx*/, CVehicle* veh, int32 poolIdx) | [source/game_sa/Replay.cpp:275](../../source/game_sa/Replay.cpp#L275) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ReplayExtractVehicleBlockExe(tReplayVehicleBlock* self, void* /*edx*/, CVehicle* veh, float interpolation) | [source/game_sa/Replay.cpp:281](../../source/game_sa/Replay.cpp#L281) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::ExtractVehicleBlock 0x0045BA90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ReplayExtractBmxBlockExe(tReplayBmxBlock* self, void* /*edx*/, CBmx* bmx, float interpolation) | [source/game_sa/Replay.cpp:286](../../source/game_sa/Replay.cpp#L286) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ReplayStoreTrainUpdateExe(uint8* p, void* /*edx*/, CVehicle* veh, int32 poolIdx) | [source/game_sa/Replay.cpp:295](../../source/game_sa/Replay.cpp#L295) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: CReplay::StoreTrainUpdate 0x0045CD10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ReplayStoreCarUpdate(uint8* p, CVehicle* veh, int32 poolIdx) | [source/game_sa/Replay.cpp:173](../../source/game_sa/Replay.cpp#L173) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CReplay::StoreVehicleBlock 0x0045B730 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo gbFirstPersonRunThisFrame: source/game_sa/Cam.cpp:44 (0x00B6EC20) |
+| ReplayStoreBikeUpdate(uint8* p, CVehicle* veh, int32 poolIdx, eReplayPacket type) | [source/game_sa/Replay.cpp:243](../../source/game_sa/Replay.cpp#L243) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CReplay::StoreBikeBlock 0x0045C070 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ReplayStoreTrainUpdate(uint8* p, CVehicle* veh, int32 poolIdx) | [source/game_sa/Replay.cpp:252](../../source/game_sa/Replay.cpp#L252) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CReplay::StoreTrainUpdate 0x0045CD10 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ReplayStoreVehicleBlockExe(uint8* packet, void* /*edx*/, CVehicle* veh, int32 poolIdx) | [source/game_sa/Replay.cpp:274](../../source/game_sa/Replay.cpp#L274) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CReplay::StoreVehicleBlock 0x0045B730 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ReplayStoreBikeBlockExe(uint8* packet, void* /*edx*/, CVehicle* veh, int32 poolIdx) | [source/game_sa/Replay.cpp:280](../../source/game_sa/Replay.cpp#L280) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ReplayExtractVehicleBlockExe(tReplayVehicleBlock* self, void* /*edx*/, CVehicle* veh, float interpolation) | [source/game_sa/Replay.cpp:286](../../source/game_sa/Replay.cpp#L286) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CReplay::ExtractVehicleBlock 0x0045BA90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ReplayExtractBmxBlockExe(tReplayBmxBlock* self, void* /*edx*/, CBmx* bmx, float interpolation) | [source/game_sa/Replay.cpp:291](../../source/game_sa/Replay.cpp#L291) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ReplayStoreTrainUpdateExe(uint8* p, void* /*edx*/, CVehicle* veh, int32 poolIdx) | [source/game_sa/Replay.cpp:300](../../source/game_sa/Replay.cpp#L300) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CReplay::StoreTrainUpdate 0x0045CD10 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1371"></a>
+<a id="grupo-1372"></a>
 
 ## Globales y helpers: source/game_sa/Restart.cpp
 
@@ -437,7 +451,7 @@
 | --- | --- | --- | --- | --- | --- |
 | RestartDistance(const CVector& restartPos, const CVector& point) | [source/game_sa/Restart.cpp:47](../../source/game_sa/Restart.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1372"></a>
+<a id="grupo-1373"></a>
 
 ## Globales y helpers: source/game_sa/RideAnimData.cpp
 
@@ -446,7 +460,7 @@
 | * __fastcall RideAnimDataDefaultConstructorExe(CRideAnimData* self, void* /*edx*/) | [source/game_sa/RideAnimData.cpp:26](../../source/game_sa/RideAnimData.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CRideAnimData::DefaultConstructor 0x006D0B10 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RideAnimDataDestructorExe(CRideAnimData* /*self*/, void* /*edx*/) | [source/game_sa/RideAnimData.cpp:33](../../source/game_sa/RideAnimData.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CRideAnimData::Destructor 0x006D0B30 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1373"></a>
+<a id="grupo-1374"></a>
 
 ## Globales y helpers: source/game_sa/RuntimeHelpers.cpp
 
@@ -454,7 +468,7 @@
 | --- | --- | --- | --- | --- | --- |
 | RuntimeHelpersInjectHooksLote105A() | [source/game_sa/RuntimeHelpers.cpp:36](../../source/game_sa/RuntimeHelpers.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1374"></a>
+<a id="grupo-1375"></a>
 
 ## Globales y helpers: source/game_sa/RwHelper.cpp
 
@@ -467,7 +481,7 @@
 | SkinSetBonePositions(RpClump* clump) | [source/game_sa/RwHelper.cpp:426](../../source/game_sa/RwHelper.cpp#L426) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RemoveRefsForAtomic(RpClump* clump) | [source/game_sa/RwHelper.cpp:488](../../source/game_sa/RwHelper.cpp#L488) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1375"></a>
+<a id="grupo-1376"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/BasicCommands.cpp
 
@@ -501,7 +515,7 @@
 | AreTextLabelsEqual(std::string_view a, std::string_view b) | [source/game_sa/Scripts/Commands/BasicCommands.cpp:215](../../source/game_sa/Scripts/Commands/BasicCommands.cpp#L215) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetTextLabel(scm::StringRef dst, scm::StringRef src) | [source/game_sa/Scripts/Commands/BasicCommands.cpp:220](../../source/game_sa/Scripts/Commands/BasicCommands.cpp#L220) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1376"></a>
+<a id="grupo-1377"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/CLEO/CLEOGameCommands.cpp
 
@@ -509,7 +523,7 @@
 | --- | --- | --- | --- | --- | --- |
 | IsGameVersionOriginal() | [source/game_sa/Scripts/Commands/CLEO/CLEOGameCommands.cpp:10](../../source/game_sa/Scripts/Commands/CLEO/CLEOGameCommands.cpp#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1377"></a>
+<a id="grupo-1378"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/CLEO/CLEOMemoryCommands.cpp
 
@@ -523,7 +537,7 @@
 | GetThisScriptStruct(CRunningScript* S) | [source/game_sa/Scripts/Commands/CLEO/CLEOMemoryCommands.cpp:42](../../source/game_sa/Scripts/Commands/CLEO/CLEOMemoryCommands.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * GetScriptStructNamed(CRunningScript* S) | [source/game_sa/Scripts/Commands/CLEO/CLEOMemoryCommands.cpp:76](../../source/game_sa/Scripts/Commands/CLEO/CLEOMemoryCommands.cpp#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1378"></a>
+<a id="grupo-1379"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/CLEO/CLEOPadCommands.cpp
 
@@ -531,7 +545,7 @@
 | --- | --- | --- | --- | --- | --- |
 | IsKeyPressed(int32 virtualKey) | [source/game_sa/Scripts/Commands/CLEO/CLEOPadCommands.cpp:10](../../source/game_sa/Scripts/Commands/CLEO/CLEOPadCommands.cpp#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1379"></a>
+<a id="grupo-1380"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp
 
@@ -542,11 +556,3 @@
 | IsCarSirenOn(CVehicle& vehicle) | [source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp:20](../../source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsCarEngineOn(CVehicle& vehicle) | [source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp:24](../../source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetCarEngineOn(CVehicle& vehicle, bool state) | [source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp:28](../../source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1380"></a>
-
-## Globales y helpers: source/game_sa/Scripts/Commands/CLEO/CLEOWorldCommands.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| GetCheckpointBlipCoords(CRunningScript* S) | [source/game_sa/Scripts/Commands/CLEO/CLEOWorldCommands.cpp:13](../../source/game_sa/Scripts/Commands/CLEO/CLEOWorldCommands.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:40 (0x00BA6748); Posible dato fijo ms_RadarTrace: source/game_sa/Radar.h:216 (0x00BA86F0) |

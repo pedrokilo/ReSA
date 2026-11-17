@@ -4,6 +4,20 @@
 
 <a id="grupo-1641"></a>
 
+## Input
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| HandlePadButtonDown_Eax() | [source/app/app_input.cpp:30](../../source/app/app_input.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: Input::HandlePadButtonDown 0x007448B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| HandlePadButtonUp_Eax() | [source/app/app_input.cpp:34](../../source/app/app_input.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: Input::HandlePadButtonUp 0x00744930 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| AttachInputDevices() | [source/app/app_input.cpp:57](../../source/app/app_input.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Input::AttachInputDevices 0x00744A20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| HandleKeyDown(RsKeyStatus* ks) | [source/app/app_input.cpp:185](../../source/app/app_input.cpp#L185) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Input::HandleKeyDown 0x00743DF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| HandleKeyUp(RsKeyStatus* ks) | [source/app/app_input.cpp:190](../../source/app/app_input.cpp#L190) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Input::HandleKeyUp 0x007443C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| KeyboardHandler(RsEvent event, void* param) | [source/app/app_input.cpp:195](../../source/app/app_input.cpp#L195) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Input::KeyboardHandler 0x00744880 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PadHandler(RsEvent event, void* param) | [source/app/app_input.cpp:261](../../source/app/app_input.cpp#L261) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Input::PadHandler 0x007449F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1642"></a>
+
 ## InteriorGroup_c
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -40,7 +54,7 @@
 | GetId() const | [source/game_sa/Interior/InteriorGroup_c.h:72](../../source/game_sa/Interior/InteriorGroup_c.h#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_id: source/game_sa/MemoryMgr.h:101 (0x00C87B1C) |
 | GetInteriors() const | [source/game_sa/Interior/InteriorGroup_c.h:74](../../source/game_sa/Interior/InteriorGroup_c.h#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1642"></a>
+<a id="grupo-1643"></a>
 
 ## InteriorManager_c
 
@@ -73,7 +87,7 @@
 | GetInteriorIds() const | [source/game_sa/Interior/InteriorManager_c.h:79](../../source/game_sa/Interior/InteriorManager_c.h#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetObjects() const | [source/game_sa/Interior/InteriorManager_c.h:80](../../source/game_sa/Interior/InteriorManager_c.h#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1643"></a>
+<a id="grupo-1644"></a>
 
 ## Interior_c
 
@@ -136,7 +150,7 @@
 | Interior_c::Shop_AddShelfInfo(int32 x, int32 y, int32 direction) | [source/game_sa/Interior/Interior_c.cpp:3077](../../source/game_sa/Interior/Interior_c.cpp#L3077) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: Interior_c::Shop_AddShelfInfo 0x0059A140 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x008D0948 |
 | GetNodeAddress() const | [source/game_sa/Interior/Interior_c.h:119](../../source/game_sa/Interior/Interior_c.h#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1644"></a>
+<a id="grupo-1645"></a>
 
 ## IplDef
 
@@ -144,7 +158,7 @@
 | --- | --- | --- | --- | --- | --- |
 | IplDef(const char* name) | [source/game_sa/IplDef.h:31](../../source/game_sa/IplDef.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1645"></a>
+<a id="grupo-1646"></a>
 
 ## JPegPlugin
 
@@ -158,7 +172,7 @@
 | JPegDecompressToRaster(RwRaster* raster, jpeg_source_mgr& src) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:213](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L213) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: JPegPlugin::JPegDecompressToRaster 0x005D05F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | JPegDecompressToVramFromBuffer(RwRaster* raster, bool enable) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:260](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L260) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: JPegPlugin::JPegDecompressToVramFromBuffer 0x005D07A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1646"></a>
+<a id="grupo-1647"></a>
 
 ## JpegInput
 
@@ -169,7 +183,7 @@
 | Byte(uint32& value) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp:693](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp#L693) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Sync() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp:703](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp#L703) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1647"></a>
+<a id="grupo-1648"></a>
 
 ## LegacyStdString
 
@@ -178,7 +192,7 @@
 | StringGrow(LegacyString* self, void* /*edx*/, uint32 newSize, bool trim) | [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:749](../../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp#L749) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LegacyStdString::Grow 0x004F3BD0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * __fastcall StringErase(LegacyString* self, void* /*edx*/, uint32 pos, uint32 n) | [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:777](../../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp#L777) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LegacyStdString::Erase 0x004F3DB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1648"></a>
+<a id="grupo-1649"></a>
 
 ## LegacyString
 
@@ -187,7 +201,7 @@
 | * Data() | [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:700](../../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp#L700) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Data() const | [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:701](../../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp#L701) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1649"></a>
+<a id="grupo-1650"></a>
 
 ## LibJpegCompress
 
@@ -216,7 +230,7 @@
 | * LibJpegCompress::JpegAllocQuantTable(ExeJpegCompress* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:667](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L667) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegCompress::JpegAllocQuantTable 0x005C6BB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * LibJpegCompress::JpegAllocHuffTable(ExeJpegCompress* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:674](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L674) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegCompress::JpegAllocHuffTable 0x005C6BD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1650"></a>
+<a id="grupo-1651"></a>
 
 ## LibJpegCompressApi
 
@@ -226,7 +240,7 @@
 | ExeJpegFinishCompress(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp:103](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegCompressApi::jpeg_finish_compress 0x005CFAC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | LibJpegCompressApi::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp:146](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp#L146) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1651"></a>
+<a id="grupo-1652"></a>
 
 ## LibJpegCompressEncode
 
@@ -243,7 +257,7 @@
 | ExeJpegGenOptimalTable(void* cinfo, void* htblArg, int32* freq) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp:408](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp#L408) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegCompressEncode::jpeg_gen_optimal_table 0x005C4D50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | LibJpegCompressEncode::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp:497](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp#L497) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1652"></a>
+<a id="grupo-1653"></a>
 
 ## LibJpegDecompress
 
@@ -264,7 +278,7 @@
 | ExePrepareForOutputPass(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp:1048](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp#L1048) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegDecompress::prepare_for_output_pass 0x005CCB50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | LibJpegDecompress::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp:1102](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp#L1102) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1653"></a>
+<a id="grupo-1654"></a>
 
 ## LibJpegDecompressApi
 
@@ -276,7 +290,7 @@
 | ExeJpegReadHeader(void* cinfo, uint8 requireImage) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp:260](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp#L260) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegDecompressApi::jpeg_read_header 0x005D01D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | LibJpegDecompressApi::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp:283](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp#L283) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1654"></a>
+<a id="grupo-1655"></a>
 
 ## LibJpegDecompressUpsample
 
@@ -286,7 +300,7 @@
 | ExeJinitUpsampler(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp:112](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegDecompressUpsample::jinit_upsampler 0x005CD350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | LibJpegDecompressUpsample::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp:186](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp#L186) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1655"></a>
+<a id="grupo-1656"></a>
 
 ## LibJpegError
 
@@ -294,7 +308,7 @@
 | --- | --- | --- | --- | --- | --- |
 | LibJpegError::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp:69](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1656"></a>
+<a id="grupo-1657"></a>
 
 ## LibJpegExe
 
@@ -305,7 +319,7 @@
 | ErrExit1(void* cinfo, int32 code, int32 parm) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h:23](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ErrExit2(void* cinfo, int32 code, int32 parm0, int32 parm1) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h:30](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1657"></a>
+<a id="grupo-1658"></a>
 
 ## LibJpegMemory
 
@@ -318,7 +332,7 @@
 | ExeJinitMemoryMgr(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:415](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp#L415) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: LibJpegMemory::jinit_memory_mgr 0x005CF6D0 | 0 / 0 | Conversión de dirección fija: 0x0086B808, 0x0086B810 |
 | LibJpegMemory::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:512](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp#L512) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1658"></a>
+<a id="grupo-1659"></a>
 
 ## Light
 
@@ -350,22 +364,10 @@
 | SetLightsForNightVision() | [source/app/app_light.cpp:425](../../source/app/app_light.cpp#L425) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetLightsForNightVision 0x00735F70 | 0 / 0 | Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
 | GetDayNightBalance() | [source/app/app_light.cpp:432](../../source/app/app_light.cpp#L432) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::GetDayNightBalance 0x006FAB30 | 0 / 0 | Posible dato fijo ms_nGameClockHours: source/game_sa/Clock.h:21 (0x00B70153); Posible dato fijo ms_nGameClockMinutes: source/game_sa/Clock.h:20 (0x00B70152); Posible dato fijo ms_nGameClockSeconds: source/game_sa/Clock.h:19 (0x00B70150) |
 
-<a id="grupo-1659"></a>
+<a id="grupo-1660"></a>
 
 ## LimbOrientation
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | LimbOrientation(float yaw, float pitch) | [source/game_sa/PedIK.h:24](../../source/game_sa/PedIK.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1660"></a>
-
-## Model
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| LoadModel(CRunningScript* S, script::Model model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:111](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ScriptResourceManager: source/game_sa/Scripts/TheScripts.h:462 (0x00A485A8) |
-| HasModelLoaded(script::Model model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:116](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L116) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| MarkModelNotNeeded(CRunningScript* S, script::Model model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:120](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ScriptResourceManager: source/game_sa/Scripts/TheScripts.h:462 (0x00A485A8) |
-| LoadAllModelsNow() | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:126](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsModelAvailable(eModelID model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:132](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
