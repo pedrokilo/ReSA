@@ -10,6 +10,7 @@ CPedAttractor::SArrayFillStride4C,0x005EAB10,hooks.csv,1,1,source/game_sa/Attrac
 CPedAttractor::SArrayFillStride4D,0x004F3AE0,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,131,C++,plantilla genérica
 CPedAttractor::SArrayUninitCopyStride4B,0x005EAE70,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,144,C++,plantilla genérica
 CPedAttractor::SArrayUninitCopyStride4C,0x005EAEE0,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,144,C++,plantilla genérica
+CPedAttractor::SArrayInsertNStride4A,0x005ECF10,hooks.csv,1,0,source/game_sa/Attractors/PedAttractor.cpp,291,C++,plantilla genérica
 CPedAttractor::SArrayInsertNStride4B,0x005ED4B0,hooks.csv,1,0,source/game_sa/Attractors/PedAttractor.cpp,291,C++,plantilla genérica
 CPedAttractor::SArrayUninitCopyWrapStride4B,0x005EB990,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,424,C++,plantilla genérica
 CPedAttractor::SArrayUninitCopyWrapStride4C,0x005EBA00,hooks.csv,1,1,source/game_sa/Attractors/PedAttractor.cpp,424,C++,plantilla genérica

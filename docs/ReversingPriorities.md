@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.431 |
-| Reconstruidas sin validar | 1.010 |
-| De ellas, en esta cola (validables por pares) | 1.010 |
+| Validadas | 11.460 |
+| Reconstruidas sin validar | 981 |
+| De ellas, en esta cola (validables por pares) | 981 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,15 +22,15 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 30 | 79 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
-| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 1 | 27 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 24 | 59 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 1 | 18 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
 | [🟠 Nivel 3: moderadas](#nivel-3) | 35 | 847 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 10 | 57 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **76** | **1010** | |
+| **Total** | **70** | **981** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (30 clases, 79 funciones)
+## 🟢 Nivel 1: muy barato (24 clases, 59 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
@@ -48,34 +48,28 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 | 10 | CAEAudioEntity | 8 | 2 |  | 10 |
 | 11 | CDecisionMaker | 5 | 2 |  | 19 |
 | 12 | IKChainManager_c | 19 | 2 |  | 20 |
-| 13 | WaterCreatureManager_c | 9 | 2 |  | 29 |
-| 14 | CPedLookAtAttractor | 3 | 3 |  | 18 |
-| 15 | CPedParkAttractor | 3 | 3 |  | 18 |
-| 16 | CPedScriptedAttractor | 3 | 3 |  | 18 |
-| 17 | CPedStepAttractor | 3 | 3 |  | 18 |
-| 18 | CPedATMAttractor | 3 | 3 |  | 19 |
-| 19 | CPedPizzaAttractor | 3 | 3 |  | 19 |
-| 20 | CPedSeatAttractor | 3 | 3 |  | 19 |
-| 21 | CPedStopAttractor | 3 | 3 |  | 19 |
-| 22 | CPedTriggerScriptAttractor | 3 | 3 |  | 19 |
-| 23 | CPedAttractorManager | 25 | 3 |  | 22 |
-| 24 | CProtectionStub | 3 | 3 |  | 23 |
-| 25 | LibJpegError | 3 | 3 |  | 26 |
-| 26 | CEntity | 76 | 3 |  | 35 |
-| 27 | CPedShelterAttractor | 11 | 4 |  | 17 |
-| 28 | FxEmitterBP_c | 13 | 4 |  | 31 |
-| 29 | FxEmitter_c | 9 | 5 |  | 34 |
-| 30 | CTheScripts | 82 | 9 |  | 31 |
+| 13 | CPedAttractorManager | 25 | 2 |  | 22 |
+| 14 | WaterCreatureManager_c | 9 | 2 |  | 29 |
+| 15 | CPedLookAtAttractor | 3 | 3 |  | 18 |
+| 16 | CPedParkAttractor | 3 | 3 |  | 18 |
+| 17 | CPedScriptedAttractor | 3 | 3 |  | 18 |
+| 18 | CPedStepAttractor | 3 | 3 |  | 18 |
+| 19 | CProtectionStub | 3 | 3 |  | 23 |
+| 20 | LibJpegError | 3 | 3 |  | 26 |
+| 21 | CEntity | 76 | 3 |  | 35 |
+| 22 | FxEmitterBP_c | 13 | 4 |  | 31 |
+| 23 | FxEmitter_c | 9 | 5 |  | 34 |
+| 24 | CTheScripts | 82 | 9 |  | 31 |
 
 <a id="nivel-2"></a>
 
-## 🟡 Nivel 2: baratas por función, pero muchas (1 clases, 27 funciones)
+## 🟡 Nivel 2: baratas por función, pero muchas (1 clases, 18 funciones)
 
 Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CPedAttractor | 85 | 27 |  | 12 |
+| 1 | CPedAttractor | 85 | 18 |  | 12 |
 
 <a id="nivel-3"></a>
 

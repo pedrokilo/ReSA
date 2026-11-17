@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11431 |
+| `validated=1` · evidencia aprobada vinculada | 11460 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11431 |
-| Sin evidencia aprobada vinculada en este registro | 1010 |
+| Evidencia histórica vinculada; revisión pendiente | 11460 |
+| Sin evidencia aprobada vinculada en este registro | 981 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -4816,6 +4816,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPed | `operator delete-poolRef` | [Resumen](../reversing/Fn199A/validation-summary.json) |
 | CPed | `operator new-anon` | [Resumen](../reversing/FixCore/validation-summary.json) |
 | CPed | `operator new-poolIndexed` | [Resumen](../reversing/FixCore/validation-summary.json) |
+| CPedATMAttractor | `Constructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedATMAttractor | `DestructorBody` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedATMAttractor | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
 | CPedAcquaintanceScanner | `CanJoinRiotAgainst` | [Resumen](../reversing/Fn607B/validation-summary.json) |
 | CPedAcquaintanceScanner | `CanScanPed` | [Resumen](../reversing/Fn198A/validation-summary.json) |
 | CPedAcquaintanceScanner | `CreateAcquaintanceEvent` | [Resumen](../reversing/Fn204A/validation-summary.json) |
@@ -4863,6 +4866,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedAttractor | `SArrayFillStride4B` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CPedAttractor | `SArrayFillStride4C` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CPedAttractor | `SArrayFillStride4D` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| CPedAttractor | `SArrayInsertNStride12` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedAttractor | `SArrayInsertNStride4C` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedAttractor | `SArrayInsertStride12` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedAttractor | `SArrayInsertStride20` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedAttractor | `SArrayPushBackStride12` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedAttractor | `SArrayPushBackStride20` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedAttractor | `SArrayPushBackStride4A` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedAttractor | `SArrayPushBackStride4B` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedAttractor | `SArrayPushBackStride4C` | [Resumen](../reversing/Fn220A/validation-summary.json) |
 | CPedAttractor | `SArrayTidyStride4` | [Resumen](../reversing/Fn206A/validation-summary.json) |
 | CPedAttractor | `SArrayTidyStride4B` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | CPedAttractor | `SArrayTidyStride4C` | [Resumen](../reversing/Fn209A/validation-summary.json) |
@@ -4883,6 +4895,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedAttractorManager | `BroadcastArrival-` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CPedAttractorManager | `BroadcastDeparture-` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CPedAttractorManager | `BroadcastDepartureList` | [Resumen](../reversing/Fn206A/validation-summary.json) |
+| CPedAttractorManager | `Constructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
 | CPedAttractorManager | `DeRegisterPed-` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CPedAttractorManager | `DeRegisterPedList` | [Resumen](../reversing/Fn206A/validation-summary.json) |
 | CPedAttractorManager | `FindAssociatedAttractorList` | [Resumen](../reversing/Fn206A/validation-summary.json) |
@@ -5147,6 +5160,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedModelInfo | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn194A/validation-summary.json) |
 | CPedModelInfo | `SetClump` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CPedModelInfo | `SetFaceTexture` | [Resumen](../reversing/Models9/validation-summary.json) |
+| CPedPizzaAttractor | `Constructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedPizzaAttractor | `DestructorBody` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedPizzaAttractor | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
 | CPedPlacement | `FindZCoorForPed-Ptr` | [Resumen](../reversing/Fn133A/validation-summary.json) |
 | CPedPlacement | `IsPositionClearForPed-OG` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CPedPlacement | `IsPositionClearOfCars-Ped` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
@@ -5174,23 +5190,36 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedScriptedTaskRecordData | `Set-CTask` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CPedScriptedTaskRecordData | `SetAsAttractorScriptTask` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CPedScriptedTaskRecordData | `SetAsGroupTask` | [Resumen](../reversing/Data8b/validation-summary.json) |
+| CPedSeatAttractor | `Constructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedSeatAttractor | `DestructorBody` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedSeatAttractor | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
 | CPedShelterAttractor | `BroadcastDeparture` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
 | CPedShelterAttractor | `ComputeAttractHeading` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
 | CPedShelterAttractor | `ComputeAttractPos` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
+| CPedShelterAttractor | `Constructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedShelterAttractor | `DestructorBody` | [Resumen](../reversing/Fn220A/validation-summary.json) |
 | CPedShelterAttractor | `GetDisplacement` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
+| CPedShelterAttractor | `GetType` | [Resumen](../reversing/Fn220A/validation-summary.json) |
 | CPedShelterAttractor | `IsAtHeadOfQueue` | [Resumen](../reversing/Fn205A/validation-summary.json) |
 | CPedShelterAttractor | `SArraySizeStride12` | [Resumen](../reversing/Fn147A/validation-summary.json) |
 | CPedShelterAttractor | `SArraySizeStride20` | [Resumen](../reversing/Fn147A/validation-summary.json) |
+| CPedShelterAttractor | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
 | CPedStats | `FindIndexWithPedStat` | [Resumen](../reversing/PedLeaf69/validation-summary.json) |
 | CPedStats | `GetPedStatType` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CPedStats | `Initialise` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CPedStats | `LoadPedStats` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CPedStats | `Shutdown` | [Resumen](../reversing/Data23/validation-summary.json) |
+| CPedStopAttractor | `Constructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedStopAttractor | `DestructorBody` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedStopAttractor | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
 | CPedStuckChecker | `TestPedStuck` | [Resumen](../reversing/EventScanners61/validation-summary.json) |
 | CPedTaskPair | `Flush` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CPedToPlayerConversations | `Clear` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CPedToPlayerConversations | `EndConversation` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CPedToPlayerConversations | `Update` | [Resumen](../reversing/PedToPlayerConversations/validation-summary.json) |
+| CPedTriggerScriptAttractor | `Constructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedTriggerScriptAttractor | `DestructorBody` | [Resumen](../reversing/Fn220A/validation-summary.json) |
+| CPedTriggerScriptAttractor | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn220A/validation-summary.json) |
 | CPedType | `ClearPedTypeAcquaintances` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CPedType | `ClearPedTypeAsAcquaintance` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CPedType | `FindPedType` | [Resumen](../reversing/Sys13/validation-summary.json) |
@@ -11813,10 +11842,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPatrolRoute` | 7 | 0 | 7 | 0 |
 | `CPatrolRoutePool` | 1 | 0 | 1 | 0 |
 | `CPed` | 156 | 0 | 156 | 0 |
-| `CPedATMAttractor` | 3 | 0 | 0 | 3 |
+| `CPedATMAttractor` | 3 | 0 | 3 | 0 |
 | `CPedAcquaintanceScanner` | 6 | 0 | 6 | 0 |
-| `CPedAttractor` | 85 | 0 | 58 | 27 |
-| `CPedAttractorManager` | 25 | 0 | 22 | 3 |
+| `CPedAttractor` | 85 | 0 | 67 | 18 |
+| `CPedAttractorManager` | 25 | 0 | 23 | 2 |
 | `CPedAttractorPedPlacer` | 1 | 0 | 1 | 0 |
 | `CPedAttractorPool` | 1 | 0 | 1 | 0 |
 | `CPedClothesDesc` | 9 | 0 | 9 | 0 |
@@ -11841,7 +11870,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedLookAtAttractor` | 3 | 0 | 0 | 3 |
 | `CPedModelInfo` | 12 | 0 | 11 | 1 |
 | `CPedParkAttractor` | 3 | 0 | 0 | 3 |
-| `CPedPizzaAttractor` | 3 | 0 | 0 | 3 |
+| `CPedPizzaAttractor` | 3 | 0 | 3 | 0 |
 | `CPedPlacement` | 4 | 0 | 4 | 0 |
 | `CPedPool` | 5 | 0 | 5 | 0 |
 | `CPedSaveStructure` | 3 | 0 | 3 | 0 |
@@ -11849,15 +11878,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedScriptedAttractor` | 3 | 0 | 0 | 3 |
 | `CPedScriptedTaskRecord` | 5 | 0 | 5 | 0 |
 | `CPedScriptedTaskRecordData` | 8 | 0 | 8 | 0 |
-| `CPedSeatAttractor` | 3 | 0 | 0 | 3 |
-| `CPedShelterAttractor` | 11 | 0 | 7 | 4 |
+| `CPedSeatAttractor` | 3 | 0 | 3 | 0 |
+| `CPedShelterAttractor` | 11 | 0 | 11 | 0 |
 | `CPedStats` | 5 | 0 | 5 | 0 |
 | `CPedStepAttractor` | 3 | 0 | 0 | 3 |
-| `CPedStopAttractor` | 3 | 0 | 0 | 3 |
+| `CPedStopAttractor` | 3 | 0 | 3 | 0 |
 | `CPedStuckChecker` | 1 | 0 | 1 | 0 |
 | `CPedTaskPair` | 1 | 0 | 1 | 0 |
 | `CPedToPlayerConversations` | 3 | 0 | 3 | 0 |
-| `CPedTriggerScriptAttractor` | 3 | 0 | 0 | 3 |
+| `CPedTriggerScriptAttractor` | 3 | 0 | 3 | 0 |
 | `CPedType` | 14 | 0 | 14 | 0 |
 | `CPhoneInfo` | 2 | 0 | 2 | 0 |
 | `CPhysical` | 62 | 0 | 62 | 0 |
