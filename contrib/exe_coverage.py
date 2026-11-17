@@ -134,6 +134,12 @@ def compute(root, internals=False):
     # reconstruida de hooks.csv (asi no se cuentan como pendientes funciones ya enganchadas y validadas).
     addresses |= _source_hook_addresses(root, {(r['class'], r['fn_name'].split('-')[0]) for r in reversed_rows})
 
+    # Funciones ya reconstruidas que no tienen fila de hook con direccion en hooks.csv (ranuras virtuales que el mapa no resuelve, hooks de la capa
+    # de plataforma, auxiliares privadas de funciones __usercall): docs/JuegoExe/cubiertas-sin-catalogo.csv. Cuentan como reconstruidas.
+    covered_path = root / 'docs/JuegoExe/cubiertas-sin-catalogo.csv'
+    if covered_path.exists():
+        addresses |= {_hex(r['va']) for r in _rows(covered_path)} - {0}
+
     pending = {_hex(r.get('address', '')) for r in _rows(root / 'docs/implementaciones/envolturas-pendientes.csv')} - {0}
     covered = ({va for va in funcs if va in addresses or any(n in names for n in funcs[va]['names'])}) - pending
 

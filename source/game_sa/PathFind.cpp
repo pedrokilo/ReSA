@@ -15,10 +15,10 @@
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  *
  * ESTADO: CPathFind
- * Reconstrucción: COMPLETA — 71/71 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 81/81 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 71/71 entradas.
+ * Validación registrada: 81/81 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.

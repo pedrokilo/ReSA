@@ -27,7 +27,7 @@ GRUPO = {'libpng + zlib': 'Bibliotecas de terceros', 'D3DX9 (compilador de shade
 
 def cargar(root):
     with open(Path(root) / 'docs/RenderWareExe/funciones.csv', encoding='utf-8', newline='') as f:
-        rows = [r for r in csv.DictReader(f) if r['estado'] not in ('reemplazada',)]
+        rows = [r for r in csv.DictReader(f) if r['estado'] not in ('reemplazada', 'enlazada', 'no_reconstruible')]
     for r in rows:
         r['va_int'] = int(r['va'], 16)
         r['bytes'] = int(r['bytes'])

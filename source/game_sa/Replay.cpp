@@ -6,10 +6,19 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CReplay
- * Reconstrucción: COMPLETA — 48/48 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 55/55 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 48/48 entradas.
+ * Validación registrada: 48/55 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ *
+ * ESTADO: tReplayTrainBlock
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 0/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.

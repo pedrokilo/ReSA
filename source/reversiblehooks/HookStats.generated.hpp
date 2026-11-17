@@ -2,7 +2,7 @@
 #pragma once
 
 namespace ReversibleHooks::stats {
-inline constexpr int CatalogEntries = 11134;
-inline constexpr int Reconstructed = 11134;
-inline constexpr int Validated = 11134;
+inline constexpr int CatalogEntries = 12438;
+inline constexpr int Reconstructed = 12438;
+inline constexpr int Validated = 11156;
 } // namespace ReversibleHooks::stats

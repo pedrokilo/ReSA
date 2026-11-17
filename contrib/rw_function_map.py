@@ -27,7 +27,10 @@ STATUS = {
     'B': 'B · Falta: método virtual / por tabla',
     'C': 'C · Falta: solo la llaman funciones aún no reemplazadas',
     'D': 'D · Falta: sin llamadas ni vtable (¿muerto o por puntero?)',
+    'enlazada': 'Biblioteca de terceros: se enlaza la original, no se reconstruye',
+    'no_reconstruible': 'No reconstruible en C++ puro (ABI de registros, 3DNow!, fragmento) · documentada',
 }
+ENLAZADAS = ('libpng + zlib', 'D3DX9 (compilador de shaders)')  # decision del usuario (2026-11-16): se enlazan, no se reconstruyen
 BLOCK = 0x10000
 GAP = 0x4000  # distancia máxima (bytes) a las funciones con nombre vecinas para dar confianza «alta»
 FILE_MODULE = {
@@ -55,6 +58,10 @@ STRING_RULES = (
                                'tEXt', 'zTXt', 'oFFs', 'pCAL', 'sCAL', 'pHYs', '1.0.12')),
 )
 PNG_FILE = {'rtpng': 'libpng + zlib'}
+# Clase de hooks.csv -> módulo real (las funciones ya reconstruidas se clasifican por la clase con la que se enganchan, no por vecindad).
+CLASS_MODULE = {'ZlibInflate': 'libpng + zlib', 'D3DX9': 'D3DX9 (compilador de shaders)', 'RwD3D9': D3D9, 'RpUVAnim': 'RpUVAnim', 'RpSkin': 'RpSkin',
+                'RpHAnim': 'RpHAnim', 'RtAnim': 'RtAnim', 'RtSlerp': 'RtSlerp', 'RtQuat': 'RtQuat', 'RtBMP': 'RtBMP', 'RtDict': 'RtDict',
+                'RpMatFX': 'RpMatFX', 'RpWorld': 'RpWorld', 'RwCore': 'RwCore', 'RwPlCore': 'RwPlCore', 'RpAnisot': 'RpAnisot'}
 EXE_CANDIDATES = ('RESA_EXE', 'E:/JUEGOS/GTA San Andreas - CVehicle Test/gta_sa.exe', 'E:/JUEGOS/GTA San Andreas/gta_sa.exe')
 
 
@@ -205,10 +212,23 @@ def build(root):
             return (prev if va - pk <= nk - va else nxt), 'baja', ''
         return (prev or nxt or '?'), 'baja', ''
 
+    hookclass = {}
+    with open(root / 'docs/hooks.csv', encoding='utf-8-sig', newline='') as f:
+        for r in csv.DictReader(f):
+            a = ec._hex(r['address'])
+            if a and r['reversed'] == '1':
+                hookclass.setdefault(a, r['class'])
+    noreco = {}
+    nr = root / 'docs/RenderWareExe/no-reconstruibles.csv'
+    if nr.exists():
+        with open(nr, encoding='utf-8', newline='') as f:
+            noreco = {ec._hex(r['va']): r for r in csv.DictReader(f)}
     rows = []
     for va in rw:
         f = funcs[va]
-        if va in pending:
+        if va in noreco:
+            status = 'no_reconstruible'
+        elif va in pending:
             status = 'envoltura'
         elif va in covered:
             status = 'reemplazada'
@@ -219,6 +239,14 @@ def build(root):
         else:
             status = 'C' if callers_total[va] else 'D'
         mod, conf, name = module(va)
+        if hookclass.get(va) in CLASS_MODULE:
+            mod, conf = CLASS_MODULE[hookclass[va]], 'exacta'
+        if va in noreco:
+            mod, conf = noreco[va]['modulo'], 'exacta'
+        if mod == 'RpWorld' and 0x765200 <= va <= 0x76FFFF:
+            mod, conf = 'D3DX9 (compilador de shaders)', 'media'  # RpWorld real acaba en ~0x765200 (R21A); lo que sigue es D3DX9 atribuido por vecindad
+        if mod in ENLAZADAS and status not in ('reemplazada', 'no_reconstruible'):
+            status = 'enlazada'
         rows.append(dict(va=va, size=f['size'], status=status, module=mod, confidence=conf, name=name or ';'.join(f['names'][:3]),
                          callers=callers_total[va], callers_replaced=callers_repl[va], thunk='sí' if f['thunk'] else '',
                          vtable='sí' if va in st['vtable_targets'] else ''))
@@ -254,7 +282,7 @@ def write(root):
          'entre 0x7D0000 y 0x7EA000 hay **libpng + zlib**. Ninguno de los dos es código de Rockstar ni de RenderWare: se sustituyen enlazando las bibliotecas originales.', '',
          '## Estado', '']
     body = []
-    for k in ['A', 'B', 'C', 'D', 'envoltura', 'reemplazada']:
+    for k in ['A', 'B', 'C', 'D', 'no_reconstruible', 'enlazada', 'envoltura', 'reemplazada']:
         v = by[k]
         body.append([STATUS[k], f'{len(v):,}', f'{len(v)/n:.1%}', f'{sum(x["size"] for x in v):,}', f'{sum(x["size"] for x in v)/nb:.1%}'])
     L += _tbl(['Estado', 'Funciones', '% func.', 'Bytes', '% bytes'], body)
@@ -322,6 +350,8 @@ def reversedclasses_section(root):
             m['rep'] += 1
         elif st == 'envoltura':
             m['env'] += 1
+        elif st in ('enlazada', 'no_reconstruible'):
+            m['fuera'] += 1
         else:
             m['falta'] += 1
             m['falta_bytes'] += int(r['bytes'])

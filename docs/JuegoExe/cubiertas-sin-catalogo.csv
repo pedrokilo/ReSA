@@ -1,0 +1,20 @@
+va,modulo,motivo
+0x004C7630,CVehicleModelInfo,Enganchada por tabla virtual (RH_ScopedVMTInstall) en el lote 203A; el mapa no resuelve la direccion de las ranuras V
+0x004C7650,CVehicleModelInfo,Enganchada por tabla virtual (RH_ScopedVMTInstall) en el lote 203A; el mapa no resuelve la direccion de las ranuras V
+0x004C7660,CVehicleModelInfo,Enganchada por tabla virtual (RH_ScopedVMTInstall) en el lote 203A; el mapa no resuelve la direccion de las ranuras V
+0x004C7670,CVehicleModelInfo,Enganchada por tabla virtual (RH_ScopedVMTInstall) en el lote 203A; el mapa no resuelve la direccion de las ranuras V
+0x004C76D0,CVehicleModelInfo,Enganchada por tabla virtual (RH_ScopedVMTInstall) en el lote 203A; el mapa no resuelve la direccion de las ranuras V
+0x004C95C0,CVehicleModelInfo,Enganchada por tabla virtual (RH_ScopedVMTInstall) en el lote 203A; el mapa no resuelve la direccion de las ranuras V
+0x004C9680,CVehicleModelInfo,Enganchada por tabla virtual (RH_ScopedVMTInstall) en el lote 203A; el mapa no resuelve la direccion de las ranuras V
+0x004C9890,CVehicleModelInfo,Enganchada por tabla virtual (RH_ScopedVMTInstall) en el lote 203A; el mapa no resuelve la direccion de las ranuras V
+0x00541DD0,CPad,Enganchada con HookInstall (estilo antiguo) en InjectHooksMain.cpp; no tiene fila en hooks.csv
+0x00745560,Win,Win32_InitInstance enganchada con RH_ScopedGlobalInstall y locked en WinMain.cpp (solo sin SDL3); capa de plataforma fuera del catalogo
+0x007469A0,Win,diMouseInit enganchada con locked en WinInput.cpp; capa de plataforma fuera del catalogo
+0x00746D80,Win,diPadSetRanges enganchada en WinInput.cpp; capa de plataforma fuera del catalogo
+0x00746ED0,CPad,GetMouseState enganchada en Pad.cpp (solo sin SDL3); capa de plataforma fuera del catalogo
+0x00747020,Win,EnumDevicesCallback enganchada en WinInput.cpp; capa de plataforma fuera del catalogo
+0x007486A0,Win,Win32_InitApplication enganchada en WinMain.cpp; capa de plataforma fuera del catalogo
+0x00748710,Win,NOTSA_WinMain: adaptacion NOTSA registrada en docs/hooks_notsa.csv; capa de plataforma
+0x005C6430,LibJpegCompress,initial_setup: reconstruida como funcion privada sin hook (usercall con cinfo en ESI; solo la llaman funciones ya enganchadas); lote 231A
+0x005C6600,LibJpegCompress,select_scan_parameters: reconstruida como funcion privada sin hook (usercall con cinfo en ESI); lote 231A
+0x005C6680,LibJpegCompress,per_scan_setup: reconstruida como funcion privada sin hook (usercall con cinfo en ESI); lote 231A
