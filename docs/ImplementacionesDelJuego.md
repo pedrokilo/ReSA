@@ -4,7 +4,7 @@ Este documento distingue el lenguaje de la fuente, la reconstrucción, la valida
 
 El inventario asigna **0 apariciones de ensamblador** a **0 definiciones con cuerpo** y **0 declaraciones naked** a **0 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 21903 definiciones en 1839 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 21905 definiciones en 1839 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -19,7 +19,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 
 - **Excepción NOTSA con ensamblador fuera de source/game_sa:** 1 definición con 14 apariciones `__asm` (contadas por expansión de macro) y 1 `naked` en source/app/platform/win/WindowedMode.cpp: código propio del proyecto (modo ventana), no una función del juego, y su hook figura solo en hooks_notsa.csv. Se mantiene como excepción documentada, no se convierte a C++ y **no cuenta como «solo C++»**. Los contadores de ensamblador de arriba cubren source/game_sa; esta excepción se lista aparte en [el listado de excepciones NOTSA](implementaciones/catalogo-excepciones-notsa-asm.csv) y sus apariciones constan en apariciones.csv.
 
-- 98 entradas de ambos catálogos no tienen coincidencia inequívoca en los cuerpos detectados de source/game_sa. Pueden estar fuera de este ámbito o requerir resolver alias, macros o sobrecargas. **No se presentan como funciones inexistentes ni como nuevas pendientes de validación.** Se conservan en [el listado de asociaciones sin resolver](implementaciones/catalogo-sin-coincidencia.csv).
+- 77 entradas de ambos catálogos no tienen coincidencia inequívoca en los cuerpos detectados de source/game_sa. Pueden estar fuera de este ámbito o requerir resolver alias, macros o sobrecargas. **No se presentan como funciones inexistentes ni como nuevas pendientes de validación.** Se conservan en [el listado de asociaciones sin resolver](implementaciones/catalogo-sin-coincidencia.csv).
 
 ## Resumen por clase o grupo
 
@@ -169,7 +169,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CConversations](implementaciones/detalle-008.md#grupo-142) · [source/game_sa/Conversations/Conversations.cpp](../source/game_sa/Conversations/Conversations.cpp) | 11 | 0 | 2 | 0 | 0 |
 | [CCopPed](implementaciones/detalle-008.md#grupo-143) · [source/game_sa/Entity/Ped/CopPed.cpp](../source/game_sa/Entity/Ped/CopPed.cpp) | 8 | 0 | 7 | 0 | 0 |
 | [CCoronas](implementaciones/detalle-008.md#grupo-144) · [source/game_sa/Coronas.cpp](../source/game_sa/Coronas.cpp) | 12 | 0 | 3 | 0 | 0 |
-| [CCover](implementaciones/detalle-008.md#grupo-145) · [source/game_sa/Cover.cpp](../source/game_sa/Cover.cpp), [source/game_sa/Cover.h](../source/game_sa/Cover.h) | 16 | 0 | 7 | 0 | 0 |
+| [CCover](implementaciones/detalle-008.md#grupo-145) · [source/game_sa/Cover.cpp](../source/game_sa/Cover.cpp), [source/game_sa/Cover.h](../source/game_sa/Cover.h) | 17 | 0 | 6 | 0 | 0 |
 | [CCoverPoint](implementaciones/detalle-008.md#grupo-146) · [source/game_sa/CoverPoint.cpp](../source/game_sa/CoverPoint.cpp), [source/game_sa/CoverPoint.h](../source/game_sa/CoverPoint.h) | 3 | 0 | 14 | 0 | 0 |
 | [CCranes](implementaciones/detalle-008.md#grupo-147) · [source/game_sa/Cranes.cpp](../source/game_sa/Cranes.cpp) | 5 | 0 | 1 | 0 | 0 |
 | [CCredits](implementaciones/detalle-008.md#grupo-148) · [source/game_sa/Credits.cpp](../source/game_sa/Credits.cpp) | 6 | 0 | 1 | 0 | 0 |
@@ -494,7 +494,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CPolyBunch](implementaciones/detalle-024.md#grupo-467) · [source/game_sa/PolyBunch.h](../source/game_sa/PolyBunch.h) | 0 | 0 | 1 | 0 | 0 |
 | [CPool](implementaciones/detalle-024.md#grupo-468) · [source/game_sa/Core/Pool.h](../source/game_sa/Core/Pool.h) | 3 | 0 | 34 | 0 | 0 |
 | [CPool::SlotState](implementaciones/detalle-024.md#grupo-469) · [source/game_sa/Core/Pool.h](../source/game_sa/Core/Pool.h) | 0 | 0 | 1 | 0 | 0 |
-| [CPools](implementaciones/detalle-024.md#grupo-470) · [source/game_sa/Pools.cpp](../source/game_sa/Pools.cpp), [source/game_sa/Pools/Pools.h](../source/game_sa/Pools/Pools.h) | 34 | 0 | 6 | 0 | 0 |
+| [CPools](implementaciones/detalle-024.md#grupo-470) · [source/game_sa/Pools.cpp](../source/game_sa/Pools.cpp), [source/game_sa/Pools/Pools.h](../source/game_sa/Pools/Pools.h) | 40 | 0 | 2 | 0 | 0 |
 | [CPopCycle](implementaciones/detalle-024.md#grupo-471) · [source/game_sa/PopCycle.cpp](../source/game_sa/PopCycle.cpp), [source/game_sa/PopCycle.h](../source/game_sa/PopCycle.h) | 15 | 0 | 7 | 0 | 0 |
 | [CPopulation](implementaciones/detalle-024.md#grupo-472) · [source/game_sa/Population.cpp](../source/game_sa/Population.cpp), [source/game_sa/Population.h](../source/game_sa/Population.h) | 69 | 0 | 12 | 0 | 0 |
 | [CPostEffects](implementaciones/detalle-024.md#grupo-473) · [source/game_sa/PostEffects.cpp](../source/game_sa/PostEffects.cpp) | 38 | 0 | 7 | 0 | 0 |
@@ -525,7 +525,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CRegisteredMotionBlurStreak](implementaciones/detalle-025.md#grupo-498) · [source/game_sa/RegisteredMotionBlurStreak.cpp](../source/game_sa/RegisteredMotionBlurStreak.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [CRemote](implementaciones/detalle-025.md#grupo-499) · [source/game_sa/Remote.cpp](../source/game_sa/Remote.cpp) | 3 | 0 | 1 | 0 | 0 |
 | [CRenderer](implementaciones/detalle-025.md#grupo-500) · [source/game_sa/Renderer.cpp](../source/game_sa/Renderer.cpp), [source/game_sa/Renderer.h](../source/game_sa/Renderer.h) | 35 | 0 | 6 | 0 | 0 |
-| [CReplay](implementaciones/detalle-026.md#grupo-501) · [source/game_sa/Replay.cpp](../source/game_sa/Replay.cpp), [source/game_sa/Replay.h](../source/game_sa/Replay.h) | 48 | 0 | 4 | 0 | 0 |
+| [CReplay](implementaciones/detalle-026.md#grupo-501) · [source/game_sa/Replay.cpp](../source/game_sa/Replay.cpp), [source/game_sa/Replay.h](../source/game_sa/Replay.h) | 50 | 0 | 2 | 0 | 0 |
 | [CReplay::CAddressInReplayBuffer](implementaciones/detalle-026.md#grupo-502) · [source/game_sa/Replay.h](../source/game_sa/Replay.h) | 0 | 0 | 6 | 0 | 0 |
 | [CReplay::CVector_Reversed](implementaciones/detalle-026.md#grupo-503) · [source/game_sa/Replay.h](../source/game_sa/Replay.h) | 0 | 0 | 1 | 0 | 0 |
 | [CReplay::tReplayBuffer](implementaciones/detalle-026.md#grupo-504) · [source/game_sa/Replay.h](../source/game_sa/Replay.h) | 0 | 0 | 8 | 0 | 0 |
@@ -1394,7 +1394,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/RenderWare/rw/rwtexdict.cpp](implementaciones/detalle-069.md#grupo-1367) · [source/game_sa/RenderWare/rw/rwtexdict.cpp](../source/game_sa/RenderWare/rw/rwtexdict.cpp) | 0 | 0 | 6 | 0 | 0 |
 | [Globales y helpers: source/game_sa/RenderWare/rw/zlibinflate.cpp](implementaciones/detalle-069.md#grupo-1368) · [source/game_sa/RenderWare/rw/zlibinflate.cpp](../source/game_sa/RenderWare/rw/zlibinflate.cpp) | 0 | 0 | 3 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Renderer.cpp](implementaciones/detalle-069.md#grupo-1369) · [source/game_sa/Renderer.cpp](../source/game_sa/Renderer.cpp) | 0 | 0 | 8 | 0 | 0 |
-| [Globales y helpers: source/game_sa/Replay.cpp](implementaciones/detalle-069.md#grupo-1370) · [source/game_sa/Replay.cpp](../source/game_sa/Replay.cpp) | 0 | 0 | 19 | 0 | 0 |
+| [Globales y helpers: source/game_sa/Replay.cpp](implementaciones/detalle-069.md#grupo-1370) · [source/game_sa/Replay.cpp](../source/game_sa/Replay.cpp) | 4 | 0 | 15 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Restart.cpp](implementaciones/detalle-069.md#grupo-1371) · [source/game_sa/Restart.cpp](../source/game_sa/Restart.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/RideAnimData.cpp](implementaciones/detalle-069.md#grupo-1372) · [source/game_sa/RideAnimData.cpp](../source/game_sa/RideAnimData.cpp) | 2 | 0 | 0 | 0 | 0 |
 | [Globales y helpers: source/game_sa/RuntimeHelpers.cpp](implementaciones/detalle-069.md#grupo-1373) · [source/game_sa/RuntimeHelpers.cpp](../source/game_sa/RuntimeHelpers.cpp) | 0 | 0 | 1 | 0 | 0 |
@@ -1833,7 +1833,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [tRadioState](implementaciones/detalle-091.md#grupo-1806) · [source/game_sa/Audio/Managers/AERadioTrackManager.h](../source/game_sa/Audio/Managers/AERadioTrackManager.h) | 0 | 0 | 1 | 0 | 0 |
 | [tReplayBikeBlock](implementaciones/detalle-091.md#grupo-1807) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [tReplayBlockBase](implementaciones/detalle-091.md#grupo-1808) · [source/game_sa/ReplayBlockType.h](../source/game_sa/ReplayBlockType.h) | 0 | 0 | 1 | 0 | 0 |
-| [tReplayBmxBlock](implementaciones/detalle-091.md#grupo-1809) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [tReplayBmxBlock](implementaciones/detalle-091.md#grupo-1809) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 1 | 0 | 0 | 0 | 0 |
 | [tReplayCameraBlock](implementaciones/detalle-091.md#grupo-1810) · [source/game_sa/ReplayBlockType.h](../source/game_sa/ReplayBlockType.h) | 0 | 0 | 1 | 0 | 0 |
 | [tReplayTrainBlock](implementaciones/detalle-091.md#grupo-1811) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [tReplayVehicleBlock](implementaciones/detalle-091.md#grupo-1812) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 0 | 0 | 1 | 0 | 0 |

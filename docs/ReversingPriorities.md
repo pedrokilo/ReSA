@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.274 |
-| Reconstruidas sin validar | 1.167 |
-| De ellas, en esta cola (validables por pares) | 1.167 |
+| Validadas | 11.306 |
+| Reconstruidas sin validar | 1.135 |
+| De ellas, en esta cola (validables por pares) | 1.135 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -23,10 +23,10 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
 | [🟢 Nivel 1: muy barato](#nivel-1) | 70 | 195 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
-| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 2 | 52 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 40 | 863 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 1 | 27 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 39 | 856 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 10 | 57 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **122** | **1167** | |
+| **Total** | **120** | **1135** | |
 
 <a id="nivel-1"></a>
 
@@ -109,29 +109,28 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 <a id="nivel-2"></a>
 
-## 🟡 Nivel 2: baratas por función, pero muchas (2 clases, 52 funciones)
+## 🟡 Nivel 2: baratas por función, pero muchas (1 clases, 27 funciones)
 
 Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CPools | 72 | 25 |  | 10 |
-| 2 | CPedAttractor | 85 | 27 |  | 12 |
+| 1 | CPedAttractor | 85 | 27 |  | 12 |
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (40 clases, 863 funciones)
+## 🟠 Nivel 3: moderadas (39 clases, 856 funciones)
 
 Criterio: el resto.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
 | 1 | CStreaming | 110 | 1 |  | 36 |
-| 2 | CEntryInfoList | 2 | 1 |  | 40 |
-| 3 | tReplayTrainBlock | 1 | 1 |  | 40 |
-| 4 | FxInfo_c | 1 | 1 |  | 41 |
-| 5 | CWaterLevel | 49 | 1 |  | 42 |
-| 6 | CCover | 17 | 1 |  | 43 |
+| 2 | CReplay | 55 | 1 |  | 38 |
+| 3 | CEntryInfoList | 2 | 1 |  | 40 |
+| 4 | tReplayTrainBlock | 1 | 1 |  | 40 |
+| 5 | FxInfo_c | 1 | 1 |  | 41 |
+| 6 | CWaterLevel | 49 | 1 |  | 42 |
 | 7 | Ps | 26 | 1 |  | ? |
 | 8 | RpAnisot | 4 | 1 |  | ? |
 | 9 | RtSlerp | 1 | 1 |  | ? |
@@ -148,24 +147,23 @@ Criterio: el resto.
 | 20 | QTMLRuntime | 6 | 6 |  | ? |
 | 21 | RpHAnim | 7 | 6 |  | ? |
 | 22 | RtQuat | 6 | 6 |  | ? |
-| 23 | CReplay | 55 | 7 |  | 38 |
-| 24 | RtAnim | 10 | 7 |  | 48 |
-| 25 | RtDict | 12 | 10 |  | ? |
-| 26 | LibJpegCompressEncode | 11 | 11 |  | 47 |
-| 27 | D3DX9 | 11 | 11 |  | ? |
-| 28 | RwD3D9RasterDriver | 14 | 14 |  | 29 |
-| 29 | RpUVAnim | 16 | 14 |  | ? |
-| 30 | ZlibInflate | 14 | 14 |  | ? |
-| 31 | ExeLibJpeg | 15 | 15 |  | ? |
-| 32 | ImportThunks | 17 | 17 |  | ? |
-| 33 | LibJpegCompress | 18 | 18 |  | 38 |
-| 34 | LibJpegMemory | 21 | 21 |  | 26 |
-| 35 | RpMatFX | 28 | 28 |  | ? |
-| 36 | RpSkin | 34 | 33 |  | ? |
-| 37 | RwD3D9 | 115 | 115 |  | ? |
-| 38 | RwPlCore | 132 | 118 |  | ? |
-| 39 | RpWorld | 197 | 172 |  | ? |
-| 40 | RwCore | 211 | 182 |  | ? |
+| 23 | RtAnim | 10 | 7 |  | 48 |
+| 24 | RtDict | 12 | 10 |  | ? |
+| 25 | LibJpegCompressEncode | 11 | 11 |  | 47 |
+| 26 | D3DX9 | 11 | 11 |  | ? |
+| 27 | RwD3D9RasterDriver | 14 | 14 |  | 29 |
+| 28 | RpUVAnim | 16 | 14 |  | ? |
+| 29 | ZlibInflate | 14 | 14 |  | ? |
+| 30 | ExeLibJpeg | 15 | 15 |  | ? |
+| 31 | ImportThunks | 17 | 17 |  | ? |
+| 32 | LibJpegCompress | 18 | 18 |  | 38 |
+| 33 | LibJpegMemory | 21 | 21 |  | 26 |
+| 34 | RpMatFX | 28 | 28 |  | ? |
+| 35 | RpSkin | 34 | 33 |  | ? |
+| 36 | RwD3D9 | 115 | 115 |  | ? |
+| 37 | RwPlCore | 132 | 118 |  | ? |
+| 38 | RpWorld | 197 | 172 |  | ? |
+| 39 | RwCore | 211 | 182 |  | ? |
 
 <a id="nivel-4"></a>
 

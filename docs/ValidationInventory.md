@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11274 |
+| `validated=1` · evidencia aprobada vinculada | 11306 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11274 |
-| Sin evidencia aprobada vinculada en este registro | 1167 |
+| Evidencia histórica vinculada; revisión pendiente | 11306 |
+| Sin evidencia aprobada vinculada en este registro | 1135 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -2209,6 +2209,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCover | `FindVectorFromDir` | [Resumen](../reversing/World16/validation-summary.json) |
 | CCover | `FindVectorFromFirstToMissingVertex` | [Resumen](../reversing/World16/validation-summary.json) |
 | CCover | `Init` | [Resumen](../reversing/World16/validation-summary.json) |
+| CCover | `ProcessedBuildingsIsMemberOfList` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CCover | `RemoveCoverPointIfEntityLost` | [Resumen](../reversing/World16/validation-summary.json) |
 | CCover | `RemoveCoverPointsForThisEntity` | [Resumen](../reversing/World16/validation-summary.json) |
 | CCover | `ShouldThisBuildingHaveItsCoverPointsCreated` | [Resumen](../reversing/World16/validation-summary.json) |
@@ -5560,16 +5561,21 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPointRoutePool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CPools | `BuildingPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `BuildingPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `BuildingPoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `CheckBuildingAtomics` | [Resumen](../reversing/RequestedPoolsAtomicCheck/validation-summary.json) |
 | CPools | `CheckPoolsEmpty` | [Resumen](../reversing/WorldWave2/validation-summary.json) |
 | CPools | `ColModelPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `ColModelPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `ColModelPoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `DummyPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `DummyPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `DummyPoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `EntryInfoNodePoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `EntryInfoNodePoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `EntryInfoNodePoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `EventPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `EventPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `EventPoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `GetObject` | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) |
 | CPools | `GetObjectRef` | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) |
 | CPools | `GetPed` | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) |
@@ -5582,28 +5588,48 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPools | `LoadPedPool` | [Resumen](../reversing/PoolsWave4/validation-summary.json) |
 | CPools | `LoadVehiclePool` | [Resumen](../reversing/PoolsWave4/validation-summary.json) |
 | CPools | `MakeSureSlotInObjectPoolIsEmpty` | [Resumen](../reversing/WorldWave2/validation-summary.json) |
+| CPools | `NodeRoutePoolConstructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CPools | `NodeRoutePoolDestructorBody` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CPools | `NodeRoutePoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `ObjectPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `ObjectPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `ObjectPoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `PatrolRoutePoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `PatrolRoutePoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PatrolRoutePoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CPools | `PedAttractorPoolConstructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CPools | `PedAttractorPoolDestructorBody` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CPools | `PedAttractorPoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CPools | `PedIntelligencePoolConstructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CPools | `PedIntelligencePoolDestructorBody` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CPools | `PedIntelligencePoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `PedPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `PedPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PedPoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `PointRoutePoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `PointRoutePoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PointRoutePoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `PoolDestructorBody` | [Resumen](../reversing/Fn129A/validation-summary.json) |
 | CPools | `PtrNodeDoubleLinkPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `PtrNodeDoubleLinkPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PtrNodeDoubleLinkPoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `PtrNodeSingleLinkPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `PtrNodeSingleLinkPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `PtrNodeSingleLinkPoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `Save` | [Resumen](../reversing/PoolsWave4/validation-summary.json) |
 | CPools | `SaveObjectPool` | [Resumen](../reversing/PoolsPending/validation-summary.json) |
 | CPools | `SavePedPool` | [Resumen](../reversing/PoolsPending/validation-summary.json) |
 | CPools | `SaveVehiclePool` | [Resumen](../reversing/PoolsPending/validation-summary.json) |
 | CPools | `ShutDown` | [Resumen](../reversing/PoolsWave4/validation-summary.json) |
+| CPools | `TaskAllocatorPoolConstructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CPools | `TaskAllocatorPoolDestructorBody` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CPools | `TaskAllocatorPoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `TaskPoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `TaskPoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `TaskPoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `VehiclePoolConstructor` | [Resumen](../reversing/Fn212A/validation-summary.json) |
 | CPools | `VehiclePoolDestructorBody` | [Resumen](../reversing/Fn212A/validation-summary.json) |
+| CPools | `VehiclePoolScalarDeletingDestructor` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CPools | `VehicleStructPoolConstructor` | [Resumen](../reversing/Fn189A/validation-summary.json) |
 | CPopCycle | `FindNewPedType` | [Resumen](../reversing/World15/validation-summary.json) |
 | CPopCycle | `GetCurrentPercOther_Peds` | [Resumen](../reversing/World15/validation-summary.json) |
@@ -5954,6 +5980,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CReplay | `EmptyPedsAndVehiclePools_NoDestructors` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `EmptyReplayBuffer` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `EnableReplays` | [Resumen](../reversing/Replay47/validation-summary.json) |
+| CReplay | `ExtractBikeBlock` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CReplay | `ExtractBmxBlock` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CReplay | `ExtractVehicleBlock` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CReplay | `FastForwardToTime` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `FindFirstFocusCoordinate` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `FindPoolIndexForPed` | [Resumen](../reversing/Replay47/validation-summary.json) |
@@ -5984,11 +6013,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CReplay | `RetrievePedAnimation` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `SaveReplayToHD` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `ShouldStandardCameraBeProcessed` | [Resumen](../reversing/Replay47/validation-summary.json) |
+| CReplay | `StoreBikeBlock` | [Resumen](../reversing/Fn213A/validation-summary.json) |
+| CReplay | `StoreBmxBlock` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CReplay | `StoreClothesDesc` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `StorePedAnimation` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `StorePedUpdate` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `StorePlayerInfoVariables` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `StoreStuffInMem` | [Resumen](../reversing/Replay47/validation-summary.json) |
+| CReplay | `StoreVehicleBlock` | [Resumen](../reversing/Fn213A/validation-summary.json) |
 | CReplay | `StreamAllNecessaryCarsAndPeds` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `TriggerPlayback` | [Resumen](../reversing/Replay47/validation-summary.json) |
 | CReplay | `Update` | [Resumen](../reversing/Replay47/validation-summary.json) |
@@ -11426,7 +11458,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CConversations` | 11 | 0 | 11 | 0 |
 | `CCopPed` | 8 | 0 | 8 | 0 |
 | `CCoronas` | 12 | 0 | 12 | 0 |
-| `CCover` | 17 | 0 | 16 | 1 |
+| `CCover` | 17 | 0 | 17 | 0 |
 | `CCoverPoint` | 3 | 0 | 3 | 0 |
 | `CCranes` | 5 | 0 | 5 | 0 |
 | `CCredits` | 6 | 0 | 6 | 0 |
@@ -11726,7 +11758,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPointList` | 2 | 0 | 2 | 0 |
 | `CPointRoute` | 6 | 0 | 6 | 0 |
 | `CPointRoutePool` | 1 | 0 | 1 | 0 |
-| `CPools` | 72 | 0 | 47 | 25 |
+| `CPools` | 72 | 0 | 72 | 0 |
 | `CPopCycle` | 15 | 0 | 15 | 0 |
 | `CPopulation` | 68 | 0 | 68 | 0 |
 | `CPostEffects` | 38 | 0 | 38 | 0 |
@@ -11749,7 +11781,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CRegisteredMotionBlurStreak` | 2 | 0 | 2 | 0 |
 | `CRemote` | 3 | 0 | 3 | 0 |
 | `CRenderer` | 35 | 0 | 35 | 0 |
-| `CReplay` | 55 | 0 | 48 | 7 |
+| `CReplay` | 55 | 0 | 54 | 1 |
 | `CRestart` | 11 | 0 | 11 | 0 |
 | `CRideAnimData` | 2 | 0 | 2 | 0 |
 | `CRoadBlocks` | 8 | 0 | 8 | 0 |

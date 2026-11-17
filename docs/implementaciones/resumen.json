@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 21903,
+    "source_definition_count": 21905,
     "groups": 1839,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -21,11 +21,11 @@
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 578,
     "historical_catalog_rows": 12445,
-    "catalog_rows_without_unambiguous_source_match_in_scope": 98,
+    "catalog_rows_without_unambiguous_source_match_in_scope": 77,
     "catalog_rows_installed_outside_game_sa": 0,
-    "catalog_rows_sharing_a_template_body": 66,
-    "catalog_rows_linked_by_hook_address": 1166,
-    "validated_reconstructed_own_cpp_definitions": 13185,
+    "catalog_rows_sharing_a_template_body": 85,
+    "catalog_rows_linked_by_hook_address": 1168,
+    "validated_reconstructed_own_cpp_definitions": 13199,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 21
   },
@@ -1242,7 +1242,7 @@
     "source/game_sa/Pools/TaskAllocatorPool.h": "f5a3644f04413ebc1455e8202920a2e0ea872e2b4f430bfc45c6bf20041ff559",
     "source/game_sa/Pools/TaskPool.h": "c0873d69a474d40271eeba2c09e1d4aba91c3d9b38174068f809fddb8f168656",
     "source/game_sa/Pools/VehiclePool.h": "2f12c7d0ee4ca3a0ad426825a54bb7988c7a292d9d4d07bd6011fed6a437c2dc",
-    "source/game_sa/Pools.cpp": "2e6296f8fa77994e5fc237c2a1007b369fdddec665d463701cc8dce5e698f396",
+    "source/game_sa/Pools.cpp": "db8247cc67fde9bbf56b7ed8416c51682307cb8255a3a8e718f4d3779747e975",
     "source/game_sa/PopCycle.cpp": "0fc6371d248ed0ebe3bc8932d42812eb759066fb83d17fee9bc0e84b97bdd37e",
     "source/game_sa/PopCycle.h": "e8728983efd6d4242b9e8e52c4fe38e52b7dcc0e4c7f70a80a305fdeeceeb227",
     "source/game_sa/Population.cpp": "bb243ee3d93e63ebeebc53c2f6b6716c4b49286bec3a8f49cd1f946cc9ccdaf9",
@@ -1386,9 +1386,9 @@
     "source/game_sa/RenderWare/rw/zlibinflate.cpp": "2576425d92d227996ab92611ed56fd023811ba0f62c2c9d85cf21b2f36553d70",
     "source/game_sa/RenderWare/rw/zlibinflate.h": "36ce2aa066ecee963dfd31e2176d210628d7cff7930905de612c21b7cc6a981e",
     "source/game_sa/RepeatSector.h": "0610dce5556682560562d91666f543aa7500e628c8fc46051d1e1f9943e1a603",
-    "source/game_sa/Replay.cpp": "767442315394edd8b4c6960fa9817a6202f09e4904be776100cf5fd26fd95a97",
+    "source/game_sa/Replay.cpp": "a5fc8d17cd921caaa9b5b0e93669b1a37ef97f7ae0c563afe1da83ed6e93d339",
     "source/game_sa/Replay.h": "10749005a9cae5f19583093cdfa6469cb1ff1b1a2552b6626762ce74f1afa491",
-    "source/game_sa/ReplayBlockType.cpp": "844b5c6e8cb69578c1f7e21ff19ade41f9e98c4d425b6cb1cdee5306fdf7908f",
+    "source/game_sa/ReplayBlockType.cpp": "70c9f5c1b6157d1a6aa0c8c96893be04448c0417371b658a2c8eacdabacccb75",
     "source/game_sa/ReplayBlockType.h": "d29350072940104e4138495241ef4248195680259986c79407e42d3624694eb5",
     "source/game_sa/Restart.cpp": "389ca0cc9b26962cd6a62325371f7f965b9b856b708d618de0390ea132149dad",
     "source/game_sa/Restart.h": "dbbe09b97fc944a2712375e321dc64f93867efaf7ce14a904f05719dbbd3a11d",
@@ -2315,10 +2315,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "7807aaba49e7ffc9aaa3cdc7d6318ee176d38df18f7ba13402ac75556be061b7",
+    "hooks.csv": "39e3e5d46fd50dca09d4817aa02f06a8b2017000735f61aec3e13536547eb60b",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "33e79ff639dd800398117521dc4c3502f1090709879931033a94873fd795bf3e",
+  "migration_registry_sha256": "c784997ceb7c6659a3df16e0760d39fa1df540ce034cb294803bfa7aaa11c9be",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",
