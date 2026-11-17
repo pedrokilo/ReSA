@@ -1,7 +1,3 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Estado de todas las listas solicitadas
 
 Las listas anteriores se detuvieron por instrucción del usuario el 08/10/2026. Sus cifras de replay describen ese cierre histórico. Una solicitud posterior abrió `Interior_c`; sus cambios modifican el árbol de fuentes y exigen renovar las comprobaciones de dependencias del lote anterior. El nuevo trabajo se registra por separado en [InteriorValidation.md](InteriorValidation.md).
@@ -10,11 +6,11 @@ Las listas anteriores se detuvieron por instrucción del usuario el 08/10/2026. 
 
 **Último lote: cierre parcial.** Al detener el lote, 74 de 177 bancos, 117 de 354 funciones y 301.568 pares del alcance quedaron verificados con las fuentes, instrumentos, binarios y hashes de aquel cierre. Quedan 237 funciones sin cierre final, repartidas entre un banco fallido y 102 bancos que no completaron el replay. `CTaskComplexGangFollower::Destructor` difiere en 256/256 casos, en el vptr de `task[0]`; no se resolvió después de la orden de parar.
 
-Las tres desviaciones de [resolutions.json](../reversing/Pending355/resolutions.json), los límites de fixtures/SEH y los 17 pseudocódigos que el proveedor no pudo producir siguen explícitos en sus bancos. El ensamblador sí está disponible. La regresión anterior de cinco bancos y 9.984 pares no se renovó antes de parar.
+Las tres desviaciones de [resolutions.json](../../reversing/Pending355/resolutions.json), los límites de fixtures/SEH y los 17 pseudocódigos que el proveedor no pudo producir siguen explícitos en sus bancos. El ensamblador sí está disponible. La regresión anterior de cinco bancos y 9.984 pares no se renovó antes de parar.
 
 Las listas anteriores conservan aprobación histórica: al detener las listas, 75 de sus 89 identidades solicitadas coincidían con los hashes registrados de fuentes/evidencia; 14 requerían renovación (`CTaskSimpleDead`: 6, `CRealTimeShadowManager`: 2, `CTaskGangHasslePed`: 3, `CTaskUtilityLineUpPedWithCar`: 3). Ese cotejo no acredita dependencias actuales.
 
-[Tabla CSV](EstadoListasSolicitadas.csv), [estado del último lote](../reversing/Pending355/README.md), [registro parcial](../reversing/Pending355/partial-summary.json).
+[Tabla CSV](EstadoListasSolicitadas.csv), [estado del último lote](../../reversing/Pending355/README.md), [registro parcial](../../reversing/Pending355/partial-summary.json).
 
 ## Último lote: qué quedó verificado al detenerlo
 

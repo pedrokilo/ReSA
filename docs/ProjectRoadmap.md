@@ -1,76 +1,51 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # ReSA: reconstrucción, validación e independencia
 
-**Prioridad vigente:** convertir la producción de `source/game_sa` a C++ sin ensamblador en línea ni `naked`, con resultados exactos frente al EXE y validación dentro del juego. [Inventario y evidencia de la migración](../reversing/CppOnlyMigration/README.md). Esta migración sigue pendiente y se mide por separado del 100% histórico del catálogo.
-
-[Inicio](../README.md) · [Indicadores del catálogo](ReversedClasses.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas](../reversing/README.md)
+[Inicio](../README.md) · [Progreso](ReversedClasses.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas](../reversing/README.md) · [Ruta hacia el EXE independiente](RutaExeIndependiente.md)
 
 ## Objetivo
 
-Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código fuente reconstruido, reduciendo hasta eliminar la dependencia de funciones originales del ejecutable. Completar `ReversedClasses.md` es un paso intermedio: el objetivo es una reconstrucción completa, validada y ejecutable, seguida de un ejecutable propio.
+Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código fuente reconstruido en C++, reduciendo hasta eliminar la dependencia de funciones originales del ejecutable, y después construir un ejecutable propio. Las cifras actuales no se repiten aquí: viven en el [informe de progreso](ReversedClasses.md), que se regenera desde `hooks.csv`.
 
-El contador técnico decisivo será **cuántas funciones siguen necesitando código original**, incluidas sus dependencias transitivas. El 99,89% registrado como reconstruido no representa el porcentaje recorrido hacia un GTA SA independiente.
+## Qué mide cada cosa
 
-## Cuatro dimensiones de progreso
-
-Estado documental del 10 de octubre de 2026 (corte de validación 453). Clases y reconstrucciones se calculan sobre `hooks.csv`; la validación procede del registro parcial de evidencia y versiones. La independencia aún no tiene medición y no se rellena con estimaciones.
-
-| Dimensión | Progreso | Medición |
+| Medida | Qué significa | Dónde se ve |
 | --- | --- | --- |
-| Clases completas en el catálogo | `████████████████████` | 996/1000 · 99,60% |
-| Clases validadas de las completas | `█████████████████░░░` | 854/996 · 85,74% |
-| Funciones registradas como reconstruidas | `████████████████████` | 12.438/12.452 · 99,89% |
-| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `██████████████████░░` | **11.156/12.438 · 89,69%** |
+| **Reconstruida** | La función existe en C++ puro, tiene su hook y compila (`reversed=1`) | [Progreso](ReversedClasses.md) |
+| **Validada** | Se comparó con el EXE dentro del juego (≥16.384 pares sin diferencias, oráculo independiente, prueba negativa de dos rondas) y tiene evidencia registrada (`validated=1`) | [Progreso](ReversedClasses.md) · [registro](../reversing/ValidationRegistry/README.md) |
+| **Vigente** | La evidencia sigue valiendo para el árbol actual (fuentes y dependencias sin cambios desde la prueba) | [Inventario](ValidationInventory.md) |
+| **Independiente** | La función ya no ejecuta código original del EXE, ni siquiera de forma transitiva | Sin medir todavía |
 
-**Siguientes mediciones** (todavía sin porcentaje útil):
+Se miden por separado dos zonas del EXE: el **código del juego** (0x401000–0x74FFFF) y **RenderWare y D3D** (0x750000–0x81FFFF). El CRT de MSVC queda fuera del objetivo.
 
-| Dimensión | Estado actual | Qué hay que hacer |
-| --- | --- | --- |
-| Validaciones vigentes para el árbol actual | 0 con vigencia acreditada en el árbol actual; las 52 de Interior_c conservan evidencia histórica | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrarlo en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
-| Dependencias de funciones originales eliminadas | No medido | Auditar las llamadas directas, indirectas y transitivas de cada función reconstruida que aún saltan al EXE y contar las que ya no dependen de ninguna. |
+## Fases
 
-Las cuatro extensiones y adaptaciones NOTSA están en [hooks_notsa.csv](hooks_notsa.csv) y quedan fuera del progreso: tres hooks de modo ventana y Win::NOTSA_WinMain. Este último conserva validated=0 y su hook en 0x748710; su reclasificación no añade una validación. [Alcance NOTSA](HooksNOTSA.md).
+| # | Fase | Estado |
+| ---: | --- | --- |
+| 1 | Reconstruir el código del juego en C++ puro | Hecha (quedan 3 funciones y las excluidas documentadas) |
+| 2 | Reconstruir el SDK de RenderWare | Hecha en lo reconstruible; libpng, zlib y D3DX9 se enlazan, no se reconstruyen |
+| 3 | **Validar el código del juego** por oleadas de lotes | **En curso** |
+| 4 | Validar RenderWare (dispositivo D3D, flujos y listas libres falsos) | Por planificar |
+| 5 | Pase final: repetir los bancos antiguos cuyos colaboradores ahora tienen hook, y revalidar contra el árbol actual | Pendiente |
+| 6 | Validar el juego integrado: nueva partida, guardado y carga con partidas desechables, misiones, vehículos, muerte y arresto, interiores, clima, combate, streaming, audio y cinemáticas | Pendiente |
+| 7 | Medir y eliminar dependencias originales por subsistema (llamadas directas, indirectas y transitivas) | Pendiente |
+| 8 | Sustituir RenderWare, D3D y CRT por bibliotecas y construir el **ejecutable propio**: punto de entrada, memoria y globales, carga de recursos, plataforma, render y audio | Después |
 
-El catálogo contiene 8.445 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 14 entradas pendientes y 4 clases incompletas. De las entradas registradas, 0 tienen `locked=1` y 12.438 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
+## Hitos
 
-`reversed`, `validated`, vigencia de validación, `locked` y dependencia del original son dimensiones distintas. `validated=1` conserva que la función pasó una evidencia aprobada; la vigencia se calcula aparte con hashes y revisión de dependencias. Un cuerpo C++ puede seguir pendiente de validación; una función validada puede llamar a otras implementaciones originales. El [registro separado de validaciones](../reversing/ValidationRegistry/README.md) vincula 8.445 entradas con evidencia histórica aprobada; ninguna tiene vigencia actual acreditada. El [inventario completo](ValidationInventory.md) clasifica las 8.445 entradas reconstruidas. La [auditoría de cobertura](BinaryCoverageAudit.md) identifica 924 destinos originales explícitos sin nombre catalogado, 499 con aristas desde funciones catalogadas y 9.328 entradas binarias sin nombre del catálogo. Son conjuntos solapados que incluyen bibliotecas, helpers y código generado; no representan un total exacto de funciones de juego faltantes. El panel calcula la vigencia mediante evidencia, hashes y revisión de dependencias; no la deduce del flag de reconstrucción.
+- **Catálogo reconstruido:** todo lo reconstruible está en C++ con su hook. No equivale a independencia ni a validación.
+- **ReSA — Zero Original Function Dependency:** la lógica del juego deja de ejecutar funciones del EXE original, con inventario auditado. No se declara por tener todas las funciones reconstruidas.
+- **Ejecutable propio:** corre sin `gta_sa.exe`.
 
 ## Integridad del catálogo
 
-Además del generador del panel, la rama mantiene una auditoría bidireccional entre fuente, registro global y `hooks.csv`:
+La auditoría bidireccional entre fuente, registro global y `hooks.csv` debe terminar en OK:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict
 ```
 
-En el corte actual las seis comprobaciones críticas están en cero, y la opción `--runtime` no encuentra diferencias entre `hooks.csv` y el `runtime-hooks.csv` del juego: hooks activos fuera del CSV, registros indirectos ausentes, entradas del CSV sin scope fuente, llamadas activas con instalaciones propias sin owner catalogado, owners catalogados cuyo registro nunca se invoca y llamadas `X::InjectHooks()` que resuelven al `InjectHooks` heredado de una base. Los owners inactivos se reportan aparte y no alteran el denominador mientras no formen parte del registro global.
+## Reglas de trabajo
 
-## Orden de trabajo y criterios de cierre
-
-1. **Mantener completa la reconstrucción catalogada.** Las 52 entradas de `Interior_c` ya tienen implementación y aprobación final en sus fixtures. El cierre de su repetición final se documenta en [InteriorValidation.md](InteriorValidation.md); la validación de dependencias y las ramas no cubiertas siguen siendo trabajos separados.
-2. **Conmutación de los seis locks acreditada en el alcance probado.** Se retiraron los bloqueos de los tres hooks de audio y de los tres del bucle/render tras pruebas de mezclas, transiciones y render real; se corrigió el contrato ECX del helper de motor y el parche duplicado de Render2dStuff. La [evidencia final](../reversing/HookUnlockFinal/README.md) separa los desbloqueos efectivos de los indicadores históricos obsoletos. La campaña completa de Alt-Tab/minimizar/reactivar con mensajes nativos y todos los controladores sigue fuera de lo acreditado; no se presenta como lock pendiente.
-3. **Mantener el cierre de los 771/771 grupos catalogados.** El cierre de sus entradas está acreditado históricamente; existen clases y métodos fuera del catálogo. Ampliar el inventario desde la auditoría binaria antes de atribuir completitud a todas las clases del juego.
-4. **Medir la independencia del EXE.** Crear un inventario por función, identidad inequívoca, versión de fuentes y configuración: reconstrucción, validación y evidencia, bloqueo, uso directo del original y dependencias transitivas. Resolver alias, virtuales, callbacks y trampolines; conservar como desconocidas las llamadas sin resolver. Informar por separado entradas catalogadas y funciones únicas, así como accesos a datos o servicios del host.
-5. **Consolidar la suite reproducible de equivalencia.** Para original y candidato, usar el mismo input y estados independientes; comparar retornos, estructuras, efectos secundarios y llamadas relevantes. Registrar tolerancias, diferencias previstas, dependencias controladas, hashes y restauración. No sumar repeticiones como funciones nuevas validadas. Adaptar progresivamente los bancos a la misma compilación vigente; las sondas archivadas solo prueban sus versiones.
-6. **Validar el juego integrado.** Tras completar las clases, ejecutar regresiones de nueva partida, guardar/cargar con partidas desechables, misiones, vehículos, muerte/arresto, interiores, clima, nivel de búsqueda, combate, streaming, audio y cinemáticas, además de sesiones prolongadas. Registrar escenarios, duración y configuración; las pruebas finitas no garantizan estabilidad general.
-7. **Eliminar dependencias originales por subsistema.** Armas, clima, vehículos, cámara, peatones/tareas, scripts y streaming son candidatos para hitos `standalone`; su independencia aún no está auditada. Exigir cierre de llamadas originales directas y transitivas, resolución de llamadas indirectas y regresión del subsistema. Distinguir independencia del código original de la dependencia restante de datos, inicialización y servicios del host. No basta con que todos sus hooks estén habilitados.
-8. **Alcanzar “no original code execution”.** Demostrar que la lógica reconstruida no ejecuta implementaciones del juego alojadas en el EXE original. Combinar auditoría estática y trazas de escenarios; la ausencia de llamadas en una sesión no prueba que no existan rutas pendientes. El oráculo original puede conservarse separado para las comparaciones.
-
-## Hitos
-
-**ReSA 95%** puede utilizarse como hito del catálogo de funciones reconstruidas, siempre acompañado por las otras dimensiones y sus límites.
-
-**ReSA — Zero Original Function Dependency** será el hito de eliminación de dependencias de funciones originales de la lógica del juego, con alcance e inventario auditados. No se declara alcanzado por tener 100% de funciones registradas ni cero locks.
-
-Después se evaluará y construirá **un ejecutable propio**: punto de entrada, inicialización y cierre, memoria y globales, carga de recursos, plataforma, render, audio y demás servicios actualmente aportados por el host. Independencia de funciones no implica que esa infraestructura ya exista. Los recursos del juego y las bibliotecas externas son dependencias separadas; no se promete eliminarlas mediante este hito.
-
-## Alcance autorizado ahora
-
-El catálogo principal está cerrado históricamente: 8.445/8.445 entradas y 771/771 grupos, cero pendientes y cero locks. La conmutación de los seis últimos locks se acredita en su [banco final](../reversing/HookUnlockFinal/README.md); no quedan los 85 bloqueos citados en el alcance anterior. La cobertura fuera del catálogo y la vigencia de dependencias siguen pendientes de investigación. Los resultados anteriores de [CConversationForPed](../reversing/ConversationForPed/README.md) y [CPedToPlayerConversations](../reversing/PedToPlayerConversations/README.md) conservan su alcance histórico.
-
-Mantener un solo `PROBAR.cmd`, reutilizar `reversing` y realizar pruebas locales con plazo y restauración exclusivamente en `E:\JUEGOS\GTA San Andreas - CVehicle Test`. Conservar la instalación personal y las partidas. La autorización actual incluye actualizar los Markdown y publicar los cambios en Git; no autoriza alterar la instalación personal ni apagar el equipo. Las configuraciones y los perfiles históricos conservan su fecha y no sustituyen una campaña de integración vigente.
-
-Estado de la migracion a C++ al 16/10/2026: 821 funciones fuente convertidas y revalidadas (2 más, convertidas, esperan la corrida aprobada de su banco en la regresión final: [estudio del lote](../reversing/CppTwelveLevel6Study/README.md)). Quedan 0 apariciones de ensamblador y 0 declaraciones naked en 0 archivos de source/game_sa; son conteos lexicos, no funciones. Excepcion documentada: source/app/platform/win/WindowedMode.cpp conserva __asm (extension NOTSA, fuera de source/game_sa). Lote final IntegerMinimal2: 8704 pares compartidos, cero diferencias, cero resultados nulos y restauracion verificada. Trabajo detenido por orden del usuario tras este lote. Lista completa: [archivos pendientes](../reversing/CppOnlyMigration/FILES.md); evidencia y alcance: [migracion C++](../reversing/CppOnlyMigration/README.md).
+- Todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)).
+- Un solo `PROBAR.cmd`; las pruebas locales se hacen en la copia `E:\JUEGOS\GTA San Andreas - CVehicle Test`, conservando la instalación personal y las partidas.
+- Lo anterior a esta versión (planes y estados de septiembre y octubre de 2026) está en [archivo/](archivo/README.md).

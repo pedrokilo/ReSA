@@ -1,16 +1,12 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/11/2026 (Ciudad de México):** 996 grupos / 12438 funciones reconstruidas; 11156 con evidencia histórica y 1282 pendientes de validación en 142 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Plan de reversing asistido para GTA San Andreas
 
 Fecha: 22 de septiembre de 2026.
 Carpeta de trabajo: D:\Original\gta-reversed-master
-Estado: **plan histórico del 22 de septiembre**. Las observaciones iniciales se conservan como historia; los recuadros de estado vigente están actualizados al 30/09/2026. El proyecto ya dispone de Git, compilación y bancos dentro del motor. Para el estado actual consulta [el README](README.md) y [la continuidad](reversing/MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+Estado: **plan histórico del 22 de septiembre**. Las observaciones iniciales se conservan como historia; los recuadros de estado vigente están actualizados al 30/09/2026. El proyecto ya dispone de Git, compilación y bancos dentro del motor. Para el estado actual consulta [el README](../../README.md) y [la continuidad](../../reversing/MEJORAS_DEL_PROCESO.md#continuidad-vigente).
 
 ## 1. Objetivo y forma de trabajar
 
-> **Objetivo vigente (23 de septiembre de 2026):** reconstrucción funcionalmente equivalente, validada e independiente de funciones originales, seguida de un ejecutable propio. Consultar la [hoja de ruta](docs/ProjectRoadmap.md); las etapas siguientes se conservan como plan histórico, no como orden de ejecución actual.
+> **Objetivo vigente (23 de septiembre de 2026):** reconstrucción funcionalmente equivalente, validada e independiente de funciones originales, seguida de un ejecutable propio. Consultar la [hoja de ruta](../ProjectRoadmap.md); las etapas siguientes se conservan como plan histórico, no como orden de ejecución actual.
 
 Construir progresivamente un flujo que combine gta-reversed, Ghidra y observación del juego para identificar funciones pendientes, analizar su comportamiento, proponer C++ y comprobarlo contra el original.
 
@@ -26,7 +22,7 @@ La ejecución ocurre durante sesiones de trabajo y procesos que dejemos configur
 
 - El README describe una DLL/ASI que sustituye funciones del juego por implementaciones reconstruidas.
 - En la inspección inicial, `docs/hooks.csv` contenía 8.014 registros. **Estado vigente:** 8.442 entradas, 7.857 con `reversed=1` y 585 pendientes. Son registros del catálogo, no un inventario exhaustivo del ejecutable ni necesariamente direcciones únicas.
-- Las columnas actuales son `class`, `fn_name`, `address`, `reversed`, `locked`, `validated` y `type`. Su significado y la sincronización de evidencia se describen en [HookRegistration.md](docs/HookRegistration.md#columnas-de-hookscsv).
+- Las columnas actuales son `class`, `fn_name`, `address`, `reversed`, `locked`, `validated` y `type`. Su significado y la sincronización de evidencia se describen en [HookRegistration.md](../HookRegistration.md#columnas-de-hookscsv).
 - En la inspección inicial, `docs/ReversedClasses.md` enumeraba 701 clases. **Estado vigente:** 772 clases/grupos, 665 completas, 104 parciales y 3 sin revertir. El porcentaje del catálogo no equivale al porcentaje del juego probado ni a independencia del EXE.
 - docs/HookRegistration.md exige marcar reversed=false en funciones que todavía redirigen al código original.
 - El README exige GTA SA Compact exe de 5.189.632 bytes y distingue esta versión de otros ejecutables 1.0 US. El tamaño será un filtro preliminar; también comprobaré hash, cabeceras PE y bytes en direcciones relevantes.
@@ -156,4 +152,4 @@ El sistema completo se considerará demostrado cuando una función haya recorrid
 
 ## Objetivo concreto elegido posteriormente
 
-El usuario eligió inicialmente CVehicle (141/142), cuya entrada pendiente era RemoveObjectsCB-Object, 0x6D33B0. Ese trabajo ya se completó; CVehicle conserva 142/142 en el catálogo. [Evidencia y alcance](reversing/CVehicle/README.md). La entrega más reciente es [HooksActivados](reversing/HooksActivados/README.md) (39 clases registradas, sin comparaciones todavía); la anterior es [CConversationForPed, 2/2](reversing/ConversationForPed/README.md), con 4.702 pares contra el original y ASI normal comprobado en la copia de pruebas.
+El usuario eligió inicialmente CVehicle (141/142), cuya entrada pendiente era RemoveObjectsCB-Object, 0x6D33B0. Ese trabajo ya se completó; CVehicle conserva 142/142 en el catálogo. [Evidencia y alcance](../../reversing/CVehicle/README.md). La entrega más reciente es [HooksActivados](../../reversing/HooksActivados/README.md) (39 clases registradas, sin comparaciones todavía); la anterior es [CConversationForPed, 2/2](../../reversing/ConversationForPed/README.md), con 4.702 pares contra el original y ASI normal comprobado en la copia de pruebas.
