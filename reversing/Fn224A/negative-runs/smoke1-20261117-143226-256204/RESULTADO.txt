@@ -1,0 +1,3 @@
+FALLO: Fn224A
+Funciones con diferencias: RwD3D9RasterDriver::CheckDepthStencilSurfaceFormat: 34/1024; RwD3D9RasterDriver::CheckRenderTargetTextureFormat: 38/1024; RwD3D9RasterDriver::CheckDepthStencilTextureFormat: 38/1024; RwD3D9RasterDriver::CheckRenderTargetCubeFormat: 34/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn224a\20261117-143226-256204

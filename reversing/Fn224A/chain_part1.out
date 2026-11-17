@@ -1,0 +1,11 @@
+14:29:32 inicio
+14:32:22 gta_lock tomado
+14:33:38 run smoke1: FALLO: Fn224A Funciones con diferencias: RwD3D9RasterDriver::CheckDepthStencilSurfaceFormat: 34/1024; RwD3D9RasterDriver::CheckRenderTargetTextureFormat: 38/1024; RwD3D9RasterDriver::CheckDepthStencilTextureFormat: 38/1024; RwD3D9RasterDriver::CheckRenderTargetCubeFormat: 34/1024 Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn224a\20261117-143226-256204 
+{"RwD3D9RasterDriver::RasterListPush": 0, "RwD3D9RasterDriver::RasterListDestroy": 0, "RwD3D9RasterDriver::RasterListReleaseResources": 0, "RwD3D9RasterDriver::RasterDestroy": 0, "RwD3D9RasterDriver::CheckDepthStencilSurfaceFormat": 34, "RwD3D9RasterDriver::CheckTextureFormat": 0, "RwD3D9RasterDriver::CheckRenderTargetTextureFormat": 38, "RwD3D9RasterDriver::CheckDepthStencilTextureFormat": 38, "RwD3D9RasterDriver::CheckRenderTargetCubeFormat": 34, "RwD3D9RasterDriver::CheckTextureFormatUsage400": 0, "RwD3D9RasterDriver::CheckTextureFormatUsage401": 0, "RwD3D9RasterDriver::CheckCubeFormatUsage400": 0, "RwD3D9RasterDriver::RasterListInit": 0, "RwD3D9RasterDriver::RasterListShutdown": 0}
+pares 14336 con diferencias 144 lado EXE fuera del oraculo 0
+funciones SIN diferencias: ['RwD3D9RasterDriver::RasterListPush', 'RwD3D9RasterDriver::RasterListDestroy', 'RwD3D9RasterDriver::RasterListReleaseResources', 'RwD3D9RasterDriver::RasterDestroy', 'RwD3D9RasterDriver::CheckTextureFormat', 'RwD3D9RasterDriver::CheckTextureFormatUsage400', 'RwD3D9RasterDriver::CheckTextureFormatUsage401', 'RwD3D9RasterDriver::CheckCubeFormatUsage400', 'RwD3D9RasterDriver::RasterListInit', 'RwD3D9RasterDriver::RasterListShutdown']
+
+14:33:40 correccion aplicada
+14:33:47 build ok main
+14:47:56 run main: FALLO: Fn224A Funciones con diferencias: RwD3D9RasterDriver::RasterDestroy: 1/16384 Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn224a\20261117-143350-128709 
+14:47:56 corrida principal sin aprobar: se aborta (sin rondas negativas)

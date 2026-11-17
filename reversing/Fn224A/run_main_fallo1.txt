@@ -1,0 +1,3 @@
+FALLO: Fn224A
+Funciones con diferencias: RwD3D9RasterDriver::RasterDestroy: 1/16384
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn224a\20261117-143350-128709

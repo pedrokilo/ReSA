@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "47452c66e6840fbe01a34613f3c61270cc21d6adda9a74152eb637d52c4882df",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: RwD3D9RasterDriver::RasterListPush: 953/2048; RwD3D9RasterDriver::RasterListDestroy: 977/2048; RwD3D9RasterDriver::RasterListReleaseResources: 230/2048; RwD3D9RasterDriver::RasterDestroy: 909/2048; RwD3D9RasterDriver::CheckDepthStencilSurfaceFormat: 99/2048; RwD3D9RasterDriver::CheckTextureFormat: 39/2048; RwD3D9RasterDriver::CheckRenderTargetTextureFormat: 93/2048; RwD3D9RasterDriver::CheckDepthStencilTextureFormat: 90/2048; RwD3D9RasterDriver::CheckRenderTargetCubeFormat: 91/2048; RwD3D9RasterDriver::CheckTextureFormatUsage400: 55/2048; RwD3D9RasterDriver::CheckTextureFormatUsage401: 45/2048; RwD3D9RasterDriver::CheckCubeFormatUsage400: 52/2048; RwD3D9RasterDriver::RasterListInit: 1243/2048; RwD3D9RasterDriver::RasterListShutdown: 689/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

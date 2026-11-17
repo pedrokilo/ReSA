@@ -234,10 +234,12 @@ __declspec(noinline) int32 __cdecl RasterDestroy(void* /*device*/, RwRaster* ras
         }
         return 1;
     }
-    if (raster->cType > 5) {
+    // El tipo se lee UNA vez (el EXE salta por la tabla 0x4CBC94 y los tipos 0 y 4 son dos ramas distintas): las llamadas siguientes no lo vuelven a mirar.
+    const uint8 type = raster->cType;
+    if (type > 5) {
         return 0;
     }
-    switch (raster->cType) {
+    switch (type) {
     case 0:
     case 4: {
         if (static_cast<int8>(raster->cFlags) < 0) {
@@ -256,7 +258,7 @@ __declspec(noinline) int32 __cdecl RasterDestroy(void* /*device*/, RwRaster* ras
         if (!texture) {
             return 1;
         }
-        if (raster->cType == 0) {
+        if (type == 0) {
             ReleaseCom(texture);
         } else {
             D3DResourceSystem::DestroyTexture(texture);
@@ -295,53 +297,58 @@ __declspec(noinline) int32 __cdecl RasterDestroy(void* /*device*/, RwRaster* ras
     }
 }
 
-// Consultas a IDirect3D9 (CheckDeviceFormat = ranura 10, CheckDepthStencilMatch = ranura 12); el objeto, el adaptador, el tipo de dispositivo y los formatos se releen de las globales en cada llamada.
-inline int32 CheckDeviceFormat(uint32 usage, uint32 resourceType, uint32 checkFormat) {
+// Consultas a IDirect3D9 (CheckDeviceFormat = ranura 10, CheckDepthStencilMatch = ranura 12); el objeto, el adaptador y el tipo de dispositivo se releen de las globales en cada llamada. El formato del adaptador
+// (0xC9BEF0) NO: las rutinas que hacen dos consultas lo leen una sola vez (esi) y lo reutilizan en la segunda; la profundidad (0xC9C068) se lee justo antes de la segunda consulta.
+inline int32 CheckDeviceFormat(uint32 adapterFormat, uint32 usage, uint32 resourceType, uint32 checkFormat) {
     void* const d3d = Direct3DObject;
-    return ComCall<kSlotCheckDeviceFormat, int32>(d3d, AdapterIndex, DeviceType, AdapterFormat, usage, resourceType, checkFormat);
+    return ComCall<kSlotCheckDeviceFormat, int32>(d3d, AdapterIndex, DeviceType, adapterFormat, usage, resourceType, checkFormat);
 }
-inline int32 CheckDepthStencilMatch(uint32 renderTargetFormat, uint32 depthFormat) {
+inline int32 CheckDepthStencilMatch(uint32 adapterFormat, uint32 renderTargetFormat, uint32 depthFormat) {
     void* const d3d = Direct3DObject;
-    return ComCall<kSlotCheckDepthStencilMatch, int32>(d3d, AdapterIndex, DeviceType, AdapterFormat, renderTargetFormat, depthFormat);
+    return ComCall<kSlotCheckDepthStencilMatch, int32>(d3d, AdapterIndex, DeviceType, adapterFormat, renderTargetFormat, depthFormat);
 }
 
 // 0x4CBD80 (cdecl, formato): superficie D3DUSAGE_DEPTHSTENCIL (2, tipo 1) valida y compatible con el formato del adaptador como destino de render y profundidad.
 __declspec(noinline) int32 __cdecl CheckDepthStencilSurfaceFormat(uint32 format) {
-    int32 hr = CheckDeviceFormat(2, 1, format);
+    const uint32 adapterFormat = AdapterFormat;
+    int32 hr = CheckDeviceFormat(adapterFormat, 2, 1, format);
     if (hr >= 0) {
-        hr = CheckDepthStencilMatch(AdapterFormat, format);
+        hr = CheckDepthStencilMatch(adapterFormat, adapterFormat, format);
     }
     return hr >= 0;
 }
 
 // 0x4CBDE0 (cdecl, formato): textura (tipo 3) con uso 0.
 __declspec(noinline) int32 __cdecl CheckTextureFormat(uint32 format) {
-    return CheckDeviceFormat(0, 3, format) >= 0;
+    return CheckDeviceFormat(AdapterFormat, 0, 3, format) >= 0;
 }
 
 // 0x4CBE20 (cdecl, formato): textura como destino de render (uso 1) y su pareja con el formato de profundidad 0xC9C068.
 __declspec(noinline) int32 __cdecl CheckRenderTargetTextureFormat(uint32 format) {
-    int32 hr = CheckDeviceFormat(1, 3, format);
+    const uint32 adapterFormat = AdapterFormat;
+    int32 hr = CheckDeviceFormat(adapterFormat, 1, 3, format);
     if (hr >= 0) {
-        hr = CheckDepthStencilMatch(format, DepthStencilFormat);
+        hr = CheckDepthStencilMatch(adapterFormat, format, DepthStencilFormat);
     }
     return hr >= 0;
 }
 
 // 0x4CBE80 (cdecl, formato): textura con uso D3DUSAGE_DEPTHSTENCIL (2), compatible con el formato del adaptador.
 __declspec(noinline) int32 __cdecl CheckDepthStencilTextureFormat(uint32 format) {
-    int32 hr = CheckDeviceFormat(2, 3, format);
+    const uint32 adapterFormat = AdapterFormat;
+    int32 hr = CheckDeviceFormat(adapterFormat, 2, 3, format);
     if (hr >= 0) {
-        hr = CheckDepthStencilMatch(AdapterFormat, format);
+        hr = CheckDepthStencilMatch(adapterFormat, adapterFormat, format);
     }
     return hr >= 0;
 }
 
 // 0x4CBF20 (cdecl, formato): textura de cubo (tipo 5) como destino de render (uso 1) y su pareja con el formato de profundidad 0xC9C068.
 __declspec(noinline) int32 __cdecl CheckRenderTargetCubeFormat(uint32 format) {
-    int32 hr = CheckDeviceFormat(1, 5, format);
+    const uint32 adapterFormat = AdapterFormat;
+    int32 hr = CheckDeviceFormat(adapterFormat, 1, 5, format);
     if (hr >= 0) {
-        hr = CheckDepthStencilMatch(format, DepthStencilFormat);
+        hr = CheckDepthStencilMatch(adapterFormat, format, DepthStencilFormat);
     }
     return hr >= 0;
 }
@@ -351,7 +358,7 @@ inline int32 CheckBumpFormat(uint32 usage, uint32 resourceType, uint32 format) {
     if (!(DeviceCapsFlags & 0x40000000u)) {
         return 0;
     }
-    return CheckDeviceFormat(usage, resourceType, format) == 0;
+    return CheckDeviceFormat(AdapterFormat, usage, resourceType, format) == 0;
 }
 // 0x4CBF80: textura (tipo 3), uso 0x400.
 __declspec(noinline) int32 __cdecl CheckTextureFormatUsage400(uint32 format) { return CheckBumpFormat(0x400, 3, format); }
