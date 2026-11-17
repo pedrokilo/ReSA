@@ -423,7 +423,7 @@ __declspec(noinline) RwBool __cdecl D3D9RasterLockExe(RwUInt8** pixelsOut, RwRas
     const bool   write     = (lockMode & 1) != 0;
     const uint32 lockFlags = write ? 0x800u : 0x8810u;
     const uint32 typeIndex = raster->cType & 7u;
-    if (typeIndex > 5) {
+    if (typeIndex > 5 || typeIndex == 1 || typeIndex == 3) { // tabla de saltos del EXE (0x4CA278): los tipos 1, 3, 6 y 7 devuelven 0 sin tocar nada
         return 0;
     }
     D3D9RasterExtLayout& topExt = D3D9RasterExt(top);
@@ -524,7 +524,7 @@ __declspec(noinline) RwBool __cdecl D3D9RasterUnlockExe(void* /*unused*/, RwRast
     }
     D3D9RasterExtLayout& ext = D3D9RasterExt(raster);
     const uint32 typeIndex = raster->cType & 7u;
-    if (typeIndex > 5) {
+    if (typeIndex > 5 || typeIndex == 1 || typeIndex == 3) { // tabla de saltos del EXE (0x4CA4C0): los tipos 1, 3, 6 y 7 devuelven 0 sin tocar nada
         return 0;
     }
     if (typeIndex == 0 || typeIndex == 4) {

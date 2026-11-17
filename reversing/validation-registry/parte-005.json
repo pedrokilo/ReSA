@@ -104893,6 +104893,1040 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre ce4513dd9a (HEAD de integracion del coordinador, con 212A-220A ya integrados, sin cherry-pick) mas las correcciones que revelo el banco (CProtectionStub::BlockEncrypt y BlockDecrypt con accesos volatiles en el orden del EXE; CEntity::Add() con la vtable del objeto releida entre GetBoundRect y Add(rect)). 16 funciones del EXE: tres rutinas del bloque de proteccion (vacia stdcall, cifrado y descifrado de bloque), cuerpo del constructor de CBuilding, dos copias del cuerpo del destructor de CAEAudioEntity, CAutoPilot (mision salvo choque con fuego), CDecisionMaker::SetDefault, CEntity (predicado IsInvisibleOrRenderDamaged, Add() virtual, destructor con borrado) y AddItem/RemoveItem de las listas simples y dobles de punteros. Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (CEntity::CEntity, CAESound::~CAESound, CDecision::SetDefault, operator new/delete de nodos, CEntity::~CEntity); operator delete del CRT solo en la direccion del EXE. CEntity::Add() se prueba con vtables falsas en las arenas. Las 16 direcciones saltadas del bloque de proteccion (0x402A36 ... 0x403D07) no se pueden escribir en C++ puro (protocolo en registros, acarreo, pushad/popad, longjmp) y quedan sin hook. Fuera de los fixtures: pool de nodos lleno (el EXE escribe en la direccion 4 u 8 y revienta), this nulo o crudo, listas con enlaces a memoria no mapeada o con ciclos, copias de cadenas sin terminador, tablas de cifrado fuera de las arenas, y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn222A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntryInfoList",
+        "fn_name": "Destructor",
+        "address": "0x00542080",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CEntryInfoList::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheScripts",
+        "fn_name": "ObjectPoolGetAt",
+        "address": "0x00465040",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CPool<CObject>::GetAt"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheScripts",
+        "fn_name": "ObjectPoolGetRef",
+        "address": "0x00465070",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CPool<CObject>::GetRef"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDecisionMaker",
+        "fn_name": "Constructor",
+        "address": "0x004650A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CDecisionMaker::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMissionCleanup",
+        "fn_name": "RemoveEntityFromList-handle",
+        "address": "0x004654B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CMissionCleanup::RemoveEntityFromList"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheScripts",
+        "fn_name": "RemoveFromSuppressedCarModels",
+        "address": "0x0046A7E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CTheScripts::RemoveFromSuppressedCarModels"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CScriptsForBrains",
+        "fn_name": "Constructor",
+        "address": "0x0046B260",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CScriptsForBrains::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCamera",
+        "fn_name": "VectorTrackRunning",
+        "address": "0x00474870",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CCamera::VectorTrackRunning"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCamera",
+        "fn_name": "VectorMoveRunning",
+        "address": "0x004748A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CCamera::VectorMoveRunning"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleSetCharIgnoreWeaponRangeFlag",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x004748D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleSetCharIgnoreWeaponRangeFlag::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheScripts",
+        "fn_name": "ScriptDebugBoxStub",
+        "address": "0x00486AE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CTheScripts::ScriptDebugBoxStub"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheScripts",
+        "fn_name": "MoveSearchLightBetweenTwoPoints",
+        "address": "0x00493360",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CTheScripts::MoveSearchLightBetweenTwoPoints"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheScripts",
+        "fn_name": "MoveSearchLightToEntity",
+        "address": "0x00493420",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CTheScripts::MoveSearchLightToEntity"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheScripts",
+        "fn_name": "MoveSearchLightToPointAndStop",
+        "address": "0x00493480",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CTheScripts::MoveSearchLightToPointAndStop"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedModelInfo",
+        "fn_name": "ConstructorBody",
+        "address": "0x004C57A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "CPedModelInfo::ConstructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwCore",
+        "fn_name": "RxD3D9ResEntryHeaderDestroy",
+        "address": "0x004C9990",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "RwCore::RxD3D9ResEntryHeaderDestroy"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwCore",
+        "fn_name": "_rwD3D9RasterPluginAttach",
+        "address": "0x004C9AB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "RwCore::_rwD3D9RasterPluginAttach"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwCore",
+        "fn_name": "_rwD3D9TextureHasAlpha",
+        "address": "0x004C9EA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "RwCore::_rwD3D9TextureHasAlpha"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwCore",
+        "fn_name": "_rwD3D9RasterIsCubeRaster",
+        "address": "0x004C9F70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "RwCore::_rwD3D9RasterIsCubeRaster"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwCore",
+        "fn_name": "_rwD3D9RasterLock",
+        "address": "0x004C9F90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "RwCore::_rwD3D9RasterLock"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwCore",
+        "fn_name": "_rwD3D9RasterUnlock",
+        "address": "0x004CA290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "RwCore::_rwD3D9RasterUnlock"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwCore",
+        "fn_name": "_rwD3D9RasterPaletteUnlock",
+        "address": "0x004CA540",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn223A/validation-summary.json",
+        "sha256": "17843eb9030e57cf7ec90115a3ad2d94688cdf8c69dda3f495af832061c8fd3c",
+        "passed_path": [
+          "covered_functions",
+          "RwCore::_rwD3D9RasterPaletteUnlock"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/MemoryMgr.cpp": "672b6ab39dd03d3fb0aa0c92569396e0158331a952af2a61738f9b7971bc2fa0",
+        "source/game_sa/Core/EntryInfoList.cpp": "e5f798f53f1c7e6d37355047267fdba7356dea3313628aca6a40ff437ea02013",
+        "source/game_sa/Scripts/TheScripts.cpp": "8d34eacb0287b1afcfe77246ac1d5c2e47553645e003d124c01c39b28ac9e442",
+        "source/game_sa/Scripts/TheScripts.h": "d178f361ae426a7671695c00c3a1a6c0f356f7bd74a12625c71440b8d67adb3b",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "dd61670606dd940e3eefb23e6b3eaa63d67ff9c2c9a6e998f718546d8ad151a4",
+        "source/game_sa/MissionCleanup.cpp": "da35ca94f2a70ad13985de37e5ffb39ac4401e3ff6fa713f53bd3fc32de20080",
+        "source/game_sa/ScriptsForBrains.cpp": "3d9e12169083f686cbb3c856b6ee773443a41c1749c06190b2b62318db26b0d7",
+        "source/game_sa/Camera.cpp": "67359ef199650196f5e245cd7de1bc4b9bd8861943a8ec8c1fb7b37d08732114",
+        "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
+        "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "300f488e96038fa456d044669f1765994c9fb4253297f1c2512498b642972b94",
+        "source/game_sa/Models/PedModelInfo.cpp": "6266503c4fbf5cfcb5b52495d513c018f2ade4b21a21e9e1fa9982c86ab91f71",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "e47fa7e9d3a02e1fc03c25c6ba3a133a9a1c3ad5a0a009c876d86bdd217b09fa",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn223A/LiveComparison.hpp": "0d75b6903b542facc1def8199fdd4ffad3270766e24a59fd9eaa9a6711f8ed09",
+        "reversing/Fn223A/Core.hpp": "beb27ad46ca5eb72586641835c7c0274e53ad0ba6ed76ef684d4ef8ecadb8b62",
+        "reversing/Fn223A/Fixtures.hpp": "eaf941636cb1cc46411224d8fe4cf1ff9c610f770532214f7de850c0cc532519",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL): CEntryInfoList::Flush 0x536E10, CDecision::CDecision 0x6040C0 y SetDefault 0x600530, CPhysical::AddToMovingList 0x542800, CScriptsForBrains::Init 0x46A8C0, CTask::Destructor 0x61A3A0 y operator delete 0x61A5B0, GetActualScriptThingIndex 0x4839A0, CEntity::CleanUpOldReference 0x571A00 y RegisterReference 0x571B70, cuerpo del constructor de CBaseModelInfo 0x4C4A60, RwRasterRegisterPlugin 0x7FB0B0 y RwTextureRasterGenerateMipmaps 0x7F3CD0; las rutinas 0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0 y 0x7F5AE0 (que la DLL llama por su direccion del EXE) solo en esa direccion. El dispositivo, las texturas y las superficies de D3D9 son objetos COM falsos del banco (tablas virtuales propias, los mismos en ambos lados): no se ha ejercitado un dispositivo D3D9 real. 0x4CA5A0 (__usercall con ESI y EBX de entrada) queda fuera: inviable en C++.",
+      "review_reference": "reversing/Fn223A/README.md"
     }
   ]
 }

@@ -1,0 +1,10 @@
+13:49:19 build ok main
+13:49:19 gta_lock tomado
+14:23:08 run main: APROBADO: Fn223A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn223a\20261117-134921-725399 
+ronda 1 aplicada: 22 mutaciones
+14:27:41 run neg1: FALLO: Fn223A Funciones con diferencias: CEntryInfoList::Destructor: 2048/2048; CPool<CObject>::GetAt: 1238/2048; CPool<CObject>::GetRef: 1105/2048; CDecisionMaker::Constructor: 2048/2048; CMissionCleanup::RemoveEntityFromList: 2011/2048; CTheScripts::RemoveFromSuppressedCarModels: 1610/2048; CScri
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+ronda 2 aplicada: 22 mutaciones
+14:32:10 run neg2: FALLO: Fn223A Funciones con diferencias: CEntryInfoList::Destructor: 2048/2048; CPool<CObject>::GetAt: 1134/2048; CPool<CObject>::GetRef: 1860/2048; CDecisionMaker::Constructor: 2048/2048; CMissionCleanup::RemoveEntityFromList: 562/2048; CTheScripts::RemoveFromSuppressedCarModels: 1178/2048; CScrip
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+14:32:20 fin
