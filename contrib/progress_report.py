@@ -167,17 +167,20 @@ def build(root, input_path, coverage, validation, notsa_count=0):
          '- **Reconstruida sin validar:** integrada y activa, pero sin banco todavía (`validated=0`). Compila, pero no se ha ejecutado en el juego contra el original.', '',
          'Y dos zonas del EXE que se miden por separado: el **código del juego** (0x401000–0x74FFFF, el trabajo propio del proyecto) y **RenderWare y D3D** (0x750000–0x81FFFF, el SDK enlazado dentro del EXE).', '',
          f'Cifras al {fecha}.', '']
-    L += _table(['Zona', 'Funciones del EXE', 'Reconstruidas', 'Validadas', 'Reconstruidas sin validar', 'Faltan'], [
-        ['**Código del juego**', f"{g['functions']:,}", f"{g['replaced']:,} ({_pct(g['replaced'], g['functions'])})", f'{g_val:,}', f'{g_rep - g_val:,}', f"{gm['functions']:,}"],
-        ['**RenderWare y D3D**', f'{rw_total:,}', f"{rw['replaced']:,} ({_pct(rw['replaced'], rw_total)})", f'{r_val:,}', f'{r_rep - r_val:,}', f'{rw_pend:,}'],
+    rw_target = rw_total - rw_link - rw_nr   # lo que se puede y se quiere reconstruir (sin libpng, zlib, D3DX9 ni no reconstruibles)
+    L += _table(['Zona', 'Funciones a reconstruir', 'Reconstruidas', 'Entradas del catálogo', 'Validadas', 'Sin validar'], [
+        ['**Código del juego**', f"{g['functions']:,}", f"{g['replaced']:,} ({_pct(g['replaced'], g['functions'])})", f'{g_rep:,}', f'{g_val:,}', f'{g_rep - g_val:,}'],
+        ['**RenderWare y D3D**', f'{rw_target:,}', f"{rw['replaced']:,} ({_pct(rw['replaced'], rw_target)})", f'{r_rep:,}', f'{r_val:,}', f'{r_rep - r_val:,}'],
     ], right=(1, 2, 3, 4, 5))
-    L += ['', f'En total hay **{all_rep:,} entradas reconstruidas, {all_val:,} validadas y {all_rep - all_val:,} sin validar** en el catálogo ({validation["registered"]:,} con evidencia registrada).'
+    L += ['', '**Cómo leer la tabla:** «Funciones a reconstruir» y «Reconstruidas» se cuentan en funciones del EXE; «Validadas» y «Sin validar» se cuentan en entradas del catálogo (`hooks.csv`), y suman las «Entradas del catálogo». No coinciden con las funciones porque una función puede tener varias entradas (cuerpo, destructor con borrado, ranura virtual, envoltura). '
+          f'En el código del juego se descartan {len(coverage["game_excluded"])} funciones excluidas (no reconstruibles en C++ puro); en RenderWare, {rw_link:,} funciones de libpng, zlib y D3DX9 (se enlaza la original) y {rw_nr} no reconstruibles.', '',
+          f'En total hay **{all_rep:,} entradas reconstruidas, {all_val:,} validadas y {all_rep - all_val:,} sin validar** en el catálogo ({validation["registered"]:,} con evidencia registrada).'
           + (f' Quedan además {o_rep:,} entradas fuera de ambas zonas (CRT y utilidades).' if o_rep else ''), '']
 
     L += ['### Fase del proceso', '']
     L += _table(['Fase', 'Estado'], [
         ['Reconstruir el código del juego en C++ puro', f"**Hecha**: {_pct(g['replaced'], g['functions'])} de las funciones y {_pct(g['replaced_bytes'], g['bytes'])} de los bytes; faltan {gm['functions']} y hay {len(coverage['game_excluded'])} excluidas por no ser reconstruibles"],
-        ['Reconstruir el SDK de RenderWare', f'**Hecha** en lo reconstruible: {rw["replaced"]:,} funciones; {rw_link:,} son libpng, zlib y D3DX9 (se enlaza la original) y {rw_nr} no son reconstruibles'],
+        ['Reconstruir el SDK de RenderWare', f'**Hecha**: {rw["replaced"]:,} de {rw_target:,} funciones reconstruibles ({_pct(rw["replaced"], rw_target)}); aparte, {rw_link:,} son libpng, zlib y D3DX9 (se enlaza la original) y {rw_nr} no son reconstruibles'],
         ['**Validar el código del juego**', f'**En curso**: {g_val:,} de {g_rep:,} reconstruidas ({_pct(g_val, g_rep)}); el resto va por oleadas de lotes (detalle en el [informe](ReversedClasses.md#por-validar))'],
         ['Validar RenderWare', f'**Apenas empezada**: {r_val:,} de {r_rep:,} ({_pct(r_val, r_rep)}); falta el plan de bancos (dispositivo D3D falso, flujos y listas libres falsos)'],
         ['Pase final de bancos viejos', 'Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió'],
@@ -201,9 +204,11 @@ def build(root, input_path, coverage, validation, notsa_count=0):
     L += ['<a id="renderware"></a>', '', '## 3. RenderWare y D3D (0x750000–0x81FFFF)', '',
           f"Región de {rw_total:,} funciones y {rw['bytes']:,} bytes: el SDK de RenderWare 3.7, el controlador D3D9, D3DX9 (compilador de shaders), libpng, zlib y libjpeg, enlazados dentro del EXE.", '']
     L += _table(['Medida', 'Funciones'], [
-        ['**Reconstruidas en C++** (hook en la DLL)', f"**{rw['replaced']:,}**"],
-        ['Validadas', f'{r_val:,}'],
-        ['Reconstruidas sin validar', f'{r_rep - r_val:,}'],
+        ['Funciones que se reconstruyen (sin las enlazadas ni las no reconstruibles)', f'{rw_target:,}'],
+        ['**Reconstruidas en C++** (hook en la DLL)', f"**{rw['replaced']:,}** ({_pct(rw['replaced'], rw_target)})"],
+        ['Entradas del catálogo de esas funciones (una función puede tener varias)', f'{r_rep:,}'],
+        ['Entradas validadas', f'{r_val:,}'],
+        ['Entradas sin validar', f'{r_rep - r_val:,}'],
         ['Enlazadas (libpng, zlib y D3DX9: se enlaza la original, no se reconstruyen)', f'{rw_link:,}'],
         ['No reconstruibles en C++ puro (puentes de QuickTime, carga retardada, 3DNow!, ya enganchadas por el modo ventana)', f'{rw_nr}'],
         ['**Pendientes de reconstruir**', f'**{rw_pend}**'],
