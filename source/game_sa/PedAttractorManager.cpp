@@ -238,7 +238,8 @@ CPedAttractor* __stdcall RegisterPedList(CPed* ped, C2dEffectPedAttractor* fx, C
         case PED_ATTRACTOR_STEP:           result = Create.template operator()<CPedStepAttractor>(); break;
         default:                           return nullptr; // Como el original: tipo fuera de 0..9, sin anadir a la lista ni registrar
         }
-        attractors.emplace_back(result);
+        // Como el EXE: vector::push_back de punteros (instancia C, 0x5EE400, con hook) con la direccion de un local que guarda el atractor (nulo si el pool esta lleno); se llama por su direccion fija.
+        plugin::CallMethod<0x5EE400, AttractorList*, CPedAttractor**>(&attractors, &result);
     }
 
     if (result) {

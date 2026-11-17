@@ -1,0 +1,11 @@
+11:14:17 build ok main
+11:14:17 gta_lock tomado
+11:52:10 run main: APROBADO: Fn221A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn221a\20261117-111419-678674 
+ronda 1 aplicada: 25 mutaciones
+11:52:27 BUILD FAIL mut1
+11:57:17 run neg1: FALLO: Fn221A Cobertura de ramas insuficiente en ExeProtectionStub::MD5Update: {"carry_low": [12, 50]} medida: {"kind0": 512, "byte_path": 1921, "input_unaligned": 950, "idx_nonzero": 1317, "block_completed": 1176, "this_aligned": 1140, "fill0": 512, "this_unaligned": 908, "kind1": 512, "kind2": 51
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+ronda 2 aplicada: 25 mutaciones
+12:26:53 run neg2: FALLO: Fn221A Funciones con diferencias: CPedLookAtAttractor::Constructor: 2048/2048; CPedLookAtAttractor::ScalarDeletingDestructor: 2048/2048; CPedScriptedAttractor::Constructor: 2048/2048; CPedScriptedAttractor::ScalarDeletingDestructor: 2048/2048; CPedParkAttractor::Constructor: 2048/2048; CPedP
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+12:27:17 fin

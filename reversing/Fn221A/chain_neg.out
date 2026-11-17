@@ -1,0 +1,8 @@
+12:29:29 gta_lock tomado
+ronda 1 aplicada: 25 mutaciones
+12:34:25 run neg1: FALLO: Fn221A Funciones con diferencias: CPedLookAtAttractor::Constructor: 2048/2048; CPedLookAtAttractor::ScalarDeletingDestructor: 1080/2048; CPedLookAtAttractor::Destructor: 2048/2048; CPedScriptedAttractor::Constructor: 2048/2048; CPedScriptedAttractor::ScalarDeletingDestructor: 1127/2048; CPedScriptedAttractor::Destructor: 2048/2048; CPedParkAttractor::Constructor: 2048/2048; CPedParkAttract
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+ronda 2 aplicada: 29 mutaciones
+13:06:38 run neg2: FALLO: Fn221A Funciones con diferencias: CPedLookAtAttractor::Constructor: 2048/2048; CPedLookAtAttractor::ScalarDeletingDestructor: 2048/2048; CPedLookAtAttractor::Destructor: 2048/2048; CPedScriptedAttractor::Constructor: 2048/2048; CPedScriptedAttractor::ScalarDeletingDestructor: 2048/2048; CPedScriptedAttractor::Destructor: 2048/2048; CPedParkAttractor::Constructor: 2048/2048; CPedParkAttract
+restauradas 9 fuentes (SHA256 igual a las copias buenas)
+13:07:02 fin

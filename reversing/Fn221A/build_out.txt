@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "D:\Original\wv-6\reversing\Fn221A\build_probe.py", line 44, in <module>
+    print(json.dumps(build(Path(__file__).parent, 'fn221a', 'F221ALive', SOURCES)))
+                     ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Original\wv-6\reversing\probe_build.py", line 35, in build
+    subprocess.run([str(CMAKE), '--build', str(ROOT/'build'), '--config', 'Debug'], stdout=log, stderr=subprocess.STDOUT, check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pedro\AppData\Local\Python\pythoncore-3.14-64\Lib\subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['D:\\Original\\wv-6\\reversing\\CVehicle\\conan-cache\\p\\cmake20ac4e0137fee\\p\\bin\\cmake.exe', '--build', 'D:\\Original\\wv-6\\build', '--config', 'Debug']' returned non-zero exit status 1.
+rc=1

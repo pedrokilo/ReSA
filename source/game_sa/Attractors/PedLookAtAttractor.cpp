@@ -39,7 +39,10 @@ CPedLookAtAttractor* CPedLookAtAttractor::Constructor(C2dEffectPedAttractor* eff
 // 0x5EEA20 (lote 221A, sin validar; thiscall, sin argumentos de pila, `ret`, 11 bytes): cuerpo del destructor del EXE: `mov [ecx], 0x86C5E4; jmp 0x5EC410` (deja la vtable de la clase y sigue con el cuerpo del destructor de
 // CPedAttractor, con hook). Funcion propia sin expansion en linea; solo la llama el destructor con borrado. Llamada no virtual al destructor de la clase.
 __declspec(noinline) void CPedLookAtAttractor::Destructor() {
-    this->CPedLookAtAttractor::~CPedLookAtAttractor();
+    // Como el EXE: escribe la vtable del EXE de la clase (0x86C5E4) y sigue con el cuerpo del destructor de CPedAttractor (0x5EC410, con hook); la llamada es a CPedAttractor::Destructor, no al destructor de C++
+    // de la clase (que expandiria en linea la destruccion de los miembros sin pasar por 0x5EC410). La vtable del EXE en un objeto de la DLL solo dura hasta el final del destructor.
+    *reinterpret_cast<uint32*>(this) = 0x86C5E4;
+    this->CPedAttractor::Destructor();
 }
 
 // 0x5EE9D0 (lote 221A, sin validar; ranura 1 de la vtable 0x86C5E4, tras GetType; thiscall, un argumento de pila, `ret 4`, 76 bytes): destructor con borrado. Llama al cuerpo 0x5EEA20 y, solo si el bit 0 del BYTE de banderas esta puesto,
