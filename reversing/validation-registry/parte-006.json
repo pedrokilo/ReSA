@@ -4939,6 +4939,456 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre b3ed77d71c (HEAD de integracion del coordinador, con los lotes validados hasta el 237A) mas las correcciones de este banco (ver README.md y artifacts/build-manifest.json). El listado atribuia la funcion a CTheScripts; es CRunningScript::ProcessCommands800To899 (0x481300), el despachador del EXE para los comandos de script 801..899. El banco recorre los 99 comandos de la banda (los que tienen cuerpo, los 4 sin efecto 809, 812, 894 y 899 y los que el EXE rechaza con 0xFF; los de cadenas largas de colaboradores se repiten) y 5 comandos fuera de rango, llamando al despachador directamente (en el juego los comandos con manejador propio de Commands/*.cpp no pasan por aqui), con parametros de script, escena (pools sinteticos de peds, vehiculos y objetos, jugadores, modelos con cajas de colision, lineas de texto de intro, camara, matrices) y respuestas de los colaboradores variados por semilla. Colaboradores: los que tocan estado del juego (lectura y escritura de parametros de script, etiquetas, textos, fuego, camara, mundo, garajes, grupos, lista de limpieza de mision, poblacion, tareas y su reserva, eventos de dano, mensajes, matrices y rotaciones, llamadas virtuales como Teleport...) son falsos identicos en la entrada del EXE y en el cuerpo de la DLL que registran la llamada (argumentos, this) y responden de forma determinista; los constructores y destructores de objetos locales (CPedDamageResponseCalculator, CEventDamage, CTaskSimpleCarSetPedInAsDriver, CRGBA, CTaskSimpleStandStill, CMatrix), SetVelocity y las pools son reales con el gancho apagado en ambos lados. Oraculo independiente: emulacion con Unicorn del codigo original del EXE (bytes de gta-sa.exe sin parchear, x87 a 24 bits) sobre la misma escena y los mismos falsos; compara bytes cambiados de las arenas y de la memoria global, eventos y AL. Fuera de los fixtures: manejadores de pool invalidos fuera de rango o con el bit de libre (el EXE no comprueba limites), reserva nula de tarea o de ped (solo 886 con tarea nula), indices de jugador o de modelo distintos de los sembrados, UsedObjectArray mas alla de 7 entradas, IntroTextLines mas alla de 3, banderas de bits que el juego no produce, valores float extremos (NaN, infinitos y denormales) en las operaciones x87 de 24 bits, matriz nula de un objeto en SLIDE_OBJECT con comprobacion de colision, y la exactitud de los falsos.",
       "review_reference": "reversing/Fn239A/README.md"
+    },
+    {
+      "hook": {
+        "class": "IKChainManager_c",
+        "fn_name": "Constructor",
+        "address": "0x00617FC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FnF1A/validation-summary.json",
+        "sha256": "01f2cf8601cc37cf3bdb2d13cbaba3826674d3e88c807fb74224bd2665b8d259",
+        "passed_path": [
+          "covered_functions",
+          "IKChainManager_c::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Ragdoll/IKChainManager.cpp": "85c7fd788c8bdbb7194edbacd48648f985edeae156d651e4bcff2a77c3783631",
+        "source/game_sa/Ragdoll/IKChainManager.h": "fc0acd731c8e321dcde3a1ac0501b479aa4e7b079e737dda009446daf7488dab",
+        "source/game_sa/WaterCreatureManager_c.cpp": "8d144723929795295baede4952c4f8c774ddad0cfa3bf165985233178361ac19",
+        "source/game_sa/WaterCreatureManager_c.h": "96e1930ab0d63e6a69fefeedd4d2d5e73015592a1555c6ada56b1f087c38ea6c",
+        "source/game_sa/WaterLevel.cpp": "558745a8a75e924b950dd34224a101029fd4b19853ee77231f1a4bc087afcfa3",
+        "source/game_sa/Audio/AudioZones.cpp": "2cd42a31aa4a2fa352caf25e30c7749912af6e1cb10cd243f6fa5a0822564613",
+        "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "e8b0856795cc7c47a81ccb4ea3a68455730e13657fb4929702ede740bdd6284d",
+        "source/game_sa/RenderWare/D3D9RasterFormat.h": "0e82f85965a4676f6ab3480a44efd9b67eccfc16d0abafcd09c72cb310227845",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FnF1A/LiveComparison.hpp": "aa6259784a2101447c853c1c1223b0fc4ca9034b88307284bd15a2d878c8d831",
+        "reversing/FnF1A/Core.hpp": "364d550fe89868df932250b58a73ac4c1184a8ad4917e00db9ae72c7b634d63c",
+        "reversing/FnF1A/Fixtures.hpp": "d7222b82f5c563c0575425161d8335bc9bc1bdbae56d7db4de8f85d2c466874b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre a94366deac (HEAD de integracion) con la correccion del lote (ver artifacts/build-manifest.json): IKChainManager_c y WaterCreatureManager_c (constructor y destructor), CWaterLevel::IsPointInCameraDepthRange, CAudioZones::BugstarWriteScreenShotEntry y las cuatro descompresoras DXT de D3D9RasterFormat. Los colaboradores con hook corren reales con el hook apagado (elementos y listas de los vectores, CMatrix, TextBufferAppend, DecodeDxt5AlphaBlock); 0x508B80, 0x508D30 y 0x509190 son falsos solo en la direccion del EXE y anotan el texto acumulado. BugstarWriteScreenShotEntry usa ahora el sprintf del CRT del EXE (0x821BB5) por direccion fija: con el de la DLL el banco encontro textos distintos. Fuera de los fixtures: this nulo o crudo, camaras reales de RenderWare, imagenes de mas de 200 bytes, dimensiones DXT mayores de 36 o con desbordamiento, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/FnF1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "IKChainManager_c",
+        "fn_name": "Destructor",
+        "address": "0x00618030",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FnF1A/validation-summary.json",
+        "sha256": "01f2cf8601cc37cf3bdb2d13cbaba3826674d3e88c807fb74224bd2665b8d259",
+        "passed_path": [
+          "covered_functions",
+          "IKChainManager_c::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Ragdoll/IKChainManager.cpp": "85c7fd788c8bdbb7194edbacd48648f985edeae156d651e4bcff2a77c3783631",
+        "source/game_sa/Ragdoll/IKChainManager.h": "fc0acd731c8e321dcde3a1ac0501b479aa4e7b079e737dda009446daf7488dab",
+        "source/game_sa/WaterCreatureManager_c.cpp": "8d144723929795295baede4952c4f8c774ddad0cfa3bf165985233178361ac19",
+        "source/game_sa/WaterCreatureManager_c.h": "96e1930ab0d63e6a69fefeedd4d2d5e73015592a1555c6ada56b1f087c38ea6c",
+        "source/game_sa/WaterLevel.cpp": "558745a8a75e924b950dd34224a101029fd4b19853ee77231f1a4bc087afcfa3",
+        "source/game_sa/Audio/AudioZones.cpp": "2cd42a31aa4a2fa352caf25e30c7749912af6e1cb10cd243f6fa5a0822564613",
+        "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "e8b0856795cc7c47a81ccb4ea3a68455730e13657fb4929702ede740bdd6284d",
+        "source/game_sa/RenderWare/D3D9RasterFormat.h": "0e82f85965a4676f6ab3480a44efd9b67eccfc16d0abafcd09c72cb310227845",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FnF1A/LiveComparison.hpp": "aa6259784a2101447c853c1c1223b0fc4ca9034b88307284bd15a2d878c8d831",
+        "reversing/FnF1A/Core.hpp": "364d550fe89868df932250b58a73ac4c1184a8ad4917e00db9ae72c7b634d63c",
+        "reversing/FnF1A/Fixtures.hpp": "d7222b82f5c563c0575425161d8335bc9bc1bdbae56d7db4de8f85d2c466874b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre a94366deac (HEAD de integracion) con la correccion del lote (ver artifacts/build-manifest.json): IKChainManager_c y WaterCreatureManager_c (constructor y destructor), CWaterLevel::IsPointInCameraDepthRange, CAudioZones::BugstarWriteScreenShotEntry y las cuatro descompresoras DXT de D3D9RasterFormat. Los colaboradores con hook corren reales con el hook apagado (elementos y listas de los vectores, CMatrix, TextBufferAppend, DecodeDxt5AlphaBlock); 0x508B80, 0x508D30 y 0x509190 son falsos solo en la direccion del EXE y anotan el texto acumulado. BugstarWriteScreenShotEntry usa ahora el sprintf del CRT del EXE (0x821BB5) por direccion fija: con el de la DLL el banco encontro textos distintos. Fuera de los fixtures: this nulo o crudo, camaras reales de RenderWare, imagenes de mas de 200 bytes, dimensiones DXT mayores de 36 o con desbordamiento, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/FnF1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "WaterCreatureManager_c",
+        "fn_name": "Constructor",
+        "address": "0x006E3EB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FnF1A/validation-summary.json",
+        "sha256": "01f2cf8601cc37cf3bdb2d13cbaba3826674d3e88c807fb74224bd2665b8d259",
+        "passed_path": [
+          "covered_functions",
+          "WaterCreatureManager_c::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Ragdoll/IKChainManager.cpp": "85c7fd788c8bdbb7194edbacd48648f985edeae156d651e4bcff2a77c3783631",
+        "source/game_sa/Ragdoll/IKChainManager.h": "fc0acd731c8e321dcde3a1ac0501b479aa4e7b079e737dda009446daf7488dab",
+        "source/game_sa/WaterCreatureManager_c.cpp": "8d144723929795295baede4952c4f8c774ddad0cfa3bf165985233178361ac19",
+        "source/game_sa/WaterCreatureManager_c.h": "96e1930ab0d63e6a69fefeedd4d2d5e73015592a1555c6ada56b1f087c38ea6c",
+        "source/game_sa/WaterLevel.cpp": "558745a8a75e924b950dd34224a101029fd4b19853ee77231f1a4bc087afcfa3",
+        "source/game_sa/Audio/AudioZones.cpp": "2cd42a31aa4a2fa352caf25e30c7749912af6e1cb10cd243f6fa5a0822564613",
+        "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "e8b0856795cc7c47a81ccb4ea3a68455730e13657fb4929702ede740bdd6284d",
+        "source/game_sa/RenderWare/D3D9RasterFormat.h": "0e82f85965a4676f6ab3480a44efd9b67eccfc16d0abafcd09c72cb310227845",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FnF1A/LiveComparison.hpp": "aa6259784a2101447c853c1c1223b0fc4ca9034b88307284bd15a2d878c8d831",
+        "reversing/FnF1A/Core.hpp": "364d550fe89868df932250b58a73ac4c1184a8ad4917e00db9ae72c7b634d63c",
+        "reversing/FnF1A/Fixtures.hpp": "d7222b82f5c563c0575425161d8335bc9bc1bdbae56d7db4de8f85d2c466874b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre a94366deac (HEAD de integracion) con la correccion del lote (ver artifacts/build-manifest.json): IKChainManager_c y WaterCreatureManager_c (constructor y destructor), CWaterLevel::IsPointInCameraDepthRange, CAudioZones::BugstarWriteScreenShotEntry y las cuatro descompresoras DXT de D3D9RasterFormat. Los colaboradores con hook corren reales con el hook apagado (elementos y listas de los vectores, CMatrix, TextBufferAppend, DecodeDxt5AlphaBlock); 0x508B80, 0x508D30 y 0x509190 son falsos solo en la direccion del EXE y anotan el texto acumulado. BugstarWriteScreenShotEntry usa ahora el sprintf del CRT del EXE (0x821BB5) por direccion fija: con el de la DLL el banco encontro textos distintos. Fuera de los fixtures: this nulo o crudo, camaras reales de RenderWare, imagenes de mas de 200 bytes, dimensiones DXT mayores de 36 o con desbordamiento, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/FnF1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "WaterCreatureManager_c",
+        "fn_name": "Destructor",
+        "address": "0x006E3F20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FnF1A/validation-summary.json",
+        "sha256": "01f2cf8601cc37cf3bdb2d13cbaba3826674d3e88c807fb74224bd2665b8d259",
+        "passed_path": [
+          "covered_functions",
+          "WaterCreatureManager_c::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Ragdoll/IKChainManager.cpp": "85c7fd788c8bdbb7194edbacd48648f985edeae156d651e4bcff2a77c3783631",
+        "source/game_sa/Ragdoll/IKChainManager.h": "fc0acd731c8e321dcde3a1ac0501b479aa4e7b079e737dda009446daf7488dab",
+        "source/game_sa/WaterCreatureManager_c.cpp": "8d144723929795295baede4952c4f8c774ddad0cfa3bf165985233178361ac19",
+        "source/game_sa/WaterCreatureManager_c.h": "96e1930ab0d63e6a69fefeedd4d2d5e73015592a1555c6ada56b1f087c38ea6c",
+        "source/game_sa/WaterLevel.cpp": "558745a8a75e924b950dd34224a101029fd4b19853ee77231f1a4bc087afcfa3",
+        "source/game_sa/Audio/AudioZones.cpp": "2cd42a31aa4a2fa352caf25e30c7749912af6e1cb10cd243f6fa5a0822564613",
+        "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "e8b0856795cc7c47a81ccb4ea3a68455730e13657fb4929702ede740bdd6284d",
+        "source/game_sa/RenderWare/D3D9RasterFormat.h": "0e82f85965a4676f6ab3480a44efd9b67eccfc16d0abafcd09c72cb310227845",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FnF1A/LiveComparison.hpp": "aa6259784a2101447c853c1c1223b0fc4ca9034b88307284bd15a2d878c8d831",
+        "reversing/FnF1A/Core.hpp": "364d550fe89868df932250b58a73ac4c1184a8ad4917e00db9ae72c7b634d63c",
+        "reversing/FnF1A/Fixtures.hpp": "d7222b82f5c563c0575425161d8335bc9bc1bdbae56d7db4de8f85d2c466874b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre a94366deac (HEAD de integracion) con la correccion del lote (ver artifacts/build-manifest.json): IKChainManager_c y WaterCreatureManager_c (constructor y destructor), CWaterLevel::IsPointInCameraDepthRange, CAudioZones::BugstarWriteScreenShotEntry y las cuatro descompresoras DXT de D3D9RasterFormat. Los colaboradores con hook corren reales con el hook apagado (elementos y listas de los vectores, CMatrix, TextBufferAppend, DecodeDxt5AlphaBlock); 0x508B80, 0x508D30 y 0x509190 son falsos solo en la direccion del EXE y anotan el texto acumulado. BugstarWriteScreenShotEntry usa ahora el sprintf del CRT del EXE (0x821BB5) por direccion fija: con el de la DLL el banco encontro textos distintos. Fuera de los fixtures: this nulo o crudo, camaras reales de RenderWare, imagenes de mas de 200 bytes, dimensiones DXT mayores de 36 o con desbordamiento, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/FnF1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CWaterLevel",
+        "fn_name": "IsPointInCameraDepthRange",
+        "address": "0x006E67A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FnF1A/validation-summary.json",
+        "sha256": "01f2cf8601cc37cf3bdb2d13cbaba3826674d3e88c807fb74224bd2665b8d259",
+        "passed_path": [
+          "covered_functions",
+          "CWaterLevel::IsPointInCameraDepthRange"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Ragdoll/IKChainManager.cpp": "85c7fd788c8bdbb7194edbacd48648f985edeae156d651e4bcff2a77c3783631",
+        "source/game_sa/Ragdoll/IKChainManager.h": "fc0acd731c8e321dcde3a1ac0501b479aa4e7b079e737dda009446daf7488dab",
+        "source/game_sa/WaterCreatureManager_c.cpp": "8d144723929795295baede4952c4f8c774ddad0cfa3bf165985233178361ac19",
+        "source/game_sa/WaterCreatureManager_c.h": "96e1930ab0d63e6a69fefeedd4d2d5e73015592a1555c6ada56b1f087c38ea6c",
+        "source/game_sa/WaterLevel.cpp": "558745a8a75e924b950dd34224a101029fd4b19853ee77231f1a4bc087afcfa3",
+        "source/game_sa/Audio/AudioZones.cpp": "2cd42a31aa4a2fa352caf25e30c7749912af6e1cb10cd243f6fa5a0822564613",
+        "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "e8b0856795cc7c47a81ccb4ea3a68455730e13657fb4929702ede740bdd6284d",
+        "source/game_sa/RenderWare/D3D9RasterFormat.h": "0e82f85965a4676f6ab3480a44efd9b67eccfc16d0abafcd09c72cb310227845",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FnF1A/LiveComparison.hpp": "aa6259784a2101447c853c1c1223b0fc4ca9034b88307284bd15a2d878c8d831",
+        "reversing/FnF1A/Core.hpp": "364d550fe89868df932250b58a73ac4c1184a8ad4917e00db9ae72c7b634d63c",
+        "reversing/FnF1A/Fixtures.hpp": "d7222b82f5c563c0575425161d8335bc9bc1bdbae56d7db4de8f85d2c466874b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre a94366deac (HEAD de integracion) con la correccion del lote (ver artifacts/build-manifest.json): IKChainManager_c y WaterCreatureManager_c (constructor y destructor), CWaterLevel::IsPointInCameraDepthRange, CAudioZones::BugstarWriteScreenShotEntry y las cuatro descompresoras DXT de D3D9RasterFormat. Los colaboradores con hook corren reales con el hook apagado (elementos y listas de los vectores, CMatrix, TextBufferAppend, DecodeDxt5AlphaBlock); 0x508B80, 0x508D30 y 0x509190 son falsos solo en la direccion del EXE y anotan el texto acumulado. BugstarWriteScreenShotEntry usa ahora el sprintf del CRT del EXE (0x821BB5) por direccion fija: con el de la DLL el banco encontro textos distintos. Fuera de los fixtures: this nulo o crudo, camaras reales de RenderWare, imagenes de mas de 200 bytes, dimensiones DXT mayores de 36 o con desbordamiento, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/FnF1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAudioZones",
+        "fn_name": "BugstarWriteScreenShotEntry",
+        "address": "0x00509230",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FnF1A/validation-summary.json",
+        "sha256": "01f2cf8601cc37cf3bdb2d13cbaba3826674d3e88c807fb74224bd2665b8d259",
+        "passed_path": [
+          "covered_functions",
+          "CAudioZones::BugstarWriteScreenShotEntry"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Ragdoll/IKChainManager.cpp": "85c7fd788c8bdbb7194edbacd48648f985edeae156d651e4bcff2a77c3783631",
+        "source/game_sa/Ragdoll/IKChainManager.h": "fc0acd731c8e321dcde3a1ac0501b479aa4e7b079e737dda009446daf7488dab",
+        "source/game_sa/WaterCreatureManager_c.cpp": "8d144723929795295baede4952c4f8c774ddad0cfa3bf165985233178361ac19",
+        "source/game_sa/WaterCreatureManager_c.h": "96e1930ab0d63e6a69fefeedd4d2d5e73015592a1555c6ada56b1f087c38ea6c",
+        "source/game_sa/WaterLevel.cpp": "558745a8a75e924b950dd34224a101029fd4b19853ee77231f1a4bc087afcfa3",
+        "source/game_sa/Audio/AudioZones.cpp": "2cd42a31aa4a2fa352caf25e30c7749912af6e1cb10cd243f6fa5a0822564613",
+        "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "e8b0856795cc7c47a81ccb4ea3a68455730e13657fb4929702ede740bdd6284d",
+        "source/game_sa/RenderWare/D3D9RasterFormat.h": "0e82f85965a4676f6ab3480a44efd9b67eccfc16d0abafcd09c72cb310227845",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FnF1A/LiveComparison.hpp": "aa6259784a2101447c853c1c1223b0fc4ca9034b88307284bd15a2d878c8d831",
+        "reversing/FnF1A/Core.hpp": "364d550fe89868df932250b58a73ac4c1184a8ad4917e00db9ae72c7b634d63c",
+        "reversing/FnF1A/Fixtures.hpp": "d7222b82f5c563c0575425161d8335bc9bc1bdbae56d7db4de8f85d2c466874b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre a94366deac (HEAD de integracion) con la correccion del lote (ver artifacts/build-manifest.json): IKChainManager_c y WaterCreatureManager_c (constructor y destructor), CWaterLevel::IsPointInCameraDepthRange, CAudioZones::BugstarWriteScreenShotEntry y las cuatro descompresoras DXT de D3D9RasterFormat. Los colaboradores con hook corren reales con el hook apagado (elementos y listas de los vectores, CMatrix, TextBufferAppend, DecodeDxt5AlphaBlock); 0x508B80, 0x508D30 y 0x509190 son falsos solo en la direccion del EXE y anotan el texto acumulado. BugstarWriteScreenShotEntry usa ahora el sprintf del CRT del EXE (0x821BB5) por direccion fija: con el de la DLL el banco encontro textos distintos. Fuera de los fixtures: this nulo o crudo, camaras reales de RenderWare, imagenes de mas de 200 bytes, dimensiones DXT mayores de 36 o con desbordamiento, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/FnF1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "D3D9RasterFormat",
+        "fn_name": "DecompressDxt1",
+        "address": "0x0081E720",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FnF1A/validation-summary.json",
+        "sha256": "01f2cf8601cc37cf3bdb2d13cbaba3826674d3e88c807fb74224bd2665b8d259",
+        "passed_path": [
+          "covered_functions",
+          "D3D9RasterFormat::DecompressDxt1"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Ragdoll/IKChainManager.cpp": "85c7fd788c8bdbb7194edbacd48648f985edeae156d651e4bcff2a77c3783631",
+        "source/game_sa/Ragdoll/IKChainManager.h": "fc0acd731c8e321dcde3a1ac0501b479aa4e7b079e737dda009446daf7488dab",
+        "source/game_sa/WaterCreatureManager_c.cpp": "8d144723929795295baede4952c4f8c774ddad0cfa3bf165985233178361ac19",
+        "source/game_sa/WaterCreatureManager_c.h": "96e1930ab0d63e6a69fefeedd4d2d5e73015592a1555c6ada56b1f087c38ea6c",
+        "source/game_sa/WaterLevel.cpp": "558745a8a75e924b950dd34224a101029fd4b19853ee77231f1a4bc087afcfa3",
+        "source/game_sa/Audio/AudioZones.cpp": "2cd42a31aa4a2fa352caf25e30c7749912af6e1cb10cd243f6fa5a0822564613",
+        "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "e8b0856795cc7c47a81ccb4ea3a68455730e13657fb4929702ede740bdd6284d",
+        "source/game_sa/RenderWare/D3D9RasterFormat.h": "0e82f85965a4676f6ab3480a44efd9b67eccfc16d0abafcd09c72cb310227845",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FnF1A/LiveComparison.hpp": "aa6259784a2101447c853c1c1223b0fc4ca9034b88307284bd15a2d878c8d831",
+        "reversing/FnF1A/Core.hpp": "364d550fe89868df932250b58a73ac4c1184a8ad4917e00db9ae72c7b634d63c",
+        "reversing/FnF1A/Fixtures.hpp": "d7222b82f5c563c0575425161d8335bc9bc1bdbae56d7db4de8f85d2c466874b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre a94366deac (HEAD de integracion) con la correccion del lote (ver artifacts/build-manifest.json): IKChainManager_c y WaterCreatureManager_c (constructor y destructor), CWaterLevel::IsPointInCameraDepthRange, CAudioZones::BugstarWriteScreenShotEntry y las cuatro descompresoras DXT de D3D9RasterFormat. Los colaboradores con hook corren reales con el hook apagado (elementos y listas de los vectores, CMatrix, TextBufferAppend, DecodeDxt5AlphaBlock); 0x508B80, 0x508D30 y 0x509190 son falsos solo en la direccion del EXE y anotan el texto acumulado. BugstarWriteScreenShotEntry usa ahora el sprintf del CRT del EXE (0x821BB5) por direccion fija: con el de la DLL el banco encontro textos distintos. Fuera de los fixtures: this nulo o crudo, camaras reales de RenderWare, imagenes de mas de 200 bytes, dimensiones DXT mayores de 36 o con desbordamiento, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/FnF1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "D3D9RasterFormat",
+        "fn_name": "DecompressDxt3",
+        "address": "0x0081EA70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FnF1A/validation-summary.json",
+        "sha256": "01f2cf8601cc37cf3bdb2d13cbaba3826674d3e88c807fb74224bd2665b8d259",
+        "passed_path": [
+          "covered_functions",
+          "D3D9RasterFormat::DecompressDxt3"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Ragdoll/IKChainManager.cpp": "85c7fd788c8bdbb7194edbacd48648f985edeae156d651e4bcff2a77c3783631",
+        "source/game_sa/Ragdoll/IKChainManager.h": "fc0acd731c8e321dcde3a1ac0501b479aa4e7b079e737dda009446daf7488dab",
+        "source/game_sa/WaterCreatureManager_c.cpp": "8d144723929795295baede4952c4f8c774ddad0cfa3bf165985233178361ac19",
+        "source/game_sa/WaterCreatureManager_c.h": "96e1930ab0d63e6a69fefeedd4d2d5e73015592a1555c6ada56b1f087c38ea6c",
+        "source/game_sa/WaterLevel.cpp": "558745a8a75e924b950dd34224a101029fd4b19853ee77231f1a4bc087afcfa3",
+        "source/game_sa/Audio/AudioZones.cpp": "2cd42a31aa4a2fa352caf25e30c7749912af6e1cb10cd243f6fa5a0822564613",
+        "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "e8b0856795cc7c47a81ccb4ea3a68455730e13657fb4929702ede740bdd6284d",
+        "source/game_sa/RenderWare/D3D9RasterFormat.h": "0e82f85965a4676f6ab3480a44efd9b67eccfc16d0abafcd09c72cb310227845",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FnF1A/LiveComparison.hpp": "aa6259784a2101447c853c1c1223b0fc4ca9034b88307284bd15a2d878c8d831",
+        "reversing/FnF1A/Core.hpp": "364d550fe89868df932250b58a73ac4c1184a8ad4917e00db9ae72c7b634d63c",
+        "reversing/FnF1A/Fixtures.hpp": "d7222b82f5c563c0575425161d8335bc9bc1bdbae56d7db4de8f85d2c466874b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre a94366deac (HEAD de integracion) con la correccion del lote (ver artifacts/build-manifest.json): IKChainManager_c y WaterCreatureManager_c (constructor y destructor), CWaterLevel::IsPointInCameraDepthRange, CAudioZones::BugstarWriteScreenShotEntry y las cuatro descompresoras DXT de D3D9RasterFormat. Los colaboradores con hook corren reales con el hook apagado (elementos y listas de los vectores, CMatrix, TextBufferAppend, DecodeDxt5AlphaBlock); 0x508B80, 0x508D30 y 0x509190 son falsos solo en la direccion del EXE y anotan el texto acumulado. BugstarWriteScreenShotEntry usa ahora el sprintf del CRT del EXE (0x821BB5) por direccion fija: con el de la DLL el banco encontro textos distintos. Fuera de los fixtures: this nulo o crudo, camaras reales de RenderWare, imagenes de mas de 200 bytes, dimensiones DXT mayores de 36 o con desbordamiento, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/FnF1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "D3D9RasterFormat",
+        "fn_name": "DecompressDxt5",
+        "address": "0x0081EDC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FnF1A/validation-summary.json",
+        "sha256": "01f2cf8601cc37cf3bdb2d13cbaba3826674d3e88c807fb74224bd2665b8d259",
+        "passed_path": [
+          "covered_functions",
+          "D3D9RasterFormat::DecompressDxt5"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Ragdoll/IKChainManager.cpp": "85c7fd788c8bdbb7194edbacd48648f985edeae156d651e4bcff2a77c3783631",
+        "source/game_sa/Ragdoll/IKChainManager.h": "fc0acd731c8e321dcde3a1ac0501b479aa4e7b079e737dda009446daf7488dab",
+        "source/game_sa/WaterCreatureManager_c.cpp": "8d144723929795295baede4952c4f8c774ddad0cfa3bf165985233178361ac19",
+        "source/game_sa/WaterCreatureManager_c.h": "96e1930ab0d63e6a69fefeedd4d2d5e73015592a1555c6ada56b1f087c38ea6c",
+        "source/game_sa/WaterLevel.cpp": "558745a8a75e924b950dd34224a101029fd4b19853ee77231f1a4bc087afcfa3",
+        "source/game_sa/Audio/AudioZones.cpp": "2cd42a31aa4a2fa352caf25e30c7749912af6e1cb10cd243f6fa5a0822564613",
+        "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "e8b0856795cc7c47a81ccb4ea3a68455730e13657fb4929702ede740bdd6284d",
+        "source/game_sa/RenderWare/D3D9RasterFormat.h": "0e82f85965a4676f6ab3480a44efd9b67eccfc16d0abafcd09c72cb310227845",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FnF1A/LiveComparison.hpp": "aa6259784a2101447c853c1c1223b0fc4ca9034b88307284bd15a2d878c8d831",
+        "reversing/FnF1A/Core.hpp": "364d550fe89868df932250b58a73ac4c1184a8ad4917e00db9ae72c7b634d63c",
+        "reversing/FnF1A/Fixtures.hpp": "d7222b82f5c563c0575425161d8335bc9bc1bdbae56d7db4de8f85d2c466874b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre a94366deac (HEAD de integracion) con la correccion del lote (ver artifacts/build-manifest.json): IKChainManager_c y WaterCreatureManager_c (constructor y destructor), CWaterLevel::IsPointInCameraDepthRange, CAudioZones::BugstarWriteScreenShotEntry y las cuatro descompresoras DXT de D3D9RasterFormat. Los colaboradores con hook corren reales con el hook apagado (elementos y listas de los vectores, CMatrix, TextBufferAppend, DecodeDxt5AlphaBlock); 0x508B80, 0x508D30 y 0x509190 son falsos solo en la direccion del EXE y anotan el texto acumulado. BugstarWriteScreenShotEntry usa ahora el sprintf del CRT del EXE (0x821BB5) por direccion fija: con el de la DLL el banco encontro textos distintos. Fuera de los fixtures: this nulo o crudo, camaras reales de RenderWare, imagenes de mas de 200 bytes, dimensiones DXT mayores de 36 o con desbordamiento, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/FnF1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "D3D9RasterFormat",
+        "fn_name": "DecodeDxt5AlphaBlock",
+        "address": "0x0081F0C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FnF1A/validation-summary.json",
+        "sha256": "01f2cf8601cc37cf3bdb2d13cbaba3826674d3e88c807fb74224bd2665b8d259",
+        "passed_path": [
+          "covered_functions",
+          "D3D9RasterFormat::DecodeDxt5AlphaBlock"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Ragdoll/IKChainManager.cpp": "85c7fd788c8bdbb7194edbacd48648f985edeae156d651e4bcff2a77c3783631",
+        "source/game_sa/Ragdoll/IKChainManager.h": "fc0acd731c8e321dcde3a1ac0501b479aa4e7b079e737dda009446daf7488dab",
+        "source/game_sa/WaterCreatureManager_c.cpp": "8d144723929795295baede4952c4f8c774ddad0cfa3bf165985233178361ac19",
+        "source/game_sa/WaterCreatureManager_c.h": "96e1930ab0d63e6a69fefeedd4d2d5e73015592a1555c6ada56b1f087c38ea6c",
+        "source/game_sa/WaterLevel.cpp": "558745a8a75e924b950dd34224a101029fd4b19853ee77231f1a4bc087afcfa3",
+        "source/game_sa/Audio/AudioZones.cpp": "2cd42a31aa4a2fa352caf25e30c7749912af6e1cb10cd243f6fa5a0822564613",
+        "source/game_sa/RenderWare/D3D9RasterFormat.cpp": "e8b0856795cc7c47a81ccb4ea3a68455730e13657fb4929702ede740bdd6284d",
+        "source/game_sa/RenderWare/D3D9RasterFormat.h": "0e82f85965a4676f6ab3480a44efd9b67eccfc16d0abafcd09c72cb310227845",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FnF1A/LiveComparison.hpp": "aa6259784a2101447c853c1c1223b0fc4ca9034b88307284bd15a2d878c8d831",
+        "reversing/FnF1A/Core.hpp": "364d550fe89868df932250b58a73ac4c1184a8ad4917e00db9ae72c7b634d63c",
+        "reversing/FnF1A/Fixtures.hpp": "d7222b82f5c563c0575425161d8335bc9bc1bdbae56d7db4de8f85d2c466874b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre a94366deac (HEAD de integracion) con la correccion del lote (ver artifacts/build-manifest.json): IKChainManager_c y WaterCreatureManager_c (constructor y destructor), CWaterLevel::IsPointInCameraDepthRange, CAudioZones::BugstarWriteScreenShotEntry y las cuatro descompresoras DXT de D3D9RasterFormat. Los colaboradores con hook corren reales con el hook apagado (elementos y listas de los vectores, CMatrix, TextBufferAppend, DecodeDxt5AlphaBlock); 0x508B80, 0x508D30 y 0x509190 son falsos solo en la direccion del EXE y anotan el texto acumulado. BugstarWriteScreenShotEntry usa ahora el sprintf del CRT del EXE (0x821BB5) por direccion fija: con el de la DLL el banco encontro textos distintos. Fuera de los fixtures: this nulo o crudo, camaras reales de RenderWare, imagenes de mas de 200 bytes, dimensiones DXT mayores de 36 o con desbordamiento, y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/FnF1A/README.md"
     }
   ]
 }

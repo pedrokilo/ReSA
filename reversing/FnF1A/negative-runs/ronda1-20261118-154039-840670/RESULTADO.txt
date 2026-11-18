@@ -1,0 +1,3 @@
+FALLO: FnF1A
+Funciones con diferencias: IKChainManager_c::Constructor: 884/2048; IKChainManager_c::Destructor: 884/2048; WaterCreatureManager_c::Constructor: 892/2048; WaterCreatureManager_c::Destructor: 909/2048; CWaterLevel::IsPointInCameraDepthRange: 80/2048; CAudioZones::BugstarWriteScreenShotEntry: 2048/2048; D3D9RasterFormat::DecompressDxt1: 818/2048; D3D9RasterFormat::DecompressDxt3: 802/2048; D3D9RasterFormat::DecompressDxt5: 144/2048; D3D9RasterFormat::DecodeDxt5AlphaBlock: 750/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fnf1a\20261118-154039-840670

@@ -75,7 +75,7 @@ __declspec(noinline) void __fastcall AudioZonesTextBufferClear(TextBufferRaw* se
 //  4. 0x508D30("ScreenShot", "image"); entrada {imageSize} con los `imageSize` bytes de `image` (sin strlen); cuatro bytes a cero.
 //  5. 0x509190(self, 0, datos, longitud) y, si hay datos, operator delete de la cadena.
 // Cada entrada se arma en un bloque temporal (operator new, 0x82119A; copia con rep movsd/movsb) que se agrega y se libera (0x8214BD) antes de seguir; los bytes a cero se agregan desde una variable local (4 bytes).
-// sprintf del EXE (0x821BB5) se sustituye por el de la biblioteca de C del DLL (mismo formato "%f" con un double).
+// sprintf del EXE (0x821BB5): se llama por su direccion (el de la biblioteca de C de la DLL daba textos distintos para NaN, infinitos, cero negativo y valores de mas de 17 digitos: lo encontro el banco FnF1A).
 __declspec(noinline) void __fastcall BugstarWriteScreenShotEntry(void* self, void* /*edx*/, float x, float y, float z, const char* grid, const char* title, const void* image, uint32 imageSize) {
     TextBufferRaw text{ nullptr, 0 };
 
@@ -108,7 +108,8 @@ __declspec(noinline) void __fastcall BugstarWriteScreenShotEntry(void* self, voi
     };
     const auto appendCoordinate = [&](float value, const char* key) {
         char formatted[0x44];
-        sprintf(formatted, "%f", (double)value);
+        // sprintf del CRT del EXE (0x821BB5), por direccion fija: el de la biblioteca de C de la DLL (UCRT) formatea distinto (NaN como "nan" y no "1.#QNAN0", cero negativo con signo, todos los digitos exactos en vez de 17 significativos y ceros)
+        reinterpret_cast<int(__cdecl*)(char*, const char*, ...)>(0x821BB5)(formatted, "%f", (double)value);
         addTyped(key, "text");
         appendSized(formatted, (uint32)strlen(formatted));
         appendZero();

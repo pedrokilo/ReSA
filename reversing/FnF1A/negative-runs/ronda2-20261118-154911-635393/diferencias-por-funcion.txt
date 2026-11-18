@@ -1,0 +1,3 @@
+{"IKChainManager_c::Constructor": 884, "IKChainManager_c::Destructor": 884, "WaterCreatureManager_c::Constructor": 892, "WaterCreatureManager_c::Destructor": 909, "CWaterLevel::IsPointInCameraDepthRange": 99, "CAudioZones::BugstarWriteScreenShotEntry": 2048, "D3D9RasterFormat::DecompressDxt1": 566, "D3D9RasterFormat::DecompressDxt3": 802, "D3D9RasterFormat::DecompressDxt5": 203, "D3D9RasterFormat::DecodeDxt5AlphaBlock": 49}
+pares 20480 con diferencias 7336 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []
