@@ -72,7 +72,18 @@ Con unas 25 entradas por lote salen unos 25 lotes más el de infraestructura. Co
 - Si una función resulta inviable en C++ puro, se documenta con evidencia y se excluye sin hook.
 - Defectos que el banco encuentre en la fuente: se corrigen en esa misma validación, como en el resto del proyecto.
 
-## 6. Pendiente antes de empezar
+## 6. Repetir bancos viejos del juego después de RenderWare
+
+Corregir una fuente de RenderWare puede dejar desactualizado un banco viejo del juego que la use como colaborador real (con el enganche encendido). Pasó con las correcciones de los lotes 211A y 212A. Por eso, al validar esta zona se hace un pase **dirigido**, no un barrido completo:
+
+1. **Durante cada lote:** el informe anota qué funciones de la fuente se corrigieron (nombre y dirección).
+2. **Al cerrar cada oleada** (puras, flujos y memoria, dispositivo D3D): se cruzan esas funciones con los bancos viejos que citan su dirección. Se usa el método del pase final del juego (lista de ejemplo: `D:\Original\pase_final_lista.md`, generada el 18/11/2026), y para las funciones virtuales la tabla de direcciones resueltas (`docs/direcciones.csv`, cuando esté publicada).
+3. **Se repiten solo** los bancos que usan la función cambiada como colaborador real con el enganche encendido; los que la falsean en los dos lados se descartan con la razón anotada. Se relanzan con `bash reversing/_handoff/bench_here.sh <Banco>`, de uno en uno y con una sola sesión de juego.
+4. **Si una oleada no corrige ninguna fuente,** el cruce sale vacío y no hay nada que repetir.
+
+Si se hace la prueba de juego completa con RenderWare enganchado, sirve de red de seguridad (una regresión grave se vería ahí), pero no sustituye a repetir los bancos de riesgo alto.
+
+## 7. Pendiente antes de empezar
 
 - Cerrar V5 y V6 (código del juego: 232A–239A).
 - Diseñar y probar la cabecera común (memoria, flujos y dispositivo falsos).
