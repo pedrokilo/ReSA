@@ -1,0 +1,3 @@
+{"LibJpegDecompressApi::jpeg_CreateDecompress": 638, "LibJpegDecompressApi::jpeg_consume_input": 343, "LibJpegDecompressApi::jpeg_finish_decompress": 140, "LibJpegDecompressApi::jpeg_read_header": 8}
+pares 8192 con diferencias 1129 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

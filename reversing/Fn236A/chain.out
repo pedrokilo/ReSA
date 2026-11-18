@@ -1,0 +1,13 @@
+09:58:43 FASE inicio: compilar la sonda buena
+09:58:51 FASE candado del juego obtenido
+09:58:51 FASE corrida principal
+10:04:22 FASE corrida principal terminada rc=0 (APROBADO: Fn236A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn236a\20261118-095853-765988 )
+10:04:22 FASE ronda negativa 1: aplicar mutaciones
+ronda 1 aplicada: 4 mutaciones
+10:05:23 FASE ronda negativa 1 terminada rc=1 (FALLO: Fn236A Diferencia en el par 1 (LibJpegDecompressApi::jpeg_CreateDecompress 1) Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn236a\20261118-100432-237579 )
+restauradas 1 fuentes (SHA256 igual a las copias buenas)
+10:05:23 FASE ronda negativa 2: aplicar mutaciones
+ronda 2 aplicada: 4 mutaciones
+10:06:24 FASE ronda negativa 2 terminada rc=1 (FALLO: Fn236A Diferencia en el par 1 (LibJpegDecompressApi::jpeg_CreateDecompress 1) Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn236a\20261118-100534-110422 )
+restauradas 1 fuentes (SHA256 igual a las copias buenas)
+10:06:24 FASE fin

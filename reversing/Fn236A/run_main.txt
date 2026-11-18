@@ -1,0 +1,3 @@
+APROBADO: Fn236A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn236a\20261118-095853-765988
