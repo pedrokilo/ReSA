@@ -111,9 +111,10 @@ void ExeJinitCoefController(void* cinfo, int32 needFullBuffer) {
         uint8* compptr = At<uint8*>(cinfo, 0x44);
         for (int32 ci = 0; ci < At<int32>(cinfo, 0x3C); ++ci, compptr += 0x54) {
             const uint32 vSamp = *reinterpret_cast<uint32*>(compptr + 0x0C);
-            const uint32 hSamp = *reinterpret_cast<uint32*>(compptr + 0x08);
             void* const mem = At<void*>(cinfo, 0x04);
             const long heightRounded = JRoundUp(*reinterpret_cast<long*>(compptr + 0x20), static_cast<long>(vSamp));
+            // El EXE lee h_samp_factor (+0x08) DESPUES de la primera llamada a jround_up (hallazgo del banco Fn230A: un efecto lateral de esa llamada que cambia el campo daba otro argumento).
+            const uint32 hSamp = *reinterpret_cast<uint32*>(compptr + 0x08);
             const long widthRounded = JRoundUp(*reinterpret_cast<long*>(compptr + 0x1C), static_cast<long>(hSamp));
             At<void*>(coef, 0x40 + 4 * ci) = At<void*(__cdecl*)(void*, int32, int32, long, long, uint32)>(mem, 0x14)(cinfo, 1, 0, widthRounded, heightRounded, vSamp);
         }
@@ -360,8 +361,10 @@ void ExeJpegMakeCDerivedTbl(void* cinfo, int32 isDC, int32 tblno, void** pdtbl) 
     }
     uint8* const dtbl = static_cast<uint8*>(*pdtbl);
 
-    uint8 huffsize[257];
-    uint32 huffcode[257];
+    // Como el marco del EXE: huffsize ocupa 260 bytes (hasta huffcode) y huffcode 261 palabras. Con recuentos que suman mas de 256 (el EXE solo avisa con ERREXIT y sigue) se escribe mas alla
+    // del simbolo 256 de huffsize; con 257 bytes el control de pila del compilador (/RTC1) abortaba el juego (hallazgo del banco Fn230A: suma 257).
+    uint8 huffsize[260];
+    uint32 huffcode[261];
     int32 p = 0;
     for (int32 l = 1; l <= 16; ++l) {
         int32 i = htbl[l];

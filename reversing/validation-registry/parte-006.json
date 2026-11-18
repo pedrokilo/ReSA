@@ -72,6 +72,1084 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwTextureStreamGetSize, _rwPluginRegistryGetSize, RpMaterialDestroy, RpMaterialStreamGetSize, RpMaterialStreamRead, _rpMaterialListAppendMaterial (con hueco: guarda, refCount++ y numMaterials++), _rpMaterialListDeinitialize (solo en RpWorldDestroy y RpWorldCreate), _rpMaterialListInitialize, lectura de flujos (RwStreamFindChunk, RwStreamReadInt32), errores (_rwerror, RwErrorSet), RwFreeListCreate/Destroy, RxPipelineCreate/Lock/AddFragment/Unlock/Execute, _rxPipelineDestroy, RxNodeDefinitionGetD3D9WorldSectorAllInOne y ...AtomicAllInOne, RpWorldSetDefaultSectorPipeline, RpAtomicSetDefaultPipeline, _rwD3D9LightsOpen/Close, D3D9LightPluginAttach, D3D9GeometryPluginAttach, _rwD3D9DeviceGet/SetRestoreCallback, _rpD3D9VertexShaderCacheOpen/Purge, RwResourcesFreeResEntry, _rpTieDestroy, _rpLightTieDestroy, _rwPluginRegistryInitObject/DeInitObject, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpWorldUnlock, _rpWorldSectorDeinstanceAll y _rpWorldSectorDestroyRecurse; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corre real en la DLL _rpMaterialListDeinitialize dentro de _rpMaterialListStreamRead (el EXE lo lleva en linea). Fuera de los fixtures: punteros nulos o invalidos desreferenciados (hijos nulos en arboles recorridos por RpWorldUnlock, RpWorldForAllWorldSectors y RpWorldSectorGetWorld), contadores de 16 bits que dan la vuelta (mas de 65535 materiales unicos en RpWorldUnlock), numTriangles de 0x8000 o mas solo con RpBuildMeshCreate nulo o con la malla ya construida, listas de enlaces no circulares, arboles de mas de 64 niveles, el fallo de reserva del vector de indices de _rpMaterialListStreamRead (el EXE no lo comprueba) y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn229A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpWorldPluginAttach",
+        "address": "0x0074FDA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpWorldPluginAttach"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "_rpLightTieDestroy",
+        "address": "0x0074FFA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::_rpLightTieDestroy"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "_rpTieDestroy",
+        "address": "0x0074FFF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::_rpTieDestroy"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxEmitterBP_c",
+        "fn_name": "DestructorBody",
+        "address": "0x004A18F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "FxEmitterBP_c::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxEmitterBP_c",
+        "fn_name": "OperatorNew",
+        "address": "0x004A1900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "FxEmitterBP_c::OperatorNew"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxEmitter_c",
+        "fn_name": "ConstructorBody",
+        "address": "0x004A1920",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "FxEmitter_c::ConstructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxEmitterBP_c",
+        "fn_name": "IsFxInfoPresent",
+        "address": "0x004A24D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "FxEmitterBP_c::IsFxInfoPresent"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxEmitter_c",
+        "fn_name": "Init",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "FxEmitter_c::Init"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004A2550"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxEmitter_c",
+        "fn_name": "Reset",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "FxEmitter_c::Reset"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004A2570"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxEmitter_c",
+        "fn_name": "Update",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "FxEmitter_c::Update"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004A4460"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxEmitterBP_c",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x004A2B20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "FxEmitterBP_c::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxEmitter_c",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x004A2B90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "FxEmitter_c::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxInfo_c",
+        "fn_name": "DestructorBody",
+        "address": "0x004A4940",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "FxInfo_c::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxInfoManager_c",
+        "fn_name": "DestructorBody",
+        "address": "0x004A4950",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "FxInfoManager_c::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompressEncode",
+        "fn_name": "jpeg_start_compress",
+        "address": "0x005C26B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompressEncode::jpeg_start_compress"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompressEncode",
+        "fn_name": "jpeg_write_scanlines",
+        "address": "0x005C2730",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompressEncode::jpeg_write_scanlines"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompressEncode",
+        "fn_name": "jinit_c_coef_controller",
+        "address": "0x005C30D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompressEncode::jinit_c_coef_controller"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompressEncode",
+        "fn_name": "grayscale_convert",
+        "address": "0x005C35F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompressEncode::grayscale_convert"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompressEncode",
+        "fn_name": "jinit_color_converter",
+        "address": "0x005C3700",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompressEncode::jinit_color_converter"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompressEncode",
+        "fn_name": "jinit_forward_dct",
+        "address": "0x005C4380",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompressEncode::jinit_forward_dct"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompressEncode",
+        "fn_name": "jpeg_make_c_derived_tbl",
+        "address": "0x005C43F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompressEncode::jpeg_make_c_derived_tbl"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompressEncode",
+        "fn_name": "jpeg_gen_optimal_table",
+        "address": "0x005C4D50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompressEncode::jpeg_gen_optimal_table"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompressEncode",
+        "fn_name": "jinit_huff_encoder",
+        "address": "0x005C5210",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompressEncode::jinit_huff_encoder"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompressEncode",
+        "fn_name": "jinit_compress_master",
+        "address": "0x005C5260",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompressEncode::jinit_compress_master"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompressEncode",
+        "fn_name": "jinit_c_main_controller",
+        "address": "0x005C5420",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn230A/validation-summary.json",
+        "sha256": "843d428f67244aee82aea6f89827912fd13a721000fae087fd71e5cceab0b310",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompressEncode::jinit_c_main_controller"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
+        "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
+        "source/game_sa/Fx/Blueprints/FxInfo.cpp": "5a75f3454a762cbc8fe68259b30a82af15b1abf3dae2148b8fb6f4ea926e8e59",
+        "source/game_sa/Fx/FxInfoManager.cpp": "d627e5352fef60dbeed36c1a75001123d15fb665b9e325d1d85c4da878026fa3",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn230A/LiveComparison.hpp": "ab7afe72413fe4331f2a23a6756a3a95fb9805d528ac0abf9f27c06f33a41048",
+        "reversing/Fn230A/Core.hpp": "fce5faba8a5f89ceff7906a169392d28f3789ff9ad642721b6c26fc391f11c7f",
+        "reversing/Fn230A/Fixtures.hpp": "e7c63cfb44061d43ccae8a95404ddfb058491609b62c72cd2df4b8157978456e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn230A/README.md"
     }
   ]
 }

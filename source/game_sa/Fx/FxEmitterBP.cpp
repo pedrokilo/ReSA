@@ -388,11 +388,15 @@ bool FxEmitterBP_c::FreePrtFromPrim(FxSystem_c* system) {
 // todo: eFxInfo
 // 0x4A24D0
 bool FxEmitterBP_c::IsFxInfoPresent(eFxInfoType type) const {
-    if (m_FxInfoManager.m_nNumInfos <= 0)
+    // Como el EXE: recorre por indice con el recuento con signo y el puntero al array leido una vez. No se construye un std::span: su iterador comprobado
+    // aborta con un recuento enorme (0x7FFFFFFF) aunque el EXE se detenga en la primera coincidencia (hallazgo del banco Fn230A).
+    const int32 count = m_FxInfoManager.m_nNumInfos;
+    if (count <= 0)
         return false;
 
-    for (auto& info : m_FxInfoManager.GetInfos()) {
-        if (info->m_nType == type) {
+    FxInfo_c* const* const infos = m_FxInfoManager.m_pInfos;
+    for (int32 i = 0; i < count; ++i) {
+        if (infos[i]->m_nType == type) {
             return true;
         }
     }

@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "28d40de687a0cd5dbdbad0fc09100003776c5c00cad901abfc02e458e48542da",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: RpWorld::RpWorldPluginAttach: 983/2048; RpWorld::_rpLightTieDestroy: 889/2048; RpWorld::_rpTieDestroy: 448/2048; FxEmitterBP_c::DestructorBody: 694/2048; FxEmitterBP_c::OperatorNew: 215/2048; FxEmitter_c::ConstructorBody: 898/2048; FxEmitterBP_c::IsFxInfoPresent: 384/2048; FxEmitter_c::Init: 660/2048; FxEmitter_c::Reset: 884/2048; FxEmitter_c::Update: 390/2048; FxEmitterBP_c::ScalarDeletingDestructor: 493/2048; FxEmitter_c::ScalarDeletingDestructor: 376/2048; FxInfo_c::DestructorBody: 889/2048; FxInfoManager_c::DestructorBody: 911/2048; LibJpegCompressEncode::jpeg_start_compress: 885/2048; LibJpegCompressEncode::jpeg_write_scanlines: 906/2048; LibJpegCompressEncode::jinit_c_coef_controller: 903/2048; LibJpegCompressEncode::grayscale_convert: 331/2048; LibJpegCompressEncode::jinit_color_converter: 860/2048; LibJpegCompressEncode::jinit_forward_dct: 875/2048; LibJpegCompressEncode::jpeg_make_c_derived_tbl: 894/2048; LibJpegCompressEncode::jpeg_gen_optimal_table: 883/2048; LibJpegCompressEncode::jinit_huff_encoder: 904/2048; LibJpegCompressEncode::jinit_compress_master: 910/2048; LibJpegCompressEncode::jinit_c_main_controller: 900/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
