@@ -1,10 +1,6 @@
 clase,reconstruidas,validadas,sin_validar
-LibJpegMemory,21,0,21
 CRunningScript,43,39,4
 D3D9RasterFormat,10,6,4
-LibJpegCompressApi,3,0,3
-LibJpegDecompressUpsample,3,0,3
-LibJpegError,3,0,3
 IKChainManager_c,19,17,2
 WaterCreatureManager_c,9,7,2
 CAudioZones,9,8,1

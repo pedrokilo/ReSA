@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11736 con evidencia histórica y 705 pendientes de validación en 29 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11766 con evidencia histórica y 675 pendientes de validación en 25 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Inventario de validación de funciones reconstruidas
@@ -10,10 +10,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11736 |
+| `validated=1` · evidencia aprobada vinculada | 11766 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11736 |
-| Sin evidencia aprobada vinculada en este registro | 705 |
+| Evidencia histórica vinculada; revisión pendiente | 11766 |
+| Sin evidencia aprobada vinculada en este registro | 675 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -11198,6 +11198,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | LibJpegCompress | `WriteFileHeader` | [Resumen](../reversing/Fn231A/validation-summary.json) |
 | LibJpegCompress | `WriteFileTrailer` | [Resumen](../reversing/Fn231A/validation-summary.json) |
 | LibJpegCompress | `WriteFrameHeader` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompressApi | `jpeg_CreateCompress` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegCompressApi | `jpeg_finish_compress` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegCompressApi | `jpeg_suppress_tables` | [Resumen](../reversing/Fn235A/validation-summary.json) |
 | LibJpegCompressEncode | `grayscale_convert` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | LibJpegCompressEncode | `jinit_c_coef_controller` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | LibJpegCompressEncode | `jinit_c_main_controller` | [Resumen](../reversing/Fn230A/validation-summary.json) |
@@ -11235,6 +11238,33 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | LibJpegDecompressApi | `jpeg_consume_input` | [Resumen](../reversing/Fn236A/validation-summary.json) |
 | LibJpegDecompressApi | `jpeg_finish_decompress` | [Resumen](../reversing/Fn236A/validation-summary.json) |
 | LibJpegDecompressApi | `jpeg_read_header` | [Resumen](../reversing/Fn236A/validation-summary.json) |
+| LibJpegDecompressUpsample | `jinit_post_controller` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegDecompressUpsample | `jinit_upsampler` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegDecompressUpsample | `sep_upsample` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegError | `error_exit` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegError | `jpeg_std_error` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegError | `output_message` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `alloc_barray` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `alloc_large` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `alloc_sarray` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `alloc_small` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `free_pool` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jcopy_sample_rows` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jdiv_round_up` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jinit_memory_mgr` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jpeg_free_large` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jpeg_free_small` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jpeg_get_large` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jpeg_get_small` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jpeg_mem_available` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jpeg_mem_init` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jpeg_mem_term` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jpeg_open_backing_store` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jround_up` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `jzero_far` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `realize_virt_arrays` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `request_virt_barray` | [Resumen](../reversing/Fn235A/validation-summary.json) |
+| LibJpegMemory | `request_virt_sarray` | [Resumen](../reversing/Fn235A/validation-summary.json) |
 | Light | `ActivateDirectional` | [Resumen](../reversing/Light27/validation-summary.json) |
 | Light | `AddAnExtraDirectionalLight` | [Resumen](../reversing/Light27/validation-summary.json) |
 | Light | `DeActivateDirectional` | [Resumen](../reversing/Light27/validation-summary.json) |
@@ -12710,13 +12740,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `LegacyRuntimeError` | 13 | 0 | 13 | 0 |
 | `LegacyStdString` | 6 | 0 | 6 | 0 |
 | `LibJpegCompress` | 18 | 0 | 18 | 0 |
-| `LibJpegCompressApi` | 3 | 0 | 0 | 3 |
+| `LibJpegCompressApi` | 3 | 0 | 3 | 0 |
 | `LibJpegCompressEncode` | 11 | 0 | 11 | 0 |
 | `LibJpegDecompress` | 22 | 0 | 22 | 0 |
 | `LibJpegDecompressApi` | 4 | 0 | 4 | 0 |
-| `LibJpegDecompressUpsample` | 3 | 0 | 0 | 3 |
-| `LibJpegError` | 3 | 0 | 0 | 3 |
-| `LibJpegMemory` | 21 | 0 | 0 | 21 |
+| `LibJpegDecompressUpsample` | 3 | 0 | 3 | 0 |
+| `LibJpegError` | 3 | 0 | 3 | 0 |
+| `LibJpegMemory` | 21 | 0 | 21 | 0 |
 | `Light` | 27 | 0 | 27 | 0 |
 | `ListItem_c` | 2 | 0 | 2 | 0 |
 | `ModelIndices` | 3 | 0 | 3 | 0 |

@@ -25,7 +25,7 @@
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 101,
     "catalog_rows_linked_by_hook_address": 1174,
-    "validated_reconstructed_own_cpp_definitions": 13670,
+    "validated_reconstructed_own_cpp_definitions": 13700,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 17
   },
@@ -1200,7 +1200,7 @@
     "source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.h": "b7b8c5d8798112ce188a1a5914c97ef414b29049c90c23f96d9c855fe52fdaa1",
     "source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp": "6deb0eee8c6da4399643f3baea0110c3d3237fab222875c994a300fbca728deb",
     "source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.h": "98fcf45d5d6c51eafb08f847b861daccc70ab3d9fbb4e67629cfffb1cb6a7f73",
-    "source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp": "9518e86f321d1a5721046aec18a006bcdf22c31bb588020b32c469696ac18e51",
+    "source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp": "a088945211a1c328ce5924488e22cdf3994d5bbc37679dd1d7950d2c1cebf3f5",
     "source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.h": "fb247547a2a26f4995b1d19e689ba594d1181a93f74a3a0f33b7ce823fb70a1a",
     "source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp": "24464bf24ce11222934a061d18855a1a9b6e555046e123441529a558d06b89e2",
     "source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.h": "38599a2ab4a17feb26ddb640e5322bff1b6ef66bfee85680aa01036ccc7ddf1a",
@@ -2315,10 +2315,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "62499cbd2573aa01fd5f25ff1f2cd7d18552eddece39125965f8d2f6c8fa3f69",
+    "hooks.csv": "6ce5a803b873393fcbdd124606acba30710b7e86e8cee961b5c2b347a0e321f0",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "b9c487e1fd48d72ad807ae1489237040440e5e9c402b210e2a1e749d7f134418",
+  "migration_registry_sha256": "569e1dbddbb860acaa1b913794f20562b11c6ba5a45f2900358021d4a0b301e3",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",
