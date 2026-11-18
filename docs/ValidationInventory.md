@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11707 con evidencia histórica y 734 pendientes de validación en 32 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11732 con evidencia histórica y 709 pendientes de validación en 30 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Inventario de validación de funciones reconstruidas
@@ -10,10 +10,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11707 |
+| `validated=1` · evidencia aprobada vinculada | 11732 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11707 |
-| Sin evidencia aprobada vinculada en este registro | 734 |
+| Evidencia histórica vinculada; revisión pendiente | 11732 |
+| Sin evidencia aprobada vinculada en este registro | 709 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -10666,6 +10666,21 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | D3DTextureBuffer | `PushWithoutIncreasingCounter` | [Resumen](../reversing/Fn95A/validation-summary.json) |
 | D3DTextureBuffer | `Resize` | [Resumen](../reversing/Fn95A/validation-summary.json) |
 | D3DTextureBuffer | `Setup` | [Resumen](../reversing/Fn95A/validation-summary.json) |
+| ExeLibJpeg | `build_ycc_rgb_table` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `expand_right_edge` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `jinit_c_prep_controller` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `jinit_color_deconverter` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `jinit_d_coef_controller` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `jinit_downsampler` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `jinit_inverse_dct` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `jpeg_add_quant_table` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `jpeg_default_colorspace` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `jpeg_read_scanlines` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `jpeg_set_colorspace` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `jpeg_set_defaults` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `jpeg_start_decompress` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `null_convert` | [Resumen](../reversing/Fn232A/validation-summary.json) |
+| ExeLibJpeg | `term_destination` | [Resumen](../reversing/Fn232A/validation-summary.json) |
 | ExeProtectionStub | `CheckOsVersionSuite` | [Resumen](../reversing/Fn221A/validation-summary.json) |
 | ExeProtectionStub | `InitCallbackTable` | [Resumen](../reversing/Fn221A/validation-summary.json) |
 | ExeProtectionStub | `MD5Final` | [Resumen](../reversing/Fn221A/validation-summary.json) |
@@ -11195,16 +11210,26 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | LibJpegCompressEncode | `jpeg_start_compress` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | LibJpegCompressEncode | `jpeg_write_scanlines` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | LibJpegDecompress | `consume_markers` | [Resumen](../reversing/Fn233A/validation-summary.json) |
+| LibJpegDecompress | `first_marker` | [Resumen](../reversing/Fn234A/validation-summary.json) |
+| LibJpegDecompress | `get_dht` | [Resumen](../reversing/Fn234A/validation-summary.json) |
+| LibJpegDecompress | `get_dri` | [Resumen](../reversing/Fn234A/validation-summary.json) |
 | LibJpegDecompress | `jinit_d_main_controller` | [Resumen](../reversing/Fn233A/validation-summary.json) |
 | LibJpegDecompress | `jinit_huff_decoder` | [Resumen](../reversing/Fn233A/validation-summary.json) |
 | LibJpegDecompress | `jinit_input_controller` | [Resumen](../reversing/Fn233A/validation-summary.json) |
+| LibJpegDecompress | `jinit_marker_reader` | [Resumen](../reversing/Fn234A/validation-summary.json) |
+| LibJpegDecompress | `jinit_master_decompress` | [Resumen](../reversing/Fn234A/validation-summary.json) |
+| LibJpegDecompress | `jpeg_calc_output_dimensions` | [Resumen](../reversing/Fn234A/validation-summary.json) |
 | LibJpegDecompress | `jpeg_fill_bit_buffer` | [Resumen](../reversing/Fn233A/validation-summary.json) |
 | LibJpegDecompress | `jpeg_huff_decode` | [Resumen](../reversing/Fn233A/validation-summary.json) |
 | LibJpegDecompress | `jpeg_make_d_derived_tbl` | [Resumen](../reversing/Fn233A/validation-summary.json) |
 | LibJpegDecompress | `make_funny_pointers` | [Resumen](../reversing/Fn233A/validation-summary.json) |
+| LibJpegDecompress | `next_marker` | [Resumen](../reversing/Fn234A/validation-summary.json) |
+| LibJpegDecompress | `prepare_for_output_pass` | [Resumen](../reversing/Fn234A/validation-summary.json) |
+| LibJpegDecompress | `read_restart_marker` | [Resumen](../reversing/Fn234A/validation-summary.json) |
 | LibJpegDecompress | `reset_input_controller` | [Resumen](../reversing/Fn233A/validation-summary.json) |
 | LibJpegDecompress | `set_bottom_pointers` | [Resumen](../reversing/Fn233A/validation-summary.json) |
 | LibJpegDecompress | `set_wraparound_pointers` | [Resumen](../reversing/Fn233A/validation-summary.json) |
+| LibJpegDecompress | `skip_variable` | [Resumen](../reversing/Fn234A/validation-summary.json) |
 | LibJpegDecompress | `start_input_pass` | [Resumen](../reversing/Fn233A/validation-summary.json) |
 | Light | `ActivateDirectional` | [Resumen](../reversing/Light27/validation-summary.json) |
 | Light | `AddAnExtraDirectionalLight` | [Resumen](../reversing/Light27/validation-summary.json) |
@@ -12612,7 +12637,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `D3DTextureBuffer` | 8 | 0 | 8 | 0 |
 | `D3DX9` | 11 | 0 | 0 | 11 |
 | `DelayLoadThunks` | 3 | 0 | 0 | 3 |
-| `ExeLibJpeg` | 15 | 0 | 0 | 15 |
+| `ExeLibJpeg` | 15 | 0 | 15 | 0 |
 | `ExeProtectionStub` | 8 | 0 | 7 | 1 |
 | `FurnitureGroup_c` | 7 | 0 | 7 | 0 |
 | `FurnitureManager_c` | 9 | 0 | 9 | 0 |
@@ -12683,7 +12708,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `LibJpegCompress` | 18 | 0 | 18 | 0 |
 | `LibJpegCompressApi` | 3 | 0 | 0 | 3 |
 | `LibJpegCompressEncode` | 11 | 0 | 11 | 0 |
-| `LibJpegDecompress` | 22 | 0 | 12 | 10 |
+| `LibJpegDecompress` | 22 | 0 | 22 | 0 |
 | `LibJpegDecompressApi` | 4 | 0 | 0 | 4 |
 | `LibJpegDecompressUpsample` | 3 | 0 | 0 | 3 |
 | `LibJpegError` | 3 | 0 | 0 | 3 |
