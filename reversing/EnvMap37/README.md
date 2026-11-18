@@ -52,3 +52,12 @@ Revisado el 04/10/2026 contra `gta-sa.exe` 1.0 US: **37 funciones**, banco de **
   - pools de tamaño 0 o con último libre fuera de rango en `New`.
 
 Repetir: `python reversing/EnvMap37/build_probe.py` y `python reversing/run.py --case envmap37`.
+
+## Repeticiones
+
+### 2026-11-18 (pase final A, commit base 23c47ba081): APROBADO, 10880 pares, 0 diferencias (37 funciones)
+
+- Motivo: tras los lotes 211A/212A y R27A-R32A los colaboradores de RenderWare que el banco falseaba por la direccion del EXE son C++ con hook y la DLL los llama directamente (no pasa por el EXE). Primer intento: fallaban `CreateCustomObjPipe` (256/256), `CreatePipe` (128/128) y `CustomPipeMaterialSetup` (512/512) con la traza del candidato vacia (ejecutaba el cuerpo real de `RxPipeline*` y `RpMatFXMaterialGetEffects`), despues un fallo RTC al dibujar (`RwD3D9SetSurfaceProperties` real contra el dispositivo falso, via 0x5DAAC0) y por ultimo `RegisterPlugin`, `pluginEnvMatStreamReadCB/WriteCB` y `pluginSpecMatDestructorCB`. Todos eran fallos del banco (falsos incompletos), no de la fuente de produccion.
+- Cambio en el banco (comparacion intacta: mismos falsos, misma traza, mismos estados comparados): `LiveComparison.hpp` instala el MISMO falso tambien en el cuerpo de la DLL de `RxPipelineCreate`, `RxNodeDefinitionGetD3D9AtomicAllInOne`, `RxPipelineLock`, `RxLockedPipeAddFragment`, `RxLockedPipeUnlock`, `RxPipelineFindNodeByName`, `RxD3D9AllInOne{Get,Set}InstanceCallBack/SetReinstanceCallBack/SetRenderCallBack`, `_rxPipelineDestroy`, `RpMatFXMaterialGetEffects`, `RwD3D9GetRenderState/SetRenderState/SetTextureStageState/SetTexture/SetLight/EnableLight/SetTransform/SetMaterial/SetSurfaceProperties`, `_rwD3D9SetStreams`, `_rwD3D9RenderStateVertexAlphaEnable`, `_rwD3D9RenderStateFlushCache`, `RwFrameGetLTM`, `RpMaterialRegisterPlugin(Stream)`, `RpAtomicRegisterPlugin`, `RwStreamRead/Write` y `RwTextureRead/Destroy` (resueltos con `Final()` al construir los parches).
+- SHA256 de la sonda ejecutada: `29eddfa83fa6bb9c586f325a7b84339c9eb3a765f32b688732d2109dee5e5361`.
+- Evidencia: `reversing/CppTwelveLevel6Final/runs/EnvMap37-20261118-171343-471630`.

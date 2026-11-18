@@ -18,6 +18,7 @@
 #include "Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h"
 #include "../ProbeRuntime.hpp"
 
+RwBool _rwD3D9RenderStateVertexAlphaEnable(RwBool enable); // definida en rwcore.cpp (sin declaracion en las cabeceras)
 namespace EnvMap37Live {
 inline bool done{}; inline std::ofstream log;
 inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
@@ -235,6 +236,16 @@ inline void Update() {
         EntryPatch p7(0x757390,FakeGetInstanceCB), p8(0x757380,FakeSetInstanceCB), p9(0x7573A0,FakeSetReinstanceCB), p10(0x7573E0,FakeSetRenderCB), p11(0x805820,FakePipeDestroy);
         EntryPatch p12(0x7FAD20,FakeGetCaps), p13(0x812140,FakeGetEffects), p14(0x74C790,FakeForAllMaterials), p14d(reinterpret_cast<uintptr_t>(&RpGeometryForAllMaterials),FakeForAllMaterials);
         EntryPatch p15(0x72FC50,FakeSetPipelineID), p15d(bit_cast<uintptr_t>(static_cast<void(*)(RpAtomic*,RwUInt32)>(&SetPipelineID)),FakeSetPipelineID);
+        // Pase final A (18/11/2026): desde los lotes R27A-R32A estos colaboradores son C++ con hook y la DLL los llama directamente (ya no por la direccion del EXE): el MISMO falso tambien en su cuerpo de la DLL.
+        EntryPatch q1(Final(bit_cast<uintptr_t>(&RxPipelineCreate)),FakePipelineCreate), q2(Final(bit_cast<uintptr_t>(&RxNodeDefinitionGetD3D9AtomicAllInOne)),FakeNodeDef), q3(Final(bit_cast<uintptr_t>(&RxPipelineLock)),FakePipeLock);
+        EntryPatch q4(Final(bit_cast<uintptr_t>(&RxLockedPipeAddFragment)),FakeAddFragment), q5(Final(bit_cast<uintptr_t>(&RxLockedPipeUnlock)),FakeUnlock), q6(Final(bit_cast<uintptr_t>(&RxPipelineFindNodeByName)),FakeFindNode);
+        EntryPatch q7(Final(bit_cast<uintptr_t>(&RxD3D9AllInOneGetInstanceCallBack)),FakeGetInstanceCB), q8(Final(bit_cast<uintptr_t>(&RxD3D9AllInOneSetInstanceCallBack)),FakeSetInstanceCB), q9(Final(bit_cast<uintptr_t>(&RxD3D9AllInOneSetReinstanceCallBack)),FakeSetReinstanceCB);
+        EntryPatch q10(Final(bit_cast<uintptr_t>(&RxD3D9AllInOneSetRenderCallBack)),FakeSetRenderCB), q11(Final(bit_cast<uintptr_t>(&RpMatFXMaterialGetEffects)),FakeGetEffects), q12(Final(bit_cast<uintptr_t>(&_rxPipelineDestroy)),FakePipeDestroy);
+        EntryPatch r1(Final(bit_cast<uintptr_t>(&RwD3D9GetRenderState)),FakeGetRenderState), r2(Final(bit_cast<uintptr_t>(&RwD3D9SetRenderState)),FakeSetRenderState), r3(Final(bit_cast<uintptr_t>(&RwD3D9SetTextureStageState)),FakeSetTSS), r4(Final(bit_cast<uintptr_t>(&RwD3D9SetTexture)),FakeSetTexture);
+        EntryPatch r5(Final(bit_cast<uintptr_t>(&_rwD3D9SetStreams)),FakeSetStreams), r6(Final(bit_cast<uintptr_t>(&RwD3D9SetLight)),FakeSetLight), r7(Final(bit_cast<uintptr_t>(&RwD3D9EnableLight)),FakeEnableLight), r8(Final(bit_cast<uintptr_t>(&RwD3D9SetTransform)),FakeSetTransform);
+        EntryPatch r9(Final(bit_cast<uintptr_t>(&RwD3D9SetMaterial)),FakeSetMaterial), r10(Final(bit_cast<uintptr_t>(&RwD3D9SetSurfaceProperties)),FakeSurface), r11(Final(bit_cast<uintptr_t>(&_rwD3D9RenderStateVertexAlphaEnable)),FakeVertexAlpha), r12(Final(bit_cast<uintptr_t>(&_rwD3D9RenderStateFlushCache)),FakeFlush), r13(Final(bit_cast<uintptr_t>(&RwFrameGetLTM)),FakeLTM);
+        EntryPatch t1(Final(bit_cast<uintptr_t>(&RpMaterialRegisterPlugin)),FakeMatReg), t2(Final(bit_cast<uintptr_t>(&RpMaterialRegisterPluginStream)),FakeMatStream), t3(Final(bit_cast<uintptr_t>(&RpAtomicRegisterPlugin)),FakeAtmReg);
+        EntryPatch t4(Final(bit_cast<uintptr_t>(static_cast<RwUInt32(*)(RwStream*,void*,RwUInt32)>(&RwStreamRead))),FakeStreamRead), t5(Final(bit_cast<uintptr_t>(&RwStreamWrite)),FakeStreamWrite), t6(Final(bit_cast<uintptr_t>(&RwTextureRead)),FakeTexRead), t7(Final(bit_cast<uintptr_t>(&RwTextureDestroy)),FakeTexDestroy);
         EntryPatch d1(0x756D90,FakeClipping), d1d(bit_cast<uintptr_t>(&_rwD3D9EnableClippingIfNeeded),FakeClipping), d2(0x7FC320,FakeGetRenderState), d3(0x7FC2D0,FakeSetRenderState);
         EntryPatch d4(0x7FC340,FakeSetTSS), d5(0x7FDE70,FakeSetTexture), d6(0x7FA090,FakeSetStreams), d7(0x7FA660,FakeSetLight), d8(0x7FA860,FakeEnableLight);
         EntryPatch d9(0x7FA390,FakeSetTransform), d10(0x7FC430,FakeSetMaterial), d11(0x7FC4D0,FakeSurface), d12(0x7FE0A0,FakeVertexAlpha), d13(0x7FC200,FakeFlush), d14(0x7F0990,FakeLTM);
