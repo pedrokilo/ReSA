@@ -216,7 +216,7 @@ def build(root, input_path, coverage, validation, notsa_count=0):
     L += ['', '**Por módulo** (clase de hook; lo reconstruido y lo validado):', '']
     rw_rows = sorted(((c, v[1], v[2]) for c, v in per.items() if v[0] == 'renderware'), key=lambda x: (-(x[1] - x[2]), x[0]))
     L += _table(['Módulo', 'Reconstruidas', 'Validadas', 'Sin validar'], [[c, n, v, n - v] for c, n, v in rw_rows], right=(1, 2, 3))
-    L += ['', 'Nada de RenderWare se ha ejecutado todavía contra el original: el [plan de bancos](../reversing/PendienteValidar/PLAN_VALIDACION.md) de esta zona es la siguiente gran tarea de validación. Funciones por módulo y su estado: [RenderWareExe/pendientes-por-clase.md](RenderWareExe/pendientes-por-clase.md).', '']
+    L += ['', 'La validación de esta zona va después de la del código del juego: el [plan de validación de RenderWare](RenderWareExe/plan-validacion.md) fija el orden (funciones puras, flujos y memoria, dispositivo D3D falso) y las decisiones sobre thunks, 3DNow! y D3DX9. Funciones por módulo y su estado: [RenderWareExe/pendientes-por-clase.md](RenderWareExe/pendientes-por-clase.md).', '']
 
     L += ['<a id="por-validar"></a>', '', '## 4. Qué falta por validar (código del juego)', '',
           'Los lotes de validación van por oleadas y cada uno tiene su informe en [reversing/PendienteValidar](../reversing/PendienteValidar). Un lote está validado cuando su informe desaparece de esa carpeta.', '']

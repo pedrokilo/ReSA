@@ -273,7 +273,7 @@ def write(root):
     for r in rows:
         by[r['status']].append(r)
     L = [f'# RenderWare y D3D en el EXE: mapa de las {n:,} funciones', '',
-         '[Lista completa (CSV)](funciones.csv) · [Pendientes por clase](pendientes-por-clase.md) · [Mapa del código del juego](../JuegoExe/README.md)', '',
+         '[Lista completa (CSV)](funciones.csv) · [Pendientes por clase](pendientes-por-clase.md) · [Plan de validación](plan-validacion.md) · [Mapa del código del juego](../JuegoExe/README.md)', '',
          f'Región **0x750000–0x81FFFF**: {n:,} funciones, {nb:,} bytes. Es RenderWare 3.7 y los envoltorios D3D9 enlazados estáticamente. '
          'Generado por `contrib/rw_function_map.py` (mismos datos y cotas que `contrib/exe_coverage.py`).', '',
          'Estas funciones **no cuentan** en las cifras de reconstrucción del juego: para un ejecutable independiente se sustituyen enlazando una implementación '
