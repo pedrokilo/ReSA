@@ -6,10 +6,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11629 |
+| `validated=1` · evidencia aprobada vinculada | 11652 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11629 |
-| Sin evidencia aprobada vinculada en este registro | 812 |
+| Evidencia histórica vinculada; revisión pendiente | 11652 |
+| Sin evidencia aprobada vinculada en este registro | 789 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -11356,24 +11356,47 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RpWorld | `RpMaterialRegisterPlugin` | [Resumen](../reversing/Fn228A/validation-summary.json) |
 | RpWorld | `RpMaterialRegisterPluginStream` | [Resumen](../reversing/Fn228A/validation-summary.json) |
 | RpWorld | `RpMaterialSetTexture` | [Resumen](../reversing/Fn228A/validation-summary.json) |
+| RpWorld | `RpMaterialStreamGetSize` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `RpMaterialStreamRead` | [Resumen](../reversing/Fn228A/validation-summary.json) |
 | RpWorld | `RpMorphTargetCalcBoundingSphere` | [Resumen](../reversing/Fn228A/validation-summary.json) |
+| RpWorld | `RpWorldCreate` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `RpWorldDestroy` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `RpWorldForAllMaterials` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `RpWorldForAllWorldSectors` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `RpWorldRegisterPlugin` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpWorldRegisterPluginStream` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
+| RpWorld | `RpWorldSectorGetWorld` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `RpWorldSectorRegisterPlugin` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
 | RpWorld | `RpWorldSectorRegisterPluginStream` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
+| RpWorld | `RpWorldUnlock` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `RxNodeDefinitionGetD3D9WorldSectorAllInOne` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
 | RpWorld | `_rpAtomicResyncInterpolatedSphere` | [Resumen](../reversing/Fn226A/validation-summary.json) |
+| RpWorld | `_rpD3D9AddDynamicGeometry` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `_rpD3D9AtomicPipelineClose` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `_rpD3D9AtomicPipelineOpen` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `_rpD3D9MaterialPipelineClose` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `_rpD3D9MaterialPipelineOpen` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `_rpD3D9PluginAttach` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `_rpD3D9RemoveDynamicGeometry` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `_rpD3D9VertexDeclarationGetSize` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
+| RpWorld | `_rpD3D9WorldSectorPipelineClose` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `_rpD3D9WorldSectorPipelineOpen` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `_rpGeometryDestroyUnreferenced` | [Resumen](../reversing/Fn228A/validation-summary.json) |
 | RpWorld | `_rpGeometryListDeinitialize` | [Resumen](../reversing/Fn227A/validation-summary.json) |
+| RpWorld | `_rpMaterialListAppendMaterial` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `_rpMaterialListDeinitialize` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `_rpMaterialListFindMaterialIndex` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `_rpMaterialListGetMaterial` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `_rpMaterialListInitialize` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
+| RpWorld | `_rpMaterialListStreamGetSize` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `_rpMaterialListStreamRead` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `_rpMaterialRightsStreamRead` | [Resumen](../reversing/Fn228A/validation-summary.json) |
 | RpWorld | `_rpMaterialRightsStreamWrite` | [Resumen](../reversing/Fn228A/validation-summary.json) |
 | RpWorld | `_rpMaterialSetDefaultSurfaceProperties` | [Resumen](../reversing/Fn228A/validation-summary.json) |
 | RpWorld | `_rpMeshHeaderCreate` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
+| RpWorld | `_rpSectorDefaultRenderCallBack` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `_rpWorldSectorDeinstanceAll` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `_rpWorldSectorDestroyRecurse` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | Rs | `RsAlwaysOnTop` | [Resumen](../reversing/Rs27/validation-summary.json) |
 | Rs | `RsCameraBeginUpdate` | [Resumen](../reversing/Rs27/validation-summary.json) |
 | Rs | `RsCameraShowRaster` | [Resumen](../reversing/Fn191A/validation-summary.json) |
@@ -12624,7 +12647,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RpMatFX` | 28 | 0 | 0 | 28 |
 | `RpSkin` | 34 | 0 | 1 | 33 |
 | `RpUVAnim` | 16 | 0 | 2 | 14 |
-| `RpWorld` | 197 | 0 | 77 | 120 |
+| `RpWorld` | 197 | 0 | 100 | 97 |
 | `Rs` | 33 | 0 | 33 | 0 |
 | `RtAnim` | 10 | 0 | 3 | 7 |
 | `RtBMP` | 2 | 0 | 0 | 2 |

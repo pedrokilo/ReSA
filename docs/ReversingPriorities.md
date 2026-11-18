@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.629 |
-| Reconstruidas sin validar | 812 |
-| De ellas, en esta cola (validables por pares) | 812 |
+| Validadas | 11.652 |
+| Reconstruidas sin validar | 789 |
+| De ellas, en esta cola (validables por pares) | 789 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -24,9 +24,9 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 | --- | :---: | :---: | --- |
 | [🟢 Nivel 1: muy barato](#nivel-1) | 6 | 17 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 0 | 0 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 24 | 753 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 24 | 730 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 8 | 42 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **38** | **812** | |
+| **Total** | **38** | **789** | |
 
 <a id="nivel-1"></a>
 
@@ -54,7 +54,7 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (24 clases, 753 funciones)
+## 🟠 Nivel 3: moderadas (24 clases, 730 funciones)
 
 Criterio: el resto.
 
@@ -80,9 +80,9 @@ Criterio: el resto.
 | 18 | LibJpegMemory | 21 | 21 |  | 26 |
 | 19 | RpMatFX | 28 | 28 |  | ? |
 | 20 | RpSkin | 34 | 33 |  | ? |
-| 21 | RwD3D9 | 115 | 115 |  | ? |
-| 22 | RwPlCore | 132 | 118 |  | ? |
-| 23 | RpWorld | 197 | 120 |  | ? |
+| 21 | RpWorld | 197 | 97 |  | ? |
+| 22 | RwD3D9 | 115 | 115 |  | ? |
+| 23 | RwPlCore | 132 | 118 |  | ? |
 | 24 | RwCore | 211 | 175 |  | ? |
 
 <a id="nivel-4"></a>

@@ -25,7 +25,7 @@
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 101,
     "catalog_rows_linked_by_hook_address": 1174,
-    "validated_reconstructed_own_cpp_definitions": 13556,
+    "validated_reconstructed_own_cpp_definitions": 13579,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 17
   },
@@ -1334,7 +1334,7 @@
     "source/game_sa/RenderWare/rw/rpusrdat.h": "4b4f4af3cd25701e300cf8baaec2ca822385fde11a9580619f6a272fabea6366",
     "source/game_sa/RenderWare/rw/rpuvanim.cpp": "effdcf990ec91854e857229ca577851114e76f868d412c81f848ede5b8f19ec5",
     "source/game_sa/RenderWare/rw/rpuvanim.h": "cf872aab948837d83b9be0b7ab5c1dd8bee14fca6e8977c822ff3f892150d1db",
-    "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+    "source/game_sa/RenderWare/rw/rpworld.cpp": "8ac8dae7b037a3a536fa6c47b5e7d94063ccc761c4796fbe6bf6d782b59cc35f",
     "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
     "source/game_sa/RenderWare/rw/rt2d.h": "d524d7cbc015759b8d715599c79b7c73823b287a016d153fc13c6c45d2876870",
     "source/game_sa/RenderWare/rw/rt2danim.h": "03780395a3bbbc2397b3debb78dbdfb4700e736da3c49488a7a4a22ce01e477d",
@@ -2315,10 +2315,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "80fc5069f8a7666ba03cd374f222b29145a95bd2c7c205a13385c445b6e2c9ff",
+    "hooks.csv": "74c247a7d3d4a99f511eb3bbe938dbbb98cb3261a3e45faf48abdd46f51be076",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "ac717c20ce545da2aba30bbb3d5b6720ecd8ca5cf9c8b9ebb799e80fc7e7ba9d",
+  "migration_registry_sha256": "1f7e7fa6a04d2dde3bc27539fc62e3b6a8006791a47e7a426e8d227cdda1e73a",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

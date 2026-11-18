@@ -1715,7 +1715,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [RpMatFX](implementaciones/detalle-085.md#grupo-1688) · [source/game_sa/RenderWare/rw/rpmatfx.cpp](../source/game_sa/RenderWare/rw/rpmatfx.cpp) | 0 | 0 | 28 | 0 | 0 |
 | [RpSkin](implementaciones/detalle-085.md#grupo-1689) · [source/game_sa/RenderWare/rw/rpskin.cpp](../source/game_sa/RenderWare/rw/rpskin.cpp) | 1 | 0 | 32 | 0 | 0 |
 | [RpUVAnim](implementaciones/detalle-085.md#grupo-1690) · [source/game_sa/RenderWare/rw/rpuvanim.cpp](../source/game_sa/RenderWare/rw/rpuvanim.cpp) | 2 | 0 | 14 | 0 | 0 |
-| [RpWorld](implementaciones/detalle-085.md#grupo-1691) · [source/game_sa/RenderWare/rw/rpworld.cpp](../source/game_sa/RenderWare/rw/rpworld.cpp) | 77 | 0 | 117 | 0 | 0 |
+| [RpWorld](implementaciones/detalle-085.md#grupo-1691) · [source/game_sa/RenderWare/rw/rpworld.cpp](../source/game_sa/RenderWare/rw/rpworld.cpp) | 100 | 0 | 94 | 0 | 0 |
 | [Rs](implementaciones/detalle-085.md#grupo-1692) · [source/app/platform/platform.cpp](../source/app/platform/platform.cpp), [source/app/platform/preset_view.cpp](../source/app/platform/preset_view.cpp) | 33 | 0 | 0 | 0 | 0 |
 | [RtAnim](implementaciones/detalle-085.md#grupo-1693) · [source/game_sa/RenderWare/rw/rtanim.cpp](../source/game_sa/RenderWare/rw/rtanim.cpp) | 3 | 0 | 8 | 0 | 0 |
 | [RtBMP](implementaciones/detalle-085.md#grupo-1694) · [source/game_sa/RenderWare/rw/rtbmp.cpp](../source/game_sa/RenderWare/rw/rtbmp.cpp) | 0 | 0 | 2 | 0 | 0 |

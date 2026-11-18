@@ -27,11 +27,11 @@ Cifras al 18/11/2026.
 | Zona | Funciones a reconstruir | Reconstruidas | Entradas del catálogo | Validadas | Sin validar |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | **Código del juego** | 11.686 | 11.686 (100,00%) | 11.613 | 11.487 | 126 |
-| **RenderWare y D3D** | 724 | 724 (100,00%) | 822 | 136 | 686 |
+| **RenderWare y D3D** | 724 | 724 (100,00%) | 822 | 159 | 663 |
 
 **Cómo leer la tabla:** «Funciones a reconstruir» y «Reconstruidas» se cuentan en funciones del EXE; «Validadas» y «Sin validar» se cuentan en entradas del catálogo (`hooks.csv`), y suman las «Entradas del catálogo». No coinciden con las funciones porque una función puede tener varias entradas (cuerpo, destructor con borrado, ranura virtual, envoltura). En el código del juego se descartan 118 funciones excluidas (no reconstruibles en C++ puro); en RenderWare, 1.111 funciones de libpng, zlib y D3DX9 (se enlaza la original) y 54 no reconstruibles.
 
-En total hay **12.441 entradas reconstruidas, 11.629 validadas y 812 sin validar** en el catálogo (11.629 con evidencia registrada). Quedan además 6 entradas fuera de ambas zonas (CRT y utilidades).
+En total hay **12.441 entradas reconstruidas, 11.652 validadas y 789 sin validar** en el catálogo (11.652 con evidencia registrada). Quedan además 6 entradas fuera de ambas zonas (CRT y utilidades).
 
 ### Fase del proceso
 
@@ -40,7 +40,7 @@ En total hay **12.441 entradas reconstruidas, 11.629 validadas y 812 sin validar
 | Reconstruir el código del juego en C++ puro | **Hecha**: 100,00% de las funciones y 100,00% de los bytes; faltan 0 y hay 118 excluidas por no ser reconstruibles |
 | Reconstruir el SDK de RenderWare | **Hecha**: 724 de 724 funciones reconstruibles (100,00%); aparte, 1.111 son libpng, zlib y D3DX9 (se enlaza la original) y 54 no son reconstruibles |
 | **Validar el código del juego** | **En curso**: 11.487 de 11.613 reconstruidas (98,92%); el resto va por oleadas de lotes (detalle en el [informe](docs/ReversedClasses.md#por-validar)) |
-| Validar RenderWare | **Apenas empezada**: 136 de 822 (16,55%); falta el plan de bancos (dispositivo D3D falso, flujos y listas libres falsos) |
+| Validar RenderWare | **Apenas empezada**: 159 de 822 (19,34%); falta el plan de bancos (dispositivo D3D falso, flujos y listas libres falsos) |
 | Pase final de bancos viejos | Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió |
 | Ejecutable propio | Después: sustituir RenderWare, D3D y CRT por bibliotecas y quitar la dependencia del EXE ([hoja de ruta](docs/ProjectRoadmap.md)) |
 <!-- RESA-PROGRESO:END -->
