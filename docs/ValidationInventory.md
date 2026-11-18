@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11768 con evidencia histórica y 673 pendientes de validación en 25 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11770 con evidencia histórica y 671 pendientes de validación en 24 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Inventario de validación de funciones reconstruidas
@@ -10,10 +10,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11768 |
+| `validated=1` · evidencia aprobada vinculada | 11770 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11768 |
-| Sin evidencia aprobada vinculada en este registro | 673 |
+| Evidencia histórica vinculada; revisión pendiente | 11770 |
+| Sin evidencia aprobada vinculada en este registro | 671 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -6184,6 +6184,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CRunningScript | `PlayAnimScriptCommand` | [Resumen](../reversing/ScriptAnim355/validation-summary.json) |
 | CRunningScript | `Process` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
 | CRunningScript | `ProcessCommands1200To1299` | [Resumen](../reversing/Fn237A/validation-summary.json) |
+| CRunningScript | `ProcessCommands1700To1799` | [Resumen](../reversing/Fn238A/validation-summary.json) |
 | CRunningScript | `ProcessCommands1900To1999` | [Resumen](../reversing/Fn237A/validation-summary.json) |
 | CRunningScript | `ProcessOneCommand` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
 | CRunningScript | `ReadArrayInformation` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
@@ -10687,6 +10688,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | ExeProtectionStub | `InitCallbackTable` | [Resumen](../reversing/Fn221A/validation-summary.json) |
 | ExeProtectionStub | `MD5Final` | [Resumen](../reversing/Fn221A/validation-summary.json) |
 | ExeProtectionStub | `MD5Init` | [Resumen](../reversing/Fn221A/validation-summary.json) |
+| ExeProtectionStub | `MD5Transform` | [Resumen](../reversing/Fn238A/validation-summary.json) |
 | ExeProtectionStub | `MD5Update` | [Resumen](../reversing/Fn221A/validation-summary.json) |
 | ExeProtectionStub | `ResolveKernelImports` | [Resumen](../reversing/Fn221A/validation-summary.json) |
 | ExeProtectionStub | `ResolveLoaderImports` | [Resumen](../reversing/Fn221A/validation-summary.json) |
@@ -12254,7 +12256,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CRope` | 7 | 0 | 7 | 0 |
 | `CRopes` | 11 | 0 | 11 | 0 |
 | `CRubbish` | 1 | 0 | 1 | 0 |
-| `CRunningScript` | 43 | 0 | 41 | 2 |
+| `CRunningScript` | 43 | 0 | 42 | 1 |
 | `CSaveGarage` | 2 | 0 | 2 | 0 |
 | `CScriptResourceManager` | 4 | 0 | 4 | 0 |
 | `CScripted2dEffects` | 6 | 0 | 6 | 0 |
@@ -12674,7 +12676,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `D3DX9` | 11 | 0 | 0 | 11 |
 | `DelayLoadThunks` | 3 | 0 | 0 | 3 |
 | `ExeLibJpeg` | 15 | 0 | 15 | 0 |
-| `ExeProtectionStub` | 8 | 0 | 7 | 1 |
+| `ExeProtectionStub` | 8 | 0 | 8 | 0 |
 | `FurnitureGroup_c` | 7 | 0 | 7 | 0 |
 | `FurnitureManager_c` | 9 | 0 | 9 | 0 |
 | `FurnitureSubGroup_c` | 6 | 0 | 6 | 0 |
