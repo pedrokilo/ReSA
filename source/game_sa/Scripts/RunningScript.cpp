@@ -2085,7 +2085,7 @@ OpcodeResult CRunningScript::ProcessCommands1900To1999(int32 command) {
     case 1917: { // GET_CAR_PITCH: grados normalizados a [0, 360]
         CollectParameters(1);
         auto*       veh   = GetVehiclePool()->GetAtRef(sp[0].iParam);
-        float       pitch = static_cast<CAutomobile*>(veh)->GetCarPitch() * 57.29578f; // 0x859878
+        float       pitch = static_cast<CAutomobile*>(veh)->GetCarPitch() * std::bit_cast<float>(0x42652EE0u); // 0x859878 = 57.2957763671875 (el literal 57.29578f es 0x42652EE1: un ulp mas)
         constexpr float FULL_TURN = 360.0f;                                            // 0x859E2C
         if (pitch < 0.0f) {
             pitch += FULL_TURN;
@@ -2491,7 +2491,7 @@ OpcodeResult CRunningScript::ProcessCommands1900To1999(int32 command) {
     }
     case 1983: // SET_BLIP_ALWAYS_DISPLAY_ON_ZOOMED_RADAR (el segundo parametro se pasa como byte)
         CollectParameters(2);
-        CRadar::SetBlipAlwaysDisplayInZoom(sp[0].iParam, sp[1].u8Param != 0);
+        CRadar::SetBlipAlwaysDisplayInZoom(sp[0].iParam, std::bit_cast<bool>(sp[1].u8Param)); // el EXE pasa el byte tal cual y el destino solo usa su bit 0 (`shl al,4; xor/and 0x10`): con `!= 0` un valor par distinto de cero activaria el bit
         return OR_CONTINUE;
     case 1984: // REQUEST_CAR_RECORDING
         CollectParameters(1);

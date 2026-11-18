@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "pairs": 32768,
+  "differences": 0,
+  "registered_pairs": 32768,
+  "registered_functions": 2,
+  "functions": {
+    "CRunningScript::ProcessCommands1200To1299": 16384,
+    "CRunningScript::ProcessCommands1900To1999": 16384
+  },
+  "covered_functions": {
+    "CRunningScript::ProcessCommands1200To1299": true,
+    "CRunningScript::ProcessCommands1900To1999": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre b76b995d97 (HEAD de integracion del coordinador, con los lotes validados hasta el 236A) mas las correcciones de este banco (ver README.md y artifacts/build-manifest.json). 2 manejadores de comandos de script de CRunningScript (el listado los atribuia a CRunningScript y CScriptsForBrains): ProcessCommands1200To1299 (0x48B590, comandos 1200..1299) y ProcessCommands1900To1999 (0x46B460, comandos 1900..1999). El banco recorre los 100 comandos de cada banda (y 4 comandos fuera de rango que el EXE rechaza con -1) con parametros de script, escena (pools sinteticos de peds, vehiculos y objetos, jugadores, tablas de zonas y de modelos, tareas) y respuestas de los colaboradores variados por semilla. Colaboradores: los que tocan estado del juego (lectura y escritura de parametros de script, etiquetas, streaming, radar, HUD, audio, rutas, poblacion, tareas y su reserva, tienda, cuerdas, trenes, zonas, IPL, entidades, sus llamadas virtuales...) son falsos identicos en la entrada del EXE y en el cuerpo de la DLL que registran la llamada (argumentos, this) y responden de forma determinista; los puros (pools, aritmetica de vectores y cuaterniones, claves, constructores de tareas y sus bases) son reales con el gancho apagado en ambos lados. Oraculo independiente: emulacion con Unicorn del codigo original del EXE (bytes de gta-sa.exe sin parchear) sobre la misma escena y los mismos falsos; compara bytes cambiados de las arenas y de la memoria global, eventos y AL. Fuera de los fixtures: reserva nula de tarea en los comandos cuyo EXE escribe en nulo+0x10 (1935, 1952, 1997 y 1283 con secuencia nula), manejadores de pool invalidos fuera de rango o con el bit de libre, referencias de pool de otro tipo, indices de zona o de jugador distintos de los sembrados, banderas de bits que el juego no produce, valores float extremos (NaN, infinitos y denormales) en las operaciones x87 de 24 bits, vectores de estado reales de las tareas construidas, y la exactitud de los falsos.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn237A-20261118-122952-690359",
+  "summary_sha256": "a416bfafb9b61393d2a948f2fff5a684cb96214b98f4a4baebf7cfb4f8a9bc22",
+  "result_txt_sha256": "70e0fbe140cf5211f5878d6e33a550dd51b7a9cfae4dd9967b12cef694dccc10",
+  "log_sha256": "efd56bf5425e3718dfd063889e2e9bd01b7ab6dfc29a1e50ffb4e76e2dd7c3b6",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9c512d66727ab84c2b05ed92e3fea5de2834d8061f87f2aa056cc0cd4dc5e4fd",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+      "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+      "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+      "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+      "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+      "source/game_sa/Scripts/RunningScript.cpp": "ca85d9ede6745349d5970ef1a5f795d6261dbe0bfa5eb6edeef02ab7236ef917",
+      "source/game_sa/Scripts/RunningScript.h": "df41e9dcef1cbedec32a5e8b6d1077f219f0a49fee911e355873468bc63edb9d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn237A/LiveComparison.hpp": "8fabff431cd62886001a3a081f107271bf5cda66db4df5490a0e3ba640717d69",
+      "reversing/Fn237A/Core.hpp": "ea61d094dc564a04a1862eadc8bd7ca35dd4dede66886e78234d2ad6052023d4",
+      "reversing/Fn237A/Fixtures.hpp": "3ee8f17c8d436773b163e02689054aae2885d0b452cedf91275cdfba0b29ba47",
+      "reversing/Fn237A/GenTables.hpp": "9310850d3b2e51e4f227003bf6f8f77d9baf86c2ded667aabff6d77dd9fef5e1",
+      "reversing/Fn237A/GenStubs.hpp": "aa15fd359a4d9cd1a52dee652583d15c9e7a461632511fad46c86bc758ce5d62",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

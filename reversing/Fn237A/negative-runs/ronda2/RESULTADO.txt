@@ -1,0 +1,3 @@
+FALLO: Fn237A
+Diferencia en el par 38 (CRunningScript::ProcessCommands1200To1299 38)
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn237a\20261118-125329-810193

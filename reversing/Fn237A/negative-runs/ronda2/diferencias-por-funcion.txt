@@ -1,0 +1,3 @@
+{"CRunningScript::ProcessCommands1200To1299": 59, "CRunningScript::ProcessCommands1900To1999": 59}
+pares 4096 con diferencias 118 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

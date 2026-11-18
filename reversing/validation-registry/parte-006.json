@@ -4736,6 +4736,88 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 0c8b256677 (HEAD de integracion del coordinador, con los lotes validados hasta el 232A) mas la correccion de LibJpegDecompressUpsample.cpp que revel\u00f3 el banco (ver README.md). 30 funciones de la libjpeg 6b embebida en el EXE: jdpostct y jdsample (LibJpegDecompressUpsample: jinit_post_controller, sep_upsample, jinit_upsampler), jerror (LibJpegError: error_exit, output_message, jpeg_std_error), jmemmgr, jmemnobs y jutils (LibJpegMemory: alloc_small, alloc_large, alloc_sarray, alloc_barray, request_virt_sarray, request_virt_barray, realize_virt_arrays, free_pool, jinit_memory_mgr, jpeg_get_small, jpeg_free_small, jpeg_get_large, jpeg_free_large, jpeg_mem_available, jpeg_open_backing_store, jpeg_mem_init, jpeg_mem_term, jdiv_round_up, jround_up, jcopy_sample_rows, jzero_far) y jcapimin (LibJpegCompressApi: jpeg_CreateCompress, jpeg_suppress_tables, jpeg_finish_compress). Colaboradores con hook RH en la DLL (jpeg_destroy 0x5C6B90, jpeg_abort 0x5C6B50, jinit_memory_mgr 0x5CF6D0, jround_up 0x5CF8A0, jpeg_get_small 0x5CF800, jpeg_get_large 0x5CF820, jpeg_free_small 0x5CF810, jpeg_free_large 0x5CF830, jpeg_mem_available 0x5CF840, jpeg_open_backing_store 0x5CF850, jpeg_mem_init 0x5CF870, jpeg_mem_term 0x5CF880, alloc_small 0x5CEBC0, alloc_large 0x5CED10, alloc_sarray 0x5CEDD0, alloc_barray 0x5CEE80 y CMemoryMgr::Malloc 0x72F420 / Free 0x72F430): llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); exit 0x823CAE (salida no local), fprintf 0x823A30, getenv 0x8240C7 y sscanf 0x8220AD del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, output_message, format_message, alloc_small y alloc_sarray de la tabla mem, metodos de sobremuestreo, color_convert, close_backing_store, prepare_for_pass, finish_pass, progress_monitor, compress_data, write_file_trailer y term_destination) son funciones falsas del banco, identicas en el EXE y en la DLL por construccion. Cada funcion se prueba aislada: sus colaboradores del lote son falsos (se validan por separado en este mismo banco). Dos efectos laterales por caso sobre la memoria (para detectar relecturas de campos) y una salida no local programable de los falsos (para los ERREXIT que en el EXE no pueden seguir: bloque nulo de jinit_memory_mgr, jpeg_get_large nulo, ancho que desborda con filas, pool invalido de free_pool, exit). Fuera de los fixtures: divisiones por cero o idiv desbordado (jdiv_round_up y jround_up con b = 0, samplesperrow = 0, maxaccess = 0, min_DCT_scaled_size o h_in_group = 0), bucles que no terminan en el EXE tampoco (rowsperchunk <= 0 con filas sin salida no local, jpeg_finish_compress sin is_last_pass), numrows enormes o negativos en alloc_sarray/barray, pool negativo o mayor de 5 en alloc_small/large, listas de matrices o de cabeceras mal formadas, punteros crudos o a memoria que no es de las arenas, estructuras reales construidas por el EXE (jpeg_CreateDecompress y jpeg_CreateCompress de un compresor real), la ejecucion real de malloc/free, getenv/sscanf/fprintf/exit del CRT (falsos) y la exactitud de los falsos. do_sarray_io (0x5CF1B0), do_barray_io (0x5CF250) y jpeg_destroy_compress (0x5CFA30) no estan en el lote (saltadas).",
       "review_reference": "reversing/Fn235A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CRunningScript",
+        "fn_name": "ProcessCommands1200To1299",
+        "address": "0x0048B590",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn237A/validation-summary.json",
+        "sha256": "490641a56f7c695a639191fb65d685122f9a554003ed07644e1c4612d724f1b8",
+        "passed_path": [
+          "covered_functions",
+          "CRunningScript::ProcessCommands1200To1299"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Scripts/RunningScript.cpp": "ca85d9ede6745349d5970ef1a5f795d6261dbe0bfa5eb6edeef02ab7236ef917",
+        "source/game_sa/Scripts/RunningScript.h": "df41e9dcef1cbedec32a5e8b6d1077f219f0a49fee911e355873468bc63edb9d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn237A/LiveComparison.hpp": "8fabff431cd62886001a3a081f107271bf5cda66db4df5490a0e3ba640717d69",
+        "reversing/Fn237A/Core.hpp": "ea61d094dc564a04a1862eadc8bd7ca35dd4dede66886e78234d2ad6052023d4",
+        "reversing/Fn237A/Fixtures.hpp": "3ee8f17c8d436773b163e02689054aae2885d0b452cedf91275cdfba0b29ba47",
+        "reversing/Fn237A/GenTables.hpp": "9310850d3b2e51e4f227003bf6f8f77d9baf86c2ded667aabff6d77dd9fef5e1",
+        "reversing/Fn237A/GenStubs.hpp": "aa15fd359a4d9cd1a52dee652583d15c9e7a461632511fad46c86bc758ce5d62",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre b76b995d97 (HEAD de integracion del coordinador, con los lotes validados hasta el 236A) mas las correcciones de este banco (ver README.md y artifacts/build-manifest.json). 2 manejadores de comandos de script de CRunningScript (el listado los atribuia a CRunningScript y CScriptsForBrains): ProcessCommands1200To1299 (0x48B590, comandos 1200..1299) y ProcessCommands1900To1999 (0x46B460, comandos 1900..1999). El banco recorre los 100 comandos de cada banda (y 4 comandos fuera de rango que el EXE rechaza con -1) con parametros de script, escena (pools sinteticos de peds, vehiculos y objetos, jugadores, tablas de zonas y de modelos, tareas) y respuestas de los colaboradores variados por semilla. Colaboradores: los que tocan estado del juego (lectura y escritura de parametros de script, etiquetas, streaming, radar, HUD, audio, rutas, poblacion, tareas y su reserva, tienda, cuerdas, trenes, zonas, IPL, entidades, sus llamadas virtuales...) son falsos identicos en la entrada del EXE y en el cuerpo de la DLL que registran la llamada (argumentos, this) y responden de forma determinista; los puros (pools, aritmetica de vectores y cuaterniones, claves, constructores de tareas y sus bases) son reales con el gancho apagado en ambos lados. Oraculo independiente: emulacion con Unicorn del codigo original del EXE (bytes de gta-sa.exe sin parchear) sobre la misma escena y los mismos falsos; compara bytes cambiados de las arenas y de la memoria global, eventos y AL. Fuera de los fixtures: reserva nula de tarea en los comandos cuyo EXE escribe en nulo+0x10 (1935, 1952, 1997 y 1283 con secuencia nula), manejadores de pool invalidos fuera de rango o con el bit de libre, referencias de pool de otro tipo, indices de zona o de jugador distintos de los sembrados, banderas de bits que el juego no produce, valores float extremos (NaN, infinitos y denormales) en las operaciones x87 de 24 bits, vectores de estado reales de las tareas construidas, y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn237A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CRunningScript",
+        "fn_name": "ProcessCommands1900To1999",
+        "address": "0x0046B460",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn237A/validation-summary.json",
+        "sha256": "490641a56f7c695a639191fb65d685122f9a554003ed07644e1c4612d724f1b8",
+        "passed_path": [
+          "covered_functions",
+          "CRunningScript::ProcessCommands1900To1999"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Scripts/RunningScript.cpp": "ca85d9ede6745349d5970ef1a5f795d6261dbe0bfa5eb6edeef02ab7236ef917",
+        "source/game_sa/Scripts/RunningScript.h": "df41e9dcef1cbedec32a5e8b6d1077f219f0a49fee911e355873468bc63edb9d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn237A/LiveComparison.hpp": "8fabff431cd62886001a3a081f107271bf5cda66db4df5490a0e3ba640717d69",
+        "reversing/Fn237A/Core.hpp": "ea61d094dc564a04a1862eadc8bd7ca35dd4dede66886e78234d2ad6052023d4",
+        "reversing/Fn237A/Fixtures.hpp": "3ee8f17c8d436773b163e02689054aae2885d0b452cedf91275cdfba0b29ba47",
+        "reversing/Fn237A/GenTables.hpp": "9310850d3b2e51e4f227003bf6f8f77d9baf86c2ded667aabff6d77dd9fef5e1",
+        "reversing/Fn237A/GenStubs.hpp": "aa15fd359a4d9cd1a52dee652583d15c9e7a461632511fad46c86bc758ce5d62",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre b76b995d97 (HEAD de integracion del coordinador, con los lotes validados hasta el 236A) mas las correcciones de este banco (ver README.md y artifacts/build-manifest.json). 2 manejadores de comandos de script de CRunningScript (el listado los atribuia a CRunningScript y CScriptsForBrains): ProcessCommands1200To1299 (0x48B590, comandos 1200..1299) y ProcessCommands1900To1999 (0x46B460, comandos 1900..1999). El banco recorre los 100 comandos de cada banda (y 4 comandos fuera de rango que el EXE rechaza con -1) con parametros de script, escena (pools sinteticos de peds, vehiculos y objetos, jugadores, tablas de zonas y de modelos, tareas) y respuestas de los colaboradores variados por semilla. Colaboradores: los que tocan estado del juego (lectura y escritura de parametros de script, etiquetas, streaming, radar, HUD, audio, rutas, poblacion, tareas y su reserva, tienda, cuerdas, trenes, zonas, IPL, entidades, sus llamadas virtuales...) son falsos identicos en la entrada del EXE y en el cuerpo de la DLL que registran la llamada (argumentos, this) y responden de forma determinista; los puros (pools, aritmetica de vectores y cuaterniones, claves, constructores de tareas y sus bases) son reales con el gancho apagado en ambos lados. Oraculo independiente: emulacion con Unicorn del codigo original del EXE (bytes de gta-sa.exe sin parchear) sobre la misma escena y los mismos falsos; compara bytes cambiados de las arenas y de la memoria global, eventos y AL. Fuera de los fixtures: reserva nula de tarea en los comandos cuyo EXE escribe en nulo+0x10 (1935, 1952, 1997 y 1283 con secuencia nula), manejadores de pool invalidos fuera de rango o con el bit de libre, referencias de pool de otro tipo, indices de zona o de jugador distintos de los sembrados, banderas de bits que el juego no produce, valores float extremos (NaN, infinitos y denormales) en las operaciones x87 de 24 bits, vectores de estado reales de las tareas construidas, y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn237A/README.md"
     }
   ]
 }
