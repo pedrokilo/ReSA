@@ -1,0 +1,3 @@
+APROBADO: Fn239A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn239a\20261118-140606-611510

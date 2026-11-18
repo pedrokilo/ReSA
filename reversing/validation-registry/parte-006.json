@@ -4898,6 +4898,47 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7402f6fced (HEAD de integracion del coordinador, con los lotes validados hasta el 235A) mas las dos correcciones de RunningScriptCommands1700To1799.cpp que revelo el banco (ver README.md). Dos funciones del EXE: ExeProtectionStub::MD5Transform (0x4012E9, cdecl, sin colaboradores) y CRunningScript::ProcessCommands1700To1799 (0x496E00, despachador de los comandos de script 1700..1799). En el despachador los 75 colaboradores (collabs.py: lectura y escritura de parametros del script, banderas de comparacion, tareas, scripts-cosas, focos y checkpoints, pools de limpieza de mision, grupos, trenes, grabaciones de vehiculos, streaming, nodos de rutas, etiquetas, fuego, radar, IK y demas) son un falso generico identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado; los hooks con `stackArguments` se resuelven a la funcion real que llama la DLL): anota [id, ECX, argumentos de pila, lo apuntado] y devuelve el valor programado. Corren REALES las reservas de los pools de peds, vehiculos y objetos (GetAtRef/GetAt/GetRef), la aritmetica de CVector (Magnitude, SquaredMagnitudeExe) y los constructores de las 12 tareas que crea el despachador (con la memoria que programa el caso en lugar de CTask::operator new); el oraculo independiente NO modela el contenido de esas tareas ni sus listas de referencias: solo se compara EXE con DLL (los punteros a vtable, distintos por construccion, se enmascaran) y se comprueba que el despachador entrega la tarea correcta con el handle y el comando. El estado global que tocan se fija por caso y se restaura (ScriptParams, globales de CGameLogic/CCarCtrl/gbLARiots, secuencia activa, grupos, jugadores, modelos, CReferences y el pool de CPointRoute). Fuera de los fixtures: manejadores con el pool de tareas lleno (operator new devuelve 0), referencias de entidad invalidas (el EXE tampoco comprueba el resultado de GetAtRef), el contenido real de los colaboradores falseados, los efectos del juego real de cada comando, CreateMissionTrain sin inicializar el puntero de salida, y modelos fuera del conjunto probado (0, 400, 401, 411, 592, 19999) en GET_VEHICLE_MOD_TYPE.",
       "review_reference": "reversing/Fn238A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CRunningScript",
+        "fn_name": "ProcessCommands800To899",
+        "address": "0x00481300",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn239A/validation-summary.json",
+        "sha256": "d4dfdeaa11d432dffd70088d0650143f22b8dcbe432dd69bfaad62545c3d4eb8",
+        "passed_path": [
+          "covered_functions",
+          "CRunningScript::ProcessCommands800To899"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Scripts/RunningScript.cpp": "eeeeac088d9565022f030b500b2832bb87fa61dd2bcd3422a334aea9809a595c",
+        "source/game_sa/Scripts/RunningScript.h": "df41e9dcef1cbedec32a5e8b6d1077f219f0a49fee911e355873468bc63edb9d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn239A/LiveComparison.hpp": "79fa804c80ad04a37f401410f9699c23642dd37cad01eeaed988c23dca0462f1",
+        "reversing/Fn239A/Core.hpp": "5fd57e02b7154ca83b6751f172dc02b1fa3a04387870d402a30b7bad175e51cb",
+        "reversing/Fn239A/Fixtures.hpp": "5caa8db7167b84679f731d3e3c867ad40c1dcd763ab6e08e209dcb0d1321d8ce",
+        "reversing/Fn239A/GenTables.hpp": "ac618c0bc400b771b992e07453a59360477ee6784b20a9f91b97c72686ce3a67",
+        "reversing/Fn239A/GenStubs.hpp": "989eb0125d5f7ec9bf5ff465f9225ea8ebeacc1edd3e0003f446a570cc256015",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre b3ed77d71c (HEAD de integracion del coordinador, con los lotes validados hasta el 237A) mas las correcciones de este banco (ver README.md y artifacts/build-manifest.json). El listado atribuia la funcion a CTheScripts; es CRunningScript::ProcessCommands800To899 (0x481300), el despachador del EXE para los comandos de script 801..899. El banco recorre los 99 comandos de la banda (los que tienen cuerpo, los 4 sin efecto 809, 812, 894 y 899 y los que el EXE rechaza con 0xFF; los de cadenas largas de colaboradores se repiten) y 5 comandos fuera de rango, llamando al despachador directamente (en el juego los comandos con manejador propio de Commands/*.cpp no pasan por aqui), con parametros de script, escena (pools sinteticos de peds, vehiculos y objetos, jugadores, modelos con cajas de colision, lineas de texto de intro, camara, matrices) y respuestas de los colaboradores variados por semilla. Colaboradores: los que tocan estado del juego (lectura y escritura de parametros de script, etiquetas, textos, fuego, camara, mundo, garajes, grupos, lista de limpieza de mision, poblacion, tareas y su reserva, eventos de dano, mensajes, matrices y rotaciones, llamadas virtuales como Teleport...) son falsos identicos en la entrada del EXE y en el cuerpo de la DLL que registran la llamada (argumentos, this) y responden de forma determinista; los constructores y destructores de objetos locales (CPedDamageResponseCalculator, CEventDamage, CTaskSimpleCarSetPedInAsDriver, CRGBA, CTaskSimpleStandStill, CMatrix), SetVelocity y las pools son reales con el gancho apagado en ambos lados. Oraculo independiente: emulacion con Unicorn del codigo original del EXE (bytes de gta-sa.exe sin parchear, x87 a 24 bits) sobre la misma escena y los mismos falsos; compara bytes cambiados de las arenas y de la memoria global, eventos y AL. Fuera de los fixtures: manejadores de pool invalidos fuera de rango o con el bit de libre (el EXE no comprueba limites), reserva nula de tarea o de ped (solo 886 con tarea nula), indices de jugador o de modelo distintos de los sembrados, UsedObjectArray mas alla de 7 entradas, IntroTextLines mas alla de 3, banderas de bits que el juego no produce, valores float extremos (NaN, infinitos y denormales) en las operaciones x87 de 24 bits, matriz nula de un objeto en SLIDE_OBJECT con comprobacion de colision, y la exactitud de los falsos.",
+      "review_reference": "reversing/Fn239A/README.md"
     }
   ]
 }

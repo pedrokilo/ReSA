@@ -2907,7 +2907,7 @@ OpcodeResult CRunningScript::ProcessCommands800To899(int32 commandId) {
     }
     case COMMAND_SET_TEXT_FONT: { // 0x481C82
         CollectParameters(1);
-        CTheScripts::IntroTextLines.data()[CTheScripts::NumberOfIntroTextLinesThisFrame].FontStyle = static_cast<eFontStyle>(ScriptParams[0].iParam);
+        CTheScripts::IntroTextLines.data()[CTheScripts::NumberOfIntroTextLinesThisFrame].FontStyle.get_underlying_ref() = ScriptParams[0].iParam; // el EXE guarda los 32 bits (0x481C9A: mov [edx+0xA91410],eax); un static_cast<eFontStyle> los truncaba a 8
         return OR_CONTINUE;
     }
     case COMMAND_ROTATE_OBJECT: { // 0x481CA5
@@ -3240,7 +3240,7 @@ OpcodeResult CRunningScript::ProcessCommands800To899(int32 commandId) {
         while (pedType != 5 && tries < 5) {
             model = CPopulation::ChooseCivilianOccupation(false, false, ANIM_GROUP_NONE, MODEL_INVALID, ePedStats::NONE, false, false, false, nullptr); // 0x612F90
             CBaseModelInfo* const info = CModelInfo::ms_modelInfoPtrs[model];
-            if (info->GetRwObject()) {
+            if (info->GetRwObjectNoChecks()) {
                 pedType = static_cast<CPedModelInfo*>(info)->m_nPedType;
             }
             tries++;
@@ -3248,7 +3248,7 @@ OpcodeResult CRunningScript::ProcessCommands800To899(int32 commandId) {
                 break;
             }
         }
-        if (!CModelInfo::ms_modelInfoPtrs[model]->GetRwObject()) {
+        if (!CModelInfo::ms_modelInfoPtrs[model]->GetRwObjectNoChecks()) {
             pedType = static_cast<CPedModelInfo*>(CModelInfo::ms_modelInfoPtrs[7])->m_nPedType;
             model   = static_cast<eModelID>(7);
         }
